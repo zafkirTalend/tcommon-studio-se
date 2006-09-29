@@ -15,7 +15,7 @@ use vars qw( @EXPORT @ISA ) ;
               myf
               mextract
               
-              getdate
+              getDate
             );
 
 
@@ -68,52 +68,44 @@ sub ereplace
   return $mresult;
 }
 
+# getDate : return the current datetime with the given display format
+#
+# format : (optional) string representing the wished format of the
+#          date. This string contains fixed strings and variables related
+#          to the date. By default, the format string is DD/MM/CCYY. Here
+#          is the list of date variables:
+#
+#    + CC for century
+#    + YY for year
+#    + MM for month
+#    + DD for day
+#    + hh for hour
+#    + mm for minute
+#    + ss for second
+sub getDate {
+    my ($format) = @_;
+    $format = 'DD/MM/CCYY' if not defined $format;
 
+    my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =
+        localtime(time);
 
-sub getdate  # date du jour en fonction du format
-{
-  my ($DateFormat) = (@_);
+    my %fields = (
+        CC => int(($year + 1900) / 100),
+        YY => $year % 100,
+        MM => $mon + 1,
+        DD => $mday,
+        hh => $hour,
+        mm => $min,
+        ss => $sec
+    );
 
-# Formats acceptés :
-#  DDMMYYYY
-#  DDMMYYYYHHMMSS
-#  DD/MM/YYYY HH:MM:SS
-#  YYYY-MM-DD HH:MM:SS
-#  YYYYMMDD
-#  YYYY-MM-DD 00:00:00.000
-#  Si pas de format correspondant, la date au format suivant est renvoyée
-#   MM/DD/YYYY  
+    %fields = map {$_ => sprintf('%02u', $fields{$_})} keys %fields;
 
-  my ($sec, $min, $heure, $mjour, $mois, $annee) = localtime(time);
+    foreach my $field (keys %fields) {
+        $format =~ s/$field/$fields{$field}/g;
+    }
 
-  $annee = 1900 + $annee;
-  $mois = $mois + 1;
-  if ($mois < 10)  { $mois = "0".$mois; }
-  if ($mjour < 10) { $mjour = "0".$mjour; }
-  if ($heure < 10) { $heure = "0".$heure }
-  if ($min < 10)   { $min = "0".$min }
-  if ($sec < 10)   { $sec = "0".$sec }
-
-  if ($DateFormat eq "DDMMYYYY")
-    { return($mjour.$mois.$annee); }
-
-  elsif ($DateFormat eq "DDMMYYYYHHMMSS")
-    { return($mjour.$mois.$annee.$heure.$min.$sec); }
-
-  elsif ($DateFormat eq "DD/MM/YYYY HH:MM:SS")
-    { return($mjour."/".$mois."/".$annee." ".$heure.":".$min.":".$sec); }    
-    
-  elsif ($DateFormat eq "YYYY-MM-DD HH:MM:SS")
-    { return($annee."-".$mois."-".$mjour." ".$heure.":".$min.":".$sec); }    
-    
-  elsif ($DateFormat eq "YYYYMMDD")
-    { return($annee.$mois.$mjour); }
-    
-  elsif ($DateFormat eq "YYYY-MM-DD 00:00:00.000")
-    { return($annee."-".$mois."-".$mjour." 00:00:00.000"); }
-    
-  else
-    { return($mois."/".$mjour."/".$annee); }
+    return $format;
 }
 
 1;
