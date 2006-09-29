@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+
+   <extension
+         id="application"
+         point="org.eclipse.core.runtime.applications">
+      <application>
+         <run
+               class="org.talend.rcp.intro.Application">
+         </run>
+      </application>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectives">
+      <perspective
+            name="%perspective.talend"
+            class="org.talend.rcp.intro.Perspective"
+            id="org.talend.rcp.perspective">
+      </perspective>
+   </extension>
+   <extension
+         point="org.eclipse.ui.intro">
+      <intro
+            class="org.eclipse.ui.intro.config.CustomizableIntroPart"
+            id="org.talend.rcp.intro">
+      </intro>
+      <introProductBinding
+            introId="org.talend.rcp.intro"
+            productId="org.talend.rcp.product">
+      </introProductBinding>
+   </extension>
+   <extension
+         point="org.eclipse.ui.intro.config">
+      <config
+            introId="org.talend.rcp.intro"
+            content="introContent.xml"
+            id="org.talend.rcp.configId">
+         <presentation
+               home-page-id="root">
+            <implementation
+                  kind="html"
+                  os="win32,linux,macosx">
+            </implementation>
+         </presentation>
+      </config>
+   </extension>
+<extension
+      id="product"
+      point="org.eclipse.core.runtime.products">
+   <product
+         application="org.talend.rcp.application"
+         name="Talend">
+      <property
+            name="startupForegroundColor"
+            value="000000"/>
+      <property
+            name="startupMessageRect"
+            value="7,220,441,20"/>
+      <property
+            name="startupProgressRect"
+            value="0,280,455,15"/>
+      <property
+            name="windowImages"
+            value="icons/designer32x32.gif"/>
+      <property
+            name="aboutImage"
+            value="icons/about.gif"/>
+      <property
+            name="aboutText"
+            value="Talend Open Studio product&#x0A;&#x0A;Version: Beta 2&#x0A;Build id: &#x0A;&#x0A;(c) Copyright 2006 Talend SA.  All rights reserved.&#x0A;Visit http://www.talend.com"/>
+   </product>
+</extension>
+</plugin>

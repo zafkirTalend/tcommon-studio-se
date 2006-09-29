@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.talend.model/src/main/java"
+    editDirectory="/org.talend.model.edit/src" editorDirectory="/org.talend.model.editor/src"
+    modelPluginID="org.talend.model" modelName="Properties" importerID="org.eclipse.emf.importer.ecore"
+    usedGenPackages="Business.genmodel#//business ../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore metadata.genmodel#//connection ../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation TalendFile.genmodel#//talendfile">
+  <foreignModel>properties.ecore</foreignModel>
+  <genPackages prefix="Properties" basePackage="org.talend.core.model" disposableProviderFactory="true"
+      ecorePackage="properties.ecore#/">
+    <genEnums ecoreEnum="properties.ecore#//FolderType">
+      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//FolderType/FOLTER"/>
+      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//FolderType/SYSTEM_FOLDER"/>
+      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//FolderType/STABLE_SYSTEM_FOLDER"/>
+    </genEnums>
+    <genClasses ecoreClass="properties.ecore#//Project">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Project/technicalStatus"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Project/documentationStatus"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/itemStates"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/users"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/language"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/author"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/technicalLabel"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/local"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/nextId"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//Project/folders"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/deleted"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/deleteDate"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/components"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Project/referenceProjects"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Project/creationDate"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//Status">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Status/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Status/code"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//EItemToItemState">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//EItemToItemState/key"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//EItemToItemState/value"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//ItemState">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ItemState/path"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ItemState/deleted"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//Property">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Property/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Property/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Property/purpose"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Property/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Property/creationDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Property/modificationDate"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EAttribute properties.ecore#//Property/author"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EAttribute properties.ecore#//Property/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Property/statusCode"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Property/item"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="properties.ecore#//Item">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Item/property"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Item/state"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//BusinessProcessItem">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//BusinessProcessItem/notation"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//BusinessProcessItem/semantic"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="properties.ecore#//FileItem">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//FileItem/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//FileItem/extension"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EReference properties.ecore#//FileItem/content"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//ByteArray">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ByteArray/innerContent"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//DocumentationItem"/>
+    <genClasses ecoreClass="properties.ecore#//RoutineItem"/>
+    <genClasses ecoreClass="properties.ecore#//ConnectionItem">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ConnectionItem/connection"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//DelimitedFileConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//PositionalFileConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//RegExFileConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//CSVFileConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//DatabaseConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//ProcessItem">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ProcessItem/process"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//UserRole">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//UserRole/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//UserRole/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//UserRole/localizedLabel"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//User">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/login"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/password"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/firstName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/lastName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/creationDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/deleteDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/deleted"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/allowedToModifyComponents"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//User/Comment"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//User/role"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//User/projects"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//FolderItem">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//FolderItem/children"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//FolderItem/type"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//Component">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Component/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Component/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Component/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Component/componentName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Component/lastUpdateDate"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Component/projects"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//Component/author"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Component/creationDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Component/deleteDate"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

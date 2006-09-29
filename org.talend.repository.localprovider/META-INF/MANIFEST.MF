@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Local repository Plug-in
+Bundle-SymbolicName: org.talend.repository.localprovider;singleton:=true
+Bundle-Version: 0.9.0.qualifier
+Bundle-Activator: org.talend.repository.localprovider.RepositoryLocalProviderPlugin
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources,
+ org.talend.core,
+ org.talend.commons,
+ org.talend.libraries,
+ org.talend.repository
+Eclipse-LazyStart: true
+Bundle-Vendor: .Talend SA.

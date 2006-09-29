@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="business"
+    nsURI="business" nsPrefix="business">
+  <eClassifiers xsi:type="ecore:EClass" name="Repository">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="Talenditems" upperBound="-1"
+        eType="#//TalendItem" defaultValueLiteral="" containment="true" eOpposite="#//TalendItem/repository"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TalendItem" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="author" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assignments" upperBound="-1"
+        eType="#//BusinessAssignment" eOpposite="#//BusinessAssignment/talendItem"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="repository" lowerBound="1"
+        eType="#//Repository" eOpposite="#//Repository/Talenditems"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BusinessProcess" eSuperTypes="#//TalendItem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="businessItems" upperBound="-1"
+        eType="#//BusinessItem" containment="true" eOpposite="#//BusinessItem/businessProcess"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="localRepositoryCopy" lowerBound="1"
+        eType="#//Repository" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Process" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Routine" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Documentation" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DatabaseMetadata" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TableMetadata" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FileDelimitedMetadata" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FilePositionalMetadata" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BusinessAssignment">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="businessItem" lowerBound="1"
+        eType="#//BusinessItem" eOpposite="#//BusinessItem/assignments"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="talendItem" lowerBound="1"
+        eType="#//TalendItem" eOpposite="#//TalendItem/assignments"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BusinessItem" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="businessProcess" lowerBound="1"
+        eType="#//BusinessProcess" eOpposite="#//BusinessProcess/businessItems"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assignments" upperBound="-1"
+        eType="#//BusinessAssignment" containment="true" eOpposite="#//BusinessAssignment/businessItem"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BusinessItemRelationship" eSuperTypes="#//BusinessItem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
+        eType="#//BusinessItemShape" eOpposite="#//BusinessItemShape/outgoingRelationships"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
+        eType="#//BusinessItemShape" eOpposite="#//BusinessItemShape/incomingRelationships"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BusinessItemShape" abstract="true" eSuperTypes="#//BusinessItem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="incomingRelationships"
+        upperBound="-1" eType="#//BusinessItemRelationship" eOpposite="#//BusinessItemRelationship/target"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingRelationships"
+        upperBound="-1" eType="#//BusinessItemRelationship" eOpposite="#//BusinessItemRelationship/source"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DecisionBusinessItem" eSuperTypes="#//BusinessItemShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ActionBusinessItem" eSuperTypes="#//BusinessItemShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TerminalBusinessItem" eSuperTypes="#//BusinessItemShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataBusinessItem" eSuperTypes="#//BusinessItemShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DocumentBusinessItem" eSuperTypes="#//BusinessItemShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="InputBusinessItem" eSuperTypes="#//BusinessItemShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ListBusinessItem" eSuperTypes="#//BusinessItemShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DatabaseBusinessItem" eSuperTypes="#//BusinessItemShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FileRegexpMetadata" eSuperTypes="#//TalendItem"/>
+</ecore:EPackage>

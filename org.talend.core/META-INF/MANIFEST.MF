@@ -1,0 +1,36 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Core Plug-in
+Bundle-SymbolicName: org.talend.core;singleton:=true
+Bundle-Version: 0.9.0.qualifier
+Bundle-Activator: org.talend.core.CorePlugin
+Bundle-Localization: plugin
+Eclipse-LazyStart: true
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.talend.commons,
+ org.talend.libraries,
+ org.eclipse.ui.forms,
+ org.talend.model;visibility:=reexport
+Export-Package: org.talend.core,
+ org.talend.core.context,
+ org.talend.core.model.action,
+ org.talend.core.model.components,
+ org.talend.core.model.general,
+ org.talend.core.model.metadata,
+ org.talend.core.model.metadata.builder,
+ org.talend.core.model.metadata.builder.database,
+ org.talend.core.model.metadata.designerproperties,
+ org.talend.core.model.metadata.editor,
+ org.talend.core.model.process,
+ org.talend.core.model.repository,
+ org.talend.core.model.temp,
+ org.talend.core.model.utils,
+ org.talend.core.prefs,
+ org.talend.core.ui,
+ org.talend.core.ui.metadata.dialog,
+ org.talend.core.ui.metadata.editor,
+ org.talend.core.ui.proposal,
+ org.talend.core.utils
+Bundle-Vendor: .Talend SA.

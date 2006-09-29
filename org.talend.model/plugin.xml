@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+  <copyright>
+  </copyright>
+  
+  $Id$
+-->
+
+<plugin>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package uri="business"
+      class="org.talend.designer.business.model.business.BusinessPackage"
+      genModel="model/Business.genmodel" />
+    <package
+      class="org.talend.core.model.metadata.builder.connection.ConnectionPackage"
+      uri="http://www.talend.org" genModel="model/metadata.genmodel" />
+    <package class="org.talend.core.model.properties.PropertiesPackage"
+      genModel="model/properties.genmodel"
+      uri="http://www.talend.org/properties" />
+    <package
+      class="org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage"
+      uri="platform:/resource/org.talend.designer.core/src/main/java/org/talend/designer/core/model/utils/emf/TalendFile.xsd" />
+    <package
+      class="org.talend.designer.core.model.utils.emf.component.ComponentPackage"
+      uri="platform:/resource/org.talend.designer.core/src/main/java/org/talend/designer/core/model/utils/emf/Component.xsd" 
+      />
+  </extension>
+
+</plugin>
+

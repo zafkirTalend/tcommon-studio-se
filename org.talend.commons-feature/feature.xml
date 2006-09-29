@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.talend.commons_feature"
+      label="Commons Feature"
+      version="0.9.0.qualifier"
+      provider-name=".Talend SA.">
+
+   <description url="http://www.talend.com/beta/">
+      Open Studio feature
+   </description>
+
+   <copyright url="http://www.talend.com/beta/rcp/copyright.txt">
+      Copyright Talend 2006
+   </copyright>
+
+   <license url="http://www.talend.com/beta/rcp/licence.txt">
+      Please see our web site at http://www.talend.com/beta/rcp/licence.txt
+   </license>
+
+   <url>
+      <update label="Talend update site" url="http://www.talend.com/beta/updatesite/"/>
+      <discovery label="Talend web site" url="http://www.talend.com"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.jface"/>
+      <import plugin="org.talend.libraries"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.ui.workbench"/>
+   </requires>
+
+   <plugin
+         id="org.talend.commons"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

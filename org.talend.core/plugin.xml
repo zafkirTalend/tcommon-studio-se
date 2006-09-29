@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.talend.core.prefs.ui.CorePreferencePage"
+            id="org.talend.core.prefs"
+            name="%prefsName"/>
+      <page
+            category="org.talend.core.prefs"
+            class="org.talend.core.prefs.ui.ServerPreferencePage"
+            id="org.talend.core.pref.serverpreferencepage"
+            name="%prefServerName"/>
+      <page
+            category="org.talend.core.prefs"
+            class="org.talend.core.prefs.ui.UserPreferencePage"
+            id="org.talend.core.pref.userpreferencepage"
+            name="%prefUserName"/>
+      <page
+            category="org.talend.core.prefs"
+            class="org.talend.core.prefs.ui.ColorsCodeViewerPreferencePage"
+            id="org.talend.core.pref.colorcodeviewer"
+            name="%prefColors"/>
+   </extension> 
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.talend.core.prefs.CorePreferenceInitializer"/>
+   </extension>
+   <extension
+         id="talendnature"
+         name="Talend"
+         point="org.eclipse.core.resources.natures">
+      <runtime>
+         <run class="org.talend.core.model.general.TalendNature"/>
+      </runtime>
+   </extension>
+   <extension
+         point="org.eclipse.ui.views">
+               <category
+            id="org.talend.core.root"
+            name="Talend"/>
+   </extension>
+
+</plugin>

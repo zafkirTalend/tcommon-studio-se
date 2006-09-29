@@ -1,0 +1,331 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
+package org.talend.designer.core.model.utils.emf.talendfile;
+
+import org.eclipse.emf.ecore.EObject;
+
+/**
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Column Type</b></em>'.
+ * <!-- end-user-doc -->
+ *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getComment <em>Comment</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isKey <em>Key</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getLength <em>Length</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getName <em>Name</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isNullable <em>Nullable</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getPrecision <em>Precision</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getType <em>Type</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType()
+ * @model extendedMetaData="name='Column_._type' kind='elementOnly'"
+ * @generated
+ */
+public interface ColumnType extends EObject {
+    /**
+     * Returns the value of the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Comment</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Comment</em>' attribute.
+     * @see #setComment(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_Comment()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='element' name='Comment' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getComment();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getComment <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Comment</em>' attribute.
+     * @see #getComment()
+     * @generated
+     */
+    void setComment(String value);
+
+    /**
+     * Returns the value of the '<em><b>Key</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Key</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Key</em>' attribute.
+     * @see #isSetKey()
+     * @see #unsetKey()
+     * @see #setKey(boolean)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_Key()
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='key' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isKey();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isKey <em>Key</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Key</em>' attribute.
+     * @see #isSetKey()
+     * @see #unsetKey()
+     * @see #isKey()
+     * @generated
+     */
+    void setKey(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isKey <em>Key</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetKey()
+     * @see #isKey()
+     * @see #setKey(boolean)
+     * @generated
+     */
+    void unsetKey();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isKey <em>Key</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Key</em>' attribute is set.
+     * @see #unsetKey()
+     * @see #isKey()
+     * @see #setKey(boolean)
+     * @generated
+     */
+    boolean isSetKey();
+
+    /**
+     * Returns the value of the '<em><b>Length</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Length</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Length</em>' attribute.
+     * @see #isSetLength()
+     * @see #unsetLength()
+     * @see #setLength(int)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_Length()
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     *        extendedMetaData="kind='attribute' name='length' namespace='##targetNamespace'"
+     * @generated
+     */
+    int getLength();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getLength <em>Length</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Length</em>' attribute.
+     * @see #isSetLength()
+     * @see #unsetLength()
+     * @see #getLength()
+     * @generated
+     */
+    void setLength(int value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getLength <em>Length</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetLength()
+     * @see #getLength()
+     * @see #setLength(int)
+     * @generated
+     */
+    void unsetLength();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getLength <em>Length</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Length</em>' attribute is set.
+     * @see #unsetLength()
+     * @see #getLength()
+     * @see #setLength(int)
+     * @generated
+     */
+    boolean isSetLength();
+
+    /**
+     * Returns the value of the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Name</em>' attribute.
+     * @see #setName(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_Name()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='name' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getName();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getName <em>Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Name</em>' attribute.
+     * @see #getName()
+     * @generated
+     */
+    void setName(String value);
+
+    /**
+     * Returns the value of the '<em><b>Nullable</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Nullable</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Nullable</em>' attribute.
+     * @see #isSetNullable()
+     * @see #unsetNullable()
+     * @see #setNullable(boolean)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_Nullable()
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='nullable' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isNullable();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isNullable <em>Nullable</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Nullable</em>' attribute.
+     * @see #isSetNullable()
+     * @see #unsetNullable()
+     * @see #isNullable()
+     * @generated
+     */
+    void setNullable(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isNullable <em>Nullable</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetNullable()
+     * @see #isNullable()
+     * @see #setNullable(boolean)
+     * @generated
+     */
+    void unsetNullable();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isNullable <em>Nullable</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Nullable</em>' attribute is set.
+     * @see #unsetNullable()
+     * @see #isNullable()
+     * @see #setNullable(boolean)
+     * @generated
+     */
+    boolean isSetNullable();
+
+    /**
+     * Returns the value of the '<em><b>Precision</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Precision</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Precision</em>' attribute.
+     * @see #isSetPrecision()
+     * @see #unsetPrecision()
+     * @see #setPrecision(int)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_Precision()
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     *        extendedMetaData="kind='attribute' name='precision' namespace='##targetNamespace'"
+     * @generated
+     */
+    int getPrecision();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getPrecision <em>Precision</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Precision</em>' attribute.
+     * @see #isSetPrecision()
+     * @see #unsetPrecision()
+     * @see #getPrecision()
+     * @generated
+     */
+    void setPrecision(int value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getPrecision <em>Precision</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetPrecision()
+     * @see #getPrecision()
+     * @see #setPrecision(int)
+     * @generated
+     */
+    void unsetPrecision();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getPrecision <em>Precision</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Precision</em>' attribute is set.
+     * @see #unsetPrecision()
+     * @see #getPrecision()
+     * @see #setPrecision(int)
+     * @generated
+     */
+    boolean isSetPrecision();
+
+    /**
+     * Returns the value of the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Type</em>' attribute.
+     * @see #setType(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_Type()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='type' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getType();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getType <em>Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Type</em>' attribute.
+     * @see #getType()
+     * @generated
+     */
+    void setType(String value);
+
+} // ColumnType

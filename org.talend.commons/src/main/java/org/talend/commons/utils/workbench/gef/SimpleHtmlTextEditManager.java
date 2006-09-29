@@ -1,0 +1,80 @@
+// ============================================================================
+//
+// Talend Community Edition
+//
+// Copyright (C) 2006 Talend - www.talend.com
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// ============================================================================
+package org.talend.commons.utils.workbench.gef;
+
+import org.eclipse.draw2d.IFigure;
+import org.eclipse.draw2d.geometry.Dimension;
+import org.eclipse.gef.GraphicalEditPart;
+import org.eclipse.gef.tools.DirectEditManager;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.FontData;
+import org.eclipse.swt.widgets.Text;
+
+/**
+ * Manage the direct edit of a text in GEF. <br/>
+ * 
+ * $Id$
+ * 
+ */
+public class SimpleHtmlTextEditManager extends DirectEditManager {
+
+    Font scaledFont;
+
+    String labelText = null;
+
+    public SimpleHtmlTextEditManager(GraphicalEditPart source, Class editorType, SimpleHtmlCellEditorLocator locator) {
+        super(source, editorType, locator);
+    }
+
+    protected void bringDown() {
+        Font disposeFont = scaledFont;
+        scaledFont = null;
+        super.bringDown();
+        if (disposeFont != null) {
+            disposeFont.dispose();
+        }
+    }
+
+    public void setLabelText(String labelText) {
+        this.labelText = labelText;
+    }
+
+    protected void initCellEditor() {
+        SimpleHtmlFigure label = (SimpleHtmlFigure) ((GraphicalEditPart) getEditPart()).getFigure();
+        if (labelText == null) {
+            String initialLabelText = label.getText();
+            getCellEditor().setValue(initialLabelText);
+        } else {
+            getCellEditor().setValue(labelText);
+        }
+        Text text = (Text) getCellEditor().getControl();
+        IFigure figure = ((GraphicalEditPart) getEditPart()).getFigure();
+        scaledFont = figure.getFont();
+        FontData data = scaledFont.getFontData()[0];
+        Dimension fontSize = new Dimension(0, data.getHeight());
+        label.translateToAbsolute(fontSize);
+        data.setHeight(fontSize.height);
+        scaledFont = new Font(null, data);
+        text.setFont(scaledFont);
+        text.selectAll();
+    }
+}
