@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.eclipse.update.internal.scheduler.SchedulerStartup;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
 
@@ -74,7 +75,12 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         }
 
         node.put(ITalendCorePrefConstants.PREVIEW_LIMIT, "50");
-        
+
+        IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$
+        nodeScheduler.putBoolean(SchedulerStartup.P_ENABLED, true);
+        nodeScheduler.put(SchedulerStartup.P_SCHEDULE, SchedulerStartup.VALUE_ON_STARTUP);
+        nodeScheduler.putBoolean(SchedulerStartup.P_DOWNLOAD, true);
+
         // Initialize editors properties : line number shown
         final String PERLEDITOR_BUNDLENAME = "org.epic.perleditor";
         final String EDITORS_BUNDLENAME = "org.eclipse.ui.editors";
