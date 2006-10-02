@@ -82,6 +82,20 @@ public class LabelledCombo {
         createLabelledCombo(parent, labelStr, tip, items, 1, false, DEFAULT_COMBO_STYLE, DEFAULT_LABEL_STYLE);
     }
 
+    public LabelledCombo(Composite parent, String labelStr, String tip, List<String> item, boolean isFill) {
+        String[] items = null;
+        if (item != null && !item.isEmpty()) {
+            items = new String[item.size()];
+            Iterator<String> iterate = item.iterator();
+            int i = 0;
+            while (iterate.hasNext()) {
+                items[i] = iterate.next();
+                i++;
+            }
+        }
+        createLabelledCombo(parent, labelStr, tip, items, 1, isFill, DEFAULT_COMBO_STYLE, DEFAULT_LABEL_STYLE);
+    }
+    
     /**
      * create Label and Combo width a Array of String.
      * 
