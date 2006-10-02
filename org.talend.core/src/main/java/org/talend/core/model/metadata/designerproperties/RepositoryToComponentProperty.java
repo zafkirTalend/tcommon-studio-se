@@ -73,7 +73,7 @@ public class RepositoryToComponentProperty {
         if (dbType.equals("PostgreSQL")) {
             return POSTGRESQL;
         }
-        if (dbType.equals("Oracle")) {
+        if (dbType.equals("Oracle with SID")) {
             return ORACLE;
         }
         if (dbType.equals("Oracle with service name")) {

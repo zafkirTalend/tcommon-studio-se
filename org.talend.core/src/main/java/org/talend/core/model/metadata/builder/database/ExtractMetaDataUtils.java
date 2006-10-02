@@ -150,7 +150,7 @@ public class ExtractMetaDataUtils {
             Hashtable<String, String> hashTable = new Hashtable<String, String>();
             hashTable.put("MySQL", "org.gjt.mm.mysql.Driver");
             hashTable.put("PostgreSQL", "org.postgresql.Driver");
-            hashTable.put("Oracle", "oracle.jdbc.driver.OracleDriver");
+            hashTable.put("Oracle with SID", "oracle.jdbc.driver.OracleDriver");
             hashTable.put("Oracle with service name", "oracle.jdbc.driver.OracleDriver");
             hashTable.put("Generic ODBC", "sun.jdbc.odbc.JdbcOdbcDriver");
             hashTable.put("Microsoft SQL Server (Odbc driver)", "sun.jdbc.odbc.JdbcOdbcDriver");
