@@ -193,6 +193,7 @@ public class Project {
         if (name != null) {
             name = name.toUpperCase();
             name = name.replace(" ", "_");
+            name = name.replace("-", "_");
         }
         return name;
     }
