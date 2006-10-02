@@ -30,6 +30,7 @@
       <import plugin="org.eclipse.ui.forms"/>
       <import plugin="org.eclipse.ui.views"/>
       <import plugin="com.ibm.icu"/>
+      <import plugin="org.eclipse.update.scheduler"/>
    </requires>
 
    <plugin
