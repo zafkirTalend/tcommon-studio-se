@@ -52,8 +52,6 @@ public class StyledTextContentAdapterExtended extends StyledTextContentAdapter i
         if (lastCRIndex != -1) {
             return text.substring(lastCRIndex + 1, text.length());
         }
-        System.out.println("cursorPosition="+cursorPosition);
-        System.out.println("getFilterValue="+ text);
         return text;
     }
 
