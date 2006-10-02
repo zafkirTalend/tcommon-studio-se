@@ -27,6 +27,7 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TableColumn;
+import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 
 /**
  * <code>TableViewerCreatorColumn</code> represents a column to add to <code>TableViewerCreator</code>.

@@ -19,13 +19,15 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tablereflect;
+package org.talend.commons.ui.swt.tableviewer;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.graphics.Color;
@@ -37,7 +39,6 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.CellEditorValueAdapter;
-import org.talend.commons.ui.swt.tableviewer.IBeanPropertyAccessors;
 import org.talend.commons.ui.swt.tableviewer.TableEditorContent;
 import org.talend.commons.ui.swt.tableviewer.TableEditorManager;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -46,6 +47,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LINE_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_SELECTION;
 import org.talend.commons.utils.DataObject;
+import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 
 /**
  * 
@@ -54,15 +56,32 @@ import org.talend.commons.utils.DataObject;
  * $Id$
  * 
  */
-public final class TestTableReflect {
+public final class TestTableViewerCreator2 {
+    
     /**
      * Default Constructor.
      * Must not be used.
      */
-    private TestTableReflect() {
+    private TestTableViewerCreator2() {
     }
 
-    private static ArrayList<DataObject> list;
+    private static final int ZERO = 0;
+
+    private static final int TEN = 10;
+
+    private static final int TWENTY = 20;
+
+    private static final int FIFTY = 50;
+
+    private static final int ONE_HUNDRED = 100;
+
+    private static final int TWO_HUNDRED = 200;
+
+    private static final int FIVE_HUNDRED = 500;
+
+    private static final int HEIGHT_HUNDRED = 800;
+
+    private static final int ALL = 255;
 
     public static void main(String[] args) {
         Display display = new Display();
@@ -75,163 +94,59 @@ public final class TestTableReflect {
         tableViewerCreator.setLinesVisible(true);
         tableViewerCreator.setShowSelection(SHOW_SELECTION.FULL);
         tableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
-        tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS_CURRENT);
-        tableViewerCreator.setFirstVisibleColumnIsSelection(true);
-
-        // tableEditor.setCheckboxInFirstColumn(true);
+        tableViewerCreator.setAllColumnsMoveable(true);
+        tableViewerCreator.setAllColumnsResizable(true);
+        tableViewerCreator.setAllColumnsSortable(true);
+        tableViewerCreator.setLayoutMode(LAYOUT_MODE.NONE);
+        tableViewerCreator.setHorizontalScroll(false);
 
         Table table = tableViewerCreator.createTable();
+        // When the table is in a Composite (and not direct in a Shell),
+        // and when you would use the full space on the composite :
+        // use this portion of code :
+        // Composite composite = new Composite(compositeParent, SWT.NONE);
+        // composite.setLayout(new GridLayout(1, false));
+        // tableViewerCreator.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
 
-        TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Selection");
-        column.setResizable(true);
-        column.setModifiable(true);
-        // column.setInitWeight(1);
-        column.setWidth(20);
+        // intValueAdapter
+        CellEditorValueAdapter intValueAdapter = new CellEditorValueAdapter() {
 
-        column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Name");
-        column.setResizable(true);
-        column.setModifiable(true);
-        column.setSortable(true);
-        // column.setInitWeight(1);
-        column.setWidth(100);
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, String>() {
-
-            public String get(DataObject bean) {
-                return bean.getLibelle();
-            }
-
-            public void set(DataObject bean, String value) {
-                bean.setLibelle(value);
-            }
-
-        });
-
-        column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Integer Null Value");
-        column.setModifiable(true);
-        column.setSortable(true);
-        column.setResizable(true);
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
-
-            public Integer get(DataObject bean) {
-                return bean.getIntegerValue2();
-            }
-
-            public void set(DataObject bean, Integer value) {
-                bean.setIntegerValue2(value);
-            }
-
-        });
-        column.setWidth(150);
-        final String[] valueSet = new String[] { "xxx", "yyy", "zzz" };
-        column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
-
-            public String getColumnText(CellEditor cellEditor, Object value) {
-                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
-                int index = (Integer) value;
-                if (index >= 0 && index < items.length) {
-                    return items[index];
-                } else {
-                    return "";
+            public Object getOriginalTypedValue(final CellEditor cellEditor, Object value) {
+                try {
+                    return new Integer(value.toString());
+                } catch (Exception ex) {
+                    return null;
                 }
             }
-        });
 
-        column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Id");
-        column.setModifiable(false);
-        column.setResizable(true);
-        column.setSortable(true);
-        column.setMoveable(true);
-        column.setWeight(25);
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
-
-            public Integer get(DataObject bean) {
-                return bean.getIntegerValue2();
+            @Override
+            public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
+                try {
+                    return String.valueOf(value);
+                } catch (Exception ex) {
+                    return null;
+                }
             }
+        };
 
-            public void set(DataObject bean, Integer value) {
-                bean.setIntegerValue2(value);
-            }
+        initColumns(tableViewerCreator, table, intValueAdapter);
 
-        });
-        column.setTableEditorContent(new TableEditorContent() {
-
-            public TableEditor createTableEditor(Table table) {
-                TableEditor tableEditor = new TableEditor(table);
-                return tableEditor;
-            }
-
-            public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
-                    Object currentRowObject, Object currentCellValue) {
-                Button button = new Button(table, SWT.PUSH);
-                // Set attributes of the button
-                button.setText(String.valueOf(currentCellValue));
-                button.computeSize(SWT.DEFAULT, table.getItemHeight());
-
-                // Set attributes of the editor
-                tableEditor.grabHorizontal = true;
-                tableEditor.minimumHeight = button.getSize().y;
-                tableEditor.minimumWidth = button.getSize().x;
-                return button;
-            }
-
-        });
-
-        column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Id2");
-        column.setModifiable(false);
-        column.setResizable(true);
-        column.setSortable(true);
-        column.setWidth(50);
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
-
-            public Integer get(DataObject bean) {
-                return bean.getIntegerValue2();
-            }
-
-            public void set(DataObject bean, Integer value) {
-                bean.setIntegerValue2(value);
-            }
-
-        });
-        column.setTableEditorContent(new TableEditorContent() {
-
-            public TableEditor createTableEditor(Table table) {
-                TableEditor tableEditor = new TableEditor(table);
-                return tableEditor;
-            }
-
-            public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
-                    Object currentRowObject, Object currentCellValue) {
-                Composite composite = new Composite(table, SWT.PUSH);
-                // Set attributes of the button
-                composite.setBackground(new Color(null, 255, 0, 0));
-                composite.setSize(100 * ((Integer) currentCellValue).intValue() / 100, table.getItemHeight());
-
-                // Set attributes of the editor
-                // tableEditor.grabHorizontal = true;
-                tableEditor.minimumHeight = composite.getSize().y;
-                tableEditor.horizontalAlignment = SWT.LEFT;
-                tableEditor.minimumWidth = composite.getSize().x;
-                return composite;
-            }
-
-        });
-
-        list = new ArrayList<DataObject>();
+        List<DataObject> list = new ArrayList<DataObject>();
         Random random = new Random();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < TEN; i++) {
             DataObject listObject2 = new DataObject();
-            listObject2.setPrimaryIntegerValue(i);
-            listObject2.setIntegerValue2(random.nextInt(100));
+            // listObject2.setPrimaryIntegerValue(random.nextBoolean() ? i : null);
+            listObject2.setIntegerValue1(random.nextInt(ONE_HUNDRED));
+            listObject2.setLibelle("libelle " + random.nextInt(ONE_HUNDRED));
+            listObject2.setIntegerValue2(random.nextInt(ONE_HUNDRED));
             list.add(listObject2);
         }
         tableViewerCreator.init(list);
 
-        shell1.setSize(800, 500);
+        TableEditorManager tableEditorManager = new TableEditorManager(tableViewerCreator);
+        tableEditorManager.init();
+        shell1.setSize(HEIGHT_HUNDRED, FIVE_HUNDRED);
+        shell1.setSize(HEIGHT_HUNDRED + TEN, FIVE_HUNDRED);
         shell1.open();
 
         while (!shell1.isDisposed()) {
@@ -242,4 +157,150 @@ public final class TestTableReflect {
         display.dispose();
     }
 
+    /**
+     * 
+     * @param tableViewerCreator
+     * @param table
+     * @param intValueAdapter
+     */
+    private static void initColumns(TableViewerCreator tableViewerCreator, Table table,
+            CellEditorValueAdapter intValueAdapter) {
+        TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setModifiable(true);
+        column.setWidth(0);
+        column.setWeight(0);
+        column.setId("uid1");
+        column.setCellEditor(new TextCellEditor(table), intValueAdapter);
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setModifiable(true);
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+            public Integer get(DataObject bean) {
+                return bean.getIntegerValue1();
+            }
+            public void set(DataObject bean, Integer value) {
+                bean.setIntegerValue1(value);
+            }
+        });
+        column.setWidth(TEN);
+        column.setWeight(TWENTY);
+        column.setDefaultDisplayedValue(String.valueOf(Integer.MAX_VALUE));
+        column.setId("uid2");
+        column.setCellEditor(new TextCellEditor(table), intValueAdapter);
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setModifiable(true);
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+            public Integer get(DataObject bean) {
+                return bean.getIntegerValue2();
+            }
+            public void set(DataObject bean, Integer value) {
+                bean.setIntegerValue2(value);
+            }
+        });
+        column.setWidth(TEN);
+        column.setWeight(TWENTY);
+        column.setId("uid3");
+        column.setCellEditor(new TextCellEditor(table), intValueAdapter);
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setModifiable(true);
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, String>() {
+            public String get(DataObject bean) {
+                return bean.getLibelle();
+            }
+            public void set(DataObject bean, String value) {
+                bean.setLibelle(value);
+            }
+        });
+        column.setWidth(TEN);
+        column.setWeight(TWENTY);
+        column.setId("uid");
+        column.setCellEditor(new TextCellEditor(table));
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle("Integer Null Value");
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+            public Integer get(DataObject bean) {
+                return bean.getIntegerValue2();
+            }
+            public void set(DataObject bean, Integer value) {
+                bean.setIntegerValue2(value);
+            }
+        });
+        column.setModifiable(true);
+        column.setWidth(ONE_HUNDRED);
+        final String[] valueSet = new String[] { "xxx", "yyy", "zzz" };
+        column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
+            public String getColumnText(CellEditor cellEditor, Object cellEditorValue) {
+                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
+                int index = (Integer) cellEditorValue;
+                if (index >= 0 && index < items.length) {
+                    return items[index];
+                } else {
+                    return "";
+                }
+            }
+        });
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle("Id");
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+            public Integer get(DataObject bean) {
+                return bean.getId();
+            }
+            public void set(DataObject bean, Integer value) {
+                bean.setId(value);
+            }
+        });
+        column.setWeight(FIFTY);
+        column.setTableEditorContent(new TableEditorContent() {
+            public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
+                    Object currentRowObject, Object currentCellValue) {
+                Button button = new Button(table, SWT.PUSH);
+                button.setText(String.valueOf(currentCellValue));
+                button.computeSize(SWT.DEFAULT, table.getItemHeight());
+                // Set attributes of the editor
+                tableEditor.grabHorizontal = true;
+                tableEditor.minimumHeight = button.getSize().y;
+                tableEditor.minimumWidth = button.getSize().x;
+                return button;
+            }
+        });
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle("Id2");
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+            public Integer get(DataObject bean) {
+                return bean.getIntegerValue2();
+            }
+            public void set(DataObject bean, Integer value) {
+                bean.setIntegerValue2(value);
+            }
+        });
+        column.setWidth(TWO_HUNDRED);
+        column.setModifiable(true);
+        column.setTableEditorContent(new TableEditorContent() {
+            public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
+                    Object currentRowObject, Object currentCellValue) {
+                Composite composite = new Composite(table, SWT.PUSH);
+                // Set attributes of the button
+                composite.setBackground(new Color(null, ALL, ZERO, ZERO));
+                composite.setSize(ONE_HUNDRED * ((Integer) currentCellValue).intValue() / ONE_HUNDRED, table
+                        .getItemHeight());
+                // Set attributes of the editor
+                // tableEditor.grabHorizontal = true;
+                tableEditor.minimumHeight = composite.getSize().y;
+                tableEditor.horizontalAlignment = SWT.LEFT;
+                tableEditor.minimumWidth = composite.getSize().x;
+                return composite;
+            }
+
+        });
+        column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
+            public String getColumnText(CellEditor cellEditor, Object cellEditorValue) {
+                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
+                int index = (Integer) cellEditorValue;
+                if (index >= 0 && index < items.length) {
+                    return items[index];
+                } else {
+                    return "";
+                }
+            }
+        });
+    }
 }

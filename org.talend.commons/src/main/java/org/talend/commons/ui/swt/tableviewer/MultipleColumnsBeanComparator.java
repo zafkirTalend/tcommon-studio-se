@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.utils.data.sort;
+package org.talend.commons.ui.swt.tableviewer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
@@ -31,7 +31,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 /**
  * @author amaumont <br/> $Id$
  */
-public class MultiplePropertiesBeanComparator implements Comparator {
+public class MultipleColumnsBeanComparator implements Comparator {
 
     /**
      * 
@@ -42,38 +42,38 @@ public class MultiplePropertiesBeanComparator implements Comparator {
 
     private static final short DESCENDANT_ORDER = -1;
 
-    private String[] properties;
+    private TableViewerCreatorColumn[] columnsToOrder;
 
     private int ascendingInt;
 
     private boolean ignoreCase;
 
-    public MultiplePropertiesBeanComparator(boolean ascendingOrder, String property) {
-        this(ascendingOrder, new String[] { property });
+    public MultipleColumnsBeanComparator(boolean ascendingOrder, TableViewerCreatorColumn column) {
+        this(ascendingOrder, new TableViewerCreatorColumn[] { column });
     }
 
-    public MultiplePropertiesBeanComparator(boolean ascendingOrder, String... properties) {
-        this.properties = properties;
+    public MultipleColumnsBeanComparator(boolean ascendingOrder, TableViewerCreatorColumn... columns) {
+        this.columnsToOrder = columns;
         this.ascendingInt = ascendingOrder ? ASCENDANT_ORDER : DESCENDANT_ORDER;
     }
 
-    public MultiplePropertiesBeanComparator(String... properties) {
-        this(true, properties);
+    public MultipleColumnsBeanComparator(TableViewerCreatorColumn... columnsToOrder) {
+        this(true, columnsToOrder);
     }
 
-    public MultiplePropertiesBeanComparator(String property) {
-        this(new String[] { property });
+    public MultipleColumnsBeanComparator(TableViewerCreatorColumn columnToOrder) {
+        this(new TableViewerCreatorColumn[] { columnToOrder });
     }
 
     public final int compare(Object object1, Object object2) {
         int returnValue = 0;
-        if (properties != null) {
+        if (columnsToOrder != null) {
             try {
-                if (properties.length == 1 && properties[0] != null) {
-                    returnValue = compare(properties[0], object1, object2);
+                if (columnsToOrder.length == 1 && columnsToOrder[0] != null) {
+                    returnValue = compare(columnsToOrder[0], object1, object2);
                 } else {
-                    for (int i = 0; i < this.properties.length; i++) {
-                        String property = this.properties[i];
+                    for (int i = 0; i < this.columnsToOrder.length; i++) {
+                        TableViewerCreatorColumn property = this.columnsToOrder[i];
                         if (property == null) {
                             continue;
                         }
@@ -92,16 +92,16 @@ public class MultiplePropertiesBeanComparator implements Comparator {
         return returnValue;
     }
 
-    private int compare(String property, Object object1, Object object2) throws IllegalAccessException,
+    private int compare(TableViewerCreatorColumn column, Object object1, Object object2) throws IllegalAccessException,
             InvocationTargetException, NoSuchMethodException {
         Object value1 = null;
         Object value2 = null;
-        if (property != null && !property.equals("")) {
+        if (column != null) {
             if (object1 != null) {
-                value1 = PropertyUtils.getSimpleProperty(object1, property);
+                value1 = AccessorUtils.get(object1, column);
             }
             if (object2 != null) {
-                value2 = PropertyUtils.getSimpleProperty(object2, property);
+                value2 = AccessorUtils.get(object2, column);
             }
         }
         return checkNullsAndCompare(value1, value2);
@@ -139,8 +139,8 @@ public class MultiplePropertiesBeanComparator implements Comparator {
     }
 
     @SuppressWarnings("unchecked")
-    public static void sort(boolean orderAscendant, List< ? extends Object> collection, String... propertiesByPriority) {
-        Collections.sort(collection, new MultiplePropertiesBeanComparator(orderAscendant, propertiesByPriority));
+    public static void sort(boolean orderAscendant, List< ? extends Object> collection, TableViewerCreatorColumn... propertiesByPriority) {
+        Collections.sort(collection, new MultipleColumnsBeanComparator(orderAscendant, propertiesByPriority));
     }
 
     public boolean isIgnoreCase() {
@@ -151,16 +151,16 @@ public class MultiplePropertiesBeanComparator implements Comparator {
         this.ignoreCase = ignoreCase;
     }
 
-    public String[] getProperties() {
-        return properties;
+    public TableViewerCreatorColumn[] getColumnsToOrder() {
+        return columnsToOrder;
     }
 
-    public void setProperties(String[] properties) {
-        this.properties = properties;
+    public void setColumnsToOrder(TableViewerCreatorColumn[] columnsToOrder) {
+        this.columnsToOrder = columnsToOrder;
     }
 
-    public void setProperty(String property) {
-        this.properties = new String[] { property };
+    public void setColumnToOrder(TableViewerCreatorColumn property) {
+        this.columnsToOrder = new TableViewerCreatorColumn[] { property };
     }
 
     public void setAscendingOrder(boolean ascendingOrder) {
