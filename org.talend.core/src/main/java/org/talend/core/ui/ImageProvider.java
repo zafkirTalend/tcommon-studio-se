@@ -49,6 +49,7 @@ public class ImageProvider {
      */
     public enum EImage {
         DEFAULT_IMAGE,
+        PROJECT_WIZ("/icons/project_wiz.png"),
         BUSINESS_PROCESS_ICON(IImageConstants.BUSINESS_PROCESS_ICON),
         BUSINESS_PROCESS_WIZ("/icons/business_wiz.png"),
         PROCESS_ICON(IImageConstants.PROCESS_ICON),
@@ -72,6 +73,7 @@ public class ImageProvider {
         RECYCLE_BIN_FULL_ICON(IImageConstants.RECYCLE_BIN_FULL_ICON),
         FOLDER_OPEN_ICON(IImageConstants.FOLDER_OPEN_ICON),
         FOLDER_CLOSE_ICON(IImageConstants.FOLDER_CLOSE_ICON),
+        FOLDER_WIZ("/icons/folder_wiz.png"),
         SAVE_ICON(IImageConstants.SAVE_ICON),
         COPY_ICON(IImageConstants.COPY_ICON),
         PASTE_ICON(IImageConstants.PASTE_ICON),
