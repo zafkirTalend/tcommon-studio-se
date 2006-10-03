@@ -96,7 +96,12 @@ public class ImageProvider {
         DOC_PDF_ICON(IImageConstants.DOC_PDF_ICON),
         DOC_IMAGE_ICON(IImageConstants.DOC_IMAGE_ICON),
         ERROR_ICON("/icons/error.gif"),
-        CHECKED_ICON("/icons/checked.gif");
+        MODULE_INSTALLED_ICON("/icons/checked.gif"),
+        MODULE_ERROR_ICON("/icons/error.gif"),
+        MODULE_WARNING_ICON("/icons/warning.gif"),
+        MODULE_UNKNOWN_ICON("/icons/unknown.gif"),
+        MODULE_REQUIRED_ICON("/icons/add.png"),
+        MODULE_NOTREQUIRED_ICON("/icons/minus.png");
 
         private String path;
 
