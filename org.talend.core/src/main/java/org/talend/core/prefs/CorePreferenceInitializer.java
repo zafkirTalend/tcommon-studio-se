@@ -75,24 +75,28 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         }
 
         node.put(ITalendCorePrefConstants.PREVIEW_LIMIT, "50");
+        
+        initializeUpdatePreference();
 
+        // Initialize editors properties : line number shown
+        final String perlEditorBundleName = "org.epic.perleditor";
+        final String editorsBundleName = "org.eclipse.ui.editors";
+        // AbstractDecoratedTextEditorPreferenceConstants.EDITOR_LINE_NUMBER_RULER = "lineNumberRuler"
+        final String editorLineNumberRuler = "lineNumberRuler";
+        IPreferenceStore store = new ScopedPreferenceStore(new InstanceScope(), perlEditorBundleName);
+        store.setValue(editorLineNumberRuler, true);
+        store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
+        store.setValue(editorLineNumberRuler, true);
+
+        // default colors for the ColorStyledText.
+        ColorManager.initDefaultColors(CorePlugin.getDefault().getPreferenceStore());
+    }
+
+    public void initializeUpdatePreference() {
         IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$
         nodeScheduler.putBoolean(SchedulerStartup.P_ENABLED, true);
         nodeScheduler.put(SchedulerStartup.P_SCHEDULE, SchedulerStartup.VALUE_ON_STARTUP);
         nodeScheduler.putBoolean(SchedulerStartup.P_DOWNLOAD, true);
-
-        // Initialize editors properties : line number shown
-        final String PERLEDITOR_BUNDLENAME = "org.epic.perleditor";
-        final String EDITORS_BUNDLENAME = "org.eclipse.ui.editors";
-        // AbstractDecoratedTextEditorPreferenceConstants.EDITOR_LINE_NUMBER_RULER = "lineNumberRuler"
-        final String EDITOR_LINE_NUMBER_RULER = "lineNumberRuler";
-        IPreferenceStore store = new ScopedPreferenceStore(new InstanceScope(), PERLEDITOR_BUNDLENAME);
-        store.setValue(EDITOR_LINE_NUMBER_RULER, true);
-        store = new ScopedPreferenceStore(new InstanceScope(), EDITORS_BUNDLENAME);
-        store.setValue(EDITOR_LINE_NUMBER_RULER, true);
-
-        // default colors for the ColorStyledText.
-        ColorManager.initDefaultColors(CorePlugin.getDefault().getPreferenceStore());
     }
 
 }
