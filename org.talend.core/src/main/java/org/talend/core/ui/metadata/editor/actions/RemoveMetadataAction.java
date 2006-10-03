@@ -37,10 +37,10 @@ public class RemoveMetadataAction extends MetadataEditorAction {
 
     /**
      * DOC amaumont AddMetadataAction constructor comment.
-     * @param metadatEditorView
+     * @param metadataEditorView
      */
-    public RemoveMetadataAction(MetadataTableEditorView metadatEditorView) {
-        super(metadatEditorView);
+    public RemoveMetadataAction(MetadataTableEditorView metadataEditorView) {
+        super(metadataEditorView);
     }
 
     /* (non-Javadoc)
@@ -48,10 +48,12 @@ public class RemoveMetadataAction extends MetadataEditorAction {
      */
     public void run(IEventAction eventAction) {
         MetadataEditorEvent metadataEditorEvent = (MetadataEditorEvent)eventAction;
-        if(metadataEditorEvent.entries != null) {
+        if (metadataEditorEvent.entries != null) {
             
             getMetadataTableEditor().remove(metadataEditorEvent.entriesIndices);
-                
+            if (metadataEditorEvent.entriesIndices.length > 0) {
+                metadataTableEditorView.setTableSelection(new int[] {metadataEditorEvent.entriesIndices[0]}, true);
+            }
         }
     }
 

@@ -24,7 +24,6 @@ package org.talend.commons.utils.data.reflection;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.talend.commons.ui.swt.tableviewer.ReflectionPropertyException;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

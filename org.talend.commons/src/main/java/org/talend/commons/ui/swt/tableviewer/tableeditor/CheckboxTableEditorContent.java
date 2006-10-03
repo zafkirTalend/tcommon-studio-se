@@ -29,7 +29,6 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
-import org.talend.commons.ui.swt.tableviewer.TableEditorContent;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 
 /**

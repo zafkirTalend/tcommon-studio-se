@@ -19,29 +19,25 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
-
-import org.eclipse.swt.custom.TableEditor;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Table;
+package org.talend.commons.utils.data.reflection;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/> $Id: TableEditorInitializer.java,v 1.1 2006/06/02 15:24:10
- * amaumont Exp $
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
+ * $Id$
+ * 
  */
-public abstract class TableEditorContent {
+public class ReflectionPropertyException extends RuntimeException {
 
     /**
-     * You can override this method if necessary.
      * 
-     * @param table
-     * @return TableEditor
      */
-    public TableEditor createTableEditor(Table table) {
-        return new TableEditor(table);
+    private static final long serialVersionUID = 3425844870424877957L;
+
+    public ReflectionPropertyException(Class reflectedClass, String reflectedProperty, boolean isGetter, Throwable cause) {
+
+        super("Error when trying to access to the " + (isGetter ? "getter" : "setter") + " of the property '"
+                + reflectedProperty + "' " + "of the class '"
+                + (reflectedClass != null ? reflectedClass.getName() : "class null") + "'", cause);
     }
-
-    public abstract Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
-            Object currentRowObject, Object currentCellValue);
-
 }

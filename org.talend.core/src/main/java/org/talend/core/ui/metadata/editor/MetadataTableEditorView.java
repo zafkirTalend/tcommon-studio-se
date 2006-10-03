@@ -41,15 +41,15 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
-import org.talend.commons.ui.swt.tableviewer.CellEditorValueAdapter;
-import org.talend.commons.ui.swt.tableviewer.DefaultTableLabelProvider;
-import org.talend.commons.ui.swt.tableviewer.IColumnImageProvider;
-import org.talend.commons.ui.swt.tableviewer.ModifiedObjectInfo;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LINE_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_SELECTION;
+import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
+import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
+import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -138,7 +138,7 @@ public class MetadataTableEditorView {
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS_CURRENT);
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
 //        tableViewerCreator.setAdjustWidthValue(-15);
-        tableViewerCreator.maskFirstColumn(true);
+        tableViewerCreator.setFirstColumnMasked(true);
 
         final Table table = tableViewerCreator.createTable();
         table.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -570,5 +570,6 @@ public class MetadataTableEditorView {
     public void setMetadataToolbarEditorView(MetadataToolbarEditorView metadataToolbarEditorView) {
         this.metadataToolbarEditorView = metadataToolbarEditorView;
     }
+
     
 }

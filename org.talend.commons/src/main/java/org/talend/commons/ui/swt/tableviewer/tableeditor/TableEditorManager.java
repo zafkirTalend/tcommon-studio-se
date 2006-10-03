@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
+package org.talend.commons.ui.swt.tableviewer.tableeditor;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -30,6 +30,10 @@ import java.util.Map;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.TableItem;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
+import org.talend.commons.ui.swt.tableviewer.sort.IColumnSortedListener;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/> $Id: TableEditorManager.java,v 1.3 2006/06/02 15:24:10

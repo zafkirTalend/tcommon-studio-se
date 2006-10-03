@@ -19,24 +19,13 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
-
-import org.eclipse.swt.graphics.Image;
+package org.talend.commons.ui.swt.tableviewer.sort;
 
 /**
- * <code>IColumnImageProvider</code> provide a method which return the image for a given bean of the table
- * (element) and the current column. <br/>
- * 
- * $Id$
- * 
+ * DOC amaumont class global comment. Detailled comment <br/> $Id: IColumnSortedListener.java,v 1.2 2006/06/02 15:24:10
+ * amaumont Exp $
  */
-public interface IColumnImageProvider {
+public interface IColumnSortedListener {
 
-    /**
-     * Get the image.
-     * @param element bean of the <code>TableViewerCreator</code>
-     * @return return the image for the current given bean of the <code>TableViewerCreator</code> and the current column
-     */
-    public Image getImage(Object bean);
-
+    public void handle();
 }

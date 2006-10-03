@@ -19,25 +19,39 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
+package org.talend.commons.ui.swt.tableviewer.behavior;
+
+import java.util.Collection;
+
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.Viewer;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
+ * 
+ * Default implementation of <code>IStructuredContentProvider</code> used by <code>TableViewerCreator</code>. <br/>
  * 
  * $Id$
  * 
+ * @see <code>IStructuredContentProvider</code>
  */
-public class ReflectionPropertyException extends RuntimeException {
+public class DefaultStructuredContentProvider implements IStructuredContentProvider {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 3425844870424877957L;
+    TableViewerCreator tableViewerCreator;
 
-    public ReflectionPropertyException(Class reflectedClass, String reflectedProperty, boolean isGetter, Throwable cause) {
-
-        super("Error when trying to access to the " + (isGetter ? "getter" : "setter") + " of the property '"
-                + reflectedProperty + "' " + "of the class '"
-                + (reflectedClass != null ? reflectedClass.getName() : "class null") + "'", cause);
+    public DefaultStructuredContentProvider(TableViewerCreator tableViewerCreator) {
+        super();
+        this.tableViewerCreator = tableViewerCreator;
     }
+
+    public Object[] getElements(Object inputElement) {
+        return (Object[]) ((Collection) inputElement).toArray();
+    }
+
+    public void dispose() {
+    }
+
+    public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+    }
+
 }

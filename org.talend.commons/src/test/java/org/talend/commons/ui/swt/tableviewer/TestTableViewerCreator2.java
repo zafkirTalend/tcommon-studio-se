@@ -38,14 +38,14 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
-import org.talend.commons.ui.swt.tableviewer.CellEditorValueAdapter;
-import org.talend.commons.ui.swt.tableviewer.TableEditorContent;
-import org.talend.commons.ui.swt.tableviewer.TableEditorManager;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LINE_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_SELECTION;
+import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
+import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.utils.DataObject;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 

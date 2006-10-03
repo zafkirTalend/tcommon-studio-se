@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
+package org.talend.commons.ui.swt.tableviewer.selection;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -42,7 +43,7 @@ import org.eclipse.swt.widgets.TableItem;
  */
 public class MouseTableSelectionHelper {
 
-    private Table table;
+    private TableViewerCreator tableViewerCreator;
 
     private boolean firstColumnMasked;
 
@@ -58,26 +59,28 @@ public class MouseTableSelectionHelper {
 
     private int[] selectionnableColumns;
 
-    /**
-     * DOC amaumont MouseTableSelectionHelper constructor comment.
-     * 
-     * @param table
-     */
-    public MouseTableSelectionHelper(Table table, boolean firstColumnMasked, int[] selectionnableColumns) {
-        this.table = table;
-        this.firstColumnMasked = firstColumnMasked;
-        this.selectionnableColumns = selectionnableColumns;
-        init();
-    }
+    private Table table;
 
+//    /**
+//     * DOC amaumont MouseTableSelectionHelper constructor comment.
+//     * 
+//     * @param table
+//     */
+//    public MouseTableSelectionHelper(TableViewerCreator tableViewerCreator, boolean firstColumnMasked, int[] selectionnableColumns) {
+//        this.tableViewerCreator = tableViewerCreator;
+//        this.firstColumnMasked = firstColumnMasked;
+//        this.selectionnableColumns = selectionnableColumns;
+//        init();
+//    }
+//
     /**
      * DOC amaumont MouseTableSelectionHelper constructor comment.
      * 
      * @param table
      */
-    public MouseTableSelectionHelper(Table table, boolean firstColumnMasked) {
-        this.table = table;
-        this.firstColumnMasked = firstColumnMasked;
+    public MouseTableSelectionHelper(TableViewerCreator tableViewerCreator) {
+        this.tableViewerCreator = tableViewerCreator;
+        this.firstColumnMasked = tableViewerCreator.isFirstColumnMasked();
         init();
     }
     
@@ -86,6 +89,8 @@ public class MouseTableSelectionHelper {
      */
     private void init() {
 
+        this.table = tableViewerCreator.getTable();
+        
         final Listener storeCursorPositionListener = new Listener() {
 
             public void handleEvent(Event event) {
@@ -100,11 +105,6 @@ public class MouseTableSelectionHelper {
             public void handleEvent(Event event) {
 
                 int columnIndex = getColumnIndex(cursorPositionAtMouseDown);
-                
-//                for (int i = 0; i < selectionnableColumns.length; i++) {
-//                    int selectionnableColumnIndex = selectionnableColumns[i];
-//                    
-//                }
                 
                 if (columnIndex == 0 && !firstColumnMasked || columnIndex == 1 && firstColumnMasked) {
                     draggingOnSelectionColumn = true;

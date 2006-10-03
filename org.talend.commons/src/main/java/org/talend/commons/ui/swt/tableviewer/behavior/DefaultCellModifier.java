@@ -19,10 +19,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
+package org.talend.commons.ui.swt.tableviewer.behavior;
 
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.swt.widgets.TableItem;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
+import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
 
 /**
  * 

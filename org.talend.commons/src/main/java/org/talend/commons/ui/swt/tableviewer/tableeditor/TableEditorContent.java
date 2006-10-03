@@ -19,13 +19,30 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
+package org.talend.commons.ui.swt.tableviewer.tableeditor;
+
+import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/> $Id: IColumnSortedListener.java,v 1.2 2006/06/02 15:24:10
+ * DOC amaumont class global comment. Detailled comment <br/> $Id: TableEditorInitializer.java,v 1.1 2006/06/02 15:24:10
  * amaumont Exp $
  */
-public interface IColumnSortedListener {
+public abstract class TableEditorContent {
 
-    public void handle();
+    /**
+     * You can override this method if necessary.
+     * 
+     * @param table
+     * @return TableEditor
+     */
+    public TableEditor createTableEditor(Table table) {
+        return new TableEditor(table);
+    }
+
+    public abstract Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
+            Object currentRowObject, Object currentCellValue);
+
 }

@@ -19,38 +19,24 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
+package org.talend.commons.ui.swt.tableviewer.behavior;
 
-import java.util.Collection;
-
-import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.graphics.Image;
 
 /**
- * 
- * Default implementation of <code>IStructuredContentProvider</code> used by <code>TableViewerCreator</code>. <br/>
+ * <code>IColumnImageProvider</code> provide a method which return the image for a given bean of the table
+ * (element) and the current column. <br/>
  * 
  * $Id$
  * 
- * @see <code>IStructuredContentProvider</code>
  */
-public class DefaultStructuredContentProvider implements IStructuredContentProvider {
+public interface IColumnImageProvider {
 
-    TableViewerCreator tableViewerCreator;
-
-    public DefaultStructuredContentProvider(TableViewerCreator tableViewerCreator) {
-        super();
-        this.tableViewerCreator = tableViewerCreator;
-    }
-
-    public Object[] getElements(Object inputElement) {
-        return (Object[]) ((Collection) inputElement).toArray();
-    }
-
-    public void dispose() {
-    }
-
-    public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-    }
+    /**
+     * Get the image.
+     * @param element bean of the <code>TableViewerCreator</code>
+     * @return return the image for the current given bean of the <code>TableViewerCreator</code> and the current column
+     */
+    public Image getImage(Object bean);
 
 }

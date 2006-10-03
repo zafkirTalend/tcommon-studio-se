@@ -19,7 +19,9 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
+package org.talend.commons.ui.swt.tableviewer.data;
+
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 
 
 /**

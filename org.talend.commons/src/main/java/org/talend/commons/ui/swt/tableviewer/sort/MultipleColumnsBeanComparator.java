@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
+package org.talend.commons.ui.swt.tableviewer.sort;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
@@ -27,6 +27,8 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
 
 /**
  * @author amaumont <br/> $Id$

@@ -19,9 +19,12 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
+package org.talend.commons.ui.swt.tableviewer.selection;
 
 import org.eclipse.swt.events.SelectionListener;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.ui.swt.tableviewer.sort.IColumnSortedListener;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/> $Id: ITableColumnSelectionListener.java,v 1.2 2006/06/02

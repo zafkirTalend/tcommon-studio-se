@@ -29,6 +29,10 @@ import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TableColumn;
+import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
+import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
+import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 
 /**

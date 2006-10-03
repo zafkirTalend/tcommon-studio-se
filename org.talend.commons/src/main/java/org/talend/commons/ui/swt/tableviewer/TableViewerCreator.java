@@ -36,6 +36,7 @@ import org.eclipse.jface.viewers.ColumnLayoutData;
 import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ICellModifier;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableLayout;
@@ -55,7 +56,20 @@ import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
 import org.osgi.framework.BundleContext;
+import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
+import org.talend.commons.ui.swt.tableviewer.behavior.DefaultHeaderColumnSelectionListener;
+import org.talend.commons.ui.swt.tableviewer.behavior.DefaultStructuredContentProvider;
+import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
+import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableParentResizedListener;
+import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableViewerSorter;
+import org.talend.commons.ui.swt.tableviewer.behavior.TableViewerCreatorLayout;
+import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
+import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
+import org.talend.commons.ui.swt.tableviewer.selection.MouseTableSelectionHelper;
+import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
+import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.ui.ws.WindowSystem;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableList;
@@ -154,12 +168,12 @@ public class TableViewerCreator<O> {
      * 
      */
     private Color emptyZoneColor;
-    
+
     /**
      * 
      */
     private boolean emptyZoneLinesVisible;
-    
+
     /**
      * SWT.BORDER style applied to <code>Table</code>.
      * 
@@ -221,6 +235,8 @@ public class TableViewerCreator<O> {
 
     private boolean firstVisibleColumnIsSelection;
 
+    private SelectionHelper selectionHelper;
+
     /**
      * Constructor.
      * 
@@ -261,8 +277,8 @@ public class TableViewerCreator<O> {
     /**
      * 
      * <p>
-     * Create a new instance of <code>Table</code> with its <code>TableColumn</code>s and create also a new instance
-     * of <code>TableViewer</code> if these objects doesn't exist already.
+     * Create a new instance of <code>Table</code> with its <code>TableColumn</code>s and create also a new
+     * instance of <code>TableViewer</code> if these objects doesn't exist already.
      * </p>
      * 
      * <p>
@@ -295,6 +311,7 @@ public class TableViewerCreator<O> {
             attachCellEditors();
             attachViewerSorter();
             addListeners();
+            selectionHelper = new SelectionHelper(this);
         }
         // long time11 = System.currentTimeMillis();
         if (list != null) {
@@ -343,10 +360,11 @@ public class TableViewerCreator<O> {
 
         if (this.emptyZoneColor != null || !emptyZoneLinesVisible) {
             table.addListener(SWT.Paint, new Listener() {
+
                 public void handleEvent(Event event) {
                     GC gc = event.gc;
                     Rectangle area = table.getClientArea();
-                    
+
                     Color foregroundColor = gc.getBackground();
                     if (emptyZoneColor != null) {
                         foregroundColor = emptyZoneColor;
@@ -362,15 +380,13 @@ public class TableViewerCreator<O> {
                         widthColumns += tableColumns[i].getWidth();
                     }
                     if (widthColumns < area.width) {
-                        gc.fillRectangle(widthColumns+1, 0, area.width, area.height);
+                        gc.fillRectangle(widthColumns + 1, 0, area.width, area.height);
                     }
-                    
+
                 }
-            });     
+            });
         }
 
-        
-        
     }
 
     /**
@@ -403,11 +419,11 @@ public class TableViewerCreator<O> {
     }
 
     private void addListeners() {
-        
+
         if (this.firstVisibleColumnIsSelection) {
-            new MouseTableSelectionHelper(table, this.firstColumnMasked);
+            new MouseTableSelectionHelper(this);
         }
-        
+
         if (this.layoutMode == LAYOUT_MODE.CURRENT_WIDTH) {
             this.tableParentResizedListener = new DefaultTableParentResizedListener(this);
             compositeParent.addControlListener(this.tableParentResizedListener);
@@ -460,9 +476,9 @@ public class TableViewerCreator<O> {
             final TableViewerCreatorColumn column = columns.get(i);
             column.setIndex(i);
             TableColumn tableColumn = column.getTableColumn();
-            if (WindowSystem.isGTK() 
-                    && column.getWidth() == 0 
-                    && column.getWeight() == 0) { // bug with GTK for cell edition when width == 0
+            if (WindowSystem.isGTK() && column.getWidth() == 0 && column.getWeight() == 0) { // bug with GTK for cell
+                                                                                                // edition when width ==
+                                                                                                // 0
                 column.setWidth(1);
             }
             initColumnLayout(column);
@@ -647,20 +663,16 @@ public class TableViewerCreator<O> {
      * <code>TableViewer</code>, but different because it layout the columns dynamically. CURRENT_WIDTH : a layout
      * based on the default layout of <code>TableViewer</code>. <br/>
      * <ul>
-        <li> DEFAULT : the default layout of the <code>TableViewer</code>.
-        </li> 
-        <li>SHOW_ALWAYS_ALL_COLUMNS : force always to show all columns, resize columns automatically. 
-        Use <code>adjustWidthValue</code> property to adjust the maximum width of columns and to don't show scrollbars.
-        </li>
-        <li>CONTINUOUS_CURRENT : resize columns automatically from current width or weight of each column, scollbars can be visible.
-        Use <code>adjustWidthValue</code> property to adjust the width of columns and to don't show scrollbars in normal conditions.
-        Adjust the last column width to fill free space.
-        </li>
-        <li>CURRENT_WIDTH : resize columns automatically from current width (not weight) of each column. 
-        </li>
-        <li>NONE : no layout.
-        </li>
-        </ul>
+     * <li> DEFAULT : the default layout of the <code>TableViewer</code>. </li>
+     * <li>SHOW_ALWAYS_ALL_COLUMNS : force always to show all columns, resize columns automatically. Use
+     * <code>adjustWidthValue</code> property to adjust the maximum width of columns and to don't show scrollbars.
+     * </li>
+     * <li>CONTINUOUS_CURRENT : resize columns automatically from current width or weight of each column, scollbars can
+     * be visible. Use <code>adjustWidthValue</code> property to adjust the width of columns and to don't show
+     * scrollbars in normal conditions. Adjust the last column width to fill free space. </li>
+     * <li>CURRENT_WIDTH : resize columns automatically from current width (not weight) of each column. </li>
+     * <li>NONE : no layout. </li>
+     * </ul>
      * 
      */
     public enum LAYOUT_MODE {
@@ -885,12 +897,17 @@ public class TableViewerCreator<O> {
     }
 
     /**
-     * DOC amaumont Comment method "maskFirstColumn".
+     * This method is useful for mask first column on a Windows Table because the first column display a blank space at
+     * left border.
      * 
      * @param firstColumnMasked
      */
-    public void maskFirstColumn(boolean isFirstColumnMasked) {
-        this.firstColumnMasked = isFirstColumnMasked;
+    public void setFirstColumnMasked(boolean firstColumnMasked) {
+        this.firstColumnMasked = firstColumnMasked;
+    }
+
+    public boolean isFirstColumnMasked() {
+        return this.firstColumnMasked;
     }
 
     /**
@@ -905,41 +922,38 @@ public class TableViewerCreator<O> {
         return this.modifiedObjectInfo;
     }
 
-    
     public Color getEmptyZoneColor() {
         return this.emptyZoneColor;
     }
 
-    
     public void setEmptyColor(Color emptyZoneColor) {
         this.emptyZoneColor = emptyZoneColor;
     }
 
-    
     protected boolean isEmptyZoneLinesVisible() {
         return this.emptyZoneLinesVisible;
     }
 
-    
     protected void setEmptyZoneLinesVisible(boolean emptyZoneLinesVisible) {
         this.emptyZoneLinesVisible = emptyZoneLinesVisible;
     }
-    
+
     public void refreshTableEditorControls() {
         tableEditorManager.refresh();
     }
 
     /**
      * Setter for firstVisibleColumnIsSelection.
+     * 
      * @param firstVisibleColumnIsSelection
      */
     public void setFirstVisibleColumnIsSelection(boolean firstVisibleColumnIsSelection) {
         this.firstVisibleColumnIsSelection = firstVisibleColumnIsSelection;
     }
 
-    
     /**
      * Getter for firstVisibleColumnIsSelection.
+     * 
      * @return the firstVisibleColumnIsSelection
      */
     public boolean isFirstVisibleColumnIsSelection() {
@@ -947,157 +961,9 @@ public class TableViewerCreator<O> {
     }
 
     
-    
-    /**
-     * DOC amaumont Comment method "method".
-     * 
-     * @param tableColumn
-     */
-    // private void method(Control tableColumn) {
-    // final TableColumn[] lastMoved = new TableColumn[1];
-    // final boolean[] dragging = new boolean[1];
-    // final boolean[] draggingOffCalled = new boolean[1];
-    // final boolean[] cancelDraggingOff = new boolean[1];
-    //
-    // tableColumn.addControlListener(new ControlListener() {
-    //
-    // private int[] previousSize;
-    // private int indexCurrentColumn;
-    //
-    // public void controlMoved(ControlEvent e) {
-    // System.out.println("COntrol moved");
-    // }
-    //
-    // private TableColumn searchRightNeighbourColumn(TableColumn currentTableColumn) {
-    //
-    // TableColumn[] columns = tableViewerCreator.getTable().getColumns();
-    // for (int i = 0; i < columns.length; i++) {
-    // if (columns[i] == currentTableColumn) {
-    // if (i == columns.length - 1) {
-    // return null;
-    // } else {
-    // return table.getColumn(i + 1);
-    // }
-    // }
-    // }
-    // int[] columnOrder = tableViewerCreator.getTable().getColumnOrder();
-    // for (int i = 0; i < columnOrder.length; i++) {
-    // if (columnOrder[i] == indexCurrentColumn) {
-    // if (i == columnOrder.length - 1) {
-    // return null;
-    // } else {
-    // return table.getColumn(columnOrder[i + 1]);
-    // }
-    // }
-    // }
-    // return null;
-    // }
-    //
-    // public void controlResized(ControlEvent e) {
-    // System.out.println("TableColumn controlResized");
-    // final TableColumn currentTableColumn = (TableColumn) e.widget;
-    // System.out.println("dragging=" + dragging[0]);
-    // // e.display.
-    // System.out.println("current=" + currentTableColumn.getText());
-    // if (lastMoved[0] != null) {
-    // System.out.println("lastMoved=" + lastMoved[0].getText());
-    // }
-    //
-    // if (dragging[0] == false && lastMoved[0] != currentTableColumn) {
-    // dragging[0] = true;
-    // previousSize[0] = currentTableColumn.getWidth();
-    // lastMoved[0] = currentTableColumn;
-    // } else if (dragging[0] && currentTableColumn != lastMoved[0]) {
-    // return;
-    // } else if (dragging[0] && lastMoved[0] == currentTableColumn) {
-    // int diff = currentTableColumn.getWidth() - previousSize[0];
-    // TableColumn neighbourColumn = searchRightNeighbourColumn(currentTableColumn);
-    // if (neighbourColumn != null) {
-    // System.out.println("next2=" + neighbourColumn.getText());
-    // }
-    //
-    // if (diff != 0) {
-    // if (neighbourColumn == null) {
-    // currentTableColumn.setWidth(currentTableColumn.getWidth() - diff);
-    // } else {
-    // neighbourColumn.setWidth(neighbourColumn.getWidth() - diff);
-    // currentTableColumn.setWidth(currentTableColumn.getWidth() + diff);
-    // }
-    // }
-    // previousSize[0] = currentTableColumn.getWidth();
-    //
-    // if (!draggingOffCalled[0]) {
-    // lastMoved[0] = currentTableColumn;
-    //
-    // new Thread() {
-    //
-    // public void run() {
-    // try {
-    // Thread.sleep(200);
-    // } catch (InterruptedException e) {
-    // e.printStackTrace();
-    // }
-    // if (!cancelDraggingOff[0]) {
-    // dragging[0] = false;
-    // lastMoved[0] = null;
-    // } else {
-    // draggingOffCalled[0] = false;
-    // }
-    // cancelDraggingOff[0] = false;
-    // }
-    // }.start();
-    // draggingOffCalled[0] = true;
-    // cancelDraggingOff[0] = false;
-    // } else {
-    // cancelDraggingOff[0] = true;
-    // }
-    // } else {
-    // dragging[0] = false;
-    // lastMoved[0] = null;
-    // }
-    // }
-    //
-    // });
-    // // TODO Auto-generated method stub
-    //
-    // }
-}
+    public SelectionHelper getSelectionHelper() {
+        return this.selectionHelper;
+    }
 
-// tableColumn.addListener(SWT.MouseUp, new Listener() {
-//
-// public void handleEvent(Event event) {
-// //System.out.println("Listener");
-// }
-//                    
-// });
-// tableColumn.addSelectionListener(new SelectionListener() {
-//
-// public void widgetDefaultSelected(SelectionEvent e) {
-// //System.out.println("widgetDefaultSelected");
-// }
-//
-// public void widgetSelected(SelectionEvent e) {
-// //System.out.println("widgetSelected");
-// }
-//                    
-// });
-//                
-// final TableViewerCreator tableViewerCreator = this;
-//                
-// tableViewerCreator.getTable().addControlListener(new ControlListener() {
-//
-// public void controlMoved(ControlEvent e) {
-// // TODO Auto-generated method stub
-// //System.out.println("Table controlmoved");
-//                        
-// }
-//
-// public void controlResized(ControlEvent e) {
-// //System.out.println("Table controlResized");
-// // TODO Auto-generated method stub
-//                        
-// }
-//                    
-// });
-//                
+}
 

@@ -47,7 +47,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
+package org.talend.commons.ui.swt.tableviewer.behavior;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,6 +72,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**
