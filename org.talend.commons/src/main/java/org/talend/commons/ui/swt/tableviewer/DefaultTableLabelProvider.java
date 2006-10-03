@@ -43,18 +43,22 @@ public class DefaultTableLabelProvider implements ITableLabelProvider {
     }
 
     public Image getColumnImage(Object element, int columnIndex) {
+        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns()
+        .get(columnIndex);
+        if (column.getImageProvider() != null) {
+            return column.getImageProvider().getImage(element);
+        }
         return null;
     }
 
     public String getColumnText(Object element, int columnIndex) {
         String returnValue = null;
-        TableViewerCreatorColumn tableEditorColumn = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns()
+        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns()
                 .get(columnIndex);
-        if (tableEditorColumn.getDisplayedValue() != null || tableEditorColumn.getDefaultDisplayedValue() != null
-                || tableEditorColumn.getBeanPropertyName() == null
-                && tableEditorColumn.getBeanPropertyAccessors() == null) {
-            String defaultValue = tableEditorColumn.getDefaultDisplayedValue();
-            String imposedDisplayedValue = tableEditorColumn.getDisplayedValue();
+        if (column.getDisplayedValue() != null || column.getDefaultDisplayedValue() != null
+                || column.getBeanPropertyAccessors() == null) {
+            String defaultValue = column.getDefaultDisplayedValue();
+            String imposedDisplayedValue = column.getDisplayedValue();
             if (imposedDisplayedValue != null) {
                 returnValue = imposedDisplayedValue;
             } else if (defaultValue == null) {
@@ -63,9 +67,9 @@ public class DefaultTableLabelProvider implements ITableLabelProvider {
                 returnValue = defaultValue;
             }
         } else {
-            Object value = AccessorUtils.get(element, tableEditorColumn);
-            CellEditor cellEditor = tableEditorColumn.getCellEditor();
-            CellEditorValueAdapter retrieverValue = tableEditorColumn.getRetrieverValue();
+            Object value = AccessorUtils.get(element, column);
+            CellEditor cellEditor = column.getCellEditor();
+            CellEditorValueAdapter retrieverValue = column.getRetrieverValue();
             if (cellEditor != null && retrieverValue != null && value != null) {
                 returnValue = retrieverValue.getColumnText(cellEditor, value);
             } else if (value != null) {

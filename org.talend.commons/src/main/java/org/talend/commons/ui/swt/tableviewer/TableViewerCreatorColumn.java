@@ -24,6 +24,8 @@ package org.talend.commons.ui.swt.tableviewer;
 import java.util.Comparator;
 
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TableColumn;
@@ -47,6 +49,10 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     private IBeanPropertyAccessors beanPropertyAccessors;
 
+    private IColumnImageProvider imageProvider;
+    
+    private int index = -1;
+    
     /**
      * .
      * <br/>
@@ -158,10 +164,20 @@ public class TableViewerCreatorColumn implements Cloneable {
         this.comparator = comparator;
     }
 
+    /**
+     * 
+     * DOC amaumont Comment method "getImage".
+     * @return
+     */
     public Image getImage() {
         return image;
     }
-
+    
+    /**
+     * DOC amaumont Comment method "setImage".
+     * @param image
+     * @see TableColumn#setImage(Image)
+     */
     public void setImage(Image image) {
         this.image = image;
     }
@@ -180,14 +196,6 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     public void setMoveable(boolean moveable) {
         this.moveable = moveable;
-    }
-
-    public String getBeanPropertyName() {
-        return beanPropertyName;
-    }
-
-    public void setBeanPropertyName(String property) {
-        this.beanPropertyName = property;
     }
 
     public boolean isResizable() {
@@ -411,6 +419,39 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     public void setBeanPropertyAccessors(IBeanPropertyAccessors beanPropertyAccessors) {
         this.beanPropertyAccessors = beanPropertyAccessors;
+    }
+    
+    public IColumnImageProvider getImageProvider() {
+        return this.imageProvider;
+    }
+    
+    /**
+     * 
+     * DOC amaumont Comment method "setImageProvider".
+     * @param beanColumnImageProvider
+     * @see ITableLabelProvider#getColumnImage(Object, int)
+     */
+    public void setImageProvider(IColumnImageProvider beanColumnImageProvider) {
+        this.imageProvider = beanColumnImageProvider;
+    }
+
+    
+    /**
+     * "getIndex" method.
+     * @return the index of the column
+     */
+    public int getIndex() {
+        return this.index;
+    }
+
+    /**
+     * 
+     * Index is set by <code>TableViewerCreator</code> at initialization.
+     * This method shouldn't be called.
+     * @param index
+     */
+    public void setIndex(int index) {
+        this.index = index;
     }
 
 }

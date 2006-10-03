@@ -43,6 +43,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.ui.swt.tableviewer.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.DefaultTableLabelProvider;
+import org.talend.commons.ui.swt.tableviewer.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.ModifiedObjectInfo;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
@@ -138,26 +139,6 @@ public class MetadataTableEditorView {
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
 //        tableViewerCreator.setAdjustWidthValue(-15);
         tableViewerCreator.maskFirstColumn(true);
-        final Image imageKey = ImageProvider.getImage(EImage.KEY);
-        final Image imageEmpty = org.talend.core.ui.ImageProvider.getImage(EImage.EMPTY16);
-        tableViewerCreator.setLabelProvider(new DefaultTableLabelProvider(tableViewerCreator) {
-
-            @Override
-            public Image getColumnImage(Object element, int columnIndex) {
-                IMetadataColumn metadataColumn = (MetadataColumn) element;
-                TableViewerCreatorColumn column = (TableViewerCreatorColumn) tableViewerCreator.getColumns().get(
-                        columnIndex);
-                if (column.getId().equals(ID_COLUMN_NAME)) {
-                    if (metadataColumn.isKey()) {
-                        return imageKey;
-                    } else {
-                        return imageEmpty;
-                    }
-                }
-                return null;
-            }
-
-        });
 
         final Table table = tableViewerCreator.createTable();
         table.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -206,22 +187,6 @@ public class MetadataTableEditorView {
             }
         };
 
-        // boolean ValueAdapter
-        CellEditorValueAdapter booleanValueAdapter = new CellEditorValueAdapter() {
-
-            public Object getOriginalTypedValue(final CellEditor cellEditor, Object value) {
-                return (value == new Integer(1));
-            }
-
-            public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
-                if (value == new Boolean(true)) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            }
-        };
-
         // comboValueAdapter
         CellEditorValueAdapter comboValueAdapter = new CellEditorValueAdapter() {
 
@@ -245,12 +210,16 @@ public class MetadataTableEditorView {
                 return -1;
             }
         };
+        
+        ////////////////////////////////////////////////////////////////////////////////////////
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("");
         column.setDefaultInternalValue("");
         column.setWidth(15);
 
+        ////////////////////////////////////////////////////////////////////////////////////////
+        
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setId(ID_COLUMN_NAME);
         column.setTitle("Column");
@@ -262,6 +231,20 @@ public class MetadataTableEditorView {
 
             public void set(IMetadataColumn bean, String value) {
                 bean.setLabel(value);
+            }
+
+        });
+        final Image imageKey = ImageProvider.getImage(EImage.KEY);
+        final Image imageEmpty = org.talend.core.ui.ImageProvider.getImage(EImage.EMPTY16);
+        column.setImageProvider(new IColumnImageProvider() {
+
+            public Image getImage(Object element) {
+                IMetadataColumn metadataColumn = (MetadataColumn) element;
+                if (metadataColumn.isKey()) {
+                    return imageKey;
+                } else {
+                    return imageEmpty;
+                }
             }
 
         });
@@ -367,22 +350,10 @@ public class MetadataTableEditorView {
             }
 
         });
-
-        // cellEditor.setValidator(new ICellEditorValidator() {
-        //
-        // public String isValid(Object value) {
-        // System.out.println(value);
-        // if(metadataTableEditor.validateColumnName((String)value)) {
-        // return null;
-        // } else {
-        // return "Invalid characters !";
-        // }
-        // }
-        //            
-        // });
-
         column.setCellEditor(cellEditor);
 
+        ////////////////////////////////////////////////////////////////////////////////////////
+        
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Key");
         this.keyAccesor = new IBeanPropertyAccessors<IMetadataColumn, Boolean>() {
@@ -411,6 +382,8 @@ public class MetadataTableEditorView {
         column.setTableEditorContent(new CheckboxTableEditorContent());
         keyColumn = column;
 
+        ////////////////////////////////////////////////////////////////////////////////////////
+        
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Type");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
@@ -428,6 +401,8 @@ public class MetadataTableEditorView {
         column.setWeight(10);
         column.setMinimumWidth(30);
         column.setCellEditor(new ComboBoxCellEditor(table, arrayTalendTypes), comboValueAdapter);
+        
+        ////////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Length");
@@ -446,6 +421,8 @@ public class MetadataTableEditorView {
         column.setWidth(55);
         column.setCellEditor(new TextCellEditor(table), intValueAdapter);
 
+        ////////////////////////////////////////////////////////////////////////////////////////
+        
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Precision");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, Integer>() {
@@ -463,6 +440,8 @@ public class MetadataTableEditorView {
         column.setWidth(60);
         column.setCellEditor(new TextCellEditor(table), intValueAdapter);
 
+        ////////////////////////////////////////////////////////////////////////////////////////
+        
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Nullable");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, Boolean>() {
@@ -481,6 +460,8 @@ public class MetadataTableEditorView {
         column.setDisplayedValue("");
         column.setTableEditorContent(new CheckboxTableEditorContent());
 
+        ////////////////////////////////////////////////////////////////////////////////////////
+        
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Default");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
@@ -498,6 +479,8 @@ public class MetadataTableEditorView {
         column.setModifiable(true);
         column.setMinimumWidth(30);
         column.setCellEditor(new TextCellEditor(table));
+ 
+        ////////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Comment");

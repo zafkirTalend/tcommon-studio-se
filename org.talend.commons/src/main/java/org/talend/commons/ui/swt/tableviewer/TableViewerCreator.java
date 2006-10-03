@@ -201,7 +201,7 @@ public class TableViewerCreator<O> {
 
     private int adjustWidthValue;
 
-    private Map<String, TableViewerCreatorColumn> idPropertyToTableViewerCreatorColumn;
+    private Map<String, TableViewerCreatorColumn> idToTableViewerCreatorColumn;
 
     private Table table;
 
@@ -449,7 +449,7 @@ public class TableViewerCreator<O> {
             this.layout = currentTableLayout;
         }
 
-        idPropertyToTableViewerCreatorColumn = new HashMap<String, TableViewerCreatorColumn>(columns.size());
+        idToTableViewerCreatorColumn = new HashMap<String, TableViewerCreatorColumn>(columns.size());
 
         if (firstColumnMasked || columns.size() == 0) {
             TableViewerCreatorColumn maskedTableViewerCreatorColumn = new TableViewerCreatorColumn();
@@ -460,6 +460,7 @@ public class TableViewerCreator<O> {
         int size = columns.size();
         for (int i = 0; i < size; i++) {
             final TableViewerCreatorColumn column = columns.get(i);
+            column.setIndex(i);
             TableColumn tableColumn = column.getTableColumn();
             if (WindowSystem.isGTK() 
                     && column.getWidth() == 0 
@@ -474,10 +475,10 @@ public class TableViewerCreator<O> {
                 Assert.isTrue(tableColumn.getParent() == this.table, "The TableColumn of TableEditorColumn with idProperty '"
                         + column.getId() + "' has not the correct Table parent");
             }
-            Assert.isTrue(idPropertyToTableViewerCreatorColumn.get(column.getId()) == null,
+            Assert.isTrue(idToTableViewerCreatorColumn.get(column.getId()) == null,
                     "You must change the idProperty of one of your column, the idProperty must be unique for each column for one Table.");
 
-            idPropertyToTableViewerCreatorColumn.put(column.getId(), column);
+            idToTableViewerCreatorColumn.put(column.getId(), column);
         }
         if (layout != null) {
             table.setLayout(layout);
@@ -577,7 +578,7 @@ public class TableViewerCreator<O> {
     }
 
     public TableViewerCreatorColumn getColumn(String idProperty) {
-        return idPropertyToTableViewerCreatorColumn.get(idProperty);
+        return idToTableViewerCreatorColumn.get(idProperty);
     }
 
     public boolean isHeaderVisible() {

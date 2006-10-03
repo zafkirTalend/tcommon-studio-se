@@ -181,7 +181,7 @@ public class TextCellEditorWithProposal extends TextCellEditor {
         cellEditorLocationHasChanged = false;
         int previousModifiedIndex = this.tableViewerCreator.getModifiedObjectInfo().getPreviousModifiedIndex();
         Object previousModifiedBean = this.tableViewerCreator.getTableViewer().getElementAt(previousModifiedIndex);
-        int indexColumn = this.tableViewerCreator.getColumns().indexOf(tableViewerCreatorColumn);
+        int indexColumn = tableViewerCreatorColumn.getIndex();
         if (previousActivatedIndex != previousModifiedIndex) {
             cellEditorLocationHasChanged = true;
         }

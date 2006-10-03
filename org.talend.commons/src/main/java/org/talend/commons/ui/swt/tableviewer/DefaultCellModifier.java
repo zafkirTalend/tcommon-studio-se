@@ -92,8 +92,7 @@ public class DefaultCellModifier<O> implements ICellModifier {
     public void modify(Object element, String idColumn, Object value) {
         Object data = ((TableItem) element).getData();
         TableViewerCreatorColumn column = tableViewerCreator.getColumn(idColumn);
-        if (column.getBeanPropertyName() != null && column.getBeanPropertyName().length() > 0
-                || column.getBeanPropertyAccessors() != null) {
+        if (column.getBeanPropertyAccessors() != null) {
             Object typedValue = null;
             if (column.getRetrieverValue() != null) {
                 typedValue = column.getRetrieverValue().getOriginalTypedValue(column.getCellEditor(), value);
