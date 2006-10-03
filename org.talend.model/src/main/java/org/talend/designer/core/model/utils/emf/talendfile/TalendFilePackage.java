@@ -34,7 +34,7 @@ public interface TalendFilePackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNAME = "org.talend.designer.core.model.utils.emf.talendfile";
+    String eNAME = "talendfile";
 
     /**
      * The package namespace URI.
@@ -1988,7 +1988,7 @@ public interface TalendFilePackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    interface Literals {
+    interface Literals  {
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl <em>Column Type</em>}' class.
          * <!-- begin-user-doc -->

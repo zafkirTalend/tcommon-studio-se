@@ -4,8 +4,8 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.talend.model/src/main/java"
     modelPluginID="org.talend.model" redirection="" modelName="TalendFile" importerID="org.eclipse.xsd.ecore.importer">
   <foreignModel>TalendFile.xsd</foreignModel>
-  <genPackages prefix="TalendFile" resource="XML" disposableProviderFactory="true"
-      ecorePackage="TalendFile.ecore#/">
+  <genPackages prefix="TalendFile" basePackage="org.talend.designer.core.model.utils.emf"
+      resource="XML" disposableProviderFactory="true" ecorePackage="TalendFile.ecore#/">
     <genClasses ecoreClass="TalendFile.ecore#//ColumnType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/comment"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/key"/>
