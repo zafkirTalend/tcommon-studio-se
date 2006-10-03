@@ -23,21 +23,6 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  */
 public final class FolderType extends AbstractEnumerator {
     /**
-     * The '<em><b>FOLTER</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of '<em><b>FOLTER</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @see #FOLTER_LITERAL
-     * @model
-     * @generated
-     * @ordered
-     */
-    public static final int FOLTER = 0;
-
-    /**
      * The '<em><b>SYSTEM FOLDER</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
@@ -68,14 +53,19 @@ public final class FolderType extends AbstractEnumerator {
     public static final int STABLE_SYSTEM_FOLDER = 2;
 
     /**
-     * The '<em><b>FOLTER</b></em>' literal object.
+     * The '<em><b>FOLDER</b></em>' literal value.
      * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>FOLDER</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
      * <!-- end-user-doc -->
-     * @see #FOLTER
+     * @see #FOLDER_LITERAL
+     * @model
      * @generated
      * @ordered
      */
-    public static final FolderType FOLTER_LITERAL = new FolderType(FOLTER, "FOLTER", "FOLTER");
+    public static final int FOLDER = 0;
 
     /**
      * The '<em><b>SYSTEM FOLDER</b></em>' literal object.
@@ -98,6 +88,16 @@ public final class FolderType extends AbstractEnumerator {
     public static final FolderType STABLE_SYSTEM_FOLDER_LITERAL = new FolderType(STABLE_SYSTEM_FOLDER, "STABLE_SYSTEM_FOLDER", "STABLE_SYSTEM_FOLDER");
 
     /**
+     * The '<em><b>FOLDER</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #FOLDER
+     * @generated
+     * @ordered
+     */
+    public static final FolderType FOLDER_LITERAL = new FolderType(FOLDER, "FOLDER", "FOLDER");
+
+    /**
      * An array of all the '<em><b>Folder Type</b></em>' enumerators.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -105,9 +105,9 @@ public final class FolderType extends AbstractEnumerator {
      */
     private static final FolderType[] VALUES_ARRAY =
         new FolderType[] {
-            FOLTER_LITERAL,
             SYSTEM_FOLDER_LITERAL,
             STABLE_SYSTEM_FOLDER_LITERAL,
+            FOLDER_LITERAL,
         };
 
     /**
@@ -158,9 +158,9 @@ public final class FolderType extends AbstractEnumerator {
      */
     public static FolderType get(int value) {
         switch (value) {
-            case FOLTER: return FOLTER_LITERAL;
             case SYSTEM_FOLDER: return SYSTEM_FOLDER_LITERAL;
             case STABLE_SYSTEM_FOLDER: return STABLE_SYSTEM_FOLDER_LITERAL;
+            case FOLDER: return FOLDER_LITERAL;
         }
         return null;	
     }

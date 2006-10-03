@@ -7,6 +7,7 @@
 package org.talend.core.model.properties.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -18,11 +19,15 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.talend.core.model.properties.Container;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 
 /**
@@ -34,6 +39,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.FolderItemImpl#getChildren <em>Children</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.FolderItemImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.FolderItemImpl#getParent <em>Parent</em>}</li>
  * </ul>
  * </p>
  *
@@ -58,7 +64,7 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
      * @generated
      * @ordered
      */
-    protected static final FolderType TYPE_EDEFAULT = FolderType.FOLTER_LITERAL;
+    protected static final FolderType TYPE_EDEFAULT = FolderType.SYSTEM_FOLDER_LITERAL;
 
     /**
      * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -95,7 +101,7 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
      */
     public EList getChildren() {
         if (children == null) {
-            children = new EObjectContainmentEList(FolderItem.class, this, PropertiesPackage.FOLDER_ITEM__CHILDREN);
+            children = new EObjectContainmentWithInverseEList(Item.class, this, PropertiesPackage.FOLDER_ITEM__CHILDREN, PropertiesPackage.FOLDER_ITEM__PARENT);
         }
         return children;
     }
@@ -126,12 +132,115 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
      * <!-- end-user-doc -->
      * @generated
      */
+    public Container getParent() {
+        if (eContainerFeatureID != PropertiesPackage.FOLDER_ITEM__PARENT) return null;
+        return (Container)eContainer();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetParent(Container newParent, NotificationChain msgs) {
+        msgs = eBasicSetContainer((InternalEObject)newParent, PropertiesPackage.FOLDER_ITEM__PARENT, msgs);
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setParent(Container newParent) {
+        if (newParent != eInternalContainer() || (eContainerFeatureID != PropertiesPackage.FOLDER_ITEM__PARENT && newParent != null)) {
+            if (EcoreUtil.isAncestor(this, newParent))
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+            NotificationChain msgs = null;
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            if (newParent != null)
+                msgs = ((InternalEObject)newParent).eInverseAdd(this, PropertiesPackage.FOLDER_ITEM__CHILDREN, FolderItem.class, msgs);
+            msgs = basicSetParent(newParent, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FOLDER_ITEM__PARENT, newParent, newParent));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     */
+    public FolderItem findChildFolder(String name) {
+        for (Iterator it = getChildren().iterator(); it.hasNext();)
+        {
+            Item item = (Item)it.next();
+            if (item instanceof FolderItem &&  item.getProperty().getLabel().equals(name))
+                return (FolderItem)item;
+        }
+        return null;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     */
+    public EList getContent() {
+        return getChildren();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     */
+    public Container getContainer() {
+        return getParent();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.FOLDER_ITEM__CHILDREN:
+                return ((InternalEList)getChildren()).basicAdd(otherEnd, msgs);
+            case PropertiesPackage.FOLDER_ITEM__PARENT:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetParent((Container)otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.FOLDER_ITEM__CHILDREN:
                 return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.FOLDER_ITEM__PARENT:
+                return basicSetParent(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+        switch (eContainerFeatureID) {
+            case PropertiesPackage.FOLDER_ITEM__PARENT:
+                return eInternalContainer().eInverseRemove(this, PropertiesPackage.FOLDER_ITEM__CHILDREN, FolderItem.class, msgs);
+        }
+        return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
@@ -145,6 +254,8 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
                 return getChildren();
             case PropertiesPackage.FOLDER_ITEM__TYPE:
                 return getType();
+            case PropertiesPackage.FOLDER_ITEM__PARENT:
+                return getParent();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -163,6 +274,9 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
             case PropertiesPackage.FOLDER_ITEM__TYPE:
                 setType((FolderType)newValue);
                 return;
+            case PropertiesPackage.FOLDER_ITEM__PARENT:
+                setParent((Container)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -180,6 +294,9 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
             case PropertiesPackage.FOLDER_ITEM__TYPE:
                 setType(TYPE_EDEFAULT);
                 return;
+            case PropertiesPackage.FOLDER_ITEM__PARENT:
+                setParent((Container)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -195,6 +312,8 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
                 return children != null && !children.isEmpty();
             case PropertiesPackage.FOLDER_ITEM__TYPE:
                 return type != TYPE_EDEFAULT;
+            case PropertiesPackage.FOLDER_ITEM__PARENT:
+                return getParent() != null;
         }
         return super.eIsSet(featureID);
     }

@@ -198,7 +198,7 @@ public class Project {
         return name;
     }
 
-    public Object getEmfProject() {
+    public org.talend.core.model.properties.Project getEmfProject() {
         return project;
     }
 
