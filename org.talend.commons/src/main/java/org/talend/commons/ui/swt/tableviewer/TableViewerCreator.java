@@ -221,8 +221,6 @@ public class TableViewerCreator<O> {
 
     private boolean firstVisibleColumnIsSelection;
 
-    private MouseTableSelectionHelper mouseTableSelectionHelper;
-
     /**
      * Constructor.
      * 
@@ -407,7 +405,7 @@ public class TableViewerCreator<O> {
     private void addListeners() {
         
         if (this.firstVisibleColumnIsSelection) {
-            this.mouseTableSelectionHelper = new MouseTableSelectionHelper(table, this.firstColumnMasked);
+            new MouseTableSelectionHelper(table, this.firstColumnMasked);
         }
         
         if (this.layoutMode == LAYOUT_MODE.CURRENT_WIDTH) {
