@@ -430,7 +430,7 @@ public class RepositoryFactory implements IRepositoryFactory {
             try {
                 Property property = PropertiesFactory.eINSTANCE.createProperty();
                 property.setId(getNextId());
-                property.setLabel("routines");
+                property.setLabel("Routines");
 
                 ByteArray byteArray = PropertiesFactory.eINSTANCE.createByteArray();
                 stream = url.openStream();
