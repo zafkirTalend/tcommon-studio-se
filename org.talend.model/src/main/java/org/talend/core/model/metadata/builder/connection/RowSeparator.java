@@ -68,7 +68,7 @@ public final class RowSeparator extends AbstractEnumerator {
      * @see #STANDART_EOL
      * @ordered
      */
-    public static final RowSeparator STANDART_EOL_LITERAL = new RowSeparator(STANDART_EOL, "Standart EOL", "Standart EOL");
+    public static final RowSeparator STANDART_EOL_LITERAL = new RowSeparator(STANDART_EOL, "Standart EOL", "Standard EOL");
 
     /**
      * An array of all the '<em><b>Row Separator</b></em>' enumerators.
