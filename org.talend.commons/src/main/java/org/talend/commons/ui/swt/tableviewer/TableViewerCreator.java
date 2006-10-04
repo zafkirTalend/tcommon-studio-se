@@ -237,6 +237,8 @@ public class TableViewerCreator<O> {
 
     private SelectionHelper selectionHelper;
 
+    private MouseTableSelectionHelper mouseTableSelectionHelper;
+
     /**
      * Constructor.
      * 
@@ -311,7 +313,6 @@ public class TableViewerCreator<O> {
             attachCellEditors();
             attachViewerSorter();
             addListeners();
-            selectionHelper = new SelectionHelper(this);
         }
         // long time11 = System.currentTimeMillis();
         if (list != null) {
@@ -387,6 +388,10 @@ public class TableViewerCreator<O> {
             });
         }
 
+        if (this.firstVisibleColumnIsSelection) {
+            this.mouseTableSelectionHelper = new MouseTableSelectionHelper(this);
+        }
+
     }
 
     /**
@@ -419,10 +424,6 @@ public class TableViewerCreator<O> {
     }
 
     private void addListeners() {
-
-        if (this.firstVisibleColumnIsSelection) {
-            new MouseTableSelectionHelper(this);
-        }
 
         if (this.layoutMode == LAYOUT_MODE.CURRENT_WIDTH) {
             this.tableParentResizedListener = new DefaultTableParentResizedListener(this);
@@ -962,6 +963,9 @@ public class TableViewerCreator<O> {
 
     
     public SelectionHelper getSelectionHelper() {
+        if (this.selectionHelper == null) {
+            this.selectionHelper = new SelectionHelper(this, mouseTableSelectionHelper);
+        }
         return this.selectionHelper;
     }
 

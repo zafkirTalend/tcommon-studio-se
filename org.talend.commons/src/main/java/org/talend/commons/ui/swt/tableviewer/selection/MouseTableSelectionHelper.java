@@ -172,7 +172,7 @@ public class MouseTableSelectionHelper {
                         for (int i = 0; i < countSelected; i++) {
                             selection[i] = i + indexStart;
                         }
-                        table.setSelection(selection);
+                        tableViewerCreator.getSelectionHelper().setSelection(selection);
                     }
                 }
             }
@@ -235,4 +235,10 @@ public class MouseTableSelectionHelper {
         return currentItemIndex;
     }
 
+    
+    public boolean isDraggingOnSelectionColumn() {
+        return this.draggingOnSelectionColumn;
+    }
+
+    
 }

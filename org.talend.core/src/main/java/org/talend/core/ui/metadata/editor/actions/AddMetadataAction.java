@@ -69,14 +69,12 @@ public class AddMetadataAction extends MetadataEditorAction {
             }
             getMetadataTableEditor().addAll(metadataColumns,
                     metadataEditorEvent.indexStartInsert != -1 ? metadataEditorEvent.indexStartInsert : indexStart);
-            Table metadataEditorTable = metadataTableEditorView.getTableViewerCreator().getTable();
             int lstSize = itemsIndicesToSelect.size();
             int[] selection = new int[lstSize];
             for (int i = 0; i < lstSize; i++) {
                 selection[i] = itemsIndicesToSelect.get(i);
             }
-            metadataTableEditorView.setTableSelection(selection, true);
-            // metadataTableEditorView.onSelectionChanged();
+            metadataTableEditorView.getTableViewerCreator().getSelectionHelper().setSelection(selection);
         }
     }
 

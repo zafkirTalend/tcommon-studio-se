@@ -32,6 +32,8 @@ import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
@@ -50,6 +52,9 @@ import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
+import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
+import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
+import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -80,13 +85,11 @@ public class MetadataTableEditorView {
 
     private boolean executeSelectionEvent = true;
 
-    public final static String ID_COLUMN_NAME = "ID_COLUMN_NAME";
+    public static final String ID_COLUMN_NAME = "ID_COLUMN_NAME";
 
     private MetadataToolbarEditorView metadataToolbarEditorView;
 
     private IBeanPropertyAccessors<IMetadataColumn, Boolean> keyAccesor;
-
-    private TableViewerCreatorColumn keyColumn;
 
     public MetadataTableEditorView(Composite parent, int style, MetadataTableEditor metadataTableEditor) {
         this(parent, style);
@@ -140,23 +143,54 @@ public class MetadataTableEditorView {
 //        tableViewerCreator.setAdjustWidthValue(-15);
         tableViewerCreator.setFirstColumnMasked(true);
 
-        final Table table = tableViewerCreator.createTable();
-        table.setLayoutData(new GridData(GridData.FILL_BOTH));
+        initLineSelectionListeners();
+        
+        tableViewerCreator.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
 
-        TableViewer tableViewer = tableViewerCreator.getTableViewer();
-        tableViewer.addOpenListener(new IOpenListener() {
-
-            public void open(OpenEvent event) {
-//                System.out.println("OpenEvent");
-
-            }
-
-        });
-
-        initColumns(tableViewer.getTable());
+        initColumns();
     }
 
-    private void initColumns(Table table) {
+    /**
+     * DOC amaumont Comment method "initLineSelectionListeners".
+     * @return
+     */
+    private Table initLineSelectionListeners() {
+        final Table table = tableViewerCreator.createTable();
+        final SelectionHelper selectionHelper = tableViewerCreator.getSelectionHelper();
+        final ILineSelectionListener beforeLineSelectionListener = new ILineSelectionListener() {
+            public void handle(LineSelectionEvent e) {
+                if (e.selectionByMethod && !selectionHelper.isMouseSelectionning()) {
+                    executeSelectionEvent = false;
+                } else {
+                    executeSelectionEvent = true;
+                }
+            }
+        };
+        final ILineSelectionListener afterLineSelectionListener = new ILineSelectionListener() {
+            public void handle(LineSelectionEvent e) {
+                executeSelectionEvent = true;
+            }
+        };
+        selectionHelper.addBeforeSelectionListener(beforeLineSelectionListener);
+        selectionHelper.addAfterSelectionListener(afterLineSelectionListener);
+        
+        DisposeListener disposeListener = new DisposeListener() {
+            public void widgetDisposed(DisposeEvent e) {
+                selectionHelper.removeBeforeSelectionListener(beforeLineSelectionListener);
+                selectionHelper.removeAfterSelectionListener(afterLineSelectionListener);
+                table.removeDisposeListener(this);
+            }
+        };
+        table.addDisposeListener(disposeListener);
+        return table;
+    }
+
+    /**
+     * 
+     * DOC amaumont Comment method "initColumns".
+     * @param table
+     */
+    private void initColumns() {
 
         String[] arrayTalendTypes = new String[0];
         try {
@@ -376,11 +410,9 @@ public class MetadataTableEditorView {
 
         };
         column.setBeanPropertyAccessors(this.keyAccesor);
-        // column.setModifiable(true);
         column.setWidth(35);
         column.setDisplayedValue("");
         column.setTableEditorContent(new CheckboxTableEditorContent());
-        keyColumn = column;
 
         ////////////////////////////////////////////////////////////////////////////////////////
         
@@ -400,7 +432,7 @@ public class MetadataTableEditorView {
         column.setModifiable(true);
         column.setWeight(10);
         column.setMinimumWidth(30);
-        column.setCellEditor(new ComboBoxCellEditor(table, arrayTalendTypes), comboValueAdapter);
+        column.setCellEditor(new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes), comboValueAdapter);
         
         ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -419,7 +451,7 @@ public class MetadataTableEditorView {
         });
         column.setModifiable(true);
         column.setWidth(55);
-        column.setCellEditor(new TextCellEditor(table), intValueAdapter);
+        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
 
         ////////////////////////////////////////////////////////////////////////////////////////
         
@@ -438,7 +470,7 @@ public class MetadataTableEditorView {
         });
         column.setModifiable(true);
         column.setWidth(60);
-        column.setCellEditor(new TextCellEditor(table), intValueAdapter);
+        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
 
         ////////////////////////////////////////////////////////////////////////////////////////
         
@@ -478,7 +510,7 @@ public class MetadataTableEditorView {
         column.setWeight(10);
         column.setModifiable(true);
         column.setMinimumWidth(30);
-        column.setCellEditor(new TextCellEditor(table));
+        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
  
         ////////////////////////////////////////////////////////////////////////////////////////
 
@@ -498,7 +530,7 @@ public class MetadataTableEditorView {
         column.setWeight(15);
         column.setModifiable(true);
         column.setMinimumWidth(30);
-        column.setCellEditor(new TextCellEditor(table));
+        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
 
     }
 
@@ -534,7 +566,7 @@ public class MetadataTableEditorView {
      */
     public void setTableSelection(int[] selectionIndices, boolean executeSelectionEvent) {
         this.executeSelectionEvent = executeSelectionEvent;
-        this.tableViewerCreator.getTable().setSelection(selectionIndices);
+        this.tableViewerCreator.getSelectionHelper().setSelection(selectionIndices);
         this.executeSelectionEvent = true;
 
     }

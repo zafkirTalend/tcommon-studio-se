@@ -263,10 +263,9 @@ public class TableViewerCreatorLayout extends Layout {
                                 layout(c);
 
                             } finally {
-                                if (tableViewerCreator.getTable().isDisposed()) {
-                                    return;
+                                if (!tableViewerCreator.getTable().isDisposed()) {
+                                    tableViewerCreator.getTable().setLayout(thisLayout);
                                 }
-                                tableViewerCreator.getTable().setLayout(thisLayout);
                             }
 
                         }
