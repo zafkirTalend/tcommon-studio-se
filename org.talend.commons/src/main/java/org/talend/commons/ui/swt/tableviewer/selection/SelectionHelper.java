@@ -390,7 +390,9 @@ fireBeforeSelectionChanged(lineSelectionEvent);
      * @param lineSelectionListener
      */
     public void removeBeforeSelectionListener(ILineSelectionListener lineSelectionListener) {
-        beforeSelectionListeners.remove(lineSelectionListener);
+        if (lineSelectionListener != null) {
+            beforeSelectionListeners.remove(lineSelectionListener);
+        }
         if (beforeSelectionListeners.size() == 0 && afterSelectionListeners.size() == 0) {
             removeListeners();
         }
@@ -418,7 +420,9 @@ fireBeforeSelectionChanged(lineSelectionEvent);
      * @param lineSelectionListener
      */
     public void removeAfterSelectionListener(ILineSelectionListener lineSelectionListener) {
-        afterSelectionListeners.remove(lineSelectionListener);
+        if (lineSelectionListener != null) {
+            afterSelectionListeners.remove(lineSelectionListener);
+        }
         if (beforeSelectionListeners.size() == 0 && afterSelectionListeners.size() == 0) {
             removeListeners();
         }
