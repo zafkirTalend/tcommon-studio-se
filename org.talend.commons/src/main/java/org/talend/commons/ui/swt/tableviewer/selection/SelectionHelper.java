@@ -72,18 +72,18 @@ public class SelectionHelper {
      * DOC amaumont Comment method "init".
      */
     private void init() {
-        this.tableSelectionListener = new SelectionListener() {
-
-            public void widgetDefaultSelected(SelectionEvent e) {
-
-            }
-
-            public void widgetSelected(SelectionEvent e) {
-//                LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
-//                fireAfterSelectionChanged(lineSelectionEvent);
-            }
-
-        };
+//        this.tableSelectionListener = new SelectionListener() {
+//
+//            public void widgetDefaultSelected(SelectionEvent e) {
+//
+//            }
+//
+//            public void widgetSelected(SelectionEvent e) {
+////                LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
+////                fireAfterSelectionChanged(lineSelectionEvent);
+//            }
+//
+//        };
 
         this.selectionChangedListener = new ISelectionChangedListener() {
 
@@ -132,13 +132,13 @@ public class SelectionHelper {
      * DOC amaumont Comment method "addListeners".
      */
     private void addListeners() {
-        this.tableViewerCreator.getTable().addSelectionListener(this.tableSelectionListener);
+//        this.tableViewerCreator.getTable().addSelectionListener(this.tableSelectionListener);
         this.tableViewerCreator.getTableViewer().addPostSelectionChangedListener(this.postSelectionChangedListener);
         this.tableViewerCreator.getTableViewer().addSelectionChangedListener(this.selectionChangedListener);
     }
 
     private void removeListeners() {
-        this.tableViewerCreator.getTable().removeSelectionListener(this.tableSelectionListener);
+//        this.tableViewerCreator.getTable().removeSelectionListener(this.tableSelectionListener);
         this.tableViewerCreator.getTableViewer().removePostSelectionChangedListener(this.postSelectionChangedListener);
         this.tableViewerCreator.getTableViewer().removeSelectionChangedListener(this.selectionChangedListener);
     }
