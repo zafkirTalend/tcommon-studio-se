@@ -100,8 +100,8 @@ public class ImageProvider {
         MODULE_ERROR_ICON("/icons/error.gif"),
         MODULE_WARNING_ICON("/icons/warning.gif"),
         MODULE_UNKNOWN_ICON("/icons/unknown.gif"),
-        MODULE_REQUIRED_ICON("/icons/add.png"),
-        MODULE_NOTREQUIRED_ICON("/icons/minus.png");
+        MODULE_REQUIRED_ICON("/icons/checked.gif"),
+        MODULE_NOTREQUIRED_ICON(IImageConstants.EMPTY16_ICON);
 
         private String path;
 
