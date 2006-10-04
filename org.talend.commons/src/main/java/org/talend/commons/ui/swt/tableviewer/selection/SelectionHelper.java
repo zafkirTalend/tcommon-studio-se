@@ -54,7 +54,7 @@ public class SelectionHelper {
 
     private MouseTableSelectionHelper mouseTableSelectionHelper;
 
-    private boolean activeFireChanged = true;
+    private boolean activeFireSelectionChanged = true;
 
     /**
      * DOC amaumont SelectionHelper constructor comment.
@@ -106,7 +106,7 @@ public class SelectionHelper {
     }
 
     private void fireBeforeSelectionChanged(LineSelectionEvent lineSelectionEvent) {
-        if (!this.activeFireChanged) {
+        if (!this.activeFireSelectionChanged) {
             return;
         }
         Object[] listeners = beforeSelectionListeners.getListeners();
@@ -117,7 +117,7 @@ public class SelectionHelper {
     }
 
     private void fireAfterSelectionChanged(LineSelectionEvent lineSelectionEvent) {
-        if (!this.activeFireChanged) {
+        if (!this.activeFireSelectionChanged) {
             return;
         }
         Object[] listeners = afterSelectionListeners.getListeners();
@@ -437,13 +437,13 @@ fireBeforeSelectionChanged(lineSelectionEvent);
      * activeFireChanged is true by default.
      * @param activeFireChanged
      */
-    public void setActiveFireChanged(boolean activeFireChanged) {
-        this.activeFireChanged  = activeFireChanged;
+    public void setActiveFireSelectionChanged(boolean activeFireChanged) {
+        this.activeFireSelectionChanged  = activeFireChanged;
     }
 
     
-    public boolean isActiveFireChanged() {
-        return this.activeFireChanged;
+    public boolean isActiveFireSelectionChanged() {
+        return this.activeFireSelectionChanged;
     }
     
     
