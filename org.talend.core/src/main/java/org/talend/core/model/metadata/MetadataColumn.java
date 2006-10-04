@@ -281,6 +281,11 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
                 return false;
         } else if (!this.defaut.equals(other.defaut))
             return false;
+        if (this.comment == null) {
+            if (other.comment != null)
+                return false;
+        } else if (!this.comment.equals(other.comment))
+            return false;
         if (this.key != other.key)
             return false;
         if (this.label == null) {
