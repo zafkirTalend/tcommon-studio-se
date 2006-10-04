@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Widget;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.utils.EventUtil;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -109,10 +110,10 @@ public class MouseTableSelectionHelper {
 
                 int columnIndex = getColumnIndex(cursorPositionAtMouseDown);
                 
-                if (columnIndex == 0 && !firstColumnMasked || columnIndex == 1 && firstColumnMasked) {
+                if (isColumnSelection(columnIndex)) {
                     draggingOnSelectionColumn = true;
                     itemIndexAtDraggingStart = getItemIndex(cursorPositionAtMouseDown);
-                    setTableCursor(true);
+                    setShellCursor(true);
                 }
             }
 
@@ -124,7 +125,10 @@ public class MouseTableSelectionHelper {
             public void handleEvent(Event event) {
                 if (draggingOnSelectionColumn) {
                     draggingOnSelectionColumn = false;
-                    setTableCursor(false);
+                    int columnIndex = getColumnIndex(cursorPositionAtMouseDown);
+                    if (!isColumnSelection(columnIndex)) {
+                        setShellCursor(false);
+                    }
                 }
             }
 
@@ -136,11 +140,22 @@ public class MouseTableSelectionHelper {
         final Listener mouseMoveListener = new Listener() {
             
             public void handleEvent(Event event) {
+                Point pointCursor = getCursorPositionFromTableOrigin(event);
                 
-                if (draggingOnSelectionColumn) {
-                    Point pointCursor = getCursorPositionFromTableOrigin(event);
+                int columnIndex = getColumnIndex(pointCursor);
+                if (!draggingOnSelectionColumn) {
+                    if (event.widget != table) {
+                        return;
+                    }
+                    if (isColumnSelection(columnIndex)) {
+                        setShellCursor(true);
+                    } else {
+                        setShellCursor(false);
+                    }
                     
-                    int columnIndex = getColumnIndex(pointCursor);
+                } else {
+                    
+                    setShellCursor(true);
                     if (columnIndex == -1) {
                         pointCursor.x = 0;
                     }
@@ -197,8 +212,10 @@ public class MouseTableSelectionHelper {
     /**
      * DOC amaumont Comment method "setTableCursor".
      */
-    protected void setTableCursor(boolean cursorSelection) {
+    protected void setShellCursor(boolean cursorSelection) {
 
+        System.out.println(cursorSelection);
+        
         Cursor cursor = null;
         if (cursorSelection) {
             if (imageSelectionCursor == null) {
@@ -271,6 +288,16 @@ public class MouseTableSelectionHelper {
         }
         return pointCursor;
     }
+
+    /**
+     * DOC amaumont Comment method "isColumnSelection".
+     * @param columnIndex
+     * @return
+     */
+    private boolean isColumnSelection(int columnIndex) {
+        return columnIndex == 0 && !firstColumnMasked || columnIndex == 1 && firstColumnMasked;
+    }
+
 
     
 }
