@@ -22,7 +22,6 @@
 package org.talend.commons.ui.swt.tableviewer.selection;
 
 import org.eclipse.core.runtime.ListenerList;
-import org.eclipse.jface.util.SafeRunnable;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -31,7 +30,6 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
-import org.eclipse.ui.ISelectionListener;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 
 /**
@@ -55,6 +53,8 @@ public class SelectionHelper {
     private ISelectionChangedListener selectionChangedListener;
 
     private MouseTableSelectionHelper mouseTableSelectionHelper;
+
+    private boolean activeFireChanged = true;
 
     /**
      * DOC amaumont SelectionHelper constructor comment.
@@ -106,6 +106,9 @@ public class SelectionHelper {
     }
 
     private void fireBeforeSelectionChanged(LineSelectionEvent lineSelectionEvent) {
+        if (!this.activeFireChanged) {
+            return;
+        }
         Object[] listeners = beforeSelectionListeners.getListeners();
         for (int i = 0; i < listeners.length; ++i) {
             final ILineSelectionListener l = (ILineSelectionListener) listeners[i];
@@ -114,6 +117,9 @@ public class SelectionHelper {
     }
 
     private void fireAfterSelectionChanged(LineSelectionEvent lineSelectionEvent) {
+        if (!this.activeFireChanged) {
+            return;
+        }
         Object[] listeners = afterSelectionListeners.getListeners();
         for (int i = 0; i < listeners.length; ++i) {
             final ILineSelectionListener l = (ILineSelectionListener) listeners[i];
@@ -423,6 +429,21 @@ fireBeforeSelectionChanged(lineSelectionEvent);
             return false;
         }
         return mouseTableSelectionHelper.isDraggingOnSelectionColumn();
+    }
+    
+    /**
+     * 
+     * DOC amaumont Comment method "setActiveFireChanged".
+     * activeFireChanged is true by default.
+     * @param activeFireChanged
+     */
+    public void setActiveFireChanged(boolean activeFireChanged) {
+        this.activeFireChanged  = activeFireChanged;
+    }
+
+    
+    public boolean isActiveFireChanged() {
+        return this.activeFireChanged;
     }
     
     

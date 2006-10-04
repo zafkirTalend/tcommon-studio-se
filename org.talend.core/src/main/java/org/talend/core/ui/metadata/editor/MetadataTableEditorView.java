@@ -566,7 +566,7 @@ public class MetadataTableEditorView {
      */
     public void setTableSelection(int[] selectionIndices, boolean executeSelectionEvent) {
         this.executeSelectionEvent = executeSelectionEvent;
-        this.tableViewerCreator.getSelectionHelper().setSelection(selectionIndices);
+        this.tableViewerCreator.getTable().setSelection(selectionIndices);
         this.executeSelectionEvent = true;
 
     }
