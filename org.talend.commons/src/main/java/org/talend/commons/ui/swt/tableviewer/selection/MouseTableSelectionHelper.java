@@ -214,8 +214,6 @@ public class MouseTableSelectionHelper {
      */
     protected void setShellCursor(boolean cursorSelection) {
 
-        System.out.println(cursorSelection);
-        
         Cursor cursor = null;
         if (cursorSelection) {
             if (imageSelectionCursor == null) {
