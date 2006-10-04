@@ -199,7 +199,6 @@ public class MouseTableSelectionHelper {
      */
     protected void setTableCursor(boolean cursorSelection) {
 
-        System.out.println(draggingOnSelectionColumn);
         Cursor cursor = null;
         if (cursorSelection) {
             if (imageSelectionCursor == null) {
@@ -267,9 +266,6 @@ public class MouseTableSelectionHelper {
         Widget widget = event.widget;
         if (widget instanceof TableItem) {
             widget = ((TableItem) widget).getParent();
-        }
-        if (widget instanceof ScrollBar) {
-            widget = ((ScrollBar) widget).getParent();
         }
         
         if (widget != table && widget instanceof Control) {
