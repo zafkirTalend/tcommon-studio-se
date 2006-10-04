@@ -125,7 +125,8 @@ public class MouseTableSelectionHelper {
             public void handleEvent(Event event) {
                 if (draggingOnSelectionColumn) {
                     draggingOnSelectionColumn = false;
-                    int columnIndex = getColumnIndex(cursorPositionAtMouseDown);
+                    Point pointCursor = getCursorPositionFromTableOrigin(event);
+                    int columnIndex = getColumnIndex(pointCursor);
                     if (!isColumnSelection(columnIndex)) {
                         setShellCursor(false);
                     }
@@ -233,6 +234,7 @@ public class MouseTableSelectionHelper {
     }
 
     public int getColumnIndex(Point pointCursor) {
+        
         // searching current column index
         int currentColumnIndex = -1;
         TableColumn[] columns = table.getColumns();
