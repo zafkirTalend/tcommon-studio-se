@@ -28,47 +28,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.core.internal.runtime.InternalPlatform;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.util.Assert;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLayoutData;
 import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.ColumnWeightData;
 import org.eclipse.jface.viewers.ICellModifier;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
-import org.osgi.framework.BundleContext;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultHeaderColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultStructuredContentProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableParentResizedListener;
-import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableViewerSorter;
 import org.talend.commons.ui.swt.tableviewer.behavior.TableViewerCreatorLayout;
 import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.selection.MouseTableSelectionHelper;
 import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
+import org.talend.commons.ui.swt.tableviewer.sort.TableViewerCreatorSorter;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.ui.ws.WindowSystem;
 import org.talend.commons.utils.data.list.IListenableListListener;
@@ -219,7 +211,7 @@ public class TableViewerCreator<O> {
 
     private Table table;
 
-    private ViewerSorter viewerSorter;
+    private TableViewerCreatorSorter tableViewerCreatorSorter;
 
     private LAYOUT_MODE layoutMode = LAYOUT_MODE.NONE;
 
@@ -238,6 +230,10 @@ public class TableViewerCreator<O> {
     private SelectionHelper selectionHelper;
 
     private MouseTableSelectionHelper mouseTableSelectionHelper;
+
+    private TableViewerCreatorColumn defaultOrderedColumn;
+
+    private SORT defaultOrderBy;
 
     /**
      * Constructor.
@@ -433,10 +429,13 @@ public class TableViewerCreator<O> {
 
     private void attachViewerSorter() {
 
-        if (this.viewerSorter == null) {
-            this.viewerSorter = new DefaultTableViewerSorter();
+        if (this.tableViewerCreatorSorter == null) {
+            this.tableViewerCreatorSorter = new TableViewerCreatorSorter();
+            if (defaultOrderedColumn != null && defaultOrderBy != null) {
+                this.tableViewerCreatorSorter.prepareSort(this, defaultOrderedColumn, defaultOrderBy);
+            }
         }
-        tableViewer.setSorter(this.viewerSorter);
+        tableViewer.setSorter((ViewerSorter) this.tableViewerCreatorSorter);
     }
 
     private void attachLabelProvider() {
@@ -628,6 +627,11 @@ public class TableViewerCreator<O> {
 
         private int swtStyle = SWT.NONE;
 
+        /**
+         * 
+         * DOC amaumont LINE_SELECTION constructor comment.
+         * @param swtStyle
+         */
         LINE_SELECTION(int swtStyle) {
             this.swtStyle = swtStyle;
         }
@@ -860,16 +864,38 @@ public class TableViewerCreator<O> {
         return this.adjustWidthValue;
     }
 
+    /**
+     * Call this method before {@link #init(List)}.
+     * @param defaultOrderedColumn
+     * @param defaultOrderBy
+     */
+    public void setDefaultSort(TableViewerCreatorColumn defaultOrderedColumn, SORT defaultOrderBy) {
+        this.defaultOrderedColumn = defaultOrderedColumn;
+        this.defaultOrderBy = defaultOrderBy;
+    }
+    
+    /**
+     * Change sort properties and refresh table. You can call this method if you have already call init(List).
+     * @param orderedColumn
+     * @param orderBy
+     */
+    public void setSort(TableViewerCreatorColumn orderedColumn, SORT orderBy) {
+        if (this.tableViewerCreatorSorter != null) {
+            this.tableViewerCreatorSorter.prepareSort(this, orderedColumn, orderBy);
+            this.tableViewer.refresh();
+        }
+    }
+    
     public void setAdjustWidthValue(int adjustWidthValue) {
         this.adjustWidthValue = adjustWidthValue;
     }
 
-    public ViewerSorter getViewerSorter() {
-        return this.viewerSorter;
+    public void setTableViewerCreatorSorter(TableViewerCreatorSorter tableViewerCreatorSorter) {
+        this.tableViewerCreatorSorter = tableViewerCreatorSorter;
     }
-
-    public void setViewerSorter(ViewerSorter viewerSorter) {
-        this.viewerSorter = viewerSorter;
+    
+    public TableViewerCreatorSorter getTableViewerCreatorSorter() {
+        return this.tableViewerCreatorSorter;
     }
 
     public LAYOUT_MODE getLayoutMode() {

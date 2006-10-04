@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer.behavior;
+package org.talend.commons.ui.swt.tableviewer.sort;
 
 import java.text.Collator;
 
@@ -29,7 +29,6 @@ import org.eclipse.swt.SWT;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SORT;
-import org.talend.commons.ui.swt.tableviewer.sort.MultipleColumnsBeanComparator;
 
 /**
  * 
@@ -38,7 +37,7 @@ import org.talend.commons.ui.swt.tableviewer.sort.MultipleColumnsBeanComparator;
  * $Id$
  * 
  */
-public class DefaultTableViewerSorter extends ViewerSorter {
+public class TableViewerCreatorSorter extends ViewerSorter {
 
     private MultipleColumnsBeanComparator columnsBeanComparator;
 
@@ -46,11 +45,11 @@ public class DefaultTableViewerSorter extends ViewerSorter {
 
     private SORT orderDirection;
 
-    public DefaultTableViewerSorter() {
+    public TableViewerCreatorSorter() {
         init();
     }
 
-    public DefaultTableViewerSorter(Collator collator) {
+    public TableViewerCreatorSorter(Collator collator) {
         super(collator);
         init();
     }
@@ -75,6 +74,17 @@ public class DefaultTableViewerSorter extends ViewerSorter {
         if (this.lastIdColumnSorted != null && this.lastIdColumnSorted == tableViewerCreatorColumn) {
             newOrderDirection = (this.orderDirection == SORT.ASC) ? SORT.DESC : SORT.ASC;
         }
+        prepareSort(tableViewerCreator, tableViewerCreatorColumn, newOrderDirection);
+    }
+
+    /**
+     * DOC amaumont Comment method "prepareSort".
+     * 
+     * @param tableViewerCreator
+     * @param tableViewerCreatorColumn
+     * @param newOrderDirection
+     */
+    public void prepareSort(TableViewerCreator tableViewerCreator, TableViewerCreatorColumn tableViewerCreatorColumn, SORT newOrderDirection) {
         tableViewerCreator.getTable().setSortColumn(tableViewerCreatorColumn.getTableColumn());
         tableViewerCreator.getTable().setSortDirection(newOrderDirection == SORT.DESC ? SWT.DOWN : SWT.UP);
         this.columnsBeanComparator.setIgnoreCase(tableViewerCreatorColumn.isOrderWithIgnoreCase());

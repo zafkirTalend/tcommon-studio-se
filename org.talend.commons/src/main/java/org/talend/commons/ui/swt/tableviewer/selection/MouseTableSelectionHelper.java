@@ -207,7 +207,6 @@ public class MouseTableSelectionHelper {
             }
             cursor = new Cursor(table.getDisplay(), imageSelectionCursor.getImageData(), 15, 9);
         } else {
-//            cursor = new Cursor(table.getDisplay(), 0);
             cursor = null;
         }
         if (this.tableCursor != null) {
@@ -216,7 +215,6 @@ public class MouseTableSelectionHelper {
         this.tableCursor = cursor;
         
         table.getShell().setCursor(this.tableCursor);
-        table.setCursor(this.tableCursor);
     }
 
     public int getColumnIndex(Point pointCursor) {

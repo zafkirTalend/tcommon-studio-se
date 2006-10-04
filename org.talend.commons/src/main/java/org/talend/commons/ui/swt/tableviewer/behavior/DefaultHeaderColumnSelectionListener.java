@@ -29,6 +29,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.sort.IColumnSortedListener;
+import org.talend.commons.ui.swt.tableviewer.sort.TableViewerCreatorSorter;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/> $Id: DefaultHeaderColumnSelectionListener.java,v 1.3
@@ -65,7 +66,7 @@ public class DefaultHeaderColumnSelectionListener implements ITableColumnSelecti
      * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
      */
     public void widgetSelected(SelectionEvent e) {
-        DefaultTableViewerSorter viewerSorter = (DefaultTableViewerSorter) tableViewerCreator.getTableViewer()
+        TableViewerCreatorSorter viewerSorter = (TableViewerCreatorSorter) tableViewerCreator.getTableViewer()
                 .getSorter();
         viewerSorter.prepareSort(tableViewerCreator, tableViewerCreatorColumn);
         tableViewerCreator.getTableViewer().refresh();

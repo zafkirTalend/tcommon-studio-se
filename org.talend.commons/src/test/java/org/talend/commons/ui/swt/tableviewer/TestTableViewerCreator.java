@@ -41,6 +41,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LINE_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_SELECTION;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SORT;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
@@ -90,11 +91,12 @@ public final class TestTableViewerCreator {
         column.setWidth(20);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
+        TableViewerCreatorColumn nameColumn = column;
         column.setTitle("Name");
         column.setResizable(true);
         column.setModifiable(true);
         column.setSortable(true);
-        column.setOrderWithIgnoreCase(false);
+        column.setOrderWithIgnoreCase(true);
         // column.setInitWeight(1);
         column.setWidth(100);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, String>() {
@@ -222,6 +224,8 @@ public final class TestTableViewerCreator {
 
         });
 
+        tableViewerCreator.setDefaultSort(nameColumn, SORT.DESC);
+        
         list = new ArrayList<DataObject>();
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
