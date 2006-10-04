@@ -31,5 +31,10 @@ package org.talend.commons.ui.swt.tableviewer.selection;
  */
 public class LineSelectionEvent {
 
+    /** 
+     * Indicate if the current line selection has been made
+     * by calling a selection method of <code>Table</code> or <code>TableViewer</code>,
+     * unlike a selection with keyboard and/or mouse.
+     */
     public boolean selectionByMethod;
 }
