@@ -28,11 +28,14 @@ import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Widget;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 
 /**
@@ -119,42 +122,29 @@ public class MouseTableSelectionHelper {
         final Listener resetDraggingListener = new Listener() {
 
             public void handleEvent(Event event) {
-                draggingOnSelectionColumn = false;
-                setTableCursor(false);
+                if (draggingOnSelectionColumn) {
+                    draggingOnSelectionColumn = false;
+                    setTableCursor(false);
+                }
             }
 
         };
 
-//        table.addListener(SWT.MouseDown, resetDraggingListener);
         table.addListener(SWT.FocusOut, resetDraggingListener);
         table.getDisplay().addFilter(SWT.MouseUp, resetDraggingListener);
 
-        table.addDisposeListener(new DisposeListener() {
-
-            public void widgetDisposed(DisposeEvent e) {
-                table.removeListener(SWT.MouseDown, storeCursorPositionListener);
-                table.removeListener(SWT.MouseDown, resetDraggingListener);
-                table.removeListener(SWT.FocusOut, resetDraggingListener);
-                table.removeDisposeListener(this);
-                table.getDisplay().removeFilter(SWT.MouseUp, resetDraggingListener);
-                if (tableCursor != null) {
-                    tableCursor.dispose();
-                }
-                if (imageSelectionCursor != null) {
-                    imageSelectionCursor.dispose();
-                }
-
-            }
-
-        });
-
-        Listener mouseMoveListener = new Listener() {
-
+        final Listener mouseMoveListener = new Listener() {
+            
             public void handleEvent(Event event) {
-
+                
                 if (draggingOnSelectionColumn) {
-                    Point pointCursor = new Point(event.x, event.y);
-
+                    Point pointCursor = getCursorPositionFromTableOrigin(event);
+                    
+                    int columnIndex = getColumnIndex(pointCursor);
+                    if (columnIndex == -1) {
+                        pointCursor.x = 0;
+                    }
+                    
                     int currentItemIndexUnderCursor = getItemIndex(pointCursor);
                     if (currentItemIndexUnderCursor != -1) {
                         int indexStart = 0;
@@ -178,7 +168,29 @@ public class MouseTableSelectionHelper {
             }
 
         };
-        table.addListener(SWT.MouseMove, mouseMoveListener);
+        table.getDisplay().addFilter(SWT.MouseMove, mouseMoveListener);
+
+        
+        table.addDisposeListener(new DisposeListener() {
+
+            public void widgetDisposed(DisposeEvent e) {
+                table.removeListener(SWT.MouseDown, storeCursorPositionListener);
+                table.removeListener(SWT.MouseDown, resetDraggingListener);
+                table.removeListener(SWT.FocusOut, resetDraggingListener);
+                table.removeDisposeListener(this);
+                table.getDisplay().removeFilter(SWT.MouseUp, resetDraggingListener);
+                table.getDisplay().removeFilter(SWT.MouseMove, mouseMoveListener);
+                if (tableCursor != null) {
+                    tableCursor.dispose();
+                }
+                if (imageSelectionCursor != null) {
+                    imageSelectionCursor.dispose();
+                }
+
+            }
+
+        });
+
 
     }
 
@@ -187,6 +199,7 @@ public class MouseTableSelectionHelper {
      */
     protected void setTableCursor(boolean cursorSelection) {
 
+        System.out.println(draggingOnSelectionColumn);
         Cursor cursor = null;
         if (cursorSelection) {
             if (imageSelectionCursor == null) {
@@ -195,18 +208,21 @@ public class MouseTableSelectionHelper {
             }
             cursor = new Cursor(table.getDisplay(), imageSelectionCursor.getImageData(), 15, 9);
         } else {
-            cursor = new Cursor(table.getDisplay(), 0);
+//            cursor = new Cursor(table.getDisplay(), 0);
+            cursor = null;
         }
         if (this.tableCursor != null) {
             this.tableCursor.dispose();
         }
         this.tableCursor = cursor;
+        
+        table.getShell().setCursor(this.tableCursor);
         table.setCursor(this.tableCursor);
     }
 
     public int getColumnIndex(Point pointCursor) {
         // searching current column index
-        int currentColumnIndex = 0;
+        int currentColumnIndex = -1;
         TableColumn[] columns = table.getColumns();
         for (int i = 0, width = 0; i < columns.length; i++) {
             TableColumn column = columns[i];
@@ -238,6 +254,28 @@ public class MouseTableSelectionHelper {
     
     public boolean isDraggingOnSelectionColumn() {
         return this.draggingOnSelectionColumn;
+    }
+
+    /**
+     * DOC amaumont Comment method "getCursorPositionFromTableOrigin".
+     * @param event
+     * @return
+     */
+    private Point getCursorPositionFromTableOrigin(Event event) {
+        Point pointCursor = new Point(event.x, event.y);
+        
+        Widget widget = event.widget;
+        if (widget instanceof TableItem) {
+            widget = ((TableItem) widget).getParent();
+        }
+        if (widget instanceof ScrollBar) {
+            widget = ((ScrollBar) widget).getParent();
+        }
+        
+        if (widget != table && widget instanceof Control) {
+            pointCursor = table.getDisplay().map((Control) widget, table, pointCursor);
+        }
+        return pointCursor;
     }
 
     
