@@ -144,13 +144,16 @@ public class MouseTableSelectionHelper {
                 Point pointCursor = getCursorPositionFromTableOrigin(event);
                 
                 int columnIndex = getColumnIndex(pointCursor);
+//                System.out.println("handleEvent " + draggingOnSelectionColumn + " " + columnIndex);
                 if (!draggingOnSelectionColumn) {
                     if (event.widget != table) {
+                        setShellCursor(false);
                         return;
                     }
                     if (isColumnSelection(columnIndex)) {
                         setShellCursor(true);
                     } else {
+//                        System.out.println("setShellCursor(false)");
                         setShellCursor(false);
                     }
                     
