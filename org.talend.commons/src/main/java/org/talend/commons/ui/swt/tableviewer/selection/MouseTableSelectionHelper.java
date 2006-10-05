@@ -147,7 +147,10 @@ public class MouseTableSelectionHelper {
 //                System.out.println("handleEvent " + draggingOnSelectionColumn + " " + columnIndex);
                 if (!draggingOnSelectionColumn) {
                     if (event.widget != table) {
-                        setShellCursor(false);
+                        if (! (event.widget instanceof Table)) {
+//                            System.out.println("isColumnSelection");
+                            setShellCursor(false);
+                        }
                         return;
                     }
                     if (isColumnSelection(columnIndex)) {
