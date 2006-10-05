@@ -241,7 +241,10 @@ public class MouseTableSelectionHelper {
         for (int i = 0, width = 0; i < columns.length; i++) {
             TableColumn column = columns[i];
             int widthColumn = column.getWidth();
-            if (pointCursor.x >= width && pointCursor.x <= width + widthColumn) {
+            if (pointCursor.x >= width 
+                    && pointCursor.x <= width + widthColumn 
+                    && pointCursor.y > table.getHeaderHeight() 
+                    && pointCursor.y < table.getHeaderHeight() + table.getItemCount() * table.getItemHeight()) {
                 currentColumnIndex = i;
                 break;
             }
