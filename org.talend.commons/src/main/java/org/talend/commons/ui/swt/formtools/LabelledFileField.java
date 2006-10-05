@@ -199,7 +199,7 @@ public class LabelledFileField {
     protected void displayDialog(Composite composite, String[] extensions) {
         FileDialog fileDialog = new FileDialog(composite.getShell(), SWT.OPEN);
         fileDialog.setFileName(text.getText());
-        fileDialog.setText("Chosse a " + label.getText());
+        fileDialog.setText("Select a " + label.getText());
         if (extensions != null) {
             fileDialog.setFilterExtensions(extensions);
         }
