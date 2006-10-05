@@ -908,6 +908,9 @@ public class TableViewerCreator<O> {
     }
 
     public void layout() {
+        if (table.isDisposed()) {
+            return;
+        }
         Layout currentLayout = table.getLayout();
         if (currentLayout instanceof TableViewerCreatorLayout) {
             ((TableViewerCreatorLayout) currentLayout).forceLayout(table);
