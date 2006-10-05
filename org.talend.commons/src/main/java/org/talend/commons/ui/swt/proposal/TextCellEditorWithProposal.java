@@ -33,6 +33,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.utils.time.TimeMeasure;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -177,7 +178,7 @@ public class TextCellEditorWithProposal extends TextCellEditor {
     }
 
     private void activateCellEditor() {
-//        System.out.println("activateCellEditor");
+        // System.out.println("activateCellEditor");
         cellEditorLocationHasChanged = false;
         int previousModifiedIndex = this.tableViewerCreator.getModifiedObjectInfo().getPreviousModifiedIndex();
         Object previousModifiedBean = this.tableViewerCreator.getTableViewer().getElementAt(previousModifiedIndex);
@@ -207,6 +208,9 @@ public class TextCellEditorWithProposal extends TextCellEditor {
                 text.getDisplay().asyncExec(new Runnable() {
 
                     public void run() {
+                        
+                        //System.out.println("active async");
+                        
                         Point newSelection = selection;
                         if (!text.isFocusControl() && testFocus || !testFocus) {
 //                            System.out.println("activateCellEditorAsynch");

@@ -271,6 +271,7 @@ public class TableViewerCreatorLayout extends Layout {
                         }
 
                         private void layout(final Composite c) {
+                            //System.out.println("Layout" + System.currentTimeMillis());
                             Table table = (Table) c;
                             int newVisibleWidth = table.getClientArea().width + widthAdjustValue;
 

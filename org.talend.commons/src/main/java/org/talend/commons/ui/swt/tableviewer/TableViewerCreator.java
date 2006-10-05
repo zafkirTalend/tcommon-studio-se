@@ -476,9 +476,10 @@ public class TableViewerCreator<O> {
             final TableViewerCreatorColumn column = columns.get(i);
             column.setIndex(i);
             TableColumn tableColumn = column.getTableColumn();
-            if (WindowSystem.isGTK() && column.getWidth() == 0 && column.getWeight() == 0) { // bug with GTK for cell
-                                                                                                // edition when width ==
-                                                                                                // 0
+            if (WindowSystem.isGTK() 
+                    && column.getWidth() == 0 
+                    && column.getWeight() == 0) { 
+                // bug with GTK for cell edition when width == 0
                 column.setWidth(1);
             }
             initColumnLayout(column);
