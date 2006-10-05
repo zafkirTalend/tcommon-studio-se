@@ -50,7 +50,7 @@ import org.eclipse.swt.widgets.Display;
  * $Id$
  *
  */
-public class AsynchronousThread {
+public class AsynchronousThreading {
 
     private int sleepingTime;
     private boolean synchronousDisplayExecution;
@@ -60,7 +60,7 @@ public class AsynchronousThread {
     /**
      * DOC amaumont AsynchronousDisplayThread constructor comment.
      */
-    public AsynchronousThread(int sleepingTime, boolean synchronousDisplayExecution, Display display, Runnable target) {
+    public AsynchronousThreading(int sleepingTime, boolean synchronousDisplayExecution, Display display, Runnable target) {
         this.sleepingTime = sleepingTime;
         this.synchronousDisplayExecution = synchronousDisplayExecution; 
         this.target = target;
@@ -70,7 +70,7 @@ public class AsynchronousThread {
     /**
      * DOC amaumont AsynchronousDisplayThread constructor comment.
      */
-    public AsynchronousThread(int sleepingTime, Runnable target) {
+    public AsynchronousThreading(int sleepingTime, Runnable target) {
         this.sleepingTime = sleepingTime;
         this.target = target;
     }
