@@ -58,7 +58,27 @@ public class MetadataEditorEvent implements IEventAction {
         ;
     }
 
+    /**
+     * 
+     * DOC amaumont MetadataEditorEvent class global comment. Detailled comment
+     * <br/>
+     *
+     * $Id$
+     *
+     */
+    public enum STATE {
+        EDITING,
+        APPLYING,
+        CANCELING,
+        ;
+    }
+    
     public TYPE type;
+    
+    /**
+     * Used for METADATA_NAME_VALUE_CHANGED type
+     */
+    public STATE state;
     
     public List<Object> entries = new ArrayList<Object>();
     
@@ -70,8 +90,6 @@ public class MetadataEditorEvent implements IEventAction {
     
     public Object newValue;
 
-    
-    
     public MetadataEditorEvent() {
         super();
     }

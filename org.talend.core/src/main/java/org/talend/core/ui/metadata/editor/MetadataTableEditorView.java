@@ -57,11 +57,13 @@ import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
 import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
+import org.talend.commons.utils.threading.AsynchronousThreading;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.model.metadata.editor.MetadataEditorEvent.STATE;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent.TYPE;
 import org.talend.core.ui.ImageProvider;
 import org.talend.core.ui.ImageProvider.EImage;
@@ -140,11 +142,11 @@ public class MetadataTableEditorView {
         tableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS_CURRENT);
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
-//        tableViewerCreator.setAdjustWidthValue(-15);
+        // tableViewerCreator.setAdjustWidthValue(-15);
         tableViewerCreator.setFirstColumnMasked(true);
 
         initLineSelectionListeners();
-        
+
         tableViewerCreator.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
 
         initColumns();
@@ -152,12 +154,14 @@ public class MetadataTableEditorView {
 
     /**
      * DOC amaumont Comment method "initLineSelectionListeners".
+     * 
      * @return
      */
     private Table initLineSelectionListeners() {
         final Table table = tableViewerCreator.createTable();
         final SelectionHelper selectionHelper = tableViewerCreator.getSelectionHelper();
         final ILineSelectionListener beforeLineSelectionListener = new ILineSelectionListener() {
+
             public void handle(LineSelectionEvent e) {
                 if (e.selectionByMethod && !selectionHelper.isMouseSelectionning()) {
                     executeSelectionEvent = false;
@@ -167,14 +171,16 @@ public class MetadataTableEditorView {
             }
         };
         final ILineSelectionListener afterLineSelectionListener = new ILineSelectionListener() {
+
             public void handle(LineSelectionEvent e) {
                 executeSelectionEvent = true;
             }
         };
         selectionHelper.addBeforeSelectionListener(beforeLineSelectionListener);
         selectionHelper.addAfterSelectionListener(afterLineSelectionListener);
-        
+
         DisposeListener disposeListener = new DisposeListener() {
+
             public void widgetDisposed(DisposeEvent e) {
                 selectionHelper.removeBeforeSelectionListener(beforeLineSelectionListener);
                 selectionHelper.removeAfterSelectionListener(afterLineSelectionListener);
@@ -188,6 +194,7 @@ public class MetadataTableEditorView {
     /**
      * 
      * DOC amaumont Comment method "initColumns".
+     * 
      * @param table
      */
     private void initColumns() {
@@ -244,16 +251,16 @@ public class MetadataTableEditorView {
                 return -1;
             }
         };
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("");
         column.setDefaultInternalValue("");
         column.setWidth(15);
 
-        ////////////////////////////////////////////////////////////////////////////////////////
-        
+        // //////////////////////////////////////////////////////////////////////////////////////
+
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setId(ID_COLUMN_NAME);
         column.setTitle("Column");
@@ -296,9 +303,9 @@ public class MetadataTableEditorView {
             public void applyEditorValue() {
                 ModifiedObjectInfo<IMetadataColumn> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
                 // System.out.println("------- applyEditorValue=" + text.getText());
-                Object bean = modifiedObjectInfo.getCurrentModifiedBean() != null ? modifiedObjectInfo
-                        .getCurrentModifiedBean() : modifiedObjectInfo.getPreviousModifiedBean();
-                fireEventIfValidColumnName(text.getText(), true, bean);
+                Object bean = modifiedObjectInfo.getCurrentModifiedBean() != null ? modifiedObjectInfo.getCurrentModifiedBean()
+                        : modifiedObjectInfo.getPreviousModifiedBean();
+                fireEventIfValidColumnName(text.getText(), true, bean, MetadataEditorEvent.STATE.APPLYING);
                 lastValidValue = null;
             }
 
@@ -306,7 +313,8 @@ public class MetadataTableEditorView {
                 ModifiedObjectInfo<IMetadataColumn> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
                 String originalName = (String) modifiedObjectInfo.getOriginalPropertyBeanValue();
                 text.setText(originalName);
-                fireEventIfValidColumnName(originalName, false, modifiedObjectInfo.getCurrentModifiedBean());
+                fireEventIfValidColumnName(originalName, false, modifiedObjectInfo.getCurrentModifiedBean(),
+                        MetadataEditorEvent.STATE.CANCELING);
                 lastValidValue = null;
             }
 
@@ -317,21 +325,20 @@ public class MetadataTableEditorView {
                 } else {
                 }
                 String newValue = text.getText();
-                fireEventIfValidColumnName(newValue, false, modifiedObjectInfo.getCurrentModifiedBean());
+                fireEventIfValidColumnName(newValue, false, modifiedObjectInfo.getCurrentModifiedBean(), MetadataEditorEvent.STATE.EDITING);
             }
 
-            private void fireEventIfValidColumnName(final String newValue, boolean showAlertIfError,
-                    final Object currentModifiedBean) {
-                final ModifiedObjectInfo<IMetadataColumn> modifiedObjectInfo = tableViewerCreator
-                        .getModifiedObjectInfo();
+            private void fireEventIfValidColumnName(final String newValue, boolean showAlertIfError, final Object currentModifiedBean,
+                    STATE state) {
+                final ModifiedObjectInfo<IMetadataColumn> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
                 String originalValue = (String) modifiedObjectInfo.getOriginalPropertyBeanValue();
-                lastValidValue = lastValidValue != null ? lastValidValue : originalValue;
+                lastValidValue = lastValidValue != null && state == MetadataEditorEvent.STATE.EDITING ? lastValidValue : originalValue;
 
                 int beanPosition = tableViewerCreator.getInputList().indexOf(currentModifiedBean);
                 final String errorMessage = metadataTableEditor.validateColumnName(newValue, beanPosition);
-//                System.out.println(errorMessage);
+                // System.out.println(errorMessage);
                 if (errorMessage == null) {
-                    createAndFireEvent(lastValidValue, newValue);
+                    createAndFireEvent(lastValidValue, newValue, state);
                     text.setBackground(text.getDisplay().getSystemColor(SWT.COLOR_WHITE));
                     lastValidValue = newValue;
                 } else {
@@ -341,53 +348,39 @@ public class MetadataTableEditorView {
                         // System.out.println("setText:lastValidValue"+lastValidValue);
                         text.setText(lastValidValue);
 
-                        new Thread() {
+                        new AsynchronousThreading(20, false, text.getDisplay(), new Runnable() {
 
                             public void run() {
 
-                                try {
-                                    Thread.sleep(20);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
+                                MessageDialog.openError(composite.getShell(), "Error", errorMessage);
+                                final int columnPosition = tableViewerCreator.getColumns().indexOf(nameColumn);
+                                tableViewerCreator.getTableViewer().editElement(currentModifiedBean, columnPosition);
+                                text.setText(newValue);
+                                text.setSelection(selection.x, selection.y);
 
-                                text.getDisplay().asyncExec(new Runnable() {
-
-                                    public void run() {
-                                        MessageDialog.openError(composite.getShell(), "Error", errorMessage);
-//                                        System.out.println("setText:" + newValue);
-                                        final int columnPosition = tableViewerCreator.getColumns().indexOf(nameColumn);
-                                        tableViewerCreator.getTableViewer().editElement(currentModifiedBean,
-                                                columnPosition);
-                                        text.setText(newValue);
-                                        text.setSelection(selection.x, selection.y);
-                                    }
-
-                                });
-                            };
-                        }.start();
+                            }
+                        }).start();
                     }
                 }
             }
 
-            private void createAndFireEvent(String previousValue, String newValue) {
-                IMetadataColumn currentModifiedObject = tableViewerCreator.getModifiedObjectInfo()
-                        .getCurrentModifiedBean();
+            private void createAndFireEvent(String previousValue, String newValue, STATE state) {
+                IMetadataColumn currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
                 ArrayList<Object> modifiedObjectList = new ArrayList<Object>(1);
                 modifiedObjectList.add(currentModifiedObject);
-                MetadataEditorEvent event = new MetadataEditorEvent(
-                        MetadataEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED);
+                MetadataEditorEvent event = new MetadataEditorEvent(MetadataEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED);
                 event.entries = modifiedObjectList;
                 event.previousValue = previousValue;
                 event.newValue = newValue;
+                event.state = state;
                 metadataTableEditor.fireEvent(event);
             }
 
         });
         column.setCellEditor(cellEditor);
 
-        ////////////////////////////////////////////////////////////////////////////////////////
-        
+        // //////////////////////////////////////////////////////////////////////////////////////
+
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Key");
         this.keyAccesor = new IBeanPropertyAccessors<IMetadataColumn, Boolean>() {
@@ -402,8 +395,7 @@ public class MetadataTableEditorView {
                     tableViewerCreator.getTableViewer().refresh(bean);
                     MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(TYPE.METADATA_KEY_VALUE_CHANGED);
                     metadataEditorEvent.entries.add(bean);
-                    metadataEditorEvent.entriesIndices = new int[] { metadataTableEditor.getMetadataColumnList().indexOf(
-                            bean) };
+                    metadataEditorEvent.entriesIndices = new int[] { metadataTableEditor.getMetadataColumnList().indexOf(bean) };
                     metadataTableEditor.fireEvent(metadataEditorEvent);
                 }
             }
@@ -414,8 +406,8 @@ public class MetadataTableEditorView {
         column.setDisplayedValue("");
         column.setTableEditorContent(new CheckboxTableEditorContent());
 
-        ////////////////////////////////////////////////////////////////////////////////////////
-        
+        // //////////////////////////////////////////////////////////////////////////////////////
+
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Type");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
@@ -433,8 +425,8 @@ public class MetadataTableEditorView {
         column.setWeight(10);
         column.setMinimumWidth(30);
         column.setCellEditor(new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes), comboValueAdapter);
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Length");
@@ -453,8 +445,8 @@ public class MetadataTableEditorView {
         column.setWidth(55);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
 
-        ////////////////////////////////////////////////////////////////////////////////////////
-        
+        // //////////////////////////////////////////////////////////////////////////////////////
+
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Precision");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, Integer>() {
@@ -472,8 +464,8 @@ public class MetadataTableEditorView {
         column.setWidth(60);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
 
-        ////////////////////////////////////////////////////////////////////////////////////////
-        
+        // //////////////////////////////////////////////////////////////////////////////////////
+
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Nullable");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, Boolean>() {
@@ -492,8 +484,8 @@ public class MetadataTableEditorView {
         column.setDisplayedValue("");
         column.setTableEditorContent(new CheckboxTableEditorContent());
 
-        ////////////////////////////////////////////////////////////////////////////////////////
-        
+        // //////////////////////////////////////////////////////////////////////////////////////
+
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Default");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
@@ -511,8 +503,8 @@ public class MetadataTableEditorView {
         column.setModifiable(true);
         column.setMinimumWidth(30);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
- 
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Comment");
@@ -603,5 +595,4 @@ public class MetadataTableEditorView {
         this.metadataToolbarEditorView = metadataToolbarEditorView;
     }
 
-    
 }
