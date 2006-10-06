@@ -54,4 +54,22 @@ public class StringHelper {
         return text;
     }
 
+    /**
+     * Replace MessageFormat.format(..) because MessageFormat does'nt support single quote correctly This method replace
+     * in the text all the patterns {0}, {1}, etc.. by all values in arguments array One or more values can be null, no
+     * exception is thrown if a value is null.
+     * 
+     * @param pattern
+     * @param arguments
+     * @return
+     * 
+     */
+    public static String replacePrms(String text, Object[] arguments, String strBeforeIndex, String strAfterIndex) {
+        
+        for (int i = 0; i < arguments.length; i++) {
+            text = StringUtils.replace(text, strBeforeIndex + i + strAfterIndex, String.valueOf(arguments[i]));
+        }
+        return text;
+    }
+    
 }
