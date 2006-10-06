@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
-import java.io.StringReader;
 import java.io.Writer;
 import java.util.List;
 
@@ -61,6 +60,8 @@ public interface IExternalNode extends INode {
     public void loadDataOut(OutputStream out, Writer writer) throws IOException;
 
     public void loadDataIn(InputStream inputStream, Reader reader) throws IOException, ClassNotFoundException;
+    
+    public List<Problem> getProblems();
 
     // functions already implemented in abstract external node
 

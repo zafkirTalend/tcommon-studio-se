@@ -19,19 +19,46 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.model.process;
+package org.talend.commons.utils.data.container;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * DOC nrousseau class global comment. Detailled comment <br/>
+ * DOC smallet class global comment. Detailled comment <br/>
+ * 
+ * @param <K> DOC smallet
+ * @param <V> DOC smallet
  * 
  * $Id$
  * 
  */
-public abstract class AbstractExternalNode extends AbstractNode implements IExternalNode {
+public class MapList<K, V> extends HashMap<K, List<V>> implements Map<K, List<V>> {
 
-    public List<Problem> getProblems() {
-        return null;
+    private static final long serialVersionUID = -6734316976728141405L;
+
+    @Override
+    public List<V> get(Object arg0) {
+        List<V> list = super.get(arg0);
+        if (list == null) {
+            list = new ArrayList<V>();
+            put((K) arg0, list);
+        }
+        return list;
+    }
+
+    public boolean put(K key, V value) {
+        return get(key).add(value);
+    }
+
+    public void clear(K key) {
+        get(key).clear();
+    }
+
+    public boolean removeAll(K key, Collection<V> c) {
+        return get(key).removeAll(c);
     }
 }
