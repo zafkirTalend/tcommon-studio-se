@@ -30,6 +30,7 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.talend.core.model.components.IODataComponentContainer;
 import org.talend.core.model.metadata.IMetadataTable;
 
 /**
@@ -39,7 +40,7 @@ import org.talend.core.model.metadata.IMetadataTable;
  * 
  */
 public interface IExternalNode extends INode {
-    
+
     public void initialize();
 
     /**
@@ -60,7 +61,7 @@ public interface IExternalNode extends INode {
     public void loadDataOut(OutputStream out, Writer writer) throws IOException;
 
     public void loadDataIn(InputStream inputStream, Reader reader) throws IOException, ClassNotFoundException;
-    
+
     public List<Problem> getProblems();
 
     // functions already implemented in abstract external node
@@ -88,6 +89,6 @@ public interface IExternalNode extends INode {
     public abstract void renameInputConnection(String oldName, String newName);
 
     public abstract void renameOutputConnection(String oldName, String newName);
-    
-   
+
+    public void setIODataComponents(IODataComponentContainer components);
 }
