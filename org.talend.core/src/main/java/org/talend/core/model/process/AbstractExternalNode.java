@@ -33,7 +33,7 @@ import org.talend.core.model.components.IODataComponentContainer;
  */
 public abstract class AbstractExternalNode extends AbstractNode implements IExternalNode {
 
-    private IODataComponentContainer ioDatacontainer;
+    private IODataComponentContainer ioDataContainer;
 
     public List<Problem> getProblems() {
         return null;
@@ -43,14 +43,14 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
      * @see org.talend.core.model.process.IExternalNode#setIODataComponents(org.talend.core.model.components.IODataComponentContainer)
      */
     public void setIODataComponents(IODataComponentContainer ioDatacontainer) {
-        this.ioDatacontainer = ioDatacontainer;
+        this.ioDataContainer = ioDatacontainer;
     }
 
     /* (non-Javadoc)
      * @see org.talend.core.model.process.IExternalNode#getIODataComponents()
      */
     public IODataComponentContainer getIODataComponents() {
-        return this.ioDatacontainer;
+        return this.ioDataContainer;
     }
 
     
