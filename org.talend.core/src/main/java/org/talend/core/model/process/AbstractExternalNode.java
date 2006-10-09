@@ -23,6 +23,8 @@ package org.talend.core.model.process;
 
 import java.util.List;
 
+import org.talend.core.model.components.IODataComponentContainer;
+
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -31,7 +33,27 @@ import java.util.List;
  */
 public abstract class AbstractExternalNode extends AbstractNode implements IExternalNode {
 
+    private IODataComponentContainer ioDatacontainer;
+
     public List<Problem> getProblems() {
         return null;
     }
+    
+    /* (non-Javadoc)
+     * @see org.talend.core.model.process.IExternalNode#setIODataComponents(org.talend.core.model.components.IODataComponentContainer)
+     */
+    public void setIODataComponents(IODataComponentContainer ioDatacontainer) {
+        this.ioDatacontainer = ioDatacontainer;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.core.model.process.IExternalNode#getIODataComponents()
+     */
+    public IODataComponentContainer getIODataComponents() {
+        return this.ioDatacontainer;
+    }
+
+    
+    
+    
 }
