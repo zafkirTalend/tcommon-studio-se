@@ -89,5 +89,5 @@ public interface IExternalNode extends INode {
 
     public abstract void renameOutputConnection(String oldName, String newName);
     
-    public void renameMetadataColumnName(String conectionName, String oldColumnName, String newColumnName);
+   
 }

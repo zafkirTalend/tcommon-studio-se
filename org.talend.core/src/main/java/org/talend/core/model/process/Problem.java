@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-
 /**
  * Class that will be used in the ProblemsView. <br/>
  * 

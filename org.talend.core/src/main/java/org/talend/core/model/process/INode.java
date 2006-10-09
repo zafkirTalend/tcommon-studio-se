@@ -99,12 +99,16 @@ public interface INode extends IElement {
      * @return
      */
     public List<IMetadataTable> getMetadataList();
-    
+
     List<? extends INodeReturn> getReturns();
-    
+
     public IProcess getProcess();
-    
+
     public void setProcess(IProcess process);
-    
+
     public IComponent getComponent();
+
+ //   public IExternalNode getExternalNode();
+    
+    public void renameMetadataColumnName(String conectionName, String oldColumnName, String newColumnName);
 }

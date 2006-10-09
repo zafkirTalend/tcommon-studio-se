@@ -29,6 +29,10 @@ package org.talend.core.model.metadata;
  */
 public interface IMetadataColumn {
 
+    public int getId();
+
+    public void setId(int i);
+
     public String getLabel();
 
     public void setLabel(String label);
@@ -40,15 +44,15 @@ public interface IMetadataColumn {
     public String getType();
 
     public void setType(String type);
-    
+
     public String getTalendType();
-    
+
     public void setTalendType(String talendType);
-    
+
     public String getDbms();
-    
+
     public void setDbms(String dbms);
-    
+
     public Integer getLength();
 
     public void setLength(Integer length);
@@ -64,12 +68,12 @@ public interface IMetadataColumn {
     public String getDefault();
 
     public void setDefault(String defaut);
-    
+
     public String getComment();
 
     public void setComment(String comment);
-    
+
     public IMetadataColumn clone();
-    
+
     public boolean sameMetacolumnAs(IMetadataColumn metaColumn);
 }

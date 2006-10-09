@@ -48,4 +48,5 @@ public interface IMetadataTable extends IRepositoryObject {
     public void setParent(IMetadataConnection metadataConnection);
 
     public boolean sameMetadataAs(IMetadataTable meta);
+
 }

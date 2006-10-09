@@ -29,6 +29,10 @@ package org.talend.core.model.metadata;
  */
 public class MetadataColumn implements IMetadataColumn, Cloneable {
 
+    private static int nextId = 0;
+
+    private int id;
+
     private String label = "";
 
     private boolean key = false;
@@ -49,16 +53,18 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 
     private String comment = "";
 
-    
     public MetadataColumn() {
         super();
+        this.id = getNewId();
     }
 
     /**
      * copy all fields.
+     * 
      * @param metadataColumn
      */
     public MetadataColumn(IMetadataColumn metadataColumn) {
+        this();
         this.label = metadataColumn.getLabel();
         this.key = metadataColumn.isKey();
         try {
@@ -73,6 +79,28 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         this.precision = metadataColumn.getPrecision();
         this.defaut = metadataColumn.getDefault();
         this.comment = metadataColumn.getComment();
+    }
+
+    private static synchronized int getNewId() {
+        return nextId++;
+    }
+
+    /**
+     * Getter for id.
+     * 
+     * @return the id
+     */
+    public int getId() {
+        return this.id;
+    }
+
+    /**
+     * Sets the id.
+     * 
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
     }
 
     /*

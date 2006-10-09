@@ -21,6 +21,10 @@
 // ============================================================================
 package org.talend.core.ui.metadata.dialog;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -34,7 +38,10 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.editor.IMetadataEditorListener;
+import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
 
@@ -72,8 +79,8 @@ public class MetadataDialog extends Dialog {
 
     private boolean outputReadOnly = false;
 
-    public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, String titleInput,
-            IMetadataTable outputMetaTable, String titleOutput) {
+    public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, String titleInput, IMetadataTable outputMetaTable,
+            String titleOutput) {
         super(parent);
         this.inputMetaTable = inputMetaTable;
         this.titleInput = titleInput;
@@ -119,16 +126,19 @@ public class MetadataDialog extends Dialog {
     @Override
     protected Control createDialogArea(final Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
+
+        MetadataTableEditor metadataTableEditor;
+
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, new MetadataTableEditor(outputMetaTable,
-                    titleOutput));
+            metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
+            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor);
             // outputMetaView.getTableViewerCreator().layout();
         } else {
             GridLayout gridLayout = new GridLayout(3, false);
             composite.setLayout(gridLayout);
-            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, new MetadataTableEditor(inputMetaTable,
-                    titleInput + " (Input)"));
+            metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)");
+            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor);
 
             // inputMetaView.getTableViewerCreator().setVerticalScroll(true);
             inputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
@@ -177,8 +187,7 @@ public class MetadataDialog extends Dialog {
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
-                            | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
                     messageBox.setText("Schema modification");
                     messageBox.setMessage("All columns from the input schema will be transfered to the output schema");
                     if (messageBox.open() == SWT.OK) {
@@ -195,8 +204,7 @@ public class MetadataDialog extends Dialog {
             copyToInput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
-                            | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
                     messageBox.setText("Schema modification");
                     messageBox.setMessage("All columns from the output schema will be transfered to the input schema");
                     if (messageBox.open() == SWT.OK) {
@@ -253,8 +261,31 @@ public class MetadataDialog extends Dialog {
             }
             // outputMetaView.getTableViewerCreator().layout();
         }
+
+        metadataTableEditor.addListener(new IMetadataEditorListener() {
+
+            public void handleEvent(MetadataEditorEvent event) {
+                if (event.type == MetadataEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED) {
+                    List modifiedObjects = event.entries;
+                    IMetadataColumn modifiedObject = null;
+                    if (modifiedObjects != null && modifiedObjects.size() > 0) {
+                        modifiedObject = (IMetadataColumn) modifiedObjects.get(0);
+                    }
+                    if (modifiedObject != null) {
+                        String originalLabel = changedNameColumns.get(modifiedObject);
+                        if (originalLabel == null) {
+                            changedNameColumns.put(modifiedObject, (String) event.previousValue);
+                        }
+                    }
+                }
+            }
+
+        });
+
         return composite;
     }
+
+    public Map<IMetadataColumn, String> changedNameColumns = new HashMap<IMetadataColumn, String>();
 
     /**
      * Returns input metadata.
