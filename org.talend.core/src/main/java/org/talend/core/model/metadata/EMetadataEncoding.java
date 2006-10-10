@@ -31,6 +31,8 @@ public enum EMetadataEncoding {
 
     UTF8("UTF-8", "Unicode 2.0 UTF-8"),
     UTF16("UTF-16", "Unicode 2.0 (16 bit)"),
+    UTF16LE("UTF-16LE", "Unicode (16 bit)"),
+    UTF16BE("UTF-16BE", "Unicode BigEndian (16 bit)"),
     UTF7("UTF-7", "Unicode 2.0 UTF-7"),
     ISO88591("ISO-8859-1", "(Latin-1) Europe occidentale, Amérique latine"),
     ISO88592("ISO-8859-2", "(Latin-2) Europe centrale et orientale"),
@@ -42,11 +44,12 @@ public enum EMetadataEncoding {
     ISO88598("ISO-8859-8", "Hébreu"),
     ISO88599("ISO-8859-9", "Turc"),
     ISO885910("ISO-8859-10", "Langues lapone, nordique, esquimaude"),
+    windows1252("windows-1252", "Microsoft (Latin-1)"),
     BIG5("BIG5", "Big Five (Chinois traditionnel)"),
     GB18030("GB18030", "Standard national Chinois"),
     GB2312("GB2312", "Chinois"),
     EUC_CN("EUC_CN", "Chinois simplifié (Code-CN Unix étendu)");
-
+    
     /*
     EUC_JP   Code-JP Unix étendu  Japonais  
     EUC_KR   Code-KR Unix étendu  Coréen   
