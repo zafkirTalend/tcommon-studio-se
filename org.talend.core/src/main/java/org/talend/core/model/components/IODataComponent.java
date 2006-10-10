@@ -21,9 +21,14 @@
 // ============================================================================
 package org.talend.core.model.components;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
+import org.talend.core.model.process.INode;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -58,5 +63,86 @@ public class IODataComponent {
 
     public IMetadataTable getTable() {
         return clonedTables;
+    }
+
+    public INode getTarget() {
+        return connection.getTarget();
+    }
+
+    private IMetadataColumn getColumn(int id) {
+        // TODO SML Optimize
+        for (IMetadataColumn col : clonedTables.getListColumns()) {
+            if (col.getId() == id) {
+                return col;
+            }
+        }
+        return null;
+    }
+
+    public List<ColumnNameChanged> getColumnNameChanged() {
+        List<ColumnNameChanged> toReturn = new ArrayList<ColumnNameChanged>();
+        for (IMetadataColumn originalColumn : connection.getMetadataTable().getListColumns()) {
+            IMetadataColumn clonedColumn = getColumn(originalColumn.getId());
+            if (!originalColumn.getLabel().equals(clonedColumn.getLabel())) {
+                toReturn.add(new ColumnNameChanged(getName(), originalColumn.getLabel(), clonedColumn.getLabel()));
+            }
+        }
+        return toReturn;
+    }
+
+    /**
+     * 
+     * DOC smallet IODataComponentContainer class global comment. Detailled comment <br/>
+     * 
+     * $Id$
+     * 
+     */
+    public class ColumnNameChanged {
+
+        private String connectionName;
+
+        private String oldName;
+
+        private String newName;
+
+        /**
+         * DOC smallet ColumnNameChanged constructor comment.
+         * 
+         * @param oldName
+         * @param newName
+         */
+        public ColumnNameChanged(String connectionName, String oldName, String newName) {
+            super();
+            this.oldName = oldName;
+            this.newName = newName;
+        }
+
+        /**
+         * Getter for connectionName.
+         * 
+         * @return the connectionName
+         */
+        public String getConnectionName() {
+            return this.connectionName;
+        }
+
+        /**
+         * Getter for newName.
+         * 
+         * @return the newName
+         */
+        public String getNewName() {
+            return this.newName;
+        }
+
+        /**
+         * Getter for oldName.
+         * 
+         * @return the oldName
+         */
+        public String getOldName() {
+            return this.oldName;
+        }
+
     }
 }

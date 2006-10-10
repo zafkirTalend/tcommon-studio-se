@@ -275,7 +275,7 @@ public class MetadataToolbarEditorView {
 
         loadButton = new Button(toolbar, SWT.PUSH);
         loadButton.setText("Load");
-        loadButton.setImage(ImageProvider.getImage(EImage.LOAD_ICON));
+        loadButton.setImage(ImageProvider.getImage(EImage.IMPORT_ICON));
 
         exportButton = new Button(toolbar, SWT.PUSH);
         exportButton.setText("Export");

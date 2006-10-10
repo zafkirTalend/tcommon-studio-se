@@ -43,6 +43,8 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.editor.IMetadataEditorListener;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.ui.ImageProvider;
+import org.talend.core.ui.ImageProvider.EImage;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
 
 /**
@@ -180,9 +182,10 @@ public class MetadataDialog extends Dialog {
             // inputMetaView.getTableViewerCreator().layout();
 
             Composite buttonComposite = new Composite(composite, SWT.NONE);
-            buttonComposite.setLayout(new GridLayout(1, false));
+            buttonComposite.setLayout(new GridLayout(1, true));
             Button copyToOutput = new Button(buttonComposite, SWT.NONE);
-            copyToOutput.setText("=>");
+            // copyToOutput.setText("=>");
+            copyToOutput.setImage(ImageProvider.getImage(EImage.RIGHT_ICON));
             copyToOutput.setToolTipText("Copy all columns from input schema to output schema");
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
@@ -199,7 +202,8 @@ public class MetadataDialog extends Dialog {
                 }
             });
             Button copyToInput = new Button(buttonComposite, SWT.NONE);
-            copyToInput.setText("<=");
+            // copyToInput.setText("<=");
+            copyToInput.setImage(ImageProvider.getImage(EImage.LEFT_ICON));
             copyToInput.setToolTipText("Copy all columns from output schema to input schema");
             copyToInput.addListener(SWT.Selection, new Listener() {
 

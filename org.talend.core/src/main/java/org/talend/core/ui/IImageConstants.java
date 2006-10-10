@@ -29,29 +29,29 @@ package org.talend.core.ui;
  */
 public interface IImageConstants {
 
-    public static final String MINUS_ICON = "/icons/minus.png";
+    public static final String MINUS_ICON = "/icons/delete.gif";
 
-    public static final String ADD_ICON = "/icons/add.png";
+    public static final String ADD_ICON = "/icons/add.gif";
 
-    public static final String DOWN_ICON = "/icons/down.png";
+    public static final String DOWN_ICON = "/icons/down.gif";
 
-    public static final String UP_ICON = "/icons/up.png";
+    public static final String UP_ICON = "/icons/up.gif";
 
     public static final String LOCK_ICON = "/icons/lock.png";
 
-    public static final String REFRESH_ICON = "/icons/refresh.png";
+    public static final String REFRESH_ICON = "/icons/refresh.gif";
 
-    public static final String DELETE_ICON = "/icons/delete.png";
+    public static final String DELETE_ICON = "/icons/delete.gif";
 
-    public static final String LOAD_ICON = "/icons/load.png";
+    public static final String IMPORT_ICON = "/icons/import.gif";
 
-    public static final String EXPORT_ICON = "/icons/export.png";
+    public static final String EXPORT_ICON = "/icons/export.gif";
 
     public static final String CUT_ICON = "/icons/cut.png";
 
-    public static final String COPY_ICON = "/icons/copy.png";
+    public static final String COPY_ICON = "/icons/copy.gif";
 
-    public static final String PASTE_ICON = "/icons/paste.png";
+    public static final String PASTE_ICON = "/icons/paste.gif";
 
     public static final String SAVE_ICON = "/icons/save.png";
 
