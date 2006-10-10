@@ -110,6 +110,7 @@ public class MetadataToolbarEditorView2 {
      */
     private void addListeners() {
         addButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 if (metadataEditorView.getMetadataEditor() != null) {
                     metadataEditorView.getTableViewerCreator().getTable().setFocus();
@@ -121,14 +122,15 @@ public class MetadataToolbarEditorView2 {
                     metadataEditorEvent.entries.add(metadataColumn);
                     Table metadataEditorTable = metadataEditorView.getTableViewerCreator().getTable();
                     metadataEditorEvent.entriesIndices = metadataEditorTable.getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory2.getInstance().getAction(metadataEditorView,
-                            metadataEditorEvent);
+                    IAction action = MetadataEditorActionFactory2.getInstance()
+                            .getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
                 }
             }
         });
 
         removeButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 if (metadataEditorView.getMetadataEditor() != null) {
                     int index = metadataEditorView.getTableViewerCreator().getTable().getSelectionIndex();
@@ -137,8 +139,8 @@ public class MetadataToolbarEditorView2 {
                     metadataEditorEvent.type = MetadataEditorEvent.TYPE.REMOVE;
                     metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory2.getInstance().getAction(metadataEditorView,
-                            metadataEditorEvent);
+                    IAction action = MetadataEditorActionFactory2.getInstance()
+                            .getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
                     if ((index) < metadataEditorView.getTableViewerCreator().getTable().getItemCount()) {
                         metadataEditorView.getTableViewerCreator().getTable().setSelection(index);
@@ -152,6 +154,7 @@ public class MetadataToolbarEditorView2 {
         });
 
         copyButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 if (metadataEditorView.getMetadataEditor() != null) {
                     metadataEditorView.getTableViewerCreator().getTable().setFocus();
@@ -159,8 +162,8 @@ public class MetadataToolbarEditorView2 {
                     metadataEditorEvent.type = MetadataEditorEvent.TYPE.COPY;
                     metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory2.getInstance().getAction(metadataEditorView,
-                            metadataEditorEvent);
+                    IAction action = MetadataEditorActionFactory2.getInstance()
+                            .getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
                     metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
@@ -168,6 +171,7 @@ public class MetadataToolbarEditorView2 {
         });
 
         pasteButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 if (metadataEditorView.getMetadataEditor() != null) {
                     metadataEditorView.getTableViewerCreator().getTable().setFocus();
@@ -175,8 +179,8 @@ public class MetadataToolbarEditorView2 {
                     metadataEditorEvent.type = MetadataEditorEvent.TYPE.PASTE;
                     metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory2.getInstance().getAction(metadataEditorView,
-                            metadataEditorEvent);
+                    IAction action = MetadataEditorActionFactory2.getInstance()
+                            .getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
                     metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
@@ -184,6 +188,7 @@ public class MetadataToolbarEditorView2 {
         });
 
         moveUpButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 if (metadataEditorView.getMetadataEditor() != null) {
                     metadataEditorView.getTableViewerCreator().getTable().setFocus();
@@ -191,8 +196,8 @@ public class MetadataToolbarEditorView2 {
                     metadataEditorEvent.type = MetadataEditorEvent.TYPE.MOVE_UP;
                     metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory2.getInstance().getAction(metadataEditorView,
-                            metadataEditorEvent);
+                    IAction action = MetadataEditorActionFactory2.getInstance()
+                            .getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
                     metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
@@ -200,6 +205,7 @@ public class MetadataToolbarEditorView2 {
         });
 
         moveDownButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 if (metadataEditorView.getMetadataEditor() != null) {
                     metadataEditorView.getTableViewerCreator().getTable().setFocus();
@@ -207,8 +213,8 @@ public class MetadataToolbarEditorView2 {
                     metadataEditorEvent.type = MetadataEditorEvent.TYPE.MOVE_DOWN;
                     metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory2.getInstance().getAction(metadataEditorView,
-                            metadataEditorEvent);
+                    IAction action = MetadataEditorActionFactory2.getInstance()
+                            .getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
                     metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
@@ -216,6 +222,7 @@ public class MetadataToolbarEditorView2 {
         });
 
         loadButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 FileDialog dial = new FileDialog(toolbar.getShell(), SWT.OPEN);
                 dial.setFilterExtensions(new String[] { "*.xml" });
@@ -229,20 +236,17 @@ public class MetadataToolbarEditorView2 {
                                 // remove all the columns from the table
                                 MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent();
                                 metadataEditorEvent.type = MetadataEditorEvent.TYPE.REMOVE;
-                                int[] index = new int[metadataEditorView.getTableViewerCreator().getTable()
-                                        .getItemCount()];
-                                for (int i = 0; i < metadataEditorView.getTableViewerCreator().getTable()
-                                        .getItemCount(); i++) {
+                                int[] index = new int[metadataEditorView.getTableViewerCreator().getTable().getItemCount()];
+                                for (int i = 0; i < metadataEditorView.getTableViewerCreator().getTable().getItemCount(); i++) {
                                     index[i] = i;
                                 }
                                 metadataEditorEvent.entriesIndices = index;
-                                IAction action = MetadataEditorActionFactory2.getInstance().getAction(
-                                        metadataEditorView, metadataEditorEvent);
+                                IAction action = MetadataEditorActionFactory2.getInstance().getAction(metadataEditorView,
+                                        metadataEditorEvent);
                                 action.run(metadataEditorEvent);
 
                                 // load the schema
-                                List<MetadataColumn> loadMetadataColumn = MetadataSchema
-                                        .loadMetadataColumnFromFile(file);
+                                List<MetadataColumn> loadMetadataColumn = MetadataSchema.loadMetadataColumnFromFile(file);
 
                                 // Add Columnsof Schema to the table
                                 if (!loadMetadataColumn.isEmpty()) {
@@ -251,8 +255,7 @@ public class MetadataToolbarEditorView2 {
                                     for (int i = 0; i < loadMetadataColumn.size(); i++) {
                                         // check the unicity of label
                                         String label = loadMetadataColumn.get(i).getLabel();
-                                        label = metadataEditorView.getMetadataEditor().getValidateColumnName(label, i,
-                                                newList);
+                                        label = metadataEditorView.getMetadataEditor().getValidateColumnName(label, i, newList);
                                         loadMetadataColumn.get(i).setLabel(label);
                                         newList.add(loadMetadataColumn.get(i));
                                         metadataEditorEvent.entries.add(loadMetadataColumn.get(i));
@@ -268,6 +271,7 @@ public class MetadataToolbarEditorView2 {
                                 metadataEditorView.getTableViewerCreator().getTable().setFocus();
                                 metadataEditorView.getTableViewerCreator().getTable().deselectAll();
                                 metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+                                metadataEditorView.getTableViewerCreator().layout();
 
                             } catch (ParserConfigurationException e) {
                                 openMessageError("Parsing XML Error : " + e.getMessage());
@@ -290,6 +294,7 @@ public class MetadataToolbarEditorView2 {
         });
 
         exportButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 FileDialog dial = new FileDialog(toolbar.getShell(), SWT.SAVE);
                 dial.setFilterExtensions(new String[] { "*.xml" });
