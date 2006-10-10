@@ -24,6 +24,9 @@ package org.talend.core.model.components;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.process.IConnection;
+
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
@@ -59,4 +62,17 @@ public class IODataComponentContainer {
         return this.ouputs;
     }
 
+    public IMetadataTable getTable(IConnection connection) {
+        for (IODataComponent current : inputs) {
+            if (current.getName().equals(connection.getName())) {
+                return current.getTable();
+            }
+        }
+        for (IODataComponent current : ouputs) {
+            if (current.getName().equals(connection.getName())) {
+                return current.getTable();
+            }
+        }
+        return null;
+    }
 }

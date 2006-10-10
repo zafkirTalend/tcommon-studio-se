@@ -40,8 +40,6 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
 
     private IMetadataConnection parent;
 
-    private int nextId = 0;
-
     /*
      * (non-Javadoc)
      * 

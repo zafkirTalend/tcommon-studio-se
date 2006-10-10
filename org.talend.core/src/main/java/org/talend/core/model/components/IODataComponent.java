@@ -53,6 +53,12 @@ public class IODataComponent {
         this.clonedTables = connection.getMetadataTable().clone();
     }
 
+    public IODataComponent(IConnection connection, IMetadataTable clonedTables) {
+        super();
+        this.connection = connection;
+        this.clonedTables = clonedTables;
+    }
+
     public String getName() {
         return connection.getName();
     }
@@ -113,6 +119,7 @@ public class IODataComponent {
          */
         public ColumnNameChanged(String connectionName, String oldName, String newName) {
             super();
+            this.connectionName = connectionName;
             this.oldName = oldName;
             this.newName = newName;
         }

@@ -23,7 +23,9 @@ package org.talend.core.model.process;
 
 import java.util.List;
 
+import org.talend.core.model.components.IODataComponent;
 import org.talend.core.model.components.IODataComponentContainer;
+import org.talend.core.model.components.IODataComponent.ColumnNameChanged;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -38,22 +40,35 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
     public List<Problem> getProblems() {
         return null;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.model.process.IExternalNode#setIODataComponents(org.talend.core.model.components.IODataComponentContainer)
      */
     public void setIODataComponents(IODataComponentContainer ioDatacontainer) {
         this.ioDataContainer = ioDatacontainer;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.model.process.IExternalNode#getIODataComponents()
      */
     public IODataComponentContainer getIODataComponents() {
         return this.ioDataContainer;
     }
 
-    
-    
-    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.INode#metataChanged(org.talend.core.model.components.IODataComponent)
+     */
+    public void metadataChanged(IODataComponent dataComponent) {
+        for (ColumnNameChanged col : dataComponent.getColumnNameChanged()) {
+            this.renameMetadataColumnName(col.getConnectionName(), col.getOldName(), col.getNewName());
+        }
+    }
+
+    protected abstract void renameMetadataColumnName(String conectionName, String oldColumnName, String newColumnName);
 }
