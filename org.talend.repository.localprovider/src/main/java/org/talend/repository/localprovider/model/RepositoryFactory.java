@@ -49,11 +49,9 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.QualifiedName;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.talend.commons.exception.BusinessException;
@@ -282,7 +280,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         ERepositoryObjectType[] repositoryObjectTypeList = new ERepositoryObjectType[] { ERepositoryObjectType.BUSINESS_PROCESS,
                 ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.METADATA_CONNECTIONS,
                 ERepositoryObjectType.METADATA_FILE_DELIMITED, ERepositoryObjectType.METADATA_FILE_POSITIONAL,
-                ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.PROCESS };
+                ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES };
         for (ERepositoryObjectType repositoryObjectType : repositoryObjectTypeList) {
             IFolder folder = ResourceUtils
                     .getFolder(fsProject, LocalResourceModelUtils.getFolderName(repositoryObjectType), true);
@@ -405,7 +403,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         IFolder folderTemp = ResourceUtils.getFolder(prj, RepositoryConstants.TEMP_DIRECTORY, false);
         ResourceUtils.createFolder(folderTemp);
         folderHelper.createSystemFolder(new Path(RepositoryConstants.TEMP_DIRECTORY));
-        
+
         // 2. Img folder :
         IFolder folderImg = ResourceUtils.getFolder(prj, RepositoryConstants.IMG_DIRECTORY, false);
         ResourceUtils.createFolder(folderImg);
@@ -484,6 +482,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         }
         return projects;
     }
+
     private void synchronizeFolders(final IProject project, final org.talend.core.model.properties.Project emfProject) {
         final FolderHelper helper = FolderHelper.createInstance(emfProject);
         final Set<IPath> listFolders = helper.listFolders();
@@ -491,31 +490,29 @@ public class RepositoryFactory implements IRepositoryFactory {
             project.accept(new IResourceVisitor() {
 
                 public boolean visit(IResource resource) throws CoreException {
-                    if (resource.getType() == IResource.FOLDER)
-                    {
+                    if (resource.getType() == IResource.FOLDER) {
                         IPath path = resource.getProjectRelativePath();
-                        if (!listFolders.remove(path))
-                        {
+                        if (!listFolders.remove(path)) {
                             helper.createFolder(path);
                         }
                     }
                     return true;
                 }
-                
+
             });
         } catch (CoreException e) {
             e.printStackTrace();
         }
-        //delete remaining folders
-        for (IPath path : listFolders)
-        {
-            helper.deleteFolder( path);
+        // delete remaining folders
+        for (IPath path : listFolders) {
+            helper.deleteFolder(path);
         }
-        saveProjectResource(emfProject);        
+        saveProjectResource(emfProject);
     }
 
     /**
      * DOC tguiu Comment method "saveProjectResource".
+     * 
      * @param emfProject
      */
     private void saveProjectResource(final org.talend.core.model.properties.Project emfProject) {
@@ -661,7 +658,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, true);
         FolderHelper.createInstance(repositoryContext.getProject()).deleteFolder(completePath);
         saveProjectResource(repositoryContext.getProject().getEmfProject());
-        
+
         ResourceUtils.deleteFolder(folder);
     }
 
@@ -693,7 +690,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         IPath targetPath = new Path(label);
         FolderHelper.createInstance(repositoryContext.getProject()).renameFolder(completePath, label);
         saveProjectResource(repositoryContext.getProject().getEmfProject());
-        
+
         ResourceUtils.moveResource(folder, targetPath);
     }
 
@@ -1223,6 +1220,7 @@ public class RepositoryFactory implements IRepositoryFactory {
             case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM:
             case PropertiesPackage.DATABASE_CONNECTION_ITEM:
             case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM:
+                // not really usefull for ConnectionItem : it's not copied to another resource for edition
                 itemResource = save((ConnectionItem) item);
                 break;
             case PropertiesPackage.DOCUMENTATION_ITEM:
@@ -1239,17 +1237,26 @@ public class RepositoryFactory implements IRepositoryFactory {
             throw new UnsupportedOperationException();
         }
 
-        xmiResourceManager.checkFileName(item.getProperty());
+        propagateFileName(item.getProperty());
+
         xmiResourceManager.saveResource(item.eResource());
         xmiResourceManager.saveResource(itemResource);
     }
 
     public void save(Property property) throws PersistenceException {
-        xmiResourceManager.checkFileName(property);
+        propagateFileName(property);
+
         property.setModificationDate(new Date());
         Resource propertyResource = property.eResource();
         if (propertyResource != null) {
             xmiResourceManager.saveResource(propertyResource);
+        }
+    }
+
+    private void propagateFileName(Property property) throws PersistenceException {
+        List<IRepositoryObject> allVersionToMove = getSerializable(repositoryContext.getProject(), property.getId(), true);
+        for (IRepositoryObject object : allVersionToMove) {
+            xmiResourceManager.propagateFileName(property, object.getProperty());
         }
     }
 

@@ -29,6 +29,8 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -43,6 +45,7 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.repository.localprovider.model.ResourceFilenameHelper.FileName;
 
 /**
  * DOC mhelleboid class global comment. Detailled comment <br/>
@@ -58,8 +61,7 @@ public class XmiResourceManager {
 
     private static final String PROJECT_DESCRIPTION_FILE = "talendProject";
 
-    private static final char SEPARATOR = '_';
-
+    // PTODO MHE should use a custom ResourceFactory
     // PTODO MHE test duplicate resourcesUri in resourceSet !
     private ResourceSet resourceSet = new ResourceSetImpl();
 
@@ -76,18 +78,6 @@ public class XmiResourceManager {
         Property property = (Property) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE
                 .getProperty());
         return property;
-    }
-
-    private String getFileName(Property property) {
-        StringBuffer stringBuffer = new StringBuffer();
-
-        stringBuffer.append(property.getId());
-        stringBuffer.append(SEPARATOR);
-        stringBuffer.append(property.getLabel());
-        stringBuffer.append(SEPARATOR);
-        stringBuffer.append(property.getVersion());
-
-        return stringBuffer.toString();
     }
 
     private IPath getFolderPath(IProject project, ERepositoryObjectType repositoryObjectType, IPath relativePath)
@@ -115,6 +105,12 @@ public class XmiResourceManager {
             boolean byteArrayResource) throws PersistenceException {
         URI itemResourceURI = getItemResourceURI(project, repositoryObjectType, path, item);
 
+        Resource itemResource = createItemResource(byteArrayResource, itemResourceURI);
+
+        return itemResource;
+    }
+
+    private Resource createItemResource(boolean byteArrayResource, URI itemResourceURI) {
         Resource itemResource;
         if (byteArrayResource) {
             itemResource = new ByteArrayResource(itemResourceURI);
@@ -122,7 +118,6 @@ public class XmiResourceManager {
         } else {
             itemResource = resourceSet.createResource(itemResourceURI);
         }
-
         return itemResource;
     }
 
@@ -145,9 +140,6 @@ public class XmiResourceManager {
     }
 
     public List<Resource> getAffectedResources(Property property) {
-        // resolveAll needed to load the good implementation of Resource
-        // eg : FileItemImpl.eResolveProxy
-        // should use a custom ResourceFactory
         EcoreUtil.resolveAll(property.getItem());
 
         List<Resource> resources = new ArrayList<Resource>();
@@ -185,7 +177,8 @@ public class XmiResourceManager {
     private URI getItemResourceURI(IProject project, ERepositoryObjectType repositoryObjectType, IPath path, Item item)
             throws PersistenceException {
         IPath folderPath = getFolderPath(project, repositoryObjectType, path);
-        IPath resourcePath = folderPath.append(getFileName(item.getProperty())).addFileExtension(ITEM_EXTENSION);
+        FileName fileName = ResourceFilenameHelper.create(item.getProperty());
+        IPath resourcePath = ResourceFilenameHelper.getExpectedFilePath(fileName, folderPath, ITEM_EXTENSION);
 
         return URI.createPlatformResourceURI(resourcePath.toOSString());
     }
@@ -194,26 +187,67 @@ public class XmiResourceManager {
         return file.getFileExtension().equals(PROPERTIES_EXTENSION);
     }
 
-    public void checkFileName(Property property) throws PersistenceException {
-        boolean needSaving = false;
+    public void propagateFileName(Property lastVersionProperty, Property resourceProperty) throws PersistenceException {
+        List<Resource> affectedResources = getAffectedResources(resourceProperty);
+        List<Resource> resourcesToSave = new ArrayList<Resource>();
 
-        List<Resource> affectedResources = getAffectedResources(property);
+        Property previousVersionProperty = null;
+
         for (Resource resource : affectedResources) {
-            URI uri = resource.getURI();
-            String fileName = uri.trimFileExtension().lastSegment();
-            String expectedFileName = getFileName(property);
-            if (!fileName.equals(expectedFileName)) {
-                String fileExtension = uri.fileExtension();
-                IPath path = URIHelper.convert(uri.trimSegments(1)).append(expectedFileName).addFileExtension(fileExtension);
-                moveResource(resource, path);
-                needSaving = true;
+            ResourceFilenameHelper.FileName fileName = ResourceFilenameHelper.create(resource, resourceProperty,
+                    lastVersionProperty);
+
+            if (ResourceFilenameHelper.mustChangeVersion(fileName)) {
+                IPath path = URIHelper.convert(resource.getURI());
+                IPath bakPath = path.addFileExtension("bak");
+
+                // Create copy
+                copyResource(resource, bakPath);
+                IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(bakPath);
+
+                // move actual to new version
+                moveResource(resource, ResourceFilenameHelper.getExpectedFilePath(fileName, false));
+                resourcesToSave.add(resource);
+
+                // restore copy as previous version
+                ResourceUtils.moveResource(file, path);
+                file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+
+                if (isPropertyFile(file)) {
+                    previousVersionProperty = loadProperty(file);
+                }
+            } else if (ResourceFilenameHelper.mustChangeLabel(fileName)) {
+                resourceProperty.setLabel(lastVersionProperty.getLabel());
+                moveResource(resource, ResourceFilenameHelper.getExpectedFilePath(fileName, false));
+                resourcesToSave.add(resource);
             }
         }
 
-        if (needSaving) {
-            for (Resource resource : affectedResources) {
-                saveResource(resource);
+        if (previousVersionProperty != null) {
+            List<Resource> previousVersionResources = getAffectedResources(previousVersionProperty);
+            for (Resource resource : previousVersionResources) {
+                FileName fileName = ResourceFilenameHelper.create(resource, previousVersionProperty, lastVersionProperty);
+
+                if (ResourceFilenameHelper.mustChangeLabel(fileName)) {
+                    IPath expectedFilePath = ResourceFilenameHelper.getExpectedFilePath(fileName, true);
+                    previousVersionProperty.setLabel(lastVersionProperty.getLabel());
+                    moveResource(resource, expectedFilePath);
+                }
+                resourcesToSave.add(resource);
             }
+        }
+
+        for (Resource resource : resourcesToSave) {
+            saveResource(resource);
+        }
+    }
+
+    private void copyResource(Resource resource, IPath path) throws PersistenceException {
+        IFile file = URIHelper.getFile(resource.getURI());
+        try {
+            file.copy(path, true, null);
+        } catch (CoreException e) {
+            throw new PersistenceException(e);
         }
     }
 }
