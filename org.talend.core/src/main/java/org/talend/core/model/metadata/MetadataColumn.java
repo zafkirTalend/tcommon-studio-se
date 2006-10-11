@@ -85,6 +85,11 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         return nextId++;
     }
 
+    @Override
+    public String toString() {
+        return getLabel();
+    }
+
     /**
      * Getter for id.
      * 

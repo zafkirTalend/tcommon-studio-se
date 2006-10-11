@@ -59,6 +59,11 @@ public class IODataComponent {
         this.clonedTables = clonedTables;
     }
 
+    @Override
+    public String toString() {
+        return "Connection=[" + connection + "], Table=[" + clonedTables + "]";
+    }
+
     public String getName() {
         return connection.getName();
     }
@@ -72,7 +77,13 @@ public class IODataComponent {
     }
 
     public INode getTarget() {
+        // PTODO SML Check if use when stable
         return connection.getTarget();
+    }
+
+    public INode getSource() {
+        // PTODO SML Check if use when stable
+        return connection.getSource();
     }
 
     private IMetadataColumn getColumn(int id) {

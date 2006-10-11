@@ -40,6 +40,15 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
 
     private IMetadataConnection parent;
 
+    @Override
+    public String toString() {
+        StringBuffer toReturn = new StringBuffer(getTableName() + ":");
+        for (IMetadataColumn cur : listColumns) {
+            toReturn.append(cur.toString() + " ");
+        }
+        return toReturn.toString();
+    }
+
     /*
      * (non-Javadoc)
      * 
