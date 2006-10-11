@@ -39,7 +39,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Project extends Container {
+public interface Project extends EObject {
 
     /**
      * Returns the value of the '<em><b>Technical Status</b></em>' containment reference list. The list contents

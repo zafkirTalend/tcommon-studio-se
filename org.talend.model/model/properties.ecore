@@ -3,7 +3,7 @@
     xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="properties"
     nsURI="http://www.talend.org/properties" nsPrefix="TalendProperties">
-  <eClassifiers xsi:type="ecore:EClass" name="Project" eSuperTypes="#//Container">
+  <eClassifiers xsi:type="ecore:EClass" name="Project">
     <eStructuralFeatures xsi:type="ecore:EReference" name="technicalStatus" upperBound="-1"
         eType="#//Status" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="documentationStatus" upperBound="-1"
@@ -122,13 +122,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="projects" unique="false"
         upperBound="-1" eType="#//Project" eOpposite="#//Project/users"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FolderItem" eSuperTypes="#//Item #//Container">
+  <eClassifiers xsi:type="ecore:EClass" name="FolderItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" unique="false"
-        upperBound="-1" eType="#//Item" containment="true" eOpposite="#//FolderItem/parent"/>
+        upperBound="-1" eType="#//Item" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" unique="false" lowerBound="1"
         eType="#//FolderType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parent" eType="#//Container"
-        eOpposite="#//FolderItem/children"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="FolderType">
     <eLiterals name="FOLDER" literal="FOLDER"/>
@@ -155,12 +153,5 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" unique="false"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Container" interface="true">
-    <eOperations name="findChildFolder" eType="#//FolderItem">
-      <eParameters name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    </eOperations>
-    <eOperations name="getContent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EEList"/>
-    <eOperations name="getContainer" eType="#//Container"/>
   </eClassifiers>
 </ecore:EPackage>
