@@ -64,10 +64,14 @@ public final class DataTypeHelper {
      */
     public static String getTalendTypeOfValue(final String value) {
         String javaType = getJavaTypeOfValue(value);
-        if (javaType.equals("Integer")) {
-            return "NUMBER";
-        } else if (javaType.equals("Character")) {
-            return "CHAR";
+        if (javaType != null) {
+            if (javaType.equals("Integer")) {
+                return "NUMBER";
+            } else if (javaType.equals("Character")) {
+                return "CHAR";
+            }
+        } else {
+            return "String";
         }
         return javaType.toUpperCase();
     }
