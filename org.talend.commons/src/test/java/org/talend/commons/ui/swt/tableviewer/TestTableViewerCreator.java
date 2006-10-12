@@ -29,11 +29,15 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -81,7 +85,7 @@ public final class TestTableViewerCreator {
 
         // tableEditor.setCheckboxInFirstColumn(true);
 
-        Table table = tableViewerCreator.createTable();
+        final Table table = tableViewerCreator.createTable();
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Selection");
@@ -224,6 +228,39 @@ public final class TestTableViewerCreator {
 
         });
 
+        Listener eraseItemListener = new Listener() {
+
+            public void handleEvent(Event event) {
+
+                if ((event.detail & SWT.SELECTED) != 0) {
+
+                    GC gc = event.gc;
+                    
+
+                    Rectangle rect = event.getBounds();
+
+                    Color background = gc.getBackground();
+
+                    gc.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_RED));
+
+                    // TODO: uncomment to see selection on linux gtk
+
+                    // ((TableItem)event.item).setBackground(null);
+
+                    gc.fillRectangle(rect);
+
+                    gc.setBackground(background);
+
+                    event.detail &= ~SWT.SELECTED;
+
+                }
+
+            }
+
+        };
+        table.addListener(SWT.EraseItem, eraseItemListener);
+
+        
         tableViewerCreator.setDefaultSort(nameColumn, SORT.DESC);
         
         list = new ArrayList<DataObject>();

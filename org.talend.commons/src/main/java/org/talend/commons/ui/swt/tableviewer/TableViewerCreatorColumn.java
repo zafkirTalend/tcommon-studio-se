@@ -24,12 +24,12 @@ package org.talend.commons.ui.swt.tableviewer;
 import java.util.Comparator;
 
 import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TableColumn;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.behavior.ITableCellValueModifiedListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
@@ -125,6 +125,8 @@ public class TableViewerCreatorColumn implements Cloneable {
     private String displayedValue;
 
     private TableViewerCreator tableViewerCreator;
+
+    private ITableCellValueModifiedListener cellEditorAppliedListener;
 
     /**
      * 
@@ -368,6 +370,14 @@ public class TableViewerCreatorColumn implements Cloneable {
         this.tableColumnSelectionListener = tableColumnSelectionListener;
     }
 
+    public ITableCellValueModifiedListener getCellEditorAppliedListener() {
+        return this.cellEditorAppliedListener;
+    }
+    
+    public void setCellEditorAppliedListener(ITableCellValueModifiedListener cellEditorAppliedListener) {
+        this.cellEditorAppliedListener = cellEditorAppliedListener;
+    }
+    
     public String getId() {
         if (this.id == null) {
             this.id = this.title;

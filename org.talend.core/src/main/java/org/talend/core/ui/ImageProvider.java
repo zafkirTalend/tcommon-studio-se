@@ -91,7 +91,9 @@ public class ImageProvider {
         ADD_ICON(IImageConstants.ADD_ICON),
         MINUS_ICON(IImageConstants.MINUS_ICON),
         KEY(IImageConstants.KEY_ICON),
-        EMPTY16(IImageConstants.EMPTY16_ICON),
+        KEY16(IImageConstants.KEY16_ICON),
+        TRANSPARENT16(IImageConstants.TRANSPARENT16_ICON),
+        TRANSPARENT16x16(IImageConstants.TRANSPARENT16X16_ICON),
         DOC_WORD_ICON(IImageConstants.DOC_WORD_ICON),
         DOC_EXCEL_ICON(IImageConstants.DOC_EXCEL_ICON),
         DOC_POWERPOINT_ICON(IImageConstants.DOC_POWERPOINT_ICON),
@@ -103,7 +105,7 @@ public class ImageProvider {
         MODULE_WARNING_ICON("/icons/warning.gif"),
         MODULE_UNKNOWN_ICON("/icons/unknown.gif"),
         MODULE_REQUIRED_ICON("/icons/checked.gif"),
-        MODULE_NOTREQUIRED_ICON(IImageConstants.EMPTY16_ICON);
+        MODULE_NOTREQUIRED_ICON(IImageConstants.TRANSPARENT16_ICON);
 
         private String path;
 

@@ -55,6 +55,7 @@ import org.talend.commons.ui.swt.tableviewer.behavior.DefaultHeaderColumnSelecti
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultStructuredContentProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableParentResizedListener;
+import org.talend.commons.ui.swt.tableviewer.behavior.ITableCellValueModifiedListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.TableViewerCreatorLayout;
 import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
@@ -476,9 +477,7 @@ public class TableViewerCreator<O> {
             final TableViewerCreatorColumn column = columns.get(i);
             column.setIndex(i);
             TableColumn tableColumn = column.getTableColumn();
-            if (WindowSystem.isGTK() 
-                    && column.getWidth() == 0 
-                    && column.getWeight() == 0) { 
+            if (WindowSystem.isGTK() && column.getWidth() == 0 && column.getWeight() == 0) {
                 // bug with GTK for cell edition when width == 0
                 column.setWidth(1);
             }
@@ -631,6 +630,7 @@ public class TableViewerCreator<O> {
         /**
          * 
          * DOC amaumont LINE_SELECTION constructor comment.
+         * 
          * @param swtStyle
          */
         LINE_SELECTION(int swtStyle) {
@@ -867,6 +867,7 @@ public class TableViewerCreator<O> {
 
     /**
      * Call this method before {@link #init(List)}.
+     * 
      * @param defaultOrderedColumn
      * @param defaultOrderBy
      */
@@ -874,9 +875,10 @@ public class TableViewerCreator<O> {
         this.defaultOrderedColumn = defaultOrderedColumn;
         this.defaultOrderBy = defaultOrderBy;
     }
-    
+
     /**
      * Change sort properties and refresh table. You can call this method if you have already call init(List).
+     * 
      * @param orderedColumn
      * @param orderBy
      */
@@ -886,7 +888,7 @@ public class TableViewerCreator<O> {
             this.tableViewer.refresh();
         }
     }
-    
+
     public void setAdjustWidthValue(int adjustWidthValue) {
         this.adjustWidthValue = adjustWidthValue;
     }
@@ -894,7 +896,7 @@ public class TableViewerCreator<O> {
     public void setTableViewerCreatorSorter(TableViewerCreatorSorter tableViewerCreatorSorter) {
         this.tableViewerCreatorSorter = tableViewerCreatorSorter;
     }
-    
+
     public TableViewerCreatorSorter getTableViewerCreatorSorter() {
         return this.tableViewerCreatorSorter;
     }
@@ -991,7 +993,6 @@ public class TableViewerCreator<O> {
         return this.firstVisibleColumnIsSelection;
     }
 
-    
     public SelectionHelper getSelectionHelper() {
         if (this.selectionHelper == null) {
             this.selectionHelper = new SelectionHelper(this, mouseTableSelectionHelper);
@@ -999,5 +1000,32 @@ public class TableViewerCreator<O> {
         return this.selectionHelper;
     }
 
-}
+    /**
+     * You must use DefaultCellModifier or a class which extends it to use this method.
+     * @param tableCellValueModifiedListener
+     * @throws UnsupportedOperationException if current CellModifier is not DefaultCellModifier or a class which extends it  
+     */
+    public void addCellValueModifiedListener(ITableCellValueModifiedListener tableCellValueModifiedListener) {
+        if (this.cellModifier instanceof DefaultCellModifier) {
+            ((DefaultCellModifier) this.cellModifier).addCellEditorAppliedListener(tableCellValueModifiedListener);
+        } else {
+            throw new UnsupportedOperationException("The current CellModifier dose'nt support this operation. \n Use '"
+                    + DefaultCellModifier.class + "' or a class which extends it to use this feature");
+        }
+    }
 
+    /**
+     * You must use DefaultCellModifier or a class which extends it to use this method.
+     * @param tableCellValueModifiedListener
+     * @throws UnsupportedOperationException if current CellModifier is not DefaultCellModifier or a class which extends it  
+     */
+    public void removeCellValueModifiedListener(ITableCellValueModifiedListener tableCellValueModifiedListener) {
+        if (this.cellModifier instanceof DefaultCellModifier) {
+            ((DefaultCellModifier) this.cellModifier).removeCellEditorAppliedListener(tableCellValueModifiedListener);
+        } else {
+            throw new UnsupportedOperationException("The current CellModifier dose'nt support this operation. \n Use '"
+                    + DefaultCellModifier.class + "' or a class which extends it to use this feature");
+        }
+    }
+
+}

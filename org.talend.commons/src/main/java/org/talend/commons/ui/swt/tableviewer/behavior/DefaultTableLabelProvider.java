@@ -23,7 +23,9 @@ package org.talend.commons.ui.swt.tableviewer.behavior;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ITableColorProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
@@ -36,7 +38,7 @@ import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
  * $Id$
  * 
  */
-public class DefaultTableLabelProvider implements ITableLabelProvider {
+public class DefaultTableLabelProvider implements ITableLabelProvider, ITableColorProvider {
 
    protected TableViewerCreator tableViewerCreator;
 
@@ -95,5 +97,19 @@ public class DefaultTableLabelProvider implements ITableLabelProvider {
     }
 
     public void removeListener(ILabelProviderListener lpl) {
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.viewers.ITableColorProvider#getBackground(java.lang.Object, int)
+     */
+    public Color getBackground(Object element, int columnIndex) {
+        return null;
+    }
+
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.viewers.ITableColorProvider#getForeground(java.lang.Object, int)
+     */
+    public Color getForeground(Object element, int columnIndex) {
+        return null;
     }
 }

@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.behavior;
 
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -31,7 +32,8 @@ import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
 /**
  * 
  * Default implementation of <code>ICellModifier</code> used by <code>TableViewerCreator</code>. This
- * implementation retrieve or modify values with reflection on data object. <br/>
+ * implementation retrieve or modify values (using accesors defined in <code>TableViewerCreatorColumn</code>) on data
+ * object. <br/>
  * 
  * $Id$
  * 
@@ -41,7 +43,9 @@ import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
  */
 public class DefaultCellModifier<O> implements ICellModifier {
 
-    TableViewerCreator tableViewerCreator;
+    private TableViewerCreator tableViewerCreator;
+
+    private ListenerList cellEditorAppliedListeners = new ListenerList();
 
     public DefaultCellModifier(TableViewerCreator tableViewerCreator) {
         super();
@@ -69,7 +73,7 @@ public class DefaultCellModifier<O> implements ICellModifier {
         modifiedObjectInfo.setCurrentModifiedBean(bean);
         modifiedObjectInfo.setCurrentModifiedColumn(column);
         modifiedObjectInfo.setCurrentModifiedIndex(this.tableViewerCreator.getInputList().indexOf(bean));
-        
+
         Object returnValue = null;
         Object value = AccessorUtils.get(bean, column);
 
@@ -107,8 +111,9 @@ public class DefaultCellModifier<O> implements ICellModifier {
                 typedValue = column.getDefaultInternalValue();
             }
             AccessorUtils.set(data, typedValue, column);
+            tableViewerCreator.getTableViewer().refresh(data);
+            fireCellEditorApplied((TableItem) element, data, column, value, typedValue);
         }
-        tableViewerCreator.getTableViewer().refresh(data);
         ModifiedObjectInfo modifiedObjectInfo = this.tableViewerCreator.getModifiedObjectInfo();
         modifiedObjectInfo.setPreviousModifiedBean(((TableItem) element).getData());
         modifiedObjectInfo.setPreviousModifiedIndex(modifiedObjectInfo.getCurrentModifiedIndex());
@@ -117,4 +122,35 @@ public class DefaultCellModifier<O> implements ICellModifier {
         modifiedObjectInfo.setCurrentModifiedColumn(null);
         modifiedObjectInfo.setOriginalPropertyBeanValue(null);
     }
+
+    /**
+     * 
+     * DOC amaumont Comment method "fireCellEditorApplied".
+     * 
+     * @param tableItem
+     * @param bean
+     * @param idColumn
+     * @param cellEditorAppliedValue
+     * @param storedValue
+     */
+    private void fireCellEditorApplied(TableItem tableItem, Object bean, TableViewerCreatorColumn column, Object cellEditorAppliedValue,
+            Object storedValue) {
+        TableCellValueModifiedEvent event = new TableCellValueModifiedEvent(tableItem, bean, column, cellEditorAppliedValue, storedValue);
+        final Object[] listenerArray = cellEditorAppliedListeners.getListeners();
+        for (int i = 0; i < listenerArray.length; i++) {
+            ((ITableCellValueModifiedListener) listenerArray[i]).cellValueModified(event);
+        }
+        if (column.getCellEditorAppliedListener() != null) {
+            column.getCellEditorAppliedListener().cellValueModified(event);
+        }
+    }
+
+    public void addCellEditorAppliedListener(ITableCellValueModifiedListener lineSelectionListener) {
+        this.cellEditorAppliedListeners.add(lineSelectionListener);
+    }
+
+    public void removeCellEditorAppliedListener(ITableCellValueModifiedListener cellEditorAppliedListener) {
+        this.cellEditorAppliedListeners.remove(cellEditorAppliedListener);
+    }
+
 }

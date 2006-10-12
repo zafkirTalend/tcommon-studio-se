@@ -256,8 +256,8 @@ public class MetadataTableEditorView2 {
             }
 
         });
-        final Image imageKey = ImageProvider.getImage(EImage.KEY);
-        final Image imageEmpty = org.talend.core.ui.ImageProvider.getImage(EImage.EMPTY16);
+        final Image imageKey = ImageProvider.getImage(EImage.KEY16);
+        final Image imageEmpty = org.talend.core.ui.ImageProvider.getImage(EImage.TRANSPARENT16x16);
         column.setImageProvider(new IColumnImageProvider() {
 
             public Image getImage(Object element) {
