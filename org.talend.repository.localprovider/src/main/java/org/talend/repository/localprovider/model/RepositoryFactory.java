@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.repository.localprovider.model;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -49,9 +51,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.talend.commons.exception.BusinessException;
@@ -1140,8 +1144,11 @@ public class RepositoryFactory implements IRepositoryFactory {
     private Resource create(BusinessProcessItem item, IPath path) throws PersistenceException {
         Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path,
                 ERepositoryObjectType.BUSINESS_PROCESS, false);
-        itemResource.getContents().add(item.getNotation());
+                //notation depends on semantic ... 
+                //in case of new(=empty) diagram, we don't care about order
+                //in other cases, the ordered addition references between notaion and semantic will be updated
         itemResource.getContents().add(item.getSemantic());
+        itemResource.getContents().add(item.getNotation());
 
         return itemResource;
     }
@@ -1252,6 +1259,27 @@ public class RepositoryFactory implements IRepositoryFactory {
             xmiResourceManager.saveResource(propertyResource);
         }
     }
+    
+    public Item copy(Item originalItem, IPath path) throws PersistenceException {
+        Resource resource = originalItem.eResource();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+            resource.save(out, null);
+            Resource createResource = new ResourceSetImpl().createResource(resource.getURI());
+            ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
+            createResource.load(in, null);
+            Item newItem = (Item)EcoreUtil.getObjectByType(createResource.getContents(), PropertiesPackage.eINSTANCE.getItem());
+            Property property = newItem.getProperty();
+            property.setId(getNextId());
+            setPropNewName(property);
+            create(newItem, path);
+            return newItem;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return null;
+    }
 
     private void propagateFileName(Property property) throws PersistenceException {
         List<IRepositoryObject> allVersionToMove = getSerializable(repositoryContext.getProject(), property.getId(), true);
@@ -1260,32 +1288,6 @@ public class RepositoryFactory implements IRepositoryFactory {
         }
     }
 
-    public Item copy(Item originalItem, IPath path) throws PersistenceException {
-        Copier copier = new Copier();
-        EObject result = copier.copy(originalItem);
-        copier.copyReferences();
-
-        Item copiedItem = (Item) result;
-
-        Property copiedProperty = (Property) EcoreUtil.copy(originalItem.getProperty());
-        copiedProperty.setId(getNextId());
-        copiedItem.setProperty(copiedProperty);
-
-        if (originalItem instanceof FileItem) {
-            ByteArray copiedContent = (ByteArray) EcoreUtil.copy(((FileItem) originalItem).getContent());
-            ((FileItem) copiedItem).setContent(copiedContent);
-        }
-        if (originalItem instanceof ConnectionItem) {
-            Connection copiedConnection = (Connection) EcoreUtil.copy(((ConnectionItem) originalItem).getConnection());
-            copiedConnection.setId(getNextId());
-            ((ConnectionItem) copiedItem).setConnection(copiedConnection);
-        }
-
-        setPropNewName(copiedProperty);
-        create(copiedItem, path);
-
-        return copiedItem;
-    }
 
     /**
      * DOC smallet Comment method "getCopiedLabel".
@@ -1365,8 +1367,8 @@ public class RepositoryFactory implements IRepositoryFactory {
         propertyResource.getContents().add(item.getState());
         propertyResource.getContents().add(item);
 
-        xmiResourceManager.saveResource(propertyResource);
         xmiResourceManager.saveResource(itemResource);
+        xmiResourceManager.saveResource(propertyResource);
     }
 
     private IProject getProject() throws PersistenceException {
