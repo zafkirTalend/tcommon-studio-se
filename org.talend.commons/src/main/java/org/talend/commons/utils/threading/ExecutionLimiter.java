@@ -44,6 +44,8 @@ public abstract class ExecutionLimiter {
 
     private boolean finalExecute;
 
+    private FinalExecution finalExecution;
+    
     private List<FinalExecution> finalThreadsList = new Vector<FinalExecution>();
 
     private Object[] finalThreadsListLock = new Object[0];
@@ -114,16 +116,20 @@ public abstract class ExecutionLimiter {
             @Override
             public void run() {
                 FinalExecution finalThread = new FinalExecution();
-                synchronized (finalThreadsListLock) {
-                    for (Iterator<FinalExecution> iter = finalThreadsList.iterator(); iter.hasNext();) {
-                        FinalExecution currentFinalThread = iter.next();
-                        if (currentFinalThread != null && !currentFinalThread.isInterrupted()) {
-                            currentFinalThread.interrupt();
-                            iter.remove();
-                        }
-                    }
-                    finalThreadsList.add(finalThread);
+//                synchronized (finalThreadsListLock) {
+//                    for (Iterator<FinalExecution> iter = finalThreadsList.iterator(); iter.hasNext();) {
+//                        FinalExecution currentFinalThread = iter.next();
+//                        if (currentFinalThread != null && !currentFinalThread.isInterrupted()) {
+//                            currentFinalThread.interrupt();
+//                            iter.remove();
+//                        }
+//                    }
+//                    finalThreadsList.add(finalThread);
+//                }
+                if(finalExecution != null && !finalExecution.isInterrupted() ) {
+                    finalExecution.interrupt();
                 }
+                finalExecution = finalThread; 
                 finalThread.start();
             }
 
@@ -149,21 +155,20 @@ public abstract class ExecutionLimiter {
             // System.out.println("Not Interrupted");
             // System.out.println("Final thread executed");
             execute(true);
-            removeThread();
+//            removeThread();
         }
 
         private void removeThread() {
-            (new Thread() {
-
-                @Override
-                public void run() {
-                    synchronized (finalThreadsListLock) {
+//            (new Thread() {
+//
+//                @Override
+//                public void run() {
+//                    synchronized (finalThreadsListLock) {
                         finalThreadsList.remove(this);
-                        finalThreadsList.size();
-                    }
-                }
-
-            }).start();
+//                    }
+//                }
+//
+//            }).start();
         }
 
     }

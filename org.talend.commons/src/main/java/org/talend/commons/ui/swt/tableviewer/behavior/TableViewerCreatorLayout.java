@@ -139,6 +139,8 @@ public class TableViewerCreatorLayout extends Layout {
 
     private Layout thisLayout;
 
+//    private int i;
+
     /**
      * Creates a new table layout.
      */
@@ -229,27 +231,30 @@ public class TableViewerCreatorLayout extends Layout {
      */
     public void layout(final Composite c, boolean flush) {
 
+//        System.out.println("TableViewerCreatorLayout layout " + toString() + "  "+ (i++) );
+
+        
         if (!showAlwaysAllColumns) {
             initColumnsControlListener();
         }
 
         if (layoutExecutionLimiter == null) {
-            layoutExecutionLimiter = new ExecutionLimiter(this.timeBetweenTwoLayouts, true) {
-
-                @Override
-                public void execute(boolean isFinalExecution) {
+//            layoutExecutionLimiter = new ExecutionLimiter(this.timeBetweenTwoLayouts, true) {
+//
+//                @Override
+//                public void execute(boolean isFinalExecution) {
 
                     if (c.isDisposed()) {
                         return;
                     }
                     
-                    c.getDisplay().syncExec(new Runnable() {
-
-                        /* (non-Javadoc)
-                         * @see java.lang.Runnable#run()
-                         */
-                        public void run() {
-
+//                    c.getDisplay().syncExec(new Runnable() {
+//
+//                        /* (non-Javadoc)
+//                         * @see java.lang.Runnable#run()
+//                         */
+//                        public void run() {
+//
                             if (!firstTime && !continuousLayout) {
                                 return;
                             }
@@ -270,132 +275,133 @@ public class TableViewerCreatorLayout extends Layout {
 
                         }
 
-                        private void layout(final Composite c) {
-                            //System.out.println("Layout" + System.currentTimeMillis());
-                            Table table = (Table) c;
-                            int newVisibleWidth = table.getClientArea().width + widthAdjustValue;
+//                    });
+//                }
+//
+//            };
+//        }
 
-                            Rectangle area = c.getClientArea();
-                            int width = 0;
-                            if (showAlwaysAllColumns || firstTime) {
-                                width = area.width - 2 * c.getBorderWidth() + widthAdjustValue;
-                            } else {
-                                width = referenceWidth - (lastWidth - newVisibleWidth);
-                            }
-                            if (firstTime) {
-                                referenceWidth = width;
-                                lastWidth = width;
-                            }
+//        layoutExecutionLimiter.startIfExecutable();
 
-                            // XXX: Layout is being called with an invalid value the first time
-                            // it is being called on Linux. This method resets the
-                            // Layout to null so we make sure we run it only when
-                            // the value is OK.
-                            if (width <= 1) {
-                                return;
-                            }
+    }
 
-                            Item[] tableColumns = getColumns(c);
-                            int size = Math.min(columnsLayoutData.size(), tableColumns.length);
-                            int[] widths = new int[size];
-                            int fixedWidth = 0;
-                            int numberOfWeightColumns = 0;
-                            int totalWeight = 0;
+    private void layout(final Composite c) {
+        //System.out.println("Layout" + System.currentTimeMillis());
+        Table table = (Table) c;
+        int newVisibleWidth = table.getClientArea().width + widthAdjustValue;
 
-                            // First calc space occupied by fixed columns
-                            for (int i = 0; i < size; i++) {
-                                ColumnLayoutData col = (ColumnLayoutData) columnsLayoutData.get(i);
-                                if (col instanceof ColumnPixelData) {
-                                    ColumnPixelData cpd = (ColumnPixelData) col;
-                                    int pixels = cpd.width;
-                                    if (cpd.addTrim) {
-                                        pixels += COLUMN_TRIM;
-                                    }
-                                    widths[i] = pixels;
-                                    fixedWidth += pixels;
-                                } else if (col instanceof ColumnWeightData) {
-                                    ColumnWeightData cw = (ColumnWeightData) col;
-                                    numberOfWeightColumns++;
-                                    // first time, use the weight specified by the column data,
-                                    // otherwise use the actual width as the weight
-                                    // int weight = firstTime ? cw.weight :
-                                    // tableColumns[i].getWidth();
-                                    int weight = cw.weight;
-                                    totalWeight += weight;
-                                } else {
-                                    Assert.isTrue(false, "Unknown column layout data"); //$NON-NLS-1$
-                                }
-                            }
-
-                            // Do we have columns that have a weight
-                            if (numberOfWeightColumns > 0) {
-                                // Now distribute the rest to the columns with weight.
-                                int rest = width - fixedWidth;
-                                int totalDistributed = 0;
-                                for (int i = 0; i < size; ++i) {
-                                    ColumnLayoutData col = (ColumnLayoutData) columnsLayoutData.get(i);
-                                    if (col instanceof ColumnWeightData) {
-                                        ColumnWeightData cw = (ColumnWeightData) col;
-                                        // calculate weight as above
-                                        // int weight = firstTime ? cw.weight :
-                                        // tableColumns[i].getWidth();
-                                        int weight = cw.weight;
-                                        int pixels = totalWeight == 0 ? 0 : weight * rest / totalWeight;
-                                        if (pixels < cw.minimumWidth) {
-                                            pixels = cw.minimumWidth;
-                                        }
-                                        totalDistributed += pixels;
-                                        widths[i] = pixels;
-                                    }
-                                }
-
-                                // Distribute any remaining pixels to columns with weight.
-                                int diff = rest - totalDistributed;
-                                for (int i = 0; diff > 0; ++i) {
-                                    if (i == size) {
-                                        i = 0;
-                                    }
-                                    ColumnLayoutData col = (ColumnLayoutData) columnsLayoutData.get(i);
-                                    if (col instanceof ColumnWeightData) {
-                                        ++widths[i];
-                                        --diff;
-                                    }
-                                }
-                            }
-
-                            columnsResizingByLayout = true;
-//                            if (showAlwaysAllColumns) {
-                                // to mask better horizontal bar when resize
-//                                int widthLastColumn = getWidth(tableColumns[tableColumns.length - 1]) -5;
-//                                if (widthLastColumn < 1) {
-//                                    widthLastColumn = 1;
-//                                }
-//                                setWidth(tableColumns[tableColumns.length - 1], widthLastColumn);
-//                            }
-
-                            for (int i = 0; i < size; i++) {
-                                // if (!firstTime && !manualResizing && referenceWidth < lastWidth) {
-                                // int widthAll = 0;
-                                // for (int j = 0; j < widths.length; j++) {
-                                // widthAll += widths[j];
-                                // }
-                                // if (i == size - 1 && widthAll < newVisibleWidth) {
-                                // widths[i] = newVisibleWidth - widthAll;
-                                // }
-                                // }
-                                setWidth(tableColumns[i], widths[i]);
-                            }
-                            columnsResizingByLayout = false;
-                            firstTime = false;
-                        }
-                    });
-                }
-
-            };
+        Rectangle area = c.getClientArea();
+        int width = 0;
+        if (showAlwaysAllColumns || firstTime) {
+            width = area.width - 2 * c.getBorderWidth() + widthAdjustValue;
+        } else {
+            width = referenceWidth - (lastWidth - newVisibleWidth);
+        }
+        if (firstTime) {
+            referenceWidth = width;
+            lastWidth = width;
         }
 
-        layoutExecutionLimiter.startIfExecutable();
+        // XXX: Layout is being called with an invalid value the first time
+        // it is being called on Linux. This method resets the
+        // Layout to null so we make sure we run it only when
+        // the value is OK.
+        if (width <= 1) {
+            return;
+        }
 
+        Item[] tableColumns = getColumns(c);
+        int size = Math.min(columnsLayoutData.size(), tableColumns.length);
+        int[] widths = new int[size];
+        int fixedWidth = 0;
+        int numberOfWeightColumns = 0;
+        int totalWeight = 0;
+
+        // First calc space occupied by fixed columns
+        for (int i = 0; i < size; i++) {
+            ColumnLayoutData col = (ColumnLayoutData) columnsLayoutData.get(i);
+            if (col instanceof ColumnPixelData) {
+                ColumnPixelData cpd = (ColumnPixelData) col;
+                int pixels = cpd.width;
+                if (cpd.addTrim) {
+                    pixels += COLUMN_TRIM;
+                }
+                widths[i] = pixels;
+                fixedWidth += pixels;
+            } else if (col instanceof ColumnWeightData) {
+                ColumnWeightData cw = (ColumnWeightData) col;
+                numberOfWeightColumns++;
+                // first time, use the weight specified by the column data,
+                // otherwise use the actual width as the weight
+                // int weight = firstTime ? cw.weight :
+                // tableColumns[i].getWidth();
+                int weight = cw.weight;
+                totalWeight += weight;
+            } else {
+                Assert.isTrue(false, "Unknown column layout data"); //$NON-NLS-1$
+            }
+        }
+
+        // Do we have columns that have a weight
+        if (numberOfWeightColumns > 0) {
+            // Now distribute the rest to the columns with weight.
+            int rest = width - fixedWidth;
+            int totalDistributed = 0;
+            for (int i = 0; i < size; ++i) {
+                ColumnLayoutData col = (ColumnLayoutData) columnsLayoutData.get(i);
+                if (col instanceof ColumnWeightData) {
+                    ColumnWeightData cw = (ColumnWeightData) col;
+                    // calculate weight as above
+                    // int weight = firstTime ? cw.weight :
+                    // tableColumns[i].getWidth();
+                    int weight = cw.weight;
+                    int pixels = totalWeight == 0 ? 0 : weight * rest / totalWeight;
+                    if (pixels < cw.minimumWidth) {
+                        pixels = cw.minimumWidth;
+                    }
+                    totalDistributed += pixels;
+                    widths[i] = pixels;
+                }
+            }
+
+            // Distribute any remaining pixels to columns with weight.
+            int diff = rest - totalDistributed;
+            for (int i = 0; diff > 0; ++i) {
+                if (i == size) {
+                    i = 0;
+                }
+                ColumnLayoutData col = (ColumnLayoutData) columnsLayoutData.get(i);
+                if (col instanceof ColumnWeightData) {
+                    ++widths[i];
+                    --diff;
+                }
+            }
+        }
+
+        columnsResizingByLayout = true;
+//        if (showAlwaysAllColumns) {
+            // to mask better horizontal bar when resize
+//            int widthLastColumn = getWidth(tableColumns[tableColumns.length - 1]) -5;
+//            if (widthLastColumn < 1) {
+//                widthLastColumn = 1;
+//            }
+//            setWidth(tableColumns[tableColumns.length - 1], widthLastColumn);
+//        }
+
+        for (int i = 0; i < size; i++) {
+            // if (!firstTime && !manualResizing && referenceWidth < lastWidth) {
+            // int widthAll = 0;
+            // for (int j = 0; j < widths.length; j++) {
+            // widthAll += widths[j];
+            // }
+            // if (i == size - 1 && widthAll < newVisibleWidth) {
+            // widths[i] = newVisibleWidth - widthAll;
+            // }
+            // }
+            setWidth(tableColumns[i], widths[i]);
+        }
+        columnsResizingByLayout = false;
+        firstTime = false;
     }
 
     /**
