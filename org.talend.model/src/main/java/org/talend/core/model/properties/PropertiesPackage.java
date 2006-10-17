@@ -461,13 +461,22 @@ public interface PropertiesPackage extends EPackage {
     int BUSINESS_PROCESS_ITEM__SEMANTIC = ITEM_FEATURE_COUNT + 1;
 
     /**
+     * The feature id for the '<em><b>Notation Holder</b></em>' reference. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int BUSINESS_PROCESS_ITEM__NOTATION_HOLDER = ITEM_FEATURE_COUNT + 2;
+
+    /**
      * The number of structural features of the '<em>Business Process Item</em>' class. <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * 
      * @generated
      * @ordered
      */
-    int BUSINESS_PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 2;
+    int BUSINESS_PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 3;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.FileItemImpl <em>File Item</em>}'
@@ -1294,6 +1303,34 @@ public interface PropertiesPackage extends EPackage {
     int COMPONENT_FEATURE_COUNT = 10;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.NotationHolderImpl <em>Notation Holder</em>}'
+     * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see org.talend.core.model.properties.impl.NotationHolderImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getNotationHolder()
+     * @generated
+     */
+    int NOTATION_HOLDER = 21;
+
+    /**
+     * The feature id for the '<em><b>Notation String</b></em>' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int NOTATION_HOLDER__NOTATION_STRING = 0;
+
+    /**
+     * The number of structural features of the '<em>Notation Holder</em>' class. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int NOTATION_HOLDER_FEATURE_COUNT = 1;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -1301,7 +1338,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 21;
+    int FOLDER_TYPE = 22;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -1704,6 +1741,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getBusinessProcessItem_Semantic();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.BusinessProcessItem#getNotationHolder <em>Notation Holder</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the meta object for the reference '<em>Notation Holder</em>'.
+     * @see org.talend.core.model.properties.BusinessProcessItem#getNotationHolder()
+     * @see #getBusinessProcessItem()
+     * @generated
+     */
+    EReference getBusinessProcessItem_NotationHolder();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ItemState <em>Item State</em>}'.
@@ -2208,6 +2256,27 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getComponent_Deleted();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.NotationHolder <em>Notation Holder</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the meta object for class '<em>Notation Holder</em>'.
+     * @see org.talend.core.model.properties.NotationHolder
+     * @generated
+     */
+    EClass getNotationHolder();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.NotationHolder#getNotationString <em>Notation String</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the meta object for the attribute '<em>Notation String</em>'.
+     * @see org.talend.core.model.properties.NotationHolder#getNotationString()
+     * @see #getNotationHolder()
+     * @generated
+     */
+    EAttribute getNotationHolder_NotationString();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -2587,6 +2656,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference BUSINESS_PROCESS_ITEM__SEMANTIC = eINSTANCE.getBusinessProcessItem_Semantic();
+
+        /**
+         * The meta object literal for the '<em><b>Notation Holder</b></em>' reference feature. <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
+         * 
+         * @generated
+         */
+        EReference BUSINESS_PROCESS_ITEM__NOTATION_HOLDER = eINSTANCE.getBusinessProcessItem_NotationHolder();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ItemStateImpl <em>Item State</em>}'
@@ -2993,6 +3070,24 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute COMPONENT__DELETED = eINSTANCE.getComponent_Deleted();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.NotationHolderImpl <em>Notation Holder</em>}'
+         * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @see org.talend.core.model.properties.impl.NotationHolderImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getNotationHolder()
+         * @generated
+         */
+        EClass NOTATION_HOLDER = eINSTANCE.getNotationHolder();
+
+        /**
+         * The meta object literal for the '<em><b>Notation String</b></em>' attribute feature. <!-- begin-user-doc
+         * --> <!-- end-user-doc -->
+         * 
+         * @generated
+         */
+        EAttribute NOTATION_HOLDER__NOTATION_STRING = eINSTANCE.getNotationHolder_NotationString();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'

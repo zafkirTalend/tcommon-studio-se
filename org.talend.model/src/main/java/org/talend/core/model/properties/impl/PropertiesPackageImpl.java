@@ -27,6 +27,7 @@ import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
@@ -187,6 +188,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass componentEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    private EClass notationHolderEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -605,6 +613,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EReference getBusinessProcessItem_Semantic() {
         return (EReference) businessProcessItemEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EReference getBusinessProcessItem_NotationHolder() {
+        return (EReference) businessProcessItemEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -1035,6 +1052,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * 
      * @generated
      */
+    public EClass getNotationHolder() {
+        return notationHolderEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public EAttribute getNotationHolder_NotationString() {
+        return (EAttribute) notationHolderEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
     public EEnum getFolderType() {
         return folderTypeEEnum;
     }
@@ -1148,6 +1183,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         businessProcessItemEClass = createEClass(BUSINESS_PROCESS_ITEM);
         createEReference(businessProcessItemEClass, BUSINESS_PROCESS_ITEM__NOTATION);
         createEReference(businessProcessItemEClass, BUSINESS_PROCESS_ITEM__SEMANTIC);
+        createEReference(businessProcessItemEClass, BUSINESS_PROCESS_ITEM__NOTATION_HOLDER);
 
         fileItemEClass = createEClass(FILE_ITEM);
         createEAttribute(fileItemEClass, FILE_ITEM__NAME);
@@ -1212,6 +1248,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(componentEClass, COMPONENT__DELETE_DATE);
         createEAttribute(componentEClass, COMPONENT__DELETED);
 
+        notationHolderEClass = createEClass(NOTATION_HOLDER);
+        createEAttribute(notationHolderEClass, NOTATION_HOLDER__NOTATION_STRING);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
     }
@@ -1246,6 +1285,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
                 .getEPackage(ConnectionPackage.eNS_URI);
         TalendFilePackage theTalendFilePackage = (TalendFilePackage) EPackage.Registry.INSTANCE
                 .getEPackage(TalendFilePackage.eNS_URI);
+        EcorePackage theEcorePackage = (EcorePackage) EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 
         // Add supertypes to classes
         businessProcessItemEClass.getESuperTypes().add(this.getItem());
@@ -1349,9 +1389,12 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(businessProcessItemEClass, BusinessProcessItem.class, "BusinessProcessItem", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
         initEReference(getBusinessProcessItem_Notation(), theNotationPackage.getDiagram(), null, "notation", null, 0, 1,
-                BusinessProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                BusinessProcessItem.class, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getBusinessProcessItem_Semantic(), theBusinessPackage.getBusinessProcess(), null, "semantic", null, 0, 1,
+                BusinessProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getBusinessProcessItem_NotationHolder(), this.getNotationHolder(), null, "notationHolder", null, 0, 1,
                 BusinessProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1466,14 +1509,35 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getComponent_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 0, 1, Component.class, !IS_TRANSIENT,
                 !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(notationHolderEClass, NotationHolder.class, "NotationHolder", !IS_ABSTRACT, !IS_INTERFACE,
+                IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getNotationHolder_NotationString(), theEcorePackage.getEString(), "notationString", null, 0, 1,
+                NotationHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
+                IS_ORDERED);
+
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");
+        addEEnumLiteral(folderTypeEEnum, FolderType.FOLDER_LITERAL);
         addEEnumLiteral(folderTypeEEnum, FolderType.SYSTEM_FOLDER_LITERAL);
         addEEnumLiteral(folderTypeEEnum, FolderType.STABLE_SYSTEM_FOLDER_LITERAL);
-        addEEnumLiteral(folderTypeEEnum, FolderType.FOLDER_LITERAL);
 
         // Create resource
         createResource(eNS_URI);
+
+        // Create annotations
+        // teneo.jpa
+        createTeneoAnnotations();
+    }
+
+    /**
+     * Initializes the annotations for <b>teneo.jpa</b>. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    protected void createTeneoAnnotations() {
+        String source = "teneo.jpa";
+        addAnnotation(getNotationHolder_NotationString(), source, new String[] { "appinfo", "@Lob", "appinfo",
+                "@Column(length=1048576)" });
     }
 
 } // PropertiesPackageImpl

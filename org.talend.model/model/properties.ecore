@@ -66,8 +66,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ItemState"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusinessProcessItem" eSuperTypes="#//Item">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="notation" eType="ecore:EClass ../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.ecore#//Diagram"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="notation" eType="ecore:EClass ../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.ecore#//Diagram"
+        transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="semantic" eType="ecore:EClass Business.ecore#//BusinessProcess"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="notationHolder" eType="#//NotationHolder"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FileItem" abstract="true" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -153,5 +155,13 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" unique="false"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="NotationHolder">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationString" eType="ecore:EDataType ../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
+      <eAnnotations source="teneo.jpa">
+        <details key="appinfo" value="@Lob"/>
+        <details key="appinfo" value="@Column(length=1048576)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
 </ecore:EPackage>

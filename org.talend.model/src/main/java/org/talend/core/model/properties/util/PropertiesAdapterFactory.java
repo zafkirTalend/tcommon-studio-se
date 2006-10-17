@@ -21,6 +21,7 @@ import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
@@ -166,6 +167,10 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
 
         public Object caseComponent(Component object) {
             return createComponentAdapter();
+        }
+
+        public Object caseNotationHolder(NotationHolder object) {
+            return createNotationHolderAdapter();
         }
 
         public Object defaultCase(EObject object) {
@@ -441,6 +446,19 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createComponentAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.NotationHolder <em>Notation Holder</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
+     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * 
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.NotationHolder
+     * @generated
+     */
+    public Adapter createNotationHolderAdapter() {
         return null;
     }
 

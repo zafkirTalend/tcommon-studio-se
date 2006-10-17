@@ -21,6 +21,7 @@ import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
@@ -280,6 +281,13 @@ public class PropertiesSwitch {
         case PropertiesPackage.COMPONENT: {
             Component component = (Component) theEObject;
             Object result = caseComponent(component);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case PropertiesPackage.NOTATION_HOLDER: {
+            NotationHolder notationHolder = (NotationHolder) theEObject;
+            Object result = caseNotationHolder(notationHolder);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
@@ -561,6 +569,20 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseComponent(Component object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Notation Holder</em>'. <!--
+     * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
+     * 
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Notation Holder</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseNotationHolder(NotationHolder object) {
         return null;
     }
 

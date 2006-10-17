@@ -51,13 +51,11 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.QualifiedName;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -69,7 +67,6 @@ import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.general.User;
 import org.talend.core.model.general.Version;
-import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.TableHelper;
 import org.talend.core.model.properties.BusinessProcessItem;
@@ -1144,11 +1141,12 @@ public class RepositoryFactory implements IRepositoryFactory {
     private Resource create(BusinessProcessItem item, IPath path) throws PersistenceException {
         Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path,
                 ERepositoryObjectType.BUSINESS_PROCESS, false);
-                //notation depends on semantic ... 
-                //in case of new(=empty) diagram, we don't care about order
-                //in other cases, the ordered addition references between notaion and semantic will be updated
+        // notation depends on semantic ...
+        // in case of new(=empty) diagram, we don't care about order
+        // in other cases, the ordered addition references between notaion and semantic will be updated
         itemResource.getContents().add(item.getSemantic());
-        itemResource.getContents().add(item.getNotation());
+        itemResource.getContents().add(item.getNotationHolder());
+        item.computeNotationHolder();
 
         return itemResource;
     }
@@ -1164,8 +1162,10 @@ public class RepositoryFactory implements IRepositoryFactory {
     private Resource save(BusinessProcessItem item) throws PersistenceException {
         Resource itemResource = xmiResourceManager.getItemResource(item);
         itemResource.getContents().clear();
-        itemResource.getContents().add(item.getNotation());
+        // itemResource.getContents().add(item.getNotation());
         itemResource.getContents().add(item.getSemantic());
+        itemResource.getContents().add(item.getNotationHolder());
+        item.computeNotationHolder();
 
         return itemResource;
     }
@@ -1259,7 +1259,7 @@ public class RepositoryFactory implements IRepositoryFactory {
             xmiResourceManager.saveResource(propertyResource);
         }
     }
-    
+
     public Item copy(Item originalItem, IPath path) throws PersistenceException {
         Resource resource = originalItem.eResource();
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -1268,16 +1268,17 @@ public class RepositoryFactory implements IRepositoryFactory {
             Resource createResource = new ResourceSetImpl().createResource(resource.getURI());
             ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
             createResource.load(in, null);
-            Item newItem = (Item)EcoreUtil.getObjectByType(createResource.getContents(), PropertiesPackage.eINSTANCE.getItem());
+            Item newItem = (Item) EcoreUtil.getObjectByType(createResource.getContents(), PropertiesPackage.eINSTANCE.getItem());
             Property property = newItem.getProperty();
             property.setId(getNextId());
             setPropNewName(property);
+            EcoreUtil.resolveAll(createResource);
             create(newItem, path);
             return newItem;
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         return null;
     }
 
@@ -1287,7 +1288,6 @@ public class RepositoryFactory implements IRepositoryFactory {
             xmiResourceManager.propagateFileName(property, object.getProperty());
         }
     }
-
 
     /**
      * DOC smallet Comment method "getCopiedLabel".

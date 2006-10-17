@@ -53,7 +53,7 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
      * @generated
      * @ordered
      */
-    protected static final FolderType TYPE_EDEFAULT = FolderType.SYSTEM_FOLDER_LITERAL;
+    protected static final FolderType TYPE_EDEFAULT = FolderType.FOLDER_LITERAL;
 
     /**
      * The cached value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
