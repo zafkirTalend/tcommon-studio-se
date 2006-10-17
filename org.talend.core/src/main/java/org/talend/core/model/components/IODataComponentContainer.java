@@ -62,17 +62,26 @@ public class IODataComponentContainer {
         return this.ouputs;
     }
 
-    public IMetadataTable getTable(IConnection connection) {
+    public IODataComponent getDataComponent(IConnection connection) {
         for (IODataComponent current : inputs) {
             if (current.getName().equals(connection.getName())) {
-                return current.getTable();
+                return current;
             }
         }
         for (IODataComponent current : ouputs) {
             if (current.getName().equals(connection.getName())) {
-                return current.getTable();
+                return current;
             }
         }
         return null;
+    }
+
+    public IMetadataTable getTable(IConnection connection) {
+        IODataComponent current = getDataComponent(connection);
+        if (current == null) {
+            return null;
+        } else {
+            return current.getTable();
+        }
     }
 }

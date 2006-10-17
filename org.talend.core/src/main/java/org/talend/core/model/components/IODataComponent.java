@@ -86,6 +86,10 @@ public class IODataComponent {
         return connection.getSource();
     }
 
+    public boolean hasChanged() {
+        return !clonedTables.sameMetadataAs(connection.getMetadataTable());
+    }
+
     private IMetadataColumn getColumn(int id) {
         // TODO SML Optimize
         for (IMetadataColumn col : clonedTables.getListColumns()) {
@@ -160,6 +164,16 @@ public class IODataComponent {
          */
         public String getOldName() {
             return this.oldName;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#toString()
+         */
+        @Override
+        public String toString() {
+            return "Column changed : " + oldName + "->" + newName + " on " + connectionName;
         }
 
     }

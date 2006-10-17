@@ -344,7 +344,7 @@ public class MetadataToolbarEditorView2 {
         removeButton.setImage(ImageProvider.getImage(EImage.MINUS_ICON));
 
         copyButton = new Button(toolbar, SWT.PUSH);
-        copyButton.setText("Copy");
+        copyButton.setToolTipText("Copy");
         copyButton.setImage(ImageProvider.getImage(EImage.COPY_ICON));
 
         // cutButton = new Button(toolbar, SWT.PUSH);
@@ -352,7 +352,7 @@ public class MetadataToolbarEditorView2 {
         // cutButton.setImage(ImageProvider.getImage(EImage.CUT).createImage());
 
         pasteButton = new Button(toolbar, SWT.PUSH);
-        pasteButton.setText("Paste");
+        pasteButton.setToolTipText("Paste");
         pasteButton.setImage(ImageProvider.getImage(EImage.PASTE_ICON));
 
         moveUpButton = new Button(toolbar, SWT.PUSH);
@@ -364,11 +364,11 @@ public class MetadataToolbarEditorView2 {
         moveDownButton.setImage(ImageProvider.getImage(EImage.DOWN_ICON));
 
         loadButton = new Button(toolbar, SWT.PUSH);
-        loadButton.setText("Load");
+        loadButton.setToolTipText("Import");
         loadButton.setImage(ImageProvider.getImage(EImage.IMPORT_ICON));
 
         exportButton = new Button(toolbar, SWT.PUSH);
-        exportButton.setText("Export");
+        exportButton.setToolTipText("Export");
         exportButton.setImage(ImageProvider.getImage(EImage.EXPORT_ICON));
     }
 

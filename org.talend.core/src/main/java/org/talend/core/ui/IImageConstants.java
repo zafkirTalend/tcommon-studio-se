@@ -87,7 +87,7 @@ public interface IImageConstants {
 
     public static final String RECYCLE_BIN_FULL_ICON = "/icons/recyclebinfull.png";
 
-    public static final String FOLDER_OPEN_ICON = "/icons/folder_open.png";
+    public static final String FOLDER_OPEN_ICON = "/icons/folder_open.gif";
 
     public static final String FOLDER_CLOSE_ICON = "/icons/folder_close.png";
 

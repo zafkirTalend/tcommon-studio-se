@@ -274,11 +274,11 @@ public class MetadataToolbarEditorView {
         moveDownButton.setImage(ImageProvider.getImage(EImage.DOWN_ICON));
 
         loadButton = new Button(toolbar, SWT.PUSH);
-        loadButton.setText("Load");
+        loadButton.setToolTipText("Import");
         loadButton.setImage(ImageProvider.getImage(EImage.IMPORT_ICON));
 
         exportButton = new Button(toolbar, SWT.PUSH);
-        exportButton.setText("Export");
+        exportButton.setToolTipText("Export");
         exportButton.setImage(ImageProvider.getImage(EImage.EXPORT_ICON));
     }
 
