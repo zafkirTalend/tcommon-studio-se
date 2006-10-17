@@ -186,6 +186,7 @@ public class TableViewerCreatorLayout extends Layout {
         if (width > result.x) {
             result.x = width;
         }
+        System.out.println("result.x="+result.x);
         return result;
     }
 
@@ -288,20 +289,22 @@ public class TableViewerCreatorLayout extends Layout {
     private void layout(final Composite c) {
         //System.out.println("Layout" + System.currentTimeMillis());
         Table table = (Table) c;
-        int newVisibleWidth = table.getClientArea().width + widthAdjustValue;
+        Rectangle bounds = table.getBounds();
 
-        Rectangle area = c.getClientArea();
         int width = 0;
+        int newVisibleWidth = bounds.width + widthAdjustValue;
         if (showAlwaysAllColumns || firstTime) {
-            width = area.width - 2 * c.getBorderWidth() + widthAdjustValue;
+            width = bounds.width - 2 * c.getBorderWidth() + widthAdjustValue;
         } else {
-            width = referenceWidth - (lastWidth - newVisibleWidth);
+            width = referenceWidth - 2 * c.getBorderWidth() - (lastWidth - newVisibleWidth);
         }
+
+//        width = bounds.width + widthAdjustValue - 1;
         if (firstTime) {
             referenceWidth = width;
             lastWidth = width;
         }
-
+        
         // XXX: Layout is being called with an invalid value the first time
         // it is being called on Linux. This method resets the
         // Layout to null so we make sure we run it only when
@@ -423,17 +426,20 @@ public class TableViewerCreatorLayout extends Layout {
             }
 
             public void controlResized(ControlEvent e) {
-                // System.out.println("TableColumn controlResized");
+//                 System.out.println("TableColumn controlResized");
                 final TableColumn currentTableColumn = (TableColumn) e.widget;
                 if (!columnsResizingByLayout && !manualResizing) {
                     manualResizing = true;
-                    Table table = changeColumnLayoutData(currentTableColumn);
+                    final Table table = currentTableColumn.getParent();
+
+                    Rectangle bounds = table.getBounds();
+                    changeColumnLayoutData(currentTableColumn, bounds);
 
                     if (table.getHorizontalBar().getSelection() == 0) {
 
                         referenceWidth = computeCurrentTableWidth();
 
-                        lastWidth = table.getClientArea().width;
+                        lastWidth = bounds.width;
 
                         TableColumn[] tableColumns = table.getColumns();
                         if (tableColumns.length - 1 >= 0) {
@@ -444,8 +450,9 @@ public class TableViewerCreatorLayout extends Layout {
                             if (referenceWidth - widthLastColumn < lastWidth) {
                                 int newColumnWidth = lastWidth - (widthAll - widthLastColumn);
                                 if (newColumnWidth > 0) {
+//                                    System.out.println("change");
                                     lastTableColumn.setWidth(newColumnWidth);
-                                    changeColumnLayoutData(lastTableColumn);
+                                    changeColumnLayoutData(lastTableColumn, bounds);
                                 }
                                 referenceWidth = computeCurrentTableWidth();
                             }
@@ -571,8 +578,7 @@ public class TableViewerCreatorLayout extends Layout {
         return null;
     }
 
-    private Table changeColumnLayoutData(final TableColumn currentTableColumn) {
-        Table table = currentTableColumn.getParent();
+    private void changeColumnLayoutData(final TableColumn currentTableColumn, Rectangle bounds) {
         Integer columnIndex = getColumnIndex(currentTableColumn);
         ColumnLayoutData columnLayoutData = columnsLayoutData.get(columnIndex);
         if (columnLayoutData instanceof ColumnPixelData) {
@@ -580,9 +586,8 @@ public class TableViewerCreatorLayout extends Layout {
             columnPixelData.width = currentTableColumn.getWidth();
         } else if (columnLayoutData instanceof ColumnWeightData) {
             ColumnWeightData columnWeightData = (ColumnWeightData) columnLayoutData;
-            columnWeightData.weight = 100 * currentTableColumn.getWidth() / table.getClientArea().width;
+            columnWeightData.weight = 100 * currentTableColumn.getWidth() / bounds.width;
         }
-        return table;
     }
 
 }
