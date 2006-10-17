@@ -152,12 +152,19 @@ public class ColorStyledText extends StyledText {
                     return;
                 }
                 try {
+                    int countChars = getCharCount();
                     for (int i = 0; i < styles.size(); i++) {
-                        setStyleRange(styles.get(i));
+                        StyleRange styleRange = styles.get(i);
+//                    System.out.println("styleRange.start="+styleRange.start);
+//                    System.out.println("styleRange.length="+styleRange.length);
+                        if (!(0 <= styleRange.start && styleRange.start + styleRange.length <= countChars)) {
+                            continue;
+                        }
+                        setStyleRange(styleRange);
                     }
                 } catch (RuntimeException t) {
-                    System.out.println(t);
-//                    ExceptionHandler.process(t);
+//                    System.out.println(t);
+                    ExceptionHandler.process(t);
                 }
             }
         });
