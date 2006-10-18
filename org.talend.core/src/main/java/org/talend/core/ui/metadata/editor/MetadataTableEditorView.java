@@ -140,7 +140,7 @@ public class MetadataTableEditorView {
         tableViewerCreator.setLinesVisible(true);
         tableViewerCreator.setShowSelection(SHOW_SELECTION.FULL);
         tableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
-        tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS_CURRENT);
+        tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
         // tableViewerCreator.setAdjustWidthValue(-15);
         tableViewerCreator.setFirstColumnMasked(true);

@@ -80,7 +80,7 @@ public final class TestTableViewerCreator {
         tableViewerCreator.setLinesVisible(true);
         tableViewerCreator.setShowSelection(SHOW_SELECTION.FULL);
         tableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
-        tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS_CURRENT);
+        tableViewerCreator.setLayoutMode(LAYOUT_MODE.DEFAULT);
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
 
         // tableEditor.setCheckboxInFirstColumn(true);
@@ -101,8 +101,8 @@ public final class TestTableViewerCreator {
         column.setModifiable(true);
         column.setSortable(true);
         column.setOrderWithIgnoreCase(true);
-        // column.setInitWeight(1);
-        column.setWidth(100);
+        column.setMinimumWidth(10);
+        column.setWeight(20);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, String>() {
 
             public String get(DataObject bean) {
@@ -152,7 +152,7 @@ public final class TestTableViewerCreator {
         column.setResizable(true);
         column.setSortable(true);
         column.setMoveable(true);
-        column.setWeight(25);
+        column.setWeight(80);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
 
             public Integer get(DataObject bean) {
@@ -204,61 +204,61 @@ public final class TestTableViewerCreator {
             }
 
         });
-        column.setTableEditorContent(new TableEditorContent() {
+//        column.setTableEditorContent(new TableEditorContent() {
+//
+//            public TableEditor createTableEditor(Table table) {
+//                TableEditor tableEditor = new TableEditor(table);
+//                return tableEditor;
+//            }
+//
+//            public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
+//                    Object currentRowObject, Object currentCellValue) {
+//                Composite composite = new Composite(table, SWT.PUSH);
+//                // Set attributes of the button
+//                composite.setBackground(new Color(null, 255, 0, 0));
+//                composite.setSize(100 * ((Integer) currentCellValue).intValue() / 100, table.getItemHeight());
+//
+//                // Set attributes of the editor
+//                // tableEditor.grabHorizontal = true;
+//                tableEditor.minimumHeight = composite.getSize().y;
+//                tableEditor.horizontalAlignment = SWT.LEFT;
+//                tableEditor.minimumWidth = composite.getSize().x;
+//                return composite;
+//            }
+//
+//        });
 
-            public TableEditor createTableEditor(Table table) {
-                TableEditor tableEditor = new TableEditor(table);
-                return tableEditor;
-            }
-
-            public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
-                    Object currentRowObject, Object currentCellValue) {
-                Composite composite = new Composite(table, SWT.PUSH);
-                // Set attributes of the button
-                composite.setBackground(new Color(null, 255, 0, 0));
-                composite.setSize(100 * ((Integer) currentCellValue).intValue() / 100, table.getItemHeight());
-
-                // Set attributes of the editor
-                // tableEditor.grabHorizontal = true;
-                tableEditor.minimumHeight = composite.getSize().y;
-                tableEditor.horizontalAlignment = SWT.LEFT;
-                tableEditor.minimumWidth = composite.getSize().x;
-                return composite;
-            }
-
-        });
-
-        Listener eraseItemListener = new Listener() {
-
-            public void handleEvent(Event event) {
-
-                if ((event.detail & SWT.SELECTED) != 0) {
-
-                    GC gc = event.gc;
-                    
-
-                    Rectangle rect = event.getBounds();
-
-                    Color background = gc.getBackground();
-
-                    gc.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_RED));
-
-                    // TODO: uncomment to see selection on linux gtk
-
-                    // ((TableItem)event.item).setBackground(null);
-
-                    gc.fillRectangle(rect);
-
-                    gc.setBackground(background);
-
-                    event.detail &= ~SWT.SELECTED;
-
-                }
-
-            }
-
-        };
-        table.addListener(SWT.EraseItem, eraseItemListener);
+//        Listener eraseItemListener = new Listener() {
+//
+//            public void handleEvent(Event event) {
+//
+//                if ((event.detail & SWT.SELECTED) != 0) {
+//
+//                    GC gc = event.gc;
+//                    
+//
+//                    Rectangle rect = event.getBounds();
+//
+//                    Color background = gc.getBackground();
+//
+//                    gc.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_RED));
+//
+//                    // TODO: uncomment to see selection on linux gtk
+//
+//                    // ((TableItem)event.item).setBackground(null);
+//
+//                    gc.fillRectangle(rect);
+//
+//                    gc.setBackground(background);
+//
+//                    event.detail &= ~SWT.SELECTED;
+//
+//                }
+//
+//            }
+//
+//        };
+//        table.addListener(SWT.EraseItem, eraseItemListener);
 
         
         tableViewerCreator.setDefaultSort(nameColumn, SORT.DESC);

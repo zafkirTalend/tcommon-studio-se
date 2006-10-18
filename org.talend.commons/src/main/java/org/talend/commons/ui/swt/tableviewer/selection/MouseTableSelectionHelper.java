@@ -27,6 +27,7 @@ import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
@@ -64,6 +65,10 @@ public class MouseTableSelectionHelper {
     private int[] selectionnableColumns;
 
     private Table table;
+
+    private ImageData imageDataCursor;
+
+    private ImageDescriptor imageDescriptor;
 
 //    /**
 //     * DOC amaumont MouseTableSelectionHelper constructor comment.
@@ -223,11 +228,13 @@ public class MouseTableSelectionHelper {
 
         Cursor cursor = null;
         if (cursorSelection) {
-            if (imageSelectionCursor == null) {
-                ImageDescriptor imageDescriptor = ImageDescriptor.createFromFile(MouseTableSelectionHelper.class, "/icons/right_arrow.ico");
-                imageSelectionCursor = imageDescriptor.createImage();
+            if (imageDescriptor == null) {
+                imageDescriptor = ImageDescriptor.createFromFile(MouseTableSelectionHelper.class, "/icons/right_arrow.ico");
+                imageDataCursor = imageDescriptor.getImageData();
             }
-            cursor = new Cursor(table.getDisplay(), imageSelectionCursor.getImageData(), 15, 9);
+            if (imageDataCursor != null) {
+                cursor = new Cursor(table.getDisplay(), imageDataCursor, 15, 9);
+            }
         } else {
             cursor = null;
         }

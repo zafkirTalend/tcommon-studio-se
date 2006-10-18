@@ -54,7 +54,6 @@ import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultHeaderColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultStructuredContentProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
-import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableParentResizedListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.ITableCellValueModifiedListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.TableViewerCreatorLayout;
 import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
@@ -422,10 +421,6 @@ public class TableViewerCreator<O> {
 
     private void addListeners() {
 
-        if (this.layoutMode == LAYOUT_MODE.CURRENT_WIDTH) {
-            this.tableParentResizedListener = new DefaultTableParentResizedListener(this);
-            compositeParent.addControlListener(this.tableParentResizedListener);
-        }
     }
 
     private void attachViewerSorter() {
@@ -454,13 +449,13 @@ public class TableViewerCreator<O> {
     }
 
     private TableViewer buildAndLayoutTable() {
-        if (this.layoutMode == LAYOUT_MODE.DEFAULT || this.layoutMode == LAYOUT_MODE.SHOW_ALWAYS_ALL_COLUMNS
-                || this.layoutMode == LAYOUT_MODE.CONTINUOUS_CURRENT) {
+        if (this.layoutMode == LAYOUT_MODE.DEFAULT || this.layoutMode == LAYOUT_MODE.FILL_HORIZONTAL
+                || this.layoutMode == LAYOUT_MODE.CONTINUOUS) {
             TableViewerCreatorLayout currentTableLayout = new TableViewerCreatorLayout(tableViewerCreator, 50);
             currentTableLayout.setWidthAdjustValue(this.adjustWidthValue);
-            currentTableLayout.setShowAlwaysAllColumns(this.layoutMode == LAYOUT_MODE.SHOW_ALWAYS_ALL_COLUMNS);
-            currentTableLayout.setContinuousLayout(this.layoutMode == LAYOUT_MODE.SHOW_ALWAYS_ALL_COLUMNS
-                    || this.layoutMode == LAYOUT_MODE.CONTINUOUS_CURRENT);
+            currentTableLayout.setFillHorizontal(this.layoutMode == LAYOUT_MODE.FILL_HORIZONTAL);
+            currentTableLayout.setContinuousLayout(this.layoutMode == LAYOUT_MODE.FILL_HORIZONTAL
+                    || this.layoutMode == LAYOUT_MODE.CONTINUOUS);
             this.layout = currentTableLayout;
         }
 
@@ -665,27 +660,40 @@ public class TableViewerCreator<O> {
     }
 
     /**
-     * Layout mode of the <code>TableViewer</code>. LAYOUT_DATA : a layout based on the default layout of
-     * <code>TableViewer</code>, but different because it layout the columns dynamically. CURRENT_WIDTH : a layout
-     * based on the default layout of <code>TableViewer</code>. <br/>
-     * <ul>
-     * <li> DEFAULT : the default layout of the <code>TableViewer</code>. </li>
-     * <li>SHOW_ALWAYS_ALL_COLUMNS : force always to show all columns, resize columns automatically. Use
-     * <code>adjustWidthValue</code> property to adjust the maximum width of columns and to don't show scrollbars.
-     * </li>
-     * <li>CONTINUOUS_CURRENT : resize columns automatically from current width or weight of each column, scollbars can
-     * be visible. Use <code>adjustWidthValue</code> property to adjust the width of columns and to don't show
-     * scrollbars in normal conditions. Adjust the last column width to fill free space. </li>
-     * <li>CURRENT_WIDTH : resize columns automatically from current width (not weight) of each column. </li>
-     * <li>NONE : no layout. </li>
-     * </ul>
+     * Layout mode of the <code>TableViewer</code>.
      * 
      */
     public enum LAYOUT_MODE {
+        /**
+         * Default layout based on <code>TableLayout</code> behavior :
+         * <p>- Use width and weight to initialize columns size, but don't resize columns when table is resized
+         * </p>
+         */
         DEFAULT(),
-        SHOW_ALWAYS_ALL_COLUMNS(),
-        CONTINUOUS_CURRENT,
-        CURRENT_WIDTH(),
+
+        /**
+         * <p>- Use width and weight to initialize columns size, but don't resize columns when table is resized
+         * </p>
+         * <p>- Fill all empty space at initialization
+         * </p>
+         * <p>- Change columns size dynamically when table is resized (only if weight is set in column)
+         * </p>
+         */
+        CONTINUOUS,
+
+
+        /**
+         * <p>- Use width and weight to initialize columns size, but don't resize columns when table is resized
+         * </p>
+         * <p>- Fill all empty space at initialization
+         * </p>
+         * <p>- Change columns size dynamically when table is resized (only if weight is set in column)
+         * </p>
+         * <p>- Fill empty space with last column when columns are resized
+         * </p>
+         */
+        FILL_HORIZONTAL,
+
         NONE(), ;
 
         LAYOUT_MODE() {
@@ -1002,8 +1010,10 @@ public class TableViewerCreator<O> {
 
     /**
      * You must use DefaultCellModifier or a class which extends it to use this method.
+     * 
      * @param tableCellValueModifiedListener
-     * @throws UnsupportedOperationException if current CellModifier is not DefaultCellModifier or a class which extends it  
+     * @throws UnsupportedOperationException if current CellModifier is not DefaultCellModifier or a class which extends
+     * it
      */
     public void addCellValueModifiedListener(ITableCellValueModifiedListener tableCellValueModifiedListener) {
         if (this.cellModifier instanceof DefaultCellModifier) {
@@ -1016,8 +1026,10 @@ public class TableViewerCreator<O> {
 
     /**
      * You must use DefaultCellModifier or a class which extends it to use this method.
+     * 
      * @param tableCellValueModifiedListener
-     * @throws UnsupportedOperationException if current CellModifier is not DefaultCellModifier or a class which extends it  
+     * @throws UnsupportedOperationException if current CellModifier is not DefaultCellModifier or a class which extends
+     * it
      */
     public void removeCellValueModifiedListener(ITableCellValueModifiedListener tableCellValueModifiedListener) {
         if (this.cellModifier instanceof DefaultCellModifier) {
