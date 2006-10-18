@@ -23,6 +23,8 @@ package org.talend.core.model.process;
 
 import java.util.List;
 
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+
 
 /**
  * DOC nrousseau  class global comment. Detailled comment
