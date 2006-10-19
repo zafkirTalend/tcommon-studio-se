@@ -32,6 +32,7 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserRole;
+import org.talend.core.model.properties.XmlFileConnectionItem;
 
 /**
  * <!-- begin-user-doc --> The <b>Switch</b> for the model's inheritance hierarchy. It supports the call
@@ -281,6 +282,19 @@ public class PropertiesSwitch {
         case PropertiesPackage.COMPONENT: {
             Component component = (Component) theEObject;
             Object result = caseComponent(component);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
+        case PropertiesPackage.XML_FILE_CONNECTION_ITEM: {
+            XmlFileConnectionItem xmlFileConnectionItem = (XmlFileConnectionItem) theEObject;
+            Object result = caseXmlFileConnectionItem(xmlFileConnectionItem);
+            if (result == null)
+                result = caseDelimitedFileConnectionItem(xmlFileConnectionItem);
+            if (result == null)
+                result = caseConnectionItem(xmlFileConnectionItem);
+            if (result == null)
+                result = caseItem(xmlFileConnectionItem);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;
@@ -569,6 +583,20 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseComponent(Component object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Xml File Connection Item</em>'. <!--
+     * begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch. <!--
+     * end-user-doc -->
+     * 
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Xml File Connection Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
         return null;
     }
 

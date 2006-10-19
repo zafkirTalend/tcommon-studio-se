@@ -173,6 +173,15 @@ public interface PropertiesFactory extends EFactory {
     Component createComponent();
 
     /**
+     * Returns a new object of class '<em>Xml File Connection Item</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @return a new object of class '<em>Xml File Connection Item</em>'.
+     * @generated
+     */
+    XmlFileConnectionItem createXmlFileConnectionItem();
+
+    /**
      * Returns a new object of class '<em>Notation Holder</em>'. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @return a new object of class '<em>Notation Holder</em>'.

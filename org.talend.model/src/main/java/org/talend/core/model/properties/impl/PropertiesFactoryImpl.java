@@ -34,6 +34,7 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserRole;
+import org.talend.core.model.properties.XmlFileConnectionItem;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
@@ -114,6 +115,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             return createFolderItem();
         case PropertiesPackage.COMPONENT:
             return createComponent();
+        case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
+            return createXmlFileConnectionItem();
         case PropertiesPackage.NOTATION_HOLDER:
             return createNotationHolder();
         default:
@@ -328,6 +331,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public Component createComponent() {
         ComponentImpl component = new ComponentImpl();
         return component;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public XmlFileConnectionItem createXmlFileConnectionItem() {
+        XmlFileConnectionItemImpl xmlFileConnectionItem = new XmlFileConnectionItemImpl();
+        return xmlFileConnectionItem;
     }
 
     /**

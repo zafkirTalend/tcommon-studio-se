@@ -1303,6 +1303,49 @@ public interface PropertiesPackage extends EPackage {
     int COMPONENT_FEATURE_COUNT = 10;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.XmlFileConnectionItemImpl <em>Xml File Connection Item</em>}'
+     * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see org.talend.core.model.properties.impl.XmlFileConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getXmlFileConnectionItem()
+     * @generated
+     */
+    int XML_FILE_CONNECTION_ITEM = 21;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION_ITEM__PROPERTY = DELIMITED_FILE_CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION_ITEM__STATE = DELIMITED_FILE_CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION_ITEM__CONNECTION = DELIMITED_FILE_CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Xml File Connection Item</em>' class. <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION_ITEM_FEATURE_COUNT = DELIMITED_FILE_CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.NotationHolderImpl <em>Notation Holder</em>}'
      * class. <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -1310,7 +1353,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getNotationHolder()
      * @generated
      */
-    int NOTATION_HOLDER = 21;
+    int NOTATION_HOLDER = 22;
 
     /**
      * The feature id for the '<em><b>Notation String</b></em>' attribute. <!-- begin-user-doc --> <!--
@@ -1338,7 +1381,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 22;
+    int FOLDER_TYPE = 23;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -2256,6 +2299,16 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getComponent_Deleted();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.XmlFileConnectionItem <em>Xml File Connection Item</em>}'.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @return the meta object for class '<em>Xml File Connection Item</em>'.
+     * @see org.talend.core.model.properties.XmlFileConnectionItem
+     * @generated
+     */
+    EClass getXmlFileConnectionItem();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.NotationHolder <em>Notation Holder</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -3070,6 +3123,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute COMPONENT__DELETED = eINSTANCE.getComponent_Deleted();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.XmlFileConnectionItemImpl <em>Xml File Connection Item</em>}'
+         * class. <!-- begin-user-doc --> <!-- end-user-doc -->
+         * 
+         * @see org.talend.core.model.properties.impl.XmlFileConnectionItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getXmlFileConnectionItem()
+         * @generated
+         */
+        EClass XML_FILE_CONNECTION_ITEM = eINSTANCE.getXmlFileConnectionItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.NotationHolderImpl <em>Notation Holder</em>}'

@@ -32,6 +32,7 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserRole;
+import org.talend.core.model.properties.XmlFileConnectionItem;
 
 /**
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code>
@@ -167,6 +168,10 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
 
         public Object caseComponent(Component object) {
             return createComponentAdapter();
+        }
+
+        public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
+            return createXmlFileConnectionItemAdapter();
         }
 
         public Object caseNotationHolder(NotationHolder object) {
@@ -446,6 +451,19 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createComponentAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.XmlFileConnectionItem <em>Xml File Connection Item</em>}'.
+     * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
+     * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
+     * 
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.XmlFileConnectionItem
+     * @generated
+     */
+    public Adapter createXmlFileConnectionItemAdapter() {
         return null;
     }
 

@@ -89,6 +89,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="RegExFileConnectionItem" eSuperTypes="#//ConnectionItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="CSVFileConnectionItem" eSuperTypes="#//DelimitedFileConnectionItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="DatabaseConnectionItem" eSuperTypes="#//ConnectionItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="XmlFileConnectionItem" eSuperTypes="#//DelimitedFileConnectionItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EReference" name="process" eType="ecore:EClass TalendFile.ecore#//ProcessType"/>
   </eClassifiers>

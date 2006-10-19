@@ -39,6 +39,7 @@ import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserRole;
+import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
@@ -188,6 +189,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass componentEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    private EClass xmlFileConnectionItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1052,6 +1060,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * 
      * @generated
      */
+    public EClass getXmlFileConnectionItem() {
+        return xmlFileConnectionItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
     public EClass getNotationHolder() {
         return notationHolderEClass;
     }
@@ -1248,6 +1265,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(componentEClass, COMPONENT__DELETE_DATE);
         createEAttribute(componentEClass, COMPONENT__DELETED);
 
+        xmlFileConnectionItemEClass = createEClass(XML_FILE_CONNECTION_ITEM);
+
         notationHolderEClass = createEClass(NOTATION_HOLDER);
         createEAttribute(notationHolderEClass, NOTATION_HOLDER__NOTATION_STRING);
 
@@ -1300,6 +1319,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         databaseConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         processItemEClass.getESuperTypes().add(this.getItem());
         folderItemEClass.getESuperTypes().add(this.getItem());
+        xmlFileConnectionItemEClass.getESuperTypes().add(this.getDelimitedFileConnectionItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1508,6 +1528,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 0, 1, Component.class, !IS_TRANSIENT,
                 !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(xmlFileConnectionItemEClass, XmlFileConnectionItem.class, "XmlFileConnectionItem", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(notationHolderEClass, NotationHolder.class, "NotationHolder", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
