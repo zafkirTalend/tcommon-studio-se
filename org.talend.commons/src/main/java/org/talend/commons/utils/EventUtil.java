@@ -34,7 +34,7 @@ public final class EventUtil {
     private EventUtil() {
     }
 
-    public static String getEventName(int eventType) {
+    public static String getEventNameFromType(int eventType) {
 
         switch (eventType) {
         case SWT.None:
@@ -110,10 +110,21 @@ public final class EventUtil {
         case SWT.Verify:
             return "verify";
         default:
-            return "unkown ??? value of event : " + eventType;
+            return "unkown ??? value of event type : " + eventType;
         }
     }
 
+    public static String getEventNameFromDetail(int eventDetail) {
+        switch (eventDetail) {
+        case SWT.None:
+            return "null";
+        case SWT.SELECTED:
+            return "SELECTED="+SWT.SELECTED;
+        default:
+            return "unkown ??? value of event detail : " + eventDetail;
+        }
+    }
+        
     public static void main(String[] args) {
     }
 }

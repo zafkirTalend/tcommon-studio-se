@@ -40,7 +40,9 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -142,7 +144,7 @@ public class MetadataTableEditorView {
         tableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
-        // tableViewerCreator.setAdjustWidthValue(-15);
+        tableViewerCreator.setUseCustomColoring(true);
         tableViewerCreator.setFirstColumnMasked(true);
 
         initLineSelectionListeners();
@@ -188,6 +190,18 @@ public class MetadataTableEditorView {
             }
         };
         table.addDisposeListener(disposeListener);
+        
+        table.addListener(SWT.KeyDown, new Listener() {
+
+            public void handleEvent(Event event) {
+                if (event.character == '\u0001') { // CTRL + A
+                    table.selectAll();
+                }
+            }
+
+        });
+
+
         return table;
     }
 

@@ -147,7 +147,8 @@ public class MetadataTableEditorView2 {
         tableViewerCreator.setAdjustWidthValue(-15);
         tableViewerCreator.setFirstColumnMasked(true);
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
-
+        tableViewerCreator.setUseCustomColoring(true);
+        
         final Table table = tableViewerCreator.createTable();
         table.setLayoutData(new GridData(GridData.FILL_BOTH));
 

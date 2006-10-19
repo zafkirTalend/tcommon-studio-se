@@ -102,15 +102,13 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     private int minimumWidth;
 
-    private String toolTipText;
+    private String toolTipHeader;
 
-    private Image image;
+    private Image imageHeader;
 
     private Comparator comparator;
 
     private boolean orderWithIgnoreCase = true;
-
-    // private boolean orderWithNullsFirst = true;
 
     private CellEditor cellEditor;
 
@@ -175,18 +173,20 @@ public class TableViewerCreatorColumn implements Cloneable {
      * 
      * @return
      */
-    public Image getImage() {
-        return image;
+    public Image getImageHeader() {
+        return imageHeader;
     }
 
     /**
-     * DOC amaumont Comment method "setImage".
+     * DOC amaumont Comment method "setImageHeader".
      * 
-     * @param image
+     * Note: imageHeader is replaced by up or down arrow image when sorting.
+     * 
+     * @param imageHeader
      * @see TableColumn#setImage(Image)
      */
-    public void setImage(Image image) {
-        this.image = image;
+    public void setImageHeader(Image imageHeader) {
+        this.imageHeader = imageHeader;
     }
 
     public int getMinimumWidth() {
@@ -237,12 +237,12 @@ public class TableViewerCreatorColumn implements Cloneable {
         this.title = title;
     }
 
-    public String getToolTipText() {
-        return toolTipText;
+    public String getToolTipHeader() {
+        return toolTipHeader;
     }
 
-    public void setToolTipText(String toolTipText) {
-        this.toolTipText = toolTipText;
+    public void setToolTipHeader(String toolTipText) {
+        this.toolTipHeader = toolTipText;
     }
 
     public int getWeight() {

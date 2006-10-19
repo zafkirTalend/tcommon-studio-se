@@ -40,9 +40,16 @@ import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.dnd.DND;
+import org.eclipse.swt.dnd.DropTargetEvent;
+import org.eclipse.swt.dnd.DropTargetListener;
+import org.eclipse.swt.dnd.Transfer;
+import org.eclipse.swt.dnd.TransferData;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
@@ -50,6 +57,8 @@ import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Widget;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultHeaderColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultStructuredContentProvider;
@@ -62,7 +71,9 @@ import org.talend.commons.ui.swt.tableviewer.selection.MouseTableSelectionHelper
 import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
 import org.talend.commons.ui.swt.tableviewer.sort.TableViewerCreatorSorter;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
+import org.talend.commons.ui.utils.TableUtils;
 import org.talend.commons.ui.ws.WindowSystem;
+import org.talend.commons.utils.EventUtil;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableList;
 import org.talend.commons.utils.data.list.ListenableListEvent;
@@ -235,6 +246,18 @@ public class TableViewerCreator<O> {
 
     private SORT defaultOrderBy;
 
+    private Color bgColorSelectedLine;
+
+    private Color fgColorSelectedLine;
+
+    private Color bgColorSelectedLineWhenUnactive;
+
+    private Color fgColorSelectedLineWhenUnactive;
+
+    private Listener eraseItemListener;
+
+    private boolean useCustomColoring;
+
     /**
      * Constructor.
      * 
@@ -346,17 +369,49 @@ public class TableViewerCreator<O> {
             this.table.dispose();
         }
         this.table = new Table(compositeParent, checkTableStyles());
+        new TableEditor(table);
         tableViewer = new TableViewer(table);
         setTablePreferences();
+
+        initCellModifier();
+//        addDragListener();
+        // table.addListener(SWT.EraseItem, eraseItemListener);
+        // table.addListener(SWT.PaintItem, eraseItemListener);
+
+        //
+        //
+        // Listener addRemoveEraseItemListener = new Listener() {
+        //
+        // public void handleEvent(Event event) {
+        //
+        // boolean leftMouseButton = (event.stateMask & SWT.BUTTON1) != 0 || event.button == 1;
+        //
+        // switch (event.type) {
+        // case SWT.MouseDown:
+        // if (leftMouseButton) {
+        // System.out.println("add");
+        // table.addListener(SWT.EraseItem, eraseItemListener);
+        // }
+
         return table;
     }
 
-    private void setTablePreferences() {
+    /**
+     * DOC amaumont Comment method "initCellModifier".
+     */
+    protected void initCellModifier() {
+        if (cellModifier == null) {
+            cellModifier = new DefaultCellModifier(this);
+        }
+        tableViewer.setCellModifier(cellModifier);
+    }
+
+    protected void setTablePreferences() {
         table.setHeaderVisible(headerVisible);
         table.setLinesVisible(linesVisible);
 
         if (this.emptyZoneColor != null || !emptyZoneLinesVisible) {
-            table.addListener(SWT.Paint, new Listener() {
+            Listener paintListener = new Listener() {
 
                 public void handleEvent(Event event) {
                     GC gc = event.gc;
@@ -381,7 +436,12 @@ public class TableViewerCreator<O> {
                     }
 
                 }
-            });
+            };
+            table.addListener(SWT.Paint, paintListener);
+        }
+
+        if (useCustomColoring) {
+            setUseCustomColoring(true);
         }
 
         if (this.firstVisibleColumnIsSelection) {
@@ -396,7 +456,7 @@ public class TableViewerCreator<O> {
      * 
      * @return int style
      */
-    private int checkTableStyles() {
+    protected int checkTableStyles() {
         int style = SWT.NONE;
         if (lineSelection != null) {
             style |= lineSelection.getSwtStyle();
@@ -419,36 +479,209 @@ public class TableViewerCreator<O> {
         return style;
     }
 
-    private void addListeners() {
+    protected void addListeners() {
 
     }
 
-    private void attachViewerSorter() {
+    
+    /**
+     * 
+     * DOC amaumont Comment method "addPaintListener".
+     */
+    protected void addEraseItemListener() {
+
+        if (eraseItemListener != null) {
+            return;
+        }
+
+        eraseItemListener = new Listener() {
+
+            public void handleEvent(Event event) {
+
+//                System.out.println("EraseItem event.detail=" + EventUtil.getEventNameFromDetail(event.detail) + "event.widget="
+//                        + event.widget.hashCode());
+//                System.out.println(event);
+                TableItem tableItem = (TableItem) event.item;
+
+                boolean selectedState = (event.detail & SWT.SELECTED) != 0;
+                boolean focusedState = table.isFocusControl();
+
+                if (selectedState || event.detail == 22) {
+
+                    GC gc = event.gc;
+
+                    Rectangle rect = event.getBounds();
+
+                    Color previousBackground = gc.getBackground();
+                    Color previousForeground = gc.getForeground();
+
+                    Color bgColor = null;
+                    Color fgColor = null;
+                    if (focusedState) {
+                        if (bgColorSelectedLine != null) {
+                            bgColor = bgColorSelectedLine;
+                        } else {
+                            bgColor = table.getDisplay().getSystemColor(SWT.COLOR_LIST_SELECTION);
+                        }
+                        if (fgColorSelectedLine != null) {
+                            fgColor = fgColorSelectedLine;
+                        } else {
+                            fgColor = table.getDisplay().getSystemColor(SWT.COLOR_BLACK);
+                        }
+                    } else {
+                        if (bgColorSelectedLineWhenUnactive != null) {
+                            bgColor = bgColorSelectedLineWhenUnactive;
+                        } else {
+                            bgColor = table.getDisplay().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND);
+                        }
+                        if (fgColorSelectedLineWhenUnactive != null) {
+                            fgColor = fgColorSelectedLineWhenUnactive;
+                        } else {
+                            fgColor = table.getDisplay().getSystemColor(SWT.COLOR_BLACK);
+                        }
+                    }
+                    gc.setBackground(bgColor);
+                    gc.setForeground(fgColor);
+
+                    // TODO: uncomment to see selection on linux gtk
+
+                    // ((TableItem)event.item).setBackground(null);
+
+                    gc.fillRectangle(rect);
+
+                    gc.setBackground(previousBackground);
+                    gc.setForeground(previousForeground);
+
+                    event.detail &= ~SWT.SELECTED;
+
+                } else if (event.detail == 24 || event.detail == 22) {
+                    /**
+                     * To color cells or rows selected by using
+                     * org.eclipse.swt.widgets.TableItem#setBackground(int,Color) or
+                     * org.eclipse.swt.widgets.TableItem#setBackground(Color)
+                     */
+
+                    // System.out.println("#########################" +event.detail);
+                    GC gc = event.gc;
+
+                    Rectangle rect = event.getBounds();
+
+                    int columnIndex = TableUtils.getColumnIndex(table, new Point(event.x, event.y));
+                    Color currentBackgroundColumn = tableItem.getBackground(columnIndex);
+
+                    Color parentBg = tableItem.getParent().getBackground();
+                    // System.out.println("currentBackgroundColumn="+currentBackgroundColumn);
+                    // System.out.println("tableItem.getBackground()="+tableItem.getBackground());
+                    if (currentBackgroundColumn == parentBg && tableItem.getBackground() != null) {
+                        currentBackgroundColumn = tableItem.getBackground();
+                    }
+
+                    Color background = gc.getBackground();
+
+                    gc.setBackground(currentBackgroundColumn);
+
+                    // TODO: uncomment to see selection on linux gtk
+
+                    // ((TableItem)event.item).setBackground(null);
+
+                    gc.fillRectangle(rect);
+
+                    gc.setBackground(background);
+
+                }
+
+            }
+
+        };
+        table.addListener(SWT.EraseItem, eraseItemListener);
+
+        // Listener paintListener = new Listener() {
+        //
+        // public void handleEvent(Event event) {
+        // System.out.println("PaintItem event.detail=" + EventUtil.getEventNameFromDetail(event.detail) +
+        // "event.widget="
+        // + event.widget.hashCode());
+        //
+        // TableItem tableItem = (TableItem) event.item;
+        //
+        // if (event.detail == 24) {
+        // /**
+        // * To color cells or rows selected by using
+        // * org.eclipse.swt.widgets.TableItem#setBackground(int,Color) or
+        // * org.eclipse.swt.widgets.TableItem#setBackground(Color)
+        // */
+        //
+        // // System.out.println("#########################" +event.detail);
+        // GC gc = event.gc;
+        //
+        // Rectangle rect = event.getBounds();
+        //
+        // int columnIndex = TableUtils.getColumnIndex(table, new Point(event.x, event.y));
+        // Color currentBackgroundColumn = tableItem.getBackground(columnIndex);
+        // Color parentBg = tableItem.getParent().getBackground();
+        // if(currentBackgroundColumn == parentBg && tableItem.getBackground() != null) {
+        // currentBackgroundColumn = tableItem.getBackground();
+        // }
+        //                    
+        // Color background = gc.getBackground();
+        //
+        // gc.setBackground(currentBackgroundColumn);
+        //
+        // // TODO: uncomment to see selection on linux gtk
+        //
+        // // ((TableItem)event.item).setBackground(null);
+        //
+        // gc.fillRectangle(rect);
+        //
+        // gc.setBackground(background);
+        //
+        // }
+        //
+        // }
+        //
+        // };
+        // table.addListener(SWT.PaintItem, paintListener);
+        //
+        // Listener measureItemListener = new Listener() {
+        //
+        // public void handleEvent(Event event) {
+        // System.out.println("MeasureItem event.detail=" + EventUtil.getEventNameFromDetail(event.detail) +
+        // "event.widget="
+        // + event.widget.hashCode());
+        // }
+        //
+        // };
+        //
+        // table.addListener(SWT.MeasureItem, measureItemListener);
+
+    }
+
+    protected void attachViewerSorter() {
 
         if (this.tableViewerCreatorSorter == null) {
             this.tableViewerCreatorSorter = new TableViewerCreatorSorter();
-            if (defaultOrderedColumn != null && defaultOrderBy != null) {
+            if (defaultOrderedColumn != null && defaultOrderBy != null && defaultOrderedColumn.isSortable()) {
                 this.tableViewerCreatorSorter.prepareSort(this, defaultOrderedColumn, defaultOrderBy);
             }
         }
         tableViewer.setSorter((ViewerSorter) this.tableViewerCreatorSorter);
     }
 
-    private void attachLabelProvider() {
+    protected void attachLabelProvider() {
         if (this.labelProvider == null) {
             this.labelProvider = new DefaultTableLabelProvider(this);
         }
         tableViewer.setLabelProvider(this.labelProvider);
     }
 
-    private void attachContentProvider() {
+    protected void attachContentProvider() {
         if (this.contentProvider == null) {
             this.contentProvider = new DefaultStructuredContentProvider(this);
         }
         tableViewer.setContentProvider(this.contentProvider);
     }
 
-    private TableViewer buildAndLayoutTable() {
+    protected TableViewer buildAndLayoutTable() {
         if (this.layoutMode == LAYOUT_MODE.DEFAULT || this.layoutMode == LAYOUT_MODE.FILL_HORIZONTAL
                 || this.layoutMode == LAYOUT_MODE.CONTINUOUS) {
             TableViewerCreatorLayout currentTableLayout = new TableViewerCreatorLayout(tableViewerCreator, 50);
@@ -501,7 +734,7 @@ public class TableViewerCreator<O> {
      * 
      * @param column
      */
-    private void initColumnLayout(final TableViewerCreatorColumn column) {
+    protected void initColumnLayout(final TableViewerCreatorColumn column) {
         ColumnLayoutData columnLayoutData = null;
         if (column.getWeight() > 0) {
             columnLayoutData = new ColumnWeightData(column.getWeight(), column.getMinimumWidth(), column.isResizable());
@@ -520,7 +753,7 @@ public class TableViewerCreator<O> {
      * 
      * @param column
      */
-    private TableColumn createTableColumn(final TableViewerCreatorColumn column) {
+    protected TableColumn createTableColumn(final TableViewerCreatorColumn column) {
         boolean isMaskedColumn = false;
         if (column.getId().equals(ID_MASKED_COLUMN)) {
             isMaskedColumn = true;
@@ -531,9 +764,9 @@ public class TableViewerCreator<O> {
             tableColumn.setMoveable(false);
             tableColumn.setResizable(false);
         } else {
-            tableColumn.setImage(column.getImage());
+            tableColumn.setImage(column.getImageHeader());
             tableColumn.setText(column.getTitle() != null ? column.getTitle() : column.getId());
-            tableColumn.setToolTipText(column.getToolTipText());
+            tableColumn.setToolTipText(column.getToolTipHeader());
 
             if (column.getTableEditorContent() != null) {
                 if (tableEditorManager == null) {
@@ -568,12 +801,7 @@ public class TableViewerCreator<O> {
         return tableColumn;
     }
 
-    private void attachCellEditors() {
-        if (cellModifier == null) {
-            cellModifier = new DefaultCellModifier(this);
-        }
-        tableViewer.setCellModifier(cellModifier);
-
+    protected void attachCellEditors() {
         String[] properties = new String[columns.size()];
         CellEditor[] cellEditors = new CellEditor[columns.size()];
         int size = columns.size();
@@ -680,7 +908,6 @@ public class TableViewerCreator<O> {
          * </p>
          */
         CONTINUOUS,
-
 
         /**
          * <p>- Use width and weight to initialize columns size, but don't resize columns when table is resized
@@ -1009,35 +1236,235 @@ public class TableViewerCreator<O> {
     }
 
     /**
-     * You must use DefaultCellModifier or a class which extends it to use this method.
+     * You must use DefaultCellModifier or a class which extends it to use this method. You can call this method only if
+     * you have already called createTable().
+     * 
      * 
      * @param tableCellValueModifiedListener
      * @throws UnsupportedOperationException if current CellModifier is not DefaultCellModifier or a class which extends
-     * it
+     * it @
      */
     public void addCellValueModifiedListener(ITableCellValueModifiedListener tableCellValueModifiedListener) {
+        if (this.cellModifier == null) {
+            throw new IllegalStateException("You can call this method only if you have already called createTable()");
+        }
         if (this.cellModifier instanceof DefaultCellModifier) {
             ((DefaultCellModifier) this.cellModifier).addCellEditorAppliedListener(tableCellValueModifiedListener);
         } else {
-            throw new UnsupportedOperationException("The current CellModifier dose'nt support this operation. \n Use '"
+            throw new UnsupportedOperationException("The current CellModifier does'nt support this operation. \n Use '"
                     + DefaultCellModifier.class + "' or a class which extends it to use this feature");
         }
     }
 
     /**
-     * You must use DefaultCellModifier or a class which extends it to use this method.
+     * You must use DefaultCellModifier or a class which extends it to use this method. You can call this method only if
+     * you have already called createTable().
      * 
      * @param tableCellValueModifiedListener
      * @throws UnsupportedOperationException if current CellModifier is not DefaultCellModifier or a class which extends
      * it
      */
     public void removeCellValueModifiedListener(ITableCellValueModifiedListener tableCellValueModifiedListener) {
+        if (this.cellModifier == null) {
+            throw new IllegalStateException("You can call this method only if you have already called createTable()");
+        }
         if (this.cellModifier instanceof DefaultCellModifier) {
             ((DefaultCellModifier) this.cellModifier).removeCellEditorAppliedListener(tableCellValueModifiedListener);
         } else {
-            throw new UnsupportedOperationException("The current CellModifier dose'nt support this operation. \n Use '"
+            throw new UnsupportedOperationException("The current CellModifier does'nt support this operation. \n Use '"
                     + DefaultCellModifier.class + "' or a class which extends it to use this feature");
         }
     }
+
+    /**
+     * <p>
+     * Use custom coloring allow by default to correct bad rendering of transparent images in Table and for first
+     * column.
+     * </p>
+     * Warnings :
+     * <ul>
+     * <li> automatic tooltip which appears when a cell is too small to display its content won't work. </li>
+     * <li> automatic tooltip behavior can't be found again if you unactive custom coloring due to Table._addListener()
+     * and Table.removeListener(). </li>
+     * </ul>
+     * 
+     * @param useCustomColoring
+     */
+    public void setUseCustomColoring(boolean useCustomColoring) {
+        this.useCustomColoring = useCustomColoring;
+        if (table != null) {
+            if (useCustomColoring) {
+                addEraseItemListener();
+            } else {
+                removeEraseItemListener();
+            }
+        }
+    }
+
+    /**
+     * DOC amaumont Comment method "removePaintListener".
+     */
+    protected void removeEraseItemListener() {
+        if (eraseItemListener != null) {
+            table.removeListener(SWT.EraseItem, eraseItemListener);
+            eraseItemListener = null;
+        }
+    }
+
+    /**
+     * 
+     * DOC amaumont Comment method "getBgColorSelectedLine".
+     * 
+     * @return
+     */
+    public Color getBgColorSelectedLine() {
+        return this.bgColorSelectedLine;
+    }
+
+    /**
+     * 
+     * DOC amaumont Comment method "setBgColorSelectedLine".
+     * 
+     * @param lineSelectionBackgroundColor
+     * @see TableViewerCreator#setUseCustomColoring(boolean)
+     */
+    public void setBgColorSelectedLine(Color lineSelectionBackgroundColor) {
+        this.bgColorSelectedLine = lineSelectionBackgroundColor;
+//        setUseCustomColoring(true);
+    }
+
+    public Color getFgColorSelectedLine() {
+        return this.fgColorSelectedLine;
+    }
+
+    /**
+     * 
+     * DOC amaumont Comment method "setFgColorSelectedLine".
+     * 
+     * @param lineSelectionForegroundColor
+     * @see TableViewerCreator#setUseCustomColoring(boolean)
+     */
+    public void setFgColorSelectedLine(Color lineSelectionForegroundColor) {
+        this.fgColorSelectedLine = lineSelectionForegroundColor;
+//        setUseCustomColoring(true);
+    }
+
+    public Color getBgColorSelectedLineWhenUnactive() {
+        return this.bgColorSelectedLineWhenUnactive;
+    }
+
+    /**
+     * 
+     * DOC amaumont Comment method "setBgColorSelectedLineWhenUnactive".
+     * 
+     * @param bgColorSelectedLineWhenUnactive
+     * @see TableViewerCreator#setUseCustomColoring(boolean)
+     */
+    public void setBgColorSelectedLineWhenUnactive(Color bgColorSelectedLineWhenUnactive) {
+        this.bgColorSelectedLineWhenUnactive = bgColorSelectedLineWhenUnactive;
+//        setUseCustomColoring(true);
+    }
+
+    public Color getFgColorSelectedLineWhenUnactive() {
+        return this.fgColorSelectedLineWhenUnactive;
+    }
+
+    /**
+     * 
+     * DOC amaumont Comment method "setFgColorSelectedLineWhenUnactive".
+     * 
+     * @param fgColorSelectedLineWhenUnactive
+     * @see TableViewerCreator#setUseCustomColoring(boolean)
+     */
+    public void setFgColorSelectedLineWhenUnactive(Color fgColorSelectedLineWhenUnactive) {
+        this.fgColorSelectedLineWhenUnactive = fgColorSelectedLineWhenUnactive;
+//        setUseCustomColoring(true);
+    }
+
+    // final Listener eraseItemListener = new Listener() {
+    //
+    // public void handleEvent(Event event) {
+    //
+    // System.out.println("EraseItem2");
+    //
+    // if ((event.detail & SWT.SELECTED) != 0) {
+    //
+    // GC gc = event.gc;
+    //
+    // Rectangle rect = event.getBounds();
+    //
+    // Color background = gc.getBackground();
+    //
+    // gc.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_YELLOW));
+    //
+    // // TODO: uncomment to see selection on linux gtk
+    //
+    // // ((TableItem)event.item).setBackground(null);
+    //
+    // gc.fillRectangle(rect);
+
+    //
+    // gc.setBackground(background);
+    //
+    // event.detail &= ~SWT.SELECTED;
+    //
+    // }
+    //
+    // }
+    //
+    // };
+
+    //                
+    // Listener paintListener = new Listener() {
+    //        
+    // public void handleEvent(Event event) {
+    // System.out.println("PaintItem");
+    // }
+    //                    
+    // };
+    //                
+    // Listener measureItemListener = new Listener() {
+    //                    
+    // public void handleEvent(Event event) {
+    // System.out.println("MeasureItem");
+    // }
+    //                    
+    // };
+
+    // table.addListener(SWT.PaintItem, paintListener);
+    // table.addListener(SWT.MeasureItem, measureItemListener);
+    //
+    //        
+    // Listener addRemoveEraseItemListener = new Listener() {
+    //
+    // public void handleEvent(Event event) {
+    //
+    // boolean leftMouseButton = (event.stateMask & SWT.BUTTON1) != 0 || event.button == 1;
+    //
+    // switch (event.type) {
+    // case SWT.MouseDown:
+    // if (leftMouseButton) {
+    // System.out.println("add");
+    // table.addListener(SWT.EraseItem, eraseItemListener);
+    // }
+    // break;
+    // case SWT.MouseUp:
+    // if (leftMouseButton) {
+    // System.out.println("remove");
+    // table.removeListener(SWT.EraseItem, eraseItemListener);
+    // OS.SendMessage (table.handle, OS.LVM_SETEXTENDEDLISTVIEWSTYLE, OS.LVS_EX_LABELTIP, OS.LVS_EX_LABELTIP);
+    // table.setToolTipText("test");
+    // table.setBackgroundImage(imageEmpty);
+    // table.setBackgroundMode(SWT.INHERIT_DEFAULT);
+    // }
+    // break;
+    //
+    // }
+    // }
+    //            
+    // };
+    //        
+    // table.addListener(SWT.MouseDown, addRemoveEraseItemListener);
+    // table.addListener(SWT.MouseUp, addRemoveEraseItemListener);
 
 }

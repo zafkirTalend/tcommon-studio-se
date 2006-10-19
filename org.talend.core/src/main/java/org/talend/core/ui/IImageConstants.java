@@ -93,11 +93,11 @@ public interface IImageConstants {
 
     public static final String KEY_ICON = "/icons/key16.png";
 
-    public static final String KEY16_ICON = "/icons/key16x16.png";
+    public static final String KEY16_ICON = "/icons/key17.gif";
     
-    public static final String TRANSPARENT16_ICON = "/icons/emptytransparent.png";
+    public static final String TRANSPARENT16_ICON = "/icons/key17_empty.gif";
 
-    public static final String TRANSPARENT16X16_ICON = "/icons/key-tr-16x16.png";
+    public static final String TRANSPARENT16X16_ICON = "/icons/key17_empty.gif";
     
     public static final String DOC_WORD_ICON = "/icons/docs/word.png";
 
