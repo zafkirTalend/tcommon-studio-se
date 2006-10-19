@@ -64,14 +64,14 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
      * 
      * @see org.talend.core.model.process.INode#metataChanged(org.talend.core.model.components.IODataComponent)
      */
-    public void metadataInputChanged(IODataComponent dataComponent) {
+    public void metadataInputChanged(IODataComponent dataComponent, String connectionToApply) {
         for (ColumnNameChanged col : dataComponent.getColumnNameChanged()) {
-            System.out.println("    -> " + col);
-            this.renameMetadataColumnName(col.getConnectionName(), col.getOldName(), col.getNewName());
+            System.out.println("    -> " + col + " " + connectionToApply);
+            this.renameMetadataColumnName(connectionToApply, col.getOldName(), col.getNewName());
         }
     }
 
-    public void metadataOutputChanged(IODataComponent dataComponent) {
+    public void metadataOutputChanged(IODataComponent dataComponent, String connectionToApply) {
     }
 
     protected abstract void renameMetadataColumnName(String conectionName, String oldColumnName, String newColumnName);

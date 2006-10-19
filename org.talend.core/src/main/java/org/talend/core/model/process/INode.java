@@ -111,7 +111,7 @@ public interface INode extends IElement {
 
     // public IExternalNode getExternalNode();
 
-    public void metadataInputChanged(IODataComponent dataComponent);
+    public void metadataInputChanged(IODataComponent dataComponent, String connectionToApply);
 
-    public void metadataOutputChanged(IODataComponent dataComponent);
+    public void metadataOutputChanged(IODataComponent dataComponent, String connectionToApply);
 }

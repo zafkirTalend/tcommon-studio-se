@@ -105,7 +105,7 @@ public class IODataComponent {
         for (IMetadataColumn originalColumn : connection.getMetadataTable().getListColumns()) {
             IMetadataColumn clonedColumn = getColumn(originalColumn.getId());
             if (!originalColumn.getLabel().equals(clonedColumn.getLabel())) {
-                toReturn.add(new ColumnNameChanged(getName(), originalColumn.getLabel(), clonedColumn.getLabel()));
+                toReturn.add(new ColumnNameChanged(originalColumn.getLabel(), clonedColumn.getLabel()));
             }
         }
         return toReturn;
@@ -120,8 +120,6 @@ public class IODataComponent {
      */
     public class ColumnNameChanged {
 
-        private String connectionName;
-
         private String oldName;
 
         private String newName;
@@ -132,20 +130,10 @@ public class IODataComponent {
          * @param oldName
          * @param newName
          */
-        public ColumnNameChanged(String connectionName, String oldName, String newName) {
+        public ColumnNameChanged(String oldName, String newName) {
             super();
-            this.connectionName = connectionName;
             this.oldName = oldName;
             this.newName = newName;
-        }
-
-        /**
-         * Getter for connectionName.
-         * 
-         * @return the connectionName
-         */
-        public String getConnectionName() {
-            return this.connectionName;
         }
 
         /**
@@ -173,7 +161,7 @@ public class IODataComponent {
          */
         @Override
         public String toString() {
-            return "Column changed : " + oldName + "->" + newName + " on " + connectionName;
+            return "Column changed : " + oldName + "->" + newName;
         }
 
     }
