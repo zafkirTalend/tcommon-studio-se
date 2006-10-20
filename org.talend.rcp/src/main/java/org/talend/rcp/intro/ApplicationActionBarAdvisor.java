@@ -34,6 +34,7 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.registry.ActionSetRegistry;
 import org.eclipse.ui.internal.registry.IActionSetDescriptor;
+import org.talend.rcp.perspective.PerspectiveMenuManager;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>

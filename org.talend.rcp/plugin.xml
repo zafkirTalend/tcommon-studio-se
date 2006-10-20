@@ -15,7 +15,7 @@
          point="org.eclipse.ui.perspectives">
       <perspective
             name="%perspective.talend"
-            class="org.talend.rcp.intro.Perspective"
+            class="org.talend.rcp.perspective.Perspective"
             id="org.talend.rcp.perspective">
       </perspective>
    </extension>

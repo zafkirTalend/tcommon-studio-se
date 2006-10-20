@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.rcp.intro;
+package org.talend.rcp.perspective;
 
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -30,16 +30,14 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
 import org.talend.rcp.Activator;
 
-
 /**
- * Changes the active perspective.
- * <br/>
- *
+ * Changes the active perspective. <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class ChangePerspectiveAction extends Action {
-    
+
     /** Id of the perspective to move to front. */
     private String perspectiveId;
 
@@ -48,11 +46,13 @@ public class ChangePerspectiveAction extends Action {
      */
     public ChangePerspectiveAction(String perspectiveId) {
         super(perspectiveId, AS_CHECK_BOX);
-        
+
         this.perspectiveId = perspectiveId;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.action.Action#run()
      */
     @Override
