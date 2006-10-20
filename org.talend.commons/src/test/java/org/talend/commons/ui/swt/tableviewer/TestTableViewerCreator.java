@@ -26,6 +26,7 @@ import java.util.Random;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -57,6 +58,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SORT;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
+import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.utils.DataObject;
@@ -93,8 +95,9 @@ public final class TestTableViewerCreator {
         tableViewerCreator.setLinesVisible(true);
         tableViewerCreator.setShowSelection(SHOW_SELECTION.FULL);   
         tableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
-        tableViewerCreator.setLayoutMode(LAYOUT_MODE.DEFAULT);
+        tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
         tableViewerCreator.setUseCustomColoring(true);
+        tableViewerCreator.setAdjustWidthValue(-50);
 //        tableViewerCreator.setFirstVisibleColumnIsSelection(true);
 //        tableViewerCreator.setLabelProvider(new ITableLabelProvider() {
 //
@@ -133,7 +136,7 @@ public final class TestTableViewerCreator {
 
         final Table table = tableViewerCreator.createTable();
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL, GridData.GRAB_HORIZONTAL);
-//        gridData.grabExcessHorizontalSpace = true;
+        gridData.grabExcessHorizontalSpace = true;
 //        gridData.horizontalAlignment = GridData.FILL_HORIZONTAL;
         gridData.heightHint = 200;
         table.setLayoutData(gridData);
@@ -191,55 +194,146 @@ public final class TestTableViewerCreator {
 
         });
 
-//        column = new TableViewerCreatorColumn(tableViewerCreator);
-//        column.setTitle("Integer Null Value");
-//        column.setModifiable(true);
-//        column.setSortable(true);
-//        column.setResizable(true);
-//        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
-//
-//            public Integer get(DataObject bean) {
-//                return bean.getIntegerValue2();
-//            }
-//
-//            public void set(DataObject bean, Integer value) {
-//                bean.setIntegerValue2(value);
-//            }
-//
-//        });
-//        column.setWidth(150);
-//        final String[] valueSet = new String[] { "xxx", "yyy", "zzz" };
-//        column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
-//
-//            public String getColumnText(CellEditor cellEditor, Object value) {
-//                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
-//                int index = (Integer) value;
-//                if (index >= 0 && index < items.length) {
-//                    return items[index];
-//                } else {
-//                    return "";
-//                }
-//            }
-//        });
-//
-//        column = new TableViewerCreatorColumn(tableViewerCreator);
-//        column.setTitle("Id");
-//        column.setModifiable(false);
-//        column.setResizable(true);
-//        column.setSortable(true);
-//        column.setMoveable(true);
-//        column.setWeight(80);
-//        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
-//
-//            public Integer get(DataObject bean) {
-//                return bean.getIntegerValue2();
-//            }
-//
-//            public void set(DataObject bean, Integer value) {
-//                bean.setIntegerValue2(value);
-//            }
-//
-//        });
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle("Integer Null Value");
+        column.setModifiable(true);
+        column.setSortable(true);
+        column.setResizable(true);
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
+            public Integer get(DataObject bean) {
+                return bean.getIntegerValue2();
+            }
+
+            public void set(DataObject bean, Integer value) {
+                bean.setIntegerValue2(value);
+            }
+
+        });
+        column.setWidth(150);
+        final String[] valueSet = new String[] { "xxx", "yyy", "zzz" };
+        column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
+
+            public String getColumnText(CellEditor cellEditor, Object value) {
+                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
+                int index = (Integer) value;
+                if (index >= 0 && index < items.length) {
+                    return items[index];
+                } else {
+                    return "";
+                }
+            }
+        });
+
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle("Boolean");
+        column.setModifiable(false);
+        column.setSortable(true);
+        column.setResizable(true);
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Boolean>() {
+            
+            public Boolean get(DataObject bean) {
+                return bean.isBool();
+            }
+            
+            public void set(DataObject bean, Boolean value) {
+                bean.setBool(value);
+            }
+            
+        });
+        column.setWidth(50);
+        column.setTableEditorContent(new CheckboxTableEditorContent());
+        
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle("Id");
+        column.setModifiable(false);
+        column.setResizable(true);
+        column.setSortable(true);
+        column.setMoveable(true);
+        column.setWeight(80);
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
+            public Integer get(DataObject bean) {
+                return bean.getIntegerValue2();
+            }
+
+            public void set(DataObject bean, Integer value) {
+                bean.setIntegerValue2(value);
+            }
+
+        });
+        column.setTableEditorContent(new TableEditorContent() {
+
+            public TableEditor createTableEditor(Table table) {
+                TableEditor tableEditor = new TableEditor(table);
+                return tableEditor;
+            }
+
+            public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
+                    Object currentRowObject, Object currentCellValue) {
+                Button button = new Button(table, SWT.PUSH);
+                // Set attributes of the button
+                button.setText(String.valueOf(currentCellValue));
+                button.computeSize(SWT.DEFAULT, table.getItemHeight());
+
+                // Set attributes of the editor
+                tableEditor.grabHorizontal = true;
+                tableEditor.minimumHeight = button.getSize().y;
+                tableEditor.minimumWidth = button.getSize().x;
+                return button;
+            }
+
+        });
+
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle("Id2");
+        column.setModifiable(false);
+        column.setResizable(true);
+        column.setSortable(true);
+        column.setWidth(50);
+        column.setImageProvider(new IColumnImageProvider() {
+
+            public Image getImage(Object bean) {
+                return image;
+            }
+            
+        });
+
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
+            public Integer get(DataObject bean) {
+                return bean.getIntegerValue2();
+            }
+
+            public void set(DataObject bean, Integer value) {
+                bean.setIntegerValue2(value);
+            }
+
+        });
+        
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle("Boolean2");
+        column.setModifiable(false);
+        column.setSortable(true);
+        column.setResizable(true);
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Boolean>() {
+            
+            public Boolean get(DataObject bean) {
+                return bean.isBool();
+            }
+            
+            public void set(DataObject bean, Boolean value) {
+                bean.setBool(value);
+            }
+            
+        });
+//        column.setWidth(20);
+        column.setWeight(20);
+        column.setMinimumWidth(50);
+        column.setTableEditorContent(new CheckboxTableEditorContent());
+        
+        
+        
 //        column.setTableEditorContent(new TableEditorContent() {
 //
 //            public TableEditor createTableEditor(Table table) {
@@ -249,100 +343,52 @@ public final class TestTableViewerCreator {
 //
 //            public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
 //                    Object currentRowObject, Object currentCellValue) {
-//                Button button = new Button(table, SWT.PUSH);
+//                Composite composite = new Composite(table, SWT.PUSH);
 //                // Set attributes of the button
-//                button.setText(String.valueOf(currentCellValue));
-//                button.computeSize(SWT.DEFAULT, table.getItemHeight());
+//                composite.setBackground(new Color(null, 255, 0, 0));
+//                composite.setSize(100 * ((Integer) currentCellValue).intValue() / 100, table.getItemHeight());
 //
 //                // Set attributes of the editor
-//                tableEditor.grabHorizontal = true;
-//                tableEditor.minimumHeight = button.getSize().y;
-//                tableEditor.minimumWidth = button.getSize().x;
-//                return button;
+//                // tableEditor.grabHorizontal = true;
+//                tableEditor.minimumHeight = composite.getSize().y;
+//                tableEditor.horizontalAlignment = SWT.LEFT;
+//                tableEditor.minimumWidth = composite.getSize().x;
+//                return composite;
 //            }
 //
 //        });
+
+//        Listener eraseItemListener = new Listener() {
 //
-//        column = new TableViewerCreatorColumn(tableViewerCreator);
-//        column.setTitle("Id2");
-//        column.setModifiable(false);
-//        column.setResizable(true);
-//        column.setSortable(true);
-//        column.setWidth(50);
-//        column.setImageProvider(new IColumnImageProvider() {
+//            public void handleEvent(Event event) {
 //
-//            public Image getImage(Object bean) {
-//                return image;
+//                if ((event.detail & SWT.SELECTED) != 0) {
+//
+//                    GC gc = event.gc;
+//                    
+//
+//                    Rectangle rect = event.getBounds();
+//
+//                    Color background = gc.getBackground();
+//
+//                    gc.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_RED));
+//
+//                    // TODO: uncomment to see selection on linux gtk
+//
+//                    // ((TableItem)event.item).setBackground(null);
+//
+//                    gc.fillRectangle(rect);
+//
+//                    gc.setBackground(background);
+//
+//                    event.detail &= ~SWT.SELECTED;
+//
+//                }
+//
 //            }
-//            
-//        });
 //
-//        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
-//
-//            public Integer get(DataObject bean) {
-//                return bean.getIntegerValue2();
-//            }
-//
-//            public void set(DataObject bean, Integer value) {
-//                bean.setIntegerValue2(value);
-//            }
-//
-//        });
-////        column.setTableEditorContent(new TableEditorContent() {
-////
-////            public TableEditor createTableEditor(Table table) {
-////                TableEditor tableEditor = new TableEditor(table);
-////                return tableEditor;
-////            }
-////
-////            public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
-////                    Object currentRowObject, Object currentCellValue) {
-////                Composite composite = new Composite(table, SWT.PUSH);
-////                // Set attributes of the button
-////                composite.setBackground(new Color(null, 255, 0, 0));
-////                composite.setSize(100 * ((Integer) currentCellValue).intValue() / 100, table.getItemHeight());
-////
-////                // Set attributes of the editor
-////                // tableEditor.grabHorizontal = true;
-////                tableEditor.minimumHeight = composite.getSize().y;
-////                tableEditor.horizontalAlignment = SWT.LEFT;
-////                tableEditor.minimumWidth = composite.getSize().x;
-////                return composite;
-////            }
-////
-////        });
-//
-////        Listener eraseItemListener = new Listener() {
-////
-////            public void handleEvent(Event event) {
-////
-////                if ((event.detail & SWT.SELECTED) != 0) {
-////
-////                    GC gc = event.gc;
-////                    
-////
-////                    Rectangle rect = event.getBounds();
-////
-////                    Color background = gc.getBackground();
-////
-////                    gc.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_RED));
-////
-////                    // TODO: uncomment to see selection on linux gtk
-////
-////                    // ((TableItem)event.item).setBackground(null);
-////
-////                    gc.fillRectangle(rect);
-////
-////                    gc.setBackground(background);
-////
-////                    event.detail &= ~SWT.SELECTED;
-////
-////                }
-////
-////            }
-////
-////        };
-////        table.addListener(SWT.EraseItem, eraseItemListener);
+//        };
+//        table.addListener(SWT.EraseItem, eraseItemListener);
 
         Button buttonSelection = new Button(shell1, SWT.PUSH);
         buttonSelection.setText("buttonSelection");

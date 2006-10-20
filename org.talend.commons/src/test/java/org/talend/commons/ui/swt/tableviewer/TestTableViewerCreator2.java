@@ -99,6 +99,7 @@ public final class TestTableViewerCreator2 {
         tableViewerCreator.setAllColumnsSortable(true);
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
         tableViewerCreator.setHorizontalScroll(false);
+        tableViewerCreator.setAdjustWidthValue(-50);
 
         Table table = tableViewerCreator.createTable();
         // When the table is in a Composite (and not direct in a Shell),

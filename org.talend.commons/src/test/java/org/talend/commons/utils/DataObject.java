@@ -62,6 +62,9 @@ public class DataObject {
      */
     private static Random random = new Random();
 
+    
+    private boolean bool;
+    
     /**
      * libelle.
      */
@@ -211,6 +214,8 @@ public class DataObject {
         vect2.add(new Integer(A22));
         this.vect.add(vect2);
 
+        bool = random.nextBoolean();
+        
         libelle = libelles[random.nextInt(libelles.length)];
         field1 = new Double(money);
         unit = units[random.nextInt(units.length)];
@@ -595,6 +600,16 @@ public class DataObject {
 
     public void setIntegerValue1(Integer integerValue) {
         this.integerValue1 = integerValue;
+    }
+
+    
+    public boolean isBool() {
+        return this.bool;
+    }
+
+    
+    public void setBool(boolean bool) {
+        this.bool = bool;
     }
 
 }

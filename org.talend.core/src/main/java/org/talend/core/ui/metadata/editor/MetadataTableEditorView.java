@@ -145,6 +145,7 @@ public class MetadataTableEditorView {
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
         tableViewerCreator.setUseCustomColoring(true);
+//        tableViewerCreator.setAdjustWidthValue(-30);
         tableViewerCreator.setFirstColumnMasked(true);
 
         initLineSelectionListeners();
@@ -533,9 +534,9 @@ public class MetadataTableEditorView {
             }
 
         });
-        column.setWeight(15);
+        column.setWeight(30);
         column.setModifiable(true);
-        column.setMinimumWidth(30);
+        column.setMinimumWidth(20);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
 
     }
