@@ -210,7 +210,8 @@ public class RepositoryFactory implements IRepositoryFactory {
             } else if (current instanceof IFolder) {
                 if (!current.getName().equals(BIN)) {
                     Container<K, T> cont = toReturn.addSubContainer(current.getName());
-                    String sId = ResourceUtils.getPersistentPropertyAsString(current, FOLDER_ID_KEY);
+                    FolderHelper folderHelper = FolderHelper.createInstance(repositoryContext.getProject());
+                    String sId = folderHelper.getFolder(current.getProjectRelativePath()).getProperty().getId();
                     cont.setId(sId);
                     addFolderMembers(type, cont, (IFolder) current, onlyLastVersion);
                 } else {
@@ -484,7 +485,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         return projects;
     }
 
-    private void synchronizeFolders(final IProject project, final org.talend.core.model.properties.Project emfProject) {
+    private void synchronizeFolders(final IProject project, final org.talend.core.model.properties.Project emfProject) throws PersistenceException {
         final FolderHelper helper = FolderHelper.createInstance(emfProject);
         final Set<IPath> listFolders = helper.listFolders();
         try {
@@ -508,22 +509,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         for (IPath path : listFolders) {
             helper.deleteFolder(path);
         }
-        saveProjectResource(emfProject);
-    }
-
-    /**
-     * DOC tguiu Comment method "saveProjectResource".
-     * 
-     * @param emfProject
-     */
-    private void saveProjectResource(final org.talend.core.model.properties.Project emfProject) {
-        if (emfProject.eResource().isModified()) {
-            try {
-                xmiResourceManager.saveResource(emfProject.eResource());
-            } catch (PersistenceException e) {
-                e.printStackTrace();
-            }
-        }
+        xmiResourceManager.saveResource(emfProject.eResource());
     }
 
     /*
@@ -547,16 +533,11 @@ public class RepositoryFactory implements IRepositoryFactory {
 
         String completePath = LocalResourceModelUtils.getFolderName(type) + IPath.SEPARATOR + path.toString() + IPath.SEPARATOR
                 + label;
-        FolderHelper.createInstance(repositoryContext.getProject()).createFolder(completePath);
-        saveProjectResource(repositoryContext.getProject().getEmfProject());
+        String id = FolderHelper.createInstance(repositoryContext.getProject()).createFolder(completePath);
+        xmiResourceManager.saveResource(repositoryContext.getProject().getEmfProject().eResource());
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
-
         ResourceUtils.createFolder(folder);
-
-        String id = getNextId();
-
-        ResourceUtils.setPersistentProperty(folder, FOLDER_ID_KEY, id + "");
 
         return new Folder(id, label);
     }
@@ -658,7 +639,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, true);
         FolderHelper.createInstance(repositoryContext.getProject()).deleteFolder(completePath);
-        saveProjectResource(repositoryContext.getProject().getEmfProject());
+        xmiResourceManager.saveResource(repositoryContext.getProject().getEmfProject().eResource());
 
         ResourceUtils.deleteFolder(folder);
     }
@@ -675,7 +656,7 @@ public class RepositoryFactory implements IRepositoryFactory {
 
         IFolder newFolder = ResourceUtils.getFolder(fsProject, completeNewPath, false);
         FolderHelper.createInstance(repositoryContext.getProject()).moveFolder(completeOldPath, completeNewPath);
-        saveProjectResource(repositoryContext.getProject().getEmfProject());
+        xmiResourceManager.saveResource(repositoryContext.getProject().getEmfProject().eResource());
         ResourceUtils.moveResource(folder, newFolder.getFullPath());
     }
 
@@ -690,7 +671,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         // Path(SystemFolderNameFactory.getFolderName(type)).append(path).removeLastSegments(1).append(label);
         IPath targetPath = new Path(label);
         FolderHelper.createInstance(repositoryContext.getProject()).renameFolder(completePath, label);
-        saveProjectResource(repositoryContext.getProject().getEmfProject());
+        xmiResourceManager.saveResource(repositoryContext.getProject().getEmfProject().eResource());
 
         ResourceUtils.moveResource(folder, targetPath);
     }
