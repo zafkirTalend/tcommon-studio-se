@@ -1382,8 +1382,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         }
     }
 
-    public void findUser(Project project, RepositoryContext repositoryContext) throws PersistenceException {
-        // FIXME MHE
+    public boolean findUser(Project project, RepositoryContext repositoryContext) throws PersistenceException {
         IProject iProject = ResourceModelUtils.getProject(project);
         org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
@@ -1394,13 +1393,23 @@ public class RepositoryFactory implements IRepositoryFactory {
             org.talend.core.model.properties.User emfUser = (org.talend.core.model.properties.User) iter.next();
             if (emfUser.getLogin().equals(repositoryContext.getUser().getEmfUser().getLogin())) {
                 repositoryContext.setUser(new User(emfUser));
-                found = true;
+                return true;
             }
         }
+        
+        return false;
+    }
 
-        if (!found) {
-            projectResource.getContents().add(repositoryContext.getUser().getEmfUser());
-            xmiResourceManager.saveResource(projectResource);
-        }
+    public void createUser(Project project, RepositoryContext repositoryContext) throws PersistenceException {
+        IProject iProject = ResourceModelUtils.getProject(project);
+        org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
+        Resource projectResource = emfProject.eResource();
+
+        projectResource.getContents().add(repositoryContext.getUser().getEmfUser());
+        xmiResourceManager.saveResource(projectResource);
+    }
+
+    public void initialize() {
+        //unused in local mode
     }
 }
