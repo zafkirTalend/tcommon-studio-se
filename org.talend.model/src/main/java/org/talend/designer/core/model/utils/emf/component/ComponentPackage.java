@@ -1013,6 +1013,43 @@ public interface ComponentPackage extends EPackage {
     int RETURN_TYPE_FEATURE_COUNT = 3;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATEPARAMTypeImpl <em>TEMPLATEPARAM Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.component.impl.TEMPLATEPARAMTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEPARAMType()
+     * @generated
+     */
+    int TEMPLATEPARAM_TYPE = 16;
+
+    /**
+     * The feature id for the '<em><b>SOURCE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEMPLATEPARAM_TYPE__SOURCE = 0;
+
+    /**
+     * The feature id for the '<em><b>TARGET</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEMPLATEPARAM_TYPE__TARGET = 1;
+
+    /**
+     * The number of structural features of the '<em>TEMPLATEPARAM Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEMPLATEPARAM_TYPE_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl <em>TEMPLATES Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1020,7 +1057,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATESType()
      * @generated
      */
-    int TEMPLATES_TYPE = 16;
+    int TEMPLATES_TYPE = 17;
 
     /**
      * The feature id for the '<em><b>TEMPLATE</b></em>' containment reference list.
@@ -1032,13 +1069,40 @@ public interface ComponentPackage extends EPackage {
     int TEMPLATES_TYPE__TEMPLATE = 0;
 
     /**
+     * The feature id for the '<em><b>TEMPLATEPARAM</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEMPLATES_TYPE__TEMPLATEPARAM = 1;
+
+    /**
+     * The feature id for the '<em><b>INPUT</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEMPLATES_TYPE__INPUT = 2;
+
+    /**
+     * The feature id for the '<em><b>OUTPUT</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEMPLATES_TYPE__OUTPUT = 3;
+
+    /**
      * The number of structural features of the '<em>TEMPLATES Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TEMPLATES_TYPE_FEATURE_COUNT = 1;
+    int TEMPLATES_TYPE_FEATURE_COUNT = 4;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl <em>TEMPLATE Type</em>}' class.
@@ -1048,7 +1112,25 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEType()
      * @generated
      */
-    int TEMPLATE_TYPE = 17;
+    int TEMPLATE_TYPE = 18;
+
+    /**
+     * The feature id for the '<em><b>CTYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEMPLATE_TYPE__CTYPE = 0;
+
+    /**
+     * The feature id for the '<em><b>LINKTO</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEMPLATE_TYPE__LINKTO = 1;
 
     /**
      * The feature id for the '<em><b>MULTIPLEMETHODS</b></em>' attribute.
@@ -1057,7 +1139,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEMPLATE_TYPE__MULTIPLEMETHODS = 0;
+    int TEMPLATE_TYPE__MULTIPLEMETHODS = 2;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -1066,7 +1148,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEMPLATE_TYPE__NAME = 1;
+    int TEMPLATE_TYPE__NAME = 3;
 
     /**
      * The number of structural features of the '<em>TEMPLATE Type</em>' class.
@@ -1075,7 +1157,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEMPLATE_TYPE_FEATURE_COUNT = 2;
+    int TEMPLATE_TYPE_FEATURE_COUNT = 4;
 
 
     /**
@@ -2031,6 +2113,38 @@ public interface ComponentPackage extends EPackage {
     EAttribute getRETURNType_TYPE();
 
     /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType <em>TEMPLATEPARAM Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>TEMPLATEPARAM Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType
+     * @generated
+     */
+    EClass getTEMPLATEPARAMType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType#getSOURCE <em>SOURCE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SOURCE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType#getSOURCE()
+     * @see #getTEMPLATEPARAMType()
+     * @generated
+     */
+    EAttribute getTEMPLATEPARAMType_SOURCE();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType#getTARGET <em>TARGET</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>TARGET</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType#getTARGET()
+     * @see #getTEMPLATEPARAMType()
+     * @generated
+     */
+    EAttribute getTEMPLATEPARAMType_TARGET();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType <em>TEMPLATES Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2052,6 +2166,39 @@ public interface ComponentPackage extends EPackage {
     EReference getTEMPLATESType_TEMPLATE();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getTEMPLATEPARAM <em>TEMPLATEPARAM</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>TEMPLATEPARAM</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getTEMPLATEPARAM()
+     * @see #getTEMPLATESType()
+     * @generated
+     */
+    EReference getTEMPLATESType_TEMPLATEPARAM();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getINPUT <em>INPUT</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>INPUT</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getINPUT()
+     * @see #getTEMPLATESType()
+     * @generated
+     */
+    EAttribute getTEMPLATESType_INPUT();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getOUTPUT <em>OUTPUT</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>OUTPUT</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATESType#getOUTPUT()
+     * @see #getTEMPLATESType()
+     * @generated
+     */
+    EAttribute getTEMPLATESType_OUTPUT();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType <em>TEMPLATE Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2060,6 +2207,28 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EClass getTEMPLATEType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getCTYPE <em>CTYPE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>CTYPE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getCTYPE()
+     * @see #getTEMPLATEType()
+     * @generated
+     */
+    EAttribute getTEMPLATEType_CTYPE();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getLINKTO <em>LINKTO</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>LINKTO</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getLINKTO()
+     * @see #getTEMPLATEType()
+     * @generated
+     */
+    EAttribute getTEMPLATEType_LINKTO();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#isMULTIPLEMETHODS <em>MULTIPLEMETHODS</em>}'.
@@ -2842,6 +3011,32 @@ public interface ComponentPackage extends EPackage {
         EAttribute RETURN_TYPE__TYPE = eINSTANCE.getRETURNType_TYPE();
 
         /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATEPARAMTypeImpl <em>TEMPLATEPARAM Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.component.impl.TEMPLATEPARAMTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEPARAMType()
+         * @generated
+         */
+        EClass TEMPLATEPARAM_TYPE = eINSTANCE.getTEMPLATEPARAMType();
+
+        /**
+         * The meta object literal for the '<em><b>SOURCE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEMPLATEPARAM_TYPE__SOURCE = eINSTANCE.getTEMPLATEPARAMType_SOURCE();
+
+        /**
+         * The meta object literal for the '<em><b>TARGET</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEMPLATEPARAM_TYPE__TARGET = eINSTANCE.getTEMPLATEPARAMType_TARGET();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl <em>TEMPLATES Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2860,6 +3055,30 @@ public interface ComponentPackage extends EPackage {
         EReference TEMPLATES_TYPE__TEMPLATE = eINSTANCE.getTEMPLATESType_TEMPLATE();
 
         /**
+         * The meta object literal for the '<em><b>TEMPLATEPARAM</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference TEMPLATES_TYPE__TEMPLATEPARAM = eINSTANCE.getTEMPLATESType_TEMPLATEPARAM();
+
+        /**
+         * The meta object literal for the '<em><b>INPUT</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEMPLATES_TYPE__INPUT = eINSTANCE.getTEMPLATESType_INPUT();
+
+        /**
+         * The meta object literal for the '<em><b>OUTPUT</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEMPLATES_TYPE__OUTPUT = eINSTANCE.getTEMPLATESType_OUTPUT();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl <em>TEMPLATE Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2868,6 +3087,22 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EClass TEMPLATE_TYPE = eINSTANCE.getTEMPLATEType();
+
+        /**
+         * The meta object literal for the '<em><b>CTYPE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEMPLATE_TYPE__CTYPE = eINSTANCE.getTEMPLATEType_CTYPE();
+
+        /**
+         * The meta object literal for the '<em><b>LINKTO</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEMPLATE_TYPE__LINKTO = eINSTANCE.getTEMPLATEType_LINKTO();
 
         /**
          * The meta object literal for the '<em><b>MULTIPLEMETHODS</b></em>' attribute feature.

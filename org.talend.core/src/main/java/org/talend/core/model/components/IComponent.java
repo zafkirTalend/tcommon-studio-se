@@ -73,4 +73,6 @@ public interface IComponent {
     public boolean isCheckColumns();
 
     public String getVersion();
+    
+    public IMultipleComponentManager getMultipleComponentManager();
 }

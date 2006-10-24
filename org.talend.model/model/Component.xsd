@@ -114,10 +114,20 @@
 							<xs:element name="TEMPLATE" maxOccurs="unbounded">
 								<xs:complexType>
 									<xs:attribute name="NAME" type="xs:string"/>
-									<xs:attribute name="MULTIPLE_METHODS" type="xs:boolean"/>
+									<xs:attribute name="MULTIPLE_METHODS" type="xs:boolean" use="optional"/>
+									<xs:attribute name="CTYPE" type="xs:string" use="optional"/>
+									<xs:attribute name="LINK_TO" type="xs:string" use="optional"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="TEMPLATE_PARAM" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:attribute name="SOURCE" type="xs:string"/>
+									<xs:attribute name="TARGET" type="xs:string"/>
 								</xs:complexType>
 							</xs:element>
 						</xs:sequence>
+						<xs:attribute name="INPUT" type="xs:string" use="optional"/>
+						<xs:attribute name="OUTPUT" type="xs:string" use="optional"/>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="IMPORTS" minOccurs="0">

@@ -75,6 +75,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
             case ComponentPackage.PARAMETER_TYPE: return createPARAMETERType();
             case ComponentPackage.RETURNS_TYPE: return createRETURNSType();
             case ComponentPackage.RETURN_TYPE: return createRETURNType();
+            case ComponentPackage.TEMPLATEPARAM_TYPE: return createTEMPLATEPARAMType();
             case ComponentPackage.TEMPLATES_TYPE: return createTEMPLATESType();
             case ComponentPackage.TEMPLATE_TYPE: return createTEMPLATEType();
             default:
@@ -240,6 +241,16 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
     public RETURNType createRETURNType() {
         RETURNTypeImpl returnType = new RETURNTypeImpl();
         return returnType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TEMPLATEPARAMType createTEMPLATEPARAMType() {
+        TEMPLATEPARAMTypeImpl templateparamType = new TEMPLATEPARAMTypeImpl();
+        return templateparamType;
     }
 
     /**

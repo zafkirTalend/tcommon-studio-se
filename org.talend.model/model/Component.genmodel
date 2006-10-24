@@ -110,10 +110,19 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//RETURNType/nAME"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//RETURNType/tYPE"/>
     </genClasses>
+    <genClasses ecoreClass="Component.ecore#//TEMPLATEPARAMType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEPARAMType/sOURCE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEPARAMType/tARGET"/>
+    </genClasses>
     <genClasses ecoreClass="Component.ecore#//TEMPLATESType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//TEMPLATESType/tEMPLATE"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//TEMPLATESType/tEMPLATEPARAM"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATESType/iNPUT"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATESType/oUTPUT"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//TEMPLATEType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEType/cTYPE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEType/lINKTO"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEType/mULTIPLEMETHODS"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEType/nAME"/>
     </genClasses>

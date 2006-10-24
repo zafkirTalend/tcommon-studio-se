@@ -170,6 +170,15 @@ public interface ComponentFactory extends EFactory {
     RETURNType createRETURNType();
 
     /**
+     * Returns a new object of class '<em>TEMPLATEPARAM Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>TEMPLATEPARAM Type</em>'.
+     * @generated
+     */
+    TEMPLATEPARAMType createTEMPLATEPARAMType();
+
+    /**
      * Returns a new object of class '<em>TEMPLATES Type</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

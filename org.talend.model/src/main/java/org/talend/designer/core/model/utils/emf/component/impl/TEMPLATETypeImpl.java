@@ -23,6 +23,8 @@ import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#getCTYPE <em>CTYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#getLINKTO <em>LINKTO</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#isMULTIPLEMETHODS <em>MULTIPLEMETHODS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#getNAME <em>NAME</em>}</li>
  * </ul>
@@ -31,6 +33,46 @@ import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
  * @generated
  */
 public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
+    /**
+     * The default value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCTYPE()
+     * @generated
+     * @ordered
+     */
+    protected static final String CTYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCTYPE()
+     * @generated
+     * @ordered
+     */
+    protected String cTYPE = CTYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLINKTO() <em>LINKTO</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLINKTO()
+     * @generated
+     * @ordered
+     */
+    protected static final String LINKTO_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLINKTO() <em>LINKTO</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLINKTO()
+     * @generated
+     * @ordered
+     */
+    protected String lINKTO = LINKTO_EDEFAULT;
+
     /**
      * The default value of the '{@link #isMULTIPLEMETHODS() <em>MULTIPLEMETHODS</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -96,6 +138,48 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      */
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.TEMPLATE_TYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getCTYPE() {
+        return cTYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCTYPE(String newCTYPE) {
+        String oldCTYPE = cTYPE;
+        cTYPE = newCTYPE;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATE_TYPE__CTYPE, oldCTYPE, cTYPE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getLINKTO() {
+        return lINKTO;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLINKTO(String newLINKTO) {
+        String oldLINKTO = lINKTO;
+        lINKTO = newLINKTO;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATE_TYPE__LINKTO, oldLINKTO, lINKTO));
     }
 
     /**
@@ -172,6 +256,10 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
+            case ComponentPackage.TEMPLATE_TYPE__CTYPE:
+                return getCTYPE();
+            case ComponentPackage.TEMPLATE_TYPE__LINKTO:
+                return getLINKTO();
             case ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS:
                 return isMULTIPLEMETHODS() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.TEMPLATE_TYPE__NAME:
@@ -187,6 +275,12 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
+            case ComponentPackage.TEMPLATE_TYPE__CTYPE:
+                setCTYPE((String)newValue);
+                return;
+            case ComponentPackage.TEMPLATE_TYPE__LINKTO:
+                setLINKTO((String)newValue);
+                return;
             case ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS:
                 setMULTIPLEMETHODS(((Boolean)newValue).booleanValue());
                 return;
@@ -204,6 +298,12 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      */
     public void eUnset(int featureID) {
         switch (featureID) {
+            case ComponentPackage.TEMPLATE_TYPE__CTYPE:
+                setCTYPE(CTYPE_EDEFAULT);
+                return;
+            case ComponentPackage.TEMPLATE_TYPE__LINKTO:
+                setLINKTO(LINKTO_EDEFAULT);
+                return;
             case ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS:
                 unsetMULTIPLEMETHODS();
                 return;
@@ -221,6 +321,10 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
+            case ComponentPackage.TEMPLATE_TYPE__CTYPE:
+                return CTYPE_EDEFAULT == null ? cTYPE != null : !CTYPE_EDEFAULT.equals(cTYPE);
+            case ComponentPackage.TEMPLATE_TYPE__LINKTO:
+                return LINKTO_EDEFAULT == null ? lINKTO != null : !LINKTO_EDEFAULT.equals(lINKTO);
             case ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS:
                 return isSetMULTIPLEMETHODS();
             case ComponentPackage.TEMPLATE_TYPE__NAME:
@@ -238,7 +342,11 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (mULTIPLEMETHODS: ");
+        result.append(" (cTYPE: ");
+        result.append(cTYPE);
+        result.append(", lINKTO: ");
+        result.append(lINKTO);
+        result.append(", mULTIPLEMETHODS: ");
         if (mULTIPLEMETHODSESet) result.append(mULTIPLEMETHODS); else result.append("<unset>");
         result.append(", nAME: ");
         result.append(nAME);

@@ -183,6 +183,12 @@ public class ComponentSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ComponentPackage.TEMPLATEPARAM_TYPE: {
+                TEMPLATEPARAMType templateparamType = (TEMPLATEPARAMType)theEObject;
+                Object result = caseTEMPLATEPARAMType(templateparamType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case ComponentPackage.TEMPLATES_TYPE: {
                 TEMPLATESType templatesType = (TEMPLATESType)theEObject;
                 Object result = caseTEMPLATESType(templatesType);
@@ -436,6 +442,21 @@ public class ComponentSwitch {
      * @generated
      */
     public Object caseRETURNType(RETURNType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>TEMPLATEPARAM Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>TEMPLATEPARAM Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseTEMPLATEPARAMType(TEMPLATEPARAMType object) {
         return null;
     }
 

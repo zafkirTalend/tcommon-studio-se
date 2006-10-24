@@ -33,6 +33,7 @@ import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
 import org.talend.designer.core.model.utils.emf.component.RETURNType;
+import org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType;
 import org.talend.designer.core.model.utils.emf.component.TEMPLATESType;
 import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
 
@@ -154,6 +155,13 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     private EClass returnTypeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass templateparamTypeEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -1037,6 +1045,33 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getTEMPLATEPARAMType() {
+        return templateparamTypeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTEMPLATEPARAMType_SOURCE() {
+        return (EAttribute)templateparamTypeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTEMPLATEPARAMType_TARGET() {
+        return (EAttribute)templateparamTypeEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getTEMPLATESType() {
         return templatesTypeEClass;
     }
@@ -1055,6 +1090,33 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getTEMPLATESType_TEMPLATEPARAM() {
+        return (EReference)templatesTypeEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTEMPLATESType_INPUT() {
+        return (EAttribute)templatesTypeEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTEMPLATESType_OUTPUT() {
+        return (EAttribute)templatesTypeEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getTEMPLATEType() {
         return templateTypeEClass;
     }
@@ -1064,7 +1126,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTEMPLATEType_MULTIPLEMETHODS() {
+    public EAttribute getTEMPLATEType_CTYPE() {
         return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(0);
     }
 
@@ -1073,8 +1135,26 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTEMPLATEType_NAME() {
+    public EAttribute getTEMPLATEType_LINKTO() {
         return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTEMPLATEType_MULTIPLEMETHODS() {
+        return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTEMPLATEType_NAME() {
+        return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -1209,10 +1289,19 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(returnTypeEClass, RETURN_TYPE__NAME);
         createEAttribute(returnTypeEClass, RETURN_TYPE__TYPE);
 
+        templateparamTypeEClass = createEClass(TEMPLATEPARAM_TYPE);
+        createEAttribute(templateparamTypeEClass, TEMPLATEPARAM_TYPE__SOURCE);
+        createEAttribute(templateparamTypeEClass, TEMPLATEPARAM_TYPE__TARGET);
+
         templatesTypeEClass = createEClass(TEMPLATES_TYPE);
         createEReference(templatesTypeEClass, TEMPLATES_TYPE__TEMPLATE);
+        createEReference(templatesTypeEClass, TEMPLATES_TYPE__TEMPLATEPARAM);
+        createEAttribute(templatesTypeEClass, TEMPLATES_TYPE__INPUT);
+        createEAttribute(templatesTypeEClass, TEMPLATES_TYPE__OUTPUT);
 
         templateTypeEClass = createEClass(TEMPLATE_TYPE);
+        createEAttribute(templateTypeEClass, TEMPLATE_TYPE__CTYPE);
+        createEAttribute(templateTypeEClass, TEMPLATE_TYPE__LINKTO);
         createEAttribute(templateTypeEClass, TEMPLATE_TYPE__MULTIPLEMETHODS);
         createEAttribute(templateTypeEClass, TEMPLATE_TYPE__NAME);
     }
@@ -1350,10 +1439,19 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getRETURNType_NAME(), theXMLTypePackage.getString(), "nAME", null, 1, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getRETURNType_TYPE(), theXMLTypePackage.getString(), "tYPE", null, 1, 1, RETURNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(templateparamTypeEClass, TEMPLATEPARAMType.class, "TEMPLATEPARAMType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getTEMPLATEPARAMType_SOURCE(), theXMLTypePackage.getString(), "sOURCE", null, 0, 1, TEMPLATEPARAMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTEMPLATEPARAMType_TARGET(), theXMLTypePackage.getString(), "tARGET", null, 0, 1, TEMPLATEPARAMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         initEClass(templatesTypeEClass, TEMPLATESType.class, "TEMPLATESType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getTEMPLATESType_TEMPLATE(), this.getTEMPLATEType(), null, "tEMPLATE", null, 1, -1, TEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getTEMPLATESType_TEMPLATEPARAM(), this.getTEMPLATEPARAMType(), null, "tEMPLATEPARAM", null, 0, -1, TEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTEMPLATESType_INPUT(), theXMLTypePackage.getString(), "iNPUT", null, 0, 1, TEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTEMPLATESType_OUTPUT(), theXMLTypePackage.getString(), "oUTPUT", null, 0, 1, TEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(templateTypeEClass, TEMPLATEType.class, "TEMPLATEType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getTEMPLATEType_CTYPE(), theXMLTypePackage.getString(), "cTYPE", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTEMPLATEType_LINKTO(), theXMLTypePackage.getString(), "lINKTO", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTEMPLATEType_MULTIPLEMETHODS(), theXMLTypePackage.getBoolean(), "mULTIPLEMETHODS", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTEMPLATEType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -2064,6 +2162,29 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (templateparamTypeEClass, 
+           source, 
+           new String[] {
+             "name", "TEMPLATE_PARAM_._type",
+             "kind", "empty"
+           });		
+        addAnnotation
+          (getTEMPLATEPARAMType_SOURCE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SOURCE",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getTEMPLATEPARAMType_TARGET(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "TARGET",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (templatesTypeEClass, 
            source, 
            new String[] {
@@ -2079,11 +2200,51 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (getTEMPLATESType_TEMPLATEPARAM(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "TEMPLATE_PARAM",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getTEMPLATESType_INPUT(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "INPUT",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getTEMPLATESType_OUTPUT(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "OUTPUT",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (templateTypeEClass, 
            source, 
            new String[] {
              "name", "TEMPLATE_._type",
              "kind", "empty"
+           });		
+        addAnnotation
+          (getTEMPLATEType_CTYPE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "CTYPE",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getTEMPLATEType_LINKTO(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "LINK_TO",
+             "namespace", "##targetNamespace"
            });		
         addAnnotation
           (getTEMPLATEType_MULTIPLEMETHODS(), 
