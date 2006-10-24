@@ -82,5 +82,6 @@ public class Perspective implements IPerspectiveFactory {
         // rightTopLayout.addView(epicExplainErrorsViewId);
         // rightLayout.addView(epicBrowserViewId);
 
+
     }
 }
