@@ -37,267 +37,293 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
  *
  * @generated
  */
-public class MetadataTableImpl extends AbstractMetadataObjectImpl implements MetadataTable {
-    /**
-     * The default value of the '{@link #getSourceName() <em>Source Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+public class MetadataTableImpl extends AbstractMetadataObjectImpl implements MetadataTable 
+{
+  /**
+   * The default value of the '{@link #getSourceName() <em>Source Name</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getSourceName()
-     * @generated
-     * @ordered
-     */
+   * @see #getSourceName()
+   * @generated
+   * @ordered
+   */
     protected static final String SOURCE_NAME_EDEFAULT = null;
 
-    /**
-     * The cached value of the '{@link #getSourceName() <em>Source Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+  /**
+   * The cached value of the '{@link #getSourceName() <em>Source Name</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getSourceName()
-     * @generated
-     * @ordered
-     */
+   * @see #getSourceName()
+   * @generated
+   * @ordered
+   */
     protected String sourceName = SOURCE_NAME_EDEFAULT;
 
-    /**
-     * The cached value of the '{@link #getColumns() <em>Columns</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+  /**
+   * The cached value of the '{@link #getColumns() <em>Columns</em>}' containment reference list.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getColumns()
-     * @generated
-     * @ordered
-     */
+   * @see #getColumns()
+   * @generated
+   * @ordered
+   */
     protected EList columns = null;
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    protected MetadataTableImpl() {
-        super();
-    }
+   * @generated
+   */
+    protected MetadataTableImpl()
+  {
+    super();
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    protected EClass eStaticClass() {
-        return ConnectionPackage.Literals.METADATA_TABLE;
-    }
+   * @generated
+   */
+    protected EClass eStaticClass()
+  {
+    return ConnectionPackage.Literals.METADATA_TABLE;
+  }
 
     public boolean isReadOnly() {
         Connection connection = getConnection();
         return connection == null ? false: connection.isReadOnly();
     }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public String getSourceName() {
-        return sourceName;
-    }
+   * @generated
+   */
+    public String getSourceName()
+  {
+    return sourceName;
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setSourceName(String newSourceName) {
-        String oldSourceName = sourceName;
-        sourceName = newSourceName;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_TABLE__SOURCE_NAME, oldSourceName, sourceName));
-    }
+   * @generated
+   */
+    public void setSourceName(String newSourceName)
+  {
+    String oldSourceName = sourceName;
+    sourceName = newSourceName;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_TABLE__SOURCE_NAME, oldSourceName, sourceName));
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getColumns() {
-        if (columns == null) {
-            columns = new EObjectContainmentWithInverseEList(MetadataColumn.class, this, ConnectionPackage.METADATA_TABLE__COLUMNS, ConnectionPackage.METADATA_COLUMN__TABLE);
-        }
-        return columns;
+   * @generated
+   */
+    public EList getColumns()
+  {
+    if (columns == null)
+    {
+      columns = new EObjectContainmentWithInverseEList(MetadataColumn.class, this, ConnectionPackage.METADATA_TABLE__COLUMNS, ConnectionPackage.METADATA_COLUMN__TABLE);
     }
+    return columns;
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public Connection getConnection() {
-        if (eContainerFeatureID != ConnectionPackage.METADATA_TABLE__CONNECTION) return null;
-        return (Connection)eContainer();
-    }
+   * @generated
+   */
+    public Connection getConnection()
+  {
+    if (eContainerFeatureID != ConnectionPackage.METADATA_TABLE__CONNECTION) return null;
+    return (Connection)eContainer();
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain basicSetConnection(Connection newConnection, NotificationChain msgs) {
-        msgs = eBasicSetContainer((InternalEObject)newConnection, ConnectionPackage.METADATA_TABLE__CONNECTION, msgs);
-        return msgs;
-    }
+   * @generated
+   */
+    public NotificationChain basicSetConnection(Connection newConnection, NotificationChain msgs)
+  {
+    msgs = eBasicSetContainer((InternalEObject)newConnection, ConnectionPackage.METADATA_TABLE__CONNECTION, msgs);
+    return msgs;
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setConnection(Connection newConnection) {
-        if (newConnection != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.METADATA_TABLE__CONNECTION && newConnection != null)) {
-            if (EcoreUtil.isAncestor(this, newConnection))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
-            NotificationChain msgs = null;
-            if (eInternalContainer() != null)
-                msgs = eBasicRemoveFromContainer(msgs);
-            if (newConnection != null)
-                msgs = ((InternalEObject)newConnection).eInverseAdd(this, ConnectionPackage.CONNECTION__TABLES, Connection.class, msgs);
-            msgs = basicSetConnection(newConnection, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_TABLE__CONNECTION, newConnection, newConnection));
+   * @generated
+   */
+    public void setConnection(Connection newConnection)
+  {
+    if (newConnection != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.METADATA_TABLE__CONNECTION && newConnection != null))
+    {
+      if (EcoreUtil.isAncestor(this, newConnection))
+        throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+      NotificationChain msgs = null;
+      if (eInternalContainer() != null)
+        msgs = eBasicRemoveFromContainer(msgs);
+      if (newConnection != null)
+        msgs = ((InternalEObject)newConnection).eInverseAdd(this, ConnectionPackage.CONNECTION__TABLES, Connection.class, msgs);
+      msgs = basicSetConnection(newConnection, msgs);
+      if (msgs != null) msgs.dispatch();
     }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_TABLE__CONNECTION, newConnection, newConnection));
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case ConnectionPackage.METADATA_TABLE__COLUMNS:
-                return ((InternalEList)getColumns()).basicAdd(otherEnd, msgs);
-            case ConnectionPackage.METADATA_TABLE__CONNECTION:
-                if (eInternalContainer() != null)
-                    msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetConnection((Connection)otherEnd, msgs);
-        }
-        return super.eInverseAdd(otherEnd, featureID, msgs);
+   * @generated
+   */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.METADATA_TABLE__COLUMNS:
+        return ((InternalEList)getColumns()).basicAdd(otherEnd, msgs);
+      case ConnectionPackage.METADATA_TABLE__CONNECTION:
+        if (eInternalContainer() != null)
+          msgs = eBasicRemoveFromContainer(msgs);
+        return basicSetConnection((Connection)otherEnd, msgs);
     }
+    return super.eInverseAdd(otherEnd, featureID, msgs);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case ConnectionPackage.METADATA_TABLE__COLUMNS:
-                return ((InternalEList)getColumns()).basicRemove(otherEnd, msgs);
-            case ConnectionPackage.METADATA_TABLE__CONNECTION:
-                return basicSetConnection(null, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
+   * @generated
+   */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.METADATA_TABLE__COLUMNS:
+        return ((InternalEList)getColumns()).basicRemove(otherEnd, msgs);
+      case ConnectionPackage.METADATA_TABLE__CONNECTION:
+        return basicSetConnection(null, msgs);
     }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
-        switch (eContainerFeatureID) {
-            case ConnectionPackage.METADATA_TABLE__CONNECTION:
-                return eInternalContainer().eInverseRemove(this, ConnectionPackage.CONNECTION__TABLES, Connection.class, msgs);
-        }
-        return super.eBasicRemoveFromContainerFeature(msgs);
+   * @generated
+   */
+    public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs)
+  {
+    switch (eContainerFeatureID)
+    {
+      case ConnectionPackage.METADATA_TABLE__CONNECTION:
+        return eInternalContainer().eInverseRemove(this, ConnectionPackage.CONNECTION__TABLES, Connection.class, msgs);
     }
+    return super.eBasicRemoveFromContainerFeature(msgs);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case ConnectionPackage.METADATA_TABLE__SOURCE_NAME:
-                return getSourceName();
-            case ConnectionPackage.METADATA_TABLE__COLUMNS:
-                return getColumns();
-            case ConnectionPackage.METADATA_TABLE__CONNECTION:
-                return getConnection();
-        }
-        return super.eGet(featureID, resolve, coreType);
+   * @generated
+   */
+    public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.METADATA_TABLE__SOURCE_NAME:
+        return getSourceName();
+      case ConnectionPackage.METADATA_TABLE__COLUMNS:
+        return getColumns();
+      case ConnectionPackage.METADATA_TABLE__CONNECTION:
+        return getConnection();
     }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case ConnectionPackage.METADATA_TABLE__SOURCE_NAME:
-                setSourceName((String)newValue);
-                return;
-            case ConnectionPackage.METADATA_TABLE__COLUMNS:
-                getColumns().clear();
-                getColumns().addAll((Collection)newValue);
-                return;
-            case ConnectionPackage.METADATA_TABLE__CONNECTION:
-                setConnection((Connection)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
+   * @generated
+   */
+    public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.METADATA_TABLE__SOURCE_NAME:
+        setSourceName((String)newValue);
+        return;
+      case ConnectionPackage.METADATA_TABLE__COLUMNS:
+        getColumns().clear();
+        getColumns().addAll((Collection)newValue);
+        return;
+      case ConnectionPackage.METADATA_TABLE__CONNECTION:
+        setConnection((Connection)newValue);
+        return;
     }
+    super.eSet(featureID, newValue);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public void eUnset(int featureID) {
-        switch (featureID) {
-            case ConnectionPackage.METADATA_TABLE__SOURCE_NAME:
-                setSourceName(SOURCE_NAME_EDEFAULT);
-                return;
-            case ConnectionPackage.METADATA_TABLE__COLUMNS:
-                getColumns().clear();
-                return;
-            case ConnectionPackage.METADATA_TABLE__CONNECTION:
-                setConnection((Connection)null);
-                return;
-        }
-        super.eUnset(featureID);
+   * @generated
+   */
+    public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.METADATA_TABLE__SOURCE_NAME:
+        setSourceName(SOURCE_NAME_EDEFAULT);
+        return;
+      case ConnectionPackage.METADATA_TABLE__COLUMNS:
+        getColumns().clear();
+        return;
+      case ConnectionPackage.METADATA_TABLE__CONNECTION:
+        setConnection((Connection)null);
+        return;
     }
+    super.eUnset(featureID);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case ConnectionPackage.METADATA_TABLE__SOURCE_NAME:
-                return SOURCE_NAME_EDEFAULT == null ? sourceName != null : !SOURCE_NAME_EDEFAULT.equals(sourceName);
-            case ConnectionPackage.METADATA_TABLE__COLUMNS:
-                return columns != null && !columns.isEmpty();
-            case ConnectionPackage.METADATA_TABLE__CONNECTION:
-                return getConnection() != null;
-        }
-        return super.eIsSet(featureID);
+   * @generated
+   */
+    public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.METADATA_TABLE__SOURCE_NAME:
+        return SOURCE_NAME_EDEFAULT == null ? sourceName != null : !SOURCE_NAME_EDEFAULT.equals(sourceName);
+      case ConnectionPackage.METADATA_TABLE__COLUMNS:
+        return columns != null && !columns.isEmpty();
+      case ConnectionPackage.METADATA_TABLE__CONNECTION:
+        return getConnection() != null;
     }
+    return super.eIsSet(featureID);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public String toString() {
-        if (eIsProxy()) return super.toString();
+   * @generated
+   */
+    public String toString()
+  {
+    if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (sourceName: ");
-        result.append(sourceName);
-        result.append(')');
-        return result.toString();
-    }
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (sourceName: ");
+    result.append(sourceName);
+    result.append(')');
+    return result.toString();
+  }
 
 } //MetadataTableImpl

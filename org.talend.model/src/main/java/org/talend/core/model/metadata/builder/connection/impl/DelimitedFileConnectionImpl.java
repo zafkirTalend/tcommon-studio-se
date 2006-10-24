@@ -26,133 +26,147 @@ import org.talend.core.model.metadata.builder.connection.FieldSeparator;
  *
  * @generated
  */
-public class DelimitedFileConnectionImpl extends FileConnectionImpl implements DelimitedFileConnection {
-    /**
-     * The default value of the '{@link #getFieldSeparatorType() <em>Field Separator Type</em>}' attribute.
-     * <!-- begin-user-doc -->
+public class DelimitedFileConnectionImpl extends FileConnectionImpl implements DelimitedFileConnection 
+{
+  /**
+   * The default value of the '{@link #getFieldSeparatorType() <em>Field Separator Type</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFieldSeparatorType()
-     * @generated
-     * @ordered
-     */
-    protected static final FieldSeparator FIELD_SEPARATOR_TYPE_EDEFAULT = FieldSeparator.SEMICOLON_LITERAL;
+   * @see #getFieldSeparatorType()
+   * @generated
+   * @ordered
+   */
+    protected static final FieldSeparator FIELD_SEPARATOR_TYPE_EDEFAULT = FieldSeparator.TABULATION_LITERAL;
 
-    /**
-     * The cached value of the '{@link #getFieldSeparatorType() <em>Field Separator Type</em>}' attribute.
-     * <!-- begin-user-doc -->
+  /**
+   * The cached value of the '{@link #getFieldSeparatorType() <em>Field Separator Type</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getFieldSeparatorType()
-     * @generated
-     * @ordered
-     */
+   * @see #getFieldSeparatorType()
+   * @generated
+   * @ordered
+   */
     protected FieldSeparator fieldSeparatorType = FIELD_SEPARATOR_TYPE_EDEFAULT;
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    protected DelimitedFileConnectionImpl() {
-        super();
-    }
+   * @generated
+   */
+    protected DelimitedFileConnectionImpl()
+  {
+    super();
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    protected EClass eStaticClass() {
-        return ConnectionPackage.Literals.DELIMITED_FILE_CONNECTION;
-    }
+   * @generated
+   */
+    protected EClass eStaticClass()
+  {
+    return ConnectionPackage.Literals.DELIMITED_FILE_CONNECTION;
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public FieldSeparator getFieldSeparatorType() {
-        return fieldSeparatorType;
-    }
+   * @generated
+   */
+    public FieldSeparator getFieldSeparatorType()
+  {
+    return fieldSeparatorType;
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setFieldSeparatorType(FieldSeparator newFieldSeparatorType) {
-        FieldSeparator oldFieldSeparatorType = fieldSeparatorType;
-        fieldSeparatorType = newFieldSeparatorType == null ? FIELD_SEPARATOR_TYPE_EDEFAULT : newFieldSeparatorType;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE, oldFieldSeparatorType, fieldSeparatorType));
-    }
+   * @generated
+   */
+    public void setFieldSeparatorType(FieldSeparator newFieldSeparatorType)
+  {
+    FieldSeparator oldFieldSeparatorType = fieldSeparatorType;
+    fieldSeparatorType = newFieldSeparatorType == null ? FIELD_SEPARATOR_TYPE_EDEFAULT : newFieldSeparatorType;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE, oldFieldSeparatorType, fieldSeparatorType));
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-                return getFieldSeparatorType();
-        }
-        return super.eGet(featureID, resolve, coreType);
+   * @generated
+   */
+    public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
+        return getFieldSeparatorType();
     }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-                setFieldSeparatorType((FieldSeparator)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
+   * @generated
+   */
+    public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
+        setFieldSeparatorType((FieldSeparator)newValue);
+        return;
     }
+    super.eSet(featureID, newValue);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public void eUnset(int featureID) {
-        switch (featureID) {
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-                setFieldSeparatorType(FIELD_SEPARATOR_TYPE_EDEFAULT);
-                return;
-        }
-        super.eUnset(featureID);
+   * @generated
+   */
+    public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
+        setFieldSeparatorType(FIELD_SEPARATOR_TYPE_EDEFAULT);
+        return;
     }
+    super.eUnset(featureID);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
-                return fieldSeparatorType != FIELD_SEPARATOR_TYPE_EDEFAULT;
-        }
-        return super.eIsSet(featureID);
+   * @generated
+   */
+    public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE:
+        return fieldSeparatorType != FIELD_SEPARATOR_TYPE_EDEFAULT;
     }
+    return super.eIsSet(featureID);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public String toString() {
-        if (eIsProxy()) return super.toString();
+   * @generated
+   */
+    public String toString()
+  {
+    if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (FieldSeparatorType: ");
-        result.append(fieldSeparatorType);
-        result.append(')');
-        return result.toString();
-    }
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (FieldSeparatorType: ");
+    result.append(fieldSeparatorType);
+    result.append(')');
+    return result.toString();
+  }
 
 } //DelimitedFileConnectionImpl

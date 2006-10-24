@@ -30,221 +30,222 @@ package org.talend.core.model.metadata.builder.connection;
  * @model
  * @generated
  */
-public interface MetadataColumn extends AbstractMetadataObject {
+public interface MetadataColumn extends AbstractMetadataObject
+{
     
-    /**
-     * Returns the value of the '<em><b>Source Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
+  /**
+   * Returns the value of the '<em><b>Source Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Source Type</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Source Type</em>' attribute.
-     * @see #setSourceType(String)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_SourceType()
-     * @model required="true"
-     * @generated
-     */
+   * @return the value of the '<em>Source Type</em>' attribute.
+   * @see #setSourceType(String)
+   * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_SourceType()
+   * @model required="true"
+   * @generated
+   */
     String getSourceType();
 
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getSourceType <em>Source Type</em>}' attribute.
-     * <!-- begin-user-doc -->
+  /**
+   * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getSourceType <em>Source Type</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Source Type</em>' attribute.
-     * @see #getSourceType()
-     * @generated
-     */
+   * @param value the new value of the '<em>Source Type</em>' attribute.
+   * @see #getSourceType()
+   * @generated
+   */
     void setSourceType(String value);
 
-    /**
-     * Returns the value of the '<em><b>Default Value</b></em>' attribute.
-     * The default value is <code>""</code>.
-     * <!-- begin-user-doc -->
+  /**
+   * Returns the value of the '<em><b>Default Value</b></em>' attribute.
+   * The default value is <code>""</code>.
+   * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Default Value</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Default Value</em>' attribute.
-     * @see #setDefaultValue(String)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_DefaultValue()
-     * @model default=""
-     * @generated
-     */
+   * @return the value of the '<em>Default Value</em>' attribute.
+   * @see #setDefaultValue(String)
+   * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_DefaultValue()
+   * @model default=""
+   * @generated
+   */
     String getDefaultValue();
 
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getDefaultValue <em>Default Value</em>}' attribute.
-     * <!-- begin-user-doc -->
+  /**
+   * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getDefaultValue <em>Default Value</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Default Value</em>' attribute.
-     * @see #getDefaultValue()
-     * @generated
-     */
+   * @param value the new value of the '<em>Default Value</em>' attribute.
+   * @see #getDefaultValue()
+   * @generated
+   */
     void setDefaultValue(String value);
 
-    /**
-     * Returns the value of the '<em><b>Talend Type</b></em>' attribute.
-     * <!-- begin-user-doc -->
+  /**
+   * Returns the value of the '<em><b>Talend Type</b></em>' attribute.
+   * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Talend Type</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Talend Type</em>' attribute.
-     * @see #setTalendType(String)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_TalendType()
-     * @model required="true"
-     * @generated
-     */
+   * @return the value of the '<em>Talend Type</em>' attribute.
+   * @see #setTalendType(String)
+   * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_TalendType()
+   * @model required="true"
+   * @generated
+   */
     String getTalendType();
 
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getTalendType <em>Talend Type</em>}' attribute.
-     * <!-- begin-user-doc -->
+  /**
+   * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getTalendType <em>Talend Type</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Talend Type</em>' attribute.
-     * @see #getTalendType()
-     * @generated
-     */
+   * @param value the new value of the '<em>Talend Type</em>' attribute.
+   * @see #getTalendType()
+   * @generated
+   */
     void setTalendType(String value);
 
-    /**
-     * Returns the value of the '<em><b>Key</b></em>' attribute.
-     * The default value is <code>"false"</code>.
-     * <!-- begin-user-doc -->
+  /**
+   * Returns the value of the '<em><b>Key</b></em>' attribute.
+   * The default value is <code>"false"</code>.
+   * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Key</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Key</em>' attribute.
-     * @see #setKey(boolean)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Key()
-     * @model default="false"
-     * @generated
-     */
+   * @return the value of the '<em>Key</em>' attribute.
+   * @see #setKey(boolean)
+   * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Key()
+   * @model default="false"
+   * @generated
+   */
     boolean isKey();
 
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#isKey <em>Key</em>}' attribute.
-     * <!-- begin-user-doc -->
+  /**
+   * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#isKey <em>Key</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Key</em>' attribute.
-     * @see #isKey()
-     * @generated
-     */
+   * @param value the new value of the '<em>Key</em>' attribute.
+   * @see #isKey()
+   * @generated
+   */
     void setKey(boolean value);
 
-    /**
-     * Returns the value of the '<em><b>Nullable</b></em>' attribute.
-     * The default value is <code>"true"</code>.
-     * <!-- begin-user-doc -->
+  /**
+   * Returns the value of the '<em><b>Nullable</b></em>' attribute.
+   * The default value is <code>"true"</code>.
+   * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Nullable</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Nullable</em>' attribute.
-     * @see #setNullable(boolean)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Nullable()
-     * @model default="true"
-     * @generated
-     */
+   * @return the value of the '<em>Nullable</em>' attribute.
+   * @see #setNullable(boolean)
+   * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Nullable()
+   * @model default="true"
+   * @generated
+   */
     boolean isNullable();
 
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#isNullable <em>Nullable</em>}' attribute.
-     * <!-- begin-user-doc -->
+  /**
+   * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#isNullable <em>Nullable</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Nullable</em>' attribute.
-     * @see #isNullable()
-     * @generated
-     */
+   * @param value the new value of the '<em>Nullable</em>' attribute.
+   * @see #isNullable()
+   * @generated
+   */
     void setNullable(boolean value);
 
-    /**
-     * Returns the value of the '<em><b>Length</b></em>' attribute.
-     * The default value is <code>"-1"</code>.
-     * <!-- begin-user-doc -->
+  /**
+   * Returns the value of the '<em><b>Length</b></em>' attribute.
+   * The default value is <code>"-1"</code>.
+   * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Length</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Length</em>' attribute.
-     * @see #setLength(int)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Length()
-     * @model default="-1"
-     * @generated
-     */
+   * @return the value of the '<em>Length</em>' attribute.
+   * @see #setLength(int)
+   * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Length()
+   * @model default="-1"
+   * @generated
+   */
     int getLength();
 
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getLength <em>Length</em>}' attribute.
-     * <!-- begin-user-doc -->
+  /**
+   * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getLength <em>Length</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Length</em>' attribute.
-     * @see #getLength()
-     * @generated
-     */
+   * @param value the new value of the '<em>Length</em>' attribute.
+   * @see #getLength()
+   * @generated
+   */
     void setLength(int value);
 
-    /**
-     * Returns the value of the '<em><b>Precision</b></em>' attribute.
-     * The default value is <code>"-1"</code>.
-     * <!-- begin-user-doc -->
+  /**
+   * Returns the value of the '<em><b>Precision</b></em>' attribute.
+   * The default value is <code>"-1"</code>.
+   * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Precision</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Precision</em>' attribute.
-     * @see #setPrecision(int)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Precision()
-     * @model default="-1"
-     * @generated
-     */
+   * @return the value of the '<em>Precision</em>' attribute.
+   * @see #setPrecision(int)
+   * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Precision()
+   * @model default="-1"
+   * @generated
+   */
     int getPrecision();
 
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPrecision <em>Precision</em>}' attribute.
-     * <!-- begin-user-doc -->
+  /**
+   * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPrecision <em>Precision</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Precision</em>' attribute.
-     * @see #getPrecision()
-     * @generated
-     */
+   * @param value the new value of the '<em>Precision</em>' attribute.
+   * @see #getPrecision()
+   * @generated
+   */
     void setPrecision(int value);
 
-    /**
-     * Returns the value of the '<em><b>Table</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getColumns <em>Columns</em>}'.
-     * <!-- begin-user-doc -->
+  /**
+   * Returns the value of the '<em><b>Table</b></em>' container reference.
+   * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getColumns <em>Columns</em>}'.
+   * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Table</em>' container reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Table</em>' container reference.
-     * @see #setTable(MetadataTable)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Table()
-     * @see org.talend.core.model.metadata.builder.connection.MetadataTable#getColumns
-     * @model opposite="columns"
-     * @generated
-     */
+   * @return the value of the '<em>Table</em>' container reference.
+   * @see #setTable(MetadataTable)
+   * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Table()
+   * @see org.talend.core.model.metadata.builder.connection.MetadataTable#getColumns
+   * @model opposite="columns"
+   * @generated
+   */
     MetadataTable getTable();
 
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable <em>Table</em>}' container reference.
-     * <!-- begin-user-doc -->
+  /**
+   * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable <em>Table</em>}' container reference.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Table</em>' container reference.
-     * @see #getTable()
-     * @generated
-     */
+   * @param value the new value of the '<em>Table</em>' container reference.
+   * @see #getTable()
+   * @generated
+   */
     void setTable(MetadataTable value);
 
 } // MetadataColumn

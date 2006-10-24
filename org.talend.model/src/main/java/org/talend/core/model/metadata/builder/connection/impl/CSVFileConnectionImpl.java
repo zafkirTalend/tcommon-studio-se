@@ -20,23 +20,26 @@ import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
  *
  * @generated
  */
-public class CSVFileConnectionImpl extends DelimitedFileConnectionImpl implements CSVFileConnection {
-    /**
-     * <!-- begin-user-doc -->
+public class CSVFileConnectionImpl extends DelimitedFileConnectionImpl implements CSVFileConnection 
+{
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    protected CSVFileConnectionImpl() {
-        super();
-    }
+   * @generated
+   */
+    protected CSVFileConnectionImpl()
+  {
+    super();
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    protected EClass eStaticClass() {
-        return ConnectionPackage.Literals.CSV_FILE_CONNECTION;
-    }
+   * @generated
+   */
+    protected EClass eStaticClass()
+  {
+    return ConnectionPackage.Literals.CSV_FILE_CONNECTION;
+  }
 
 } //CSVFileConnectionImpl

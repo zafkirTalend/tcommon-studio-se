@@ -26,77 +26,78 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface MetadataTable extends AbstractMetadataObject {
-    /**
-     * Returns the value of the '<em><b>Source Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
+public interface MetadataTable extends AbstractMetadataObject
+{
+  /**
+   * Returns the value of the '<em><b>Source Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Source Name</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Source Name</em>' attribute.
-     * @see #setSourceName(String)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_SourceName()
-     * @model
-     * @generated
-     */
+   * @return the value of the '<em>Source Name</em>' attribute.
+   * @see #setSourceName(String)
+   * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_SourceName()
+   * @model
+   * @generated
+   */
     String getSourceName();
 
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getSourceName <em>Source Name</em>}' attribute.
-     * <!-- begin-user-doc -->
+  /**
+   * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getSourceName <em>Source Name</em>}' attribute.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Source Name</em>' attribute.
-     * @see #getSourceName()
-     * @generated
-     */
+   * @param value the new value of the '<em>Source Name</em>' attribute.
+   * @see #getSourceName()
+   * @generated
+   */
     void setSourceName(String value);
 
-    /**
-     * Returns the value of the '<em><b>Columns</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.MetadataColumn}.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable <em>Table</em>}'.
-     * <!-- begin-user-doc -->
+  /**
+   * Returns the value of the '<em><b>Columns</b></em>' containment reference list.
+   * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.MetadataColumn}.
+   * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable <em>Table</em>}'.
+   * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Columns</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Columns</em>' containment reference list.
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_Columns()
-     * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable
-     * @model type="org.talend.core.model.metadata.builder.connection.MetadataColumn" opposite="table" containment="true"
-     * @generated
-     */
+   * @return the value of the '<em>Columns</em>' containment reference list.
+   * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_Columns()
+   * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable
+   * @model type="org.talend.core.model.metadata.builder.connection.MetadataColumn" opposite="table" containment="true"
+   * @generated
+   */
     EList getColumns();
 
-    /**
-     * Returns the value of the '<em><b>Connection</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.Connection#getTables <em>Tables</em>}'.
-     * <!-- begin-user-doc -->
+  /**
+   * Returns the value of the '<em><b>Connection</b></em>' container reference.
+   * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.Connection#getTables <em>Tables</em>}'.
+   * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Connection</em>' container reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Connection</em>' container reference.
-     * @see #setConnection(Connection)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_Connection()
-     * @see org.talend.core.model.metadata.builder.connection.Connection#getTables
-     * @model opposite="tables"
-     * @generated
-     */
+   * @return the value of the '<em>Connection</em>' container reference.
+   * @see #setConnection(Connection)
+   * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_Connection()
+   * @see org.talend.core.model.metadata.builder.connection.Connection#getTables
+   * @model opposite="tables"
+   * @generated
+   */
     Connection getConnection();
 
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getConnection <em>Connection</em>}' container reference.
-     * <!-- begin-user-doc -->
+  /**
+   * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getConnection <em>Connection</em>}' container reference.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Connection</em>' container reference.
-     * @see #getConnection()
-     * @generated
-     */
+   * @param value the new value of the '<em>Connection</em>' container reference.
+   * @see #getConnection()
+   * @generated
+   */
     void setConnection(Connection value);
 
 } // MetadataTable

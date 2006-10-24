@@ -31,113 +31,128 @@ import org.talend.core.model.metadata.builder.connection.Metadata;
  *
  * @generated
  */
-public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata {
-    /**
-     * The cached value of the '{@link #getConnections() <em>Connections</em>}' containment reference list.
-     * <!-- begin-user-doc -->
+public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata 
+{
+  /**
+   * The cached value of the '{@link #getConnections() <em>Connections</em>}' containment reference list.
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getConnections()
-     * @generated
-     * @ordered
-     */
+   * @see #getConnections()
+   * @generated
+   * @ordered
+   */
     protected EList connections = null;
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    protected MetadataImpl() {
-        super();
-    }
+   * @generated
+   */
+    protected MetadataImpl()
+  {
+    super();
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    protected EClass eStaticClass() {
-        return ConnectionPackage.Literals.METADATA;
-    }
+   * @generated
+   */
+    protected EClass eStaticClass()
+  {
+    return ConnectionPackage.Literals.METADATA;
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getConnections() {
-        if (connections == null) {
-            connections = new EObjectContainmentEList(Connection.class, this, ConnectionPackage.METADATA__CONNECTIONS);
-        }
-        return connections;
+   * @generated
+   */
+    public EList getConnections()
+  {
+    if (connections == null)
+    {
+      connections = new EObjectContainmentEList(Connection.class, this, ConnectionPackage.METADATA__CONNECTIONS);
     }
+    return connections;
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case ConnectionPackage.METADATA__CONNECTIONS:
-                return ((InternalEList)getConnections()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
+   * @generated
+   */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.METADATA__CONNECTIONS:
+        return ((InternalEList)getConnections()).basicRemove(otherEnd, msgs);
     }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public Object eGet(int featureID, boolean resolve, boolean coreType) {
-        switch (featureID) {
-            case ConnectionPackage.METADATA__CONNECTIONS:
-                return getConnections();
-        }
-        return super.eGet(featureID, resolve, coreType);
+   * @generated
+   */
+    public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.METADATA__CONNECTIONS:
+        return getConnections();
     }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public void eSet(int featureID, Object newValue) {
-        switch (featureID) {
-            case ConnectionPackage.METADATA__CONNECTIONS:
-                getConnections().clear();
-                getConnections().addAll((Collection)newValue);
-                return;
-        }
-        super.eSet(featureID, newValue);
+   * @generated
+   */
+    public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.METADATA__CONNECTIONS:
+        getConnections().clear();
+        getConnections().addAll((Collection)newValue);
+        return;
     }
+    super.eSet(featureID, newValue);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public void eUnset(int featureID) {
-        switch (featureID) {
-            case ConnectionPackage.METADATA__CONNECTIONS:
-                getConnections().clear();
-                return;
-        }
-        super.eUnset(featureID);
+   * @generated
+   */
+    public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.METADATA__CONNECTIONS:
+        getConnections().clear();
+        return;
     }
+    super.eUnset(featureID);
+  }
 
-    /**
-     * <!-- begin-user-doc -->
+  /**
+   * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean eIsSet(int featureID) {
-        switch (featureID) {
-            case ConnectionPackage.METADATA__CONNECTIONS:
-                return connections != null && !connections.isEmpty();
-        }
-        return super.eIsSet(featureID);
+   * @generated
+   */
+    public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case ConnectionPackage.METADATA__CONNECTIONS:
+        return connections != null && !connections.isEmpty();
     }
+    return super.eIsSet(featureID);
+  }
 
 } //MetadataImpl
