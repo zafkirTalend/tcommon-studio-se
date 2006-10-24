@@ -63,7 +63,7 @@ public interface IImageConstants {
 
     public static final String FILE_REGEXP_ICON = "/icons/fileregexp.png";
 
-    public static final String FILE_XML_PNG = "/icons/FileXML.png";
+    public static final String FILE_XML_PNG = "/icons/filexml.png";
 
     public static final String TABLE_ICON = "/icons/table.gif";
 

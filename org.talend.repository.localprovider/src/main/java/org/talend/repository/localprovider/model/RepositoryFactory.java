@@ -87,6 +87,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.Status;
+import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.ERepositoryType;
@@ -282,7 +283,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         ERepositoryObjectType[] repositoryObjectTypeList = new ERepositoryObjectType[] { ERepositoryObjectType.BUSINESS_PROCESS,
                 ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.METADATA_CONNECTIONS,
                 ERepositoryObjectType.METADATA_FILE_DELIMITED, ERepositoryObjectType.METADATA_FILE_POSITIONAL,
-                ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES };
+                ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML, ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES };
         for (ERepositoryObjectType repositoryObjectType : repositoryObjectTypeList) {
             IFolder folder = ResourceUtils
                     .getFolder(fsProject, LocalResourceModelUtils.getFolderName(repositoryObjectType), true);
@@ -363,6 +364,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_DELIMITED);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_POSITIONAL);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_REGEXP);
+        needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_XML);
         needsBinFolder.add(ERepositoryObjectType.PROCESS);
     }
 
@@ -581,6 +583,10 @@ public class RepositoryFactory implements IRepositoryFactory {
                 return ERepositoryObjectType.METADATA_FILE_REGEXP;
             }
 
+            public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
+                return ERepositoryObjectType.METADATA_FILE_XML;
+            }
+
             public Object defaultCase(EObject object) {
                 throw new IllegalStateException();
             }
@@ -751,6 +757,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         collect(getMetadataFileDelimited(), result);
         collect(getMetadataFilePositional(), result);
         collect(getMetadataFileRegexp(), result);
+        collect(getMetadataFileXml(), result);
         collect(getMetadataConnection(), result);
 
         return result;
@@ -938,6 +945,15 @@ public class RepositoryFactory implements IRepositoryFactory {
         return getMetadataFileRegexpFromFolder();
     }
 
+    // XML FILE
+    private RootContainer<String, IRepositoryObject> getMetadataFileXmlFromFolder() throws PersistenceException {
+        return getObjectFromFolder(ERepositoryObjectType.METADATA_FILE_XML, null, true);
+    }
+
+    public RootContainer<String, IRepositoryObject> getMetadataFileXml() throws PersistenceException {
+        return getMetadataFileXmlFromFolder();
+    }
+    
     /**
      * 
      * DOC smallet RepositoryFactory class global comment. Detailled comment <br/>
@@ -1208,6 +1224,7 @@ public class RepositoryFactory implements IRepositoryFactory {
             case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM:
             case PropertiesPackage.DATABASE_CONNECTION_ITEM:
             case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM:
+            case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
                 // not really usefull for ConnectionItem : it's not copied to another resource for edition
                 itemResource = save((ConnectionItem) item);
                 break;
@@ -1326,6 +1343,9 @@ public class RepositoryFactory implements IRepositoryFactory {
                 break;
             case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM:
                 itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_REGEXP, path);
+                break;
+            case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
+                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_XML, path);
                 break;
             case PropertiesPackage.DOCUMENTATION_ITEM:
                 itemResource = create((FileItem) item, path, ERepositoryObjectType.DOCUMENTATION);

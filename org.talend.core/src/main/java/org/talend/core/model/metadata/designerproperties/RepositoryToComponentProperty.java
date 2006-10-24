@@ -22,13 +22,14 @@
 package org.talend.core.model.metadata.designerproperties;
 
 import org.eclipse.core.runtime.Path;
+import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
-import org.talend.core.model.metadata.EMetadataEncoding;
+import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -210,7 +211,9 @@ public class RepositoryToComponentProperty {
         if (connection instanceof RegexpFileConnection) {
             return getRegexpFileValue((RegexpFileConnection) connection, value);
         }
-        
+        if (connection instanceof XmlFileConnection) {
+            return getXmlFileValue((XmlFileConnection) connection, value);
+        }        
         return null;
     }
 
@@ -270,5 +273,11 @@ public class RepositoryToComponentProperty {
         }
         return null;
     }
-    
+    // PTODO CAN XmlFile
+    private static Object getXmlFileValue(XmlFileConnection connection, String value) {
+//        if (value.equals("PATTERN")) {
+//            return "'" + checkStringQuotes(connection.getFieldSeparatorValue()) + "'";
+//        }
+        return null;
+    }
 }

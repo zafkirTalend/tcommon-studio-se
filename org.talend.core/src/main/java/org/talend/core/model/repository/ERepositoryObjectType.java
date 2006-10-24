@@ -42,6 +42,7 @@ public enum ERepositoryObjectType {
     METADATA_FILE_DELIMITED("repository.metadataFileDelimited"),
     METADATA_FILE_POSITIONAL("repository.metadataFilePositional"),
     METADATA_FILE_REGEXP("repository.metadataFileRegexp"),
+    METADATA_FILE_XML("repository.metadataFileXml"),
     FOLDER("repository.folder"),
     RECYCLE_BIN("repository.recyclebin");
 

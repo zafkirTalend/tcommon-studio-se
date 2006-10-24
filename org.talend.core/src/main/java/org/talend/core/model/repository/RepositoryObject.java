@@ -37,6 +37,7 @@ import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 
 public class RepositoryObject implements IRepositoryObject {
@@ -174,6 +175,10 @@ public class RepositoryObject implements IRepositoryObject {
                 return ERepositoryObjectType.METADATA_FILE_REGEXP;
             }
 
+            public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
+                return ERepositoryObjectType.METADATA_FILE_XML;
+            }
+            
             public Object defaultCase(EObject object) {
                 throw new IllegalStateException();
             }

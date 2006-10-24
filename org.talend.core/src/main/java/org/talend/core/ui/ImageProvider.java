@@ -69,6 +69,8 @@ public class ImageProvider {
         METADATA_FILE_POSITIONAL_WIZ("/icons/positional_wiz.png"),
         METADATA_FILE_REGEXP_ICON(IImageConstants.FILE_REGEXP_ICON),
         METADATA_FILE_REGEXP_WIZ("/icons/regexp_wiz.png"),
+        METADATA_FILE_XML_ICON(IImageConstants.FILE_XML_PNG),
+        METADATA_FILE_XML_WIZ("/icons/xml_wiz.png"),
         RECYCLE_BIN_EMPTY_ICON(IImageConstants.RECYCLE_BIN_EMPTY_ICON),
         RECYCLE_BIN_FULL_ICON(IImageConstants.RECYCLE_BIN_FULL_ICON),
         FOLDER_OPEN_ICON(IImageConstants.FOLDER_OPEN_ICON),
@@ -182,6 +184,8 @@ public class ImageProvider {
             return ImageProvider.getImage(EImage.METADATA_FILE_POSITIONAL_ICON);
         case METADATA_FILE_REGEXP:
             return ImageProvider.getImage(EImage.METADATA_FILE_REGEXP_ICON);
+        case METADATA_FILE_XML:
+            return ImageProvider.getImage(EImage.METADATA_FILE_XML_ICON);
         case RECYCLE_BIN:
             return ImageProvider.getImage(EImage.RECYCLE_BIN_EMPTY_ICON);
         case FOLDER:
@@ -213,6 +217,8 @@ public class ImageProvider {
             return ImageProvider.getImageDesc(EImage.METADATA_FILE_POSITIONAL_ICON);
         case METADATA_FILE_REGEXP:
             return ImageProvider.getImageDesc(EImage.METADATA_FILE_REGEXP_ICON);
+        case METADATA_FILE_XML:
+            return ImageProvider.getImageDesc(EImage.METADATA_FILE_XML_ICON);
         case RECYCLE_BIN:
             return ImageProvider.getImageDesc(EImage.RECYCLE_BIN_EMPTY_ICON);
         default:

@@ -65,6 +65,8 @@ public final class LocalResourceModelUtils extends ResourceModelUtils {
             return "metadata/filePositional";
         case METADATA_FILE_REGEXP:
             return "metadata/fileRegex";
+        case METADATA_FILE_XML:
+            return "metadata/fileXml";
         default:
             throw new IllegalArgumentException("Folder for type " + type + " cannot be found");
         }
