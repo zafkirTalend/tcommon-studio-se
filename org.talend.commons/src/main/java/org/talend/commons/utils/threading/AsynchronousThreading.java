@@ -81,10 +81,12 @@ public class AsynchronousThreading {
 
             @Override
             public void run() {
-                try {
-                    Thread.sleep(sleepingTime);
-                } catch (InterruptedException e) {
-                    return;
+                if (sleepingTime > 0) {
+                    try {
+                        Thread.sleep(sleepingTime);
+                    } catch (InterruptedException e) {
+                        return;
+                    }
                 }
                 if (display == null) {
                     target.run(); 
