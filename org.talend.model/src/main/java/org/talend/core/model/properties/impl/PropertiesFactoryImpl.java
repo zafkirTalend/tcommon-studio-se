@@ -105,6 +105,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             return createCSVFileConnectionItem();
         case PropertiesPackage.DATABASE_CONNECTION_ITEM:
             return createDatabaseConnectionItem();
+        case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
+            return createXmlFileConnectionItem();
         case PropertiesPackage.PROCESS_ITEM:
             return createProcessItem();
         case PropertiesPackage.USER_ROLE:
@@ -115,8 +117,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             return createFolderItem();
         case PropertiesPackage.COMPONENT:
             return createComponent();
-        case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
-            return createXmlFileConnectionItem();
         case PropertiesPackage.NOTATION_HOLDER:
             return createNotationHolder();
         default:

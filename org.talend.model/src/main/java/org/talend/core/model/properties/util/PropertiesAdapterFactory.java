@@ -150,6 +150,10 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             return createDatabaseConnectionItemAdapter();
         }
 
+        public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
+            return createXmlFileConnectionItemAdapter();
+        }
+
         public Object caseProcessItem(ProcessItem object) {
             return createProcessItemAdapter();
         }
@@ -168,10 +172,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
 
         public Object caseComponent(Component object) {
             return createComponentAdapter();
-        }
-
-        public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
-            return createXmlFileConnectionItemAdapter();
         }
 
         public Object caseNotationHolder(NotationHolder object) {

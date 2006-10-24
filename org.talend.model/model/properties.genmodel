@@ -58,7 +58,7 @@
     <genClasses ecoreClass="properties.ecore#//BusinessProcessItem">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//BusinessProcessItem/notation"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//BusinessProcessItem/semantic"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//BusinessProcessItem/notationPersistentString"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//BusinessProcessItem/notationHolder"/>
     </genClasses>
     <genClasses image="false" ecoreClass="properties.ecore#//FileItem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//FileItem/name"/>
@@ -78,6 +78,7 @@
     <genClasses ecoreClass="properties.ecore#//RegExFileConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//CSVFileConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//DatabaseConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//XmlFileConnectionItem"/>
     <genClasses ecoreClass="properties.ecore#//ProcessItem">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ProcessItem/process"/>
     </genClasses>
@@ -115,6 +116,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Component/creationDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Component/deleteDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//Component/deleted"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//NotationHolder">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//NotationHolder/notationString"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

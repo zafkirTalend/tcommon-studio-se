@@ -247,6 +247,17 @@ public class PropertiesSwitch {
                 result = defaultCase(theEObject);
             return result;
         }
+        case PropertiesPackage.XML_FILE_CONNECTION_ITEM: {
+            XmlFileConnectionItem xmlFileConnectionItem = (XmlFileConnectionItem) theEObject;
+            Object result = caseXmlFileConnectionItem(xmlFileConnectionItem);
+            if (result == null)
+                result = caseConnectionItem(xmlFileConnectionItem);
+            if (result == null)
+                result = caseItem(xmlFileConnectionItem);
+            if (result == null)
+                result = defaultCase(theEObject);
+            return result;
+        }
         case PropertiesPackage.PROCESS_ITEM: {
             ProcessItem processItem = (ProcessItem) theEObject;
             Object result = caseProcessItem(processItem);
@@ -282,19 +293,6 @@ public class PropertiesSwitch {
         case PropertiesPackage.COMPONENT: {
             Component component = (Component) theEObject;
             Object result = caseComponent(component);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case PropertiesPackage.XML_FILE_CONNECTION_ITEM: {
-            XmlFileConnectionItem xmlFileConnectionItem = (XmlFileConnectionItem) theEObject;
-            Object result = caseXmlFileConnectionItem(xmlFileConnectionItem);
-            if (result == null)
-                result = caseDelimitedFileConnectionItem(xmlFileConnectionItem);
-            if (result == null)
-                result = caseConnectionItem(xmlFileConnectionItem);
-            if (result == null)
-                result = caseItem(xmlFileConnectionItem);
             if (result == null)
                 result = defaultCase(theEObject);
             return result;

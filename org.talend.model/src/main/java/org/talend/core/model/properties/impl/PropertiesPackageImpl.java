@@ -1227,6 +1227,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         databaseConnectionItemEClass = createEClass(DATABASE_CONNECTION_ITEM);
 
+        xmlFileConnectionItemEClass = createEClass(XML_FILE_CONNECTION_ITEM);
+
         processItemEClass = createEClass(PROCESS_ITEM);
         createEReference(processItemEClass, PROCESS_ITEM__PROCESS);
 
@@ -1264,8 +1266,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(componentEClass, COMPONENT__CREATION_DATE);
         createEAttribute(componentEClass, COMPONENT__DELETE_DATE);
         createEAttribute(componentEClass, COMPONENT__DELETED);
-
-        xmlFileConnectionItemEClass = createEClass(XML_FILE_CONNECTION_ITEM);
 
         notationHolderEClass = createEClass(NOTATION_HOLDER);
         createEAttribute(notationHolderEClass, NOTATION_HOLDER__NOTATION_STRING);
@@ -1317,9 +1317,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         regExFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         csvFileConnectionItemEClass.getESuperTypes().add(this.getDelimitedFileConnectionItem());
         databaseConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        xmlFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         processItemEClass.getESuperTypes().add(this.getItem());
         folderItemEClass.getESuperTypes().add(this.getItem());
-        xmlFileConnectionItemEClass.getESuperTypes().add(this.getDelimitedFileConnectionItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1457,6 +1457,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(databaseConnectionItemEClass, DatabaseConnectionItem.class, "DatabaseConnectionItem", !IS_ABSTRACT,
                 !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+        initEClass(xmlFileConnectionItemEClass, XmlFileConnectionItem.class, "XmlFileConnectionItem", !IS_ABSTRACT,
+                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
         initEClass(processItemEClass, ProcessItem.class, "ProcessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getProcessItem_Process(), theTalendFilePackage.getProcessType(), null, "process", null, 0, 1,
                 ProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
@@ -1528,9 +1531,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 0, 1, Component.class, !IS_TRANSIENT,
                 !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(xmlFileConnectionItemEClass, XmlFileConnectionItem.class, "XmlFileConnectionItem", !IS_ABSTRACT,
-                !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(notationHolderEClass, NotationHolder.class, "NotationHolder", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);

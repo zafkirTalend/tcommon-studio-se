@@ -17,7 +17,7 @@ import org.talend.core.model.properties.XmlFileConnectionItem;
  * 
  * @generated
  */
-public class XmlFileConnectionItemImpl extends DelimitedFileConnectionItemImpl implements XmlFileConnectionItem {
+public class XmlFileConnectionItemImpl extends ConnectionItemImpl implements XmlFileConnectionItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

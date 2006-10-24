@@ -14,5 +14,5 @@ package org.talend.core.model.properties;
  * @model
  * @generated
  */
-public interface XmlFileConnectionItem extends DelimitedFileConnectionItem {
+public interface XmlFileConnectionItem extends ConnectionItem {
 } // XmlFileConnectionItem
