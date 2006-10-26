@@ -30,6 +30,7 @@ import org.eclipse.jface.viewers.OpenEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
@@ -64,6 +65,8 @@ public class TargetSchemaTableEditorView2 {
     private TargetSchemaEditor2 targetSchemaTableEditor;
 
     private boolean executeSelectionEvent = true;
+    
+    private TargetSchemaToolbarEditorView2 targetSchemaToolbarEditorView2;
 
     public final static String ID_COLUMN_NAME = "ID_COLUMN_NAME";
     
@@ -71,6 +74,7 @@ public class TargetSchemaTableEditorView2 {
 
     public TargetSchemaTableEditorView2(Composite parent, int style, TargetSchemaEditor2 targetSchemaEditor) {
         this(parent, style, false);
+        this.composite = parent;
         setTargetSchemaEditor(targetSchemaEditor);
     }
 
@@ -84,9 +88,8 @@ public class TargetSchemaTableEditorView2 {
         super();
         this.showDbTypeColumn  = showDbTypeColumn;
 //        composite = new Composite(parent, style);
-//        GridLayout layout = new GridLayout();
-//        composite.setLayout(layout);
-
+        GridLayout layout = new GridLayout();
+        parent.setLayout(layout);
         createComponents(parent);
         addListeners();
     }
@@ -110,7 +113,7 @@ public class TargetSchemaTableEditorView2 {
     /**
      * DOC amaumont Comment method "addTargetSchemaToolbar".
      */
-//    private void addTargetSchemaToolbar() {
+//    private void addTargetSchemaToolbar(Composite composite) {
 //        targetSchemaToolbarEditorView2 = new TargetSchemaToolbarEditorView2(composite, SWT.NONE, this);
 //    }
 
@@ -149,6 +152,64 @@ public class TargetSchemaTableEditorView2 {
 
     private void initColumns(Table table) {
         
+        CellEditorValueAdapter intValueAdapter = new CellEditorValueAdapter() {
+
+            public Object getOriginalTypedValue(final CellEditor cellEditor, Object value) {
+                try {
+                    return new Integer(value.toString());
+                } catch (Exception ex) {
+                    return null;
+                }
+            }
+
+            public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
+                if (value != null) {
+                    return String.valueOf(value);
+                }
+                return "";
+            }
+        };
+
+        // boolean ValueAdapter
+        CellEditorValueAdapter booleanValueAdapter = new CellEditorValueAdapter() {
+
+            public Object getOriginalTypedValue(final CellEditor cellEditor, Object value) {
+                return (value == new Integer(1));
+            }
+
+            public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
+                if (value == new Boolean(true)) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }
+        };
+
+        // comboValueAdapter
+        CellEditorValueAdapter comboValueAdapter = new CellEditorValueAdapter() {
+
+            public Object getOriginalTypedValue(final CellEditor cellEditor, Object value) {
+                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
+                int i = new Integer(value.toString());
+                if (i >= 0) {
+                    return items[i];
+                } else {
+                    return "";
+                }
+            }
+
+            public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
+                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
+                for (int i = 0; i < items.length; i++) {
+                    if (items[i] == value) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+        };
+        
         ////////////////////////////////////////////////////////////////////////////////////////
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
@@ -172,9 +233,108 @@ public class TargetSchemaTableEditorView2 {
                 bean.setXPathQuery(value);
             }
         });
-        column.setWeight(20);
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
+//        final TableViewerCreatorColumn nameColumn = column;
+//        final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
+//        cellEditor.addListener(new ICellEditorListener() {
+//
+//            Text text = (Text) cellEditor.getControl();
+//
+//            String lastValidValue = null;
+//
+//            public void applyEditorValue() {
+//                ModifiedObjectInfo<SchemaTarget> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
+//                // System.out.println("------- applyEditorValue=" + text.getText());
+//                Object bean = modifiedObjectInfo.getCurrentModifiedBean() != null ? modifiedObjectInfo.getCurrentModifiedBean()
+//                        : modifiedObjectInfo.getPreviousModifiedBean();
+//                fireEventIfValidColumnName(text.getText(), true, bean);
+//                lastValidValue = null;
+//            }
+//
+//            public void cancelEditor() {
+//                ModifiedObjectInfo<SchemaTarget> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
+//                String originalName = (String) modifiedObjectInfo.getOriginalPropertyBeanValue();
+//                text.setText(originalName);
+//                fireEventIfValidColumnName(originalName, false, modifiedObjectInfo.getCurrentModifiedBean());
+//                lastValidValue = null;
+//            }
+//
+//            public void editorValueChanged(boolean oldValidState, boolean newValidState) {
+//                ModifiedObjectInfo<SchemaTarget> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
+//                if (!newValidState) {
+//                    // MessageDialog.openError(composite.getShell(), "Error", cellEditor.getErrorMessage());
+//                } else {
+//                }
+//                String newValue = text.getText();
+//                fireEventIfValidColumnName(newValue, false, modifiedObjectInfo.getCurrentModifiedBean());
+//            }
+//
+//            private void fireEventIfValidColumnName(final String newValue, boolean showAlertIfError, final Object currentModifiedBean) {
+//                final ModifiedObjectInfo<SchemaTarget> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
+//                String originalValue = (String) modifiedObjectInfo.getOriginalPropertyBeanValue();
+//                lastValidValue = lastValidValue != null ? lastValidValue : originalValue;
+//
+//                int beanPosition = tableViewerCreator.getInputList().indexOf(currentModifiedBean);
+//                final String errorMessage = targetSchemaTableEditor.validateColumnName(newValue, beanPosition);
+//                // System.out.println(errorMessage);
+//                if (errorMessage == null) {
+//                    createAndFireEvent(lastValidValue, newValue);
+//                    text.setBackground(text.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+//                    lastValidValue = newValue;
+//                } else {
+//                    text.setBackground(text.getDisplay().getSystemColor(SWT.COLOR_RED));
+//                    if (showAlertIfError) {
+//                        final Point selection = text.getSelection();
+//                        // System.out.println("setText:lastValidValue"+lastValidValue);
+//                        text.setText(lastValidValue);
+//
+//                        new Thread() {
+//
+//                            public void run() {
+//
+//                                try {
+//                                    Thread.sleep(20);
+//                                } catch (InterruptedException e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//                                text.getDisplay().asyncExec(new Runnable() {
+//
+//                                    public void run() {
+//                                        MessageDialog.openError(composite.getShell(), "Error", errorMessage);
+//                                        // System.out.println("setText:" + newValue);
+//                                        final int columnPosition = tableViewerCreator.getColumns().indexOf(nameColumn);
+//                                        tableViewerCreator.getTableViewer().editElement(currentModifiedBean, columnPosition);
+//                                        text.setText(newValue);
+//                                        text.setSelection(selection.x, selection.y);
+//                                    }
+//
+//                                });
+//                            };
+//                        }.start();
+//                    }
+//                }
+//            }
+//
+//            private void createAndFireEvent(String previousValue, String newValue) {
+//                SchemaTarget currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
+//                ArrayList<Object> modifiedObjectList = new ArrayList<Object>(1);
+//                modifiedObjectList.add(currentModifiedObject);
+//                TargetSchemaEditorEvent event = new TargetSchemaEditorEvent(TargetSchemaEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED);
+//                event.entries = modifiedObjectList;
+//                event.previousValue = previousValue;
+//                event.newValue = newValue;
+//                targetSchemaTableEditor.fireEvent(event);
+//            }
+//
+//        });
+//        column.setCellEditor(cellEditor);
+        
         column.setModifiable(true);
-        column.setMinimumWidth(30);
+        column.setWeight(10);
+        column.setMinimumWidth(50);
         column.setCellEditor(new TextCellEditor(table));
 
         ////////////////////////////////////////////////////////////////////////////////////////
@@ -194,27 +354,33 @@ public class TargetSchemaTableEditorView2 {
         });
         column.setModifiable(true);
         column.setWeight(10);
-        column.setMinimumWidth(20);
+        column.setMinimumWidth(50);
         column.setCellEditor(new TextCellEditor(table));
         
         ////////////////////////////////////////////////////////////////////////////////////////
         // Loop
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Loop");
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<SchemaTarget, Boolean>() {
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<SchemaTarget, String>() {
 
-            public Boolean get(SchemaTarget bean) {
-                return bean.isIsBoucle();
+            public String get(SchemaTarget bean) {
+                return ""+bean.isIsBoucle();
             }
 
-            public void set(SchemaTarget bean, Boolean value) {
-                bean.setIsBoucle(value);
+            public void set(SchemaTarget bean, String value) {
+                bean.setIsBoucle(false);
             }
 
         });
         column.setModifiable(true);
         column.setWidth(50);
-        column.setCellEditor(new TextCellEditor(table));
+        column.setDisplayedValue("");
+//        column.setTableEditorContent(new CheckboxTableEditorContent());
+//        column.setCellEditor(new TextCellEditor(table), booleanValueAdapter);
+        String[] bool = {"false","true"};
+        ComboBoxCellEditor comboTypeCellEditor = new ComboBoxCellEditor(table, bool);
+        ((CCombo) comboTypeCellEditor.getControl()).setEditable(false);
+        column.setCellEditor(comboTypeCellEditor, comboValueAdapter);
         
         ////////////////////////////////////////////////////////////////////////////////////////
         // Loop limit
@@ -232,8 +398,8 @@ public class TargetSchemaTableEditorView2 {
 
         });
         column.setModifiable(true);
-        column.setWidth(55);
-        column.setCellEditor(new TextCellEditor(table));
+        column.setWidth(30);
+        column.setCellEditor(new TextCellEditor(table), intValueAdapter);
     }
 
     public TargetSchemaEditor2 getTargetSchemaEditor() {
@@ -287,18 +453,18 @@ public class TargetSchemaTableEditorView2 {
      * @param minimumWidth
      * @param minimumHeight
      */
-    public void setGridDataSize(final int minimumWidth, final int minimumHeight) {
-        this.composite.setSize(minimumWidth, minimumHeight);
-
-        GridData gridData = new GridData(GridData.FILL_BOTH);
-        gridData.minimumWidth = minimumWidth;
-        gridData.minimumHeight = minimumHeight;
-        this.composite.setLayoutData(gridData);
-
-    }
+//    public void setGridDataSize(final int minimumWidth, final int minimumHeight) {
+//        this.composite.setSize(minimumWidth, minimumHeight);
+//
+//        GridData gridData = new GridData(GridData.FILL_BOTH);
+//        gridData.minimumWidth = minimumWidth;
+//        gridData.minimumHeight = minimumHeight;
+//        this.composite.setLayoutData(gridData);
+//
+//    }
 
     public void setReadOnly(boolean b) {
-//        targetSchemaToolbarEditorView2.setReadOnly(b);
+        targetSchemaToolbarEditorView2.setReadOnly(b);
         this.tableViewerCreator.getTable().setEnabled(!b);
     }
 
@@ -309,7 +475,7 @@ public class TargetSchemaTableEditorView2 {
      * @param string
      */
     public void setDefaultLabel(String label) {
-//        targetSchemaToolbarEditorView2.setDefaultLabel(label);
+        targetSchemaToolbarEditorView2.setDefaultLabel(label);
     }
 
 }
