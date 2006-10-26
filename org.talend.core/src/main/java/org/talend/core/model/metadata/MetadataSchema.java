@@ -113,6 +113,23 @@ public final class MetadataSchema {
     }
 
     /**
+     * Load SchemaTarget from a file.
+     * 
+     * @param file file to load
+     * @return List SchemaTarget to set
+     * @throws ParserConfigurationException if dom exception occured
+     * @throws SAXException if sax exception occured
+     * @throws IOException if file cannot be read
+     */
+    public static List<org.talend.core.model.metadata.builder.connection.SchemaTarget> loadTargetSchemaColumnFromFile(
+            final File file) throws ParserConfigurationException, SAXException, IOException {
+        final List<org.talend.core.model.metadata.builder.connection.SchemaTarget> listSchemaTargets = initializeSchemaTarget2(file);
+        return listSchemaTargets;
+    }
+    
+    
+    
+    /**
      * Initalize MetadataColumns available in a file.
      * 
      * @param file where MeatadataColumns data are available
@@ -276,6 +293,78 @@ public final class MetadataSchema {
     }
 
     /**
+     * Initalize SchemaTargets available in a file.
+     * 
+     * @param file where SchemaTargets data are available
+     * @return MetadataSchema setted with datas from file
+     * @throws ParserConfigurationException if dom exception occured
+     * @throws SAXException if sax exception occured
+     * @throws IOException if file cannot be read
+     */
+    private static List<org.talend.core.model.metadata.builder.connection.SchemaTarget> initializeSchemaTarget2(
+            final File file) throws ParserConfigurationException, SAXException, IOException {
+        final List<org.talend.core.model.metadata.builder.connection.SchemaTarget> listSchemaTargets = 
+            new ArrayList<org.talend.core.model.metadata.builder.connection.SchemaTarget>();
+        if (file != null) {
+            final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
+
+            final Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
+            final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
+            final File schema = new File(url.getPath());
+
+            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema");
+            fabrique.setAttribute(SCHEMA_VALIDATOR, schema);
+            fabrique.setValidating(true);
+
+            final DocumentBuilder analyseur = fabrique.newDocumentBuilder();
+            analyseur.setErrorHandler(new ErrorHandler() {
+
+                public void error(final SAXParseException exception) throws SAXException {
+                    throw exception;
+                }
+
+                public void fatalError(final SAXParseException exception) throws SAXException {
+                    throw exception;
+                }
+
+                public void warning(final SAXParseException exception) throws SAXException {
+                    throw exception;
+                }
+
+            });
+
+            final Document document = analyseur.parse(file);
+            final NodeList nodes = document.getElementsByTagName("schemaTarget");
+            for (int i = 0; i < nodes.getLength(); i++) {
+                final org.talend.core.model.metadata.builder.connection.SchemaTarget schemaTarget = ConnectionFactory.eINSTANCE
+                        .createSchemaTarget();
+                final Node nodetoParse = nodes.item(i);
+                final NamedNodeMap nodeMap = nodetoParse.getAttributes();
+                final Node XPathQuery = nodeMap.getNamedItem("XPathQuery");
+                final Node TagName = nodeMap.getNamedItem("TagName");
+                final Node LimitBoucle = nodeMap.getNamedItem("LimitBoucle");
+                final Node IsBoucle = nodeMap.getNamedItem("IsBoucle");
+
+                schemaTarget.setXPathQuery(XPathQuery.getNodeValue());
+                schemaTarget.setTagName(TagName.getNodeValue());
+                if (LimitBoucle.getNodeValue() != null) {
+                    try {
+                        schemaTarget.setLimitBoucle(Integer.parseInt(LimitBoucle.getNodeValue()));
+                    } catch (final NumberFormatException e) {
+                        schemaTarget.setLimitBoucle(0);
+                    }
+                } else {
+                    schemaTarget.setLimitBoucle(0);
+                }
+                schemaTarget.setIsBoucle(Boolean.parseBoolean(IsBoucle.getNodeValue()));
+
+                listSchemaTargets.add(schemaTarget);
+            }
+        }
+        return listSchemaTargets;
+    }
+    
+    /**
      * Export MetadataColumn to the specified file.
      * @param file to save
      * @param table to export
@@ -366,6 +455,83 @@ public final class MetadataSchema {
         }
         return false;
     }
+
+    /**
+     * Export SchemaTarget to the specified file.
+     * @param file to save
+     * @param table to export
+     * @return boolean result
+     * @throws IOException if file cannot be saved
+     * @throws ParserConfigurationException if dom is not fully respected
+     */
+    public static boolean saveSchemaTargetToFile(File file,
+            org.talend.core.model.metadata.builder.connection.MetadataSchema table) throws IOException,
+            ParserConfigurationException {
+
+        if (file != null) {
+            final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
+
+            final Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
+            final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
+            final File schema = new File(url.getPath());
+
+            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema");
+            fabrique.setAttribute(SCHEMA_VALIDATOR, schema);
+            fabrique.setValidating(true);
+
+            final DocumentBuilder analyseur = fabrique.newDocumentBuilder();
+            analyseur.setErrorHandler(new ErrorHandler() {
+
+                public void error(final SAXParseException exception) throws SAXException {
+                    throw exception;
+                }
+
+                public void fatalError(final SAXParseException exception) throws SAXException {
+                    throw exception;
+                }
+
+                public void warning(final SAXParseException exception) throws SAXException {
+                    throw exception;
+                }
+
+            });
+
+            Document document = analyseur.newDocument();
+            Element racine = document.createElement("schema");
+            document.appendChild(racine);
+
+            for (Object list : table.getSchemaTargets()) {
+                org.talend.core.model.metadata.builder.connection.SchemaTarget schemaTarget = 
+                    (org.talend.core.model.metadata.builder.connection.SchemaTarget) list;
+                Element column = document.createElement("schemaTarget");
+                racine.appendChild(column);
+
+                Attr xPathQuery = document.createAttribute("XPathQuery");
+                xPathQuery.setNodeValue(schemaTarget.getXPathQuery());
+                column.setAttributeNode(xPathQuery);
+
+                Attr tagName = document.createAttribute("TagName");
+                tagName.setNodeValue(String.valueOf(schemaTarget.getTagName()));
+                column.setAttributeNode(tagName);
+
+                Attr isBoucle = document.createAttribute("IsBoucle");
+                isBoucle.setNodeValue(String.valueOf(schemaTarget.isIsBoucle()));
+                column.setAttributeNode(isBoucle);
+                
+                Attr limitBoucle = document.createAttribute("LimitBoucle");
+                limitBoucle.setNodeValue(String.valueOf(schemaTarget.getLimitBoucle()));
+                column.setAttributeNode(limitBoucle);
+            }
+
+            // use specific Xerces class to write DOM-data to a file:
+            XMLSerializer serializer = new XMLSerializer();
+            serializer.setOutputCharStream(new java.io.FileWriter(file));
+            serializer.serialize(document);
+            return true;
+        }
+        return false;
+    }
+
     
     /**
      * Export MetadataColumn to the specified file.

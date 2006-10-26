@@ -440,4 +440,21 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
         return newColumn;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#copy()
+     */
+    public SchemaTarget copy(SchemaTarget column, String newId) {
+        SchemaTarget newColumn = new SchemaTargetImpl();
+        newColumn.setId(newId);
+        newColumn.setLabel(column.getLabel());
+        newColumn.setXPathQuery(column.getXPathQuery());
+        newColumn.setTagName(column.getTagName());
+        newColumn.setIsBoucle(column.isIsBoucle());
+        newColumn.setLimitBoucle(column.getLimitBoucle());
+        newColumn.setComment(column.getComment());
+        return newColumn;
+    }
+    
 } // ConnectionFactoryImpl
