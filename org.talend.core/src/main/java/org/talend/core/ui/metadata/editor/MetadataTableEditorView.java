@@ -50,6 +50,7 @@ import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
 import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
+import org.talend.commons.ui.ws.WindowSystem;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataColumn;
@@ -135,7 +136,6 @@ public class MetadataTableEditorView {
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
         tableViewerCreator.setUseCustomColoring(true);
-//        tableViewerCreator.setAdjustWidthValue(-30);
         tableViewerCreator.setFirstColumnMasked(true);
 
         initLineSelectionListeners();
