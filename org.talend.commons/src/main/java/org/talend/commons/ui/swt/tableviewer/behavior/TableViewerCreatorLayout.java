@@ -75,6 +75,7 @@ import org.eclipse.swt.widgets.TreeColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.utils.TableUtils;
+import org.talend.commons.ui.ws.WindowSystem;
 import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**
@@ -235,7 +236,7 @@ public class TableViewerCreatorLayout extends Layout {
 
         // System.out.println("TableViewerCreatorLayout layout " + toString() + " "+ (i++) );
 
-        if (fillHorizontal || continuousLayout) {
+        if (fillHorizontal) {
             initColumnsControlListener();
         }
 
@@ -289,8 +290,9 @@ public class TableViewerCreatorLayout extends Layout {
     private void layout(final Composite c) {
         // System.out.println("Layout" + System.currentTimeMillis());
         Table table = (Table) c;
-        Rectangle bounds = table.getBounds();
-        // bounds = c.getClientArea();
+        Rectangle bounds = null; 
+        bounds = table.getBounds();
+        bounds = table.getClientArea();
 
         int displayedWidth = 0;
         int newVisibleWidth = bounds.width + widthAdjustValue;
@@ -583,7 +585,7 @@ public class TableViewerCreatorLayout extends Layout {
     private void controlResizedExecute(ControlEvent e) {
         final TableColumn currentTableColumn = (TableColumn) e.widget;
         // System.out.println("controlResizedExecute");
-        if (!columnsResizingByLayout && !manualResizing && (continuousLayout || fillHorizontal)) {
+        if (!columnsResizingByLayout && !manualResizing && (fillHorizontal)) {
             manualResizing = true;
             final Table table = currentTableColumn.getParent();
 

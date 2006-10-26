@@ -391,25 +391,7 @@ public class TableViewerCreator<O> {
         setTablePreferences();
 
         initCellModifier();
-//        addDragListener();
-        // table.addListener(SWT.EraseItem, eraseItemListener);
-        // table.addListener(SWT.PaintItem, eraseItemListener);
-
-        //
-        //
-        // Listener addRemoveEraseItemListener = new Listener() {
-        //
-        // public void handleEvent(Event event) {
-        //
-        // boolean leftMouseButton = (event.stateMask & SWT.BUTTON1) != 0 || event.button == 1;
-        //
-        // switch (event.type) {
-        // case SWT.MouseDown:
-        // if (leftMouseButton) {
-        // System.out.println("add");
-        // table.addListener(SWT.EraseItem, eraseItemListener);
-        // }
-
+        
         return table;
     }
 
@@ -560,10 +542,6 @@ public class TableViewerCreator<O> {
                     gc.setBackground(bgColor);
                     gc.setForeground(fgColor);
 
-                    // TODO: uncomment to see selection on linux gtk
-
-                    // ((TableItem)event.item).setBackground(null);
-
                     gc.fillRectangle(rect);
 
                     gc.setBackground(previousBackground);
@@ -596,10 +574,6 @@ public class TableViewerCreator<O> {
                     Color background = gc.getBackground();
 
                     gc.setBackground(currentBackgroundColumn);
-
-                    // TODO: uncomment to see selection on linux gtk
-
-                    // ((TableItem)event.item).setBackground(null);
 
                     gc.fillRectangle(rect);
 
@@ -1298,6 +1272,9 @@ public class TableViewerCreator<O> {
      * Use custom coloring allow by default to correct bad rendering of transparent images in Table and for first
      * column.
      * </p>
+     * <p>
+     * Note : only available on Win32
+     * </p>
      * Warnings :
      * <ul>
      * <li> automatic tooltip which appears when a cell is too small to display its content won't work. </li>
@@ -1308,12 +1285,14 @@ public class TableViewerCreator<O> {
      * @param useCustomColoring
      */
     public void setUseCustomColoring(boolean useCustomColoring) {
-        this.useCustomColoring = useCustomColoring;
-        if (table != null) {
-            if (useCustomColoring) {
-                addEraseItemListener();
-            } else {
-                removeEraseItemListener();
+        if(WindowSystem.isWIN32()) {
+            this.useCustomColoring = useCustomColoring;
+            if (table != null) {
+                if (useCustomColoring) {
+                    addEraseItemListener();
+                } else {
+                    removeEraseItemListener();
+                }
             }
         }
     }
@@ -1329,10 +1308,11 @@ public class TableViewerCreator<O> {
     }
 
     /**
+     * <p>
+     * Note : only available on Win32
+     * </p>
      * 
-     * DOC amaumont Comment method "getBgColorSelectedLine".
-     * 
-     * @return
+     * @return the color set by user (not the default color of selection)
      */
     public Color getBgColorSelectedLine() {
         return this.bgColorSelectedLine;
@@ -1340,148 +1320,87 @@ public class TableViewerCreator<O> {
 
     /**
      * 
-     * DOC amaumont Comment method "setBgColorSelectedLine".
+     * <p>
+     * Note : only available on Win32
+     * </p>
      * 
      * @param lineSelectionBackgroundColor
      * @see TableViewerCreator#setUseCustomColoring(boolean)
      */
     public void setBgColorSelectedLine(Color lineSelectionBackgroundColor) {
         this.bgColorSelectedLine = lineSelectionBackgroundColor;
-//        setUseCustomColoring(true);
     }
 
+    /**
+     * <p>
+     * Note : only available on Win32
+     * </p>
+     * 
+     * @return the color set by user (not the default color of selection)
+     */
     public Color getFgColorSelectedLine() {
         return this.fgColorSelectedLine;
     }
 
     /**
      * 
-     * DOC amaumont Comment method "setFgColorSelectedLine".
+     * <p>
+     * Note : only available on Win32
+     * </p>
      * 
      * @param lineSelectionForegroundColor
      * @see TableViewerCreator#setUseCustomColoring(boolean)
      */
     public void setFgColorSelectedLine(Color lineSelectionForegroundColor) {
         this.fgColorSelectedLine = lineSelectionForegroundColor;
-//        setUseCustomColoring(true);
     }
 
+    /**
+     * <p>
+     * Note : only available on Win32
+     * </p>
+     * 
+     * @return the color set by user (not the default color of selection)
+     */
     public Color getBgColorSelectedLineWhenUnactive() {
         return this.bgColorSelectedLineWhenUnactive;
     }
 
     /**
      * 
-     * DOC amaumont Comment method "setBgColorSelectedLineWhenUnactive".
+     * <p>
+     * Note : only available on Win32
+     * </p>
      * 
      * @param bgColorSelectedLineWhenUnactive
      * @see TableViewerCreator#setUseCustomColoring(boolean)
      */
     public void setBgColorSelectedLineWhenUnactive(Color bgColorSelectedLineWhenUnactive) {
         this.bgColorSelectedLineWhenUnactive = bgColorSelectedLineWhenUnactive;
-//        setUseCustomColoring(true);
     }
 
+    /**
+     * <p>
+     * Note : only available on Win32
+     * </p>
+     * 
+     * @return the color set by user (not the default color of selection)
+     */
     public Color getFgColorSelectedLineWhenUnactive() {
         return this.fgColorSelectedLineWhenUnactive;
     }
 
     /**
      * 
-     * DOC amaumont Comment method "setFgColorSelectedLineWhenUnactive".
+     * <p>
+     * Note : only available on Win32
+     * </p>
      * 
      * @param fgColorSelectedLineWhenUnactive
      * @see TableViewerCreator#setUseCustomColoring(boolean)
      */
     public void setFgColorSelectedLineWhenUnactive(Color fgColorSelectedLineWhenUnactive) {
         this.fgColorSelectedLineWhenUnactive = fgColorSelectedLineWhenUnactive;
-//        setUseCustomColoring(true);
     }
-
-    // final Listener eraseItemListener = new Listener() {
-    //
-    // public void handleEvent(Event event) {
-    //
-    // System.out.println("EraseItem2");
-    //
-    // if ((event.detail & SWT.SELECTED) != 0) {
-    //
-    // GC gc = event.gc;
-    //
-    // Rectangle rect = event.getBounds();
-    //
-    // Color background = gc.getBackground();
-    //
-    // gc.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_YELLOW));
-    //
-    // // TODO: uncomment to see selection on linux gtk
-    //
-    // // ((TableItem)event.item).setBackground(null);
-    //
-    // gc.fillRectangle(rect);
-
-    //
-    // gc.setBackground(background);
-    //
-    // event.detail &= ~SWT.SELECTED;
-    //
-    // }
-    //
-    // }
-    //
-    // };
-
-    //                
-    // Listener paintListener = new Listener() {
-    //        
-    // public void handleEvent(Event event) {
-    // System.out.println("PaintItem");
-    // }
-    //                    
-    // };
-    //                
-    // Listener measureItemListener = new Listener() {
-    //                    
-    // public void handleEvent(Event event) {
-    // System.out.println("MeasureItem");
-    // }
-    //                    
-    // };
-
-    // table.addListener(SWT.PaintItem, paintListener);
-    // table.addListener(SWT.MeasureItem, measureItemListener);
-    //
-    //        
-    // Listener addRemoveEraseItemListener = new Listener() {
-    //
-    // public void handleEvent(Event event) {
-    //
-    // boolean leftMouseButton = (event.stateMask & SWT.BUTTON1) != 0 || event.button == 1;
-    //
-    // switch (event.type) {
-    // case SWT.MouseDown:
-    // if (leftMouseButton) {
-    // System.out.println("add");
-    // table.addListener(SWT.EraseItem, eraseItemListener);
-    // }
-    // break;
-    // case SWT.MouseUp:
-    // if (leftMouseButton) {
-    // System.out.println("remove");
-    // table.removeListener(SWT.EraseItem, eraseItemListener);
-    // OS.SendMessage (table.handle, OS.LVM_SETEXTENDEDLISTVIEWSTYLE, OS.LVS_EX_LABELTIP, OS.LVS_EX_LABELTIP);
-    // table.setToolTipText("test");
-    // table.setBackgroundImage(imageEmpty);
-    // table.setBackgroundMode(SWT.INHERIT_DEFAULT);
-    // }
-    // break;
-    //
-    // }
-    // }
-    //            
-    // };
-    //        
-    // table.addListener(SWT.MouseDown, addRemoveEraseItemListener);
-    // table.addListener(SWT.MouseUp, addRemoveEraseItemListener);
 
 }
