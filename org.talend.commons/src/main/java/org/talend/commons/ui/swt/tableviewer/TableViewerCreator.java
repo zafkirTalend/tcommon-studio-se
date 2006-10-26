@@ -162,6 +162,23 @@ public class TableViewerCreator<O> {
 
     private SHOW_SELECTION showSelection;
 
+    
+    /**
+     * 
+     * DOC amaumont MetadataEditorEvent class global comment. Detailled comment
+     * <br/>
+     *
+     * $Id$
+     *
+     */
+    public enum CELL_EDITOR_STATE {
+        EDITING,
+        APPLYING,
+        CANCELING,
+        ;
+    }
+    
+
     /**
      * @see Table#setLinesVisible(boolean)
      */

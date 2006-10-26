@@ -23,49 +23,39 @@ package org.talend.core.ui.metadata.editor;
 
 import java.util.ArrayList;
 
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.ICellEditorListener;
-import org.eclipse.jface.viewers.IOpenListener;
-import org.eclipse.jface.viewers.OpenEvent;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Text;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LINE_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
-import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
-import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
+import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
 import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
-import org.talend.commons.utils.threading.AsynchronousThreading;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
-import org.talend.core.model.metadata.editor.MetadataEditorEvent.STATE;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent.TYPE;
 import org.talend.core.ui.ImageProvider;
 import org.talend.core.ui.ImageProvider.EImage;
@@ -309,79 +299,12 @@ public class MetadataTableEditorView {
         column.setMinimumWidth(45);
         final TableViewerCreatorColumn nameColumn = column;
         final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
-        cellEditor.addListener(new ICellEditorListener() {
+        cellEditor.addListener(new DialogErrorForCellEditorListener(cellEditor, column) {
 
-            Text text = (Text) cellEditor.getControl();
-
-            String lastValidValue = null;
-
-            public void applyEditorValue() {
-                ModifiedObjectInfo<IMetadataColumn> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
-                // System.out.println("------- applyEditorValue=" + text.getText());
-                Object bean = modifiedObjectInfo.getCurrentModifiedBean() != null ? modifiedObjectInfo.getCurrentModifiedBean()
-                        : modifiedObjectInfo.getPreviousModifiedBean();
-                fireEventIfValidColumnName(text.getText(), true, bean, MetadataEditorEvent.STATE.APPLYING);
-                lastValidValue = null;
-            }
-
-            public void cancelEditor() {
-                ModifiedObjectInfo<IMetadataColumn> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
-                String originalName = (String) modifiedObjectInfo.getOriginalPropertyBeanValue();
-                text.setText(originalName);
-                fireEventIfValidColumnName(originalName, false, modifiedObjectInfo.getCurrentModifiedBean(),
-                        MetadataEditorEvent.STATE.CANCELING);
-                lastValidValue = null;
-            }
-
-            public void editorValueChanged(boolean oldValidState, boolean newValidState) {
-                ModifiedObjectInfo<IMetadataColumn> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
-                if (!newValidState) {
-                    // MessageDialog.openError(composite.getShell(), "Error", cellEditor.getErrorMessage());
-                } else {
-                }
-                String newValue = text.getText();
-                fireEventIfValidColumnName(newValue, false, modifiedObjectInfo.getCurrentModifiedBean(), MetadataEditorEvent.STATE.EDITING);
-            }
-
-            private void fireEventIfValidColumnName(final String newValue, boolean showAlertIfError, final Object currentModifiedBean,
-                    STATE state) {
-                final ModifiedObjectInfo<IMetadataColumn> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
-                String originalValue = (String) modifiedObjectInfo.getOriginalPropertyBeanValue();
-                lastValidValue = lastValidValue != null && state == MetadataEditorEvent.STATE.EDITING ? lastValidValue : originalValue;
-
-                int beanPosition = tableViewerCreator.getInputList().indexOf(currentModifiedBean);
-                final String errorMessage = metadataTableEditor.validateColumnName(newValue, beanPosition);
-                // System.out.println(errorMessage);
-                if (errorMessage == null) {
-                    createAndFireEvent(lastValidValue, newValue, state);
-                    text.setBackground(text.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-                    lastValidValue = newValue;
-                } else {
-                    text.setBackground(text.getDisplay().getSystemColor(SWT.COLOR_RED));
-                    if (showAlertIfError) {
-                        final Point selection = text.getSelection();
-                        // System.out.println("setText:lastValidValue"+lastValidValue);
-                        text.setText(lastValidValue);
-
-                        new AsynchronousThreading(20, false, text.getDisplay(), new Runnable() {
-
-                            public void run() {
-
-                                MessageDialog.openError(composite.getShell(), "Error", errorMessage);
-                                final int columnPosition = tableViewerCreator.getColumns().indexOf(nameColumn);
-                                tableViewerCreator.getTableViewer().editElement(currentModifiedBean, columnPosition);
-                                text.setText(newValue);
-                                text.setSelection(selection.x, selection.y);
-
-                            }
-                        }).start();
-                    }
-                }
-            }
-
-            private void createAndFireEvent(String previousValue, String newValue, STATE state) {
-                IMetadataColumn currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
-                ArrayList<Object> modifiedObjectList = new ArrayList<Object>(1);
+            @Override
+            public void newValidValueApplied(String previousValue, String newValue, CELL_EDITOR_STATE state) {
+                Object currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
+                ArrayList modifiedObjectList = new ArrayList(1);
                 modifiedObjectList.add(currentModifiedObject);
                 MetadataEditorEvent event = new MetadataEditorEvent(MetadataEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED);
                 event.entries = modifiedObjectList;
@@ -391,6 +314,11 @@ public class MetadataTableEditorView {
                 metadataTableEditor.fireEvent(event);
             }
 
+            @Override
+            public String validateValue(String newValue, int beanPosition) {
+                return metadataTableEditor.validateColumnName(newValue, beanPosition);
+            }
+            
         });
         column.setCellEditor(cellEditor);
 

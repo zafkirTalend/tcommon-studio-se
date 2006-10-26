@@ -59,6 +59,23 @@ public class ControlUtils {
      * @param control
      * @return
      */
+    public static void setText(Control control, String text) {
+        if (control instanceof Text) {
+            ((Text) control).setText(text);
+        } else if (control instanceof StyledText) {
+            ((StyledText) control).setText(text);
+        } else {
+            throw new UnsupportedOperationException("This control (" + control.getClass() + ") is not supported, add case if you want...");
+        }
+        
+    }
+    
+    /**
+     * 
+     * DOC amaumont Comment method "getText".
+     * @param control
+     * @return
+     */
     public static void addModifyListener(Control control, ModifyListener modifyListener) {
         if (control instanceof Text) {
             ((Text) control).addModifyListener(modifyListener);

@@ -24,6 +24,7 @@ package org.talend.core.model.metadata.editor;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.core.model.action.IEventAction;
 
 
@@ -58,27 +59,7 @@ public class MetadataEditorEvent implements IEventAction {
         ;
     }
 
-    /**
-     * 
-     * DOC amaumont MetadataEditorEvent class global comment. Detailled comment
-     * <br/>
-     *
-     * $Id$
-     *
-     */
-    public enum STATE {
-        EDITING,
-        APPLYING,
-        CANCELING,
-        ;
-    }
-    
     public TYPE type;
-    
-    /**
-     * Used for METADATA_NAME_VALUE_CHANGED type
-     */
-    public STATE state;
     
     public List<Object> entries = new ArrayList<Object>();
     
@@ -89,6 +70,8 @@ public class MetadataEditorEvent implements IEventAction {
     public Object previousValue;
     
     public Object newValue;
+
+    public CELL_EDITOR_STATE state;
 
     public MetadataEditorEvent() {
         super();
