@@ -118,7 +118,7 @@ public class TypedTextCommandExecutor {
 
         String currentText = ControlUtils.getText(control);
 
-        System.out.println(e);
+//        System.out.println(e);
 
         boolean alphaNumMatched = matcher.matches(String.valueOf(e.character), patternAlphaNum);
         boolean ctrlKey = (e.stateMask & (SWT.CTRL)) != 0;

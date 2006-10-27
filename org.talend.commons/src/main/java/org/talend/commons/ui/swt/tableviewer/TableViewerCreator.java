@@ -549,7 +549,10 @@ public class TableViewerCreator<O> {
 
                     event.detail &= ~SWT.SELECTED;
 
-                } else if (event.detail == 24 || event.detail == 22) {
+                } else if (
+                        event.detail == 24 
+                        || event.detail == 28
+                ) {
                     /**
                      * To color cells or rows selected by using
                      * org.eclipse.swt.widgets.TableItem#setBackground(int,Color) or
@@ -586,64 +589,6 @@ public class TableViewerCreator<O> {
         };
         table.addListener(SWT.EraseItem, eraseItemListener);
 
-        // Listener paintListener = new Listener() {
-        //
-        // public void handleEvent(Event event) {
-        // System.out.println("PaintItem event.detail=" + EventUtil.getEventNameFromDetail(event.detail) +
-        // "event.widget="
-        // + event.widget.hashCode());
-        //
-        // TableItem tableItem = (TableItem) event.item;
-        //
-        // if (event.detail == 24) {
-        // /**
-        // * To color cells or rows selected by using
-        // * org.eclipse.swt.widgets.TableItem#setBackground(int,Color) or
-        // * org.eclipse.swt.widgets.TableItem#setBackground(Color)
-        // */
-        //
-        // // System.out.println("#########################" +event.detail);
-        // GC gc = event.gc;
-        //
-        // Rectangle rect = event.getBounds();
-        //
-        // int columnIndex = TableUtils.getColumnIndex(table, new Point(event.x, event.y));
-        // Color currentBackgroundColumn = tableItem.getBackground(columnIndex);
-        // Color parentBg = tableItem.getParent().getBackground();
-        // if(currentBackgroundColumn == parentBg && tableItem.getBackground() != null) {
-        // currentBackgroundColumn = tableItem.getBackground();
-        // }
-        //                    
-        // Color background = gc.getBackground();
-        //
-        // gc.setBackground(currentBackgroundColumn);
-        //
-        // // TODO: uncomment to see selection on linux gtk
-        //
-        // // ((TableItem)event.item).setBackground(null);
-        //
-        // gc.fillRectangle(rect);
-        //
-        // gc.setBackground(background);
-        //
-        // }
-        //
-        // }
-        //
-        // };
-        // table.addListener(SWT.PaintItem, paintListener);
-        //
-        // Listener measureItemListener = new Listener() {
-        //
-        // public void handleEvent(Event event) {
-        // System.out.println("MeasureItem event.detail=" + EventUtil.getEventNameFromDetail(event.detail) +
-        // "event.widget="
-        // + event.widget.hashCode());
-        // }
-        //
-        // };
-        //
-        // table.addListener(SWT.MeasureItem, measureItemListener);
 
     }
 
