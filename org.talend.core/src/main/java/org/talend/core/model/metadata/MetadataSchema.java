@@ -37,6 +37,7 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
+import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -63,6 +64,8 @@ public final class MetadataSchema {
     private static final String SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
 
     private static final String SCHEMA_XSD = "talend_metadata_columns_schema.xsd";
+    
+    private static final String TARGETSCHEMA_XSD = "talend_targetschema_columns_schema.xsd";
 
     private static final String SCHEMA_VALIDATOR = "http://java.sun.com/xml/jaxp/properties/schemaSource";
 
@@ -309,7 +312,7 @@ public final class MetadataSchema {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
             final Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
-            final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
+            final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(TARGETSCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
             fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema");
@@ -334,7 +337,7 @@ public final class MetadataSchema {
             });
 
             final Document document = analyseur.parse(file);
-            final NodeList nodes = document.getElementsByTagName("schemaTarget");
+            final NodeList nodes = document.getElementsByTagName("schemaTargets");
             for (int i = 0; i < nodes.getLength(); i++) {
                 final org.talend.core.model.metadata.builder.connection.SchemaTarget schemaTarget = ConnectionFactory.eINSTANCE
                         .createSchemaTarget();
@@ -472,7 +475,7 @@ public final class MetadataSchema {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
             final Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
-            final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
+            final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(TARGETSCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
             fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema");
@@ -501,9 +504,8 @@ public final class MetadataSchema {
             document.appendChild(racine);
 
             for (Object list : table.getSchemaTargets()) {
-                org.talend.core.model.metadata.builder.connection.SchemaTarget schemaTarget = 
-                    (org.talend.core.model.metadata.builder.connection.SchemaTarget) list;
-                Element column = document.createElement("schemaTarget");
+                SchemaTarget schemaTarget = (SchemaTarget) list;
+                Element column = document.createElement("schemaTargets");
                 racine.appendChild(column);
 
                 Attr xPathQuery = document.createAttribute("XPathQuery");
