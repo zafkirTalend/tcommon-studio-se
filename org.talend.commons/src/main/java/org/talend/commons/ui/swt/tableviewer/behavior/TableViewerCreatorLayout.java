@@ -596,8 +596,8 @@ public class TableViewerCreatorLayout extends Layout {
 
 //             Rectangle bounds = table.getBounds();
             Rectangle bounds = table.getClientArea();
-             System.out.println("currentTableColumn.getWidth()=" + currentTableColumn.getWidth());
-             System.out.println("columnsResizingByLayout=" + columnsResizingByLayout);
+//             System.out.println("currentTableColumn.getWidth()=" + currentTableColumn.getWidth());
+//             System.out.println("columnsResizingByLayout=" + columnsResizingByLayout);
             // System.out.println("currentTableColumn.hashCode()=" + currentTableColumn.hashCode());
           
             if (table.getHorizontalBar().getSelection() == 0) {
