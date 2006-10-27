@@ -32,6 +32,7 @@ import org.apache.oro.text.regex.Perl5Matcher;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableList;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.MetadataSchema;
 
@@ -132,8 +133,7 @@ public class TargetSchemaEditor2 {
     }
 
     private void initData() {
-        //PTODO en dur this.metadataSchema.getSchemaTargets()
-        this.schemaTargetList = new ListenableList<SchemaTarget>(new ArrayList<SchemaTarget>());
+        this.schemaTargetList = new ListenableList<SchemaTarget>(this.metadataSchema.getSchemaTargets());
     }
 
     public String getTitleName() {
