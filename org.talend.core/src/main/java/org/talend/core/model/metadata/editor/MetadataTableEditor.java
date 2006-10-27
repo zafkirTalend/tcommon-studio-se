@@ -226,18 +226,22 @@ public class MetadataTableEditor {
     }
 
     public String getNextGeneratedColumnName() {
+        return getNextGeneratedColumnName("newColumn");
+    }
+
+    public String getNextGeneratedColumnName(String oldColumnName) {
         String[] labels = new String[this.metadataColumnList.size()];
         int lstSize = this.metadataColumnList.size();
         for (int i = 0; i < lstSize; i++) {
             IMetadataColumn metadataColumn = this.metadataColumnList.get(i);
             labels[i] = metadataColumn.getLabel();
         }
-        
+
         boolean found = false;
         int indexNewColumn = 0;
         String newColumnName = null;
         while (!found) {
-            newColumnName = "newColumn" + (++indexNewColumn);
+            newColumnName = oldColumnName + (++indexNewColumn);
             boolean allAreDifferent = true;
             for (int j = 0; j < labels.length; j++) {
                 String label = labels[j];
@@ -250,7 +254,7 @@ public class MetadataTableEditor {
                 found = true;
             }
         }
-        
+
         return newColumnName;
     }
 }

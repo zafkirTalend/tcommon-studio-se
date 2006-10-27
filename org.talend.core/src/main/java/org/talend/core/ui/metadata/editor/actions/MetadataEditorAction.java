@@ -26,30 +26,37 @@ import org.talend.core.model.action.IEventAction;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class MetadataEditorAction implements IAction {
 
     protected MetadataTableEditorView metadataTableEditorView;
-    
-    
-    
+
     public MetadataEditorAction(MetadataTableEditorView metadataTableEditorView) {
         super();
         this.metadataTableEditorView = metadataTableEditorView;
     }
 
-    /* (non-Javadoc)
+    /**
+     * Getter for metadataTableEditorView.
+     * 
+     * @return the metadataTableEditorView
+     */
+    public MetadataTableEditorView getMetadataTableEditorView() {
+        return this.metadataTableEditorView;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.designer.mapper.actions.IMapperAction#run()
      */
     public abstract void run(IEventAction eventAction);
-    
+
     public MetadataTableEditor getMetadataTableEditor() {
         return metadataTableEditorView.getMetadataTableEditor();
     }

@@ -25,28 +25,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.talend.core.model.action.IEventAction;
-import org.talend.core.model.metadata.builder.connection.MetadataColumn;
-import org.talend.core.model.metadata.builder.connection.impl.ConnectionFactoryImpl;
+import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent.TYPE;
-import org.talend.core.ui.metadata.editor.MetadataTableEditorView2;
+import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
+ * DOC smallet class global comment. Detailled comment <br/>
  * 
  * $Id$
  * 
  */
-public class CopyMetadataAction2 extends MetadataEditorAction2 {
+public class CopyPasteMetadataAction extends MetadataEditorAction {
 
-    private List<MetadataColumn> selectedColumns;
+    private List<IMetadataColumn> selectedColumns;
 
-    /**
-     * DOC amaumont AddMetadataAction constructor comment.
-     * 
-     * @param metadatEditorView
-     */
-    public CopyMetadataAction2(MetadataTableEditorView2 metadatEditorView) {
+    public CopyPasteMetadataAction(MetadataTableEditorView metadatEditorView) {
         super(metadatEditorView);
     }
 
@@ -57,31 +51,21 @@ public class CopyMetadataAction2 extends MetadataEditorAction2 {
      */
     public void run(IEventAction eventAction) {
         MetadataEditorEvent metadataEditorEvent = (MetadataEditorEvent) eventAction;
-
-        List<MetadataColumn> columns = getMetadataEditor().getMetadataColumnList();
-
         if (metadataEditorEvent.type == TYPE.COPY) {
-            selectedColumns = new ArrayList<MetadataColumn>();
+            List<IMetadataColumn> columns = getMetadataTableEditor().getMetadataColumnList();
+            selectedColumns = new ArrayList<IMetadataColumn>();
             for (int columnSelectedId : metadataEditorEvent.entriesIndices) {
                 selectedColumns.add(columns.get(columnSelectedId));
             }
         } else if (metadataEditorEvent.type == TYPE.PASTE) {
             if (selectedColumns != null) {
-                if ((metadataEditorEvent.entriesIndices != null) && (metadataEditorEvent.entriesIndices.length > 0)) {
-                    int indice = metadataEditorEvent.entriesIndices[0];
-                    for (MetadataColumn column : selectedColumns) {
-                        // create a new column as a copy of this column
-                        MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(column, indice + ""); // FIXME MHE
-                        indice++;
-                        newColumnCopy.setLabel(getMetadataEditor().getValidateColumnName(newColumnCopy.getLabel(), indice));
-                        getMetadataEditor().add(newColumnCopy, indice);
-                    }
+                for (IMetadataColumn current : selectedColumns) {
+                    IMetadataColumn copy = current.clone();
+                    copy.setLabel(getMetadataTableEditor().getNextGeneratedColumnName(copy.getLabel()));
+                    getMetadataTableEditor().add(copy, null);
                 }
             }
         }
     }
 
-    public MetadataTableEditorView2 getCurrentTableEditor() {
-        return metadataTableEditorView;
-    }
 }

@@ -23,17 +23,16 @@ package org.talend.core.model.metadata.editor;
 
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.actions.AddMetadataAction;
+import org.talend.core.ui.metadata.editor.actions.CopyPasteMetadataAction;
 import org.talend.core.ui.metadata.editor.actions.MetadataEditorAction;
 import org.talend.core.ui.metadata.editor.actions.MoveAction;
 import org.talend.core.ui.metadata.editor.actions.RemoveMetadataAction;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class MetadataEditorActionFactory {
 
@@ -45,7 +44,7 @@ public class MetadataEditorActionFactory {
         }
         return instance;
     }
-    
+
     public MetadataEditorAction getAction(MetadataTableEditorView metadatEditorView, MetadataEditorEvent event) {
         MetadataEditorAction action = null;
         switch (event.type) {
@@ -56,17 +55,31 @@ public class MetadataEditorActionFactory {
         case REMOVE:
             action = new RemoveMetadataAction(metadatEditorView);
             break;
-            
+
         case MOVE_UP:
         case MOVE_DOWN:
             action = new MoveAction(metadatEditorView);
             break;
-            
+
+        case COPY:
+        case PASTE:
+            action = getCopyMetadatAction(metadatEditorView);
+            break;
+
         default:
             break;
         }
         return action;
     }
-    
-    
+
+    private CopyPasteMetadataAction copyAction;
+
+    public CopyPasteMetadataAction getCopyMetadatAction(MetadataTableEditorView metadatEditorView) {
+        if (copyAction == null) {
+            copyAction = new CopyPasteMetadataAction(metadatEditorView);
+        } else if (copyAction.getMetadataTableEditorView() != metadatEditorView) {
+            copyAction = new CopyPasteMetadataAction(metadatEditorView);
+        }
+        return copyAction;
+    }
 }

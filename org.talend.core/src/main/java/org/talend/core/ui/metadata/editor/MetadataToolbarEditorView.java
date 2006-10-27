@@ -63,8 +63,6 @@ public class MetadataToolbarEditorView {
 
     private Button copyButton;
 
-    private Button cutButton;
-
     private Button pasteButton;
 
     private Button moveUpButton;
@@ -132,6 +130,36 @@ public class MetadataToolbarEditorView {
                         metadataEditorView.getTableViewerCreator().getTable().setSelection(
                                 metadataEditorView.getTableViewerCreator().getTable().getItemCount() - 1);
                     }
+                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+                }
+            }
+        });
+
+        copyButton.addListener(SWT.Selection, new Listener() {
+
+            public void handleEvent(Event event) {
+                if (metadataEditorView.getMetadataTableEditor() != null) {
+                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
+                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.COPY);
+                    metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
+                            .getSelectionIndices();
+                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
+                    action.run(metadataEditorEvent);
+                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+                }
+            }
+        });
+
+        pasteButton.addListener(SWT.Selection, new Listener() {
+
+            public void handleEvent(Event event) {
+                if (metadataEditorView.getMetadataTableEditor() != null) {
+                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
+                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.PASTE);
+                    metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
+                            .getSelectionIndices();
+                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
+                    action.run(metadataEditorEvent);
                     metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
             }
@@ -256,15 +284,14 @@ public class MetadataToolbarEditorView {
         removeButton.setToolTipText("Remove");
         removeButton.setImage(ImageProvider.getImage(EImage.MINUS_ICON));
 
-        // copyButton = new Button(toolbar, SWT.PUSH);
-        // copyButton.setText("Copy");
-        //
-        // cutButton = new Button(toolbar, SWT.PUSH);
-        // cutButton.setText("Cut");
-        //
-        // pasteButton = new Button(toolbar, SWT.PUSH);
-        // pasteButton.setText("Paste");
-        //
+        copyButton = new Button(toolbar, SWT.PUSH);
+        copyButton.setToolTipText("Copy");
+        copyButton.setImage(ImageProvider.getImage(EImage.COPY_ICON));
+
+        pasteButton = new Button(toolbar, SWT.PUSH);
+        pasteButton.setToolTipText("Paste");
+        pasteButton.setImage(ImageProvider.getImage(EImage.PASTE_ICON));
+
         moveUpButton = new Button(toolbar, SWT.PUSH);
         moveUpButton.setToolTipText("Move up");
         moveUpButton.setImage(ImageProvider.getImage(EImage.UP_ICON));
@@ -288,10 +315,6 @@ public class MetadataToolbarEditorView {
 
     public Button getCopyButton() {
         return this.copyButton;
-    }
-
-    public Button getCutButton() {
-        return this.cutButton;
     }
 
     public Button getLoadButton() {

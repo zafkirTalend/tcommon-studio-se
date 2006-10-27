@@ -104,8 +104,10 @@ public class IODataComponent {
         List<ColumnNameChanged> toReturn = new ArrayList<ColumnNameChanged>();
         for (IMetadataColumn originalColumn : connection.getMetadataTable().getListColumns()) {
             IMetadataColumn clonedColumn = getColumn(originalColumn.getId());
-            if (!originalColumn.getLabel().equals(clonedColumn.getLabel())) {
-                toReturn.add(new ColumnNameChanged(originalColumn.getLabel(), clonedColumn.getLabel()));
+            if (clonedColumn != null) {
+                if (!originalColumn.getLabel().equals(clonedColumn.getLabel())) {
+                    toReturn.add(new ColumnNameChanged(originalColumn.getLabel(), clonedColumn.getLabel()));
+                }
             }
         }
         return toReturn;
