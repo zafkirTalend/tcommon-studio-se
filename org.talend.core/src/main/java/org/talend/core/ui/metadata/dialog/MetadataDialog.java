@@ -134,13 +134,13 @@ public class MetadataDialog extends Dialog {
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor);
+            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, true);
             // outputMetaView.getTableViewerCreator().layout();
         } else {
             GridLayout gridLayout = new GridLayout(3, false);
             composite.setLayout(gridLayout);
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)");
-            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor);
+            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, true);
 
             // inputMetaView.getTableViewerCreator().setVerticalScroll(true);
             inputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
@@ -225,7 +225,7 @@ public class MetadataDialog extends Dialog {
             }
 
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, new MetadataTableEditor(outputMetaTable,
-                    titleOutput + " (Output)"));
+                    titleOutput + " (Output)"), true);
             outputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
             if (outputReadOnly) {
                 copyToOutput.setEnabled(false);

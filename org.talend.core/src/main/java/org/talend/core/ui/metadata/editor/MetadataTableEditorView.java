@@ -50,7 +50,6 @@ import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
 import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
-import org.talend.commons.ui.ws.WindowSystem;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataColumn;
@@ -86,18 +85,18 @@ public class MetadataTableEditorView {
 
     private IBeanPropertyAccessors<IMetadataColumn, Boolean> keyAccesor;
 
-    public MetadataTableEditorView(Composite parent, int style, MetadataTableEditor metadataTableEditor) {
-        this(parent, style);
+    public MetadataTableEditorView(Composite parent, int style, MetadataTableEditor metadataTableEditor, boolean displayToolbar) {
+        this(parent, style, displayToolbar);
         setMetadataTableEditor(metadataTableEditor);
     }
 
-    public MetadataTableEditorView(Composite parent, int style) {
+    public MetadataTableEditorView(Composite parent, int style, boolean displayToolbar) {
         super();
         composite = new Composite(parent, style);
         GridLayout layout = new GridLayout();
         composite.setLayout(layout);
 
-        createComponents();
+        createComponents(displayToolbar);
         addListeners();
     }
 
@@ -107,13 +106,15 @@ public class MetadataTableEditorView {
     private void addListeners() {
     }
 
-    private void createComponents() {
+    private void createComponents(boolean displayToolbar) {
         nameLabel = new Label(composite, SWT.NONE);
         nameLabel.setText("");
         nameLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         addMetadataTable();
-        addMetadataToolbar();
+        if (displayToolbar) {
+            addMetadataToolbar();
+        }
 
     }
 
@@ -181,7 +182,7 @@ public class MetadataTableEditorView {
             }
         };
         table.addDisposeListener(disposeListener);
-        
+
         table.addListener(SWT.KeyDown, new Listener() {
 
             public void handleEvent(Event event) {
@@ -191,7 +192,6 @@ public class MetadataTableEditorView {
             }
 
         });
-
 
         return table;
     }
@@ -318,7 +318,7 @@ public class MetadataTableEditorView {
             public String validateValue(String newValue, int beanPosition) {
                 return metadataTableEditor.validateColumnName(newValue, beanPosition);
             }
-            
+
         });
         column.setCellEditor(cellEditor);
 
@@ -528,6 +528,13 @@ public class MetadataTableEditorView {
         gridData.minimumHeight = minimumHeight;
         this.composite.setLayoutData(gridData);
 
+    }
+
+    public void setReadOnly(boolean b) {
+        if (metadataToolbarEditorView != null) {
+            metadataToolbarEditorView.setReadOnly(b);
+        }
+        this.tableViewerCreator.getTable().setEnabled(!b);
     }
 
     public MetadataToolbarEditorView getMetadataToolbarEditorView() {

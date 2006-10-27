@@ -39,7 +39,6 @@ import org.talend.core.model.action.IAction;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.MetadataSchema;
-import org.talend.core.model.metadata.editor.MetadataEditor2;
 import org.talend.core.model.metadata.editor.MetadataEditorActionFactory;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
@@ -98,6 +97,7 @@ public class MetadataToolbarEditorView {
      */
     private void addListeners() {
         addButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 if (metadataEditorView.getMetadataTableEditor() != null) {
                     metadataEditorView.getTableViewerCreator().getTable().setFocus();
@@ -108,8 +108,7 @@ public class MetadataToolbarEditorView {
                     metadataEditorEvent.entries.add(metadataColumn);
                     Table metadataEditorTable = metadataEditorView.getTableViewerCreator().getTable();
                     metadataEditorEvent.entriesIndices = metadataEditorTable.getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView,
-                            metadataEditorEvent);
+                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
                     metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
@@ -117,6 +116,7 @@ public class MetadataToolbarEditorView {
         });
 
         removeButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 if (metadataEditorView.getMetadataTableEditor() != null) {
                     int index = metadataEditorView.getTableViewerCreator().getTable().getSelectionIndex();
@@ -124,8 +124,7 @@ public class MetadataToolbarEditorView {
                     MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.REMOVE);
                     metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView,
-                            metadataEditorEvent);
+                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
                     if ((index) < metadataEditorView.getTableViewerCreator().getTable().getItemCount()) {
                         metadataEditorView.getTableViewerCreator().getTable().setSelection(index);
@@ -139,14 +138,14 @@ public class MetadataToolbarEditorView {
         });
 
         moveUpButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 if (metadataEditorView.getMetadataTableEditor() != null) {
                     metadataEditorView.getTableViewerCreator().getTable().setFocus();
                     MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.MOVE_UP);
                     metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView,
-                            metadataEditorEvent);
+                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
                     metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
@@ -154,15 +153,14 @@ public class MetadataToolbarEditorView {
         });
 
         moveDownButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 if (metadataEditorView.getMetadataTableEditor() != null) {
                     metadataEditorView.getTableViewerCreator().getTable().setFocus();
-                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(
-                            MetadataEditorEvent.TYPE.MOVE_DOWN);
+                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.MOVE_DOWN);
                     metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView,
-                            metadataEditorEvent);
+                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
                     metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
@@ -170,6 +168,7 @@ public class MetadataToolbarEditorView {
         });
 
         loadButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 FileDialog dial = new FileDialog(toolbar.getShell(), SWT.NONE);
                 dial.setFilterExtensions(new String[] { "*.xml" });
@@ -209,6 +208,7 @@ public class MetadataToolbarEditorView {
         });
 
         exportButton.addListener(SWT.Selection, new Listener() {
+
             public void handleEvent(Event event) {
                 FileDialog dial = new FileDialog(toolbar.getShell(), SWT.SAVE);
                 dial.setFilterExtensions(new String[] { "*.xml" });
@@ -314,4 +314,14 @@ public class MetadataToolbarEditorView {
         return this.removeButton;
     }
 
+    public void setReadOnly(boolean b) {
+        addButton.setEnabled(!b);
+        removeButton.setEnabled(!b);
+        // copyButton.setEnabled(!b);
+        // pasteButton.setEnabled(!b);
+        moveUpButton.setEnabled(!b);
+        moveDownButton.setEnabled(!b);
+        loadButton.setEnabled(!b);
+        exportButton.setEnabled(!b);
+    }
 }

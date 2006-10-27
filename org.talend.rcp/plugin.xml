@@ -106,21 +106,21 @@
          commandId="showRunProcessView"
          contextId="talend.global"
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-         sequence="F2"/>
+         sequence="F4"/>
    <key
          commandId="showPropertiesView"
          contextId="talend.global"
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-         sequence="F1"/>
+         sequence="F3"/>
    <key
          commandId="showProblemsView"
          contextId="talend.global"
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-         sequence="F3"/>
+         sequence="CTRL+F1"/>
    <key
          commandId="showModulesView"
          contextId="talend.global"
          schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-         sequence="F4"/>
+         sequence="CTRL+F2"/>
 </extension>
 </plugin>
