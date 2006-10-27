@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Widget;
+import org.talend.commons.ui.ws.WindowSystem;
 
 
 /**
@@ -49,8 +50,13 @@ public class TableUtils {
             int widthColumn = column.getWidth();
             if (pointCursor.x >= width 
                     && pointCursor.x <= width + widthColumn 
-                    && pointCursor.y > table.getHeaderHeight() 
-                    && pointCursor.y < table.getHeaderHeight() + table.getItemCount() * table.getItemHeight()) {
+                    && (
+                            (!WindowSystem.isGTK() && pointCursor.y > table.getHeaderHeight() 
+                    && pointCursor.y < table.getHeaderHeight() + table.getItemCount() * table.getItemHeight())
+                    || 
+                    (WindowSystem.isGTK() && pointCursor.y > 0 
+                            && pointCursor.y < table.getItemCount() * table.getItemHeight())
+                    )) {
                 currentColumnIndex = i;
                 break;
             }
