@@ -33,355 +33,318 @@ import org.talend.core.model.metadata.builder.connection.PositionalFileConnectio
  */
 public class ConnectionAdapterFactory extends AdapterFactoryImpl 
 {
-  /**
-   * The cached model package.
-   * <!-- begin-user-doc -->
+	/**
+	 * The cached model package.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     protected static ConnectionPackage modelPackage;
 
-  /**
-   * Creates an instance of the adapter factory.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates an instance of the adapter factory.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    public ConnectionAdapterFactory()
-  {
-    if (modelPackage == null)
-    {
-      modelPackage = ConnectionPackage.eINSTANCE;
-    }
-  }
+	 * @generated
+	 */
+    public ConnectionAdapterFactory() {
+		if (modelPackage == null) {
+			modelPackage = ConnectionPackage.eINSTANCE;
+		}
+	}
 
-  /**
-   * Returns whether this factory is applicable for the type of the object.
-   * <!-- begin-user-doc -->
+	/**
+	 * Returns whether this factory is applicable for the type of the object.
+	 * <!-- begin-user-doc -->
      * This implementation returns <code>true</code> if the object is either the model's package or is an instance object of the model.
      * <!-- end-user-doc -->
-   * @return whether this factory is applicable for the type of the object.
-   * @generated
-   */
-    public boolean isFactoryForType(Object object)
-  {
-    if (object == modelPackage)
-    {
-      return true;
-    }
-    if (object instanceof EObject)
-    {
-      return ((EObject)object).eClass().getEPackage() == modelPackage;
-    }
-    return false;
-  }
+	 * @return whether this factory is applicable for the type of the object.
+	 * @generated
+	 */
+    public boolean isFactoryForType(Object object) {
+		if (object == modelPackage) {
+			return true;
+		}
+		if (object instanceof EObject) {
+			return ((EObject)object).eClass().getEPackage() == modelPackage;
+		}
+		return false;
+	}
 
-  /**
-   * The switch the delegates to the <code>createXXX</code> methods.
-   * <!-- begin-user-doc -->
+	/**
+	 * The switch the delegates to the <code>createXXX</code> methods.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
     protected ConnectionSwitch modelSwitch =
-    new ConnectionSwitch()
-    {
-      public Object caseMetadata(Metadata object)
-      {
-        return createMetadataAdapter();
-      }
-      public Object caseConnection(Connection object)
-      {
-        return createConnectionAdapter();
-      }
-      public Object caseMetadataColumn(MetadataColumn object)
-      {
-        return createMetadataColumnAdapter();
-      }
-      public Object caseAbstractMetadataObject(AbstractMetadataObject object)
-      {
-        return createAbstractMetadataObjectAdapter();
-      }
-      public Object caseMetadataTable(MetadataTable object)
-      {
-        return createMetadataTableAdapter();
-      }
-      public Object caseFileConnection(FileConnection object)
-      {
-        return createFileConnectionAdapter();
-      }
-      public Object caseDelimitedFileConnection(DelimitedFileConnection object)
-      {
-        return createDelimitedFileConnectionAdapter();
-      }
-      public Object casePositionalFileConnection(PositionalFileConnection object)
-      {
-        return createPositionalFileConnectionAdapter();
-      }
-      public Object caseDatabaseConnection(DatabaseConnection object)
-      {
-        return createDatabaseConnectionAdapter();
-      }
-      public Object caseCSVFileConnection(CSVFileConnection object)
-      {
-        return createCSVFileConnectionAdapter();
-      }
-      public Object caseRegexpFileConnection(RegexpFileConnection object)
-      {
-        return createRegexpFileConnectionAdapter();
-      }
-      public Object caseXmlFileConnection(XmlFileConnection object)
-      {
-        return createXmlFileConnectionAdapter();
-      }
-      public Object caseMetadataSchema(MetadataSchema object)
-      {
-        return createMetadataSchemaAdapter();
-      }
-      public Object caseSchemaTarget(SchemaTarget object)
-      {
-        return createSchemaTargetAdapter();
-      }
-      public Object defaultCase(EObject object)
-      {
-        return createEObjectAdapter();
-      }
-    };
+		new ConnectionSwitch() {
+			public Object caseMetadata(Metadata object) {
+				return createMetadataAdapter();
+			}
+			public Object caseConnection(Connection object) {
+				return createConnectionAdapter();
+			}
+			public Object caseMetadataColumn(MetadataColumn object) {
+				return createMetadataColumnAdapter();
+			}
+			public Object caseAbstractMetadataObject(AbstractMetadataObject object) {
+				return createAbstractMetadataObjectAdapter();
+			}
+			public Object caseMetadataTable(MetadataTable object) {
+				return createMetadataTableAdapter();
+			}
+			public Object caseFileConnection(FileConnection object) {
+				return createFileConnectionAdapter();
+			}
+			public Object caseDelimitedFileConnection(DelimitedFileConnection object) {
+				return createDelimitedFileConnectionAdapter();
+			}
+			public Object casePositionalFileConnection(PositionalFileConnection object) {
+				return createPositionalFileConnectionAdapter();
+			}
+			public Object caseDatabaseConnection(DatabaseConnection object) {
+				return createDatabaseConnectionAdapter();
+			}
+			public Object caseCSVFileConnection(CSVFileConnection object) {
+				return createCSVFileConnectionAdapter();
+			}
+			public Object caseRegexpFileConnection(RegexpFileConnection object) {
+				return createRegexpFileConnectionAdapter();
+			}
+			public Object caseXmlFileConnection(XmlFileConnection object) {
+				return createXmlFileConnectionAdapter();
+			}
+			public Object caseMetadataSchema(MetadataSchema object) {
+				return createMetadataSchemaAdapter();
+			}
+			public Object caseSchemaTarget(SchemaTarget object) {
+				return createSchemaTargetAdapter();
+			}
+			public Object defaultCase(EObject object) {
+				return createEObjectAdapter();
+			}
+		};
 
-  /**
-   * Creates an adapter for the <code>target</code>.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates an adapter for the <code>target</code>.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @param target the object to adapt.
-   * @return the adapter for the <code>target</code>.
-   * @generated
-   */
-    public Adapter createAdapter(Notifier target)
-  {
-    return (Adapter)modelSwitch.doSwitch((EObject)target);
-  }
+	 * @param target the object to adapt.
+	 * @return the adapter for the <code>target</code>.
+	 * @generated
+	 */
+    public Adapter createAdapter(Notifier target) {
+		return (Adapter)modelSwitch.doSwitch((EObject)target);
+	}
 
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.Metadata
-   * @generated
-   */
-    public Adapter createMetadataAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.Metadata
+	 * @generated
+	 */
+    public Adapter createMetadataAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Connection <em>Connection</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.Connection <em>Connection</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.Connection
-   * @generated
-   */
-    public Adapter createConnectionAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.Connection
+	 * @generated
+	 */
+    public Adapter createConnectionAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.MetadataTable <em>Metadata Table</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.MetadataTable <em>Metadata Table</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.MetadataTable
-   * @generated
-   */
-    public Adapter createMetadataTableAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.MetadataTable
+	 * @generated
+	 */
+    public Adapter createMetadataTableAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn <em>Metadata Column</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn <em>Metadata Column</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.MetadataColumn
-   * @generated
-   */
-    public Adapter createMetadataColumnAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.MetadataColumn
+	 * @generated
+	 */
+    public Adapter createMetadataColumnAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject <em>Abstract Metadata Object</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject <em>Abstract Metadata Object</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject
-   * @generated
-   */
-    public Adapter createAbstractMetadataObjectAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject
+	 * @generated
+	 */
+    public Adapter createAbstractMetadataObjectAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.FileConnection <em>File Connection</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.FileConnection <em>File Connection</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.FileConnection
-   * @generated
-   */
-    public Adapter createFileConnectionAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.FileConnection
+	 * @generated
+	 */
+    public Adapter createFileConnectionAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection <em>Delimited File Connection</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection <em>Delimited File Connection</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
-   * @generated
-   */
-    public Adapter createDelimitedFileConnectionAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
+	 * @generated
+	 */
+    public Adapter createDelimitedFileConnectionAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.PositionalFileConnection <em>Positional File Connection</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.PositionalFileConnection <em>Positional File Connection</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.PositionalFileConnection
-   * @generated
-   */
-    public Adapter createPositionalFileConnectionAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.PositionalFileConnection
+	 * @generated
+	 */
+    public Adapter createPositionalFileConnectionAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection <em>Database Connection</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection <em>Database Connection</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection
-   * @generated
-   */
-    public Adapter createDatabaseConnectionAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection
+	 * @generated
+	 */
+    public Adapter createDatabaseConnectionAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.CSVFileConnection <em>CSV File Connection</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.CSVFileConnection <em>CSV File Connection</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.CSVFileConnection
-   * @generated
-   */
-    public Adapter createCSVFileConnectionAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.CSVFileConnection
+	 * @generated
+	 */
+    public Adapter createCSVFileConnectionAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.RegexpFileConnection <em>Regexp File Connection</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.RegexpFileConnection <em>Regexp File Connection</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.RegexpFileConnection
-   * @generated
-   */
-    public Adapter createRegexpFileConnectionAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.RegexpFileConnection
+	 * @generated
+	 */
+    public Adapter createRegexpFileConnectionAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection <em>Xml File Connection</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection <em>Xml File Connection</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection
-   * @generated
-   */
-    public Adapter createXmlFileConnectionAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection
+	 * @generated
+	 */
+    public Adapter createXmlFileConnectionAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.MetadataSchema <em>Metadata Schema</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.MetadataSchema <em>Metadata Schema</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.MetadataSchema
-   * @generated
-   */
-    public Adapter createMetadataSchemaAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.MetadataSchema
+	 * @generated
+	 */
+    public Adapter createMetadataSchemaAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget <em>Schema Target</em>}'.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget <em>Schema Target</em>}'.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.talend.core.model.metadata.builder.connection.SchemaTarget
-   * @generated
-   */
-    public Adapter createSchemaTargetAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @see org.talend.core.model.metadata.builder.connection.SchemaTarget
+	 * @generated
+	 */
+    public Adapter createSchemaTargetAdapter() {
+		return null;
+	}
 
-  /**
-   * Creates a new adapter for the default case.
-   * <!-- begin-user-doc -->
+	/**
+	 * Creates a new adapter for the default case.
+	 * <!-- begin-user-doc -->
      * This default implementation returns null.
      * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @generated
-   */
-    public Adapter createEObjectAdapter()
-  {
-    return null;
-  }
+	 * @return the new adapter.
+	 * @generated
+	 */
+    public Adapter createEObjectAdapter() {
+		return null;
+	}
 
 } //ConnectionAdapterFactory

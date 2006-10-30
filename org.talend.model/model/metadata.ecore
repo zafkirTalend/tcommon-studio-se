@@ -29,6 +29,8 @@
         defaultValueLiteral="-1"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="table" eType="#//MetadataTable"
         eOpposite="#//MetadataTable/columns"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="originalField" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractMetadataObject" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="properties" lowerBound="1"
@@ -155,13 +157,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="schema" upperBound="-1"
         eType="#//MetadataSchema" containment="true" eOpposite="#//MetadataSchema/connection"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MetadataSchema" eSuperTypes="#//AbstractMetadataObject">
+  <eClassifiers xsi:type="ecore:EClass" name="MetadataSchema">
     <eStructuralFeatures xsi:type="ecore:EReference" name="schemaTargets" upperBound="-1"
         eType="#//SchemaTarget" containment="true" eOpposite="#//SchemaTarget/schema"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//XmlFileConnection"
         resolveProxies="false" eOpposite="#//XmlFileConnection/schema"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SchemaTarget" eSuperTypes="#//AbstractMetadataObject">
+  <eClassifiers xsi:type="ecore:EClass" name="SchemaTarget">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="XPathQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="TagName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="IsBoucle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>

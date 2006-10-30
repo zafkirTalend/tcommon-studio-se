@@ -36,67 +36,64 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
  */
 public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connection 
 {
-  /**
-   * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
-   * <!-- begin-user-doc -->
+	/**
+	 * The default value of the '{@link #getVersion() <em>Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @see #getVersion()
-   * @generated
-   * @ordered
-   */
+	 * @see #getVersion()
+	 * @generated
+	 * @ordered
+	 */
     protected static final String VERSION_EDEFAULT = null;
 
-  /**
-   * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
-   * <!-- begin-user-doc -->
+	/**
+	 * The cached value of the '{@link #getVersion() <em>Version</em>}' attribute.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @see #getVersion()
-   * @generated
-   * @ordered
-   */
+	 * @see #getVersion()
+	 * @generated
+	 * @ordered
+	 */
     protected String version = VERSION_EDEFAULT;
 
-  /**
-   * The cached value of the '{@link #getTables() <em>Tables</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	/**
+	 * The cached value of the '{@link #getTables() <em>Tables</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @see #getTables()
-   * @generated
-   * @ordered
-   */
+	 * @see #getTables()
+	 * @generated
+	 * @ordered
+	 */
     protected EList tables = null;
 
     protected boolean readOnly = false;
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    protected ConnectionImpl()
-  {
-    super();
-  }
+	 * @generated
+	 */
+    protected ConnectionImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    protected EClass eStaticClass()
-  {
-    return ConnectionPackage.Literals.CONNECTION;
-  }
+	 * @generated
+	 */
+    protected EClass eStaticClass() {
+		return ConnectionPackage.Literals.CONNECTION;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    public String getVersion()
-  {
-    return version;
-  }
+	 * @generated
+	 */
+    public String getVersion() {
+		return version;
+	}
 
     public boolean isReadOnly() {
         return readOnly;
@@ -106,150 +103,134 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         readOnly = newReadOnly;
     }
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    public void setVersion(String newVersion)
-  {
-    String oldVersion = version;
-    version = newVersion;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__VERSION, oldVersion, version));
-  }
+	 * @generated
+	 */
+    public void setVersion(String newVersion) {
+		String oldVersion = version;
+		version = newVersion;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.CONNECTION__VERSION, oldVersion, version));
+	}
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    public EList getTables()
-  {
-    if (tables == null)
-    {
-      tables = new EObjectContainmentWithInverseEList(MetadataTable.class, this, ConnectionPackage.CONNECTION__TABLES, ConnectionPackage.METADATA_TABLE__CONNECTION);
-    }
-    return tables;
-  }
+	 * @generated
+	 */
+    public EList getTables() {
+		if (tables == null) {
+			tables = new EObjectContainmentWithInverseEList(MetadataTable.class, this, ConnectionPackage.CONNECTION__TABLES, ConnectionPackage.METADATA_TABLE__CONNECTION);
+		}
+		return tables;
+	}
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case ConnectionPackage.CONNECTION__TABLES:
-        return ((InternalEList)getTables()).basicAdd(otherEnd, msgs);
-    }
-    return super.eInverseAdd(otherEnd, featureID, msgs);
-  }
+	 * @generated
+	 */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ConnectionPackage.CONNECTION__TABLES:
+				return ((InternalEList)getTables()).basicAdd(otherEnd, msgs);
+		}
+		return super.eInverseAdd(otherEnd, featureID, msgs);
+	}
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case ConnectionPackage.CONNECTION__TABLES:
-        return ((InternalEList)getTables()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+	 * @generated
+	 */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+			case ConnectionPackage.CONNECTION__TABLES:
+				return ((InternalEList)getTables()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    public Object eGet(int featureID, boolean resolve, boolean coreType)
-  {
-    switch (featureID)
-    {
-      case ConnectionPackage.CONNECTION__VERSION:
-        return getVersion();
-      case ConnectionPackage.CONNECTION__TABLES:
-        return getTables();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+	 * @generated
+	 */
+    public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+			case ConnectionPackage.CONNECTION__VERSION:
+				return getVersion();
+			case ConnectionPackage.CONNECTION__TABLES:
+				return getTables();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    public void eSet(int featureID, Object newValue)
-  {
-    switch (featureID)
-    {
-      case ConnectionPackage.CONNECTION__VERSION:
-        setVersion((String)newValue);
-        return;
-      case ConnectionPackage.CONNECTION__TABLES:
-        getTables().clear();
-        getTables().addAll((Collection)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+	 * @generated
+	 */
+    public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+			case ConnectionPackage.CONNECTION__VERSION:
+				setVersion((String)newValue);
+				return;
+			case ConnectionPackage.CONNECTION__TABLES:
+				getTables().clear();
+				getTables().addAll((Collection)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    public void eUnset(int featureID)
-  {
-    switch (featureID)
-    {
-      case ConnectionPackage.CONNECTION__VERSION:
-        setVersion(VERSION_EDEFAULT);
-        return;
-      case ConnectionPackage.CONNECTION__TABLES:
-        getTables().clear();
-        return;
-    }
-    super.eUnset(featureID);
-  }
+	 * @generated
+	 */
+    public void eUnset(int featureID) {
+		switch (featureID) {
+			case ConnectionPackage.CONNECTION__VERSION:
+				setVersion(VERSION_EDEFAULT);
+				return;
+			case ConnectionPackage.CONNECTION__TABLES:
+				getTables().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    public boolean eIsSet(int featureID)
-  {
-    switch (featureID)
-    {
-      case ConnectionPackage.CONNECTION__VERSION:
-        return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
-      case ConnectionPackage.CONNECTION__TABLES:
-        return tables != null && !tables.isEmpty();
-    }
-    return super.eIsSet(featureID);
-  }
+	 * @generated
+	 */
+    public boolean eIsSet(int featureID) {
+		switch (featureID) {
+			case ConnectionPackage.CONNECTION__VERSION:
+				return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
+			case ConnectionPackage.CONNECTION__TABLES:
+				return tables != null && !tables.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    public String toString()
-  {
-    if (eIsProxy()) return super.toString();
+	 * @generated
+	 */
+    public String toString() {
+		if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (version: ");
-    result.append(version);
-    result.append(')');
-    return result.toString();
-  }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (version: ");
+		result.append(version);
+		result.append(')');
+		return result.toString();
+	}
 
 } //ConnectionImpl

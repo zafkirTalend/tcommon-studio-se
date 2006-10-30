@@ -21,24 +21,22 @@ import org.talend.core.model.metadata.builder.connection.PositionalFileConnectio
  */
 public class PositionalFileConnectionImpl extends FileConnectionImpl implements PositionalFileConnection 
 {
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    protected PositionalFileConnectionImpl()
-  {
-    super();
-  }
+	 * @generated
+	 */
+    protected PositionalFileConnectionImpl() {
+		super();
+	}
 
-  /**
-   * <!-- begin-user-doc -->
+	/**
+	 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-   * @generated
-   */
-    protected EClass eStaticClass()
-  {
-    return ConnectionPackage.Literals.POSITIONAL_FILE_CONNECTION;
-  }
+	 * @generated
+	 */
+    protected EClass eStaticClass() {
+		return ConnectionPackage.Literals.POSITIONAL_FILE_CONNECTION;
+	}
 
 } //PositionalFileConnectionImpl
