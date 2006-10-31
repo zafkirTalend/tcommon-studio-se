@@ -143,6 +143,8 @@
         defaultValueLiteral="&quot;"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="NullChar" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="000"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="queries" upperBound="-1"
+        eType="#//QueriesConnection" containment="true" eOpposite="#//QueriesConnection/connection"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CSVFileConnection" eSuperTypes="#//DelimitedFileConnection"/>
   <eClassifiers xsi:type="ecore:EClass" name="RegexpFileConnection" eSuperTypes="#//FileConnection">
@@ -170,5 +172,20 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="LimitBoucle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="schema" eType="#//MetadataSchema"
         eOpposite="#//MetadataSchema/schemaTargets"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="QueriesConnection">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//DatabaseConnection"
+        resolveProxies="false" eOpposite="#//DatabaseConnection/queries"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="query" upperBound="-1"
+        eType="#//Query" containment="true" eOpposite="#//Query/queries"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Query">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="queries" eType="#//QueriesConnection"
+        eOpposite="#//QueriesConnection/query"/>
   </eClassifiers>
 </ecore:EPackage>

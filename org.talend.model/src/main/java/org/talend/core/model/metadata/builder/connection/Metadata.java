@@ -26,20 +26,20 @@ import org.eclipse.emf.common.util.EList;
  * @generated
  */
 public interface Metadata extends AbstractMetadataObject {
-	/**
-	 * Returns the value of the '<em><b>Connections</b></em>' containment reference list.
-	 * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.Connection}.
-	 * <!-- begin-user-doc -->
+    /**
+     * Returns the value of the '<em><b>Connections</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.Connection}.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Connections</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-	 * @return the value of the '<em>Connections</em>' containment reference list.
-	 * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadata_Connections()
-	 * @model type="org.talend.core.model.metadata.builder.connection.Connection" containment="true"
-	 * @generated
-	 */
+     * @return the value of the '<em>Connections</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadata_Connections()
+     * @model type="org.talend.core.model.metadata.builder.connection.Connection" containment="true"
+     * @generated
+     */
     EList getConnections();
 
 } // Metadata
