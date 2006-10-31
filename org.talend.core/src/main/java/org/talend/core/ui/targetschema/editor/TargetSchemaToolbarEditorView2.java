@@ -121,8 +121,6 @@ public class TargetSchemaToolbarEditorView2 {
                     TargetSchemaEditorEvent targetSchemaEditorEvent = new TargetSchemaEditorEvent();
                     targetSchemaEditorEvent.type = TargetSchemaEditorEvent.TYPE.ADD;
                     SchemaTarget schemaTarget = ConnectionFactory.eINSTANCE.createSchemaTarget();
-                    schemaTarget.setLabel(targetSchemaEditorView.getTargetSchemaEditor().getValidateColumnName(defaultLabel,
-                            (++indexNewColumn)));
                     targetSchemaEditorEvent.entries.add(schemaTarget);
                     Table targetSchemaEditorTable = targetSchemaEditorView.getTableViewerCreator().getTable();
                     targetSchemaEditorEvent.entriesIndices = targetSchemaEditorTable.getSelectionIndices();
@@ -259,9 +257,6 @@ public class TargetSchemaToolbarEditorView2 {
                                     List<SchemaTarget> newList = new ArrayList<SchemaTarget>();
                                     for (int i = 0; i < loadSchemaTarget.size(); i++) {
                                         // check the unicity of label
-                                        String label = loadSchemaTarget.get(i).getLabel();
-                                        label = targetSchemaEditorView.getTargetSchemaEditor().getValidateColumnName(label, i, newList);
-                                        loadSchemaTarget.get(i).setLabel(label);
                                         newList.add(loadSchemaTarget.get(i));
                                         targetSchemaEditorEvent.entries.add(loadSchemaTarget.get(i));
                                     }

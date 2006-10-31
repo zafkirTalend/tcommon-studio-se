@@ -32,9 +32,8 @@ import org.apache.oro.text.regex.Perl5Matcher;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableList;
 import org.talend.core.i18n.Messages;
-import org.talend.core.model.metadata.builder.connection.MetadataColumn;
-import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.MetadataSchema;
+import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 
 /**
  * DOC cantoine class global comment. Detailled comment <br/>
@@ -233,7 +232,7 @@ public class TargetSchemaEditor2 {
 
         int lstSize = schemaTargets.size();
         for (int i = 0; i < lstSize; i++) {
-            if (columnName.equals(schemaTargets.get(i).getLabel()) && i != beanPosition) {
+            if (columnName.equals(schemaTargets.get(i)) && i != beanPosition) {
                 return "The column name '" + columnName + "' already exists.";
             }
         }

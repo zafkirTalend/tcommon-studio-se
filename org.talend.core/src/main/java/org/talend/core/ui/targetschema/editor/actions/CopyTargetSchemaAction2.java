@@ -72,7 +72,6 @@ public class CopyTargetSchemaAction2 extends TargetSchemaEditorAction2 {
                     // create a new column as a copy of this column
                     SchemaTarget newColumnCopy = new ConnectionFactoryImpl().copy(schemaTarget, indice + ""); // FIXME MHE
                     indice++;
-                    newColumnCopy.setLabel(getTargetSchemaEditor().getValidateColumnName(newColumnCopy.getLabel(), indice));
                     getTargetSchemaEditor().add(newColumnCopy, indice);
                 }
             }
