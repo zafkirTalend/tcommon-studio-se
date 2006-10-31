@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
+import org.eclipse.update.core.SiteManager;
 import org.eclipse.update.internal.scheduler.SchedulerStartup;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
@@ -97,6 +98,10 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         nodeScheduler.putBoolean(SchedulerStartup.P_ENABLED, true);
         nodeScheduler.put(SchedulerStartup.P_SCHEDULE, SchedulerStartup.VALUE_ON_STARTUP);
         nodeScheduler.putBoolean(SchedulerStartup.P_DOWNLOAD, true);
+    }
+    
+    public static void setProxy(String proxyHost, String proxyPort) {
+        SiteManager.setHttpProxyInfo(true, proxyHost, proxyPort);
     }
 
 }
