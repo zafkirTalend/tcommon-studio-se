@@ -597,11 +597,20 @@ public final class MetadataSchema {
                 column.setAttributeNode(talendType);
                 
                 Attr length = document.createAttribute("length");
-                length.setNodeValue(String.valueOf(metadataColumn.getLength()));
+                if (metadataColumn.getLength()==null) {
+                    length.setNodeValue("-1");
+                } else {
+                    length.setNodeValue(String.valueOf(metadataColumn.getLength()));
+                }
                 column.setAttributeNode(length);
                 
                 Attr precision = document.createAttribute("precision");
-                precision.setNodeValue(String.valueOf(metadataColumn.getPrecision()));
+                if (metadataColumn.getPrecision()==null) {
+                    precision.setNodeValue("-1");
+                } else {
+                    precision.setNodeValue(String.valueOf(metadataColumn.getPrecision()));
+                }
+                
                 column.setAttributeNode(precision);
                 
                 Attr nullable = document.createAttribute("nullable");
