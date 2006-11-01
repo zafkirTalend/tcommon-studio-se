@@ -106,6 +106,9 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
             public Object caseITEMType(ITEMType object) {
                 return createITEMTypeAdapter();
             }
+            public Object caseLINKTOType(LINKTOType object) {
+                return createLINKTOTypeAdapter();
+            }
             public Object casePARAMETERSType(PARAMETERSType object) {
                 return createPARAMETERSTypeAdapter();
             }
@@ -310,6 +313,20 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createITEMTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.component.LINKTOType <em>LINKTO Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.component.LINKTOType
+     * @generated
+     */
+    public Adapter createLINKTOTypeAdapter() {
         return null;
     }
 

@@ -784,6 +784,43 @@ public interface ComponentPackage extends EPackage {
     int ITEM_TYPE_FEATURE_COUNT = 5;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.LINKTOTypeImpl <em>LINKTO Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.component.impl.LINKTOTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getLINKTOType()
+     * @generated
+     */
+    int LINKTO_TYPE = 12;
+
+    /**
+     * The feature id for the '<em><b>CTYPE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINKTO_TYPE__CTYPE = 0;
+
+    /**
+     * The feature id for the '<em><b>NAME</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINKTO_TYPE__NAME = 1;
+
+    /**
+     * The number of structural features of the '<em>LINKTO Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LINKTO_TYPE_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERSTypeImpl <em>PARAMETERS Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -791,7 +828,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPARAMETERSType()
      * @generated
      */
-    int PARAMETERS_TYPE = 12;
+    int PARAMETERS_TYPE = 13;
 
     /**
      * The feature id for the '<em><b>PARAMETER</b></em>' containment reference list.
@@ -819,7 +856,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPARAMETERType()
      * @generated
      */
-    int PARAMETER_TYPE = 13;
+    int PARAMETER_TYPE = 14;
 
     /**
      * The feature id for the '<em><b>DEFAULT</b></em>' containment reference list.
@@ -946,7 +983,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getRETURNSType()
      * @generated
      */
-    int RETURNS_TYPE = 14;
+    int RETURNS_TYPE = 15;
 
     /**
      * The feature id for the '<em><b>RETURN</b></em>' containment reference list.
@@ -974,7 +1011,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getRETURNType()
      * @generated
      */
-    int RETURN_TYPE = 15;
+    int RETURN_TYPE = 16;
 
     /**
      * The feature id for the '<em><b>AVAILABILITY</b></em>' attribute.
@@ -1020,7 +1057,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEPARAMType()
      * @generated
      */
-    int TEMPLATEPARAM_TYPE = 16;
+    int TEMPLATEPARAM_TYPE = 17;
 
     /**
      * The feature id for the '<em><b>SOURCE</b></em>' attribute.
@@ -1057,7 +1094,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATESType()
      * @generated
      */
-    int TEMPLATES_TYPE = 17;
+    int TEMPLATES_TYPE = 18;
 
     /**
      * The feature id for the '<em><b>TEMPLATE</b></em>' containment reference list.
@@ -1112,25 +1149,25 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEType()
      * @generated
      */
-    int TEMPLATE_TYPE = 18;
+    int TEMPLATE_TYPE = 19;
 
     /**
-     * The feature id for the '<em><b>CTYPE</b></em>' attribute.
+     * The feature id for the '<em><b>LINKTO</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TEMPLATE_TYPE__CTYPE = 0;
+    int TEMPLATE_TYPE__LINKTO = 0;
 
     /**
-     * The feature id for the '<em><b>LINKTO</b></em>' attribute.
+     * The feature id for the '<em><b>COMPONENT</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TEMPLATE_TYPE__LINKTO = 1;
+    int TEMPLATE_TYPE__COMPONENT = 1;
 
     /**
      * The feature id for the '<em><b>MULTIPLEMETHODS</b></em>' attribute.
@@ -1886,6 +1923,38 @@ public interface ComponentPackage extends EPackage {
     EAttribute getITEMType_VALUE();
 
     /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.LINKTOType <em>LINKTO Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>LINKTO Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.LINKTOType
+     * @generated
+     */
+    EClass getLINKTOType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.LINKTOType#getCTYPE <em>CTYPE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>CTYPE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.LINKTOType#getCTYPE()
+     * @see #getLINKTOType()
+     * @generated
+     */
+    EAttribute getLINKTOType_CTYPE();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.LINKTOType#getNAME <em>NAME</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>NAME</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.LINKTOType#getNAME()
+     * @see #getLINKTOType()
+     * @generated
+     */
+    EAttribute getLINKTOType_NAME();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERSType <em>PARAMETERS Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2209,26 +2278,26 @@ public interface ComponentPackage extends EPackage {
     EClass getTEMPLATEType();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getCTYPE <em>CTYPE</em>}'.
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getLINKTO <em>LINKTO</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>CTYPE</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getCTYPE()
-     * @see #getTEMPLATEType()
-     * @generated
-     */
-    EAttribute getTEMPLATEType_CTYPE();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getLINKTO <em>LINKTO</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>LINKTO</em>'.
+     * @return the meta object for the containment reference list '<em>LINKTO</em>'.
      * @see org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getLINKTO()
      * @see #getTEMPLATEType()
      * @generated
      */
-    EAttribute getTEMPLATEType_LINKTO();
+    EReference getTEMPLATEType_LINKTO();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getCOMPONENT <em>COMPONENT</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>COMPONENT</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getCOMPONENT()
+     * @see #getTEMPLATEType()
+     * @generated
+     */
+    EAttribute getTEMPLATEType_COMPONENT();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#isMULTIPLEMETHODS <em>MULTIPLEMETHODS</em>}'.
@@ -2835,6 +2904,32 @@ public interface ComponentPackage extends EPackage {
         EAttribute ITEM_TYPE__VALUE = eINSTANCE.getITEMType_VALUE();
 
         /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.LINKTOTypeImpl <em>LINKTO Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.component.impl.LINKTOTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getLINKTOType()
+         * @generated
+         */
+        EClass LINKTO_TYPE = eINSTANCE.getLINKTOType();
+
+        /**
+         * The meta object literal for the '<em><b>CTYPE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LINKTO_TYPE__CTYPE = eINSTANCE.getLINKTOType_CTYPE();
+
+        /**
+         * The meta object literal for the '<em><b>NAME</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LINKTO_TYPE__NAME = eINSTANCE.getLINKTOType_NAME();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERSTypeImpl <em>PARAMETERS Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3089,20 +3184,20 @@ public interface ComponentPackage extends EPackage {
         EClass TEMPLATE_TYPE = eINSTANCE.getTEMPLATEType();
 
         /**
-         * The meta object literal for the '<em><b>CTYPE</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>LINKTO</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute TEMPLATE_TYPE__CTYPE = eINSTANCE.getTEMPLATEType_CTYPE();
+        EReference TEMPLATE_TYPE__LINKTO = eINSTANCE.getTEMPLATEType_LINKTO();
 
         /**
-         * The meta object literal for the '<em><b>LINKTO</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>COMPONENT</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute TEMPLATE_TYPE__LINKTO = eINSTANCE.getTEMPLATEType_LINKTO();
+        EAttribute TEMPLATE_TYPE__COMPONENT = eINSTANCE.getTEMPLATEType_COMPONENT();
 
         /**
          * The meta object literal for the '<em><b>MULTIPLEMETHODS</b></em>' attribute feature.

@@ -62,7 +62,7 @@ public interface IComponent {
 
     public List<? extends INodeConnector> createConnectors();
 
-    public boolean isMultipleMethods(ECodeLanguage language);
+    public Boolean isMultipleMethods(ECodeLanguage language);
 
     public String getPluginFullName();
 

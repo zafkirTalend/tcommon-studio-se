@@ -85,6 +85,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/sHOWIF"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/vALUE"/>
     </genClasses>
+    <genClasses ecoreClass="Component.ecore#//LINKTOType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//LINKTOType/cTYPE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//LINKTOType/nAME"/>
+    </genClasses>
     <genClasses ecoreClass="Component.ecore#//PARAMETERSType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//PARAMETERSType/pARAMETER"/>
     </genClasses>
@@ -121,8 +125,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATESType/oUTPUT"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//TEMPLATEType">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEType/cTYPE"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEType/lINKTO"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//TEMPLATEType/lINKTO"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEType/cOMPONENT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEType/mULTIPLEMETHODS"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEType/nAME"/>
     </genClasses>

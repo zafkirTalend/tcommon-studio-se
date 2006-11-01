@@ -84,7 +84,7 @@ public interface IExternalNode extends INode {
 
     public void setSubProcessStart(boolean subProcessStart);
 
-    public void setMultipleMethods(boolean multipleMethods);
+    public void setMultipleMethods(Boolean multipleMethods);
 
     public abstract void renameInputConnection(String oldName, String newName);
 

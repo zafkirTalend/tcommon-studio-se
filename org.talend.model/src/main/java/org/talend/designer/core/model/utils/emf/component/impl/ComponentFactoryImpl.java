@@ -71,6 +71,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
             case ComponentPackage.IMPORT_TYPE: return createIMPORTType();
             case ComponentPackage.ITEMS_TYPE: return createITEMSType();
             case ComponentPackage.ITEM_TYPE: return createITEMType();
+            case ComponentPackage.LINKTO_TYPE: return createLINKTOType();
             case ComponentPackage.PARAMETERS_TYPE: return createPARAMETERSType();
             case ComponentPackage.PARAMETER_TYPE: return createPARAMETERType();
             case ComponentPackage.RETURNS_TYPE: return createRETURNSType();
@@ -201,6 +202,16 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
     public ITEMType createITEMType() {
         ITEMTypeImpl itemType = new ITEMTypeImpl();
         return itemType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LINKTOType createLINKTOType() {
+        LINKTOTypeImpl linktoType = new LINKTOTypeImpl();
+        return linktoType;
     }
 
     /**

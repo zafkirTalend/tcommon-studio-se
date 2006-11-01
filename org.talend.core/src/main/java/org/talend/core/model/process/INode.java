@@ -85,7 +85,7 @@ public interface INode extends IElement {
 
     public String getPluginFullName();
 
-    public boolean isMultipleMethods();
+    public Boolean isMultipleMethods();
 
     /**
      * Set performance data on this node.

@@ -134,6 +134,15 @@ public interface ComponentFactory extends EFactory {
     ITEMType createITEMType();
 
     /**
+     * Returns a new object of class '<em>LINKTO Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>LINKTO Type</em>'.
+     * @generated
+     */
+    LINKTOType createLINKTOType();
+
+    /**
      * Returns a new object of class '<em>PARAMETERS Type</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

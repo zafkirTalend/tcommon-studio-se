@@ -21,7 +21,7 @@
 // ============================================================================
 package org.talend.core.model.components;
 
-import org.talend.core.model.process.EConnectionType;
+import java.util.List;
 
 /**
  * DOC nrousseau  class global comment. Detailled comment
@@ -32,27 +32,15 @@ import org.talend.core.model.process.EConnectionType;
  */
 public interface IMultipleComponentItem {
 
-    public boolean isConnectionExist();
+    public List<IMultipleComponentConnection> getOutputConnections();
 
-    public void setConnectionExist(boolean connectionExist);
-
-    public EConnectionType getConnectionType();
-
-    public void setConnectionType(EConnectionType connectionType);
-
-    public IMultipleComponentItem getLinkFrom();
-
-    public void setLinkFrom(IMultipleComponentItem linkFrom);
-
-    public IMultipleComponentItem getLinkTo();
-
-    public void setLinkTo(IMultipleComponentItem linkTo);
+    public List<IMultipleComponentConnection> getInputConnections();
 
     public String getName();
 
     public void setName(String name);
-
-    public String getNameLinkTo();
-
-    public void setNameLinkTo(String nameLinkTo);
+    
+    public String getComponent();
+    
+    public void setComponent(String component);
 }

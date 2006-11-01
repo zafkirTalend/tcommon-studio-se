@@ -6,6 +6,8 @@
  */
 package org.talend.designer.core.model.utils.emf.component;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -16,71 +18,61 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getCTYPE <em>CTYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getLINKTO <em>LINKTO</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getCOMPONENT <em>COMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#isMULTIPLEMETHODS <em>MULTIPLEMETHODS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getNAME <em>NAME</em>}</li>
  * </ul>
  * </p>
  *
  * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATEType()
- * @model extendedMetaData="name='TEMPLATE_._type' kind='empty'"
+ * @model extendedMetaData="name='TEMPLATE_._type' kind='elementOnly'"
  * @generated
  */
 public interface TEMPLATEType extends EObject {
     /**
-     * Returns the value of the '<em><b>CTYPE</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>CTYPE</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>CTYPE</em>' attribute.
-     * @see #setCTYPE(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATEType_CTYPE()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='CTYPE' namespace='##targetNamespace'"
-     * @generated
-     */
-    String getCTYPE();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getCTYPE <em>CTYPE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>CTYPE</em>' attribute.
-     * @see #getCTYPE()
-     * @generated
-     */
-    void setCTYPE(String value);
-
-    /**
-     * Returns the value of the '<em><b>LINKTO</b></em>' attribute.
+     * Returns the value of the '<em><b>LINKTO</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.LINKTOType}.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>LINKTO</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>LINKTO</em>' attribute.
-     * @see #setLINKTO(String)
+     * @return the value of the '<em>LINKTO</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATEType_LINKTO()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='LINK_TO' namespace='##targetNamespace'"
+     * @model type="org.talend.designer.core.model.utils.emf.component.LINKTOType" containment="true"
+     *        extendedMetaData="kind='element' name='LINK_TO' namespace='##targetNamespace'"
      * @generated
      */
-    String getLINKTO();
+    EList getLINKTO();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getLINKTO <em>LINKTO</em>}' attribute.
+     * Returns the value of the '<em><b>COMPONENT</b></em>' attribute.
      * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>COMPONENT</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>LINKTO</em>' attribute.
-     * @see #getLINKTO()
+     * @return the value of the '<em>COMPONENT</em>' attribute.
+     * @see #setCOMPONENT(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATEType_COMPONENT()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='COMPONENT' namespace='##targetNamespace'"
      * @generated
      */
-    void setLINKTO(String value);
+    String getCOMPONENT();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getCOMPONENT <em>COMPONENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>COMPONENT</em>' attribute.
+     * @see #getCOMPONENT()
+     * @generated
+     */
+    void setCOMPONENT(String value);
 
     /**
      * Returns the value of the '<em><b>MULTIPLEMETHODS</b></em>' attribute.

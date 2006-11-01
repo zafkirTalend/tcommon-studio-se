@@ -33,7 +33,7 @@ import java.util.List;
  */
 public interface IMultipleComponentManager {
 
-    public void addItem(String name, String connection, String linkTo);
+    public IMultipleComponentItem addItem(String name, String component);
 
     public void validateItems();
 

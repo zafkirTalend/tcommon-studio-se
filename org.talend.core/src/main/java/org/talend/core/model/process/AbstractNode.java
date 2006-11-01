@@ -55,7 +55,7 @@ public abstract class AbstractNode implements INode {
 
     private boolean subProcessStart;
 
-    private boolean multipleMethods;
+    private Boolean multipleMethods;
 
     private IProcess process;
 
@@ -150,11 +150,11 @@ public abstract class AbstractNode implements INode {
         // null
     }
     
-    public boolean isMultipleMethods() {
+    public Boolean isMultipleMethods() {
         return multipleMethods;
     }
     
-    public void setMultipleMethods(boolean multipleMethods) {
+    public void setMultipleMethods(Boolean multipleMethods) {
         this.multipleMethods = multipleMethods;
     }
     

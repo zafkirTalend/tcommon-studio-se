@@ -159,6 +159,12 @@ public class ComponentSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ComponentPackage.LINKTO_TYPE: {
+                LINKTOType linktoType = (LINKTOType)theEObject;
+                Object result = caseLINKTOType(linktoType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case ComponentPackage.PARAMETERS_TYPE: {
                 PARAMETERSType parametersType = (PARAMETERSType)theEObject;
                 Object result = casePARAMETERSType(parametersType);
@@ -382,6 +388,21 @@ public class ComponentSwitch {
      * @generated
      */
     public Object caseITEMType(ITEMType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>LINKTO Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>LINKTO Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseLINKTOType(LINKTOType object) {
         return null;
     }
 

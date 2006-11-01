@@ -29,6 +29,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTSType;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.ITEMType;
+import org.talend.designer.core.model.utils.emf.component.LINKTOType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
@@ -127,6 +128,13 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     private EClass itemTypeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass linktoTypeEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -856,6 +864,33 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getLINKTOType() {
+        return linktoTypeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLINKTOType_CTYPE() {
+        return (EAttribute)linktoTypeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLINKTOType_NAME() {
+        return (EAttribute)linktoTypeEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getPARAMETERSType() {
         return parametersTypeEClass;
     }
@@ -1126,8 +1161,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTEMPLATEType_CTYPE() {
-        return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(0);
+    public EReference getTEMPLATEType_LINKTO() {
+        return (EReference)templateTypeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1135,7 +1170,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTEMPLATEType_LINKTO() {
+    public EAttribute getTEMPLATEType_COMPONENT() {
         return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(1);
     }
 
@@ -1264,6 +1299,10 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(itemTypeEClass, ITEM_TYPE__SHOWIF);
         createEAttribute(itemTypeEClass, ITEM_TYPE__VALUE);
 
+        linktoTypeEClass = createEClass(LINKTO_TYPE);
+        createEAttribute(linktoTypeEClass, LINKTO_TYPE__CTYPE);
+        createEAttribute(linktoTypeEClass, LINKTO_TYPE__NAME);
+
         parametersTypeEClass = createEClass(PARAMETERS_TYPE);
         createEReference(parametersTypeEClass, PARAMETERS_TYPE__PARAMETER);
 
@@ -1300,8 +1339,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(templatesTypeEClass, TEMPLATES_TYPE__OUTPUT);
 
         templateTypeEClass = createEClass(TEMPLATE_TYPE);
-        createEAttribute(templateTypeEClass, TEMPLATE_TYPE__CTYPE);
-        createEAttribute(templateTypeEClass, TEMPLATE_TYPE__LINKTO);
+        createEReference(templateTypeEClass, TEMPLATE_TYPE__LINKTO);
+        createEAttribute(templateTypeEClass, TEMPLATE_TYPE__COMPONENT);
         createEAttribute(templateTypeEClass, TEMPLATE_TYPE__MULTIPLEMETHODS);
         createEAttribute(templateTypeEClass, TEMPLATE_TYPE__NAME);
     }
@@ -1414,6 +1453,10 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getITEMType_SHOWIF(), theXMLTypePackage.getString(), "sHOWIF", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMType_VALUE(), theXMLTypePackage.getString(), "vALUE", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(linktoTypeEClass, LINKTOType.class, "LINKTOType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getLINKTOType_CTYPE(), theXMLTypePackage.getString(), "cTYPE", null, 0, 1, LINKTOType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLINKTOType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, LINKTOType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         initEClass(parametersTypeEClass, PARAMETERSType.class, "PARAMETERSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getPARAMETERSType_PARAMETER(), this.getPARAMETERType(), null, "pARAMETER", null, 1, -1, PARAMETERSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1450,8 +1493,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getTEMPLATESType_OUTPUT(), theXMLTypePackage.getString(), "oUTPUT", null, 0, 1, TEMPLATESType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(templateTypeEClass, TEMPLATEType.class, "TEMPLATEType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getTEMPLATEType_CTYPE(), theXMLTypePackage.getString(), "cTYPE", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTEMPLATEType_LINKTO(), theXMLTypePackage.getString(), "lINKTO", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getTEMPLATEType_LINKTO(), this.getLINKTOType(), null, "lINKTO", null, 0, -1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTEMPLATEType_COMPONENT(), theXMLTypePackage.getString(), "cOMPONENT", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTEMPLATEType_MULTIPLEMETHODS(), theXMLTypePackage.getBoolean(), "mULTIPLEMETHODS", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTEMPLATEType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1998,6 +2041,29 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (linktoTypeEClass, 
+           source, 
+           new String[] {
+             "name", "LINK_TO_._type",
+             "kind", "empty"
+           });		
+        addAnnotation
+          (getLINKTOType_CTYPE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "CTYPE",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getLINKTOType_NAME(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "NAME",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (parametersTypeEClass, 
            source, 
            new String[] {
@@ -2228,22 +2294,22 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            source, 
            new String[] {
              "name", "TEMPLATE_._type",
-             "kind", "empty"
-           });		
-        addAnnotation
-          (getTEMPLATEType_CTYPE(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "CTYPE",
-             "namespace", "##targetNamespace"
+             "kind", "elementOnly"
            });		
         addAnnotation
           (getTEMPLATEType_LINKTO(), 
            source, 
            new String[] {
-             "kind", "attribute",
+             "kind", "element",
              "name", "LINK_TO",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getTEMPLATEType_COMPONENT(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "COMPONENT",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

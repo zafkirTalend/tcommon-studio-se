@@ -6,14 +6,26 @@
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
+import org.talend.designer.core.model.utils.emf.component.LINKTOType;
 import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
 
 /**
@@ -23,8 +35,8 @@ import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#getCTYPE <em>CTYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#getLINKTO <em>LINKTO</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#getCOMPONENT <em>COMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#isMULTIPLEMETHODS <em>MULTIPLEMETHODS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#getNAME <em>NAME</em>}</li>
  * </ul>
@@ -34,44 +46,34 @@ import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
  */
 public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
     /**
-     * The default value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getCTYPE()
-     * @generated
-     * @ordered
-     */
-    protected static final String CTYPE_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getCTYPE()
-     * @generated
-     * @ordered
-     */
-    protected String cTYPE = CTYPE_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getLINKTO() <em>LINKTO</em>}' attribute.
+     * The cached value of the '{@link #getLINKTO() <em>LINKTO</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getLINKTO()
      * @generated
      * @ordered
      */
-    protected static final String LINKTO_EDEFAULT = null;
+    protected EList lINKTO = null;
 
     /**
-     * The cached value of the '{@link #getLINKTO() <em>LINKTO</em>}' attribute.
+     * The default value of the '{@link #getCOMPONENT() <em>COMPONENT</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getLINKTO()
+     * @see #getCOMPONENT()
      * @generated
      * @ordered
      */
-    protected String lINKTO = LINKTO_EDEFAULT;
+    protected static final String COMPONENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCOMPONENT() <em>COMPONENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOMPONENT()
+     * @generated
+     * @ordered
+     */
+    protected String cOMPONENT = COMPONENT_EDEFAULT;
 
     /**
      * The default value of the '{@link #isMULTIPLEMETHODS() <em>MULTIPLEMETHODS</em>}' attribute.
@@ -145,28 +147,10 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getCTYPE() {
-        return cTYPE;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setCTYPE(String newCTYPE) {
-        String oldCTYPE = cTYPE;
-        cTYPE = newCTYPE;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATE_TYPE__CTYPE, oldCTYPE, cTYPE));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String getLINKTO() {
+    public EList getLINKTO() {
+        if (lINKTO == null) {
+            lINKTO = new EObjectContainmentEList(LINKTOType.class, this, ComponentPackage.TEMPLATE_TYPE__LINKTO);
+        }
         return lINKTO;
     }
 
@@ -175,11 +159,20 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setLINKTO(String newLINKTO) {
-        String oldLINKTO = lINKTO;
-        lINKTO = newLINKTO;
+    public String getCOMPONENT() {
+        return cOMPONENT;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCOMPONENT(String newCOMPONENT) {
+        String oldCOMPONENT = cOMPONENT;
+        cOMPONENT = newCOMPONENT;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATE_TYPE__LINKTO, oldLINKTO, lINKTO));
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATE_TYPE__COMPONENT, oldCOMPONENT, cOMPONENT));
     }
 
     /**
@@ -254,12 +247,25 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case ComponentPackage.TEMPLATE_TYPE__LINKTO:
+                return ((InternalEList)getLINKTO()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ComponentPackage.TEMPLATE_TYPE__CTYPE:
-                return getCTYPE();
             case ComponentPackage.TEMPLATE_TYPE__LINKTO:
                 return getLINKTO();
+            case ComponentPackage.TEMPLATE_TYPE__COMPONENT:
+                return getCOMPONENT();
             case ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS:
                 return isMULTIPLEMETHODS() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.TEMPLATE_TYPE__NAME:
@@ -275,11 +281,12 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ComponentPackage.TEMPLATE_TYPE__CTYPE:
-                setCTYPE((String)newValue);
-                return;
             case ComponentPackage.TEMPLATE_TYPE__LINKTO:
-                setLINKTO((String)newValue);
+                getLINKTO().clear();
+                getLINKTO().addAll((Collection)newValue);
+                return;
+            case ComponentPackage.TEMPLATE_TYPE__COMPONENT:
+                setCOMPONENT((String)newValue);
                 return;
             case ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS:
                 setMULTIPLEMETHODS(((Boolean)newValue).booleanValue());
@@ -298,11 +305,11 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ComponentPackage.TEMPLATE_TYPE__CTYPE:
-                setCTYPE(CTYPE_EDEFAULT);
-                return;
             case ComponentPackage.TEMPLATE_TYPE__LINKTO:
-                setLINKTO(LINKTO_EDEFAULT);
+                getLINKTO().clear();
+                return;
+            case ComponentPackage.TEMPLATE_TYPE__COMPONENT:
+                setCOMPONENT(COMPONENT_EDEFAULT);
                 return;
             case ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS:
                 unsetMULTIPLEMETHODS();
@@ -321,10 +328,10 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ComponentPackage.TEMPLATE_TYPE__CTYPE:
-                return CTYPE_EDEFAULT == null ? cTYPE != null : !CTYPE_EDEFAULT.equals(cTYPE);
             case ComponentPackage.TEMPLATE_TYPE__LINKTO:
-                return LINKTO_EDEFAULT == null ? lINKTO != null : !LINKTO_EDEFAULT.equals(lINKTO);
+                return lINKTO != null && !lINKTO.isEmpty();
+            case ComponentPackage.TEMPLATE_TYPE__COMPONENT:
+                return COMPONENT_EDEFAULT == null ? cOMPONENT != null : !COMPONENT_EDEFAULT.equals(cOMPONENT);
             case ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS:
                 return isSetMULTIPLEMETHODS();
             case ComponentPackage.TEMPLATE_TYPE__NAME:
@@ -342,10 +349,8 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (cTYPE: ");
-        result.append(cTYPE);
-        result.append(", lINKTO: ");
-        result.append(lINKTO);
+        result.append(" (cOMPONENT: ");
+        result.append(cOMPONENT);
         result.append(", mULTIPLEMETHODS: ");
         if (mULTIPLEMETHODSESet) result.append(mULTIPLEMETHODS); else result.append("<unset>");
         result.append(", nAME: ");
