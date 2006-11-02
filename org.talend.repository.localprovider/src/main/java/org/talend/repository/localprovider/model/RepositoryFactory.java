@@ -107,8 +107,8 @@ import org.talend.repository.ui.views.RepositoryContentProvider.MetadataTableRep
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
- * 14:30:39 tguiu Exp $
+ * $Id$ $Id:
+ * RepositoryFactory.java,v 1.55 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
 public class RepositoryFactory implements IRepositoryFactory {
@@ -283,7 +283,8 @@ public class RepositoryFactory implements IRepositoryFactory {
         ERepositoryObjectType[] repositoryObjectTypeList = new ERepositoryObjectType[] { ERepositoryObjectType.BUSINESS_PROCESS,
                 ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.METADATA_CONNECTIONS,
                 ERepositoryObjectType.METADATA_FILE_DELIMITED, ERepositoryObjectType.METADATA_FILE_POSITIONAL,
-                ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML, ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES };
+                ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML,
+                ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES };
         for (ERepositoryObjectType repositoryObjectType : repositoryObjectTypeList) {
             IFolder folder = ResourceUtils
                     .getFolder(fsProject, LocalResourceModelUtils.getFolderName(repositoryObjectType), true);
@@ -487,7 +488,8 @@ public class RepositoryFactory implements IRepositoryFactory {
         return projects;
     }
 
-    private void synchronizeFolders(final IProject project, final org.talend.core.model.properties.Project emfProject) throws PersistenceException {
+    private void synchronizeFolders(final IProject project, final org.talend.core.model.properties.Project emfProject)
+            throws PersistenceException {
         final FolderHelper helper = FolderHelper.createInstance(emfProject);
         final Set<IPath> listFolders = helper.listFolders();
         try {
@@ -953,7 +955,7 @@ public class RepositoryFactory implements IRepositoryFactory {
     public RootContainer<String, IRepositoryObject> getMetadataFileXml() throws PersistenceException {
         return getMetadataFileXmlFromFolder();
     }
-    
+
     /**
      * 
      * DOC smallet RepositoryFactory class global comment. Detailled comment <br/>
@@ -1397,7 +1399,7 @@ public class RepositoryFactory implements IRepositoryFactory {
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -1411,6 +1413,6 @@ public class RepositoryFactory implements IRepositoryFactory {
     }
 
     public void initialize() {
-        //unused in local mode
+        // unused in local mode
     }
 }

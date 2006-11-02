@@ -99,9 +99,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
                     || actionSets[i].getId().equals(actionSetId3) || actionSets[i].getId().equals(actionSetId4)
                     || actionSets[i].getId().equals(actionSetId5)) {
                 removeAction(reg, actionSets[i]);
-            }/*
-                 * else { System.out.println(actionSets[i].getId()); }
-                 */
+            }
+            /*
+             * else { System.out.println(actionSets[i].getId()); }
+             */
         }
 
         MenuManager fileMenu = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
@@ -112,7 +113,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(ActionFactory.SAVE.create(window));
         // fileMenu.add(ActionFactory.SAVE_AS.create(window));
 
-//      CAN. SwitchProject Action must be call the LoginDialog to Change of Project and Open this.  
+        // CAN. SwitchProject Action must be call the LoginDialog to Change of Project and Open this.
         fileMenu.add(new SwitchProjectAction());
         fileMenu.add(ActionFactory.PRINT.create(window));
         fileMenu.add(ActionFactory.QUIT.create(window));
