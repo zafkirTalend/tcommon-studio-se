@@ -142,6 +142,7 @@ public class ContentProposalAdapterExtended {
                             try {
                                 Thread.sleep(5);
                             } catch (InterruptedException e1) {
+                                // nothing
                             }
                             control.getDisplay().asyncExec(new Runnable() {
 
@@ -1040,6 +1041,7 @@ public class ContentProposalAdapterExtended {
                         try {
                             Thread.sleep(POPUP_DELAY);
                         } catch (InterruptedException e) {
+                            // nothing
                         }
                         if (!isValid()) {
                             return;
