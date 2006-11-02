@@ -7,9 +7,7 @@
 package org.talend.designer.core.model.utils.emf.component;
 
 import org.eclipse.emf.common.util.EMap;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.emf.ecore.util.FeatureMap;
 
 /**

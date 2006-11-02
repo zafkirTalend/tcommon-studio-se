@@ -24,7 +24,6 @@ package org.talend.core.ui.metadata.editor.actions;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.swt.widgets.Table;
 import org.talend.core.model.action.IEventAction;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent;

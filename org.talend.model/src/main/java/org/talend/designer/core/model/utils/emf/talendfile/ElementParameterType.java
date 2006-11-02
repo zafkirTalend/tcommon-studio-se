@@ -7,7 +7,6 @@
 package org.talend.designer.core.model.utils.emf.talendfile;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
 
 /**

@@ -5,8 +5,6 @@
  */
 package org.talend.core.model.properties;
 
-import org.eclipse.emf.ecore.EObject;
-
 import org.talend.core.model.metadata.builder.connection.Connection;
 
 /**

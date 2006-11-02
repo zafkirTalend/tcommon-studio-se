@@ -14,8 +14,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.talend.core.model.metadata.builder.connection.*;
-
 import org.talend.core.model.metadata.builder.connection.CSVFileConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -31,6 +29,8 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataSchema;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
+import org.talend.core.model.metadata.builder.connection.QueriesConnection;
+import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;

@@ -11,7 +11,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesPackage;
-
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 /**

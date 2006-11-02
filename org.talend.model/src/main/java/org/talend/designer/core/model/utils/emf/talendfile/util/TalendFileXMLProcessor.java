@@ -9,11 +9,8 @@ package org.talend.designer.core.model.utils.emf.talendfile.util;
 import java.util.Map;
 
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
-
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
-
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
 /**

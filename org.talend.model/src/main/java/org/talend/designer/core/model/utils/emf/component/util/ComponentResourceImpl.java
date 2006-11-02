@@ -7,7 +7,6 @@
 package org.talend.designer.core.model.utils.emf.component.util;
 
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl;
 
 /**

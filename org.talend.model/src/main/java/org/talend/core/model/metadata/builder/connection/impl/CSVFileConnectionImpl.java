@@ -7,7 +7,6 @@
 package org.talend.core.model.metadata.builder.connection.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.talend.core.model.metadata.builder.connection.CSVFileConnection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 

@@ -18,7 +18,6 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.core.ui.IImageConstants;
-import org.talend.designer.business.model.business.TableMetadata;
 
 /**
  * This is the item provider adapter for a {@link org.talend.designer.business.model.business.TableMetadata} object.

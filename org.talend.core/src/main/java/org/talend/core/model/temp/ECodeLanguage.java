@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.core.model.temp;
 
-import org.talend.designer.core.language.perl.ICodeSyntaxChecker;
 
 /**
  * Enum for available Code Languages in the application.  

@@ -10,9 +10,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
-import org.talend.core.model.metadata.builder.connection.*;
-
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
+import org.talend.core.model.metadata.builder.connection.CSVFileConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -20,8 +19,14 @@ import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.Metadata;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.builder.connection.MetadataSchema;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
+import org.talend.core.model.metadata.builder.connection.QueriesConnection;
+import org.talend.core.model.metadata.builder.connection.Query;
+import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
+import org.talend.core.model.metadata.builder.connection.SchemaTarget;
+import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 
 /**
  * <!-- begin-user-doc -->

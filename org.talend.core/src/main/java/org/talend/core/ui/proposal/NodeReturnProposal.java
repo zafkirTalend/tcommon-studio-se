@@ -24,13 +24,9 @@ package org.talend.core.ui.proposal;
 import java.text.MessageFormat;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
-import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeReturn;
-import org.talend.core.model.temp.ECodeLanguage;
 
 /**
  * Content proposal based on a INodeReturn. <br/>

@@ -7,20 +7,13 @@
 package org.talend.designer.core.model.utils.emf.component.util;
 
 import org.eclipse.emf.common.util.URI;
-
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EPackageRegistryImpl;
-
 import org.eclipse.emf.ecore.resource.Resource;
-
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
-
 import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
-
 import org.eclipse.emf.ecore.xmi.XMLResource;
-
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 
 /**

@@ -7,7 +7,6 @@
 package org.talend.designer.business.model.business.impl;
 
 import org.eclipse.emf.ecore.EClass;
-
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
 

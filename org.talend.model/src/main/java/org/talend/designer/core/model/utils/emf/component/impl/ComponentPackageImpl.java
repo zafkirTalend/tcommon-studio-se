@@ -10,11 +10,8 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
-
 import org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType;
 import org.talend.designer.core.model.utils.emf.component.COMPONENTType;
 import org.talend.designer.core.model.utils.emf.component.CONNECTORSType;

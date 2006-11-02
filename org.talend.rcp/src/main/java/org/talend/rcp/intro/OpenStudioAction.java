@@ -23,12 +23,7 @@ package org.talend.rcp.intro;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.WorkbenchException;
-import org.talend.repository.ui.actions.RefreshAction;
 import org.talend.repository.ui.login.LoginDialog;
-import org.talend.repository.ui.views.IRepositoryView;
-import org.talend.repository.ui.views.RepositoryView;
 
 /**
  * Displays the Login Dialog for choose a project to Open. <br/>

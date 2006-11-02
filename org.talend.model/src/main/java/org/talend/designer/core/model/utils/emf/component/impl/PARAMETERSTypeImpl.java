@@ -9,17 +9,12 @@ package org.talend.designer.core.model.utils.emf.component.impl;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERType;

@@ -9,12 +9,24 @@ package org.talend.designer.core.model.utils.emf.talendfile.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
-
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-
-import org.talend.designer.core.model.utils.emf.talendfile.*;
+import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
+import org.talend.designer.core.model.utils.emf.talendfile.ConnectionType;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
+import org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
+import org.talend.designer.core.model.utils.emf.talendfile.LogToDatabaseType;
+import org.talend.designer.core.model.utils.emf.talendfile.LogToFileType;
+import org.talend.designer.core.model.utils.emf.talendfile.LogToStdOutType;
+import org.talend.designer.core.model.utils.emf.talendfile.LogsType;
+import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
+import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
 /**
  * <!-- begin-user-doc -->
