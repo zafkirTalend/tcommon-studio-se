@@ -22,7 +22,6 @@
 package org.talend.commons.ui.swt.proposal;
 
 import org.eclipse.jface.fieldassist.TextContentAdapter;
-import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;

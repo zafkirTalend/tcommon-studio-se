@@ -27,8 +27,6 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Transform;
 
-import com.sun.imageio.plugins.common.ImageUtil;
-
 
 /**
  * Image utilities.
