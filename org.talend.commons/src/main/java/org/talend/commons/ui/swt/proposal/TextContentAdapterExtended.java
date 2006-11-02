@@ -26,19 +26,19 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class TextContentAdapterExtended extends TextContentAdapter implements IControlContentAdapterExtended {
 
     private String filterValue;
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.designer.mapper.ui.proposal.expression.IControlContentAdapterExtended#getFilterValue()
      */
     public String getFilterValue(Control control) {
@@ -70,10 +70,10 @@ public class TextContentAdapterExtended extends TextContentAdapter implements IC
             int nextCrIndex = controlContents.indexOf('\n', selection.x);
             if (filterValueLength == 0) {
                 remaingCharsOffset = 0;
-            } else if (nextSpaceIndex != -1 && (nextCrIndex != -1 && nextSpaceIndex < nextCrIndex || nextCrIndex == -1 )) {
+            } else if (nextSpaceIndex != -1 && (nextCrIndex != -1 && nextSpaceIndex < nextCrIndex || nextCrIndex == -1)) {
                 remaingCharsOffset = nextSpaceIndex - selection.x;
             } else if (nextCrIndex != -1) {
-                    remaingCharsOffset = nextCrIndex - 1 - selection.x;
+                remaingCharsOffset = nextCrIndex - 1 - selection.x;
             } else {
                 remaingCharsOffset = controlContents.length() - selection.x;
             }
@@ -91,13 +91,13 @@ public class TextContentAdapterExtended extends TextContentAdapter implements IC
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.proposal.IControlContentAdapterExtended#setUsedFilterValue(java.lang.String)
      */
     public void setUsedFilterValue(String filterValue) {
         this.filterValue = filterValue;
     }
 
-
-    
 }

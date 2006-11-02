@@ -27,9 +27,9 @@ import org.eclipse.swt.SWT;
  * Utility class for event handling.
  */
 public final class EventUtil {
+
     /**
-     * Default Constructor.
-     * Must not be used.
+     * Default Constructor. Must not be used.
      */
     private EventUtil() {
     }
@@ -119,12 +119,12 @@ public final class EventUtil {
         case SWT.None:
             return "null";
         case SWT.SELECTED:
-            return "SELECTED="+SWT.SELECTED;
+            return "SELECTED=" + SWT.SELECTED;
         default:
             return "unkown ??? value of event detail : " + eventDetail;
         }
     }
-        
+
     public static void main(String[] args) {
     }
 }

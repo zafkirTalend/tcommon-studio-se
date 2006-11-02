@@ -56,7 +56,8 @@ public class TableCellValueModifiedEvent {
      * @param cellEditorAppliedValue
      * @param storedValue
      */
-    public TableCellValueModifiedEvent(TableItem tableItem, Object bean, TableViewerCreatorColumn column, Object cellEditorAppliedValue, Object storedValue) {
+    public TableCellValueModifiedEvent(TableItem tableItem, Object bean, TableViewerCreatorColumn column,
+            Object cellEditorAppliedValue, Object storedValue) {
         this.tableItem = tableItem;
         this.bean = bean;
         this.column = column;

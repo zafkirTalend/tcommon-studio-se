@@ -155,22 +155,18 @@ public class TableViewerCreator<O> {
 
     private SHOW_SELECTION showSelection;
 
-    
     /**
      * 
-     * DOC amaumont MetadataEditorEvent class global comment. Detailled comment
-     * <br/>
-     *
+     * DOC amaumont MetadataEditorEvent class global comment. Detailled comment <br/>
+     * 
      * $Id$
-     *
+     * 
      */
     public enum CELL_EDITOR_STATE {
         EDITING,
         APPLYING,
-        CANCELING,
-        ;
+        CANCELING;
     }
-    
 
     /**
      * @see Table#setLinesVisible(boolean)
@@ -384,7 +380,7 @@ public class TableViewerCreator<O> {
         setTablePreferences();
 
         initCellModifier();
-        
+
         return table;
     }
 
@@ -475,7 +471,6 @@ public class TableViewerCreator<O> {
 
     }
 
-    
     /**
      * 
      * DOC amaumont Comment method "addPaintListener".
@@ -490,9 +485,10 @@ public class TableViewerCreator<O> {
 
             public void handleEvent(Event event) {
 
-//                System.out.println("EraseItem event.detail=" + EventUtil.getEventNameFromDetail(event.detail) + "event.widget="
-//                        + event.widget.hashCode());
-//                System.out.println(event);
+                // System.out.println("EraseItem event.detail=" + EventUtil.getEventNameFromDetail(event.detail) +
+                // "event.widget="
+                // + event.widget.hashCode());
+                // System.out.println(event);
                 TableItem tableItem = (TableItem) event.item;
 
                 boolean selectedState = (event.detail & SWT.SELECTED) != 0;
@@ -542,10 +538,7 @@ public class TableViewerCreator<O> {
 
                     event.detail &= ~SWT.SELECTED;
 
-                } else if (
-                        event.detail == 24 
-                        || event.detail == 28
-                ) {
+                } else if (event.detail == 24 || event.detail == 28) {
                     /**
                      * To color cells or rows selected by using
                      * org.eclipse.swt.widgets.TableItem#setBackground(int,Color) or
@@ -581,7 +574,6 @@ public class TableViewerCreator<O> {
 
         };
         table.addListener(SWT.EraseItem, eraseItemListener);
-
 
     }
 
@@ -646,8 +638,9 @@ public class TableViewerCreator<O> {
                 Assert.isTrue(tableColumn.getParent() == this.table, "The TableColumn of TableEditorColumn with idProperty '"
                         + column.getId() + "' has not the correct Table parent");
             }
-            Assert.isTrue(idToTableViewerCreatorColumn.get(column.getId()) == null,
-                    "You must change the idProperty of one of your column, the idProperty must be unique for each column for one Table.");
+            Assert
+                    .isTrue(idToTableViewerCreatorColumn.get(column.getId()) == null,
+                            "You must change the idProperty of one of your column, the idProperty must be unique for each column for one Table.");
 
             idToTableViewerCreatorColumn.put(column.getId(), column);
         }
@@ -850,7 +843,7 @@ public class TableViewerCreator<O> {
          */
         FILL_HORIZONTAL,
 
-        NONE(), ;
+        NONE();
 
         LAYOUT_MODE() {
         }
@@ -1223,7 +1216,7 @@ public class TableViewerCreator<O> {
      * @param useCustomColoring
      */
     public void setUseCustomColoring(boolean useCustomColoring) {
-        if(WindowSystem.isWIN32()) {
+        if (WindowSystem.isWIN32()) {
             this.useCustomColoring = useCustomColoring;
             if (table != null) {
                 if (useCustomColoring) {

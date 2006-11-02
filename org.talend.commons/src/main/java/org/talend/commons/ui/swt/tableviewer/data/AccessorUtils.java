@@ -23,7 +23,6 @@ package org.talend.commons.ui.swt.tableviewer.data;
 
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 
-
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
@@ -31,9 +30,9 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
  * 
  */
 public final class AccessorUtils {
+
     /**
-     * Default Constructor.
-     * Must not be used.
+     * Default Constructor. Must not be used.
      */
     private AccessorUtils() {
     }
@@ -51,8 +50,8 @@ public final class AccessorUtils {
                 cce.printStackTrace();
                 throw new RuntimeException(message, cce);
             } catch (NoClassDefFoundError e) {
-//                e.printStackTrace();
-                System.err.println("NoClassDefFoundError ("+AccessorUtils.class+"):"+ e.getMessage());
+                // e.printStackTrace();
+                System.err.println("NoClassDefFoundError (" + AccessorUtils.class + "):" + e.getMessage());
             }
         }
         return value;
@@ -71,8 +70,7 @@ public final class AccessorUtils {
                     message += "\n " + bean.getClass() + " is required for the bean (<B>).";
                 }
                 if (value != null) {
-                    message += "\n "
-                            + value.getClass()
+                    message += "\n " + value.getClass()
                             + " is required for the value (<V>), but the value could be adapted with CellEditorValueAdapter.";
                 }
                 throw new RuntimeException(message, cce);

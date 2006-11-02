@@ -68,18 +68,19 @@ public class MouseTableSelectionHelper {
 
     private ImageDescriptor imageDescriptor;
 
-//    /**
-//     * DOC amaumont MouseTableSelectionHelper constructor comment.
-//     * 
-//     * @param table
-//     */
-//    public MouseTableSelectionHelper(TableViewerCreator tableViewerCreator, boolean firstColumnMasked, int[] selectionnableColumns) {
-//        this.tableViewerCreator = tableViewerCreator;
-//        this.firstColumnMasked = firstColumnMasked;
-//        this.selectionnableColumns = selectionnableColumns;
-//        init();
-//    }
-//
+    // /**
+    // * DOC amaumont MouseTableSelectionHelper constructor comment.
+    // *
+    // * @param table
+    // */
+    // public MouseTableSelectionHelper(TableViewerCreator tableViewerCreator, boolean firstColumnMasked, int[]
+    // selectionnableColumns) {
+    // this.tableViewerCreator = tableViewerCreator;
+    // this.firstColumnMasked = firstColumnMasked;
+    // this.selectionnableColumns = selectionnableColumns;
+    // init();
+    // }
+    //
     /**
      * DOC amaumont MouseTableSelectionHelper constructor comment.
      * 
@@ -90,14 +91,14 @@ public class MouseTableSelectionHelper {
         this.firstColumnMasked = tableViewerCreator.isFirstColumnMasked();
         init();
     }
-    
+
     /**
      * DOC amaumont Comment method "init".
      */
     private void init() {
 
         this.table = tableViewerCreator.getTable();
-        
+
         final Listener storeCursorPositionListener = new Listener() {
 
             public void handleEvent(Event event) {
@@ -112,7 +113,7 @@ public class MouseTableSelectionHelper {
             public void handleEvent(Event event) {
 
                 int columnIndex = getColumnIndex(cursorPositionAtMouseDown);
-                
+
                 if (isColumnSelection(columnIndex)) {
                     draggingOnSelectionColumn = true;
                     itemIndexAtDraggingStart = getItemIndex(cursorPositionAtMouseDown);
@@ -142,16 +143,16 @@ public class MouseTableSelectionHelper {
         table.getDisplay().addFilter(SWT.MouseUp, resetDraggingListener);
 
         final Listener mouseMoveListener = new Listener() {
-            
+
             public void handleEvent(Event event) {
                 Point pointCursor = getCursorPositionFromTableOrigin(event);
-                
+
                 int columnIndex = getColumnIndex(pointCursor);
-//                System.out.println("handleEvent " + draggingOnSelectionColumn + " " + columnIndex);
+                // System.out.println("handleEvent " + draggingOnSelectionColumn + " " + columnIndex);
                 if (!draggingOnSelectionColumn) {
                     if (event.widget != table) {
-                        if (! (event.widget instanceof Table)) {
-//                            System.out.println("isColumnSelection");
+                        if (!(event.widget instanceof Table)) {
+                            // System.out.println("isColumnSelection");
                             setShellCursor(false);
                         }
                         return;
@@ -159,17 +160,17 @@ public class MouseTableSelectionHelper {
                     if (isColumnSelection(columnIndex)) {
                         setShellCursor(true);
                     } else {
-//                        System.out.println("setShellCursor(false)");
+                        // System.out.println("setShellCursor(false)");
                         setShellCursor(false);
                     }
-                    
+
                 } else {
-                    
+
                     setShellCursor(true);
                     if (columnIndex == -1) {
                         pointCursor.x = 0;
                     }
-                    
+
                     int currentItemIndexUnderCursor = getItemIndex(pointCursor);
                     if (currentItemIndexUnderCursor != -1) {
                         int indexStart = 0;
@@ -181,7 +182,7 @@ public class MouseTableSelectionHelper {
                             indexStart = currentItemIndexUnderCursor;
                             indexEnd = itemIndexAtDraggingStart;
                         }
-                        
+
                         int countSelected = indexEnd - indexStart + 1;
                         int[] selection = new int[countSelected];
                         for (int i = 0; i < countSelected; i++) {
@@ -195,7 +196,6 @@ public class MouseTableSelectionHelper {
         };
         table.getDisplay().addFilter(SWT.MouseMove, mouseMoveListener);
 
-        
         table.addDisposeListener(new DisposeListener() {
 
             public void widgetDisposed(DisposeEvent e) {
@@ -215,7 +215,6 @@ public class MouseTableSelectionHelper {
             }
 
         });
-
 
     }
 
@@ -240,21 +239,19 @@ public class MouseTableSelectionHelper {
             this.tableCursor.dispose();
         }
         this.tableCursor = cursor;
-        
+
         table.getShell().setCursor(this.tableCursor);
     }
 
     public int getColumnIndex(Point pointCursor) {
-        
+
         // searching current column index
         int currentColumnIndex = -1;
         TableColumn[] columns = table.getColumns();
         for (int i = 0, width = 0; i < columns.length; i++) {
             TableColumn column = columns[i];
             int widthColumn = column.getWidth();
-            if (pointCursor.x >= width 
-                    && pointCursor.x <= width + widthColumn 
-                    && pointCursor.y > table.getHeaderHeight() 
+            if (pointCursor.x >= width && pointCursor.x <= width + widthColumn && pointCursor.y > table.getHeaderHeight()
                     && pointCursor.y < table.getHeaderHeight() + table.getItemCount() * table.getItemHeight()) {
                 currentColumnIndex = i;
                 break;
@@ -279,24 +276,24 @@ public class MouseTableSelectionHelper {
         return currentItemIndex;
     }
 
-    
     public boolean isDraggingOnSelectionColumn() {
         return this.draggingOnSelectionColumn;
     }
 
     /**
      * DOC amaumont Comment method "getCursorPositionFromTableOrigin".
+     * 
      * @param event
      * @return
      */
     private Point getCursorPositionFromTableOrigin(Event event) {
         Point pointCursor = new Point(event.x, event.y);
-        
+
         Widget widget = event.widget;
         if (widget instanceof TableItem) {
             widget = ((TableItem) widget).getParent();
         }
-        
+
         if (widget != table && widget instanceof Control) {
             pointCursor = table.getDisplay().map((Control) widget, table, pointCursor);
         }
@@ -305,6 +302,7 @@ public class MouseTableSelectionHelper {
 
     /**
      * DOC amaumont Comment method "isColumnSelection".
+     * 
      * @param columnIndex
      * @return
      */
@@ -312,6 +310,4 @@ public class MouseTableSelectionHelper {
         return columnIndex == 0 && !firstColumnMasked || columnIndex == 1 && firstColumnMasked;
     }
 
-
-    
 }

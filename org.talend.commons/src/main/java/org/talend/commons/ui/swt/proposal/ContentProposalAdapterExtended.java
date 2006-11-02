@@ -291,8 +291,8 @@ public class ContentProposalAdapterExtended {
 
             // Key events from the control
             public void handleEvent(Event e) {
-//                System.out.println(e);
-//                System.out.println(EventUtil.getEventName(e.type));
+                // System.out.println(e);
+                // System.out.println(EventUtil.getEventName(e.type));
                 if (!isValid()) {
                     return;
                 }
@@ -427,12 +427,14 @@ public class ContentProposalAdapterExtended {
                             // text on ARROW_LEFT as we would with BS.
                             if (contents.length() > 0) {
                                 updateIntialFilterText();
-//                                 System.out.println("update proposal :" + filterText +" .equals(" + previousFilterText);
-//                                 System.out.println("cursorPosition :" + cursorPosition +" .equals(" + lastCursorPosition);
+                                // System.out.println("update proposal :" + filterText +" .equals(" +
+                                // previousFilterText);
+                                // System.out.println("cursorPosition :" + cursorPosition +" .equals(" +
+                                // lastCursorPosition);
                                 // );
-                                if (cursorPosition == lastCursorPosition 
-                                        || !filterText.equals(previousFilterText) && previousFilterText != null) {
-//                                     System.out.println("update proposal!!!");
+                                if (cursorPosition == lastCursorPosition || !filterText.equals(previousFilterText)
+                                        && previousFilterText != null) {
+                                    // System.out.println("update proposal!!!");
                                     asyncRecomputeProposals(filterText);
                                     previousFilterText = filterText;
                                 }
@@ -582,13 +584,14 @@ public class ContentProposalAdapterExtended {
                 Rectangle parentBounds = getParentShell().getBounds();
                 Rectangle proposedBounds;
                 // Try placing the info popup to the right
-                Rectangle rightProposedBounds = new Rectangle(parentBounds.x + parentBounds.width + PopupDialog.POPUP_HORIZONTALSPACING,
-                        parentBounds.y + PopupDialog.POPUP_VERTICALSPACING, parentBounds.width, parentBounds.height);
+                Rectangle rightProposedBounds = new Rectangle(parentBounds.x + parentBounds.width
+                        + PopupDialog.POPUP_HORIZONTALSPACING, parentBounds.y + PopupDialog.POPUP_VERTICALSPACING,
+                        parentBounds.width, parentBounds.height);
                 rightProposedBounds = getConstrainedShellBounds(rightProposedBounds);
                 // If it won't fit on the right, try the left
                 if (rightProposedBounds.intersects(parentBounds)) {
-                    Rectangle leftProposedBounds = new Rectangle(parentBounds.x - parentBounds.width - POPUP_HORIZONTALSPACING - 1,
-                            parentBounds.y, parentBounds.width, parentBounds.height);
+                    Rectangle leftProposedBounds = new Rectangle(parentBounds.x - parentBounds.width - POPUP_HORIZONTALSPACING
+                            - 1, parentBounds.y, parentBounds.width, parentBounds.height);
                     leftProposedBounds = getConstrainedShellBounds(leftProposedBounds);
                     // If it won't fit on the left, choose the proposed bounds
                     // that fits the best
@@ -689,7 +692,7 @@ public class ContentProposalAdapterExtended {
         private void updateIntialFilterText() {
             if (controlContentAdapter instanceof IControlContentAdapterExtended && filterStyle == FILTER_CUMULATIVE) {
                 filterText = ((IControlContentAdapterExtended) controlContentAdapter).getFilterValue(getControl());
-//                System.out.println("Update initialfilter: "+filterText);
+                // System.out.println("Update initialfilter: "+filterText);
             }
         }
 
@@ -1093,7 +1096,7 @@ public class ContentProposalAdapterExtended {
          * open.
          */
         private void recomputeProposals(String filterText) {
-//            System.out.println("Recompute :"+ filterText);
+            // System.out.println("Recompute :"+ filterText);
             setProposals(getProposals(filterText));
         }
 
@@ -1124,7 +1127,7 @@ public class ContentProposalAdapterExtended {
                 return proposals;
             }
 
-//            System.out.println("\nfilterString="+filterString);
+            // System.out.println("\nfilterString="+filterString);
             // Check each string for a match. Use the string displayed to the
             // user, not the proposal content.
             ArrayList list = new ArrayList();
@@ -1132,7 +1135,7 @@ public class ContentProposalAdapterExtended {
             String currentFilter = EMPTY;
             for (int indexStartFilter = 0; list.size() == 0 && continueSearching && indexStartFilter < filterString.length(); indexStartFilter++) {
                 currentFilter = filterString.substring(indexStartFilter);
-//                System.out.println("currentFilter="+currentFilter);
+                // System.out.println("currentFilter="+currentFilter);
                 for (int i = 0; i < proposals.length; i++) {
                     String string = getString(proposals[i]);
                     if (string.length() >= currentFilter.length()
@@ -1151,8 +1154,8 @@ public class ContentProposalAdapterExtended {
                 filterText = currentFilter;
             }
 
-//            System.out.println("Final filterText="+filterText);
-            
+            // System.out.println("Final filterText="+filterText);
+
             return (IContentProposal[]) list.toArray(new IContentProposal[list.size()]);
         }
 
@@ -1619,7 +1622,8 @@ public class ContentProposalAdapterExtended {
                 case SWT.Traverse:
                 case SWT.KeyDown:
 
-                    // needed because in Text widget, cursor position is changed between keydown and keyup events in Text widget,
+                    // needed because in Text widget, cursor position is changed between keydown and keyup events in
+                    // Text widget,
                     // so when keyup, popup.getTargetControlListener().handleEvent(e) is effectivly called
                 case SWT.KeyUp:
                     if (DEBUG) {
@@ -1815,7 +1819,7 @@ public class ContentProposalAdapterExtended {
             }
         }
         if (controlContentAdapter instanceof IControlContentAdapterExtended) {
-            ((IControlContentAdapterExtended)controlContentAdapter).setUsedFilterValue(filterText);
+            ((IControlContentAdapterExtended) controlContentAdapter).setUsedFilterValue(filterText);
         }
         switch (proposalAcceptanceStyle) {
         case (PROPOSAL_REPLACE):

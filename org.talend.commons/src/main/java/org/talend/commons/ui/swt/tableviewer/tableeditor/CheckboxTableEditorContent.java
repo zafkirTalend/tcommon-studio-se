@@ -46,17 +46,20 @@ public class CheckboxTableEditorContent extends TableEditorContent {
     /*
      * 
      * (non-Javadoc)
-     * @see org.talend.commons.ui.swt.tableviewer.TableEditorContent#initialize(org.eclipse.swt.widgets.Table, org.eclipse.swt.custom.TableEditor, org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn, java.lang.Object, java.lang.Object)
+     * 
+     * @see org.talend.commons.ui.swt.tableviewer.TableEditorContent#initialize(org.eclipse.swt.widgets.Table,
+     * org.eclipse.swt.custom.TableEditor, org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn,
+     * java.lang.Object, java.lang.Object)
      */
     public Control initialize(Table table, TableEditor tableEditor, final TableViewerCreatorColumn currentColumn,
             final Object currentRowObject, final Object currentCellValue) {
-        
+
         /*
          * Do not set check control as field because one instance of CheckboxTableEditorContent is shared by all checks
          * of a same column
          * 
          */
-        
+
         final Button check = new Button(table, SWT.CHECK);
         check.setText("");
         check.setBackground(table.getBackground());
@@ -68,8 +71,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
             @SuppressWarnings("unchecked")
             public void widgetSelected(SelectionEvent e) {
-                currentColumn.getBeanPropertyAccessors().set(currentRowObject,
-                        check.getSelection() ? CHECKED : UNCHECKED);
+                currentColumn.getBeanPropertyAccessors().set(currentRowObject, check.getSelection() ? CHECKED : UNCHECKED);
             }
 
         });
@@ -82,5 +84,4 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         return check;
     }
 
-    
 }

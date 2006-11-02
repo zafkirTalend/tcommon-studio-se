@@ -84,7 +84,8 @@ public class TableViewerCreatorSorter extends ViewerSorter {
      * @param tableViewerCreatorColumn
      * @param newOrderDirection
      */
-    public void prepareSort(TableViewerCreator tableViewerCreator, TableViewerCreatorColumn tableViewerCreatorColumn, SORT newOrderDirection) {
+    public void prepareSort(TableViewerCreator tableViewerCreator, TableViewerCreatorColumn tableViewerCreatorColumn,
+            SORT newOrderDirection) {
         tableViewerCreator.getTable().setSortColumn(tableViewerCreatorColumn.getTableColumn());
         tableViewerCreator.getTable().setSortDirection(newOrderDirection == SORT.DESC ? SWT.DOWN : SWT.UP);
         this.columnsBeanComparator.setIgnoreCase(tableViewerCreatorColumn.isOrderWithIgnoreCase());

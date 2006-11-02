@@ -36,8 +36,7 @@ public class ReflectionPropertyException extends RuntimeException {
 
     public ReflectionPropertyException(Class reflectedClass, String reflectedProperty, boolean isGetter, Throwable cause) {
 
-        super("Error when trying to access to the " + (isGetter ? "getter" : "setter") + " of the property '"
-                + reflectedProperty + "' " + "of the class '"
-                + (reflectedClass != null ? reflectedClass.getName() : "class null") + "'", cause);
+        super("Error when trying to access to the " + (isGetter ? "getter" : "setter") + " of the property '" + reflectedProperty
+                + "' " + "of the class '" + (reflectedClass != null ? reflectedClass.getName() : "class null") + "'", cause);
     }
 }

@@ -57,9 +57,7 @@ public class ErrorDialogWidthDetailArea {
         if (detailMessage != null) {
             String[] lines = detailMessage.split("\n");
             for (int i = 0; i < lines.length; i++) {
-                info
-                        .add(new Status(IStatus.INFO, pid, 1, lines[i].replaceAll("\t", "    ").replaceAll("\r", ""),
-                                null));
+                info.add(new Status(IStatus.INFO, pid, 1, lines[i].replaceAll("\t", "    ").replaceAll("\r", ""), null));
             }
         }
         ErrorDialog.openError(shell, "Error Message", null, info);

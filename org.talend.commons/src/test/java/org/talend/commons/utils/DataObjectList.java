@@ -32,6 +32,7 @@ public class DataObjectList extends ArrayList {
      * 
      */
     private static final long serialVersionUID = 7020347198188725677L;
+
     /**
      * 
      */
