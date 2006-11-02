@@ -22,7 +22,7 @@
 package org.talend.core.model.metadata;
 
 /**
- * Enum for available Code Languages in the application.  
+ * Enum for available Code Languages in the application.
  * 
  * $Id$
  * 
@@ -49,21 +49,17 @@ public enum EMetadataEncoding {
     GB18030("GB18030", "Standard national Chinois"),
     GB2312("GB2312", "Chinois"),
     EUC_CN("EUC_CN", "Chinois simplifié (Code-CN Unix étendu)");
-    
+
     /*
-    EUC_JP   Code-JP Unix étendu  Japonais  
-    EUC_KR   Code-KR Unix étendu  Coréen   
-    EUC_TW   Code-TW Unix étendu  Chinois traditionnel, taïwanais  
-    GBK      Standard national étendu Chinois simplifié
-    ISO 2022-CN ("GB")
-    GB 2312-80
-    */
-    
+     * EUC_JP Code-JP Unix étendu Japonais EUC_KR Code-KR Unix étendu Coréen EUC_TW Code-TW Unix étendu Chinois
+     * traditionnel, taïwanais GBK Standard national étendu Chinois simplifié ISO 2022-CN ("GB") GB 2312-80
+     */
+
     private EMetadataEncoding(String name, String label) {
         this.name = name;
         this.label = label;
     }
-    
+
     public static EMetadataEncoding getMetadataEncoding(String name) {
         for (EMetadataEncoding metadataEncoding : EMetadataEncoding.values()) {
             if (metadataEncoding.getName().equals(name)) {
@@ -79,6 +75,7 @@ public enum EMetadataEncoding {
 
     /**
      * Getter for Label.
+     * 
      * @return the Label
      */
     public String getLabel() {
@@ -87,6 +84,7 @@ public enum EMetadataEncoding {
 
     /**
      * Sets the Label.
+     * 
      * @param extension the extension to set
      */
     public void setLabel(String label) {
@@ -95,6 +93,7 @@ public enum EMetadataEncoding {
 
     /**
      * Getter for name.
+     * 
      * @return the name
      */
     public String getName() {
@@ -103,6 +102,7 @@ public enum EMetadataEncoding {
 
     /**
      * Sets the name.
+     * 
      * @param name the name to set
      */
     public void setName(String name) {

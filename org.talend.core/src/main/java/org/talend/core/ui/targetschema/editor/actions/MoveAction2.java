@@ -66,18 +66,18 @@ public class MoveAction2 extends TargetSchemaEditorAction2 {
             int endIndex;
             ArrayList<Integer> indexOrigin = new ArrayList<Integer>();
             ArrayList<Integer> indexDestination = new ArrayList<Integer>();
-            if(targetSchemaEditorEvent.type == TYPE.MOVE_UP) {
-                increment =  -1;
+            if (targetSchemaEditorEvent.type == TYPE.MOVE_UP) {
+                increment = -1;
                 startIndex = 0;
                 endIndex = targetSchemaEditorEvent.entriesIndices.length;
-                
+
             } else {
-                increment =  1;
-                startIndex = targetSchemaEditorEvent.entriesIndices.length-1;
+                increment = 1;
+                startIndex = targetSchemaEditorEvent.entriesIndices.length - 1;
                 endIndex = -1;
             }
-            
-            for (int i = startIndex ;  i != endIndex; i-=increment) {
+
+            for (int i = startIndex; i != endIndex; i -= increment) {
                 int indice = targetSchemaEditorEvent.entriesIndices[i];
                 int newIndice = indice + increment;
                 if (newIndice < 0) {
@@ -96,9 +96,10 @@ public class MoveAction2 extends TargetSchemaEditorAction2 {
             }
 
             list.swapElements(indexOrigin, indexDestination);
-            
+
         } else {
-            throw new IllegalArgumentException("The type (" + targetSchemaEditorEvent.type + ") of event does not match with the action");
+            throw new IllegalArgumentException("The type (" + targetSchemaEditorEvent.type
+                    + ") of event does not match with the action");
         }
     }
 }

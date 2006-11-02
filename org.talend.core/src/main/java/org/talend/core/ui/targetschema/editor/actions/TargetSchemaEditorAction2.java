@@ -26,28 +26,28 @@ import org.talend.core.model.action.IEventAction;
 import org.talend.core.model.targetschema.editor.TargetSchemaEditor2;
 import org.talend.core.ui.targetschema.editor.TargetSchemaTableEditorView2;
 
-
 /**
- * DOC cantoine  class global comment. Detailled comment
- * <br/>
- *
+ * DOC cantoine class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class TargetSchemaEditorAction2 implements IAction {
 
     protected TargetSchemaTableEditorView2 targetSchemaTableEditorView;
-    
+
     public TargetSchemaEditorAction2(TargetSchemaTableEditorView2 targetSchemaTableEditorView) {
         super();
         this.targetSchemaTableEditorView = targetSchemaTableEditorView;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.designer.mapper.actions.IMapperAction#run()
      */
     public abstract void run(IEventAction eventAction);
-    
+
     public TargetSchemaEditor2 getTargetSchemaEditor() {
         return targetSchemaTableEditorView.getTargetSchemaEditor();
     }

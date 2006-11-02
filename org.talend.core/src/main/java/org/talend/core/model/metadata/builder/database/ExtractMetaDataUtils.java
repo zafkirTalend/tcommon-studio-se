@@ -76,13 +76,13 @@ public class ExtractMetaDataUtils {
         String metaDataInfo = null;
         try {
             metaDataInfo = columns.getString(infoType);
-            //Replace ALL ' in the retrieveSchema, cause PB for Default Value.
+            // Replace ALL ' in the retrieveSchema, cause PB for Default Value.
             metaDataInfo = metaDataInfo.replaceAll("'", "");
         } catch (SQLException e) {
-//            log.error(e.toString());
+            // log.error(e.toString());
             return metaDataInfo;
         } catch (Exception e) {
-//            log.error(e.toString());
+            // log.error(e.toString());
             return metaDataInfo;
         }
         return metaDataInfo;
@@ -100,10 +100,10 @@ public class ExtractMetaDataUtils {
         try {
             metaDataInfo = new Integer(columns.getInt(infoType));
         } catch (SQLException e) {
-//            log.error(e.toString());
+            // log.error(e.toString());
             return metaDataInfo;
         } catch (Exception e) {
-//            log.error(e.toString());
+            // log.error(e.toString());
             return metaDataInfo;
         }
         return metaDataInfo;
@@ -120,14 +120,14 @@ public class ExtractMetaDataUtils {
         boolean metaDataInfo = false;
         try {
             String result = columns.getString(infoType);
-            if(result != null && result.equals("YES")){
+            if (result != null && result.equals("YES")) {
                 metaDataInfo = true;
             }
         } catch (SQLException e) {
-//            log.error(e.toString());
+            // log.error(e.toString());
             return metaDataInfo;
         } catch (Exception e) {
-//            log.error(e.toString());
+            // log.error(e.toString());
             return metaDataInfo;
         }
         return metaDataInfo;
@@ -155,8 +155,8 @@ public class ExtractMetaDataUtils {
             hashTable.put("Generic ODBC", "sun.jdbc.odbc.JdbcOdbcDriver");
             hashTable.put("Microsoft SQL Server (Odbc driver)", "sun.jdbc.odbc.JdbcOdbcDriver");
 
-//            hashTable.put("Oracle Thin", "oracle.jdbc.driver.OracleDriver");
-//            hashTable.put("Oracle Oci", "oracle.jdbc.driver.OracleDriver");
+            // hashTable.put("Oracle Thin", "oracle.jdbc.driver.OracleDriver");
+            // hashTable.put("Oracle Oci", "oracle.jdbc.driver.OracleDriver");
             hashTable.put("IBM DB2", "com.ibm.db2.jcc.DB2Driver");
             hashTable.put("Sybase", "net.sourceforge.jtds.jdbc.Driver");
             hashTable.put("Microsoft SQL Server", "net.sourceforge.jtds.jdbc.Driver");
@@ -184,18 +184,18 @@ public class ExtractMetaDataUtils {
         try {
             Class.forName(getDriverClassByDbType(dbType)).newInstance();
             conn = DriverManager.getConnection(url, username, pwd);
-            if(schemaBase != null && !schemaBase.equals("")){
+            if (schemaBase != null && !schemaBase.equals("")) {
                 schema = schemaBase;
-            }else{
+            } else {
                 schema = null;
-//                PTODO vérifier l'utilité du Shéma pour chaque type de BDD lors du non renseignement
-//                if (dataBase.equals("")) {
-//                    schema = null;
-//                } else {
-//                    schema = dataBase;
-//                }
+                // PTODO vérifier l'utilité du Shéma pour chaque type de BDD lors du non renseignement
+                // if (dataBase.equals("")) {
+                // schema = null;
+                // } else {
+                // schema = dataBase;
+                // }
             }
-            
+
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);

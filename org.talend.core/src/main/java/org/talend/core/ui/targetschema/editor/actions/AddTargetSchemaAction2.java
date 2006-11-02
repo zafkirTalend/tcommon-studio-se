@@ -30,36 +30,37 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.targetschema.editor.TargetSchemaEditorEvent;
 import org.talend.core.ui.targetschema.editor.TargetSchemaTableEditorView2;
 
-
 /**
- * DOC cantoine  class global comment. Detailled comment
- * <br/>
- *
+ * DOC cantoine class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class AddTargetSchemaAction2 extends TargetSchemaEditorAction2 {
 
     /**
      * DOC amaumont AddTargetSchemaAction2 constructor comment.
+     * 
      * @param targetSchemaEditorView
      */
     public AddTargetSchemaAction2(TargetSchemaTableEditorView2 targetSchemaTableEditorView) {
         super(targetSchemaTableEditorView);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.designer.mapper.actions.IMapperAction#run(org.talend.designer.mapper.actions.IMapperEvent)
      */
     public void run(IEventAction eventAction) {
-        TargetSchemaEditorEvent targetSchemaEditorEvent = (TargetSchemaEditorEvent)eventAction;
-        if(targetSchemaEditorEvent.entries != null) {
+        TargetSchemaEditorEvent targetSchemaEditorEvent = (TargetSchemaEditorEvent) eventAction;
+        if (targetSchemaEditorEvent.entries != null) {
             List<Integer> itemsIndicesToSelect = new ArrayList<Integer>();
             for (Object object : targetSchemaEditorEvent.entries) {
                 SchemaTarget schemaTarget = (SchemaTarget) object;
                 int index = getTargetSchemaEditor().getSchemaTargetList().size();
-                if(targetSchemaEditorEvent.entriesIndices.length>0) {
-                    index = targetSchemaEditorEvent.entriesIndices[targetSchemaEditorEvent.entriesIndices.length-1]+1;
+                if (targetSchemaEditorEvent.entriesIndices.length > 0) {
+                    index = targetSchemaEditorEvent.entriesIndices[targetSchemaEditorEvent.entriesIndices.length - 1] + 1;
                 }
                 getTargetSchemaEditor().add(schemaTarget, index);
                 itemsIndicesToSelect.add(index);

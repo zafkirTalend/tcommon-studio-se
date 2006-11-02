@@ -154,10 +154,10 @@ public class MetadataDialog extends Dialog {
                 if (curButton != null) {
                     curButton.setEnabled(false);
                 }
-//                curButton = inputMetaView.getMetadataToolbarEditorView().getCutButton();
-//                if (curButton != null) {
-//                    curButton.setEnabled(false);
-//                }
+                // curButton = inputMetaView.getMetadataToolbarEditorView().getCutButton();
+                // if (curButton != null) {
+                // curButton.setEnabled(false);
+                // }
                 curButton = inputMetaView.getMetadataToolbarEditorView().getLoadButton();
                 if (curButton != null) {
                     curButton.setEnabled(false);
@@ -238,10 +238,10 @@ public class MetadataDialog extends Dialog {
                 if (curButton != null) {
                     curButton.setEnabled(false);
                 }
-//                curButton = outputMetaView.getMetadataToolbarEditorView().getCutButton();
-//                if (curButton != null) {
-//                    curButton.setEnabled(false);
-//                }
+                // curButton = outputMetaView.getMetadataToolbarEditorView().getCutButton();
+                // if (curButton != null) {
+                // curButton.setEnabled(false);
+                // }
                 curButton = outputMetaView.getMetadataToolbarEditorView().getLoadButton();
                 if (curButton != null) {
                     curButton.setEnabled(false);

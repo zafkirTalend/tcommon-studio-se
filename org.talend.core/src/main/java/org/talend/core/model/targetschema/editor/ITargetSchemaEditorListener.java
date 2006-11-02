@@ -21,17 +21,14 @@
 // ============================================================================
 package org.talend.core.model.targetschema.editor;
 
-
-
 /**
- * DOC cantoine  class global comment. Detailled comment
- * <br/>
- *
+ * DOC cantoine class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface ITargetSchemaEditorListener {
-    
+
     public void handleEvent(TargetSchemaEditorEvent event);
-    
+
 }

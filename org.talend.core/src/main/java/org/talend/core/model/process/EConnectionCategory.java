@@ -21,13 +21,11 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-
 /**
- * Enum describing the different category of EConnectionType.
- * <br/>
- *
+ * Enum describing the different category of EConnectionType. <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public enum EConnectionCategory {
     MAIN,

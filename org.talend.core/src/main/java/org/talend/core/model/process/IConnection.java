@@ -24,16 +24,15 @@ package org.talend.core.model.process;
 import org.talend.core.model.metadata.IMetadataTable;
 
 /**
- * DOC nrousseau  class global comment. Detailled comment
- * <br/>
- *
+ * DOC nrousseau class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface IConnection extends IElement {
 
     String getCondition();
-    
+
     /**
      * Get the node target of the connection.
      * 
@@ -47,9 +46,10 @@ public interface IConnection extends IElement {
      * @return Node
      */
     public INode getSource();
-    
+
     /**
      * Get the name of the connection.
+     * 
      * @return
      */
     public String getName();
@@ -65,6 +65,6 @@ public interface IConnection extends IElement {
     public IMetadataTable getMetadataTable();
 
     public boolean isActivate();
-    
+
     public void setTraceData(String traceData);
 }

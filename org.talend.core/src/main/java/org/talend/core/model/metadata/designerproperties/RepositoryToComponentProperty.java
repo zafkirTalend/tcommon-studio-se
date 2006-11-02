@@ -44,11 +44,11 @@ public class RepositoryToComponentProperty {
     public static final String POSTGRESQL = "POSTGRESQL";
 
     public static final String ODBC_JDBC = "ODBC_JDBC";
-    
+
     public static final String ODBC = "ODBC";
 
     public static final String ORACLE = "ORACLE";
-    
+
     public static final String IBM_DB2 = "IBM_DB2";
 
     public static final String SYBASE = "SYBASE";
@@ -86,12 +86,12 @@ public class RepositoryToComponentProperty {
         if (dbType.equals("Microsoft SQL Server (Odbc driver)")) {
             return ODBC_JDBC;
         }
-//        if (dbType.equals("Oracle Thin")) {
-//            return ORACLE;
-//        }
-//        if (dbType.equals("Oracle Oci")) {
-//            return ORACLE;
-//        }
+        // if (dbType.equals("Oracle Thin")) {
+        // return ORACLE;
+        // }
+        // if (dbType.equals("Oracle Oci")) {
+        // return ORACLE;
+        // }
         if (dbType.equals("IBM DB2")) {
             return IBM_DB2;
         }
@@ -110,7 +110,7 @@ public class RepositoryToComponentProperty {
     private static String checkStringQuotes(String str) {
         return str.replace("'", "\\'");
     }
-    
+
     private static String checkStringQuotationMarks(String str) {
         return str.replace("\"", "\\\"");
     }
@@ -133,9 +133,9 @@ public class RepositoryToComponentProperty {
             return "'" + checkStringQuotes(connection.getPort()) + "'";
         }
         if (value.equals("SID")) {
-            if(("").equals(connection.getSID())) {
+            if (("").equals(connection.getSID())) {
                 return "'" + checkStringQuotes(connection.getDatasourceName()) + "'";
-            }else{
+            } else {
                 return "'" + checkStringQuotes(connection.getSID()) + "'";
             }
         }
@@ -213,7 +213,7 @@ public class RepositoryToComponentProperty {
         }
         if (connection instanceof XmlFileConnection) {
             return getXmlFileValue((XmlFileConnection) connection, value);
-        }        
+        }
         return null;
     }
 
@@ -248,7 +248,7 @@ public class RepositoryToComponentProperty {
         }
         return null;
     }
-    
+
     private static Object getRegexpFileValue(RegexpFileConnection connection, String value) {
         if (value.equals("ESCAPE_CHAR")) {
             if (connection.getEscapeChar() == null) {
@@ -273,11 +273,12 @@ public class RepositoryToComponentProperty {
         }
         return null;
     }
+
     // PTODO CAN XmlFile
     private static Object getXmlFileValue(XmlFileConnection connection, String value) {
-//        if (value.equals("PATTERN")) {
-//            return "'" + checkStringQuotes(connection.getFieldSeparatorValue()) + "'";
-//        }
+        // if (value.equals("PATTERN")) {
+        // return "'" + checkStringQuotes(connection.getFieldSeparatorValue()) + "'";
+        // }
         return null;
     }
 }

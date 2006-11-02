@@ -21,9 +21,8 @@
 // ============================================================================
 package org.talend.core.model.temp;
 
-
 /**
- * Enum for available Code Languages in the application.  
+ * Enum for available Code Languages in the application.
  * 
  * $Id$
  * 
@@ -36,7 +35,7 @@ public enum ECodeLanguage {
         this.name = name;
         this.extension = extension;
     }
-    
+
     public static ECodeLanguage getCodeLanguage(String name) {
         for (ECodeLanguage codeLanguage : ECodeLanguage.values()) {
             if (codeLanguage.getName().equals(name)) {
@@ -52,6 +51,7 @@ public enum ECodeLanguage {
 
     /**
      * Getter for extension.
+     * 
      * @return the extension
      */
     public String getExtension() {
@@ -60,6 +60,7 @@ public enum ECodeLanguage {
 
     /**
      * Sets the extension.
+     * 
      * @param extension the extension to set
      */
     public void setExtension(String extension) {
@@ -68,6 +69,7 @@ public enum ECodeLanguage {
 
     /**
      * Getter for name.
+     * 
      * @return the name
      */
     public String getName() {
@@ -76,10 +78,11 @@ public enum ECodeLanguage {
 
     /**
      * Sets the name.
+     * 
      * @param name the name to set
      */
     public void setName(String name) {
         this.name = name;
     }
-    
+
 }

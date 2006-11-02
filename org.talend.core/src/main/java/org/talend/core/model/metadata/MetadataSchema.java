@@ -64,7 +64,7 @@ public final class MetadataSchema {
     private static final String SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
 
     private static final String SCHEMA_XSD = "talend_metadata_columns_schema.xsd";
-    
+
     private static final String TARGETSCHEMA_XSD = "talend_targetschema_columns_schema.xsd";
 
     private static final String SCHEMA_VALIDATOR = "http://java.sun.com/xml/jaxp/properties/schemaSource";
@@ -129,9 +129,7 @@ public final class MetadataSchema {
         final List<org.talend.core.model.metadata.builder.connection.SchemaTarget> listSchemaTargets = initializeSchemaTarget2(file);
         return listSchemaTargets;
     }
-    
-    
-    
+
     /**
      * Initalize MetadataColumns available in a file.
      * 
@@ -142,8 +140,8 @@ public final class MetadataSchema {
      * @throws IOException if file cannot be read
      */
     @Deprecated
-    private static List<IMetadataColumn> initializeColumns(final File file) throws ParserConfigurationException,
-            SAXException, IOException {
+    private static List<IMetadataColumn> initializeColumns(final File file) throws ParserConfigurationException, SAXException,
+            IOException {
         final List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
@@ -217,10 +215,9 @@ public final class MetadataSchema {
      * @throws SAXException if sax exception occured
      * @throws IOException if file cannot be read
      */
-    private static List<org.talend.core.model.metadata.builder.connection.MetadataColumn> initializeColumns2(
-            final File file) throws ParserConfigurationException, SAXException, IOException {
-        final List<org.talend.core.model.metadata.builder.connection.MetadataColumn> listColumns = 
-            new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataColumn>();
+    private static List<org.talend.core.model.metadata.builder.connection.MetadataColumn> initializeColumns2(final File file)
+            throws ParserConfigurationException, SAXException, IOException {
+        final List<org.talend.core.model.metadata.builder.connection.MetadataColumn> listColumns = new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataColumn>();
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
@@ -304,10 +301,9 @@ public final class MetadataSchema {
      * @throws SAXException if sax exception occured
      * @throws IOException if file cannot be read
      */
-    private static List<org.talend.core.model.metadata.builder.connection.SchemaTarget> initializeSchemaTarget2(
-            final File file) throws ParserConfigurationException, SAXException, IOException {
-        final List<org.talend.core.model.metadata.builder.connection.SchemaTarget> listSchemaTargets = 
-            new ArrayList<org.talend.core.model.metadata.builder.connection.SchemaTarget>();
+    private static List<org.talend.core.model.metadata.builder.connection.SchemaTarget> initializeSchemaTarget2(final File file)
+            throws ParserConfigurationException, SAXException, IOException {
+        final List<org.talend.core.model.metadata.builder.connection.SchemaTarget> listSchemaTargets = new ArrayList<org.talend.core.model.metadata.builder.connection.SchemaTarget>();
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
@@ -366,9 +362,10 @@ public final class MetadataSchema {
         }
         return listSchemaTargets;
     }
-    
+
     /**
      * Export MetadataColumn to the specified file.
+     * 
      * @param file to save
      * @param table to export
      * @return boolean result
@@ -412,8 +409,7 @@ public final class MetadataSchema {
             document.appendChild(racine);
 
             for (Object list : table.getColumns()) {
-                org.talend.core.model.metadata.builder.connection.MetadataColumn metadataColumn = 
-                    (org.talend.core.model.metadata.builder.connection.MetadataColumn) list;
+                org.talend.core.model.metadata.builder.connection.MetadataColumn metadataColumn = (org.talend.core.model.metadata.builder.connection.MetadataColumn) list;
                 Element column = document.createElement("column");
                 racine.appendChild(column);
 
@@ -428,23 +424,23 @@ public final class MetadataSchema {
                 Attr talendType = document.createAttribute("talendType");
                 talendType.setNodeValue(metadataColumn.getTalendType());
                 column.setAttributeNode(talendType);
-                
+
                 Attr length = document.createAttribute("length");
                 length.setNodeValue(String.valueOf(metadataColumn.getLength()));
                 column.setAttributeNode(length);
-                
+
                 Attr precision = document.createAttribute("precision");
                 precision.setNodeValue(String.valueOf(metadataColumn.getPrecision()));
                 column.setAttributeNode(precision);
-                
+
                 Attr nullable = document.createAttribute("nullable");
                 nullable.setNodeValue(String.valueOf(metadataColumn.isNullable()));
                 column.setAttributeNode(nullable);
-                
+
                 Attr defaultValue = document.createAttribute("default");
                 defaultValue.setNodeValue(metadataColumn.getDefaultValue());
                 column.setAttributeNode(defaultValue);
-                
+
                 Attr comment = document.createAttribute("comment");
                 comment.setNodeValue(metadataColumn.getComment());
                 column.setAttributeNode(comment);
@@ -461,15 +457,15 @@ public final class MetadataSchema {
 
     /**
      * Export SchemaTarget to the specified file.
+     * 
      * @param file to save
      * @param table to export
      * @return boolean result
      * @throws IOException if file cannot be saved
      * @throws ParserConfigurationException if dom is not fully respected
      */
-    public static boolean saveSchemaTargetToFile(File file,
-            org.talend.core.model.metadata.builder.connection.MetadataSchema table) throws IOException,
-            ParserConfigurationException {
+    public static boolean saveSchemaTargetToFile(File file, org.talend.core.model.metadata.builder.connection.MetadataSchema table)
+            throws IOException, ParserConfigurationException {
 
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
@@ -519,7 +515,7 @@ public final class MetadataSchema {
                 Attr isBoucle = document.createAttribute("IsBoucle");
                 isBoucle.setNodeValue(String.valueOf(schemaTarget.isIsBoucle()));
                 column.setAttributeNode(isBoucle);
-                
+
                 Attr limitBoucle = document.createAttribute("LimitBoucle");
                 limitBoucle.setNodeValue(String.valueOf(schemaTarget.getLimitBoucle()));
                 column.setAttributeNode(limitBoucle);
@@ -534,9 +530,9 @@ public final class MetadataSchema {
         return false;
     }
 
-    
     /**
      * Export MetadataColumn to the specified file.
+     * 
      * @param file to save
      * @param table to export
      * @return boolean result
@@ -544,8 +540,7 @@ public final class MetadataSchema {
      * @throws ParserConfigurationException if dom is not fully respected
      */
     @Deprecated
-    public static boolean saveMetadataColumnToFile(File file,
-            IMetadataTable table) throws IOException,
+    public static boolean saveMetadataColumnToFile(File file, IMetadataTable table) throws IOException,
             ParserConfigurationException {
 
         if (file != null) {
@@ -595,32 +590,32 @@ public final class MetadataSchema {
                 Attr talendType = document.createAttribute("talendType");
                 talendType.setNodeValue(metadataColumn.getTalendType());
                 column.setAttributeNode(talendType);
-                
+
                 Attr length = document.createAttribute("length");
-                if (metadataColumn.getLength()==null) {
+                if (metadataColumn.getLength() == null) {
                     length.setNodeValue("-1");
                 } else {
                     length.setNodeValue(String.valueOf(metadataColumn.getLength()));
                 }
                 column.setAttributeNode(length);
-                
+
                 Attr precision = document.createAttribute("precision");
-                if (metadataColumn.getPrecision()==null) {
+                if (metadataColumn.getPrecision() == null) {
                     precision.setNodeValue("-1");
                 } else {
                     precision.setNodeValue(String.valueOf(metadataColumn.getPrecision()));
                 }
-                
+
                 column.setAttributeNode(precision);
-                
+
                 Attr nullable = document.createAttribute("nullable");
                 nullable.setNodeValue(String.valueOf(metadataColumn.isNullable()));
                 column.setAttributeNode(nullable);
-                
+
                 Attr defaultValue = document.createAttribute("default");
                 defaultValue.setNodeValue(metadataColumn.getDefault());
                 column.setAttributeNode(defaultValue);
-                
+
                 Attr comment = document.createAttribute("comment");
                 comment.setNodeValue(metadataColumn.getComment());
                 column.setAttributeNode(comment);

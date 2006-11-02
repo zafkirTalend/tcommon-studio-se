@@ -25,33 +25,34 @@ import org.talend.core.model.action.IEventAction;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView2;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class RemoveMetadataAction2 extends MetadataEditorAction2 {
 
     /**
      * DOC amaumont AddMetadataAction constructor comment.
+     * 
      * @param metadatEditorView
      */
     public RemoveMetadataAction2(MetadataTableEditorView2 metadatEditorView) {
         super(metadatEditorView);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.designer.mapper.actions.IMapperAction#run(org.talend.designer.mapper.actions.IMapperEvent)
      */
     public void run(IEventAction eventAction) {
-        MetadataEditorEvent metadataEditorEvent = (MetadataEditorEvent)eventAction;
-        if(metadataEditorEvent.entries != null) {
-            
+        MetadataEditorEvent metadataEditorEvent = (MetadataEditorEvent) eventAction;
+        if (metadataEditorEvent.entries != null) {
+
             getMetadataEditor().remove(metadataEditorEvent.entriesIndices);
-                
+
         }
     }
 

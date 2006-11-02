@@ -30,8 +30,9 @@ package org.talend.core.model.metadata;
 public enum EMetadataType {
     INTEGER("Integer", ""),
     STRING("String", "");
-    //BOOLEAN("Boolean", ""),
-    //DATE("Date", "");
+
+    // BOOLEAN("Boolean", ""),
+    // DATE("Date", "");
 
     private String displayName;
 

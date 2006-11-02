@@ -70,7 +70,8 @@ public class CopyTargetSchemaAction2 extends TargetSchemaEditorAction2 {
                 int indice = targetSchemaEditorEvent.entriesIndices[0];
                 for (SchemaTarget schemaTarget : selectedSchemaTarget) {
                     // create a new column as a copy of this column
-                    SchemaTarget newColumnCopy = new ConnectionFactoryImpl().copy(schemaTarget, indice + ""); // FIXME MHE
+                    SchemaTarget newColumnCopy = new ConnectionFactoryImpl().copy(schemaTarget, indice + ""); // FIXME
+                                                                                                                // MHE
                     indice++;
                     getTargetSchemaEditor().add(newColumnCopy, indice);
                 }

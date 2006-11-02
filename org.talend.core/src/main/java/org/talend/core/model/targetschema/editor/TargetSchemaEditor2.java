@@ -54,7 +54,7 @@ public class TargetSchemaEditor2 {
     private MetadataSchema metadataSchema;
 
     private ListenableList<SchemaTarget> schemaTargetList;
-    
+
     private List<ITargetSchemaEditorListener> listeners = new ArrayList<ITargetSchemaEditorListener>();
 
     public TargetSchemaEditor2(String titleName) {

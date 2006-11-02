@@ -129,9 +129,9 @@ public interface IElementParameter {
     public void setListItemsNotShowIf(ECodeLanguage language, final String[] list);
 
     public String[] getListItemsNotShowIf(ECodeLanguage language);
-    
+
     public boolean isShow(String conditionShowIf, String conditionNotShowIf, List<? extends IElementParameter> listParam);
-    
+
     public List<IElementParameterDefaultValue> getDefaultValues();
 
     public void setDefaultValues(List<IElementParameterDefaultValue> defaultValues);

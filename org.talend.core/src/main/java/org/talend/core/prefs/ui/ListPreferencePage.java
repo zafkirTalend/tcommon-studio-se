@@ -42,9 +42,10 @@ import org.talend.core.CorePlugin;
  * 
  */
 public abstract class ListPreferencePage extends PreferencePage implements IWorkbenchPreferencePage {
-    
+
     /** List of data. */
     protected List dataList;
+
     /** Remove button. */
     private Button removeBtn;
 
@@ -61,10 +62,10 @@ public abstract class ListPreferencePage extends PreferencePage implements IWork
     @Override
     protected Control createContents(Composite parent) {
         Composite container = new Composite(parent, SWT.NONE);
-        
+
         GridLayout layout = new GridLayout(2, false);
         container.setLayout(layout);
-        
+
         dataList = new List(container, SWT.BORDER | SWT.V_SCROLL | SWT.H_SCROLL | SWT.MULTI);
         dataList.setLayoutData(new GridData(GridData.FILL_BOTH));
 
@@ -72,33 +73,35 @@ public abstract class ListPreferencePage extends PreferencePage implements IWork
         removeBtn.setText("Remove");
         removeBtn.setEnabled(false);
         removeBtn.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
-        
+
         fillContents();
         addListeners();
-        
+
         return container;
     }
-    
+
     protected abstract String[] getDataSaved();
-    
+
     protected String[] getDataToSave() {
         return dataList.getItems();
     }
-    
+
     private void fillContents() {
         dataList.setItems(getDataSaved());
     }
-    
+
     private void addListeners() {
         dataList.addSelectionListener(new SelectionAdapter() {
+
             @Override
             public void widgetSelected(SelectionEvent e) {
                 int[] deletableIndices = getDeletableIndices(dataList.getSelectionIndices());
                 removeBtn.setEnabled(deletableIndices.length > 0);
             }
         });
-        
+
         removeBtn.addSelectionListener(new SelectionAdapter() {
+
             @Override
             public void widgetSelected(SelectionEvent e) {
                 int[] deletableIndices = getDeletableIndices(dataList.getSelectionIndices());
@@ -115,7 +118,7 @@ public abstract class ListPreferencePage extends PreferencePage implements IWork
         // Initialize the preference store we wish to use
         setPreferenceStore(CorePlugin.getDefault().getPreferenceStore());
     }
-    
+
     protected abstract int[] getDeletableIndices(int[] indices);
 
 }

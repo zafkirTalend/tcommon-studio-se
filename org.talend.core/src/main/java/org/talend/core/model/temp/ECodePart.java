@@ -22,8 +22,8 @@
 package org.talend.core.model.temp;
 
 /**
- * Code parts are used by the Code Generator to generate differents components codes
- * in a different order depending the order of the components in the process.  
+ * Code parts are used by the Code Generator to generate differents components codes in a different order depending the
+ * order of the components in the process.
  * 
  * $Id$
  * 
@@ -32,7 +32,6 @@ public enum ECodePart {
     MAIN("main"),
     START("start"),
     END("end");
-    
 
     private ECodePart(String name) {
         this.name = name;
@@ -42,6 +41,7 @@ public enum ECodePart {
 
     /**
      * Getter for name.
+     * 
      * @return the name
      */
     public String getName() {
@@ -50,17 +50,20 @@ public enum ECodePart {
 
     /**
      * Sets the name.
+     * 
      * @param name the name to set
      */
     public void setName(String name) {
         this.name = name;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Enum#toString()
      */
     @Override
     public String toString() {
-        return getName(); 
+        return getName();
     }
 }

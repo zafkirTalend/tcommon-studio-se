@@ -63,17 +63,18 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
                 true, getFieldEditorParent());
         addField(perlInterpreter);
 
-//        DirectoryFieldEditor perlLib = new DirectoryFieldEditor(ITalendCorePrefConstants.PERL_LIB,
-//                "Perl &libraries : ", getFieldEditorParent());
-//        addField(perlLib);
+        // DirectoryFieldEditor perlLib = new DirectoryFieldEditor(ITalendCorePrefConstants.PERL_LIB,
+        // "Perl &libraries : ", getFieldEditorParent());
+        // addField(perlLib);
 
-        IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT, "&Preview limit :", getFieldEditorParent(), 9);
+        IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT, "&Preview limit :",
+                getFieldEditorParent(), 9);
         previewLimit.setEmptyStringAllowed(false);
         previewLimit.setValidRange(1, 999999999);
         addField(previewLimit);
     }
 
-    /** 
+    /**
      * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
      */
     public void init(IWorkbench workbench) {

@@ -41,7 +41,7 @@ public enum EConnectionType {
     private String name;
 
     private int id;
-    
+
     private EConnectionCategory category;
 
     EConnectionType(int id, String name, EConnectionCategory connectionCategory) {
@@ -79,9 +79,10 @@ public enum EConnectionType {
     public int getId() {
         return this.id;
     }
-    
+
     /**
      * Getter for category.
+     * 
      * @return the category
      */
     public EConnectionCategory getCategory() {

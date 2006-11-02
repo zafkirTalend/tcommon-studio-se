@@ -23,29 +23,27 @@ package org.talend.core.model.process;
 
 import java.util.List;
 
-
 /**
- * DOC nrousseau  class global comment. Detailled comment
- * <br/>
- *
+ * DOC nrousseau class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface IContextManager {
 
     public List<IContext> getListContext();
-    
+
     public void setListContext(List<IContext> listContext);
 
     public IContext getDefaultContext();
-    
+
     public void setDefaultContext(IContext context);
 
     public void addContextListener(IContextListener listener);
-    
+
     public void removeContextListener(IContextListener listener);
-    
+
     public void fireContextsChangedEvent();
-    
+
     public boolean checkValidParameterName(String parameterName);
 }

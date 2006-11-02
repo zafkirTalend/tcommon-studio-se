@@ -28,7 +28,6 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Abstract base class of elements in the model. All elements in the diagram must extends this class <br/>
  * 

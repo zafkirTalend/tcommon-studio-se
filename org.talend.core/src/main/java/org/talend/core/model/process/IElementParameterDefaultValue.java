@@ -22,11 +22,10 @@
 package org.talend.core.model.process;
 
 /**
- * DOC nrousseau  class global comment. Detailled comment
- * <br/>
- *
+ * DOC nrousseau class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface IElementParameterDefaultValue {
 

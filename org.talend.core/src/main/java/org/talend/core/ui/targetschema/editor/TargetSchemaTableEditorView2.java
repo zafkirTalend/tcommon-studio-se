@@ -54,8 +54,8 @@ import org.talend.core.model.targetschema.editor.TargetSchemaEditor2;
 import org.talend.core.model.targetschema.editor.TargetSchemaEditorEvent;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/> TGU same purpose as TargetSchemaTableEditorView but uses EMF
- * model directly
+ * DOC amaumont class global comment. Detailled comment <br/> TGU same purpose as TargetSchemaTableEditorView but uses
+ * EMF model directly
  * 
  * $Id$
  * 
@@ -71,11 +71,11 @@ public class TargetSchemaTableEditorView2 {
     private TargetSchemaEditor2 targetSchemaTableEditor;
 
     private boolean executeSelectionEvent = true;
-    
+
     private TargetSchemaToolbarEditorView2 targetSchemaToolbarEditorView2;
 
     public final static String ID_COLUMN_NAME = "ID_COLUMN_NAME";
-    
+
     private boolean showDbTypeColumn = false;
 
     public TargetSchemaTableEditorView2(Composite parent, int style, TargetSchemaEditor2 targetSchemaEditor) {
@@ -86,14 +86,15 @@ public class TargetSchemaTableEditorView2 {
 
     /**
      * TargetSchemaTableEditorView2 constructor comment.
+     * 
      * @param parent
      * @param style
      * @param showDbTypeColumn
      */
     public TargetSchemaTableEditorView2(Composite parent, int style, boolean showDbTypeColumn) {
         super();
-        this.showDbTypeColumn  = showDbTypeColumn;
-//        composite = new Composite(parent, style);
+        this.showDbTypeColumn = showDbTypeColumn;
+        // composite = new Composite(parent, style);
         GridLayout layout = new GridLayout();
         parent.setLayout(layout);
         createComponents(parent);
@@ -112,17 +113,16 @@ public class TargetSchemaTableEditorView2 {
         nameLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         addTargetSchemaTable(composite);
-//        addTargetSchemaToolbar();
+        // addTargetSchemaToolbar();
 
     }
 
     /**
      * DOC amaumont Comment method "addTargetSchemaToolbar".
      */
-//    private void addTargetSchemaToolbar(Composite composite) {
-//        targetSchemaToolbarEditorView2 = new TargetSchemaToolbarEditorView2(composite, SWT.NONE, this);
-//    }
-
+    // private void addTargetSchemaToolbar(Composite composite) {
+    // targetSchemaToolbarEditorView2 = new TargetSchemaToolbarEditorView2(composite, SWT.NONE, this);
+    // }
     private void addTargetSchemaTable(Composite composite) {
 
         tableViewerCreator = new TableViewerCreator<SchemaTarget>(composite);
@@ -139,7 +139,7 @@ public class TargetSchemaTableEditorView2 {
         tableViewerCreator.setFirstColumnMasked(true);
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
         tableViewerCreator.setUseCustomColoring(true);
-        
+
         final Table table = tableViewerCreator.createTable();
         table.setLayoutData(new GridData(GridData.FILL_BOTH));
 
@@ -157,7 +157,7 @@ public class TargetSchemaTableEditorView2 {
     }
 
     private void initColumns(Table table) {
-        
+
         CellEditorValueAdapter intValueAdapter = new CellEditorValueAdapter() {
 
             public Object getOriginalTypedValue(final CellEditor cellEditor, Object value) {
@@ -215,17 +215,17 @@ public class TargetSchemaTableEditorView2 {
                 return -1;
             }
         };
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("");
         column.setDefaultInternalValue("");
         column.setWidth(15);
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
-        //  X Path Query
-        
+
+        // //////////////////////////////////////////////////////////////////////////////////////
+        // X Path Query
+
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("X Path Query");
         column.setId(ID_COLUMN_NAME);
@@ -240,7 +240,7 @@ public class TargetSchemaTableEditorView2 {
             }
         });
 
-        ////////////////////////////////////////////////////////////////////////////////////////
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         final TableViewerCreatorColumn nameColumn = column;
         final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
@@ -277,7 +277,8 @@ public class TargetSchemaTableEditorView2 {
                 fireEventIfValidColumnName(newValue, false, modifiedObjectInfo.getCurrentModifiedBean());
             }
 
-            private void fireEventIfValidColumnName(final String newValue, boolean showAlertIfError, final Object currentModifiedBean) {
+            private void fireEventIfValidColumnName(final String newValue, boolean showAlertIfError,
+                    final Object currentModifiedBean) {
                 final ModifiedObjectInfo<SchemaTarget> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
                 String originalValue = (String) modifiedObjectInfo.getOriginalPropertyBeanValue();
                 lastValidValue = lastValidValue != null ? lastValidValue : originalValue;
@@ -328,7 +329,8 @@ public class TargetSchemaTableEditorView2 {
                 SchemaTarget currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
                 ArrayList<Object> modifiedObjectList = new ArrayList<Object>(1);
                 modifiedObjectList.add(currentModifiedObject);
-                TargetSchemaEditorEvent event = new TargetSchemaEditorEvent(TargetSchemaEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED);
+                TargetSchemaEditorEvent event = new TargetSchemaEditorEvent(
+                        TargetSchemaEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED);
                 event.entries = modifiedObjectList;
                 event.previousValue = previousValue;
                 event.newValue = newValue;
@@ -337,13 +339,13 @@ public class TargetSchemaTableEditorView2 {
 
         });
         column.setCellEditor(cellEditor);
-        
+
         column.setModifiable(true);
         column.setWeight(10);
         column.setMinimumWidth(50);
         column.setCellEditor(new TextCellEditor(table));
 
-        ////////////////////////////////////////////////////////////////////////////////////////
+        // //////////////////////////////////////////////////////////////////////////////////////
         // Tag Name
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Tag Name");
@@ -362,15 +364,15 @@ public class TargetSchemaTableEditorView2 {
         column.setWeight(10);
         column.setMinimumWidth(50);
         column.setCellEditor(new TextCellEditor(table));
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
         // Loop
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Loop");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<SchemaTarget, String>() {
 
             public String get(SchemaTarget bean) {
-                return ""+bean.isIsBoucle();
+                return "" + bean.isIsBoucle();
             }
 
             public void set(SchemaTarget bean, String value) {
@@ -381,14 +383,14 @@ public class TargetSchemaTableEditorView2 {
         column.setModifiable(true);
         column.setWidth(50);
         column.setDisplayedValue("");
-//        column.setTableEditorContent(new CheckboxTableEditorContent());
-//        column.setCellEditor(new TextCellEditor(table), booleanValueAdapter);
-        String[] bool = {"false","true"};
+        // column.setTableEditorContent(new CheckboxTableEditorContent());
+        // column.setCellEditor(new TextCellEditor(table), booleanValueAdapter);
+        String[] bool = { "false", "true" };
         ComboBoxCellEditor comboTypeCellEditor = new ComboBoxCellEditor(table, bool);
         ((CCombo) comboTypeCellEditor.getControl()).setEditable(false);
         column.setCellEditor(comboTypeCellEditor, comboValueAdapter);
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
         // Loop limit
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Loop limit");
@@ -459,16 +461,15 @@ public class TargetSchemaTableEditorView2 {
      * @param minimumWidth
      * @param minimumHeight
      */
-//    public void setGridDataSize(final int minimumWidth, final int minimumHeight) {
-//        this.composite.setSize(minimumWidth, minimumHeight);
-//
-//        GridData gridData = new GridData(GridData.FILL_BOTH);
-//        gridData.minimumWidth = minimumWidth;
-//        gridData.minimumHeight = minimumHeight;
-//        this.composite.setLayoutData(gridData);
-//
-//    }
-
+    // public void setGridDataSize(final int minimumWidth, final int minimumHeight) {
+    // this.composite.setSize(minimumWidth, minimumHeight);
+    //
+    // GridData gridData = new GridData(GridData.FILL_BOTH);
+    // gridData.minimumWidth = minimumWidth;
+    // gridData.minimumHeight = minimumHeight;
+    // this.composite.setLayoutData(gridData);
+    //
+    // }
     public void setReadOnly(boolean b) {
         targetSchemaToolbarEditorView2.setReadOnly(b);
         this.tableViewerCreator.getTable().setEnabled(!b);

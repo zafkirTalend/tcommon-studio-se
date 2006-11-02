@@ -27,23 +27,20 @@ import java.util.List;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.core.model.action.IEventAction;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class MetadataEditorEvent implements IEventAction {
 
     /**
      * 
-     * DOC amaumont MetadataEditorEvent class global comment. Detailled comment
-     * <br/>
-     *
+     * DOC amaumont MetadataEditorEvent class global comment. Detailled comment <br/>
+     * 
      * $Id$
-     *
+     * 
      */
     public enum TYPE {
         NEW_METADATA_TABLE,
@@ -52,23 +49,22 @@ public class MetadataEditorEvent implements IEventAction {
         MOVE_UP,
         MOVE_DOWN,
         COPY,
-        PASTE, 
-        CUT, 
+        PASTE,
+        CUT,
         METADATA_NAME_VALUE_CHANGED,
-        METADATA_KEY_VALUE_CHANGED,
-        ;
+        METADATA_KEY_VALUE_CHANGED, ;
     }
 
     public TYPE type;
-    
+
     public List<Object> entries = new ArrayList<Object>();
-    
+
     public int[] entriesIndices = new int[0];
-    
+
     public int indexStartInsert = -1;
-    
+
     public Object previousValue;
-    
+
     public Object newValue;
 
     public CELL_EDITOR_STATE state;
@@ -77,13 +73,9 @@ public class MetadataEditorEvent implements IEventAction {
         super();
     }
 
-
-
     public MetadataEditorEvent(TYPE type) {
         super();
         this.type = type;
     }
-    
 
-    
 }

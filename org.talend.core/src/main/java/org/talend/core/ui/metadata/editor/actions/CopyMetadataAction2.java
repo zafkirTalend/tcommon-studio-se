@@ -71,7 +71,8 @@ public class CopyMetadataAction2 extends MetadataEditorAction2 {
                     int indice = metadataEditorEvent.entriesIndices[0];
                     for (MetadataColumn column : selectedColumns) {
                         // create a new column as a copy of this column
-                        MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(column, indice + ""); // FIXME MHE
+                        MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(column, indice + ""); // FIXME
+                                                                                                                // MHE
                         indice++;
                         newColumnCopy.setLabel(getMetadataEditor().getValidateColumnName(newColumnCopy.getLabel(), indice));
                         getMetadataEditor().add(newColumnCopy, indice);

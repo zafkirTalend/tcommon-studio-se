@@ -79,7 +79,7 @@ public class MetadataTableEditorView2 {
     private MetadataToolbarEditorView2 metadataToolbarEditorView2;
 
     public final static String ID_COLUMN_NAME = "ID_COLUMN_NAME";
-    
+
     private boolean showDbTypeColumn = false;
 
     public MetadataTableEditorView2(Composite parent, int style, MetadataEditor2 metadataEditor) {
@@ -89,13 +89,14 @@ public class MetadataTableEditorView2 {
 
     /**
      * MetadataTableEditorView2 constructor comment.
+     * 
      * @param parent
      * @param style
      * @param showDbTypeColumn
      */
     public MetadataTableEditorView2(Composite parent, int style, boolean showDbTypeColumn) {
         super();
-        this.showDbTypeColumn  = showDbTypeColumn;
+        this.showDbTypeColumn = showDbTypeColumn;
         composite = new Composite(parent, style);
         GridLayout layout = new GridLayout();
         composite.setLayout(layout);
@@ -143,7 +144,7 @@ public class MetadataTableEditorView2 {
         tableViewerCreator.setFirstColumnMasked(true);
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
         tableViewerCreator.setUseCustomColoring(true);
-        
+
         final Table table = tableViewerCreator.createTable();
         table.setLayoutData(new GridData(GridData.FILL_BOTH));
 
@@ -228,15 +229,15 @@ public class MetadataTableEditorView2 {
                 return -1;
             }
         };
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("");
         column.setDefaultInternalValue("");
         column.setWidth(15);
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Column");
@@ -269,8 +270,8 @@ public class MetadataTableEditorView2 {
         column.setWeight(20);
         column.setModifiable(true);
         column.setMinimumWidth(30);
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         final TableViewerCreatorColumn nameColumn = column;
         final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
@@ -293,11 +294,11 @@ public class MetadataTableEditorView2 {
             public String validateValue(String newValue, int beanPosition) {
                 return metadataTableEditor.validateColumnName(newValue, beanPosition);
             }
-            
+
         });
         column.setCellEditor(cellEditor);
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Key");
@@ -321,27 +322,27 @@ public class MetadataTableEditorView2 {
         column.setDisplayedValue("");
         column.setTableEditorContent(new CheckboxTableEditorContent());
 
-        if(showDbTypeColumn){
+        if (showDbTypeColumn) {
             // Initial Type
             column = new TableViewerCreatorColumn(tableViewerCreator);
             column.setTitle("Db Type");
             column.setBeanPropertyAccessors(new IBeanPropertyAccessors<MetadataColumn, String>() {
-        
+
                 public String get(MetadataColumn bean) {
                     return bean.getSourceType();
                 }
-        
+
                 public void set(MetadataColumn bean, String value) {
                     bean.setSourceType(value);
                 }
-        
+
             });
             column.setModifiable(false);
             column.setWeight(10);
-            column.setMinimumWidth(60);    
+            column.setMinimumWidth(60);
         }
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         // Talend Type
         column = new TableViewerCreatorColumn(tableViewerCreator);
@@ -363,8 +364,8 @@ public class MetadataTableEditorView2 {
         ComboBoxCellEditor comboTypeCellEditor = new ComboBoxCellEditor(table, arrayTalendTypes);
         ((CCombo) comboTypeCellEditor.getControl()).setEditable(false);
         column.setCellEditor(comboTypeCellEditor, comboValueAdapter);
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Length");
@@ -382,8 +383,8 @@ public class MetadataTableEditorView2 {
         column.setModifiable(true);
         column.setWidth(50);
         column.setCellEditor(new TextCellEditor(table), intValueAdapter);
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Precision");
@@ -401,8 +402,8 @@ public class MetadataTableEditorView2 {
         column.setModifiable(true);
         column.setWidth(55);
         column.setCellEditor(new TextCellEditor(table), intValueAdapter);
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Nullable");
@@ -421,8 +422,8 @@ public class MetadataTableEditorView2 {
         column.setWidth(55);
         column.setDisplayedValue("");
         column.setTableEditorContent(new CheckboxTableEditorContent());
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Default");
@@ -441,8 +442,8 @@ public class MetadataTableEditorView2 {
         column.setModifiable(true);
         column.setMinimumWidth(20);
         column.setCellEditor(new TextCellEditor(table));
-        
-        ////////////////////////////////////////////////////////////////////////////////////////
+
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Comment");

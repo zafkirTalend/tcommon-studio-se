@@ -24,33 +24,34 @@ package org.talend.core.model.repository;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
- * Enum describing the different repository types available.
- * <br/>
- *
+ * Enum describing the different repository types available. <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public enum ERepositoryType {
     LOCAL("Local Repository"),
     REMOTE("Remote Repository");
-    
+
     private ERepositoryType(String label) {
         this.label = label;
     }
 
     private String label;
-    
+
     /**
      * Getter for label.
+     * 
      * @return the label
      */
     public String getLabel() {
         return this.label;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Enum#toString()
      */
     @Override
@@ -58,10 +59,9 @@ public enum ERepositoryType {
         return getLabel();
     }
 
-
-
     /**
      * Sets the label.
+     * 
      * @param label the label to set
      */
     public void setLabel(String label) {
@@ -78,6 +78,7 @@ public enum ERepositoryType {
 
     /**
      * Return the Repository Type.
+     * 
      * @param repository
      * @return
      */

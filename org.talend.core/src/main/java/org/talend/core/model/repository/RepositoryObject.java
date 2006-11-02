@@ -178,7 +178,7 @@ public class RepositoryObject implements IRepositoryObject {
             public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
                 return ERepositoryObjectType.METADATA_FILE_XML;
             }
-            
+
             public Object defaultCase(EObject object) {
                 throw new IllegalStateException();
             }

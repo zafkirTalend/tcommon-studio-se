@@ -23,17 +23,14 @@ package org.talend.core.model.process;
 
 import java.util.EventListener;
 
-
-
 /**
- * DOC nrousseau  class global comment. Detailled comment
- * <br/>
- *
+ * DOC nrousseau class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface IContextListener extends EventListener {
-    
+
     /**
      * 
      * If any or all contexts have changed this event will be sent.

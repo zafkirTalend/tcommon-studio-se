@@ -27,13 +27,11 @@ import java.util.List;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
 
-
 /**
- * DOC nrousseau  class global comment. Detailled comment
- * <br/>
- *
+ * DOC nrousseau class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class AbstractNode implements INode {
 
@@ -60,7 +58,7 @@ public abstract class AbstractNode implements INode {
     private IProcess process;
 
     private IComponent component;
-    
+
     public String getComponentName() {
         return componentName;
     }
@@ -121,7 +119,7 @@ public abstract class AbstractNode implements INode {
     public boolean isActivate() {
         return activate;
     }
-    
+
     public void setActivate(boolean activate) {
         this.activate = activate;
     }
@@ -129,7 +127,7 @@ public abstract class AbstractNode implements INode {
     public boolean isStart() {
         return start;
     }
-    
+
     public void setStart(boolean start) {
         this.start = start;
     }
@@ -137,7 +135,7 @@ public abstract class AbstractNode implements INode {
     public boolean isSubProcessStart() {
         return subProcessStart;
     }
-    
+
     public void setSubProcessStart(boolean subProcessStart) {
         this.subProcessStart = subProcessStart;
     }
@@ -145,30 +143,32 @@ public abstract class AbstractNode implements INode {
     public void setPerformanceData(String perfData) {
         // null
     }
-    
+
     public void setTraceData(String traceData) {
         // null
     }
-    
+
     public Boolean isMultipleMethods() {
         return multipleMethods;
     }
-    
+
     public void setMultipleMethods(Boolean multipleMethods) {
         this.multipleMethods = multipleMethods;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.model.process.INode#getReturns()
      */
     public List<? extends INodeReturn> getReturns() {
         return new ArrayList<INodeReturn>();
     }
-    
+
     public IProcess getProcess() {
         return process;
     }
-    
+
     public void setProcess(IProcess process) {
         this.process = process;
     }
@@ -176,7 +176,7 @@ public abstract class AbstractNode implements INode {
     public void setComponent(IComponent component) {
         this.component = component;
     }
-    
+
     public IComponent getComponent() {
         return component;
     }

@@ -47,17 +47,16 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
- * Load Metadata Talend Type from mappingMetadataTypes.xml.
- * Talend Types available in the application
+ * Load Metadata Talend Type from mappingMetadataTypes.xml. Talend Types available in the application
  * 
  * 
  * $Id$
  * 
  */
 public final class MetadataTalendType {
+
     /**
-     * Default Constructor.
-     * Must not be used.
+     * Default Constructor. Must not be used.
      */
     private MetadataTalendType() {
     }
@@ -70,8 +69,9 @@ public final class MetadataTalendType {
 
     /**
      * Get the Talend Type for a particular type of a particular database.
+     * 
      * @param type to map
-     * @param dbms 
+     * @param dbms
      * @param reload, true if it's necessary to reload mapping from our repository
      * @return
      */
@@ -84,9 +84,9 @@ public final class MetadataTalendType {
         return null;
     }
 
-
     /**
      * Load dbms default type for a talend Type and a dbms.
+     * 
      * @param talendType
      * @param dbms
      * @param reload
@@ -140,7 +140,7 @@ public final class MetadataTalendType {
      * initialisation of datas.
      * 
      * @return
-     * @throws SystemException 
+     * @throws SystemException
      */
     private static void init() throws SystemException {
         talendTypes = new HashMap<String, HashMap<String, String>>();
@@ -166,11 +166,11 @@ public final class MetadataTalendType {
                 while (brotherNode != null) {
                     if (brotherNode.getNodeName().compareTo("type") == 0) {
                         NamedNodeMap typeNodeAttributes = brotherNode.getAttributes();
-                        value.put(typeNodeAttributes.getNamedItem("dbms").getNodeValue(), typeNodeAttributes
-                                .getNamedItem("talend").getNodeValue());
+                        value.put(typeNodeAttributes.getNamedItem("dbms").getNodeValue(), typeNodeAttributes.getNamedItem(
+                                "talend").getNodeValue());
                         if (typeNodeAttributes.getNamedItem("default") != null) {
-                            dv.put(typeNodeAttributes.getNamedItem("talend").getNodeValue(), typeNodeAttributes
-                                    .getNamedItem("dbms").getNodeValue());
+                            dv.put(typeNodeAttributes.getNamedItem("talend").getNodeValue(), typeNodeAttributes.getNamedItem(
+                                    "dbms").getNodeValue());
                         }
                     }
                     brotherNode = brotherNode.getNextSibling();
@@ -188,8 +188,7 @@ public final class MetadataTalendType {
     }
 
     /**
-     * return an Array of String for a given Collection
-     * TO DO Move in utils.
+     * return an Array of String for a given Collection TO DO Move in utils.
      * 
      * @param types
      * @return
@@ -205,7 +204,7 @@ public final class MetadataTalendType {
      * 
      * @param dbms
      * @param reload
-     * @throws SystemException 
+     * @throws SystemException
      */
     private static void checkTypesAreInitialized(String dbms, boolean reload) {
         if (dbms == null) {

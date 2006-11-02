@@ -53,8 +53,8 @@ import org.xml.sax.SAXException;
 /**
  * DOC cantoine class global comment. Detailled comment <br/>
  * 
- * TGU same purpose as TargetSchemaToolbarEditorView2 but uses EMF model directly $Id: TargetSchemaToolbarEditorView2.java,v 1.1
- * 2006/08/02 19:43:45 cantoine Exp $
+ * TGU same purpose as TargetSchemaToolbarEditorView2 but uses EMF model directly $Id:
+ * TargetSchemaToolbarEditorView2.java,v 1.1 2006/08/02 19:43:45 cantoine Exp $
  * 
  */
 public class TargetSchemaToolbarEditorView2 {
@@ -120,13 +120,13 @@ public class TargetSchemaToolbarEditorView2 {
                     targetSchemaEditorEvent.entries.add(schemaTarget);
                     Table targetSchemaEditorTable = targetSchemaEditorView.getTableViewerCreator().getTable();
                     targetSchemaEditorEvent.entriesIndices = targetSchemaEditorTable.getSelectionIndices();
-                    IAction action = TargetSchemaEditorActionFactory2.getInstance()
-                            .getAction(targetSchemaEditorView, targetSchemaEditorEvent);
+                    IAction action = TargetSchemaEditorActionFactory2.getInstance().getAction(targetSchemaEditorView,
+                            targetSchemaEditorEvent);
                     action.run(targetSchemaEditorEvent);
                 }
             }
         });
-        
+
         removeButton.addListener(SWT.Selection, new Listener() {
 
             public void handleEvent(Event event) {
@@ -137,8 +137,8 @@ public class TargetSchemaToolbarEditorView2 {
                     targetSchemaEditorEvent.type = TargetSchemaEditorEvent.TYPE.REMOVE;
                     targetSchemaEditorEvent.entriesIndices = targetSchemaEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = TargetSchemaEditorActionFactory2.getInstance()
-                            .getAction(targetSchemaEditorView, targetSchemaEditorEvent);
+                    IAction action = TargetSchemaEditorActionFactory2.getInstance().getAction(targetSchemaEditorView,
+                            targetSchemaEditorEvent);
                     action.run(targetSchemaEditorEvent);
                     if ((index) < targetSchemaEditorView.getTableViewerCreator().getTable().getItemCount()) {
                         targetSchemaEditorView.getTableViewerCreator().getTable().setSelection(index);
@@ -160,8 +160,8 @@ public class TargetSchemaToolbarEditorView2 {
                     targetSchemaEditorEvent.type = TargetSchemaEditorEvent.TYPE.COPY;
                     targetSchemaEditorEvent.entriesIndices = targetSchemaEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = TargetSchemaEditorActionFactory2.getInstance()
-                            .getAction(targetSchemaEditorView, targetSchemaEditorEvent);
+                    IAction action = TargetSchemaEditorActionFactory2.getInstance().getAction(targetSchemaEditorView,
+                            targetSchemaEditorEvent);
                     action.run(targetSchemaEditorEvent);
                     targetSchemaEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
@@ -177,8 +177,8 @@ public class TargetSchemaToolbarEditorView2 {
                     targetSchemaEditorEvent.type = TargetSchemaEditorEvent.TYPE.PASTE;
                     targetSchemaEditorEvent.entriesIndices = targetSchemaEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = TargetSchemaEditorActionFactory2.getInstance()
-                            .getAction(targetSchemaEditorView, targetSchemaEditorEvent);
+                    IAction action = TargetSchemaEditorActionFactory2.getInstance().getAction(targetSchemaEditorView,
+                            targetSchemaEditorEvent);
                     action.run(targetSchemaEditorEvent);
                     targetSchemaEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
@@ -194,8 +194,8 @@ public class TargetSchemaToolbarEditorView2 {
                     targetSchemaEditorEvent.type = TargetSchemaEditorEvent.TYPE.MOVE_UP;
                     targetSchemaEditorEvent.entriesIndices = targetSchemaEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = TargetSchemaEditorActionFactory2.getInstance()
-                            .getAction(targetSchemaEditorView, targetSchemaEditorEvent);
+                    IAction action = TargetSchemaEditorActionFactory2.getInstance().getAction(targetSchemaEditorView,
+                            targetSchemaEditorEvent);
                     action.run(targetSchemaEditorEvent);
                     targetSchemaEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
@@ -211,8 +211,8 @@ public class TargetSchemaToolbarEditorView2 {
                     targetSchemaEditorEvent.type = TargetSchemaEditorEvent.TYPE.MOVE_DOWN;
                     targetSchemaEditorEvent.entriesIndices = targetSchemaEditorView.getTableViewerCreator().getTable()
                             .getSelectionIndices();
-                    IAction action = TargetSchemaEditorActionFactory2.getInstance()
-                            .getAction(targetSchemaEditorView, targetSchemaEditorEvent);
+                    IAction action = TargetSchemaEditorActionFactory2.getInstance().getAction(targetSchemaEditorView,
+                            targetSchemaEditorEvent);
                     action.run(targetSchemaEditorEvent);
                     targetSchemaEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
@@ -244,7 +244,7 @@ public class TargetSchemaToolbarEditorView2 {
                                 action.run(targetSchemaEditorEvent);
 
                                 // load the schema
-                                //PTODO CAN : XMLFILE ATTENTION AVEC SCHEMATARGET
+                                // PTODO CAN : XMLFILE ATTENTION AVEC SCHEMATARGET
                                 List<SchemaTarget> loadSchemaTarget = MetadataSchema.loadTargetSchemaColumnFromFile(file);
 
                                 // Add Columnsof Schema to the table
@@ -303,8 +303,9 @@ public class TargetSchemaToolbarEditorView2 {
                             TargetSchemaEditor2 newEditor = targetSchemaEditorView.getTargetSchemaEditor();
                             if (newEditor != null) {
                                 // get all the columns from the table
-                                //PTODO CAN : XMLFILE
-                                org.talend.core.model.metadata.builder.connection.MetadataSchema oldTable = newEditor.getMetadataSchema();
+                                // PTODO CAN : XMLFILE
+                                org.talend.core.model.metadata.builder.connection.MetadataSchema oldTable = newEditor
+                                        .getMetadataSchema();
                                 MetadataSchema.saveSchemaTargetToFile(file, oldTable);
                             }
                         }

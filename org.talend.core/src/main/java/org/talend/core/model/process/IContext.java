@@ -44,6 +44,6 @@ public interface IContext {
     public List<IContextParameter> getContextParameterList();
 
     public void setContextParameterList(List<IContextParameter> contextParameterList);
-    
+
     public IContext clone();
 }

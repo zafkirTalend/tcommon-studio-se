@@ -26,23 +26,20 @@ import java.util.List;
 
 import org.talend.core.model.action.IEventAction;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class TargetSchemaEditorEvent implements IEventAction {
 
     /**
      * 
-     * DOC amaumont TargetSchemaEditorEvent class global comment. Detailled comment
-     * <br/>
-     *
+     * DOC amaumont TargetSchemaEditorEvent class global comment. Detailled comment <br/>
+     * 
      * $Id$
-     *
+     * 
      */
     public enum TYPE {
         NEW_METADATA_TABLE,
@@ -51,56 +48,49 @@ public class TargetSchemaEditorEvent implements IEventAction {
         MOVE_UP,
         MOVE_DOWN,
         COPY,
-        PASTE, 
-        CUT, 
+        PASTE,
+        CUT,
         METADATA_NAME_VALUE_CHANGED,
-        METADATA_KEY_VALUE_CHANGED,
-        ;
+        METADATA_KEY_VALUE_CHANGED;
     }
 
     /**
      * 
-     * DOC amaumont TargetSchemaEditorEvent class global comment. Detailled comment
-     * <br/>
-     *
+     * DOC amaumont TargetSchemaEditorEvent class global comment. Detailled comment <br/>
+     * 
      * $Id$
-     *
+     * 
      */
     public enum STATE {
         EDITING,
         APPLYING,
-        CANCELING,
-        ;
+        CANCELING;
     }
-    
+
     public TYPE type;
-    
+
     /**
      * Used for METADATA_NAME_VALUE_CHANGED type
      */
     public STATE state;
-    
+
     public List<Object> entries = new ArrayList<Object>();
-    
+
     public int[] entriesIndices = new int[0];
-    
+
     public int indexStartInsert = -1;
-    
+
     public Object previousValue;
-    
+
     public Object newValue;
 
     public TargetSchemaEditorEvent() {
         super();
     }
 
-
-
     public TargetSchemaEditorEvent(TYPE type) {
         super();
         this.type = type;
     }
-    
 
-    
 }

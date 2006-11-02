@@ -30,36 +30,37 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView2;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class AddMetadataAction2 extends MetadataEditorAction2 {
 
     /**
      * DOC amaumont AddMetadataAction constructor comment.
+     * 
      * @param metadatEditorView
      */
     public AddMetadataAction2(MetadataTableEditorView2 metadatEditorView) {
         super(metadatEditorView);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.designer.mapper.actions.IMapperAction#run(org.talend.designer.mapper.actions.IMapperEvent)
      */
     public void run(IEventAction eventAction) {
-        MetadataEditorEvent metadataEditorEvent = (MetadataEditorEvent)eventAction;
-        if(metadataEditorEvent.entries != null) {
+        MetadataEditorEvent metadataEditorEvent = (MetadataEditorEvent) eventAction;
+        if (metadataEditorEvent.entries != null) {
             List<Integer> itemsIndicesToSelect = new ArrayList<Integer>();
             for (Object object : metadataEditorEvent.entries) {
                 MetadataColumn metadataColumn = (MetadataColumn) object;
                 int index = getMetadataEditor().getMetadataColumnList().size();
-                if(metadataEditorEvent.entriesIndices.length>0) {
-                    index = metadataEditorEvent.entriesIndices[metadataEditorEvent.entriesIndices.length-1]+1;
+                if (metadataEditorEvent.entriesIndices.length > 0) {
+                    index = metadataEditorEvent.entriesIndices[metadataEditorEvent.entriesIndices.length - 1] + 1;
                 }
                 getMetadataEditor().add(metadataColumn, index);
                 itemsIndicesToSelect.add(index);
@@ -71,7 +72,7 @@ public class AddMetadataAction2 extends MetadataEditorAction2 {
                 selection[i] = itemsIndicesToSelect.get(i);
             }
             metadataEditorTable.setSelection(selection);
-//            metadataTableEditorView.onSelectionChanged();
+            // metadataTableEditorView.onSelectionChanged();
         }
     }
 

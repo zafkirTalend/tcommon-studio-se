@@ -40,7 +40,7 @@ public interface INodeConnector {
     public abstract int getMaxLinkInput();
 
     public abstract void setMaxLinkInput(final int maxLinkInput);
-    
+
     public abstract int getMinLinkInput();
 
     public abstract void setMinLinkInput(int minLinkInput);

@@ -21,17 +21,14 @@
 // ============================================================================
 package org.talend.core.model.metadata.editor;
 
-
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface IMetadataEditorListener {
-    
+
     public void handleEvent(MetadataEditorEvent event);
-    
+
 }

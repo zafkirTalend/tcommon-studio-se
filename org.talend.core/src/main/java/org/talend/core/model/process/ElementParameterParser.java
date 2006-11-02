@@ -104,14 +104,14 @@ public final class ElementParameterParser {
         if (value instanceof String) {
             return (String) value;
         }
-        
+
         if (param.getField() == EParameterFieldType.CHECK) {
             return ((Boolean) param.getValue()).toString();
         }
         if (param.getField() == EParameterFieldType.TABLE) {
             List<Map<String, String>> tableValues = (List<Map<String, String>>) param.getValue();
-            ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(
-                    Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
+            ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                    .getProject().getLanguage();
             String[] items = (String[]) param.getListItemsValue(language);
             String stringValues = "{";
             for (int i = 0; i < tableValues.size(); i++) {

@@ -25,33 +25,34 @@ import org.talend.core.model.action.IEventAction;
 import org.talend.core.model.targetschema.editor.TargetSchemaEditorEvent;
 import org.talend.core.ui.targetschema.editor.TargetSchemaTableEditorView2;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class RemoveTargetSchemaAction2 extends TargetSchemaEditorAction2 {
 
     /**
      * DOC amaumont AddTargetSchemaAction constructor comment.
+     * 
      * @param targetSchemaEditorView
      */
     public RemoveTargetSchemaAction2(TargetSchemaTableEditorView2 targetSchemaEditorView) {
         super(targetSchemaEditorView);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.designer.mapper.actions.IMapperAction#run(org.talend.designer.mapper.actions.IMapperEvent)
      */
     public void run(IEventAction eventAction) {
-        TargetSchemaEditorEvent targetSchemaEditorEvent = (TargetSchemaEditorEvent)eventAction;
-        if(targetSchemaEditorEvent.entries != null) {
-            
+        TargetSchemaEditorEvent targetSchemaEditorEvent = (TargetSchemaEditorEvent) eventAction;
+        if (targetSchemaEditorEvent.entries != null) {
+
             getTargetSchemaEditor().remove(targetSchemaEditorEvent.entriesIndices);
-                
+
         }
     }
 
