@@ -34,7 +34,7 @@ public class StringHelper {
 
     private final static String OPEN_BRACE = "{";
 
-    private final static String CLOSE_BRACE = "}";
+    private static final String CLOSE_BRACE = "}";
 
     /**
      * Replace MessageFormat.format(..) because MessageFormat does'nt support single quote correctly This method replace
@@ -65,11 +65,11 @@ public class StringHelper {
      * 
      */
     public static String replacePrms(String text, Object[] arguments, String strBeforeIndex, String strAfterIndex) {
-        
+
         for (int i = 0; i < arguments.length; i++) {
             text = StringUtils.replace(text, strBeforeIndex + i + strAfterIndex, String.valueOf(arguments[i]));
         }
         return text;
     }
-    
+
 }

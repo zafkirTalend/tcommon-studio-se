@@ -74,7 +74,7 @@ public class TargetSchemaTableEditorView2 {
 
     private TargetSchemaToolbarEditorView2 targetSchemaToolbarEditorView2;
 
-    public final static String ID_COLUMN_NAME = "ID_COLUMN_NAME";
+    public static final String ID_COLUMN_NAME = "ID_COLUMN_NAME";
 
     private boolean showDbTypeColumn = false;
 
