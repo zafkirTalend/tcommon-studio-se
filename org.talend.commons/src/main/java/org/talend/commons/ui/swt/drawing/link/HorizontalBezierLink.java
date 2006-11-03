@@ -49,8 +49,9 @@ public class HorizontalBezierLink extends AbstractDrawableLink {
         connectorWidth = CONNECTOR_WIDTH_DEFAULT;
     }
 
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.drawing.link.ICAbstractGraphicalLink#draw(org.eclipse.swt.graphics.GC)
      */
     @Override
@@ -61,9 +62,7 @@ public class HorizontalBezierLink extends AbstractDrawableLink {
         double distance;
         // int spaceBetweenPoints = 1;
 
-        distance = new java.awt.Point(point1.x, point1.y).distance(point2.x,
-                point2.y);
-
+        distance = new java.awt.Point(point1.x, point1.y).distance(point2.x, point2.y);
 
         if (curve == null) {
             curve = new Curve2DBezier();
@@ -83,19 +82,24 @@ public class HorizontalBezierLink extends AbstractDrawableLink {
         int point2x_halfTableWidth2_connWidth = point2.x - connectorWidth;
 
         ((Point2D) pl.get(0)).setLocation(point1.x, point1.y);
-        ((Point2D) pl.get(1)).setLocation(point1x_halfTableWidth1_connWidth + coefDist_connectorWidth,
-                point1.y);
+        ((Point2D) pl.get(1)).setLocation(point1x_halfTableWidth1_connWidth + coefDist_connectorWidth, point1.y);
 
         ((Point2D) pl.get(2))
                 .setLocation(
                         (point1x_halfTableWidth1_connWidth + coefDist_connectorWidth + (point2x_halfTableWidth2_connWidth - coefDist_connectorWidth)) / 2,
                         (point1.y + (point2.y)) / 2);
 
-        ((Point2D) pl.get(3)).setLocation(point2x_halfTableWidth2_connWidth - coefDist_connectorWidth,
-                point2.y);
+        ((Point2D) pl.get(3)).setLocation(point2x_halfTableWidth2_connWidth - coefDist_connectorWidth, point2.y);
         ((Point2D) pl.get(4)).setLocation(point2.x, point2.y);
 
-        curve.draw(gc, pl, pl, 0, boundsOfCalculate.height);
+        int heightCalculate = 0;
+        if (boundsOfCalculate == null) {
+            heightCalculate = gc.getClipping().height;
+        } else {
+            heightCalculate = boundsOfCalculate.height;
+        }
+
+        curve.draw(gc, pl, pl, 0, heightCalculate);
     }
-    
+
 }
