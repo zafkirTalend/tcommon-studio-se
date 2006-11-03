@@ -28,7 +28,7 @@ import org.talend.commons.ui.geometry.Point2D;
 import org.talend.commons.ui.geometry.Point2DList;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
+ * Draw an horizontal Bezier link. Detailled comment <br/>
  * 
  * $Id$
  * 
