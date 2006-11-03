@@ -123,6 +123,7 @@ public class TargetSchemaToolbarEditorView2 {
                     IAction action = TargetSchemaEditorActionFactory2.getInstance().getAction(targetSchemaEditorView,
                             targetSchemaEditorEvent);
                     action.run(targetSchemaEditorEvent);
+                    targetSchemaEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
             }
         });
