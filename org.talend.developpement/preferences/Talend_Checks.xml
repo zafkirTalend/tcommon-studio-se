@@ -26,8 +26,12 @@ Description:
         <module name="ConstantName">
             <property name="severity" value="error"/>
         </module>
-        <module name="LocalFinalVariableName"/>
-        <module name="LocalVariableName"/>
+        <module name="LocalFinalVariableName">
+            <property name="severity" value="error"/>
+        </module>
+        <module name="LocalVariableName">
+            <property name="severity" value="error"/>
+        </module>
         <module name="MemberName">
             <property name="severity" value="error"/>
         </module>
