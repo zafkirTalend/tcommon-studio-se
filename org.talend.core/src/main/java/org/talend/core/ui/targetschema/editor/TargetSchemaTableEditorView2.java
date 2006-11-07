@@ -372,11 +372,11 @@ public class TargetSchemaTableEditorView2 {
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<SchemaTarget, String>() {
 
             public String get(SchemaTarget bean) {
-                return "" + bean.isIsBoucle();
+                return "" + bean.isBoucle();
             }
 
             public void set(SchemaTarget bean, String value) {
-                bean.setIsBoucle(false);
+                bean.setBoucle(false);
             }
 
         });

@@ -355,7 +355,7 @@ public final class MetadataSchema {
                 } else {
                     schemaTarget.setLimitBoucle(0);
                 }
-                schemaTarget.setIsBoucle(Boolean.parseBoolean(IsBoucle.getNodeValue()));
+                schemaTarget.setBoucle(Boolean.parseBoolean(IsBoucle.getNodeValue()));
 
                 listSchemaTargets.add(schemaTarget);
             }
@@ -513,7 +513,7 @@ public final class MetadataSchema {
                 column.setAttributeNode(tagName);
 
                 Attr isBoucle = document.createAttribute("IsBoucle");
-                isBoucle.setNodeValue(String.valueOf(schemaTarget.isIsBoucle()));
+                isBoucle.setNodeValue(String.valueOf(schemaTarget.isBoucle()));
                 column.setAttributeNode(isBoucle);
 
                 Attr limitBoucle = document.createAttribute("LimitBoucle");
