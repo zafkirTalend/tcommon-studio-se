@@ -19,7 +19,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getXsdFilePath <em>Xsd File Path</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getXmlFilePath <em>Xml File Path</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isIsGuess <em>Is Guess</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isGuess <em>Guess</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getMaskXPattern <em>Mask XPattern</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getSchema <em>Schema</em>}</li>
  * </ul>
@@ -83,30 +83,30 @@ public interface XmlFileConnection extends Connection {
     void setXmlFilePath(String value);
 
     /**
-     * Returns the value of the '<em><b>Is Guess</b></em>' attribute.
+     * Returns the value of the '<em><b>Guess</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Is Guess</em>' attribute isn't clear,
+     * If the meaning of the '<em>Guess</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Is Guess</em>' attribute.
-     * @see #setIsGuess(boolean)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_IsGuess()
+     * @return the value of the '<em>Guess</em>' attribute.
+     * @see #setGuess(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_Guess()
      * @model
      * @generated
      */
-    boolean isIsGuess();
+    boolean isGuess();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isIsGuess <em>Is Guess</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isGuess <em>Guess</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Is Guess</em>' attribute.
-     * @see #isIsGuess()
+     * @param value the new value of the '<em>Guess</em>' attribute.
+     * @see #isGuess()
      * @generated
      */
-    void setIsGuess(boolean value);
+    void setGuess(boolean value);
 
     /**
      * Returns the value of the '<em><b>Mask XPattern</b></em>' attribute.

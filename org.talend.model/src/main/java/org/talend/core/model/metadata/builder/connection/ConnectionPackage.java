@@ -105,13 +105,31 @@ public interface ConnectionPackage extends EPackage {
     int ABSTRACT_METADATA_OBJECT__READ_ONLY = 4;
 
     /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ABSTRACT_METADATA_OBJECT__SYNCHRONISED = 5;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ABSTRACT_METADATA_OBJECT__DIVERGENCY = 6;
+
+    /**
      * The number of structural features of the '<em>Abstract Metadata Object</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ABSTRACT_METADATA_OBJECT_FEATURE_COUNT = 5;
+    int ABSTRACT_METADATA_OBJECT_FEATURE_COUNT = 7;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataImpl <em>Metadata</em>}' class.
@@ -161,6 +179,24 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int METADATA__READ_ONLY = ABSTRACT_METADATA_OBJECT__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA__SYNCHRONISED = ABSTRACT_METADATA_OBJECT__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA__DIVERGENCY = ABSTRACT_METADATA_OBJECT__DIVERGENCY;
 
     /**
      * The feature id for the '<em><b>Connections</b></em>' containment reference list.
@@ -228,6 +264,24 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int CONNECTION__READ_ONLY = ABSTRACT_METADATA_OBJECT__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION__SYNCHRONISED = ABSTRACT_METADATA_OBJECT__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION__DIVERGENCY = ABSTRACT_METADATA_OBJECT__DIVERGENCY;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -312,6 +366,24 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int METADATA_COLUMN__READ_ONLY = ABSTRACT_METADATA_OBJECT__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_COLUMN__SYNCHRONISED = ABSTRACT_METADATA_OBJECT__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_COLUMN__DIVERGENCY = ABSTRACT_METADATA_OBJECT__DIVERGENCY;
 
     /**
      * The feature id for the '<em><b>Source Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -440,6 +512,24 @@ public interface ConnectionPackage extends EPackage {
     int METADATA_TABLE__READ_ONLY = ABSTRACT_METADATA_OBJECT__READ_ONLY;
 
     /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_TABLE__SYNCHRONISED = ABSTRACT_METADATA_OBJECT__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_TABLE__DIVERGENCY = ABSTRACT_METADATA_OBJECT__DIVERGENCY;
+
+    /**
      * The feature id for the '<em><b>Source Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
@@ -523,6 +613,24 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int FILE_CONNECTION__READ_ONLY = CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_CONNECTION__SYNCHRONISED = CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_CONNECTION__DIVERGENCY = CONNECTION__DIVERGENCY;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -762,6 +870,24 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__READ_ONLY = FILE_CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION__SYNCHRONISED = FILE_CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION__DIVERGENCY = FILE_CONNECTION__DIVERGENCY;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1012,6 +1138,24 @@ public interface ConnectionPackage extends EPackage {
     int POSITIONAL_FILE_CONNECTION__READ_ONLY = FILE_CONNECTION__READ_ONLY;
 
     /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION__SYNCHRONISED = FILE_CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION__DIVERGENCY = FILE_CONNECTION__DIVERGENCY;
+
+    /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1251,6 +1395,24 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__READ_ONLY = CONNECTION__READ_ONLY;
 
     /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__SYNCHRONISED = CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__DIVERGENCY = CONNECTION__DIVERGENCY;
+
+    /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1452,6 +1614,24 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int CSV_FILE_CONNECTION__READ_ONLY = DELIMITED_FILE_CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CSV_FILE_CONNECTION__SYNCHRONISED = DELIMITED_FILE_CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CSV_FILE_CONNECTION__DIVERGENCY = DELIMITED_FILE_CONNECTION__DIVERGENCY;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1702,6 +1882,24 @@ public interface ConnectionPackage extends EPackage {
     int REGEXP_FILE_CONNECTION__READ_ONLY = FILE_CONNECTION__READ_ONLY;
 
     /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REGEXP_FILE_CONNECTION__SYNCHRONISED = FILE_CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REGEXP_FILE_CONNECTION__DIVERGENCY = FILE_CONNECTION__DIVERGENCY;
+
+    /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1950,6 +2148,24 @@ public interface ConnectionPackage extends EPackage {
     int XML_FILE_CONNECTION__READ_ONLY = CONNECTION__READ_ONLY;
 
     /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION__SYNCHRONISED = CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION__DIVERGENCY = CONNECTION__DIVERGENCY;
+
+    /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1985,12 +2201,13 @@ public interface ConnectionPackage extends EPackage {
     int XML_FILE_CONNECTION__XML_FILE_PATH = CONNECTION_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Is Guess</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The feature id for the '<em><b>Guess</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int XML_FILE_CONNECTION__IS_GUESS = CONNECTION_FEATURE_COUNT + 2;
+    int XML_FILE_CONNECTION__GUESS = CONNECTION_FEATURE_COUNT + 2;
 
     /**
      * The feature id for the '<em><b>Mask XPattern</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2082,12 +2299,13 @@ public interface ConnectionPackage extends EPackage {
     int SCHEMA_TARGET__TAG_NAME = 1;
 
     /**
-     * The feature id for the '<em><b>Is Boucle</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The feature id for the '<em><b>Boucle</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SCHEMA_TARGET__IS_BOUCLE = 2;
+    int SCHEMA_TARGET__BOUCLE = 2;
 
     /**
      * The feature id for the '<em><b>Limit Boucle</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -2516,6 +2734,28 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EAttribute getAbstractMetadataObject_ReadOnly();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isSynchronised <em>Synchronised</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Synchronised</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isSynchronised()
+     * @see #getAbstractMetadataObject()
+     * @generated
+     */
+    EAttribute getAbstractMetadataObject_Synchronised();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isDivergency <em>Divergency</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Divergency</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isDivergency()
+     * @see #getAbstractMetadataObject()
+     * @generated
+     */
+    EAttribute getAbstractMetadataObject_Divergency();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.FileConnection <em>File Connection</em>}'.
@@ -2962,14 +3202,15 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getXmlFileConnection_XmlFilePath();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isIsGuess <em>Is Guess</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Is Guess</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#isIsGuess()
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isGuess <em>Guess</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Guess</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#isGuess()
      * @see #getXmlFileConnection()
      * @generated
      */
-    EAttribute getXmlFileConnection_IsGuess();
+    EAttribute getXmlFileConnection_Guess();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getMaskXPattern <em>Mask XPattern</em>}'.
@@ -3050,14 +3291,15 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getSchemaTarget_TagName();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#isIsBoucle <em>Is Boucle</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Is Boucle</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.SchemaTarget#isIsBoucle()
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#isBoucle <em>Boucle</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Boucle</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SchemaTarget#isBoucle()
      * @see #getSchemaTarget()
      * @generated
      */
-    EAttribute getSchemaTarget_IsBoucle();
+    EAttribute getSchemaTarget_Boucle();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getLimitBoucle <em>Limit Boucle</em>}'.
@@ -3459,6 +3701,22 @@ public interface ConnectionPackage extends EPackage {
         EAttribute ABSTRACT_METADATA_OBJECT__READ_ONLY = eINSTANCE.getAbstractMetadataObject_ReadOnly();
 
         /**
+         * The meta object literal for the '<em><b>Synchronised</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ABSTRACT_METADATA_OBJECT__SYNCHRONISED = eINSTANCE.getAbstractMetadataObject_Synchronised();
+
+        /**
+         * The meta object literal for the '<em><b>Divergency</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ABSTRACT_METADATA_OBJECT__DIVERGENCY = eINSTANCE.getAbstractMetadataObject_Divergency();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl <em>File Connection</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl
@@ -3826,12 +4084,12 @@ public interface ConnectionPackage extends EPackage {
         EAttribute XML_FILE_CONNECTION__XML_FILE_PATH = eINSTANCE.getXmlFileConnection_XmlFilePath();
 
         /**
-         * The meta object literal for the '<em><b>Is Guess</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Guess</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute XML_FILE_CONNECTION__IS_GUESS = eINSTANCE.getXmlFileConnection_IsGuess();
+        EAttribute XML_FILE_CONNECTION__GUESS = eINSTANCE.getXmlFileConnection_Guess();
 
         /**
          * The meta object literal for the '<em><b>Mask XPattern</b></em>' attribute feature.
@@ -3899,12 +4157,12 @@ public interface ConnectionPackage extends EPackage {
         EAttribute SCHEMA_TARGET__TAG_NAME = eINSTANCE.getSchemaTarget_TagName();
 
         /**
-         * The meta object literal for the '<em><b>Is Boucle</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Boucle</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute SCHEMA_TARGET__IS_BOUCLE = eINSTANCE.getSchemaTarget_IsBoucle();
+        EAttribute SCHEMA_TARGET__BOUCLE = eINSTANCE.getSchemaTarget_Boucle();
 
         /**
          * The meta object literal for the '<em><b>Limit Boucle</b></em>' attribute feature.

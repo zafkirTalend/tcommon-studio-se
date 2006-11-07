@@ -446,6 +446,24 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAbstractMetadataObject_Synchronised() {
+        return (EAttribute)abstractMetadataObjectEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getAbstractMetadataObject_Divergency() {
+        return (EAttribute)abstractMetadataObjectEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -807,10 +825,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getXmlFileConnection_IsGuess() {
+    public EAttribute getXmlFileConnection_Guess() {
         return (EAttribute)xmlFileConnectionEClass.getEStructuralFeatures().get(2);
     }
 
@@ -879,10 +898,11 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getSchemaTarget_IsBoucle() {
+    public EAttribute getSchemaTarget_Boucle() {
         return (EAttribute)schemaTargetEClass.getEStructuralFeatures().get(2);
     }
 
@@ -1080,6 +1100,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(abstractMetadataObjectEClass, ABSTRACT_METADATA_OBJECT__COMMENT);
         createEAttribute(abstractMetadataObjectEClass, ABSTRACT_METADATA_OBJECT__LABEL);
         createEAttribute(abstractMetadataObjectEClass, ABSTRACT_METADATA_OBJECT__READ_ONLY);
+        createEAttribute(abstractMetadataObjectEClass, ABSTRACT_METADATA_OBJECT__SYNCHRONISED);
+        createEAttribute(abstractMetadataObjectEClass, ABSTRACT_METADATA_OBJECT__DIVERGENCY);
 
         metadataTableEClass = createEClass(METADATA_TABLE);
         createEAttribute(metadataTableEClass, METADATA_TABLE__SOURCE_NAME);
@@ -1137,7 +1159,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         xmlFileConnectionEClass = createEClass(XML_FILE_CONNECTION);
         createEAttribute(xmlFileConnectionEClass, XML_FILE_CONNECTION__XSD_FILE_PATH);
         createEAttribute(xmlFileConnectionEClass, XML_FILE_CONNECTION__XML_FILE_PATH);
-        createEAttribute(xmlFileConnectionEClass, XML_FILE_CONNECTION__IS_GUESS);
+        createEAttribute(xmlFileConnectionEClass, XML_FILE_CONNECTION__GUESS);
         createEAttribute(xmlFileConnectionEClass, XML_FILE_CONNECTION__MASK_XPATTERN);
         createEReference(xmlFileConnectionEClass, XML_FILE_CONNECTION__SCHEMA);
 
@@ -1148,7 +1170,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         schemaTargetEClass = createEClass(SCHEMA_TARGET);
         createEAttribute(schemaTargetEClass, SCHEMA_TARGET__XPATH_QUERY);
         createEAttribute(schemaTargetEClass, SCHEMA_TARGET__TAG_NAME);
-        createEAttribute(schemaTargetEClass, SCHEMA_TARGET__IS_BOUCLE);
+        createEAttribute(schemaTargetEClass, SCHEMA_TARGET__BOUCLE);
         createEAttribute(schemaTargetEClass, SCHEMA_TARGET__LIMIT_BOUCLE);
         createEReference(schemaTargetEClass, SCHEMA_TARGET__SCHEMA);
 
@@ -1233,6 +1255,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getAbstractMetadataObject_Comment(), ecorePackage.getEString(), "comment", "", 0, 1, AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAbstractMetadataObject_Label(), ecorePackage.getEString(), "label", null, 1, 1, AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getAbstractMetadataObject_ReadOnly(), ecorePackage.getEBoolean(), "readOnly", "false", 0, 1, AbstractMetadataObject.class, !IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAbstractMetadataObject_Synchronised(), ecorePackage.getEBoolean(), "synchronised", null, 0, 1, AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getAbstractMetadataObject_Divergency(), ecorePackage.getEBoolean(), "divergency", null, 0, 1, AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(metadataTableEClass, MetadataTable.class, "MetadataTable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getMetadataTable_SourceName(), ecorePackage.getEString(), "sourceName", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1290,7 +1314,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEClass(xmlFileConnectionEClass, XmlFileConnection.class, "XmlFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getXmlFileConnection_XsdFilePath(), ecorePackage.getEString(), "XsdFilePath", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getXmlFileConnection_XmlFilePath(), ecorePackage.getEString(), "XmlFilePath", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getXmlFileConnection_IsGuess(), ecorePackage.getEBoolean(), "IsGuess", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getXmlFileConnection_Guess(), ecorePackage.getEBoolean(), "Guess", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getXmlFileConnection_MaskXPattern(), ecorePackage.getEString(), "MaskXPattern", null, 0, 1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getXmlFileConnection_Schema(), this.getMetadataSchema(), this.getMetadataSchema_Connection(), "schema", null, 0, -1, XmlFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1301,7 +1325,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEClass(schemaTargetEClass, SchemaTarget.class, "SchemaTarget", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getSchemaTarget_XPathQuery(), ecorePackage.getEString(), "XPathQuery", null, 0, 1, SchemaTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSchemaTarget_TagName(), ecorePackage.getEString(), "TagName", null, 0, 1, SchemaTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getSchemaTarget_IsBoucle(), ecorePackage.getEBoolean(), "IsBoucle", null, 0, 1, SchemaTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSchemaTarget_Boucle(), ecorePackage.getEBoolean(), "Boucle", null, 0, 1, SchemaTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSchemaTarget_LimitBoucle(), ecorePackage.getEInt(), "LimitBoucle", null, 0, 1, SchemaTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getSchemaTarget_Schema(), this.getMetadataSchema(), this.getMetadataSchema_SchemaTargets(), "schema", null, 0, 1, SchemaTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

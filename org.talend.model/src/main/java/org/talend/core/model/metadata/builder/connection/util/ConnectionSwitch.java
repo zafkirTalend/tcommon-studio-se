@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.talend.core.model.metadata.builder.connection.*;
+
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.CSVFileConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;

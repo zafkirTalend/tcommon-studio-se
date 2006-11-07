@@ -26,6 +26,8 @@ import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#isReadOnly <em>Read Only</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#isSynchronised <em>Synchronised</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl#isDivergency <em>Divergency</em>}</li>
  * </ul>
  * </p>
  *
@@ -120,6 +122,46 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
      * @ordered
      */
     protected static final boolean READ_ONLY_EDEFAULT = false;
+
+    /**
+     * The default value of the '{@link #isSynchronised() <em>Synchronised</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSynchronised()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean SYNCHRONISED_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isSynchronised() <em>Synchronised</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSynchronised()
+     * @generated
+     * @ordered
+     */
+    protected boolean synchronised = SYNCHRONISED_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isDivergency() <em>Divergency</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isDivergency()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean DIVERGENCY_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isDivergency() <em>Divergency</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isDivergency()
+     * @generated
+     * @ordered
+     */
+    protected boolean divergency = DIVERGENCY_EDEFAULT;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -234,6 +276,48 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSynchronised() {
+        return synchronised;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSynchronised(boolean newSynchronised) {
+        boolean oldSynchronised = synchronised;
+        synchronised = newSynchronised;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED, oldSynchronised, synchronised));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isDivergency() {
+        return divergency;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDivergency(boolean newDivergency) {
+        boolean oldDivergency = divergency;
+        divergency = newDivergency;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY, oldDivergency, divergency));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -249,6 +333,10 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
                 return getLabel();
             case ConnectionPackage.ABSTRACT_METADATA_OBJECT__READ_ONLY:
                 return isReadOnly() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED:
+                return isSynchronised() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY:
+                return isDivergency() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -273,6 +361,12 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
                 return;
             case ConnectionPackage.ABSTRACT_METADATA_OBJECT__READ_ONLY:
                 setReadOnly(((Boolean)newValue).booleanValue());
+                return;
+            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED:
+                setSynchronised(((Boolean)newValue).booleanValue());
+                return;
+            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY:
+                setDivergency(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -299,6 +393,12 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
             case ConnectionPackage.ABSTRACT_METADATA_OBJECT__READ_ONLY:
                 setReadOnly(READ_ONLY_EDEFAULT);
                 return;
+            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED:
+                setSynchronised(SYNCHRONISED_EDEFAULT);
+                return;
+            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY:
+                setDivergency(DIVERGENCY_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -319,6 +419,10 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
             case ConnectionPackage.ABSTRACT_METADATA_OBJECT__READ_ONLY:
                 return isReadOnly() != READ_ONLY_EDEFAULT;
+            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__SYNCHRONISED:
+                return synchronised != SYNCHRONISED_EDEFAULT;
+            case ConnectionPackage.ABSTRACT_METADATA_OBJECT__DIVERGENCY:
+                return divergency != DIVERGENCY_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -339,6 +443,10 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
         result.append(comment);
         result.append(", label: ");
         result.append(label);
+        result.append(", synchronised: ");
+        result.append(synchronised);
+        result.append(", divergency: ");
+        result.append(divergency);
         result.append(')');
         return result.toString();
     }

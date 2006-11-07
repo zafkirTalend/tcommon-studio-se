@@ -14,6 +14,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.talend.core.model.metadata.builder.connection.*;
+
 import org.talend.core.model.metadata.builder.connection.CSVFileConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -438,7 +440,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
         SchemaTarget newColumn = new SchemaTargetImpl();
         newColumn.setXPathQuery(column.getXPathQuery());
         newColumn.setTagName(column.getTagName());
-        newColumn.setIsBoucle(column.isIsBoucle());
+        newColumn.setBoucle(column.isBoucle());
         newColumn.setLimitBoucle(column.getLimitBoucle());
         return newColumn;
     }

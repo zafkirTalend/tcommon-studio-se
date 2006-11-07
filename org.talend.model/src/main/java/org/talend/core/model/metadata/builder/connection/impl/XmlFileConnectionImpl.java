@@ -29,7 +29,7 @@ import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#getXsdFilePath <em>Xsd File Path</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#getXmlFilePath <em>Xml File Path</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#isIsGuess <em>Is Guess</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#isGuess <em>Guess</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#getMaskXPattern <em>Mask XPattern</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#getSchema <em>Schema</em>}</li>
  * </ul>
@@ -80,24 +80,24 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
     protected String xmlFilePath = XML_FILE_PATH_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isIsGuess() <em>Is Guess</em>}' attribute.
+     * The default value of the '{@link #isGuess() <em>Guess</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isIsGuess()
+     * @see #isGuess()
      * @generated
      * @ordered
      */
-    protected static final boolean IS_GUESS_EDEFAULT = false;
+    protected static final boolean GUESS_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isIsGuess() <em>Is Guess</em>}' attribute.
+     * The cached value of the '{@link #isGuess() <em>Guess</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isIsGuess()
+     * @see #isGuess()
      * @generated
      * @ordered
      */
-    protected boolean isGuess = IS_GUESS_EDEFAULT;
+    protected boolean guess = GUESS_EDEFAULT;
 
     /**
      * The default value of the '{@link #getMaskXPattern() <em>Mask XPattern</em>}' attribute.
@@ -194,8 +194,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isIsGuess() {
-        return isGuess;
+    public boolean isGuess() {
+        return guess;
     }
 
     /**
@@ -203,11 +203,11 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setIsGuess(boolean newIsGuess) {
-        boolean oldIsGuess = isGuess;
-        isGuess = newIsGuess;
+    public void setGuess(boolean newGuess) {
+        boolean oldGuess = guess;
+        guess = newGuess;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__IS_GUESS, oldIsGuess, isGuess));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__GUESS, oldGuess, guess));
     }
 
     /**
@@ -280,8 +280,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
                 return getXsdFilePath();
             case ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH:
                 return getXmlFilePath();
-            case ConnectionPackage.XML_FILE_CONNECTION__IS_GUESS:
-                return isIsGuess() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
+                return isGuess() ? Boolean.TRUE : Boolean.FALSE;
             case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
                 return getMaskXPattern();
             case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
@@ -303,8 +303,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
             case ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH:
                 setXmlFilePath((String)newValue);
                 return;
-            case ConnectionPackage.XML_FILE_CONNECTION__IS_GUESS:
-                setIsGuess(((Boolean)newValue).booleanValue());
+            case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
+                setGuess(((Boolean)newValue).booleanValue());
                 return;
             case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
                 setMaskXPattern((String)newValue);
@@ -330,8 +330,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
             case ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH:
                 setXmlFilePath(XML_FILE_PATH_EDEFAULT);
                 return;
-            case ConnectionPackage.XML_FILE_CONNECTION__IS_GUESS:
-                setIsGuess(IS_GUESS_EDEFAULT);
+            case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
+                setGuess(GUESS_EDEFAULT);
                 return;
             case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
                 setMaskXPattern(MASK_XPATTERN_EDEFAULT);
@@ -354,8 +354,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
                 return XSD_FILE_PATH_EDEFAULT == null ? xsdFilePath != null : !XSD_FILE_PATH_EDEFAULT.equals(xsdFilePath);
             case ConnectionPackage.XML_FILE_CONNECTION__XML_FILE_PATH:
                 return XML_FILE_PATH_EDEFAULT == null ? xmlFilePath != null : !XML_FILE_PATH_EDEFAULT.equals(xmlFilePath);
-            case ConnectionPackage.XML_FILE_CONNECTION__IS_GUESS:
-                return isGuess != IS_GUESS_EDEFAULT;
+            case ConnectionPackage.XML_FILE_CONNECTION__GUESS:
+                return guess != GUESS_EDEFAULT;
             case ConnectionPackage.XML_FILE_CONNECTION__MASK_XPATTERN:
                 return MASK_XPATTERN_EDEFAULT == null ? maskXPattern != null : !MASK_XPATTERN_EDEFAULT.equals(maskXPattern);
             case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
@@ -377,8 +377,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
         result.append(xsdFilePath);
         result.append(", XmlFilePath: ");
         result.append(xmlFilePath);
-        result.append(", IsGuess: ");
-        result.append(isGuess);
+        result.append(", Guess: ");
+        result.append(guess);
         result.append(", MaskXPattern: ");
         result.append(maskXPattern);
         result.append(')');

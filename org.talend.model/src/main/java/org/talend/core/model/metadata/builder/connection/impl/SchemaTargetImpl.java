@@ -26,7 +26,7 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl#getXPathQuery <em>XPath Query</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl#getTagName <em>Tag Name</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl#isIsBoucle <em>Is Boucle</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl#isBoucle <em>Boucle</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl#getLimitBoucle <em>Limit Boucle</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl#getSchema <em>Schema</em>}</li>
  * </ul>
@@ -77,24 +77,24 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
     protected String tagName = TAG_NAME_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isIsBoucle() <em>Is Boucle</em>}' attribute.
+     * The default value of the '{@link #isBoucle() <em>Boucle</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isIsBoucle()
+     * @see #isBoucle()
      * @generated
      * @ordered
      */
-    protected static final boolean IS_BOUCLE_EDEFAULT = false;
+    protected static final boolean BOUCLE_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isIsBoucle() <em>Is Boucle</em>}' attribute.
+     * The cached value of the '{@link #isBoucle() <em>Boucle</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #isIsBoucle()
+     * @see #isBoucle()
      * @generated
      * @ordered
      */
-    protected boolean isBoucle = IS_BOUCLE_EDEFAULT;
+    protected boolean boucle = BOUCLE_EDEFAULT;
 
     /**
      * The default value of the '{@link #getLimitBoucle() <em>Limit Boucle</em>}' attribute.
@@ -181,8 +181,8 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isIsBoucle() {
-        return isBoucle;
+    public boolean isBoucle() {
+        return boucle;
     }
 
     /**
@@ -190,11 +190,11 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setIsBoucle(boolean newIsBoucle) {
-        boolean oldIsBoucle = isBoucle;
-        isBoucle = newIsBoucle;
+    public void setBoucle(boolean newBoucle) {
+        boolean oldBoucle = boucle;
+        boucle = newBoucle;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SCHEMA_TARGET__IS_BOUCLE, oldIsBoucle, isBoucle));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SCHEMA_TARGET__BOUCLE, oldBoucle, boucle));
     }
 
     /**
@@ -311,8 +311,8 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
                 return getXPathQuery();
             case ConnectionPackage.SCHEMA_TARGET__TAG_NAME:
                 return getTagName();
-            case ConnectionPackage.SCHEMA_TARGET__IS_BOUCLE:
-                return isIsBoucle() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.SCHEMA_TARGET__BOUCLE:
+                return isBoucle() ? Boolean.TRUE : Boolean.FALSE;
             case ConnectionPackage.SCHEMA_TARGET__LIMIT_BOUCLE:
                 return new Integer(getLimitBoucle());
             case ConnectionPackage.SCHEMA_TARGET__SCHEMA:
@@ -334,8 +334,8 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
             case ConnectionPackage.SCHEMA_TARGET__TAG_NAME:
                 setTagName((String)newValue);
                 return;
-            case ConnectionPackage.SCHEMA_TARGET__IS_BOUCLE:
-                setIsBoucle(((Boolean)newValue).booleanValue());
+            case ConnectionPackage.SCHEMA_TARGET__BOUCLE:
+                setBoucle(((Boolean)newValue).booleanValue());
                 return;
             case ConnectionPackage.SCHEMA_TARGET__LIMIT_BOUCLE:
                 setLimitBoucle(((Integer)newValue).intValue());
@@ -360,8 +360,8 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
             case ConnectionPackage.SCHEMA_TARGET__TAG_NAME:
                 setTagName(TAG_NAME_EDEFAULT);
                 return;
-            case ConnectionPackage.SCHEMA_TARGET__IS_BOUCLE:
-                setIsBoucle(IS_BOUCLE_EDEFAULT);
+            case ConnectionPackage.SCHEMA_TARGET__BOUCLE:
+                setBoucle(BOUCLE_EDEFAULT);
                 return;
             case ConnectionPackage.SCHEMA_TARGET__LIMIT_BOUCLE:
                 setLimitBoucle(LIMIT_BOUCLE_EDEFAULT);
@@ -384,8 +384,8 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
                 return XPATH_QUERY_EDEFAULT == null ? xPathQuery != null : !XPATH_QUERY_EDEFAULT.equals(xPathQuery);
             case ConnectionPackage.SCHEMA_TARGET__TAG_NAME:
                 return TAG_NAME_EDEFAULT == null ? tagName != null : !TAG_NAME_EDEFAULT.equals(tagName);
-            case ConnectionPackage.SCHEMA_TARGET__IS_BOUCLE:
-                return isBoucle != IS_BOUCLE_EDEFAULT;
+            case ConnectionPackage.SCHEMA_TARGET__BOUCLE:
+                return boucle != BOUCLE_EDEFAULT;
             case ConnectionPackage.SCHEMA_TARGET__LIMIT_BOUCLE:
                 return limitBoucle != LIMIT_BOUCLE_EDEFAULT;
             case ConnectionPackage.SCHEMA_TARGET__SCHEMA:
@@ -407,8 +407,8 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
         result.append(xPathQuery);
         result.append(", TagName: ");
         result.append(tagName);
-        result.append(", IsBoucle: ");
-        result.append(isBoucle);
+        result.append(", Boucle: ");
+        result.append(boucle);
         result.append(", LimitBoucle: ");
         result.append(limitBoucle);
         result.append(')');

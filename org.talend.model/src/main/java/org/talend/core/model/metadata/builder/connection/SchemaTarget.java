@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getXPathQuery <em>XPath Query</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getTagName <em>Tag Name</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#isIsBoucle <em>Is Boucle</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#isBoucle <em>Boucle</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getLimitBoucle <em>Limit Boucle</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getSchema <em>Schema</em>}</li>
  * </ul>
@@ -83,30 +83,30 @@ public interface SchemaTarget extends EObject {
     void setTagName(String value);
 
     /**
-     * Returns the value of the '<em><b>Is Boucle</b></em>' attribute.
+     * Returns the value of the '<em><b>Boucle</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Is Boucle</em>' attribute isn't clear,
+     * If the meaning of the '<em>Boucle</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Is Boucle</em>' attribute.
-     * @see #setIsBoucle(boolean)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSchemaTarget_IsBoucle()
+     * @return the value of the '<em>Boucle</em>' attribute.
+     * @see #setBoucle(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSchemaTarget_Boucle()
      * @model
      * @generated
      */
-    boolean isIsBoucle();
+    boolean isBoucle();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#isIsBoucle <em>Is Boucle</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#isBoucle <em>Boucle</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Is Boucle</em>' attribute.
-     * @see #isIsBoucle()
+     * @param value the new value of the '<em>Boucle</em>' attribute.
+     * @see #isBoucle()
      * @generated
      */
-    void setIsBoucle(boolean value);
+    void setBoucle(boolean value);
 
     /**
      * Returns the value of the '<em><b>Limit Boucle</b></em>' attribute.

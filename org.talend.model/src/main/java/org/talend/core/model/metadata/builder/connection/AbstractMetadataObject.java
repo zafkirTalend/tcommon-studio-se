@@ -21,6 +21,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#getComment <em>Comment</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isReadOnly <em>Read Only</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isSynchronised <em>Synchronised</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isDivergency <em>Divergency</em>}</li>
  * </ul>
  * </p>
  *
@@ -157,5 +159,57 @@ public interface AbstractMetadataObject extends EObject {
      * @generated
      */
     void setReadOnly(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Synchronised</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Synchronised</em>' attribute.
+     * @see #setSynchronised(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getAbstractMetadataObject_Synchronised()
+     * @model
+     * @generated
+     */
+    boolean isSynchronised();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isSynchronised <em>Synchronised</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Synchronised</em>' attribute.
+     * @see #isSynchronised()
+     * @generated
+     */
+    void setSynchronised(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Divergency</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Divergency</em>' attribute.
+     * @see #setDivergency(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getAbstractMetadataObject_Divergency()
+     * @model
+     * @generated
+     */
+    boolean isDivergency();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject#isDivergency <em>Divergency</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Divergency</em>' attribute.
+     * @see #isDivergency()
+     * @generated
+     */
+    void setDivergency(boolean value);
 
 } // AbstractMetadataObject
