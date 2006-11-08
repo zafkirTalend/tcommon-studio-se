@@ -390,37 +390,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         } catch (CoreException e) {
             throw new PersistenceException(e);
         }
-        FolderHelper folderHelper = FolderHelper.createInstance(project.getEmfProject());
-        // Folder creation :
-        for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
-            try {
-                String folderName = LocalResourceModelUtils.getFolderName(type);
-                IFolder folder = ResourceUtils.getFolder(prj, folderName, false);
-                ResourceUtils.createFolder(folder);
-                folderHelper.createSystemFolder(new Path(folderName));
-            } catch (IllegalArgumentException iae) {
-                // Some repository object type doesn't need a folder
-            }
-        }
-
-        // Special folders creation :
-        // 1. Temp folder :
-        IFolder folderTemp = ResourceUtils.getFolder(prj, RepositoryConstants.TEMP_DIRECTORY, false);
-        ResourceUtils.createFolder(folderTemp);
-        folderHelper.createSystemFolder(new Path(RepositoryConstants.TEMP_DIRECTORY));
-
-        // 2. Img folder :
-        IFolder folderImg = ResourceUtils.getFolder(prj, RepositoryConstants.IMG_DIRECTORY, false);
-        ResourceUtils.createFolder(folderImg);
-        folderHelper.createSystemFolder(new Path(RepositoryConstants.IMG_DIRECTORY));
-
-        // 3. Bin folders :
-        for (ERepositoryObjectType type : needsBinFolder) {
-            String folderName = LocalResourceModelUtils.getFolderName(type);
-            IFolder binFolder = ResourceUtils.getFolder(prj, folderName + IPath.SEPARATOR + BIN, false);
-            ResourceUtils.createFolder(binFolder);
-            folderHelper.createFolder(new Path(folderName).append(BIN));
-        }
+        createFolders(prj, project);
 
         // Fill project object
         project.setLabel(label);
@@ -471,6 +441,54 @@ public class RepositoryFactory implements IRepositoryFactory {
         return project;
     }
 
+    /**
+     * DOC smallet Comment method "createFolders".
+     * 
+     * @param prj
+     * @param project
+     * @throws PersistenceException
+     */
+    private void createFolders(IProject prj, Project project) throws PersistenceException {
+        FolderHelper folderHelper = FolderHelper.createInstance(project.getEmfProject());
+        // Folder creation :
+        for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
+            try {
+                String folderName = LocalResourceModelUtils.getFolderName(type);
+                createFolder(prj, folderHelper, folderName);
+            } catch (IllegalArgumentException iae) {
+                // Some repository object type doesn't need a folder
+            }
+        }
+
+        // Special folders creation :
+        // 1. Temp folder :
+        createFolder(prj, folderHelper, RepositoryConstants.TEMP_DIRECTORY);
+
+        // 2. Img folder :
+        createFolder(prj, folderHelper, RepositoryConstants.IMG_DIRECTORY);
+
+        // 3. Bin folders :
+        for (ERepositoryObjectType type : needsBinFolder) {
+            String folderName = LocalResourceModelUtils.getFolderName(type) + IPath.SEPARATOR + BIN;
+            createFolder(prj, folderHelper, folderName);
+        }
+    }
+
+    /**
+     * DOC smallet Comment method "createFolder".
+     * 
+     * @param prj
+     * @param folderHelper
+     * @throws PersistenceException
+     */
+    private void createFolder(IProject prj, FolderHelper folderHelper, String path) throws PersistenceException {
+        IFolder folderTemp = ResourceUtils.getFolder(prj, path, false);
+        if (!folderTemp.exists()) {
+            ResourceUtils.createFolder(folderTemp);
+            folderHelper.createSystemFolder(new Path(path));
+        }
+    }
+
     public Project[] readProject(boolean local) throws PersistenceException {
         // TODO SML Delete this method when remote is implemented
         IProject[] prjs = ResourceUtils.getProjetWithNature(TalendNature.ID);
@@ -481,7 +499,9 @@ public class RepositoryFactory implements IRepositoryFactory {
             org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
             if (emfProject.isLocal() == local) {
                 synchronizeFolders(p, emfProject);
-                toReturn.add(new Project(emfProject));
+                Project project = new Project(emfProject);
+                createFolders(p, project);
+                toReturn.add(project);
             }
         }
         return toReturn.toArray(new Project[toReturn.size()]);
