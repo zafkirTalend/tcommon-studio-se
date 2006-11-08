@@ -471,21 +471,28 @@ public class RepositoryFactory implements IRepositoryFactory {
         return project;
     }
 
+    public Project[] readProject(boolean local) throws PersistenceException {
+        // TODO SML Delete this method when remote is implemented
+        IProject[] prjs = ResourceUtils.getProjetWithNature(TalendNature.ID);
+
+        List<Project> toReturn = new ArrayList<Project>();
+        for (int i = 0; i < prjs.length; i++) {
+            IProject p = prjs[i];
+            org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
+            if (emfProject.isLocal() == local) {
+                synchronizeFolders(p, emfProject);
+                toReturn.add(new Project(emfProject));
+            }
+        }
+        return toReturn.toArray(new Project[toReturn.size()]);
+    }
+
     /**
      * @see org.talend.core.model.repository.factories.IRepositoryFactory#readProject(java.lang.String,
      * java.lang.String, java.lang.String)
      */
-    public Project[] readProject(String server, String port, User user) throws PersistenceException {
-        IProject[] prjs = ResourceUtils.getProjetWithNature(TalendNature.ID);
-
-        Project[] projects = new Project[prjs.length];
-        for (int i = 0; i < prjs.length; i++) {
-            IProject p = prjs[i];
-            org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
-            synchronizeFolders(p, emfProject);
-            projects[i] = new Project(emfProject);
-        }
-        return projects;
+    public Project[] readProject() throws PersistenceException {
+        return readProject(true);
     }
 
     private void synchronizeFolders(final IProject project, final org.talend.core.model.properties.Project emfProject)
