@@ -77,7 +77,7 @@ public interface IImageConstants {
 
     public static final String ROUTINE_ICON = "/icons/routine.png";
 
-    public static final String SNIPPET_ICON = "/icons/snippet.png";
+    public static final String SNIPPET_ICON = "/icons/snippet.gif";
 
     public static final String PROCESS_ICON = "/icons/process_icon.png";
 

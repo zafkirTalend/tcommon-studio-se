@@ -75,7 +75,7 @@ public class ImageProvider {
         RECYCLE_BIN_FULL_ICON(IImageConstants.RECYCLE_BIN_FULL_ICON),
         FOLDER_OPEN_ICON(IImageConstants.FOLDER_OPEN_ICON),
         FOLDER_CLOSE_ICON(IImageConstants.FOLDER_CLOSE_ICON),
-        FOLDER_WIZ("/icons/folder_wiz.png"),
+        FOLDER_WIZ("/icons/folder_wiz.gif"),
         SAVE_ICON(IImageConstants.SAVE_ICON),
         COPY_ICON(IImageConstants.COPY_ICON),
         PASTE_ICON(IImageConstants.PASTE_ICON),
