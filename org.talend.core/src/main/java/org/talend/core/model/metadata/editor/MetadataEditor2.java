@@ -47,6 +47,8 @@ public class MetadataEditor2 {
 
     private static final PatternCompiler COMPILER = new Perl5Compiler();
 
+    private static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][" + VALID_CHAR_COLUMN_NAME + "]*$";
+
     private static Pattern validPatternColumnNameRegexp = null;
 
     public String titleName;
@@ -214,7 +216,6 @@ public class MetadataEditor2 {
         if (columnName == null) {
             return "Error: Column name is null";
         }
-        String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][" + VALID_CHAR_COLUMN_NAME + "]*$";
 
         validPatternColumnNameRegexp = null;
         if (validPatternColumnNameRegexp == null) {

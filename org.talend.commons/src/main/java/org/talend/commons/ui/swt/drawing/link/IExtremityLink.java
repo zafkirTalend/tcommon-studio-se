@@ -21,9 +21,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.drawing.link;
 
-import org.eclipse.swt.graphics.GC;
-import org.eclipse.swt.graphics.Point;
-
 
 /**
  * DOC amaumont  class global comment. Detailled comment
@@ -31,40 +28,10 @@ import org.eclipse.swt.graphics.Point;
  *
  * $Id$
  *
+ * @param <A> associated item
  */
-public interface ITipLink {
+public interface IExtremityLink<A> {
 
-    /**
-     * DOC amaumont Comment method "draw".
-     * @param gc
-     * @param point 
-     */
-    public void draw(GC gc, Point point);
-
-    /**
-     * Getter for xOffset.
-     * @return the xOffset
-     */
-    public int getXOffset();
-
-    /**
-     * Sets the xOffset.
-     * @param offset the xOffset to set
-     */
-    public void setXOffset(int offset);
-
-    /**
-     * Getter for yOffset.
-     * @return the yOffset
-     */
-    public int getYOffset();
-
-    /**
-     * Sets the yOffset.
-     * @param offset the yOffset to set
-     */
-    public void setYOffset(int offset);
-
-
-    public Point getSize();
+    public A getAssociatedItem();
+    
 }

@@ -23,6 +23,12 @@ package org.talend.core.ui.targetschema.editor;
 
 import java.util.ArrayList;
 
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
+
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
@@ -41,17 +47,22 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.ui.swt.proposal.TextCellEditorWithProposal;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LINE_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
+import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.model.targetschema.editor.TargetSchemaEditor2;
 import org.talend.core.model.targetschema.editor.TargetSchemaEditorEvent;
+import org.w3c.dom.NodeList;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/> TGU same purpose as TargetSchemaTableEditorView but uses
@@ -227,7 +238,7 @@ public class TargetSchemaTableEditorView2 {
         // X Path Query
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("X Path Query");
+        column.setTitle("X Path Query 2");
         column.setId(ID_COLUMN_NAME);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<SchemaTarget, String>() {
 
@@ -239,111 +250,42 @@ public class TargetSchemaTableEditorView2 {
                 bean.setXPathQuery(value);
             }
         });
-
-        // //////////////////////////////////////////////////////////////////////////////////////
-
-        final TableViewerCreatorColumn nameColumn = column;
-        final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
-        cellEditor.addListener(new ICellEditorListener() {
-
-            Text text = (Text) cellEditor.getControl();
-
-            String lastValidValue = null;
-
-            public void applyEditorValue() {
-                ModifiedObjectInfo<SchemaTarget> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
-                // System.out.println("------- applyEditorValue=" + text.getText());
-                Object bean = modifiedObjectInfo.getCurrentModifiedBean() != null ? modifiedObjectInfo.getCurrentModifiedBean()
-                        : modifiedObjectInfo.getPreviousModifiedBean();
-                fireEventIfValidColumnName(text.getText(), true, bean);
-                lastValidValue = null;
-            }
-
-            public void cancelEditor() {
-                ModifiedObjectInfo<SchemaTarget> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
-                String originalName = (String) modifiedObjectInfo.getOriginalPropertyBeanValue();
-                text.setText(originalName);
-                fireEventIfValidColumnName(originalName, false, modifiedObjectInfo.getCurrentModifiedBean());
-                lastValidValue = null;
-            }
-
-            public void editorValueChanged(boolean oldValidState, boolean newValidState) {
-                ModifiedObjectInfo<SchemaTarget> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
-                if (!newValidState) {
-                    // MessageDialog.openError(composite.getShell(), "Error", cellEditor.getErrorMessage());
-                } else {
-                }
-                String newValue = text.getText();
-                fireEventIfValidColumnName(newValue, false, modifiedObjectInfo.getCurrentModifiedBean());
-            }
-
-            private void fireEventIfValidColumnName(final String newValue, boolean showAlertIfError,
-                    final Object currentModifiedBean) {
-                final ModifiedObjectInfo<SchemaTarget> modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
-                String originalValue = (String) modifiedObjectInfo.getOriginalPropertyBeanValue();
-                lastValidValue = lastValidValue != null ? lastValidValue : originalValue;
-
-                int beanPosition = tableViewerCreator.getInputList().indexOf(currentModifiedBean);
-                final String errorMessage = targetSchemaTableEditor.validateColumnName(newValue, beanPosition);
-                // System.out.println(errorMessage);
-                if (errorMessage == null) {
-                    createAndFireEvent(lastValidValue, newValue);
-                    text.setBackground(text.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-                    lastValidValue = newValue;
-                } else {
-                    text.setBackground(text.getDisplay().getSystemColor(SWT.COLOR_RED));
-                    if (showAlertIfError) {
-                        final Point selection = text.getSelection();
-                        // System.out.println("setText:lastValidValue"+lastValidValue);
-                        text.setText(lastValidValue);
-
-                        new Thread() {
-
-                            public void run() {
-
-                                try {
-                                    Thread.sleep(20);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-
-                                text.getDisplay().asyncExec(new Runnable() {
-
-                                    public void run() {
-                                        MessageDialog.openError(composite.getShell(), "Error", errorMessage);
-                                        // System.out.println("setText:" + newValue);
-                                        final int columnPosition = tableViewerCreator.getColumns().indexOf(nameColumn);
-                                        tableViewerCreator.getTableViewer().editElement(currentModifiedBean, columnPosition);
-                                        text.setText(newValue);
-                                        text.setSelection(selection.x, selection.y);
-                                    }
-
-                                });
-                            };
-                        }.start();
-                    }
-                }
-            }
-
-            private void createAndFireEvent(String previousValue, String newValue) {
-                SchemaTarget currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
-                ArrayList<Object> modifiedObjectList = new ArrayList<Object>(1);
+        final TextCellEditorWithProposal cellEditor = new TextCellEditorWithProposal(tableViewerCreator.getTable(),
+                SWT.NONE, column);
+        column.setCellEditor(cellEditor);
+        cellEditor.addListener(new DialogErrorForCellEditorListener(cellEditor, column) {
+            
+            @Override
+            public void newValidValueApplied(String previousValue, String newValue, CELL_EDITOR_STATE state) {
+                Object currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
+                ArrayList modifiedObjectList = new ArrayList(1);
                 modifiedObjectList.add(currentModifiedObject);
-                TargetSchemaEditorEvent event = new TargetSchemaEditorEvent(
-                        TargetSchemaEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED);
+                TargetSchemaEditorEvent event = new TargetSchemaEditorEvent(TargetSchemaEditorEvent.TYPE.XPATH_VALUE_CHANGED);
                 event.entries = modifiedObjectList;
+                event.entriesIndices = new int[] {tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedIndex()};
                 event.previousValue = previousValue;
                 event.newValue = newValue;
+                event.state = state;
                 targetSchemaTableEditor.fireEvent(event);
             }
-
+            
+            @Override
+            public String validateValue(String newValue, int beanPosition) {
+                XPathFactory xpf = XPathFactory.newInstance();
+                XPath xpath = xpf.newXPath();
+                try {
+                    xpath.compile(newValue);
+                } catch (Exception e) {
+                    return e.getMessage();
+                }
+                return null;
+            }
+            
         });
-        column.setCellEditor(cellEditor);
-
         column.setModifiable(true);
         column.setWeight(10);
         column.setMinimumWidth(50);
-        column.setCellEditor(new TextCellEditor(table));
+        // //////////////////////////////////////////////////////////////////////////////////////
 
         // //////////////////////////////////////////////////////////////////////////////////////
         // Tag Name

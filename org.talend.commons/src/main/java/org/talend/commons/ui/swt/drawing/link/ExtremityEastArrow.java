@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.commons.ui.swt.drawing.link;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -35,7 +36,7 @@ import org.eclipse.swt.graphics.RGB;
  * $Id$
  * 
  */
-public class TipEastArrow extends AbstractTipLink {
+public class ExtremityEastArrow extends AbstractExtremityDrawableLink {
 
     public static final int WIDTH_IMAGE_ARROW = 5;
     public static final int HEIGHT_IMAGE_ARROW = 10;
@@ -46,7 +47,7 @@ public class TipEastArrow extends AbstractTipLink {
     /**
      * DOC amaumont TipArrow constructor comment.
      */
-    public TipEastArrow(IStyleLink styleLink) {
+    public ExtremityEastArrow(IStyleLink styleLink) {
         super(styleLink);
     }
 
@@ -58,7 +59,7 @@ public class TipEastArrow extends AbstractTipLink {
      * @param xOffset
      * @param yOffset
      */
-    public TipEastArrow(IStyleLink styleLink, int xOffset, int yOffset) {
+    public ExtremityEastArrow(IStyleLink styleLink, int xOffset, int yOffset) {
         super(styleLink, xOffset, yOffset);
     }
 
@@ -71,30 +72,39 @@ public class TipEastArrow extends AbstractTipLink {
      */
     @Override
     public void draw(GC gc, Point point) {
-        Image image = getImage(gc, getForegroundColor(gc));
-        gc.drawImage(image, point.x + xOffset, point.y + yOffset - HEIGHT_ARROW / 2);
-        image.dispose();
+//        Image image = getImage(gc, getForegroundColor(gc));
+//        gc.drawImage(image, point.x + xOffset, point.y + yOffset - HEIGHT_ARROW / 2);
+//        image.dispose();
+        gc.setBackground(styleLink.getForegroundColor());
+        gc.fillPolygon(
+                new int[] {
+                        point.x + xOffset, point.y + yOffset - 1 - HEIGHT_ARROW / 2, 
+                        point.x + xOffset + WIDTH_ARROW, point.y + yOffset - 1,
+                        point.x + xOffset + WIDTH_ARROW, point.y + yOffset ,
+                        point.x + xOffset, point.y + yOffset + HEIGHT_ARROW / 2,
+                }
+        );
 
     }
 
-    public static Image getImage(GC gc, Color foregroundColor) {
-
-        RGB transparentColor = new RGB(1, 1, 1);
-        PaletteData paletteData = new PaletteData(new RGB[] { transparentColor, foregroundColor.getRGB(), });
-        ImageData imageData = new ImageData(WIDTH_IMAGE_ARROW, HEIGHT_IMAGE_ARROW, 1, paletteData);
-
-        int transparentPixel = imageData.palette.getPixel(transparentColor);
-        imageData.transparentPixel = transparentPixel;
-
-        for (int i = 0; i < HEIGHT_ARROW / 2; i++) {
-            for (int j = i; j < HEIGHT_ARROW / 2; j++) {
-                imageData.setPixel(i, j, FOREGROUND_INDEX_PALETTE_COLOR);
-                imageData.setPixel(i, HEIGHT_ARROW - j - 1, FOREGROUND_INDEX_PALETTE_COLOR);
-            }
-        }
-        return new Image(gc.getDevice(), imageData);
-    }
-
+//    public static Image getImage(GC gc, Color foregroundColor) {
+//
+//        RGB transparentColor = new RGB(1, 1, 1);
+//        PaletteData paletteData = new PaletteData(new RGB[] { transparentColor, foregroundColor.getRGB(), });
+//        ImageData imageData = new ImageData(WIDTH_IMAGE_ARROW, HEIGHT_IMAGE_ARROW, 1, paletteData);
+//
+//        int transparentPixel = imageData.palette.getPixel(transparentColor);
+//        imageData.transparentPixel = transparentPixel;
+//
+//        for (int i = 0; i < HEIGHT_ARROW / 2; i++) {
+//            for (int j = i; j < HEIGHT_ARROW / 2; j++) {
+//                imageData.setPixel(i, j, FOREGROUND_INDEX_PALETTE_COLOR);
+//                imageData.setPixel(i, HEIGHT_ARROW - j - 1, FOREGROUND_INDEX_PALETTE_COLOR);
+//            }
+//        }
+//        return new Image(gc.getDevice(), imageData);
+//    }
+//
     public Point getSize() {
         return new Point(WIDTH_ARROW, HEIGHT_ARROW);
     }

@@ -27,8 +27,10 @@ import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.ScrollBar;
 import org.talend.commons.utils.performance.IPerformanceEvaluatorListener;
 import org.talend.commons.utils.performance.PerformanceEvaluator;
 import org.talend.commons.utils.performance.PerformanceEvaluatorEvent;
@@ -47,8 +49,6 @@ public abstract class BackgroundRefresher {
      */
     private static final int TIME_BEFORE_REEVALUATE_PERFORMANCE = 30;
 
-    private static final int DEFAULT_BG_COLOR = SWT.COLOR_WHITE;
-
     protected Image bgImage1;
 
     protected Image bgImage2;
@@ -59,7 +59,7 @@ public abstract class BackgroundRefresher {
 
     protected Composite commonParent;
 
-    private boolean antialiasActivated;
+    private boolean antialiasAllowed;
 
     private Color backgroundColor;
 
@@ -73,7 +73,6 @@ public abstract class BackgroundRefresher {
     public BackgroundRefresher(Composite commonParent) {
         super();
         this.commonParent = commonParent;
-        this.backgroundColor = commonParent.getDisplay().getSystemColor(DEFAULT_BG_COLOR);
         init();
     }
 
@@ -102,7 +101,7 @@ public abstract class BackgroundRefresher {
                 performanceEvaluator.addListener(new IPerformanceEvaluatorListener() {
 
                     public void handleEvent(PerformanceEvaluatorEvent event) {
-                        antialiasActivated = event.getIndicePerformance() < 310;
+                        antialiasAllowed = event.getIndicePerformance() < 310;
                     }
                 });
             }
@@ -138,7 +137,10 @@ public abstract class BackgroundRefresher {
 
         oldImage = commonParent.getBackgroundImage();
         Image newImage = null;
-        if (oldImage == null || oldImage.isDisposed()) {
+        if (oldImage == null || oldImage.isDisposed()
+//                || bgImage1 == null || bgImage1.isDisposed() 
+//                || bgImage2 == null || bgImage2.isDisposed() 
+        ) {
             createBgImages();
             newImage = bgImage1;
         } else {
@@ -152,6 +154,7 @@ public abstract class BackgroundRefresher {
         if (newImage != null && !newImage.isDisposed()) {
 
             GC gc = new GC(newImage);
+            
             drawBackground(gc);
 
             gc.dispose();
@@ -196,7 +199,7 @@ public abstract class BackgroundRefresher {
     protected void clearImage(final Image image) {
         if (image != null && !image.isDisposed()) {
             GC gc = new GC(image);
-            gc.setBackground(backgroundColor);
+            gc.setBackground(backgroundColor == null ? commonParent.getBackground() : backgroundColor);
             gc.fillRectangle(commonParent.getClientArea());
             gc.dispose();
         }
@@ -250,4 +253,29 @@ public abstract class BackgroundRefresher {
         this.backgroundColor = backgroundColor;
     }
 
+    public Point convertPointToCommonParentOrigin(Point point, Composite child) {
+        Point returnedPoint = new Point(point.x, point.y);
+        while (child != commonParent) {
+            Rectangle bounds = child.getBounds();
+            child = child.getParent();
+            ScrollBar vScrollBar = child.getVerticalBar();
+            if (vScrollBar != null) {
+                returnedPoint.y += vScrollBar.getSelection();
+            }
+            returnedPoint.x += bounds.x;
+            returnedPoint.y += bounds.y;
+        }
+        return returnedPoint;
+    }
+
+    
+    /**
+     * Getter for antialiasActivated.
+     * @return the antialiasActivated
+     */
+    public boolean isAntialiasAllowed() {
+        return this.antialiasAllowed;
+    }
+
+    
 }

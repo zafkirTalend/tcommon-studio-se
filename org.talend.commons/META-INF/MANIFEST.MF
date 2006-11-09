@@ -52,5 +52,6 @@ Export-Package: org.talend.commons,
  org.talend.commons.utils.workbench.extensions,
  org.talend.commons.utils.workbench.gef,
  org.talend.commons.utils.workbench.preferences,
- org.talend.commons.utils.workbench.resources
+ org.talend.commons.utils.workbench.resources,
+ org.talend.commons.xml
 Bundle-Vendor: .Talend SA.

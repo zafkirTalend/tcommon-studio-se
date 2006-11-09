@@ -22,6 +22,7 @@
 package org.talend.commons.ui.swt.drawing.link;
 
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
 import org.talend.commons.ui.swt.drawing.link.StyleLink.EDirection;
 
 
@@ -71,28 +72,28 @@ public interface IStyleLink {
     public void setForegroundColor(Color foregroundColor);
 
     /**
-     * Getter for tipPoint1.
-     * @return the tipPoint1
+     * Getter for extremity1.
+     * @return the extremity1
      */
-    public ITipLink getTipPoint1();
+    public IExtremityDrawableLink getExtremity1();
 
     /**
-     * Sets the tipPoint1.
-     * @param tipPoint1 the tipPoint1 to set
+     * Sets the extremity1.
+     * @param extremity1 the extremity1 to set
      */
-    public void setTipPoint1(ITipLink tipPoint1);
+    public void setExtremity1(IExtremityDrawableLink extremity1);
 
     /**
-     * Getter for tipPoint2.
-     * @return the tipPoint2
+     * Getter for extremity2.
+     * @return the extremity2
      */
-    public ITipLink getTipPoint2();
+    public IExtremityDrawableLink getExtremity2();
 
     /**
-     * Sets the tipPoint2.
-     * @param tipPoint2 the tipPoint2 to set
+     * Sets the extremity2.
+     * @param extremity2 the extremity2 to set
      */
-    public void setTipPoint2(ITipLink tipPoint2);
+    public void setExtremity2(IExtremityDrawableLink extremity2);
 
     /**
      * Getter for drawableLink.
@@ -105,6 +106,72 @@ public interface IStyleLink {
      * @param drawableLink the drawableLink to set
      */
     public void setDrawableLink(IDrawableLink drawableLink);
+
+    /**
+     * Getter for lineCap.
+     * @return the lineCap
+     */
+    public int getLineCap();
+
+    /**
+     * Sets the lineCap.
+     * @param lineCap the lineCap to set
+     */
+    public void setLineCap(int lineCap);
+
+    /**
+     * Getter for lineDash.
+     * @return the lineDash
+     */
+    public int[] getLineDash();
+
+    /**
+     * Sets the lineDash.
+     * @param lineDash the lineDash to set
+     */
+    public void setLineDash(int[] lineDash);
+
+    /**
+     * Getter for lineJoin.
+     * @return the lineJoin
+     */
+    public int getLineJoin();
+
+    /**
+     * Sets the lineJoin.
+     * @param lineJoin the lineJoin to set
+     */
+    public void setLineJoin(int lineJoin);
+
+    /**
+     * Getter for lineStyle.
+     * @return the lineStyle
+     */
+    public int getLineStyle();
+
+    /**
+     * Sets the lineStyle.
+     * @param lineStyle the lineStyle to set
+     */
+    public void setLineStyle(int lineStyle);
+
+    /**
+     * Getter for lineWidth.
+     * @return the lineWidth
+     */
+    public int getLineWidth();
+
+    /**
+     * Sets the lineWidth.
+     * @param lineWidth the lineWidth to set
+     */
+    public void setLineWidth(int lineWidth);
+
+    /**
+     * DOC amaumont Comment method "apply".
+     * @param gc
+     */
+    public void apply(GC gc);
 
     
     

@@ -36,13 +36,13 @@ import org.eclipse.swt.graphics.RGB;
  * $Id$
  *
  */
-public class TipWestArrow extends AbstractTipLink {
+public class ExtremityWestArrow extends AbstractExtremityDrawableLink {
 
     /**
      * DOC amaumont TipWestArrow constructor comment.
      * @param styleLink
      */
-    public TipWestArrow(IStyleLink styleLink) {
+    public ExtremityWestArrow(IStyleLink styleLink) {
         super(styleLink);
     }
 
@@ -54,7 +54,7 @@ public class TipWestArrow extends AbstractTipLink {
      * @param xOffset
      * @param yOffset
      */
-    public TipWestArrow(IStyleLink styleLink, int xOffset, int yOffset) {
+    public ExtremityWestArrow(IStyleLink styleLink, int xOffset, int yOffset) {
         super(styleLink, xOffset, yOffset);
         // TODO Auto-generated constructor stub
     }
@@ -65,29 +65,39 @@ public class TipWestArrow extends AbstractTipLink {
      * @see org.talend.commons.ui.swt.drawing.link.ITipLink#draw(org.eclipse.swt.graphics.GC, org.eclipse.swt.graphics.Point)
      */
     public void draw(GC gc, Point point) {
-        
-        Image image = TipEastArrow.getImage(gc, getForegroundColor(gc));
-        ImageData src = image.getImageData();
-        RGB[] rgbs = src.palette.getRGBs();
-        ImageData dest = new ImageData(src.width, src.height, src.depth, new PaletteData(rgbs));
-        int transparentPixel = dest.palette.getPixel(rgbs[0]);
-        dest.transparentPixel = transparentPixel;
 
-        /* rotate by rearranging the pixels */
-        for (int i = 0; i < src.width; i++) {
-            for (int j = 0; j < src.height; j++) {
-                int pixel = src.getPixel(i, j);
-                dest.setPixel(src.width - 1 - i, j, pixel);
-            }
-        }
-        Image westArrow = new Image(gc.getDevice(), dest);
-        gc.drawImage(westArrow, point.x - TipEastArrow.WIDTH_ARROW + xOffset, point.y - TipEastArrow.HEIGHT_ARROW / 2 + yOffset);
-        westArrow.dispose();
+        gc.setBackground(styleLink.getForegroundColor());
+        gc.fillPolygon(
+                new int[] {
+                        point.x + xOffset, point.y + yOffset - 1 - ExtremityEastArrow.HEIGHT_ARROW / 2, 
+                        point.x + xOffset - ExtremityEastArrow.WIDTH_ARROW, point.y + yOffset - 1,
+                        point.x + xOffset - ExtremityEastArrow.WIDTH_ARROW, point.y + yOffset ,
+                        point.x + xOffset, point.y + yOffset + ExtremityEastArrow.HEIGHT_ARROW / 2,
+                }
+        );
+
+//        Image image = ExtremityEastArrow.getImage(gc, getForegroundColor(gc));
+//        ImageData src = image.getImageData();
+//        RGB[] rgbs = src.palette.getRGBs();
+//        ImageData dest = new ImageData(src.width, src.height, src.depth, new PaletteData(rgbs));
+//        int transparentPixel = dest.palette.getPixel(rgbs[0]);
+//        dest.transparentPixel = transparentPixel;
+//
+//        /* rotate by rearranging the pixels */
+//        for (int i = 0; i < src.width; i++) {
+//            for (int j = 0; j < src.height; j++) {
+//                int pixel = src.getPixel(i, j);
+//                dest.setPixel(src.width - 1 - i, j, pixel);
+//            }
+//        }
+//        Image westArrow = new Image(gc.getDevice(), dest);
+//        gc.drawImage(westArrow, point.x - ExtremityEastArrow.WIDTH_ARROW + xOffset, point.y - ExtremityEastArrow.HEIGHT_ARROW / 2 + yOffset);
+//        westArrow.dispose();
         
     }
 
     public Point getSize() {
-        return new Point(TipEastArrow.WIDTH_ARROW, TipEastArrow.HEIGHT_ARROW);
+        return new Point(ExtremityEastArrow.WIDTH_ARROW, ExtremityEastArrow.HEIGHT_ARROW);
     }
 
 }

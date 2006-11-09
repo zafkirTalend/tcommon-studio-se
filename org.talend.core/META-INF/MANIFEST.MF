@@ -17,6 +17,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.update.core
 Export-Package: org.talend.core,
  org.talend.core.context,
+ org.talend.core.language.perl,
  org.talend.core.model.action,
  org.talend.core.model.components,
  org.talend.core.model.general,
@@ -36,6 +37,5 @@ Export-Package: org.talend.core,
  org.talend.core.ui.metadata.editor,
  org.talend.core.ui.proposal,
  org.talend.core.ui.targetschema.editor,
- org.talend.core.utils,
- org.talend.designer.core.language.perl
+ org.talend.core.utils
 Bundle-Vendor: .Talend SA.

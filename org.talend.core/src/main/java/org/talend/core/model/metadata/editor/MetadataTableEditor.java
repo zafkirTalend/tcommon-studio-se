@@ -49,6 +49,8 @@ public class MetadataTableEditor {
 
     private static Pattern validPatternColumnNameRegexp = null;
 
+    private static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][a-zA-Z_0-9]*$";
+    
     private String titleName;
 
     private IMetadataTable metadataTable;
@@ -199,7 +201,6 @@ public class MetadataTableEditor {
         if (columnName == null) {
             return "Error: Column name is null";
         }
-        String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][a-zA-Z_0-9]*$";
         validPatternColumnNameRegexp = null;
         if (validPatternColumnNameRegexp == null) {
             try {

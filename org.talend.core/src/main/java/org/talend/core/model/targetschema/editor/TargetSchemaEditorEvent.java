@@ -24,6 +24,7 @@ package org.talend.core.model.targetschema.editor;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.core.model.action.IEventAction;
 
 /**
@@ -50,8 +51,7 @@ public class TargetSchemaEditorEvent implements IEventAction {
         COPY,
         PASTE,
         CUT,
-        METADATA_NAME_VALUE_CHANGED,
-        METADATA_KEY_VALUE_CHANGED;
+        XPATH_VALUE_CHANGED,
     }
 
     /**
@@ -72,7 +72,7 @@ public class TargetSchemaEditorEvent implements IEventAction {
     /**
      * Used for METADATA_NAME_VALUE_CHANGED type
      */
-    public STATE state;
+    public CELL_EDITOR_STATE state;
 
     public List<Object> entries = new ArrayList<Object>();
 

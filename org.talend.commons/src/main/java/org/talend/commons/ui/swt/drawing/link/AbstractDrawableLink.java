@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.commons.ui.swt.drawing.link;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
@@ -54,27 +55,21 @@ public abstract class AbstractDrawableLink implements IDrawableLink {
 
 
     public void draw(GC gc) {
-        if (style.getForegroundColor() != null) {
-            gc.setForeground(style.getForegroundColor());
-        }
-        if (style.getBackgroundColor() != null) {
-            gc.setBackground(style.getBackgroundColor());
-        }
         drawBody(gc);
-        drawTips(gc);
+        drawExtremities(gc);
     }
 
     /**
-     * DOC amaumont Comment method "drawTips".
+     * DOC amaumont Comment method "drawExtremities".
      * 
      * @param gc
      */
-    protected void drawTips(GC gc) {
-        if (style.getTipPoint1() != null) {
-            style.getTipPoint1().draw(gc, point1);
+    protected void drawExtremities(GC gc) {
+        if (style.getExtremity1() != null) {
+            style.getExtremity1().draw(gc, point1);
         }
-        if (style.getTipPoint2() != null) {
-            style.getTipPoint2().draw(gc, point2);
+        if (style.getExtremity2() != null) {
+            style.getExtremity2().draw(gc, point2);
         }
     }
 

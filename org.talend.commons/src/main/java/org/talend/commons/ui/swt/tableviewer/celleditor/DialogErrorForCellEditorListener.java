@@ -68,7 +68,7 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
         Object bean = modifiedObjectInfo.getCurrentModifiedBean() != null ? modifiedObjectInfo.getCurrentModifiedBean()
                 : modifiedObjectInfo.getPreviousModifiedBean();
         String text = ControlUtils.getText(cellEditor.getControl());
-        fireEventIfValidColumnName(text, true, bean, CELL_EDITOR_STATE.APPLYING);
+        onValueChanged(text, true, bean, CELL_EDITOR_STATE.APPLYING);
         lastValidValue = null;
     }
 
@@ -76,17 +76,17 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
         ModifiedObjectInfo modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
         String originalName = (String) modifiedObjectInfo.getOriginalPropertyBeanValue();
         ControlUtils.setText(cellEditor.getControl(), originalName);
-        fireEventIfValidColumnName(originalName, false, modifiedObjectInfo.getCurrentModifiedBean(), CELL_EDITOR_STATE.CANCELING);
+        onValueChanged(originalName, false, modifiedObjectInfo.getCurrentModifiedBean(), CELL_EDITOR_STATE.CANCELING);
         lastValidValue = null;
     }
 
     public void editorValueChanged(boolean oldValidState, boolean newValidState) {
         ModifiedObjectInfo modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
-        fireEventIfValidColumnName(((Text) cellEditor.getControl()).getText(), false, modifiedObjectInfo.getCurrentModifiedBean(),
+        onValueChanged(((Text) cellEditor.getControl()).getText(), false, modifiedObjectInfo.getCurrentModifiedBean(),
                 CELL_EDITOR_STATE.EDITING);
     }
 
-    protected void fireEventIfValidColumnName(final String newValue, boolean showAlertIfError, final Object currentModifiedBean,
+    protected void onValueChanged(final String newValue, boolean showAlertIfError, final Object currentModifiedBean,
             CELL_EDITOR_STATE state) {
         final Text text = (Text) cellEditor.getControl();
         final ModifiedObjectInfo modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();

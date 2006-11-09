@@ -21,7 +21,9 @@
 // ============================================================================
 package org.talend.commons.ui.swt.drawing.link;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
 
 
 /**
@@ -37,13 +39,22 @@ public class StyleLink implements IStyleLink {
     
     protected Color backgroundColor;
 
-    protected ITipLink tipPoint1;
+    protected IExtremityDrawableLink extremity1;
     
-    protected ITipLink tipPoint2;
+    protected IExtremityDrawableLink extremity2;
     
     protected IDrawableLink drawableLink;
     
+    protected int lineWidth = 1;
+    
+    protected int lineStyle = SWT.LINE_SOLID;
 
+    protected int lineJoin = SWT.JOIN_MITER;
+    
+    protected int lineCap = SWT.CAP_FLAT;
+    
+    protected int[] lineDash;
+    
     /**
      * 
      * Indicate direction of link.
@@ -125,41 +136,41 @@ public class StyleLink implements IStyleLink {
 
     
     /**
-     * Getter for tipPoint1.
-     * @return the tipPoint1
+     * Getter for extremity1.
+     * @return the extremity1
      */
-    public ITipLink getTipPoint1() {
-        return this.tipPoint1;
+    public IExtremityDrawableLink getExtremity1() {
+        return this.extremity1;
     }
 
 
     
     /**
-     * Sets the tipPoint1.
-     * @param tipPoint1 the tipPoint1 to set
+     * Sets the extremity1.
+     * @param extremity1 the extremity1 to set
      */
-    public void setTipPoint1(ITipLink tipPoint1) {
-        this.tipPoint1 = tipPoint1;
+    public void setExtremity1(IExtremityDrawableLink extremity1) {
+        this.extremity1 = extremity1;
     }
 
 
     
     /**
-     * Getter for tipPoint2.
-     * @return the tipPoint2
+     * Getter for extremity2.
+     * @return the extremity2
      */
-    public ITipLink getTipPoint2() {
-        return this.tipPoint2;
+    public IExtremityDrawableLink getExtremity2() {
+        return this.extremity2;
     }
 
 
     
     /**
-     * Sets the tipPoint2.
-     * @param tipPoint2 the tipPoint2 to set
+     * Sets the extremity2.
+     * @param extremity2 the extremity2 to set
      */
-    public void setTipPoint2(ITipLink tipPoint2) {
-        this.tipPoint2 = tipPoint2;
+    public void setExtremity2(IExtremityDrawableLink extremity2) {
+        this.extremity2 = extremity2;
     }
 
 
@@ -180,6 +191,136 @@ public class StyleLink implements IStyleLink {
      */
     public void setDrawableLink(IDrawableLink drawableLink) {
         this.drawableLink = drawableLink;
+    }
+
+
+    
+    /**
+     * Getter for lineCap.
+     * @return the lineCap
+     * @see GC#getLineCap()
+     */
+    public int getLineCap() {
+        return this.lineCap;
+    }
+
+
+    
+    /**
+     * Sets the lineCap.
+     * @param lineCap the lineCap to set
+     * @see GC#setLineCap(int)
+     */
+    public void setLineCap(int lineCap) {
+        this.lineCap = lineCap;
+    }
+
+
+    
+    /**
+     * Getter for lineDash.
+     * @return the lineDash
+     * @see GC#getLineDash()
+     */
+    public int[] getLineDash() {
+        return this.lineDash;
+    }
+
+
+    
+    /**
+     * Sets the lineDash.
+     * @param lineDash the lineDash to set
+     * @see GC#setLineDash(int[])
+     */
+    public void setLineDash(int[] lineDash) {
+        this.lineDash = lineDash;
+    }
+
+
+    
+    /**
+     * Getter for lineJoin.
+     * Note: this is only visible when using GC#drawPolygon(int[]) !
+     * @return the lineJoin
+     * @see GC#getLineJoin()
+     */
+    public int getLineJoin() {
+        return this.lineJoin;
+    }
+
+
+    
+    /**
+     * Sets the lineJoin.
+     * Note: this is only visible when using GC#drawPolygon(int[]) !
+     * @param lineJoin the lineJoin to set
+     * @see GC#setLineJoin(int)
+     */
+    public void setLineJoin(int lineJoin) {
+        this.lineJoin = lineJoin;
+    }
+
+
+    
+    /**
+     * Getter for lineStyle.
+     * @return the lineStyle
+     * @see GC#getLineStyle()
+     */
+    public int getLineStyle() {
+        return this.lineStyle;
+    }
+
+
+    
+    /**
+     * Sets the lineStyle.
+     * @param lineStyle the lineStyle to set
+     * @see GC#setLineStyle(int)
+     */
+    public void setLineStyle(int lineStyle) {
+        this.lineStyle = lineStyle;
+    }
+
+
+    
+    /**
+     * Getter for lineWidth.
+     * @return the lineWidth
+     * @see GC#getLineWidth()
+     */
+    public int getLineWidth() {
+        return this.lineWidth;
+    }
+
+
+    
+    /**
+     * Sets the lineWidth.
+     * @param lineWidth the lineWidth to set
+     * @see GC#setLineWidth(int)
+     */
+    public void setLineWidth(int lineWidth) {
+        this.lineWidth = lineWidth;
+    }
+
+
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.swt.drawing.link.IStyleLink#apply(org.eclipse.swt.graphics.GC)
+     */
+    public void apply(GC gc) {
+        if (getForegroundColor() != null) {
+            gc.setForeground(getForegroundColor());
+        }
+        if (getBackgroundColor() != null) {
+            gc.setBackground(getBackgroundColor());
+        }
+        gc.setLineCap(getLineCap());
+        gc.setLineWidth(getLineWidth());
+        gc.setLineStyle(getLineStyle());
+        gc.setLineJoin(getLineJoin());
+        gc.setLineDash(getLineDash());
     }
 
     

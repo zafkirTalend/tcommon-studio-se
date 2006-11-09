@@ -31,7 +31,7 @@ import org.eclipse.swt.graphics.Point;
  * $Id$
  * 
  */
-public abstract class AbstractTipLink implements ITipLink {
+public abstract class AbstractExtremityDrawableLink implements IExtremityDrawableLink {
 
     protected IStyleLink styleLink;
 
@@ -40,25 +40,11 @@ public abstract class AbstractTipLink implements ITipLink {
     protected int yOffset;
     
     /**
-     * 
-     * Indicate direction of link. <br/>
-     * 
-     * $Id$
-     * 
-     */
-    public enum ETipDirection {
-        EAST,
-        WEST,
-        NORTH,
-        SOUTH,
-    }
-
-    /**
      * DOC amaumont AbstractTipLink constructor comment.
      * 
      * @param styleLink
      */
-    public AbstractTipLink(IStyleLink styleLink) {
+    public AbstractExtremityDrawableLink(IStyleLink styleLink) {
         this.styleLink = styleLink;
     }
 
@@ -68,7 +54,7 @@ public abstract class AbstractTipLink implements ITipLink {
      * @param xOffset
      * @param yOffset
      */
-    public AbstractTipLink(IStyleLink styleLink, int xOffset, int yOffset) {
+    public AbstractExtremityDrawableLink(IStyleLink styleLink, int xOffset, int yOffset) {
         super();
         this.styleLink = styleLink;
         this.xOffset = xOffset;
