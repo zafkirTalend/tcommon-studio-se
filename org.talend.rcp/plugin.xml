@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
+   <extension-point id="global_actions" name="Global actions" schema="schema/global_actions.exsd"/>
 
    <extension
          id="application"
@@ -76,22 +77,6 @@
    <category
          id="talend"
          name="Talend"/>
-   <command
-         categoryId="talend"
-         id="showRunProcessView"
-         name="Show run process view"/>
-   <command
-         categoryId="talend"
-         id="showPropertiesView"
-         name="Show properties view"/>
-   <command
-         categoryId="talend"
-         id="showProblemsView"
-         name="Show problems view"/>
-   <command
-         categoryId="talend"
-         id="showModulesView"
-         name="Show modules view"/>
 </extension>
 <extension
       point="org.eclipse.ui.contexts">
@@ -99,28 +84,5 @@
          id="talend.global"
          name="Default"
          parentId="org.eclipse.ui.contexts.window"/>
-</extension>
-<extension
-      point="org.eclipse.ui.bindings">
-   <key
-         commandId="showRunProcessView"
-         contextId="talend.global"
-         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-         sequence="F4"/>
-   <key
-         commandId="showPropertiesView"
-         contextId="talend.global"
-         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-         sequence="F3"/>
-   <key
-         commandId="showProblemsView"
-         contextId="talend.global"
-         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-         sequence="CTRL+F1"/>
-   <key
-         commandId="showModulesView"
-         contextId="talend.global"
-         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
-         sequence="CTRL+F2"/>
 </extension>
 </plugin>

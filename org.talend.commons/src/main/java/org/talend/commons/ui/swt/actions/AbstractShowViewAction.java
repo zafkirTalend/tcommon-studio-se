@@ -19,7 +19,13 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.rcp.actions;
+package org.talend.commons.ui.swt.actions;
+
+import org.eclipse.jface.action.Action;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -27,16 +33,26 @@ package org.talend.rcp.actions;
  * $Id$
  * 
  */
-public class ShowModulesViewAction extends AbstractShowViewAction {
+public abstract class AbstractShowViewAction extends Action {
 
-    @Override
-    public String getDefinitionId() {
-        return "showModulesView";
+    public AbstractShowViewAction() {
+        super();
+        this.setActionDefinitionId(getDefinitionId());
     }
 
-    @Override
-    public String getViewId() {
-        return "org.talend.designer.core.ui.views.ModulesView";
-    }
+    public abstract String getDefinitionId();
 
+    public abstract String getViewId();
+
+    @Override
+    public void run() {
+        IWorkbench workbench = PlatformUI.getWorkbench();
+        IWorkbenchPage page = workbench.getActiveWorkbenchWindow().getActivePage();
+        try {
+            page.showView(getViewId());
+        } catch (PartInitException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }

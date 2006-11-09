@@ -36,15 +36,14 @@ import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.commands.ActionHandler;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.handlers.IHandlerService;
+import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
+import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
+import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.rcp.Activator;
-import org.talend.rcp.actions.ShowModulesViewAction;
-import org.talend.rcp.actions.ShowProblemsViewAction;
-import org.talend.rcp.actions.ShowPropertiesViewAction;
-import org.talend.rcp.actions.ShowRunProcessViewAction;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>
@@ -53,6 +52,11 @@ import org.talend.rcp.actions.ShowRunProcessViewAction;
  * 
  */
 public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
+
+    private List<IAction> actions = new ArrayList<IAction>();
+
+    public static final ISimpleExtensionPoint GLOBAL_ACTIONS = new ExtensionPointImpl("org.talend.rcp.global_actions",
+            "GlobalAction", -1, -1);
 
     public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         super(configurer);
@@ -88,16 +92,12 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         registerActions();
     }
 
-    private List<IAction> actions = new ArrayList<IAction>();
-
     /**
      * DOC smallet Comment method "createActions".
      */
     private void createActions() {
-        actions.add(new ShowRunProcessViewAction());
-        actions.add(new ShowPropertiesViewAction());
-        actions.add(new ShowProblemsViewAction());
-        actions.add(new ShowModulesViewAction());
+        List<IAction> list = ExtensionImplementationProviders.getInstance(GLOBAL_ACTIONS);
+        actions.addAll(list);
     }
 
     /**
