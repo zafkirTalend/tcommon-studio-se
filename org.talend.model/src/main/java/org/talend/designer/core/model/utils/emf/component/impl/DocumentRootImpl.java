@@ -25,6 +25,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.DOCUMENTATIONType;
 import org.talend.designer.core.model.utils.emf.component.DocumentRoot;
 import org.talend.designer.core.model.utils.emf.component.HEADERType;
+import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
 
@@ -43,6 +44,7 @@ import org.talend.designer.core.model.utils.emf.component.RETURNSType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getCONNECTORS <em>CONNECTORS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getDOCUMENTATION <em>DOCUMENTATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getHEADER <em>HEADER</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getPARAMETERS <em>PARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getRETURNS <em>RETURNS</em>}</li>
  * </ul>
@@ -272,6 +274,33 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
 
     /**
      * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     */
+	public ITEMSType getITEMS() {
+        return (ITEMSType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__ITEMS, true);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     */
+	public NotificationChain basicSetITEMS(ITEMSType newITEMS, NotificationChain msgs) {
+        return ((FeatureMap.Internal)getMixed()).basicAdd(ComponentPackage.Literals.DOCUMENT_ROOT__ITEMS, newITEMS, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     */
+	public void setITEMS(ITEMSType newITEMS) {
+        ((FeatureMap.Internal)getMixed()).set(ComponentPackage.Literals.DOCUMENT_ROOT__ITEMS, newITEMS);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
@@ -347,6 +376,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return basicSetDOCUMENTATION(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__HEADER:
                 return basicSetHEADER(null, msgs);
+            case ComponentPackage.DOCUMENT_ROOT__ITEMS:
+                return basicSetITEMS(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 return basicSetPARAMETERS(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
@@ -381,6 +412,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getDOCUMENTATION();
             case ComponentPackage.DOCUMENT_ROOT__HEADER:
                 return getHEADER();
+            case ComponentPackage.DOCUMENT_ROOT__ITEMS:
+                return getITEMS();
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 return getPARAMETERS();
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
@@ -419,6 +452,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return;
             case ComponentPackage.DOCUMENT_ROOT__HEADER:
                 setHEADER((HEADERType)newValue);
+                return;
+            case ComponentPackage.DOCUMENT_ROOT__ITEMS:
+                setITEMS((ITEMSType)newValue);
                 return;
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 setPARAMETERS((PARAMETERSType)newValue);
@@ -461,6 +497,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             case ComponentPackage.DOCUMENT_ROOT__HEADER:
                 setHEADER((HEADERType)null);
                 return;
+            case ComponentPackage.DOCUMENT_ROOT__ITEMS:
+                setITEMS((ITEMSType)null);
+                return;
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 setPARAMETERS((PARAMETERSType)null);
                 return;
@@ -494,6 +533,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getDOCUMENTATION() != null;
             case ComponentPackage.DOCUMENT_ROOT__HEADER:
                 return getHEADER() != null;
+            case ComponentPackage.DOCUMENT_ROOT__ITEMS:
+                return getITEMS() != null;
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 return getPARAMETERS() != null;
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:

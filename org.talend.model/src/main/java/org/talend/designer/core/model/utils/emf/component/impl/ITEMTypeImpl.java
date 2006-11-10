@@ -7,10 +7,15 @@
 package org.talend.designer.core.model.utils.emf.component.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
+import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.ITEMType;
 
 /**
@@ -20,6 +25,8 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getITEMS <em>ITEMS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
@@ -31,6 +38,36 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  * @generated
  */
 public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
+    /**
+     * The cached value of the '{@link #getITEMS() <em>ITEMS</em>}' containment reference.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @see #getITEMS()
+     * @generated
+     * @ordered
+     */
+	protected ITEMSType iTEMS = null;
+
+    /**
+     * The default value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @see #getFIELD()
+     * @generated
+     * @ordered
+     */
+	protected static final String FIELD_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @see #getFIELD()
+     * @generated
+     * @ordered
+     */
+	protected String fIELD = FIELD_EDEFAULT;
+
     /**
      * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -151,6 +188,70 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
 
     /**
      * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     */
+	public ITEMSType getITEMS() {
+        return iTEMS;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     */
+	public NotificationChain basicSetITEMS(ITEMSType newITEMS, NotificationChain msgs) {
+        ITEMSType oldITEMS = iTEMS;
+        iTEMS = newITEMS;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__ITEMS, oldITEMS, newITEMS);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     */
+	public void setITEMS(ITEMSType newITEMS) {
+        if (newITEMS != iTEMS) {
+            NotificationChain msgs = null;
+            if (iTEMS != null)
+                msgs = ((InternalEObject)iTEMS).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.ITEM_TYPE__ITEMS, null, msgs);
+            if (newITEMS != null)
+                msgs = ((InternalEObject)newITEMS).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.ITEM_TYPE__ITEMS, null, msgs);
+            msgs = basicSetITEMS(newITEMS, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__ITEMS, newITEMS, newITEMS));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     */
+	public String getFIELD() {
+        return fIELD;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     */
+	public void setFIELD(String newFIELD) {
+        String oldFIELD = fIELD;
+        fIELD = newFIELD;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__FIELD, oldFIELD, fIELD));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
@@ -256,11 +357,28 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
 
     /**
      * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     */
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case ComponentPackage.ITEM_TYPE__ITEMS:
+                return basicSetITEMS(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
+            case ComponentPackage.ITEM_TYPE__ITEMS:
+                return getITEMS();
+            case ComponentPackage.ITEM_TYPE__FIELD:
+                return getFIELD();
             case ComponentPackage.ITEM_TYPE__NAME:
                 return getNAME();
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
@@ -282,6 +400,12 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
+            case ComponentPackage.ITEM_TYPE__ITEMS:
+                setITEMS((ITEMSType)newValue);
+                return;
+            case ComponentPackage.ITEM_TYPE__FIELD:
+                setFIELD((String)newValue);
+                return;
             case ComponentPackage.ITEM_TYPE__NAME:
                 setNAME((String)newValue);
                 return;
@@ -308,6 +432,12 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      */
     public void eUnset(int featureID) {
         switch (featureID) {
+            case ComponentPackage.ITEM_TYPE__ITEMS:
+                setITEMS((ITEMSType)null);
+                return;
+            case ComponentPackage.ITEM_TYPE__FIELD:
+                setFIELD(FIELD_EDEFAULT);
+                return;
             case ComponentPackage.ITEM_TYPE__NAME:
                 setNAME(NAME_EDEFAULT);
                 return;
@@ -334,6 +464,10 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
+            case ComponentPackage.ITEM_TYPE__ITEMS:
+                return iTEMS != null;
+            case ComponentPackage.ITEM_TYPE__FIELD:
+                return FIELD_EDEFAULT == null ? fIELD != null : !FIELD_EDEFAULT.equals(fIELD);
             case ComponentPackage.ITEM_TYPE__NAME:
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
@@ -357,7 +491,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (nAME: ");
+        result.append(" (fIELD: ");
+        result.append(fIELD);
+        result.append(", nAME: ");
         result.append(nAME);
         result.append(", nOTSHOWIF: ");
         result.append(nOTSHOWIF);

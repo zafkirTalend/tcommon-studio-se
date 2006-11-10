@@ -29,7 +29,6 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#getITEM <em>ITEM</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#getCODELANGUAGE <em>CODELANGUAGE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#getDEFAULT <em>DEFAULT</em>}</li>
  * </ul>
  * </p>
@@ -46,26 +45,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * @ordered
      */
     protected EList iTEM = null;
-
-    /**
-     * The default value of the '{@link #getCODELANGUAGE() <em>CODELANGUAGE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getCODELANGUAGE()
-     * @generated
-     * @ordered
-     */
-    protected static final String CODELANGUAGE_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getCODELANGUAGE() <em>CODELANGUAGE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getCODELANGUAGE()
-     * @generated
-     * @ordered
-     */
-    protected String cODELANGUAGE = CODELANGUAGE_EDEFAULT;
 
     /**
      * The default value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
@@ -122,27 +101,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getCODELANGUAGE() {
-        return cODELANGUAGE;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setCODELANGUAGE(String newCODELANGUAGE) {
-        String oldCODELANGUAGE = cODELANGUAGE;
-        cODELANGUAGE = newCODELANGUAGE;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEMS_TYPE__CODELANGUAGE, oldCODELANGUAGE, cODELANGUAGE));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public String getDEFAULT() {
         return dEFAULT;
     }
@@ -181,8 +139,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
                 return getITEM();
-            case ComponentPackage.ITEMS_TYPE__CODELANGUAGE:
-                return getCODELANGUAGE();
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 return getDEFAULT();
         }
@@ -201,9 +157,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
                 getITEM().clear();
                 getITEM().addAll((Collection)newValue);
                 return;
-            case ComponentPackage.ITEMS_TYPE__CODELANGUAGE:
-                setCODELANGUAGE((String)newValue);
-                return;
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 setDEFAULT((String)newValue);
                 return;
@@ -221,9 +174,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
             case ComponentPackage.ITEMS_TYPE__ITEM:
                 getITEM().clear();
                 return;
-            case ComponentPackage.ITEMS_TYPE__CODELANGUAGE:
-                setCODELANGUAGE(CODELANGUAGE_EDEFAULT);
-                return;
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 setDEFAULT(DEFAULT_EDEFAULT);
                 return;
@@ -240,8 +190,6 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
                 return iTEM != null && !iTEM.isEmpty();
-            case ComponentPackage.ITEMS_TYPE__CODELANGUAGE:
-                return CODELANGUAGE_EDEFAULT == null ? cODELANGUAGE != null : !CODELANGUAGE_EDEFAULT.equals(cODELANGUAGE);
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 return DEFAULT_EDEFAULT == null ? dEFAULT != null : !DEFAULT_EDEFAULT.equals(dEFAULT);
         }
@@ -257,9 +205,7 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (cODELANGUAGE: ");
-        result.append(cODELANGUAGE);
-        result.append(", dEFAULT: ");
+        result.append(" (dEFAULT: ");
         result.append(dEFAULT);
         result.append(')');
         return result.toString();

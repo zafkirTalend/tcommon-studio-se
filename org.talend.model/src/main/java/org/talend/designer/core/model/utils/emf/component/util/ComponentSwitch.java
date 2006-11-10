@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.talend.designer.core.model.utils.emf.component.*;
+
 import org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType;
 import org.talend.designer.core.model.utils.emf.component.COMPONENTType;
 import org.talend.designer.core.model.utils.emf.component.CONNECTORSType;

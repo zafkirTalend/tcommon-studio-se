@@ -428,13 +428,22 @@ public interface ComponentPackage extends EPackage {
     int DOCUMENT_ROOT__HEADER = 7;
 
     /**
+     * The feature id for the '<em><b>ITEMS</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+	int DOCUMENT_ROOT__ITEMS = 8;
+
+    /**
      * The feature id for the '<em><b>PARAMETERS</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__PARAMETERS = 8;
+    int DOCUMENT_ROOT__PARAMETERS = 9;
 
     /**
      * The feature id for the '<em><b>RETURNS</b></em>' containment reference.
@@ -443,7 +452,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__RETURNS = 9;
+    int DOCUMENT_ROOT__RETURNS = 10;
 
     /**
      * The number of structural features of the '<em>Document Root</em>' class.
@@ -452,7 +461,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT_FEATURE_COUNT = 10;
+    int DOCUMENT_ROOT_FEATURE_COUNT = 11;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl <em>HEADER Type</em>}' class.
@@ -693,22 +702,13 @@ public interface ComponentPackage extends EPackage {
     int ITEMS_TYPE__ITEM = 0;
 
     /**
-     * The feature id for the '<em><b>CODELANGUAGE</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ITEMS_TYPE__CODELANGUAGE = 1;
-
-    /**
      * The feature id for the '<em><b>DEFAULT</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEMS_TYPE__DEFAULT = 2;
+    int ITEMS_TYPE__DEFAULT = 1;
 
     /**
      * The number of structural features of the '<em>ITEMS Type</em>' class.
@@ -717,7 +717,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEMS_TYPE_FEATURE_COUNT = 3;
+    int ITEMS_TYPE_FEATURE_COUNT = 2;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl <em>ITEM Type</em>}' class.
@@ -730,13 +730,31 @@ public interface ComponentPackage extends EPackage {
     int ITEM_TYPE = 11;
 
     /**
+     * The feature id for the '<em><b>ITEMS</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+	int ITEM_TYPE__ITEMS = 0;
+
+    /**
+     * The feature id for the '<em><b>FIELD</b></em>' attribute.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+	int ITEM_TYPE__FIELD = 1;
+
+    /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__NAME = 0;
+    int ITEM_TYPE__NAME = 2;
 
     /**
      * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
@@ -745,7 +763,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__NOTSHOWIF = 1;
+    int ITEM_TYPE__NOTSHOWIF = 3;
 
     /**
      * The feature id for the '<em><b>REPOSITORYITEM</b></em>' attribute.
@@ -754,7 +772,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__REPOSITORYITEM = 2;
+    int ITEM_TYPE__REPOSITORYITEM = 4;
 
     /**
      * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
@@ -763,7 +781,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__SHOWIF = 3;
+    int ITEM_TYPE__SHOWIF = 5;
 
     /**
      * The feature id for the '<em><b>VALUE</b></em>' attribute.
@@ -772,7 +790,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__VALUE = 4;
+    int ITEM_TYPE__VALUE = 6;
 
     /**
      * The number of structural features of the '<em>ITEM Type</em>' class.
@@ -781,7 +799,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE_FEATURE_COUNT = 5;
+    int ITEM_TYPE_FEATURE_COUNT = 7;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.LINKTOTypeImpl <em>LINKTO Type</em>}' class.
@@ -868,7 +886,7 @@ public interface ComponentPackage extends EPackage {
     int PARAMETER_TYPE__DEFAULT = 0;
 
     /**
-     * The feature id for the '<em><b>ITEMS</b></em>' containment reference list.
+     * The feature id for the '<em><b>ITEMS</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1565,6 +1583,17 @@ public interface ComponentPackage extends EPackage {
     EReference getDocumentRoot_HEADER();
 
     /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getITEMS <em>ITEMS</em>}'.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>ITEMS</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.DocumentRoot#getITEMS()
+     * @see #getDocumentRoot()
+     * @generated
+     */
+	EReference getDocumentRoot_ITEMS();
+
+    /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPARAMETERS <em>PARAMETERS</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1836,17 +1865,6 @@ public interface ComponentPackage extends EPackage {
     EReference getITEMSType_ITEM();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#getCODELANGUAGE <em>CODELANGUAGE</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>CODELANGUAGE</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.ITEMSType#getCODELANGUAGE()
-     * @see #getITEMSType()
-     * @generated
-     */
-    EAttribute getITEMSType_CODELANGUAGE();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#getDEFAULT <em>DEFAULT</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1866,6 +1884,28 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EClass getITEMType();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getITEMS <em>ITEMS</em>}'.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>ITEMS</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#getITEMS()
+     * @see #getITEMType()
+     * @generated
+     */
+	EReference getITEMType_ITEMS();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}'.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>FIELD</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD()
+     * @see #getITEMType()
+     * @generated
+     */
+	EAttribute getITEMType_FIELD();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNAME <em>NAME</em>}'.
@@ -1997,10 +2037,10 @@ public interface ComponentPackage extends EPackage {
     EReference getPARAMETERType_DEFAULT();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getITEMS <em>ITEMS</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getITEMS <em>ITEMS</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>ITEMS</em>'.
+     * @return the meta object for the containment reference '<em>ITEMS</em>'.
      * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#getITEMS()
      * @see #getPARAMETERType()
      * @generated
@@ -2630,6 +2670,14 @@ public interface ComponentPackage extends EPackage {
         EReference DOCUMENT_ROOT__HEADER = eINSTANCE.getDocumentRoot_HEADER();
 
         /**
+         * The meta object literal for the '<em><b>ITEMS</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+         * @generated
+         */
+		EReference DOCUMENT_ROOT__ITEMS = eINSTANCE.getDocumentRoot_ITEMS();
+
+        /**
          * The meta object literal for the '<em><b>PARAMETERS</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2838,14 +2886,6 @@ public interface ComponentPackage extends EPackage {
         EReference ITEMS_TYPE__ITEM = eINSTANCE.getITEMSType_ITEM();
 
         /**
-         * The meta object literal for the '<em><b>CODELANGUAGE</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ITEMS_TYPE__CODELANGUAGE = eINSTANCE.getITEMSType_CODELANGUAGE();
-
-        /**
          * The meta object literal for the '<em><b>DEFAULT</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2862,6 +2902,22 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EClass ITEM_TYPE = eINSTANCE.getITEMType();
+
+        /**
+         * The meta object literal for the '<em><b>ITEMS</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+         * @generated
+         */
+		EReference ITEM_TYPE__ITEMS = eINSTANCE.getITEMType_ITEMS();
+
+        /**
+         * The meta object literal for the '<em><b>FIELD</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+         * @generated
+         */
+		EAttribute ITEM_TYPE__FIELD = eINSTANCE.getITEMType_FIELD();
 
         /**
          * The meta object literal for the '<em><b>NAME</b></em>' attribute feature.
@@ -2966,7 +3022,7 @@ public interface ComponentPackage extends EPackage {
         EReference PARAMETER_TYPE__DEFAULT = eINSTANCE.getPARAMETERType_DEFAULT();
 
         /**
-         * The meta object literal for the '<em><b>ITEMS</b></em>' containment reference list feature.
+         * The meta object literal for the '<em><b>ITEMS</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

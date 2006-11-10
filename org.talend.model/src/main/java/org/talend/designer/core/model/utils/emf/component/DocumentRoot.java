@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getCONNECTORS <em>CONNECTORS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getDOCUMENTATION <em>DOCUMENTATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getHEADER <em>HEADER</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPARAMETERS <em>PARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getRETURNS <em>RETURNS</em>}</li>
  * </ul>
@@ -223,6 +224,33 @@ public interface DocumentRoot extends EObject {
      * @generated
      */
     void setHEADER(HEADERType value);
+
+    /**
+     * Returns the value of the '<em><b>ITEMS</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>ITEMS</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+     * @return the value of the '<em>ITEMS</em>' containment reference.
+     * @see #setITEMS(ITEMSType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getDocumentRoot_ITEMS()
+     * @model containment="true" upper="-2" transient="true" volatile="true" derived="true"
+     *        extendedMetaData="kind='element' name='ITEMS' namespace='##targetNamespace'"
+     * @generated
+     */
+	ITEMSType getITEMS();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getITEMS <em>ITEMS</em>}' containment reference.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @param value the new value of the '<em>ITEMS</em>' containment reference.
+     * @see #getITEMS()
+     * @generated
+     */
+	void setITEMS(ITEMSType value);
 
     /**
      * Returns the value of the '<em><b>PARAMETERS</b></em>' containment reference.

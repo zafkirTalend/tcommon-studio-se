@@ -10,6 +10,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.talend.designer.core.model.utils.emf.component.*;
+
 import org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType;
 import org.talend.designer.core.model.utils.emf.component.COMPONENTType;
 import org.talend.designer.core.model.utils.emf.component.CONNECTORSType;

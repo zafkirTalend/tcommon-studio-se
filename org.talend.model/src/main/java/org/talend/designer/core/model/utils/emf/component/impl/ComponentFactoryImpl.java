@@ -11,6 +11,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.talend.designer.core.model.utils.emf.component.*;
+
 import org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType;
 import org.talend.designer.core.model.utils.emf.component.COMPONENTType;
 import org.talend.designer.core.model.utils.emf.component.CONNECTORSType;

@@ -21,13 +21,10 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
-import org.talend.core.model.temp.ECodeLanguage;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -74,10 +71,37 @@ public final class ElementParameterParser {
         for (int i = 0; i < element.getElementParameters().size(); i++) {
             param = (IElementParameter) element.getElementParameters().get(i);
             if (text.indexOf(param.getVariableName()) != -1) {
+                if (param.getField() == EParameterFieldType.TABLE) {
+                    return createTableValues((List<Map<String, Object>>) param.getValue(), param);
+                }
                 return param.getValue();
             }
         }
         return null;
+    }
+
+    private static List<Map<String, String>> createTableValues(final List<Map<String, Object>> paramValues,
+            final IElementParameter param) {
+        List<Map<String, String>> tableValues = new ArrayList<Map<String, String>>();
+        for (Map<String, Object> currentLine : paramValues) {
+            tableValues.add(copyLine(currentLine, param));
+        }
+        return tableValues;
+    }
+
+    private static Map<String, String> copyLine(Map<String, Object> currentLine, IElementParameter param) {
+        Map<String, String> newLine = new HashMap<String, String>();
+        String[] items = param.getListItemsDisplayCodeName();
+        for (int i = 0; i < items.length; i++) {
+            Object o = currentLine.get(items[i]);
+            if (o instanceof Integer) {
+                IElementParameter tmpParam = (IElementParameter) param.getListItemsValue()[i];
+                newLine.put(items[i], (String) tmpParam.getListItemsValue()[(Integer) o]);
+            } else {
+                newLine.put(items[i], (String) o);
+            }
+        }
+        return newLine;
     }
 
     public static String parse(final IElement element, final String text) {
@@ -109,17 +133,21 @@ public final class ElementParameterParser {
             return ((Boolean) param.getValue()).toString();
         }
         if (param.getField() == EParameterFieldType.TABLE) {
-            List<Map<String, String>> tableValues = (List<Map<String, String>>) param.getValue();
-            ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                    .getProject().getLanguage();
-            String[] items = (String[]) param.getListItemsValue(language);
+            List<Map<String, Object>> tableValues = (List<Map<String, Object>>) param.getValue();
+            String[] items = (String[]) param.getListItemsDisplayCodeName();
             String stringValues = "{";
             for (int i = 0; i < tableValues.size(); i++) {
-                Map<String, String> lineValues = tableValues.get(i);
+                Map<String, Object> lineValues = tableValues.get(i);
                 stringValues += "[";
                 for (int j = 0; j < items.length; j++) {
-                    String currentValue = lineValues.get(items[j]);
-                    stringValues += currentValue;
+
+                    Object currentValue = lineValues.get(items[j]);
+                    if (currentValue instanceof Integer) {
+                        IElementParameter tmpParam = (IElementParameter) param.getListItemsValue()[j];
+                        stringValues += tmpParam.getListItemsDisplayName()[(Integer) currentValue];
+                    } else {
+                        stringValues += currentValue;
+                    }
 
                     if (j != (items.length - 1)) {
                         stringValues += ",";

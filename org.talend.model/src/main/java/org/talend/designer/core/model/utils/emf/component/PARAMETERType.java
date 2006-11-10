@@ -55,21 +55,31 @@ public interface PARAMETERType extends EObject {
     EList getDEFAULT();
 
     /**
-     * Returns the value of the '<em><b>ITEMS</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.ITEMSType}.
+     * Returns the value of the '<em><b>ITEMS</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>ITEMS</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>ITEMS</em>' containment reference list.
+     * @return the value of the '<em>ITEMS</em>' containment reference.
+     * @see #setITEMS(ITEMSType)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_ITEMS()
-     * @model type="org.talend.designer.core.model.utils.emf.component.ITEMSType" containment="true"
+     * @model containment="true"
      *        extendedMetaData="kind='element' name='ITEMS' namespace='##targetNamespace'"
      * @generated
      */
-    EList getITEMS();
+    ITEMSType getITEMS();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getITEMS <em>ITEMS</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>ITEMS</em>' containment reference.
+     * @see #getITEMS()
+     * @generated
+     */
+    void setITEMS(ITEMSType value);
 
     /**
      * Returns the value of the '<em><b>FIELD</b></em>' attribute.

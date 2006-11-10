@@ -16,6 +16,8 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getITEMS <em>ITEMS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
@@ -25,10 +27,64 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType()
- * @model extendedMetaData="name='ITEM_._type' kind='empty'"
+ * @model extendedMetaData="name='ITEM_._type' kind='elementOnly'"
  * @generated
  */
 public interface ITEMType extends EObject {
+    /**
+     * Returns the value of the '<em><b>ITEMS</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>ITEMS</em>' containment reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+     * @return the value of the '<em>ITEMS</em>' containment reference.
+     * @see #setITEMS(ITEMSType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_ITEMS()
+     * @model containment="true"
+     *        extendedMetaData="kind='element' name='ITEMS' namespace='##targetNamespace'"
+     * @generated
+     */
+	ITEMSType getITEMS();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getITEMS <em>ITEMS</em>}' containment reference.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @param value the new value of the '<em>ITEMS</em>' containment reference.
+     * @see #getITEMS()
+     * @generated
+     */
+	void setITEMS(ITEMSType value);
+
+    /**
+     * Returns the value of the '<em><b>FIELD</b></em>' attribute.
+     * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>FIELD</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+     * @return the value of the '<em>FIELD</em>' attribute.
+     * @see #setFIELD(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_FIELD()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='FIELD' namespace='##targetNamespace'"
+     * @generated
+     */
+	String getFIELD();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}' attribute.
+     * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+     * @param value the new value of the '<em>FIELD</em>' attribute.
+     * @see #getFIELD()
+     * @generated
+     */
+	void setFIELD(String value);
+
     /**
      * Returns the value of the '<em><b>NAME</b></em>' attribute.
      * <!-- begin-user-doc -->

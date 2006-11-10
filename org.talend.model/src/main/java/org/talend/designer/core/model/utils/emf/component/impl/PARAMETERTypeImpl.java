@@ -58,14 +58,14 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
     protected EList dEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getITEMS() <em>ITEMS</em>}' containment reference list.
+     * The cached value of the '{@link #getITEMS() <em>ITEMS</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getITEMS()
      * @generated
      * @ordered
      */
-    protected EList iTEMS = null;
+    protected ITEMSType iTEMS = null;
 
     /**
      * The default value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
@@ -347,11 +347,42 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getITEMS() {
-        if (iTEMS == null) {
-            iTEMS = new EObjectContainmentEList(ITEMSType.class, this, ComponentPackage.PARAMETER_TYPE__ITEMS);
-        }
+    public ITEMSType getITEMS() {
         return iTEMS;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetITEMS(ITEMSType newITEMS, NotificationChain msgs) {
+        ITEMSType oldITEMS = iTEMS;
+        iTEMS = newITEMS;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__ITEMS, oldITEMS, newITEMS);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setITEMS(ITEMSType newITEMS) {
+        if (newITEMS != iTEMS) {
+            NotificationChain msgs = null;
+            if (iTEMS != null)
+                msgs = ((InternalEObject)iTEMS).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.PARAMETER_TYPE__ITEMS, null, msgs);
+            if (newITEMS != null)
+                msgs = ((InternalEObject)newITEMS).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.PARAMETER_TYPE__ITEMS, null, msgs);
+            msgs = basicSetITEMS(newITEMS, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__ITEMS, newITEMS, newITEMS));
     }
 
     /**
@@ -699,7 +730,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__DEFAULT:
                 return ((InternalEList)getDEFAULT()).basicRemove(otherEnd, msgs);
             case ComponentPackage.PARAMETER_TYPE__ITEMS:
-                return ((InternalEList)getITEMS()).basicRemove(otherEnd, msgs);
+                return basicSetITEMS(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -752,8 +783,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 getDEFAULT().addAll((Collection)newValue);
                 return;
             case ComponentPackage.PARAMETER_TYPE__ITEMS:
-                getITEMS().clear();
-                getITEMS().addAll((Collection)newValue);
+                setITEMS((ITEMSType)newValue);
                 return;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 setFIELD((String)newValue);
@@ -800,7 +830,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 getDEFAULT().clear();
                 return;
             case ComponentPackage.PARAMETER_TYPE__ITEMS:
-                getITEMS().clear();
+                setITEMS((ITEMSType)null);
                 return;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 setFIELD(FIELD_EDEFAULT);
@@ -846,7 +876,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__DEFAULT:
                 return dEFAULT != null && !dEFAULT.isEmpty();
             case ComponentPackage.PARAMETER_TYPE__ITEMS:
-                return iTEMS != null && !iTEMS.isEmpty();
+                return iTEMS != null;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 return FIELD_EDEFAULT == null ? fIELD != null : !FIELD_EDEFAULT.equals(fIELD);
             case ComponentPackage.PARAMETER_TYPE__NAME:

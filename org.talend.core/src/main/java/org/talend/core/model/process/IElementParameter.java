@@ -23,8 +23,6 @@ package org.talend.core.model.process;
 
 import java.util.List;
 
-import org.talend.core.model.temp.ECodeLanguage;
-
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -74,28 +72,22 @@ public interface IElementParameter {
     public void setShow(final boolean show);
 
     // for combo box (CLOSED_LIST)
-    public void setDefaultClosedListValue(ECodeLanguage language, final Object o);
+    public void setDefaultClosedListValue(final Object o);
 
     public void setListItemsDisplayName(final String[] list);
 
-    public void setListItemsDisplayName(ECodeLanguage language, final String[] list);
-
     public void setListItemsDisplayCodeName(final String[] list);
-
-    public void setListItemsDisplayCodeName(ECodeLanguage language, final String[] list);
 
     public void setListItemsValue(final Object[] list);
 
-    public void setListItemsValue(ECodeLanguage language, final Object[] list);
+    public Object getDefaultClosedListValue();
 
-    public Object getDefaultClosedListValue(ECodeLanguage language);
+    public String[] getListItemsDisplayName();
 
-    public String[] getListItemsDisplayName(ECodeLanguage language);
+    public String[] getListItemsDisplayCodeName();
 
-    public String[] getListItemsDisplayCodeName(ECodeLanguage language);
-
-    public Object[] getListItemsValue(ECodeLanguage language);
-
+    public Object[] getListItemsValue();
+    
     public String getRepositoryValue();
 
     public void setRepositoryValue(String repositoryValue);
@@ -104,9 +96,11 @@ public interface IElementParameter {
 
     public void setRepositoryValueUsed(boolean repositoryUsed);
 
-    public String[] getListRepositoryItems(ECodeLanguage language);
+    public String[] getListRepositoryItems();
 
-    public void setListRepositoryItems(ECodeLanguage language, final String[] list);
+    public void setListRepositoryItems(final String[] list);
+    
+    public int getIndexOfItemFromList(String item);
 
     public String getShowIf();
 
@@ -120,15 +114,11 @@ public interface IElementParameter {
 
     public void setListItemsShowIf(final String[] list);
 
-    public void setListItemsShowIf(ECodeLanguage language, final String[] list);
-
-    public String[] getListItemsShowIf(ECodeLanguage language);
+    public String[] getListItemsShowIf();
 
     public void setListItemsNotShowIf(final String[] list);
 
-    public void setListItemsNotShowIf(ECodeLanguage language, final String[] list);
-
-    public String[] getListItemsNotShowIf(ECodeLanguage language);
+    public String[] getListItemsNotShowIf();
 
     public boolean isShow(String conditionShowIf, String conditionNotShowIf, List<? extends IElementParameter> listParam);
 
