@@ -229,4 +229,15 @@ public class TextCellEditorWithProposal extends TextCellEditor {
         }).start();
     }
 
+    
+    /**
+     * Getter for contentProposalAdapter.
+     * @return the contentProposalAdapter
+     */
+    public ContentProposalAdapterExtended getContentProposalAdapter() {
+        return this.contentProposalAdapter;
+    }
+
+    
+    
 }

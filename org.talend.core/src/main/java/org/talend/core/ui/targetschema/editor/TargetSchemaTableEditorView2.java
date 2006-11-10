@@ -47,6 +47,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.ui.swt.proposal.ContentProposalAdapterExtended;
 import org.talend.commons.ui.swt.proposal.TextCellEditorWithProposal;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
@@ -88,6 +89,8 @@ public class TargetSchemaTableEditorView2 {
     public static final String ID_COLUMN_NAME = "ID_COLUMN_NAME";
 
     private boolean showDbTypeColumn = false;
+
+    private TextCellEditorWithProposal xPathCellEditor;
 
     public TargetSchemaTableEditorView2(Composite parent, int style, TargetSchemaEditor2 targetSchemaEditor) {
         this(parent, style, false);
@@ -250,10 +253,10 @@ public class TargetSchemaTableEditorView2 {
                 bean.setXPathQuery(value);
             }
         });
-        final TextCellEditorWithProposal cellEditor = new TextCellEditorWithProposal(tableViewerCreator.getTable(),
+        xPathCellEditor = new TextCellEditorWithProposal(tableViewerCreator.getTable(),
                 SWT.NONE, column);
-        column.setCellEditor(cellEditor);
-        cellEditor.addListener(new DialogErrorForCellEditorListener(cellEditor, column) {
+        column.setCellEditor(xPathCellEditor);
+        xPathCellEditor.addListener(new DialogErrorForCellEditorListener(xPathCellEditor, column) {
             
             @Override
             public void newValidValueApplied(String previousValue, String newValue, CELL_EDITOR_STATE state) {
@@ -285,6 +288,7 @@ public class TargetSchemaTableEditorView2 {
         column.setModifiable(true);
         column.setWeight(10);
         column.setMinimumWidth(50);
+        column.setDefaultInternalValue("");
         // //////////////////////////////////////////////////////////////////////////////////////
 
         // //////////////////////////////////////////////////////////////////////////////////////
@@ -427,4 +431,15 @@ public class TargetSchemaTableEditorView2 {
         targetSchemaToolbarEditorView2.setDefaultLabel(label);
     }
 
+    
+    /**
+     * Getter for xPathCellEditor.
+     * @return the xPathCellEditor
+     */
+    public TextCellEditorWithProposal getXPathCellEditor() {
+        return this.xPathCellEditor;
+    }
+
+    
+    
 }

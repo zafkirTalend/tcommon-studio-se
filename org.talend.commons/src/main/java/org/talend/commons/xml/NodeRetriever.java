@@ -31,7 +31,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Attr;
@@ -52,7 +51,7 @@ public class NodeRetriever {
 
     public static final String STRING_AT = "@";
 
-    private Document doc;
+    private Document document;
 
     private XPath xpath;
 
@@ -76,7 +75,7 @@ public class NodeRetriever {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder db = dbf.newDocumentBuilder();
-            doc = db.parse(filePath);
+            document = db.parse(filePath);
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         } catch (SAXException e) {
@@ -90,25 +89,44 @@ public class NodeRetriever {
 
     }
 
-    public List<Node> retrieveNodes(String xPathExpression) {
+    /**
+     * 
+     * DOC amaumont Comment method "retrieveListOfNodes".
+     * @param xPathExpression
+     * @return always a <code>List</code> empty or not
+     */
+    public List<Node> retrieveListOfNodes(String xPathExpression) {
 
-        NodeList nodeList = null;
-        try {
-            XPathExpression xpathSchema = xpath.compile(xPathExpression);
-            nodeList = (NodeList) xpathSchema.evaluate(doc, XPathConstants.NODESET);
+        NodeList nodeList = retrieveNodeList(xPathExpression);
+        if(nodeList != null) {
             int nodeListLength = nodeList.getLength();
             List<Node> list = new ArrayList<Node>(nodeListLength);
             for (int j = 0; j < nodeListLength; ++j) {
                 list.add(nodeList.item(j));
             }
-
             return list;
+        } else {
+            return new ArrayList<Node>(0);
+        }
+
+    }
+
+    /**
+     * DOC amaumont Comment method "retrieveNodeList".
+     * 
+     * @param xPathExpression
+     * @param nodeList
+     * @return <code>NodeList</code> or null if expression is invalid
+     */
+    public NodeList retrieveNodeList(String xPathExpression) {
+        NodeList nodeList = null;
+        try {
+            XPathExpression xpathSchema = xpath.compile(xPathExpression);
+            nodeList = (NodeList) xpathSchema.evaluate(document, XPathConstants.NODESET);
         } catch (Exception e) {
             return null;
         }
-
-        // return (List)new ArrayList<Node>(0);
-        // /users/user_tuple | /users/user_tuple/userid2/
+        return nodeList;
     }
 
     public static void main(String[] args) {
@@ -118,7 +136,7 @@ public class NodeRetriever {
 
         String xPathExpression = "/users/user_tuple/userid2/@attr";
 
-        List<Node> nodeList = pathRetriever.retrieveNodes(xPathExpression);
+        List<Node> nodeList = pathRetriever.retrieveListOfNodes(xPathExpression);
 
         for (Node node : nodeList) {
             System.out.println(node.getNodeName() + ":" + node.getFirstChild().getNodeValue());
@@ -145,7 +163,7 @@ public class NodeRetriever {
         Node parentNode = null;
         String at = "";
         if (node.getNodeType() == Node.ATTRIBUTE_NODE) {
-            parentNode = ((Attr)node).getOwnerElement();
+            parentNode = ((Attr) node).getOwnerElement();
             at = STRING_AT;
         } else {
             parentNode = node.getParentNode();
@@ -157,6 +175,15 @@ public class NodeRetriever {
         } else {
             return getAbsoluteXPathFromNode(parentNode, currentXPath);
         }
+    }
+
+    /**
+     * Getter for document.
+     * 
+     * @return the document
+     */
+    public Document getDocument() {
+        return this.document;
     }
 
 }
