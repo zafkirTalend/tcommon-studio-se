@@ -82,7 +82,7 @@ public class XmiResourceManager {
 
     private IPath getFolderPath(IProject project, ERepositoryObjectType repositoryObjectType, IPath relativePath)
             throws PersistenceException {
-        IFolder folder = project.getFolder(LocalResourceModelUtils.getFolderName(repositoryObjectType)).getFolder(relativePath);
+        IFolder folder = project.getFolder(ERepositoryObjectType.getFolderName(repositoryObjectType)).getFolder(relativePath);
         return folder.getFullPath();
     }
 

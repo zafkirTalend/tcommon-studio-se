@@ -11,16 +11,16 @@ import org.talend.designer.business.model.business.BusinessProcess;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Business Process Item</b></em>'. <!--
  * end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.talend.core.model.properties.BusinessProcessItem#getNotation <em>Notation</em>}</li>
- * <li>{@link org.talend.core.model.properties.BusinessProcessItem#getSemantic <em>Semantic</em>}</li>
- * <li>{@link org.talend.core.model.properties.BusinessProcessItem#getNotationHolder <em>Notation Holder</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.BusinessProcessItem#getNotation <em>Notation</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.BusinessProcessItem#getSemantic <em>Semantic</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.BusinessProcessItem#getNotationHolder <em>Notation Holder</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.talend.core.model.properties.PropertiesPackage#getBusinessProcessItem()
  * @model
  * @generated
@@ -28,13 +28,13 @@ import org.talend.designer.business.model.business.BusinessProcess;
 public interface BusinessProcessItem extends Item {
 
     /**
-     * Returns the value of the '<em><b>Notation</b></em>' reference. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Notation</b></em>' reference.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Notation</em>' reference isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Notation</em>' reference.
      * @see #setNotation(Diagram)
      * @see org.talend.core.model.properties.PropertiesPackage#getBusinessProcessItem_Notation()
@@ -44,9 +44,8 @@ public interface BusinessProcessItem extends Item {
     Diagram getNotation();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.BusinessProcessItem#getNotation <em>Notation</em>}'
-     * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.BusinessProcessItem#getNotation <em>Notation</em>}' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Notation</em>' reference.
      * @see #getNotation()
      * @generated
@@ -54,13 +53,13 @@ public interface BusinessProcessItem extends Item {
     void setNotation(Diagram value);
 
     /**
-     * Returns the value of the '<em><b>Semantic</b></em>' reference. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Semantic</b></em>' reference.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Semantic</em>' reference isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Semantic</em>' reference.
      * @see #setSemantic(BusinessProcess)
      * @see org.talend.core.model.properties.PropertiesPackage#getBusinessProcessItem_Semantic()
@@ -70,9 +69,8 @@ public interface BusinessProcessItem extends Item {
     BusinessProcess getSemantic();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.BusinessProcessItem#getSemantic <em>Semantic</em>}'
-     * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.BusinessProcessItem#getSemantic <em>Semantic</em>}' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Semantic</em>' reference.
      * @see #getSemantic()
      * @generated
@@ -80,13 +78,13 @@ public interface BusinessProcessItem extends Item {
     void setSemantic(BusinessProcess value);
 
     /**
-     * Returns the value of the '<em><b>Notation Holder</b></em>' reference. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Notation Holder</b></em>' reference.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Notation Holder</em>' reference isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Notation Holder</em>' reference.
      * @see #setNotationHolder(NotationHolder)
      * @see org.talend.core.model.properties.PropertiesPackage#getBusinessProcessItem_NotationHolder()
@@ -96,9 +94,8 @@ public interface BusinessProcessItem extends Item {
     NotationHolder getNotationHolder();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.BusinessProcessItem#getNotationHolder <em>Notation Holder</em>}'
-     * reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.BusinessProcessItem#getNotationHolder <em>Notation Holder</em>}' reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Notation Holder</em>' reference.
      * @see #getNotationHolder()
      * @generated

@@ -11,6 +11,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.talend.core.model.properties.*;
+
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.CSVFileConnectionItem;
@@ -38,32 +40,31 @@ import org.talend.core.model.properties.XmlFileConnectionItem;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Factory</b>. <!-- end-user-doc -->
- * 
  * @generated
  */
 public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFactory {
 
     /**
-     * Creates the default factory implementation. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Creates the default factory implementation.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public static PropertiesFactory init() {
         try {
-            PropertiesFactory thePropertiesFactory = (PropertiesFactory) EPackage.Registry.INSTANCE
-                    .getEFactory("http://www.talend.org/properties");
+            PropertiesFactory thePropertiesFactory = (PropertiesFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.talend.org/properties"); 
             if (thePropertiesFactory != null) {
                 return thePropertiesFactory;
             }
-        } catch (Exception exception) {
+        }
+        catch (Exception exception) {
             EcorePlugin.INSTANCE.log(exception);
         }
         return new PropertiesFactoryImpl();
     }
 
     /**
-     * Creates an instance of the factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Creates an instance of the factory.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PropertiesFactoryImpl() {
@@ -72,89 +73,64 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
-        case PropertiesPackage.PROJECT:
-            return createProject();
-        case PropertiesPackage.STATUS:
-            return createStatus();
-        case PropertiesPackage.ITEM_STATE:
-            return createItemState();
-        case PropertiesPackage.PROPERTY:
-            return createProperty();
-        case PropertiesPackage.BUSINESS_PROCESS_ITEM:
-            return createBusinessProcessItem();
-        case PropertiesPackage.BYTE_ARRAY:
-            return createByteArray();
-        case PropertiesPackage.DOCUMENTATION_ITEM:
-            return createDocumentationItem();
-        case PropertiesPackage.ROUTINE_ITEM:
-            return createRoutineItem();
-        case PropertiesPackage.CONNECTION_ITEM:
-            return createConnectionItem();
-        case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM:
-            return createDelimitedFileConnectionItem();
-        case PropertiesPackage.POSITIONAL_FILE_CONNECTION_ITEM:
-            return createPositionalFileConnectionItem();
-        case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM:
-            return createRegExFileConnectionItem();
-        case PropertiesPackage.CSV_FILE_CONNECTION_ITEM:
-            return createCSVFileConnectionItem();
-        case PropertiesPackage.DATABASE_CONNECTION_ITEM:
-            return createDatabaseConnectionItem();
-        case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
-            return createXmlFileConnectionItem();
-        case PropertiesPackage.PROCESS_ITEM:
-            return createProcessItem();
-        case PropertiesPackage.USER_ROLE:
-            return createUserRole();
-        case PropertiesPackage.USER:
-            return createUser();
-        case PropertiesPackage.FOLDER_ITEM:
-            return createFolderItem();
-        case PropertiesPackage.COMPONENT:
-            return createComponent();
-        case PropertiesPackage.NOTATION_HOLDER:
-            return createNotationHolder();
-        default:
-            throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+            case PropertiesPackage.PROJECT: return createProject();
+            case PropertiesPackage.STATUS: return createStatus();
+            case PropertiesPackage.ITEM_STATE: return createItemState();
+            case PropertiesPackage.PROPERTY: return createProperty();
+            case PropertiesPackage.BUSINESS_PROCESS_ITEM: return createBusinessProcessItem();
+            case PropertiesPackage.BYTE_ARRAY: return createByteArray();
+            case PropertiesPackage.DOCUMENTATION_ITEM: return createDocumentationItem();
+            case PropertiesPackage.ROUTINE_ITEM: return createRoutineItem();
+            case PropertiesPackage.CONNECTION_ITEM: return createConnectionItem();
+            case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM: return createDelimitedFileConnectionItem();
+            case PropertiesPackage.POSITIONAL_FILE_CONNECTION_ITEM: return createPositionalFileConnectionItem();
+            case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM: return createRegExFileConnectionItem();
+            case PropertiesPackage.CSV_FILE_CONNECTION_ITEM: return createCSVFileConnectionItem();
+            case PropertiesPackage.DATABASE_CONNECTION_ITEM: return createDatabaseConnectionItem();
+            case PropertiesPackage.XML_FILE_CONNECTION_ITEM: return createXmlFileConnectionItem();
+            case PropertiesPackage.PROCESS_ITEM: return createProcessItem();
+            case PropertiesPackage.USER_ROLE: return createUserRole();
+            case PropertiesPackage.USER: return createUser();
+            case PropertiesPackage.FOLDER_ITEM: return createFolderItem();
+            case PropertiesPackage.COMPONENT: return createComponent();
+            case PropertiesPackage.NOTATION_HOLDER: return createNotationHolder();
+            default:
+                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Object createFromString(EDataType eDataType, String initialValue) {
         switch (eDataType.getClassifierID()) {
-        case PropertiesPackage.FOLDER_TYPE:
-            return createFolderTypeFromString(eDataType, initialValue);
-        default:
-            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+            case PropertiesPackage.FOLDER_TYPE:
+                return createFolderTypeFromString(eDataType, initialValue);
+            default:
+                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String convertToString(EDataType eDataType, Object instanceValue) {
         switch (eDataType.getClassifierID()) {
-        case PropertiesPackage.FOLDER_TYPE:
-            return convertFolderTypeToString(eDataType, instanceValue);
-        default:
-            throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+            case PropertiesPackage.FOLDER_TYPE:
+                return convertFolderTypeToString(eDataType, instanceValue);
+            default:
+                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Status createStatus() {
@@ -164,7 +140,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Project createProject() {
@@ -174,7 +149,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Property createProperty() {
@@ -195,7 +169,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public ItemState createItemState() {
@@ -205,7 +178,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public DocumentationItem createDocumentationItem() {
@@ -215,7 +187,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public RoutineItem createRoutineItem() {
@@ -225,7 +196,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public ByteArray createByteArray() {
@@ -235,7 +205,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public ConnectionItem createConnectionItem() {
@@ -245,7 +214,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public DelimitedFileConnectionItem createDelimitedFileConnectionItem() {
@@ -255,7 +223,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public PositionalFileConnectionItem createPositionalFileConnectionItem() {
@@ -265,7 +232,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public RegExFileConnectionItem createRegExFileConnectionItem() {
@@ -275,7 +241,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public CSVFileConnectionItem createCSVFileConnectionItem() {
@@ -285,7 +250,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public DatabaseConnectionItem createDatabaseConnectionItem() {
@@ -295,7 +259,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public ProcessItem createProcessItem() {
@@ -305,7 +268,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public User createUser() {
@@ -315,7 +277,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public FolderItem createFolderItem() {
@@ -325,7 +286,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Component createComponent() {
@@ -335,7 +295,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public XmlFileConnectionItem createXmlFileConnectionItem() {
@@ -345,7 +304,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public NotationHolder createNotationHolder() {
@@ -355,20 +313,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public FolderType createFolderTypeFromString(EDataType eDataType, String initialValue) {
         FolderType result = FolderType.get(initialValue);
-        if (result == null)
-            throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-                    + eDataType.getName() + "'");
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
         return result;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String convertFolderTypeToString(EDataType eDataType, Object instanceValue) {
@@ -377,7 +331,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public UserRole createUserRole() {
@@ -387,16 +340,14 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public PropertiesPackage getPropertiesPackage() {
-        return (PropertiesPackage) getEPackage();
+        return (PropertiesPackage)getEPackage();
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @deprecated
      * @generated
      */

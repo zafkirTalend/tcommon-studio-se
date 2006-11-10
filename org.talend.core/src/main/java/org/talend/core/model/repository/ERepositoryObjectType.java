@@ -70,4 +70,31 @@ public enum ERepositoryObjectType {
         return this.key;
     }
 
+    public static String getFolderName(ERepositoryObjectType type) {
+        switch (type) {
+        case BUSINESS_PROCESS:
+            return "businessProcess";
+        case PROCESS:
+            return "process";
+        case ROUTINES:
+            return "routines";
+        case DOCUMENTATION:
+            return "documentations";
+        case METADATA:
+            return "metadata";
+        case METADATA_CONNECTIONS:
+            return "metadata/connections";
+        case METADATA_FILE_DELIMITED:
+            return "metadata/fileDelimited";
+        case METADATA_FILE_POSITIONAL:
+            return "metadata/filePositional";
+        case METADATA_FILE_REGEXP:
+            return "metadata/fileRegex";
+        case METADATA_FILE_XML:
+            return "metadata/fileXml";
+        default:
+            throw new IllegalArgumentException("Folder for type " + type + " cannot be found");
+        }
+    }
+
 }

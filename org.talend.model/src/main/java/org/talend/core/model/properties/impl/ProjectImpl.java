@@ -31,25 +31,25 @@ import org.talend.core.model.properties.User;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getTechnicalStatus <em>Technical Status</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDocumentationStatus <em>Documentation Status</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getUsers <em>Users</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getId <em>Id</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getLabel <em>Label</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDescription <em>Description</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getLanguage <em>Language</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getTechnicalLabel <em>Technical Label</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isLocal <em>Local</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getFolders <em>Folders</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isDeleted <em>Deleted</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDeleteDate <em>Delete Date</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getComponents <em>Components</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getReferenceProjects <em>Reference Projects</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getCreationDate <em>Creation Date</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAuthor <em>Author</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getTechnicalStatus <em>Technical Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDocumentationStatus <em>Documentation Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getUsers <em>Users</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getId <em>Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getLanguage <em>Language</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getTechnicalLabel <em>Technical Label</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isLocal <em>Local</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getFolders <em>Folders</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isDeleted <em>Deleted</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDeleteDate <em>Delete Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getComponents <em>Components</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getReferenceProjects <em>Reference Projects</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getCreationDate <em>Creation Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAuthor <em>Author</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class ProjectImpl extends EObjectImpl implements Project {
@@ -57,7 +57,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
     /**
      * The cached value of the '{@link #getTechnicalStatus() <em>Technical Status</em>}' containment reference list.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @see #getTechnicalStatus()
      * @generated
      * @ordered
@@ -65,9 +64,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList technicalStatus = null;
 
     /**
-     * The cached value of the '{@link #getDocumentationStatus() <em>Documentation Status</em>}' containment reference
-     * list. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached value of the '{@link #getDocumentationStatus() <em>Documentation Status</em>}' containment reference list.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getDocumentationStatus()
      * @generated
      * @ordered
@@ -75,9 +73,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList documentationStatus = null;
 
     /**
-     * The cached value of the '{@link #getUsers() <em>Users</em>}' reference list. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getUsers() <em>Users</em>}' reference list.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getUsers()
      * @generated
      * @ordered
@@ -95,8 +93,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected static final int ID_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -104,9 +102,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected int id = ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getLabel()
      * @generated
      * @ordered
@@ -114,9 +112,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected static final String LABEL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getLabel()
      * @generated
      * @ordered
@@ -124,9 +122,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected String label = LABEL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getDescription()
      * @generated
      * @ordered
@@ -134,9 +132,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected static final String DESCRIPTION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getDescription()
      * @generated
      * @ordered
@@ -144,9 +142,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected String description = DESCRIPTION_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getLanguage() <em>Language</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getLanguage()
      * @generated
      * @ordered
@@ -154,9 +152,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected static final String LANGUAGE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getLanguage() <em>Language</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getLanguage()
      * @generated
      * @ordered
@@ -164,9 +162,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected String language = LANGUAGE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getTechnicalLabel() <em>Technical Label</em>}' attribute. <!-- begin-user-doc
+     * The default value of the '{@link #getTechnicalLabel() <em>Technical Label</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getTechnicalLabel()
      * @generated
      * @ordered
@@ -174,9 +172,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected static final String TECHNICAL_LABEL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getTechnicalLabel() <em>Technical Label</em>}' attribute. <!-- begin-user-doc
+     * The cached value of the '{@link #getTechnicalLabel() <em>Technical Label</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getTechnicalLabel()
      * @generated
      * @ordered
@@ -184,9 +182,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected String technicalLabel = TECHNICAL_LABEL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isLocal() <em>Local</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isLocal() <em>Local</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isLocal()
      * @generated
      * @ordered
@@ -194,9 +192,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected static final boolean LOCAL_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isLocal() <em>Local</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #isLocal() <em>Local</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isLocal()
      * @generated
      * @ordered
@@ -214,9 +212,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList folders = null;
 
     /**
-     * The default value of the '{@link #isDeleted() <em>Deleted</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #isDeleted() <em>Deleted</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isDeleted()
      * @generated
      * @ordered
@@ -224,9 +222,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected static final boolean DELETED_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isDeleted() <em>Deleted</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #isDeleted() <em>Deleted</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #isDeleted()
      * @generated
      * @ordered
@@ -234,9 +232,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected boolean deleted = DELETED_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDeleteDate() <em>Delete Date</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getDeleteDate() <em>Delete Date</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getDeleteDate()
      * @generated
      * @ordered
@@ -244,9 +242,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected static final Date DELETE_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDeleteDate() <em>Delete Date</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getDeleteDate() <em>Delete Date</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getDeleteDate()
      * @generated
      * @ordered
@@ -254,9 +252,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected Date deleteDate = DELETE_DATE_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getComponents() <em>Components</em>}' reference list. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getComponents() <em>Components</em>}' reference list.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getComponents()
      * @generated
      * @ordered
@@ -274,9 +272,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList referenceProjects = null;
 
     /**
-     * The default value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute. <!-- begin-user-doc -->
+     * The default value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getCreationDate()
      * @generated
      * @ordered
@@ -284,9 +282,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected static final Date CREATION_DATE_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute. <!-- begin-user-doc -->
+     * The cached value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute.
+     * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * 
      * @see #getCreationDate()
      * @generated
      * @ordered
@@ -294,9 +292,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected Date creationDate = CREATION_DATE_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getAuthor() <em>Author</em>}' reference. <!-- begin-user-doc --> <!--
+     * The cached value of the '{@link #getAuthor() <em>Author</em>}' reference.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getAuthor()
      * @generated
      * @ordered
@@ -305,7 +303,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected ProjectImpl() {
@@ -314,7 +311,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected EClass eStaticClass() {
@@ -323,7 +319,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList getTechnicalStatus() {
@@ -335,7 +330,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList getDocumentationStatus() {
@@ -347,7 +341,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public int getId() {
@@ -356,7 +349,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setId(int newId) {
@@ -368,7 +360,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getLabel() {
@@ -377,7 +368,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setLabel(String newLabel) {
@@ -389,7 +379,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getDescription() {
@@ -398,20 +387,17 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDescription(String newDescription) {
         String oldDescription = description;
         description = newDescription;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__DESCRIPTION, oldDescription,
-                    description));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__DESCRIPTION, oldDescription, description));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getLanguage() {
@@ -420,7 +406,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setLanguage(String newLanguage) {
@@ -432,17 +417,15 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public User getAuthor() {
         if (author != null && author.eIsProxy()) {
-            InternalEObject oldAuthor = (InternalEObject) author;
-            author = (User) eResolveProxy(oldAuthor);
+            InternalEObject oldAuthor = (InternalEObject)author;
+            author = (User)eResolveProxy(oldAuthor);
             if (author != oldAuthor) {
                 if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.PROJECT__AUTHOR, oldAuthor,
-                            author));
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.PROJECT__AUTHOR, oldAuthor, author));
             }
         }
         return author;
@@ -450,7 +433,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public User basicGetAuthor() {
@@ -459,7 +441,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setAuthor(User newAuthor) {
@@ -471,7 +452,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getTechnicalLabel() {
@@ -480,20 +460,17 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setTechnicalLabel(String newTechnicalLabel) {
         String oldTechnicalLabel = technicalLabel;
         technicalLabel = newTechnicalLabel;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__TECHNICAL_LABEL, oldTechnicalLabel,
-                    technicalLabel));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__TECHNICAL_LABEL, oldTechnicalLabel, technicalLabel));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isLocal() {
@@ -502,7 +479,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setLocal(boolean newLocal) {
@@ -514,20 +490,17 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList getUsers() {
         if (users == null) {
-            users = new EObjectWithInverseResolvingEList.ManyInverse(User.class, this, PropertiesPackage.PROJECT__USERS,
-                    PropertiesPackage.USER__PROJECTS);
+            users = new EObjectWithInverseResolvingEList.ManyInverse(User.class, this, PropertiesPackage.PROJECT__USERS, PropertiesPackage.USER__PROJECTS);
         }
         return users;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList getFolders() {
@@ -539,7 +512,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean isDeleted() {
@@ -548,7 +520,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDeleted(boolean newDeleted) {
@@ -560,7 +531,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Date getDeleteDate() {
@@ -569,33 +539,28 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setDeleteDate(Date newDeleteDate) {
         Date oldDeleteDate = deleteDate;
         deleteDate = newDeleteDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__DELETE_DATE, oldDeleteDate,
-                    deleteDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__DELETE_DATE, oldDeleteDate, deleteDate));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList getComponents() {
         if (components == null) {
-            components = new EObjectWithInverseResolvingEList.ManyInverse(Component.class, this,
-                    PropertiesPackage.PROJECT__COMPONENTS, PropertiesPackage.COMPONENT__PROJECTS);
+            components = new EObjectWithInverseResolvingEList.ManyInverse(Component.class, this, PropertiesPackage.PROJECT__COMPONENTS, PropertiesPackage.COMPONENT__PROJECTS);
         }
         return components;
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList getReferenceProjects() {
@@ -607,7 +572,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Date getCreationDate() {
@@ -616,273 +580,262 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setCreationDate(Date newCreationDate) {
         Date oldCreationDate = creationDate;
         creationDate = newCreationDate;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__CREATION_DATE, oldCreationDate,
-                    creationDate));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__CREATION_DATE, oldCreationDate, creationDate));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-        case PropertiesPackage.PROJECT__USERS:
-            return ((InternalEList) getUsers()).basicAdd(otherEnd, msgs);
-        case PropertiesPackage.PROJECT__COMPONENTS:
-            return ((InternalEList) getComponents()).basicAdd(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__USERS:
+                return ((InternalEList)getUsers()).basicAdd(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__COMPONENTS:
+                return ((InternalEList)getComponents()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-        case PropertiesPackage.PROJECT__TECHNICAL_STATUS:
-            return ((InternalEList) getTechnicalStatus()).basicRemove(otherEnd, msgs);
-        case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
-            return ((InternalEList) getDocumentationStatus()).basicRemove(otherEnd, msgs);
-        case PropertiesPackage.PROJECT__USERS:
-            return ((InternalEList) getUsers()).basicRemove(otherEnd, msgs);
-        case PropertiesPackage.PROJECT__FOLDERS:
-            return ((InternalEList) getFolders()).basicRemove(otherEnd, msgs);
-        case PropertiesPackage.PROJECT__COMPONENTS:
-            return ((InternalEList) getComponents()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__TECHNICAL_STATUS:
+                return ((InternalEList)getTechnicalStatus()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
+                return ((InternalEList)getDocumentationStatus()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__USERS:
+                return ((InternalEList)getUsers()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__FOLDERS:
+                return ((InternalEList)getFolders()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__COMPONENTS:
+                return ((InternalEList)getComponents()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case PropertiesPackage.PROJECT__TECHNICAL_STATUS:
-            return getTechnicalStatus();
-        case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
-            return getDocumentationStatus();
-        case PropertiesPackage.PROJECT__USERS:
-            return getUsers();
-        case PropertiesPackage.PROJECT__ID:
-            return new Integer(getId());
-        case PropertiesPackage.PROJECT__LABEL:
-            return getLabel();
-        case PropertiesPackage.PROJECT__DESCRIPTION:
-            return getDescription();
-        case PropertiesPackage.PROJECT__LANGUAGE:
-            return getLanguage();
-        case PropertiesPackage.PROJECT__TECHNICAL_LABEL:
-            return getTechnicalLabel();
-        case PropertiesPackage.PROJECT__LOCAL:
-            return isLocal() ? Boolean.TRUE : Boolean.FALSE;
-        case PropertiesPackage.PROJECT__FOLDERS:
-            return getFolders();
-        case PropertiesPackage.PROJECT__DELETED:
-            return isDeleted() ? Boolean.TRUE : Boolean.FALSE;
-        case PropertiesPackage.PROJECT__DELETE_DATE:
-            return getDeleteDate();
-        case PropertiesPackage.PROJECT__COMPONENTS:
-            return getComponents();
-        case PropertiesPackage.PROJECT__REFERENCE_PROJECTS:
-            return getReferenceProjects();
-        case PropertiesPackage.PROJECT__CREATION_DATE:
-            return getCreationDate();
-        case PropertiesPackage.PROJECT__AUTHOR:
-            if (resolve)
-                return getAuthor();
-            return basicGetAuthor();
+            case PropertiesPackage.PROJECT__TECHNICAL_STATUS:
+                return getTechnicalStatus();
+            case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
+                return getDocumentationStatus();
+            case PropertiesPackage.PROJECT__USERS:
+                return getUsers();
+            case PropertiesPackage.PROJECT__ID:
+                return new Integer(getId());
+            case PropertiesPackage.PROJECT__LABEL:
+                return getLabel();
+            case PropertiesPackage.PROJECT__DESCRIPTION:
+                return getDescription();
+            case PropertiesPackage.PROJECT__LANGUAGE:
+                return getLanguage();
+            case PropertiesPackage.PROJECT__TECHNICAL_LABEL:
+                return getTechnicalLabel();
+            case PropertiesPackage.PROJECT__LOCAL:
+                return isLocal() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.PROJECT__FOLDERS:
+                return getFolders();
+            case PropertiesPackage.PROJECT__DELETED:
+                return isDeleted() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.PROJECT__DELETE_DATE:
+                return getDeleteDate();
+            case PropertiesPackage.PROJECT__COMPONENTS:
+                return getComponents();
+            case PropertiesPackage.PROJECT__REFERENCE_PROJECTS:
+                return getReferenceProjects();
+            case PropertiesPackage.PROJECT__CREATION_DATE:
+                return getCreationDate();
+            case PropertiesPackage.PROJECT__AUTHOR:
+                if (resolve) return getAuthor();
+                return basicGetAuthor();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case PropertiesPackage.PROJECT__TECHNICAL_STATUS:
-            getTechnicalStatus().clear();
-            getTechnicalStatus().addAll((Collection) newValue);
-            return;
-        case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
-            getDocumentationStatus().clear();
-            getDocumentationStatus().addAll((Collection) newValue);
-            return;
-        case PropertiesPackage.PROJECT__USERS:
-            getUsers().clear();
-            getUsers().addAll((Collection) newValue);
-            return;
-        case PropertiesPackage.PROJECT__ID:
-            setId(((Integer) newValue).intValue());
-            return;
-        case PropertiesPackage.PROJECT__LABEL:
-            setLabel((String) newValue);
-            return;
-        case PropertiesPackage.PROJECT__DESCRIPTION:
-            setDescription((String) newValue);
-            return;
-        case PropertiesPackage.PROJECT__LANGUAGE:
-            setLanguage((String) newValue);
-            return;
-        case PropertiesPackage.PROJECT__TECHNICAL_LABEL:
-            setTechnicalLabel((String) newValue);
-            return;
-        case PropertiesPackage.PROJECT__LOCAL:
-            setLocal(((Boolean) newValue).booleanValue());
-            return;
-        case PropertiesPackage.PROJECT__FOLDERS:
-            getFolders().clear();
-            getFolders().addAll((Collection) newValue);
-            return;
-        case PropertiesPackage.PROJECT__DELETED:
-            setDeleted(((Boolean) newValue).booleanValue());
-            return;
-        case PropertiesPackage.PROJECT__DELETE_DATE:
-            setDeleteDate((Date) newValue);
-            return;
-        case PropertiesPackage.PROJECT__COMPONENTS:
-            getComponents().clear();
-            getComponents().addAll((Collection) newValue);
-            return;
-        case PropertiesPackage.PROJECT__REFERENCE_PROJECTS:
-            getReferenceProjects().clear();
-            getReferenceProjects().addAll((Collection) newValue);
-            return;
-        case PropertiesPackage.PROJECT__CREATION_DATE:
-            setCreationDate((Date) newValue);
-            return;
-        case PropertiesPackage.PROJECT__AUTHOR:
-            setAuthor((User) newValue);
-            return;
+            case PropertiesPackage.PROJECT__TECHNICAL_STATUS:
+                getTechnicalStatus().clear();
+                getTechnicalStatus().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
+                getDocumentationStatus().clear();
+                getDocumentationStatus().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.PROJECT__USERS:
+                getUsers().clear();
+                getUsers().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.PROJECT__ID:
+                setId(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.PROJECT__LABEL:
+                setLabel((String)newValue);
+                return;
+            case PropertiesPackage.PROJECT__DESCRIPTION:
+                setDescription((String)newValue);
+                return;
+            case PropertiesPackage.PROJECT__LANGUAGE:
+                setLanguage((String)newValue);
+                return;
+            case PropertiesPackage.PROJECT__TECHNICAL_LABEL:
+                setTechnicalLabel((String)newValue);
+                return;
+            case PropertiesPackage.PROJECT__LOCAL:
+                setLocal(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.PROJECT__FOLDERS:
+                getFolders().clear();
+                getFolders().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.PROJECT__DELETED:
+                setDeleted(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.PROJECT__DELETE_DATE:
+                setDeleteDate((Date)newValue);
+                return;
+            case PropertiesPackage.PROJECT__COMPONENTS:
+                getComponents().clear();
+                getComponents().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.PROJECT__REFERENCE_PROJECTS:
+                getReferenceProjects().clear();
+                getReferenceProjects().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.PROJECT__CREATION_DATE:
+                setCreationDate((Date)newValue);
+                return;
+            case PropertiesPackage.PROJECT__AUTHOR:
+                setAuthor((User)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.PROJECT__TECHNICAL_STATUS:
-            getTechnicalStatus().clear();
-            return;
-        case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
-            getDocumentationStatus().clear();
-            return;
-        case PropertiesPackage.PROJECT__USERS:
-            getUsers().clear();
-            return;
-        case PropertiesPackage.PROJECT__ID:
-            setId(ID_EDEFAULT);
-            return;
-        case PropertiesPackage.PROJECT__LABEL:
-            setLabel(LABEL_EDEFAULT);
-            return;
-        case PropertiesPackage.PROJECT__DESCRIPTION:
-            setDescription(DESCRIPTION_EDEFAULT);
-            return;
-        case PropertiesPackage.PROJECT__LANGUAGE:
-            setLanguage(LANGUAGE_EDEFAULT);
-            return;
-        case PropertiesPackage.PROJECT__TECHNICAL_LABEL:
-            setTechnicalLabel(TECHNICAL_LABEL_EDEFAULT);
-            return;
-        case PropertiesPackage.PROJECT__LOCAL:
-            setLocal(LOCAL_EDEFAULT);
-            return;
-        case PropertiesPackage.PROJECT__FOLDERS:
-            getFolders().clear();
-            return;
-        case PropertiesPackage.PROJECT__DELETED:
-            setDeleted(DELETED_EDEFAULT);
-            return;
-        case PropertiesPackage.PROJECT__DELETE_DATE:
-            setDeleteDate(DELETE_DATE_EDEFAULT);
-            return;
-        case PropertiesPackage.PROJECT__COMPONENTS:
-            getComponents().clear();
-            return;
-        case PropertiesPackage.PROJECT__REFERENCE_PROJECTS:
-            getReferenceProjects().clear();
-            return;
-        case PropertiesPackage.PROJECT__CREATION_DATE:
-            setCreationDate(CREATION_DATE_EDEFAULT);
-            return;
-        case PropertiesPackage.PROJECT__AUTHOR:
-            setAuthor((User) null);
-            return;
+            case PropertiesPackage.PROJECT__TECHNICAL_STATUS:
+                getTechnicalStatus().clear();
+                return;
+            case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
+                getDocumentationStatus().clear();
+                return;
+            case PropertiesPackage.PROJECT__USERS:
+                getUsers().clear();
+                return;
+            case PropertiesPackage.PROJECT__ID:
+                setId(ID_EDEFAULT);
+                return;
+            case PropertiesPackage.PROJECT__LABEL:
+                setLabel(LABEL_EDEFAULT);
+                return;
+            case PropertiesPackage.PROJECT__DESCRIPTION:
+                setDescription(DESCRIPTION_EDEFAULT);
+                return;
+            case PropertiesPackage.PROJECT__LANGUAGE:
+                setLanguage(LANGUAGE_EDEFAULT);
+                return;
+            case PropertiesPackage.PROJECT__TECHNICAL_LABEL:
+                setTechnicalLabel(TECHNICAL_LABEL_EDEFAULT);
+                return;
+            case PropertiesPackage.PROJECT__LOCAL:
+                setLocal(LOCAL_EDEFAULT);
+                return;
+            case PropertiesPackage.PROJECT__FOLDERS:
+                getFolders().clear();
+                return;
+            case PropertiesPackage.PROJECT__DELETED:
+                setDeleted(DELETED_EDEFAULT);
+                return;
+            case PropertiesPackage.PROJECT__DELETE_DATE:
+                setDeleteDate(DELETE_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.PROJECT__COMPONENTS:
+                getComponents().clear();
+                return;
+            case PropertiesPackage.PROJECT__REFERENCE_PROJECTS:
+                getReferenceProjects().clear();
+                return;
+            case PropertiesPackage.PROJECT__CREATION_DATE:
+                setCreationDate(CREATION_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.PROJECT__AUTHOR:
+                setAuthor((User)null);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.PROJECT__TECHNICAL_STATUS:
-            return technicalStatus != null && !technicalStatus.isEmpty();
-        case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
-            return documentationStatus != null && !documentationStatus.isEmpty();
-        case PropertiesPackage.PROJECT__USERS:
-            return users != null && !users.isEmpty();
-        case PropertiesPackage.PROJECT__ID:
-            return id != ID_EDEFAULT;
-        case PropertiesPackage.PROJECT__LABEL:
-            return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-        case PropertiesPackage.PROJECT__DESCRIPTION:
-            return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-        case PropertiesPackage.PROJECT__LANGUAGE:
-            return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
-        case PropertiesPackage.PROJECT__TECHNICAL_LABEL:
-            return TECHNICAL_LABEL_EDEFAULT == null ? technicalLabel != null : !TECHNICAL_LABEL_EDEFAULT.equals(technicalLabel);
-        case PropertiesPackage.PROJECT__LOCAL:
-            return local != LOCAL_EDEFAULT;
-        case PropertiesPackage.PROJECT__FOLDERS:
-            return folders != null && !folders.isEmpty();
-        case PropertiesPackage.PROJECT__DELETED:
-            return deleted != DELETED_EDEFAULT;
-        case PropertiesPackage.PROJECT__DELETE_DATE:
-            return DELETE_DATE_EDEFAULT == null ? deleteDate != null : !DELETE_DATE_EDEFAULT.equals(deleteDate);
-        case PropertiesPackage.PROJECT__COMPONENTS:
-            return components != null && !components.isEmpty();
-        case PropertiesPackage.PROJECT__REFERENCE_PROJECTS:
-            return referenceProjects != null && !referenceProjects.isEmpty();
-        case PropertiesPackage.PROJECT__CREATION_DATE:
-            return CREATION_DATE_EDEFAULT == null ? creationDate != null : !CREATION_DATE_EDEFAULT.equals(creationDate);
-        case PropertiesPackage.PROJECT__AUTHOR:
-            return author != null;
+            case PropertiesPackage.PROJECT__TECHNICAL_STATUS:
+                return technicalStatus != null && !technicalStatus.isEmpty();
+            case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
+                return documentationStatus != null && !documentationStatus.isEmpty();
+            case PropertiesPackage.PROJECT__USERS:
+                return users != null && !users.isEmpty();
+            case PropertiesPackage.PROJECT__ID:
+                return id != ID_EDEFAULT;
+            case PropertiesPackage.PROJECT__LABEL:
+                return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
+            case PropertiesPackage.PROJECT__DESCRIPTION:
+                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case PropertiesPackage.PROJECT__LANGUAGE:
+                return LANGUAGE_EDEFAULT == null ? language != null : !LANGUAGE_EDEFAULT.equals(language);
+            case PropertiesPackage.PROJECT__TECHNICAL_LABEL:
+                return TECHNICAL_LABEL_EDEFAULT == null ? technicalLabel != null : !TECHNICAL_LABEL_EDEFAULT.equals(technicalLabel);
+            case PropertiesPackage.PROJECT__LOCAL:
+                return local != LOCAL_EDEFAULT;
+            case PropertiesPackage.PROJECT__FOLDERS:
+                return folders != null && !folders.isEmpty();
+            case PropertiesPackage.PROJECT__DELETED:
+                return deleted != DELETED_EDEFAULT;
+            case PropertiesPackage.PROJECT__DELETE_DATE:
+                return DELETE_DATE_EDEFAULT == null ? deleteDate != null : !DELETE_DATE_EDEFAULT.equals(deleteDate);
+            case PropertiesPackage.PROJECT__COMPONENTS:
+                return components != null && !components.isEmpty();
+            case PropertiesPackage.PROJECT__REFERENCE_PROJECTS:
+                return referenceProjects != null && !referenceProjects.isEmpty();
+            case PropertiesPackage.PROJECT__CREATION_DATE:
+                return CREATION_DATE_EDEFAULT == null ? creationDate != null : !CREATION_DATE_EDEFAULT.equals(creationDate);
+            case PropertiesPackage.PROJECT__AUTHOR:
+                return author != null;
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String toString() {
-        if (eIsProxy())
-            return super.toString();
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (id: ");

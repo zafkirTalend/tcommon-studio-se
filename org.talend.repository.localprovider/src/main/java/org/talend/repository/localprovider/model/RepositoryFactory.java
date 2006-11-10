@@ -145,7 +145,7 @@ public class RepositoryFactory implements IRepositoryFactory {
 
         IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
 
-        IFolder objectFolder = ResourceUtils.getFolder(fsProject, LocalResourceModelUtils.getFolderName(type), true);
+        IFolder objectFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(type), true);
 
         addFolderMembers(type, toReturn, objectFolder, onlyLastVersion);
 
@@ -211,7 +211,7 @@ public class RepositoryFactory implements IRepositoryFactory {
             } else if (current instanceof IFolder) {
                 if (!current.getName().equals(BIN)) {
                     Container<K, T> cont = toReturn.addSubContainer(current.getName());
-                    FolderHelper folderHelper = FolderHelper.createInstance(repositoryContext.getProject());
+                    FolderHelper folderHelper = LocalFolderHelper.createInstance(repositoryContext.getProject());
                     String sId = folderHelper.getFolder(current.getProjectRelativePath()).getProperty().getId();
                     cont.setId(sId);
                     addFolderMembers(type, cont, (IFolder) current, onlyLastVersion);
@@ -287,7 +287,7 @@ public class RepositoryFactory implements IRepositoryFactory {
                 ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES };
         for (ERepositoryObjectType repositoryObjectType : repositoryObjectTypeList) {
             IFolder folder = ResourceUtils
-                    .getFolder(fsProject, LocalResourceModelUtils.getFolderName(repositoryObjectType), true);
+                    .getFolder(fsProject, ERepositoryObjectType.getFolderName(repositoryObjectType), true);
             toReturn.addAll(getSerializableFromFolder(folder, id, repositoryObjectType, allVersion, true));
         }
         return toReturn;
@@ -449,11 +449,11 @@ public class RepositoryFactory implements IRepositoryFactory {
      * @throws PersistenceException
      */
     private void createFolders(IProject prj, Project project) throws PersistenceException {
-        FolderHelper folderHelper = FolderHelper.createInstance(project.getEmfProject());
+        FolderHelper folderHelper = LocalFolderHelper.createInstance(project.getEmfProject());
         // Folder creation :
         for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
             try {
-                String folderName = LocalResourceModelUtils.getFolderName(type);
+                String folderName = ERepositoryObjectType.getFolderName(type);
                 createFolder(prj, folderHelper, folderName);
             } catch (IllegalArgumentException iae) {
                 // Some repository object type doesn't need a folder
@@ -469,7 +469,7 @@ public class RepositoryFactory implements IRepositoryFactory {
 
         // 3. Bin folders :
         for (ERepositoryObjectType type : needsBinFolder) {
-            String folderName = LocalResourceModelUtils.getFolderName(type) + IPath.SEPARATOR + BIN;
+            String folderName = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + BIN;
             createFolder(prj, folderHelper, folderName);
         }
     }
@@ -517,7 +517,7 @@ public class RepositoryFactory implements IRepositoryFactory {
 
     private void synchronizeFolders(final IProject project, final org.talend.core.model.properties.Project emfProject)
             throws PersistenceException {
-        final FolderHelper helper = FolderHelper.createInstance(emfProject);
+        final FolderHelper helper = LocalFolderHelper.createInstance(emfProject);
         final Set<IPath> listFolders = helper.listFolders();
         try {
             project.accept(new IResourceVisitor() {
@@ -562,9 +562,9 @@ public class RepositoryFactory implements IRepositoryFactory {
 
         IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
 
-        String completePath = LocalResourceModelUtils.getFolderName(type) + IPath.SEPARATOR + path.toString() + IPath.SEPARATOR
+        String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString() + IPath.SEPARATOR
                 + label;
-        String id = FolderHelper.createInstance(repositoryContext.getProject()).createFolder(completePath);
+        String id = LocalFolderHelper.createInstance(repositoryContext.getProject()).createFolder(completePath);
         xmiResourceManager.saveResource(repositoryContext.getProject().getEmfProject().eResource());
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
@@ -657,7 +657,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         } else {
             // TODO SML Delete this ?
             IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
-            String completePath = LocalResourceModelUtils.getFolderName(type) + IPath.SEPARATOR + path.toString()
+            String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString()
                     + IPath.SEPARATOR + label;
 
             // Getting the folder :
@@ -669,11 +669,11 @@ public class RepositoryFactory implements IRepositoryFactory {
     public void deleteFolder(ERepositoryObjectType type, IPath path) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
 
-        String completePath = LocalResourceModelUtils.getFolderName(type) + IPath.SEPARATOR + path.toString();
+        String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
 
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, true);
-        FolderHelper.createInstance(repositoryContext.getProject()).deleteFolder(completePath);
+        LocalFolderHelper.createInstance(repositoryContext.getProject()).deleteFolder(completePath);
         xmiResourceManager.saveResource(repositoryContext.getProject().getEmfProject().eResource());
 
         ResourceUtils.deleteFolder(folder);
@@ -682,15 +682,15 @@ public class RepositoryFactory implements IRepositoryFactory {
     public void moveFolder(ERepositoryObjectType type, IPath sourcePath, IPath targetPath) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
 
-        String completeOldPath = LocalResourceModelUtils.getFolderName(type) + IPath.SEPARATOR + sourcePath.toString();
-        String completeNewPath = LocalResourceModelUtils.getFolderName(type) + IPath.SEPARATOR + targetPath.toString()
+        String completeOldPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.toString();
+        String completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString()
                 + IPath.SEPARATOR + sourcePath.lastSegment();
 
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, false);
 
         IFolder newFolder = ResourceUtils.getFolder(fsProject, completeNewPath, false);
-        FolderHelper.createInstance(repositoryContext.getProject()).moveFolder(completeOldPath, completeNewPath);
+        LocalFolderHelper.createInstance(repositoryContext.getProject()).moveFolder(completeOldPath, completeNewPath);
         xmiResourceManager.saveResource(repositoryContext.getProject().getEmfProject().eResource());
         ResourceUtils.moveResource(folder, newFolder.getFullPath());
     }
@@ -698,14 +698,14 @@ public class RepositoryFactory implements IRepositoryFactory {
     public void renameFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
 
-        String completePath = LocalResourceModelUtils.getFolderName(type) + IPath.SEPARATOR + path.toString();
+        String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
 
         // IPath targetPath = new
         // Path(SystemFolderNameFactory.getFolderName(type)).append(path).removeLastSegments(1).append(label);
         IPath targetPath = new Path(label);
-        FolderHelper.createInstance(repositoryContext.getProject()).renameFolder(completePath, label);
+        LocalFolderHelper.createInstance(repositoryContext.getProject()).renameFolder(completePath, label);
         xmiResourceManager.saveResource(repositoryContext.getProject().getEmfProject().eResource());
 
         ResourceUtils.moveResource(folder, targetPath);
@@ -840,7 +840,7 @@ public class RepositoryFactory implements IRepositoryFactory {
     public void deleteObjectLogical(IRepositoryObject objToDelete) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
 
-        IFolder bin = ResourceUtils.getFolder(fsProject, LocalResourceModelUtils.getFolderName(objToDelete.getType())
+        IFolder bin = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToDelete.getType())
                 + IPath.SEPARATOR + BIN, true);
 
         List<IRepositoryObject> allVersionToDelete = getSerializable(repositoryContext.getProject(), objToDelete.getId(), true);
@@ -874,7 +874,7 @@ public class RepositoryFactory implements IRepositoryFactory {
     public void restoreObject(IRepositoryObject objToRestore, IPath path) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
         IFolder typeRootFolder = ResourceUtils.getFolder(fsProject,
-                LocalResourceModelUtils.getFolderName(objToRestore.getType()), true);
+                ERepositoryObjectType.getFolderName(objToRestore.getType()), true);
         // IPath thePath = (path == null ? typeRootFolder.getFullPath() : typeRootFolder.getFullPath().append(path));
         org.talend.core.model.properties.Project project = xmiResourceManager.loadProject(getProject());
 
@@ -937,7 +937,7 @@ public class RepositoryFactory implements IRepositoryFactory {
      */
     public void moveObject(IRepositoryObject objToMove, IPath newPath) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
-        String folderName = LocalResourceModelUtils.getFolderName(objToMove.getType()) + IPath.SEPARATOR + newPath;
+        String folderName = ERepositoryObjectType.getFolderName(objToMove.getType()) + IPath.SEPARATOR + newPath;
         IFolder folder = ResourceUtils.getFolder(fsProject, folderName, true);
 
         List<IRepositoryObject> allVersionToMove = getSerializable(repositoryContext.getProject(), objToMove.getId(), true);

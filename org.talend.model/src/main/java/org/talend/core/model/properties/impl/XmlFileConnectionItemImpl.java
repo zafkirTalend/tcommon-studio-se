@@ -14,14 +14,13 @@ import org.talend.core.model.properties.XmlFileConnectionItem;
  * end-user-doc -->
  * <p>
  * </p>
- * 
+ *
  * @generated
  */
 public class XmlFileConnectionItemImpl extends ConnectionItemImpl implements XmlFileConnectionItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected XmlFileConnectionItemImpl() {
@@ -30,7 +29,6 @@ public class XmlFileConnectionItemImpl extends ConnectionItemImpl implements Xml
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected EClass eStaticClass() {

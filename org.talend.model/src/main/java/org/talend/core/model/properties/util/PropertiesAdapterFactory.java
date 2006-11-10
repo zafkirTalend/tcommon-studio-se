@@ -9,6 +9,8 @@ import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
+import org.talend.core.model.properties.*;
+
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.CSVFileConnectionItem;
@@ -37,22 +39,21 @@ import org.talend.core.model.properties.XmlFileConnectionItem;
 /**
  * <!-- begin-user-doc --> The <b>Adapter Factory</b> for the model. It provides an adapter <code>createXXX</code>
  * method for each class of the model. <!-- end-user-doc -->
- * 
  * @see org.talend.core.model.properties.PropertiesPackage
  * @generated
  */
 public class PropertiesAdapterFactory extends AdapterFactoryImpl {
 
     /**
-     * The cached model package. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached model package.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected static PropertiesPackage modelPackage;
 
     /**
-     * Creates an instance of the adapter factory. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Creates an instance of the adapter factory.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public PropertiesAdapterFactory() {
@@ -62,10 +63,10 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Returns whether this factory is applicable for the type of the object. <!-- begin-user-doc --> This
+     * Returns whether this factory is applicable for the type of the object.
+     * <!-- begin-user-doc --> This
      * implementation returns <code>true</code> if the object is either the model's package or is an instance object
      * of the model. <!-- end-user-doc -->
-     * 
      * @return whether this factory is applicable for the type of the object.
      * @generated
      */
@@ -74,131 +75,108 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             return true;
         }
         if (object instanceof EObject) {
-            return ((EObject) object).eClass().getEPackage() == modelPackage;
+            return ((EObject)object).eClass().getEPackage() == modelPackage;
         }
         return false;
     }
 
     /**
-     * The switch the delegates to the <code>createXXX</code> methods. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The switch the delegates to the <code>createXXX</code> methods.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    protected PropertiesSwitch modelSwitch = new PropertiesSwitch() {
-
-        public Object caseProject(Project object) {
-            return createProjectAdapter();
-        }
-
-        public Object caseStatus(Status object) {
-            return createStatusAdapter();
-        }
-
-        public Object caseItemState(ItemState object) {
-            return createItemStateAdapter();
-        }
-
-        public Object caseProperty(Property object) {
-            return createPropertyAdapter();
-        }
-
-        public Object caseItem(Item object) {
-            return createItemAdapter();
-        }
-
-        public Object caseBusinessProcessItem(BusinessProcessItem object) {
-            return createBusinessProcessItemAdapter();
-        }
-
-        public Object caseFileItem(FileItem object) {
-            return createFileItemAdapter();
-        }
-
-        public Object caseByteArray(ByteArray object) {
-            return createByteArrayAdapter();
-        }
-
-        public Object caseDocumentationItem(DocumentationItem object) {
-            return createDocumentationItemAdapter();
-        }
-
-        public Object caseRoutineItem(RoutineItem object) {
-            return createRoutineItemAdapter();
-        }
-
-        public Object caseConnectionItem(ConnectionItem object) {
-            return createConnectionItemAdapter();
-        }
-
-        public Object caseDelimitedFileConnectionItem(DelimitedFileConnectionItem object) {
-            return createDelimitedFileConnectionItemAdapter();
-        }
-
-        public Object casePositionalFileConnectionItem(PositionalFileConnectionItem object) {
-            return createPositionalFileConnectionItemAdapter();
-        }
-
-        public Object caseRegExFileConnectionItem(RegExFileConnectionItem object) {
-            return createRegExFileConnectionItemAdapter();
-        }
-
-        public Object caseCSVFileConnectionItem(CSVFileConnectionItem object) {
-            return createCSVFileConnectionItemAdapter();
-        }
-
-        public Object caseDatabaseConnectionItem(DatabaseConnectionItem object) {
-            return createDatabaseConnectionItemAdapter();
-        }
-
-        public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
-            return createXmlFileConnectionItemAdapter();
-        }
-
-        public Object caseProcessItem(ProcessItem object) {
-            return createProcessItemAdapter();
-        }
-
-        public Object caseUserRole(UserRole object) {
-            return createUserRoleAdapter();
-        }
-
-        public Object caseUser(User object) {
-            return createUserAdapter();
-        }
-
-        public Object caseFolderItem(FolderItem object) {
-            return createFolderItemAdapter();
-        }
-
-        public Object caseComponent(Component object) {
-            return createComponentAdapter();
-        }
-
-        public Object caseNotationHolder(NotationHolder object) {
-            return createNotationHolderAdapter();
-        }
-
-        public Object defaultCase(EObject object) {
-            return createEObjectAdapter();
-        }
-    };
+    protected PropertiesSwitch modelSwitch =
+        new PropertiesSwitch() {
+            public Object caseProject(Project object) {
+                return createProjectAdapter();
+            }
+            public Object caseStatus(Status object) {
+                return createStatusAdapter();
+            }
+            public Object caseItemState(ItemState object) {
+                return createItemStateAdapter();
+            }
+            public Object caseProperty(Property object) {
+                return createPropertyAdapter();
+            }
+            public Object caseItem(Item object) {
+                return createItemAdapter();
+            }
+            public Object caseBusinessProcessItem(BusinessProcessItem object) {
+                return createBusinessProcessItemAdapter();
+            }
+            public Object caseFileItem(FileItem object) {
+                return createFileItemAdapter();
+            }
+            public Object caseByteArray(ByteArray object) {
+                return createByteArrayAdapter();
+            }
+            public Object caseDocumentationItem(DocumentationItem object) {
+                return createDocumentationItemAdapter();
+            }
+            public Object caseRoutineItem(RoutineItem object) {
+                return createRoutineItemAdapter();
+            }
+            public Object caseConnectionItem(ConnectionItem object) {
+                return createConnectionItemAdapter();
+            }
+            public Object caseDelimitedFileConnectionItem(DelimitedFileConnectionItem object) {
+                return createDelimitedFileConnectionItemAdapter();
+            }
+            public Object casePositionalFileConnectionItem(PositionalFileConnectionItem object) {
+                return createPositionalFileConnectionItemAdapter();
+            }
+            public Object caseRegExFileConnectionItem(RegExFileConnectionItem object) {
+                return createRegExFileConnectionItemAdapter();
+            }
+            public Object caseCSVFileConnectionItem(CSVFileConnectionItem object) {
+                return createCSVFileConnectionItemAdapter();
+            }
+            public Object caseDatabaseConnectionItem(DatabaseConnectionItem object) {
+                return createDatabaseConnectionItemAdapter();
+            }
+            public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
+                return createXmlFileConnectionItemAdapter();
+            }
+            public Object caseProcessItem(ProcessItem object) {
+                return createProcessItemAdapter();
+            }
+            public Object caseUserRole(UserRole object) {
+                return createUserRoleAdapter();
+            }
+            public Object caseUser(User object) {
+                return createUserAdapter();
+            }
+            public Object caseFolderItem(FolderItem object) {
+                return createFolderItemAdapter();
+            }
+            public Object caseComponent(Component object) {
+                return createComponentAdapter();
+            }
+            public Object caseNotationHolder(NotationHolder object) {
+                return createNotationHolderAdapter();
+            }
+            public Object defaultCase(EObject object) {
+                return createEObjectAdapter();
+            }
+        };
 
     /**
-     * Creates an adapter for the <code>target</code>. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Creates an adapter for the <code>target</code>.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param target the object to adapt.
      * @return the adapter for the <code>target</code>.
      * @generated
      */
     public Adapter createAdapter(Notifier target) {
-        return (Adapter) modelSwitch.doSwitch((EObject) target);
+        return (Adapter)modelSwitch.doSwitch((EObject)target);
     }
+
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.Status <em>Status</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.Status
      * @generated
@@ -211,7 +189,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.Project <em>Project</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.Project
      * @generated
@@ -224,7 +201,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.Property <em>Property</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.Property
      * @generated
@@ -237,7 +213,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.Item <em>Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.Item
      * @generated
@@ -250,7 +225,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.BusinessProcessItem <em>Business Process Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.BusinessProcessItem
      * @generated
@@ -263,7 +237,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ItemState <em>Item State</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.ItemState
      * @generated
@@ -276,7 +249,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.FileItem <em>File Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.FileItem
      * @generated
@@ -289,7 +261,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.DocumentationItem <em>Documentation Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.DocumentationItem
      * @generated
@@ -302,7 +273,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.RoutineItem <em>Routine Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.RoutineItem
      * @generated
@@ -315,7 +285,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ByteArray <em>Byte Array</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.ByteArray
      * @generated
@@ -328,7 +297,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ConnectionItem <em>Connection Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.ConnectionItem
      * @generated
@@ -341,7 +309,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.DelimitedFileConnectionItem <em>Delimited File Connection Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.DelimitedFileConnectionItem
      * @generated
@@ -354,7 +321,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.PositionalFileConnectionItem <em>Positional File Connection Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.PositionalFileConnectionItem
      * @generated
@@ -367,7 +333,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.RegExFileConnectionItem <em>Reg Ex File Connection Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.RegExFileConnectionItem
      * @generated
@@ -380,7 +345,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.CSVFileConnectionItem <em>CSV File Connection Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.CSVFileConnectionItem
      * @generated
@@ -393,7 +357,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.DatabaseConnectionItem <em>Database Connection Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.DatabaseConnectionItem
      * @generated
@@ -406,7 +369,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ProcessItem <em>Process Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.ProcessItem
      * @generated
@@ -419,7 +381,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.User <em>User</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.User
      * @generated
@@ -432,7 +393,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.FolderItem <em>Folder Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.FolderItem
      * @generated
@@ -445,7 +405,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.Component <em>Component</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.Component
      * @generated
@@ -458,7 +417,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.XmlFileConnectionItem <em>Xml File Connection Item</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.XmlFileConnectionItem
      * @generated
@@ -471,7 +429,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.NotationHolder <em>Notation Holder</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.NotationHolder
      * @generated
@@ -484,7 +441,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.UserRole <em>User Role</em>}'.
      * <!-- begin-user-doc --> This default implementation returns null so that we can easily ignore cases; it's useful
      * to ignore a case when inheritance will catch all the cases anyway. <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @see org.talend.core.model.properties.UserRole
      * @generated
@@ -494,9 +450,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for the default case. <!-- begin-user-doc --> This default implementation returns null.
+     * Creates a new adapter for the default case.
+     * <!-- begin-user-doc --> This default implementation returns null.
      * <!-- end-user-doc -->
-     * 
      * @return the new adapter.
      * @generated
      */

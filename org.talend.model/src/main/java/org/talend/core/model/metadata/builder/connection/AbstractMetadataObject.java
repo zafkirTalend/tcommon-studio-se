@@ -69,7 +69,7 @@ public interface AbstractMetadataObject extends EObject {
      * @return the value of the '<em>Id</em>' attribute.
      * @see #setId(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getAbstractMetadataObject_Id()
-     * @model id="true" required="true"
+     * @model
      * @generated
      */
     String getId();
@@ -120,7 +120,7 @@ public interface AbstractMetadataObject extends EObject {
      * @return the value of the '<em>Label</em>' attribute.
      * @see #setLabel(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getAbstractMetadataObject_Label()
-     * @model required="true"
+     * @model
      * @generated
      */
     String getLabel();

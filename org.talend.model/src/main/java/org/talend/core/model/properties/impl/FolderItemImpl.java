@@ -46,9 +46,9 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
     protected EList children = null;
 
     /**
-     * The default value of the '{@link #getType() <em>Type</em>}' attribute. <!-- begin-user-doc --> <!--
+     * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+     * <!-- begin-user-doc --> <!--
      * end-user-doc -->
-     * 
      * @see #getType()
      * @generated
      * @ordered
@@ -67,7 +67,6 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected FolderItemImpl() {
@@ -76,7 +75,6 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected EClass eStaticClass() {
@@ -85,7 +83,6 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public EList getChildren() {
@@ -97,7 +94,6 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public FolderType getType() {
@@ -106,7 +102,6 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setType(FolderType newType) {
@@ -118,90 +113,83 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-        case PropertiesPackage.FOLDER_ITEM__CHILDREN:
-            return ((InternalEList) getChildren()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.FOLDER_ITEM__CHILDREN:
+                return ((InternalEList)getChildren()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case PropertiesPackage.FOLDER_ITEM__CHILDREN:
-            return getChildren();
-        case PropertiesPackage.FOLDER_ITEM__TYPE:
-            return getType();
+            case PropertiesPackage.FOLDER_ITEM__CHILDREN:
+                return getChildren();
+            case PropertiesPackage.FOLDER_ITEM__TYPE:
+                return getType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case PropertiesPackage.FOLDER_ITEM__CHILDREN:
-            getChildren().clear();
-            getChildren().addAll((Collection) newValue);
-            return;
-        case PropertiesPackage.FOLDER_ITEM__TYPE:
-            setType((FolderType) newValue);
-            return;
+            case PropertiesPackage.FOLDER_ITEM__CHILDREN:
+                getChildren().clear();
+                getChildren().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.FOLDER_ITEM__TYPE:
+                setType((FolderType)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.FOLDER_ITEM__CHILDREN:
-            getChildren().clear();
-            return;
-        case PropertiesPackage.FOLDER_ITEM__TYPE:
-            setType(TYPE_EDEFAULT);
-            return;
+            case PropertiesPackage.FOLDER_ITEM__CHILDREN:
+                getChildren().clear();
+                return;
+            case PropertiesPackage.FOLDER_ITEM__TYPE:
+                setType(TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.FOLDER_ITEM__CHILDREN:
-            return children != null && !children.isEmpty();
-        case PropertiesPackage.FOLDER_ITEM__TYPE:
-            return type != TYPE_EDEFAULT;
+            case PropertiesPackage.FOLDER_ITEM__CHILDREN:
+                return children != null && !children.isEmpty();
+            case PropertiesPackage.FOLDER_ITEM__TYPE:
+                return type != TYPE_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String toString() {
-        if (eIsProxy())
-            return super.toString();
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (type: ");

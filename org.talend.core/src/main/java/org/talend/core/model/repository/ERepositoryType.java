@@ -32,7 +32,8 @@ import java.util.List;
  */
 public enum ERepositoryType {
     LOCAL("Local Repository"),
-    REMOTE("Remote Repository");
+    REMOTE("Remote Repository"), 
+    DATABASE("Database Repository");
 
     private ERepositoryType(String label) {
         this.label = label;

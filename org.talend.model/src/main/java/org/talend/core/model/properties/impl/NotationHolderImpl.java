@@ -18,18 +18,18 @@ import org.talend.core.model.properties.PropertiesPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- * <li>{@link org.talend.core.model.properties.impl.NotationHolderImpl#getNotationString <em>Notation String</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.NotationHolderImpl#getNotationString <em>Notation String</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @generated
  */
 public class NotationHolderImpl extends EObjectImpl implements NotationHolder {
 
     /**
-     * The default value of the '{@link #getNotationString() <em>Notation String</em>}' attribute. <!-- begin-user-doc
+     * The default value of the '{@link #getNotationString() <em>Notation String</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getNotationString()
      * @generated
      * @ordered
@@ -37,9 +37,9 @@ public class NotationHolderImpl extends EObjectImpl implements NotationHolder {
     protected static final String NOTATION_STRING_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getNotationString() <em>Notation String</em>}' attribute. <!-- begin-user-doc
+     * The cached value of the '{@link #getNotationString() <em>Notation String</em>}' attribute.
+     * <!-- begin-user-doc
      * --> <!-- end-user-doc -->
-     * 
      * @see #getNotationString()
      * @generated
      * @ordered
@@ -48,7 +48,6 @@ public class NotationHolderImpl extends EObjectImpl implements NotationHolder {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected NotationHolderImpl() {
@@ -57,7 +56,6 @@ public class NotationHolderImpl extends EObjectImpl implements NotationHolder {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     protected EClass eStaticClass() {
@@ -66,7 +64,6 @@ public class NotationHolderImpl extends EObjectImpl implements NotationHolder {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String getNotationString() {
@@ -75,79 +72,71 @@ public class NotationHolderImpl extends EObjectImpl implements NotationHolder {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void setNotationString(String newNotationString) {
         String oldNotationString = notationString;
         notationString = newNotationString;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.NOTATION_HOLDER__NOTATION_STRING,
-                    oldNotationString, notationString));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.NOTATION_HOLDER__NOTATION_STRING, oldNotationString, notationString));
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-        case PropertiesPackage.NOTATION_HOLDER__NOTATION_STRING:
-            return getNotationString();
+            case PropertiesPackage.NOTATION_HOLDER__NOTATION_STRING:
+                return getNotationString();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-        case PropertiesPackage.NOTATION_HOLDER__NOTATION_STRING:
-            setNotationString((String) newValue);
-            return;
+            case PropertiesPackage.NOTATION_HOLDER__NOTATION_STRING:
+                setNotationString((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.NOTATION_HOLDER__NOTATION_STRING:
-            setNotationString(NOTATION_STRING_EDEFAULT);
-            return;
+            case PropertiesPackage.NOTATION_HOLDER__NOTATION_STRING:
+                setNotationString(NOTATION_STRING_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-        case PropertiesPackage.NOTATION_HOLDER__NOTATION_STRING:
-            return NOTATION_STRING_EDEFAULT == null ? notationString != null : !NOTATION_STRING_EDEFAULT.equals(notationString);
+            case PropertiesPackage.NOTATION_HOLDER__NOTATION_STRING:
+                return NOTATION_STRING_EDEFAULT == null ? notationString != null : !NOTATION_STRING_EDEFAULT.equals(notationString);
         }
         return super.eIsSet(featureID);
     }
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     public String toString() {
-        if (eIsProxy())
-            return super.toString();
+        if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (notationString: ");
