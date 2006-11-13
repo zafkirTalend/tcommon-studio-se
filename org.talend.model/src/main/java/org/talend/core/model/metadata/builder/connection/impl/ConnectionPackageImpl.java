@@ -1032,6 +1032,33 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLdifFileConnection_FilePath() {
+        return (EAttribute)ldifFileConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLdifFileConnection_LimitEntry() {
+        return (EAttribute)ldifFileConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLdifFileConnection_UseLimit() {
+        return (EAttribute)ldifFileConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1215,6 +1242,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         ldifFileConnectionEClass = createEClass(LDIF_FILE_CONNECTION);
         createEAttribute(ldifFileConnectionEClass, LDIF_FILE_CONNECTION__VALUE);
+        createEAttribute(ldifFileConnectionEClass, LDIF_FILE_CONNECTION__FILE_PATH);
+        createEAttribute(ldifFileConnectionEClass, LDIF_FILE_CONNECTION__LIMIT_ENTRY);
+        createEAttribute(ldifFileConnectionEClass, LDIF_FILE_CONNECTION__USE_LIMIT);
 
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
@@ -1374,6 +1404,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         initEClass(ldifFileConnectionEClass, LdifFileConnection.class, "LdifFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getLdifFileConnection_Value(), ecorePackage.getEString(), "value", null, 0, -1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLdifFileConnection_FilePath(), ecorePackage.getEString(), "FilePath", null, 1, 1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLdifFileConnection_LimitEntry(), ecorePackage.getEInt(), "LimitEntry", null, 0, 1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getLdifFileConnection_UseLimit(), ecorePackage.getEBoolean(), "UseLimit", null, 0, 1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");

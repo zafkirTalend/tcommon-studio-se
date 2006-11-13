@@ -2536,13 +2536,40 @@ public interface ConnectionPackage extends EPackage {
     int LDIF_FILE_CONNECTION__VALUE = CONNECTION_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>File Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__FILE_PATH = CONNECTION_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Limit Entry</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__LIMIT_ENTRY = CONNECTION_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Use Limit</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__USE_LIMIT = CONNECTION_FEATURE_COUNT + 3;
+
+    /**
      * The number of structural features of the '<em>Ldif File Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int LDIF_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 1;
+    int LDIF_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 4;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
@@ -3549,6 +3576,39 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getLdifFileConnection_Value();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getFilePath <em>File Path</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>File Path</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection#getFilePath()
+     * @see #getLdifFileConnection()
+     * @generated
+     */
+    EAttribute getLdifFileConnection_FilePath();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getLimitEntry <em>Limit Entry</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Limit Entry</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection#getLimitEntry()
+     * @see #getLdifFileConnection()
+     * @generated
+     */
+    EAttribute getLdifFileConnection_LimitEntry();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#isUseLimit <em>Use Limit</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Limit</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection#isUseLimit()
+     * @see #getLdifFileConnection()
+     * @generated
+     */
+    EAttribute getLdifFileConnection_UseLimit();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -4403,6 +4463,30 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute LDIF_FILE_CONNECTION__VALUE = eINSTANCE.getLdifFileConnection_Value();
+
+        /**
+         * The meta object literal for the '<em><b>File Path</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDIF_FILE_CONNECTION__FILE_PATH = eINSTANCE.getLdifFileConnection_FilePath();
+
+        /**
+         * The meta object literal for the '<em><b>Limit Entry</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDIF_FILE_CONNECTION__LIMIT_ENTRY = eINSTANCE.getLdifFileConnection_LimitEntry();
+
+        /**
+         * The meta object literal for the '<em><b>Use Limit</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDIF_FILE_CONNECTION__USE_LIMIT = eINSTANCE.getLdifFileConnection_UseLimit();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

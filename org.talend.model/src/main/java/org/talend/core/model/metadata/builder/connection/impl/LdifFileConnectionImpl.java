@@ -8,11 +8,15 @@ package org.talend.core.model.metadata.builder.connection.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
+
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
@@ -31,6 +35,9 @@ import org.talend.core.model.metadata.builder.connection.SchemaAttribute;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl#getValue <em>Value</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl#getFilePath <em>File Path</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl#getLimitEntry <em>Limit Entry</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl#isUseLimit <em>Use Limit</em>}</li>
  * </ul>
  * </p>
  *
@@ -46,6 +53,66 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
      * @ordered
      */
     protected EList value = null;
+
+    /**
+     * The default value of the '{@link #getFilePath() <em>File Path</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFilePath()
+     * @generated
+     * @ordered
+     */
+    protected static final String FILE_PATH_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getFilePath() <em>File Path</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFilePath()
+     * @generated
+     * @ordered
+     */
+    protected String filePath = FILE_PATH_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLimitEntry() <em>Limit Entry</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLimitEntry()
+     * @generated
+     * @ordered
+     */
+    protected static final int LIMIT_ENTRY_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getLimitEntry() <em>Limit Entry</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLimitEntry()
+     * @generated
+     * @ordered
+     */
+    protected int limitEntry = LIMIT_ENTRY_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isUseLimit() <em>Use Limit</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseLimit()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean USE_LIMIT_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isUseLimit() <em>Use Limit</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isUseLimit()
+     * @generated
+     * @ordered
+     */
+    protected boolean useLimit = USE_LIMIT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -82,10 +149,79 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getFilePath() {
+        return filePath;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFilePath(String newFilePath) {
+        String oldFilePath = filePath;
+        filePath = newFilePath;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH, oldFilePath, filePath));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getLimitEntry() {
+        return limitEntry;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLimitEntry(int newLimitEntry) {
+        int oldLimitEntry = limitEntry;
+        limitEntry = newLimitEntry;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY, oldLimitEntry, limitEntry));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isUseLimit() {
+        return useLimit;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setUseLimit(boolean newUseLimit) {
+        boolean oldUseLimit = useLimit;
+        useLimit = newUseLimit;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT, oldUseLimit, useLimit));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.LDIF_FILE_CONNECTION__VALUE:
                 return getValue();
+            case ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH:
+                return getFilePath();
+            case ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY:
+                return new Integer(getLimitEntry());
+            case ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT:
+                return isUseLimit() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -101,6 +237,15 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
                 getValue().clear();
                 getValue().addAll((Collection)newValue);
                 return;
+            case ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH:
+                setFilePath((String)newValue);
+                return;
+            case ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY:
+                setLimitEntry(((Integer)newValue).intValue());
+                return;
+            case ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT:
+                setUseLimit(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -115,6 +260,15 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
             case ConnectionPackage.LDIF_FILE_CONNECTION__VALUE:
                 getValue().clear();
                 return;
+            case ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH:
+                setFilePath(FILE_PATH_EDEFAULT);
+                return;
+            case ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY:
+                setLimitEntry(LIMIT_ENTRY_EDEFAULT);
+                return;
+            case ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT:
+                setUseLimit(USE_LIMIT_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -128,6 +282,12 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
         switch (featureID) {
             case ConnectionPackage.LDIF_FILE_CONNECTION__VALUE:
                 return value != null && !value.isEmpty();
+            case ConnectionPackage.LDIF_FILE_CONNECTION__FILE_PATH:
+                return FILE_PATH_EDEFAULT == null ? filePath != null : !FILE_PATH_EDEFAULT.equals(filePath);
+            case ConnectionPackage.LDIF_FILE_CONNECTION__LIMIT_ENTRY:
+                return limitEntry != LIMIT_ENTRY_EDEFAULT;
+            case ConnectionPackage.LDIF_FILE_CONNECTION__USE_LIMIT:
+                return useLimit != USE_LIMIT_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -143,6 +303,12 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (value: ");
         result.append(value);
+        result.append(", FilePath: ");
+        result.append(filePath);
+        result.append(", LimitEntry: ");
+        result.append(limitEntry);
+        result.append(", UseLimit: ");
+        result.append(useLimit);
         result.append(')');
         return result.toString();
     }

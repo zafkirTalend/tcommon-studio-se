@@ -65,7 +65,7 @@ public interface IImageConstants {
 
     public static final String FILE_XML_PNG = "/icons/filexml.png";
     
-    public static final String FILE_XML_LDIF = "/icons/fileldif.png";
+    public static final String FILE_LDIF_PNG = "/icons/fileldif.png";
 
     public static final String TABLE_ICON = "/icons/table.gif";
 
