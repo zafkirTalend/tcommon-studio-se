@@ -12,7 +12,7 @@
 	<xs:complexType name="schemaTargets">
 		<xs:attribute name="XPathQuery" type="xs:string" use="required" />
 		<xs:attribute name="TagName" type="xs:string" use="required" />
-		<xs:attribute name="IsBoucle" type="xs:boolean" use="required" />
+		<xs:attribute name="Boucle" type="xs:boolean" use="required" />
 		<xs:attribute name="LimitBoucle" type="xs:int" use="required" />
 	</xs:complexType>
 </xsd:schema>

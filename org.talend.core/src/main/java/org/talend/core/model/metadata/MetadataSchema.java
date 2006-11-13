@@ -339,23 +339,23 @@ public final class MetadataSchema {
                         .createSchemaTarget();
                 final Node nodetoParse = nodes.item(i);
                 final NamedNodeMap nodeMap = nodetoParse.getAttributes();
-                final Node XPathQuery = nodeMap.getNamedItem("XPathQuery");
-                final Node TagName = nodeMap.getNamedItem("TagName");
-                final Node LimitBoucle = nodeMap.getNamedItem("LimitBoucle");
-                final Node IsBoucle = nodeMap.getNamedItem("IsBoucle");
+                final Node xPathQuery = nodeMap.getNamedItem("XPathQuery");
+                final Node tagName = nodeMap.getNamedItem("TagName");
+                final Node limitBoucle = nodeMap.getNamedItem("LimitBoucle");
+                final Node boucle = nodeMap.getNamedItem("Boucle");
 
-                schemaTarget.setXPathQuery(XPathQuery.getNodeValue());
-                schemaTarget.setTagName(TagName.getNodeValue());
-                if (LimitBoucle.getNodeValue() != null) {
+                schemaTarget.setXPathQuery(xPathQuery.getNodeValue());
+                schemaTarget.setTagName(tagName.getNodeValue());
+                if (limitBoucle.getNodeValue() != null) {
                     try {
-                        schemaTarget.setLimitBoucle(Integer.parseInt(LimitBoucle.getNodeValue()));
+                        schemaTarget.setLimitBoucle(Integer.parseInt(limitBoucle.getNodeValue()));
                     } catch (final NumberFormatException e) {
                         schemaTarget.setLimitBoucle(0);
                     }
                 } else {
                     schemaTarget.setLimitBoucle(0);
                 }
-                schemaTarget.setBoucle(Boolean.parseBoolean(IsBoucle.getNodeValue()));
+                schemaTarget.setBoucle(Boolean.parseBoolean(boucle.getNodeValue()));
 
                 listSchemaTargets.add(schemaTarget);
             }
@@ -512,7 +512,7 @@ public final class MetadataSchema {
                 tagName.setNodeValue(String.valueOf(schemaTarget.getTagName()));
                 column.setAttributeNode(tagName);
 
-                Attr isBoucle = document.createAttribute("IsBoucle");
+                Attr isBoucle = document.createAttribute("Boucle");
                 isBoucle.setNodeValue(String.valueOf(schemaTarget.isBoucle()));
                 column.setAttributeNode(isBoucle);
 
