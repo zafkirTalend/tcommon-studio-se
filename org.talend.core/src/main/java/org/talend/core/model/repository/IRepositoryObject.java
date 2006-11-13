@@ -62,20 +62,10 @@ public interface IRepositoryObject {
 
     public void setVersion(Version version);
 
-    /**
-     * DOC mhelleboid Comment method "getAuthor".
-     * 
-     * @return
-     */
     public User getAuthor();
 
     public void setAuthor(User author);
 
-    /**
-     * DOC mhelleboid Comment method "getStatus".
-     * 
-     * @return
-     */
     public String getStatusCode();
 
     public void setStatusCode(String statusCode);
@@ -96,17 +86,8 @@ public interface IRepositoryObject {
 
     public void setPurpose(String value);
 
-    /**
-     * DOC smallet Comment method "getType".
-     * 
-     * @return
-     */
     public ERepositoryObjectType getType();
 
     public Property getProperty();
 
-    // public boolean isDeleted();
-
-    // TODO SML Garder le path dans tous les cas ?
-    // public String getOldPath();
 }

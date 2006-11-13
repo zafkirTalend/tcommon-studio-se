@@ -168,60 +168,6 @@ public final class ResourceUtils {
         return file;
     }
 
-    /**
-     * Utilities method to get a persistent property on a IResource.
-     * 
-     * PTODO SML Use XML instead of String
-     * 
-     * @param res - the resource to get the property
-     * @param key - the property to get
-     * @return the value of the property
-     * @throws PersistenceException if the property cannot be get
-     */
-    public static String getPersistentPropertyAsString(IResource res, QualifiedName key) throws PersistenceException {
-        try {
-            return res.getPersistentProperty(key);
-        } catch (CoreException e) {
-            String msg = Messages.getString("resources.persistentProperty.notGet", key, res.getName());
-            throw new PersistenceException(msg, e);
-        }
-    }
-
-    public static Integer getPersistentPropertyAsInteger(IResource res, QualifiedName key) throws PersistenceException {
-        String string = getPersistentPropertyAsString(res, key);
-        try {
-            return Integer.parseInt(string);
-        } catch (NumberFormatException e) {
-            String msg = Messages.getString("resources.persistentProperty.notGet", key, res.getName());
-            throw new PersistenceException(msg, e);
-        }
-    }
-
-    /**
-     * Utilities method to set a persistent property on a IResource.
-     * 
-     * PTODO SML Use XML instead of String
-     * 
-     * @param res - the resource to set the property
-     * @param key - the property to set
-     * @param value - the value to set
-     * @throws PersistenceException if the property cannot be set
-     */
-    public static void setPersistentProperty(IResource res, QualifiedName key, String value) throws PersistenceException {
-        if (res == null) {
-            String msg = Messages.getString("resources.persistentProperty.notSet.nullRes", key);
-            PersistenceException ex = new PersistenceException(msg);
-            throw ex;
-        }
-        try {
-            res.setPersistentProperty(key, value);
-        } catch (CoreException e) {
-            String msg = Messages.getString("resources.persistentProperty.notSet", key, res.getName());
-            PersistenceException ex = new PersistenceException(msg, e);
-            throw ex;
-        }
-    }
-
     public static IResource[] getMembers(IContainer container) throws PersistenceException {
         try {
             IResource[] members = container.members();

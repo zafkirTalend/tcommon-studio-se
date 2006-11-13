@@ -77,12 +77,10 @@ public class IODataComponent {
     }
 
     public INode getTarget() {
-        // PTODO SML Check if use when stable
         return connection.getTarget();
     }
 
     public INode getSource() {
-        // PTODO SML Check if use when stable
         return connection.getSource();
     }
 
@@ -91,7 +89,7 @@ public class IODataComponent {
     }
 
     private IMetadataColumn getColumn(int id) {
-        // TODO SML Optimize
+        // PTODO SML Optimize
         for (IMetadataColumn col : clonedTables.getListColumns()) {
             if (col.getId() == id) {
                 return col;
