@@ -22,7 +22,6 @@
 package org.talend.commons.ui.swt.proposal.xpath;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,12 +29,10 @@ import java.util.Set;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
 import org.talend.commons.xml.NodeRetriever;
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
- * ContentProposalProvider which initialize valid locations of Mapper. <br/>
+ * ContentProposalProvider which proposes child nodes. <br/>
  * 
  * $Id: ExpressionProposalProvider.java 311 2006-11-03 07:00:19 +0000 (ven., 03 nov. 2006) amaumont $
  * 

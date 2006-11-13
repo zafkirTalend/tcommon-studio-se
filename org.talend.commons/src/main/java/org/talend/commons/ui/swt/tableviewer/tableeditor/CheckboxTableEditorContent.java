@@ -43,6 +43,31 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
     public static final boolean UNCHECKED = false;
 
+    private Button check;
+
+    private boolean readOnly;
+    
+    
+    /**
+     * DOC amaumont CheckboxTableEditorContent constructor comment.
+     */
+    public CheckboxTableEditorContent() {
+        super();
+    }
+
+    
+    
+    
+    /**
+     * DOC amaumont CheckboxTableEditorContent constructor comment.
+     * @param readOnly
+     */
+    public CheckboxTableEditorContent(boolean readOnly) {
+        super();
+        this.readOnly = readOnly;
+    }
+
+
     /*
      * 
      * (non-Javadoc)
@@ -60,7 +85,8 @@ public class CheckboxTableEditorContent extends TableEditorContent {
          * 
          */
 
-        final Button check = new Button(table, SWT.CHECK);
+        check = new Button(table, SWT.CHECK);
+        check.setEnabled(!this.readOnly);
         check.setText("");
         check.setBackground(table.getBackground());
         check.setSelection(currentCellValue.equals(true));
@@ -84,4 +110,5 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         return check;
     }
 
+    
 }

@@ -287,14 +287,14 @@ public class TableViewerCreatorLayout extends Layout {
     private void layout(final Composite c) {
         // System.out.println("Layout" + System.currentTimeMillis());
         Table table = (Table) c;
-//        System.out.println("\n");
-//        System.out.println("table.hashCode()=" + table.hashCode());
-//        System.out.println("table.getBounds()=" + table.getBounds());
-//        System.out.println("previousBounds=" + previousBounds);
-//        System.out.println("table.getClientArea()=" + table.getClientArea());
-//        System.out.println("previousClientArea=" + previousClientArea);
-//        System.out.println("lastDisplayedWidth=" + lastDisplayedWidth);
-//        System.out.println("referenceWidth=" + referenceWidth);
+        System.out.println("\n");
+        System.out.println("table.hashCode()=" + table.hashCode());
+        System.out.println("table.getBounds()=" + table.getBounds());
+        System.out.println("previousBounds=" + previousBounds);
+        System.out.println("table.getClientArea()=" + table.getClientArea());
+        System.out.println("previousClientArea=" + previousClientArea);
+        System.out.println("lastDisplayedWidth=" + lastDisplayedWidth);
+        System.out.println("referenceWidth=" + referenceWidth);
         Rectangle bounds = table.getBounds();
         Rectangle clientArea = table.getClientArea();
         if (WindowSystem.isGTK()) {
@@ -335,7 +335,7 @@ public class TableViewerCreatorLayout extends Layout {
 
             } else {
                 int newVisibleWidth = bounds.width + widthAdjustValue;
-//                System.out.println("newVisibleWidth=" + newVisibleWidth);
+                System.out.println("newVisibleWidth=" + newVisibleWidth);
                 displayedWidth = referenceWidth - 2 * c.getBorderWidth() - (lastDisplayedWidth - newVisibleWidth);
 //                System.out.println("newDisplayedWidth=" + displayedWidth);
             }

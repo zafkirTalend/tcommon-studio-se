@@ -81,7 +81,7 @@ public final class TestTableViewerCreator {
         tableViewerCreator.setLinesVisible(true);
         tableViewerCreator.setShowSelection(SHOW_SELECTION.FULL);   
         tableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
-        tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
+        tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
         tableViewerCreator.setUseCustomColoring(true);
         tableViewerCreator.setAdjustWidthValue(-50);
 //        tableViewerCreator.setFirstVisibleColumnIsSelection(true);

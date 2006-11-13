@@ -22,6 +22,7 @@
 package org.talend.core.ui.metadata.editor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
@@ -37,6 +38,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
@@ -85,17 +87,36 @@ public class MetadataTableEditorView {
 
     private IBeanPropertyAccessors<IMetadataColumn, Boolean> keyAccesor;
 
+    private boolean readOnly;
+
+    /**
+     * 
+     * Use SWT.READ_ONLY to create editor in read only mode.
+     * @param parent
+     * @param style
+     * @param metadataTableEditor
+     * @param displayToolbar
+     */
     public MetadataTableEditorView(Composite parent, int style, MetadataTableEditor metadataTableEditor, boolean displayToolbar) {
         this(parent, style, displayToolbar);
         setMetadataTableEditor(metadataTableEditor);
     }
 
+    /**
+     * 
+     * Use SWT.READ_ONLY to create editor in read only mode.
+     * @param parent
+     * @param style
+     * @param displayToolbar
+     */
     public MetadataTableEditorView(Composite parent, int style, boolean displayToolbar) {
         super();
         composite = new Composite(parent, style);
         GridLayout layout = new GridLayout();
         composite.setLayout(layout);
 
+        readOnly = (style & SWT.READ_ONLY) != 0;
+        
         createComponents(displayToolbar);
         addListeners();
     }
@@ -134,16 +155,17 @@ public class MetadataTableEditorView {
         tableViewerCreator.setLinesVisible(true);
         tableViewerCreator.setShowSelection(SHOW_SELECTION.FULL);
         tableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
-        tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
+        tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
         tableViewerCreator.setUseCustomColoring(true);
         tableViewerCreator.setFirstColumnMasked(true);
 
-        initLineSelectionListeners();
+        Table table = initLineSelectionListeners();
 
-        tableViewerCreator.getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
-
+        
+        
         initColumns();
+        table.setLayoutData(new GridData(GridData.FILL_BOTH));
     }
 
     /**
@@ -297,30 +319,31 @@ public class MetadataTableEditorView {
         column.setWeight(20);
         column.setModifiable(true);
         column.setMinimumWidth(45);
-        final TableViewerCreatorColumn nameColumn = column;
-        final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
-        cellEditor.addListener(new DialogErrorForCellEditorListener(cellEditor, column) {
-
-            @Override
-            public void newValidValueApplied(String previousValue, String newValue, CELL_EDITOR_STATE state) {
-                Object currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
-                ArrayList modifiedObjectList = new ArrayList(1);
-                modifiedObjectList.add(currentModifiedObject);
-                MetadataEditorEvent event = new MetadataEditorEvent(MetadataEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED);
-                event.entries = modifiedObjectList;
-                event.previousValue = previousValue;
-                event.newValue = newValue;
-                event.state = state;
-                metadataTableEditor.fireEvent(event);
-            }
-
-            @Override
-            public String validateValue(String newValue, int beanPosition) {
-                return metadataTableEditor.validateColumnName(newValue, beanPosition);
-            }
-
-        });
-        column.setCellEditor(cellEditor);
+        if(!readOnly) {
+            final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
+            cellEditor.addListener(new DialogErrorForCellEditorListener(cellEditor, column) {
+                
+                @Override
+                public void newValidValueApplied(String previousValue, String newValue, CELL_EDITOR_STATE state) {
+                    Object currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
+                    ArrayList modifiedObjectList = new ArrayList(1);
+                    modifiedObjectList.add(currentModifiedObject);
+                    MetadataEditorEvent event = new MetadataEditorEvent(MetadataEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED);
+                    event.entries = modifiedObjectList;
+                    event.previousValue = previousValue;
+                    event.newValue = newValue;
+                    event.state = state;
+                    metadataTableEditor.fireEvent(event);
+                }
+                
+                @Override
+                public String validateValue(String newValue, int beanPosition) {
+                    return metadataTableEditor.validateColumnName(newValue, beanPosition);
+                }
+                
+            });
+            column.setCellEditor(cellEditor);
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -347,7 +370,8 @@ public class MetadataTableEditorView {
         column.setBeanPropertyAccessors(this.keyAccesor);
         column.setWidth(35);
         column.setDisplayedValue("");
-        column.setTableEditorContent(new CheckboxTableEditorContent());
+        CheckboxTableEditorContent checkboxTableEditorContent = new CheckboxTableEditorContent(readOnly);
+        column.setTableEditorContent(checkboxTableEditorContent);
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -367,7 +391,9 @@ public class MetadataTableEditorView {
         column.setModifiable(true);
         column.setWeight(10);
         column.setMinimumWidth(30);
-        column.setCellEditor(new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes), comboValueAdapter);
+        if(!readOnly) {
+            column.setCellEditor(new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes), comboValueAdapter);
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -386,7 +412,9 @@ public class MetadataTableEditorView {
         });
         column.setModifiable(true);
         column.setWidth(55);
-        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
+        if(!readOnly) {
+            column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -405,7 +433,9 @@ public class MetadataTableEditorView {
         });
         column.setModifiable(true);
         column.setWidth(60);
-        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
+        if(!readOnly) {
+            column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -425,7 +455,7 @@ public class MetadataTableEditorView {
         column.setModifiable(true);
         column.setWidth(56);
         column.setDisplayedValue("");
-        column.setTableEditorContent(new CheckboxTableEditorContent());
+        column.setTableEditorContent(new CheckboxTableEditorContent(readOnly));
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -445,7 +475,9 @@ public class MetadataTableEditorView {
         column.setWeight(10);
         column.setModifiable(true);
         column.setMinimumWidth(30);
-        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+        if(!readOnly) {
+            column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -465,7 +497,9 @@ public class MetadataTableEditorView {
         column.setWeight(30);
         column.setModifiable(true);
         column.setMinimumWidth(20);
-        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+        if(!readOnly) {
+            column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+        }
 
     }
 
@@ -530,11 +564,18 @@ public class MetadataTableEditorView {
 
     }
 
-    public void setReadOnly(boolean b) {
+    public void setReadOnly(boolean readOnly) {
         if (metadataToolbarEditorView != null) {
-            metadataToolbarEditorView.setReadOnly(b);
+            metadataToolbarEditorView.setReadOnly(readOnly);
         }
-        this.tableViewerCreator.getTable().setEnabled(!b);
+        
+        List<TableViewerCreatorColumn> columns = this.tableViewerCreator.getColumns();
+        for (TableViewerCreatorColumn column : columns) {
+            column.setModifiable(!readOnly);
+        }
+//        this.tableViewerCreator.getTable().setEnabled(!b);
+//        this.tableViewerCreator.getTable().getVerticalBar().setEnabled(true);
+//        this.tableViewerCreator.getTable().getHorizontalBar().setEnabled(true);
     }
 
     public MetadataToolbarEditorView getMetadataToolbarEditorView() {
@@ -545,4 +586,15 @@ public class MetadataTableEditorView {
         this.metadataToolbarEditorView = metadataToolbarEditorView;
     }
 
+    
+    /**
+     * Getter for composite.
+     * @return the composite
+     */
+    public Composite getComposite() {
+        return this.composite;
+    }
+
+    
+    
 }

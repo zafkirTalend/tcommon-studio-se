@@ -95,7 +95,7 @@ public final class TestTableViewerCreator2 {
         tableViewerCreator.setAllColumnsMoveable(true);
         tableViewerCreator.setAllColumnsResizable(true);
         tableViewerCreator.setAllColumnsSortable(true);
-        tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
+        tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
         tableViewerCreator.setHorizontalScroll(false);
         tableViewerCreator.setAdjustWidthValue(-50);
 
