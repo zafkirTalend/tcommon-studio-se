@@ -33,7 +33,7 @@ import org.talend.commons.ui.geometry.Point2DList;
  * $Id$
  * 
  */
-public class HorizontalBezierLink extends AbstractDrawableLink {
+public class BezierHorizontalLink extends AbstractDrawableLink {
 
     private Curve2DBezier curve;
 
@@ -44,7 +44,7 @@ public class HorizontalBezierLink extends AbstractDrawableLink {
     /**
      * DOC amaumont BezierLink constructor comment.
      */
-    public HorizontalBezierLink(StyleLink style) {
+    public BezierHorizontalLink(StyleLink style) {
         super(style);
         connectorWidth = CONNECTOR_WIDTH_DEFAULT;
     }

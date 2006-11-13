@@ -605,7 +605,7 @@ public class TableViewerCreator<O> {
     protected TableViewer buildAndLayoutTable() {
         if (this.layoutMode == LAYOUT_MODE.DEFAULT || this.layoutMode == LAYOUT_MODE.FILL_HORIZONTAL
                 || this.layoutMode == LAYOUT_MODE.CONTINUOUS) {
-            TableViewerCreatorLayout currentTableLayout = new TableViewerCreatorLayout(tableViewerCreator, 50);
+            TableViewerCreatorLayout currentTableLayout = new TableViewerCreatorLayout(tableViewerCreator);
             currentTableLayout.setWidthAdjustValue(this.adjustWidthValue);
             currentTableLayout.setFillHorizontal(this.layoutMode == LAYOUT_MODE.FILL_HORIZONTAL);
             currentTableLayout.setContinuousLayout(this.layoutMode == LAYOUT_MODE.FILL_HORIZONTAL

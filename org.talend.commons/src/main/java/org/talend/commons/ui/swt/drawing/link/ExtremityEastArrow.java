@@ -76,14 +76,18 @@ public class ExtremityEastArrow extends AbstractExtremityDrawableLink {
 //        gc.drawImage(image, point.x + xOffset, point.y + yOffset - HEIGHT_ARROW / 2);
 //        image.dispose();
         gc.setBackground(styleLink.getForegroundColor());
-        gc.fillPolygon(
-                new int[] {
-                        point.x + xOffset, point.y + yOffset - 1 - HEIGHT_ARROW / 2, 
-                        point.x + xOffset + WIDTH_ARROW, point.y + yOffset - 1,
-                        point.x + xOffset + WIDTH_ARROW, point.y + yOffset ,
-                        point.x + xOffset, point.y + yOffset + HEIGHT_ARROW / 2,
-                }
-        );
+//        gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_BLACK));
+//        gc.setForeground(gc.getDevice().getSystemColor(SWT.COLOR_BLACK));
+//        gc.setAntialias(SWT.OFF);
+        gc.setLineWidth(1);
+        int[] arrow = new int[] {
+                point.x + xOffset, point.y + yOffset - HEIGHT_ARROW / 2 -1, 
+                point.x + xOffset + WIDTH_ARROW, point.y + yOffset,
+                point.x + xOffset + WIDTH_ARROW, point.y + yOffset,
+                point.x + xOffset, point.y + yOffset + HEIGHT_ARROW / 2 + 1,
+        };
+//        gc.drawPolygon(arrow);
+        gc.fillPolygon(arrow);
 
     }
 
