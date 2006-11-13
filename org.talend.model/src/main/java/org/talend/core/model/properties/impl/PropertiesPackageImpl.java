@@ -27,6 +27,7 @@ import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -180,6 +181,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass notationHolderEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass ldifFileConnectionItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -970,6 +978,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getLdifFileConnectionItem() {
+        return ldifFileConnectionItemEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1149,6 +1166,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         notationHolderEClass = createEClass(NOTATION_HOLDER);
         createEAttribute(notationHolderEClass, NOTATION_HOLDER__NOTATION_STRING);
 
+        ldifFileConnectionItemEClass = createEClass(LDIF_FILE_CONNECTION_ITEM);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
     }
@@ -1195,6 +1214,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         xmlFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         processItemEClass.getESuperTypes().add(this.getItem());
         folderItemEClass.getESuperTypes().add(this.getItem());
+        ldifFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1311,6 +1331,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(notationHolderEClass, NotationHolder.class, "NotationHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getNotationHolder_NotationString(), theEcorePackage.getEString(), "notationString", null, 0, 1, NotationHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(ldifFileConnectionItemEClass, LdifFileConnectionItem.class, "LdifFileConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

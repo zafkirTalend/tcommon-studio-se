@@ -1352,13 +1352,59 @@ public interface PropertiesPackage extends EPackage {
     int NOTATION_HOLDER_FEATURE_COUNT = 1;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.LdifFileConnectionItemImpl <em>Ldif File Connection Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.LdifFileConnectionItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getLdifFileConnectionItem()
+     * @generated
+     */
+    int LDIF_FILE_CONNECTION_ITEM = 23;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_ITEM__PROPERTY = CONNECTION_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_ITEM__STATE = CONNECTION_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_ITEM__CONNECTION = CONNECTION_ITEM__CONNECTION;
+
+    /**
+     * The number of structural features of the '<em>Ldif File Connection Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 23;
+    int FOLDER_TYPE = 24;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.Status <em>Status</em>}'. <!--
@@ -2226,6 +2272,16 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getNotationHolder_NotationString();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.LdifFileConnectionItem <em>Ldif File Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Ldif File Connection Item</em>'.
+     * @see org.talend.core.model.properties.LdifFileConnectionItem
+     * @generated
+     */
+    EClass getLdifFileConnectionItem();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -3018,6 +3074,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute NOTATION_HOLDER__NOTATION_STRING = eINSTANCE.getNotationHolder_NotationString();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.LdifFileConnectionItemImpl <em>Ldif File Connection Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.LdifFileConnectionItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getLdifFileConnectionItem()
+         * @generated
+         */
+        EClass LDIF_FILE_CONNECTION_ITEM = eINSTANCE.getLdifFileConnectionItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

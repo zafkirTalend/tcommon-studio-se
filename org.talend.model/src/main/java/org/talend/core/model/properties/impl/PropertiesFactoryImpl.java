@@ -98,6 +98,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.FOLDER_ITEM: return createFolderItem();
             case PropertiesPackage.COMPONENT: return createComponent();
             case PropertiesPackage.NOTATION_HOLDER: return createNotationHolder();
+            case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: return createLdifFileConnectionItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -309,6 +310,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public NotationHolder createNotationHolder() {
         NotationHolderImpl notationHolder = new NotationHolderImpl();
         return notationHolder;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LdifFileConnectionItem createLdifFileConnectionItem() {
+        LdifFileConnectionItemImpl ldifFileConnectionItem = new LdifFileConnectionItemImpl();
+        return ldifFileConnectionItem;
     }
 
     /**

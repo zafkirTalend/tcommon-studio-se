@@ -189,6 +189,15 @@ public interface PropertiesFactory extends EFactory {
     NotationHolder createNotationHolder();
 
     /**
+     * Returns a new object of class '<em>Ldif File Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Ldif File Connection Item</em>'.
+     * @generated
+     */
+    LdifFileConnectionItem createLdifFileConnectionItem();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

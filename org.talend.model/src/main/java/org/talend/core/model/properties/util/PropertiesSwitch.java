@@ -261,6 +261,14 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: {
+                LdifFileConnectionItem ldifFileConnectionItem = (LdifFileConnectionItem)theEObject;
+                Object result = caseLdifFileConnectionItem(ldifFileConnectionItem);
+                if (result == null) result = caseConnectionItem(ldifFileConnectionItem);
+                if (result == null) result = caseItem(ldifFileConnectionItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -563,6 +571,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseNotationHolder(NotationHolder object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Ldif File Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Ldif File Connection Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
         return null;
     }
 
