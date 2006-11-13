@@ -60,7 +60,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
     
     /**
      * DOC amaumont CheckboxTableEditorContent constructor comment.
-     * @param readOnly
+     * @param readOnly applied for ALL checbox of column
      */
     public CheckboxTableEditorContent(boolean readOnly) {
         super();
@@ -97,7 +97,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
             @SuppressWarnings("unchecked")
             public void widgetSelected(SelectionEvent e) {
-                currentColumn.getBeanPropertyAccessors().set(currentRowObject, check.getSelection() ? CHECKED : UNCHECKED);
+                currentColumn.getBeanPropertyAccessors().set(currentRowObject, ((Button)e.getSource()).getSelection() ? CHECKED : UNCHECKED);
             }
 
         });
