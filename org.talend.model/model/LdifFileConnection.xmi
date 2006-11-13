@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<TalendMetadata:LdifFileConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:TalendMetadata="http://www.talend.org" xsi:schemaLocation="http://www.talend.org metadata.ecore" id="1" comment="comment" label="myLdif">
+  <tables label="myLdif">
+    <columns label="sn"/>
+  </tables>
+  <value>dc</value>
+  <value>sn</value>
+  <value>mail</value>
+</TalendMetadata:LdifFileConnection>

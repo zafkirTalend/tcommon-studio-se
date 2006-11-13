@@ -27,6 +27,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
+import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
@@ -214,6 +215,9 @@ public class RepositoryToComponentProperty {
         if (connection instanceof XmlFileConnection) {
             return getXmlFileValue((XmlFileConnection) connection, value);
         }
+        if (connection instanceof LdifFileConnection) {
+            return getLdifFileValue((LdifFileConnection) connection, value);
+        }
         return null;
     }
 
@@ -279,6 +283,11 @@ public class RepositoryToComponentProperty {
         // if (value.equals("PATTERN")) {
         // return "'" + checkStringQuotes(connection.getFieldSeparatorValue()) + "'";
         // }
+        return null;
+    }
+    
+    // PTODO CAN LdifFile
+    private static Object getLdifFileValue(LdifFileConnection connection, String value) {
         return null;
     }
 }

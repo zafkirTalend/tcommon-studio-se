@@ -94,6 +94,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.SCHEMA_TARGET: return createSchemaTarget();
             case ConnectionPackage.QUERIES_CONNECTION: return createQueriesConnection();
             case ConnectionPackage.QUERY: return createQuery();
+            case ConnectionPackage.LDIF_FILE_CONNECTION: return createLdifFileConnection();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -271,6 +272,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public Query createQuery() {
         QueryImpl query = new QueryImpl();
         return query;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LdifFileConnection createLdifFileConnection() {
+        LdifFileConnectionImpl ldifFileConnection = new LdifFileConnectionImpl();
+        return ldifFileConnection;
     }
 
     /**

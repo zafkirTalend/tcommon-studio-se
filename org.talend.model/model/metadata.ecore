@@ -189,4 +189,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="queries" eType="#//QueriesConnection"
         eOpposite="#//QueriesConnection/query"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LdifFileConnection" eSuperTypes="#//Connection">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

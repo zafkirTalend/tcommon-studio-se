@@ -26,6 +26,8 @@ import org.talend.core.model.metadata.builder.connection.Escape;
 import org.talend.core.model.metadata.builder.connection.FieldSeparator;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.FileFormat;
+import org.talend.core.model.metadata.builder.connection.LdapFileConnection;
+import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.Metadata;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataSchema;
@@ -35,6 +37,7 @@ import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
+import org.talend.core.model.metadata.builder.connection.SchemaAttribute;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 
@@ -142,6 +145,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EClass queryEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass ldifFileConnectionEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1004,6 +1014,24 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getLdifFileConnection() {
+        return ldifFileConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getLdifFileConnection_Value() {
+        return (EAttribute)ldifFileConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1185,6 +1213,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(queryEClass, QUERY__VALUE);
         createEReference(queryEClass, QUERY__QUERIES);
 
+        ldifFileConnectionEClass = createEClass(LDIF_FILE_CONNECTION);
+        createEAttribute(ldifFileConnectionEClass, LDIF_FILE_CONNECTION__VALUE);
+
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
         fileFormatEEnum = createEEnum(FILE_FORMAT);
@@ -1229,6 +1260,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         csvFileConnectionEClass.getESuperTypes().add(this.getDelimitedFileConnection());
         regexpFileConnectionEClass.getESuperTypes().add(this.getFileConnection());
         xmlFileConnectionEClass.getESuperTypes().add(this.getConnection());
+        ldifFileConnectionEClass.getESuperTypes().add(this.getConnection());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1339,6 +1371,9 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getQuery_Comment(), ecorePackage.getEString(), "comment", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getQuery_Value(), ecorePackage.getEString(), "value", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getQuery_Queries(), this.getQueriesConnection(), this.getQueriesConnection_Query(), "queries", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(ldifFileConnectionEClass, LdifFileConnection.class, "LdifFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getLdifFileConnection_Value(), ecorePackage.getEString(), "value", null, 0, -1, LdifFileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");

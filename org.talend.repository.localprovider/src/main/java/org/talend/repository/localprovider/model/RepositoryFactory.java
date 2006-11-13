@@ -79,6 +79,7 @@ import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -283,7 +284,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         ERepositoryObjectType[] repositoryObjectTypeList = new ERepositoryObjectType[] { ERepositoryObjectType.BUSINESS_PROCESS,
                 ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.METADATA_CONNECTIONS,
                 ERepositoryObjectType.METADATA_FILE_DELIMITED, ERepositoryObjectType.METADATA_FILE_POSITIONAL,
-                ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML,
+                ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML, ERepositoryObjectType.METADATA_FILE_LDIF,
                 ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES };
         for (ERepositoryObjectType repositoryObjectType : repositoryObjectTypeList) {
             IFolder folder = ResourceUtils
@@ -366,6 +367,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_POSITIONAL);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_REGEXP);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_XML);
+        needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_LDIF);
         needsBinFolder.add(ERepositoryObjectType.PROCESS);
     }
 
@@ -616,6 +618,10 @@ public class RepositoryFactory implements IRepositoryFactory {
                 return ERepositoryObjectType.METADATA_FILE_XML;
             }
 
+            public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
+                return ERepositoryObjectType.METADATA_FILE_LDIF;
+            }
+            
             public Object defaultCase(EObject object) {
                 throw new IllegalStateException();
             }
@@ -787,6 +793,7 @@ public class RepositoryFactory implements IRepositoryFactory {
         collect(getMetadataFilePositional(), result);
         collect(getMetadataFileRegexp(), result);
         collect(getMetadataFileXml(), result);
+        collect(getMetadataFileLdif(), result);
         collect(getMetadataConnection(), result);
 
         return result;
@@ -981,6 +988,15 @@ public class RepositoryFactory implements IRepositoryFactory {
 
     public RootContainer<String, IRepositoryObject> getMetadataFileXml() throws PersistenceException {
         return getMetadataFileXmlFromFolder();
+    }
+    
+    // LDIF FILE
+    private RootContainer<String, IRepositoryObject> getMetadataFileLdifFromFolder() throws PersistenceException {
+        return getObjectFromFolder(ERepositoryObjectType.METADATA_FILE_LDIF, null, true);
+    }
+
+    public RootContainer<String, IRepositoryObject> getMetadataFileLdif() throws PersistenceException {
+        return getMetadataFileLdifFromFolder();
     }
 
     /**
@@ -1375,6 +1391,9 @@ public class RepositoryFactory implements IRepositoryFactory {
                 break;
             case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
                 itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_XML, path);
+                break;
+            case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM:
+                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_FILE_LDIF, path);
                 break;
             case PropertiesPackage.DOCUMENTATION_ITEM:
                 itemResource = create((FileItem) item, path, ERepositoryObjectType.DOCUMENTATION);

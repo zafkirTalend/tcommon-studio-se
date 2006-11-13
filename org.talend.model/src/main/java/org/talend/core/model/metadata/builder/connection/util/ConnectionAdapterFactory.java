@@ -134,6 +134,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl
             public Object caseQuery(Query object) {
                 return createQueryAdapter();
             }
+            public Object caseLdifFileConnection(LdifFileConnection object) {
+                return createLdifFileConnectionAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -373,6 +376,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl
      * @generated
      */
     public Adapter createQueryAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection <em>Ldif File Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection
+     * @generated
+     */
+    public Adapter createLdifFileConnectionAdapter() {
         return null;
     }
 

@@ -43,6 +43,7 @@ public enum ERepositoryObjectType {
     METADATA_FILE_POSITIONAL("repository.metadataFilePositional"),
     METADATA_FILE_REGEXP("repository.metadataFileRegexp"),
     METADATA_FILE_XML("repository.metadataFileXml"),
+    METADATA_FILE_LDIF("repository.metadataFileLdif"),
     FOLDER("repository.folder"),
     RECYCLE_BIN("repository.recyclebin");
 
@@ -92,6 +93,8 @@ public enum ERepositoryObjectType {
             return "metadata/fileRegex";
         case METADATA_FILE_XML:
             return "metadata/fileXml";
+        case METADATA_FILE_LDIF:
+            return "metadata/fileLdif";
         default:
             throw new IllegalArgumentException("Folder for type " + type + " cannot be found");
         }

@@ -31,6 +31,7 @@ import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -179,6 +180,10 @@ public class RepositoryObject implements IRepositoryObject {
                 return ERepositoryObjectType.METADATA_FILE_XML;
             }
 
+            public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
+                return ERepositoryObjectType.METADATA_FILE_LDIF;
+            }
+            
             public Object defaultCase(EObject object) {
                 throw new IllegalStateException();
             }

@@ -140,6 +140,15 @@ public interface ConnectionFactory extends EFactory {
     Query createQuery();
 
     /**
+     * Returns a new object of class '<em>Ldif File Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Ldif File Connection</em>'.
+     * @generated
+     */
+    LdifFileConnection createLdifFileConnection();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

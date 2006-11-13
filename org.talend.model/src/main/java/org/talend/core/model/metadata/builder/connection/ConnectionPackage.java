@@ -2436,13 +2436,122 @@ public interface ConnectionPackage extends EPackage {
     int QUERY_FEATURE_COUNT = 5;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl <em>Ldif File Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLdifFileConnection()
+     * @generated
+     */
+    int LDIF_FILE_CONNECTION = 16;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__ID = CONNECTION__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__COMMENT = CONNECTION__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__LABEL = CONNECTION__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__READ_ONLY = CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__SYNCHRONISED = CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__DIVERGENCY = CONNECTION__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__VERSION = CONNECTION__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Tables</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__TABLES = CONNECTION__TABLES;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__VALUE = CONNECTION_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Ldif File Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 1;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.DatabaseProperties
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 16;
+    int DATABASE_PROPERTIES = 17;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -2451,7 +2560,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 17;
+    int FILE_FORMAT = 18;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -2460,7 +2569,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 18;
+    int FIELD_SEPARATOR = 19;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -2469,7 +2578,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 19;
+    int ESCAPE = 20;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -2478,7 +2587,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 20;
+    int ROW_SEPARATOR = 21;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -2487,7 +2596,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 21;
+    int MAP = 22;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -3419,6 +3528,27 @@ public interface ConnectionPackage extends EPackage {
     EReference getQuery_Queries();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection <em>Ldif File Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Ldif File Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection
+     * @generated
+     */
+    EClass getLdifFileConnection();
+
+    /**
+     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getValue <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute list '<em>Value</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection#getValue()
+     * @see #getLdifFileConnection()
+     * @generated
+     */
+    EAttribute getLdifFileConnection_Value();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -4255,6 +4385,24 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference QUERY__QUERIES = eINSTANCE.getQuery_Queries();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl <em>Ldif File Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLdifFileConnection()
+         * @generated
+         */
+        EClass LDIF_FILE_CONNECTION = eINSTANCE.getLdifFileConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDIF_FILE_CONNECTION__VALUE = eINSTANCE.getLdifFileConnection_Value();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
