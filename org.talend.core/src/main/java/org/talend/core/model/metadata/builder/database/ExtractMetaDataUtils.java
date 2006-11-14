@@ -133,7 +133,7 @@ public class ExtractMetaDataUtils {
         return metaDataInfo;
     }
 
-    // PTODO CAN : Attention : Intégrer dans un properties ou preference gérer par l'appli
+    // PTODO cantoine : Attention : Intégrer dans un properties ou preference gérer par l'appli
     // OCA : stocker au même endroit les chaines de connections et les regex associées
     /**
      * DOC cantoine. Method to return MetaDataInfo on Column DataBaseConnection.

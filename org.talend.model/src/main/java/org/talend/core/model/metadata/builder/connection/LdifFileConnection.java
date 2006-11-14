@@ -20,6 +20,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getFilePath <em>File Path</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getLimitEntry <em>Limit Entry</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#isUseLimit <em>Use Limit</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getServer <em>Server</em>}</li>
  * </ul>
  * </p>
  *
@@ -121,5 +122,31 @@ public interface LdifFileConnection extends Connection {
      * @generated
      */
     void setUseLimit(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Server</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Server</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Server</em>' attribute.
+     * @see #setServer(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getLdifFileConnection_Server()
+     * @model required="true"
+     * @generated
+     */
+    String getServer();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getServer <em>Server</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Server</em>' attribute.
+     * @see #getServer()
+     * @generated
+     */
+    void setServer(String value);
 
 } // LdifFileConnection

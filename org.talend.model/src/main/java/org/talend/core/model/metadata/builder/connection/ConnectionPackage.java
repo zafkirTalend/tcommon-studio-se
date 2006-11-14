@@ -2563,13 +2563,22 @@ public interface ConnectionPackage extends EPackage {
     int LDIF_FILE_CONNECTION__USE_LIMIT = CONNECTION_FEATURE_COUNT + 3;
 
     /**
+     * The feature id for the '<em><b>Server</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__SERVER = CONNECTION_FEATURE_COUNT + 4;
+
+    /**
      * The number of structural features of the '<em>Ldif File Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int LDIF_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 4;
+    int LDIF_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 5;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
@@ -3609,6 +3618,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getLdifFileConnection_UseLimit();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LdifFileConnection#getServer <em>Server</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Server</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LdifFileConnection#getServer()
+     * @see #getLdifFileConnection()
+     * @generated
+     */
+    EAttribute getLdifFileConnection_Server();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -4487,6 +4507,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute LDIF_FILE_CONNECTION__USE_LIMIT = eINSTANCE.getLdifFileConnection_UseLimit();
+
+        /**
+         * The meta object literal for the '<em><b>Server</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDIF_FILE_CONNECTION__SERVER = eINSTANCE.getLdifFileConnection_Server();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

@@ -245,7 +245,7 @@ public class TargetSchemaToolbarEditorView2 {
                                 action.run(targetSchemaEditorEvent);
 
                                 // load the schema
-                                // PTODO CAN : XMLFILE ATTENTION AVEC SCHEMATARGET
+                                // PTODO cantoine : XMLFILE ATTENTION AVEC SCHEMATARGET
                                 List<SchemaTarget> loadSchemaTarget = MetadataSchema.loadTargetSchemaColumnFromFile(file);
 
                                 // Add Columnsof Schema to the table
@@ -304,7 +304,7 @@ public class TargetSchemaToolbarEditorView2 {
                             TargetSchemaEditor2 newEditor = targetSchemaEditorView.getTargetSchemaEditor();
                             if (newEditor != null) {
                                 // get all the columns from the table
-                                // PTODO CAN : XMLFILE
+                                // PTODO cantoine : XMLFILE
                                 org.talend.core.model.metadata.builder.connection.MetadataSchema oldTable = newEditor
                                         .getMetadataSchema();
                                 MetadataSchema.saveSchemaTargetToFile(file, oldTable);

@@ -278,7 +278,7 @@ public class RepositoryToComponentProperty {
         return null;
     }
 
-    // PTODO CAN XmlFile
+    // PTODO cantoine XmlFile
     private static Object getXmlFileValue(XmlFileConnection connection, String value) {
         // if (value.equals("PATTERN")) {
         // return "'" + checkStringQuotes(connection.getFieldSeparatorValue()) + "'";
@@ -286,7 +286,7 @@ public class RepositoryToComponentProperty {
         return null;
     }
     
-    // PTODO CAN LdifFile
+    // PTODO cantoine LdifFile
     private static Object getLdifFileValue(LdifFileConnection connection, String value) {
         return null;
     }
