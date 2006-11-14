@@ -42,7 +42,8 @@ public enum EParameterFieldType {
     TABLE,
     DIRECTORY,
     PROCESS_TYPE,
-    IMAGE;
+    IMAGE,
+    COLUMN_LIST;
 
     public String getName() {
         return toString();

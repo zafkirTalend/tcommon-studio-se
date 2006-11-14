@@ -144,7 +144,9 @@ public final class ElementParameterParser {
                     Object currentValue = lineValues.get(items[j]);
                     if (currentValue instanceof Integer) {
                         IElementParameter tmpParam = (IElementParameter) param.getListItemsValue()[j];
-                        stringValues += tmpParam.getListItemsDisplayName()[(Integer) currentValue];
+                        if (tmpParam.getListItemsDisplayName().length != 0) {
+                            stringValues += tmpParam.getListItemsDisplayName()[(Integer) currentValue];
+                        }
                     } else {
                         stringValues += currentValue;
                     }
