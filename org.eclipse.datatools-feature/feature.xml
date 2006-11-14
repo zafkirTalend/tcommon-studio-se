@@ -25,6 +25,20 @@
       <import plugin="org.eclipse.ui" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.datatools.connectivity.oda.design.ui" version="3.0.1" match="compatible"/>
       <import plugin="org.eclipse.datatools.enablement.oda.xml" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.core.resources" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.datatools.connectivity.oda" version="3.0.2" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.emf.ecore.xmi" version="2.2.0" match="compatible"/>
+      <import plugin="org.eclipse.datatools.connectivity.ui" version="0.9.1" match="compatible"/>
+      <import plugin="org.eclipse.datatools.connectivity.oda.profile" version="3.0.2" match="compatible"/>
+      <import plugin="org.eclipse.datatools.connectivity.oda.design" version="3.0.2" match="compatible"/>
+      <import plugin="org.eclipse.datatools.connectivity" version="0.9.1" match="compatible"/>
+      <import plugin="org.eclipse.datatools.connectivity.oda.consumer" version="3.0.2" match="compatible"/>
+      <import plugin="org.eclipse.ui.views" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ui.navigator" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.core.expressions" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ltk.core.refactoring" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ltk.ui.refactoring" version="3.2.0" match="compatible"/>
    </requires>
 
    <plugin
@@ -87,5 +101,47 @@
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.ltk.core.refactoring"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.ltk.ui.refactoring"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.compare"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.ui.navigator"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.ui.navigator.resources"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.team.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
