@@ -69,7 +69,7 @@
             value="icons/about.gif"/>
       <property
             name="aboutText"
-            value="Talend Open Studio product&#x0A;&#x0A;Version: Beta 2&#x0A;Build id: &#x0A;&#x0A;(c) Copyright 2006 Talend SA.  All rights reserved.&#x0A;Visit http://www.talend.com"/>
+            value="%productBlurb"/>
    </product>
 </extension>
 <extension
