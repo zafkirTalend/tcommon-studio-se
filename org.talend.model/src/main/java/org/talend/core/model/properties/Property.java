@@ -45,7 +45,7 @@ public interface Property extends EObject {
      * @return the value of the '<em>Id</em>' attribute.
      * @see #setId(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getProperty_Id()
-     * @model
+     * @model id="true"
      * @generated
      */
     String getId();

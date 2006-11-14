@@ -65,7 +65,7 @@ public interface Status extends EObject {
      * @return the value of the '<em>Code</em>' attribute.
      * @see #setCode(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getStatus_Code()
-     * @model required="true"
+     * @model id="true" required="true"
      * @generated
      */
     String getCode();
