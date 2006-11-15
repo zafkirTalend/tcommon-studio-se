@@ -101,7 +101,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DelimitedFileConnection" eSuperTypes="#//FileConnection">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="FieldSeparatorType" lowerBound="1"
-        eType="#//FieldSeparator"/>
+        eType="#//FieldSeparator" defaultValueLiteral="Semicolon"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PositionalFileConnection" eSuperTypes="#//FileConnection"/>
   <eClassifiers xsi:type="ecore:EEnum" name="FileFormat">

@@ -36,7 +36,7 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
      * @generated
      * @ordered
      */
-    protected static final FieldSeparator FIELD_SEPARATOR_TYPE_EDEFAULT = FieldSeparator.TABULATION_LITERAL;
+    protected static final FieldSeparator FIELD_SEPARATOR_TYPE_EDEFAULT = FieldSeparator.SEMICOLON_LITERAL;
 
     /**
      * The cached value of the '{@link #getFieldSeparatorType() <em>Field Separator Type</em>}' attribute.

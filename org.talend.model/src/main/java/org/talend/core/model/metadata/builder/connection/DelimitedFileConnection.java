@@ -26,6 +26,7 @@ package org.talend.core.model.metadata.builder.connection;
 public interface DelimitedFileConnection extends FileConnection {
     /**
      * Returns the value of the '<em><b>Field Separator Type</b></em>' attribute.
+     * The default value is <code>"Semicolon"</code>.
      * The literals are from the enumeration {@link org.talend.core.model.metadata.builder.connection.FieldSeparator}.
      * <!-- begin-user-doc -->
      * <p>
@@ -37,7 +38,7 @@ public interface DelimitedFileConnection extends FileConnection {
      * @see org.talend.core.model.metadata.builder.connection.FieldSeparator
      * @see #setFieldSeparatorType(FieldSeparator)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDelimitedFileConnection_FieldSeparatorType()
-     * @model required="true"
+     * @model default="Semicolon" required="true"
      * @generated
      */
     FieldSeparator getFieldSeparatorType();
