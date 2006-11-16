@@ -46,8 +46,8 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.targetschema.editor.TargetSchemaEditor2;
 import org.talend.core.model.targetschema.editor.TargetSchemaEditorActionFactory2;
 import org.talend.core.model.targetschema.editor.TargetSchemaEditorEvent;
+import org.talend.core.ui.EImage;
 import org.talend.core.ui.ImageProvider;
-import org.talend.core.ui.ImageProvider.EImage;
 import org.xml.sax.SAXException;
 
 /**

@@ -64,8 +64,7 @@ public interface IImageConstants {
     public static final String FILE_REGEXP_ICON = "/icons/fileregexp.png";
 
     public static final String FILE_XML_PNG = "/icons/filexml.png";
-    
-    public static final String FILE_LDIF_PNG = "/icons/fileldif.png";
+
 
     public static final String TABLE_ICON = "/icons/table.gif";
 
@@ -81,7 +80,7 @@ public interface IImageConstants {
 
     public static final String SNIPPET_ICON = "/icons/snippet.gif";
 
-    public static final String PROCESS_ICON = "/icons/process_icon.png";
+    public static final String PROCESS_ICON = "/icons/JOB-2.psd-16x16.png";
 
     public static final String BUSINESS_PROCESS_ICON = "/icons/businessProcess.png";
 
@@ -93,14 +92,8 @@ public interface IImageConstants {
 
     public static final String FOLDER_CLOSE_ICON = "/icons/folder_close.png";
 
-    public static final String KEY_ICON = "/icons/key16.png";
+    public static final String EMPTY_ICON = "/icons/empty.gif";
 
-    public static final String KEY16_ICON = "/icons/key17.gif";
-    
-    public static final String TRANSPARENT16_ICON = "/icons/key17_empty.gif";
-
-    public static final String TRANSPARENT16X16_ICON = "/icons/key17_empty.gif";
-    
     public static final String DOC_WORD_ICON = "/icons/docs/word.png";
 
     public static final String DOC_EXCEL_ICON = "/icons/docs/excel.png";

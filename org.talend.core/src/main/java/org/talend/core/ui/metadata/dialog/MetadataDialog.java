@@ -43,8 +43,8 @@ import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.editor.IMetadataEditorListener;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.ui.EImage;
 import org.talend.core.ui.ImageProvider;
-import org.talend.core.ui.ImageProvider.EImage;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
 
 /**

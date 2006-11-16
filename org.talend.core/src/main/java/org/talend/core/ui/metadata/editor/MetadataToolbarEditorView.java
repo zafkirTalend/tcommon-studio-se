@@ -42,8 +42,8 @@ import org.talend.core.model.metadata.MetadataSchema;
 import org.talend.core.model.metadata.editor.MetadataEditorActionFactory;
 import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.ui.EImage;
 import org.talend.core.ui.ImageProvider;
-import org.talend.core.ui.ImageProvider.EImage;
 import org.xml.sax.SAXException;
 
 /**
