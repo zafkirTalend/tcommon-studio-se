@@ -73,68 +73,45 @@ public class ImageProvider {
     }
 
     public static Image getImage(ERepositoryObjectType type) {
-        switch (type) {
-        case BUSINESS_PROCESS:
-            return ImageProvider.getImage(EImage.BUSINESS_PROCESS_ICON);
-        case PROCESS:
-            return ImageProvider.getImage(EImage.PROCESS_ICON);
-        case ROUTINES:
-            return ImageProvider.getImage(EImage.ROUTINE_ICON);
-        case SNIPPETS:
-            return ImageProvider.getImage(EImage.SNIPPETS_ICON);
-        case DOCUMENTATION:
-            return ImageProvider.getImage(EImage.DOCUMENTATION_ICON);
-        case METADATA:
-            return ImageProvider.getImage(EImage.METADATA_ICON);
-        case METADATA_CONNECTIONS:
-            return ImageProvider.getImage(EImage.METADATA_CONNECTION_ICON);
-        case METADATA_CON_TABLE:
-            return ImageProvider.getImage(EImage.METADATA_TABLE_ICON);
-        case METADATA_FILE_DELIMITED:
-            return ImageProvider.getImage(EImage.METADATA_FILE_DELIMITED_ICON);
-        case METADATA_FILE_POSITIONAL:
-            return ImageProvider.getImage(EImage.METADATA_FILE_POSITIONAL_ICON);
-        case METADATA_FILE_REGEXP:
-            return ImageProvider.getImage(EImage.METADATA_FILE_REGEXP_ICON);
-        case METADATA_FILE_XML:
-            return ImageProvider.getImage(EImage.METADATA_FILE_XML_ICON);
-        case RECYCLE_BIN:
-            return ImageProvider.getImage(EImage.RECYCLE_BIN_EMPTY_ICON);
-        case FOLDER:
-            return ImageProvider.getImage(EImage.FOLDER_OPEN_ICON);
-        default:
-            return ImageProvider.getImage(EImage.DEFAULT_IMAGE);
-        }
+        return getImage(getIcon(type));
     }
 
     public static ImageDescriptor getImageDesc(ERepositoryObjectType type) {
+        return getImageDesc(getIcon(type));
+    }
+
+    private static EImage getIcon(ERepositoryObjectType type) {
         switch (type) {
         case BUSINESS_PROCESS:
-            return ImageProvider.getImageDesc(EImage.BUSINESS_PROCESS_ICON);
+            return EImage.BUSINESS_PROCESS_ICON;
         case PROCESS:
-            return ImageProvider.getImageDesc(EImage.PROCESS_ICON);
+            return EImage.PROCESS_ICON;
         case ROUTINES:
-            return ImageProvider.getImageDesc(EImage.ROUTINE_ICON);
+            return EImage.ROUTINE_ICON;
+        case SNIPPETS:
+            return EImage.SNIPPETS_ICON;
         case DOCUMENTATION:
-            return ImageProvider.getImageDesc(EImage.DOCUMENTATION_ICON);
+            return EImage.DOCUMENTATION_ICON;
         case METADATA:
-            return ImageProvider.getImageDesc(EImage.METADATA_ICON);
+            return EImage.METADATA_ICON;
         case METADATA_CONNECTIONS:
-            return ImageProvider.getImageDesc(EImage.METADATA_CONNECTION_ICON);
+            return EImage.METADATA_CONNECTION_ICON;
         case METADATA_CON_TABLE:
-            return ImageProvider.getImageDesc(EImage.METADATA_TABLE_ICON);
+            return EImage.METADATA_TABLE_ICON;
         case METADATA_FILE_DELIMITED:
-            return ImageProvider.getImageDesc(EImage.METADATA_FILE_DELIMITED_ICON);
+            return EImage.METADATA_FILE_DELIMITED_ICON;
         case METADATA_FILE_POSITIONAL:
-            return ImageProvider.getImageDesc(EImage.METADATA_FILE_POSITIONAL_ICON);
+            return EImage.METADATA_FILE_POSITIONAL_ICON;
         case METADATA_FILE_REGEXP:
-            return ImageProvider.getImageDesc(EImage.METADATA_FILE_REGEXP_ICON);
+            return EImage.METADATA_FILE_REGEXP_ICON;
         case METADATA_FILE_XML:
-            return ImageProvider.getImageDesc(EImage.METADATA_FILE_XML_ICON);
+            return EImage.METADATA_FILE_XML_ICON;
+        case METADATA_FILE_LDIF:
+            return EImage.METADATA_FILE_LDIF_ICON;
         case RECYCLE_BIN:
-            return ImageProvider.getImageDesc(EImage.RECYCLE_BIN_EMPTY_ICON);
+            return EImage.RECYCLE_BIN_EMPTY_ICON;
         default:
-            return ImageProvider.getImageDesc(EImage.DEFAULT_IMAGE);
+            return EImage.DEFAULT_IMAGE;
         }
     }
 

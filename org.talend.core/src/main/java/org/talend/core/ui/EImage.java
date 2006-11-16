@@ -52,7 +52,7 @@ public enum EImage {
     METADATA_FILE_REGEXP_WIZ("/icons/regexp_wiz.png"),
     METADATA_FILE_XML_ICON(IImageConstants.FILE_XML_PNG),
     METADATA_FILE_XML_WIZ("/icons/xml_wiz.png"),
-    METADATA_FILE_LDIF_ICON("/icons/file.png"),
+    METADATA_FILE_LDIF_ICON("/icons/fileldif.png"),
     METADATA_FILE_LDIF_WIZ(IImageConstants.EMPTY_ICON),
     RECYCLE_BIN_EMPTY_ICON(IImageConstants.RECYCLE_BIN_EMPTY_ICON),
     RECYCLE_BIN_FULL_ICON(IImageConstants.RECYCLE_BIN_FULL_ICON),
