@@ -196,7 +196,7 @@ public class ExtractMetaDataFromDataBase {
 
                 MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
                 metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME"));
-                metadataColumn.setOriginalField(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME"));
+                metadataColumn.setOriginalField(metadataColumn.getLabel());
                 if (primaryKeys != null && !primaryKeys.isEmpty() && primaryKeys.get(metadataColumn.getLabel()) != null) {
                     metadataColumn.setKey(true);
                 } else {
