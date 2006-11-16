@@ -528,13 +528,13 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__EXTENSION = 5;
 
     /**
-     * The feature id for the '<em><b>ICON</b></em>' attribute.
+     * The feature id for the '<em><b>ICON32</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__ICON = 6;
+    int HEADER_TYPE__ICON32 = 6;
 
     /**
      * The feature id for the '<em><b>PLATEFORM</b></em>' attribute.
@@ -600,13 +600,31 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__VERSION = 13;
 
     /**
+     * The feature id for the '<em><b>ICON24</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__ICON24 = 14;
+
+    /**
+     * The feature id for the '<em><b>ICON16</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__ICON16 = 15;
+
+    /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 14;
+    int HEADER_TYPE_FEATURE_COUNT = 16;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -1692,15 +1710,15 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_EXTENSION();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON <em>ICON</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON32 <em>ICON32</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>ICON</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getICON()
+     * @return the meta object for the attribute '<em>ICON32</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getICON32()
      * @see #getHEADERType()
      * @generated
      */
-    EAttribute getHEADERType_ICON();
+    EAttribute getHEADERType_ICON32();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}'.
@@ -1778,6 +1796,28 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getHEADERType_VERSION();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON24 <em>ICON24</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>ICON24</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getICON24()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_ICON24();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON16 <em>ICON16</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>ICON16</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getICON16()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_ICON16();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType <em>IMPORTS Type</em>}'.
@@ -2752,12 +2792,12 @@ public interface ComponentPackage extends EPackage {
         EAttribute HEADER_TYPE__EXTENSION = eINSTANCE.getHEADERType_EXTENSION();
 
         /**
-         * The meta object literal for the '<em><b>ICON</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>ICON32</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute HEADER_TYPE__ICON = eINSTANCE.getHEADERType_ICON();
+        EAttribute HEADER_TYPE__ICON32 = eINSTANCE.getHEADERType_ICON32();
 
         /**
          * The meta object literal for the '<em><b>PLATEFORM</b></em>' attribute feature.
@@ -2814,6 +2854,22 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__VERSION = eINSTANCE.getHEADERType_VERSION();
+
+        /**
+         * The meta object literal for the '<em><b>ICON24</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__ICON24 = eINSTANCE.getHEADERType_ICON24();
+
+        /**
+         * The meta object literal for the '<em><b>ICON16</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__ICON16 = eINSTANCE.getHEADERType_ICON16();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.

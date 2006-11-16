@@ -28,7 +28,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getCOMPATIBILITY <em>COMPATIBILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getEXTENSION <em>EXTENSION</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getICON <em>ICON</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getICON32 <em>ICON32</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
@@ -36,6 +36,8 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSTATUS <em>STATUS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getVERSION <em>VERSION</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getICON24 <em>ICON24</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getICON16 <em>ICON16</em>}</li>
  * </ul>
  * </p>
  *
@@ -181,24 +183,24 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
     protected String eXTENSION = EXTENSION_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getICON() <em>ICON</em>}' attribute.
+     * The default value of the '{@link #getICON32() <em>ICON32</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getICON()
+     * @see #getICON32()
      * @generated
      * @ordered
      */
-    protected static final String ICON_EDEFAULT = null;
+    protected static final String ICON32_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getICON() <em>ICON</em>}' attribute.
+     * The cached value of the '{@link #getICON32() <em>ICON32</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getICON()
+     * @see #getICON32()
      * @generated
      * @ordered
      */
-    protected String iCON = ICON_EDEFAULT;
+    protected String iCON32 = ICON32_EDEFAULT;
 
     /**
      * The default value of the '{@link #getPLATEFORM() <em>PLATEFORM</em>}' attribute.
@@ -357,6 +359,46 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected BigDecimal vERSION = VERSION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getICON24() <em>ICON24</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getICON24()
+     * @generated
+     * @ordered
+     */
+    protected static final String ICON24_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getICON24() <em>ICON24</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getICON24()
+     * @generated
+     * @ordered
+     */
+    protected String iCON24 = ICON24_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getICON16() <em>ICON16</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getICON16()
+     * @generated
+     * @ordered
+     */
+    protected static final String ICON16_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getICON16() <em>ICON16</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getICON16()
+     * @generated
+     * @ordered
+     */
+    protected String iCON16 = ICON16_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -557,8 +599,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getICON() {
-        return iCON;
+    public String getICON32() {
+        return iCON32;
     }
 
     /**
@@ -566,11 +608,11 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setICON(String newICON) {
-        String oldICON = iCON;
-        iCON = newICON;
+    public void setICON32(String newICON32) {
+        String oldICON32 = iCON32;
+        iCON32 = newICON32;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__ICON, oldICON, iCON));
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__ICON32, oldICON32, iCON32));
     }
 
     /**
@@ -775,6 +817,48 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getICON24() {
+        return iCON24;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setICON24(String newICON24) {
+        String oldICON24 = iCON24;
+        iCON24 = newICON24;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__ICON24, oldICON24, iCON24));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getICON16() {
+        return iCON16;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setICON16(String newICON16) {
+        String oldICON16 = iCON16;
+        iCON16 = newICON16;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__ICON16, oldICON16, iCON16));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.HEADER_TYPE__SIGNATURE:
@@ -789,8 +873,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isDATAAUTOPROPAGATE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 return getEXTENSION();
-            case ComponentPackage.HEADER_TYPE__ICON:
-                return getICON();
+            case ComponentPackage.HEADER_TYPE__ICON32:
+                return getICON32();
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 return getPLATEFORM();
             case ComponentPackage.HEADER_TYPE__RELEASEDATE:
@@ -805,6 +889,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getSTATUS();
             case ComponentPackage.HEADER_TYPE__VERSION:
                 return getVERSION();
+            case ComponentPackage.HEADER_TYPE__ICON24:
+                return getICON24();
+            case ComponentPackage.HEADER_TYPE__ICON16:
+                return getICON16();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -834,8 +922,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 setEXTENSION((String)newValue);
                 return;
-            case ComponentPackage.HEADER_TYPE__ICON:
-                setICON((String)newValue);
+            case ComponentPackage.HEADER_TYPE__ICON32:
+                setICON32((String)newValue);
                 return;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 setPLATEFORM((String)newValue);
@@ -857,6 +945,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__VERSION:
                 setVERSION((BigDecimal)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__ICON24:
+                setICON24((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__ICON16:
+                setICON16((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -887,8 +981,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 setEXTENSION(EXTENSION_EDEFAULT);
                 return;
-            case ComponentPackage.HEADER_TYPE__ICON:
-                setICON(ICON_EDEFAULT);
+            case ComponentPackage.HEADER_TYPE__ICON32:
+                setICON32(ICON32_EDEFAULT);
                 return;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 setPLATEFORM(PLATEFORM_EDEFAULT);
@@ -910,6 +1004,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__VERSION:
                 setVERSION(VERSION_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__ICON24:
+                setICON24(ICON24_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__ICON16:
+                setICON16(ICON16_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -934,8 +1034,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSetDATAAUTOPROPAGATE();
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 return EXTENSION_EDEFAULT == null ? eXTENSION != null : !EXTENSION_EDEFAULT.equals(eXTENSION);
-            case ComponentPackage.HEADER_TYPE__ICON:
-                return ICON_EDEFAULT == null ? iCON != null : !ICON_EDEFAULT.equals(iCON);
+            case ComponentPackage.HEADER_TYPE__ICON32:
+                return ICON32_EDEFAULT == null ? iCON32 != null : !ICON32_EDEFAULT.equals(iCON32);
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 return PLATEFORM_EDEFAULT == null ? pLATEFORM != null : !PLATEFORM_EDEFAULT.equals(pLATEFORM);
             case ComponentPackage.HEADER_TYPE__RELEASEDATE:
@@ -950,6 +1050,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return STATUS_EDEFAULT == null ? sTATUS != null : !STATUS_EDEFAULT.equals(sTATUS);
             case ComponentPackage.HEADER_TYPE__VERSION:
                 return VERSION_EDEFAULT == null ? vERSION != null : !VERSION_EDEFAULT.equals(vERSION);
+            case ComponentPackage.HEADER_TYPE__ICON24:
+                return ICON24_EDEFAULT == null ? iCON24 != null : !ICON24_EDEFAULT.equals(iCON24);
+            case ComponentPackage.HEADER_TYPE__ICON16:
+                return ICON16_EDEFAULT == null ? iCON16 != null : !ICON16_EDEFAULT.equals(iCON16);
         }
         return super.eIsSet(featureID);
     }
@@ -975,8 +1079,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         if (dATAAUTOPROPAGATEESet) result.append(dATAAUTOPROPAGATE); else result.append("<unset>");
         result.append(", eXTENSION: ");
         result.append(eXTENSION);
-        result.append(", iCON: ");
-        result.append(iCON);
+        result.append(", iCON32: ");
+        result.append(iCON32);
         result.append(", pLATEFORM: ");
         result.append(pLATEFORM);
         result.append(", rELEASEDATE: ");
@@ -991,6 +1095,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(sTATUS);
         result.append(", vERSION: ");
         result.append(vERSION);
+        result.append(", iCON24: ");
+        result.append(iCON24);
+        result.append(", iCON16: ");
+        result.append(iCON16);
         result.append(')');
         return result.toString();
     }
