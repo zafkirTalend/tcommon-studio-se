@@ -127,4 +127,8 @@ public interface IElementParameter {
     public void setDefaultValues(List<IElementParameterDefaultValue> defaultValues);
 
     public void setValueToDefault(List<? extends IElementParameter> listParam);
+    
+    public void setParent(IElement element);
+    
+    public IElement getParent();
 }

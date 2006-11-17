@@ -46,6 +46,8 @@ public abstract class AbstractConnection implements IConnection {
     private boolean activate;
 
     private String condition;
+    
+    private boolean readOnly;
 
     private List<? extends IElementParameter> elementParameters;
 
@@ -116,5 +118,13 @@ public abstract class AbstractConnection implements IConnection {
     public void setTraceData(String traceData) {
         // TODO Auto-generated method stub
 
+    }
+    
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+    
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
     }
 }

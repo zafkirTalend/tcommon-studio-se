@@ -35,4 +35,7 @@ public interface IElement {
 
     public void setElementParameters(List<? extends IElementParameter> elementsParameters);
 
+    public boolean isReadOnly();
+    
+    public void setReadOnly(boolean readOnly);
 }

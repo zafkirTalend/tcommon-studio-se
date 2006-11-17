@@ -58,6 +58,8 @@ public abstract class AbstractNode implements INode {
     private IProcess process;
 
     private IComponent component;
+    
+    private boolean readOnly;
 
     public String getComponentName() {
         return componentName;
@@ -185,4 +187,13 @@ public abstract class AbstractNode implements INode {
     public IComponent getComponent() {
         return component;
     }
+    
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+    
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
+
 }
