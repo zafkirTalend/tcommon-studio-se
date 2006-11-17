@@ -50,7 +50,7 @@ public enum EImage {
     ERROR_SMALL("/icons/error_small.gif"),
     WARNING_SMALL("/icons/warning_small.gif"),
 
-    UP_ICON("/icons/lup.gif"),
+    UP_ICON("/icons/up.gif"),
     DOWN_ICON("/icons/down.gif"),
     LEFT_ICON("/icons/left.gif"),
     RIGHT_ICON("/icons/right.gif"),
