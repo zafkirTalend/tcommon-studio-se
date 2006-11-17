@@ -44,6 +44,7 @@ public class ImageProvider {
         return desc.createImage();
     }
 
+    // PTODO SML Mettre les path en clef
     private static Map<EImage, ImageDescriptor> cacheDescriptors = new HashMap<EImage, ImageDescriptor>();
 
     private static Map<EImage, Image> cacheImages = new HashMap<EImage, Image>();
@@ -70,6 +71,14 @@ public class ImageProvider {
             }
             return toReturn;
         }
+    }
+
+    public static String getImageCache() {
+        return cacheImages.keySet().toString();
+    }
+
+    public static String getImageDescCache() {
+        return cacheDescriptors.keySet().toString();
     }
 
     public static Image getImage(ERepositoryObjectType type) {
