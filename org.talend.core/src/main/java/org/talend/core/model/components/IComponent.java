@@ -55,7 +55,11 @@ public interface IComponent {
 
     public String getFamily();
 
-    public ImageDescriptor getImageDescriptor();
+    public ImageDescriptor getIcon32();
+
+    public ImageDescriptor getIcon24();
+
+    public ImageDescriptor getIcon16();
 
     public List<? extends IElementParameter> createElementParameters(IElement element);
 
