@@ -43,7 +43,8 @@ public enum EParameterFieldType {
     DIRECTORY,
     PROCESS_TYPE,
     IMAGE,
-    COLUMN_LIST;
+    COLUMN_LIST,
+    PREV_COLUMN_LIST;
 
     public String getName() {
         return toString();
