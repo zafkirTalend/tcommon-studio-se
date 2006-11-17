@@ -19,7 +19,7 @@ import org.eclipse.emf.edit.provider.IItemPropertySource;
 import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.talend.core.ui.IImageConstants;
+import org.talend.core.ui.EImage;
 
 /**
  * This is the item provider adapter for a {@link org.talend.designer.business.model.business.FileRegexpMetadata} object.
@@ -70,7 +70,7 @@ public class FileRegexpMetadataItemProvider
      * This returns FileMetadata.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
      */
     public Object getImage(Object object) {
-        return ImageDescriptor.createFromFile(IImageConstants.class, IImageConstants.FILE_REGEXP_ICON).createImage();
+        return ImageDescriptor.createFromFile(EImage.class, EImage.METADATA_FILE_REGEXP_ICON.getPath()).createImage();
     }
 
     /**

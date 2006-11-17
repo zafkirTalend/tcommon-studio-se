@@ -19,7 +19,7 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.talend.core.ui.IImageConstants;
+import org.talend.core.ui.EImage;
 import org.talend.designer.business.model.business.BusinessFactory;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
@@ -92,7 +92,7 @@ public class BusinessProcessItemProvider extends TalendItemItemProvider implemen
      * This returns BusinessProcess.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
      */
     public Object getImage(Object object) {
-        return ImageDescriptor.createFromFile(IImageConstants.class, IImageConstants.BUSINESS_PROCESS_ICON).createImage();
+        return ImageDescriptor.createFromFile(EImage.class, EImage.BUSINESS_PROCESS_ICON.getPath()).createImage();
     }
 
     /**
