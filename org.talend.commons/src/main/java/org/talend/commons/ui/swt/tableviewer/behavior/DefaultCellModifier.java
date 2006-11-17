@@ -98,7 +98,7 @@ public class DefaultCellModifier<O> implements ICellModifier {
      */
     @SuppressWarnings("unchecked")
     public void modify(Object element, String idColumn, Object value) {
-        Object data = ((TableItem) element).getData();
+        Object bean = ((TableItem) element).getData();
         TableViewerCreatorColumn column = tableViewerCreator.getColumn(idColumn);
         if (column.getBeanPropertyAccessors() != null) {
             Object typedValue = null;
@@ -110,9 +110,9 @@ public class DefaultCellModifier<O> implements ICellModifier {
             if (typedValue == null && column.getDefaultInternalValue() != null) {
                 typedValue = column.getDefaultInternalValue();
             }
-            AccessorUtils.set(data, typedValue, column);
-            tableViewerCreator.getTableViewer().refresh(data);
-            fireCellEditorApplied((TableItem) element, data, column, value, typedValue);
+            Object previousValue = AccessorUtils.get(bean, column);
+            tableViewerCreator.setBeanValue(column, bean, typedValue);
+            fireCellEditorApplied((TableItem) element, bean, column, value, previousValue, typedValue);
         }
         ModifiedObjectInfo modifiedObjectInfo = this.tableViewerCreator.getModifiedObjectInfo();
         modifiedObjectInfo.setPreviousModifiedBean(((TableItem) element).getData());
@@ -131,11 +131,11 @@ public class DefaultCellModifier<O> implements ICellModifier {
      * @param bean
      * @param idColumn
      * @param cellEditorAppliedValue
-     * @param storedValue
+     * @param newValue
      */
     private void fireCellEditorApplied(TableItem tableItem, Object bean, TableViewerCreatorColumn column, Object cellEditorAppliedValue,
-            Object storedValue) {
-        TableCellValueModifiedEvent event = new TableCellValueModifiedEvent(tableItem, bean, column, cellEditorAppliedValue, storedValue);
+            Object previousValue, Object newValue) {
+        TableCellValueModifiedEvent event = new TableCellValueModifiedEvent(tableItem, bean, column, cellEditorAppliedValue, newValue);
         final Object[] listenerArray = cellEditorAppliedListeners.getListeners();
         for (int i = 0; i < listenerArray.length; i++) {
             ((ITableCellValueModifiedListener) listenerArray[i]).cellValueModified(event);

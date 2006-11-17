@@ -43,8 +43,6 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
     public static final boolean UNCHECKED = false;
 
-    private Button check;
-
     private boolean readOnly;
     
     
@@ -85,7 +83,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
          * 
          */
 
-        check = new Button(table, SWT.CHECK);
+        Button check = new Button(table, SWT.CHECK);
         check.setEnabled(!this.readOnly);
         check.setText("");
         check.setBackground(table.getBackground());
@@ -97,7 +95,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
             @SuppressWarnings("unchecked")
             public void widgetSelected(SelectionEvent e) {
-                currentColumn.getBeanPropertyAccessors().set(currentRowObject, ((Button)e.getSource()).getSelection() ? CHECKED : UNCHECKED);
+                currentColumn.getTableViewerCreator().setBeanValue(currentColumn, currentRowObject, ((Button)e.getSource()).getSelection() ? CHECKED : UNCHECKED);
             }
 
         });

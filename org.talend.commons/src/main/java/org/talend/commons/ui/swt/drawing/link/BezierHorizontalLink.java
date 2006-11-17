@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.drawing.link;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.GC;
 import org.talend.commons.ui.geometry.Curve2DBezier;
 import org.talend.commons.ui.geometry.Point2D;
@@ -76,20 +75,21 @@ public class BezierHorizontalLink extends AbstractDrawableLink {
         }
 
         curve.setSubdiv((int) (DISTANCE_REFERENCE / distance));
-        double coefDist_connectorWidth = distance / 1500 * connectorWidth;
+        double coefDistConnectorWidth = distance / 1500 * connectorWidth;
 
-        int point1x_halfTableWidth1_connWidth = point1.x + connectorWidth;
-        int point2x_halfTableWidth2_connWidth = point2.x - connectorWidth;
+        int point1xHalfTableWidth1ConnWidth = point1.x + connectorWidth;
+        int point2xHalfTableWidth2ConnWidth = point2.x - connectorWidth;
 
         ((Point2D) pl.get(0)).setLocation(point1.x, point1.y);
-        ((Point2D) pl.get(1)).setLocation(point1x_halfTableWidth1_connWidth + coefDist_connectorWidth, point1.y);
+        ((Point2D) pl.get(1)).setLocation(point1xHalfTableWidth1ConnWidth + coefDistConnectorWidth, point1.y);
 
         ((Point2D) pl.get(2))
                 .setLocation(
-                        (point1x_halfTableWidth1_connWidth + coefDist_connectorWidth + (point2x_halfTableWidth2_connWidth - coefDist_connectorWidth)) / 2,
+                        (point1xHalfTableWidth1ConnWidth + coefDistConnectorWidth 
+                                + (point2xHalfTableWidth2ConnWidth - coefDistConnectorWidth)) / 2,
                         (point1.y + (point2.y)) / 2);
 
-        ((Point2D) pl.get(3)).setLocation(point2x_halfTableWidth2_connWidth - coefDist_connectorWidth, point2.y);
+        ((Point2D) pl.get(3)).setLocation(point2xHalfTableWidth2ConnWidth - coefDistConnectorWidth, point2.y);
         ((Point2D) pl.get(4)).setLocation(point2.x, point2.y);
 
         int heightCalculate = 0;

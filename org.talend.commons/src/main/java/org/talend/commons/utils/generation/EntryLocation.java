@@ -65,10 +65,10 @@ public class EntryLocation {
 
     @Override
     public int hashCode() {
-        final int PRIME = 31;
+        final int prime = 31;
         int result = 1;
-        result = PRIME * result + ((this.columnName == null) ? 0 : this.columnName.hashCode());
-        result = PRIME * result + ((this.tableName == null) ? 0 : this.tableName.hashCode());
+        result = prime * result + ((this.columnName == null) ? 0 : this.columnName.hashCode());
+        result = prime * result + ((this.tableName == null) ? 0 : this.tableName.hashCode());
         return result;
     }
 

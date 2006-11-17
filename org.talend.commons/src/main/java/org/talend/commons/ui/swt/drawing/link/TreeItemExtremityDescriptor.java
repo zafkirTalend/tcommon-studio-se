@@ -56,9 +56,9 @@ public class TreeItemExtremityDescriptor implements IExtremityLink<TreeItem> {
      */
     @Override
     public int hashCode() {
-        final int PRIME = 31;
+        final int prime = 31;
         int result = 1;
-        result = PRIME * result + ((this.treeItem == null) ? 0 : this.treeItem.hashCode());
+        result = prime * result + ((this.treeItem == null) ? 0 : this.treeItem.hashCode());
         return result;
     }
 

@@ -122,7 +122,7 @@ public class MetadataEditor2 {
     }
 
     public void addModifiedListListener(IListenableListListener listenableListListener) {
-        this.metadataColumnList.addListener(listenableListListener);
+        this.metadataColumnList.addAfterListener(listenableListListener);
     }
 
     public void removeModifiedListListener(IListenableListListener listenableListListener) {

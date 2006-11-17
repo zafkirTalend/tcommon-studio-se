@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.drawing.link;
 
-import org.eclipse.swt.graphics.Drawable;
 
 
 /**

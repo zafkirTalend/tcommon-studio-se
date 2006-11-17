@@ -102,8 +102,8 @@ public class ListenableListTest {
         initListener();
         assertFalse(added);
         listenedList.add("B");
-        assertEquals(currentEvent.getIndex(), 1);
-        assertTrue(currentEvent.getAddedObjects().contains("B"));
+        assertEquals(currentEvent.index, 1);
+        assertTrue(currentEvent.addedObjects.contains("B"));
         assertEquals("B", listenedList.get(1));
         assertTrue(added);
         added = false;
@@ -318,8 +318,8 @@ public class ListenableListTest {
         listIterator.add("D");
         assertEquals(listIterator.previousIndex(), 2);
         assertEquals(listIterator.nextIndex(), A_3);
-        assertTrue(currentEvent.getAddedObjects().contains("D"));
-        assertEquals(currentEvent.getIndex(), 2);
+        assertTrue(currentEvent.addedObjects.contains("D"));
+        assertEquals(currentEvent.index, 2);
         assertTrue(added);
 
         assertFalse(listIterator.hasNext());
@@ -328,8 +328,8 @@ public class ListenableListTest {
 
         assertFalse(removed);
         listIterator.remove();
-        assertTrue(currentEvent.getRemovedObjects().contains("D"));
-        assertEquals(currentEvent.getIndex(), 2);
+        assertTrue(currentEvent.removedObjects.contains("D"));
+        assertEquals(currentEvent.index, 2);
         assertTrue(removed);
 
         assertFalse(listIterator.hasNext());
@@ -338,9 +338,9 @@ public class ListenableListTest {
 
         assertFalse(replaced);
         listIterator.set("E");
-        assertTrue(currentEvent.getRemovedObjects().contains("C"));
-        assertTrue(currentEvent.getAddedObjects().contains("E"));
-        assertEquals(currentEvent.getIndex(), 1);
+        assertTrue(currentEvent.removedObjects.contains("C"));
+        assertTrue(currentEvent.addedObjects.contains("E"));
+        assertEquals(currentEvent.index, 1);
         assertTrue(replaced);
     }
 
@@ -377,8 +377,8 @@ public class ListenableListTest {
         listenedList.remove("D");
         assertTrue(removed);
 
-        assertTrue(currentEvent.getRemovedObjects().contains("D"));
-        assertEquals(currentEvent.getIndex(), 2);
+        assertTrue(currentEvent.removedObjects.contains("D"));
+        assertEquals(currentEvent.index, 2);
 
     }
 
@@ -402,8 +402,8 @@ public class ListenableListTest {
         listenedList.remove(2);
         assertTrue(removed);
 
-        assertTrue(currentEvent.getRemovedObjects().contains("D"));
-        assertEquals(currentEvent.getIndex(), 2);
+        assertTrue(currentEvent.removedObjects.contains("D"));
+        assertEquals(currentEvent.index, 2);
 
     }
 
@@ -434,7 +434,7 @@ public class ListenableListTest {
         listenedList.removeAll(objectsToRemove);
         assertTrue(removed);
 
-        Iterator<String> iterator = currentEvent.getRemovedObjects().iterator();
+        Iterator<String> iterator = currentEvent.removedObjects.iterator();
         assertEquals(iterator.next(), "B");
         assertEquals(iterator.next(), "D");
     }
@@ -466,7 +466,7 @@ public class ListenableListTest {
         listenedList.retainAll(objectsToKeep);
         assertTrue(removed);
 
-        Iterator<String> iterator = currentEvent.getRemovedObjects().iterator();
+        Iterator<String> iterator = currentEvent.removedObjects.iterator();
         assertEquals(iterator.next(), "A");
         assertEquals(iterator.next(), "C");
     }
@@ -489,9 +489,9 @@ public class ListenableListTest {
         assertFalse(replaced);
         listenedList.set(1, "E");
         assertTrue(replaced);
-        assertTrue(currentEvent.getRemovedObjects().contains("D"));
-        assertTrue(currentEvent.getAddedObjects().contains("E"));
-        assertEquals(currentEvent.getIndex(), 1);
+        assertTrue(currentEvent.removedObjects.contains("D"));
+        assertTrue(currentEvent.addedObjects.contains("E"));
+        assertEquals(currentEvent.index, 1);
 
     }
 
@@ -649,7 +649,7 @@ public class ListenableListTest {
         listener = new IListenableListListener() {
 
             public void handleEvent(ListenableListEvent event) {
-                switch (event.getType()) {
+                switch (event.type) {
                 case ADDED:
                     added = true;
                     break;
@@ -673,7 +673,7 @@ public class ListenableListTest {
             }
 
         };
-        listenedList.addListener(listener);
+        listenedList.addAfterListener(listener);
 
     }
 }

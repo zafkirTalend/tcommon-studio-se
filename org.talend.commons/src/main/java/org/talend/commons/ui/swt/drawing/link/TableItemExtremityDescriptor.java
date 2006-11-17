@@ -58,9 +58,9 @@ public class TableItemExtremityDescriptor implements IExtremityLink<TableItem> {
      */
     @Override
     public int hashCode() {
-        final int PRIME = 31;
+        final int prime = 31;
         int result = 1;
-        result = PRIME * result + ((this.tableItem == null) ? 0 : this.tableItem.hashCode());
+        result = prime * result + ((this.tableItem == null) ? 0 : this.tableItem.hashCode());
         return result;
     }
 

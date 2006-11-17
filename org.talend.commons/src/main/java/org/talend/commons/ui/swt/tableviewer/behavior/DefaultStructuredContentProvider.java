@@ -52,6 +52,7 @@ public class DefaultStructuredContentProvider implements IStructuredContentProvi
     }
 
     public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+        System.out.println();
     }
 
 }

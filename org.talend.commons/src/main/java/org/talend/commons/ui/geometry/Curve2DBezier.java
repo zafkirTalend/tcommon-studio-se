@@ -41,9 +41,6 @@
 
 package org.talend.commons.ui.geometry;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.swt.graphics.GC;
 

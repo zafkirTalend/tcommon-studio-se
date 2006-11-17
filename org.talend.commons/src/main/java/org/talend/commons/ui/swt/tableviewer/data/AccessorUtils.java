@@ -58,7 +58,7 @@ public final class AccessorUtils {
     }
 
     @SuppressWarnings("unchecked")
-    public static void set(Object bean, Object value, TableViewerCreatorColumn column) {
+    public static void set(TableViewerCreatorColumn column, Object bean, Object value) {
         if (column.getBeanPropertyAccessors() != null) {
             try {
                 column.getBeanPropertyAccessors().set(bean, value);

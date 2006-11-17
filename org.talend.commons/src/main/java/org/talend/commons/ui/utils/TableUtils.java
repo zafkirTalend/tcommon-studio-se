@@ -22,6 +22,7 @@
 package org.talend.commons.ui.utils;
 
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Table;
@@ -30,33 +31,28 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Widget;
 import org.talend.commons.ui.ws.WindowSystem;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class TableUtils {
 
     public static int getColumnIndex(Table table, Point pointCursor) {
-        
+
         // searching current column index
         int currentColumnIndex = -1;
         TableColumn[] columns = table.getColumns();
         for (int i = 0, width = 0; i < columns.length; i++) {
             TableColumn column = columns[i];
             int widthColumn = column.getWidth();
-            if (pointCursor.x >= width 
-                    && pointCursor.x <= width + widthColumn 
-                    && (
-                            (!WindowSystem.isGTK() && pointCursor.y > table.getHeaderHeight() 
-                    && pointCursor.y < table.getHeaderHeight() + table.getItemCount() * table.getItemHeight())
-                    || 
-                    (WindowSystem.isGTK() && pointCursor.y > 0 
-                            && pointCursor.y < table.getItemCount() * table.getItemHeight())
-                    )) {
+            if (pointCursor.x >= width
+                    && pointCursor.x <= width + widthColumn
+                    && ((!WindowSystem.isGTK() && pointCursor.y > table.getHeaderHeight() && pointCursor.y < table.getHeaderHeight()
+                            + table.getItemCount() * table.getItemHeight()) || (WindowSystem.isGTK() && pointCursor.y > 0 && pointCursor.y < table
+                            .getItemCount()
+                            * table.getItemHeight()))) {
                 currentColumnIndex = i;
                 break;
             }
@@ -75,7 +71,7 @@ public class TableUtils {
         }
         return null;
     }
-    
+
     public static int getItemIndex(Table table, Point pointCursor) {
         // searching current item index
         TableItem tableItemUnderCursor = table.getItem(pointCursor);
@@ -90,6 +86,21 @@ public class TableUtils {
         return currentItemIndex;
     }
 
+    /**
+     * 
+     * DOC amaumont Comment method "getTableItemFromPosition".
+     * 
+     * @param cursorPosition
+     * @return
+     */
+    public static TableItem getTableItemFromDraggingPosition(Table table, Point cursorPosition) {
+        Point pointCursor = table.toControl(cursorPosition.x, cursorPosition.y);
+        if (WindowSystem.isGTK()) {
+            pointCursor.y -= table.getHeaderHeight();
+        }
+        return table.getItem(pointCursor);
+    }
+
     public static TableItem getTableItem(Table table, Point pointCursor) {
         // searching current column index
         TableItem[] items = table.getItems();
@@ -99,27 +110,87 @@ public class TableUtils {
         }
         return null;
     }
-    
-    
+
     /**
      * DOC amaumont Comment method "getCursorPositionFromTableOrigin".
+     * 
      * @param event
      * @return
      */
     public static Point getCursorPositionFromTableOrigin(Table table, Event event) {
         Point pointCursor = new Point(event.x, event.y);
-        
+
         Widget widget = event.widget;
         if (widget instanceof TableItem) {
             widget = ((TableItem) widget).getParent();
         }
-        
+
         if (widget != table && widget instanceof Control) {
             pointCursor = table.getDisplay().map((Control) widget, table, pointCursor);
         }
         return pointCursor;
     }
 
+    /**
+     * 
+     * DOC amaumont Comment method "getItemIndexWhereInsertFromPosition".
+     * 
+     * @param table
+     * @param cursorPosition
+     * @return
+     */
+    public static int getItemIndexWhereInsertFromPosition(Table table, Point cursorPosition) {
+        int startInsertAtThisIndex = 0;
+        Point pointCursor = table.toControl(cursorPosition.x, cursorPosition.y);
+        TableItem[] tableItems = table.getItems();
+        TableItem tableItemBehindCursor = getTableItemFromDraggingPosition(table, cursorPosition);
+        if (tableItemBehindCursor != null) {
+            for (int i = 0; i < tableItems.length; i++) {
+                if (tableItems[i] == tableItemBehindCursor) {
+                    Rectangle boundsItem = tableItemBehindCursor.getBounds();
+                    startInsertAtThisIndex = i;
+                    if (pointCursor.y > boundsItem.y + table.getItemHeight() / 2 + (WindowSystem.isGTK() ? table.getHeaderHeight() : 0)) {
+                        startInsertAtThisIndex = i + 1;
+                    }
+                    break;
+                }
+            }
+        } else if (pointCursor.y < table.getHeaderHeight()) {
+            startInsertAtThisIndex = 0;
+        } else {
+            startInsertAtThisIndex = tableItems.length;
+        }
+        return startInsertAtThisIndex;
+    }
 
-    
+    /**
+     * DOC amaumont Comment method "getTableItem".
+     * 
+     * @param target
+     */
+    public static TableItem getTableItem(Table table, Object dataOfTableItem) {
+        int itemIndex = getItemIndex(table, dataOfTableItem);
+        if (itemIndex == -1) {
+            return null;
+        } else {
+            return table.getItem(itemIndex);
+        }
+    }
+
+    /**
+     * DOC amaumont Comment method "getTableItem".
+     * 
+     * @param target
+     */
+    public static int getItemIndex(Table table, Object dataOfTableItem) {
+        TableItem[] tableItems = table.getItems();
+        for (int i = 0; i < tableItems.length; i++) {
+            TableItem item = tableItems[i];
+            if (item.getData() == dataOfTableItem) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 }

@@ -23,14 +23,11 @@ package org.talend.commons.ui.swt.drawing.link;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.eclipse.swt.widgets.TableItem;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -64,7 +61,7 @@ public class LinksManager<A1, A2> {
 
     private Map<IExtremityLink<A2>, Set<LinkDescriptor<A1, A2>>> extremity2ToLinks = new HashMap<IExtremityLink<A2>, Set<LinkDescriptor<A1, A2>>>();
 
-    private Map<TableItem, Set<TableItemExtremityDescriptor>> tableItemToExtremity = new HashMap<TableItem, Set<TableItemExtremityDescriptor>>();
+    private Map<A2, Set<IExtremityLink<A2>>> associatedObjectToExtremities = new HashMap<A2, Set<IExtremityLink<A2>>>();
 
     public LinksManager() {
         super();
@@ -228,4 +225,26 @@ public class LinksManager<A1, A2> {
     public int getCurrentNumberLinks() {
         return this.currentNumberLinks;
     }
+    
+    public void swapExtremitiesForRelativeLinks(IExtremityLink<A2> previousExtremity, IExtremityLink<A2> newExtremity) {
+        Set<IExtremityLink<A2>> extremities2 = associatedObjectToExtremities.remove(previousExtremity.getAssociatedItem());
+        associatedObjectToExtremities.put(newExtremity.getAssociatedItem(), extremities2);
+        
+        Set<LinkDescriptor<A1, A2>> linksFromPrevious = getLinksFromExtremity2(previousExtremity);
+        Set<LinkDescriptor<A1, A2>> linksFromNew = getLinksFromExtremity2(newExtremity);
+        Set<LinkDescriptor<A1, A2>> linksFromPreviousExtremity = extremity2ToLinks.get(previousExtremity);
+        Set<LinkDescriptor<A1, A2>> linksFromNewExtremity = extremity2ToLinks.get(newExtremity);
+        
+        extremity2ToLinks.put(previousExtremity, linksFromNewExtremity);
+        extremity2ToLinks.put(newExtremity, linksFromPreviousExtremity);
+        
+        for (LinkDescriptor<A1, A2> linkDescriptorPrevious : linksFromPrevious) {
+            linkDescriptorPrevious.setExtremity2(newExtremity);
+        }
+        for (LinkDescriptor<A1, A2> linkDescriptorNew : linksFromNew) {
+            linkDescriptorNew.setExtremity2(previousExtremity);
+        }
+
+    }
+    
 }

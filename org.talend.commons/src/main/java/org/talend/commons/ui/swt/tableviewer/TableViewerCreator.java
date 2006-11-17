@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.jface.util.Assert;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLayoutData;
@@ -59,6 +60,7 @@ import org.talend.commons.ui.swt.tableviewer.behavior.DefaultStructuredContentPr
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.ITableCellValueModifiedListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.TableViewerCreatorLayout;
+import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
 import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.selection.MouseTableSelectionHelper;
@@ -139,9 +141,9 @@ import org.talend.commons.utils.data.list.ListenableListEvent;
  * 
  * $Id$
  * 
- * @param <O> type of objects in the input list of <code>TableViewer</code>
+ * @param <B> type of objects in the input list of <code>TableViewer</code>
  */
-public class TableViewerCreator<O> {
+public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     private static final String ID_MASKED_COLUMN = "__MASKED_COLUMN__";
 
@@ -154,6 +156,11 @@ public class TableViewerCreator<O> {
     private LINE_SELECTION lineSelection;
 
     private SHOW_SELECTION showSelection;
+
+    /*
+     * The list of listeners who wish to be notified when something significant happens with the proposals.
+     */
+    private ListenerList modifiedBeanListeners = new ListenerList();
 
     /**
      * 
@@ -238,9 +245,7 @@ public class TableViewerCreator<O> {
 
     private TableEditorManager tableEditorManager;
 
-    private ModifiedObjectInfo<O> modifiedObjectInfo;
-
-    private TableViewerCreator<O> tableViewerCreator;
+    private ModifiedObjectInfo<B> modifiedObjectInfo;
 
     private boolean firstVisibleColumnIsSelection;
 
@@ -271,7 +276,6 @@ public class TableViewerCreator<O> {
      */
     public TableViewerCreator(Composite compositeParent) {
         super();
-        tableViewerCreator = this;
         this.compositeParent = compositeParent;
     }
 
@@ -295,7 +299,7 @@ public class TableViewerCreator<O> {
     @SuppressWarnings("unchecked")
     public void init(Collection collection) {
         if (collection != null) {
-            init(new ArrayList<O>(collection));
+            init(new ArrayList<B>(collection));
         } else {
             init();
         }
@@ -342,7 +346,7 @@ public class TableViewerCreator<O> {
         // long time11 = System.currentTimeMillis();
         if (list != null) {
             if (tableEditorManager != null && list instanceof ListenableList) {
-                ((ListenableList) list).addListener(new IListenableListListener() {
+                ((ListenableList) list).addAfterListener(1, new IListenableListListener() {
 
                     public void handleEvent(ListenableListEvent event) {
                         // we must refresh the table before creating the control to draw cells
@@ -352,7 +356,7 @@ public class TableViewerCreator<O> {
 
                 });
             }
-            tableViewer.setInput(list);
+            setInputList(list);
         }
         if (tableEditorManager != null) {
             tableEditorManager.init();
@@ -361,6 +365,10 @@ public class TableViewerCreator<O> {
 
     public List getInputList() {
         return (List) tableViewer.getInput();
+    }
+
+    public void setInputList(List list) {
+        tableViewer.setInput(list);
     }
 
     /**
@@ -375,6 +383,20 @@ public class TableViewerCreator<O> {
             this.table.dispose();
         }
         this.table = new Table(compositeParent, checkTableStyles());
+        new TableEditor(table);
+        tableViewer = new TableViewer(table);
+        setTablePreferences();
+
+        initCellModifier();
+
+        return table;
+    }
+
+    public Table createTable(int style) {
+        if (this.table != null) {
+            this.table.dispose();
+        }
+        this.table = new Table(compositeParent, style | checkTableStyles());
         new TableEditor(table);
         tableViewer = new TableViewer(table);
         setTablePreferences();
@@ -605,7 +627,7 @@ public class TableViewerCreator<O> {
     protected TableViewer buildAndLayoutTable() {
         if (this.layoutMode == LAYOUT_MODE.DEFAULT || this.layoutMode == LAYOUT_MODE.FILL_HORIZONTAL
                 || this.layoutMode == LAYOUT_MODE.CONTINUOUS) {
-            TableViewerCreatorLayout currentTableLayout = new TableViewerCreatorLayout(tableViewerCreator);
+            TableViewerCreatorLayout currentTableLayout = new TableViewerCreatorLayout(this);
             currentTableLayout.setWidthAdjustValue(this.adjustWidthValue);
             currentTableLayout.setFillHorizontal(this.layoutMode == LAYOUT_MODE.FILL_HORIZONTAL);
             currentTableLayout.setContinuousLayout(this.layoutMode == LAYOUT_MODE.FILL_HORIZONTAL
@@ -638,9 +660,8 @@ public class TableViewerCreator<O> {
                 Assert.isTrue(tableColumn.getParent() == this.table, "The TableColumn of TableEditorColumn with idProperty '"
                         + column.getId() + "' has not the correct Table parent");
             }
-            Assert
-                    .isTrue(idToTableViewerCreatorColumn.get(column.getId()) == null,
-                            "You must change the idProperty of one of your column, the idProperty must be unique for each column for one Table.");
+            Assert.isTrue(idToTableViewerCreatorColumn.get(column.getId()) == null,
+                    "You must change the idProperty of one of your column, the idProperty must be unique for each column for one Table.");
 
             idToTableViewerCreatorColumn.put(column.getId(), column);
         }
@@ -1105,9 +1126,9 @@ public class TableViewerCreator<O> {
      * 
      * @return always a instance of ModifiedObjectInfo
      */
-    public ModifiedObjectInfo<O> getModifiedObjectInfo() {
+    public ModifiedObjectInfo<B> getModifiedObjectInfo() {
         if (this.modifiedObjectInfo == null) {
-            this.modifiedObjectInfo = new ModifiedObjectInfo<O>();
+            this.modifiedObjectInfo = new ModifiedObjectInfo<B>();
         }
         return this.modifiedObjectInfo;
     }
@@ -1116,7 +1137,7 @@ public class TableViewerCreator<O> {
         return this.emptyZoneColor;
     }
 
-    public void setEmptyColor(Color emptyZoneColor) {
+    public void setBgColorForEmptyArea(Color emptyZoneColor) {
         this.emptyZoneColor = emptyZoneColor;
     }
 
@@ -1332,6 +1353,49 @@ public class TableViewerCreator<O> {
      */
     public void setFgColorSelectedLineWhenUnactive(Color fgColorSelectedLineWhenUnactive) {
         this.fgColorSelectedLineWhenUnactive = fgColorSelectedLineWhenUnactive;
+    }
+
+    /**
+     * DOC amaumont Comment method "setBeanValue".
+     * 
+     * @param beanPropertyAccessors
+     * @param currentRowObject
+     * @param b
+     */
+    public void setBeanValue(TableViewerCreatorColumn column, Object currentRowObject, Object value) {
+        boolean listened = modifiedBeanListeners.size() != 0;
+
+        Object previousValue = null;
+        if (listened) {
+            previousValue = AccessorUtils.get(currentRowObject, column);
+        }
+        AccessorUtils.set(column, currentRowObject, value);
+        tableViewer.refresh(currentRowObject);
+        if (listened) {
+            ModifiedBeanEvent<B> event = new ModifiedBeanEvent<B>();
+            event.bean = (B) currentRowObject;
+            event.column = column;
+            event.index = getInputList().indexOf(currentRowObject);
+            event.newValue = value;
+            event.previousValue = previousValue;
+            fireModifiedBeanEvent(event);
+        }
+    }
+
+    public void addModifiedBeanListener(IModifiedBeanListener<B> listenableListListener) {
+        this.modifiedBeanListeners.add(listenableListListener);
+    }
+
+    public void removeModifiedBeanListListener(IModifiedBeanListener<B> listenableListListener) {
+        this.modifiedBeanListeners.remove(listenableListListener);
+    }
+
+    protected void fireModifiedBeanEvent(ModifiedBeanEvent<B> event) {
+        // In all cases, notify listeners of an accepted proposal.
+        final Object[] listenerArray = modifiedBeanListeners.getListeners();
+        for (int i = 0; i < listenerArray.length; i++) {
+            ((IModifiedBeanListener<B>) listenerArray[i]).handleEvent(event);
+        }
     }
 
 }

@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.drawing.background;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.graphics.Color;

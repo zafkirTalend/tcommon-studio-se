@@ -23,6 +23,7 @@ package org.talend.commons.utils.data.list;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -37,7 +38,9 @@ import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
  */
 public class ListenableList<T> implements List<T> {
 
-    private List<IListenableListListener> listeners = new ArrayList<IListenableListListener>();
+    private List<OrderableWrapper<IListenableListListener>> beforeListeners = new ArrayList<OrderableWrapper<IListenableListListener>>();
+
+    private List<OrderableWrapper<IListenableListListener>> afterListeners = new ArrayList<OrderableWrapper<IListenableListListener>>();
 
     private List<T> list;
 
@@ -45,7 +48,13 @@ public class ListenableList<T> implements List<T> {
      * DOC amaumont ListenableList constructor comment.
      */
     public ListenableList(List<T> list) {
+        if (list == null) {
+            throw new IllegalArgumentException("list can't be null");
+        }
         this.list = list;
+    }
+
+    public ListenableList() {
     }
 
     /*
@@ -90,7 +99,7 @@ public class ListenableList<T> implements List<T> {
      * @see java.util.List#addAll(java.util.Collection)
      */
     @SuppressWarnings("unchecked")
-    public boolean addAll(Collection< ? extends T> c) {
+    public boolean addAll(Collection<? extends T> c) {
         boolean returnValue = this.list.addAll(c);
         if (returnValue) {
             fireAddedEvent(this.list.size() - c.size(), (Collection<T>) c);
@@ -104,7 +113,7 @@ public class ListenableList<T> implements List<T> {
      * @see java.util.List#addAll(int, java.util.Collection)
      */
     @SuppressWarnings("unchecked")
-    public boolean addAll(int index, Collection< ? extends T> c) {
+    public boolean addAll(int index, Collection<? extends T> c) {
         boolean returnValue = this.list.addAll(index, c);
         if (returnValue) {
             fireAddedEvent(index, (Collection<T>) c);
@@ -136,7 +145,7 @@ public class ListenableList<T> implements List<T> {
      * 
      * @see java.util.List#containsAll(java.util.Collection)
      */
-    public boolean containsAll(Collection< ? > c) {
+    public boolean containsAll(Collection<?> c) {
         return this.list.containsAll(c);
     }
 
@@ -293,6 +302,7 @@ public class ListenableList<T> implements List<T> {
      * @see java.util.List#remove(int)
      */
     public T remove(int index) {
+        fireBeforeRemovedEvent(index);
         T removedObject = this.list.remove(index);
         fireRemovedEvent(index, removedObject);
         return removedObject;
@@ -305,9 +315,20 @@ public class ListenableList<T> implements List<T> {
      * @param removedObject
      */
     private void fireRemovedEvent(int index, T removedObject) {
-        List<T> currentList = new ArrayList<T>(1);
-        currentList.add((T) removedObject);
-        fireRemovedEvent(index, currentList);
+        if (afterListeners.size() != 0) {
+            List<T> currentList = new ArrayList<T>(1);
+            currentList.add((T) removedObject);
+            fireRemovedEvent(index, currentList, false);
+        }
+    }
+
+    private void fireBeforeRemovedEvent(int index) {
+        if (beforeListeners.size() != 0) {
+            T removingObject = this.list.get(index);
+            List<T> currentList = new ArrayList<T>(1);
+            currentList.add((T) removingObject);
+            fireRemovedEvent(index, currentList, true);
+        }
     }
 
     /*
@@ -316,10 +337,11 @@ public class ListenableList<T> implements List<T> {
      * @see java.util.List#removeAll(java.util.Collection)
      */
     @SuppressWarnings("unchecked")
-    public boolean removeAll(Collection< ? > c) {
+    public boolean removeAll(Collection<?> c) {
+        fireRemovedEvent(null, new ArrayList(c), true);
         boolean returnValue = this.list.removeAll(c);
         if (returnValue) {
-            fireRemovedEvent(null, new ArrayList(c));
+            fireRemovedEvent(null, new ArrayList(c), false);
         }
         return returnValue;
     }
@@ -329,7 +351,7 @@ public class ListenableList<T> implements List<T> {
      * 
      * @see java.util.List#retainAll(java.util.Collection)
      */
-    public boolean retainAll(Collection< ? > c) {
+    public boolean retainAll(Collection<?> c) {
         List<T> all = new ArrayList<T>();
         all.addAll(this.list);
         boolean isListChanged = this.list.retainAll(c);
@@ -342,7 +364,7 @@ public class ListenableList<T> implements List<T> {
                     removedObjects.add(removedObject);
                 }
             }
-            fireRemovedEvent(null, removedObjects);
+            fireRemovedEvent(null, removedObjects, false);
         }
         return isListChanged;
     }
@@ -396,14 +418,19 @@ public class ListenableList<T> implements List<T> {
     }
 
     public void swap(int index1, int index2) {
-        internalSwap(index1, index2);
 
         ArrayList<Integer> indexList1 = new ArrayList<Integer>(1);
-        indexList1.add(index1);
         ArrayList<Integer> indexList2 = new ArrayList<Integer>(1);
+        if (beforeListeners.size() != 0) {
+            fireSwapedEvent(indexList1, indexList2, new Object[] { this.list.get(index1), this.list.get(index2) }, true);
+        }
+
+        internalSwap(index1, index2);
+
+        indexList1.add(index1);
         indexList2.add(index2);
 
-        fireSwapedEvent(indexList1, indexList2, new Object[] { this.list.get(index1), this.list.get(index2) });
+        fireSwapedEvent(indexList1, indexList2, new Object[] { this.list.get(index1), this.list.get(index2) }, false);
     }
 
     private void internalSwap(int index1, int index2) {
@@ -427,17 +454,18 @@ public class ListenableList<T> implements List<T> {
         }
     }
 
-    public void swapElements(List<Integer> indexOrigin, List<Integer> indexDestination) {
-        if (indexOrigin.size() != indexDestination.size()) {
+    public void swapElements(List<Integer> indicesOrigin, List<Integer> indicesTarget) {
+        if (indicesOrigin.size() != indicesTarget.size()) {
             throw new IllegalArgumentException("indexOrigin and indexDestination must have same length");
         }
         ArrayList<T> swapedObjects = new ArrayList<T>();
         try {
 
-            int lstSize = indexOrigin.size();
+            fireSwapedEvent(indicesOrigin, indicesTarget, null, true);
+            int lstSize = indicesOrigin.size();
             for (int i = 0; i < lstSize; i++) {
-                Integer idxOrigin = indexOrigin.get(i);
-                Integer idxDestination = indexDestination.get(i);
+                Integer idxOrigin = indicesOrigin.get(i);
+                Integer idxDestination = indicesTarget.get(i);
                 swapedObjects.add(list.get(idxOrigin));
                 swapedObjects.add(list.get(idxDestination));
                 internalSwap(idxOrigin, idxDestination);
@@ -446,7 +474,7 @@ public class ListenableList<T> implements List<T> {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        fireSwapedEvent(indexOrigin, indexDestination, swapedObjects.toArray());
+        fireSwapedEvent(indicesOrigin, indicesTarget, swapedObjects.toArray(), false);
     }
 
     public void swapElement(Object object1, Object object2) {
@@ -462,10 +490,10 @@ public class ListenableList<T> implements List<T> {
      */
     public void fireAddedEvent(Integer index, Collection<T> addedObjects) {
         ListenableListEvent<T> event = new ListenableListEvent<T>();
-        event.setType(TYPE.ADDED);
-        event.setIndex(index);
-        event.setAddedObjects(addedObjects);
-        event.setSource(this);
+        event.type = TYPE.ADDED;
+        event.index = index;
+        event.addedObjects = addedObjects;
+        event.source = this;
         fireEvent(event);
     }
 
@@ -473,33 +501,36 @@ public class ListenableList<T> implements List<T> {
      * DOC amaumont Comment method "fireAddedListener".
      * 
      * @param index
+     * @param before
      * @param removedObject
      * @param addedObjects
      */
-    public void fireRemovedEvent(Integer index, List<T> removedObjects) {
+    public void fireRemovedEvent(Integer index, List<T> removedObjects, boolean before) {
         ListenableListEvent<T> event = new ListenableListEvent<T>();
-        event.setType(TYPE.REMOVED);
-        event.setIndex(index);
-        event.setRemovedObjects(removedObjects);
-        event.setSource(this);
+        event.type = TYPE.REMOVED;
+        event.index = index;
+        event.removedObjects = removedObjects;
+        event.source = this;
+        event.beforeOperation = before;
         fireEvent(event);
     }
 
     /**
      * DOC amaumont Comment method "fireAddedListener".
+     * 
+     * @param before
      * 
      * @param index
      * @param element
      */
-    public void fireSwapedEvent(List<Integer> indexOrigin, List<Integer> indexDestination, Object[] swapedObjects) {
+    public void fireSwapedEvent(List<Integer> indexOrigin, List<Integer> indexTarget, Object[] swapedObjects, boolean before) {
         ListenableListEvent<T> event = new ListenableListEvent<T>();
-        event.setType(TYPE.SWAPED);
-        event.setIndexOrigin(indexOrigin);
-        event.setIndexDestination(indexDestination);
-        event.setSwapedObjects(swapedObjects);
-        
-
-        event.setSource(this);
+        event.type = TYPE.SWAPED;
+        event.indicesOrigin = indexOrigin;
+        event.indicesTarget = indexTarget;
+        event.swapedObjects = swapedObjects;
+        event.beforeOperation = before;
+        event.source = this;
         fireEvent(event);
     }
 
@@ -512,16 +543,16 @@ public class ListenableList<T> implements List<T> {
      */
     public void fireReplacedEvent(int index, T removedObject, T addedObject) {
         ListenableListEvent<T> event = new ListenableListEvent<T>();
-        event.setType(TYPE.REPLACED);
-        event.setIndex(index);
+        event.type = TYPE.REPLACED;
+        event.index = index;
         List<T> removeObjects = new ArrayList<T>(1);
         removeObjects.add(removedObject);
-        event.setRemovedObjects(removeObjects);
-        
+        event.removedObjects = removeObjects;
+
         List<T> addedObjects = new ArrayList<T>(1);
         addedObjects.add(addedObject);
-        event.setRemovedObjects(addedObjects);
-        
+        event.removedObjects = addedObjects;
+
         fireEvent(event);
     }
 
@@ -530,8 +561,18 @@ public class ListenableList<T> implements List<T> {
      */
     public void fireClearedEvent() {
         ListenableListEvent<T> event = new ListenableListEvent<T>();
-        event.setType(TYPE.CLEARED);
-        event.setSource(this);
+        event.type = TYPE.CLEARED;
+        event.source = this;
+        fireEvent(event);
+    }
+
+    /**
+     * DOC amaumont Comment method "fireClearedListener".
+     */
+    public void fireListRegisteredEvent() {
+        ListenableListEvent<T> event = new ListenableListEvent<T>();
+        event.type = TYPE.LIST_REGISTERED;
+        event.source = this;
         fireEvent(event);
     }
 
@@ -541,18 +582,98 @@ public class ListenableList<T> implements List<T> {
      * @param event
      */
     public void fireEvent(ListenableListEvent<T> event) {
+        List<OrderableWrapper<IListenableListListener>> listeners = getCurrentListeners(event.beforeOperation);
+
         int size = listeners.size();
         for (int i = 0; i < size; i++) {
-            listeners.get(i).handleEvent(event);
+            listeners.get(i).getBean().handleEvent(event);
         }
     }
 
-    public void addListener(IListenableListListener listener) {
-        listeners.add(listener);
+    public void addAfterListener(IListenableListListener listener) {
+        addListener(listener, false);
+    }
+
+    public void addBeforeListener(IListenableListListener listener) {
+        addListener(listener, true);
+    }
+
+    public void addAfterListener(int orderCall, IListenableListListener listener) {
+        addListener(orderCall, listener, false);
+    }
+
+    public void addBeforeListener(int orderCall, IListenableListListener listener) {
+        addListener(orderCall, listener, true);
+    }
+
+    /**
+     * 
+     * When you call this method priorityCalled is set to 50.
+     * 
+     * @param listener
+     */
+    private void addListener(IListenableListListener listener, boolean before) {
+        addListener(50, listener, before);
+    }
+
+    /**
+     * 
+     * @param listener
+     * @param orderCall listeners will be called in ascendant order of priorityCalled (low values in first, high values
+     * in last). Can be negative.
+     */
+    private void addListener(int orderCall, IListenableListListener listener, boolean before) {
+        OrderableWrapper<IListenableListListener> prioritizedListenerWrapper = new OrderableWrapper<IListenableListListener>(orderCall,
+                listener);
+        List<OrderableWrapper<IListenableListListener>> listeners = getCurrentListeners(before);
+        listeners.add(prioritizedListenerWrapper);
+        Collections.sort(listeners);
+    }
+
+    /**
+     * DOC amaumont Comment method "getCurrentListeners".
+     * 
+     * @param before
+     * @return
+     */
+    private List<OrderableWrapper<IListenableListListener>> getCurrentListeners(boolean before) {
+        List<OrderableWrapper<IListenableListListener>> listeners;
+        if (before) {
+            listeners = beforeListeners;
+        } else {
+            listeners = afterListeners;
+        }
+        return listeners;
     }
 
     public void removeListener(IListenableListListener listener) {
-        listeners.remove(listener);
+        OrderableWrapper<IListenableListListener> prioritizedListenerWrapper = new OrderableWrapper<IListenableListListener>(0, listener);
+        if (!afterListeners.remove(prioritizedListenerWrapper)) {
+            beforeListeners.remove(prioritizedListenerWrapper);
+        }
+    }
+
+    /**
+     * Getter for list.
+     * 
+     * @return the list
+     */
+    public List<T> getOriginaList() {
+        return this.list;
+    }
+
+    public void registerList(List list) {
+        this.list = list;
+        fireListRegisteredEvent();
+    }
+
+    /**
+     * DOC amaumont Comment method "isListRegistered".
+     * 
+     * @return true if list has been registered, else false
+     */
+    public boolean isListRegistered() {
+        return list != null;
     }
 
 }
