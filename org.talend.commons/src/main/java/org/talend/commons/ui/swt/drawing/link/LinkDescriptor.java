@@ -29,8 +29,10 @@ package org.talend.commons.ui.swt.drawing.link;
  *
  * $Id$
  * 
- * @param <G1> the attached object of the extremety 1
- * @param <G2> the attached object of the extremety 2
+ * @param <G1> the graphical item of extremety 1
+ * @param <D1> the data item of extremety 1
+ * @param <G2> the graphical item of extremety 2
+ * @param <D2> the data item of extremety 2
  */
 public class LinkDescriptor<G1, D1, G2, D2> {
 

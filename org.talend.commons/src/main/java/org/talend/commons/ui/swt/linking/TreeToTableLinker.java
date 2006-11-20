@@ -53,6 +53,8 @@ import org.talend.commons.utils.threading.AsynchronousThreading;
  * 
  * $Id$
  * 
+ * @param <D1> the data item of extremety 1
+ * @param <D2> the data item of extremety 2
  */
 public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
 
@@ -217,6 +219,14 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
                     tableItemBounds.y + table.getItemHeight() / 2 + table.getBorderWidth()), table);
 
             boolean lineStyleDot = false;
+            
+            Rectangle treeBounds = tree.getBounds();
+            
+            Point point = display.map(tree, commonParent, new Point(0,0));
+            
+            if(yStraight < point.y || yStraight > point.y + treeBounds.height) {
+                lineStyleDot = true;
+            }
             
             if (pointEndCentralCurve.y < tableToCommonPoint.y) {
                 pointEndCentralCurve.y = tableToCommonPoint.y;

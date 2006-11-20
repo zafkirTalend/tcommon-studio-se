@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.commons.ui.swt.extended.macrotable;
 
+import java.util.List;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.RowLayout;
@@ -31,6 +33,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
+import org.talend.commons.utils.threading.AsynchronousThreading;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -61,8 +64,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         getExtendedTableModel().setModifiedBeanListenable(this.tableViewerCreator);
         createColumns(this.tableViewerCreator, this.tableViewerCreator.getTable());
         if (getExtendedTableModel().isDataRegistered()) {
-//            this.tableViewerCreator.init(new ArrayList<B>(((ListenableList)getExtendedTableModel().getBeansList()).getOriginaList()));
-            this.tableViewerCreator.init(getExtendedTableModel().getBeansList());
+            this.tableViewerCreator.init(getBeansList());
         } else {
             this.tableViewerCreator.init();
         }
@@ -70,6 +72,14 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         getExtendedTableModel().setModifiedBeanListenable(this.tableViewerCreator);
 
         initListeners();
+    }
+
+    /**
+     * DOC amaumont Comment method "getBeansList".
+     * @return
+     */
+    private List<B> getBeansList() {
+        return getExtendedTableModel().getBeansList();
     }
 
     /**
@@ -101,10 +111,12 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      */
     protected void handleBeforeListenableListOperationEvent(ListenableListEvent event) {
         if (tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
-            tableViewerCreator.setInputList(getExtendedTableModel().getBeansList());
+            tableViewerCreator.setInputList(getBeansList());
+            tableViewerCreator.layout();
         } else {
             if (event.type == TYPE.REMOVED) {
                 tableViewerCreator.getTableViewer().remove(event.removedObjects.toArray());
+                tableViewerCreator.layout();
             }
         }
     }
@@ -115,24 +127,17 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * @param event
      */
     protected void handleAfterListenableListOperationEvent(ListenableListEvent event) {
-        if (tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
-//            tableViewerCreator.setInputList(new ArrayList<B>(((ListenableList)getExtendedTableModel().getBeansList()).getOriginaList()));
-            tableViewerCreator.setInputList(getExtendedTableModel().getBeansList());
-        } else {
-            
-            if (event.type == TYPE.REMOVED) {
-            } else if (event.type == TYPE.ADDED) {
-//                tableViewerCreator.getTableViewer().add(event.addedObjects.toArray());
-                tableViewerCreator.getTableViewer().refresh();
-//            } else if (event.type == TYPE.SWAPED) {
-//                tableViewerCreator.getTableViewer().(event.addedObjects.toArray());
-            } else {
+        if (event.type == TYPE.LIST_REGISTERED && tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
+            tableViewerCreator.setInputList(getBeansList());
+            new AsynchronousThreading(100, true, tableViewerCreator.getTable().getDisplay(), new Runnable() {
                 
-                tableViewerCreator.getTableViewer().refresh();
-            }
-            tableViewerCreator.layout();
-//            System.out.println(System.currentTimeMillis());
-//            tableViewerCreator.getTable().layout();
+                public void run() {
+                    tableViewerCreator.layout();
+                }
+                
+            }).start();
+        } else {
+            tableViewerCreator.getTableViewer().refresh();
         }
     }
     
@@ -180,7 +185,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      */
     public void setExtendedTable(ExtendedTableModel<B> extendedTable) {
         this.extendedControl = extendedTable;
-        tableViewerCreator.init(getExtendedTableModel().getBeansList());
+        tableViewerCreator.init(getBeansList());
     }
 
     /**

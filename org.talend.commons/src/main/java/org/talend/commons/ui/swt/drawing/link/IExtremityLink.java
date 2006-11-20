@@ -28,7 +28,8 @@ package org.talend.commons.ui.swt.drawing.link;
  *
  * $Id$
  *
- * @param <G> associated item
+ * @param <G> graphical item
+ * @param <D> data item
  */
 public interface IExtremityLink<G, D> {
 

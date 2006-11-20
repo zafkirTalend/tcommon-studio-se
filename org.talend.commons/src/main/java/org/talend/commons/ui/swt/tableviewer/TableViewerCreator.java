@@ -395,6 +395,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void add(Object element) {
                 super.add(element);
+                layout();
                 refreshTableEditorControls();
             }
 
@@ -404,6 +405,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void add(Object[] elements) {
                 super.add(elements);
+                layout();
                 refreshTableEditorControls();
             }
 
@@ -431,6 +433,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void refresh() {
                 super.refresh();
+                layout();
                 refreshTableEditorControls();
             }
 
@@ -439,6 +442,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
              */
             @Override
             public void refresh(boolean updateLabels) {
+                layout();
                 super.refresh(updateLabels);
 //                refreshTableEditorControls();
             }

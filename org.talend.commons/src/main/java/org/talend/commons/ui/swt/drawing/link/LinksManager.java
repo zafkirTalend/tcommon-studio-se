@@ -36,24 +36,12 @@ import org.eclipse.swt.widgets.TableItem;
  * 
  * $Id: LinkManager.java 318 2006-11-03 09:44:45 +0000 (ven., 03 nov. 2006) amaumont $
  * 
- * @param <G1, D1> the attached object of the extremety 1
- * @param <G2, D2> the attached object of the extremety 2
+ * @param <G1> the graphical item of extremety 1
+ * @param <D1> the data item of extremety 1
+ * @param <G2> the graphical item of extremety 2
+ * @param <D2> the data item of extremety 2
  */
 public class LinksManager<G1, D1, G2, D2> {
-
-    // private static final Comparator<Link<TIP1, TIP2>> COMPARATOR = new Comparator<Link<TIP1, TIP2>>() {
-    //
-    // public int compare(Link<TIP1, TIP2> link1, Link<TIP1, TIP2> link2) {
-    // if (link1.getState() == link2.getState()) {
-    // return 0;
-    // }
-    // if (link1.getState() == LinkState.SELECTED) {
-    // return 1;
-    // }
-    // return -1;
-    // }
-    //
-    // };
 
     private List<LinkDescriptor<G1, D1, G2, D2>> links = new ArrayList<LinkDescriptor<G1, D1, G2, D2>>();
 
@@ -77,18 +65,18 @@ public class LinksManager<G1, D1, G2, D2> {
         currentNumberLinks++;
 
         links.add(link);
-        IExtremityLink<G1, D1> extremity1 = link.getExtremity1();
+//        IExtremityLink<G1, D1> extremitsy1 = link.getExtremity1();
         IExtremityLink<G2, D2> extremity2 = link.getExtremity2();
         
         Set<LinkDescriptor<G1, D1, G2, D2>> linksFromG2 = g2ToLinks.get(extremity2.getGraphicalItem());
-        if(linksFromG2 == null) {
+        if (linksFromG2 == null) {
             linksFromG2 = new HashSet<LinkDescriptor<G1, D1, G2, D2>>();
             g2ToLinks.put(extremity2.getGraphicalItem(), linksFromG2);
         }
         linksFromG2.add(link);
         
         Set<LinkDescriptor<G1, D1, G2, D2>> linksFromD2 = d2ToLinks.get(extremity2.getDataItem());
-        if(linksFromD2 == null) {
+        if (linksFromD2 == null) {
             linksFromD2 = new HashSet<LinkDescriptor<G1, D1, G2, D2>>();
             d2ToLinks.put(extremity2.getDataItem(), linksFromD2);
         }

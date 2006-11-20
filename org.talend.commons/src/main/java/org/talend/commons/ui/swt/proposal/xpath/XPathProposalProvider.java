@@ -159,7 +159,7 @@ public class XPathProposalProvider implements IContentProposalProvider {
         }
         
         xPathExpression = currentExpr + slash + "*" + " | " + currentExpr + slash + "@*";
-        System.out.println("xPathExpression='"+xPathExpression+"'");
+//        System.out.println("xPathExpression='"+xPathExpression+"'");
         return xPathExpression;
     }
 

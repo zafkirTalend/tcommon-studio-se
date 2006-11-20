@@ -189,8 +189,8 @@ public abstract class BackgroundRefresher {
     public abstract void drawBackground(GC gc);
 
     protected void createBgImages() {
-        Rectangle clientArea = commonParent.getClientArea();
-        Rectangle imageArea = new Rectangle(0, 0, clientArea.width, clientArea.height);
+        Rectangle clientArea = commonParent.getBounds();
+        Rectangle imageArea = new Rectangle(0, 0, clientArea.width, clientArea.height + 100);
         if (imageArea.width > 0 && imageArea.height > 0) {
             releaseBgImages();
             bgImage1 = new Image(commonParent.getDisplay(), imageArea);
