@@ -28,8 +28,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LINE_SELECTION;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_SELECTION;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
@@ -124,12 +122,17 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
             
             if (event.type == TYPE.REMOVED) {
             } else if (event.type == TYPE.ADDED) {
-                tableViewerCreator.getTableViewer().add(event.addedObjects.toArray());
+//                tableViewerCreator.getTableViewer().add(event.addedObjects.toArray());
+                tableViewerCreator.getTableViewer().refresh();
 //            } else if (event.type == TYPE.SWAPED) {
 //                tableViewerCreator.getTableViewer().(event.addedObjects.toArray());
             } else {
+                
                 tableViewerCreator.getTableViewer().refresh();
             }
+            tableViewerCreator.layout();
+//            System.out.println(System.currentTimeMillis());
+//            tableViewerCreator.getTable().layout();
         }
     }
     
@@ -137,19 +140,18 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         TableViewerCreator<B> newTableViewerCreator = new TableViewerCreator<B>(parentComposite);
         newTableViewerCreator.setLayout(new RowLayout(SWT.HORIZONTAL));
 
-        newTableViewerCreator.setHeaderVisible(true);
         newTableViewerCreator.setAllColumnsResizable(true);
         newTableViewerCreator.setBorderVisible(true);
-        newTableViewerCreator.setLinesVisible(true);
-        newTableViewerCreator.setShowSelection(SHOW_SELECTION.FULL);
-        newTableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
         newTableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
         newTableViewerCreator.setFirstColumnMasked(true);
         newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
-        newTableViewerCreator.setBgColorForEmptyArea(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
+//        newTableViewerCreator.setBgColorForEmptyArea(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 //        newTableViewerCreator.setUseCustomColoring(true);
 
         final Table table = newTableViewerCreator.createTable();
+        
+//        newTableViewerCreator.setAdjustWidthValue(-newTableViewerCreator.getTable().getVerticalBar().getSize().x);
+        
         table.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         return newTableViewerCreator;

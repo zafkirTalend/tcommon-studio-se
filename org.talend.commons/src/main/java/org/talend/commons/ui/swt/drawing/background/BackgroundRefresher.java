@@ -100,7 +100,21 @@ public abstract class BackgroundRefresher {
                 performanceEvaluator.addListener(new IPerformanceEvaluatorListener() {
 
                     public void handleEvent(PerformanceEvaluatorEvent event) {
-                        antialiasAllowed = event.getIndicePerformance() < 310;
+                        boolean previousAntialiasAllowed = antialiasAllowed;
+                        antialiasAllowed = event.getIndicePerformance() < PerformanceEvaluator.GOOD_PERFORMANCE_INDICE;
+//                        System.out.println(event.getIndicePerformance());
+                        if(previousAntialiasAllowed != antialiasAllowed && commonParent.getDisplay() != null) {
+                            
+                            new AsynchronousThreading(0, false, commonParent.getDisplay(), new Runnable() {
+
+                                public void run() {
+//                                    System.out.println(antialiasAllowed);
+                                    updateBackground();
+
+                                }
+                            }).start();
+
+                        }
                     }
                 });
             }
@@ -216,7 +230,7 @@ public abstract class BackgroundRefresher {
                 performanceEvaluator.evaluate(); // first evaluation is not representative
                 try {
                     // to start evaluation after window loaded
-                    Thread.sleep(1000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     return;
                 }

@@ -42,7 +42,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LINE_SELECTION;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_SELECTION;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_ROW_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
@@ -76,13 +76,10 @@ public final class TestTableViewerCreator {
         final Image image = imageDescriptor.createImage();
 
         final TableViewerCreator tableViewerCreator = new TableViewerCreator(shell1);
-        tableViewerCreator.setHeaderVisible(true);
         tableViewerCreator.setBorderVisible(true);
-        tableViewerCreator.setLinesVisible(true);
-        tableViewerCreator.setShowSelection(SHOW_SELECTION.FULL);   
-        tableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
-        tableViewerCreator.setUseCustomColoring(true);
+        
+        tableViewerCreator.setUseCustomItemColoring(true);
         tableViewerCreator.setAdjustWidthValue(-50);
 //        tableViewerCreator.setFirstVisibleColumnIsSelection(true);
 //        tableViewerCreator.setLabelProvider(new ITableLabelProvider() {

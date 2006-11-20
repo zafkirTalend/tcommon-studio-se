@@ -193,6 +193,10 @@ public class TableViewerCreatorColumn implements Cloneable {
         return minimumWidth;
     }
 
+    /**
+     * Note: used only when the weight is set.
+     * @param minimumWidth
+     */
     public void setMinimumWidth(int minimumWidth) {
         this.minimumWidth = minimumWidth;
     }

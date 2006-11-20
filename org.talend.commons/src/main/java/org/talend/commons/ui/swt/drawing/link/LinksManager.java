@@ -29,15 +29,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.swt.widgets.TableItem;
+
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
  * $Id: LinkManager.java 318 2006-11-03 09:44:45 +0000 (ven., 03 nov. 2006) amaumont $
  * 
- * @param <A1> the attached object of the extremety 1
- * @param <A2> the attached object of the extremety 2
+ * @param <G1, D1> the attached object of the extremety 1
+ * @param <G2, D2> the attached object of the extremety 2
  */
-public class LinksManager<A1, A2> {
+public class LinksManager<G1, D1, G2, D2> {
 
     // private static final Comparator<Link<TIP1, TIP2>> COMPARATOR = new Comparator<Link<TIP1, TIP2>>() {
     //
@@ -53,15 +55,13 @@ public class LinksManager<A1, A2> {
     //
     // };
 
-    private List<LinkDescriptor<A1, A2>> links = new ArrayList<LinkDescriptor<A1, A2>>();
+    private List<LinkDescriptor<G1, D1, G2, D2>> links = new ArrayList<LinkDescriptor<G1, D1, G2, D2>>();
 
     private int currentNumberLinks = 0;
 
-    private Map<IExtremityLink<A1>, Set<LinkDescriptor<A1, A2>>> extremity1ToLinks = new HashMap<IExtremityLink<A1>, Set<LinkDescriptor<A1, A2>>>();
-
-    private Map<IExtremityLink<A2>, Set<LinkDescriptor<A1, A2>>> extremity2ToLinks = new HashMap<IExtremityLink<A2>, Set<LinkDescriptor<A1, A2>>>();
-
-    private Map<A2, Set<IExtremityLink<A2>>> associatedObjectToExtremities = new HashMap<A2, Set<IExtremityLink<A2>>>();
+    private Map<G2, Set<LinkDescriptor<G1, D1, G2, D2>>> g2ToLinks = new HashMap<G2, Set<LinkDescriptor<G1, D1, G2, D2>>>();
+    
+    private Map<D2, Set<LinkDescriptor<G1, D1, G2, D2>>> d2ToLinks = new HashMap<D2, Set<LinkDescriptor<G1, D1, G2, D2>>>();
 
     public LinksManager() {
         super();
@@ -73,112 +73,45 @@ public class LinksManager<A1, A2> {
      * 
      * @param link
      */
-    public void addLink(LinkDescriptor<A1, A2> link) {
+    public void addLink(LinkDescriptor<G1, D1, G2, D2> link) {
         currentNumberLinks++;
-        // System.out.println(currentNumberLinks + " links");
 
         links.add(link);
-        IExtremityLink<A1> extremity1 = link.getExtremity1();
-        IExtremityLink<A2> extremity2 = link.getExtremity2();
-        // TIP1 sourceITableEntry = link.getPointLinkDescriptor1().getTableEntry();
-        // TIP2 targetITableEntry = link.getPointLinkDescriptor2().getTableEntry();
-        Set<IExtremityLink<A1>> sourceDataMapTableEntries = getSourcesCollection(extremity2);
-        sourceDataMapTableEntries.add(extremity1);
-        Set<LinkDescriptor<A1, A2>> targetGraphicalLinks = getLinksFromExtremity2Internal(extremity2);
-        targetGraphicalLinks.add(link);
-        Set<LinkDescriptor<A1, A2>> sourceGraphicalLinks = getLinksFromExtremity1Internal(extremity1);
-        sourceGraphicalLinks.add(link);
-    }
-
-    /**
-     * DOC amaumont Comment method "getGraphicalLinks".
-     * 
-     * @param targetTableEntry
-     * @return
-     */
-    private Set<LinkDescriptor<A1, A2>> getLinksFromExtremity2Internal(IExtremityLink<A2> extremity2) {
-        Set<LinkDescriptor<A1, A2>> links = extremity2ToLinks.get(extremity2);
-        if (links == null) {
-            links = new HashSet<LinkDescriptor<A1, A2>>();
-            extremity2ToLinks.put(extremity2, links);
+        IExtremityLink<G1, D1> extremity1 = link.getExtremity1();
+        IExtremityLink<G2, D2> extremity2 = link.getExtremity2();
+        
+        Set<LinkDescriptor<G1, D1, G2, D2>> linksFromG2 = g2ToLinks.get(extremity2.getGraphicalItem());
+        if(linksFromG2 == null) {
+            linksFromG2 = new HashSet<LinkDescriptor<G1, D1, G2, D2>>();
+            g2ToLinks.put(extremity2.getGraphicalItem(), linksFromG2);
         }
-        return links;
-    }
-
-    /**
-     * DOC amaumont Comment method "getGraphicalLinks".
-     * 
-     * @param targetTableEntry
-     * @return
-     */
-    public Set<LinkDescriptor<A1, A2>> getLinksFromExtremity2(IExtremityLink<A2> extremity2) {
-        return new HashSet<LinkDescriptor<A1, A2>>(getLinksFromExtremity2Internal(extremity2));
-    }
-
-    /**
-     * DOC amaumont Comment method "getGraphicalLinks".
-     * 
-     * @param targetTableEntry
-     * @return
-     */
-    private Set<LinkDescriptor<A1, A2>> getLinksFromExtremity1Internal(IExtremityLink<A1> extremity1) {
-        Set<LinkDescriptor<A1, A2>> links = extremity1ToLinks.get(extremity1);
-        if (links == null) {
-            links = new HashSet<LinkDescriptor<A1, A2>>();
-            extremity1ToLinks.put(extremity1, links);
+        linksFromG2.add(link);
+        
+        Set<LinkDescriptor<G1, D1, G2, D2>> linksFromD2 = d2ToLinks.get(extremity2.getDataItem());
+        if(linksFromD2 == null) {
+            linksFromD2 = new HashSet<LinkDescriptor<G1, D1, G2, D2>>();
+            d2ToLinks.put(extremity2.getDataItem(), linksFromD2);
         }
-        return links;
+        linksFromD2.add(link);
+        
     }
 
-    public Set<LinkDescriptor<A1, A2>> getLinksFromExtremity1(IExtremityLink<A1> extremity1) {
-        return new HashSet<LinkDescriptor<A1, A2>>(getLinksFromExtremity1Internal(extremity1));
-    }
-
-    /**
-     * DOC amaumont Comment method "getSourcesCollection".
-     * 
-     * @param extremity2
-     * @return
-     */
-    private Set<IExtremityLink<A1>> getSourcesCollection(IExtremityLink<A2> extremity2) {
-        Set<LinkDescriptor<A1, A2>> associatedLinks = getLinksFromExtremity2Internal(extremity2);
-        int lstSize = associatedLinks.size();
-        Set<IExtremityLink<A1>> extremities1 = new HashSet<IExtremityLink<A1>>(lstSize);
-        for (LinkDescriptor<A1, A2> link : associatedLinks) {
-            extremities1.add(link.getExtremity1());
-        }
-        return extremities1;
-    }
-
-    /**
-     * DOC amaumont Comment method "getSourcesCollection".
-     * 
-     * @param extremity2
-     * @return
-     */
-    private Set<IExtremityLink<A2>> getTargetsCollection(IExtremityLink<A1> extremity1) {
-        Set<LinkDescriptor<A1, A2>> associatedLinks = getLinksFromExtremity1Internal(extremity1);
-        int lstSize = associatedLinks.size();
-        Set<IExtremityLink<A2>> extremities1 = new HashSet<IExtremityLink<A2>>(lstSize);
-        for (LinkDescriptor<A1, A2> link : associatedLinks) {
-            extremities1.add(link.getExtremity2());
-        }
-        return extremities1;
-    }
 
     /**
      * DOC amaumont Comment method "addLink".
      * 
      * @param link
      */
-    public void removeLink(LinkDescriptor<A1, A2> link) {
+    public void removeLink(LinkDescriptor<G1, D1, G2, D2> link) {
         currentNumberLinks--;
 
         links.remove(link);
-        IExtremityLink<A1> extremity1 = link.getExtremity1();
-        getLinksFromExtremity1Internal(extremity1).remove(link);
-        IExtremityLink<A2> extremity2 = link.getExtremity2();
-        getLinksFromExtremity2Internal(extremity2).remove(link);
+        
+        g2ToLinks.remove(link.getExtremity2().getGraphicalItem());
+        d2ToLinks.remove(link.getExtremity2().getDataItem());
+        
+        
+        
     }
 
     /**
@@ -186,8 +119,8 @@ public class LinksManager<A1, A2> {
      */
     public void clearLinks() {
         links.clear();
-        extremity1ToLinks.clear();
-        extremity2ToLinks.clear();
+        d2ToLinks.clear();
+        g2ToLinks.clear();
         currentNumberLinks = 0;
     }
 
@@ -196,27 +129,37 @@ public class LinksManager<A1, A2> {
      * 
      * @return
      */
-    public List<LinkDescriptor<A1, A2>> getLinks() {
+    public List<LinkDescriptor<G1, D1, G2, D2>> getLinks() {
         return this.links;
     }
 
     /**
-     * DOC amaumont Comment method "getSourcesForTarget".
      * 
-     * @param extremity2
+     * DOC amaumont Comment method "changeTargetGraphicalItemFromTargetDataItem".
+     * @param dataItemOfExtremity links are searched from this object
+     * @param newGraphicalTarget new graphical target to set
+     * @return true if change applied, else false if dataTarget doesn't have links
      */
-    public Set<IExtremityLink<A1>> getSourcesForTarget(IExtremityLink<A2> extremity2) {
-        return Collections.unmodifiableSet(getSourcesCollection(extremity2));
-
+    public boolean setNewGraphicalItemToExtremity2(D2 dataItemOfExtremity, G2 newGraphicalTarget) {
+        Set<LinkDescriptor<G1, D1, G2, D2>> linksFromD2 = d2ToLinks.get(dataItemOfExtremity);
+        if(linksFromD2 != null) {
+            Set<LinkDescriptor<G1, D1, G2, D2>> linksForG2 = g2ToLinks.get(newGraphicalTarget);
+            if(linksForG2 != null) {
+                linksForG2.clear();
+            } else {
+                linksForG2 = new HashSet<LinkDescriptor<G1, D1, G2, D2>>();
+            }
+            g2ToLinks.put(newGraphicalTarget, linksForG2);
+            for (LinkDescriptor<G1, D1, G2, D2> linkFromD2 : linksFromD2) {
+                linksForG2.add(linkFromD2);
+                linkFromD2.getExtremity2().setGraphicalItem(newGraphicalTarget);
+            }
+            return true;
+        } else {
+            return false;
+        }
     }
-
-    // /**
-    // * DOC amaumont Comment method "orderLinks".
-    // */
-    // public void orderLinks() {
-    // Collections.sort(links, COMPARATOR);
-    // }
-    //
+    
     /**
      * Getter for currentNumberLinks.
      * 
@@ -226,25 +169,26 @@ public class LinksManager<A1, A2> {
         return this.currentNumberLinks;
     }
     
-    public void swapExtremitiesForRelativeLinks(IExtremityLink<A2> previousExtremity, IExtremityLink<A2> newExtremity) {
-        Set<IExtremityLink<A2>> extremities2 = associatedObjectToExtremities.remove(previousExtremity.getAssociatedItem());
-        associatedObjectToExtremities.put(newExtremity.getAssociatedItem(), extremities2);
-        
-        Set<LinkDescriptor<A1, A2>> linksFromPrevious = getLinksFromExtremity2(previousExtremity);
-        Set<LinkDescriptor<A1, A2>> linksFromNew = getLinksFromExtremity2(newExtremity);
-        Set<LinkDescriptor<A1, A2>> linksFromPreviousExtremity = extremity2ToLinks.get(previousExtremity);
-        Set<LinkDescriptor<A1, A2>> linksFromNewExtremity = extremity2ToLinks.get(newExtremity);
-        
-        extremity2ToLinks.put(previousExtremity, linksFromNewExtremity);
-        extremity2ToLinks.put(newExtremity, linksFromPreviousExtremity);
-        
-        for (LinkDescriptor<A1, A2> linkDescriptorPrevious : linksFromPrevious) {
-            linkDescriptorPrevious.setExtremity2(newExtremity);
+    /**
+     * DOC amaumont Comment method "removeLink".
+     * @param tableItem
+     */
+    public void removeLink(G2 graphicalItem) {
+        Set<LinkDescriptor<G1, D1, G2, D2>> linksFromG2 = g2ToLinks.get(graphicalItem);
+        if(linksFromG2 != null) {
+            removeLinks(linksFromG2);
         }
-        for (LinkDescriptor<A1, A2> linkDescriptorNew : linksFromNew) {
-            linkDescriptorNew.setExtremity2(previousExtremity);
-        }
-
     }
+
+    /**
+     * DOC amaumont Comment method "removeLinks".
+     * @param linksFromG2
+     */
+    private void removeLinks(Set<LinkDescriptor<G1, D1, G2, D2>> linksFromG2) {
+        for (LinkDescriptor<G1, D1, G2, D2> linkDescriptor : linksFromG2) {
+            removeLink(linkDescriptor);
+        }
+    }
+    
     
 }

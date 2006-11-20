@@ -43,7 +43,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LINE_SELECTION;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_SELECTION;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_ROW_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
@@ -133,17 +133,13 @@ public class MetadataTableEditorView2 {
         tableViewerCreator = new TableViewerCreator<MetadataColumn>(composite);
         tableViewerCreator.setLayout(new RowLayout(SWT.HORIZONTAL));
 
-        tableViewerCreator.setHeaderVisible(true);
         tableViewerCreator.setAllColumnsResizable(true);
         tableViewerCreator.setBorderVisible(true);
-        tableViewerCreator.setLinesVisible(true);
-        tableViewerCreator.setShowSelection(SHOW_SELECTION.FULL);
-        tableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
         tableViewerCreator.setAdjustWidthValue(-15);
         tableViewerCreator.setFirstColumnMasked(true);
         tableViewerCreator.setFirstVisibleColumnIsSelection(true);
-        tableViewerCreator.setUseCustomColoring(true);
+        tableViewerCreator.setUseCustomItemColoring(true);
 
         final Table table = tableViewerCreator.createTable();
         table.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -278,7 +274,7 @@ public class MetadataTableEditorView2 {
         cellEditor.addListener(new DialogErrorForCellEditorListener(cellEditor, column) {
 
             @Override
-            public void newValidValueApplied(String previousValue, String newValue, CELL_EDITOR_STATE state) {
+            public void newValidValueTyped(int itemIndex, String previousValue, String newValue, CELL_EDITOR_STATE state) {
                 Object currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
                 ArrayList modifiedObjectList = new ArrayList(1);
                 modifiedObjectList.add(currentModifiedObject);

@@ -46,12 +46,6 @@ public abstract class AbstractExtendedTableToolbarView extends AbstractExtendedT
 
     private RemovePushButton removeButton;
 
-//    private Button copyButton;
-//
-//    // private Button cutButton;
-//
-//    private Button pasteButton;
-
     private MoveUpPushButton moveUpButton;
 
     private MoveDownPushButton moveDownButton;
@@ -60,11 +54,6 @@ public abstract class AbstractExtendedTableToolbarView extends AbstractExtendedT
 
     private PastPushButton pastButton;
 
-//    private Button loadButton;
-//
-//    private Button exportButton;
-
-    
     
     /**
      * DOC amaumont MatadataToolbarEditor constructor comment.
@@ -96,30 +85,6 @@ public abstract class AbstractExtendedTableToolbarView extends AbstractExtendedT
 //
 //        });
 //
-//        removeButton.addListener(SWT.Selection, new Listener() {
-//
-//            public void handleEvent(Event event) {
-//                if (targetSchemaEditorView.getTargetSchemaEditor() != null) {
-//                    int index = targetSchemaEditorView.getTableViewerCreator().getTable().getSelectionIndex();
-//                    targetSchemaEditorView.getTableViewerCreator().getTable().setFocus();
-//                    TargetSchemaEditorEvent targetSchemaEditorEvent = new TargetSchemaEditorEvent();
-//                    targetSchemaEditorEvent.type = TargetSchemaEditorEvent.TYPE.REMOVE;
-//                    targetSchemaEditorEvent.entriesIndices = targetSchemaEditorView.getTableViewerCreator().getTable()
-//                            .getSelectionIndices();
-//                    IAction action = TargetSchemaEditorActionFactory2.getInstance().getAction(targetSchemaEditorView,
-//                            targetSchemaEditorEvent);
-//                    action.run(targetSchemaEditorEvent);
-//                    if ((index) < targetSchemaEditorView.getTableViewerCreator().getTable().getItemCount()) {
-//                        targetSchemaEditorView.getTableViewerCreator().getTable().setSelection(index);
-//                    } else if (targetSchemaEditorView.getTableViewerCreator().getTable().getItemCount() != 0) {
-//                        targetSchemaEditorView.getTableViewerCreator().getTable().setSelection(
-//                                targetSchemaEditorView.getTableViewerCreator().getTable().getItemCount() - 1);
-//                    }
-//                    targetSchemaEditorView.getTableViewerCreator().getTableViewer().refresh();
-//                }
-//            }
-//        });
-//
 //        copyButton.addListener(SWT.Selection, new Listener() {
 //
 //            public void handleEvent(Event event) {
@@ -144,40 +109,6 @@ public abstract class AbstractExtendedTableToolbarView extends AbstractExtendedT
 //                    targetSchemaEditorView.getTableViewerCreator().getTable().setFocus();
 //                    TargetSchemaEditorEvent targetSchemaEditorEvent = new TargetSchemaEditorEvent();
 //                    targetSchemaEditorEvent.type = TargetSchemaEditorEvent.TYPE.PASTE;
-//                    targetSchemaEditorEvent.entriesIndices = targetSchemaEditorView.getTableViewerCreator().getTable()
-//                            .getSelectionIndices();
-//                    IAction action = TargetSchemaEditorActionFactory2.getInstance().getAction(targetSchemaEditorView,
-//                            targetSchemaEditorEvent);
-//                    action.run(targetSchemaEditorEvent);
-//                    targetSchemaEditorView.getTableViewerCreator().getTableViewer().refresh();
-//                }
-//            }
-//        });
-//
-//        moveUpButton.addListener(SWT.Selection, new Listener() {
-//
-//            public void handleEvent(Event event) {
-//                if (targetSchemaEditorView.getTargetSchemaEditor() != null) {
-//                    targetSchemaEditorView.getTableViewerCreator().getTable().setFocus();
-//                    TargetSchemaEditorEvent targetSchemaEditorEvent = new TargetSchemaEditorEvent();
-//                    targetSchemaEditorEvent.type = TargetSchemaEditorEvent.TYPE.MOVE_UP;
-//                    targetSchemaEditorEvent.entriesIndices = targetSchemaEditorView.getTableViewerCreator().getTable()
-//                            .getSelectionIndices();
-//                    IAction action = TargetSchemaEditorActionFactory2.getInstance().getAction(targetSchemaEditorView,
-//                            targetSchemaEditorEvent);
-//                    action.run(targetSchemaEditorEvent);
-//                    targetSchemaEditorView.getTableViewerCreator().getTableViewer().refresh();
-//                }
-//            }
-//        });
-//
-//        moveDownButton.addListener(SWT.Selection, new Listener() {
-//
-//            public void handleEvent(Event event) {
-//                if (targetSchemaEditorView.getTargetSchemaEditor() != null) {
-//                    targetSchemaEditorView.getTableViewerCreator().getTable().setFocus();
-//                    TargetSchemaEditorEvent targetSchemaEditorEvent = new TargetSchemaEditorEvent();
-//                    targetSchemaEditorEvent.type = TargetSchemaEditorEvent.TYPE.MOVE_DOWN;
 //                    targetSchemaEditorEvent.entriesIndices = targetSchemaEditorView.getTableViewerCreator().getTable()
 //                            .getSelectionIndices();
 //                    IAction action = TargetSchemaEditorActionFactory2.getInstance().getAction(targetSchemaEditorView,

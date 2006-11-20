@@ -31,9 +31,10 @@ import org.eclipse.swt.widgets.TreeItem;
  * $Id$
  *
  */
-public class TreeItemExtremityDescriptor implements IExtremityLink<TreeItem> {
+public class TreeItemExtremityDescriptor implements IExtremityLink<TreeItem, Object> {
 
     private TreeItem treeItem;
+    private Object dataObject;
 
     /**
      * DOC amaumont TreeItemExtremityDescriptor constructor comment.
@@ -42,45 +43,40 @@ public class TreeItemExtremityDescriptor implements IExtremityLink<TreeItem> {
     public TreeItemExtremityDescriptor(TreeItem treeItem) {
         super();
         this.treeItem = treeItem;
+//        this.dataObject = dataObject;
     }
     
     /* (non-Javadoc)
      * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#getAssociatedItem()
      */
-    public TreeItem getAssociatedItem() {
+    public TreeItem getGraphicalItem() {
         return treeItem;
     }
 
+    
+    
     /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
+     * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#getDataItem()
      */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((this.treeItem == null) ? 0 : this.treeItem.hashCode());
-        return result;
+    public Object getDataItem() {
+        return dataObject;
+    }
+
+    
+    
+    
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#setDataItem(java.lang.Object)
+     */
+    public void setDataItem(Object dataItem) {
+        this.dataObject = dataItem;
     }
 
     /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
+     * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#setGraphicalItem(java.lang.Object)
      */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final TreeItemExtremityDescriptor other = (TreeItemExtremityDescriptor) obj;
-        if (this.treeItem == null) {
-            if (other.treeItem != null)
-                return false;
-        } else if (!this.treeItem.equals(other.treeItem))
-            return false;
-        return true;
+    public void setGraphicalItem(TreeItem graphicalItem) {
+        this.treeItem = graphicalItem;
     }
-
     
 }

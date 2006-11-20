@@ -54,13 +54,13 @@ import org.talend.commons.utils.threading.AsynchronousThreading;
  * $Id$
  * 
  */
-public class TreeToTableLinker extends BackgroundRefresher {
+public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
 
     protected Tree tree;
 
     protected Table table;
 
-    protected LinksManager<TreeItem, TableItem> linksManager = new LinksManager<TreeItem, TableItem>();
+    protected LinksManager<TreeItem, D1, TableItem, D2> linksManager = new LinksManager<TreeItem, D1, TableItem, D2>();
 
     /**
      * DOC amaumont TreeToTableLinker constructor comment.
@@ -168,7 +168,7 @@ public class TreeToTableLinker extends BackgroundRefresher {
     @Override
     public void drawBackground(GC gc) {
 
-        List<LinkDescriptor<TreeItem, TableItem>> links = linksManager.getLinks();
+        List<LinkDescriptor<TreeItem, D1, TableItem, D2>> links = linksManager.getLinks();
         int lstSize = links.size();
 
         int xStartBezierLink = findXRightStartBezierLink(tree.getItems(), 0);
@@ -182,18 +182,19 @@ public class TreeToTableLinker extends BackgroundRefresher {
         int treeItemHeight = tree.getItemHeight();
 
         for (int i = 0; i < lstSize; i++) {
-            LinkDescriptor<TreeItem, TableItem> link = links.get(i);
+            LinkDescriptor<TreeItem, D1, TableItem, D2> link = links.get(i);
 
             IDrawableLink drawableLink = link.getDrawableLink();
 
             drawableLink.getStyle().apply(gc);
 
-            IExtremityLink<TreeItem> extremity1 = link.getExtremity1();
-            IExtremityLink<TableItem> extremity2 = link.getExtremity2();
+            IExtremityLink<TreeItem, D1> extremity1 = link.getExtremity1();
+            IExtremityLink<TableItem, D2> extremity2 = link.getExtremity2();
 
-            TreeItem treeItem = extremity1.getAssociatedItem();
+            TreeItem treeItem = extremity1.getGraphicalItem();
 
             TreeItem firstExpandedAscTreeItem = findFirstVisibleItemAscFrom(treeItem);
+//            System.out.println(isAntialiasAllowed());
             if (isAntialiasAllowed()) {
                 gc.setAntialias(SWT.ON);
             } else {
@@ -209,7 +210,7 @@ public class TreeToTableLinker extends BackgroundRefresher {
                     yStraight);
             Point pointEndStraight = new Point(treeToCommonPoint.x + xStartBezierLink, yStraight);
 
-            Rectangle tableItemBounds = extremity2.getAssociatedItem().getBounds();
+            Rectangle tableItemBounds = extremity2.getGraphicalItem().getBounds();
             Rectangle tableBounds = table.getBounds();
 
             Point pointEndCentralCurve = convertPointToCommonParentOrigin(new Point(tableItemBounds.x - 2,

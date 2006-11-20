@@ -28,10 +28,13 @@ package org.talend.commons.ui.swt.drawing.link;
  *
  * $Id$
  *
- * @param <A> associated item
+ * @param <G> associated item
  */
-public interface IExtremityLink<A> {
+public interface IExtremityLink<G, D> {
 
-    public A getAssociatedItem();
+    public G getGraphicalItem();
+    public void setGraphicalItem(G graphicalItem);
     
+    public D getDataItem();
+    public void setDataItem(D dataItem);
 }

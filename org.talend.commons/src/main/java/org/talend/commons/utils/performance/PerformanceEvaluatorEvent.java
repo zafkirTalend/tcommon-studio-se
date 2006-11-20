@@ -32,8 +32,8 @@ public class PerformanceEvaluatorEvent {
 
     private int indicePerformance;
 
-    public PerformanceEvaluatorEvent(int percentPerformance) {
-        this.indicePerformance = percentPerformance;
+    public PerformanceEvaluatorEvent(int indicePerformance) {
+        this.indicePerformance = indicePerformance;
     }
 
     /**
@@ -45,8 +45,8 @@ public class PerformanceEvaluatorEvent {
         return indicePerformance;
     }
 
-    public void setIndicePerformance(int percentPerformance) {
-        this.indicePerformance = percentPerformance;
+    public void setIndicePerformance(int indicePerformance) {
+        this.indicePerformance = indicePerformance;
     }
 
 }

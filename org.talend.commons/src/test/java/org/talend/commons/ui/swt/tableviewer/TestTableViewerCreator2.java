@@ -40,7 +40,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LINE_SELECTION;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_SELECTION;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_ROW_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
@@ -87,17 +87,12 @@ public final class TestTableViewerCreator2 {
         shell1.setLayout(new FillLayout());
 
         TableViewerCreator tableViewerCreator = new TableViewerCreator(shell1);
-        tableViewerCreator.setHeaderVisible(true);
         tableViewerCreator.setBorderVisible(true);
-        tableViewerCreator.setLinesVisible(true);
-        tableViewerCreator.setShowSelection(SHOW_SELECTION.FULL);
-        tableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
         tableViewerCreator.setAllColumnsMoveable(true);
         tableViewerCreator.setAllColumnsResizable(true);
         tableViewerCreator.setAllColumnsSortable(true);
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
-        tableViewerCreator.setHorizontalScroll(false);
-        tableViewerCreator.setAdjustWidthValue(-50);
+//        tableViewerCreator.setAdjustWidthValue(-50);
 
         Table table = tableViewerCreator.createTable();
         // When the table is in a Composite (and not direct in a Shell),

@@ -96,17 +96,29 @@ public class TableEditorManager {
 
                 String idProperty = column.getId();
                 Collection collection = (Collection) tableViewerCreator.getTableViewer().getInput();
-                for (Object currentRowObject : collection) {
-                    TableEditor tableEditor = tableEditorContent.createTableEditor(tableViewerCreator.getTable());
-                    tableEditorList.add(tableEditor);
-                    Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-                    Control control = tableEditorContent.initialize(tableViewerCreator.getTable(), tableEditor, column,
-                            currentRowObject, value);
-                    tableEditor.setEditor(control, objectRowToTableItem.get(currentRowObject), iCol);
+                if(collection != null) {
+                    for (Object currentRowObject : collection) {
+                        TableEditor tableEditor = tableEditorContent.createTableEditor(tableViewerCreator.getTable());
+                        tableEditorList.add(tableEditor);
+                        Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
+                        Control control = tableEditorContent.initialize(tableViewerCreator.getTable(), tableEditor, column,
+                                currentRowObject, value);
+                        tableEditor.setEditor(control, objectRowToTableItem.get(currentRowObject), iCol);
+                    }
                 }
             }
         }
 
+    }
+
+    /**
+     * DOC amaumont Comment method "redrawAll".
+     */
+    public void redrawControls() {
+        for (TableEditor tableEditor : tableEditorList) {
+            tableEditor.getEditor().redraw();
+        }
+        
     }
 
 }

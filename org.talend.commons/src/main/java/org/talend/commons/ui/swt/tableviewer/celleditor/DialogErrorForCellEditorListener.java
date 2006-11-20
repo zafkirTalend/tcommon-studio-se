@@ -96,7 +96,7 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
         int beanPosition = tableViewerCreator.getInputList().indexOf(currentModifiedBean);
         final String errorMessage = validateValue(newValue, beanPosition);
         if (errorMessage == null) {
-            newValidValueApplied(lastValidValue, newValue, state);
+            newValidValueTyped(beanPosition, lastValidValue, newValue, state);
             text.setBackground(text.getDisplay().getSystemColor(SWT.COLOR_WHITE));
             lastValidValue = newValue;
         } else {
@@ -123,11 +123,12 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
 
     /**
      * Implement this to execute treatments when new value is valid.
+     * @param itemIndex TODO
      * @param previousValue
      * @param newValue
      * @param state
      */
-    public abstract void newValidValueApplied(final String previousValue, final String newValue, CELL_EDITOR_STATE state);
+    public abstract void newValidValueTyped(int itemIndex, final String previousValue, final String newValue, CELL_EDITOR_STATE state);
 
     /**
      * DOC amaumont Comment method "validateValue".

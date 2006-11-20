@@ -56,6 +56,7 @@ public class AsynchronousThreading {
     private boolean synchronousDisplayExecution;
     private Runnable target;
     private Display display;
+    private Thread thread;
 
     /**
      * DOC amaumont AsynchronousDisplayThread constructor comment.
@@ -77,7 +78,7 @@ public class AsynchronousThreading {
     
     public void start() {
         
-        (new Thread() {
+        thread = new Thread() {
 
             @Override
             public void run() {
@@ -85,6 +86,7 @@ public class AsynchronousThreading {
                     try {
                         Thread.sleep(sleepingTime);
                     } catch (InterruptedException e) {
+//                        System.out.println("interrupted");
                         return;
                     }
                 }
@@ -110,12 +112,17 @@ public class AsynchronousThreading {
                 }
             }
 
-        }).start();
+        };
+        thread.start();
  
         
     }
 
-
+    public void interrupt() {
+        if(thread != null && !thread.isInterrupted()) {
+            thread.interrupt();
+        }
+    }
     
     
 }

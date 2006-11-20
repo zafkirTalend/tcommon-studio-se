@@ -44,7 +44,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LINE_SELECTION;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_SELECTION;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_ROW_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
 import org.talend.commons.utils.DataObject;
@@ -125,16 +125,11 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
     @Override
     protected TableViewerCreator<DataObject> createTable(Composite parentComposite, int styleChild) {
         TableViewerCreator<DataObject> newTableViewerCreator = new TableViewerCreator<DataObject>(parentComposite);
-        newTableViewerCreator.setHeaderVisible(true);
         newTableViewerCreator.setBorderVisible(true);
-        newTableViewerCreator.setLinesVisible(true);
-        newTableViewerCreator.setShowSelection(SHOW_SELECTION.FULL);
-        newTableViewerCreator.setLineSelection(LINE_SELECTION.MULTI);
         newTableViewerCreator.setAllColumnsMoveable(true);
         newTableViewerCreator.setAllColumnsResizable(true);
         newTableViewerCreator.setAllColumnsSortable(true);
         newTableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
-        newTableViewerCreator.setHorizontalScroll(false);
         newTableViewerCreator.setAdjustWidthValue(-50);
 
         newTableViewerCreator.createTable(styleChild);
