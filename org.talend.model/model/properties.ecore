@@ -77,7 +77,11 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="content" eType="#//ByteArray"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ByteArray">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="innerContent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="innerContent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray">
+      <eAnnotations source="teneo.jpa">
+        <details key="appinfo" value="@Lob&#xA;@Column(length=100000000)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DocumentationItem" eSuperTypes="#//FileItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="RoutineItem" eSuperTypes="#//FileItem"/>
@@ -161,7 +165,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="NotationHolder">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationString" eType="ecore:EDataType ../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
       <eAnnotations source="teneo.jpa">
-        <details key="appinfo" value="@Lob"/>
         <details key="appinfo" value="@Column(length=1048576)"/>
       </eAnnotations>
     </eStructuralFeatures>

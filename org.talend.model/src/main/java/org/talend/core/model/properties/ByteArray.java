@@ -39,7 +39,7 @@ public interface ByteArray extends EObject {
      * @return the value of the '<em>Inner Content</em>' attribute.
      * @see #setInnerContent(byte[])
      * @see org.talend.core.model.properties.PropertiesPackage#getByteArray_InnerContent()
-     * @model
+     * @model annotation="teneo.jpa appinfo='@Lob\n@Column(length=100000000)'"
      * @generated
      */
     byte[] getInnerContent();

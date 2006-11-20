@@ -1356,10 +1356,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     protected void createTeneoAnnotations() {
         String source = "teneo.jpa";		
         addAnnotation
+          (getByteArray_InnerContent(), 
+           source, 
+           new String[] {
+             "appinfo", "@Lob\n@Column(length=100000000)"
+           });		
+        addAnnotation
           (getNotationHolder_NotationString(), 
            source, 
            new String[] {
-             "appinfo", "@Lob",
              "appinfo", "@Column(length=1048576)"
            });
     }
