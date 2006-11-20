@@ -40,19 +40,19 @@ import org.talend.core.ui.extended.button.RemovePushButtonForExtendedTable;
  * TargetSchemaToolbarEditorView2.java,v 1.1 2006/08/02 19:43:45 cantoine Exp $
  * 
  */
-public abstract class AbstractExtendedTableToolbarView extends AbstractExtendedToolbar {
+public class ExtendedTableToolbarView extends AbstractExtendedToolbar {
 
-    private AddPushButton addButton;
+    protected AddPushButton addButton;
 
-    private RemovePushButton removeButton;
+    protected RemovePushButton removeButton;
 
-    private MoveUpPushButton moveUpButton;
+    protected MoveUpPushButton moveUpButton;
 
-    private MoveDownPushButton moveDownButton;
+    protected MoveDownPushButton moveDownButton;
 
-    private CopyPushButton copyButton;
+    protected CopyPushButton copyButton;
 
-    private PastPushButton pastButton;
+    protected PastPushButton pastButton;
 
     
     /**
@@ -62,7 +62,7 @@ public abstract class AbstractExtendedTableToolbarView extends AbstractExtendedT
      * @param style
      * @param targetSchemaEditorView
      */
-    public AbstractExtendedTableToolbarView(Composite parent, int style, AbstractExtendedTableViewer extendedTableViewer) {
+    public ExtendedTableToolbarView(Composite parent, int style, AbstractExtendedTableViewer extendedTableViewer) {
         super(parent, style, extendedTableViewer);
 //        // Force the height of the toolbars
 //        GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
@@ -248,7 +248,9 @@ public abstract class AbstractExtendedTableToolbarView extends AbstractExtendedT
 //        exportButton.setImage(ImageProvider.getImage(EImage.EXPORT_ICON));
     }
     
-    protected abstract AddPushButton createAddPushButton();
+    protected AddPushButton createAddPushButton() {
+        return null;
+    }
     
     
     protected RemovePushButton createRemovePushButton() {

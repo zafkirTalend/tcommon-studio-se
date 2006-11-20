@@ -153,7 +153,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 //        newTableViewerCreator.setBgColorForEmptyArea(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
 //        newTableViewerCreator.setUseCustomColoring(true);
 
-        final Table table = newTableViewerCreator.createTable();
+        final Table table = newTableViewerCreator.createTable(styleChild);
         
 //        newTableViewerCreator.setAdjustWidthValue(-newTableViewerCreator.getTable().getVerticalBar().getSize().x);
         
