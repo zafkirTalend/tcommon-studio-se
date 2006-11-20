@@ -377,19 +377,17 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      * @return
      */
     public Table createTable() {
-        return createTable(SWT.NONE);
-    }
-
-    public Table createTable(int style) {
         if (this.table != null) {
             this.table.dispose();
         }
-        this.table = new Table(compositeParent, style | checkTableStyles());
-        
-//        new TableEditor(table);
+        this.table = new Table(compositeParent, checkTableStyles());
+
+        // new TableEditor(table);
         tableViewer = new TableViewer(table) {
 
-            /* (non-Javadoc)
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.eclipse.jface.viewers.TableViewer#add(java.lang.Object)
              */
             @Override
@@ -399,7 +397,9 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 refreshTableEditorControls();
             }
 
-            /* (non-Javadoc)
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.eclipse.jface.viewers.TableViewer#add(java.lang.Object[])
              */
             @Override
@@ -409,7 +409,9 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 refreshTableEditorControls();
             }
 
-            /* (non-Javadoc)
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.eclipse.jface.viewers.TableViewer#remove(java.lang.Object[])
              */
             @Override
@@ -418,7 +420,9 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 refreshTableEditorControls();
             }
 
-            /* (non-Javadoc)
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.eclipse.jface.viewers.TableViewer#replace(java.lang.Object, int)
              */
             @Override
@@ -427,7 +431,9 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 refreshTableEditorControls();
             }
 
-            /* (non-Javadoc)
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.eclipse.jface.viewers.StructuredViewer#refresh()
              */
             @Override
@@ -437,17 +443,21 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 refreshTableEditorControls();
             }
 
-            /* (non-Javadoc)
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.eclipse.jface.viewers.StructuredViewer#refresh(boolean)
              */
             @Override
             public void refresh(boolean updateLabels) {
                 layout();
                 super.refresh(updateLabels);
-//                refreshTableEditorControls();
+                // refreshTableEditorControls();
             }
 
-            /* (non-Javadoc)
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.eclipse.jface.viewers.StructuredViewer#refresh(java.lang.Object, boolean)
              */
             @Override
@@ -456,15 +466,17 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 refreshTableEditorControls();
             }
 
-            /* (non-Javadoc)
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.eclipse.jface.viewers.StructuredViewer#refresh(java.lang.Object)
              */
             @Override
             public void refresh(Object element) {
                 super.refresh(element);
-//                refreshTableEditorControls();
+                // refreshTableEditorControls();
             }
-            
+
         };
         setTablePreferences();
 
@@ -495,10 +507,11 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                     Rectangle area = table.getClientArea();
 
                     Color previousBgColor = gc.getBackground();
-                    
+
                     gc.setBackground(emptyZoneColor);
-                    int starty = table.getHeaderHeight() + table.getItemCount() * table.getItemHeight() - table.getVerticalBar().getSelection() * table.getItemHeight();
-                    
+                    int starty = table.getHeaderHeight() + table.getItemCount() * table.getItemHeight()
+                            - table.getVerticalBar().getSelection() * table.getItemHeight();
+
                     if (starty < area.height) {
                         gc.fillRectangle(0, starty, area.width, area.height);
                     }
@@ -513,7 +526,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
                     gc.setBackground(previousBgColor);
 
-                    
                 }
             };
             table.addListener(SWT.Paint, paintListener);
@@ -559,20 +571,20 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     protected void addListeners() {
-        
+
         table.addControlListener(new ControlListener() {
 
             public void controlMoved(ControlEvent e) {
             }
 
             public void controlResized(ControlEvent e) {
-                if(tableEditorManager != null) {
+                if (tableEditorManager != null) {
                     tableEditorManager.redrawControls();
                 }
             }
-            
+
         });
-        
+
     }
 
     /**
@@ -844,7 +856,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
-     * Unlike <code>Table</code> header is visible by default. 
+     * Unlike <code>Table</code> header is visible by default.
+     * 
      * @return true if table has header visible
      */
     public boolean isHeaderVisible() {
@@ -855,7 +868,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
-     * Unlike <code>Table</code> header is visible by default. 
+     * Unlike <code>Table</code> header is visible by default.
+     * 
      * @param headerVisible
      */
     public void setHeaderVisible(boolean headerVisible) {
@@ -995,6 +1009,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     /**
      * 
      * <code>LINE_SELECTION.MULTI</code> is the default value.
+     * 
      * @param lineSelection
      */
     public void setLineSelection(LINE_SELECTION lineSelection) {
@@ -1002,7 +1017,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
-     * Unlike <code>Table</code> lines are visible by default. 
+     * Unlike <code>Table</code> lines are visible by default.
+     * 
      * @see Table#getLinesVisible()
      */
     public boolean isLinesVisible() {
@@ -1013,7 +1029,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
-     * Unlike <code>Table</code> lines are visible by default. 
+     * Unlike <code>Table</code> lines are visible by default.
+     * 
      * @see Table#setLinesVisible(boolean)
      */
     public void setLinesVisible(boolean linesVisible) {
@@ -1026,6 +1043,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     /**
      * By default <code>showSelection</code> has <code>SHOW_SELECTION.FULL</code> value.
+     * 
      * @return
      */
     public SHOW_ROW_SELECTION getShowLineSelection() {
@@ -1035,6 +1053,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     /**
      * 
      * By default <code>showSelection</code> has <code>SHOW_SELECTION.FULL</code> value.
+     * 
      * @param showLineSelection
      */
     public void setShowLineSelection(SHOW_ROW_SELECTION showLineSelection) {
@@ -1071,8 +1090,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
-     * Note: has no effects for Windows sytem, scrollbar are always visible.
-     * Call this method before call createTable().
+     * Note: has no effects for Windows sytem, scrollbar are always visible. Call this method before call createTable().
+     * 
      * @param horizontalScroll
      */
     public void setHorizontalScroll(boolean horizontalScroll) {
@@ -1087,8 +1106,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
-     * Note: has no effects for Windows sytem, scrollbar are always visible.
-     * Call this method before call createTable().
+     * Note: has no effects for Windows sytem, scrollbar are always visible. Call this method before call createTable().
+     * 
      * @param verticalScroll
      */
     public void setVerticalScroll(boolean verticalScroll) {
@@ -1224,12 +1243,12 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             return;
         }
         table.layout();
-//        Layout currentLayout = table.getLayout();
-//        if (currentLayout instanceof TableViewerCreatorLayout) {
-//            ((TableViewerCreatorLayout) currentLayout).forceLayout(table);
-//        } else if (currentLayout instanceof TableLayout) {
-//            ((TableLayout) currentLayout).layout(table, true);
-//        }
+        // Layout currentLayout = table.getLayout();
+        // if (currentLayout instanceof TableViewerCreatorLayout) {
+        // ((TableViewerCreatorLayout) currentLayout).forceLayout(table);
+        // } else if (currentLayout instanceof TableLayout) {
+        // ((TableLayout) currentLayout).layout(table, true);
+        // }
     }
 
     public Layout getLayout() {
@@ -1243,6 +1262,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     /**
      * This method is useful for mask first column on a Windows Table because the first column display a blank space at
      * left border.
+     * By default first column is masked.
      * 
      * @param firstColumnMasked
      */
@@ -1275,17 +1295,17 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     public void refreshTableEditorControls() {
-        if(tableEditorManager != null) {
+        if (tableEditorManager != null) {
             tableEditorManager.refresh();
         }
     }
 
     public void redrawTableEditorControls() {
-        if(tableEditorManager != null) {
+        if (tableEditorManager != null) {
             tableEditorManager.redrawControls();
         }
     }
-    
+
     /**
      * Setter for firstVisibleColumnIsSelection.
      * 
@@ -1531,14 +1551,13 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
     }
 
-    
     /**
      * Getter for compositeParent.
+     * 
      * @return the compositeParent
      */
     public Composite getCompositeParent() {
         return this.compositeParent;
     }
 
-    
 }

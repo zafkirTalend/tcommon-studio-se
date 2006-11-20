@@ -56,11 +56,12 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
  * 
  */
 public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<DataObject> {
-    
+
     /**
      * DOC amaumont TestExtendedTableViewer constructor comment.
+     * 
      * @param macroTable
-     * @param shell1 
+     * @param shell1
      */
     public TestExtendedTableViewer(ExtendedTableModel<DataObject> macroTable, Composite parent) {
         super(macroTable, parent, SWT.BORDER);
@@ -101,7 +102,7 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
         }
         ExtendedTableModel<DataObject> extendedTable = new ExtendedTableModel<DataObject>();
         extendedTable.registerDataList(list);
-        
+
         TestExtendedTableViewer viewer = new TestExtendedTableViewer(extendedTable, shell1);
 
         shell1.setSize(HEIGHT_HUNDRED, FIVE_HUNDRED);
@@ -116,12 +117,13 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
         display.dispose();
     }
 
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.advanced.macrotable.AbstractExtendedTableViewer#createTable()
      */
     @Override
-    protected TableViewerCreator<DataObject> createTable(Composite parentComposite, int styleChild) {
+    protected TableViewerCreator<DataObject> createTable(Composite parentComposite) {
         TableViewerCreator<DataObject> newTableViewerCreator = new TableViewerCreator<DataObject>(parentComposite);
         newTableViewerCreator.setBorderVisible(true);
         newTableViewerCreator.setAllColumnsMoveable(true);
@@ -130,13 +132,13 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
         newTableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
         newTableViewerCreator.setAdjustWidthValue(-50);
 
-        newTableViewerCreator.createTable(styleChild);
+        newTableViewerCreator.createTable();
         return newTableViewerCreator;
     }
 
-
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.advanced.macrotable.AbstractExtendedTableViewer#createColumns()
      */
     @Override
@@ -170,9 +172,11 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
             public Integer get(DataObject bean) {
                 return bean.getIntegerValue1();
             }
+
             public void set(DataObject bean, Integer value) {
                 bean.setIntegerValue1(value);
             }
@@ -185,9 +189,11 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
             public Integer get(DataObject bean) {
                 return bean.getIntegerValue2();
             }
+
             public void set(DataObject bean, Integer value) {
                 bean.setIntegerValue2(value);
             }
@@ -199,9 +205,11 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, String>() {
+
             public String get(DataObject bean) {
                 return bean.getLibelle();
             }
+
             public void set(DataObject bean, String value) {
                 bean.setLibelle(value);
             }
@@ -213,9 +221,11 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Integer Null Value");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
             public Integer get(DataObject bean) {
                 return bean.getIntegerValue2();
             }
+
             public void set(DataObject bean, Integer value) {
                 bean.setIntegerValue2(value);
             }
@@ -224,6 +234,7 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
         column.setWidth(ONE_HUNDRED);
         final String[] valueSet = new String[] { "xxx", "yyy", "zzz" };
         column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
+
             public String getColumnText(CellEditor cellEditor, Object cellEditorValue) {
                 String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
                 int index = (Integer) cellEditorValue;
@@ -237,15 +248,18 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Id");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
             public Integer get(DataObject bean) {
                 return bean.getId();
             }
+
             public void set(DataObject bean, Integer value) {
                 bean.setId(value);
             }
         });
         column.setWeight(FIFTY);
         column.setTableEditorContent(new TableEditorContent() {
+
             public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
                     Object currentRowObject, Object currentCellValue) {
                 Button button = new Button(table, SWT.PUSH);
@@ -261,9 +275,11 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Id2");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
             public Integer get(DataObject bean) {
                 return bean.getIntegerValue2();
             }
+
             public void set(DataObject bean, Integer value) {
                 bean.setIntegerValue2(value);
             }
@@ -271,13 +287,13 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
         column.setWidth(TWO_HUNDRED);
         column.setModifiable(true);
         column.setTableEditorContent(new TableEditorContent() {
+
             public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
                     Object currentRowObject, Object currentCellValue) {
                 Composite composite = new Composite(table, SWT.PUSH);
                 // Set attributes of the button
                 composite.setBackground(new Color(null, ALL, ZERO, ZERO));
-                composite.setSize(ONE_HUNDRED * ((Integer) currentCellValue).intValue() / ONE_HUNDRED, table
-                        .getItemHeight());
+                composite.setSize(ONE_HUNDRED * ((Integer) currentCellValue).intValue() / ONE_HUNDRED, table.getItemHeight());
                 // Set attributes of the editor
                 // tableEditor.grabHorizontal = true;
                 tableEditor.minimumHeight = composite.getSize().y;
@@ -288,6 +304,7 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
 
         });
         column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
+
             public String getColumnText(CellEditor cellEditor, Object cellEditorValue) {
                 String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
                 int index = (Integer) cellEditorValue;
@@ -299,5 +316,5 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
             }
         });
     }
-    
+
 }

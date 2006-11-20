@@ -60,7 +60,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * @param styleChild
      */
     protected void init(int styleChild) {
-        this.tableViewerCreator = createTable(parentComposite, styleChild);
+        this.tableViewerCreator = createTable(parentComposite);
         getExtendedTableModel().setModifiedBeanListenable(this.tableViewerCreator);
         createColumns(this.tableViewerCreator, this.tableViewerCreator.getTable());
         if (getExtendedTableModel().isDataRegistered()) {
@@ -76,6 +76,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
     /**
      * DOC amaumont Comment method "getBeansList".
+     * 
      * @return
      */
     private List<B> getBeansList() {
@@ -87,13 +88,13 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      */
     protected void initListeners() {
         getExtendedTableModel().addBeforeOperationListListener(1, new IListenableListListener() {
-            
+
             public void handleEvent(ListenableListEvent event) {
                 handleBeforeListenableListOperationEvent(event);
             }
-            
+
         });
-        
+
         getExtendedTableModel().addAfterListener(1, new IListenableListListener() {
 
             public void handleEvent(ListenableListEvent event) {
@@ -101,7 +102,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
             }
 
         });
-        
+
     }
 
     /**
@@ -130,36 +131,41 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         if (event.type == TYPE.LIST_REGISTERED && tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
             tableViewerCreator.setInputList(getBeansList());
             new AsynchronousThreading(100, true, tableViewerCreator.getTable().getDisplay(), new Runnable() {
-                
+
                 public void run() {
                     tableViewerCreator.layout();
                 }
-                
+
             }).start();
         } else {
             tableViewerCreator.getTableViewer().refresh();
         }
     }
-    
-    protected TableViewerCreator<B> createTable(Composite parentComposite, int styleChild) {
+
+    protected TableViewerCreator<B> createTable(Composite parentComposite) {
         TableViewerCreator<B> newTableViewerCreator = new TableViewerCreator<B>(parentComposite);
         newTableViewerCreator.setLayout(new RowLayout(SWT.HORIZONTAL));
 
-        newTableViewerCreator.setAllColumnsResizable(true);
-        newTableViewerCreator.setBorderVisible(true);
-        newTableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
-        newTableViewerCreator.setFirstColumnMasked(true);
-        newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
-//        newTableViewerCreator.setBgColorForEmptyArea(parentComposite.getDisplay().getSystemColor(SWT.COLOR_WHITE));
-//        newTableViewerCreator.setUseCustomColoring(true);
+        setTableViewerCreatorOptions(newTableViewerCreator);
 
-        final Table table = newTableViewerCreator.createTable(styleChild);
-        
-//        newTableViewerCreator.setAdjustWidthValue(-newTableViewerCreator.getTable().getVerticalBar().getSize().x);
-        
+        final Table table = newTableViewerCreator.createTable();
+
         table.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         return newTableViewerCreator;
+    }
+
+    /**
+     * Ov.
+     * @param newTableViewerCreator
+     */
+    protected void setTableViewerCreatorOptions(TableViewerCreator<B> newTableViewerCreator) {
+        newTableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
+        newTableViewerCreator.setAllColumnsResizable(true);
+        newTableViewerCreator.setBorderVisible(true);
+        newTableViewerCreator.setFirstColumnMasked(true);
+        newTableViewerCreator.setFirstVisibleColumnIsSelection(false);
+        newTableViewerCreator.setCheckboxInFirstColumn(false);
     }
 
     /**
