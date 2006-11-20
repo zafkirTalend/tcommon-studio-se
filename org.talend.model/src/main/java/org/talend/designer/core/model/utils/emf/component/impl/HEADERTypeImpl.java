@@ -24,10 +24,11 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSIGNATURE <em>SIGNATURE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getAUTHOR <em>AUTHOR</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isCOLUMNCHECK <em>COLUMNCHECK</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getCOMPATIBILITY <em>COMPATIBILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getEXTENSION <em>EXTENSION</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getICON16 <em>ICON16</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getICON24 <em>ICON24</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getICON32 <em>ICON32</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getRELEASEDATE <em>RELEASEDATE</em>}</li>
@@ -35,9 +36,8 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSERIAL <em>SERIAL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSTATUS <em>STATUS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isTECHNICAL <em>TECHNICAL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getVERSION <em>VERSION</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getICON24 <em>ICON24</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getICON16 <em>ICON16</em>}</li>
  * </ul>
  * </p>
  *
@@ -83,35 +83,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected String aUTHOR = AUTHOR_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #isCOLUMNCHECK() <em>COLUMNCHECK</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isCOLUMNCHECK()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean COLUMNCHECK_EDEFAULT = true;
-
-    /**
-     * The cached value of the '{@link #isCOLUMNCHECK() <em>COLUMNCHECK</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isCOLUMNCHECK()
-     * @generated
-     * @ordered
-     */
-    protected boolean cOLUMNCHECK = COLUMNCHECK_EDEFAULT;
-
-    /**
-     * This is true if the COLUMNCHECK attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    protected boolean cOLUMNCHECKESet = false;
 
     /**
      * The default value of the '{@link #getCOMPATIBILITY() <em>COMPATIBILITY</em>}' attribute.
@@ -181,6 +152,46 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected String eXTENSION = EXTENSION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getICON16() <em>ICON16</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getICON16()
+     * @generated
+     * @ordered
+     */
+    protected static final String ICON16_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getICON16() <em>ICON16</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getICON16()
+     * @generated
+     * @ordered
+     */
+    protected String iCON16 = ICON16_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getICON24() <em>ICON24</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getICON24()
+     * @generated
+     * @ordered
+     */
+    protected static final String ICON24_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getICON24() <em>ICON24</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getICON24()
+     * @generated
+     * @ordered
+     */
+    protected String iCON24 = ICON24_EDEFAULT;
 
     /**
      * The default value of the '{@link #getICON32() <em>ICON32</em>}' attribute.
@@ -341,6 +352,35 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
     protected String sTATUS = STATUS_EDEFAULT;
 
     /**
+     * The default value of the '{@link #isTECHNICAL() <em>TECHNICAL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isTECHNICAL()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean TECHNICAL_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isTECHNICAL() <em>TECHNICAL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isTECHNICAL()
+     * @generated
+     * @ordered
+     */
+    protected boolean tECHNICAL = TECHNICAL_EDEFAULT;
+
+    /**
+     * This is true if the TECHNICAL attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean tECHNICALESet = false;
+
+    /**
      * The default value of the '{@link #getVERSION() <em>VERSION</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -359,46 +399,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected BigDecimal vERSION = VERSION_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getICON24() <em>ICON24</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getICON24()
-     * @generated
-     * @ordered
-     */
-    protected static final String ICON24_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getICON24() <em>ICON24</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getICON24()
-     * @generated
-     * @ordered
-     */
-    protected String iCON24 = ICON24_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getICON16() <em>ICON16</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getICON16()
-     * @generated
-     * @ordered
-     */
-    protected static final String ICON16_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getICON16() <em>ICON16</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getICON16()
-     * @generated
-     * @ordered
-     */
-    protected String iCON16 = ICON16_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -458,52 +458,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         aUTHOR = newAUTHOR;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__AUTHOR, oldAUTHOR, aUTHOR));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isCOLUMNCHECK() {
-        return cOLUMNCHECK;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setCOLUMNCHECK(boolean newCOLUMNCHECK) {
-        boolean oldCOLUMNCHECK = cOLUMNCHECK;
-        cOLUMNCHECK = newCOLUMNCHECK;
-        boolean oldCOLUMNCHECKESet = cOLUMNCHECKESet;
-        cOLUMNCHECKESet = true;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__COLUMNCHECK, oldCOLUMNCHECK, cOLUMNCHECK, !oldCOLUMNCHECKESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void unsetCOLUMNCHECK() {
-        boolean oldCOLUMNCHECK = cOLUMNCHECK;
-        boolean oldCOLUMNCHECKESet = cOLUMNCHECKESet;
-        cOLUMNCHECK = COLUMNCHECK_EDEFAULT;
-        cOLUMNCHECKESet = false;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__COLUMNCHECK, oldCOLUMNCHECK, COLUMNCHECK_EDEFAULT, oldCOLUMNCHECKESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isSetCOLUMNCHECK() {
-        return cOLUMNCHECKESet;
     }
 
     /**
@@ -796,6 +750,52 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isTECHNICAL() {
+        return tECHNICAL;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTECHNICAL(boolean newTECHNICAL) {
+        boolean oldTECHNICAL = tECHNICAL;
+        tECHNICAL = newTECHNICAL;
+        boolean oldTECHNICALESet = tECHNICALESet;
+        tECHNICALESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__TECHNICAL, oldTECHNICAL, tECHNICAL, !oldTECHNICALESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetTECHNICAL() {
+        boolean oldTECHNICAL = tECHNICAL;
+        boolean oldTECHNICALESet = tECHNICALESet;
+        tECHNICAL = TECHNICAL_EDEFAULT;
+        tECHNICALESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__TECHNICAL, oldTECHNICAL, TECHNICAL_EDEFAULT, oldTECHNICALESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetTECHNICAL() {
+        return tECHNICALESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public BigDecimal getVERSION() {
         return vERSION;
     }
@@ -865,14 +865,16 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getSIGNATURE();
             case ComponentPackage.HEADER_TYPE__AUTHOR:
                 return getAUTHOR();
-            case ComponentPackage.HEADER_TYPE__COLUMNCHECK:
-                return isCOLUMNCHECK() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
                 return getCOMPATIBILITY();
             case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
                 return isDATAAUTOPROPAGATE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 return getEXTENSION();
+            case ComponentPackage.HEADER_TYPE__ICON16:
+                return getICON16();
+            case ComponentPackage.HEADER_TYPE__ICON24:
+                return getICON24();
             case ComponentPackage.HEADER_TYPE__ICON32:
                 return getICON32();
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
@@ -887,12 +889,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSTARTABLE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__STATUS:
                 return getSTATUS();
+            case ComponentPackage.HEADER_TYPE__TECHNICAL:
+                return isTECHNICAL() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__VERSION:
                 return getVERSION();
-            case ComponentPackage.HEADER_TYPE__ICON24:
-                return getICON24();
-            case ComponentPackage.HEADER_TYPE__ICON16:
-                return getICON16();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -910,9 +910,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__AUTHOR:
                 setAUTHOR((String)newValue);
                 return;
-            case ComponentPackage.HEADER_TYPE__COLUMNCHECK:
-                setCOLUMNCHECK(((Boolean)newValue).booleanValue());
-                return;
             case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
                 setCOMPATIBILITY((String)newValue);
                 return;
@@ -921,6 +918,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 setEXTENSION((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__ICON16:
+                setICON16((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__ICON24:
+                setICON24((String)newValue);
                 return;
             case ComponentPackage.HEADER_TYPE__ICON32:
                 setICON32((String)newValue);
@@ -943,14 +946,11 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__STATUS:
                 setSTATUS((String)newValue);
                 return;
+            case ComponentPackage.HEADER_TYPE__TECHNICAL:
+                setTECHNICAL(((Boolean)newValue).booleanValue());
+                return;
             case ComponentPackage.HEADER_TYPE__VERSION:
                 setVERSION((BigDecimal)newValue);
-                return;
-            case ComponentPackage.HEADER_TYPE__ICON24:
-                setICON24((String)newValue);
-                return;
-            case ComponentPackage.HEADER_TYPE__ICON16:
-                setICON16((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -969,9 +969,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__AUTHOR:
                 setAUTHOR(AUTHOR_EDEFAULT);
                 return;
-            case ComponentPackage.HEADER_TYPE__COLUMNCHECK:
-                unsetCOLUMNCHECK();
-                return;
             case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
                 setCOMPATIBILITY(COMPATIBILITY_EDEFAULT);
                 return;
@@ -980,6 +977,12 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 setEXTENSION(EXTENSION_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__ICON16:
+                setICON16(ICON16_EDEFAULT);
+                return;
+            case ComponentPackage.HEADER_TYPE__ICON24:
+                setICON24(ICON24_EDEFAULT);
                 return;
             case ComponentPackage.HEADER_TYPE__ICON32:
                 setICON32(ICON32_EDEFAULT);
@@ -1002,14 +1005,11 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__STATUS:
                 setSTATUS(STATUS_EDEFAULT);
                 return;
+            case ComponentPackage.HEADER_TYPE__TECHNICAL:
+                unsetTECHNICAL();
+                return;
             case ComponentPackage.HEADER_TYPE__VERSION:
                 setVERSION(VERSION_EDEFAULT);
-                return;
-            case ComponentPackage.HEADER_TYPE__ICON24:
-                setICON24(ICON24_EDEFAULT);
-                return;
-            case ComponentPackage.HEADER_TYPE__ICON16:
-                setICON16(ICON16_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -1026,14 +1026,16 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return SIGNATURE_EDEFAULT == null ? sIGNATURE != null : !SIGNATURE_EDEFAULT.equals(sIGNATURE);
             case ComponentPackage.HEADER_TYPE__AUTHOR:
                 return AUTHOR_EDEFAULT == null ? aUTHOR != null : !AUTHOR_EDEFAULT.equals(aUTHOR);
-            case ComponentPackage.HEADER_TYPE__COLUMNCHECK:
-                return isSetCOLUMNCHECK();
             case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
                 return COMPATIBILITY_EDEFAULT == null ? cOMPATIBILITY != null : !COMPATIBILITY_EDEFAULT.equals(cOMPATIBILITY);
             case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
                 return isSetDATAAUTOPROPAGATE();
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 return EXTENSION_EDEFAULT == null ? eXTENSION != null : !EXTENSION_EDEFAULT.equals(eXTENSION);
+            case ComponentPackage.HEADER_TYPE__ICON16:
+                return ICON16_EDEFAULT == null ? iCON16 != null : !ICON16_EDEFAULT.equals(iCON16);
+            case ComponentPackage.HEADER_TYPE__ICON24:
+                return ICON24_EDEFAULT == null ? iCON24 != null : !ICON24_EDEFAULT.equals(iCON24);
             case ComponentPackage.HEADER_TYPE__ICON32:
                 return ICON32_EDEFAULT == null ? iCON32 != null : !ICON32_EDEFAULT.equals(iCON32);
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
@@ -1048,12 +1050,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSetSTARTABLE();
             case ComponentPackage.HEADER_TYPE__STATUS:
                 return STATUS_EDEFAULT == null ? sTATUS != null : !STATUS_EDEFAULT.equals(sTATUS);
+            case ComponentPackage.HEADER_TYPE__TECHNICAL:
+                return isSetTECHNICAL();
             case ComponentPackage.HEADER_TYPE__VERSION:
                 return VERSION_EDEFAULT == null ? vERSION != null : !VERSION_EDEFAULT.equals(vERSION);
-            case ComponentPackage.HEADER_TYPE__ICON24:
-                return ICON24_EDEFAULT == null ? iCON24 != null : !ICON24_EDEFAULT.equals(iCON24);
-            case ComponentPackage.HEADER_TYPE__ICON16:
-                return ICON16_EDEFAULT == null ? iCON16 != null : !ICON16_EDEFAULT.equals(iCON16);
         }
         return super.eIsSet(featureID);
     }
@@ -1071,14 +1071,16 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(sIGNATURE);
         result.append(", aUTHOR: ");
         result.append(aUTHOR);
-        result.append(", cOLUMNCHECK: ");
-        if (cOLUMNCHECKESet) result.append(cOLUMNCHECK); else result.append("<unset>");
         result.append(", cOMPATIBILITY: ");
         result.append(cOMPATIBILITY);
         result.append(", dATAAUTOPROPAGATE: ");
         if (dATAAUTOPROPAGATEESet) result.append(dATAAUTOPROPAGATE); else result.append("<unset>");
         result.append(", eXTENSION: ");
         result.append(eXTENSION);
+        result.append(", iCON16: ");
+        result.append(iCON16);
+        result.append(", iCON24: ");
+        result.append(iCON24);
         result.append(", iCON32: ");
         result.append(iCON32);
         result.append(", pLATEFORM: ");
@@ -1093,12 +1095,10 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         if (sTARTABLEESet) result.append(sTARTABLE); else result.append("<unset>");
         result.append(", sTATUS: ");
         result.append(sTATUS);
+        result.append(", tECHNICAL: ");
+        if (tECHNICALESet) result.append(tECHNICAL); else result.append("<unset>");
         result.append(", vERSION: ");
         result.append(vERSION);
-        result.append(", iCON24: ");
-        result.append(iCON24);
-        result.append(", iCON16: ");
-        result.append(iCON16);
         result.append(')');
         return result.toString();
     }

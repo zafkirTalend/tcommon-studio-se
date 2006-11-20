@@ -20,10 +20,11 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSIGNATURE <em>SIGNATURE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getAUTHOR <em>AUTHOR</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isCOLUMNCHECK <em>COLUMNCHECK</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMPATIBILITY <em>COMPATIBILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEXTENSION <em>EXTENSION</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON16 <em>ICON16</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON24 <em>ICON24</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON32 <em>ICON32</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getRELEASEDATE <em>RELEASEDATE</em>}</li>
@@ -31,9 +32,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSERIAL <em>SERIAL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSTATUS <em>STATUS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL <em>TECHNICAL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getVERSION <em>VERSION</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON24 <em>ICON24</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON16 <em>ICON16</em>}</li>
  * </ul>
  * </p>
  *
@@ -95,61 +95,6 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setAUTHOR(String value);
-
-    /**
-     * Returns the value of the '<em><b>COLUMNCHECK</b></em>' attribute.
-     * The default value is <code>"true"</code>.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>COLUMNCHECK</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>COLUMNCHECK</em>' attribute.
-     * @see #isSetCOLUMNCHECK()
-     * @see #unsetCOLUMNCHECK()
-     * @see #setCOLUMNCHECK(boolean)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_COLUMNCHECK()
-     * @model default="true" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-     *        extendedMetaData="kind='attribute' name='COLUMN_CHECK' namespace='##targetNamespace'"
-     * @generated
-     */
-    boolean isCOLUMNCHECK();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isCOLUMNCHECK <em>COLUMNCHECK</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>COLUMNCHECK</em>' attribute.
-     * @see #isSetCOLUMNCHECK()
-     * @see #unsetCOLUMNCHECK()
-     * @see #isCOLUMNCHECK()
-     * @generated
-     */
-    void setCOLUMNCHECK(boolean value);
-
-    /**
-     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isCOLUMNCHECK <em>COLUMNCHECK</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isSetCOLUMNCHECK()
-     * @see #isCOLUMNCHECK()
-     * @see #setCOLUMNCHECK(boolean)
-     * @generated
-     */
-    void unsetCOLUMNCHECK();
-
-    /**
-     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isCOLUMNCHECK <em>COLUMNCHECK</em>}' attribute is set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return whether the value of the '<em>COLUMNCHECK</em>' attribute is set.
-     * @see #unsetCOLUMNCHECK()
-     * @see #isCOLUMNCHECK()
-     * @see #setCOLUMNCHECK(boolean)
-     * @generated
-     */
-    boolean isSetCOLUMNCHECK();
 
     /**
      * Returns the value of the '<em><b>COMPATIBILITY</b></em>' attribute.
@@ -505,6 +450,61 @@ public interface HEADERType extends EObject {
     void setSTATUS(String value);
 
     /**
+     * Returns the value of the '<em><b>TECHNICAL</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>TECHNICAL</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>TECHNICAL</em>' attribute.
+     * @see #isSetTECHNICAL()
+     * @see #unsetTECHNICAL()
+     * @see #setTECHNICAL(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_TECHNICAL()
+     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='TECHNICAL' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isTECHNICAL();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL <em>TECHNICAL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>TECHNICAL</em>' attribute.
+     * @see #isSetTECHNICAL()
+     * @see #unsetTECHNICAL()
+     * @see #isTECHNICAL()
+     * @generated
+     */
+    void setTECHNICAL(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL <em>TECHNICAL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetTECHNICAL()
+     * @see #isTECHNICAL()
+     * @see #setTECHNICAL(boolean)
+     * @generated
+     */
+    void unsetTECHNICAL();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL <em>TECHNICAL</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>TECHNICAL</em>' attribute is set.
+     * @see #unsetTECHNICAL()
+     * @see #isTECHNICAL()
+     * @see #setTECHNICAL(boolean)
+     * @generated
+     */
+    boolean isSetTECHNICAL();
+
+    /**
      * Returns the value of the '<em><b>VERSION</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -542,7 +542,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>ICON24</em>' attribute.
      * @see #setICON24(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_ICON24()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='ICON24' namespace='##targetNamespace'"
      * @generated
      */
@@ -569,7 +569,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>ICON16</em>' attribute.
      * @see #setICON16(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_ICON16()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='ICON16' namespace='##targetNamespace'"
      * @generated
      */

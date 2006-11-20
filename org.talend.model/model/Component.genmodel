@@ -2,7 +2,7 @@
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.talend.model/src/main/java"
-    modelPluginID="org.talend.model" templateDirectory="" modelName="Component" importerID="org.eclipse.xsd.ecore.importer">
+    modelPluginID="org.talend.model" redirection="" modelName="Component" importerID="org.eclipse.xsd.ecore.importer">
   <foreignModel>Component.xsd</foreignModel>
   <genPackages prefix="Component" resource="XML" disposableProviderFactory="true"
       ecorePackage="Component.ecore#/">
@@ -53,17 +53,19 @@
     <genClasses ecoreClass="Component.ecore#//HEADERType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sIGNATURE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/aUTHOR"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/cOLUMNCHECK"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/cOMPATIBILITY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/dATAAUTOPROPAGATE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/eXTENSION"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/iCON"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/iCON16"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/iCON24"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/iCON32"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/pLATEFORM"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/rELEASEDATE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sCHEMAAUTOPROPAGATE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sERIAL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sTARTABLE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sTATUS"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/tECHNICAL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vERSION"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//IMPORTSType">

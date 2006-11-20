@@ -618,7 +618,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_COLUMNCHECK() {
+    public EAttribute getHEADERType_COMPATIBILITY() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -627,7 +627,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_COMPATIBILITY() {
+    public EAttribute getHEADERType_DATAAUTOPROPAGATE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -636,7 +636,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_DATAAUTOPROPAGATE() {
+    public EAttribute getHEADERType_EXTENSION() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -645,25 +645,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_EXTENSION() {
-        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(5);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EAttribute getHEADERType_ICON32() {
-        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(6);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getHEADERType_PLATEFORM() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -672,7 +654,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_RELEASEDATE() {
+    public EAttribute getHEADERType_PLATEFORM() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(8);
     }
 
@@ -681,7 +663,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_SCHEMAAUTOPROPAGATE() {
+    public EAttribute getHEADERType_RELEASEDATE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(9);
     }
 
@@ -690,7 +672,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_SERIAL() {
+    public EAttribute getHEADERType_SCHEMAAUTOPROPAGATE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(10);
     }
 
@@ -699,7 +681,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_STARTABLE() {
+    public EAttribute getHEADERType_SERIAL() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(11);
     }
 
@@ -708,7 +690,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_STATUS() {
+    public EAttribute getHEADERType_STARTABLE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(12);
     }
 
@@ -717,7 +699,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_VERSION() {
+    public EAttribute getHEADERType_STATUS() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(13);
     }
 
@@ -726,7 +708,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_ICON24() {
+    public EAttribute getHEADERType_TECHNICAL() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(14);
     }
 
@@ -735,8 +717,26 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_ICON16() {
+    public EAttribute getHEADERType_VERSION() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(15);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHEADERType_ICON24() {
+        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHEADERType_ICON16() {
+        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -1300,10 +1300,11 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         headerTypeEClass = createEClass(HEADER_TYPE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__SIGNATURE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__AUTHOR);
-        createEAttribute(headerTypeEClass, HEADER_TYPE__COLUMNCHECK);
         createEAttribute(headerTypeEClass, HEADER_TYPE__COMPATIBILITY);
         createEAttribute(headerTypeEClass, HEADER_TYPE__DATAAUTOPROPAGATE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__EXTENSION);
+        createEAttribute(headerTypeEClass, HEADER_TYPE__ICON16);
+        createEAttribute(headerTypeEClass, HEADER_TYPE__ICON24);
         createEAttribute(headerTypeEClass, HEADER_TYPE__ICON32);
         createEAttribute(headerTypeEClass, HEADER_TYPE__PLATEFORM);
         createEAttribute(headerTypeEClass, HEADER_TYPE__RELEASEDATE);
@@ -1311,9 +1312,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(headerTypeEClass, HEADER_TYPE__SERIAL);
         createEAttribute(headerTypeEClass, HEADER_TYPE__STARTABLE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__STATUS);
+        createEAttribute(headerTypeEClass, HEADER_TYPE__TECHNICAL);
         createEAttribute(headerTypeEClass, HEADER_TYPE__VERSION);
-        createEAttribute(headerTypeEClass, HEADER_TYPE__ICON24);
-        createEAttribute(headerTypeEClass, HEADER_TYPE__ICON16);
 
         importsTypeEClass = createEClass(IMPORTS_TYPE);
         createEReference(importsTypeEClass, IMPORTS_TYPE__IMPORT);
@@ -1458,10 +1458,11 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEClass(headerTypeEClass, HEADERType.class, "HEADERType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getHEADERType_SIGNATURE(), theXMLTypePackage.getString(), "sIGNATURE", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_AUTHOR(), theXMLTypePackage.getString(), "aUTHOR", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHEADERType_COLUMNCHECK(), theXMLTypePackage.getBoolean(), "cOLUMNCHECK", "true", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_COMPATIBILITY(), theXMLTypePackage.getString(), "cOMPATIBILITY", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_DATAAUTOPROPAGATE(), theXMLTypePackage.getBoolean(), "dATAAUTOPROPAGATE", "true", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_EXTENSION(), theXMLTypePackage.getString(), "eXTENSION", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHEADERType_ICON16(), theXMLTypePackage.getString(), "iCON16", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHEADERType_ICON24(), theXMLTypePackage.getString(), "iCON24", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_ICON32(), theXMLTypePackage.getString(), "iCON32", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_PLATEFORM(), theXMLTypePackage.getString(), "pLATEFORM", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_RELEASEDATE(), theXMLTypePackage.getString(), "rELEASEDATE", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1469,9 +1470,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getHEADERType_SERIAL(), theXMLTypePackage.getString(), "sERIAL", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_STARTABLE(), theXMLTypePackage.getBoolean(), "sTARTABLE", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_STATUS(), theXMLTypePackage.getString(), "sTATUS", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHEADERType_TECHNICAL(), theXMLTypePackage.getBoolean(), "tECHNICAL", "false", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_VERSION(), theXMLTypePackage.getDecimal(), "vERSION", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHEADERType_ICON24(), theXMLTypePackage.getString(), "iCON24", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getHEADERType_ICON16(), theXMLTypePackage.getString(), "iCON16", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(importsTypeEClass, IMPORTSType.class, "IMPORTSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getIMPORTSType_IMPORT(), this.getIMPORTType(), null, "iMPORT", null, 1, -1, IMPORTSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1870,14 +1870,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
-          (getHEADERType_COLUMNCHECK(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "COLUMN_CHECK",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
           (getHEADERType_COMPATIBILITY(), 
            source, 
            new String[] {
@@ -1899,6 +1891,22 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "EXTENSION",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getHEADERType_ICON16(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "ICON16",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getHEADERType_ICON24(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "ICON24",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
@@ -1958,27 +1966,19 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (getHEADERType_TECHNICAL(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "TECHNICAL",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (getHEADERType_VERSION(), 
            source, 
            new String[] {
              "kind", "attribute",
              "name", "VERSION",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_ICON24(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "ICON24",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getHEADERType_ICON16(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "ICON16",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
