@@ -85,11 +85,10 @@ public abstract class BackgroundRefresher {
             public void controlResized(ControlEvent e) {
                 createBgImages();
                 updateBackground();
-//                updateBackground(true, false);
+                // updateBackground(true, false);
             }
 
         });
-
 
     }
 
@@ -102,13 +101,13 @@ public abstract class BackgroundRefresher {
                     public void handleEvent(PerformanceEvaluatorEvent event) {
                         boolean previousAntialiasAllowed = antialiasAllowed;
                         antialiasAllowed = event.getIndicePerformance() < PerformanceEvaluator.GOOD_PERFORMANCE_INDICE;
-//                        System.out.println(event.getIndicePerformance());
-                        if(previousAntialiasAllowed != antialiasAllowed && commonParent.getDisplay() != null) {
-                            
+                        // System.out.println(event.getIndicePerformance());
+                        if (previousAntialiasAllowed != antialiasAllowed && commonParent.getDisplay() != null) {
+
                             new AsynchronousThreading(0, false, commonParent.getDisplay(), new Runnable() {
 
                                 public void run() {
-//                                    System.out.println(antialiasAllowed);
+                                    // System.out.println(antialiasAllowed);
                                     updateBackground();
 
                                 }
@@ -151,8 +150,8 @@ public abstract class BackgroundRefresher {
         oldImage = commonParent.getBackgroundImage();
         Image newImage = null;
         if (oldImage == null || oldImage.isDisposed()
-//                || bgImage1 == null || bgImage1.isDisposed() 
-//                || bgImage2 == null || bgImage2.isDisposed() 
+        // || bgImage1 == null || bgImage1.isDisposed()
+        // || bgImage2 == null || bgImage2.isDisposed()
         ) {
             createBgImages();
             newImage = bgImage1;
@@ -167,7 +166,7 @@ public abstract class BackgroundRefresher {
         if (newImage != null && !newImage.isDisposed()) {
 
             GC gc = new GC(newImage);
-            
+
             drawBackground(gc);
 
             gc.dispose();
@@ -281,14 +280,13 @@ public abstract class BackgroundRefresher {
         return returnedPoint;
     }
 
-    
     /**
      * Getter for antialiasActivated.
+     * 
      * @return the antialiasActivated
      */
     public boolean isAntialiasAllowed() {
         return this.antialiasAllowed;
     }
 
-    
 }

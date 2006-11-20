@@ -196,7 +196,7 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             TreeItem treeItem = extremity1.getGraphicalItem();
 
             TreeItem firstExpandedAscTreeItem = findFirstVisibleItemAscFrom(treeItem);
-//            System.out.println(isAntialiasAllowed());
+            // System.out.println(isAntialiasAllowed());
             if (isAntialiasAllowed()) {
                 gc.setAntialias(SWT.ON);
             } else {
@@ -208,26 +208,25 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             Rectangle treeItemBounds = firstExpandedAscTreeItem.getBounds();
 
             int yStraight = treeToCommonPoint.y + treeItemHeight / 2 + treeItemBounds.y;
-            Point pointStartStraight = new Point(treeToCommonPoint.x + treeItemBounds.x + treeItemBounds.width,
-                    yStraight);
+            Point pointStartStraight = new Point(treeToCommonPoint.x + treeItemBounds.x + treeItemBounds.width, yStraight);
             Point pointEndStraight = new Point(treeToCommonPoint.x + xStartBezierLink, yStraight);
 
             Rectangle tableItemBounds = extremity2.getGraphicalItem().getBounds();
             Rectangle tableBounds = table.getBounds();
 
-            Point pointEndCentralCurve = convertPointToCommonParentOrigin(new Point(tableItemBounds.x - 2,
-                    tableItemBounds.y + table.getItemHeight() / 2 + table.getBorderWidth()), table);
+            Point pointEndCentralCurve = convertPointToCommonParentOrigin(new Point(tableItemBounds.x - 2, tableItemBounds.y
+                    + table.getItemHeight() / 2 + table.getBorderWidth()), table);
 
             boolean lineStyleDot = false;
-            
+
             Rectangle treeBounds = tree.getBounds();
-            
-            Point point = display.map(tree, commonParent, new Point(0,0));
-            
-            if(yStraight < point.y || yStraight > point.y + treeBounds.height) {
+
+            Point point = display.map(tree, commonParent, new Point(0, 0));
+
+            if (yStraight < point.y || yStraight > point.y + treeBounds.height) {
                 lineStyleDot = true;
             }
-            
+
             if (pointEndCentralCurve.y < tableToCommonPoint.y) {
                 pointEndCentralCurve.y = tableToCommonPoint.y;
                 lineStyleDot = true;
@@ -245,7 +244,7 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             }
 
             gc.drawLine(pointStartStraight.x, pointStartStraight.y, pointEndStraight.x, pointEndStraight.y);
-            
+
             drawableLink.setPoint1(pointEndStraight);
             drawableLink.setPoint2(pointEndCentralCurve);
 
@@ -352,7 +351,7 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             Rectangle bounds = item.getBounds();
             maxWidth = Math.max(maxWidth, bounds.x + bounds.width);
             if (item.getExpanded()) {
-            	maxWidth = findXRightStartBezierLink(item.getItems(), maxWidth);
+                maxWidth = findXRightStartBezierLink(item.getItems(), maxWidth);
             }
         }
         return maxWidth;
