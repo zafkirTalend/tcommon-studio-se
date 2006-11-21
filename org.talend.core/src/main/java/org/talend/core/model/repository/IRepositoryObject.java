@@ -24,7 +24,6 @@ package org.talend.core.model.repository;
 import java.util.Date;
 
 import org.talend.core.model.general.User;
-import org.talend.core.model.general.Version;
 import org.talend.core.model.properties.Property;
 
 /**
@@ -58,9 +57,9 @@ public interface IRepositoryObject {
      * 
      * @return the process version
      */
-    public Version getVersion();
+    public String getVersion();
 
-    public void setVersion(Version version);
+    public void setVersion(String version);
 
     public User getAuthor();
 

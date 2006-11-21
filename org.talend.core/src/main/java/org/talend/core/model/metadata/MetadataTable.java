@@ -24,7 +24,6 @@ package org.talend.core.model.metadata;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.core.model.general.Version;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryObject;
 
@@ -171,7 +170,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
      * 
      * @see org.talend.core.model.repository.IRepositoryObject#getVersion()
      */
-    public Version getVersion() {
+    public String getVersion() {
         return getParent().getVersion();
     }
 }

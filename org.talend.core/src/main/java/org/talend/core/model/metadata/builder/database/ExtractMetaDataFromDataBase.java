@@ -33,10 +33,8 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.talend.core.i18n.Messages;
-import org.talend.core.model.general.Version;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.MetadataConnection;
 import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -130,15 +128,16 @@ public class ExtractMetaDataFromDataBase {
      * @param String tableLabel
      * @return Collection of MetadataColumn Object of a Table
      */
-    public static List<MetadataColumn> returnMetadataColumnsFormTable(IMetadataConnection iMetadataConnection, String tableLabel) {
+    public static List<MetadataColumn> returnMetadataColumnsFormTable(IMetadataConnection iMetadataConnection,
+            String tableLabel) {
 
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
 
         try {
             // WARNING Schema equals sid or database
-            ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
-                    .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                    .getSchema());
+            ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+                    iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection
+                            .getDatabase(), iMetadataConnection.getSchema());
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
             List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
@@ -171,8 +170,8 @@ public class ExtractMetaDataFromDataBase {
      * @param MetadataTable medataTable
      * @return Collection of MetadataColumn Object
      */
-    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
-            String dbms) {
+    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData,
+            IMetadataTable medataTable, String dbms) {
 
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
 
@@ -191,7 +190,8 @@ public class ExtractMetaDataFromDataBase {
                 log.error(e.toString());
             }
 
-            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(), null);
+            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(),
+                    null);
             while (columns.next()) {
 
                 MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
@@ -203,13 +203,14 @@ public class ExtractMetaDataFromDataBase {
                     metadataColumn.setKey(false);
                 }
                 metadataColumn.setSourceType(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME"));
-                metadataColumn.setNullable(new Boolean(ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"))
-                        .booleanValue());
+                metadataColumn.setNullable(new Boolean(ExtractMetaDataUtils.getBooleanMetaDataInfo(columns,
+                        "IS_NULLABLE")).booleanValue());
                 metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE"));
                 // Convert dbmsType to TalendType
                 String talendType = MetadataTalendType.loadTalendType(metadataColumn.getSourceType(), dbms, false);
                 metadataColumn.setTalendType(talendType);
-                // System.out.println("COMMENT : "+ExtractMetaDataUtils.getStringMetaDataInfo(columns,
+                // System.out.println("COMMENT :
+                // "+ExtractMetaDataUtils.getStringMetaDataInfo(columns,
                 // "TABLE_REMARKS"));
                 metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS"));
                 metadataColumn.setDefaultValue(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"));
@@ -250,13 +251,15 @@ public class ExtractMetaDataFromDataBase {
             if ((schema != null) && (schema.compareTo("") != 0)) {
                 // We have to check schema
                 if (!checkSchemaConnection(schema, connection)) {
-                    connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.SchemaNoPresent"));
+                    connectionStatus.setMessageException(Messages
+                            .getString("ExtractMetaDataFromDataBase.SchemaNoPresent"));
                     return connectionStatus;
                 }
             }
             connection.close();
             connectionStatus.setResult(true);
-            connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"));
+            connectionStatus
+                    .setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"));
         } catch (SQLException e) {
             connectionStatus.setMessageException(e.getMessage());
         } catch (Exception e) {
@@ -296,57 +299,63 @@ public class ExtractMetaDataFromDataBase {
      * @param String allParameters to Save (String Version)
      * @return IMetadataConnection : this object was returned to the factory who Save in a XML representation
      */
-    public static IMetadataConnection saveDbConnection(String id, String name, String comment, String dbType, String url,
-            String port, String username, String pwd, String sidOrDatabase, String schemaOracle, String sqlSyntax,
-            String stringQuote, String nullChar, String serverName, String dataSourceName, String fileFieldName, String version) {
-
-        int i = version.indexOf(".");
-        int minor = new Integer(version.substring(0, i));
-        int major = new Integer(version.substring(i + 1, version.length()));
-
-        return saveDbConnection(id, name, comment, dbType, url, port, username, pwd, sidOrDatabase, schemaOracle, sqlSyntax,
-                stringQuote, nullChar, serverName, dataSourceName, fileFieldName, new Version(minor, major));
-    }
-
+    // public static IMetadataConnection saveDbConnection(String id, String
+    // name, String comment, String dbType, String url,
+    // String port, String username, String pwd, String sidOrDatabase, String
+    // schemaOracle, String sqlSyntax,
+    // String stringQuote, String nullChar, String serverName, String
+    // dataSourceName, String fileFieldName, String version) {
+    //
+    // int i = version.indexOf(".");
+    // int minor = new Integer(version.substring(0, i));
+    // int major = new Integer(version.substring(i + 1, version.length()));
+    //
+    // return saveDbConnection(id, name, comment, dbType, url, port, username,
+    // pwd, sidOrDatabase, schemaOracle, sqlSyntax,
+    // stringQuote, nullChar, serverName, dataSourceName, fileFieldName, new
+    // Version(minor, major));
+    // }
     /**
      * DOC cantoine. Method to save a DataBaseConnection with the EMF Shema.
      * 
      * @param String allParameters to Save (org.talend.core.model.version.Version Version)
      * @return IMetadataConnection : this object was returned to the factory who Save in a XML representation
      */
-    public static IMetadataConnection saveDbConnection(String id, String name, String comment, String dbType, String url,
-            String port, String username, String pwd, String sidOrDatabase, String schemaOracle, String sqlSyntax,
-            String stringQuote, String nullChar, String serverName, String dataSourceName, String fileFieldName, Version version) {
-
-        IMetadataConnection metadataConnection = new MetadataConnection();
-
-        try {
-            metadataConnection.setId(id);
-            metadataConnection.setLabel(name);
-            metadataConnection.setVersion(version);
-            metadataConnection.setDescription(comment);
-            metadataConnection.setDbType(dbType);
-            metadataConnection.setDriverClass(ExtractMetaDataUtils.getDriverClassByDbType(dbType));
-            metadataConnection.setUrl(url);
-            metadataConnection.setPort(port);
-            metadataConnection.setUsername(username);
-            metadataConnection.setPassword(pwd);
-            metadataConnection.setServerName(serverName);
-            metadataConnection.setDataSourceName(dataSourceName);
-            metadataConnection.setDatabase(sidOrDatabase);
-            metadataConnection.setSchema(schemaOracle);
-            metadataConnection.setSqlSyntax(sqlSyntax);
-            metadataConnection.setStringQuote(stringQuote);
-            metadataConnection.setNullChar(nullChar);
-            metadataConnection.setFileFieldName(fileFieldName);
-
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        }
-        return metadataConnection;
-    }
-
+    // public static IMetadataConnection saveDbConnection(String id, String
+    // name, String comment, String dbType, String url,
+    // String port, String username, String pwd, String sidOrDatabase, String
+    // schemaOracle, String sqlSyntax,
+    // String stringQuote, String nullChar, String serverName, String
+    // dataSourceName, String fileFieldName, Version version) {
+    //
+    // IMetadataConnection metadataConnection = new MetadataConnection();
+    //
+    // try {
+    // metadataConnection.setId(id);
+    // metadataConnection.setLabel(name);
+    // metadataConnection.setVersion(version);
+    // metadataConnection.setDescription(comment);
+    // metadataConnection.setDbType(dbType);
+    // metadataConnection.setDriverClass(ExtractMetaDataUtils.getDriverClassByDbType(dbType));
+    // metadataConnection.setUrl(url);
+    // metadataConnection.setPort(port);
+    // metadataConnection.setUsername(username);
+    // metadataConnection.setPassword(pwd);
+    // metadataConnection.setServerName(serverName);
+    // metadataConnection.setDataSourceName(dataSourceName);
+    // metadataConnection.setDatabase(sidOrDatabase);
+    // metadataConnection.setSchema(schemaOracle);
+    // metadataConnection.setSqlSyntax(sqlSyntax);
+    // metadataConnection.setStringQuote(stringQuote);
+    // metadataConnection.setNullChar(nullChar);
+    // metadataConnection.setFileFieldName(fileFieldName);
+    //
+    // } catch (Exception e) {
+    // log.error(e.toString());
+    // throw new RuntimeException(e);
+    // }
+    // return metadataConnection;
+    // }
     /**
      * DOC cantoine.
      * 
@@ -356,9 +365,9 @@ public class ExtractMetaDataFromDataBase {
     public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection) {
         List<String> itemTablesName = new ArrayList<String>();
 
-        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
-                .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                .getSchema());
+        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+                iMetadataConnection.getUsername(), iMetadataConnection.getPassword(),
+                iMetadataConnection.getDatabase(), iMetadataConnection.getSchema());
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 

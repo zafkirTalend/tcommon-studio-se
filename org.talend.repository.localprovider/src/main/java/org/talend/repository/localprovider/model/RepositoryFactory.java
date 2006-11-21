@@ -66,7 +66,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.general.User;
-import org.talend.core.model.general.Version;
+import org.talend.core.model.general.VersionUtils;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.TableHelper;
 import org.talend.core.model.properties.BusinessProcessItem;
@@ -1357,7 +1357,7 @@ public class RepositoryFactory implements IRepositoryFactory {
 
     public void create(Item item, IPath path) throws PersistenceException {
         if (item.getProperty().getVersion() == null) {
-            item.getProperty().setVersion(new Version().toString());
+            item.getProperty().setVersion(VersionUtils.DEFAULT_VERSION);
         }
         if (item.getProperty().getAuthor() == null) {
             item.getProperty().setAuthor(repositoryContext.getUser().getEmfUser());

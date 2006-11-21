@@ -25,7 +25,6 @@ import java.util.Date;
 
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.model.general.User;
-import org.talend.core.model.general.Version;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
@@ -93,12 +92,8 @@ public class RepositoryObject implements IRepositoryObject {
         return this.property.getStatusCode();
     }
 
-    public Version getVersion() {
-        try {
-            return new Version(this.property.getVersion());
-        } catch (RuntimeException e) {
-            return new Version();
-        }
+    public String getVersion() {
+        return this.property.getVersion();
     }
 
     public void setAuthor(User value) {
@@ -133,8 +128,8 @@ public class RepositoryObject implements IRepositoryObject {
         this.property.setStatusCode(value);
     }
 
-    public void setVersion(Version value) {
-        this.property.setVersion(value.toString());
+    public void setVersion(String value) {
+        this.property.setVersion(value);
     }
 
     public ERepositoryObjectType getType() {
@@ -183,7 +178,7 @@ public class RepositoryObject implements IRepositoryObject {
             public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
                 return ERepositoryObjectType.METADATA_FILE_LDIF;
             }
-            
+
             public Object defaultCase(EObject object) {
                 throw new IllegalStateException();
             }
