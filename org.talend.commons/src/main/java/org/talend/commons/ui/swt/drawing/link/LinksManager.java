@@ -45,7 +45,7 @@ public class LinksManager<G1, D1, G2, D2> {
     private int currentNumberLinks = 0;
 
     private Map<G2, Set<LinkDescriptor<G1, D1, G2, D2>>> g2ToLinks = new HashMap<G2, Set<LinkDescriptor<G1, D1, G2, D2>>>();
-    
+
     private Map<D2, Set<LinkDescriptor<G1, D1, G2, D2>>> d2ToLinks = new HashMap<D2, Set<LinkDescriptor<G1, D1, G2, D2>>>();
 
     public LinksManager() {
@@ -62,25 +62,24 @@ public class LinksManager<G1, D1, G2, D2> {
         currentNumberLinks++;
 
         links.add(link);
-//        IExtremityLink<G1, D1> extremitsy1 = link.getExtremity1();
+        // IExtremityLink<G1, D1> extremitsy1 = link.getExtremity1();
         IExtremityLink<G2, D2> extremity2 = link.getExtremity2();
-        
+
         Set<LinkDescriptor<G1, D1, G2, D2>> linksFromG2 = g2ToLinks.get(extremity2.getGraphicalItem());
         if (linksFromG2 == null) {
             linksFromG2 = new HashSet<LinkDescriptor<G1, D1, G2, D2>>();
             g2ToLinks.put(extremity2.getGraphicalItem(), linksFromG2);
         }
         linksFromG2.add(link);
-        
+
         Set<LinkDescriptor<G1, D1, G2, D2>> linksFromD2 = d2ToLinks.get(extremity2.getDataItem());
         if (linksFromD2 == null) {
             linksFromD2 = new HashSet<LinkDescriptor<G1, D1, G2, D2>>();
             d2ToLinks.put(extremity2.getDataItem(), linksFromD2);
         }
         linksFromD2.add(link);
-        
-    }
 
+    }
 
     /**
      * DOC amaumont Comment method "addLink".
@@ -91,12 +90,10 @@ public class LinksManager<G1, D1, G2, D2> {
         currentNumberLinks--;
 
         links.remove(link);
-        
+
         g2ToLinks.remove(link.getExtremity2().getGraphicalItem());
         d2ToLinks.remove(link.getExtremity2().getDataItem());
-        
-        
-        
+
     }
 
     /**
@@ -121,15 +118,16 @@ public class LinksManager<G1, D1, G2, D2> {
     /**
      * 
      * DOC amaumont Comment method "changeTargetGraphicalItemFromTargetDataItem".
+     * 
      * @param dataItemOfExtremity links are searched from this object
      * @param newGraphicalTarget new graphical target to set
      * @return true if change applied, else false if dataTarget doesn't have links
      */
     public boolean setNewGraphicalItemToExtremity2(D2 dataItemOfExtremity, G2 newGraphicalTarget) {
         Set<LinkDescriptor<G1, D1, G2, D2>> linksFromD2 = d2ToLinks.get(dataItemOfExtremity);
-        if(linksFromD2 != null) {
+        if (linksFromD2 != null) {
             Set<LinkDescriptor<G1, D1, G2, D2>> linksForG2 = g2ToLinks.get(newGraphicalTarget);
-            if(linksForG2 != null) {
+            if (linksForG2 != null) {
                 linksForG2.clear();
             } else {
                 linksForG2 = new HashSet<LinkDescriptor<G1, D1, G2, D2>>();
@@ -144,7 +142,7 @@ public class LinksManager<G1, D1, G2, D2> {
             return false;
         }
     }
-    
+
     /**
      * Getter for currentNumberLinks.
      * 
@@ -153,20 +151,22 @@ public class LinksManager<G1, D1, G2, D2> {
     public int getCurrentNumberLinks() {
         return this.currentNumberLinks;
     }
-    
+
     /**
      * DOC amaumont Comment method "removeLink".
+     * 
      * @param tableItem
      */
     public void removeLink(G2 graphicalItem) {
         Set<LinkDescriptor<G1, D1, G2, D2>> linksFromG2 = g2ToLinks.get(graphicalItem);
-        if(linksFromG2 != null) {
+        if (linksFromG2 != null) {
             removeLinks(linksFromG2);
         }
     }
 
     /**
      * DOC amaumont Comment method "removeLinks".
+     * 
      * @param linksFromG2
      */
     private void removeLinks(Set<LinkDescriptor<G1, D1, G2, D2>> linksFromG2) {
@@ -174,6 +174,5 @@ public class LinksManager<G1, D1, G2, D2> {
             removeLink(linkDescriptor);
         }
     }
-    
-    
+
 }

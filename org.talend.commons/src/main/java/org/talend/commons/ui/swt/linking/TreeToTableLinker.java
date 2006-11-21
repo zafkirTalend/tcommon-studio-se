@@ -200,9 +200,11 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             if (isAntialiasAllowed()) {
                 gc.setAntialias(SWT.ON);
             } else {
-                gc.setAdvanced(false);
+                gc.setAntialias(SWT.OFF);
+//                gc.setAdvanced(false);
             }
-
+            
+  
             // System.out.println(point);
 
             Rectangle treeItemBounds = firstExpandedAscTreeItem.getBounds();
@@ -251,48 +253,6 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             drawableLink.draw(gc);
         }
 
-        // IDrawableLink drawableLink = styleLink.getDrawableLink();
-        // System.out.println("##################");
-        //
-        // TreeColumn[] columns = tree.getColumns();
-        // int sizeColumns = 0;
-        // for (int i = 0; i < columns.length; i++) {
-        // TreeColumn column = columns[i];
-        // sizeColumns += column.getWidth();
-        // }
-        // System.out.println("sizeColumns=" + sizeColumns);
-        //
-        // TreeItem[] items = tree.getItems();
-        // int maxX = 0;
-        //
-        // xStartBezierLink = findXRightStartBezierLink(items, xStartBezierLink);
-        // System.out.println("maxWidth=" + xStartBezierLink);
-        //
-        // Point point2 = tree.computeSize(SWT.DEFAULT, SWT.DEFAULT, true);
-        // System.out.println("computeSize=" + point2);
-        // System.out.println("ClientArea=" + tree.getClientArea());
-        // System.out.println("Bounds=" + tree.getBounds());
-        // System.out.println("Size=" + tree.getSize());
-        // ScrollBar horizontalBar = tree.getHorizontalBar();
-        // Point barSize = horizontalBar.getSize();
-        // System.out.println("barSize=" + barSize);
-        // int barSelection = horizontalBar.getSelection();
-        // System.out.println("barSelection=" + barSelection);
-        //
-        // Composite parent = tree.getParent();
-        // Point point3 = parent.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-        // System.out.println("parent computeSize=" + point3);
-        // System.out.println("parent ClientArea=" + parent.getClientArea());
-        // System.out.println("parent Bounds=" + parent.getBounds());
-        // System.out.println("parent Size=" + parent.getSize());
-        //
-        // System.out.println("treeToCommonPoint=" + treeToCommonPoint);
-        // System.out.println(point);
-
-        // drawableLink.setPoint1(new Point(treeToCommonPoint.x + xStartBezierLink, 143));
-        // drawableLink.setPoint2(tableToCommonPoint);
-        // drawableLink.setPoint2(new Point(140, 243));
-        // drawableLink.draw(gc);
     }
 
     /**
@@ -348,10 +308,12 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
     private int findXRightStartBezierLink(TreeItem[] items, int maxWidth) {
         for (int i = 0; i < items.length; i++) {
             TreeItem item = items[i];
-            Rectangle bounds = item.getBounds();
-            maxWidth = Math.max(maxWidth, bounds.x + bounds.width);
-            if (item.getExpanded()) {
-                maxWidth = findXRightStartBezierLink(item.getItems(), maxWidth);
+            if (!item.isDisposed()) {
+                Rectangle bounds = item.getBounds();
+                maxWidth = Math.max(maxWidth, bounds.x + bounds.width);
+                if (item.getExpanded()) {
+                    maxWidth = findXRightStartBezierLink(item.getItems(), maxWidth);
+                }
             }
         }
         return maxWidth;
