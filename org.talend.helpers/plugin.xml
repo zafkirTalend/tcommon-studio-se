@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            categoryId="Talend"
+            id="logImageCache"
+            name="Log image cache"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="logImageCache"
+            contextId="talend.global"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+ALT+F2"/>
+   </extension>
+   <extension
+         point="org.talend.rcp.global_actions">
+      <GlobalAction class="org.talend.core.model.action.LogImageCacheAction"/>
+   </extension>
+</plugin>
