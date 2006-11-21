@@ -5,6 +5,8 @@
  */
 package org.talend.core.model.properties;
 
+import java.util.Date;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -15,6 +17,10 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.ItemState#getPath <em>Path</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ItemState#isDeleted <em>Deleted</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ItemState#isLocked <em>Locked</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ItemState#getLocker <em>Locker</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ItemState#getLockDate <em>Lock Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ItemState#getCommitDate <em>Commit Date</em>}</li>
  * </ul>
  * </p>
  *
@@ -73,5 +79,109 @@ public interface ItemState extends EObject {
      * @generated
      */
     void setDeleted(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Locked</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Locked</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Locked</em>' attribute.
+     * @see #setLocked(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getItemState_Locked()
+     * @model
+     * @generated
+     */
+    boolean isLocked();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ItemState#isLocked <em>Locked</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Locked</em>' attribute.
+     * @see #isLocked()
+     * @generated
+     */
+    void setLocked(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Locker</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Locker</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Locker</em>' reference.
+     * @see #setLocker(User)
+     * @see org.talend.core.model.properties.PropertiesPackage#getItemState_Locker()
+     * @model
+     * @generated
+     */
+    User getLocker();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ItemState#getLocker <em>Locker</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Locker</em>' reference.
+     * @see #getLocker()
+     * @generated
+     */
+    void setLocker(User value);
+
+    /**
+     * Returns the value of the '<em><b>Lock Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Lock Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Lock Date</em>' attribute.
+     * @see #setLockDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getItemState_LockDate()
+     * @model
+     * @generated
+     */
+    Date getLockDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ItemState#getLockDate <em>Lock Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Lock Date</em>' attribute.
+     * @see #getLockDate()
+     * @generated
+     */
+    void setLockDate(Date value);
+
+    /**
+     * Returns the value of the '<em><b>Commit Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Commit Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Commit Date</em>' attribute.
+     * @see #setCommitDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getItemState_CommitDate()
+     * @model
+     * @generated
+     */
+    Date getCommitDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ItemState#getCommitDate <em>Commit Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Commit Date</em>' attribute.
+     * @see #getCommitDate()
+     * @generated
+     */
+    void setCommitDate(Date value);
 
 } // ItemState

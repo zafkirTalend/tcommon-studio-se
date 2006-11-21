@@ -297,13 +297,49 @@ public interface PropertiesPackage extends EPackage {
     int ITEM_STATE__DELETED = 1;
 
     /**
+     * The feature id for the '<em><b>Locked</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_STATE__LOCKED = 2;
+
+    /**
+     * The feature id for the '<em><b>Locker</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_STATE__LOCKER = 3;
+
+    /**
+     * The feature id for the '<em><b>Lock Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_STATE__LOCK_DATE = 4;
+
+    /**
+     * The feature id for the '<em><b>Commit Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_STATE__COMMIT_DATE = 5;
+
+    /**
      * The number of structural features of the '<em>Item State</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEM_STATE_FEATURE_COUNT = 2;
+    int ITEM_STATE_FEATURE_COUNT = 6;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1815,6 +1851,50 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getItemState_Deleted();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ItemState#isLocked <em>Locked</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Locked</em>'.
+     * @see org.talend.core.model.properties.ItemState#isLocked()
+     * @see #getItemState()
+     * @generated
+     */
+    EAttribute getItemState_Locked();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ItemState#getLocker <em>Locker</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Locker</em>'.
+     * @see org.talend.core.model.properties.ItemState#getLocker()
+     * @see #getItemState()
+     * @generated
+     */
+    EReference getItemState_Locker();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ItemState#getLockDate <em>Lock Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Lock Date</em>'.
+     * @see org.talend.core.model.properties.ItemState#getLockDate()
+     * @see #getItemState()
+     * @generated
+     */
+    EAttribute getItemState_LockDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ItemState#getCommitDate <em>Commit Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Commit Date</em>'.
+     * @see org.talend.core.model.properties.ItemState#getCommitDate()
+     * @see #getItemState()
+     * @generated
+     */
+    EAttribute getItemState_CommitDate();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.FileItem <em>File Item</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -2682,6 +2762,38 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute ITEM_STATE__DELETED = eINSTANCE.getItemState_Deleted();
+
+        /**
+         * The meta object literal for the '<em><b>Locked</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_STATE__LOCKED = eINSTANCE.getItemState_Locked();
+
+        /**
+         * The meta object literal for the '<em><b>Locker</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ITEM_STATE__LOCKER = eINSTANCE.getItemState_Locker();
+
+        /**
+         * The meta object literal for the '<em><b>Lock Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_STATE__LOCK_DATE = eINSTANCE.getItemState_LockDate();
+
+        /**
+         * The meta object literal for the '<em><b>Commit Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_STATE__COMMIT_DATE = eINSTANCE.getItemState_CommitDate();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.FileItemImpl <em>File Item</em>}' class.
