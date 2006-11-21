@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getAUTHOR <em>AUTHOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMPATIBILITY <em>COMPATIBILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDISPLAY <em>DISPLAY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEXTENSION <em>EXTENSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON16 <em>ICON16</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON24 <em>ICON24</em>}</li>
@@ -32,7 +33,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSERIAL <em>SERIAL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSTATUS <em>STATUS</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL <em>TECHNICAL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getVERSION <em>VERSION</em>}</li>
  * </ul>
  * </p>
@@ -177,6 +177,61 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetDATAAUTOPROPAGATE();
+
+    /**
+     * Returns the value of the '<em><b>DISPLAY</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>DISPLAY</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>DISPLAY</em>' attribute.
+     * @see #isSetDISPLAY()
+     * @see #unsetDISPLAY()
+     * @see #setDISPLAY(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_DISPLAY()
+     * @model default="true" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='DISPLAY' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isDISPLAY();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDISPLAY <em>DISPLAY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>DISPLAY</em>' attribute.
+     * @see #isSetDISPLAY()
+     * @see #unsetDISPLAY()
+     * @see #isDISPLAY()
+     * @generated
+     */
+    void setDISPLAY(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDISPLAY <em>DISPLAY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetDISPLAY()
+     * @see #isDISPLAY()
+     * @see #setDISPLAY(boolean)
+     * @generated
+     */
+    void unsetDISPLAY();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDISPLAY <em>DISPLAY</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>DISPLAY</em>' attribute is set.
+     * @see #unsetDISPLAY()
+     * @see #isDISPLAY()
+     * @see #setDISPLAY(boolean)
+     * @generated
+     */
+    boolean isSetDISPLAY();
 
     /**
      * Returns the value of the '<em><b>EXTENSION</b></em>' attribute.
@@ -448,61 +503,6 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setSTATUS(String value);
-
-    /**
-     * Returns the value of the '<em><b>TECHNICAL</b></em>' attribute.
-     * The default value is <code>"false"</code>.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>TECHNICAL</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>TECHNICAL</em>' attribute.
-     * @see #isSetTECHNICAL()
-     * @see #unsetTECHNICAL()
-     * @see #setTECHNICAL(boolean)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_TECHNICAL()
-     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-     *        extendedMetaData="kind='attribute' name='TECHNICAL' namespace='##targetNamespace'"
-     * @generated
-     */
-    boolean isTECHNICAL();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL <em>TECHNICAL</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>TECHNICAL</em>' attribute.
-     * @see #isSetTECHNICAL()
-     * @see #unsetTECHNICAL()
-     * @see #isTECHNICAL()
-     * @generated
-     */
-    void setTECHNICAL(boolean value);
-
-    /**
-     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL <em>TECHNICAL</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isSetTECHNICAL()
-     * @see #isTECHNICAL()
-     * @see #setTECHNICAL(boolean)
-     * @generated
-     */
-    void unsetTECHNICAL();
-
-    /**
-     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTECHNICAL <em>TECHNICAL</em>}' attribute is set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return whether the value of the '<em>TECHNICAL</em>' attribute is set.
-     * @see #unsetTECHNICAL()
-     * @see #isTECHNICAL()
-     * @see #setTECHNICAL(boolean)
-     * @generated
-     */
-    boolean isSetTECHNICAL();
 
     /**
      * Returns the value of the '<em><b>VERSION</b></em>' attribute.

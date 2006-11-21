@@ -32,7 +32,7 @@
 			<xs:attribute name="EXTENSION" type="xs:string" use="optional"/>
 			<xs:attribute name="SCHEMA_AUTO_PROPAGATE" type="xs:boolean" use="optional" default="true"/>
 			<xs:attribute name="DATA_AUTO_PROPAGATE" type="xs:boolean" use="optional" default="true"/>
-			<xs:attribute name="TECHNICAL" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="DISPLAY" type="xs:boolean" use="optional" default="true"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="DOCUMENTATION">

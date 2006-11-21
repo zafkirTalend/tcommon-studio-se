@@ -55,6 +55,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/aUTHOR"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/cOMPATIBILITY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/dATAAUTOPROPAGATE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/dISPLAY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/eXTENSION"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/iCON16"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/iCON24"/>
@@ -65,7 +66,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sERIAL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sTARTABLE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sTATUS"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/tECHNICAL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vERSION"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//IMPORTSType">
