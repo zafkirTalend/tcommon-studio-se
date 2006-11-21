@@ -82,4 +82,6 @@ public interface IComponent {
     public IMultipleComponentManager getMultipleComponentManager();
 
     public boolean isLoaded();
+    
+    public boolean isDisplay();
 }
