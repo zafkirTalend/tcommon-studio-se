@@ -104,7 +104,8 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
             computeNotationHolder();
             resource.getContents().remove(notation);
         }
-        if (notation == null) {
+        if (notation == null && getNotationHolder().getNotationString() != null) {
+            //automatically compute notation from notationholder
             ByteArrayInputStream in = new ByteArrayInputStream(getNotationHolder().getNotationString().getBytes());
             Resource resource = new XMIResourceImpl();
             try {
@@ -114,7 +115,8 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
             }
 
             notation = (Diagram) resource.getContents().get(0);
-            EcoreUtil.resolveAll(notationHolder.eResource());
+            //don't seems to be usefull
+            //EcoreUtil.resolveAll(notationHolder.eResource());
         }
         return notation;
     }
