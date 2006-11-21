@@ -28,31 +28,29 @@ public interface TalendItem extends EObject {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
      * @generated
      */
     String copyright = "";
 
     /**
-     * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Id</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Id</em>' attribute.
      * @see #setId(String)
      * @see org.talend.designer.business.model.business.BusinessPackage#getTalendItem_Id()
-     * @model required="true"
+     * @model
      * @generated
      */
     String getId();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.business.model.business.TalendItem#getId <em>Id</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.designer.business.model.business.TalendItem#getId <em>Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Id</em>' attribute.
      * @see #getId()
      * @generated
@@ -77,9 +75,8 @@ public interface TalendItem extends EObject {
     String getLabel();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.business.model.business.TalendItem#getLabel <em>Label</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.designer.business.model.business.TalendItem#getLabel <em>Label</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Label</em>' attribute.
      * @see #getLabel()
      * @generated
@@ -104,9 +101,8 @@ public interface TalendItem extends EObject {
     String getAuthor();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.business.model.business.TalendItem#getAuthor <em>Author</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.designer.business.model.business.TalendItem#getAuthor <em>Author</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Author</em>' attribute.
      * @see #getAuthor()
      * @generated
@@ -114,13 +110,13 @@ public interface TalendItem extends EObject {
     void setAuthor(String value);
 
     /**
-     * Returns the value of the '<em><b>Version</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Version</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Version</em>' attribute.
      * @see #setVersion(String)
      * @see org.talend.designer.business.model.business.BusinessPackage#getTalendItem_Version()
@@ -130,9 +126,8 @@ public interface TalendItem extends EObject {
     String getVersion();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.business.model.business.TalendItem#getVersion <em>Version</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.designer.business.model.business.TalendItem#getVersion <em>Version</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Version</em>' attribute.
      * @see #getVersion()
      * @generated
@@ -157,9 +152,8 @@ public interface TalendItem extends EObject {
     String getComment();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.business.model.business.TalendItem#getComment <em>Comment</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.designer.business.model.business.TalendItem#getComment <em>Comment</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Comment</em>' attribute.
      * @see #getComment()
      * @generated
@@ -167,15 +161,15 @@ public interface TalendItem extends EObject {
     void setComment(String value);
 
     /**
-     * Returns the value of the '<em><b>Assignments</b></em>' reference list. The list contents are of type
-     * {@link org.talend.designer.business.model.business.BusinessAssignment}. It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BusinessAssignment#getTalendItem <em>Talend Item</em>}'.
+     * Returns the value of the '<em><b>Assignments</b></em>' reference list.
+     * The list contents are of type {@link org.talend.designer.business.model.business.BusinessAssignment}.
+     * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BusinessAssignment#getTalendItem <em>Talend Item</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Assignments</em>' reference list isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Assignments</em>' reference list.
      * @see org.talend.designer.business.model.business.BusinessPackage#getTalendItem_Assignments()
      * @see org.talend.designer.business.model.business.BusinessAssignment#getTalendItem
@@ -185,15 +179,14 @@ public interface TalendItem extends EObject {
     EList getAssignments();
 
     /**
-     * Returns the value of the '<em><b>Repository</b></em>' container reference. It is bidirectional and its
-     * opposite is '{@link org.talend.designer.business.model.business.Repository#getTalenditems <em>Talenditems</em>}'.
+     * Returns the value of the '<em><b>Repository</b></em>' container reference.
+     * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.Repository#getTalenditems <em>Talenditems</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Repository</em>' container reference isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Repository</em>' container reference.
      * @see #setRepository(Repository)
      * @see org.talend.designer.business.model.business.BusinessPackage#getTalendItem_Repository()
@@ -204,9 +197,8 @@ public interface TalendItem extends EObject {
     Repository getRepository();
 
     /**
-     * Sets the value of the '{@link org.talend.designer.business.model.business.TalendItem#getRepository <em>Repository</em>}'
-     * container reference. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.designer.business.model.business.TalendItem#getRepository <em>Repository</em>}' container reference.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Repository</em>' container reference.
      * @see #getRepository()
      * @generated

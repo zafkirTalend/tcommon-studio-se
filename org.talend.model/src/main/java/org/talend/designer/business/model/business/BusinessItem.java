@@ -70,7 +70,7 @@ public interface BusinessItem extends EObject {
      * @return the value of the '<em>Name</em>' attribute.
      * @see #setName(String)
      * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItem_Name()
-     * @model required="true"
+     * @model
      * @generated
      */
     String getName();
