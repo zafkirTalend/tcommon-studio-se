@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Component#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#getDeleteDate <em>Delete Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#isDeleted <em>Deleted</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Component#getFileDescriptor <em>File Descriptor</em>}</li>
  * </ul>
  * </p>
  *
@@ -288,5 +289,31 @@ public interface Component extends EObject {
      * @generated
      */
     void setDeleted(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>File Descriptor</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>File Descriptor</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>File Descriptor</em>' attribute.
+     * @see #setFileDescriptor(byte[])
+     * @see org.talend.core.model.properties.PropertiesPackage#getComponent_FileDescriptor()
+     * @model annotation="teneo.jpa appinfo='@Lob\n@Column(length=100000000)'"
+     * @generated
+     */
+    byte[] getFileDescriptor();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Component#getFileDescriptor <em>File Descriptor</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>File Descriptor</em>' attribute.
+     * @see #getFileDescriptor()
+     * @generated
+     */
+    void setFileDescriptor(byte[] value);
 
 } // Component

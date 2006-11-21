@@ -40,6 +40,7 @@ import org.talend.core.model.properties.User;
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getDeleteDate <em>Delete Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#isDeleted <em>Deleted</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getFileDescriptor <em>File Descriptor</em>}</li>
  * </ul>
  * </p>
  *
@@ -225,6 +226,26 @@ public class ComponentImpl extends EObjectImpl implements Component {
      * @ordered
      */
     protected boolean deleted = DELETED_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getFileDescriptor() <em>File Descriptor</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFileDescriptor()
+     * @generated
+     * @ordered
+     */
+    protected static final byte[] FILE_DESCRIPTOR_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getFileDescriptor() <em>File Descriptor</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFileDescriptor()
+     * @generated
+     * @ordered
+     */
+    protected byte[] fileDescriptor = FILE_DESCRIPTOR_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -467,6 +488,27 @@ public class ComponentImpl extends EObjectImpl implements Component {
      * <!-- end-user-doc -->
      * @generated
      */
+    public byte[] getFileDescriptor() {
+        return fileDescriptor;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFileDescriptor(byte[] newFileDescriptor) {
+        byte[] oldFileDescriptor = fileDescriptor;
+        fileDescriptor = newFileDescriptor;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.COMPONENT__FILE_DESCRIPTOR, oldFileDescriptor, fileDescriptor));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.COMPONENT__PROJECTS:
@@ -516,6 +558,8 @@ public class ComponentImpl extends EObjectImpl implements Component {
                 return getDeleteDate();
             case PropertiesPackage.COMPONENT__DELETED:
                 return isDeleted() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.COMPONENT__FILE_DESCRIPTOR:
+                return getFileDescriptor();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -558,6 +602,9 @@ public class ComponentImpl extends EObjectImpl implements Component {
             case PropertiesPackage.COMPONENT__DELETED:
                 setDeleted(((Boolean)newValue).booleanValue());
                 return;
+            case PropertiesPackage.COMPONENT__FILE_DESCRIPTOR:
+                setFileDescriptor((byte[])newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -599,6 +646,9 @@ public class ComponentImpl extends EObjectImpl implements Component {
             case PropertiesPackage.COMPONENT__DELETED:
                 setDeleted(DELETED_EDEFAULT);
                 return;
+            case PropertiesPackage.COMPONENT__FILE_DESCRIPTOR:
+                setFileDescriptor(FILE_DESCRIPTOR_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -630,6 +680,8 @@ public class ComponentImpl extends EObjectImpl implements Component {
                 return DELETE_DATE_EDEFAULT == null ? deleteDate != null : !DELETE_DATE_EDEFAULT.equals(deleteDate);
             case PropertiesPackage.COMPONENT__DELETED:
                 return deleted != DELETED_EDEFAULT;
+            case PropertiesPackage.COMPONENT__FILE_DESCRIPTOR:
+                return FILE_DESCRIPTOR_EDEFAULT == null ? fileDescriptor != null : !FILE_DESCRIPTOR_EDEFAULT.equals(fileDescriptor);
         }
         return super.eIsSet(featureID);
     }
@@ -659,6 +711,8 @@ public class ComponentImpl extends EObjectImpl implements Component {
         result.append(deleteDate);
         result.append(", deleted: ");
         result.append(deleted);
+        result.append(", fileDescriptor: ");
+        result.append(fileDescriptor);
         result.append(')');
         return result.toString();
     }

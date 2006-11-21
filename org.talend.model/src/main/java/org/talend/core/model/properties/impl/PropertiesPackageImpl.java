@@ -990,6 +990,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getComponent_FileDescriptor() {
+        return (EAttribute)componentEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1202,6 +1211,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(componentEClass, COMPONENT__CREATION_DATE);
         createEAttribute(componentEClass, COMPONENT__DELETE_DATE);
         createEAttribute(componentEClass, COMPONENT__DELETED);
+        createEAttribute(componentEClass, COMPONENT__FILE_DESCRIPTOR);
 
         notationHolderEClass = createEClass(NOTATION_HOLDER);
         createEAttribute(notationHolderEClass, NOTATION_HOLDER__NOTATION_STRING);
@@ -1372,6 +1382,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getComponent_CreationDate(), ecorePackage.getEDate(), "creationDate", null, 1, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_DeleteDate(), ecorePackage.getEDate(), "deleteDate", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getComponent_FileDescriptor(), ecorePackage.getEByteArray(), "fileDescriptor", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(notationHolderEClass, NotationHolder.class, "NotationHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getNotationHolder_NotationString(), theEcorePackage.getEString(), "notationString", null, 0, 1, NotationHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1401,6 +1412,12 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         String source = "teneo.jpa";		
         addAnnotation
           (getByteArray_InnerContent(), 
+           source, 
+           new String[] {
+             "appinfo", "@Lob\n@Column(length=100000000)"
+           });		
+        addAnnotation
+          (getComponent_FileDescriptor(), 
            source, 
            new String[] {
              "appinfo", "@Lob\n@Column(length=100000000)"

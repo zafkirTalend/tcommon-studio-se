@@ -1352,13 +1352,22 @@ public interface PropertiesPackage extends EPackage {
     int COMPONENT__DELETED = 9;
 
     /**
+     * The feature id for the '<em><b>File Descriptor</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT__FILE_DESCRIPTOR = 10;
+
+    /**
      * The number of structural features of the '<em>Component</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT_FEATURE_COUNT = 10;
+    int COMPONENT_FEATURE_COUNT = 11;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.NotationHolderImpl <em>Notation Holder</em>}' class.
@@ -2324,6 +2333,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getComponent_Deleted();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Component#getFileDescriptor <em>File Descriptor</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>File Descriptor</em>'.
+     * @see org.talend.core.model.properties.Component#getFileDescriptor()
+     * @see #getComponent()
+     * @generated
+     */
+    EAttribute getComponent_FileDescriptor();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.XmlFileConnectionItem <em>Xml File Connection Item</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Xml File Connection Item</em>'.
@@ -3160,6 +3180,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute COMPONENT__DELETED = eINSTANCE.getComponent_Deleted();
+
+        /**
+         * The meta object literal for the '<em><b>File Descriptor</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COMPONENT__FILE_DESCRIPTOR = eINSTANCE.getComponent_FileDescriptor();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.XmlFileConnectionItemImpl <em>Xml File Connection Item</em>}' class.

@@ -165,6 +165,11 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" unique="false"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileDescriptor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray">
+      <eAnnotations source="teneo.jpa">
+        <details key="appinfo" value="@Lob&#xA;@Column(length=100000000)"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NotationHolder">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationString" eType="ecore:EDataType ../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString">
