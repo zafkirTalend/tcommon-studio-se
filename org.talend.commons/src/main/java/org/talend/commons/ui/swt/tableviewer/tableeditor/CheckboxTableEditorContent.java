@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.tableeditor;
 
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.SelectionEvent;
@@ -44,8 +46,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
     public static final boolean UNCHECKED = false;
 
     private boolean readOnly;
-    
-    
+
     /**
      * DOC amaumont CheckboxTableEditorContent constructor comment.
      */
@@ -53,18 +54,15 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         super();
     }
 
-    
-    
-    
     /**
      * DOC amaumont CheckboxTableEditorContent constructor comment.
+     * 
      * @param readOnly applied for ALL checbox of column
      */
     public CheckboxTableEditorContent(boolean readOnly) {
         super();
         this.readOnly = readOnly;
     }
-
 
     /*
      * 
@@ -95,7 +93,9 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
             @SuppressWarnings("unchecked")
             public void widgetSelected(SelectionEvent e) {
-                currentColumn.getTableViewerCreator().setBeanValue(currentColumn, currentRowObject, ((Button)e.getSource()).getSelection() ? CHECKED : UNCHECKED);
+                currentColumn.getTableViewerCreator().setBeanValue(currentColumn, currentRowObject,
+                        ((Button) e.getSource()).getSelection() ? CHECKED : UNCHECKED);
+                currentColumn.getTableViewerCreator().getTableViewer().setSelection(new StructuredSelection(currentRowObject));
             }
 
         });
@@ -108,5 +108,4 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         return check;
     }
 
-    
 }
