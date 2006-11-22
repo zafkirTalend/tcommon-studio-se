@@ -60,7 +60,7 @@ public interface BusinessProcess extends TalendItem {
      * @return the value of the '<em>Local Repository Copy</em>' containment reference.
      * @see #setLocalRepositoryCopy(Repository)
      * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessProcess_LocalRepositoryCopy()
-     * @model containment="true" required="true"
+     * @model containment="true"
      * @generated
      */
     Repository getLocalRepositoryCopy();

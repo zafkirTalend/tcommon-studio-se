@@ -18,14 +18,14 @@
         defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assignments" upperBound="-1"
         eType="#//BusinessAssignment" eOpposite="#//BusinessAssignment/talendItem"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="repository" lowerBound="1"
-        eType="#//Repository" eOpposite="#//Repository/Talenditems"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="repository" eType="#//Repository"
+        eOpposite="#//Repository/Talenditems"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusinessProcess" eSuperTypes="#//TalendItem">
     <eStructuralFeatures xsi:type="ecore:EReference" name="businessItems" upperBound="-1"
         eType="#//BusinessItem" containment="true" eOpposite="#//BusinessItem/businessProcess"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="localRepositoryCopy" lowerBound="1"
-        eType="#//Repository" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="localRepositoryCopy" eType="#//Repository"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Process" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="Routine" eSuperTypes="#//TalendItem"/>
@@ -39,8 +39,7 @@
         eType="#//BusinessItem" eOpposite="#//BusinessItem/assignments"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="talendItem" lowerBound="1"
         eType="#//TalendItem" eOpposite="#//TalendItem/assignments"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="comment" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusinessItem" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

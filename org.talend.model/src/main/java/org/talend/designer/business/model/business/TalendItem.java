@@ -191,7 +191,7 @@ public interface TalendItem extends EObject {
      * @see #setRepository(Repository)
      * @see org.talend.designer.business.model.business.BusinessPackage#getTalendItem_Repository()
      * @see org.talend.designer.business.model.business.Repository#getTalenditems
-     * @model opposite="Talenditems" required="true"
+     * @model opposite="Talenditems"
      * @generated
      */
     Repository getRepository();

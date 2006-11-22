@@ -96,7 +96,7 @@ public interface BusinessAssignment extends EObject {
      * @return the value of the '<em>Comment</em>' attribute.
      * @see #setComment(String)
      * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessAssignment_Comment()
-     * @model required="true"
+     * @model
      * @generated
      */
     String getComment();
