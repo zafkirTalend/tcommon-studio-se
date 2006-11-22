@@ -21,11 +21,15 @@
 // ============================================================================
 package org.talend.commons.ui.swt.linking;
 
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.events.PaintEvent;
+import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -42,11 +46,17 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 import org.talend.commons.ui.swt.drawing.background.BackgroundRefresher;
+import org.talend.commons.ui.swt.drawing.link.BezierHorizontalLink;
 import org.talend.commons.ui.swt.drawing.link.IDrawableLink;
 import org.talend.commons.ui.swt.drawing.link.IExtremityLink;
+import org.talend.commons.ui.swt.drawing.link.IStyleLink;
 import org.talend.commons.ui.swt.drawing.link.LinkDescriptor;
 import org.talend.commons.ui.swt.drawing.link.LinksManager;
+import org.talend.commons.ui.swt.drawing.link.StyleLink;
+import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
+import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
 import org.talend.commons.utils.threading.AsynchronousThreading;
+import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -64,6 +74,37 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
 
     protected LinksManager<TreeItem, D1, TableItem, D2> linksManager = new LinksManager<TreeItem, D1, TableItem, D2>();
 
+    private IStyleLink defaultStyleLink;
+
+    private IStyleLink selectedStyleLink;
+
+    private IStyleLink unselectedStyleLink;
+
+    private Comparator<LinkDescriptor<TreeItem, D1, TableItem, D2>> selectedLinksComparator;
+
+    private ExecutionLimiter executionLimiter = new ExecutionLimiter(50, true) {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.commons.utils.threading.ExecutionLimiter#execute(boolean)
+         */
+        @Override
+        protected void execute(final boolean isFinalExecution) {
+            commonParent.getDisplay().asyncExec(new Runnable() {
+
+                public void run() {
+                    // if (isFinalExecution) {
+                    updateBackground();
+                    // }
+                }
+
+            });
+
+        }
+
+    };
+
     /**
      * DOC amaumont TreeToTableLinker constructor comment.
      * 
@@ -73,20 +114,69 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
     public TreeToTableLinker(Composite commonParent, Tree tree, Table table) {
         super(commonParent);
         this.tree = tree;
+        this.tree.setBackgroundMode(SWT.INHERIT_NONE); // to correct graphic bug when background is update with
+                                                        // ExecutionLimiter
         this.table = table;
-        init();
+        addListeners();
+        createLinksComparators();
     }
 
-    private void init() {
+    protected IStyleLink getDefaultStyleLink() {
+        if (defaultStyleLink == null) {
+            StyleLink styleLink = new StyleLink();
+            styleLink.setDrawableLink(new BezierHorizontalLink(styleLink));
+            styleLink.setForegroundColor(tree.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+            styleLink.setLineWidth(2);
+            this.defaultStyleLink = styleLink;
+        }
+        return this.defaultStyleLink;
+    }
 
+    /**
+     * DOC amaumont Comment method "createLinkSorter".
+     */
+    protected void createLinksComparators() {
+
+        this.selectedLinksComparator = getSelectedLinksComparator();
+
+    }
+
+    /**
+     * DOC amaumont Comment method "getSelectedLinksComparator".
+     */
+    protected Comparator<LinkDescriptor<TreeItem, D1, TableItem, D2>> getSelectedLinksComparator() {
+        if (this.selectedLinksComparator == null) {
+            this.selectedLinksComparator = new Comparator<LinkDescriptor<TreeItem, D1, TableItem, D2>>() {
+
+                public int compare(LinkDescriptor<TreeItem, D1, TableItem, D2> link1, LinkDescriptor<TreeItem, D1, TableItem, D2> link2) {
+                    IStyleLink link1StyleLink = link1.getStyleLink();
+                    IStyleLink link2StyleLink = link2.getStyleLink();
+                    if (link1StyleLink == link2StyleLink) {
+                        return 0;
+                    }
+                    if (link1StyleLink == getUnselectedStyleLink()) {
+                        return -1;
+                    }
+                    return 1;
+                }
+
+            };
+        }
+        return this.selectedLinksComparator;
+    }
+
+    /**
+     * DOC amaumont Comment method "addListeners".
+     */
+    private void addListeners() {
         ControlListener controlListener = new ControlListener() {
 
             public void controlMoved(ControlEvent e) {
-                updateBackground();
+                // updateBackgroundWithLimiter();
             }
 
             public void controlResized(ControlEvent e) {
-                updateBackground();
+                updateBackgroundWithLimiter();
             }
 
         };
@@ -99,29 +189,33 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
         tree.addTreeListener(new TreeListener() {
 
             public void treeCollapsed(TreeEvent e) {
-                updateBackroundAsynchronous();
+                updateBackgroundWithLimiter();
             }
 
             public void treeExpanded(TreeEvent e) {
-                updateBackroundAsynchronous();
+                updateBackgroundWithLimiter();
             }
 
-            /**
-             * DOC amaumont Comment method "updateBackroundAsynchronous".
-             */
-            private void updateBackroundAsynchronous() {
-                new AsynchronousThreading(50, false, tree.getDisplay(), new Runnable() {
+        });
 
-                    /*
-                     * (non-Javadoc)
-                     * 
-                     * @see java.lang.Runnable#run()
-                     */
-                    public void run() {
-                        updateBackground();
-                    }
+        tree.addSelectionListener(new SelectionListener() {
 
-                }).start();
+            public void widgetDefaultSelected(SelectionEvent e) {
+            }
+
+            public void widgetSelected(SelectionEvent e) {
+                updateLinksAndTableItemsHighlightState();
+            }
+
+        });
+
+        table.addSelectionListener(new SelectionListener() {
+
+            public void widgetDefaultSelected(SelectionEvent e) {
+            }
+
+            public void widgetSelected(SelectionEvent e) {
+                updateLinksAndTreeItemsHighlightState();
             }
 
         });
@@ -133,10 +227,18 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
         ScrollBar vBarTree = tree.getVerticalBar();
         ScrollBar hBarTree = tree.getHorizontalBar();
 
-        SelectionListener scrollListener = new SelectionAdapter() {
+        vBarTree.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent event) {
                 updateBackground();
+            }
+        });
+
+        SelectionListener scrollListener = new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent event) {
+                // updateBackgroundWithLimiter();
+                updateBackgroundWithLimiter();
             }
         };
         vBarTable.addSelectionListener(scrollListener);
@@ -182,12 +284,25 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
         Point tableToCommonPoint = display.map(table, commonParent, new Point(0, 0));
 
         int treeItemHeight = tree.getItemHeight();
+        Rectangle treeBounds = tree.getBounds();
 
+        gc.fillRectangle(treeToCommonPoint.x, treeToCommonPoint.y, treeBounds.width - tree.getBorderWidth(), treeBounds.height
+                - tree.getBorderWidth());
+
+        // System.out.println(isAntialiasAllowed());
+        if (isAntialiasAllowed()) {
+            gc.setAntialias(SWT.ON);
+        } else {
+            gc.setAntialias(SWT.OFF);
+            // gc.setAdvanced(false);
+        }
         for (int i = 0; i < lstSize; i++) {
             LinkDescriptor<TreeItem, D1, TableItem, D2> link = links.get(i);
 
-            IDrawableLink drawableLink = link.getDrawableLink();
-
+            IDrawableLink drawableLink = link.getStyleLink().getDrawableLink();
+            if (drawableLink == null) {
+                drawableLink = getDefaultStyleLink().getDrawableLink();
+            }
             drawableLink.getStyle().apply(gc);
 
             IExtremityLink<TreeItem, D1> extremity1 = link.getExtremity1();
@@ -196,16 +311,6 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             TreeItem treeItem = extremity1.getGraphicalItem();
 
             TreeItem firstExpandedAscTreeItem = findFirstVisibleItemAscFrom(treeItem);
-            // System.out.println(isAntialiasAllowed());
-            if (isAntialiasAllowed()) {
-                gc.setAntialias(SWT.ON);
-            } else {
-                gc.setAntialias(SWT.OFF);
-//                gc.setAdvanced(false);
-            }
-            
-  
-            // System.out.println(point);
 
             Rectangle treeItemBounds = firstExpandedAscTreeItem.getBounds();
 
@@ -220,8 +325,6 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
                     + table.getItemHeight() / 2 + table.getBorderWidth()), table);
 
             boolean lineStyleDot = false;
-
-            Rectangle treeBounds = tree.getBounds();
 
             Point point = display.map(tree, commonParent, new Point(0, 0));
 
@@ -317,6 +420,111 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             }
         }
         return maxWidth;
+    }
+
+    public void updateLinksAndTableItemsHighlightState() {
+
+        table.deselectAll();
+
+        TreeItem[] selection = tree.getSelection();
+        HashSet<TreeItem> selectedItems = new HashSet<TreeItem>();
+        for (int i = 0; i < selection.length; i++) {
+            TreeItem treeItem = selection[i];
+            selectedItems.add(treeItem);
+        }
+
+        List<LinkDescriptor<TreeItem, D1, TableItem, D2>> links = linksManager.getLinks();
+        for (LinkDescriptor<TreeItem, D1, TableItem, D2> link : links) {
+            IStyleLink styleLink = null;
+            TreeItem currentTreeItem = link.getExtremity1().getGraphicalItem();
+            boolean currentItemIsSelected = selectedItems.contains(currentTreeItem);
+            if (currentItemIsSelected) {
+                styleLink = selectedStyleLink;
+            } else {
+                styleLink = unselectedStyleLink;
+            }
+            if (styleLink == null) {
+                styleLink = getDefaultStyleLink();
+            }
+            link.setStyleLink(styleLink);
+
+        }
+        linksManager.sortLinks(getSelectedLinksComparator());
+        updateBackground();
+    }
+
+    public void updateLinksAndTreeItemsHighlightState() {
+
+        tree.deselectAll();
+
+        TableItem[] selection = table.getSelection();
+        HashSet<TableItem> selectedItems = new HashSet<TableItem>();
+        for (int i = 0; i < selection.length; i++) {
+            TableItem treeItem = selection[i];
+            selectedItems.add(treeItem);
+        }
+
+        List<LinkDescriptor<TreeItem, D1, TableItem, D2>> links = linksManager.getLinks();
+        for (LinkDescriptor<TreeItem, D1, TableItem, D2> link : links) {
+            IStyleLink styleLink = null;
+            TableItem currentGraphicItem = link.getExtremity2().getGraphicalItem();
+            boolean currentItemIsSelected = selectedItems.contains(currentGraphicItem);
+            if (currentItemIsSelected) {
+                styleLink = selectedStyleLink;
+            } else {
+                styleLink = unselectedStyleLink;
+            }
+            if (styleLink == null) {
+                styleLink = getDefaultStyleLink();
+            }
+            link.setStyleLink(styleLink);
+
+        }
+        linksManager.sortLinks(getSelectedLinksComparator());
+        updateBackgroundWithLimiter();
+    }
+
+    /**
+     * Getter for selectedStyleLink.
+     * 
+     * @return the selectedStyleLink
+     */
+    public IStyleLink getSelectedStyleLink() {
+        return this.selectedStyleLink;
+    }
+
+    /**
+     * Sets the selectedStyleLink.
+     * 
+     * @param selectedStyleLink the selectedStyleLink to set
+     */
+    public void setSelectedStyleLink(IStyleLink selectedStyleLink) {
+        this.selectedStyleLink = selectedStyleLink;
+    }
+
+    /**
+     * Getter for unselectedStyleLink.
+     * 
+     * @return the unselectedStyleLink
+     */
+    public IStyleLink getUnselectedStyleLink() {
+        return this.unselectedStyleLink;
+    }
+
+    /**
+     * Sets the unselectedStyleLink.
+     * 
+     * @param unselectedStyleLink the unselectedStyleLink to set
+     */
+    public void setUnselectedStyleLink(IStyleLink unselectedStyleLink) {
+        this.unselectedStyleLink = unselectedStyleLink;
+    }
+
+    /**
+     * DOC amaumont Comment method "updateBackroundAsynchronous".
+     */
+    private void updateBackgroundWithLimiter() {
+        executionLimiter.startIfExecutable();
     }
 
 }

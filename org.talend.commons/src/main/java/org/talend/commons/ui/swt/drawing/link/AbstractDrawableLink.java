@@ -45,13 +45,13 @@ public abstract class AbstractDrawableLink implements IDrawableLink {
 
     /**
      * DOC amaumont AbstractDrawableLink constructor comment.
+     * 
      * @param style
      */
     public AbstractDrawableLink(IStyleLink style) {
         super();
         this.style = style;
     }
-
 
     public void draw(GC gc) {
         drawBody(gc);

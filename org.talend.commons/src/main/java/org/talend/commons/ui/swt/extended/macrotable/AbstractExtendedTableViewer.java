@@ -103,6 +103,17 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
         });
 
+        getExtendedTableModel().addAfterListener(100, new IListenableListListener() {
+            
+            public void handleEvent(ListenableListEvent event) {
+                if (event.type == TYPE.ADDED) {
+                    tableViewerCreator.getTable().forceFocus();
+                    tableViewerCreator.getSelectionHelper().setSelection(event.index, event.index + event.addedObjects.size() - 1);
+                }
+            }
+            
+        });
+        
     }
 
     /**
@@ -157,6 +168,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
     /**
      * Ov.
+     * 
      * @param newTableViewerCreator
      */
     protected void setTableViewerCreatorOptions(TableViewerCreator<B> newTableViewerCreator) {

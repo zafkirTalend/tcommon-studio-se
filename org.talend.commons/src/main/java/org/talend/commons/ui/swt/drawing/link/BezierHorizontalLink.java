@@ -85,8 +85,7 @@ public class BezierHorizontalLink extends AbstractDrawableLink {
 
         ((Point2D) pl.get(2))
                 .setLocation(
-                        (point1xHalfTableWidth1ConnWidth + coefDistConnectorWidth 
-                                + (point2xHalfTableWidth2ConnWidth - coefDistConnectorWidth)) / 2,
+                        (point1xHalfTableWidth1ConnWidth + coefDistConnectorWidth + (point2xHalfTableWidth2ConnWidth - coefDistConnectorWidth)) / 2,
                         (point1.y + (point2.y)) / 2);
 
         ((Point2D) pl.get(3)).setLocation(point2xHalfTableWidth2ConnWidth - coefDistConnectorWidth, point2.y);

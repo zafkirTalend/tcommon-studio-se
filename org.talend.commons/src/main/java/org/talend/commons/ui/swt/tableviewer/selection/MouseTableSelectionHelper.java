@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.selection;
 
+import java.util.Arrays;
+
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
@@ -188,7 +191,11 @@ public class MouseTableSelectionHelper {
                         for (int i = 0; i < countSelected; i++) {
                             selection[i] = i + indexStart;
                         }
-                        tableViewerCreator.getSelectionHelper().setSelection(selection);
+
+                        boolean selectionHasChanged = !Arrays.equals(tableViewerCreator.getTable().getSelectionIndices(), selection);
+                        if (selectionHasChanged) {
+                            tableViewerCreator.getSelectionHelper().setSelection(selection);
+                        }
                     }
                 }
             }

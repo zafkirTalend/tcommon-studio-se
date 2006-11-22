@@ -23,23 +23,22 @@ package org.talend.core.ui.extended.button;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.advanced.macrotable.commands.ExtendedTableAddCommand;
 import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
-
+import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class AddPushButtonForExtendedTable extends AddPushButton {
 
-    
-    
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
+     * 
      * @param parent
      * @param extendedControlViewer
      */
@@ -49,7 +48,14 @@ public abstract class AddPushButtonForExtendedTable extends AddPushButton {
 
     @Override
     protected Command getCommandToExecute() {
-        return new ExtendedTableAddCommand(((AbstractExtendedTableViewer)getExtendedControlViewer()).getExtendedTableModel(), getObjectToAdd());
+        AbstractExtendedTableViewer abstractExtendedTableViewer = ((AbstractExtendedTableViewer) getExtendedControlViewer());
+        ExtendedTableModel extendedTableModel = abstractExtendedTableViewer.getExtendedTableModel();
+        int[] selection = abstractExtendedTableViewer.getTableViewerCreator().getTable().getSelectionIndices();
+        Integer indexWhereInsert = null;
+        if (selection.length > 0) {
+            indexWhereInsert = selection[selection.length - 1] + 1;
+        }
+        return new ExtendedTableAddCommand(extendedTableModel, indexWhereInsert, getObjectToAdd());
     }
 
     protected abstract Object getObjectToAdd();

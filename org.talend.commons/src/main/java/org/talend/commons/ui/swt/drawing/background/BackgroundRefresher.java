@@ -142,7 +142,8 @@ public abstract class BackgroundRefresher {
     /**
      * DOC amaumont Comment method "updateBackground".
      */
-    public void updateBackground() {
+    public synchronized void updateBackground() {
+//        System.out.println("updateBackground");
         if (commonParent.isDisposed()) {
             return;
         }

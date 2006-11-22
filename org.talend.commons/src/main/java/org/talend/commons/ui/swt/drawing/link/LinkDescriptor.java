@@ -40,7 +40,7 @@ public class LinkDescriptor<G1, D1, G2, D2> {
     
     private IExtremityLink<G2, D2> extremity2;
 
-    private IDrawableLink drawableLink;
+    private IStyleLink styleLink;
     
     /**
      * DOC amaumont Link constructor comment.
@@ -92,21 +92,21 @@ public class LinkDescriptor<G1, D1, G2, D2> {
 
     
     /**
-     * Getter for drawableLink.
-     * @return the drawableLink
+     * Getter for styleLink.
+     * @return the styleLink
      */
-    public IDrawableLink getDrawableLink() {
-        return this.drawableLink;
+    public IStyleLink getStyleLink() {
+        return this.styleLink;
     }
 
 
     
     /**
-     * Sets the drawableLink.
-     * @param drawableLink the drawableLink to set
+     * Sets the styleLink.
+     * @param drawableLink the styleLink to set
      */
-    public void setDrawableLink(IDrawableLink drawableLink) {
-        this.drawableLink = drawableLink;
+    public void setStyleLink(IStyleLink styleLink) {
+        this.styleLink = styleLink;
     }
     
     
