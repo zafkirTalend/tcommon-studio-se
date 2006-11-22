@@ -1273,6 +1273,10 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
                 // not really usefull for ConnectionItem : it's not copied to another resource for edition
                 itemResource = save((ConnectionItem) item);
                 break;
+            case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM:
+                // not really usefull for ConnectionItem : it's not copied to another resource for edition
+                itemResource = save((ConnectionItem) item);
+                break;
             case PropertiesPackage.DOCUMENTATION_ITEM:
             case PropertiesPackage.ROUTINE_ITEM:
                 itemResource = save((FileItem) item);
