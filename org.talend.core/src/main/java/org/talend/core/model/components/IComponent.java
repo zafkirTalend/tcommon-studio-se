@@ -75,8 +75,6 @@ public interface IComponent {
 
     public boolean isDataAutoPropagated();
 
-    public boolean isCheckColumns();
-
     public String getVersion();
 
     public IMultipleComponentManager getMultipleComponentManager();
