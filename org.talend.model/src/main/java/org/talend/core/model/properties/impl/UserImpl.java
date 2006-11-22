@@ -738,37 +738,11 @@ public class UserImpl extends EObjectImpl implements User {
         return super.eIsSet(featureID);
     }
 
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (firstName != null && lastName != null)
+            return lastName + ", " + firstName;
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: ");
-        result.append(id);
-        result.append(", login: ");
-        result.append(login);
-        result.append(", password: ");
-        result.append(password);
-        result.append(", firstName: ");
-        result.append(firstName);
-        result.append(", lastName: ");
-        result.append(lastName);
-        result.append(", creationDate: ");
-        result.append(creationDate);
-        result.append(", deleteDate: ");
-        result.append(deleteDate);
-        result.append(", deleted: ");
-        result.append(deleted);
-        result.append(", allowedToModifyComponents: ");
-        result.append(allowedToModifyComponents);
-        result.append(", Comment: ");
-        result.append(comment);
-        result.append(')');
-        return result.toString();
+        return login;
     }
 
 } //UserImpl

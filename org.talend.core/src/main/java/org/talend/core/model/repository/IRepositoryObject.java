@@ -23,8 +23,8 @@ package org.talend.core.model.repository;
 
 import java.util.Date;
 
-import org.talend.core.model.general.User;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.User;
 
 /**
  * Defines a repository object, an object that can be stored in the repository. <br/>

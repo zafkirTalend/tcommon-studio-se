@@ -66,7 +66,6 @@ import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
-import org.talend.core.model.general.User;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.TableHelper;
 import org.talend.core.model.properties.BusinessProcessItem;
@@ -88,6 +87,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.Status;
+import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -402,7 +402,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         project.setLocal(true);
         project.setTechnicalLabel(technicalLabel);
 
-        projectResource.getContents().add(author.getEmfUser());
+        projectResource.getContents().add(author);
         xmiResourceManager.saveResource(projectResource);
 
         repositoryContext.setProject(project);
@@ -1360,7 +1360,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
             item.getProperty().setVersion(VersionUtils.DEFAULT_VERSION);
         }
         if (item.getProperty().getAuthor() == null) {
-            item.getProperty().setAuthor(repositoryContext.getUser().getEmfUser());
+            item.getProperty().setAuthor(repositoryContext.getUser());
         }
         item.getProperty().setCreationDate(new Date());
 
@@ -1437,11 +1437,10 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         Resource projectResource = emfProject.eResource();
 
         Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
-        boolean found = false;
         for (Iterator iter = users.iterator(); iter.hasNext();) {
-            org.talend.core.model.properties.User emfUser = (org.talend.core.model.properties.User) iter.next();
-            if (emfUser.getLogin().equals(repositoryContext.getUser().getEmfUser().getLogin())) {
-                repositoryContext.setUser(new User(emfUser));
+            User emfUser = (User) iter.next();
+            if (emfUser.getLogin().equals(repositoryContext.getUser().getLogin())) {
+                repositoryContext.setUser(emfUser);
                 return true;
             }
         }
@@ -1454,7 +1453,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
 
-        projectResource.getContents().add(repositoryContext.getUser().getEmfUser());
+        projectResource.getContents().add(repositoryContext.getUser());
         xmiResourceManager.saveResource(projectResource);
     }
 

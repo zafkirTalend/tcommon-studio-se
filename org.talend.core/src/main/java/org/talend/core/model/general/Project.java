@@ -22,6 +22,7 @@
 package org.talend.core.model.general;
 
 import org.talend.core.model.properties.PropertiesFactory;
+import org.talend.core.model.properties.User;
 import org.talend.core.model.temp.ECodeLanguage;
 
 /**
@@ -99,7 +100,7 @@ public class Project {
      * @return the author
      */
     public User getAuthor() {
-        return new User(project.getAuthor());
+        return project.getAuthor();
     }
 
     /**
@@ -108,7 +109,7 @@ public class Project {
      * @param author the author to set
      */
     public void setAuthor(User author) {
-        project.setAuthor(author.getEmfUser());
+        project.setAuthor(author);
     }
 
     /**

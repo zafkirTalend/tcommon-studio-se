@@ -22,7 +22,7 @@
 package org.talend.core.context;
 
 import org.talend.core.model.general.Project;
-import org.talend.core.model.general.User;
+import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryType;
 
 /**

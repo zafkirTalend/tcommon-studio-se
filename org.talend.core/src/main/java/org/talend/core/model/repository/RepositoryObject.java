@@ -24,7 +24,6 @@ package org.talend.core.model.repository;
 import java.util.Date;
 
 import org.eclipse.emf.ecore.EObject;
-import org.talend.core.model.general.User;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
@@ -37,6 +36,7 @@ import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 
@@ -61,7 +61,7 @@ public class RepositoryObject implements IRepositoryObject {
     }
 
     public User getAuthor() {
-        return new User(this.property.getAuthor());
+        return this.property.getAuthor();
     }
 
     public Date getCreationDate() {
@@ -97,7 +97,7 @@ public class RepositoryObject implements IRepositoryObject {
     }
 
     public void setAuthor(User value) {
-        this.property.setAuthor(value.getEmfUser());
+        this.property.setAuthor(value);
     }
 
     public void setCreationDate(Date value) {
