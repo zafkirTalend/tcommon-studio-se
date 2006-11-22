@@ -112,13 +112,13 @@ import org.talend.repository.ui.views.RepositoryContentProvider.MetadataTableRep
  * RepositoryFactory.java,v 1.55 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
-public class RepositoryFactory implements IRepositoryFactory {
+public class LocalRepositoryFactory implements IRepositoryFactory {
 
     private static final QualifiedName FOLDER_ID_KEY = new QualifiedName(RepositoryLocalProviderPlugin.PLUGIN_ID, "folderId");
 
     private static final String BIN = "bin";
 
-    private static Logger log = Logger.getLogger(RepositoryFactory.class);
+    private static Logger log = Logger.getLogger(LocalRepositoryFactory.class);
 
     protected RepositoryContext repositoryContext;
 
