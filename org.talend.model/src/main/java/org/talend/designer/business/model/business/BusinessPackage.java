@@ -1589,6 +1589,171 @@ public interface BusinessPackage extends EPackage {
 
 
     /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.FileXmlMetadataImpl <em>File Xml Metadata</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.FileXmlMetadataImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getFileXmlMetadata()
+     * @generated
+     */
+    int FILE_XML_METADATA = 23;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>File Xml Metadata</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.FileLdifMetadataImpl <em>File Ldif Metadata</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.FileLdifMetadataImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getFileLdifMetadata()
+     * @generated
+     */
+    int FILE_LDIF_METADATA = 24;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>File Ldif Metadata</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.business.model.business.Repository <em>Repository</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Repository</em>'.
@@ -1999,6 +2164,26 @@ public interface BusinessPackage extends EPackage {
     EClass getFileRegexpMetadata();
 
     /**
+     * Returns the meta object for class '{@link org.talend.designer.business.model.business.FileXmlMetadata <em>File Xml Metadata</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>File Xml Metadata</em>'.
+     * @see org.talend.designer.business.model.business.FileXmlMetadata
+     * @generated
+     */
+    EClass getFileXmlMetadata();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.business.model.business.FileLdifMetadata <em>File Ldif Metadata</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>File Ldif Metadata</em>'.
+     * @see org.talend.designer.business.model.business.FileLdifMetadata
+     * @generated
+     */
+    EClass getFileLdifMetadata();
+
+    /**
      * Returns the factory that creates the instances of the model.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the factory that creates the instances of the model.
@@ -2386,6 +2571,26 @@ public interface BusinessPackage extends EPackage {
          * @generated
          */
         EClass FILE_REGEXP_METADATA = eINSTANCE.getFileRegexpMetadata();
+
+            /**
+         * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.FileXmlMetadataImpl <em>File Xml Metadata</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.business.model.business.impl.FileXmlMetadataImpl
+         * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getFileXmlMetadata()
+         * @generated
+         */
+        EClass FILE_XML_METADATA = eINSTANCE.getFileXmlMetadata();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.FileLdifMetadataImpl <em>File Ldif Metadata</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.business.model.business.impl.FileLdifMetadataImpl
+         * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getFileLdifMetadata()
+         * @generated
+         */
+        EClass FILE_LDIF_METADATA = eINSTANCE.getFileLdifMetadata();
 
     }
 

@@ -196,6 +196,24 @@ public interface BusinessFactory extends EFactory {
     FileRegexpMetadata createFileRegexpMetadata();
 
     /**
+     * Returns a new object of class '<em>File Xml Metadata</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>File Xml Metadata</em>'.
+     * @generated
+     */
+    FileXmlMetadata createFileXmlMetadata();
+
+    /**
+     * Returns a new object of class '<em>File Ldif Metadata</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>File Ldif Metadata</em>'.
+     * @generated
+     */
+    FileLdifMetadata createFileLdifMetadata();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

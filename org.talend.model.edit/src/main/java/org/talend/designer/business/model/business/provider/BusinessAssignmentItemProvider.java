@@ -27,8 +27,10 @@ import org.talend.designer.business.model.business.BusinessProcess;
 import org.talend.designer.business.model.business.DatabaseMetadata;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
+import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
+import org.talend.designer.business.model.business.FileXmlMetadata;
 import org.talend.designer.business.model.business.Process;
 import org.talend.designer.business.model.business.Routine;
 import org.talend.designer.business.model.business.TableMetadata;
@@ -287,6 +289,22 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                 @Override
                 public Object caseFileRegexpMetadata(FileRegexpMetadata object) {
                     return getString("_UI_FileRegexpMetadata_type");
+                }
+
+                /* (non-Javadoc)
+                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseFileRegexpMetadata(org.talend.designer.business.model.business.FileRegexpMetadata)
+                 */
+                @Override
+                public Object caseFileXmlMetadata(FileXmlMetadata object) {
+                    return getString("_UI_FileXmlMetadata_type");
+                }
+
+                /* (non-Javadoc)
+                 * @see org.talend.designer.business.model.business.util.BusinessSwitch#caseFileRegexpMetadata(org.talend.designer.business.model.business.FileRegexpMetadata)
+                 */
+                @Override
+                public Object caseFileLdifMetadata(FileLdifMetadata object) {
+                    return getString("_UI_FileLdifMetadata_type");
                 }
             }.doSwitch(businessAssignment.getTalendItem());
 

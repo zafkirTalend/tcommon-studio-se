@@ -25,8 +25,10 @@ import org.talend.designer.business.model.business.DecisionBusinessItem;
 import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
+import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
+import org.talend.designer.business.model.business.FileXmlMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Repository;
@@ -184,6 +186,20 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * @generated
      */
     private EClass fileRegexpMetadataEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass fileXmlMetadataEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass fileLdifMetadataEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -595,6 +611,24 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getFileXmlMetadata() {
+        return fileXmlMetadataEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getFileLdifMetadata() {
+        return fileLdifMetadataEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -684,6 +718,10 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         databaseBusinessItemEClass = createEClass(DATABASE_BUSINESS_ITEM);
 
         fileRegexpMetadataEClass = createEClass(FILE_REGEXP_METADATA);
+
+        fileXmlMetadataEClass = createEClass(FILE_XML_METADATA);
+
+        fileLdifMetadataEClass = createEClass(FILE_LDIF_METADATA);
     }
 
     /**
@@ -727,6 +765,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         listBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         databaseBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         fileRegexpMetadataEClass.getESuperTypes().add(this.getTalendItem());
+        fileXmlMetadataEClass.getESuperTypes().add(this.getTalendItem());
+        fileLdifMetadataEClass.getESuperTypes().add(this.getTalendItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(repositoryEClass, Repository.class, "Repository", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -794,6 +834,10 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEClass(databaseBusinessItemEClass, DatabaseBusinessItem.class, "DatabaseBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(fileRegexpMetadataEClass, FileRegexpMetadata.class, "FileRegexpMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(fileXmlMetadataEClass, FileXmlMetadata.class, "FileXmlMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(fileLdifMetadataEClass, FileLdifMetadata.class, "FileLdifMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);

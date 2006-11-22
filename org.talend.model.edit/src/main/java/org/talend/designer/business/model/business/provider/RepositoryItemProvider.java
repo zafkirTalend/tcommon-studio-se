@@ -164,6 +164,16 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
             (createChildParameter
                 (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
                  BusinessFactory.eINSTANCE.createFileRegexpMetadata()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
+                 BusinessFactory.eINSTANCE.createFileXmlMetadata()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
+                 BusinessFactory.eINSTANCE.createFileLdifMetadata()));
     }
 
     /**

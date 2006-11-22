@@ -23,8 +23,10 @@ import org.talend.designer.business.model.business.DecisionBusinessItem;
 import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
+import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
+import org.talend.designer.business.model.business.FileXmlMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Repository;
@@ -97,6 +99,8 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.LIST_BUSINESS_ITEM: return createListBusinessItem();
             case BusinessPackage.DATABASE_BUSINESS_ITEM: return createDatabaseBusinessItem();
             case BusinessPackage.FILE_REGEXP_METADATA: return createFileRegexpMetadata();
+            case BusinessPackage.FILE_XML_METADATA: return createFileXmlMetadata();
+            case BusinessPackage.FILE_LDIF_METADATA: return createFileLdifMetadata();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -283,6 +287,26 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
     public FileRegexpMetadata createFileRegexpMetadata() {
         FileRegexpMetadataImpl fileRegexpMetadata = new FileRegexpMetadataImpl();
         return fileRegexpMetadata;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FileXmlMetadata createFileXmlMetadata() {
+        FileXmlMetadataImpl fileXmlMetadata = new FileXmlMetadataImpl();
+        return fileXmlMetadata;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FileLdifMetadata createFileLdifMetadata() {
+        FileLdifMetadataImpl fileLdifMetadata = new FileLdifMetadataImpl();
+        return fileLdifMetadata;
     }
 
     /**

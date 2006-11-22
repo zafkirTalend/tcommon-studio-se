@@ -23,8 +23,10 @@ import org.talend.designer.business.model.business.DecisionBusinessItem;
 import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
+import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
+import org.talend.designer.business.model.business.FileXmlMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Repository;
@@ -158,6 +160,12 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseFileRegexpMetadata(FileRegexpMetadata object) {
                 return createFileRegexpMetadataAdapter();
+            }
+            public Object caseFileXmlMetadata(FileXmlMetadata object) {
+                return createFileXmlMetadataAdapter();
+            }
+            public Object caseFileLdifMetadata(FileLdifMetadata object) {
+                return createFileLdifMetadataAdapter();
             }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
@@ -455,6 +463,34 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createFileRegexpMetadataAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.FileXmlMetadata <em>File Xml Metadata</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.FileXmlMetadata
+     * @generated
+     */
+    public Adapter createFileXmlMetadataAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.FileLdifMetadata <em>File Ldif Metadata</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.FileLdifMetadata
+     * @generated
+     */
+    public Adapter createFileLdifMetadataAdapter() {
         return null;
     }
 

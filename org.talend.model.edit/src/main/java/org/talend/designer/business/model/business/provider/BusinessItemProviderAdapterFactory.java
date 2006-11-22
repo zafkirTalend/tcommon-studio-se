@@ -516,6 +516,50 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.FileXmlMetadata} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected FileXmlMetadataItemProvider fileXmlMetadataItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.FileXmlMetadata}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createFileXmlMetadataAdapter() {
+        if (fileXmlMetadataItemProvider == null) {
+            fileXmlMetadataItemProvider = new FileXmlMetadataItemProvider(this);
+        }
+
+        return fileXmlMetadataItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.FileLdifMetadata} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected FileLdifMetadataItemProvider fileLdifMetadataItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.FileLdifMetadata}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createFileLdifMetadataAdapter() {
+        if (fileLdifMetadataItemProvider == null) {
+            fileLdifMetadataItemProvider = new FileLdifMetadataItemProvider(this);
+        }
+
+        return fileLdifMetadataItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -624,6 +668,8 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (listBusinessItemItemProvider != null) listBusinessItemItemProvider.dispose();
         if (databaseBusinessItemItemProvider != null) databaseBusinessItemItemProvider.dispose();
         if (fileRegexpMetadataItemProvider != null) fileRegexpMetadataItemProvider.dispose();
+        if (fileXmlMetadataItemProvider != null) fileXmlMetadataItemProvider.dispose();
+        if (fileLdifMetadataItemProvider != null) fileLdifMetadataItemProvider.dispose();
     }
 
 }

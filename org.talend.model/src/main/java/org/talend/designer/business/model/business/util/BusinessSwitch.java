@@ -23,8 +23,10 @@ import org.talend.designer.business.model.business.DecisionBusinessItem;
 import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
+import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
+import org.talend.designer.business.model.business.FileXmlMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Repository;
@@ -266,6 +268,20 @@ public class BusinessSwitch {
                 FileRegexpMetadata fileRegexpMetadata = (FileRegexpMetadata)theEObject;
                 Object result = caseFileRegexpMetadata(fileRegexpMetadata);
                 if (result == null) result = caseTalendItem(fileRegexpMetadata);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.FILE_XML_METADATA: {
+                FileXmlMetadata fileXmlMetadata = (FileXmlMetadata)theEObject;
+                Object result = caseFileXmlMetadata(fileXmlMetadata);
+                if (result == null) result = caseTalendItem(fileXmlMetadata);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.FILE_LDIF_METADATA: {
+                FileLdifMetadata fileLdifMetadata = (FileLdifMetadata)theEObject;
+                Object result = caseFileLdifMetadata(fileLdifMetadata);
+                if (result == null) result = caseTalendItem(fileLdifMetadata);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -591,6 +607,36 @@ public class BusinessSwitch {
      * @generated
      */
     public Object caseFileRegexpMetadata(FileRegexpMetadata object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>File Xml Metadata</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>File Xml Metadata</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseFileXmlMetadata(FileXmlMetadata object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>File Ldif Metadata</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>File Ldif Metadata</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseFileLdifMetadata(FileLdifMetadata object) {
         return null;
     }
 
