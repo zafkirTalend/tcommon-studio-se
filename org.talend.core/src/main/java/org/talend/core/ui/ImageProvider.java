@@ -119,6 +119,8 @@ public class ImageProvider {
             return EImage.METADATA_FILE_LDIF_ICON;
         case RECYCLE_BIN:
             return EImage.RECYCLE_BIN_EMPTY_ICON;
+        case FOLDER:
+            return EImage.FOLDER_OPEN_ICON;
         default:
             return EImage.DEFAULT_IMAGE;
         }
