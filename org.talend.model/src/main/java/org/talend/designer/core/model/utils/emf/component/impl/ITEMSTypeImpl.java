@@ -29,6 +29,7 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#getITEM <em>ITEM</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#isBASEDONSCHEMA <em>BASEDONSCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl#getDEFAULT <em>DEFAULT</em>}</li>
  * </ul>
  * </p>
@@ -45,6 +46,35 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * @ordered
      */
     protected EList iTEM = null;
+
+    /**
+     * The default value of the '{@link #isBASEDONSCHEMA() <em>BASEDONSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isBASEDONSCHEMA()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean BASEDONSCHEMA_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isBASEDONSCHEMA() <em>BASEDONSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isBASEDONSCHEMA()
+     * @generated
+     * @ordered
+     */
+    protected boolean bASEDONSCHEMA = BASEDONSCHEMA_EDEFAULT;
+
+    /**
+     * This is true if the BASEDONSCHEMA attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean bASEDONSCHEMAESet = false;
 
     /**
      * The default value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
@@ -101,6 +131,52 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isBASEDONSCHEMA() {
+        return bASEDONSCHEMA;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setBASEDONSCHEMA(boolean newBASEDONSCHEMA) {
+        boolean oldBASEDONSCHEMA = bASEDONSCHEMA;
+        bASEDONSCHEMA = newBASEDONSCHEMA;
+        boolean oldBASEDONSCHEMAESet = bASEDONSCHEMAESet;
+        bASEDONSCHEMAESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA, oldBASEDONSCHEMA, bASEDONSCHEMA, !oldBASEDONSCHEMAESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetBASEDONSCHEMA() {
+        boolean oldBASEDONSCHEMA = bASEDONSCHEMA;
+        boolean oldBASEDONSCHEMAESet = bASEDONSCHEMAESet;
+        bASEDONSCHEMA = BASEDONSCHEMA_EDEFAULT;
+        bASEDONSCHEMAESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA, oldBASEDONSCHEMA, BASEDONSCHEMA_EDEFAULT, oldBASEDONSCHEMAESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetBASEDONSCHEMA() {
+        return bASEDONSCHEMAESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getDEFAULT() {
         return dEFAULT;
     }
@@ -139,6 +215,8 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
                 return getITEM();
+            case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
+                return isBASEDONSCHEMA() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 return getDEFAULT();
         }
@@ -157,6 +235,9 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
                 getITEM().clear();
                 getITEM().addAll((Collection)newValue);
                 return;
+            case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
+                setBASEDONSCHEMA(((Boolean)newValue).booleanValue());
+                return;
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 setDEFAULT((String)newValue);
                 return;
@@ -174,6 +255,9 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
             case ComponentPackage.ITEMS_TYPE__ITEM:
                 getITEM().clear();
                 return;
+            case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
+                unsetBASEDONSCHEMA();
+                return;
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 setDEFAULT(DEFAULT_EDEFAULT);
                 return;
@@ -190,6 +274,8 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
         switch (featureID) {
             case ComponentPackage.ITEMS_TYPE__ITEM:
                 return iTEM != null && !iTEM.isEmpty();
+            case ComponentPackage.ITEMS_TYPE__BASEDONSCHEMA:
+                return isSetBASEDONSCHEMA();
             case ComponentPackage.ITEMS_TYPE__DEFAULT:
                 return DEFAULT_EDEFAULT == null ? dEFAULT != null : !DEFAULT_EDEFAULT.equals(dEFAULT);
         }
@@ -205,7 +291,9 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (dEFAULT: ");
+        result.append(" (bASEDONSCHEMA: ");
+        if (bASEDONSCHEMAESet) result.append(bASEDONSCHEMA); else result.append("<unset>");
+        result.append(", dEFAULT: ");
         result.append(dEFAULT);
         result.append(')');
         return result.toString();

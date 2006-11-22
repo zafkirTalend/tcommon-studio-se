@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#getITEM <em>ITEM</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSCHEMA <em>BASEDONSCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#getDEFAULT <em>DEFAULT</em>}</li>
  * </ul>
  * </p>
@@ -43,6 +44,61 @@ public interface ITEMSType extends EObject {
      * @generated
      */
     EList getITEM();
+
+    /**
+     * Returns the value of the '<em><b>BASEDONSCHEMA</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>BASEDONSCHEMA</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>BASEDONSCHEMA</em>' attribute.
+     * @see #isSetBASEDONSCHEMA()
+     * @see #unsetBASEDONSCHEMA()
+     * @see #setBASEDONSCHEMA(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMSType_BASEDONSCHEMA()
+     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='BASED_ON_SCHEMA' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isBASEDONSCHEMA();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSCHEMA <em>BASEDONSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>BASEDONSCHEMA</em>' attribute.
+     * @see #isSetBASEDONSCHEMA()
+     * @see #unsetBASEDONSCHEMA()
+     * @see #isBASEDONSCHEMA()
+     * @generated
+     */
+    void setBASEDONSCHEMA(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSCHEMA <em>BASEDONSCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetBASEDONSCHEMA()
+     * @see #isBASEDONSCHEMA()
+     * @see #setBASEDONSCHEMA(boolean)
+     * @generated
+     */
+    void unsetBASEDONSCHEMA();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType#isBASEDONSCHEMA <em>BASEDONSCHEMA</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>BASEDONSCHEMA</em>' attribute is set.
+     * @see #unsetBASEDONSCHEMA()
+     * @see #isBASEDONSCHEMA()
+     * @see #setBASEDONSCHEMA(boolean)
+     * @generated
+     */
+    boolean isSetBASEDONSCHEMA();
 
     /**
      * Returns the value of the '<em><b>DEFAULT</b></em>' attribute.
