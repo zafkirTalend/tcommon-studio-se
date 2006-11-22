@@ -26,7 +26,6 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getAUTHOR <em>AUTHOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getCOMPATIBILITY <em>COMPATIBILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isDISPLAY <em>DISPLAY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getEXTENSION <em>EXTENSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getICON16 <em>ICON16</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getICON24 <em>ICON24</em>}</li>
@@ -38,6 +37,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSTATUS <em>STATUS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getVERSION <em>VERSION</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isVISIBLE <em>VISIBLE</em>}</li>
  * </ul>
  * </p>
  *
@@ -132,35 +132,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean dATAAUTOPROPAGATEESet = false;
-
-    /**
-     * The default value of the '{@link #isDISPLAY() <em>DISPLAY</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isDISPLAY()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean DISPLAY_EDEFAULT = true;
-
-    /**
-     * The cached value of the '{@link #isDISPLAY() <em>DISPLAY</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isDISPLAY()
-     * @generated
-     * @ordered
-     */
-    protected boolean dISPLAY = DISPLAY_EDEFAULT;
-
-    /**
-     * This is true if the DISPLAY attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    protected boolean dISPLAYESet = false;
 
     /**
      * The default value of the '{@link #getEXTENSION() <em>EXTENSION</em>}' attribute.
@@ -401,6 +372,35 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
     protected BigDecimal vERSION = VERSION_EDEFAULT;
 
     /**
+     * The default value of the '{@link #isVISIBLE() <em>VISIBLE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isVISIBLE()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean VISIBLE_EDEFAULT = true;
+
+    /**
+     * The cached value of the '{@link #isVISIBLE() <em>VISIBLE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isVISIBLE()
+     * @generated
+     * @ordered
+     */
+    protected boolean vISIBLE = VISIBLE_EDEFAULT;
+
+    /**
+     * This is true if the VISIBLE attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean vISIBLEESet = false;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -525,52 +525,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      */
     public boolean isSetDATAAUTOPROPAGATE() {
         return dATAAUTOPROPAGATEESet;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isDISPLAY() {
-        return dISPLAY;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setDISPLAY(boolean newDISPLAY) {
-        boolean oldDISPLAY = dISPLAY;
-        dISPLAY = newDISPLAY;
-        boolean oldDISPLAYESet = dISPLAYESet;
-        dISPLAYESet = true;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__DISPLAY, oldDISPLAY, dISPLAY, !oldDISPLAYESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void unsetDISPLAY() {
-        boolean oldDISPLAY = dISPLAY;
-        boolean oldDISPLAYESet = dISPLAYESet;
-        dISPLAY = DISPLAY_EDEFAULT;
-        dISPLAYESet = false;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__DISPLAY, oldDISPLAY, DISPLAY_EDEFAULT, oldDISPLAYESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isSetDISPLAY() {
-        return dISPLAYESet;
     }
 
     /**
@@ -817,6 +771,52 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isVISIBLE() {
+        return vISIBLE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setVISIBLE(boolean newVISIBLE) {
+        boolean oldVISIBLE = vISIBLE;
+        vISIBLE = newVISIBLE;
+        boolean oldVISIBLEESet = vISIBLEESet;
+        vISIBLEESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__VISIBLE, oldVISIBLE, vISIBLE, !oldVISIBLEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetVISIBLE() {
+        boolean oldVISIBLE = vISIBLE;
+        boolean oldVISIBLEESet = vISIBLEESet;
+        vISIBLE = VISIBLE_EDEFAULT;
+        vISIBLEESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__VISIBLE, oldVISIBLE, VISIBLE_EDEFAULT, oldVISIBLEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetVISIBLE() {
+        return vISIBLEESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getICON24() {
         return iCON24;
     }
@@ -869,8 +869,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getCOMPATIBILITY();
             case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
                 return isDATAAUTOPROPAGATE() ? Boolean.TRUE : Boolean.FALSE;
-            case ComponentPackage.HEADER_TYPE__DISPLAY:
-                return isDISPLAY() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 return getEXTENSION();
             case ComponentPackage.HEADER_TYPE__ICON16:
@@ -893,6 +891,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getSTATUS();
             case ComponentPackage.HEADER_TYPE__VERSION:
                 return getVERSION();
+            case ComponentPackage.HEADER_TYPE__VISIBLE:
+                return isVISIBLE() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -915,9 +915,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
                 setDATAAUTOPROPAGATE(((Boolean)newValue).booleanValue());
-                return;
-            case ComponentPackage.HEADER_TYPE__DISPLAY:
-                setDISPLAY(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 setEXTENSION((String)newValue);
@@ -952,6 +949,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__VERSION:
                 setVERSION((BigDecimal)newValue);
                 return;
+            case ComponentPackage.HEADER_TYPE__VISIBLE:
+                setVISIBLE(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -974,9 +974,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
                 unsetDATAAUTOPROPAGATE();
-                return;
-            case ComponentPackage.HEADER_TYPE__DISPLAY:
-                unsetDISPLAY();
                 return;
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 setEXTENSION(EXTENSION_EDEFAULT);
@@ -1011,6 +1008,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__VERSION:
                 setVERSION(VERSION_EDEFAULT);
                 return;
+            case ComponentPackage.HEADER_TYPE__VISIBLE:
+                unsetVISIBLE();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1030,8 +1030,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return COMPATIBILITY_EDEFAULT == null ? cOMPATIBILITY != null : !COMPATIBILITY_EDEFAULT.equals(cOMPATIBILITY);
             case ComponentPackage.HEADER_TYPE__DATAAUTOPROPAGATE:
                 return isSetDATAAUTOPROPAGATE();
-            case ComponentPackage.HEADER_TYPE__DISPLAY:
-                return isSetDISPLAY();
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 return EXTENSION_EDEFAULT == null ? eXTENSION != null : !EXTENSION_EDEFAULT.equals(eXTENSION);
             case ComponentPackage.HEADER_TYPE__ICON16:
@@ -1054,6 +1052,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return STATUS_EDEFAULT == null ? sTATUS != null : !STATUS_EDEFAULT.equals(sTATUS);
             case ComponentPackage.HEADER_TYPE__VERSION:
                 return VERSION_EDEFAULT == null ? vERSION != null : !VERSION_EDEFAULT.equals(vERSION);
+            case ComponentPackage.HEADER_TYPE__VISIBLE:
+                return isSetVISIBLE();
         }
         return super.eIsSet(featureID);
     }
@@ -1075,8 +1075,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(cOMPATIBILITY);
         result.append(", dATAAUTOPROPAGATE: ");
         if (dATAAUTOPROPAGATEESet) result.append(dATAAUTOPROPAGATE); else result.append("<unset>");
-        result.append(", dISPLAY: ");
-        if (dISPLAYESet) result.append(dISPLAY); else result.append("<unset>");
         result.append(", eXTENSION: ");
         result.append(eXTENSION);
         result.append(", iCON16: ");
@@ -1099,6 +1097,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(sTATUS);
         result.append(", vERSION: ");
         result.append(vERSION);
+        result.append(", vISIBLE: ");
+        if (vISIBLEESet) result.append(vISIBLE); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }

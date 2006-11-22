@@ -510,22 +510,13 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__DATAAUTOPROPAGATE = 3;
 
     /**
-     * The feature id for the '<em><b>DISPLAY</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HEADER_TYPE__DISPLAY = 4;
-
-    /**
      * The feature id for the '<em><b>EXTENSION</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__EXTENSION = 5;
+    int HEADER_TYPE__EXTENSION = 4;
 
     /**
      * The feature id for the '<em><b>ICON16</b></em>' attribute.
@@ -534,7 +525,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__ICON16 = 6;
+    int HEADER_TYPE__ICON16 = 5;
 
     /**
      * The feature id for the '<em><b>ICON24</b></em>' attribute.
@@ -543,7 +534,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__ICON24 = 7;
+    int HEADER_TYPE__ICON24 = 6;
 
     /**
      * The feature id for the '<em><b>ICON32</b></em>' attribute.
@@ -552,7 +543,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__ICON32 = 8;
+    int HEADER_TYPE__ICON32 = 7;
 
     /**
      * The feature id for the '<em><b>PLATEFORM</b></em>' attribute.
@@ -561,7 +552,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__PLATEFORM = 9;
+    int HEADER_TYPE__PLATEFORM = 8;
 
     /**
      * The feature id for the '<em><b>RELEASEDATE</b></em>' attribute.
@@ -570,7 +561,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__RELEASEDATE = 10;
+    int HEADER_TYPE__RELEASEDATE = 9;
 
     /**
      * The feature id for the '<em><b>SCHEMAAUTOPROPAGATE</b></em>' attribute.
@@ -579,7 +570,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SCHEMAAUTOPROPAGATE = 11;
+    int HEADER_TYPE__SCHEMAAUTOPROPAGATE = 10;
 
     /**
      * The feature id for the '<em><b>SERIAL</b></em>' attribute.
@@ -588,7 +579,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SERIAL = 12;
+    int HEADER_TYPE__SERIAL = 11;
 
     /**
      * The feature id for the '<em><b>STARTABLE</b></em>' attribute.
@@ -597,7 +588,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STARTABLE = 13;
+    int HEADER_TYPE__STARTABLE = 12;
 
     /**
      * The feature id for the '<em><b>STATUS</b></em>' attribute.
@@ -606,7 +597,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STATUS = 14;
+    int HEADER_TYPE__STATUS = 13;
 
     /**
      * The feature id for the '<em><b>VERSION</b></em>' attribute.
@@ -615,7 +606,16 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VERSION = 15;
+    int HEADER_TYPE__VERSION = 14;
+
+    /**
+     * The feature id for the '<em><b>VISIBLE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__VISIBLE = 15;
 
     /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
@@ -1697,17 +1697,6 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_DATAAUTOPROPAGATE();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDISPLAY <em>DISPLAY</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>DISPLAY</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#isDISPLAY()
-     * @see #getHEADERType()
-     * @generated
-     */
-    EAttribute getHEADERType_DISPLAY();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEXTENSION <em>EXTENSION</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1805,6 +1794,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getHEADERType_VERSION();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>VISIBLE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_VISIBLE();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON24 <em>ICON24</em>}'.
@@ -2796,14 +2796,6 @@ public interface ComponentPackage extends EPackage {
         EAttribute HEADER_TYPE__DATAAUTOPROPAGATE = eINSTANCE.getHEADERType_DATAAUTOPROPAGATE();
 
         /**
-         * The meta object literal for the '<em><b>DISPLAY</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute HEADER_TYPE__DISPLAY = eINSTANCE.getHEADERType_DISPLAY();
-
-        /**
          * The meta object literal for the '<em><b>EXTENSION</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2874,6 +2866,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__VERSION = eINSTANCE.getHEADERType_VERSION();
+
+        /**
+         * The meta object literal for the '<em><b>VISIBLE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__VISIBLE = eINSTANCE.getHEADERType_VISIBLE();
 
         /**
          * The meta object literal for the '<em><b>ICON24</b></em>' attribute feature.

@@ -1,4 +1,5 @@
-#Wed Sep 20 21:35:19 CEST 2006
+#Wed Nov 22 13:34:32 CST 2006
 eclipse.preferences.version=1
 encoding//model/Component.xsd=UTF8
 encoding//model/TalendFile.xsd=UTF8
+encoding//src/main/java/org/talend/designer/core/model/utils/emf/component/HEADERType.java=UTF-8

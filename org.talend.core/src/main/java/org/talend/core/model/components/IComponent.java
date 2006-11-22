@@ -83,5 +83,5 @@ public interface IComponent {
 
     public boolean isLoaded();
     
-    public boolean isDisplay();
+    public boolean isVisible();
 }

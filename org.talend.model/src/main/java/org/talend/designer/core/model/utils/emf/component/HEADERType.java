@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getAUTHOR <em>AUTHOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMPATIBILITY <em>COMPATIBILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDISPLAY <em>DISPLAY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEXTENSION <em>EXTENSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON16 <em>ICON16</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON24 <em>ICON24</em>}</li>
@@ -34,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSTATUS <em>STATUS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getVERSION <em>VERSION</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}</li>
  * </ul>
  * </p>
  *
@@ -177,61 +177,6 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetDATAAUTOPROPAGATE();
-
-    /**
-     * Returns the value of the '<em><b>DISPLAY</b></em>' attribute.
-     * The default value is <code>"true"</code>.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>DISPLAY</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>DISPLAY</em>' attribute.
-     * @see #isSetDISPLAY()
-     * @see #unsetDISPLAY()
-     * @see #setDISPLAY(boolean)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_DISPLAY()
-     * @model default="true" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-     *        extendedMetaData="kind='attribute' name='DISPLAY' namespace='##targetNamespace'"
-     * @generated
-     */
-    boolean isDISPLAY();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDISPLAY <em>DISPLAY</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>DISPLAY</em>' attribute.
-     * @see #isSetDISPLAY()
-     * @see #unsetDISPLAY()
-     * @see #isDISPLAY()
-     * @generated
-     */
-    void setDISPLAY(boolean value);
-
-    /**
-     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDISPLAY <em>DISPLAY</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isSetDISPLAY()
-     * @see #isDISPLAY()
-     * @see #setDISPLAY(boolean)
-     * @generated
-     */
-    void unsetDISPLAY();
-
-    /**
-     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDISPLAY <em>DISPLAY</em>}' attribute is set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return whether the value of the '<em>DISPLAY</em>' attribute is set.
-     * @see #unsetDISPLAY()
-     * @see #isDISPLAY()
-     * @see #setDISPLAY(boolean)
-     * @generated
-     */
-    boolean isSetDISPLAY();
 
     /**
      * Returns the value of the '<em><b>EXTENSION</b></em>' attribute.
@@ -530,6 +475,61 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setVERSION(BigDecimal value);
+
+    /**
+     * Returns the value of the '<em><b>VISIBLE</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>VISIBLE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>VISIBLE</em>' attribute.
+     * @see #isSetVISIBLE()
+     * @see #unsetVISIBLE()
+     * @see #setVISIBLE(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_VISIBLE()
+     * @model default="true" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='VISIBLE' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isVISIBLE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>VISIBLE</em>' attribute.
+     * @see #isSetVISIBLE()
+     * @see #unsetVISIBLE()
+     * @see #isVISIBLE()
+     * @generated
+     */
+    void setVISIBLE(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetVISIBLE()
+     * @see #isVISIBLE()
+     * @see #setVISIBLE(boolean)
+     * @generated
+     */
+    void unsetVISIBLE();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>VISIBLE</em>' attribute is set.
+     * @see #unsetVISIBLE()
+     * @see #isVISIBLE()
+     * @see #setVISIBLE(boolean)
+     * @generated
+     */
+    boolean isSetVISIBLE();
 
     /**
      * Returns the value of the '<em><b>ICON24</b></em>' attribute.

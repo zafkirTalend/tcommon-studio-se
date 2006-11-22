@@ -39,8 +39,8 @@
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//DocumentRoot">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute Component.ecore#//DocumentRoot/mixed"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/xMLNSPrefixMap"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/xSISchemaLocation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/xMLNSPrefixMap"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/xSISchemaLocation"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/cODEGENERATION"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/cOMPONENT"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/cONNECTORS"/>
@@ -55,7 +55,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/aUTHOR"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/cOMPATIBILITY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/dATAAUTOPROPAGATE"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/dISPLAY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/eXTENSION"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/iCON16"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/iCON24"/>
@@ -67,6 +66,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sTARTABLE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sTATUS"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vERSION"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vISIBLE"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//IMPORTSType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//IMPORTSType/iMPORT"/>
