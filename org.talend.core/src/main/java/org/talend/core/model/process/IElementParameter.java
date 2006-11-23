@@ -131,4 +131,8 @@ public interface IElementParameter {
     public void setParent(IElement element);
     
     public IElement getParent();
+    
+    public boolean isBasedOnSchema();
+    
+    public void setBasedOnSchema(boolean basedOnSchema); 
 }
