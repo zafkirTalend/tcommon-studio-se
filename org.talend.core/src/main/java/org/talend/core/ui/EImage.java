@@ -68,10 +68,10 @@ public enum EImage {
 
     BUSINESS_PROCESS_ICON("/icons/businessProcess.png"),
     BUSINESS_PROCESS_WIZ("/icons/business_wiz.png"),
-    PROCESS_ICON("/icons/JOB-2.psd-16x16.png"),
+    PROCESS_ICON("/icons/process_icon.png"),
     PROCESS_WIZ("/icons/process_wiz.png"),
     ROUTINE_ICON("/icons/routine.png"),
-    SNIPPETS_ICON("/icons/snippet.gif"),
+    SNIPPETS_ICON("/icons/snippet.png"),
     // SUBROUTINE_ICON("/icons/subroutine.gif"),
     DOCUMENTATION_ICON("/icons/documentation.png"),
     DOCUMENTATION_WIZ("/icons/documentation_wiz.png"),
