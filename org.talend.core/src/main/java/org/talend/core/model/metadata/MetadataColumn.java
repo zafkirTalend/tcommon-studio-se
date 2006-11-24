@@ -291,6 +291,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         this.comment = comment;
     }
 
+    @Override
     public IMetadataColumn clone() {
         IMetadataColumn clonedMetacolumn = null;
         try {
@@ -302,47 +303,64 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     }
 
     public boolean sameMetacolumnAs(IMetadataColumn metaColumn) {
-        if (this == metaColumn)
+        if (this == metaColumn) {
             return true;
-        if (metaColumn == null)
+        }
+        if (metaColumn == null) {
             return false;
-        if (getClass() != metaColumn.getClass())
+        }
+        if (getClass() != metaColumn.getClass()) {
             return false;
+        }
         final MetadataColumn other = (MetadataColumn) metaColumn;
         if (this.defaut == null) {
-            if (other.defaut != null)
+            if (other.defaut != null) {
                 return false;
-        } else if (!this.defaut.equals(other.defaut))
+            }
+        } else if (!this.defaut.equals(other.defaut)) {
             return false;
+        }
         if (this.comment == null) {
-            if (other.comment != null)
+            if (other.comment != null) {
                 return false;
-        } else if (!this.comment.equals(other.comment))
+            }
+        } else if (!this.comment.equals(other.comment)) {
             return false;
-        if (this.key != other.key)
+        }
+        if (this.key != other.key) {
             return false;
+        }
         if (this.label == null) {
-            if (other.label != null)
+            if (other.label != null) {
                 return false;
-        } else if (!this.label.equals(other.label))
+            }
+        } else if (!this.label.equals(other.label)) {
             return false;
+        }
         if (this.length == null) {
-            if (other.length != null)
+            if (other.length != null) {
                 return false;
-        } else if (!this.length.equals(other.length))
+            }
+        } else if (!this.length.equals(other.length)) {
             return false;
-        if (this.nullable != other.nullable)
+        }
+        if (this.nullable != other.nullable) {
             return false;
+        }
         if (this.precision == null) {
-            if (other.precision != null)
+            if (other.precision != null) {
                 return false;
-        } else if (!this.precision.equals(other.precision))
+            }
+        } else if (!this.precision.equals(other.precision)) {
             return false;
+        }
         if (this.talendType == null) {
-            if (other.talendType != null)
+            if (other.talendType != null) {
                 return false;
-        } else if (!this.talendType.equals(other.talendType))
+            }
+        } else if (!this.talendType.equals(other.talendType)) {
             return false;
+        }
         return true;
     }
 }

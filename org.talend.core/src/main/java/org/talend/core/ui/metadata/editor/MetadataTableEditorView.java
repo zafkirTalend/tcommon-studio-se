@@ -315,7 +315,7 @@ public class MetadataTableEditorView {
         column.setWeight(20);
         column.setModifiable(true);
         column.setMinimumWidth(45);
-        if(!readOnly) {
+        if (!readOnly) {
             final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
             cellEditor.addListener(new DialogErrorForCellEditorListener(cellEditor, column) {
                 
@@ -387,7 +387,7 @@ public class MetadataTableEditorView {
         column.setModifiable(true);
         column.setWeight(10);
         column.setMinimumWidth(30);
-        if(!readOnly) {
+        if (!readOnly) {
             column.setCellEditor(new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes), comboValueAdapter);
         }
 
@@ -408,7 +408,7 @@ public class MetadataTableEditorView {
         });
         column.setModifiable(true);
         column.setWidth(55);
-        if(!readOnly) {
+        if (!readOnly) {
             column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
         }
 
@@ -429,7 +429,7 @@ public class MetadataTableEditorView {
         });
         column.setModifiable(true);
         column.setWidth(60);
-        if(!readOnly) {
+        if (!readOnly) {
             column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
         }
 
@@ -471,7 +471,7 @@ public class MetadataTableEditorView {
         column.setWeight(10);
         column.setModifiable(true);
         column.setMinimumWidth(30);
-        if(!readOnly) {
+        if (!readOnly) {
             column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
         }
 
@@ -493,7 +493,7 @@ public class MetadataTableEditorView {
         column.setWeight(30);
         column.setModifiable(true);
         column.setMinimumWidth(20);
-        if(!readOnly) {
+        if (!readOnly) {
             column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
         }
 

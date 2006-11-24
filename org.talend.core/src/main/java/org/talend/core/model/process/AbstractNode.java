@@ -115,7 +115,7 @@ public abstract class AbstractNode implements INode {
     }
 
     public void setUniqueName(String uniqueName) {
-    	for (IElementParameter param: elementParameters) {
+    	for (IElementParameter param : elementParameters) {
     		if (param.getName().equals("UNIQUE_NAME")) {
     			param.setValue(uniqueName);
     		}

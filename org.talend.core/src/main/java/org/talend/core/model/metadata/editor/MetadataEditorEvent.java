@@ -52,7 +52,7 @@ public class MetadataEditorEvent implements IEventAction {
         PASTE,
         CUT,
         METADATA_NAME_VALUE_CHANGED,
-        METADATA_KEY_VALUE_CHANGED, ;
+        METADATA_KEY_VALUE_CHANGED;
     }
 
     public TYPE type;
