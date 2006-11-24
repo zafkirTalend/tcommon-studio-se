@@ -646,30 +646,14 @@ public class PropertyImpl extends EObjectImpl implements Property {
         return super.eIsSet(featureID);
     }
 
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public String toString() {
         if (eIsProxy()) return super.toString();
 
-        StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: ");
+        StringBuffer result = new StringBuffer();
+        result.append("(id: ");
         result.append(id);
         result.append(", label: ");
         result.append(label);
-        result.append(", purpose: ");
-        result.append(purpose);
-        result.append(", description: ");
-        result.append(description);
-        result.append(", creationDate: ");
-        result.append(creationDate);
-        result.append(", modificationDate: ");
-        result.append(modificationDate);
-        result.append(", version: ");
-        result.append(version);
-        result.append(", statusCode: ");
-        result.append(statusCode);
         result.append(')');
         return result.toString();
     }

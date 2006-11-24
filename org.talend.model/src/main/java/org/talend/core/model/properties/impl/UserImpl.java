@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.User;
+import org.talend.core.model.properties.UserProjectAuthorization;
 import org.talend.core.model.properties.UserRole;
 
 /**
@@ -41,7 +42,7 @@ import org.talend.core.model.properties.UserRole;
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#isAllowedToModifyComponents <em>Allowed To Modify Components</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getRole <em>Role</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getProjects <em>Projects</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getProjectAuthorization <em>Project Authorization</em>}</li>
  * </ul>
  * </p>
  *
@@ -259,14 +260,14 @@ public class UserImpl extends EObjectImpl implements User {
     protected UserRole role = null;
 
     /**
-     * The cached value of the '{@link #getProjects() <em>Projects</em>}' reference list.
+     * The cached value of the '{@link #getProjectAuthorization() <em>Project Authorization</em>}' reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getProjects()
+     * @see #getProjectAuthorization()
      * @generated
      * @ordered
      */
-    protected EList projects = null;
+    protected EList projectAuthorization = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -539,11 +540,11 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getProjects() {
-        if (projects == null) {
-            projects = new EObjectWithInverseResolvingEList.ManyInverse(Project.class, this, PropertiesPackage.USER__PROJECTS, PropertiesPackage.PROJECT__USERS);
+    public EList getProjectAuthorization() {
+        if (projectAuthorization == null) {
+            projectAuthorization = new EObjectWithInverseResolvingEList(UserProjectAuthorization.class, this, PropertiesPackage.USER__PROJECT_AUTHORIZATION, PropertiesPackage.USER_PROJECT_AUTHORIZATION__USER);
         }
-        return projects;
+        return projectAuthorization;
     }
 
     /**
@@ -553,8 +554,8 @@ public class UserImpl extends EObjectImpl implements User {
      */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case PropertiesPackage.USER__PROJECTS:
-                return ((InternalEList)getProjects()).basicAdd(otherEnd, msgs);
+            case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
+                return ((InternalEList)getProjectAuthorization()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -566,8 +567,8 @@ public class UserImpl extends EObjectImpl implements User {
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case PropertiesPackage.USER__PROJECTS:
-                return ((InternalEList)getProjects()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
+                return ((InternalEList)getProjectAuthorization()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -602,8 +603,8 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__ROLE:
                 if (resolve) return getRole();
                 return basicGetRole();
-            case PropertiesPackage.USER__PROJECTS:
-                return getProjects();
+            case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
+                return getProjectAuthorization();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -648,9 +649,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__ROLE:
                 setRole((UserRole)newValue);
                 return;
-            case PropertiesPackage.USER__PROJECTS:
-                getProjects().clear();
-                getProjects().addAll((Collection)newValue);
+            case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
+                getProjectAuthorization().clear();
+                getProjectAuthorization().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -696,8 +697,8 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__ROLE:
                 setRole((UserRole)null);
                 return;
-            case PropertiesPackage.USER__PROJECTS:
-                getProjects().clear();
+            case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
+                getProjectAuthorization().clear();
                 return;
         }
         super.eUnset(featureID);
@@ -732,8 +733,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
             case PropertiesPackage.USER__ROLE:
                 return role != null;
-            case PropertiesPackage.USER__PROJECTS:
-                return projects != null && !projects.isEmpty();
+            case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
+                return projectAuthorization != null && !projectAuthorization.isEmpty();
         }
         return super.eIsSet(featureID);
     }

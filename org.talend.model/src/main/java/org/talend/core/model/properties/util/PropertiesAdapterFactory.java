@@ -159,6 +159,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
                 return createLdifFileConnectionItemAdapter();
             }
+            public Object caseUserProjectAuthorization(UserProjectAuthorization object) {
+                return createUserProjectAuthorizationAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -451,6 +454,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createLdifFileConnectionItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.UserProjectAuthorization <em>User Project Authorization</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.UserProjectAuthorization
+     * @generated
+     */
+    public Adapter createUserProjectAuthorizationAdapter() {
         return null;
     }
 

@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.User#isAllowedToModifyComponents <em>Allowed To Modify Components</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getComment <em>Comment</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getRole <em>Role</em>}</li>
- *   <li>{@link org.talend.core.model.properties.User#getProjects <em>Projects</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.User#getProjectAuthorization <em>Project Authorization</em>}</li>
  * </ul>
  * </p>
  *
@@ -326,21 +326,21 @@ public interface User extends EObject {
     void setRole(UserRole value);
 
     /**
-     * Returns the value of the '<em><b>Projects</b></em>' reference list.
-     * The list contents are of type {@link org.talend.core.model.properties.Project}.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.Project#getUsers <em>Users</em>}'.
+     * Returns the value of the '<em><b>Project Authorization</b></em>' reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.UserProjectAuthorization}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.UserProjectAuthorization#getUser <em>User</em>}'.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Projects</em>' reference list isn't clear,
+     * If the meaning of the '<em>Project Authorization</em>' reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Projects</em>' reference list.
-     * @see org.talend.core.model.properties.PropertiesPackage#getUser_Projects()
-     * @see org.talend.core.model.properties.Project#getUsers
-     * @model type="org.talend.core.model.properties.Project" opposite="users"
+     * @return the value of the '<em>Project Authorization</em>' reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getUser_ProjectAuthorization()
+     * @see org.talend.core.model.properties.UserProjectAuthorization#getUser
+     * @model type="org.talend.core.model.properties.UserProjectAuthorization" opposite="user"
      * @generated
      */
-    EList getProjects();
+    EList getProjectAuthorization();
 
 } // User

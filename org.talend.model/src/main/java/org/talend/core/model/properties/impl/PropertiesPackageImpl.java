@@ -39,6 +39,8 @@ import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
+import org.talend.core.model.properties.UserProjectAuthorization;
+import org.talend.core.model.properties.UserProjectAuthorizationType;
 import org.talend.core.model.properties.UserRole;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.designer.business.model.business.BusinessPackage;
@@ -190,10 +192,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     private EClass ldifFileConnectionItemEClass = null;
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass userProjectAuthorizationEClass = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EEnum folderTypeEEnum = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EEnum userProjectAuthorizationTypeEEnum = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -326,7 +342,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_Id() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -334,7 +350,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_Label() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -342,7 +358,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_Description() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(5);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -350,7 +366,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_Language() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -358,6 +374,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_Author() {
+        return (EReference)projectEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProject_UserAuthorization() {
         return (EReference)projectEClass.getEStructuralFeatures().get(15);
     }
 
@@ -366,7 +391,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_TechnicalLabel() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -374,15 +399,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_Local() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(8);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getProject_Users() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(2);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -390,7 +407,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_Folders() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(9);
+        return (EReference)projectEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -398,7 +415,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_Deleted() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -406,7 +423,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_DeleteDate() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(11);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(10);
     }
 
     /**
@@ -414,7 +431,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_Components() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(12);
+        return (EReference)projectEClass.getEStructuralFeatures().get(11);
     }
 
     /**
@@ -422,7 +439,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_ReferenceProjects() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(13);
+        return (EReference)projectEClass.getEStructuralFeatures().get(12);
     }
 
     /**
@@ -430,7 +447,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_CreationDate() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(14);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(13);
     }
 
     /**
@@ -870,10 +887,11 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getUser_Projects() {
+    public EReference getUser_ProjectAuthorization() {
         return (EReference)userEClass.getEStructuralFeatures().get(11);
     }
 
@@ -1032,11 +1050,56 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getUserProjectAuthorization() {
+        return userProjectAuthorizationEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getUserProjectAuthorization_User() {
+        return (EReference)userProjectAuthorizationEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getUserProjectAuthorization_Project() {
+        return (EReference)userProjectAuthorizationEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getUserProjectAuthorization_Type() {
+        return (EAttribute)userProjectAuthorizationEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EEnum getFolderType() {
         return folderTypeEEnum;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EEnum getUserProjectAuthorizationType() {
+        return userProjectAuthorizationTypeEEnum;
     }
 
     /**
@@ -1099,7 +1162,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         projectEClass = createEClass(PROJECT);
         createEReference(projectEClass, PROJECT__TECHNICAL_STATUS);
         createEReference(projectEClass, PROJECT__DOCUMENTATION_STATUS);
-        createEReference(projectEClass, PROJECT__USERS);
         createEAttribute(projectEClass, PROJECT__ID);
         createEAttribute(projectEClass, PROJECT__LABEL);
         createEAttribute(projectEClass, PROJECT__DESCRIPTION);
@@ -1113,6 +1175,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(projectEClass, PROJECT__REFERENCE_PROJECTS);
         createEAttribute(projectEClass, PROJECT__CREATION_DATE);
         createEReference(projectEClass, PROJECT__AUTHOR);
+        createEReference(projectEClass, PROJECT__USER_AUTHORIZATION);
 
         statusEClass = createEClass(STATUS);
         createEAttribute(statusEClass, STATUS__LABEL);
@@ -1194,7 +1257,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(userEClass, USER__ALLOWED_TO_MODIFY_COMPONENTS);
         createEAttribute(userEClass, USER__COMMENT);
         createEReference(userEClass, USER__ROLE);
-        createEReference(userEClass, USER__PROJECTS);
+        createEReference(userEClass, USER__PROJECT_AUTHORIZATION);
 
         folderItemEClass = createEClass(FOLDER_ITEM);
         createEReference(folderItemEClass, FOLDER_ITEM__CHILDREN);
@@ -1218,8 +1281,14 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         ldifFileConnectionItemEClass = createEClass(LDIF_FILE_CONNECTION_ITEM);
 
+        userProjectAuthorizationEClass = createEClass(USER_PROJECT_AUTHORIZATION);
+        createEReference(userProjectAuthorizationEClass, USER_PROJECT_AUTHORIZATION__USER);
+        createEReference(userProjectAuthorizationEClass, USER_PROJECT_AUTHORIZATION__PROJECT);
+        createEAttribute(userProjectAuthorizationEClass, USER_PROJECT_AUTHORIZATION__TYPE);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
+        userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
     }
 
     /**
@@ -1270,7 +1339,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getProject_TechnicalStatus(), this.getStatus(), null, "technicalStatus", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProject_DocumentationStatus(), this.getStatus(), null, "documentationStatus", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getProject_Users(), this.getUser(), this.getUser_Projects(), "users", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Id(), ecorePackage.getEInt(), "id", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Label(), ecorePackage.getEString(), "label", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Description(), ecorePackage.getEString(), "description", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1284,6 +1352,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getProject_ReferenceProjects(), this.getProject(), null, "referenceProjects", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_CreationDate(), ecorePackage.getEDate(), "creationDate", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProject_Author(), this.getUser(), null, "author", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProject_UserAuthorization(), this.getUserProjectAuthorization(), this.getUserProjectAuthorization_Project(), "userAuthorization", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(statusEClass, Status.class, "Status", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getStatus_Label(), ecorePackage.getEString(), "label", null, 0, 1, Status.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1365,7 +1434,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getUser_AllowedToModifyComponents(), ecorePackage.getEBoolean(), "allowedToModifyComponents", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUser_Comment(), ecorePackage.getEString(), "Comment", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getUser_Role(), this.getUserRole(), null, "role", null, 1, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getUser_Projects(), this.getProject(), this.getProject_Users(), "projects", null, 0, -1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getUser_ProjectAuthorization(), this.getUserProjectAuthorization(), this.getUserProjectAuthorization_User(), "projectAuthorization", null, 0, -1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(folderItemEClass, FolderItem.class, "FolderItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getFolderItem_Children(), this.getItem(), null, "children", null, 0, -1, FolderItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1389,11 +1458,20 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(ldifFileConnectionItemEClass, LdifFileConnectionItem.class, "LdifFileConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
+        initEClass(userProjectAuthorizationEClass, UserProjectAuthorization.class, "UserProjectAuthorization", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getUserProjectAuthorization_User(), this.getUser(), this.getUser_ProjectAuthorization(), "user", null, 0, 1, UserProjectAuthorization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getUserProjectAuthorization_Project(), this.getProject(), this.getProject_UserAuthorization(), "project", null, 0, 1, UserProjectAuthorization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getUserProjectAuthorization_Type(), this.getUserProjectAuthorizationType(), "type", "ReadWrite", 0, 1, UserProjectAuthorization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");
         addEEnumLiteral(folderTypeEEnum, FolderType.FOLDER_LITERAL);
         addEEnumLiteral(folderTypeEEnum, FolderType.SYSTEM_FOLDER_LITERAL);
         addEEnumLiteral(folderTypeEEnum, FolderType.STABLE_SYSTEM_FOLDER_LITERAL);
+
+        initEEnum(userProjectAuthorizationTypeEEnum, UserProjectAuthorizationType.class, "UserProjectAuthorizationType");
+        addEEnumLiteral(userProjectAuthorizationTypeEEnum, UserProjectAuthorizationType.READ_WRITE_LITERAL);
+        addEEnumLiteral(userProjectAuthorizationTypeEEnum, UserProjectAuthorizationType.READ_ONLY_LITERAL);
 
         // Create resource
         createResource(eNS_URI);

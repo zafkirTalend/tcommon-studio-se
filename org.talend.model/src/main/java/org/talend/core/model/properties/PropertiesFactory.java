@@ -198,6 +198,15 @@ public interface PropertiesFactory extends EFactory {
     LdifFileConnectionItem createLdifFileConnectionItem();
 
     /**
+     * Returns a new object of class '<em>User Project Authorization</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>User Project Authorization</em>'.
+     * @generated
+     */
+    UserProjectAuthorization createUserProjectAuthorization();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

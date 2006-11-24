@@ -248,4 +248,9 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
         return super.eIsSet(featureID);
     }
 
+    @Override
+    public String toString() {
+        return getProperty().toString();
+    }
+
 } // ItemImpl

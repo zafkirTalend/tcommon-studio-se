@@ -8,8 +8,6 @@
         eType="#//Status" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="documentationStatus" upperBound="-1"
         eType="#//Status" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="users" unique="false" upperBound="-1"
-        eType="#//User" eOpposite="#//User/projects"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -34,6 +32,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationDate" unique="false"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="author" eType="#//User"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="userAuthorization" upperBound="-1"
+        eType="#//UserProjectAuthorization" eOpposite="#//UserProjectAuthorization/project"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Status">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -131,8 +131,8 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="role" unique="false" lowerBound="1"
         eType="#//UserRole"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="projects" unique="false"
-        upperBound="-1" eType="#//Project" eOpposite="#//Project/users"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="projectAuthorization" upperBound="-1"
+        eType="#//UserProjectAuthorization" eOpposite="#//UserProjectAuthorization/user"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FolderItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" unique="false"
@@ -177,5 +177,16 @@
         <details key="appinfo" value="@Column(length=1048576)"/>
       </eAnnotations>
     </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UserProjectAuthorization">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//User" eOpposite="#//User/projectAuthorization"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="project" eType="#//Project"
+        eOpposite="#//Project/userAuthorization"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//UserProjectAuthorizationType"
+        defaultValueLiteral="ReadWrite"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="UserProjectAuthorizationType">
+    <eLiterals name="ReadWrite" value="1"/>
+    <eLiterals name="ReadOnly" value="2"/>
   </eClassifiers>
 </ecore:EPackage>

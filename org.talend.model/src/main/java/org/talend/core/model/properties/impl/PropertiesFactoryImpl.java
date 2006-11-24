@@ -99,6 +99,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.COMPONENT: return createComponent();
             case PropertiesPackage.NOTATION_HOLDER: return createNotationHolder();
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: return createLdifFileConnectionItem();
+            case PropertiesPackage.USER_PROJECT_AUTHORIZATION: return createUserProjectAuthorization();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -112,6 +113,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
         switch (eDataType.getClassifierID()) {
             case PropertiesPackage.FOLDER_TYPE:
                 return createFolderTypeFromString(eDataType, initialValue);
+            case PropertiesPackage.USER_PROJECT_AUTHORIZATION_TYPE:
+                return createUserProjectAuthorizationTypeFromString(eDataType, initialValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -125,6 +128,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
         switch (eDataType.getClassifierID()) {
             case PropertiesPackage.FOLDER_TYPE:
                 return convertFolderTypeToString(eDataType, instanceValue);
+            case PropertiesPackage.USER_PROJECT_AUTHORIZATION_TYPE:
+                return convertUserProjectAuthorizationTypeToString(eDataType, instanceValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -323,6 +328,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public UserProjectAuthorization createUserProjectAuthorization() {
+        UserProjectAuthorizationImpl userProjectAuthorization = new UserProjectAuthorizationImpl();
+        return userProjectAuthorization;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -337,6 +352,26 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      * @generated
      */
     public String convertFolderTypeToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public UserProjectAuthorizationType createUserProjectAuthorizationTypeFromString(EDataType eDataType, String initialValue) {
+        UserProjectAuthorizationType result = UserProjectAuthorizationType.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertUserProjectAuthorizationTypeToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 

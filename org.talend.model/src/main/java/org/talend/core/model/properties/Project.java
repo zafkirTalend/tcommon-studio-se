@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.Project#getTechnicalStatus <em>Technical Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getDocumentationStatus <em>Documentation Status</em>}</li>
- *   <li>{@link org.talend.core.model.properties.Project#getUsers <em>Users</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getDescription <em>Description</em>}</li>
@@ -32,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Project#getReferenceProjects <em>Reference Projects</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getAuthor <em>Author</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getUserAuthorization <em>User Authorization</em>}</li>
  * </ul>
  * </p>
  *
@@ -200,6 +200,24 @@ public interface Project extends EObject {
     void setAuthor(User value);
 
     /**
+     * Returns the value of the '<em><b>User Authorization</b></em>' reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.UserProjectAuthorization}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.UserProjectAuthorization#getProject <em>Project</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>User Authorization</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>User Authorization</em>' reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_UserAuthorization()
+     * @see org.talend.core.model.properties.UserProjectAuthorization#getProject
+     * @model type="org.talend.core.model.properties.UserProjectAuthorization" opposite="project"
+     * @generated
+     */
+    EList getUserAuthorization();
+
+    /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -249,24 +267,6 @@ public interface Project extends EObject {
      * @generated
      */
     void setLocal(boolean value);
-
-    /**
-     * Returns the value of the '<em><b>Users</b></em>' reference list.
-     * The list contents are of type {@link org.talend.core.model.properties.User}.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.User#getProjects <em>Projects</em>}'.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Users</em>' reference list isn't clear, there really should be more of a
-     * description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Users</em>' reference list.
-     * @see org.talend.core.model.properties.PropertiesPackage#getProject_Users()
-     * @see org.talend.core.model.properties.User#getProjects
-     * @model type="org.talend.core.model.properties.User" opposite="projects"
-     * @generated
-     */
-    EList getUsers();
 
     /**
      * Returns the value of the '<em><b>Folders</b></em>' containment reference list.

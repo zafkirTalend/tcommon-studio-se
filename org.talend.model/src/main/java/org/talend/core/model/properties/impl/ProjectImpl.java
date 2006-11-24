@@ -26,6 +26,8 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 
+import org.talend.core.model.properties.UserProjectAuthorization;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Project</b></em>'. <!-- end-user-doc -->
  * <p>
@@ -33,7 +35,6 @@ import org.talend.core.model.properties.User;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getTechnicalStatus <em>Technical Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDocumentationStatus <em>Documentation Status</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getUsers <em>Users</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDescription <em>Description</em>}</li>
@@ -47,6 +48,7 @@ import org.talend.core.model.properties.User;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getReferenceProjects <em>Reference Projects</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAuthor <em>Author</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getUserAuthorization <em>User Authorization</em>}</li>
  * </ul>
  * </p>
  *
@@ -71,16 +73,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @ordered
      */
     protected EList documentationStatus = null;
-
-    /**
-     * The cached value of the '{@link #getUsers() <em>Users</em>}' reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @see #getUsers()
-     * @generated
-     * @ordered
-     */
-    protected EList users = null;
 
     /**
      * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -302,6 +294,16 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected User author = null;
 
     /**
+     * The cached value of the '{@link #getUserAuthorization() <em>User Authorization</em>}' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getUserAuthorization()
+     * @generated
+     * @ordered
+     */
+    protected EList userAuthorization = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -451,6 +453,18 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getUserAuthorization() {
+        if (userAuthorization == null) {
+            userAuthorization = new EObjectWithInverseResolvingEList(UserProjectAuthorization.class, this, PropertiesPackage.PROJECT__USER_AUTHORIZATION, PropertiesPackage.USER_PROJECT_AUTHORIZATION__PROJECT);
+        }
+        return userAuthorization;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -486,17 +500,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
         local = newLocal;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__LOCAL, oldLocal, local));
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getUsers() {
-        if (users == null) {
-            users = new EObjectWithInverseResolvingEList.ManyInverse(User.class, this, PropertiesPackage.PROJECT__USERS, PropertiesPackage.USER__PROJECTS);
-        }
-        return users;
     }
 
     /**
@@ -595,10 +598,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
      */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case PropertiesPackage.PROJECT__USERS:
-                return ((InternalEList)getUsers()).basicAdd(otherEnd, msgs);
             case PropertiesPackage.PROJECT__COMPONENTS:
                 return ((InternalEList)getComponents()).basicAdd(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
+                return ((InternalEList)getUserAuthorization()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -613,12 +616,12 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return ((InternalEList)getTechnicalStatus()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
                 return ((InternalEList)getDocumentationStatus()).basicRemove(otherEnd, msgs);
-            case PropertiesPackage.PROJECT__USERS:
-                return ((InternalEList)getUsers()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__FOLDERS:
                 return ((InternalEList)getFolders()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__COMPONENTS:
                 return ((InternalEList)getComponents()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
+                return ((InternalEList)getUserAuthorization()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -633,8 +636,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getTechnicalStatus();
             case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
                 return getDocumentationStatus();
-            case PropertiesPackage.PROJECT__USERS:
-                return getUsers();
             case PropertiesPackage.PROJECT__ID:
                 return new Integer(getId());
             case PropertiesPackage.PROJECT__LABEL:
@@ -662,6 +663,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__AUTHOR:
                 if (resolve) return getAuthor();
                 return basicGetAuthor();
+            case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
+                return getUserAuthorization();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -679,10 +682,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
                 getDocumentationStatus().clear();
                 getDocumentationStatus().addAll((Collection)newValue);
-                return;
-            case PropertiesPackage.PROJECT__USERS:
-                getUsers().clear();
-                getUsers().addAll((Collection)newValue);
                 return;
             case PropertiesPackage.PROJECT__ID:
                 setId(((Integer)newValue).intValue());
@@ -726,6 +725,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__AUTHOR:
                 setAuthor((User)newValue);
                 return;
+            case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
+                getUserAuthorization().clear();
+                getUserAuthorization().addAll((Collection)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -741,9 +744,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return;
             case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
                 getDocumentationStatus().clear();
-                return;
-            case PropertiesPackage.PROJECT__USERS:
-                getUsers().clear();
                 return;
             case PropertiesPackage.PROJECT__ID:
                 setId(ID_EDEFAULT);
@@ -784,6 +784,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__AUTHOR:
                 setAuthor((User)null);
                 return;
+            case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
+                getUserAuthorization().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -798,8 +801,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return technicalStatus != null && !technicalStatus.isEmpty();
             case PropertiesPackage.PROJECT__DOCUMENTATION_STATUS:
                 return documentationStatus != null && !documentationStatus.isEmpty();
-            case PropertiesPackage.PROJECT__USERS:
-                return users != null && !users.isEmpty();
             case PropertiesPackage.PROJECT__ID:
                 return id != ID_EDEFAULT;
             case PropertiesPackage.PROJECT__LABEL:
@@ -826,6 +827,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return CREATION_DATE_EDEFAULT == null ? creationDate != null : !CREATION_DATE_EDEFAULT.equals(creationDate);
             case PropertiesPackage.PROJECT__AUTHOR:
                 return author != null;
+            case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
+                return userAuthorization != null && !userAuthorization.isEmpty();
         }
         return super.eIsSet(featureID);
     }
