@@ -149,6 +149,9 @@ public class RepositoryToComponentProperty {
         if (value.equals("NULL_CHAR")) {
             return "'" + checkStringQuotes(connection.getNullChar()) + "'";
         }
+        if (value.equals("SCHEMA")) {
+            return "'" + checkStringQuotes(connection.getSchema()) + "'";
+        }
         return null;
     }
 
