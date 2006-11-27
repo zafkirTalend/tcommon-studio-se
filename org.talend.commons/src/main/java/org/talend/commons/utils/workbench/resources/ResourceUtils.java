@@ -266,6 +266,7 @@ public final class ResourceUtils {
 
         // Rule 2 : target is the root
         if (target.segmentCount() == 0) {
+            log.trace("Can move " + source + " -> " + target);
             return true;
         }
 
@@ -285,6 +286,7 @@ public final class ResourceUtils {
             // }
         }
 
+        log.trace("Can move " + source + " -> " + target);
         return true;
     }
 
