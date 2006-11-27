@@ -33,32 +33,16 @@ public class BusinessException extends Exception {
     @SuppressWarnings("unused")
     private static final long serialVersionUID = 1L;
 
-    private String key;
+    public BusinessException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
     public BusinessException(Throwable cause) {
         super(cause);
     }
 
-    public BusinessException(String key) {
-        this.key = key;
-    }
-
-    /**
-     * Getter for key.
-     * 
-     * @return the key
-     */
-    public String getKey() {
-        return this.key;
-    }
-
-    /**
-     * Sets the key.
-     * 
-     * @param key the key to set
-     */
-    public void setKey(String key) {
-        this.key = key;
+    public BusinessException(String message) {
+        super(message);
     }
 
 }
