@@ -333,26 +333,15 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             if (this.table == null) {
                 createTable();
             }
-            tableViewer = buildAndLayoutTable();
-            attachContentProvider();
             attachLabelProvider();
-            attachCellEditors();
             attachViewerSorter();
+            buildAndLayoutTable();
+            attachContentProvider();
+            attachCellEditors();
             addListeners();
         }
         // long time11 = System.currentTimeMillis();
         if (list != null) {
-            if (tableEditorManager != null && list instanceof ListenableList) {
-                ((ListenableList) list).addAfterListener(1, new IListenableListListener() {
-
-                    public void handleEvent(ListenableListEvent event) {
-                        // we must refresh the table before creating the control to draw cells
-                        getTableViewer().refresh();
-                        tableEditorManager.init();
-                    }
-
-                });
-            }
             setInputList(list);
         }
         if (tableEditorManager != null) {
@@ -439,7 +428,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void refresh() {
                 super.refresh();
-                layout();
+//                layout();
                 refreshTableEditorControls();
             }
 
@@ -476,6 +465,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 super.refresh(element);
                 // refreshTableEditorControls();
             }
+            
+            
 
         };
         setTablePreferences();
@@ -512,8 +503,13 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                     int starty = table.getHeaderHeight() + table.getItemCount() * table.getItemHeight()
                             - table.getVerticalBar().getSelection() * table.getItemHeight();
 
+//                    System.out.println(starty + " < " + area.height);
+//                    System.out.println("area.width= " + area.width);
                     if (starty < area.height) {
+//                        System.out.println("0, starty, area.width, area.height");
+//                        gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_BLUE));
                         gc.fillRectangle(0, starty, area.width, area.height);
+//                        gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_RED));
                     }
                     TableColumn[] tableColumns = table.getColumns();
                     int widthColumns = 0;
@@ -521,6 +517,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                         widthColumns += tableColumns[i].getWidth();
                     }
                     if (widthColumns < area.width) {
+//                        System.out.println("widthColumns + 1, 0, area.width, area.height");
                         gc.fillRectangle(widthColumns + 1, 0, area.width, area.height);
                     }
 
@@ -606,6 +603,10 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 // + event.widget.hashCode());
                 // System.out.println(event);
                 TableItem tableItem = (TableItem) event.item;
+
+                if (table.isDisposed() || tableItem.isDisposed()) {
+                    return;
+                }
 
                 boolean selectedState = (event.detail & SWT.SELECTED) != 0;
                 boolean focusedState = table.isFocusControl();
@@ -719,6 +720,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     protected TableViewer buildAndLayoutTable() {
+        idToTableViewerCreatorColumn = new HashMap<String, TableViewerCreatorColumn>(columns.size());
+
         if (this.layoutMode == LAYOUT_MODE.DEFAULT || this.layoutMode == LAYOUT_MODE.FILL_HORIZONTAL
                 || this.layoutMode == LAYOUT_MODE.CONTINUOUS) {
             TableViewerCreatorLayout currentTableLayout = new TableViewerCreatorLayout(this);
@@ -729,8 +732,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             this.layout = currentTableLayout;
         }
 
-        idToTableViewerCreatorColumn = new HashMap<String, TableViewerCreatorColumn>(columns.size());
-
         if (firstColumnMasked || columns.size() == 0) {
             TableViewerCreatorColumn maskedTableViewerCreatorColumn = new TableViewerCreatorColumn();
             maskedTableViewerCreatorColumn.setId(ID_MASKED_COLUMN);
@@ -738,6 +739,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
 
         int size = columns.size();
+        Layout tempLayout = table.getLayout();
+        table.setLayout(null);
         for (int i = 0; i < size; i++) {
             final TableViewerCreatorColumn column = columns.get(i);
             column.setIndex(i);
@@ -759,10 +762,14 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
             idToTableViewerCreatorColumn.put(column.getId(), column);
         }
+        
+        
         if (layout != null) {
             table.setLayout(layout);
-            table.layout();
+        } else {
+            table.setLayout(tempLayout);
         }
+//        table.layout();
         return tableViewer;
     }
 
@@ -1239,6 +1246,9 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     public void layout() {
+        if (table == null) {
+            throw new IllegalStateException("table is null");
+        }
         if (table.isDisposed()) {
             return;
         }
@@ -1261,8 +1271,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     /**
      * This method is useful for mask first column on a Windows Table because the first column display a blank space at
-     * left border.
-     * By default first column is masked.
+     * left border. By default first column is masked.
      * 
      * @param firstColumnMasked
      */

@@ -124,13 +124,13 @@ public class MetadataToolbarEditorView {
                             .getSelectionIndices();
                     IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
-                    if ((index) < metadataEditorView.getTableViewerCreator().getTable().getItemCount()) {
-                        metadataEditorView.getTableViewerCreator().getTable().setSelection(index);
-                    } else if (metadataEditorView.getTableViewerCreator().getTable().getItemCount() != 0) {
-                        metadataEditorView.getTableViewerCreator().getTable().setSelection(
-                                metadataEditorView.getTableViewerCreator().getTable().getItemCount() - 1);
-                    }
                     metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+//                    if ((index) < metadataEditorView.getTableViewerCreator().getTable().getItemCount()) {
+//                        metadataEditorView.getTableViewerCreator().getTable().setSelection(index);
+//                    } else if (metadataEditorView.getTableViewerCreator().getTable().getItemCount() != 0) {
+//                        metadataEditorView.getTableViewerCreator().getTable().setSelection(
+//                                metadataEditorView.getTableViewerCreator().getTable().getItemCount() - 1);
+//                    }
                 }
             }
         });

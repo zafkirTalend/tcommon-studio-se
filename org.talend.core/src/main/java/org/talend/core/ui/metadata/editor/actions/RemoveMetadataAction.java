@@ -52,10 +52,10 @@ public class RemoveMetadataAction extends MetadataEditorAction {
         if (metadataEditorEvent.entries != null) {
 
             getMetadataTableEditor().remove(metadataEditorEvent.entriesIndices);
-            if (metadataEditorEvent.entriesIndices.length > 0) {
-                int[] selection = new int[] { metadataEditorEvent.entriesIndices[0] };
-                metadataTableEditorView.getTableViewerCreator().getSelectionHelper().setSelection(selection);
-            }
+//            if (metadataEditorEvent.entriesIndices.length > 0) {
+//                int[] selection = new int[] { metadataEditorEvent.entriesIndices[0] };
+//                metadataTableEditorView.getTableViewerCreator().getSelectionHelper().setSelection(selection);
+//            }
         }
     }
 

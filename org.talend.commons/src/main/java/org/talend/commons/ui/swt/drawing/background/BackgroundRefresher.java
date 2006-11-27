@@ -102,7 +102,7 @@ public abstract class BackgroundRefresher {
                         boolean previousAntialiasAllowed = antialiasAllowed;
                         antialiasAllowed = event.getIndicePerformance() < PerformanceEvaluator.GOOD_PERFORMANCE_INDICE;
                         // System.out.println(event.getIndicePerformance());
-                        if (previousAntialiasAllowed != antialiasAllowed && commonParent.getDisplay() != null) {
+                        if (previousAntialiasAllowed != antialiasAllowed && !commonParent.isDisposed() && commonParent.getDisplay() != null) {
 
                             new AsynchronousThreading(0, false, commonParent.getDisplay(), new Runnable() {
 
@@ -143,7 +143,7 @@ public abstract class BackgroundRefresher {
      * DOC amaumont Comment method "updateBackground".
      */
     public synchronized void updateBackground() {
-//        System.out.println("updateBackground");
+        // System.out.println("updateBackground");
         if (commonParent.isDisposed()) {
             return;
         }

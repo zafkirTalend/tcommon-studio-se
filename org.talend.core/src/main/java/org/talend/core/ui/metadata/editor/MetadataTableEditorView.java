@@ -88,6 +88,8 @@ public class MetadataTableEditorView {
 
     private boolean readOnly;
 
+    protected boolean forceExecuteSelectionEvent;
+
     /**
      * 
      * Use SWT.READ_ONLY to create editor in read only mode.
@@ -175,7 +177,7 @@ public class MetadataTableEditorView {
         final ILineSelectionListener beforeLineSelectionListener = new ILineSelectionListener() {
 
             public void handle(LineSelectionEvent e) {
-                if (e.selectionByMethod && !selectionHelper.isMouseSelectionning()) {
+                if (e.selectionByMethod && !selectionHelper.isMouseSelectionning() && !forceExecuteSelectionEvent) {
                     executeSelectionEvent = false;
                 } else {
                     executeSelectionEvent = true;
@@ -205,7 +207,9 @@ public class MetadataTableEditorView {
 
             public void handleEvent(Event event) {
                 if (event.character == '\u0001') { // CTRL + A
-                    table.selectAll();
+                    forceExecuteSelectionEvent = true;
+                    selectionHelper.selectAll();
+                    forceExecuteSelectionEvent = false;
                 }
             }
 
@@ -312,10 +316,10 @@ public class MetadataTableEditorView {
             }
 
         });
-        column.setWeight(20);
+        column.setWeight(25);
         column.setModifiable(true);
         column.setMinimumWidth(45);
-        if (!readOnly) {
+        if(!readOnly) {
             final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
             cellEditor.addListener(new DialogErrorForCellEditorListener(cellEditor, column) {
                 
@@ -387,7 +391,7 @@ public class MetadataTableEditorView {
         column.setModifiable(true);
         column.setWeight(10);
         column.setMinimumWidth(30);
-        if (!readOnly) {
+        if(!readOnly) {
             column.setCellEditor(new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes), comboValueAdapter);
         }
 
@@ -408,7 +412,7 @@ public class MetadataTableEditorView {
         });
         column.setModifiable(true);
         column.setWidth(55);
-        if (!readOnly) {
+        if(!readOnly) {
             column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
         }
 
@@ -429,7 +433,7 @@ public class MetadataTableEditorView {
         });
         column.setModifiable(true);
         column.setWidth(60);
-        if (!readOnly) {
+        if(!readOnly) {
             column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
         }
 
@@ -468,10 +472,10 @@ public class MetadataTableEditorView {
             }
 
         });
-        column.setWeight(10);
+        column.setWeight(8);
         column.setModifiable(true);
         column.setMinimumWidth(30);
-        if (!readOnly) {
+        if(!readOnly) {
             column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
         }
 
@@ -490,10 +494,10 @@ public class MetadataTableEditorView {
             }
 
         });
-        column.setWeight(30);
+        column.setWeight(10);
         column.setModifiable(true);
         column.setMinimumWidth(20);
-        if (!readOnly) {
+        if(!readOnly) {
             column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
         }
 
@@ -510,13 +514,13 @@ public class MetadataTableEditorView {
             executeSelectionEvent = false;
             tableViewerCreator.init(new ArrayList());
             executeSelectionEvent = true;
-            tableViewerCreator.layout();
+//            tableViewerCreator.layout();
         } else {
             nameLabel.setText(metadataTableEditor.getTitleName());
             executeSelectionEvent = false;
             tableViewerCreator.init(metadataTableEditor.getMetadataColumnList());
             executeSelectionEvent = true;
-            tableViewerCreator.layout();
+//            tableViewerCreator.layout();
         }
     }
 
