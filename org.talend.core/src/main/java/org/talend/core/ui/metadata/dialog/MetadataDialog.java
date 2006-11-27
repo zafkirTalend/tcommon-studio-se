@@ -91,7 +91,7 @@ public class MetadataDialog extends Dialog {
         if (inputMetaTable == null) {
             size = new Point(550, 400);
         } else {
-            size = new Point(900, 400);
+            size = new Point(1000, 400);
         }
     }
 
