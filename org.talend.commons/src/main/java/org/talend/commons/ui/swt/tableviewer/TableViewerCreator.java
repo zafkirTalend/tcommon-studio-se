@@ -569,18 +569,22 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     protected void addListeners() {
 
-        table.addControlListener(new ControlListener() {
-
-            public void controlMoved(ControlEvent e) {
-            }
-
-            public void controlResized(ControlEvent e) {
-                if (tableEditorManager != null) {
-                    tableEditorManager.redrawControls();
-                }
-            }
-
-        });
+//        table.addControlListener(new ControlListener() {
+//
+//            public void controlMoved(ControlEvent e) {
+//                System.out.println("Control moved");
+//                table.setVisible(false);
+//            }
+//
+//            public void controlResized(ControlEvent e) {
+//                System.out.println("Control resized");
+////                table.setVisible(false);
+////                if (tableEditorManager != null) {
+////                    tableEditorManager.redrawControls();
+////                }
+//            }
+//
+//        });
 
     }
 

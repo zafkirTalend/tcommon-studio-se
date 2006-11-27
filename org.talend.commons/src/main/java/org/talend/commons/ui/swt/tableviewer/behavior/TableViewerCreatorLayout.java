@@ -306,8 +306,8 @@ public class TableViewerCreatorLayout extends Layout {
     }
 
     private void layout(final Composite c) {
-        // System.out.println("Layout" + System.currentTimeMillis());
-        Table table = (Table) c;
+//         System.out.println("Layout" + System.currentTimeMillis());
+        final Table table = (Table) c;
         // System.out.println("\n");
         // System.out.println("table.hashCode()=" + table.hashCode());
         // System.out.println("table.getBounds()=" + table.getBounds());
@@ -380,8 +380,9 @@ public class TableViewerCreatorLayout extends Layout {
         // Layout to null so we make sure we run it only when
         // the value is OK.
         if (displayedWidth <= 1) {
-            // return;
+             return;
         }
+
 
         Item[] tableColumns = getColumns(c);
         int size = Math.min(columnsLayoutData.size(), tableColumns.length);
@@ -461,10 +462,11 @@ public class TableViewerCreatorLayout extends Layout {
         // setWidth(tableColumns[tableColumns.length - 1], widthLastColumn);
         // }
 
-        boolean previousVisible = table.getVisible();
+        final boolean previousVisible = table.getVisible();
         if (previousVisible) {
             table.setVisible(false);
         }
+
         for (int i = 0; i < size; i++) {
             // if (!firstTime && !manualResizing && referenceWidth < lastWidth) {
             // int widthAll = 0;
@@ -477,15 +479,17 @@ public class TableViewerCreatorLayout extends Layout {
             // }
             setWidth(tableColumns[i], widths[i]);
         }
-        table.setVisible(previousVisible);
 //        System.out.println("Layout" + System.currentTimeMillis());
-        tableViewerCreator.getTable().redraw();
-        tableViewerCreator.redrawTableEditorControls();
+//        tableViewerCreator.getTable().redraw();
+//        tableViewerCreator.redrawTableEditorControls();
         columnsResizingByLayout = false;
         firstTime = false;
 
         previousBounds = table.getBounds();
         previousClientArea = table.getClientArea();
+        
+        table.setVisible(previousVisible);
+//        table.setVisible(true);
 
     }
 
