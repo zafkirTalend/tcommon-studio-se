@@ -38,12 +38,27 @@ public class Problem {
         ERROR,
         WARNING;
     }
+    
+    /**
+     * Added to enhance the refresh speed of the problems view.
+     * <br/>
+     *
+     * $Id$
+     *
+     */
+    public enum ProblemAction {
+        DELETED,
+        ADDED,
+        NONE;
+    }
 
     private Element element;
 
     private String description;
 
     private ProblemStatus status;
+    
+    private ProblemAction action;
 
     /**
      * DOC smallet Problem constructor comment.
@@ -98,5 +113,15 @@ public class Problem {
      */
     public void setStatus(ProblemStatus status) {
         this.status = status;
+    }
+
+    
+    public ProblemAction getAction() {
+        return action;
+    }
+
+    
+    public void setAction(ProblemAction action) {
+        this.action = action;
     }
 }

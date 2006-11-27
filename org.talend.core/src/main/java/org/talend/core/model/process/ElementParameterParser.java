@@ -96,7 +96,11 @@ public final class ElementParameterParser {
             Object o = currentLine.get(items[i]);
             if (o instanceof Integer) {
                 IElementParameter tmpParam = (IElementParameter) param.getListItemsValue()[i];
-                newLine.put(items[i], (String) tmpParam.getListItemsValue()[(Integer) o]);
+                if ((((Integer) o) == -1) || (tmpParam.getListItemsValue().length == 0)) {
+                    newLine.put(items[i], "");
+                } else {
+                    newLine.put(items[i], (String) tmpParam.getListItemsValue()[(Integer) o]);
+                }
             } else {
                 newLine.put(items[i], (String) o);
             }
