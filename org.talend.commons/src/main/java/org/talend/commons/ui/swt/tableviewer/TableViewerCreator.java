@@ -382,8 +382,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void add(Object element) {
                 super.add(element);
-                layout();
-                refreshTableEditorControls();
+//                layout();
+//                refreshTableEditorControls();
             }
 
             /*
@@ -394,8 +394,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void add(Object[] elements) {
                 super.add(elements);
-                layout();
-                refreshTableEditorControls();
+//                layout();
+//                refreshTableEditorControls();
             }
 
             /*
@@ -417,7 +417,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void replace(Object element, int index) {
                 super.replace(element, index);
-                refreshTableEditorControls();
+//                refreshTableEditorControls();
             }
 
             /*
@@ -427,8 +427,14 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
              */
             @Override
             public void refresh() {
+                if (eraseItemListener != null) {
+                    table.removeListener(SWT.EraseItem, eraseItemListener);
+                }
                 super.refresh();
-//                layout();
+                if (eraseItemListener != null) {
+                    table.addListener(SWT.EraseItem, eraseItemListener);
+                }
+                // layout();
                 refreshTableEditorControls();
             }
 
@@ -439,9 +445,15 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
              */
             @Override
             public void refresh(boolean updateLabels) {
-                layout();
+                if (eraseItemListener != null) {
+                    table.removeListener(SWT.EraseItem, eraseItemListener);
+                }
                 super.refresh(updateLabels);
-                // refreshTableEditorControls();
+                if (eraseItemListener != null) {
+                    table.addListener(SWT.EraseItem, eraseItemListener);
+                }
+                // layout();
+                 refreshTableEditorControls();
             }
 
             /*
@@ -452,7 +464,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void refresh(Object element, boolean updateLabels) {
                 super.refresh(element, updateLabels);
-                refreshTableEditorControls();
+//                refreshTableEditorControls();
             }
 
             /*
@@ -465,8 +477,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 super.refresh(element);
                 // refreshTableEditorControls();
             }
-            
-            
 
         };
         setTablePreferences();
@@ -503,13 +513,13 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                     int starty = table.getHeaderHeight() + table.getItemCount() * table.getItemHeight()
                             - table.getVerticalBar().getSelection() * table.getItemHeight();
 
-//                    System.out.println(starty + " < " + area.height);
-//                    System.out.println("area.width= " + area.width);
+                    // System.out.println(starty + " < " + area.height);
+                    // System.out.println("area.width= " + area.width);
                     if (starty < area.height) {
-//                        System.out.println("0, starty, area.width, area.height");
-//                        gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_BLUE));
+                        // System.out.println("0, starty, area.width, area.height");
+                        // gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_BLUE));
                         gc.fillRectangle(0, starty, area.width, area.height);
-//                        gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_RED));
+                        // gc.setBackground(gc.getDevice().getSystemColor(SWT.COLOR_RED));
                     }
                     TableColumn[] tableColumns = table.getColumns();
                     int widthColumns = 0;
@@ -517,7 +527,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                         widthColumns += tableColumns[i].getWidth();
                     }
                     if (widthColumns < area.width) {
-//                        System.out.println("widthColumns + 1, 0, area.width, area.height");
+                        // System.out.println("widthColumns + 1, 0, area.width, area.height");
                         gc.fillRectangle(widthColumns + 1, 0, area.width, area.height);
                     }
 
@@ -569,28 +579,34 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     protected void addListeners() {
 
-//        table.addControlListener(new ControlListener() {
-//
-//            public void controlMoved(ControlEvent e) {
-//                System.out.println("Control moved");
-//                table.setVisible(false);
-//            }
-//
-//            public void controlResized(ControlEvent e) {
-//                System.out.println("Control resized");
-////                table.setVisible(false);
-////                if (tableEditorManager != null) {
-////                    tableEditorManager.redrawControls();
-////                }
-//            }
-//
-//        });
+        // table.addControlListener(new ControlListener() {
+        //
+        // public void controlMoved(ControlEvent e) {
+        // System.out.println("Control moved");
+        // table.setVisible(false);
+        // }
+        //
+        // public void controlResized(ControlEvent e) {
+        // System.out.println("Control resized");
+        // // table.setVisible(false);
+        // // if (tableEditorManager != null) {
+        // // tableEditorManager.redrawControls();
+        // // }
+        // }
+        //
+        // });
 
     }
 
     /**
      * 
-     * DOC amaumont Comment method "addPaintListener".
+     * This method initialize erase listener to go round the following SWT bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=50163 
+     * "Table doesn't respect transparency in column images when using a different row background color" .
+     * 
+     * Unfortunately, use this listener implies that :
+     * - automatic tooltip in Table doesn't work anymore
+     * - bug when {@link TableViewer#refresh()} or {@link TableViewer#refresh(boolean)} are called and possibly others... 
+     * 
      */
     protected void addEraseItemListener() {
 
@@ -766,14 +782,13 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
             idToTableViewerCreatorColumn.put(column.getId(), column);
         }
-        
-        
+
         if (layout != null) {
             table.setLayout(layout);
         } else {
             table.setLayout(tempLayout);
         }
-//        table.layout();
+        // table.layout();
         return tableViewer;
     }
 

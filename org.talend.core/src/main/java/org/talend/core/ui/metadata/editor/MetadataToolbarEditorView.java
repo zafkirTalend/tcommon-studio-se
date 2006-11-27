@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
 import org.talend.core.model.action.IAction;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
@@ -108,7 +109,6 @@ public class MetadataToolbarEditorView {
                     metadataEditorEvent.entriesIndices = metadataEditorTable.getSelectionIndices();
                     IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
-                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
                 }
             }
         });
@@ -117,7 +117,8 @@ public class MetadataToolbarEditorView {
 
             public void handleEvent(Event event) {
                 if (metadataEditorView.getMetadataTableEditor() != null) {
-                    int index = metadataEditorView.getTableViewerCreator().getTable().getSelectionIndex();
+                    Table table = metadataEditorView.getTableViewerCreator().getTable();
+                    int index = table.getSelectionIndex();
                     metadataEditorView.getTableViewerCreator().getTable().setFocus();
                     MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.REMOVE);
                     metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
@@ -125,12 +126,13 @@ public class MetadataToolbarEditorView {
                     IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
                     action.run(metadataEditorEvent);
                     metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
-//                    if ((index) < metadataEditorView.getTableViewerCreator().getTable().getItemCount()) {
-//                        metadataEditorView.getTableViewerCreator().getTable().setSelection(index);
-//                    } else if (metadataEditorView.getTableViewerCreator().getTable().getItemCount() != 0) {
-//                        metadataEditorView.getTableViewerCreator().getTable().setSelection(
-//                                metadataEditorView.getTableViewerCreator().getTable().getItemCount() - 1);
-//                    }
+                    SelectionHelper selectionHelper = metadataEditorView.getTableViewerCreator().getSelectionHelper();
+                    int itemCount = table.getItemCount();
+                    if (index < itemCount) {
+                        selectionHelper.setSelection(index);
+                    } else if (itemCount != 0) {
+                        selectionHelper.setSelection(itemCount - 1);
+                    }
                 }
             }
         });

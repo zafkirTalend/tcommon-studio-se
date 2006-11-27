@@ -73,6 +73,7 @@ public class AddMetadataAction extends MetadataEditorAction {
             for (int i = 0; i < lstSize; i++) {
                 selection[i] = itemsIndicesToSelect.get(i);
             }
+            metadataTableEditorView.getTableViewerCreator().getTableViewer().refresh();
             metadataTableEditorView.getTableViewerCreator().getSelectionHelper().setSelection(selection);
         }
     }

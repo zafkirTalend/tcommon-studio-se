@@ -329,7 +329,7 @@ public class TableViewerCreatorLayout extends Layout {
 
         int displayedWidth = 0;
 
-        int heightFilledByRows = table.getItemCount() * table.getItemHeight() + 5 + table.getHeaderHeight();
+        int heightFilledByRows = table.getItemCount() * table.getItemHeight() + table.getHeaderHeight();
         if (firstTime) {
             displayedWidth = bounds.width - 2 * c.getBorderWidth() + widthAdjustValue;
             if (bounds.height < heightFilledByRows) {
@@ -341,19 +341,12 @@ public class TableViewerCreatorLayout extends Layout {
             }
 
             if (fillHorizontal) {
-                if (bounds.height < heightFilledByRows
-
-                // && bounds.height != previousBounds.height
-                // &&
-                // (
-                // clientArea.height < bounds.height // vertical scroll
-                // || clientArea.width < bounds.width // horizontal scroll
-                // )
-                ) {
+                if (bounds.height < heightFilledByRows) {
                     displayedWidth = clientArea.width + widthAdjustValue;
                 } else {
                     displayedWidth = bounds.width + widthAdjustValue;
                 }
+//                displayedWidth = bounds.width + widthAdjustValue;
                 referenceWidth = displayedWidth;
                 lastDisplayedWidth = displayedWidth;
 
@@ -482,13 +475,13 @@ public class TableViewerCreatorLayout extends Layout {
 //        System.out.println("Layout" + System.currentTimeMillis());
 //        tableViewerCreator.getTable().redraw();
 //        tableViewerCreator.redrawTableEditorControls();
+        table.setVisible(previousVisible);
         columnsResizingByLayout = false;
         firstTime = false;
 
         previousBounds = table.getBounds();
         previousClientArea = table.getClientArea();
         
-        table.setVisible(previousVisible);
 //        table.setVisible(true);
 
     }
