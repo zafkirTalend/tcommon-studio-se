@@ -123,16 +123,16 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     /* (non-Javadoc)
      * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowClose()
      */
-    @Override
-    public void postWindowClose() {
-    	Shell[]  shelles = Display.getDefault().getShells();
-    	for (Shell shell : shelles) {
-    		if (shell.getData() != null) {
-    			if (shell.getData() instanceof Window) {
-    				((Window) shell.getData()).close();
-    			}
-    		}
-		}
-    	super.postWindowClose();
-    }
+//    @Override
+//    public void postWindowClose() {
+//    	Shell[]  shelles = Display.getDefault().getShells();
+//    	for (Shell shell : shelles) {
+//    		if (shell.getData() != null) {
+//    			if (shell.getData() instanceof Window) {
+//    				((Window) shell.getData()).close();
+//    			}
+//    		}
+//		}
+//    	super.postWindowClose();
+//    }
 }
