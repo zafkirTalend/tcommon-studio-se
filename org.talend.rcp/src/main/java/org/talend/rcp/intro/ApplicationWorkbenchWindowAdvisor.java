@@ -26,6 +26,8 @@ import java.util.List;
 
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.commands.ActionHandler;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -35,7 +37,6 @@ import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
-import org.eclipse.ui.commands.ActionHandler;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
@@ -46,7 +47,6 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.rcp.Activator;
-import org.talend.sqlbuilder.ui.SQLBuilderDialog;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>
@@ -94,7 +94,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         createActions();
         registerActions();
     }
-
     /**
      * DOC smallet Comment method "createActions".
      */
@@ -128,10 +127,11 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void postWindowClose() {
     	Shell[]  shelles = Display.getDefault().getShells();
     	for (Shell shell : shelles) {
-			if (shell.getText().startsWith("SQL Builder")) {
-				SQLBuilderDialog sqlBuilderDialog = (SQLBuilderDialog) shell.getData();
-				sqlBuilderDialog.close();
-			}
+    		if (shell.getData() != null) {
+    			if (shell.getData() instanceof Window) {
+    				((Window) shell.getData()).close();
+    			}
+    		}
 		}
     	super.postWindowClose();
     }
