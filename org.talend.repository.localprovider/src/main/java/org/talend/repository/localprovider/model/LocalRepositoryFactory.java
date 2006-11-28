@@ -213,8 +213,9 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
                 if (!current.getName().equals(BIN)) {
                     Container<K, T> cont = toReturn.addSubContainer(current.getName());
                     FolderHelper folderHelper = LocalFolderHelper.createInstance(repositoryContext.getProject());
-                    String sId = folderHelper.getFolder(current.getProjectRelativePath()).getProperty().getId();
-                    cont.setId(sId);
+                    Property property = folderHelper.getFolder(current.getProjectRelativePath()).getProperty();
+                    cont.setProperty(property);
+                    cont.setId(property.getId());
                     addFolderMembers(type, cont, (IFolder) current, onlyLastVersion);
                 } else {
                     addFolderMembers(type, toReturn, (IFolder) current, onlyLastVersion);

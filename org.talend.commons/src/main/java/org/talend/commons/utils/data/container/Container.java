@@ -52,6 +52,8 @@ public class Container<K, V> {
 
     private List<K> members = new ArrayList<K>();
 
+    private Object property;
+
     /**
      * Private constructor used to create a sub-container.
      * 
@@ -288,4 +290,13 @@ public class Container<K, V> {
     public void removeSubContainer(Container<K, V> container) {
         subContainer.remove(container);
     }
+
+    public void setProperty(Object property) {
+        this.property = property;
+    }
+
+    public Object getProperty() {
+        return this.property;
+    }
+
 }

@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
+import org.talend.core.model.properties.Property;
+
 /**
  * Represents a folder as a repository object.<br/>
  * 
@@ -39,6 +41,10 @@ public class Folder extends RepositoryObject implements IRepositoryObject {
      */
     public Folder(String id, String label) {
         super(id, label);
+    }
+
+    public Folder(Property property) {
+        super(property);
     }
 
     /**
