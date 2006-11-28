@@ -53,30 +53,42 @@
 <versions>
 	<version name="POSTGRESQL"/>
 </versions>
-<type talend="boolean" dbms="BOOLEAN" default="true" />
 
-<type talend="int" dbms="SMALLINT"/>
-<type talend="int" dbms="INTEGER" default="true" />
-<type talend="int" dbms="BIGINT"/>
+<type talend="int"       dbms="BIGINT"/>
+<type talend="int"       dbms="BIGSERIAL"/>
+<type talend="int"       dbms="BIT VARYING"/>
+<type talend="int"       dbms="BYTEA"/>
+<type talend="int"       dbms="INT8"/>
+<type talend="int"       dbms="INT2"/>
+<type talend="int"       dbms="INTEGER" default="true" />
+<type talend="int"       dbms="MONEY"/>
+<type talend="int"       dbms="SERIAL"/>
+<type talend="int"       dbms="SMALLINT"/>
 
-<type talend="float" dbms="REAL" default="true" />
-<type talend="float" dbms="DECIMAL"/>
-<type talend="float" dbms="NUMERIC" />
+<type talend="float"     dbms="DECIMAL"/>
+<type talend="float"     dbms="NUMERIC"/>
+<type talend="float"     dbms="REAL" default="true" />
 
-<type talend="double" dbms="DECIMAL"/>
-<type talend="double" dbms="NUMERIC"/>
-<type talend="double" dbms="DOUBLE PRECISION" default="true"/>
+<type talend="double"    dbms="BIGSERIAL"/>
+<type talend="double"    dbms="DOUBLE PRECISION" default="true" />
 
-<type talend="char" dbms="CHARACTER"/>
-<type talend="char" dbms="CHAR" default="true" />
+<type talend="boolean"   dbms="BIT"/>
+<type talend="boolean"   dbms="BOOLEAN" default="true" />
 
-<type talend="String" dbms="CHARACTER VARYING"/>
-<type talend="String" dbms="VARCHAR" default="true" />
+<type talend="char"      dbms="CHAR" default="true" />
+<type talend="char"      dbms="CHARACTER" />
 
-<type talend="Day" dbms="DATE"/>
-<type talend="Day" dbms="INTERVAL"/>
-<type talend="Day" dbms="TIME"/>
-<type talend="Day" dbms="TIMESTAMP" default="true" />
+<type talend="String"    dbms="CHARACTER VARYING"/>
+<type talend="String"    dbms="CIDR"/>
+<type talend="String"    dbms="INET"/>
+<type talend="String"    dbms="MACADDR"/>
+<type talend="String"    dbms="TEXT"/>
+<type talend="String"    dbms="VARCHAR" default="true" />
+
+<type talend="Day"       dbms="DATE" default="true" />
+<type talend="Day"       dbms="INTERVAL"/>
+<type talend="Day"       dbms="TIME"/>
+<type talend="Day"       dbms="TIMESTAMP"/>
 <!-- Not managed : box, circle, line, lseg, path, point, polygon -->
 </dbms>
 
