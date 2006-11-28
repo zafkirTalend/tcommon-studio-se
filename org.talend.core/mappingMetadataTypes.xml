@@ -67,6 +67,8 @@
 
 <type talend="float"     dbms="DECIMAL"/>
 <type talend="float"     dbms="NUMERIC"/>
+<type talend="float"     dbms="FLOAT"/>
+<type talend="float"     dbms="FLOAT8"/>
 <type talend="float"     dbms="REAL" default="true" />
 
 <type talend="double"    dbms="BIGSERIAL"/>
@@ -92,64 +94,6 @@
 <!-- Not managed : box, circle, line, lseg, path, point, polygon -->
 </dbms>
 
-<dbms family="ODBC/JDBC">
-<versions>
-	<version name="Odbc/Jdbc"/>
-</versions>
-<type talend="int" dbms="INT"/>
-<type talend="int" dbms="BIGINT"/>
-<type talend="int" dbms="SMALLINT"/>
-<type talend="int" dbms="TINYINT"/>
-<type talend="int" dbms="INTEGER"/>
-<type talend="int" dbms="MEDIUMINT"/>
-<type talend="int" dbms="INT UNSIGNED"/>
-<type talend="int" dbms="COUNTER"/>
-<type talend="boolean" dbms="BOOLEAN" default="true" />
-<type talend="boolean" dbms="BIT"/>
-<type talend="float" dbms="MONEY"/>
-<type talend="float" dbms="SMALLMONEY"/>
-<type talend="float" dbms="FLOAT"/>
-<type talend="double" dbms="DECIMAL"/>
-<type talend="double" dbms="REAL"/>
-<type talend="double" dbms="DEC"/>
-<type talend="double" dbms="NUMERIC"/>
-<type talend="double" dbms="NUM"/>
-<type talend="double" dbms="DOUBLE"/>
-<type talend="double" dbms="NUMBER"/>
-<type talend="double" dbms="NUMBER-2"/>
-<type talend="double" dbms="DOUBLE PRECISION" default="true"/>
-<type talend="Day" dbms="DATETIME"/>
-<type talend="Day" dbms="DATE"/>
-<type talend="Day" dbms="TIME"/>
-<type talend="Day" dbms="TIMESTAMP"/>
-<type talend="Day" dbms="SMALLDATETIME"/>
-<type talend="Day" dbms="INTERVAL"/>
-<type talend="char" dbms="CHAR"/>
-<type talend="char" dbms="CHARACTER"/>
-<type talend="String" dbms="VARCHAR"/>
-<type talend="String" dbms="TEXT"/>
-<type talend="String" dbms="NCHAR"/>
-<type talend="String" dbms="NVARCHAR"/>
-<type talend="String" dbms="NTEXT"/>
-<type talend="String" dbms="BINARY"/>
-<type talend="String" dbms="VARBINARY"/>
-<type talend="String" dbms="CHARACTER VARYING"/>
-<type talend="String" dbms="CHAR VARYING"/>
-<type talend="String" dbms="LONG VARCHAR"/>
-<type talend="String" dbms="DATALINK"/>
-<type talend="String" dbms="VARCHAR2" default="true" />
-<type talend="String" dbms="NVARCHAR2"/>
-<type talend="String" dbms="LONG"/>
-<type talend="String" dbms="CLOB"/>
-<type talend="String" dbms="TINYTEXT"/>
-<type talend="String" dbms="TEXT"/>
-<type talend="String" dbms="MEDIUMTEXT"/>
-<type talend="String" dbms="LONGTEXT"/>
-<type talend="String" dbms="ENUM"/>
-<type talend="String" dbms="CHARACTER VARYING"/>
-<!-- Not managed : image -->
-</dbms>
-
 <dbms family="GENERIC ODBC">
 <versions>
 	<version name="GENERIC ODBC"/>
@@ -160,7 +104,9 @@
 <type talend="int" dbms="TINYINT"/>
 <type talend="int" dbms="INTEGER"/>
 <type talend="int" dbms="MEDIUMINT"/>
+<type talend="int" dbms="INTEGER UNSIGNED"/>
 <type talend="int" dbms="INT UNSIGNED"/>
+<type talend="int" dbms="INT IDENTITY"/>
 <type talend="int" dbms="COUNTER"/>
 <type talend="boolean" dbms="BOOLEAN" default="true" />
 <type talend="boolean" dbms="BIT"/>
@@ -204,6 +150,7 @@
 <type talend="String" dbms="MEDIUMTEXT"/>
 <type talend="String" dbms="LONGTEXT"/>
 <type talend="String" dbms="ENUM"/>
+<type talend="String" dbms="IMAGE"/>
 <type talend="String" dbms="CHARACTER VARYING"/>
 <!-- Not managed : image -->
 </dbms>
@@ -219,6 +166,7 @@
 <type talend="int" dbms="INTEGER"/>
 <type talend="int" dbms="MEDIUMINT"/>
 <type talend="int" dbms="INT UNSIGNED"/>
+<type talend="int" dbms="INT IDENTITY"/>
 <type talend="int" dbms="COUNTER"/>
 <type talend="boolean" dbms="BOOLEAN" default="true" />
 <type talend="boolean" dbms="BIT"/>
@@ -262,21 +210,51 @@
 <type talend="String" dbms="MEDIUMTEXT"/>
 <type talend="String" dbms="LONGTEXT"/>
 <type talend="String" dbms="ENUM"/>
+<type talend="String" dbms="IMAGE"/>
 <type talend="String" dbms="CHARACTER VARYING"/>
 <!-- Not managed : image -->
-</dbms>
+</dbms>s
 
-<dbms type="ORACLE">
+<dbms type="ORACLE WITH SID">
   <versions>
-    <version name="Oracle"/>
-    <version name="Oracle with service name"/>
+    <version name="Oracle with SID"/>
   </versions>
 
   <type talend="int" dbms="NUMBER" default="true" />
+  <type talend="int" dbms="INT" />
 
   <type talend="long" dbms="NUMBER" default="true" />
 
   <type talend="float" dbms="NUMBER" default="true" />
+  <type talend="float" dbms="FLOAT" />
+  
+  <type talend="double" dbms="NUMBER" default="true" />
+
+  <type talend="char" dbms="CHAR" default="true" />
+  <type talend="char" dbms="NCHAR"/>
+
+  <type talend="String" dbms="VARCHAR2" default="true" />
+  <type talend="String" dbms="NVARCHAR2"/>
+  <type talend="String" dbms="LONG"/>
+  <type talend="String" dbms="CLOB"/>
+
+  <type talend="Day" dbms="DATE" default="true" />
+  <type talend="Day" dbms="TIMESTAMP"/>
+<!-- Not managed : BLOB NBLOB -->
+</dbms>
+
+<dbms type="ORACLE WITH SERVICE NAME">
+  <versions>
+    <version name="Oracle with service name"/>
+  </versions>
+
+  <type talend="int" dbms="NUMBER" default="true" />
+  <type talend="int" dbms="INT" />
+  
+  <type talend="long" dbms="NUMBER" default="true" />
+
+  <type talend="float" dbms="NUMBER" default="true" />
+  <type talend="float" dbms="FLOAT" />
 
   <type talend="double" dbms="NUMBER" default="true" />
 
@@ -343,34 +321,6 @@
 <type talend="Day" dbms="SMALLDATETIME"/>
 <type talend="Day" dbms="TIMESTAMP"/>
 <type talend="boolean" dbms="BIT"/>
-<type talend="String" dbms="BINARY"/>
-<type talend="String" dbms="VARBINARY"/>
-<!-- Not managed : image -->
-</dbms>
-
-<dbms family="MICROSOFT SQL SERVER">
-<versions>
-	<version name="MICROSOFT SQL SERVER"/>
-</versions>
-<type talend="int" dbms="INTEGER" default="true"/>
-<type talend="int" dbms="BIGINT"/>
-<type talend="int" dbms="SMALLINT"/>
-<type talend="int" dbms="TINYINT"/>
-<type talend="boolean" dbms="BIT"/>
-<type talend="double" dbms="DECIMAL"/>
-<type talend="int" dbms="NUMERIC"/>
-<type talend="float" dbms="MONEY"/>
-<type talend="float" dbms="SMALLMONEY"/>
-<type talend="float" dbms="FLOAT"/>
-<type talend="double" dbms="REAL"/>
-<type talend="Day" dbms="DATETIME"/>
-<type talend="Day" dbms="SMALLDATETIME"/>
-<type talend="char" dbms="CHAR"/>
-<type talend="String" dbms="CHAR" default="true"/>
-<type talend="String" dbms="TEXT"/>
-<type talend="char" dbms="NCHAR"/>
-<type talend="String" dbms="NVARCHAR"/>
-<type talend="String" dbms="NTEXT"/>
 <type talend="String" dbms="BINARY"/>
 <type talend="String" dbms="VARBINARY"/>
 <!-- Not managed : image -->
