@@ -27,6 +27,8 @@ import java.util.List;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.ActionBarAdvisor;
@@ -44,6 +46,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.rcp.Activator;
+import org.talend.sqlbuilder.ui.SQLBuilderDialog;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>
@@ -117,5 +120,19 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             handlerService.activateHandler(action.getActionDefinitionId(), handler);
         }
     }
-
+    
+    /* (non-Javadoc)
+     * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowClose()
+     */
+    @Override
+    public void postWindowClose() {
+    	Shell[]  shelles = Display.getDefault().getShells();
+    	for (Shell shell : shelles) {
+			if (shell.getText().startsWith("SQL Builder")) {
+				SQLBuilderDialog sqlBuilderDialog = (SQLBuilderDialog) shell.getData();
+				sqlBuilderDialog.close();
+			}
+		}
+    	super.postWindowClose();
+    }
 }
