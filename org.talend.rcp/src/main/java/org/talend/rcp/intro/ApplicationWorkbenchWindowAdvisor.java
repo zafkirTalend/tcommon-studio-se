@@ -27,6 +27,7 @@ import java.util.List;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.commands.ActionHandler;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.window.Window;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
@@ -123,16 +124,16 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     /* (non-Javadoc)
      * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowClose()
      */
-//    @Override
-//    public void postWindowClose() {
-//    	Shell[]  shelles = Display.getDefault().getShells();
-//    	for (Shell shell : shelles) {
-//    		if (shell.getData() != null) {
-//    			if (shell.getData() instanceof Window) {
-//    				((Window) shell.getData()).close();
-//    			}
-//    		}
-//		}
-//    	super.postWindowClose();
-//    }
+    @Override
+    public void postWindowClose() {
+    	Shell[]  shelles = Display.getDefault().getShells();
+    	for (Shell shell : shelles) {
+    		if (shell.getData() != null) {
+    			if (shell.getData() instanceof Dialog) {
+    				((Dialog) shell.getData()).close();
+    			}
+    		}
+		}
+    	super.postWindowClose();
+    }
 }
