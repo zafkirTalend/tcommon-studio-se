@@ -48,6 +48,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.rcp.Activator;
+import org.talend.sqlbuilder.ui.SQLBuilderDialog;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>
@@ -129,8 +130,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     	Shell[]  shelles = Display.getDefault().getShells();
     	for (Shell shell : shelles) {
     		if (shell.getData() != null) {
-    			if (shell.getData() instanceof Dialog) {
-    				((Dialog) shell.getData()).close();
+    			if (shell.getData() instanceof SQLBuilderDialog) {
+    				((SQLBuilderDialog) shell.getData()).close();
     			}
     		}
 		}
