@@ -88,7 +88,6 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.core.model.repository.ERepositoryType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
@@ -100,7 +99,7 @@ import org.talend.repository.model.FolderHelper;
 import org.talend.repository.model.IRepositoryFactory;
 import org.talend.repository.model.LocalLockHelper;
 import org.talend.repository.model.RepositoryConstants;
-import org.talend.repository.model.RepositoryStatus;
+import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.ResourceModelUtils;
 
 /**
@@ -750,7 +749,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
             throws PersistenceException {
         for (IRepositoryObject repositoryObject : rootContainer.getAbsoluteMembers().objects()) {
             ConnectionItem connectionItem = (ConnectionItem) repositoryObject.getProperty().getItem();
-            if (getStatus(connectionItem) != RepositoryStatus.DELETED) {
+            if (getStatus(connectionItem) != ERepositoryStatus.DELETED) {
                 result.add(connectionItem);
             }
         }
@@ -951,7 +950,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
     private XmiResourceManager xmiResourceManager = new XmiResourceManager();;
 
     public void lock(Item item) throws PersistenceException {
-        if (getStatus(item) == RepositoryStatus.DEFAULT) {
+        if (getStatus(item) == ERepositoryStatus.DEFAULT) {
             // lockedObject.put(item.getProperty().getId(), new LockedObject(new Date(), repositoryContext.getUser()));
             item.getState().setLockDate(new Date());
             item.getState().setLocker(getRepositoryContext().getUser());
@@ -962,7 +961,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
     }
 
     public void unlock(Item item) throws PersistenceException {
-        if (getStatus(item) == RepositoryStatus.LOCK_BY_USER) {
+        if (getStatus(item) == ERepositoryStatus.LOCK_BY_USER) {
             // lockedObject.remove(obj.getProperty().getId());
             item.getState().setLocker(null);
             item.getState().setLockDate(null);
@@ -1002,15 +1001,6 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         loadProject.getTechnicalStatus().clear();
         loadProject.getTechnicalStatus().addAll(list);
         xmiResourceManager.saveResource(loadProject.eResource());
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IRepositoryFactory#getType()
-     */
-    public ERepositoryType getType() {
-        return ERepositoryType.LOCAL;
     }
 
     /*
@@ -1312,22 +1302,22 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
      * 
      * @see org.talend.repository.model.IRepositoryFactory#getStatus(org.talend.core.model.properties.Item)
      */
-    public RepositoryStatus getStatus(Item item) {
+    public ERepositoryStatus getStatus(Item item) {
         if (item.getState().isDeleted()) {
-            return RepositoryStatus.DELETED;
+            return ERepositoryStatus.DELETED;
         }
 
         if (item.getState().isLocked()) {
             User locker = item.getState().getLocker();
             User connected = getRepositoryContext().getUser();
             if (connected.equals(locker)) {
-                return RepositoryStatus.LOCK_BY_USER;
+                return ERepositoryStatus.LOCK_BY_USER;
             } else {
-                return RepositoryStatus.LOCK_BY_OTHER;
+                return ERepositoryStatus.LOCK_BY_OTHER;
             }
         }
 
-        return RepositoryStatus.DEFAULT;
+        return ERepositoryStatus.DEFAULT;
     }
 
     /*
