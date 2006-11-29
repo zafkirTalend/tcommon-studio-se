@@ -29,10 +29,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.keyvalue.MultiKey;
@@ -63,11 +61,9 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
-import org.talend.core.model.metadata.builder.connection.TableHelper;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.CSVFileConnectionItem;
@@ -76,6 +72,7 @@ import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.FileItem;
+import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.LdifFileConnectionItem;
@@ -98,12 +95,13 @@ import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.temp.ECodeLanguage;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
+import org.talend.repository.model.AbstractRepositoryFactory;
 import org.talend.repository.model.FolderHelper;
 import org.talend.repository.model.IRepositoryFactory;
 import org.talend.repository.model.LocalLockHelper;
 import org.talend.repository.model.RepositoryConstants;
+import org.talend.repository.model.RepositoryStatus;
 import org.talend.repository.model.ResourceModelUtils;
-import org.talend.repository.ui.views.RepositoryContentProvider.MetadataTableRepositoryObject;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -112,19 +110,13 @@ import org.talend.repository.ui.views.RepositoryContentProvider.MetadataTableRep
  * RepositoryFactory.java,v 1.55 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
-public class LocalRepositoryFactory implements IRepositoryFactory {
+public class LocalRepositoryFactory extends AbstractRepositoryFactory implements IRepositoryFactory {
 
     private static final QualifiedName FOLDER_ID_KEY = new QualifiedName(RepositoryLocalProviderPlugin.PLUGIN_ID, "folderId");
 
     private static final String BIN = "bin";
 
     private static Logger log = Logger.getLogger(LocalRepositoryFactory.class);
-
-    protected RepositoryContext repositoryContext;
-
-    public void setRepositoryContext(RepositoryContext repositoryContext) {
-        this.repositoryContext = repositoryContext;
-    }
 
     /**
      * DOC smallet Comment method "getObjectFromFolder".
@@ -144,7 +136,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
 
         RootContainer<K, T> toReturn = new RootContainer<K, T>();
 
-        IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
+        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
 
         IFolder objectFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(type), true);
 
@@ -212,7 +204,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
             } else if (current instanceof IFolder) {
                 if (!current.getName().equals(BIN)) {
                     Container<K, T> cont = toReturn.addSubContainer(current.getName());
-                    FolderHelper folderHelper = LocalFolderHelper.createInstance(repositoryContext.getProject());
+                    FolderHelper folderHelper = LocalFolderHelper.createInstance(getRepositoryContext().getProject());
                     Property property = folderHelper.getFolder(current.getProjectRelativePath()).getProperty();
                     cont.setProperty(property);
                     cont.setId(property.getId());
@@ -225,34 +217,17 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
     }
 
     public List<IRepositoryObject> getAll(ERepositoryObjectType type) throws PersistenceException {
-        IFolder folder = LocalResourceModelUtils.getFolder(repositoryContext.getProject(), type);
+        IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(), type);
         return convert(getSerializableFromFolder(folder, null, type, false, true));
     }
 
-    // private AbstractSerializable getSerializableLastVersion(Project project, int id) throws PersistenceException {
-    // List<AbstractSerializable> serializableAllVersion = getSerializableAllVersion(project, id);
-    // if (!serializableAllVersion.isEmpty()) {
-    // AbstractSerializable toReturn = serializableAllVersion.get(0);
-    // if (serializableAllVersion.size() > 1) {
-    // for (AbstractSerializable current : serializableAllVersion) {
-    // if (current.getVersion().compareTo(toReturn.getVersion()) > 0) {
-    // toReturn = current;
-    // }
-    // }
-    // }
-    // return toReturn;
-    // } else {
-    // return null;
-    // }
-    // }
-
     public List<IRepositoryObject> getAllVersion(String id) throws PersistenceException {
-        List<IRepositoryObject> serializableAllVersion = getSerializable(repositoryContext.getProject(), id, true);
+        List<IRepositoryObject> serializableAllVersion = getSerializable(getRepositoryContext().getProject(), id, true);
         return convert(serializableAllVersion);
     }
 
     public IRepositoryObject getLastVersion(String id) throws PersistenceException {
-        List<IRepositoryObject> serializableAllVersion = getSerializable(repositoryContext.getProject(), id, false);
+        List<IRepositoryObject> serializableAllVersion = getSerializable(getRepositoryContext().getProject(), id, false);
 
         if (serializableAllVersion.size() > 1) {
             throw new PersistenceException("Only one occurence must be found !!");
@@ -285,11 +260,10 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         ERepositoryObjectType[] repositoryObjectTypeList = new ERepositoryObjectType[] { ERepositoryObjectType.BUSINESS_PROCESS,
                 ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.METADATA_CONNECTIONS,
                 ERepositoryObjectType.METADATA_FILE_DELIMITED, ERepositoryObjectType.METADATA_FILE_POSITIONAL,
-                ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML, ERepositoryObjectType.METADATA_FILE_LDIF,
-                ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES };
+                ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML,
+                ERepositoryObjectType.METADATA_FILE_LDIF, ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES };
         for (ERepositoryObjectType repositoryObjectType : repositoryObjectTypeList) {
-            IFolder folder = ResourceUtils
-                    .getFolder(fsProject, ERepositoryObjectType.getFolderName(repositoryObjectType), true);
+            IFolder folder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(repositoryObjectType), true);
             toReturn.addAll(getSerializableFromFolder(folder, id, repositoryObjectType, allVersion, true));
         }
         return toReturn;
@@ -326,16 +300,6 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
             }
         }
         return toReturn;
-    }
-
-    /**
-     * DOC cantoine Comment method "deleteFile".
-     * 
-     * @param file
-     * @throws PersistenceException
-     */
-    private void deleteFile(IFile file) throws PersistenceException {
-        ResourceUtils.deleteFile(file);
     }
 
     /**
@@ -406,7 +370,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         projectResource.getContents().add(author);
         xmiResourceManager.saveResource(projectResource);
 
-        repositoryContext.setProject(project);
+        getRepositoryContext().setProject(project);
 
         // Sample Routines file
         URL url = Platform.getBundle(RepositoryLocalProviderPlugin.PLUGIN_ID).getEntry("routines/routines.pm");
@@ -529,7 +493,14 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
                     if (resource.getType() == IResource.FOLDER) {
                         IPath path = resource.getProjectRelativePath();
                         if (!listFolders.remove(path)) {
+                            //create emf folder 
                             helper.createFolder(path);
+                        } else {
+                            //add state to existing emf folder
+                            FolderItem folder = helper.getFolder(path);
+                            if (folder.getState() == null) {
+                                helper.createItemState(folder);
+                            }
                         }
                     }
                     return true;
@@ -563,17 +534,17 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
             throw new IllegalArgumentException("Label cannot be null nor empty");
         }
 
-        IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
+        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
 
         String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString() + IPath.SEPARATOR
                 + label;
-        String id = LocalFolderHelper.createInstance(repositoryContext.getProject()).createFolder(completePath);
-        xmiResourceManager.saveResource(repositoryContext.getProject().getEmfProject().eResource());
+        FolderItem folderItem = LocalFolderHelper.createInstance(getRepositoryContext().getProject()).createFolder(completePath);
+        xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
         ResourceUtils.createFolder(folder);
 
-        return new Folder(id, label);
+        return new Folder(folderItem.getProperty());
     }
 
     ERepositoryObjectType getItemType(Item item) {
@@ -622,7 +593,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
             public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
                 return ERepositoryObjectType.METADATA_FILE_LDIF;
             }
-            
+
             public Object defaultCase(EObject object) {
                 throw new IllegalStateException();
             }
@@ -663,9 +634,9 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
             return false;
         } else {
             // TODO SML Delete this ?
-            IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
-            String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString()
-                    + IPath.SEPARATOR + label;
+            IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+            String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString() + IPath.SEPARATOR
+                    + label;
 
             // Getting the folder :
             IFolder existingFolder = ResourceUtils.getFolder(fsProject, completePath, false);
@@ -674,20 +645,20 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
     }
 
     public void deleteFolder(ERepositoryObjectType type, IPath path) throws PersistenceException {
-        IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
+        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
 
         String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
 
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, true);
-        LocalFolderHelper.createInstance(repositoryContext.getProject()).deleteFolder(completePath);
-        xmiResourceManager.saveResource(repositoryContext.getProject().getEmfProject().eResource());
+        LocalFolderHelper.createInstance(getRepositoryContext().getProject()).deleteFolder(completePath);
+        xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
 
         ResourceUtils.deleteFolder(folder);
     }
 
     public void moveFolder(ERepositoryObjectType type, IPath sourcePath, IPath targetPath) throws PersistenceException {
-        IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
+        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
 
         String completeOldPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.toString();
         String completeNewPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + targetPath.toString()
@@ -697,13 +668,13 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, false);
 
         IFolder newFolder = ResourceUtils.getFolder(fsProject, completeNewPath, false);
-        LocalFolderHelper.createInstance(repositoryContext.getProject()).moveFolder(completeOldPath, completeNewPath);
-        xmiResourceManager.saveResource(repositoryContext.getProject().getEmfProject().eResource());
+        LocalFolderHelper.createInstance(getRepositoryContext().getProject()).moveFolder(completeOldPath, completeNewPath);
+        xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
         ResourceUtils.moveResource(folder, newFolder.getFullPath());
     }
 
     public void renameFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
-        IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
+        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
 
         String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
         // Getting the folder :
@@ -712,8 +683,8 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         // IPath targetPath = new
         // Path(SystemFolderNameFactory.getFolderName(type)).append(path).removeLastSegments(1).append(label);
         IPath targetPath = new Path(label);
-        LocalFolderHelper.createInstance(repositoryContext.getProject()).renameFolder(completePath, label);
-        xmiResourceManager.saveResource(repositoryContext.getProject().getEmfProject().eResource());
+        LocalFolderHelper.createInstance(getRepositoryContext().getProject()).renameFolder(completePath, label);
+        xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
 
         ResourceUtils.moveResource(folder, targetPath);
     }
@@ -779,7 +750,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
             throws PersistenceException {
         for (IRepositoryObject repositoryObject : rootContainer.getAbsoluteMembers().objects()) {
             ConnectionItem connectionItem = (ConnectionItem) repositoryObject.getProperty().getItem();
-            if (!isDeleted(repositoryObject)) {
+            if (getStatus(connectionItem) != RepositoryStatus.DELETED) {
                 result.add(connectionItem);
             }
         }
@@ -846,12 +817,13 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
      * org.talend.core.model.repository.IRepositoryObject)
      */
     public void deleteObjectLogical(IRepositoryObject objToDelete) throws PersistenceException {
-        IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
+        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
 
         IFolder bin = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToDelete.getType())
                 + IPath.SEPARATOR + BIN, true);
 
-        List<IRepositoryObject> allVersionToDelete = getSerializable(repositoryContext.getProject(), objToDelete.getId(), true);
+        List<IRepositoryObject> allVersionToDelete = getSerializable(getRepositoryContext().getProject(), objToDelete.getId(),
+                true);
         for (IRepositoryObject currentVersion : allVersionToDelete) {
             ItemState state = objToDelete.getProperty().getItem().getState();
             state.setDeleted(true);
@@ -870,7 +842,8 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
     }
 
     public void deleteObjectPhysical(IRepositoryObject objToDelete) throws PersistenceException {
-        List<IRepositoryObject> allVersionToDelete = getSerializable(repositoryContext.getProject(), objToDelete.getId(), true);
+        List<IRepositoryObject> allVersionToDelete = getSerializable(getRepositoryContext().getProject(), objToDelete.getId(),
+                true);
         for (IRepositoryObject currentVersion : allVersionToDelete) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
             for (Resource resource : affectedResources) {
@@ -880,13 +853,14 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
     }
 
     public void restoreObject(IRepositoryObject objToRestore, IPath path) throws PersistenceException {
-        IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
-        IFolder typeRootFolder = ResourceUtils.getFolder(fsProject,
-                ERepositoryObjectType.getFolderName(objToRestore.getType()), true);
+        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
+        IFolder typeRootFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToRestore.getType()),
+                true);
         // IPath thePath = (path == null ? typeRootFolder.getFullPath() : typeRootFolder.getFullPath().append(path));
         org.talend.core.model.properties.Project project = xmiResourceManager.loadProject(getProject());
 
-        List<IRepositoryObject> allVersionToDelete = getSerializable(repositoryContext.getProject(), objToRestore.getId(), true);
+        List<IRepositoryObject> allVersionToDelete = getSerializable(getRepositoryContext().getProject(), objToRestore.getId(),
+                true);
         for (IRepositoryObject currentVersion : allVersionToDelete) {
             ItemState itemState = currentVersion.getProperty().getItem().getState();
             itemState.setDeleted(false);
@@ -907,32 +881,6 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         xmiResourceManager.saveResource(project.eResource());
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IRepositoryFactory#isDeleted(org.talend.core.model.general.Project,
-     * org.talend.core.model.repository.IRepositoryObject)
-     */
-    public boolean isDeleted(IRepositoryObject obj) throws PersistenceException {
-        boolean deleted = false;
-        if (obj instanceof MetadataTableRepositoryObject) {
-            MetadataTableRepositoryObject metadataTableRepositoryObject = (MetadataTableRepositoryObject) obj;
-            deleted = TableHelper.isDeleted(metadataTableRepositoryObject.getTable());
-        }
-        Item item = obj.getProperty().getItem();
-        return deleted || isDeleted(item);
-    }
-
-    public boolean isDeleted(Item item) throws PersistenceException {
-        return item.getState().isDeleted();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IRepositoryFactory#getOldPath(org.talend.core.model.general.Project,
-     * org.talend.core.model.repository.IRepositoryObject)
-     */
     public String getOldPath(IRepositoryObject obj) throws PersistenceException {
         return obj.getProperty().getItem().getState().getPath();
     }
@@ -944,11 +892,11 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
      * org.talend.core.model.repository.IRepositoryObject, org.eclipse.core.runtime.IPath)
      */
     public void moveObject(IRepositoryObject objToMove, IPath newPath) throws PersistenceException {
-        IProject fsProject = ResourceModelUtils.getProject(repositoryContext.getProject());
+        IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
         String folderName = ERepositoryObjectType.getFolderName(objToMove.getType()) + IPath.SEPARATOR + newPath;
         IFolder folder = ResourceUtils.getFolder(fsProject, folderName, true);
 
-        List<IRepositoryObject> allVersionToMove = getSerializable(repositoryContext.getProject(), objToMove.getId(), true);
+        List<IRepositoryObject> allVersionToMove = getSerializable(getRepositoryContext().getProject(), objToMove.getId(), true);
         for (IRepositoryObject obj : allVersionToMove) {
             ItemState state = obj.getProperty().getItem().getState();
             state.setPath(newPath.toString());
@@ -990,7 +938,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
     public RootContainer<String, IRepositoryObject> getMetadataFileXml() throws PersistenceException {
         return getMetadataFileXmlFromFolder();
     }
-    
+
     // LDIF FILE
     private RootContainer<String, IRepositoryObject> getMetadataFileLdifFromFolder() throws PersistenceException {
         return getObjectFromFolder(ERepositoryObjectType.METADATA_FILE_LDIF, null, true);
@@ -1000,134 +948,27 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         return getMetadataFileLdifFromFolder();
     }
 
-    /**
-     * 
-     * DOC smallet RepositoryFactory class global comment. Detailled comment <br/>
-     * 
-     * $Id$
-     * 
-     */
-    private class LockedObject {
-
-        private Date lockDate;
-
-        private User locker;
-
-        /**
-         * DOC smallet LockedObject constructor comment.
-         * 
-         * @param object
-         * @param lockDate
-         * @param locker
-         */
-        public LockedObject(Date lockDate, User locker) {
-            super();
-            this.lockDate = lockDate;
-            this.locker = locker;
-        }
-
-        /**
-         * Getter for lockDate.
-         * 
-         * @return the lockDate
-         */
-        public Date getLockDate() {
-            return this.lockDate;
-        }
-
-        /**
-         * Getter for locker.
-         * 
-         * @return the locker
-         */
-        public User getLocker() {
-            return this.locker;
-        }
-
-    }
-
-    private static Map<String, LockedObject> lockedObject = new Hashtable<String, LockedObject>();
-
     private XmiResourceManager xmiResourceManager = new XmiResourceManager();;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IRepositoryFactory#getLockDate(org.talend.core.model.general.Project,
-     * org.talend.core.model.repository.IRepositoryObject)
-     */
-    public Date getLockDate(IRepositoryObject obj) throws PersistenceException {
-        if (isLocked(obj)) {
-            return lockedObject.get(obj.getId()).getLockDate();
-        }
-        return null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IRepositoryFactory#getLocker(org.talend.core.model.general.Project,
-     * org.talend.core.model.repository.IRepositoryObject)
-     */
-    public User getLocker(IRepositoryObject obj) throws PersistenceException {
-        if (isLocked(obj)) {
-            return lockedObject.get(obj.getId()).getLocker();
-        }
-        return null;
-    }
-
-    /**
-     * All lock system id manage by static variable in this local implementation. Project is not use.
-     */
-    public boolean isLocked(IRepositoryObject obj) throws PersistenceException {
-        return isLocked(obj.getId());
-    }
-
-    public boolean isLocked(Item item) throws PersistenceException {
-        return isLocked(item.getProperty().getId());
-    }
-
-    private boolean isLocked(String id) {
-        return lockedObject.containsKey(id);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IRepositoryFactory#lock(org.talend.core.model.general.Project,
-     * org.talend.core.model.repository.IRepositoryObject)
-     */
-    public void lock(IRepositoryObject obj) throws PersistenceException {
-        if (!isLocked(obj)) {
-            lockedObject.put(obj.getId(), new LockedObject(new Date(), repositoryContext.getUser()));
-            LocalLockHelper.fireLockEvent(obj.getId());
-        }
-    }
-
     public void lock(Item item) throws PersistenceException {
-        if (!isLocked(item)) {
-            lockedObject.put(item.getProperty().getId(), new LockedObject(new Date(), repositoryContext.getUser()));
+        if (getStatus(item) == RepositoryStatus.DEFAULT) {
+            // lockedObject.put(item.getProperty().getId(), new LockedObject(new Date(), repositoryContext.getUser()));
+            item.getState().setLockDate(new Date());
+            item.getState().setLocker(getRepositoryContext().getUser());
+            item.getState().setLocked(true);
+            xmiResourceManager.saveResource(item.eResource());
             LocalLockHelper.fireLockEvent(item.getProperty().getId());
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IRepositoryFactory#unlock(org.talend.core.model.general.Project,
-     * org.talend.core.model.repository.IRepositoryObject)
-     */
-    public void unlock(IRepositoryObject obj) throws PersistenceException {
-        if (isLocked(obj)) {
-            lockedObject.remove(obj.getId());
-            LocalLockHelper.fireUnlockEvent(obj.getId());
-        }
-    }
-
-    public void unlock(Item obj) throws PersistenceException {
-        if (isLocked(obj)) {
-            lockedObject.remove(obj.getProperty().getId());
-            LocalLockHelper.fireUnlockEvent(obj.getProperty().getId());
+    public void unlock(Item item) throws PersistenceException {
+        if (getStatus(item) == RepositoryStatus.LOCK_BY_USER) {
+            // lockedObject.remove(obj.getProperty().getId());
+            item.getState().setLocker(null);
+            item.getState().setLockDate(null);
+            item.getState().setLocked(false);
+            xmiResourceManager.saveResource(item.eResource());
+            LocalLockHelper.fireUnlockEvent(item.getProperty().getId());
         }
     }
 
@@ -1202,7 +1043,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         return itemResource;
     }
 
-    private Resource save(BusinessProcessItem item) throws PersistenceException {
+    private Resource save(BusinessProcessItem item) {
         Resource itemResource = xmiResourceManager.getItemResource(item);
         itemResource.getContents().clear();
         // itemResource.getContents().add(item.getNotation());
@@ -1213,7 +1054,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         return itemResource;
     }
 
-    private Resource save(ConnectionItem item) throws PersistenceException {
+    private Resource save(ConnectionItem item) {
         Resource itemResource = xmiResourceManager.getItemResource(item);
         itemResource.getContents().clear();
         itemResource.getContents().add(item.getConnection());
@@ -1229,7 +1070,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         return itemResource;
     }
 
-    private Resource save(FileItem item) throws PersistenceException {
+    private Resource save(FileItem item) {
         Resource itemResource = xmiResourceManager.getItemResource(item);
 
         ByteArray content = item.getContent();
@@ -1247,7 +1088,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         return itemResource;
     }
 
-    private Resource save(ProcessItem item) throws PersistenceException {
+    private Resource save(ProcessItem item) {
         Resource itemResource = xmiResourceManager.getItemResource(item);
 
         itemResource.getContents().clear();
@@ -1331,7 +1172,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
     }
 
     private void propagateFileName(Property property) throws PersistenceException {
-        List<IRepositoryObject> allVersionToMove = getSerializable(repositoryContext.getProject(), property.getId(), true);
+        List<IRepositoryObject> allVersionToMove = getSerializable(getRepositoryContext().getProject(), property.getId(), true);
         for (IRepositoryObject object : allVersionToMove) {
             xmiResourceManager.propagateFileName(property, object.getProperty());
         }
@@ -1365,7 +1206,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
             item.getProperty().setVersion(VersionUtils.DEFAULT_VERSION);
         }
         if (item.getProperty().getAuthor() == null) {
-            item.getProperty().setAuthor(repositoryContext.getUser());
+            item.getProperty().setAuthor(getRepositoryContext().getUser());
         }
         item.getProperty().setCreationDate(new Date());
 
@@ -1426,7 +1267,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
     }
 
     private IProject getProject() throws PersistenceException {
-        return ResourceModelUtils.getProject(repositoryContext.getProject());
+        return ResourceModelUtils.getProject(getRepositoryContext().getProject());
     }
 
     public void reload(Property property) {
@@ -1436,7 +1277,7 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         }
     }
 
-    public boolean findUser(Project project, RepositoryContext repositoryContext) throws PersistenceException {
+    public boolean findUser(Project project) throws PersistenceException {
         IProject iProject = ResourceModelUtils.getProject(project);
         org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
@@ -1444,8 +1285,8 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
         for (Iterator iter = users.iterator(); iter.hasNext();) {
             User emfUser = (User) iter.next();
-            if (emfUser.getLogin().equals(repositoryContext.getUser().getLogin())) {
-                repositoryContext.setUser(emfUser);
+            if (emfUser.getLogin().equals(getRepositoryContext().getUser().getLogin())) {
+                getRepositoryContext().setUser(emfUser);
                 return true;
             }
         }
@@ -1453,16 +1294,50 @@ public class LocalRepositoryFactory implements IRepositoryFactory {
         return false;
     }
 
-    public void createUser(Project project, RepositoryContext repositoryContext) throws PersistenceException {
+    public void createUser(Project project) throws PersistenceException {
         IProject iProject = ResourceModelUtils.getProject(project);
         org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
 
-        projectResource.getContents().add(repositoryContext.getUser());
+        projectResource.getContents().add(getRepositoryContext().getUser());
         xmiResourceManager.saveResource(projectResource);
     }
 
     public void initialize() {
         // unused in local mode
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.IRepositoryFactory#getStatus(org.talend.core.model.properties.Item)
+     */
+    public RepositoryStatus getStatus(Item item) {
+        if (item.getState().isDeleted()) {
+            return RepositoryStatus.DELETED;
+        }
+
+        if (item.getState().isLocked()) {
+            User locker = item.getState().getLocker();
+            User connected = getRepositoryContext().getUser();
+            if (connected.equals(locker)) {
+                return RepositoryStatus.LOCK_BY_USER;
+            } else {
+                return RepositoryStatus.LOCK_BY_OTHER;
+            }
+        }
+
+        return RepositoryStatus.DEFAULT;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.IRepositoryFactory#commit(org.talend.core.model.properties.Item)
+     */
+    public void commit(Item obj) {
+        // TODO SML Delete this method
+        // Nothing to do
+    }
+
 }

@@ -23,7 +23,6 @@ package org.talend.core.context;
 
 import org.talend.core.model.general.Project;
 import org.talend.core.model.properties.User;
-import org.talend.core.model.repository.ERepositoryType;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -41,9 +40,6 @@ public class RepositoryContext {
 
     private User user;
 
-    private ERepositoryType type;
-
-    // PTODO SML Remove project from this class
     private Project project;
 
     /**
@@ -55,12 +51,11 @@ public class RepositoryContext {
      * @param login
      * @param password
      */
-    public RepositoryContext(String server, Integer port, String context, User user, ERepositoryType type) {
+    public RepositoryContext(String server, Integer port, String context, User user) {
         super();
         this.server = server;
         this.port = port;
         this.context = context;
-        this.type = type;
         this.user = user;
     }
 
@@ -154,24 +149,6 @@ public class RepositoryContext {
         this.project = project;
     }
 
-    /**
-     * Getter for type.
-     * 
-     * @return the type
-     */
-    public ERepositoryType getType() {
-        return this.type;
-    }
-
-    /**
-     * Sets the type.
-     * 
-     * @param type the type to set
-     */
-    public void setType(ERepositoryType type) {
-        this.type = type;
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -186,7 +163,6 @@ public class RepositoryContext {
         result = prime * result + ((this.port == null) ? 0 : this.port.hashCode());
         result = prime * result + ((this.project == null) ? 0 : this.project.hashCode());
         result = prime * result + ((this.server == null) ? 0 : this.server.hashCode());
-        result = prime * result + ((this.type == null) ? 0 : this.type.hashCode());
         return result;
     }
 
@@ -240,13 +216,6 @@ public class RepositoryContext {
                 return false;
             }
         } else if (!this.server.equals(other.server)) {
-            return false;
-        }
-        if (this.type == null) {
-            if (other.type != null) {
-                return false;
-            }
-        } else if (!this.type.equals(other.type)) {
             return false;
         }
         return true;

@@ -3,7 +3,10 @@
 <plugin>
    <extension
          point="org.talend.repository.repository_provider">
-      <RepositoryFactory class="org.talend.repository.localprovider.model.LocalRepositoryFactory"/>
+      <RepositoryFactory
+            authenticationNeeded="false"
+            class="org.talend.repository.localprovider.model.LocalRepositoryFactory"
+            name="Local"/>
    </extension>
 
 </plugin>
