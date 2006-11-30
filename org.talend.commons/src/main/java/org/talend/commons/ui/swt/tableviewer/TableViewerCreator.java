@@ -342,17 +342,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
         // long time11 = System.currentTimeMillis();
         if (list != null) {
-            if (tableEditorManager != null && list instanceof ListenableList) {
-                ((ListenableList) list).addAfterListener(1, new IListenableListListener() {
-
-                    public void handleEvent(ListenableListEvent event) {
-                        // we must refresh the table before creating the control to draw cells
-                        getTableViewer().refresh();
-                        tableEditorManager.init();
-                    }
-
-                });
-            }
             setInputList(list);
         }
         if (tableEditorManager != null) {
