@@ -21,29 +21,21 @@
 // ============================================================================
 package org.talend.core.ui.metadata.editor;
 
-import java.util.ArrayList;
-
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.IOpenListener;
-import org.eclipse.jface.viewers.OpenEvent;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
+import org.talend.commons.ui.swt.advanced.dataeditor.AbstractExtendedToolbar;
+import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LINE_SELECTION;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_ROW_SELECTION;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
@@ -51,9 +43,7 @@ import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorCont
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
-import org.talend.core.model.metadata.editor.MetadataEditor2;
-import org.talend.core.model.metadata.editor.MetadataEditorEvent;
-import org.talend.core.model.metadata.editor.MetadataEditorEvent.TYPE;
+import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.ui.EImage;
 import org.talend.core.ui.ImageProvider;
 
@@ -64,28 +54,11 @@ import org.talend.core.ui.ImageProvider;
  * $Id$
  * 
  */
-public class MetadataTableEditorView2 {
-
-    private Label nameLabel;
-
-    private TableViewerCreator<MetadataColumn> tableViewerCreator;
-
-    private Composite composite;
-
-    private MetadataEditor2 metadataTableEditor;
-
-    private boolean executeSelectionEvent = true;
-
-    private MetadataToolbarEditorView2 metadataToolbarEditorView2;
+public class MetadataEmfTableEditorView extends AbstractDataTableEditorView<MetadataColumn> {
 
     public static final String ID_COLUMN_NAME = "ID_COLUMN_NAME";
 
     private boolean showDbTypeColumn = false;
-
-    public MetadataTableEditorView2(Composite parent, int style, MetadataEditor2 metadataEditor) {
-        this(parent, style, false);
-        setMetadataEditor(metadataEditor);
-    }
 
     /**
      * MetadataTableEditorView2 constructor comment.
@@ -94,70 +67,67 @@ public class MetadataTableEditorView2 {
      * @param style
      * @param showDbTypeColumn
      */
-    public MetadataTableEditorView2(Composite parent, int style, boolean showDbTypeColumn) {
-        super();
+    public MetadataEmfTableEditorView(Composite parent, int style, boolean showDbTypeColumn) {
+        super(parent, style);
         this.showDbTypeColumn = showDbTypeColumn;
-        composite = new Composite(parent, style);
-        GridLayout layout = new GridLayout();
-        composite.setLayout(layout);
-
-        createComponents();
-        addListeners();
     }
 
     /**
-     * DOC amaumont Comment method "addListeners".
+     * DOC amaumont MetadataEmfTableEditorView constructor comment.
+     * 
+     * @param parentComposite
+     * @param mainCompositeStyle
+     * @param extendedTableModel
+     * @param readOnly
+     * @param toolbarVisible
      */
-    private void addListeners() {
-    }
-
-    private void createComponents() {
-        nameLabel = new Label(composite, SWT.NONE);
-        nameLabel.setText("");
-        nameLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-
-        addMetadataTable();
-        addMetadataToolbar();
-
+    public MetadataEmfTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<MetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible) {
+        super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible);
     }
 
     /**
-     * DOC amaumont Comment method "addMetadataToolbar".
+     * DOC amaumont MetadataEmfTableEditorView constructor comment.
+     * 
+     * @param parentComposite
+     * @param mainCompositeStyle
+     * @param extendedTableModel
      */
-    private void addMetadataToolbar() {
-        metadataToolbarEditorView2 = new MetadataToolbarEditorView2(composite, SWT.NONE, this);
+    public MetadataEmfTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<MetadataColumn> extendedTableModel) {
+        super(parentComposite, mainCompositeStyle, extendedTableModel);
     }
 
-    private void addMetadataTable() {
-
-        tableViewerCreator = new TableViewerCreator<MetadataColumn>(composite);
-        tableViewerCreator.setLayout(new RowLayout(SWT.HORIZONTAL));
-
-        tableViewerCreator.setAllColumnsResizable(true);
-        tableViewerCreator.setBorderVisible(true);
-        tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
-        tableViewerCreator.setAdjustWidthValue(-15);
-        tableViewerCreator.setFirstColumnMasked(true);
-        tableViewerCreator.setFirstVisibleColumnIsSelection(true);
-        tableViewerCreator.setUseCustomItemColoring(true);
-
-        final Table table = tableViewerCreator.createTable();
-        table.setLayoutData(new GridData(GridData.FILL_BOTH));
-
-        TableViewer tableViewer = tableViewerCreator.getTableViewer();
-        tableViewer.addOpenListener(new IOpenListener() {
-
-            public void open(OpenEvent event) {
-                // System.out.println("OpenEvent");
-
-            }
-
-        });
-
-        initColumns(tableViewer.getTable());
+    /**
+     * DOC amaumont MetadataEmfTableEditorView constructor comment.
+     * 
+     * @param parentComposite
+     * @param mainCompositeStyle
+     */
+    public MetadataEmfTableEditorView(Composite parentComposite, int mainCompositeStyle) {
+        super(parentComposite, mainCompositeStyle);
     }
 
-    private void initColumns(Table table) {
+    
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView#initToolBar()
+     */
+    @Override
+    protected AbstractExtendedToolbar initToolBar() {
+        return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer#createColumns(org.talend.commons.ui.swt.tableviewer.TableViewerCreator,
+     * org.eclipse.swt.widgets.Table)
+     */
+    @Override
+    protected void createColumns(final TableViewerCreator<MetadataColumn> tableViewerCreator, final Table table) {
 
         String[] arrayTalendTypes = new String[0];
         try {
@@ -274,20 +244,11 @@ public class MetadataTableEditorView2 {
 
             @Override
             public void newValidValueTyped(int itemIndex, Object previousValue, Object newValue, CELL_EDITOR_STATE state) {
-                Object currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
-                ArrayList modifiedObjectList = new ArrayList(1);
-                modifiedObjectList.add(currentModifiedObject);
-                MetadataEditorEvent event = new MetadataEditorEvent(MetadataEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED);
-                event.entries = modifiedObjectList;
-                event.previousValue = previousValue;
-                event.newValue = newValue;
-                event.state = state;
-                metadataTableEditor.fireEvent(event);
             }
 
             @Override
             public String validateValue(String newValue, int beanPosition) {
-                return metadataTableEditor.validateColumnName(newValue, beanPosition);
+                return getMetadataEditor().validateColumnName(newValue, beanPosition);
             }
 
         });
@@ -305,11 +266,6 @@ public class MetadataTableEditorView2 {
 
             public void set(MetadataColumn bean, Boolean value) {
                 bean.setKey(value);
-                tableViewerCreator.getTableViewer().refresh(bean);
-                MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(TYPE.METADATA_KEY_VALUE_CHANGED);
-                metadataEditorEvent.entries.add(bean);
-                metadataEditorEvent.entriesIndices = new int[] { metadataTableEditor.getMetadataColumnList().indexOf(bean) };
-                metadataTableEditor.fireEvent(metadataEditorEvent);
             }
 
         });
@@ -460,49 +416,16 @@ public class MetadataTableEditorView2 {
 
     }
 
-    public MetadataEditor2 getMetadataEditor() {
-        return this.metadataTableEditor;
+    public MetadataEmfTableEditor getMetadataEditor() {
+        return (MetadataEmfTableEditor) getExtendedTableModel();
     }
 
-    public void setMetadataEditor(MetadataEditor2 metadataTableEditor) {
-        this.metadataTableEditor = metadataTableEditor;
-        if (metadataTableEditor == null) {
-            nameLabel.setText("");
-            executeSelectionEvent = false;
-            tableViewerCreator.init(new ArrayList());
-            executeSelectionEvent = true;
-            tableViewerCreator.layout();
-        } else {
-            nameLabel.setText(metadataTableEditor.getTitleName());
-            executeSelectionEvent = false;
-            tableViewerCreator.init(metadataTableEditor.getMetadataColumnList());
-            executeSelectionEvent = true;
-            tableViewerCreator.layout();
-        }
+    public void setMetadataEditor(MetadataEmfTableEditor metadataTableEditor) {
+        setExtendedTableModel(metadataTableEditor);
     }
 
-    public TableViewerCreator getTableViewerCreator() {
-        return this.tableViewerCreator;
-    }
-
-    /**
-     * DOC amaumont Comment method "setTableSelection".
-     * 
-     * @param selectionIndices
-     */
-    public void setTableSelection(int[] selectionIndices, boolean executeSelectionEvent) {
-        this.executeSelectionEvent = executeSelectionEvent;
-        this.tableViewerCreator.getTable().setSelection(selectionIndices);
-        this.executeSelectionEvent = true;
-
-    }
-
-    public boolean isExecuteSelectionEvent() {
-        return this.executeSelectionEvent;
-    }
-
-    public void setExecuteSelectionEvent(boolean executeSelectionEvent) {
-        this.executeSelectionEvent = executeSelectionEvent;
+    public TableViewerCreator<MetadataColumn> getTableViewerCreator() {
+        return getExtendedTableViewer().getTableViewerCreator();
     }
 
     /**
@@ -512,28 +435,13 @@ public class MetadataTableEditorView2 {
      * @param minimumHeight
      */
     public void setGridDataSize(final int minimumWidth, final int minimumHeight) {
-        this.composite.setSize(minimumWidth, minimumHeight);
+        getMainComposite().setSize(minimumWidth, minimumHeight);
 
         GridData gridData = new GridData(GridData.FILL_BOTH);
         gridData.minimumWidth = minimumWidth;
         gridData.minimumHeight = minimumHeight;
-        this.composite.setLayoutData(gridData);
+        getMainComposite().setLayoutData(gridData);
 
-    }
-
-    public void setReadOnly(boolean b) {
-        metadataToolbarEditorView2.setReadOnly(b);
-        this.tableViewerCreator.getTable().setEnabled(!b);
-    }
-
-    /**
-     * DOC ocarbone Comment method "setDefaultLabel". setDefaultLabel determine the label to use when Add button is
-     * used.
-     * 
-     * @param string
-     */
-    public void setDefaultLabel(String label) {
-        metadataToolbarEditorView2.setDefaultLabel(label);
     }
 
 }

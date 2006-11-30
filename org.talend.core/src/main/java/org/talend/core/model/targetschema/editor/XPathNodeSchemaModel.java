@@ -23,7 +23,7 @@ package org.talend.core.model.targetschema.editor;
 
 import java.util.List;
 
-import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
+import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataSchema;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;

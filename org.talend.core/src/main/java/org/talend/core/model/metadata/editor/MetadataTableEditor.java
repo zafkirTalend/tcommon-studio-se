@@ -28,7 +28,8 @@ import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternCompiler;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
-import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
+import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
+import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
@@ -132,34 +133,22 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
     }
 
     public String getNextGeneratedColumnName(String oldColumnName) {
-        String[] labels = new String[this.getBeansList().size()];
-        int lstSize = this.getBeansList().size();
-        for (int i = 0; i < lstSize; i++) {
-            IMetadataColumn metadataColumn = this.getBeansList().get(i);
-            labels[i] = metadataColumn.getLabel();
-        }
+        UniqueStringGenerator<IMetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<IMetadataColumn>(oldColumnName,
+                getBeansList()) {
 
-        boolean found = false;
-        int indexNewColumn = 0;
-        String newColumnName = null;
-        boolean firstTime = true;
-        while (!found) {
-            newColumnName = oldColumnName + (firstTime ? "" : (++indexNewColumn));
-            firstTime = false;
-            boolean allAreDifferent = true;
-            for (int j = 0; j < labels.length; j++) {
-                String label = labels[j];
-                if (label.equals(newColumnName)) {
-                    allAreDifferent = false;
-                    break;
-                }
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
+             */
+            @Override
+            protected String getBeanString(IMetadataColumn bean) {
+                return bean.getLabel();
             }
-            if (allAreDifferent) {
-                found = true;
-            }
-        }
 
-        return newColumnName;
+        };
+
+        return uniqueStringGenerator.getUniqueString();
     }
     
     public IMetadataColumn createNewMetadataColumn() {

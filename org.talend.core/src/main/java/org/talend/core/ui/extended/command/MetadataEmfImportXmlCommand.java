@@ -21,13 +21,18 @@
 // ============================================================================
 package org.talend.core.ui.extended.command;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
-import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTablePasteCommand;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.ui.command.CommonCommand;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
-import org.talend.core.model.metadata.IMetadataColumn;
-import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.model.metadata.MetadataSchema;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.xml.sax.SAXException;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -35,43 +40,43 @@ import org.talend.core.model.metadata.editor.MetadataTableEditor;
  * $Id$
  * 
  */
-public class MetadataPasteCommand extends ExtendedTablePasteCommand {
+public class MetadataEmfImportXmlCommand extends CommonCommand {
+
+    private File file;
+    private ExtendedTableModel extendedTableModel;
 
     /**
      * DOC amaumont MetadataPasteCommand constructor comment.
+     * @param extendedTableModel 
      * @param extendedTable
      * @param validAssignableType
      * @param indexStartAdd
      */
-    public MetadataPasteCommand(ExtendedTableModel extendedTable, Integer indexStartAdd) {
-        super(extendedTable, indexStartAdd);
+    public MetadataEmfImportXmlCommand(ExtendedTableModel extendedTableModel, File file) {
+        super();
+        this.file = file;
+        this.extendedTableModel = extendedTableModel;
     }
 
-    /**
-     * DOC amaumont MetadataPasteCommand constructor comment.
-     * @param extendedTable
-     * @param instanceOfType
-     */
-    public MetadataPasteCommand(ExtendedTableModel extendedTable) {
-        super(extendedTable);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTablePasteCommand#createPastableBeansList(java.util.List)
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.command.CommonCommand#execute()
      */
     @Override
-    public List createPastableBeansList(ExtendedTableModel extendedTable, List copiedObjectsList) {
-        ArrayList list = new ArrayList();
-        for (Object current : copiedObjectsList) {
-            if (current instanceof IMetadataColumn) {
-                IMetadataColumn copy = ((IMetadataColumn) current).clone();
-                copy.setLabel(((MetadataTableEditor) extendedTable).getNextGeneratedColumnName(copy.getLabel()));
-                list.add(copy);
-            }
+    public void execute() {
+        try {
+//          // load the schema
+          List<MetadataColumn> metadataColumns = MetadataSchema.loadMetadataColumnFromFile(file);
+            extendedTableModel.addAll(metadataColumns);
+
+        } catch (ParserConfigurationException e) {
+            ExceptionHandler.process(e);
+        } catch (SAXException e) {
+            ExceptionHandler.process(e);
+        } catch (IOException e) {
+            ExceptionHandler.process(e);
         }
-        return list;
     }
+
+    
 
 }

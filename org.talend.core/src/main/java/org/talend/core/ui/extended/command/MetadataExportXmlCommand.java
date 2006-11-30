@@ -23,18 +23,14 @@ package org.talend.core.ui.extended.command;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.command.CommonCommand;
-import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
-import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataSchema;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
-import org.xml.sax.SAXException;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

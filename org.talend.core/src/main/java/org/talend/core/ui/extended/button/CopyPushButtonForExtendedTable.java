@@ -22,20 +22,14 @@
 package org.talend.core.ui.extended.button;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableCopyCommand;
-import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableMoveCommand;
-import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableRemoveCommand;
-import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
 
 /**

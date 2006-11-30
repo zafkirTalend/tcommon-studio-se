@@ -25,8 +25,8 @@ import java.io.File;
 
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.command.ICommonCommand;
-import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
-import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
+import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.ui.extended.ExtendedToolbarView;
 import org.talend.core.ui.extended.button.AddPushButton;

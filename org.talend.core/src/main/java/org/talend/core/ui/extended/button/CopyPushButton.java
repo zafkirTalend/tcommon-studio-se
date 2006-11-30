@@ -21,11 +21,10 @@
 // ============================================================================
 package org.talend.core.ui.extended.button;
 
-import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
-import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlViewer;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
 import org.talend.core.ui.EImage;
 import org.talend.core.ui.ImageProvider;
 

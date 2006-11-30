@@ -26,8 +26,9 @@ import java.util.List;
 
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTablePasteCommand;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
-import org.talend.core.model.metadata.IMetadataColumn;
-import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.builder.connection.impl.ConnectionFactoryImpl;
+import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -35,7 +36,7 @@ import org.talend.core.model.metadata.editor.MetadataTableEditor;
  * $Id$
  * 
  */
-public class MetadataPasteCommand extends ExtendedTablePasteCommand {
+public class MetadataEmfPasteCommand extends ExtendedTablePasteCommand {
 
     /**
      * DOC amaumont MetadataPasteCommand constructor comment.
@@ -43,7 +44,7 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
      * @param validAssignableType
      * @param indexStartAdd
      */
-    public MetadataPasteCommand(ExtendedTableModel extendedTable, Integer indexStartAdd) {
+    public MetadataEmfPasteCommand(ExtendedTableModel extendedTable, Integer indexStartAdd) {
         super(extendedTable, indexStartAdd);
     }
 
@@ -52,7 +53,7 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
      * @param extendedTable
      * @param instanceOfType
      */
-    public MetadataPasteCommand(ExtendedTableModel extendedTable) {
+    public MetadataEmfPasteCommand(ExtendedTableModel extendedTable) {
         super(extendedTable);
     }
 
@@ -64,11 +65,16 @@ public class MetadataPasteCommand extends ExtendedTablePasteCommand {
     @Override
     public List createPastableBeansList(ExtendedTableModel extendedTable, List copiedObjectsList) {
         ArrayList list = new ArrayList();
+        int indice = 1;
+        MetadataEmfTableEditor tableEditor = (MetadataEmfTableEditor) extendedTable;
         for (Object current : copiedObjectsList) {
-            if (current instanceof IMetadataColumn) {
-                IMetadataColumn copy = ((IMetadataColumn) current).clone();
-                copy.setLabel(((MetadataTableEditor) extendedTable).getNextGeneratedColumnName(copy.getLabel()));
-                list.add(copy);
+            if (current instanceof MetadataColumn) {
+                // create a new column as a copy of this column
+                MetadataColumn metadataColumn = (MetadataColumn) current;
+                String nextGeneratedColumnName = tableEditor.getNextGeneratedColumnName(metadataColumn.getLabel());
+                MetadataColumn newColumnCopy = new ConnectionFactoryImpl().copy(metadataColumn, nextGeneratedColumnName);
+                newColumnCopy.setLabel(nextGeneratedColumnName);
+                list.add(newColumnCopy);
             }
         }
         return list;

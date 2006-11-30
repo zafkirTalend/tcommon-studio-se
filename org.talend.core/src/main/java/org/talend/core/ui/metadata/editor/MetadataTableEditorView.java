@@ -30,7 +30,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractExtendedToolbar;
-import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
+import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
@@ -42,9 +42,7 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.MetadataTalendType;
-import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
-import org.talend.core.model.metadata.editor.MetadataEditorEvent.TYPE;
 import org.talend.core.ui.EImage;
 import org.talend.core.ui.ImageProvider;
 
@@ -111,17 +109,6 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
     @Override
     protected AbstractExtendedToolbar initToolBar() {
         return new MetadataToolbarEditorView(getMainComposite(), SWT.NONE, this.getExtendedTableViewer());
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.ui.metadata.editor.AbstractDataTableEditorView#setTableViewerCreatorOptions(org.talend.commons.ui.swt.tableviewer.TableViewerCreator)
-     */
-    @Override
-    protected void setTableViewerCreatorOptions(TableViewerCreator<IMetadataColumn> newTableViewerCreator) {
-        // newTableViewerCreator.setUseCustomItemColoring(true);
-        newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
     }
 
     /*
@@ -230,16 +217,6 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
             @Override
             public void newValidValueTyped(int itemIndex, Object previousValue, Object newValue, CELL_EDITOR_STATE state) {
-                // Object currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
-                // ArrayList modifiedObjectList = new ArrayList(1);
-                // modifiedObjectList.add(currentModifiedObject);
-                // MetadataEditorEvent event = new
-                // MetadataEditorEvent(MetadataEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED);
-                // event.entries = modifiedObjectList;
-                // event.previousValue = previousValue;
-                // event.newValue = newValue;
-                // event.state = state;
-                // metadataTableEditor.fireEvent(event);
             }
 
             @Override

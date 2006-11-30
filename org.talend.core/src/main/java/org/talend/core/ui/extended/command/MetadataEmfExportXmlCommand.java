@@ -23,16 +23,14 @@ package org.talend.core.ui.extended.command;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.command.CommonCommand;
-import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
-import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataSchema;
-import org.xml.sax.SAXException;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -40,42 +38,52 @@ import org.xml.sax.SAXException;
  * $Id$
  * 
  */
-public class MetadataImportXmlCommand extends CommonCommand {
+public class MetadataEmfExportXmlCommand extends CommonCommand {
 
     private File file;
-    private ExtendedTableModel extendedTableModel;
+
+    private MetadataEmfTableEditor extendedTableModel;
 
     /**
      * DOC amaumont MetadataPasteCommand constructor comment.
-     * @param extendedTableModel 
+     * 
+     * @param extendedTableModel
      * @param extendedTable
      * @param validAssignableType
      * @param indexStartAdd
      */
-    public MetadataImportXmlCommand(ExtendedTableModel extendedTableModel, File file) {
+    public MetadataEmfExportXmlCommand(MetadataEmfTableEditor extendedTableModel, File file) {
         super();
         this.file = file;
         this.extendedTableModel = extendedTableModel;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#execute()
      */
     @Override
     public void execute() {
         try {
-            List<IMetadataColumn> metadataColumns = MetadataSchema.initializeColumns(file);
-            extendedTableModel.addAll(metadataColumns);
+            file.createNewFile();
+            if (file != null) {
+                if (extendedTableModel != null) {
+                    MetadataTable currentTable = extendedTableModel.getMetadataTable();
+                    // get all the columns from the table
+                    if (currentTable != null) {
 
-        } catch (ParserConfigurationException e) {
-            ExceptionHandler.process(e);
-        } catch (SAXException e) {
-            ExceptionHandler.process(e);
+                        MetadataSchema.saveMetadataColumnToFile(file, currentTable);
+                        
+                    }
+                }
+            }
         } catch (IOException e) {
             ExceptionHandler.process(e);
+        } catch (ParserConfigurationException e) {
+            ExceptionHandler.process(e);
         }
-    }
 
-    
+    }
 
 }

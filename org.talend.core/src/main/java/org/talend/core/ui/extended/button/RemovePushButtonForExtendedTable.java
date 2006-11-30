@@ -21,12 +21,11 @@
 // ============================================================================
 package org.talend.core.ui.extended.button;
 
-import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableRemoveCommand;
-import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
 
 /**

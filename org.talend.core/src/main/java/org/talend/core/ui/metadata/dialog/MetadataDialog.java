@@ -22,7 +22,6 @@
 package org.talend.core.ui.metadata.dialog;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.dialogs.Dialog;
@@ -42,8 +41,6 @@ import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.editor.IMetadataEditorListener;
-import org.talend.core.model.metadata.editor.MetadataEditorEvent;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.ui.EImage;
 import org.talend.core.ui.ImageProvider;
@@ -167,7 +164,7 @@ public class MetadataDialog extends Dialog {
                     messageBox.setText("Schema modification");
                     messageBox.setMessage("All columns from the input schema will be transfered to the output schema");
                     if (messageBox.open() == SWT.OK) {
-                        outputMetaView.getMetadataTableEditor().clear();
+                        outputMetaView.getMetadataTableEditor().removeAll();
                         outputMetaView.getMetadataTableEditor().addAll(inputMetaView.getMetadataTableEditor().getMetadataColumnList());
                     }
                 }
@@ -184,7 +181,7 @@ public class MetadataDialog extends Dialog {
                     messageBox.setText("Schema modification");
                     messageBox.setMessage("All columns from the output schema will be transfered to the input schema");
                     if (messageBox.open() == SWT.OK) {
-                        inputMetaView.getMetadataTableEditor().clear();
+                        inputMetaView.getMetadataTableEditor().removeAll();
                         inputMetaView.getMetadataTableEditor().addAll(outputMetaView.getMetadataTableEditor().getMetadataColumnList());
                     }
                 }

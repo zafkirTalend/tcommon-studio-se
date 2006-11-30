@@ -24,7 +24,7 @@ package org.talend.core.ui.extended.button;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableMoveCommand;
-import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
 
 /**
