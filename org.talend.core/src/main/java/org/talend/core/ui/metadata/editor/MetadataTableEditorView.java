@@ -65,32 +65,10 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
      * 
      * @param parent
      * @param style
-     * @param displayToolbar
-     */
-    public MetadataTableEditorView(Composite parent, int style, MetadataTableEditor metadataTableEditor, boolean displayToolbar) {
-        super(parent, style, metadataTableEditor);
-    }
-
-    /**
-     * DOC amaumont MetadataTableEditorView constructor comment.
-     * 
-     * @param parent
-     * @param style
      * @param metadataTableEditor
      */
     public MetadataTableEditorView(Composite parent, int style, MetadataTableEditor metadataTableEditor) {
         super(parent, style, metadataTableEditor);
-    }
-
-    /**
-     * DOC amaumont MetadataTableEditorView constructor comment.
-     * 
-     * @param parent
-     * @param style
-     * @param metadataTableEditor
-     */
-    public MetadataTableEditorView(Composite parent, int style, boolean displayToolbar) {
-        super(parent, style);
     }
 
     /**
@@ -105,17 +83,6 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
     public MetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
             ExtendedTableModel<IMetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible) {
         super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible);
-    }
-
-    /**
-     * DOC amaumont MetadataTableEditorView constructor comment.
-     * 
-     * @param parentComposite
-     * @param mainCompositeStyle
-     * @param extendedTableModel
-     */
-    public MetadataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<IMetadataColumn> extendedTableModel) {
-        super(parentComposite, mainCompositeStyle, extendedTableModel);
     }
 
     /**
@@ -256,13 +223,13 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
         });
         column.setWeight(25);
-        column.setModifiable(isReadOnly());
+        column.setModifiable(!isReadOnly());
         column.setMinimumWidth(45);
         final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
         cellEditor.addListener(new DialogErrorForCellEditorListener(cellEditor, column) {
 
             @Override
-            public void newValidValueTyped(int itemIndex, String previousValue, String newValue, CELL_EDITOR_STATE state) {
+            public void newValidValueTyped(int itemIndex, Object previousValue, Object newValue, CELL_EDITOR_STATE state) {
                 // Object currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
                 // ArrayList modifiedObjectList = new ArrayList(1);
                 // modifiedObjectList.add(currentModifiedObject);
@@ -319,7 +286,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
             }
 
         });
-        column.setModifiable(isReadOnly());
+        column.setModifiable(!isReadOnly());
         column.setWeight(10);
         column.setMinimumWidth(30);
         column.setCellEditor(new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes), comboValueAdapter);
@@ -339,7 +306,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
             }
 
         });
-        column.setModifiable(isReadOnly());
+        column.setModifiable(!isReadOnly());
         column.setWidth(55);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
 
@@ -358,7 +325,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
             }
 
         });
-        column.setModifiable(isReadOnly());
+        column.setModifiable(!isReadOnly());
         column.setWidth(60);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
 
@@ -377,7 +344,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
             }
 
         });
-        column.setModifiable(isReadOnly());
+        column.setModifiable(!isReadOnly());
         column.setWidth(56);
         column.setDisplayedValue("");
         column.setTableEditorContent(new CheckboxTableEditorContent(isReadOnly()));
@@ -398,7 +365,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
         });
         column.setWeight(8);
-        column.setModifiable(isReadOnly());
+        column.setModifiable(!isReadOnly());
         column.setMinimumWidth(30);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
 
@@ -418,7 +385,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
         });
         column.setWeight(10);
-        column.setModifiable(isReadOnly());
+        column.setModifiable(!isReadOnly());
         column.setMinimumWidth(20);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
 

@@ -195,7 +195,7 @@ public class MetadataDialog extends Dialog {
             }
 
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, new MetadataTableEditor(outputMetaTable,
-                    titleOutput + " (Output)"), true);
+                    titleOutput + " (Output)"));
             outputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
             if (outputReadOnly) {
                 copyToOutput.setEnabled(false);

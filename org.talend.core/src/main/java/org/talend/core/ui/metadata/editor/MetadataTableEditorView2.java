@@ -273,7 +273,7 @@ public class MetadataTableEditorView2 {
         cellEditor.addListener(new DialogErrorForCellEditorListener(cellEditor, column) {
 
             @Override
-            public void newValidValueTyped(int itemIndex, String previousValue, String newValue, CELL_EDITOR_STATE state) {
+            public void newValidValueTyped(int itemIndex, Object previousValue, Object newValue, CELL_EDITOR_STATE state) {
                 Object currentModifiedObject = tableViewerCreator.getModifiedObjectInfo().getCurrentModifiedBean();
                 ArrayList modifiedObjectList = new ArrayList(1);
                 modifiedObjectList.add(currentModifiedObject);
