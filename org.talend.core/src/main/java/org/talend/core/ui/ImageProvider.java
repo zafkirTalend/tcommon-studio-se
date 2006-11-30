@@ -44,17 +44,16 @@ public class ImageProvider {
         return desc.createImage();
     }
 
-    // PTODO SML Mettre les path en clef
-    private static Map<EImage, ImageDescriptor> cacheDescriptors = new HashMap<EImage, ImageDescriptor>();
+    private static Map<String, ImageDescriptor> cacheDescriptors = new HashMap<String, ImageDescriptor>();
 
-    private static Map<EImage, Image> cacheImages = new HashMap<EImage, Image>();
+    private static Map<String, Image> cacheImages = new HashMap<String, Image>();
 
     public static Image getImage(EImage image) {
-        Image toReturn = cacheImages.get(image);
+        Image toReturn = cacheImages.get(image.getPath());
         if (toReturn == null) {
             ImageDescriptor desc = getImageDesc(image);
             toReturn = desc.createImage();
-            cacheImages.put(image, toReturn);
+            cacheImages.put(image.getPath(), toReturn);
         }
         return toReturn;
     }
@@ -64,10 +63,10 @@ public class ImageProvider {
         case DEFAULT_IMAGE:
             return PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_ELEMENT);
         default:
-            ImageDescriptor toReturn = cacheDescriptors.get(image);
+            ImageDescriptor toReturn = cacheDescriptors.get(image.getPath());
             if (toReturn == null) {
                 toReturn = ImageDescriptor.createFromFile(CorePlugin.class, image.getPath());
-                cacheDescriptors.put(image, toReturn);
+                cacheDescriptors.put(image.getPath(), toReturn);
             }
             return toReturn;
         }
@@ -130,17 +129,17 @@ public class ImageProvider {
         if (extOriginal != null) {
             String ext = extOriginal.toLowerCase();
             if (Arrays.asList(new String[] { "doc", "dot" }).contains(ext)) {
-                return getImage(EImage.DOC_WORD_ICON);
+                return ImageProvider.getImage(EImage.DOC_WORD_ICON);
             } else if (Arrays.asList(new String[] { "xls", "xlt" }).contains(ext)) {
-                return getImage(EImage.DOC_EXCEL_ICON);
+                return ImageProvider.getImage(EImage.DOC_EXCEL_ICON);
             } else if (Arrays.asList(new String[] { "ppt", "pps", "pot" }).contains(ext)) {
-                return getImage(EImage.DOC_POWERPOINT_ICON);
+                return ImageProvider.getImage(EImage.DOC_POWERPOINT_ICON);
             } else if (Arrays.asList(new String[] { "pps" }).contains(ext)) {
-                return getImage(EImage.DOC_PDF_ICON);
+                return ImageProvider.getImage(EImage.DOC_PDF_ICON);
             } else if (Arrays.asList(new String[] { "gif", "jpg", "jpeg", "bmp", "gif", "png" }).contains(ext)) {
-                return getImage(EImage.DOC_IMAGE_ICON);
+                return ImageProvider.getImage(EImage.DOC_IMAGE_ICON);
             }
         }
-        return getImage(ERepositoryObjectType.DOCUMENTATION);
+        return ImageProvider.getImage(ERepositoryObjectType.DOCUMENTATION);
     }
 }
