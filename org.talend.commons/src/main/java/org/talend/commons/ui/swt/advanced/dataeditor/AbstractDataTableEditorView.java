@@ -33,8 +33,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
-import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
-import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
+import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
@@ -124,8 +124,28 @@ public abstract class AbstractDataTableEditorView<B> {
      * @param mainCompositeStyle
      */
     public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle) {
+        this(parentComposite, mainCompositeStyle, true);
+    }
+
+    /**
+     * This constructor doesn't initialize graphics components and model.
+     * 
+     * @param parentComposite
+     * @param mainCompositeStyle
+     */
+    public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle, boolean initGraphicsComponents) {
         this.parentComposite = parentComposite;
         this.mainCompositeStyle = mainCompositeStyle;
+        if (initGraphicsComponents) {
+            initGraphicComponents();
+        }
+    }
+
+    /**
+     * DOC amaumont AbstractDataTableEditorView constructor comment.
+     */
+    public AbstractDataTableEditorView() {
+        super();
     }
 
     public void initGraphicComponents() {
@@ -225,6 +245,8 @@ public abstract class AbstractDataTableEditorView<B> {
      * @param newTableViewerCreator
      */
     protected void setTableViewerCreatorOptions(TableViewerCreator<B> newTableViewerCreator) {
+        // newTableViewerCreator.setUseCustomItemColoring(true);
+        newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
     }
 
     /**
@@ -325,7 +347,7 @@ public abstract class AbstractDataTableEditorView<B> {
         if (abstractExtendedToolbar != null) {
             abstractExtendedToolbar.setReadOnly(readOnly);
         }
-        
+
         TableViewerCreator<B> tableViewerCreator = extendedTableViewer.getTableViewerCreator();
 
         List<TableViewerCreatorColumn> columns = tableViewerCreator.getColumns();
@@ -347,7 +369,7 @@ public abstract class AbstractDataTableEditorView<B> {
 
     /**
      * @return
-     * @see org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer#getExtendedTableModel()
+     * @see org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer#getExtendedTableModel()
      */
     public TableViewerCreator<B> getTableViewerCreator() {
         if (this.extendedTableViewer == null) {
@@ -378,23 +400,6 @@ public abstract class AbstractDataTableEditorView<B> {
         if (extendedTableModel != null) {
             titleLabel.setText(extendedTableModel.getName() == null ? "" : extendedTableModel.getName());
         }
-
-        // this.extendedTableModel = extendedTableModel;
-        // if (extendedTableModel == null) {
-        // nameLabel.setText("");
-        // executeSelectionEvent = false;
-        // getTableViewerCreator().init(new ArrayList());
-        // executeSelectionEvent = true;
-        // // tableViewerCreator.layout();
-        // } else {
-        // String text = extendedTableModel.getName();
-        // nameLabel.setText(text == null ? "" : text);
-        // executeSelectionEvent = false;
-        //
-        // getTableViewerCreator().init(extendedTableModel.getBeansList());
-        // executeSelectionEvent = true;
-        // // tableViewerCreator.layout();
-        // }
     }
 
     /**
@@ -423,6 +428,5 @@ public abstract class AbstractDataTableEditorView<B> {
     public boolean isReadOnly() {
         return this.readOnly;
     }
-
 
 }

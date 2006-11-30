@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.tableeditor;
 
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;

@@ -28,7 +28,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.talend.commons.ui.command.ICommonCommand;
-import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlViewer;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
 
 
 /**

@@ -23,7 +23,6 @@ package org.talend.commons.ui.swt.tableviewer.selection;
 
 import java.util.Arrays;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;

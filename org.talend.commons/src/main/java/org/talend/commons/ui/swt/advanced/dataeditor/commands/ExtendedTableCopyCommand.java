@@ -24,7 +24,6 @@ package org.talend.commons.ui.swt.advanced.dataeditor.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.gef.commands.Command;
 import org.talend.commons.ui.command.CommonCommand;
 import org.talend.commons.ui.utils.SimpleClipboard;
 

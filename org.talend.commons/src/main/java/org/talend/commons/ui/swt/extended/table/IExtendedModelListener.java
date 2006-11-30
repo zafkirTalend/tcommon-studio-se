@@ -19,37 +19,20 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.extended.macrotable;
-
+package org.talend.commons.ui.swt.extended.table;
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
-public class ExtendedModelEvent {
-
-    private String type;
+public interface IExtendedModelListener {
 
     /**
-     * DOC amaumont ExtendedModelEvent constructor comment.
+     * DOC amaumont Comment method "handleEvent".
+     * @param event 
      */
-    public ExtendedModelEvent(String type) {
-        super();
-        this.type = type;
-    }
+    public void handleEvent(ExtendedModelEvent event);
 
-    
-    /**
-     * Getter for type.
-     * @return the type
-     */
-    public String getType() {
-        return this.type;
-    }
-
-    
-    
 }

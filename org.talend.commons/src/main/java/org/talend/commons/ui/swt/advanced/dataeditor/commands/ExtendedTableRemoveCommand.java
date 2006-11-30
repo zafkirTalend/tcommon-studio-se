@@ -23,9 +23,8 @@ package org.talend.commons.ui.swt.advanced.dataeditor.commands;
 
 import java.util.ArrayList;
 
-import org.eclipse.gef.commands.Command;
 import org.talend.commons.ui.command.CommonCommand;
-import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
+import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

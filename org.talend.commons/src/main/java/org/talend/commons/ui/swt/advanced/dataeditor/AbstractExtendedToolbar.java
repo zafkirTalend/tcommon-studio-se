@@ -24,7 +24,7 @@ package org.talend.commons.ui.swt.advanced.dataeditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
 
 /**

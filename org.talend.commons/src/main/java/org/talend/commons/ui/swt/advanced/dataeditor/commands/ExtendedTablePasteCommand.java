@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.talend.commons.ui.command.CommonCommand;
-import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
+import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.utils.SimpleClipboard;
 
 /**

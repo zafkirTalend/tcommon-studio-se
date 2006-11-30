@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.commons.ui.command;
 
-import org.eclipse.gef.commands.Command;
 
 
 /**

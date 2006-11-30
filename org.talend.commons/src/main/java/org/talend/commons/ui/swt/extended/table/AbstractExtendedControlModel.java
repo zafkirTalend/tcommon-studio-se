@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.extended.macrotable;
+package org.talend.commons.ui.swt.extended.table;
 
 import org.eclipse.core.runtime.ListenerList;
 

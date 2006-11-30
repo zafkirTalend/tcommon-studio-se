@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.extended.macrotable;
+package org.talend.commons.ui.swt.extended.table;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -121,7 +121,7 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         this.beansList.remove(index);
     }
 
-    public void clear() {
+    public void removeAll() {
         this.beansList.clear();
     }
 
@@ -207,6 +207,17 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      */
     @Override
     public void release() {
+    }
+
+    /**
+     * DOC amaumont Comment method "getBeanCount".
+     * @return
+     */
+    public int getBeanCount() {
+        if(beansList.isListRegistered()) {
+            return beansList.size();
+        }
+        return 0;
     }
     
     
