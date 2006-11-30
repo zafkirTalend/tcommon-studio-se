@@ -22,35 +22,28 @@
 package org.talend.core.ui.extended.button;
 
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.command.ICommonCommand;
-import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableMoveCommand;
-import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
-
+import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
+import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlViewer;
+import org.talend.core.ui.EImage;
+import org.talend.core.ui.ImageProvider;
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
-public class MoveUpPushButtonForExtendedTable extends MoveUpPushButton {
+public abstract class ImportPushButton extends ExtendedPushButton {
 
-    
-    
     /**
-     * DOC amaumont SchemaTargetAddPushButton constructor comment.
+     * DOC amaumont AddPushButton constructor comment.
+     * 
      * @param parent
-     * @param extendedControlViewer
+     * @param tooltip
+     * @param image
      */
-    public MoveUpPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
-        super(parent, extendedTableViewer);
+    public ImportPushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
+        super(parent, extendedControlViewer, "Import from xml file", ImageProvider.getImage(EImage.IMPORT_ICON));
     }
 
-    protected ICommonCommand getCommandToExecute() {
-        AbstractExtendedTableViewer viewer = (AbstractExtendedTableViewer) getExtendedControlViewer();
-        return new ExtendedTableMoveCommand(viewer.getExtendedTableModel(), true, viewer.getTableViewerCreator().getTable()
-                .getSelectionIndices());
-    }
-    
 }

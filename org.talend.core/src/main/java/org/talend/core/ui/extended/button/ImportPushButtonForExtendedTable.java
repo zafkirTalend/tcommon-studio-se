@@ -21,12 +21,16 @@
 // ============================================================================
 package org.talend.core.ui.extended.button;
 
-import org.eclipse.gef.commands.Command;
+import java.io.File;
+
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.command.ICommonCommand;
-import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableRemoveCommand;
 import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
+import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
 
 
 /**
@@ -36,23 +40,48 @@ import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer
  * $Id$
  *
  */
-public class RemovePushButtonForExtendedTable extends RemovePushButton {
+public abstract class ImportPushButtonForExtendedTable extends ImportPushButton {
 
-    
-    
+    private File file;
+
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
      * @param parent
      * @param extendedControlViewer
      */
-    public RemovePushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
+    public ImportPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
         super(parent, extendedTableViewer);
     }
 
     protected ICommonCommand getCommandToExecute() {
         AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
         Table table = extendedTableViewer.getTableViewerCreator().getTable();
-        return new ExtendedTableRemoveCommand(extendedTableViewer.getExtendedTableModel(), table.getSelectionIndices());
+        return getCommandToExecute(extendedTableViewer.getExtendedTableModel(), file);
     }
     
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#beforeCommandExecution()
+     */
+    @Override
+    protected void beforeCommandExecution() {
+        FileDialog dial = new FileDialog(getButton().getShell(), SWT.OPEN);
+        dial.setFilterExtensions(new String[] { "*.xml" });
+        String fileName = dial.open();
+        if ((fileName != null) && (!fileName.equals(""))) {
+            file = new File(fileName);
+        }
+    }
+
+    protected abstract ICommonCommand getCommandToExecute(ExtendedTableModel model, File file);
+    
+    
+    private void openMessageError(String errorText) {
+        MessageBox msgBox = new MessageBox(getButton().getShell());
+        msgBox.setText("Error occurred");
+        msgBox.setMessage(errorText);
+        msgBox.open();
+    }
+
 }

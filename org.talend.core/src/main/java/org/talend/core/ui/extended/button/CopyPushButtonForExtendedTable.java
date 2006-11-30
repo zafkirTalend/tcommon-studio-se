@@ -21,44 +21,49 @@
 // ============================================================================
 package org.talend.core.ui.extended.button;
 
-import org.eclipse.gef.commands.Command;
+import java.util.Arrays;
+import java.util.List;
+
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.command.ICommonCommand;
-import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableAddCommand;
+import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableCopyCommand;
+import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableMoveCommand;
+import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableRemoveCommand;
 import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
-import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
- * 
+ * DOC amaumont  class global comment. Detailled comment
+ * <br/>
+ *
  * $Id$
- * 
+ *
  */
-public abstract class AddPushButtonForExtendedTable extends AddPushButton {
+public class CopyPushButtonForExtendedTable extends CopyPushButton {
 
+    
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
-     * 
      * @param parent
      * @param extendedControlViewer
      */
-    public AddPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
+    public CopyPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
         super(parent, extendedTableViewer);
     }
 
-    @Override
     protected ICommonCommand getCommandToExecute() {
-        AbstractExtendedTableViewer abstractExtendedTableViewer = ((AbstractExtendedTableViewer) getExtendedControlViewer());
-        ExtendedTableModel extendedTableModel = abstractExtendedTableViewer.getExtendedTableModel();
-        int[] selection = abstractExtendedTableViewer.getTableViewerCreator().getTable().getSelectionIndices();
-        Integer indexWhereInsert = null;
-        if (selection.length > 0) {
-            indexWhereInsert = selection[selection.length - 1] + 1;
-        }
-        return new ExtendedTableAddCommand(extendedTableModel, indexWhereInsert, getObjectToAdd());
+        AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
+        TableViewer tableViewer = extendedTableViewer.getTableViewerCreator().getTableViewer();
+        ISelection selection = tableViewer.getSelection();
+        StructuredSelection structuredSelection = (StructuredSelection) selection;
+        Object[] objects = structuredSelection.toArray();
+        return new ExtendedTableCopyCommand(Arrays.asList(objects));
     }
-
-    protected abstract Object getObjectToAdd();
-
+    
 }

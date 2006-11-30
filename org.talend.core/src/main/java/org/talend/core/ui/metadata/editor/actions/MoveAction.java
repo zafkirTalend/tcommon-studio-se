@@ -59,7 +59,7 @@ public class MoveAction extends MetadataEditorAction {
         MetadataEditorEvent metadataEditorEvent = (MetadataEditorEvent) eventAction;
         if (metadataEditorEvent.type == TYPE.MOVE_UP || metadataEditorEvent.type == TYPE.MOVE_DOWN) {
 
-            ListenableList<IMetadataColumn> list = getMetadataTableEditor().getMetadataColumnList();
+            ListenableList<IMetadataColumn> list = new ListenableList<IMetadataColumn>( getMetadataTableEditor().getMetadataColumnList());
             Set<Integer> setIndicesSelectedMoved = new HashSet<Integer>();
             int increment;
             int startIndex;

@@ -21,11 +21,11 @@
 // ============================================================================
 package org.talend.core.ui.extended.button;
 
-import org.eclipse.gef.commands.Command;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.command.ICommonCommand;
-import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableAddCommand;
+import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTablePasteCommand;
 import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
 
@@ -35,7 +35,7 @@ import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
  * $Id$
  * 
  */
-public abstract class AddPushButtonForExtendedTable extends AddPushButton {
+public abstract class PastePushButtonForExtendedTable extends PastePushButton {
 
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
@@ -43,7 +43,7 @@ public abstract class AddPushButtonForExtendedTable extends AddPushButton {
      * @param parent
      * @param extendedControlViewer
      */
-    public AddPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
+    public PastePushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
         super(parent, extendedTableViewer);
     }
 
@@ -56,9 +56,9 @@ public abstract class AddPushButtonForExtendedTable extends AddPushButton {
         if (selection.length > 0) {
             indexWhereInsert = selection[selection.length - 1] + 1;
         }
-        return new ExtendedTableAddCommand(extendedTableModel, indexWhereInsert, getObjectToAdd());
+        return getCommandToExecute(extendedTableModel, indexWhereInsert);
     }
 
-    protected abstract Object getObjectToAdd();
+    protected abstract ICommonCommand getCommandToExecute(ExtendedTableModel extendedTableModel, Integer indexWhereInsert);
 
 }

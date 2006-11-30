@@ -22,331 +22,565 @@
 package org.talend.core.ui.metadata.editor;
 
 import java.io.File;
-import java.io.IOException;
 
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.RowLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Table;
-import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
-import org.talend.core.model.action.IAction;
-import org.talend.core.model.metadata.IMetadataTable;
-import org.talend.core.model.metadata.MetadataColumn;
-import org.talend.core.model.metadata.MetadataSchema;
-import org.talend.core.model.metadata.editor.MetadataEditorActionFactory;
-import org.talend.core.model.metadata.editor.MetadataEditorEvent;
+import org.talend.commons.ui.command.ICommonCommand;
+import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
+import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
-import org.talend.core.ui.EImage;
-import org.talend.core.ui.ImageProvider;
-import org.xml.sax.SAXException;
+import org.talend.core.ui.extended.ExtendedToolbarView;
+import org.talend.core.ui.extended.button.AddPushButton;
+import org.talend.core.ui.extended.button.AddPushButtonForExtendedTable;
+import org.talend.core.ui.extended.button.ExportPushButton;
+import org.talend.core.ui.extended.button.ExportPushButtonForExtendedTable;
+import org.talend.core.ui.extended.button.ImportPushButton;
+import org.talend.core.ui.extended.button.ImportPushButtonForExtendedTable;
+import org.talend.core.ui.extended.button.PastePushButton;
+import org.talend.core.ui.extended.button.PastePushButtonForExtendedTable;
+import org.talend.core.ui.extended.command.MetadataExportXmlCommand;
+import org.talend.core.ui.extended.command.MetadataImportXmlCommand;
+import org.talend.core.ui.extended.command.MetadataPasteCommand;
 
 /**
- * MetadataToolbarEditorView2 must be used.
- * 
  * $Id$
  * 
  */
-@Deprecated
-public class MetadataToolbarEditorView {
-
-    private Composite toolbar;
-
-    private Button addButton;
-
-    private Button removeButton;
-
-    private Button copyButton;
-
-    private Button pasteButton;
-
-    private Button moveUpButton;
-
-    private Button moveDownButton;
-
-    private Button loadButton;
-
-    private Button exportButton;
-
-    private MetadataTableEditorView metadataEditorView;
+public class MetadataToolbarEditorView extends ExtendedToolbarView {
 
     /**
-     * DOC amaumont MatadataToolbarEditor constructor comment.
-     * 
+     * DOC amaumont MetadataToolbarEditorView constructor comment.
      * @param parent
      * @param style
-     * @param metadataEditorView
+     * @param extendedTableViewer
      */
-    public MetadataToolbarEditorView(Composite parent, int style, MetadataTableEditorView metadatEditorView) {
-        toolbar = new Composite(parent, style);
-        toolbar.setLayout(new RowLayout(SWT.HORIZONTAL));
-        this.metadataEditorView = metadatEditorView;
-        createComponents();
-        addListeners();
+    public MetadataToolbarEditorView(Composite parent, int style, AbstractExtendedTableViewer extendedTableViewer) {
+        super(parent, style, extendedTableViewer);
     }
 
-    /**
-     * DOC amaumont Comment method "addListeners".
+    /* (non-Javadoc)
+     * @see org.talend.core.ui.extended.ExtendedToolbarView#createAddPushButton()
      */
-    private void addListeners() {
-        addButton.addListener(SWT.Selection, new Listener() {
+    @Override
+    protected AddPushButton createAddPushButton() {
+        return new AddPushButtonForExtendedTable(this.toolbar, getExtendedTableViewer()) {
 
-            public void handleEvent(Event event) {
-                if (metadataEditorView.getMetadataTableEditor() != null) {
-                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
-                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.ADD);
-                    MetadataColumn metadataColumn = new MetadataColumn();
-                    MetadataTableEditor metadataTableEditor = metadataEditorView.getMetadataTableEditor();
-                    metadataColumn.setLabel(metadataTableEditor.getNextGeneratedColumnName());
-                    metadataEditorEvent.entries.add(metadataColumn);
-                    Table metadataEditorTable = metadataEditorView.getTableViewerCreator().getTable();
-                    metadataEditorEvent.entriesIndices = metadataEditorTable.getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
-                    action.run(metadataEditorEvent);
-                }
-            }
-        });
-
-        removeButton.addListener(SWT.Selection, new Listener() {
-
-            public void handleEvent(Event event) {
-                if (metadataEditorView.getMetadataTableEditor() != null) {
-                    Table table = metadataEditorView.getTableViewerCreator().getTable();
-                    int index = table.getSelectionIndex();
-                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
-                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.REMOVE);
-                    metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
-                            .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
-                    action.run(metadataEditorEvent);
-                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
-                    SelectionHelper selectionHelper = metadataEditorView.getTableViewerCreator().getSelectionHelper();
-                    int itemCount = table.getItemCount();
-                    if (index < itemCount) {
-                        selectionHelper.setSelection(index);
-                    } else if (itemCount != 0) {
-                        selectionHelper.setSelection(itemCount - 1);
-                    }
-                }
-            }
-        });
-
-        copyButton.addListener(SWT.Selection, new Listener() {
-
-            public void handleEvent(Event event) {
-                if (metadataEditorView.getMetadataTableEditor() != null) {
-                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
-                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.COPY);
-                    metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
-                            .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
-                    action.run(metadataEditorEvent);
-                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
-                }
-            }
-        });
-
-        pasteButton.addListener(SWT.Selection, new Listener() {
-
-            public void handleEvent(Event event) {
-                if (metadataEditorView.getMetadataTableEditor() != null) {
-                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
-                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.PASTE);
-                    metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
-                            .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
-                    action.run(metadataEditorEvent);
-                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
-                }
-            }
-        });
-
-        moveUpButton.addListener(SWT.Selection, new Listener() {
-
-            public void handleEvent(Event event) {
-                if (metadataEditorView.getMetadataTableEditor() != null) {
-                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
-                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.MOVE_UP);
-                    metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
-                            .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
-                    action.run(metadataEditorEvent);
-                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
-                }
-            }
-        });
-
-        moveDownButton.addListener(SWT.Selection, new Listener() {
-
-            public void handleEvent(Event event) {
-                if (metadataEditorView.getMetadataTableEditor() != null) {
-                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
-                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.MOVE_DOWN);
-                    metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
-                            .getSelectionIndices();
-                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
-                    action.run(metadataEditorEvent);
-                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
-                }
-            }
-        });
-
-        loadButton.addListener(SWT.Selection, new Listener() {
-
-            public void handleEvent(Event event) {
-                FileDialog dial = new FileDialog(toolbar.getShell(), SWT.NONE);
-                dial.setFilterExtensions(new String[] { "*.xml" });
-                String fileName = dial.open();
-                if ((fileName != null) && (!fileName.equals(""))) {
-                    File file = new File(fileName);
-                    if (file != null) {
-                        MetadataTableEditor newEditor = metadataEditorView.getMetadataTableEditor();
-                        if (newEditor != null) {
-                            try {
-                                metadataEditorView.getTableViewerCreator().getTable().setFocus();
-                                IMetadataTable oldTable = newEditor.getMetadataTable();
-
-                                IMetadataTable metadataEditorTable = MetadataSchema.loadMetadaFromFile(file, oldTable);
-                                newEditor.setMetadataTable(metadataEditorTable);
-                                metadataEditorView.setMetadataTableEditor(newEditor);
-                                metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
-
-                            } catch (ParserConfigurationException e) {
-                                openMessageError("Parsing XML Error : " + e.getMessage());
-                            } catch (SAXException e) {
-                                openMessageError("Parsing XML Error : " + e.getMessage());
-                            } catch (IOException e) {
-                                openMessageError("File Error : " + e.getMessage());
-                            }
-                        }
-                    }
-                }
+            @Override
+            protected Object getObjectToAdd() {
+                MetadataTableEditor tableEditorModel = (MetadataTableEditor) getExtendedTableViewer().getExtendedControlModel();
+                return tableEditorModel.createNewMetadataColumn();
             }
 
-            private void openMessageError(String errorText) {
-                MessageBox msgBox = new MessageBox(toolbar.getShell());
-                msgBox.setText("Error Occurred");
-                msgBox.setMessage(errorText);
-                msgBox.open();
-            }
-        });
-
-        exportButton.addListener(SWT.Selection, new Listener() {
-
-            public void handleEvent(Event event) {
-                FileDialog dial = new FileDialog(toolbar.getShell(), SWT.SAVE);
-                dial.setFilterExtensions(new String[] { "*.xml" });
-                String fileName = dial.open();
-                if ((fileName != null) && (!fileName.equals(""))) {
-                    File file = new File(fileName);
-                    try {
-                        file.createNewFile();
-                        if (file != null) {
-                            MetadataTableEditor newEditor = metadataEditorView.getMetadataTableEditor();
-                            if (newEditor != null) {
-                                // get all the columns from the table
-                                IMetadataTable oldTable = newEditor.getMetadataTable();
-
-                                MetadataSchema.saveMetadataColumnToFile(file, oldTable);
-                            }
-                        }
-                    } catch (IOException e) {
-                        openMessageError("File Error : " + e.getMessage());
-                    } catch (ParserConfigurationException e) {
-                        openMessageError("Parsing XML Error : " + e.getMessage());
-                    }
-                }
-            }
-
-            private void openMessageError(String errorText) {
-                MessageBox msgBox = new MessageBox(toolbar.getShell());
-                msgBox.setText("Error Occurred");
-                msgBox.setMessage(errorText);
-                msgBox.open();
-            }
-        });
+        };
     }
-
-    /**
-     * DOC amaumont Comment method "createComponents".
+    
+    /* (non-Javadoc)
+     * @see org.talend.core.ui.extended.ExtendedToolbarView#createPastButton()
      */
-    private void createComponents() {
+    @Override
+    public PastePushButton createPastePushButton() {
+        return new PastePushButtonForExtendedTable(toolbar, extendedTableViewer) {
 
-        addButton = new Button(toolbar, SWT.PUSH);
-        addButton.setToolTipText("Add");
-        addButton.setImage(ImageProvider.getImage(EImage.ADD_ICON));
-
-        removeButton = new Button(toolbar, SWT.PUSH);
-        removeButton.setToolTipText("Remove");
-        removeButton.setImage(ImageProvider.getImage(EImage.MINUS_ICON));
-
-        copyButton = new Button(toolbar, SWT.PUSH);
-        copyButton.setToolTipText("Copy");
-        copyButton.setImage(ImageProvider.getImage(EImage.COPY_ICON));
-
-        pasteButton = new Button(toolbar, SWT.PUSH);
-        pasteButton.setToolTipText("Paste");
-        pasteButton.setImage(ImageProvider.getImage(EImage.PASTE_ICON));
-
-        moveUpButton = new Button(toolbar, SWT.PUSH);
-        moveUpButton.setToolTipText("Move up");
-        moveUpButton.setImage(ImageProvider.getImage(EImage.UP_ICON));
-
-        moveDownButton = new Button(toolbar, SWT.PUSH);
-        moveDownButton.setToolTipText("Move down");
-        moveDownButton.setImage(ImageProvider.getImage(EImage.DOWN_ICON));
-
-        loadButton = new Button(toolbar, SWT.PUSH);
-        loadButton.setToolTipText("Import");
-        loadButton.setImage(ImageProvider.getImage(EImage.IMPORT_ICON));
-
-        exportButton = new Button(toolbar, SWT.PUSH);
-        exportButton.setToolTipText("Export");
-        exportButton.setImage(ImageProvider.getImage(EImage.EXPORT_ICON));
+            @Override
+            protected ICommonCommand getCommandToExecute(ExtendedTableModel extendedTableModel, Integer indexWhereInsert) {
+                return new MetadataPasteCommand(extendedTableModel, indexWhereInsert);
+            }
+            
+        };
     }
 
-    public Button getAddButton() {
-        return this.addButton;
+    
+    
+    /* (non-Javadoc)
+     * @see org.talend.core.ui.extended.ExtendedToolbarView#createExportPushButton()
+     */
+    @Override
+    protected ExportPushButton createExportPushButton() {
+        return new ExportPushButtonForExtendedTable(toolbar, extendedTableViewer) {
+            
+            @Override
+            protected ICommonCommand getCommandToExecute(ExtendedTableModel extendedTableModel, File file) {
+                return new MetadataExportXmlCommand((MetadataTableEditor) extendedTableModel, file);
+            }
+            
+        };
     }
 
-    public Button getCopyButton() {
-        return this.copyButton;
+    /* (non-Javadoc)
+     * @see org.talend.core.ui.extended.ExtendedToolbarView#createPastButton()
+     */
+    @Override
+    public ImportPushButton createImportPushButton() {
+        return new ImportPushButtonForExtendedTable(toolbar, extendedTableViewer) {
+            
+            @Override
+            protected ICommonCommand getCommandToExecute(ExtendedTableModel extendedTableModel, File file) {
+                return new MetadataImportXmlCommand(extendedTableModel, file);
+            }
+            
+        };
     }
-
-    public Button getLoadButton() {
-        return this.loadButton;
-    }
-
-    public Button getMoveDownButton() {
-        return this.moveDownButton;
-    }
-
-    public Button getMoveUpButton() {
-        return this.moveUpButton;
-    }
-
-    public Button getPasteButton() {
-        return this.pasteButton;
-    }
-
-    public Button getRemoveButton() {
-        return this.removeButton;
-    }
-
-    public void setReadOnly(boolean b) {
-        addButton.setEnabled(!b);
-        removeButton.setEnabled(!b);
-        // copyButton.setEnabled(!b);
-        // pasteButton.setEnabled(!b);
-        moveUpButton.setEnabled(!b);
-        moveDownButton.setEnabled(!b);
-        loadButton.setEnabled(!b);
-        exportButton.setEnabled(!b);
-    }
+    
+    
+    
 }
+
+//copyButton.addListener(SWT.Selection, new Listener() {
+//
+//    public void handleEvent(Event event) {
+//        if (metadataEditorView.getMetadataTableEditor() != null) {
+//            metadataEditorView.getTableViewerCreator().getTable().setFocus();
+//            MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.COPY);
+//            metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
+//                    .getSelectionIndices();
+//            IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
+//            action.run(metadataEditorEvent);
+//            metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+//        }
+//    }
+//});
+//
+//pasteButton.addListener(SWT.Selection, new Listener() {
+//
+//    public void handleEvent(Event event) {
+//        if (metadataEditorView.getMetadataTableEditor() != null) {
+//            metadataEditorView.getTableViewerCreator().getTable().setFocus();
+//            MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.PASTE);
+//            metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
+//                    .getSelectionIndices();
+//            IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
+//            action.run(metadataEditorEvent);
+//            metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+//        }
+//    }
+//});
+//
+//loadButton.addListener(SWT.Selection, new Listener() {
+//
+//    public void handleEvent(Event event) {
+//        FileDialog dial = new FileDialog(toolbar.getShell(), SWT.NONE);
+//        dial.setFilterExtensions(new String[] { "*.xml" });
+//        String fileName = dial.open();
+//        if ((fileName != null) && (!fileName.equals(""))) {
+//            File file = new File(fileName);
+//            if (file != null) {
+//                MetadataTableEditor newEditor = metadataEditorView.getMetadataTableEditor();
+//                if (newEditor != null) {
+//                    try {
+//                        metadataEditorView.getTableViewerCreator().getTable().setFocus();
+//                        IMetadataTable oldTable = newEditor.getMetadataTable();
+//
+//                        IMetadataTable metadataEditorTable = MetadataSchema.loadMetadaFromFile(file, oldTable);
+//                        newEditor.setMetadataTable(metadataEditorTable);
+//                        metadataEditorView.setMetadataTableEditor(newEditor);
+//                        metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+//
+//                    } catch (ParserConfigurationException e) {
+//                        openMessageError("Parsing XML Error : " + e.getMessage());
+//                    } catch (SAXException e) {
+//                        openMessageError("Parsing XML Error : " + e.getMessage());
+//                    } catch (IOException e) {
+//                        openMessageError("File Error : " + e.getMessage());
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    private void openMessageError(String errorText) {
+//        MessageBox msgBox = new MessageBox(toolbar.getShell());
+//        msgBox.setText("Error Occurred");
+//        msgBox.setMessage(errorText);
+//        msgBox.open();
+//    }
+//});
+//
+//exportButton.addListener(SWT.Selection, new Listener() {
+//
+//    public void handleEvent(Event event) {
+//        FileDialog dial = new FileDialog(toolbar.getShell(), SWT.SAVE);
+//        dial.setFilterExtensions(new String[] { "*.xml" });
+//        String fileName = dial.open();
+//        if ((fileName != null) && (!fileName.equals(""))) {
+//            File file = new File(fileName);
+//            try {
+//                file.createNewFile();
+//                if (file != null) {
+//                    MetadataTableEditor newEditor = metadataEditorView.getMetadataTableEditor();
+//                    if (newEditor != null) {
+//                        // get all the columns from the table
+//                        IMetadataTable oldTable = newEditor.getMetadataTable();
+//
+//                        MetadataSchema.saveMetadataColumnToFile(file, oldTable);
+//                    }
+//                }
+//            } catch (IOException e) {
+//                openMessageError("File Error : " + e.getMessage());
+//            } catch (ParserConfigurationException e) {
+//                openMessageError("Parsing XML Error : " + e.getMessage());
+//            }
+//        }
+//    }
+//
+//    private void openMessageError(String errorText) {
+//        MessageBox msgBox = new MessageBox(toolbar.getShell());
+//        msgBox.setText("Error Occurred");
+//        msgBox.setMessage(errorText);
+//        msgBox.open();
+//    }
+//});
+//}
+//
+
+
+////============================================================================
+////
+//// Talend Community Edition
+////
+//// Copyright (C) 2006 Talend - www.talend.com
+////
+//// This library is free software; you can redistribute it and/or
+//// modify it under the terms of the GNU Lesser General Public
+//// License as published by the Free Software Foundation; either
+//// version 2.1 of the License, or (at your option) any later version.
+////
+//// This library is distributed in the hope that it will be useful,
+//// but WITHOUT ANY WARRANTY; without even the implied warranty of
+//// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+//// Lesser General Public License for more details.
+////
+//// You should have received a copy of the GNU General Public License
+//// along with this program; if not, write to the Free Software
+//// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+////
+//// ============================================================================
+//package org.talend.core.ui.metadata.editor;
+//
+//import java.io.File;
+//import java.io.IOException;
+//
+//import javax.xml.parsers.ParserConfigurationException;
+//
+//import org.eclipse.swt.SWT;
+//import org.eclipse.swt.layout.RowLayout;
+//import org.eclipse.swt.widgets.Button;
+//import org.eclipse.swt.widgets.Composite;
+//import org.eclipse.swt.widgets.Event;
+//import org.eclipse.swt.widgets.FileDialog;
+//import org.eclipse.swt.widgets.Listener;
+//import org.eclipse.swt.widgets.MessageBox;
+//import org.eclipse.swt.widgets.Table;
+//import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
+//import org.talend.core.model.action.IAction;
+//import org.talend.core.model.metadata.IMetadataTable;
+//import org.talend.core.model.metadata.MetadataColumn;
+//import org.talend.core.model.metadata.MetadataSchema;
+//import org.talend.core.model.metadata.editor.MetadataEditorActionFactory;
+//import org.talend.core.model.metadata.editor.MetadataEditorEvent;
+//import org.talend.core.model.metadata.editor.MetadataTableEditor;
+//import org.talend.core.ui.EImage;
+//import org.talend.core.ui.ImageProvider;
+//import org.xml.sax.SAXException;
+//
+///**
+// * MetadataToolbarEditorView2 must be used.
+// * 
+// * $Id$
+// * 
+// */
+//@Deprecated
+//public class MetadataToolbarEditorView {
+//
+//    private Composite toolbar;
+//
+//    private Button addButton;
+//
+//    private Button removeButton;
+//
+//    private Button copyButton;
+//
+//    private Button pasteButton;
+//
+//    private Button moveUpButton;
+//
+//    private Button moveDownButton;
+//
+//    private Button loadButton;
+//
+//    private Button exportButton;
+//
+//    private MetadataTableEditorView metadataEditorView;
+//
+//    /**
+//     * DOC amaumont MatadataToolbarEditor constructor comment.
+//     * 
+//     * @param parent
+//     * @param style
+//     * @param metadataEditorView
+//     */
+//    public MetadataToolbarEditorView(Composite parent, int style, MetadataTableEditorView metadatEditorView) {
+//        toolbar = new Composite(parent, style);
+//        toolbar.setLayout(new RowLayout(SWT.HORIZONTAL));
+//        this.metadataEditorView = metadatEditorView;
+//        createComponents();
+//        addListeners();
+//    }
+//
+//    /**
+//     * DOC amaumont Comment method "addListeners".
+//     */
+//    private void addListeners() {
+//        addButton.addListener(SWT.Selection, new Listener() {
+//
+//            public void handleEvent(Event event) {
+//                if (metadataEditorView.getMetadataTableEditor() != null) {
+//                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
+//                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.ADD);
+//                    MetadataColumn metadataColumn = new MetadataColumn();
+//                    MetadataTableEditor metadataTableEditor = metadataEditorView.getMetadataTableEditor();
+//                    metadataColumn.setLabel(metadataTableEditor.getNextGeneratedColumnName());
+//                    metadataEditorEvent.entries.add(metadataColumn);
+//                    Table metadataEditorTable = metadataEditorView.getTableViewerCreator().getTable();
+//                    metadataEditorEvent.entriesIndices = metadataEditorTable.getSelectionIndices();
+//                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
+//                    action.run(metadataEditorEvent);
+//                }
+//            }
+//        });
+//
+//        removeButton.addListener(SWT.Selection, new Listener() {
+//
+//            public void handleEvent(Event event) {
+//                if (metadataEditorView.getMetadataTableEditor() != null) {
+//                    Table table = metadataEditorView.getTableViewerCreator().getTable();
+//                    int index = table.getSelectionIndex();
+//                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
+//                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.REMOVE);
+//                    metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
+//                            .getSelectionIndices();
+//                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
+//                    action.run(metadataEditorEvent);
+//                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+//                    SelectionHelper selectionHelper = metadataEditorView.getTableViewerCreator().getSelectionHelper();
+//                    int itemCount = table.getItemCount();
+//                    if (index < itemCount) {
+//                        selectionHelper.setSelection(index);
+//                    } else if (itemCount != 0) {
+//                        selectionHelper.setSelection(itemCount - 1);
+//                    }
+//                }
+//            }
+//        });
+//
+//        copyButton.addListener(SWT.Selection, new Listener() {
+//
+//            public void handleEvent(Event event) {
+//                if (metadataEditorView.getMetadataTableEditor() != null) {
+//                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
+//                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.COPY);
+//                    metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
+//                            .getSelectionIndices();
+//                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
+//                    action.run(metadataEditorEvent);
+//                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+//                }
+//            }
+//        });
+//
+//        pasteButton.addListener(SWT.Selection, new Listener() {
+//
+//            public void handleEvent(Event event) {
+//                if (metadataEditorView.getMetadataTableEditor() != null) {
+//                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
+//                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.PASTE);
+//                    metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
+//                            .getSelectionIndices();
+//                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
+//                    action.run(metadataEditorEvent);
+//                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+//                }
+//            }
+//        });
+//
+//        moveUpButton.addListener(SWT.Selection, new Listener() {
+//
+//            public void handleEvent(Event event) {
+//                if (metadataEditorView.getMetadataTableEditor() != null) {
+//                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
+//                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.MOVE_UP);
+//                    metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
+//                            .getSelectionIndices();
+//                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
+//                    action.run(metadataEditorEvent);
+//                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+//                }
+//            }
+//        });
+//
+//        moveDownButton.addListener(SWT.Selection, new Listener() {
+//
+//            public void handleEvent(Event event) {
+//                if (metadataEditorView.getMetadataTableEditor() != null) {
+//                    metadataEditorView.getTableViewerCreator().getTable().setFocus();
+//                    MetadataEditorEvent metadataEditorEvent = new MetadataEditorEvent(MetadataEditorEvent.TYPE.MOVE_DOWN);
+//                    metadataEditorEvent.entriesIndices = metadataEditorView.getTableViewerCreator().getTable()
+//                            .getSelectionIndices();
+//                    IAction action = MetadataEditorActionFactory.getInstance().getAction(metadataEditorView, metadataEditorEvent);
+//                    action.run(metadataEditorEvent);
+//                    metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+//                }
+//            }
+//        });
+//
+//        loadButton.addListener(SWT.Selection, new Listener() {
+//
+//            public void handleEvent(Event event) {
+//                FileDialog dial = new FileDialog(toolbar.getShell(), SWT.NONE);
+//                dial.setFilterExtensions(new String[] { "*.xml" });
+//                String fileName = dial.open();
+//                if ((fileName != null) && (!fileName.equals(""))) {
+//                    File file = new File(fileName);
+//                    if (file != null) {
+//                        MetadataTableEditor newEditor = metadataEditorView.getMetadataTableEditor();
+//                        if (newEditor != null) {
+//                            try {
+//                                metadataEditorView.getTableViewerCreator().getTable().setFocus();
+//                                IMetadataTable oldTable = newEditor.getMetadataTable();
+//
+//                                IMetadataTable metadataEditorTable = MetadataSchema.loadMetadaFromFile(file, oldTable);
+//                                newEditor.setMetadataTable(metadataEditorTable);
+//                                metadataEditorView.setMetadataTableEditor(newEditor);
+//                                metadataEditorView.getTableViewerCreator().getTableViewer().refresh();
+//
+//                            } catch (ParserConfigurationException e) {
+//                                openMessageError("Parsing XML Error : " + e.getMessage());
+//                            } catch (SAXException e) {
+//                                openMessageError("Parsing XML Error : " + e.getMessage());
+//                            } catch (IOException e) {
+//                                openMessageError("File Error : " + e.getMessage());
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//
+//            private void openMessageError(String errorText) {
+//                MessageBox msgBox = new MessageBox(toolbar.getShell());
+//                msgBox.setText("Error Occurred");
+//                msgBox.setMessage(errorText);
+//                msgBox.open();
+//            }
+//        });
+//
+//        exportButton.addListener(SWT.Selection, new Listener() {
+//
+//            public void handleEvent(Event event) {
+//                FileDialog dial = new FileDialog(toolbar.getShell(), SWT.SAVE);
+//                dial.setFilterExtensions(new String[] { "*.xml" });
+//                String fileName = dial.open();
+//                if ((fileName != null) && (!fileName.equals(""))) {
+//                    File file = new File(fileName);
+//                    try {
+//                        file.createNewFile();
+//                        if (file != null) {
+//                            MetadataTableEditor newEditor = metadataEditorView.getMetadataTableEditor();
+//                            if (newEditor != null) {
+//                                // get all the columns from the table
+//                                IMetadataTable oldTable = newEditor.getMetadataTable();
+//
+//                                MetadataSchema.saveMetadataColumnToFile(file, oldTable);
+//                            }
+//                        }
+//                    } catch (IOException e) {
+//                        openMessageError("File Error : " + e.getMessage());
+//                    } catch (ParserConfigurationException e) {
+//                        openMessageError("Parsing XML Error : " + e.getMessage());
+//                    }
+//                }
+//            }
+//
+//            private void openMessageError(String errorText) {
+//                MessageBox msgBox = new MessageBox(toolbar.getShell());
+//                msgBox.setText("Error Occurred");
+//                msgBox.setMessage(errorText);
+//                msgBox.open();
+//            }
+//        });
+//    }
+//
+//    /**
+//     * DOC amaumont Comment method "createComponents".
+//     */
+//    private void createComponents() {
+//
+//        addButton = new Button(toolbar, SWT.PUSH);
+//        addButton.setToolTipText("Add");
+//        addButton.setImage(ImageProvider.getImage(EImage.ADD_ICON));
+//
+//        removeButton = new Button(toolbar, SWT.PUSH);
+//        removeButton.setToolTipText("Remove");
+//        removeButton.setImage(ImageProvider.getImage(EImage.MINUS_ICON));
+//
+//        copyButton = new Button(toolbar, SWT.PUSH);
+//        copyButton.setToolTipText("Copy");
+//        copyButton.setImage(ImageProvider.getImage(EImage.COPY_ICON));
+//
+//        pasteButton = new Button(toolbar, SWT.PUSH);
+//        pasteButton.setToolTipText("Paste");
+//        pasteButton.setImage(ImageProvider.getImage(EImage.PASTE_ICON));
+//
+//        moveUpButton = new Button(toolbar, SWT.PUSH);
+//        moveUpButton.setToolTipText("Move up");
+//        moveUpButton.setImage(ImageProvider.getImage(EImage.UP_ICON));
+//
+//        moveDownButton = new Button(toolbar, SWT.PUSH);
+//        moveDownButton.setToolTipText("Move down");
+//        moveDownButton.setImage(ImageProvider.getImage(EImage.DOWN_ICON));
+//
+//        loadButton = new Button(toolbar, SWT.PUSH);
+//        loadButton.setToolTipText("Import");
+//        loadButton.setImage(ImageProvider.getImage(EImage.IMPORT_ICON));
+//
+//        exportButton = new Button(toolbar, SWT.PUSH);
+//        exportButton.setToolTipText("Export");
+//        exportButton.setImage(ImageProvider.getImage(EImage.EXPORT_ICON));
+//    }
+//
+//    public Button getAddButton() {
+//        return this.addButton;
+//    }
+//
+//    public Button getCopyButton() {
+//        return this.copyButton;
+//    }
+//
+//    public Button getLoadButton() {
+//        return this.loadButton;
+//    }
+//
+//    public Button getMoveDownButton() {
+//        return this.moveDownButton;
+//    }
+//
+//    public Button getMoveUpButton() {
+//        return this.moveUpButton;
+//    }
+//
+//    public Button getPasteButton() {
+//        return this.pasteButton;
+//    }
+//
+//    public Button getRemoveButton() {
+//        return this.removeButton;
+//    }
+//
+//    public void setReadOnly(boolean b) {
+//        addButton.setEnabled(!b);
+//        removeButton.setEnabled(!b);
+//        // copyButton.setEnabled(!b);
+//        // pasteButton.setEnabled(!b);
+//        moveUpButton.setEnabled(!b);
+//        moveDownButton.setEnabled(!b);
+//        loadButton.setEnabled(!b);
+//        exportButton.setEnabled(!b);
+//    }
+//}

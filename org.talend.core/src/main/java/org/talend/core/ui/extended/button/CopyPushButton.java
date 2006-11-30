@@ -23,7 +23,8 @@ package org.talend.core.ui.extended.button;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.swt.advanced.macrotable.control.ExtendedPushButton;
+import org.talend.commons.ui.command.ICommonCommand;
+import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlViewer;
 import org.talend.core.ui.EImage;
 import org.talend.core.ui.ImageProvider;
@@ -48,6 +49,6 @@ public abstract class CopyPushButton extends ExtendedPushButton {
         super(parent, extendedControlViewer, "Copy selected items", ImageProvider.getImage(EImage.COPY_ICON));
     }
 
-    protected abstract Command getCommandToExecute();
+    protected abstract ICommonCommand getCommandToExecute();
     
 }

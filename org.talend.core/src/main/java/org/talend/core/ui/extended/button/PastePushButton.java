@@ -23,8 +23,10 @@ package org.talend.core.ui.extended.button;
 
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.command.ICommonCommand;
-import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableMoveCommand;
-import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
+import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
+import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlViewer;
+import org.talend.core.ui.EImage;
+import org.talend.core.ui.ImageProvider;
 
 
 /**
@@ -34,23 +36,18 @@ import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer
  * $Id$
  *
  */
-public class MoveUpPushButtonForExtendedTable extends MoveUpPushButton {
+public abstract class PastePushButton extends ExtendedPushButton {
 
-    
-    
     /**
-     * DOC amaumont SchemaTargetAddPushButton constructor comment.
+     * DOC amaumont AddPushButton constructor comment.
      * @param parent
-     * @param extendedControlViewer
+     * @param tooltip
+     * @param image
      */
-    public MoveUpPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
-        super(parent, extendedTableViewer);
+    public PastePushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
+        super(parent, extendedControlViewer, "Paste", ImageProvider.getImage(EImage.PASTE_ICON));
     }
 
-    protected ICommonCommand getCommandToExecute() {
-        AbstractExtendedTableViewer viewer = (AbstractExtendedTableViewer) getExtendedControlViewer();
-        return new ExtendedTableMoveCommand(viewer.getExtendedTableModel(), true, viewer.getTableViewerCreator().getTable()
-                .getSelectionIndices());
-    }
+    protected abstract ICommonCommand getCommandToExecute();
     
 }

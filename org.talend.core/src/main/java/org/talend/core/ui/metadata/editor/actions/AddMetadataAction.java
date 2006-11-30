@@ -66,8 +66,8 @@ public class AddMetadataAction extends MetadataEditorAction {
                 metadataColumns.add(metadataColumn);
                 itemsIndicesToSelect.add(index++);
             }
-            getMetadataTableEditor().addAll(metadataColumns,
-                    metadataEditorEvent.indexStartInsert != -1 ? metadataEditorEvent.indexStartInsert : indexStart);
+            getMetadataTableEditor().addAll(metadataEditorEvent.indexStartInsert != -1 ? metadataEditorEvent.indexStartInsert : indexStart
+                    , metadataColumns);
             int lstSize = itemsIndicesToSelect.size();
             int[] selection = new int[lstSize];
             for (int i = 0; i < lstSize; i++) {

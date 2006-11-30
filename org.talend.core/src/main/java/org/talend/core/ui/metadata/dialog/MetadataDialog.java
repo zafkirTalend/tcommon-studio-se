@@ -38,6 +38,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
+import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.editor.IMetadataEditorListener;
@@ -80,6 +82,8 @@ public class MetadataDialog extends Dialog {
     private boolean inputReadOnly = false;
 
     private boolean outputReadOnly = false;
+
+    private Map<IMetadataColumn, String> changedNameColumns = new HashMap<IMetadataColumn, String>();
 
     public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, String titleInput, IMetadataTable outputMetaTable,
             String titleOutput) {
@@ -134,57 +138,26 @@ public class MetadataDialog extends Dialog {
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, true);
+            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor);
             // outputMetaView.getTableViewerCreator().layout();
         } else {
             GridLayout gridLayout = new GridLayout(3, false);
             composite.setLayout(gridLayout);
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)");
-            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, true);
+            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor);
 
             // inputMetaView.getTableViewerCreator().setVerticalScroll(true);
             inputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
             if (inputReadOnly) {
                 inputMetaView.getTableViewerCreator().getTable().setEnabled(false);
-                Button curButton = inputMetaView.getMetadataToolbarEditorView().getAddButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
-                curButton = inputMetaView.getMetadataToolbarEditorView().getCopyButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
-                // curButton = inputMetaView.getMetadataToolbarEditorView().getCutButton();
-                // if (curButton != null) {
-                // curButton.setEnabled(false);
-                // }
-                curButton = inputMetaView.getMetadataToolbarEditorView().getLoadButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
-                curButton = inputMetaView.getMetadataToolbarEditorView().getMoveDownButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
-                curButton = inputMetaView.getMetadataToolbarEditorView().getMoveUpButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
-                curButton = inputMetaView.getMetadataToolbarEditorView().getPasteButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
-                curButton = inputMetaView.getMetadataToolbarEditorView().getRemoveButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
             }
             // inputMetaView.getTableViewerCreator().layout();
 
             Composite buttonComposite = new Composite(composite, SWT.NONE);
             buttonComposite.setLayout(new GridLayout(1, true));
+            
+            // Input => Output
             Button copyToOutput = new Button(buttonComposite, SWT.NONE);
-            // copyToOutput.setText("=>");
             copyToOutput.setImage(ImageProvider.getImage(EImage.RIGHT_ICON));
             copyToOutput.setToolTipText("Copy all columns from input schema to output schema");
             copyToOutput.addListener(SWT.Selection, new Listener() {
@@ -195,14 +168,13 @@ public class MetadataDialog extends Dialog {
                     messageBox.setMessage("All columns from the input schema will be transfered to the output schema");
                     if (messageBox.open() == SWT.OK) {
                         outputMetaView.getMetadataTableEditor().clear();
-                        outputMetaView.getMetadataTableEditor().addAll(
-                                inputMetaView.getMetadataTableEditor().getMetadataColumnList(), 0);
-                        outputMetaView.getTableViewerCreator().getTableViewer().refresh();
+                        outputMetaView.getMetadataTableEditor().addAll(inputMetaView.getMetadataTableEditor().getMetadataColumnList());
                     }
                 }
             });
+            
+            // Output => Input
             Button copyToInput = new Button(buttonComposite, SWT.NONE);
-            // copyToInput.setText("<=");
             copyToInput.setImage(ImageProvider.getImage(EImage.LEFT_ICON));
             copyToInput.setToolTipText("Copy all columns from output schema to input schema");
             copyToInput.addListener(SWT.Selection, new Listener() {
@@ -213,9 +185,7 @@ public class MetadataDialog extends Dialog {
                     messageBox.setMessage("All columns from the output schema will be transfered to the input schema");
                     if (messageBox.open() == SWT.OK) {
                         inputMetaView.getMetadataTableEditor().clear();
-                        inputMetaView.getMetadataTableEditor().addAll(
-                                outputMetaView.getMetadataTableEditor().getMetadataColumnList(), 0);
-                        inputMetaView.getTableViewerCreator().getTableViewer().refresh();
+                        inputMetaView.getMetadataTableEditor().addAll(outputMetaView.getMetadataTableEditor().getMetadataColumnList());
                     }
                 }
             });
@@ -230,51 +200,15 @@ public class MetadataDialog extends Dialog {
             if (outputReadOnly) {
                 copyToOutput.setEnabled(false);
                 outputMetaView.getTableViewerCreator().getTable().setEnabled(false);
-                Button curButton = outputMetaView.getMetadataToolbarEditorView().getAddButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
-                curButton = outputMetaView.getMetadataToolbarEditorView().getCopyButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
-                // curButton = outputMetaView.getMetadataToolbarEditorView().getCutButton();
-                // if (curButton != null) {
-                // curButton.setEnabled(false);
-                // }
-                curButton = outputMetaView.getMetadataToolbarEditorView().getLoadButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
-                curButton = outputMetaView.getMetadataToolbarEditorView().getMoveDownButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
-                curButton = outputMetaView.getMetadataToolbarEditorView().getMoveUpButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
-                curButton = outputMetaView.getMetadataToolbarEditorView().getPasteButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
-                curButton = outputMetaView.getMetadataToolbarEditorView().getRemoveButton();
-                if (curButton != null) {
-                    curButton.setEnabled(false);
-                }
             }
             // outputMetaView.getTableViewerCreator().layout();
         }
 
-        metadataTableEditor.addListener(new IMetadataEditorListener() {
-
-            public void handleEvent(MetadataEditorEvent event) {
-                if (event.type == MetadataEditorEvent.TYPE.METADATA_NAME_VALUE_CHANGED) {
-                    List modifiedObjects = event.entries;
-                    IMetadataColumn modifiedObject = null;
-                    if (modifiedObjects != null && modifiedObjects.size() > 0) {
-                        modifiedObject = (IMetadataColumn) modifiedObjects.get(0);
-                    }
+        metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
+            
+            public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
+                if (MetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
+                    IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
                     if (modifiedObject != null) {
                         String originalLabel = changedNameColumns.get(modifiedObject);
                         if (originalLabel == null) {
@@ -282,14 +216,13 @@ public class MetadataDialog extends Dialog {
                         }
                     }
                 }
+                
             }
-
+            
         });
 
         return composite;
     }
-
-    public Map<IMetadataColumn, String> changedNameColumns = new HashMap<IMetadataColumn, String>();
 
     /**
      * Returns input metadata.
@@ -312,11 +245,4 @@ public class MetadataDialog extends Dialog {
         return outputMetaView.getMetadataTableEditor().getMetadataTable();
     }
 
-    public void setInputReadOnly(boolean inputReadOnly) {
-        this.inputReadOnly = inputReadOnly;
-    }
-
-    public void setOutputReadOnly(boolean outputReadOnly) {
-        this.outputReadOnly = outputReadOnly;
-    }
 }

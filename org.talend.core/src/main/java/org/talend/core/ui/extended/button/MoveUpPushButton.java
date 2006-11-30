@@ -21,10 +21,10 @@
 // ============================================================================
 package org.talend.core.ui.extended.button;
 
-import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.swt.advanced.macrotable.commands.ExtendedTableMoveCommand;
-import org.talend.commons.ui.swt.advanced.macrotable.control.ExtendedPushButton;
+import org.talend.commons.ui.command.ICommonCommand;
+import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableMoveCommand;
+import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlViewer;
 import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
 import org.talend.core.ui.EImage;
@@ -55,7 +55,7 @@ public abstract class MoveUpPushButton extends ExtendedPushButton {
      * @see org.talend.commons.ui.swt.advanced.macrotable.control.ExtendedPushButton#getCommandToExecute()
      */
     @Override
-    protected Command getCommandToExecute() {
+    protected ICommonCommand getCommandToExecute() {
         AbstractExtendedTableViewer viewer = (AbstractExtendedTableViewer) getExtendedControlViewer();
         return new ExtendedTableMoveCommand(viewer.getExtendedTableModel(), true, viewer.getTableViewerCreator().getTable()
                 .getSelectionIndices());

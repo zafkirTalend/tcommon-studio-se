@@ -140,7 +140,7 @@ public final class MetadataSchema {
      * @throws IOException if file cannot be read
      */
     @Deprecated
-    private static List<IMetadataColumn> initializeColumns(final File file) throws ParserConfigurationException, SAXException,
+    public static List<IMetadataColumn> initializeColumns(final File file) throws ParserConfigurationException, SAXException,
             IOException {
         final List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
         if (file != null) {

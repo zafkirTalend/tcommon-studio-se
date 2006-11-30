@@ -269,7 +269,6 @@ public class MetadataTableEditorView2 {
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
-        final TableViewerCreatorColumn nameColumn = column;
         final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
         cellEditor.addListener(new DialogErrorForCellEditorListener(cellEditor, column) {
 
