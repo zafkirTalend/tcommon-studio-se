@@ -869,6 +869,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
             for (Resource resource : affectedResources) {
                 IPath originalPath = URIHelper.convert(resource.getURI());
                 String path2 = itemState.getPath();
+                itemState.setPath(path.toString());
                 IPath finalPath = typeRootFolder.getFullPath().append(path).append(originalPath.lastSegment());
                 xmiResourceManager.moveResource(resource, finalPath);
             }
