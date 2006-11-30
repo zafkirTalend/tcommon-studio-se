@@ -160,6 +160,8 @@ public abstract class AbstractDataTableEditorView<B> {
 
         initTable();
 
+        this.extendedTableViewer.getTableViewerCreator().getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
+        
         if (toolbarVisible) {
             this.abstractExtendedToolbar = initToolBar();
         }
