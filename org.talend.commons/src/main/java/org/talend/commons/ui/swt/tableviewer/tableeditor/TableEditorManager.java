@@ -29,6 +29,7 @@ import java.util.Map;
 
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
@@ -79,11 +80,18 @@ public class TableEditorManager {
         }
         tableEditorList.clear();
 
+        Table table = tableViewerCreator.getTable();
+        if (table.isDisposed()) {
+            return;
+        }
+
         TableItem[] items = tableViewerCreator.getTable().getItems();
         Map<Object, TableItem> objectRowToTableItem = new HashMap<Object, TableItem>();
         for (int i = 0; i < items.length; i++) {
             TableItem item = items[i];
-            objectRowToTableItem.put(item.getData(), item);
+            if (!item.isDisposed()) {
+                objectRowToTableItem.put(item.getData(), item);
+            }
         }
 
         List<TableViewerCreatorColumn> columns = tableViewerCreator.getColumns();
@@ -103,7 +111,10 @@ public class TableEditorManager {
                         Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
                         Control control = tableEditorContent.initialize(tableViewerCreator.getTable(), tableEditor, column,
                                 currentRowObject, value);
-                        tableEditor.setEditor(control, objectRowToTableItem.get(currentRowObject), iCol);
+                        TableItem tableItem = objectRowToTableItem.get(currentRowObject);
+                        if (tableItem != null && !tableItem.isDisposed()) {
+                            tableEditor.setEditor(control, objectRowToTableItem.get(currentRowObject), iCol);
+                        }
                     }
                 }
             }

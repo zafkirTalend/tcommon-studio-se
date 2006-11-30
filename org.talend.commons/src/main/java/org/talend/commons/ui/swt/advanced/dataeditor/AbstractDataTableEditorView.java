@@ -71,7 +71,7 @@ public abstract class AbstractDataTableEditorView<B> {
 
     private AbstractExtendedToolbar abstractExtendedToolbar;
 
-    private boolean toolbarVisible;
+    private boolean toolbarVisible = true;
 
     // private IExtendedModelListener modelNameListener = new IExtendedModelListener() {
     //
@@ -114,7 +114,7 @@ public abstract class AbstractDataTableEditorView<B> {
      * @param extendedTableModel
      */
     public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<B> extendedTableModel) {
-        this(parentComposite, mainCompositeStyle, extendedTableModel, true, true);
+        this(parentComposite, mainCompositeStyle, extendedTableModel, false, true);
     }
 
     /**
