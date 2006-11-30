@@ -21,8 +21,8 @@
 // ============================================================================
 package org.talend.commons.ui.swt.extended.macrotable;
 
-import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.ui.command.ICommonCommand;
 
 
 /**
@@ -32,11 +32,19 @@ import org.eclipse.swt.widgets.Composite;
  * $Id$
  *
  */
-public class AbstractExtendedControlViewer {
+public abstract class AbstractExtendedControlViewer {
 
-    protected AbstractExtendedControlModel extendedControl;
+    private AbstractExtendedControlModel extendedControlModel;
 
-    protected Composite parentComposite;
+    private Composite parentComposite;
+    
+    /**
+     * DOC amaumont AbstractExtendedControlViewer constructor comment.
+     */
+    public AbstractExtendedControlViewer(Composite parentComposite) {
+        super();
+        this.parentComposite = parentComposite;
+    }
 
 
     /**
@@ -46,7 +54,7 @@ public class AbstractExtendedControlViewer {
      */
     public AbstractExtendedControlViewer(AbstractExtendedControlModel extendedControl, Composite parentComposite) {
         super();
-        this.extendedControl = extendedControl;
+        this.extendedControlModel = extendedControl;
         this.parentComposite = parentComposite;
     }
 
@@ -55,7 +63,7 @@ public class AbstractExtendedControlViewer {
      * DOC amaumont Comment method "executeCommand".
      * @param command
      */
-    public void executeCommand(Command command) {
+    public void executeCommand(ICommonCommand command) {
 //        IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 //        Object adapter = activeEditor.getAdapter(CommandStack.class);
 //        CommandStack commandStack = (CommandStack) adapter;
@@ -66,14 +74,44 @@ public class AbstractExtendedControlViewer {
 
 
     
+    
     /**
      * Getter for extendedControl.
      * @return the extendedControl
      */
     public AbstractExtendedControlModel getExtendedControlModel() {
-        return this.extendedControl;
+        return this.extendedControlModel;
     }
 
+
+    
+    /**
+     * Sets the extendedControl.
+     * @param extendedControl the extendedControl to set
+     */
+    public void setExtendedControlModel(AbstractExtendedControlModel extendedControl) {
+        AbstractExtendedControlModel previousModel = this.extendedControlModel;
+        this.extendedControlModel = extendedControl;
+        modelChanged(previousModel, extendedControl);
+    }
+
+
+    
+    /**
+     * DOC amaumont Comment method "modelChanged".
+     */
+    protected abstract void modelChanged(AbstractExtendedControlModel previousModel, AbstractExtendedControlModel newModel);
+
+
+    /**
+     * Getter for parentComposite.
+     * @return the parentComposite
+     */
+    public Composite getParentComposite() {
+        return this.parentComposite;
+    }
     
     
+    
+
 }

@@ -19,22 +19,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
-
+package org.talend.commons.ui.swt.advanced.dataeditor.control;
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
- * @param <B> Type of beans
+ * 
  */
-public interface IModifiedBeanListenable<B> {
-
-    public void addModifiedBeanListener(IModifiedBeanListener<B> listenableListListener);
-    
-    public void removeModifiedBeanListener(IModifiedBeanListener<B> listenableListListener);
-    
+public class ExtendedTableButton {
 
 }

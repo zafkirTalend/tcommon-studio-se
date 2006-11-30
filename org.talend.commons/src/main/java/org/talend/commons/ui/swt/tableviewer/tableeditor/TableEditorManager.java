@@ -96,7 +96,7 @@ public class TableEditorManager {
 
                 String idProperty = column.getId();
                 Collection collection = (Collection) tableViewerCreator.getTableViewer().getInput();
-                if(collection != null) {
+                if (collection != null) {
                     for (Object currentRowObject : collection) {
                         TableEditor tableEditor = tableEditorContent.createTableEditor(tableViewerCreator.getTable());
                         tableEditorList.add(tableEditor);
@@ -118,7 +118,7 @@ public class TableEditorManager {
         for (TableEditor tableEditor : tableEditorList) {
             tableEditor.getEditor().redraw();
         }
-        
+
     }
 
 }

@@ -49,107 +49,44 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
     /**
      * DOC amaumont AbstractMacroTableView constructor comment.
      */
-    public AbstractExtendedTableViewer(ExtendedTableModel<B> extendedTable, Composite parent, int styleChild) {
-        super(extendedTable, parent);
-        init(styleChild);
+    public AbstractExtendedTableViewer(ExtendedTableModel<B> extendedTableModel, Composite parent) {
+        super(extendedTableModel, parent);
+        initTable();
+        if (getExtendedControlModel() != null) {
+            initModelListeners();
+        }
+    }
+
+    public AbstractExtendedTableViewer(Composite parent) {
+        super(null, parent);
+        initTable();
     }
 
     /**
      * DOC amaumont Comment method "init".
      * 
-     * @param styleChild
      */
-    protected void init(int styleChild) {
-        this.tableViewerCreator = createTable(parentComposite);
-        getExtendedTableModel().setModifiedBeanListenable(this.tableViewerCreator);
+    protected void initTable() {
+        if (this.tableViewerCreator != null) {
+            this.tableViewerCreator.getTable().dispose();
+        }
+        this.tableViewerCreator = createTable(getParentComposite());
         createColumns(this.tableViewerCreator, this.tableViewerCreator.getTable());
-        if (getExtendedTableModel().isDataRegistered()) {
-            this.tableViewerCreator.init(getBeansList());
-        } else {
-            this.tableViewerCreator.init();
-        }
-
-        getExtendedTableModel().setModifiedBeanListenable(this.tableViewerCreator);
-
-        initListeners();
+        loadTable();
     }
 
     /**
-     * DOC amaumont Comment method "getBeansList".
-     * 
-     * @return
+     * DOC amaumont Comment method "loadTable".
      */
-    private List<B> getBeansList() {
-        return getExtendedTableModel().getBeansList();
-    }
-
-    /**
-     * DOC amaumont Comment method "initListeners".
-     */
-    protected void initListeners() {
-        getExtendedTableModel().addBeforeOperationListListener(1, new IListenableListListener() {
-
-            public void handleEvent(ListenableListEvent event) {
-                handleBeforeListenableListOperationEvent(event);
+    private void loadTable() {
+        ExtendedTableModel<B> extendedTableModel = getExtendedTableModel();
+        if (extendedTableModel != null) {
+            if (extendedTableModel.isDataRegistered()) {
+                this.tableViewerCreator.init(getBeansList());
+            } else {
+                this.tableViewerCreator.init();
             }
-
-        });
-
-        getExtendedTableModel().addAfterListener(1, new IListenableListListener() {
-
-            public void handleEvent(ListenableListEvent event) {
-                handleAfterListenableListOperationEvent(event);
-            }
-
-        });
-
-        getExtendedTableModel().addAfterListener(100, new IListenableListListener() {
-            
-            public void handleEvent(ListenableListEvent event) {
-                if (event.type == TYPE.ADDED) {
-                    tableViewerCreator.getTable().forceFocus();
-                    tableViewerCreator.getSelectionHelper().setSelection(event.index, event.index + event.addedObjects.size() - 1);
-                }
-            }
-            
-        });
-        
-    }
-
-    /**
-     * DOC amaumont Comment method "handleListenableListEvent".
-     * 
-     * @param event
-     */
-    protected void handleBeforeListenableListOperationEvent(ListenableListEvent event) {
-        if (tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
-            tableViewerCreator.setInputList(getBeansList());
-            tableViewerCreator.layout();
-        } else {
-            if (event.type == TYPE.REMOVED) {
-                tableViewerCreator.getTableViewer().remove(event.removedObjects.toArray());
-                tableViewerCreator.layout();
-            }
-        }
-    }
-
-    /**
-     * DOC amaumont Comment method "handleListenableListEvent".
-     * 
-     * @param event
-     */
-    protected void handleAfterListenableListOperationEvent(ListenableListEvent event) {
-        if (event.type == TYPE.LIST_REGISTERED && tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
-            tableViewerCreator.setInputList(getBeansList());
-            new AsynchronousThreading(100, true, tableViewerCreator.getTable().getDisplay(), new Runnable() {
-
-                public void run() {
-                    tableViewerCreator.layout();
-                }
-
-            }).start();
-        } else {
-            tableViewerCreator.getTableViewer().refresh();
+            extendedTableModel.setModifiedBeanListenable(this.tableViewerCreator);
         }
     }
 
@@ -178,6 +115,87 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         newTableViewerCreator.setFirstColumnMasked(true);
         newTableViewerCreator.setFirstVisibleColumnIsSelection(false);
         newTableViewerCreator.setCheckboxInFirstColumn(false);
+        newTableViewerCreator.setBgColorForEmptyArea(getParentComposite().getDisplay().getSystemColor(SWT.COLOR_WHITE));
+    }
+
+    /**
+     * DOC amaumont Comment method "getBeansList".
+     * 
+     * @return
+     */
+    private List<B> getBeansList() {
+        return getExtendedTableModel().getBeansList();
+    }
+
+    /**
+     * DOC amaumont Comment method "initListeners".
+     */
+    protected void initModelListeners() {
+        getExtendedTableModel().addBeforeOperationListListener(1, new IListenableListListener() {
+
+            public void handleEvent(ListenableListEvent event) {
+                handleBeforeListenableListOperationEvent(event);
+            }
+
+        });
+
+        getExtendedTableModel().addAfterListener(1, new IListenableListListener() {
+
+            public void handleEvent(ListenableListEvent event) {
+                handleAfterListenableListOperationEvent(event);
+            }
+
+        });
+
+        getExtendedTableModel().addAfterListener(100, new IListenableListListener() {
+
+            public void handleEvent(ListenableListEvent event) {
+                if (event.type == TYPE.ADDED) {
+                    tableViewerCreator.getTable().forceFocus();
+                    tableViewerCreator.getSelectionHelper().setSelection(event.index, event.index + event.addedObjects.size() - 1);
+                }
+            }
+
+        });
+
+    }
+
+    /**
+     * DOC amaumont Comment method "handleListenableListEvent".
+     * 
+     * @param event
+     */
+    protected void handleBeforeListenableListOperationEvent(ListenableListEvent event) {
+        if (tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
+            tableViewerCreator.setInputList(getBeansList());
+            tableViewerCreator.layout();
+        } else {
+            if (event.type == TYPE.REMOVED) {
+                tableViewerCreator.getTable().deselectAll();
+                tableViewerCreator.getTableViewer().remove(event.removedObjects.toArray());
+                tableViewerCreator.layout();
+            }
+        }
+    }
+
+    /**
+     * DOC amaumont Comment method "handleListenableListEvent".
+     * 
+     * @param event
+     */
+    protected void handleAfterListenableListOperationEvent(ListenableListEvent event) {
+        if (event.type == TYPE.LIST_REGISTERED && tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
+            tableViewerCreator.setInputList(getBeansList());
+            new AsynchronousThreading(100, true, tableViewerCreator.getTable().getDisplay(), new Runnable() {
+
+                public void run() {
+                    tableViewerCreator.layout();
+                }
+
+            }).start();
+        } else {
+            tableViewerCreator.getTableViewer().refresh();
+        }
     }
 
     /**
@@ -193,26 +211,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * @return the extendedTable
      */
     public ExtendedTableModel<B> getExtendedTableModel() {
-        return (ExtendedTableModel<B>) this.extendedControl;
-    }
-
-    /**
-     * Sets the extendedTable.
-     * 
-     * @param extendedTable the extendedTable to set
-     */
-    public void setExtendedTable(ExtendedTableModel<B> extendedTable) {
-        this.extendedControl = extendedTable;
-        tableViewerCreator.init(getBeansList());
-    }
-
-    /**
-     * Getter for parentComposite.
-     * 
-     * @return the parentComposite
-     */
-    public Composite getParentComposite() {
-        return this.parentComposite;
+        return (ExtendedTableModel<B>) getExtendedControlModel();
     }
 
     /**
@@ -222,6 +221,21 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      */
     public TableViewerCreator<B> getTableViewerCreator() {
         return this.tableViewerCreator;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlViewer#modelChanged(org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlModel,
+     * org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlModel)
+     */
+    @Override
+    protected void modelChanged(AbstractExtendedControlModel previousModel, AbstractExtendedControlModel newModel) {
+        if (previousModel != null) {
+            previousModel.release();
+        }
+        loadTable();
+        initModelListeners();
     }
 
 }

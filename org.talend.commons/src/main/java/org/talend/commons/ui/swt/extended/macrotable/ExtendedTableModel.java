@@ -178,17 +178,17 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         this.beansList.removeListener(listenableListListener);
     }
 
-    public void addModifiedBeanListenerListener(IModifiedBeanListener<B> listenableListListener) {
+    public void addModifiedBeanListener(IModifiedBeanListener<B> modifiedBeanListener) {
         if (this.modifiedBeanListenable != null) {
-            this.modifiedBeanListenable.addModifiedBeanListener(listenableListListener);
+            this.modifiedBeanListenable.addModifiedBeanListener(modifiedBeanListener);
         } else {
             throw new IllegalStateException("ModifiedBeanListenable object must be set before use this method");
         }
     }
 
-    public void removeModifiedBeanListListenerListener(IModifiedBeanListener<B> listenableListListener) {
+    public void removeModifiedBeanListener(IModifiedBeanListener<B> modifiedBeanListener) {
         if (this.modifiedBeanListenable != null) {
-            this.modifiedBeanListenable.addModifiedBeanListener(listenableListListener);
+            this.modifiedBeanListenable.removeModifiedBeanListener(modifiedBeanListener);
         } else {
             throw new IllegalStateException("ModifiedBeanListenable object must be set before use this method");
         }
@@ -201,5 +201,13 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
     public boolean isDataRegistered() {
         return beansList.isListRegistered();
     }
+
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlModel#release()
+     */
+    @Override
+    public void release() {
+    }
+    
     
 }

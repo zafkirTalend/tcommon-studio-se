@@ -19,14 +19,35 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.advanced.macrotable.control;
+package org.talend.commons.ui.command;
+
+import org.eclipse.gef.commands.Command;
+
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
- * 
+ * DOC amaumont  class global comment. Detailled comment
+ * <br/>
+ *
  * $Id$
- * 
+ *
  */
-public class ExtendedTableButton {
+public interface ICommonCommand {
 
+    public boolean canExecute();
+
+    public boolean canUndo();
+
+//    public Command chain(Command arg0);
+
+    public void dispose();
+
+    public void execute();
+
+    public String getLabel();
+
+    public void redo();
+
+    public void setLabel(String label);
+
+    public void undo();
 }

@@ -23,17 +23,18 @@ package org.talend.commons.ui.swt.extended.macrotable;
 
 import org.eclipse.core.runtime.ListenerList;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class AbstractExtendedControlModel {
+
+    public static final String NAME_CHANGED = "NAME_CHANGED";
+
     /*
-     * The list of listeners who wish to be notified when something significant happens with the proposals.
+     * The list of listeners who wish to be notified when something significant happens.
      */
     private ListenerList listeners = new ListenerList();
 
@@ -53,11 +54,43 @@ public abstract class AbstractExtendedControlModel {
     public AbstractExtendedControlModel() {
     }
 
-    
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Sets the name.
+     * 
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+        fireEvent(new ExtendedModelEvent(NAME_CHANGED));
+    }
+
+    /**
+     * DOC amaumont Comment method "fireEvent".
+     * 
+     * @param event
+     */
+    private void fireEvent(ExtendedModelEvent event) {
+        final Object[] listenerArray = listeners.getListeners();
+        for (int i = 0; i < listenerArray.length; i++) {
+            ((IExtendedModelListener) listenerArray[i]).handleEvent(event);
+        }
+
+    }
+
     public abstract boolean isDataRegistered();
+
+    public abstract void release();
+
+    public void addListener(IExtendedModelListener listener) {
+        this.listeners.add(listener);
+    }
+
+    public void removeCellEditorAppliedListener(IExtendedModelListener listener) {
+        this.listeners.remove(listener);
+    }
 
 }

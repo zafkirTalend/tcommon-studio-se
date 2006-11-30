@@ -19,7 +19,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
+package org.talend.commons.ui.swt.advanced.dataeditor.commands;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.gef.commands.Command;
+import org.talend.commons.ui.command.CommonCommand;
+import org.talend.commons.ui.utils.SimpleClipboard;
 
 
 /**
@@ -28,13 +35,38 @@ package org.talend.commons.ui.swt.tableviewer;
  *
  * $Id$
  *
- * @param <B> Type of beans
  */
-public interface IModifiedBeanListenable<B> {
+public class ExtendedTableCopyCommand extends CommonCommand {
 
-    public void addModifiedBeanListener(IModifiedBeanListener<B> listenableListListener);
     
-    public void removeModifiedBeanListener(IModifiedBeanListener<B> listenableListListener);
+    private List beansToCopy;
+
+    /**
+     * DOC amaumont ExtendedTableAddCommand constructor comment.
+     */
+    public ExtendedTableCopyCommand(List beansToCopy) {
+        super();
+        this.beansToCopy = new ArrayList(beansToCopy);
+    }
+
+    /**
+     * DOC amaumont ExtendedTableAddCommand constructor comment.
+     */
+    public ExtendedTableCopyCommand(Object beanToCopy) {
+        super();
+        beansToCopy = new ArrayList(1);
+        beansToCopy.add(beanToCopy);
+    }
     
 
+    
+    /* (non-Javadoc)
+     * @see org.eclipse.gef.commands.Command#execute()
+     */
+    @Override
+    public void execute() {
+        SimpleClipboard.getInstance().setData(beansToCopy);
+    }
+
+    
 }

@@ -19,15 +19,15 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.advanced.macrotable.control;
+package org.talend.commons.ui.swt.advanced.dataeditor.control;
 
-import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlViewer;
 
 
@@ -42,6 +42,7 @@ public abstract class ExtendedPushButton {
 
     private Button button;
     protected AbstractExtendedControlViewer extendedControlViewer;
+    private ICommonCommand commandToExecute;
 
     /**
      * DOC amaumont ExtendedTableButton constructor comment.
@@ -97,33 +98,41 @@ public abstract class ExtendedPushButton {
      * DOC amaumont Comment method "executeCommand".
      * @param command
      */
-    public void executeCommand(Command command) {
+    public void executeCommand(ICommonCommand command) {
         extendedControlViewer.executeCommand(command);
     }
 
+    /**
+     * 
+     * This method is not intended to be overriden.
+     * @param event
+     */
     protected void handleSelectionEvent(Event event) {
         beforeCommandExecution();
-        executeCommand(getCommandToExecute());
-        afterCommandExecution();
+        this.commandToExecute = getCommandToExecute();
+        executeCommand(this.commandToExecute);
+        afterCommandExecution(this.commandToExecute);
+    }
+
+    /**
+     * This method is called before getCommandToExecute() to prepare data for command instanciation if needed.
+     * 
+     */
+    protected void beforeCommandExecution() {
+        // override it if needed
     }
 
     /**
      * DOC amaumont Comment method "getCommandToExecute".
      * @return
      */
-    protected abstract Command getCommandToExecute();
-
+    protected abstract ICommonCommand getCommandToExecute();
+    
     /**
-     * DOC amaumont Comment method "afterCommandExecution".
+     * This method is called after getCommandToExecute() to get data or errors after command execution.
+     * @param executedCommand 
      */
-    protected void afterCommandExecution() {
-        // override it if needed
-    }
-
-    /**
-     * DOC amaumont Comment method "beforeCommandExecution".
-     */
-    protected void beforeCommandExecution() {
+    protected void afterCommandExecution(ICommonCommand executedCommand) {
         // override it if needed
     }
 

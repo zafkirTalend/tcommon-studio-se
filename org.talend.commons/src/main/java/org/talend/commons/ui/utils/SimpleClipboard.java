@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.tableviewer;
+package org.talend.commons.ui.utils;
 
 
 /**
@@ -28,13 +28,27 @@ package org.talend.commons.ui.swt.tableviewer;
  *
  * $Id$
  *
- * @param <B> Type of beans
  */
-public interface IModifiedBeanListenable<B> {
+public class SimpleClipboard {
 
-    public void addModifiedBeanListener(IModifiedBeanListener<B> listenableListListener);
-    
-    public void removeModifiedBeanListener(IModifiedBeanListener<B> listenableListListener);
-    
+    private static SimpleClipboard instance;
 
+    public static SimpleClipboard getInstance() {
+        if (instance == null) {
+            instance = new SimpleClipboard();
+        }
+        return instance;
+    }
+
+    private Object object;
+    
+    public void setData(Object object) {
+        this.object = object;
+    }
+    
+    public Object getData() {
+        return object;
+    }
+    
+    
 }

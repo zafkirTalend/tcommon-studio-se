@@ -19,13 +19,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.advanced.macrotable.commands;
+package org.talend.commons.ui.swt.advanced.dataeditor.commands;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.gef.commands.Command;
+import org.talend.commons.ui.command.CommonCommand;
 import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
 import org.talend.commons.utils.data.list.ListenableList;
 
@@ -38,7 +39,7 @@ import org.talend.commons.utils.data.list.ListenableList;
  * $Id$
  *
  */
-public class ExtendedTableMoveCommand extends Command {
+public class ExtendedTableMoveCommand extends CommonCommand {
 
     private ExtendedTableModel extendedTable;
     private boolean moveUp;

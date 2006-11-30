@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -55,7 +56,7 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
  * $Id: TestTableViewerCreator2.java 410 2006-11-13 13:25:52 +0000 (lun., 13 nov. 2006) amaumont $
  * 
  */
-public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<DataObject> {
+public final class TestExtendedTableViewer extends AbstractDataTableEditorView<DataObject> {
 
     /**
      * DOC amaumont TestExtendedTableViewer constructor comment.
@@ -64,7 +65,7 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
      * @param shell1
      */
     public TestExtendedTableViewer(ExtendedTableModel<DataObject> macroTable, Composite parent) {
-        super(macroTable, parent, SWT.BORDER);
+        super(parent, SWT.BORDER, macroTable);
     }
 
     private static final int ZERO = 0;
@@ -115,25 +116,6 @@ public final class TestExtendedTableViewer extends AbstractExtendedTableViewer<D
             }
         }
         display.dispose();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.commons.ui.swt.advanced.macrotable.AbstractExtendedTableViewer#createTable()
-     */
-    @Override
-    protected TableViewerCreator<DataObject> createTable(Composite parentComposite) {
-        TableViewerCreator<DataObject> newTableViewerCreator = new TableViewerCreator<DataObject>(parentComposite);
-        newTableViewerCreator.setBorderVisible(true);
-        newTableViewerCreator.setAllColumnsMoveable(true);
-        newTableViewerCreator.setAllColumnsResizable(true);
-        newTableViewerCreator.setAllColumnsSortable(true);
-        newTableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
-        newTableViewerCreator.setAdjustWidthValue(-50);
-
-        newTableViewerCreator.createTable();
-        return newTableViewerCreator;
     }
 
     /*

@@ -19,72 +19,62 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.advanced.macrotable.commands;
+package org.talend.commons.ui.swt.advanced.dataeditor.commands;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import org.eclipse.gef.commands.Command;
+import org.talend.commons.ui.command.CommonCommand;
 import org.talend.commons.ui.swt.extended.macrotable.ExtendedTableModel;
-
-
+import org.talend.commons.ui.utils.SimpleClipboard;
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
-public class ExtendedTableAddCommand extends Command {
+public abstract class ExtendedTablePasteCommand extends CommonCommand {
 
     private ExtendedTableModel extendedTable;
-    private Integer indexStartAdd;
-    private ArrayList beansToAdd;
+
+    private Integer indexStart;
 
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
-    public ExtendedTableAddCommand(ExtendedTableModel extendedTable, Integer indexStartAdd, ArrayList beansToAdd) {
+    public ExtendedTablePasteCommand(ExtendedTableModel extendedTable, Integer indexStartAdd) {
         super();
         this.extendedTable = extendedTable;
-        this.indexStartAdd = indexStartAdd;
-        this.beansToAdd = beansToAdd;
+        this.indexStart = indexStartAdd;
     }
 
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
-    public ExtendedTableAddCommand(ExtendedTableModel extendedTable, ArrayList beansToAdd) {
-        this(extendedTable, null, beansToAdd);
+    public ExtendedTablePasteCommand(ExtendedTableModel extendedTable) {
+        this(extendedTable, null);
     }
-    
-    /**
-     * DOC amaumont ExtendedTableAddCommand constructor comment.
-     */
-    public ExtendedTableAddCommand(ExtendedTableModel extendedTable, Integer indexStartAdd, Object beanToAdd) {
-        super();
-        this.extendedTable = extendedTable;
-        this.indexStartAdd = indexStartAdd;
-        ArrayList list = new ArrayList(1);
-        list.add(beanToAdd);
-        this.beansToAdd = list;
-    }
-    
-    /**
-     * DOC amaumont ExtendedTableAddCommand constructor comment.
-     */
-    public ExtendedTableAddCommand(ExtendedTableModel extendedTable, Object beanToAdd) {
-        this(extendedTable, null, beanToAdd);
-    }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
     @Override
     public void execute() {
-        
-        extendedTable.addAll(indexStartAdd, beansToAdd);
-        
+
+        Object data = SimpleClipboard.getInstance().getData();
+        if (data instanceof List) {
+            List list = new ArrayList((List) data);
+            list = createPastableBeansList(extendedTable, list);
+            extendedTable.addAll(indexStart, list);
+        }
+
     }
 
+    public abstract List createPastableBeansList(ExtendedTableModel extendedTable, List copiedObjectsList);
+    
+    
+    
 }

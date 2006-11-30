@@ -72,6 +72,7 @@ import org.talend.commons.ui.ws.WindowSystem;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableList;
 import org.talend.commons.utils.data.list.ListenableListEvent;
+import org.talend.commons.utils.threading.AsynchronousThreading;
 
 /**
  * A concrete Table viewer based on the JFace <code>TableViewer</code> and the SWT <code>Table</code> control.
@@ -393,8 +394,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void add(Object element) {
                 super.add(element);
-//                layout();
-//                refreshTableEditorControls();
+                refreshTableEditorControls();
             }
 
             /*
@@ -405,8 +405,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void add(Object[] elements) {
                 super.add(elements);
-//                layout();
-//                refreshTableEditorControls();
+                refreshTableEditorControls();
             }
 
             /*
@@ -416,7 +415,9 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
              */
             @Override
             public void remove(Object[] elements) {
+                removeEraseListener();
                 super.remove(elements);
+                addEraseListener();
                 refreshTableEditorControls();
             }
 
@@ -428,7 +429,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void replace(Object element, int index) {
                 super.replace(element, index);
-//                refreshTableEditorControls();
+                refreshTableEditorControls();
             }
 
             /*
@@ -438,14 +439,14 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
              */
             @Override
             public void refresh() {
-                if (eraseItemListener != null) {
-                    table.removeListener(SWT.EraseItem, eraseItemListener);
+                boolean itemHasBeenRemoved = getInputList() != null && getInputList().size() < table.getItemCount();
+                if (itemHasBeenRemoved) {
+//                    table.removeListener(SWT.EraseItem, eraseItemListener);
                 }
                 super.refresh();
-                if (eraseItemListener != null) {
-                    table.addListener(SWT.EraseItem, eraseItemListener);
+                if (itemHasBeenRemoved) {
+//                    table.addListener(SWT.EraseItem, eraseItemListener);
                 }
-                // layout();
                 refreshTableEditorControls();
             }
 
@@ -456,15 +457,15 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
              */
             @Override
             public void refresh(boolean updateLabels) {
-                if (eraseItemListener != null) {
-                    table.removeListener(SWT.EraseItem, eraseItemListener);
+                boolean itemHasBeenRemoved = getInputList() != null && getInputList().size() < table.getItemCount();
+                if (itemHasBeenRemoved) {
+//                    table.removeListener(SWT.EraseItem, eraseItemListener);
                 }
                 super.refresh(updateLabels);
-                if (eraseItemListener != null) {
-                    table.addListener(SWT.EraseItem, eraseItemListener);
+                if (itemHasBeenRemoved) {
+//                    table.addListener(SWT.EraseItem, eraseItemListener);
                 }
-                // layout();
-                 refreshTableEditorControls();
+                refreshTableEditorControls();
             }
 
             /*
@@ -476,6 +477,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             public void refresh(Object element, boolean updateLabels) {
                 super.refresh(element, updateLabels);
 //                refreshTableEditorControls();
+                // refreshTableEditorControls();
             }
 
             /*
@@ -485,9 +487,17 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
              */
             @Override
             public void refresh(Object element) {
+                // if (eraseItemListener != null) {
+                // table.removeListener(SWT.EraseItem, eraseItemListener);
+                // }
                 super.refresh(element);
+                // if (eraseItemListener != null) {
+                // table.addListener(SWT.EraseItem, eraseItemListener);
+                // }
                 // refreshTableEditorControls();
             }
+            
+            
 
         };
         setTablePreferences();
@@ -611,12 +621,12 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     /**
      * 
-     * This method initialize erase listener to go round the following SWT bug https://bugs.eclipse.org/bugs/show_bug.cgi?id=50163 
-     * "Table doesn't respect transparency in column images when using a different row background color" .
+     * This method initialize erase listener to go round the following SWT bug
+     * https://bugs.eclipse.org/bugs/show_bug.cgi?id=50163 "Table doesn't respect transparency in column images when
+     * using a different row background color" .
      * 
-     * Unfortunately, use this listener implies that :
-     * - automatic tooltip in Table doesn't work anymore
-     * - bug when {@link TableViewer#refresh()} or {@link TableViewer#refresh(boolean)} are called and possibly others... 
+     * Unfortunately, use this listener implies that : - automatic tooltip in Table doesn't work anymore - bug when
+     * {@link TableViewer#refresh()} or {@link TableViewer#refresh(boolean)} are called and possibly others...
      * 
      */
     protected void addEraseItemListener() {
@@ -629,10 +639,14 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
             public void handleEvent(Event event) {
 
+//                 System.out.println(event);
+//                if(true) {
+//                    return;
+//                }
+                
                 // System.out.println("EraseItem event.detail=" + EventUtil.getEventNameFromDetail(event.detail) +
                 // "event.widget="
                 // + event.widget.hashCode());
-                // System.out.println(event);
                 TableItem tableItem = (TableItem) event.item;
 
                 if (table.isDisposed() || tableItem.isDisposed()) {
@@ -721,7 +735,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             }
 
         };
-        table.addListener(SWT.EraseItem, eraseItemListener);
+        addEraseItemListener();
 
     }
 
@@ -1335,7 +1349,21 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     public void refreshTableEditorControls() {
         if (tableEditorManager != null) {
-            tableEditorManager.refresh();
+            new AsynchronousThreading(0, true, table.getDisplay(), new Runnable() {
+
+                public void run() {
+                    if (tableEditorManager != null) {
+                        tableEditorManager.refresh();
+                        tableEditorManager.redrawControls();
+                    }
+                    // table.redraw();
+                    // table.layout(true, true);
+                    // table.layout();
+                    // table.forceFocus();
+                    // table.setVisible(true);
+                }
+
+            }).start();
         }
     }
 
@@ -1578,7 +1606,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         this.modifiedBeanListeners.add(listenableListListener);
     }
 
-    public void removeModifiedBeanListListener(IModifiedBeanListener<B> listenableListListener) {
+    public void removeModifiedBeanListener(IModifiedBeanListener<B> listenableListListener) {
         this.modifiedBeanListeners.remove(listenableListListener);
     }
 
@@ -1598,5 +1626,24 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     public Composite getCompositeParent() {
         return this.compositeParent;
     }
+
+    /**
+     * DOC amaumont Comment method "removeEraseListener".
+     */
+    private void removeEraseListener() {
+        if (eraseItemListener != null) {
+            table.removeListener(SWT.EraseItem, eraseItemListener);
+        }
+    }
+    
+    /**
+     * DOC amaumont Comment method "addEraseListener".
+     */
+    private void addEraseListener() {
+        if (eraseItemListener != null) {
+            table.addListener(SWT.EraseItem, eraseItemListener);
+        }
+    }
+
 
 }

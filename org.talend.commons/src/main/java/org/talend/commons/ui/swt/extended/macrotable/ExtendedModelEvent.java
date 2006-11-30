@@ -21,17 +21,35 @@
 // ============================================================================
 package org.talend.commons.ui.swt.extended.macrotable;
 
+
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
- * 
+ * DOC amaumont  class global comment. Detailled comment
+ * <br/>
+ *
  * $Id$
- * 
+ *
  */
-public interface IExtendedTableListener {
+public class ExtendedModelEvent {
+
+    private String type;
 
     /**
-     * DOC amaumont Comment method "handleEvent".
+     * DOC amaumont ExtendedModelEvent constructor comment.
      */
-    public void handleEvent();
+    public ExtendedModelEvent(String type) {
+        super();
+        this.type = type;
+    }
 
+    
+    /**
+     * Getter for type.
+     * @return the type
+     */
+    public String getType() {
+        return this.type;
+    }
+
+    
+    
 }
