@@ -37,6 +37,14 @@ public interface ITEMSType extends EObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * On TABLE mode:
+     *    - FIELD can be either TEXT, CHECK, CLOSED_LIST, COLUMN_LIST or PREV_COLUMN_LIST
+     *    - VALUE is used for TEXT, CHECK
+     * 
+     * On CLOSED_LIST mode:
+     *    - FIELD is not used
+     * <!-- end-model-doc -->
      * @return the value of the '<em>ITEM</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMSType_ITEM()
      * @model type="org.talend.designer.core.model.utils.emf.component.ITEMType" containment="true" required="true"

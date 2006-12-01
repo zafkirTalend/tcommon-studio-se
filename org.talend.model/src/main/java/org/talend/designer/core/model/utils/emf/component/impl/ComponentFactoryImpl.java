@@ -80,6 +80,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
             case ComponentPackage.CODEGENERATION_TYPE: return createCODEGENERATIONType();
+            case ComponentPackage.COLUMN_TYPE: return createCOLUMNType();
             case ComponentPackage.COMPONENT_TYPE: return createCOMPONENTType();
             case ComponentPackage.CONNECTORS_TYPE: return createCONNECTORSType();
             case ComponentPackage.CONNECTOR_TYPE: return createCONNECTORType();
@@ -96,6 +97,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
             case ComponentPackage.PARAMETER_TYPE: return createPARAMETERType();
             case ComponentPackage.RETURNS_TYPE: return createRETURNSType();
             case ComponentPackage.RETURN_TYPE: return createRETURNType();
+            case ComponentPackage.TABLE_TYPE: return createTABLEType();
             case ComponentPackage.TEMPLATEPARAM_TYPE: return createTEMPLATEPARAMType();
             case ComponentPackage.TEMPLATES_TYPE: return createTEMPLATESType();
             case ComponentPackage.TEMPLATE_TYPE: return createTEMPLATEType();
@@ -112,6 +114,16 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
     public CODEGENERATIONType createCODEGENERATIONType() {
         CODEGENERATIONTypeImpl codegenerationType = new CODEGENERATIONTypeImpl();
         return codegenerationType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public COLUMNType createCOLUMNType() {
+        COLUMNTypeImpl columnType = new COLUMNTypeImpl();
+        return columnType;
     }
 
     /**
@@ -272,6 +284,16 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
     public RETURNType createRETURNType() {
         RETURNTypeImpl returnType = new RETURNTypeImpl();
         return returnType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TABLEType createTABLEType() {
+        TABLETypeImpl tableType = new TABLETypeImpl();
+        return tableType;
     }
 
     /**

@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSERIAL <em>SERIAL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSTATUS <em>STATUS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}</li>
  * </ul>
@@ -50,6 +51,9 @@ public interface HEADERType extends EObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Not used for the moment
+     * <!-- end-model-doc -->
      * @return the value of the '<em>SIGNATURE</em>' attribute.
      * @see #setSIGNATURE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SIGNATURE()
@@ -448,6 +452,61 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setSTATUS(String value);
+
+    /**
+     * Returns the value of the '<em><b>TSTATCATCHERSTATS</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>TSTATCATCHERSTATS</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>TSTATCATCHERSTATS</em>' attribute.
+     * @see #isSetTSTATCATCHERSTATS()
+     * @see #unsetTSTATCATCHERSTATS()
+     * @see #setTSTATCATCHERSTATS(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_TSTATCATCHERSTATS()
+     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='TSTATCATCHER_STATS' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isTSTATCATCHERSTATS();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>TSTATCATCHERSTATS</em>' attribute.
+     * @see #isSetTSTATCATCHERSTATS()
+     * @see #unsetTSTATCATCHERSTATS()
+     * @see #isTSTATCATCHERSTATS()
+     * @generated
+     */
+    void setTSTATCATCHERSTATS(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetTSTATCATCHERSTATS()
+     * @see #isTSTATCATCHERSTATS()
+     * @see #setTSTATCATCHERSTATS(boolean)
+     * @generated
+     */
+    void unsetTSTATCATCHERSTATS();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>TSTATCATCHERSTATS</em>' attribute is set.
+     * @see #unsetTSTATCATCHERSTATS()
+     * @see #isTSTATCATCHERSTATS()
+     * @see #setTSTATCATCHERSTATS(boolean)
+     * @generated
+     */
+    boolean isSetTSTATCATCHERSTATS();
 
     /**
      * Returns the value of the '<em><b>VERSION</b></em>' attribute.

@@ -35,6 +35,15 @@ public interface ComponentFactory extends EFactory {
     CODEGENERATIONType createCODEGENERATIONType();
 
     /**
+     * Returns a new object of class '<em>COLUMN Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>COLUMN Type</em>'.
+     * @generated
+     */
+    COLUMNType createCOLUMNType();
+
+    /**
      * Returns a new object of class '<em>COMPONENT Type</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -177,6 +186,15 @@ public interface ComponentFactory extends EFactory {
      * @generated
      */
     RETURNType createRETURNType();
+
+    /**
+     * Returns a new object of class '<em>TABLE Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>TABLE Type</em>'.
+     * @generated
+     */
+    TABLEType createTABLEType();
 
     /**
      * Returns a new object of class '<em>TEMPLATEPARAM Type</em>'.

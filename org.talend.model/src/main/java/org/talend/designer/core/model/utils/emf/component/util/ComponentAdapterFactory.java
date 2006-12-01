@@ -92,6 +92,9 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
             public Object caseCODEGENERATIONType(CODEGENERATIONType object) {
                 return createCODEGENERATIONTypeAdapter();
             }
+            public Object caseCOLUMNType(COLUMNType object) {
+                return createCOLUMNTypeAdapter();
+            }
             public Object caseCOMPONENTType(COMPONENTType object) {
                 return createCOMPONENTTypeAdapter();
             }
@@ -140,6 +143,9 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
             public Object caseRETURNType(RETURNType object) {
                 return createRETURNTypeAdapter();
             }
+            public Object caseTABLEType(TABLEType object) {
+                return createTABLETypeAdapter();
+            }
             public Object caseTEMPLATEPARAMType(TEMPLATEPARAMType object) {
                 return createTEMPLATEPARAMTypeAdapter();
             }
@@ -178,6 +184,20 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createCODEGENERATIONTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType <em>COLUMN Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.component.COLUMNType
+     * @generated
+     */
+    public Adapter createCOLUMNTypeAdapter() {
         return null;
     }
 
@@ -402,6 +422,20 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createRETURNTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.component.TABLEType <em>TABLE Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.component.TABLEType
+     * @generated
+     */
+    public Adapter createTABLETypeAdapter() {
         return null;
     }
 

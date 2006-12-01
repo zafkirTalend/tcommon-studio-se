@@ -37,7 +37,7 @@ public interface RETURNSType extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>RETURN</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getRETURNSType_RETURN()
-     * @model type="org.talend.designer.core.model.utils.emf.component.RETURNType" containment="true" required="true"
+     * @model type="org.talend.designer.core.model.utils.emf.component.RETURNType" containment="true"
      *        extendedMetaData="kind='element' name='RETURN' namespace='##targetNamespace'"
      * @generated
      */

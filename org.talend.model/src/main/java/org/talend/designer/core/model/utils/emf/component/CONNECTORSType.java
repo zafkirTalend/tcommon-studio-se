@@ -35,6 +35,9 @@ public interface CONNECTORSType extends EObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * BUILTIN can only be used when CTYPE = 'FLOW'
+     * <!-- end-model-doc -->
      * @return the value of the '<em>CONNECTOR</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORSType_CONNECTOR()
      * @model type="org.talend.designer.core.model.utils.emf.component.CONNECTORType" containment="true" required="true"

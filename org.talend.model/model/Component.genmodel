@@ -2,13 +2,21 @@
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.talend.model/src/main/java"
-    modelPluginID="org.talend.model" templateDirectory="" modelName="Component" importerID="org.eclipse.xsd.ecore.importer">
+    modelPluginID="org.talend.model" modelName="Component" importerID="org.eclipse.xsd.ecore.importer">
   <foreignModel>Component.xsd</foreignModel>
   <genPackages prefix="Component" resource="XML" disposableProviderFactory="true"
       ecorePackage="Component.ecore#/">
     <genClasses ecoreClass="Component.ecore#//CODEGENERATIONType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//CODEGENERATIONType/tEMPLATES"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//CODEGENERATIONType/iMPORTS"/>
+    </genClasses>
+    <genClasses ecoreClass="Component.ecore#//COLUMNType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/kEY"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/lENGTH"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/nAME"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/nULLABLE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/pRECISION"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/tYPE"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//COMPONENTType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/hEADER"/>
@@ -39,8 +47,8 @@
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//DocumentRoot">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute Component.ecore#//DocumentRoot/mixed"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/xMLNSPrefixMap"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/xSISchemaLocation"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/xMLNSPrefixMap"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/xSISchemaLocation"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/cODEGENERATION"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/cOMPONENT"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/cONNECTORS"/>
@@ -65,6 +73,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sERIAL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sTARTABLE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sTATUS"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/tSTATCATCHERSTATS"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vERSION"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vISIBLE"/>
     </genClasses>
@@ -100,6 +109,7 @@
     <genClasses ecoreClass="Component.ecore#//PARAMETERType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//PARAMETERType/dEFAULT"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//PARAMETERType/iTEMS"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//PARAMETERType/tABLE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/fIELD"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/nAME"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/nBLINES"/>
@@ -118,6 +128,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//RETURNType/aVAILABILITY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//RETURNType/nAME"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//RETURNType/tYPE"/>
+    </genClasses>
+    <genClasses ecoreClass="Component.ecore#//TABLEType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//TABLEType/cOLUMN"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//TEMPLATEPARAMType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEPARAMType/sOURCE"/>

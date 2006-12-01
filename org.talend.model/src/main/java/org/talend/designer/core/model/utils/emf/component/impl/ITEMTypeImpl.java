@@ -56,7 +56,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @generated
      * @ordered
      */
-	protected static final String FIELD_EDEFAULT = null;
+	protected static final String FIELD_EDEFAULT = "TEXT";
 
     /**
      * The cached value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
@@ -67,6 +67,15 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @ordered
      */
 	protected String fIELD = FIELD_EDEFAULT;
+
+    /**
+     * This is true if the FIELD attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean fIELDESet = false;
 
     /**
      * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
@@ -246,8 +255,33 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
 	public void setFIELD(String newFIELD) {
         String oldFIELD = fIELD;
         fIELD = newFIELD;
+        boolean oldFIELDESet = fIELDESet;
+        fIELDESet = true;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__FIELD, oldFIELD, fIELD));
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__FIELD, oldFIELD, fIELD, !oldFIELDESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetFIELD() {
+        String oldFIELD = fIELD;
+        boolean oldFIELDESet = fIELDESet;
+        fIELD = FIELD_EDEFAULT;
+        fIELDESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__FIELD, oldFIELD, FIELD_EDEFAULT, oldFIELDESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetFIELD() {
+        return fIELDESet;
     }
 
     /**
@@ -436,7 +470,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 setITEMS((ITEMSType)null);
                 return;
             case ComponentPackage.ITEM_TYPE__FIELD:
-                setFIELD(FIELD_EDEFAULT);
+                unsetFIELD();
                 return;
             case ComponentPackage.ITEM_TYPE__NAME:
                 setNAME(NAME_EDEFAULT);
@@ -467,7 +501,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__ITEMS:
                 return iTEMS != null;
             case ComponentPackage.ITEM_TYPE__FIELD:
-                return FIELD_EDEFAULT == null ? fIELD != null : !FIELD_EDEFAULT.equals(fIELD);
+                return isSetFIELD();
             case ComponentPackage.ITEM_TYPE__NAME:
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
@@ -492,7 +526,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (fIELD: ");
-        result.append(fIELD);
+        if (fIELDESet) result.append(fIELD); else result.append("<unset>");
         result.append(", nAME: ");
         result.append(nAME);
         result.append(", nOTSHOWIF: ");

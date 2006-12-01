@@ -114,6 +114,12 @@ public class ComponentSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ComponentPackage.COLUMN_TYPE: {
+                COLUMNType columnType = (COLUMNType)theEObject;
+                Object result = caseCOLUMNType(columnType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case ComponentPackage.COMPONENT_TYPE: {
                 COMPONENTType componentType = (COMPONENTType)theEObject;
                 Object result = caseCOMPONENTType(componentType);
@@ -210,6 +216,12 @@ public class ComponentSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ComponentPackage.TABLE_TYPE: {
+                TABLEType tableType = (TABLEType)theEObject;
+                Object result = caseTABLEType(tableType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case ComponentPackage.TEMPLATEPARAM_TYPE: {
                 TEMPLATEPARAMType templateparamType = (TEMPLATEPARAMType)theEObject;
                 Object result = caseTEMPLATEPARAMType(templateparamType);
@@ -244,6 +256,21 @@ public class ComponentSwitch {
      * @generated
      */
     public Object caseCODEGENERATIONType(CODEGENERATIONType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>COLUMN Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>COLUMN Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseCOLUMNType(COLUMNType object) {
         return null;
     }
 
@@ -484,6 +511,21 @@ public class ComponentSwitch {
      * @generated
      */
     public Object caseRETURNType(RETURNType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>TABLE Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>TABLE Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseTABLEType(TABLEType object) {
         return null;
     }
 

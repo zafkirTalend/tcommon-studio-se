@@ -39,6 +39,9 @@ public interface ITEMType extends EObject {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Used for combo box in TABLE field
+     * <!-- end-model-doc -->
      * @return the value of the '<em>ITEMS</em>' containment reference.
      * @see #setITEMS(ITEMSType)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_ITEMS()
@@ -60,6 +63,7 @@ public interface ITEMType extends EObject {
 
     /**
      * Returns the value of the '<em><b>FIELD</b></em>' attribute.
+     * The default value is <code>"TEXT"</code>.
      * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>FIELD</em>' attribute isn't clear,
@@ -67,9 +71,11 @@ public interface ITEMType extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
      * @return the value of the '<em>FIELD</em>' attribute.
+     * @see #isSetFIELD()
+     * @see #unsetFIELD()
      * @see #setFIELD(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_FIELD()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model default="TEXT" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='FIELD' namespace='##targetNamespace'"
      * @generated
      */
@@ -80,10 +86,35 @@ public interface ITEMType extends EObject {
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @param value the new value of the '<em>FIELD</em>' attribute.
+     * @see #isSetFIELD()
+     * @see #unsetFIELD()
      * @see #getFIELD()
      * @generated
      */
 	void setFIELD(String value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetFIELD()
+     * @see #getFIELD()
+     * @see #setFIELD(String)
+     * @generated
+     */
+    void unsetFIELD();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>FIELD</em>' attribute is set.
+     * @see #unsetFIELD()
+     * @see #getFIELD()
+     * @see #setFIELD(String)
+     * @generated
+     */
+    boolean isSetFIELD();
 
     /**
      * Returns the value of the '<em><b>NAME</b></em>' attribute.

@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getDEFAULT <em>DEFAULT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getITEMS <em>ITEMS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getTABLE <em>TABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getNBLINES <em>NBLINES</em>}</li>
@@ -46,6 +47,9 @@ public interface PARAMETERType extends EObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Used for TEXT or CHECK field
+     * <!-- end-model-doc -->
      * @return the value of the '<em>DEFAULT</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_DEFAULT()
      * @model type="org.talend.designer.core.model.utils.emf.component.DEFAULTType" containment="true"
@@ -62,6 +66,9 @@ public interface PARAMETERType extends EObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Used for CLOSED_LIST or TABLE field
+     * <!-- end-model-doc -->
      * @return the value of the '<em>ITEMS</em>' containment reference.
      * @see #setITEMS(ITEMSType)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_ITEMS()
@@ -80,6 +87,32 @@ public interface PARAMETERType extends EObject {
      * @generated
      */
     void setITEMS(ITEMSType value);
+
+    /**
+     * Returns the value of the '<em><b>TABLE</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Used only for SCHEMA_TYPE field 
+     * <!-- end-model-doc -->
+     * @return the value of the '<em>TABLE</em>' containment reference.
+     * @see #setTABLE(TABLEType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_TABLE()
+     * @model containment="true"
+     *        extendedMetaData="kind='element' name='TABLE' namespace='##targetNamespace'"
+     * @generated
+     */
+    TABLEType getTABLE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getTABLE <em>TABLE</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>TABLE</em>' containment reference.
+     * @see #getTABLE()
+     * @generated
+     */
+    void setTABLE(TABLEType value);
 
     /**
      * Returns the value of the '<em><b>FIELD</b></em>' attribute.

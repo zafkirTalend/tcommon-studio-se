@@ -22,6 +22,8 @@ import org.talend.designer.core.model.utils.emf.component.DEFAULTType;
 import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
 
+import org.talend.designer.core.model.utils.emf.component.TABLEType;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>PARAMETER Type</b></em>'.
@@ -31,6 +33,7 @@ import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getDEFAULT <em>DEFAULT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getITEMS <em>ITEMS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getTABLE <em>TABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNBLINES <em>NBLINES</em>}</li>
@@ -66,6 +69,16 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @ordered
      */
     protected ITEMSType iTEMS = null;
+
+    /**
+     * The cached value of the '{@link #getTABLE() <em>TABLE</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTABLE()
+     * @generated
+     * @ordered
+     */
+    protected TABLEType tABLE = null;
 
     /**
      * The default value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
@@ -383,6 +396,49 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         }
         else if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__ITEMS, newITEMS, newITEMS));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TABLEType getTABLE() {
+        return tABLE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetTABLE(TABLEType newTABLE, NotificationChain msgs) {
+        TABLEType oldTABLE = tABLE;
+        tABLE = newTABLE;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__TABLE, oldTABLE, newTABLE);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTABLE(TABLEType newTABLE) {
+        if (newTABLE != tABLE) {
+            NotificationChain msgs = null;
+            if (tABLE != null)
+                msgs = ((InternalEObject)tABLE).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.PARAMETER_TYPE__TABLE, null, msgs);
+            if (newTABLE != null)
+                msgs = ((InternalEObject)newTABLE).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.PARAMETER_TYPE__TABLE, null, msgs);
+            msgs = basicSetTABLE(newTABLE, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__TABLE, newTABLE, newTABLE));
     }
 
     /**
@@ -731,6 +787,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return ((InternalEList)getDEFAULT()).basicRemove(otherEnd, msgs);
             case ComponentPackage.PARAMETER_TYPE__ITEMS:
                 return basicSetITEMS(null, msgs);
+            case ComponentPackage.PARAMETER_TYPE__TABLE:
+                return basicSetTABLE(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -746,6 +804,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return getDEFAULT();
             case ComponentPackage.PARAMETER_TYPE__ITEMS:
                 return getITEMS();
+            case ComponentPackage.PARAMETER_TYPE__TABLE:
+                return getTABLE();
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 return getFIELD();
             case ComponentPackage.PARAMETER_TYPE__NAME:
@@ -784,6 +844,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return;
             case ComponentPackage.PARAMETER_TYPE__ITEMS:
                 setITEMS((ITEMSType)newValue);
+                return;
+            case ComponentPackage.PARAMETER_TYPE__TABLE:
+                setTABLE((TABLEType)newValue);
                 return;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 setFIELD((String)newValue);
@@ -832,6 +895,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__ITEMS:
                 setITEMS((ITEMSType)null);
                 return;
+            case ComponentPackage.PARAMETER_TYPE__TABLE:
+                setTABLE((TABLEType)null);
+                return;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 setFIELD(FIELD_EDEFAULT);
                 return;
@@ -877,6 +943,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return dEFAULT != null && !dEFAULT.isEmpty();
             case ComponentPackage.PARAMETER_TYPE__ITEMS:
                 return iTEMS != null;
+            case ComponentPackage.PARAMETER_TYPE__TABLE:
+                return tABLE != null;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 return FIELD_EDEFAULT == null ? fIELD != null : !FIELD_EDEFAULT.equals(fIELD);
             case ComponentPackage.PARAMETER_TYPE__NAME:
