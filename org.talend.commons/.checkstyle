@@ -4,4 +4,7 @@
     <fileset name="tous" enabled="true" check-config-name="Talend Checks" local="false">
         <file-match-pattern match-pattern="." include-pattern="true"/>
     </fileset>
+    <filter name="FilesFromPackage" enabled="true">
+        <filter-data value="src/main/java/org/talend/commons/ui/swt/formtools"/>
+    </filter>
 </fileset-config>
