@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.ui;
+package org.talend.core.ui.images;
 
 import java.util.Arrays;
 import java.util.HashMap;

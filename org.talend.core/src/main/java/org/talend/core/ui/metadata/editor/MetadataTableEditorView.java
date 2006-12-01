@@ -43,8 +43,8 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
-import org.talend.core.ui.EImage;
-import org.talend.core.ui.ImageProvider;
+import org.talend.core.ui.images.EImage;
+import org.talend.core.ui.images.ImageProvider;
 
 /**
  * MetadataTableEditorView2 must be used.
@@ -196,7 +196,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
         });
         final Image imageKey = ImageProvider.getImage(EImage.KEY_ICON);
-        final Image imageEmpty = org.talend.core.ui.ImageProvider.getImage(EImage.EMPTY);
+        final Image imageEmpty = org.talend.core.ui.images.ImageProvider.getImage(EImage.EMPTY);
         column.setImageProvider(new IColumnImageProvider() {
 
             public Image getImage(Object element) {

@@ -21,7 +21,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.talend.core.ui.EImage;
+import org.talend.core.ui.images.EImage;
 
 /**
  * This is the item provider adapter for a {@link org.talend.designer.business.model.business.FilePositionalMetadata} object.
