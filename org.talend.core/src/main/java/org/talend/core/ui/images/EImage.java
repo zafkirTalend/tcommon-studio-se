@@ -28,7 +28,7 @@ package org.talend.core.ui.images;
  * $Id: ImageProvider.java 418 2006-11-13 16:01:26 +0000 (lun., 13 nov. 2006) cantoine $
  * 
  */
-public enum EImage {
+public enum EImage implements IImage {
     DEFAULT_IMAGE,
     EMPTY("/icons/empty.gif"),
 
@@ -101,11 +101,16 @@ public enum EImage {
     MODULE_WARNING_ICON("/icons/warning.gif"),
     MODULE_UNKNOWN_ICON("/icons/unknown.gif"),
     MODULE_REQUIRED_ICON("/icons/checked.gif"),
-    MODULE_NOTREQUIRED_ICON("/icons/empty.gif");
+    MODULE_NOTREQUIRED_ICON("/icons/empty.gif"),
+
+    LOCKED_USER_OVERLAY("/icons/locked_green_overlay.gif"),
+    LOCKED_OTHER_OVERLAY("/icons/locked_red_overlay.gif"),
+    NEW_OVERLAY("/icons/new_overlay.gif");
 
     private String path;
 
     EImage() {
+        this.path = "/icons/unknown.gif";
     }
 
     EImage(String path) {

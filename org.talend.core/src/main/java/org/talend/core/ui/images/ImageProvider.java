@@ -27,8 +27,6 @@ import java.util.Map;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.PlatformUI;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.ERepositoryObjectType;
 
@@ -48,7 +46,7 @@ public class ImageProvider {
 
     private static Map<String, Image> cacheImages = new HashMap<String, Image>();
 
-    public static Image getImage(EImage image) {
+    public static Image getImage(IImage image) {
         Image toReturn = cacheImages.get(image.getPath());
         if (toReturn == null) {
             ImageDescriptor desc = getImageDesc(image);
@@ -58,18 +56,13 @@ public class ImageProvider {
         return toReturn;
     }
 
-    public static ImageDescriptor getImageDesc(EImage image) {
-        switch (image) {
-        case DEFAULT_IMAGE:
-            return PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_OBJ_ELEMENT);
-        default:
-            ImageDescriptor toReturn = cacheDescriptors.get(image.getPath());
-            if (toReturn == null) {
-                toReturn = ImageDescriptor.createFromFile(CorePlugin.class, image.getPath());
-                cacheDescriptors.put(image.getPath(), toReturn);
-            }
-            return toReturn;
+    public static ImageDescriptor getImageDesc(IImage image) {
+        ImageDescriptor toReturn = cacheDescriptors.get(image.getPath());
+        if (toReturn == null) {
+            toReturn = ImageDescriptor.createFromFile(CorePlugin.class, image.getPath());
+            cacheDescriptors.put(image.getPath(), toReturn);
         }
+        return toReturn;
     }
 
     public static String getImageCache() {
@@ -88,7 +81,7 @@ public class ImageProvider {
         return getImageDesc(getIcon(type));
     }
 
-    private static EImage getIcon(ERepositoryObjectType type) {
+    private static IImage getIcon(ERepositoryObjectType type) {
         switch (type) {
         case BUSINESS_PROCESS:
             return EImage.BUSINESS_PROCESS_ICON;
