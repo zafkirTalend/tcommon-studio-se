@@ -38,7 +38,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.ui.command.CommandStackHandlerForComposite;
+import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -112,7 +112,7 @@ public class MetadataDialog extends Dialog {
     @Override
     protected void configureShell(final Shell newShell) {
         super.configureShell(newShell);
-        this.commandStack = new CommandStackHandlerForComposite(newShell);
+        this.commandStack = new CommandStackForComposite(newShell);
         newShell.setSize(size);
         newShell.setText(text);
     }

@@ -41,6 +41,7 @@ import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
+import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
@@ -119,6 +120,16 @@ public class MetadataEmfTableEditorView extends AbstractDataTableEditorView<Meta
     protected AbstractExtendedToolbar initToolBar() {
         return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer());
     }
+
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView#setTableViewerCreatorOptions(org.talend.commons.ui.swt.tableviewer.TableViewerCreator)
+     */
+    @Override
+    protected void setTableViewerCreatorOptions(TableViewerCreator<MetadataColumn> newTableViewerCreator) {
+        super.setTableViewerCreatorOptions(newTableViewerCreator);
+        newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
+    }
+
 
     /*
      * (non-Javadoc)

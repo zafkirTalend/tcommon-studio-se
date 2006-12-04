@@ -36,7 +36,7 @@ import org.eclipse.swt.widgets.Widget;
  * $Id$
  * 
  */
-public class CommandStackHandlerForComposite extends CommandStack {
+public class CommandStackForComposite extends CommandStack {
 
     private Control refComposite;
 
@@ -51,7 +51,7 @@ public class CommandStackHandlerForComposite extends CommandStack {
     /**
      * DOC amaumont IndependantCommandStackHandler constructor comment.
      */
-    public CommandStackHandlerForComposite(Composite refComposite) {
+    public CommandStackForComposite(Composite refComposite) {
         super();
         this.refComposite = refComposite;
         refControlIsShell = refComposite instanceof Shell;
@@ -66,9 +66,7 @@ public class CommandStackHandlerForComposite extends CommandStack {
                 Widget widget = event.widget;
                 if (widget instanceof Control) {
                     Control control = (Control) widget;
-                    if (refControlIsShell && control.getShell() == refComposite
-                            || !refControlIsShell && refControlIsParentOf(control) 
-                    ) {
+                    if (refControlIsShell && control.getShell() == refComposite || !refControlIsShell && refControlIsParentOf(control)) {
                         keyPressedExecute(event);
                     }
                 }
@@ -80,20 +78,21 @@ public class CommandStackHandlerForComposite extends CommandStack {
 
     /**
      * DOC amaumont Comment method "refControlIsParentOf".
+     * 
      * @param control
      * @return
      */
     protected boolean refControlIsParentOf(Control control) {
 
-        while(true) {
+        while (true) {
             Composite parentComposite = control.getParent();
-            if(parentComposite == refComposite) {
+            if (parentComposite == refComposite) {
                 return true;
-            } else if(parentComposite == null) {
+            } else if (parentComposite == null) {
                 return false;
             }
         }
-        
+
     }
 
     /**

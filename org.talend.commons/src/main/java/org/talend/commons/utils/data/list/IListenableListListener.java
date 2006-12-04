@@ -26,9 +26,10 @@ package org.talend.commons.utils.data.list;
  * 
  * $Id$
  * 
+ * @param <B>
  */
-public interface IListenableListListener {
+public interface IListenableListListener<B> {
 
-    public void handleEvent(ListenableListEvent event);
+    public void handleEvent(ListenableListEvent<B> event);
 
 }

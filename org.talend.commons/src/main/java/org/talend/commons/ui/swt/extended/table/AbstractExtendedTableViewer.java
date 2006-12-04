@@ -26,12 +26,19 @@ import java.util.List;
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
+import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
+import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
+import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
 import org.talend.commons.utils.data.list.IListenableListListener;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
@@ -47,6 +54,10 @@ import org.talend.commons.utils.threading.AsynchronousThreading;
 public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedControlViewer {
 
     protected TableViewerCreator<B> tableViewerCreator;
+
+    private boolean executeSelectionEvent = true;
+
+    protected boolean forceExecuteSelectionEvent;
 
     /**
      * DOC amaumont AbstractMacroTableView constructor comment.
@@ -75,6 +86,14 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         this.tableViewerCreator = createTable(getParentComposite());
         createColumns(this.tableViewerCreator, this.tableViewerCreator.getTable());
         loadTable();
+        initTableListeners();
+    }
+
+    /**
+     * DOC amaumont Comment method "initViewTableListeners".
+     */
+    private void initTableListeners() {
+        initLineSelectionListeners();
     }
 
     /**
@@ -108,6 +127,57 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
     }
 
     /**
+     * DOC amaumont Comment method "initLineSelectionListeners".
+     * 
+     * @return
+     */
+    protected void initLineSelectionListeners() {
+        final SelectionHelper selectionHelper = getTableViewerCreator().getSelectionHelper();
+        final Table table = getTableViewerCreator().getTable();
+        final ILineSelectionListener beforeLineSelectionListener = new ILineSelectionListener() {
+
+            public void handle(LineSelectionEvent e) {
+                if (e.selectionByMethod && !selectionHelper.isMouseSelectionning() && !forceExecuteSelectionEvent) {
+                    executeSelectionEvent = false;
+                } else {
+                    executeSelectionEvent = true;
+                }
+            }
+        };
+        final ILineSelectionListener afterLineSelectionListener = new ILineSelectionListener() {
+
+            public void handle(LineSelectionEvent e) {
+                executeSelectionEvent = true;
+            }
+        };
+        selectionHelper.addBeforeSelectionListener(beforeLineSelectionListener);
+        selectionHelper.addAfterSelectionListener(afterLineSelectionListener);
+
+        DisposeListener disposeListener = new DisposeListener() {
+
+            public void widgetDisposed(DisposeEvent e) {
+                selectionHelper.removeBeforeSelectionListener(beforeLineSelectionListener);
+                selectionHelper.removeAfterSelectionListener(afterLineSelectionListener);
+                table.removeDisposeListener(this);
+            }
+        };
+        table.addDisposeListener(disposeListener);
+
+        table.addListener(SWT.KeyDown, new Listener() {
+
+            public void handleEvent(Event event) {
+                if (event.character == '\u0001') { // CTRL + A
+                    forceExecuteSelectionEvent = true;
+                    selectionHelper.selectAll();
+                    forceExecuteSelectionEvent = false;
+                }
+            }
+
+        });
+    }
+
+
+    /**
      * .
      * 
      * @param newTableViewerCreator
@@ -117,6 +187,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         newTableViewerCreator.setAllColumnsResizable(true);
         newTableViewerCreator.setBorderVisible(true);
         newTableViewerCreator.setFirstColumnMasked(true);
+//        newTableViewerCreator.setUseCustomItemColoring(true);
         newTableViewerCreator.setFirstVisibleColumnIsSelection(false);
         newTableViewerCreator.setCheckboxInFirstColumn(false);
         newTableViewerCreator.setBgColorForEmptyArea(getParentComposite().getDisplay().getSystemColor(SWT.COLOR_WHITE));
@@ -151,9 +222,9 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
         });
 
-        getExtendedTableModel().addAfterListener(100, new IListenableListListener() {
+        getExtendedTableModel().addAfterListener(100, new IListenableListListener<B>() {
 
-            public void handleEvent(ListenableListEvent event) {
+            public void handleEvent(ListenableListEvent<B> event) {
                 if (event.type == TYPE.ADDED) {
                     tableViewerCreator.getTable().forceFocus();
                     if (event.index != null) {
@@ -164,14 +235,29 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
                     }
                 } else if (event.type == TYPE.REMOVED) {
-                    tableViewerCreator.getTable().deselectAll();
+                    if (event.index != null || event.indicesOrigin != null && event.indicesOrigin.size() > 0) {
+                        int index = 0;
+                        if (event.index != null) {
+                            index = event.index;
+                        } else {
+                            index = event.indicesOrigin.get(event.indicesOrigin.size() - 1);
+                        }
+                        int itemCount = tableViewerCreator.getTable().getItemCount();
+                        if (index >= itemCount) {
+                            index = itemCount - 1;
+                        }
+                        tableViewerCreator.getSelectionHelper().setSelection(index, index);
+                    } else {
+                        tableViewerCreator.getTable().deselectAll();
+                    }
+
                 } else if (event.type == TYPE.SWAPED) {
                     if (event.indicesTarget != null) {
                         int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
                         tableViewerCreator.getSelectionHelper().setSelection(selection);
                     }
                 }
-                
+
             }
 
         });
@@ -214,7 +300,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         } else {
 
             tableViewerCreator.getTableViewer().refresh();
-            
+
         }
     }
 
@@ -270,5 +356,26 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
             tableViewerCreator.setCommandStack(commandStack);
         }
     }
+
+    /**
+     * DOC amaumont Comment method "setTableSelection".
+     * 
+     * @param selectionIndices
+     */
+    public void setTableSelection(int[] selectionIndices, boolean executeSelectionEvent) {
+        this.executeSelectionEvent = executeSelectionEvent;
+        getTableViewerCreator().getTable().setSelection(selectionIndices);
+        this.executeSelectionEvent = true;
+
+    }
+
+    public boolean isExecuteSelectionEvent() {
+        return this.executeSelectionEvent;
+    }
+
+    public void setExecuteSelectionEvent(boolean executeSelectionEvent) {
+        this.executeSelectionEvent = executeSelectionEvent;
+    }
+
 
 }

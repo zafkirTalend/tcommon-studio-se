@@ -24,22 +24,15 @@ package org.talend.commons.ui.swt.advanced.dataeditor;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
-import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
-import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
-import org.talend.commons.ui.swt.tableviewer.selection.SelectionHelper;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 
 /**
@@ -54,10 +47,6 @@ public abstract class AbstractDataTableEditorView<B> {
     private boolean readOnly;
 
     private Label titleLabel;
-
-    private boolean executeSelectionEvent = true;
-
-    protected boolean forceExecuteSelectionEvent;
 
     private Composite mainComposite;
 
@@ -161,7 +150,7 @@ public abstract class AbstractDataTableEditorView<B> {
         initTable();
 
         this.extendedTableViewer.getTableViewerCreator().getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
-        
+
         if (toolbarVisible) {
             this.abstractExtendedToolbar = initToolBar();
         }
@@ -248,84 +237,13 @@ public abstract class AbstractDataTableEditorView<B> {
      */
     protected void setTableViewerCreatorOptions(TableViewerCreator<B> newTableViewerCreator) {
         // newTableViewerCreator.setUseCustomItemColoring(true);
-        newTableViewerCreator.setFirstVisibleColumnIsSelection(false);
+//        newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
     }
 
     /**
      * DOC amaumont Comment method "addListeners".
      */
     protected void addListeners() {
-        initLineSelectionListeners();
-    }
-
-    /**
-     * DOC amaumont Comment method "initLineSelectionListeners".
-     * 
-     * @return
-     */
-    protected void initLineSelectionListeners() {
-        final SelectionHelper selectionHelper = getTableViewerCreator().getSelectionHelper();
-        final Table table = getTableViewerCreator().getTable();
-        final ILineSelectionListener beforeLineSelectionListener = new ILineSelectionListener() {
-
-            public void handle(LineSelectionEvent e) {
-                if (e.selectionByMethod && !selectionHelper.isMouseSelectionning() && !forceExecuteSelectionEvent) {
-                    executeSelectionEvent = false;
-                } else {
-                    executeSelectionEvent = true;
-                }
-            }
-        };
-        final ILineSelectionListener afterLineSelectionListener = new ILineSelectionListener() {
-
-            public void handle(LineSelectionEvent e) {
-                executeSelectionEvent = true;
-            }
-        };
-        selectionHelper.addBeforeSelectionListener(beforeLineSelectionListener);
-        selectionHelper.addAfterSelectionListener(afterLineSelectionListener);
-
-        DisposeListener disposeListener = new DisposeListener() {
-
-            public void widgetDisposed(DisposeEvent e) {
-                selectionHelper.removeBeforeSelectionListener(beforeLineSelectionListener);
-                selectionHelper.removeAfterSelectionListener(afterLineSelectionListener);
-                table.removeDisposeListener(this);
-            }
-        };
-        table.addDisposeListener(disposeListener);
-
-        table.addListener(SWT.KeyDown, new Listener() {
-
-            public void handleEvent(Event event) {
-                if (event.character == '\u0001') { // CTRL + A
-                    forceExecuteSelectionEvent = true;
-                    selectionHelper.selectAll();
-                    forceExecuteSelectionEvent = false;
-                }
-            }
-
-        });
-    }
-
-    /**
-     * DOC amaumont Comment method "setTableSelection".
-     * 
-     * @param selectionIndices
-     */
-    public void setTableSelection(int[] selectionIndices, boolean executeSelectionEvent) {
-        this.executeSelectionEvent = executeSelectionEvent;
-        getTableViewerCreator().getTable().setSelection(selectionIndices);
-        this.executeSelectionEvent = true;
-
-    }
-
-    public boolean isExecuteSelectionEvent() {
-        return this.executeSelectionEvent;
-    }
-
-    public void setExecuteSelectionEvent(boolean executeSelectionEvent) {
-        this.executeSelectionEvent = executeSelectionEvent;
     }
 
     /**
@@ -386,7 +304,13 @@ public abstract class AbstractDataTableEditorView<B> {
      * @return the extendedTableModel
      */
     public ExtendedTableModel<B> getExtendedTableModel() {
-        return extendedTableModel;
+        if (extendedTableModel != null) {
+            return extendedTableModel;
+        }
+        if (extendedTableViewer != null && extendedTableViewer.getExtendedTableModel() != null) {
+            return extendedTableViewer.getExtendedTableModel();
+        }
+        return null;
     }
 
     /**

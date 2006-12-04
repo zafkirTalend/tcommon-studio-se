@@ -30,6 +30,9 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
+import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 
 /**
@@ -80,7 +83,9 @@ public class CheckboxTableEditorContent extends TableEditorContent {
          * 
          */
 
-        Button check = new Button(table, SWT.CHECK);
+        final TableViewerCreator<Object> tableViewerCreator = currentColumn.getTableViewerCreator();
+
+        final Button check = new Button(table, SWT.CHECK);
         check.setEnabled(!this.readOnly);
         check.setText("");
         check.setBackground(table.getBackground());
@@ -92,13 +97,28 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
             @SuppressWarnings("unchecked")
             public void widgetSelected(SelectionEvent e) {
-                currentColumn.getTableViewerCreator().setBeanValue(currentColumn, currentRowObject,
-                        ((Button) e.getSource()).getSelection() ? CHECKED : UNCHECKED, true);
-                currentColumn.getTableViewerCreator().getTableViewer().setSelection(new StructuredSelection(currentRowObject));
+                tableViewerCreator.setBeanValue(currentColumn, currentRowObject, ((Button) e.getSource()).getSelection() ? CHECKED
+                        : UNCHECKED, true);
+                tableViewerCreator.getTableViewer().setSelection(new StructuredSelection(currentRowObject));
             }
 
         });
         Point size = check.computeSize(SWT.DEFAULT, table.getItemHeight());
+
+        tableViewerCreator.addModifiedBeanListener(new IModifiedBeanListener<Object>() {
+
+            public void handleEvent(ModifiedBeanEvent<Object> event) {
+                if (check.isDisposed()) {
+                    tableViewerCreator.removeModifiedBeanListener(this);
+                    return;
+                }
+                Object beanValue = tableViewerCreator.getBeanValue(currentColumn, currentRowObject);
+                if (beanValue instanceof Boolean) {
+                    check.setSelection(((Boolean) beanValue).booleanValue());
+                }
+            }
+
+        });
 
         // Set attributes of the editor
         tableEditor.horizontalAlignment = SWT.CENTER;

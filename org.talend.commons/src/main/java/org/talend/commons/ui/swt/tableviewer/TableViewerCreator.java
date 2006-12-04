@@ -404,9 +404,9 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
              */
             @Override
             public void remove(Object[] elements) {
-                removeEraseListener();
+                // removeEraseListener();
                 super.remove(elements);
-                addEraseListener();
+                // addEraseItemListener();
                 refreshTableEditorControls();
             }
 
@@ -587,6 +587,10 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     protected void addListeners() {
 
+        if (useCustomItemColoring) {
+            addEraseItemListener();
+        }
+
         // table.addControlListener(new ControlListener() {
         //
         // public void controlMoved(ControlEvent e) {
@@ -616,7 +620,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      * {@link TableViewer#refresh()} or {@link TableViewer#refresh(boolean)} are called and possibly others...
      * 
      */
-    protected void addEraseItemListener() {
+    protected void createEraseItemListener() {
 
         if (eraseItemListener != null) {
             return;
@@ -722,7 +726,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             }
 
         };
-        addEraseItemListener();
 
     }
 
@@ -1448,7 +1451,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             this.useCustomItemColoring = useCustomColoring;
             if (table != null) {
                 if (useCustomColoring) {
-                    addEraseItemListener();
+                    createEraseItemListener();
                 } else {
                     removeEraseItemListener();
                 }
@@ -1570,7 +1573,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      * @param beanPropertyAccessors
      * @param b
      */
-    public void setBeanValue(TableViewerCreatorColumn column, Object currentRowObject, Object value, boolean useCommand) {
+    public void setBeanValue(TableViewerCreatorColumn column, B currentRowObject, Object value, boolean useCommand) {
         boolean listened = modifiedBeanListeners.size() != 0;
 
         Object previousValue = null;
@@ -1595,12 +1598,16 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
     }
 
-    public void addModifiedBeanListener(IModifiedBeanListener<B> listenableListListener) {
-        this.modifiedBeanListeners.add(listenableListListener);
+    public B getBeanValue(TableViewerCreatorColumn column, Object currentRowObject) {
+        return (B) AccessorUtils.get(currentRowObject, column);
     }
 
-    public void removeModifiedBeanListener(IModifiedBeanListener<B> listenableListListener) {
-        this.modifiedBeanListeners.remove(listenableListListener);
+    public void addModifiedBeanListener(IModifiedBeanListener<B> modifiedBeanListener) {
+        this.modifiedBeanListeners.add(modifiedBeanListener);
+    }
+
+    public void removeModifiedBeanListener(IModifiedBeanListener<B> modifiedBeanListener) {
+        this.modifiedBeanListeners.remove(modifiedBeanListener);
     }
 
     protected void fireModifiedBeanEvent(ModifiedBeanEvent<B> event) {
@@ -1632,7 +1639,10 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     /**
      * DOC amaumont Comment method "addEraseListener".
      */
-    private void addEraseListener() {
+    private void addEraseItemListener() {
+        if (useCustomItemColoring) {
+            createEraseItemListener();
+        }
         if (eraseItemListener != null) {
             table.addListener(SWT.EraseItem, eraseItemListener);
         }

@@ -340,7 +340,7 @@ public class ListenableList<T> implements List<T> {
         if (afterListeners.size() != 0) {
             List<T> currentList = new ArrayList<T>(1);
             currentList.add((T) removedObject);
-            fireRemovedEvent(index, currentList, false);
+            fireRemovedEvent(index, currentList, null, false);
         }
     }
 
@@ -349,7 +349,7 @@ public class ListenableList<T> implements List<T> {
             T removingObject = this.list.get(index);
             List<T> currentList = new ArrayList<T>(1);
             currentList.add((T) removingObject);
-            fireRemovedEvent(index, currentList, true);
+            fireRemovedEvent(index, currentList, null, true);
         }
     }
 
@@ -360,12 +360,33 @@ public class ListenableList<T> implements List<T> {
      */
     @SuppressWarnings("unchecked")
     public boolean removeAll(Collection<?> c) {
-        fireRemovedEvent(null, new ArrayList(c), true);
+
+        List<Integer> indices = getIndices(c);
+
+        fireRemovedEvent(null, new ArrayList(c), indices, true);
         boolean returnValue = this.list.removeAll(c);
         if (returnValue) {
-            fireRemovedEvent(null, new ArrayList(c), false);
+            fireRemovedEvent(null, new ArrayList(c), indices, false);
         }
         return returnValue;
+    }
+
+    /**
+     * DOC amaumont Comment method "getIndices".
+     * 
+     * @param c
+     */
+    private List<Integer> getIndices(Collection<?> c) {
+        List<Integer> indices = new ArrayList<Integer>(c.size());
+        for (Object bean : c) {
+            int i = this.list.indexOf(bean);
+            if (i != -1) {
+                indices.add(i);
+            } else {
+                indices.add(null);
+            }
+        }
+        return indices;
     }
 
     /*
@@ -386,7 +407,7 @@ public class ListenableList<T> implements List<T> {
                     removedObjects.add(removedObject);
                 }
             }
-            fireRemovedEvent(null, removedObjects, false);
+            fireRemovedEvent(null, removedObjects, null, false);
         }
         return isListChanged;
     }
@@ -523,10 +544,11 @@ public class ListenableList<T> implements List<T> {
      * @param removedObject
      * @param addedObjects
      */
-    public void fireRemovedEvent(Integer index, List<T> removedObjects, boolean before) {
+    public void fireRemovedEvent(Integer index, List<T> removedObjects, List<Integer> indices, boolean before) {
         ListenableListEvent<T> event = new ListenableListEvent<T>();
         event.type = TYPE.REMOVED;
         event.index = index;
+        event.indicesOrigin = indices;
         event.removedObjects = removedObjects;
         event.source = this;
         event.beforeOperation = before;
