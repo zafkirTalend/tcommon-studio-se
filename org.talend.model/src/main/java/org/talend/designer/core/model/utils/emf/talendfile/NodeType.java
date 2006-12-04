@@ -82,6 +82,7 @@ public interface NodeType extends EObject {
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_BinaryData()
      * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.Base64Binary"
      *        extendedMetaData="kind='element' name='BinaryData' namespace='##targetNamespace'"
+     *        annotation="teneo.jpa appinfo='@Lob\n@Column(length=100000000)'"
      * @generated
      */
     byte[] getBinaryData();

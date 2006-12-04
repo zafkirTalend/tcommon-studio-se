@@ -527,6 +527,9 @@
         <details key="name" value="BinaryData"/>
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
+      <eAnnotations source="teneo.jpa">
+        <details key="appinfo" value="@Lob&#xA;@Column(length=100000000)"/>
+      </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="stringData" unique="false"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String">
