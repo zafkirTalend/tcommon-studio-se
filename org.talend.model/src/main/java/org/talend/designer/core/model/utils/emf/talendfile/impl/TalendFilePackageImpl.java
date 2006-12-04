@@ -1276,8 +1276,6 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         // Create annotations
         // http:///org/eclipse/emf/ecore/util/ExtendedMetaData
         createExtendedMetaDataAnnotations();
-        // teneo.jpa
-        createTeneoAnnotations();
     }
 
     /**
@@ -1829,7 +1827,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "kind", "element",
              "name", "BinaryData",
              "namespace", "##targetNamespace"
-           });			
+           });		
         addAnnotation
           (getNodeType_StringData(), 
            source, 
@@ -1989,22 +1987,6 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "name", "version",
              "namespace", "##targetNamespace"
            });
-    }
-
-    /**
-     * Initializes the annotations for <b>teneo.jpa</b>.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    protected void createTeneoAnnotations() {
-        String source = "teneo.jpa";																																																																								
-        addAnnotation
-          (getNodeType_BinaryData(), 
-           source, 
-           new String[] {
-             "appinfo", "@Lob\n@Column(length=100000000)"
-           });																				
     }
 
 } //TalendFilePackageImpl

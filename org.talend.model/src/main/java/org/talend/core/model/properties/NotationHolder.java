@@ -35,7 +35,7 @@ public interface NotationHolder extends EObject {
      * @return the value of the '<em>Notation String</em>' attribute.
      * @see #setNotationString(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getNotationHolder_NotationString()
-     * @model annotation="teneo.jpa appinfo='@Column(length=1048576)'"
+     * @model
      * @generated
      */
     String getNotationString();

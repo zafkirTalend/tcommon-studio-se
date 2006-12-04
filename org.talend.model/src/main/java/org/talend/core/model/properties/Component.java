@@ -301,7 +301,7 @@ public interface Component extends EObject {
      * @return the value of the '<em>File Descriptor</em>' attribute.
      * @see #setFileDescriptor(byte[])
      * @see org.talend.core.model.properties.PropertiesPackage#getComponent_FileDescriptor()
-     * @model annotation="teneo.jpa appinfo='@Lob\n@Column(length=100000000)'"
+     * @model
      * @generated
      */
     byte[] getFileDescriptor();

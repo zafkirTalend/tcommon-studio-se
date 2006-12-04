@@ -3391,7 +3391,7 @@ public interface PropertiesPackage extends EPackage {
          */
         EEnum USER_PROJECT_AUTHORIZATION_TYPE = eINSTANCE.getUserProjectAuthorizationType();
 
-            /**
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.UserRoleImpl <em>User Role</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.properties.impl.UserRoleImpl
