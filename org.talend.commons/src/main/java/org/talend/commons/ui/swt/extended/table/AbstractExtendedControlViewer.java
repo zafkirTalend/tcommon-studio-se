@@ -21,23 +21,24 @@
 // ============================================================================
 package org.talend.commons.ui.swt.extended.table;
 
+import org.eclipse.gef.commands.Command;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.command.ICommonCommand;
-
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class AbstractExtendedControlViewer {
 
     private AbstractExtendedControlModel extendedControlModel;
 
     private Composite parentComposite;
-    
+
+    private CommandStack commandStack;
+
     /**
      * DOC amaumont AbstractExtendedControlViewer constructor comment.
      */
@@ -46,9 +47,9 @@ public abstract class AbstractExtendedControlViewer {
         this.parentComposite = parentComposite;
     }
 
-
     /**
      * DOC amaumont AbstractExtendedControlViewer constructor comment.
+     * 
      * @param extendedControl
      * @param parentComposite
      */
@@ -58,35 +59,32 @@ public abstract class AbstractExtendedControlViewer {
         this.parentComposite = parentComposite;
     }
 
-
     /**
      * DOC amaumont Comment method "executeCommand".
+     * 
      * @param command
      */
-    public void executeCommand(ICommonCommand command) {
-//        IEditorPart activeEditor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
-//        Object adapter = activeEditor.getAdapter(CommandStack.class);
-//        CommandStack commandStack = (CommandStack) adapter;
-//        commandStack.execute(command);
-        
-        command.execute();
+    public void executeCommand(Command command) {
+        if (this.commandStack != null) {
+            this.commandStack.execute(command);
+        } else {
+            command.execute();
+        }
+
     }
 
-
-    
-    
     /**
      * Getter for extendedControl.
+     * 
      * @return the extendedControl
      */
     public AbstractExtendedControlModel getExtendedControlModel() {
         return this.extendedControlModel;
     }
 
-
-    
     /**
      * Sets the extendedControl.
+     * 
      * @param extendedControl the extendedControl to set
      */
     public void setExtendedControlModel(AbstractExtendedControlModel extendedControl) {
@@ -95,23 +93,38 @@ public abstract class AbstractExtendedControlViewer {
         modelChanged(previousModel, extendedControl);
     }
 
-
-    
     /**
      * DOC amaumont Comment method "modelChanged".
      */
     protected abstract void modelChanged(AbstractExtendedControlModel previousModel, AbstractExtendedControlModel newModel);
 
-
     /**
      * Getter for parentComposite.
+     * 
      * @return the parentComposite
      */
     public Composite getParentComposite() {
         return this.parentComposite;
     }
-    
-    
-    
 
+    
+    /**
+     * Getter for commandStackAdapter.
+     * @return the commandStackAdapter
+     */
+    public CommandStack getCommandStack() {
+        return this.commandStack;
+    }
+
+    
+    /**
+     * Sets the commandStackAdapter.
+     * @param commandStack the commandStackAdapter to set
+     */
+    public void setCommandStack(CommandStack commandStack) {
+        this.commandStack = commandStack;
+    }
+
+    
+    
 }

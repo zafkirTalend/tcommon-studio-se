@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.util.Assert;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLayoutData;
@@ -53,6 +54,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.talend.commons.ui.swt.extended.table.ModifyBeanValueCommand;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultHeaderColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultStructuredContentProvider;
@@ -68,9 +70,6 @@ import org.talend.commons.ui.swt.tableviewer.sort.TableViewerCreatorSorter;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.ui.utils.TableUtils;
 import org.talend.commons.ui.ws.WindowSystem;
-import org.talend.commons.utils.data.list.IListenableListListener;
-import org.talend.commons.utils.data.list.ListenableList;
-import org.talend.commons.utils.data.list.ListenableListEvent;
 import org.talend.commons.utils.threading.AsynchronousThreading;
 
 /**
@@ -161,6 +160,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      * The list of listeners who wish to be notified when something significant happens with the proposals.
      */
     private ListenerList modifiedBeanListeners = new ListenerList();
+
+    private CommandStack commandStack;
 
     /**
      * 
@@ -429,11 +430,11 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             public void refresh() {
                 boolean itemHasBeenRemoved = getInputList() != null && getInputList().size() < table.getItemCount();
                 if (itemHasBeenRemoved) {
-//                    table.removeListener(SWT.EraseItem, eraseItemListener);
+                    // table.removeListener(SWT.EraseItem, eraseItemListener);
                 }
                 super.refresh();
                 if (itemHasBeenRemoved) {
-//                    table.addListener(SWT.EraseItem, eraseItemListener);
+                    // table.addListener(SWT.EraseItem, eraseItemListener);
                 }
                 refreshTableEditorControls();
             }
@@ -447,11 +448,11 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             public void refresh(boolean updateLabels) {
                 boolean itemHasBeenRemoved = getInputList() != null && getInputList().size() < table.getItemCount();
                 if (itemHasBeenRemoved) {
-//                    table.removeListener(SWT.EraseItem, eraseItemListener);
+                    // table.removeListener(SWT.EraseItem, eraseItemListener);
                 }
                 super.refresh(updateLabels);
                 if (itemHasBeenRemoved) {
-//                    table.addListener(SWT.EraseItem, eraseItemListener);
+                    // table.addListener(SWT.EraseItem, eraseItemListener);
                 }
                 refreshTableEditorControls();
             }
@@ -464,7 +465,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             @Override
             public void refresh(Object element, boolean updateLabels) {
                 super.refresh(element, updateLabels);
-//                refreshTableEditorControls();
+                // refreshTableEditorControls();
                 // refreshTableEditorControls();
             }
 
@@ -484,8 +485,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 // }
                 // refreshTableEditorControls();
             }
-            
-            
 
         };
         setTablePreferences();
@@ -627,11 +626,11 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
             public void handleEvent(Event event) {
 
-//                 System.out.println(event);
-//                if(true) {
-//                    return;
-//                }
-                
+                // System.out.println(event);
+                // if(true) {
+                // return;
+                // }
+
                 // System.out.println("EraseItem event.detail=" + EventUtil.getEventNameFromDetail(event.detail) +
                 // "event.widget="
                 // + event.widget.hashCode());
@@ -1566,11 +1565,12 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     /**
      * DOC amaumont Comment method "setBeanValue".
      * 
-     * @param beanPropertyAccessors
      * @param currentRowObject
+     * @param useCommand TODO
+     * @param beanPropertyAccessors
      * @param b
      */
-    public void setBeanValue(TableViewerCreatorColumn column, Object currentRowObject, Object value) {
+    public void setBeanValue(TableViewerCreatorColumn column, Object currentRowObject, Object value, boolean useCommand) {
         boolean listened = modifiedBeanListeners.size() != 0;
 
         Object previousValue = null;
@@ -1579,14 +1579,19 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
         AccessorUtils.set(column, currentRowObject, value);
         tableViewer.refresh(currentRowObject);
+
+        ModifiedBeanEvent<B> event = new ModifiedBeanEvent<B>();
+        event.bean = (B) currentRowObject;
+        event.column = column;
+        event.index = getInputList().indexOf(currentRowObject);
+        event.newValue = value;
+        event.previousValue = previousValue;
         if (listened) {
-            ModifiedBeanEvent<B> event = new ModifiedBeanEvent<B>();
-            event.bean = (B) currentRowObject;
-            event.column = column;
-            event.index = getInputList().indexOf(currentRowObject);
-            event.newValue = value;
-            event.previousValue = previousValue;
             fireModifiedBeanEvent(event);
+        }
+        if (useCommand && this.commandStack != null) {
+            ModifyBeanValueCommand<B> modifyBeanValueCommand = new ModifyBeanValueCommand<B>(event);
+            this.commandStack.execute(modifyBeanValueCommand);
         }
     }
 
@@ -1623,7 +1628,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             table.removeListener(SWT.EraseItem, eraseItemListener);
         }
     }
-    
+
     /**
      * DOC amaumont Comment method "addEraseListener".
      */
@@ -1633,5 +1638,22 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
     }
 
+    /**
+     * Getter for commandStackAdapter.
+     * 
+     * @return the commandStackAdapter
+     */
+    public CommandStack getCommandStack() {
+        return this.commandStack;
+    }
+
+    /**
+     * Sets the commandStackAdapter.
+     * 
+     * @param commandStack the commandStackAdapter to set
+     */
+    public void setCommandStack(CommandStack commandStack) {
+        this.commandStack = commandStack;
+    }
 
 }

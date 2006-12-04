@@ -127,7 +127,10 @@ public class TableEditorManager {
      */
     public void redrawControls() {
         for (TableEditor tableEditor : tableEditorList) {
-            tableEditor.getEditor().redraw();
+            Control editor = tableEditor.getEditor();
+            if(editor != null) {
+                editor.redraw();
+            }
         }
 
     }

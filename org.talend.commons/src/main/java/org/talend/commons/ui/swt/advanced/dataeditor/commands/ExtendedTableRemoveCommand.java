@@ -22,8 +22,12 @@
 package org.talend.commons.ui.swt.advanced.dataeditor.commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
 
-import org.talend.commons.ui.command.CommonCommand;
+import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.gef.commands.Command;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 
 /**
@@ -32,7 +36,7 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
  * $Id$
  * 
  */
-public class ExtendedTableRemoveCommand extends CommonCommand {
+public class ExtendedTableRemoveCommand extends Command {
 
     private ExtendedTableModel extendedTable;
 
@@ -43,6 +47,9 @@ public class ExtendedTableRemoveCommand extends CommonCommand {
     private int[] indexItemsToRemove;
 
     private Object beanToRemove;
+
+    private List removedBeans;
+    private List removedBeansIndices;
 
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
@@ -86,19 +93,80 @@ public class ExtendedTableRemoveCommand extends CommonCommand {
     @Override
     public void execute() {
 
+        List beansList = extendedTable.getBeansList();
+        
         if (indexItemToRemove != null) {
-            extendedTable.remove(indexItemToRemove);
+            removedBeans = new ArrayList(1);
+            Object removed = extendedTable.remove((int) indexItemToRemove);
+            removedBeans.add(removedBeans);
+            removedBeansIndices = new ArrayList(1);
+            removedBeansIndices.add(indexItemToRemove);
         }
         if (indexItemsToRemove != null) {
-            extendedTable.remove(indexItemsToRemove);
+            removedBeans = new ArrayList(extendedTable.remove(indexItemsToRemove));
+            removedBeansIndices = Arrays.asList(ArrayUtils.toObject(indexItemsToRemove));
         }
         if (beansToRemove != null) {
-            extendedTable.remove(beansToRemove);
+            
+            int lstSize = beansToRemove.size();
+            removedBeansIndices = new ArrayList();
+            List beansToRemove2 = new ArrayList(beansToRemove); 
+            for (int i = 0; i < lstSize; i++) {
+                int index = beansList.indexOf(beansToRemove2.get(i));
+                if(index != -1) {
+                    removedBeansIndices.add(index);
+                } else {
+                    beansToRemove.remove(i);
+                }
+            }
+            if (extendedTable.removeAll((Collection) beansToRemove)) {
+                removedBeans = new ArrayList(beansToRemove);
+            } else {
+                removedBeansIndices.clear();
+            }
         }
         if (beanToRemove != null) {
-            extendedTable.remove(beanToRemove);
+            int index = beansList.indexOf(beanToRemove);
+            if(extendedTable.remove(beanToRemove)) {
+                removedBeans = new ArrayList(1);
+                removedBeans.add(beanToRemove);
+                removedBeansIndices = new ArrayList(1);
+                removedBeansIndices.add(index);
+            }
         }
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.command.CommonCommand#canUndo()
+     */
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.command.CommonCommand#redo()
+     */
+    @Override
+    public synchronized void redo() {
+        execute();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.command.CommonCommand#undo()
+     */
+    @Override
+    public synchronized void undo() {
+        
+        extendedTable.addAll(removedBeansIndices, removedBeans);
+        
     }
 
 }

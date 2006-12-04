@@ -21,13 +21,13 @@
 // ============================================================================
 package org.talend.commons.ui.swt.advanced.dataeditor.control;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
 
 
@@ -42,7 +42,7 @@ public abstract class ExtendedPushButton {
 
     private Button button;
     protected AbstractExtendedControlViewer extendedControlViewer;
-    private ICommonCommand commandToExecute;
+    private Command commandToExecute;
 
     /**
      * DOC amaumont ExtendedTableButton constructor comment.
@@ -98,7 +98,7 @@ public abstract class ExtendedPushButton {
      * DOC amaumont Comment method "executeCommand".
      * @param command
      */
-    public void executeCommand(ICommonCommand command) {
+    public void executeCommand(Command command) {
         extendedControlViewer.executeCommand(command);
     }
 
@@ -126,13 +126,13 @@ public abstract class ExtendedPushButton {
      * DOC amaumont Comment method "getCommandToExecute".
      * @return
      */
-    protected abstract ICommonCommand getCommandToExecute();
+    protected abstract Command getCommandToExecute();
     
     /**
      * This method is called after getCommandToExecute() to get data or errors after command execution.
      * @param executedCommand 
      */
-    protected void afterCommandExecution(ICommonCommand executedCommand) {
+    protected void afterCommandExecution(Command executedCommand) {
         // override it if needed
     }
 

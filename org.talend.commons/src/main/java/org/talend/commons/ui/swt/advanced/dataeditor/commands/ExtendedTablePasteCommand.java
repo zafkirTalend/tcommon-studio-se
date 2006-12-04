@@ -24,7 +24,7 @@ package org.talend.commons.ui.swt.advanced.dataeditor.commands;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.commons.ui.command.CommonCommand;
+import org.eclipse.gef.commands.Command;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.utils.SimpleClipboard;
 
@@ -34,7 +34,7 @@ import org.talend.commons.ui.utils.SimpleClipboard;
  * $Id$
  * 
  */
-public abstract class ExtendedTablePasteCommand extends CommonCommand {
+public abstract class ExtendedTablePasteCommand extends Command {
 
     private ExtendedTableModel extendedTable;
 
@@ -74,6 +74,14 @@ public abstract class ExtendedTablePasteCommand extends CommonCommand {
     }
 
     public abstract List createPastableBeansList(ExtendedTableModel extendedTable, List copiedObjectsList);
+
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.command.CommonCommand#canUndo()
+     */
+    @Override
+    public boolean canUndo() {
+        return false;
+    }
     
     
     

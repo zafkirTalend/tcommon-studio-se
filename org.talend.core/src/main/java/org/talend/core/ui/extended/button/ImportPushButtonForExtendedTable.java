@@ -23,12 +23,12 @@ package org.talend.core.ui.extended.button;
 
 import java.io.File;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
-import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 
@@ -53,7 +53,7 @@ public abstract class ImportPushButtonForExtendedTable extends ImportPushButton 
         super(parent, extendedTableViewer);
     }
 
-    protected ICommonCommand getCommandToExecute() {
+    protected Command getCommandToExecute() {
         AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
         Table table = extendedTableViewer.getTableViewerCreator().getTable();
         return getCommandToExecute(extendedTableViewer.getExtendedTableModel(), file);
@@ -74,7 +74,7 @@ public abstract class ImportPushButtonForExtendedTable extends ImportPushButton 
         }
     }
 
-    protected abstract ICommonCommand getCommandToExecute(ExtendedTableModel model, File file);
+    protected abstract Command getCommandToExecute(ExtendedTableModel model, File file);
     
     
     private void openMessageError(String errorText) {

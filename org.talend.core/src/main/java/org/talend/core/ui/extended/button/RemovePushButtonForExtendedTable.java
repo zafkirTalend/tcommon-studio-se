@@ -21,9 +21,9 @@
 // ============================================================================
 package org.talend.core.ui.extended.button;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
-import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableRemoveCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
@@ -48,7 +48,7 @@ public class RemovePushButtonForExtendedTable extends RemovePushButton {
         super(parent, extendedTableViewer);
     }
 
-    protected ICommonCommand getCommandToExecute() {
+    protected Command getCommandToExecute() {
         AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
         Table table = extendedTableViewer.getTableViewerCreator().getTable();
         return new ExtendedTableRemoveCommand(extendedTableViewer.getExtendedTableModel(), table.getSelectionIndices());

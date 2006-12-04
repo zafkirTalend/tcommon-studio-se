@@ -26,8 +26,8 @@ import java.io.IOException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.eclipse.gef.commands.Command;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.ui.command.CommonCommand;
 import org.talend.core.model.metadata.MetadataSchema;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
@@ -38,7 +38,7 @@ import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
  * $Id$
  * 
  */
-public class MetadataEmfExportXmlCommand extends CommonCommand {
+public class MetadataEmfExportXmlCommand extends Command {
 
     private File file;
 

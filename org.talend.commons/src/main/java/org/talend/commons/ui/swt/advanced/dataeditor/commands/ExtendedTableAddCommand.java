@@ -23,7 +23,7 @@ package org.talend.commons.ui.swt.advanced.dataeditor.commands;
 
 import java.util.ArrayList;
 
-import org.talend.commons.ui.command.CommonCommand;
+import org.eclipse.gef.commands.Command;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 
 
@@ -35,7 +35,7 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
  * $Id$
  *
  */
-public class ExtendedTableAddCommand extends CommonCommand {
+public class ExtendedTableAddCommand extends Command {
 
     private ExtendedTableModel extendedTable;
     private Integer indexStartAdd;
@@ -87,4 +87,32 @@ public class ExtendedTableAddCommand extends CommonCommand {
         
     }
 
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.command.CommonCommand#canUndo()
+     */
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.command.CommonCommand#redo()
+     */
+    @Override
+    public void redo() {
+        execute();
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.command.CommonCommand#undo()
+     */
+    @Override
+    public void undo() {
+        
+        extendedTable.removeAll(beansToAdd);
+        
+    }
+
+    
+    
 }

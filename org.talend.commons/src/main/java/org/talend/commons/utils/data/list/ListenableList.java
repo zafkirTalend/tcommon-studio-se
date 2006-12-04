@@ -80,7 +80,7 @@ public class ListenableList<T> implements List<T> {
     private void fireAddedEvent(int i, T o) {
         ArrayList<T> objects = new ArrayList<T>(1);
         objects.add(o);
-        fireAddedEvent(i, objects);
+        fireAddedEvent(i, objects, null);
     }
 
     /*
@@ -102,7 +102,7 @@ public class ListenableList<T> implements List<T> {
     public boolean addAll(Collection<? extends T> c) {
         boolean returnValue = this.list.addAll(c);
         if (returnValue) {
-            fireAddedEvent(this.list.size() - c.size(), (Collection<T>) c);
+            fireAddedEvent(this.list.size() - c.size(), (Collection<T>) c, null);
         }
         return returnValue;
     }
@@ -116,9 +116,31 @@ public class ListenableList<T> implements List<T> {
     public boolean addAll(int index, Collection<? extends T> c) {
         boolean returnValue = this.list.addAll(index, c);
         if (returnValue) {
-            fireAddedEvent(index, (Collection<T>) c);
+            fireAddedEvent(index, (Collection<T>) c, null);
         }
         return returnValue;
+    }
+
+    /**
+     * 
+     * 
+     */
+    public void addAll(List<Integer> indices, Collection<? extends T> c) {
+
+        Iterator<Integer> iterIndice = indices.iterator();
+        for (T t : c) {
+            Integer indice = null;
+            if (iterIndice.hasNext()) {
+                indice = iterIndice.next();
+            }
+            if (indice != null) {
+                this.list.add(indice, t);
+            } else {
+                this.list.add(t);
+            }
+        }
+
+        fireAddedEvent(null, (Collection<T>) c, indices);
     }
 
     /*
@@ -459,20 +481,14 @@ public class ListenableList<T> implements List<T> {
             throw new IllegalArgumentException("indexOrigin and indexDestination must have same length");
         }
         ArrayList<T> swapedObjects = new ArrayList<T>();
-        try {
-
-            fireSwapedEvent(indicesOrigin, indicesTarget, null, true);
-            int lstSize = indicesOrigin.size();
-            for (int i = 0; i < lstSize; i++) {
-                Integer idxOrigin = indicesOrigin.get(i);
-                Integer idxDestination = indicesTarget.get(i);
-                swapedObjects.add(list.get(idxOrigin));
-                swapedObjects.add(list.get(idxDestination));
-                internalSwap(idxOrigin, idxDestination);
-            }
-        } catch (RuntimeException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        fireSwapedEvent(indicesOrigin, indicesTarget, null, true);
+        int lstSize = indicesOrigin.size();
+        for (int i = 0; i < lstSize; i++) {
+            Integer idxOrigin = indicesOrigin.get(i);
+            Integer idxDestination = indicesTarget.get(i);
+            swapedObjects.add(list.get(idxOrigin));
+            swapedObjects.add(list.get(idxDestination));
+            internalSwap(idxOrigin, idxDestination);
         }
         fireSwapedEvent(indicesOrigin, indicesTarget, swapedObjects.toArray(), false);
     }
@@ -485,13 +501,15 @@ public class ListenableList<T> implements List<T> {
      * DOC amaumont Comment method "fireAddedListener".
      * 
      * @param index
-     * @param element
      * @param addedObjects
+     * @param indicesTarget TODO
+     * @param element
      */
-    public void fireAddedEvent(Integer index, Collection<T> addedObjects) {
+    public void fireAddedEvent(Integer index, Collection<T> addedObjects, List<Integer> indicesTarget) {
         ListenableListEvent<T> event = new ListenableListEvent<T>();
         event.type = TYPE.ADDED;
         event.index = index;
+        event.indicesTarget = indicesTarget;
         event.addedObjects = addedObjects;
         event.source = this;
         fireEvent(event);

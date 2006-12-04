@@ -24,6 +24,7 @@ package org.talend.core.ui.metadata.dialog;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
@@ -37,6 +38,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.ui.command.CommandStackHandlerForComposite;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -82,13 +84,16 @@ public class MetadataDialog extends Dialog {
 
     private Map<IMetadataColumn, String> changedNameColumns = new HashMap<IMetadataColumn, String>();
 
-    public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, String titleInput,
-            IMetadataTable outputMetaTable, String titleOutput) {
+    private CommandStack commandStack;
+
+    public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, String titleInput, IMetadataTable outputMetaTable,
+            String titleOutput, CommandStack commandStack) {
         super(parent);
         this.inputMetaTable = inputMetaTable;
         this.titleInput = titleInput;
         this.outputMetaTable = outputMetaTable;
         this.titleOutput = titleOutput;
+        this.commandStack = commandStack;
         if (inputMetaTable == null) {
             size = new Point(550, 400);
         } else {
@@ -96,17 +101,8 @@ public class MetadataDialog extends Dialog {
         }
     }
 
-    public MetadataDialog(Shell parent, IMetadataTable outputMetaTable, String titleOutput) {
-        super(parent);
-        this.inputMetaTable = null;
-        this.titleInput = null;
-        this.outputMetaTable = outputMetaTable;
-        this.titleOutput = titleOutput;
-        if (inputMetaTable == null) {
-            size = new Point(550, 400);
-        } else {
-            size = new Point(900, 400);
-        }
+    public MetadataDialog(Shell parent, IMetadataTable outputMetaTable, String titleOutput, CommandStack commandStack) {
+        this(parent, null, null, outputMetaTable, titleOutput, commandStack);
     }
 
     public void setText(String text) {
@@ -116,6 +112,7 @@ public class MetadataDialog extends Dialog {
     @Override
     protected void configureShell(final Shell newShell) {
         super.configureShell(newShell);
+        this.commandStack = new CommandStackHandlerForComposite(newShell);
         newShell.setSize(size);
         newShell.setText(text);
     }
@@ -136,6 +133,7 @@ public class MetadataDialog extends Dialog {
             composite.setLayout(new FillLayout());
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor);
+            outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
             // outputMetaView.getTableViewerCreator().layout();
         } else {
             GridLayout gridLayout = new GridLayout(3, false);
@@ -143,6 +141,7 @@ public class MetadataDialog extends Dialog {
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)");
             inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, inputReadOnly,
                     !inputReadOnly);
+            inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
 
             inputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
 
@@ -193,13 +192,12 @@ public class MetadataDialog extends Dialog {
 
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, new MetadataTableEditor(outputMetaTable,
                     titleOutput + " (Output)"), outputReadOnly, !outputReadOnly);
+            outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
             outputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
             if (outputReadOnly) {
                 copyToOutput.setEnabled(false);
             }
-            // outputMetaView.getTableViewerCreator().layout();
-        }
-
+		}
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
 
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
@@ -241,14 +239,30 @@ public class MetadataDialog extends Dialog {
         return outputMetaView.getMetadataTableEditor().getMetadataTable();
     }
 
-    
     public void setInputReadOnly(boolean inputReadOnly) {
         this.inputReadOnly = inputReadOnly;
     }
 
-    
     public void setOutputReadOnly(boolean outputReadOnly) {
         this.outputReadOnly = outputReadOnly;
+    }
+
+    /**
+     * Getter for inputReadOnly.
+     * 
+     * @return the inputReadOnly
+     */
+    public boolean isInputReadOnly() {
+        return this.inputReadOnly;
+    }
+
+    /**
+     * Getter for outputReadOnly.
+     * 
+     * @return the outputReadOnly
+     */
+    public boolean isOutputReadOnly() {
+        return this.outputReadOnly;
     }
 
 }

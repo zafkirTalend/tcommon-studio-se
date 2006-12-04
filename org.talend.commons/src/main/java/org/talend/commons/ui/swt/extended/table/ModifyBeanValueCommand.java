@@ -19,13 +19,11 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.advanced.dataeditor.commands;
-
-import java.util.ArrayList;
-import java.util.List;
+package org.talend.commons.ui.swt.extended.table;
 
 import org.eclipse.gef.commands.Command;
-import org.talend.commons.ui.utils.SimpleClipboard;
+import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 
 
 /**
@@ -34,52 +32,39 @@ import org.talend.commons.ui.utils.SimpleClipboard;
  *
  * $Id$
  *
+ * @param <B> modie
  */
-public class ExtendedTableCopyCommand extends Command {
+public class ModifyBeanValueCommand<B> extends Command {
 
-    
-    private List beansToCopy;
-
-    /**
-     * DOC amaumont ExtendedTableAddCommand constructor comment.
-     */
-    public ExtendedTableCopyCommand(List beansToCopy) {
-        super();
-        this.beansToCopy = new ArrayList(beansToCopy);
-    }
+    private ModifiedBeanEvent<B> event;
 
     /**
-     * DOC amaumont ExtendedTableAddCommand constructor comment.
+     * DOC amaumont ModifiedBeanValueCommand constructor comment.
+     * @param event
      */
-    public ExtendedTableCopyCommand(Object beanToCopy) {
-        super();
-        beansToCopy = new ArrayList(1);
-        beansToCopy.add(beanToCopy);
-    }
-    
-
-    
-    /* (non-Javadoc)
-     * @see org.eclipse.gef.commands.Command#execute()
-     */
-    @Override
-    public void execute() {
-        SimpleClipboard.getInstance().setData(beansToCopy);
+    public ModifyBeanValueCommand(ModifiedBeanEvent<B> event) {
+        this.event = event;
     }
 
+    
+    
     /* (non-Javadoc)
-     * @see org.talend.commons.ui.command.CommonCommand#canUndo()
+     * @see org.talend.commons.ui.command.CommonCommand#getLabel()
      */
     @Override
-    public boolean canUndo() {
-        return false;
+    public String getLabel() {
+        return "ModifyBeanValueCommand";
     }
+
+
 
     /* (non-Javadoc)
      * @see org.talend.commons.ui.command.CommonCommand#redo()
      */
     @Override
     public void redo() {
+        TableViewerCreator tableViewerCreator = event.column.getTableViewerCreator();
+        tableViewerCreator.setBeanValue(event.column, event.bean, event.newValue, false);
     }
 
     /* (non-Javadoc)
@@ -87,7 +72,21 @@ public class ExtendedTableCopyCommand extends Command {
      */
     @Override
     public void undo() {
+        TableViewerCreator tableViewerCreator = event.column.getTableViewerCreator();
+        tableViewerCreator.setBeanValue(event.column, event.bean, event.previousValue, false);
     }
 
+
+
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.command.CommonCommand#canUndo()
+     */
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
+
+    
+    
     
 }

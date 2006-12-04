@@ -111,7 +111,7 @@ public class DefaultCellModifier<O> implements ICellModifier {
                 typedValue = column.getDefaultInternalValue();
             }
             Object previousValue = AccessorUtils.get(bean, column);
-            tableViewerCreator.setBeanValue(column, bean, typedValue);
+            tableViewerCreator.setBeanValue(column, bean, typedValue, true);
             fireCellEditorApplied((TableItem) element, bean, column, value, previousValue, typedValue);
         }
         ModifiedObjectInfo modifiedObjectInfo = this.tableViewerCreator.getModifiedObjectInfo();

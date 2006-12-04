@@ -23,6 +23,8 @@ package org.talend.commons.ui.swt.extended.table;
 
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.RowLayout;
@@ -100,11 +102,13 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
         table.setLayoutData(new GridData(GridData.FILL_BOTH));
 
+        newTableViewerCreator.setCommandStack(getCommandStack());
+
         return newTableViewerCreator;
     }
 
     /**
-     * Ov.
+     * .
      * 
      * @param newTableViewerCreator
      */
@@ -152,8 +156,22 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
             public void handleEvent(ListenableListEvent event) {
                 if (event.type == TYPE.ADDED) {
                     tableViewerCreator.getTable().forceFocus();
-                    tableViewerCreator.getSelectionHelper().setSelection(event.index, event.index + event.addedObjects.size() - 1);
+                    if (event.index != null) {
+                        tableViewerCreator.getSelectionHelper().setSelection(event.index, event.index + event.addedObjects.size() - 1);
+                    } else if (event.indicesTarget != null) {
+                        int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
+                        tableViewerCreator.getSelectionHelper().setSelection(selection);
+
+                    }
+                } else if (event.type == TYPE.REMOVED) {
+                    tableViewerCreator.getTable().deselectAll();
+                } else if (event.type == TYPE.SWAPED) {
+                    if (event.indicesTarget != null) {
+                        int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
+                        tableViewerCreator.getSelectionHelper().setSelection(selection);
+                    }
                 }
+                
             }
 
         });
@@ -171,9 +189,9 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
             tableViewerCreator.layout();
         } else {
             if (event.type == TYPE.REMOVED) {
-                tableViewerCreator.getTable().deselectAll();
-                tableViewerCreator.getTableViewer().remove(event.removedObjects.toArray());
-                tableViewerCreator.layout();
+                // tableViewerCreator.getTable().deselectAll();
+                // tableViewerCreator.getTableViewer().remove(event.removedObjects.toArray());
+                // tableViewerCreator.layout();
             }
         }
     }
@@ -194,7 +212,9 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
             }).start();
         } else {
+
             tableViewerCreator.getTableViewer().refresh();
+            
         }
     }
 
@@ -236,6 +256,19 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         }
         loadTable();
         initModelListeners();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer#setCommandStackAdapter(org.talend.commons.ui.command.ICommandStackAdapter)
+     */
+    @Override
+    public void setCommandStack(CommandStack commandStack) {
+        super.setCommandStack(commandStack);
+        if (tableViewerCreator != null) {
+            tableViewerCreator.setCommandStack(commandStack);
+        }
     }
 
 }

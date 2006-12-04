@@ -21,8 +21,8 @@
 // ============================================================================
 package org.talend.core.ui.extended.button;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableAddCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
@@ -46,7 +46,7 @@ public abstract class AddPushButtonForExtendedTable extends AddPushButton {
     }
 
     @Override
-    protected ICommonCommand getCommandToExecute() {
+    protected Command getCommandToExecute() {
         AbstractExtendedTableViewer abstractExtendedTableViewer = ((AbstractExtendedTableViewer) getExtendedControlViewer());
         ExtendedTableModel extendedTableModel = abstractExtendedTableViewer.getExtendedTableModel();
         int[] selection = abstractExtendedTableViewer.getTableViewerCreator().getTable().getSelectionIndices();

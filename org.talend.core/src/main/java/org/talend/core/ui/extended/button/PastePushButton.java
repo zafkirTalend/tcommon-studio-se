@@ -21,8 +21,8 @@
 // ============================================================================
 package org.talend.core.ui.extended.button;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
 import org.talend.core.ui.images.EImage;
@@ -48,6 +48,6 @@ public abstract class PastePushButton extends ExtendedPushButton {
         super(parent, extendedControlViewer, "Paste", ImageProvider.getImage(EImage.PASTE_ICON));
     }
 
-    protected abstract ICommonCommand getCommandToExecute();
+    protected abstract Command getCommandToExecute();
     
 }

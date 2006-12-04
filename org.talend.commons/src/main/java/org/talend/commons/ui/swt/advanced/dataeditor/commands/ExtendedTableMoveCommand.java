@@ -22,10 +22,11 @@
 package org.talend.commons.ui.swt.advanced.dataeditor.commands;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.talend.commons.ui.command.CommonCommand;
+import org.eclipse.gef.commands.Command;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.utils.data.list.ListenableList;
 
@@ -38,11 +39,14 @@ import org.talend.commons.utils.data.list.ListenableList;
  * $Id$
  *
  */
-public class ExtendedTableMoveCommand extends CommonCommand {
+public class ExtendedTableMoveCommand extends Command {
 
     private ExtendedTableModel extendedTable;
     private boolean moveUp;
     private int[] entriesIndices;
+    private ArrayList<Integer> indicesOrigin;
+    private ArrayList<Integer> indicesTarget;
+    private ListenableList list;
 
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
@@ -60,13 +64,13 @@ public class ExtendedTableMoveCommand extends CommonCommand {
     @Override
     public void execute() {
         
-        ListenableList list = (ListenableList) extendedTable.getBeansList();
+        list = (ListenableList) extendedTable.getBeansList();
         Set<Integer> setIndicesSelectedMoved = new HashSet<Integer>();
         int increment;
         int startIndex;
         int endIndex;
-        ArrayList<Integer> indexOrigin = new ArrayList<Integer>();
-        ArrayList<Integer> indexDestination = new ArrayList<Integer>();
+        indicesOrigin = new ArrayList<Integer>();
+        indicesTarget = new ArrayList<Integer>();
         if (this.moveUp) {
             increment = -1;
             startIndex = 0;
@@ -88,16 +92,56 @@ public class ExtendedTableMoveCommand extends CommonCommand {
                 newIndice = list.size() - 1;
             }
             if (!setIndicesSelectedMoved.contains(newIndice)) {
-                indexOrigin.add(indice);
-                indexDestination.add(newIndice);
+                indicesOrigin.add(indice);
+                indicesTarget.add(newIndice);
                 setIndicesSelectedMoved.add(newIndice);
             } else {
+                indicesOrigin.add(indice);
+                indicesTarget.add(indice);
                 setIndicesSelectedMoved.add(indice);
             }
         }
 
-        list.swapElements(indexOrigin, indexDestination);
+        list.swapElements(indicesOrigin, indicesTarget);
         
     }
 
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.command.CommonCommand#canExecute()
+     */
+    @Override
+    public boolean canExecute() {
+        return true;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.command.CommonCommand#canUndo()
+     */
+    @Override
+    public boolean canUndo() {
+        return true;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.command.CommonCommand#redo()
+     */
+    @Override
+    public void redo() {
+        Collections.reverse(indicesTarget);
+        Collections.reverse(indicesOrigin);
+        list.swapElements(indicesOrigin, indicesTarget);
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.command.CommonCommand#undo()
+     */
+    @Override
+    public void undo() {
+        Collections.reverse(indicesTarget);
+        Collections.reverse(indicesOrigin);
+        list.swapElements(indicesTarget, indicesOrigin);
+    }
+
+    
+    
 }

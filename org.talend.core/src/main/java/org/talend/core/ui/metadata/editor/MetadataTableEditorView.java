@@ -101,6 +101,17 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         setExtendedTableModel(metadataTableEditor);
     }
 
+    
+    
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView#setTableViewerCreatorOptions(org.talend.commons.ui.swt.tableviewer.TableViewerCreator)
+     */
+    @Override
+    protected void setTableViewerCreatorOptions(TableViewerCreator<IMetadataColumn> newTableViewerCreator) {
+        super.setTableViewerCreatorOptions(newTableViewerCreator);
+        newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
+    }
+
     /*
      * (non-Javadoc)
      * 

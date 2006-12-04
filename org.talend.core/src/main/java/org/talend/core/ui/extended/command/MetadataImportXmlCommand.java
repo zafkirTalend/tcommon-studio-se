@@ -27,8 +27,8 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.eclipse.gef.commands.Command;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.ui.command.CommonCommand;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataSchema;
@@ -40,7 +40,7 @@ import org.xml.sax.SAXException;
  * $Id$
  * 
  */
-public class MetadataImportXmlCommand extends CommonCommand {
+public class MetadataImportXmlCommand extends Command {
 
     private File file;
     private ExtendedTableModel extendedTableModel;

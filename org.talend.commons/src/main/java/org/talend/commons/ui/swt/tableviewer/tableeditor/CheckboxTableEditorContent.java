@@ -93,7 +93,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
             @SuppressWarnings("unchecked")
             public void widgetSelected(SelectionEvent e) {
                 currentColumn.getTableViewerCreator().setBeanValue(currentColumn, currentRowObject,
-                        ((Button) e.getSource()).getSelection() ? CHECKED : UNCHECKED);
+                        ((Button) e.getSource()).getSelection() ? CHECKED : UNCHECKED, true);
                 currentColumn.getTableViewerCreator().getTableViewer().setSelection(new StructuredSelection(currentRowObject));
             }
 

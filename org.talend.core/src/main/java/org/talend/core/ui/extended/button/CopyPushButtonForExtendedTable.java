@@ -23,11 +23,11 @@ package org.talend.core.ui.extended.button;
 
 import java.util.Arrays;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableCopyCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
@@ -51,7 +51,7 @@ public class CopyPushButtonForExtendedTable extends CopyPushButton {
         super(parent, extendedTableViewer);
     }
 
-    protected ICommonCommand getCommandToExecute() {
+    protected Command getCommandToExecute() {
         AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
         TableViewer tableViewer = extendedTableViewer.getTableViewerCreator().getTableViewer();
         ISelection selection = tableViewer.getSelection();

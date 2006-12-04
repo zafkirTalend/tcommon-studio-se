@@ -248,7 +248,7 @@ public abstract class AbstractDataTableEditorView<B> {
      */
     protected void setTableViewerCreatorOptions(TableViewerCreator<B> newTableViewerCreator) {
         // newTableViewerCreator.setUseCustomItemColoring(true);
-        newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
+        newTableViewerCreator.setFirstVisibleColumnIsSelection(false);
     }
 
     /**
@@ -386,10 +386,7 @@ public abstract class AbstractDataTableEditorView<B> {
      * @return the extendedTableModel
      */
     public ExtendedTableModel<B> getExtendedTableModel() {
-        if (extendedTableViewer == null) {
-            return null;
-        }
-        return extendedTableViewer.getExtendedTableModel();
+        return extendedTableModel;
     }
 
     /**

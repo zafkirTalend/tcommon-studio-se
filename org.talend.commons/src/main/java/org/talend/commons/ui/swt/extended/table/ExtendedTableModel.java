@@ -22,6 +22,7 @@
 package org.talend.commons.ui.swt.extended.table;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListenable;
@@ -91,8 +92,18 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * @param beans
      * @param index can be null
      */
+    public void addAll(List<Integer> indicesWhereAdd, List<B> beans) {
+        this.beansList.addAll(indicesWhereAdd, beans);
+    }
+
+    /**
+     * DOC amaumont Comment method "add".
+     * 
+     * @param beans
+     * @param index can be null
+     */
     public void addAll(List<B> beans) {
-        addAll(null, beans);
+        addAll((Integer) null, beans);
     }
 
     public void registerDataList(List<B> list) {
@@ -108,8 +119,8 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * 
      * @param bean
      */
-    public void remove(B bean) {
-        this.beansList.remove(bean);
+    public boolean remove(B bean) {
+        return this.beansList.remove(bean);
     }
 
     /**
@@ -117,8 +128,17 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * 
      * @param i
      */
-    public void remove(int index) {
-        this.beansList.remove(index);
+    public B remove(int index) {
+        return this.beansList.remove(index);
+    }
+
+    /**
+     * @param c
+     * @return
+     * @see org.talend.commons.utils.data.list.ListenableList#removeAll(java.util.Collection)
+     */
+    public boolean removeAll(Collection<B> c) {
+        return this.beansList.removeAll(c);
     }
 
     public void removeAll() {
@@ -130,16 +150,15 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * 
      * @param indexArray
      */
-    public void remove(int[] indexArray) {
+    public List<B> remove(int[] indexArray) {
         ArrayList<B> objectsToRemove = new ArrayList<B>(indexArray.length);
         for (int i = 0; i < indexArray.length; i++) {
             objectsToRemove.add(beansList.get(indexArray[i]));
         }
         beansList.removeAll(objectsToRemove);
+        return objectsToRemove;
     }
 
-    
-    
     /**
      * @param listener
      * @see org.talend.commons.utils.data.list.ListenableList#addAfterListener(org.talend.commons.utils.data.list.IListenableListListener)
@@ -151,7 +170,8 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
     /**
      * @param orderCall
      * @param listener
-     * @see org.talend.commons.utils.data.list.ListenableList#addAfterListener(int, org.talend.commons.utils.data.list.IListenableListListener)
+     * @see org.talend.commons.utils.data.list.ListenableList#addAfterListener(int,
+     * org.talend.commons.utils.data.list.IListenableListListener)
      */
     public void addAfterListener(int orderCall, IListenableListListener listener) {
         this.beansList.addAfterListener(orderCall, listener);
@@ -168,7 +188,8 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
     /**
      * @param orderCall
      * @param listener
-     * @see org.talend.commons.utils.data.list.ListenableList#addBeforeListener(int, org.talend.commons.utils.data.list.IListenableListListener)
+     * @see org.talend.commons.utils.data.list.ListenableList#addBeforeListener(int,
+     * org.talend.commons.utils.data.list.IListenableListListener)
      */
     public void addBeforeOperationListListener(int orderCall, IListenableListListener listener) {
         this.beansList.addBeforeListener(orderCall, listener);
@@ -202,7 +223,9 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         return beansList.isListRegistered();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedControlModel#release()
      */
     @Override
@@ -211,14 +234,14 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
 
     /**
      * DOC amaumont Comment method "getBeanCount".
+     * 
      * @return
      */
     public int getBeanCount() {
-        if(beansList.isListRegistered()) {
+        if (beansList.isListRegistered()) {
             return beansList.size();
         }
         return 0;
     }
-    
-    
+
 }

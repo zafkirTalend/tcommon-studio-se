@@ -23,8 +23,8 @@ package org.talend.core.ui.metadata.editor;
 
 import java.io.File;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -86,7 +86,7 @@ public class MetadataEmfToolbarEditor extends ExtendedToolbarView {
         return new PastePushButtonForExtendedTable(toolbar, extendedTableViewer) {
 
             @Override
-            protected ICommonCommand getCommandToExecute(ExtendedTableModel extendedTableModel, Integer indexWhereInsert) {
+            protected Command getCommandToExecute(ExtendedTableModel extendedTableModel, Integer indexWhereInsert) {
                 return new MetadataEmfPasteCommand(extendedTableModel, indexWhereInsert);
             }
             
@@ -103,7 +103,7 @@ public class MetadataEmfToolbarEditor extends ExtendedToolbarView {
         return new ExportPushButtonForExtendedTable(toolbar, extendedTableViewer) {
             
             @Override
-            protected ICommonCommand getCommandToExecute(ExtendedTableModel extendedTableModel, File file) {
+            protected Command getCommandToExecute(ExtendedTableModel extendedTableModel, File file) {
                 return new MetadataEmfExportXmlCommand((MetadataEmfTableEditor) extendedTableModel, file);
             }
             
@@ -118,7 +118,7 @@ public class MetadataEmfToolbarEditor extends ExtendedToolbarView {
         return new ImportPushButtonForExtendedTable(toolbar, extendedTableViewer) {
             
             @Override
-            protected ICommonCommand getCommandToExecute(ExtendedTableModel extendedTableModel, File file) {
+            protected Command getCommandToExecute(ExtendedTableModel extendedTableModel, File file) {
                 return new MetadataEmfImportXmlCommand(extendedTableModel, file);
             }
             

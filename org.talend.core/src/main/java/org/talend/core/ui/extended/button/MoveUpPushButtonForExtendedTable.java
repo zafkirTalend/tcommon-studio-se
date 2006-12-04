@@ -21,8 +21,8 @@
 // ============================================================================
 package org.talend.core.ui.extended.button;
 
+import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.command.ICommonCommand;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableMoveCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
@@ -47,7 +47,7 @@ public class MoveUpPushButtonForExtendedTable extends MoveUpPushButton {
         super(parent, extendedTableViewer);
     }
 
-    protected ICommonCommand getCommandToExecute() {
+    protected Command getCommandToExecute() {
         AbstractExtendedTableViewer viewer = (AbstractExtendedTableViewer) getExtendedControlViewer();
         return new ExtendedTableMoveCommand(viewer.getExtendedTableModel(), true, viewer.getTableViewerCreator().getTable()
                 .getSelectionIndices());
