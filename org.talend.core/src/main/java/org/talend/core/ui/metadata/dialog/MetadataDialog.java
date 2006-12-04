@@ -82,8 +82,8 @@ public class MetadataDialog extends Dialog {
 
     private Map<IMetadataColumn, String> changedNameColumns = new HashMap<IMetadataColumn, String>();
 
-    public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, String titleInput, IMetadataTable outputMetaTable,
-            String titleOutput) {
+    public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, String titleInput,
+            IMetadataTable outputMetaTable, String titleOutput) {
         super(parent);
         this.inputMetaTable = inputMetaTable;
         this.titleInput = titleInput;
@@ -141,18 +141,14 @@ public class MetadataDialog extends Dialog {
             GridLayout gridLayout = new GridLayout(3, false);
             composite.setLayout(gridLayout);
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)");
-            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor);
+            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, inputReadOnly,
+                    !inputReadOnly);
 
-            // inputMetaView.getTableViewerCreator().setVerticalScroll(true);
             inputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
-            if (inputReadOnly) {
-                inputMetaView.getTableViewerCreator().getTable().setEnabled(false);
-            }
-            // inputMetaView.getTableViewerCreator().layout();
 
             Composite buttonComposite = new Composite(composite, SWT.NONE);
             buttonComposite.setLayout(new GridLayout(1, true));
-            
+
             // Input => Output
             Button copyToOutput = new Button(buttonComposite, SWT.NONE);
             copyToOutput.setImage(ImageProvider.getImage(EImage.RIGHT_ICON));
@@ -160,16 +156,18 @@ public class MetadataDialog extends Dialog {
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
+                            | SWT.CANCEL);
                     messageBox.setText("Schema modification");
                     messageBox.setMessage("All columns from the input schema will be transfered to the output schema");
                     if (messageBox.open() == SWT.OK) {
                         outputMetaView.getMetadataTableEditor().removeAll();
-                        outputMetaView.getMetadataTableEditor().addAll(inputMetaView.getMetadataTableEditor().getMetadataColumnList());
+                        outputMetaView.getMetadataTableEditor().addAll(
+                                inputMetaView.getMetadataTableEditor().getMetadataColumnList());
                     }
                 }
             });
-            
+
             // Output => Input
             Button copyToInput = new Button(buttonComposite, SWT.NONE);
             copyToInput.setImage(ImageProvider.getImage(EImage.LEFT_ICON));
@@ -177,12 +175,14 @@ public class MetadataDialog extends Dialog {
             copyToInput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
+                            | SWT.CANCEL);
                     messageBox.setText("Schema modification");
                     messageBox.setMessage("All columns from the output schema will be transfered to the input schema");
                     if (messageBox.open() == SWT.OK) {
                         inputMetaView.getMetadataTableEditor().removeAll();
-                        inputMetaView.getMetadataTableEditor().addAll(outputMetaView.getMetadataTableEditor().getMetadataColumnList());
+                        inputMetaView.getMetadataTableEditor().addAll(
+                                outputMetaView.getMetadataTableEditor().getMetadataColumnList());
                     }
                 }
             });
@@ -192,17 +192,16 @@ public class MetadataDialog extends Dialog {
             }
 
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, new MetadataTableEditor(outputMetaTable,
-                    titleOutput + " (Output)"));
+                    titleOutput + " (Output)"), outputReadOnly, !outputReadOnly);
             outputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
             if (outputReadOnly) {
                 copyToOutput.setEnabled(false);
-                outputMetaView.getTableViewerCreator().getTable().setEnabled(false);
             }
             // outputMetaView.getTableViewerCreator().layout();
         }
 
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
-            
+
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
                 if (MetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
                     IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
@@ -213,9 +212,9 @@ public class MetadataDialog extends Dialog {
                         }
                     }
                 }
-                
+
             }
-            
+
         });
 
         return composite;
@@ -240,6 +239,16 @@ public class MetadataDialog extends Dialog {
      */
     public IMetadataTable getOutputMetaData() {
         return outputMetaView.getMetadataTableEditor().getMetadataTable();
+    }
+
+    
+    public void setInputReadOnly(boolean inputReadOnly) {
+        this.inputReadOnly = inputReadOnly;
+    }
+
+    
+    public void setOutputReadOnly(boolean outputReadOnly) {
+        this.outputReadOnly = outputReadOnly;
     }
 
 }
