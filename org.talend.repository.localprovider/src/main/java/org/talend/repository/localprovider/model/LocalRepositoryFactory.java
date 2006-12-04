@@ -95,11 +95,11 @@ import org.talend.core.model.temp.ECodeLanguage;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.model.AbstractRepositoryFactory;
+import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.FolderHelper;
 import org.talend.repository.model.IRepositoryFactory;
 import org.talend.repository.model.LocalLockHelper;
 import org.talend.repository.model.RepositoryConstants;
-import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.ResourceModelUtils;
 
 /**
@@ -603,6 +603,12 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         if (name == null) {
             name = item.getProperty().getLabel();
         }
+        
+        if (item instanceof FolderItem) {
+            FolderHelper folderHelper = LocalFolderHelper.createInstance(getRepositoryContext().getProject());
+            return !folderHelper.pathExists((FolderItem) item, name);
+        }
+
         ERepositoryObjectType type = getItemType(item);
 
         if (type == ERepositoryObjectType.METADATA_CON_TABLE) {
