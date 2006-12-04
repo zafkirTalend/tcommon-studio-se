@@ -98,7 +98,6 @@ import org.talend.repository.model.AbstractRepositoryFactory;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.FolderHelper;
 import org.talend.repository.model.IRepositoryFactory;
-import org.talend.repository.model.LocalLockHelper;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.ResourceModelUtils;
 
@@ -963,7 +962,6 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
             item.getState().setLocker(getRepositoryContext().getUser());
             item.getState().setLocked(true);
             xmiResourceManager.saveResource(item.eResource());
-            LocalLockHelper.fireLockEvent(item.getProperty().getId());
         }
     }
 
@@ -974,7 +972,6 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
             item.getState().setLockDate(null);
             item.getState().setLocked(false);
             xmiResourceManager.saveResource(item.eResource());
-            LocalLockHelper.fireUnlockEvent(item.getProperty().getId());
         }
     }
 
