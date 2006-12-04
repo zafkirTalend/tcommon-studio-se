@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2006 rel. 3 U (http://www.altova.com) by Rousseau Nicolas (*) -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
 	<xs:element name="Process">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="Description" type="xs:string"/>
-				<xs:element ref="Context" maxOccurs="unbounded"/>
-				<xs:element ref="Node" maxOccurs="unbounded"/>
-				<xs:element ref="Connection" maxOccurs="unbounded"/>
-				<xs:element name="Logs">
+				<xs:element minOccurs="0" name="Description" type="xs:string"/>
+				<xs:element maxOccurs="unbounded" minOccurs="0" ref="Context"/>
+				<xs:element maxOccurs="unbounded" minOccurs="0" ref="Node"/>
+				<xs:element maxOccurs="unbounded" minOccurs="0" ref="Connection"/>
+				<xs:element minOccurs="0" name="Logs">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="LogToFile">
@@ -47,14 +47,14 @@
 	<xs:element name="Node">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="ElementParameter" maxOccurs="unbounded"/>
-				<xs:element name="Metadata" minOccurs="0" maxOccurs="unbounded">
+				<xs:element maxOccurs="unbounded" ref="ElementParameter"/>
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="Metadata">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="Column" minOccurs="0" maxOccurs="unbounded">
+							<xs:element maxOccurs="unbounded" minOccurs="0" name="Column">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="Comment" type="xs:string" minOccurs="0"/>
+										<xs:element minOccurs="0" name="Comment" type="xs:string"/>
 									</xs:sequence>
 									<xs:attribute name="name" type="xs:string"/>
 									<xs:attribute name="type" type="xs:string"/>
@@ -64,14 +64,14 @@
 									<xs:attribute name="precision" type="xs:int"/>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="Comment" type="xs:string" minOccurs="0"/>
+							<xs:element minOccurs="0" name="Comment" type="xs:string"/>
 						</xs:sequence>
 						<xs:attribute name="name" type="xs:string"/>
 						<xs:attribute name="source" type="xs:string"/>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="BinaryData" type="xs:base64Binary" minOccurs="0"/>
-				<xs:element name="StringData" type="xs:string" minOccurs="0"/>
+				<xs:element minOccurs="0" name="BinaryData" type="xs:base64Binary"/>
+				<xs:element minOccurs="0" name="StringData" type="xs:string"/>
 			</xs:sequence>
 			<xs:attribute name="componentName" type="xs:string"/>
 			<xs:attribute name="componentVersion" type="xs:string"/>
@@ -84,7 +84,7 @@
 	<xs:element name="Connection">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="ElementParameter" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element maxOccurs="unbounded" minOccurs="0" ref="ElementParameter"/>
 			</xs:sequence>
 			<xs:attribute name="source" type="xs:string"/>
 			<xs:attribute name="target" type="xs:string"/>
@@ -98,7 +98,7 @@
 	<xs:element name="Context">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="ContextParameter" minOccurs="0" maxOccurs="unbounded">
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="ContextParameter">
 					<xs:complexType>
 						<xs:attribute name="name" type="xs:string"/>
 						<xs:attribute name="type" type="xs:string"/>
@@ -116,7 +116,7 @@
 	<xs:element name="ElementParameter">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="ElementValue" minOccurs="0" maxOccurs="unbounded">
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="ElementValue">
 					<xs:complexType>
 						<xs:attribute name="elementRef" type="xs:string"/>
 						<xs:attribute name="value" type="xs:string"/>

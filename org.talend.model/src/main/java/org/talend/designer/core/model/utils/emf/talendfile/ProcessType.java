@@ -48,7 +48,7 @@ public interface ProcessType extends EObject {
      * @return the value of the '<em>Description</em>' attribute.
      * @see #setDescription(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Description()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='element' name='Description' namespace='##targetNamespace'"
      * @generated
      */
@@ -75,7 +75,7 @@ public interface ProcessType extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Context</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Context()
-     * @model type="org.talend.designer.core.model.utils.emf.talendfile.ContextType" containment="true" required="true"
+     * @model type="org.talend.designer.core.model.utils.emf.talendfile.ContextType" containment="true"
      *        extendedMetaData="kind='element' name='Context' namespace='##targetNamespace'"
      * @generated
      */
@@ -92,7 +92,7 @@ public interface ProcessType extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Node</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Node()
-     * @model type="org.talend.designer.core.model.utils.emf.talendfile.NodeType" containment="true" required="true"
+     * @model type="org.talend.designer.core.model.utils.emf.talendfile.NodeType" containment="true"
      *        extendedMetaData="kind='element' name='Node' namespace='##targetNamespace'"
      * @generated
      */
@@ -109,7 +109,7 @@ public interface ProcessType extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Connection</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Connection()
-     * @model type="org.talend.designer.core.model.utils.emf.talendfile.ConnectionType" containment="true" required="true"
+     * @model type="org.talend.designer.core.model.utils.emf.talendfile.ConnectionType" containment="true"
      *        extendedMetaData="kind='element' name='Connection' namespace='##targetNamespace'"
      * @generated
      */
@@ -126,7 +126,7 @@ public interface ProcessType extends EObject {
      * @return the value of the '<em>Logs</em>' containment reference.
      * @see #setLogs(LogsType)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Logs()
-     * @model containment="true" required="true"
+     * @model containment="true"
      *        extendedMetaData="kind='element' name='Logs' namespace='##targetNamespace'"
      * @generated
      */
