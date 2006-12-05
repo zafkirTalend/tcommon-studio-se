@@ -21,6 +21,10 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Property;
 
 /**
@@ -33,18 +37,15 @@ import org.talend.core.model.properties.Property;
  */
 public class Folder extends RepositoryObject implements IRepositoryObject {
 
-    /**
-     * Default constructor.
-     * 
-     * @param id - the id
-     * @param label - the label
-     */
+    private ERepositoryObjectType type;
+
     public Folder(String id, String label) {
         super(id, label);
     }
 
-    public Folder(Property property) {
+    public Folder(Property property, ERepositoryObjectType type) {
         super(property);
+        this.type = type;
     }
 
     /**
@@ -55,4 +56,22 @@ public class Folder extends RepositoryObject implements IRepositoryObject {
     public ERepositoryObjectType getType() {
         return ERepositoryObjectType.FOLDER;
     }
+
+    public ERepositoryObjectType getContentType() {
+        return this.type;
+    }
+
+    @Override
+    public List<IRepositoryObject> getChildren() {
+        List<IRepositoryObject> toReturn = new ArrayList<IRepositoryObject>();
+        FolderItem folderItem = (FolderItem) getProperty().getItem();
+
+        for (Object current : folderItem.getChildren()) {
+            IRepositoryObject currentChild = new Folder(((FolderItem) current).getProperty(), getContentType());
+            toReturn.add(currentChild);
+        }
+
+        return toReturn;
+    }
+
 }

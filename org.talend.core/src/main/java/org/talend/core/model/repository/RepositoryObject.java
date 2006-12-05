@@ -21,7 +21,9 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.model.properties.BusinessProcessItem;
@@ -183,5 +185,10 @@ public class RepositoryObject implements IRepositoryObject {
                 throw new IllegalStateException();
             }
         }.doSwitch(property.getItem());
+    }
+
+    public List<IRepositoryObject> getChildren() {
+        List<IRepositoryObject> toReturn = new ArrayList<IRepositoryObject>();
+        return toReturn;
     }
 }

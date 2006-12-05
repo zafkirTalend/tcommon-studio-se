@@ -22,6 +22,7 @@
 package org.talend.core.model.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
@@ -89,4 +90,5 @@ public interface IRepositoryObject {
 
     public Property getProperty();
 
+    public List<IRepositoryObject> getChildren();
 }

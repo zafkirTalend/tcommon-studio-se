@@ -48,7 +48,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.QualifiedName;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -109,8 +108,6 @@ import org.talend.repository.model.ResourceModelUtils;
  * 
  */
 public class LocalRepositoryFactory extends AbstractRepositoryFactory implements IRepositoryFactory {
-
-    private static final QualifiedName FOLDER_ID_KEY = new QualifiedName(RepositoryLocalProviderPlugin.PLUGIN_ID, "folderId");
 
     private static final String BIN = "bin";
 
@@ -491,10 +488,10 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
                     if (resource.getType() == IResource.FOLDER) {
                         IPath path = resource.getProjectRelativePath();
                         if (!listFolders.remove(path)) {
-                            //create emf folder 
+                            // create emf folder
                             helper.createFolder(path);
                         } else {
-                            //add state to existing emf folder
+                            // add state to existing emf folder
                             FolderItem folder = helper.getFolder(path);
                             if (folder.getState() == null) {
                                 helper.createItemState(folder);
@@ -542,7 +539,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
         ResourceUtils.createFolder(folder);
 
-        return new Folder(folderItem.getProperty());
+        return new Folder(folderItem.getProperty(), type);
     }
 
     ERepositoryObjectType getItemType(Item item) {
@@ -602,7 +599,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         if (name == null) {
             name = item.getProperty().getLabel();
         }
-        
+
         if (item instanceof FolderItem) {
             FolderHelper folderHelper = LocalFolderHelper.createInstance(getRepositoryContext().getProject());
             return !folderHelper.pathExists((FolderItem) item, name);
@@ -714,6 +711,34 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
      */
     public RootContainer<String, IRepositoryObject> getProcess() throws PersistenceException {
         return getProcessFromFolder();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.model.IRepositoryFactory#getProcess2()
+     */
+    public List<IRepositoryObject> getProcess2() throws PersistenceException {
+        List<IRepositoryObject> toReturn = new VersionList(false);
+
+        FolderHelper folderHelper = LocalFolderHelper.createInstance(getRepositoryContext().getProject());
+        IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(), ERepositoryObjectType.PROCESS);
+
+        for (IResource current : ResourceUtils.getMembers(folder)) {
+            if (current instanceof IFile) {
+                if (XmiResourceManager.isPropertyFile((IFile) current)) {
+                    Property property = xmiResourceManager.loadProperty(current);
+                    toReturn.add(new RepositoryObject(property));
+                }
+            } else if (current instanceof IFolder) {
+                if (!current.getName().equals(BIN)) {
+                    Property property = folderHelper.getFolder(current.getProjectRelativePath()).getProperty();
+                    Folder oFolder = new Folder(property, ERepositoryObjectType.PROCESS);
+                    toReturn.add(oFolder);
+                }
+            }
+        }
+        return toReturn;
     }
 
     /**
