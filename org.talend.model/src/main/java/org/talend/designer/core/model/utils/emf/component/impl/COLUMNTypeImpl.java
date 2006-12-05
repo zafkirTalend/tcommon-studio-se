@@ -23,6 +23,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getDEFAULT <em>DEFAULT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#isKEY <em>KEY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getLENGTH <em>LENGTH</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getNAME <em>NAME</em>}</li>
@@ -35,6 +36,26 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  * @generated
  */
 public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
+    /**
+     * The default value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDEFAULT()
+     * @generated
+     * @ordered
+     */
+    protected static final String DEFAULT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDEFAULT()
+     * @generated
+     * @ordered
+     */
+    protected String dEFAULT = DEFAULT_EDEFAULT;
+
     /**
      * The default value of the '{@link #isKEY() <em>KEY</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -207,6 +228,27 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      */
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.COLUMN_TYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getDEFAULT() {
+        return dEFAULT;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDEFAULT(String newDEFAULT) {
+        String oldDEFAULT = dEFAULT;
+        dEFAULT = newDEFAULT;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__DEFAULT, oldDEFAULT, dEFAULT));
     }
 
     /**
@@ -442,6 +484,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
+            case ComponentPackage.COLUMN_TYPE__DEFAULT:
+                return getDEFAULT();
             case ComponentPackage.COLUMN_TYPE__KEY:
                 return isKEY() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.COLUMN_TYPE__LENGTH:
@@ -465,6 +509,9 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
+            case ComponentPackage.COLUMN_TYPE__DEFAULT:
+                setDEFAULT((String)newValue);
+                return;
             case ComponentPackage.COLUMN_TYPE__KEY:
                 setKEY(((Boolean)newValue).booleanValue());
                 return;
@@ -494,6 +541,9 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      */
     public void eUnset(int featureID) {
         switch (featureID) {
+            case ComponentPackage.COLUMN_TYPE__DEFAULT:
+                setDEFAULT(DEFAULT_EDEFAULT);
+                return;
             case ComponentPackage.COLUMN_TYPE__KEY:
                 unsetKEY();
                 return;
@@ -523,6 +573,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
+            case ComponentPackage.COLUMN_TYPE__DEFAULT:
+                return DEFAULT_EDEFAULT == null ? dEFAULT != null : !DEFAULT_EDEFAULT.equals(dEFAULT);
             case ComponentPackage.COLUMN_TYPE__KEY:
                 return isSetKEY();
             case ComponentPackage.COLUMN_TYPE__LENGTH:
@@ -548,7 +600,9 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (kEY: ");
+        result.append(" (dEFAULT: ");
+        result.append(dEFAULT);
+        result.append(", kEY: ");
         if (kEYESet) result.append(kEY); else result.append("<unset>");
         result.append(", lENGTH: ");
         if (lENGTHESet) result.append(lENGTH); else result.append("<unset>");

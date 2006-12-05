@@ -104,6 +104,7 @@
 												<xs:attribute name="PRECISION" type="xs:int" use="optional" default="0"/>
 												<xs:attribute name="KEY" type="xs:boolean" use="optional" default="false"/>
 												<xs:attribute name="NULLABLE" type="xs:boolean" use="optional" default="true"/>
+												<xs:attribute name="DEFAULT" type="xs:string" use="optional"/>
 											</xs:complexType>
 										</xs:element>
 									</xs:sequence>

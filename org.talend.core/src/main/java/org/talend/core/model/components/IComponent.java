@@ -24,8 +24,8 @@ package org.talend.core.model.components;
 import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.talend.core.model.process.IElement;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
 import org.talend.core.model.process.INodeReturn;
 import org.talend.core.model.temp.ECodeLanguage;
@@ -61,7 +61,7 @@ public interface IComponent {
 
     public ImageDescriptor getIcon16();
 
-    public List<? extends IElementParameter> createElementParameters(IElement element);
+    public List<? extends IElementParameter> createElementParameters(INode node);
 
     public List<? extends INodeReturn> createReturns();
 

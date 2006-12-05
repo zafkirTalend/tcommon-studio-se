@@ -108,13 +108,22 @@ public interface ComponentPackage extends EPackage {
     int COLUMN_TYPE = 1;
 
     /**
+     * The feature id for the '<em><b>DEFAULT</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__DEFAULT = 0;
+
+    /**
      * The feature id for the '<em><b>KEY</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__KEY = 0;
+    int COLUMN_TYPE__KEY = 1;
 
     /**
      * The feature id for the '<em><b>LENGTH</b></em>' attribute.
@@ -123,7 +132,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__LENGTH = 1;
+    int COLUMN_TYPE__LENGTH = 2;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -132,7 +141,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__NAME = 2;
+    int COLUMN_TYPE__NAME = 3;
 
     /**
      * The feature id for the '<em><b>NULLABLE</b></em>' attribute.
@@ -141,7 +150,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__NULLABLE = 3;
+    int COLUMN_TYPE__NULLABLE = 4;
 
     /**
      * The feature id for the '<em><b>PRECISION</b></em>' attribute.
@@ -150,7 +159,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__PRECISION = 4;
+    int COLUMN_TYPE__PRECISION = 5;
 
     /**
      * The feature id for the '<em><b>TYPE</b></em>' attribute.
@@ -159,7 +168,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__TYPE = 5;
+    int COLUMN_TYPE__TYPE = 6;
 
     /**
      * The number of structural features of the '<em>COLUMN Type</em>' class.
@@ -168,7 +177,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 6;
+    int COLUMN_TYPE_FEATURE_COUNT = 7;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl <em>COMPONENT Type</em>}' class.
@@ -1402,6 +1411,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EClass getCOLUMNType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getDEFAULT <em>DEFAULT</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>DEFAULT</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COLUMNType#getDEFAULT()
+     * @see #getCOLUMNType()
+     * @generated
+     */
+    EAttribute getCOLUMNType_DEFAULT();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#isKEY <em>KEY</em>}'.
@@ -2716,6 +2736,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EClass COLUMN_TYPE = eINSTANCE.getCOLUMNType();
+
+        /**
+         * The meta object literal for the '<em><b>DEFAULT</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__DEFAULT = eINSTANCE.getCOLUMNType_DEFAULT();
 
         /**
          * The meta object literal for the '<em><b>KEY</b></em>' attribute feature.

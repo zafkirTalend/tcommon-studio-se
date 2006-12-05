@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getDEFAULT <em>DEFAULT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#isKEY <em>KEY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getLENGTH <em>LENGTH</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getNAME <em>NAME</em>}</li>
@@ -30,6 +31,33 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface COLUMNType extends EObject {
+    /**
+     * Returns the value of the '<em><b>DEFAULT</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>DEFAULT</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>DEFAULT</em>' attribute.
+     * @see #setDEFAULT(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_DEFAULT()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='DEFAULT' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getDEFAULT();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getDEFAULT <em>DEFAULT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>DEFAULT</em>' attribute.
+     * @see #getDEFAULT()
+     * @generated
+     */
+    void setDEFAULT(String value);
+
     /**
      * Returns the value of the '<em><b>KEY</b></em>' attribute.
      * The default value is <code>"false"</code>.
