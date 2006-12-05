@@ -17,6 +17,8 @@ use vars qw( @EXPORT @ISA ) ;
               
               getDate
               formatString
+              datestringISOtoFr
+              datestringISOtoUS
               getRandomDate
             );
 
@@ -212,10 +214,12 @@ sub getRandomDate {
 
     my ($year, $month, $day);
 
-    ($day, $month, $year) = ($params{min} =~ m{(\d{2})/(\d{2})/(\d{4})});
+    my $regex = '(\d{4})-(\d{2})-(\d{2})';
+
+    ($year, $month, $day) = ($params{min} =~ m{$regex});
     my $min = timelocal(0, 0, 0, $day, $month-1, $year);
 
-    ($day, $month, $year) = ($params{max} =~ m{(\d{2})/(\d{2})/(\d{4})});
+    ($year, $month, $day) = ($params{max} =~ m{$regex});
     my $max = timelocal(0, 0, 0, $day, $month-1, $year);
 
     my $diff = $max - $min;
@@ -225,12 +229,28 @@ sub getRandomDate {
             localtime($min + int rand $diff);
 
         return sprintf(
-            '%02u/%02u/%4u',
-            $mday,
-            $mon + 1,
+            '%4u-%02u-%02u',
             $year + 1900,
+            $mon + 1,
+            $mday,
         );
     }
+}
+
+sub datestringISOtoFr {
+    my ($datestring) = @_;
+
+    my ($year, $month, $day) = ($datestring =~ m/(\d{4})-(\d{2})-(\d{2})/);
+
+    return $day.'/'.$month.'/'.$year;
+}
+
+sub datestringISOtoUS {
+    my ($datestring) = @_;
+
+    my ($year, $month, $day) = ($datestring =~ m/(\d{4})-(\d{2})-(\d{2})/);
+
+    return $month.'/'.$day.'/'.$year;
 }
 
 1;
