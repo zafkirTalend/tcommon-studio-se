@@ -17,6 +17,7 @@ use vars qw( @EXPORT @ISA ) ;
               
               getDate
               formatString
+              getRandomDate
             );
 
 
@@ -202,6 +203,34 @@ sub formatString {
     }
 
     return $params{string};
+}
+
+use Time::Local;
+
+sub getRandomDate {
+    my %params = @_;
+
+    my ($year, $month, $day);
+
+    ($day, $month, $year) = ($params{min} =~ m{(\d{2})/(\d{2})/(\d{4})});
+    my $min = timelocal(0, 0, 0, $day, $month-1, $year);
+
+    ($day, $month, $year) = ($params{max} =~ m{(\d{2})/(\d{2})/(\d{4})});
+    my $max = timelocal(0, 0, 0, $day, $month-1, $year);
+
+    my $diff = $max - $min;
+
+    {
+        my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) =
+            localtime($min + int rand $diff);
+
+        return sprintf(
+            '%02u/%02u/%4u',
+            $mday,
+            $mon + 1,
+            $year + 1900,
+        );
+    }
 }
 
 1;
