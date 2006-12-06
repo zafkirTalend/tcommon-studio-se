@@ -5,6 +5,7 @@
         <file-match-pattern match-pattern="." include-pattern="true"/>
     </fileset>
     <filter name="FilesFromPackage" enabled="true">
+        <filter-data value="src/main/java/org/talend/commons/ui/geometry"/>
         <filter-data value="src/main/java/org/talend/commons/ui/swt/formtools"/>
     </filter>
 </fileset-config>
