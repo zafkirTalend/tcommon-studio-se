@@ -322,9 +322,6 @@ public class TableViewerCreatorLayout extends Layout {
             bounds = table.getClientArea();
         } else {
             bounds = table.getBounds();
-            // bounds = table.getClientArea();
-            // bounds = clientArea.intersection(bounds);
-
         }
 
         int displayedWidth = 0;
@@ -645,8 +642,9 @@ public class TableViewerCreatorLayout extends Layout {
                     totalWeight += weight;
                     totalWidthWithWeight += columns[i].getWidth();
                 } else {
-                    // totalWidthWithWeight += columns[i].getWidth();
-                    // totalWidthWithoutWeight += columns[i].getWidth();
+                    if (WindowSystem.isGTK()) {
+                     totalWidthWithWeight += columns[i].getWidth();
+                    }
                 }
             }
             float coef = (float) currentTableColumn.getWidth() * (float) totalWeight / ((float) totalWidthWithWeight);
@@ -661,8 +659,7 @@ public class TableViewerCreatorLayout extends Layout {
      */
     private synchronized void controlResizedExecute(ControlEvent e) {
         final TableColumn currentTableColumn = (TableColumn) e.widget;
-        // !WindowSystem.isGTK() &&
-        if (!columnsResizingByLayout && (fillHorizontal || continuousLayout)) {
+        if (!WindowSystem.isGTK() &&!columnsResizingByLayout && (fillHorizontal || continuousLayout)) {
 //            System.out.println("controlResizedExecute");
             if (continuousLayout && !fillHorizontal) {
                 asyncThreadingForManualColumnResizingFalse.interrupt();
@@ -670,24 +667,18 @@ public class TableViewerCreatorLayout extends Layout {
                     manualResizing = false;
                 }
             }
-            // manualResizing = false;
             if (!manualResizing) {
                 manualResizing = true;
                 final Table table = currentTableColumn.getParent();
-                Rectangle bounds = null;
-                bounds = table.getClientArea();
-                // if (WindowSystem.isGTK()) {
-                // } else {
-                // bounds = table.getBounds();
-                // }
+                Rectangle bounds = table.getClientArea();
                 // System.out.println("currentTableColumn.getWidth()=" + currentTableColumn.getWidth());
                 // System.out.println("columnsResizingByLayout=" + columnsResizingByLayout);
                 // System.out.println("currentTableColumn.hashCode()=" + currentTableColumn.hashCode());
 
                 if (table.getHorizontalBar().getSelection() == 0) {
-                    // if (!WindowSystem.isGTK()) {
+                     if (!WindowSystem.isGTK()) {
                     changeColumnLayoutData(currentTableColumn, bounds);
-                    // }
+                     }
 
                     lastDisplayedWidth = bounds.width + widthAdjustValue;
                     // System.out.println("lastWidth="+lastDisplayedWidth);
@@ -732,7 +723,6 @@ public class TableViewerCreatorLayout extends Layout {
                             }
                         }
                         referenceWidth = computeCurrentTableWidth() + widthAdjustValue;
-                        // lastDisplayedWidth = referenceWidth;
                         // System.out.println("referenceWidth=" + referenceWidth);
                     }
                 }
@@ -743,7 +733,6 @@ public class TableViewerCreatorLayout extends Layout {
 
             if (fillHorizontal) {
                 manualResizing = false;
-                // tableViewerCreator.layout();
             }
 
             tableViewerCreator.redrawTableEditorControls();
