@@ -21,33 +21,19 @@
 // ============================================================================
 package org.talend.designer.codegen;
 
-import org.talend.core.model.process.IProcess;
+import org.eclipse.core.resources.IFile;
+import org.talend.commons.exception.SystemException;
+import org.talend.core.model.properties.RoutineItem;
 
 /**
- * DOC bqian class global comment. Interface for CodeGeneratorService. <br/>
+ * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
+ * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public interface ICodeGeneratorService {
+public interface IRoutineSynchronizer {
 
-    /**
-     * DOC qian Comment method "createCodeGenerator".
-     * 
-     * @return ICodeGenerator
-     */
-    public ICodeGenerator createCodeGenerator();
+    public void syncAllRoutines() throws SystemException;
 
-    /**
-     * DOC qian Comment method "createCodeGenerator".
-     * 
-     * @param process IProcess
-     * @param statistics boolean
-     * @param trace boolean
-     * @param options String...
-     * @return
-     */
-    public ICodeGenerator createCodeGenerator(IProcess process, boolean statistics, boolean trace, String... options);
-
-    public IRoutineSynchronizer createRoutineSynchronizer();
+    public IFile syncRoutine(RoutineItem routineItem) throws SystemException;
 }
