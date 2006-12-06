@@ -368,7 +368,8 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         getRepositoryContext().setProject(project);
 
         // Sample Routines file
-        URL url = Platform.getBundle(RepositoryLocalProviderPlugin.PLUGIN_ID).getEntry("routines/routines.pm");
+        // FIXME SML get this url by service
+        URL url = Platform.getBundle("org.talend.designer.codegen.perlmodule").getEntry("perl/routines/routines.pm");
         if (url != null) {
             InputStream stream = null;
             try {
