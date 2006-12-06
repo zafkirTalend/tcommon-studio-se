@@ -103,6 +103,15 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
             resource.getContents().add(notationHolder);
             computeNotationHolder();
             resource.getContents().remove(notation);
+            try {
+                eResource().save(null);
+                resource.save(null);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            notation = null;
+            return getNotation();
         }
         if (notation == null && getNotationHolder().getNotationString() != null) {
             //automatically compute notation from notationholder
