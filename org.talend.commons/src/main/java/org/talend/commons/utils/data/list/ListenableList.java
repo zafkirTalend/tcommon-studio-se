@@ -514,7 +514,7 @@ public class ListenableList<T> implements List<T> {
         fireSwapedEvent(indicesOrigin, indicesTarget, swapedObjects.toArray(), false);
     }
 
-    public void swapElement(Object object1, Object object2) {
+    public void swapElement(T object1, T object2) {
         swap(this.list.indexOf(object1), this.list.indexOf(object2));
     }
 
@@ -630,19 +630,19 @@ public class ListenableList<T> implements List<T> {
         }
     }
 
-    public void addAfterListener(IListenableListListener listener) {
+    public void addPostOperationListener(IListenableListListener listener) {
         addListener(listener, false);
     }
 
-    public void addBeforeListener(IListenableListListener listener) {
+    public void addBeforeOperationListener(IListenableListListener listener) {
         addListener(listener, true);
     }
 
-    public void addAfterListener(int orderCall, IListenableListListener listener) {
+    public void addPostOperationListener(int orderCall, IListenableListListener listener) {
         addListener(orderCall, listener, false);
     }
 
-    public void addBeforeListener(int orderCall, IListenableListListener listener) {
+    public void addBeforeOperationListener(int orderCall, IListenableListListener listener) {
         addListener(orderCall, listener, true);
     }
 

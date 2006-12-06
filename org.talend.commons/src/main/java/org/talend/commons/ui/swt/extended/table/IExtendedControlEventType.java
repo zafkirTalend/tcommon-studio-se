@@ -29,27 +29,6 @@ package org.talend.commons.ui.swt.extended.table;
  * $Id$
  *
  */
-public class ExtendedModelEvent {
+public interface IExtendedControlEventType {
 
-    private IExtendedControlEventType type;
-
-    /**
-     * DOC amaumont ExtendedModelEvent constructor comment.
-     */
-    public ExtendedModelEvent(IExtendedControlEventType type) {
-        super();
-        this.type = type;
-    }
-
-    
-    /**
-     * Getter for type.
-     * @return the type
-     */
-    public IExtendedControlEventType getType() {
-        return this.type;
-    }
-
-    
-    
 }

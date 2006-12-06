@@ -92,7 +92,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
     /**
      * DOC amaumont Comment method "initViewTableListeners".
      */
-    private void initTableListeners() {
+    protected void initTableListeners() {
         initLineSelectionListeners();
     }
 
@@ -214,7 +214,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
         });
 
-        getExtendedTableModel().addAfterListener(1, new IListenableListListener() {
+        getExtendedTableModel().addAfterOperationListListener(1, new IListenableListListener() {
 
             public void handleEvent(ListenableListEvent event) {
                 handleAfterListenableListOperationEvent(event);
@@ -222,7 +222,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
         });
 
-        getExtendedTableModel().addAfterListener(100, new IListenableListListener<B>() {
+        getExtendedTableModel().addAfterOperationListListener(100, new IListenableListListener<B>() {
 
             public void handleEvent(ListenableListEvent<B> event) {
                 if (event.type == TYPE.ADDED) {

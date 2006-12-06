@@ -54,6 +54,18 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         super();
     }
 
+    
+    
+    /**
+     * DOC amaumont ExtendedTableModel constructor comment.
+     * @param name
+     * @param beansList
+     */
+    public ExtendedTableModel(String name, List<B> dataList) {
+        super(name);
+        registerDataList(dataList);
+    }
+
     /**
      * DOC amaumont Comment method "add".
      * 
@@ -145,6 +157,26 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         this.beansList.clear();
     }
 
+    
+    
+    /**
+     * @param object1
+     * @param object2
+     * @see org.talend.commons.utils.data.list.ListenableList#swapElement(java.lang.Object, java.lang.Object)
+     */
+    public void swapElement(B object1, B object2) {
+        this.beansList.swapElement(object1, object2);
+    }
+
+    /**
+     * @param indicesOrigin
+     * @param indicesTarget
+     * @see org.talend.commons.utils.data.list.ListenableList#swapElements(java.util.List, java.util.List)
+     */
+    public void swapElements(List<Integer> indicesOrigin, List<Integer> indicesTarget) {
+        this.beansList.swapElements(indicesOrigin, indicesTarget);
+    }
+
     /**
      * DOC amaumont Comment method "remove".
      * 
@@ -161,38 +193,38 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
 
     /**
      * @param listener
-     * @see org.talend.commons.utils.data.list.ListenableList#addAfterListener(org.talend.commons.utils.data.list.IListenableListListener)
+     * @see org.talend.commons.utils.data.list.ListenableList#addPostOperationListener(org.talend.commons.utils.data.list.IListenableListListener)
      */
     public void addAfterOperationListListener(IListenableListListener listener) {
-        this.beansList.addAfterListener(listener);
+        this.beansList.addPostOperationListener(listener);
     }
 
     /**
      * @param orderCall
      * @param listener
-     * @see org.talend.commons.utils.data.list.ListenableList#addAfterListener(int,
+     * @see org.talend.commons.utils.data.list.ListenableList#addPostOperationListener(int,
      * org.talend.commons.utils.data.list.IListenableListListener)
      */
-    public void addAfterListener(int orderCall, IListenableListListener listener) {
-        this.beansList.addAfterListener(orderCall, listener);
+    public void addAfterOperationListListener(int orderCall, IListenableListListener listener) {
+        this.beansList.addPostOperationListener(orderCall, listener);
     }
 
     /**
      * @param listener
-     * @see org.talend.commons.utils.data.list.ListenableList#addBeforeListener(org.talend.commons.utils.data.list.IListenableListListener)
+     * @see org.talend.commons.utils.data.list.ListenableList#addBeforeOperationListener(org.talend.commons.utils.data.list.IListenableListListener)
      */
     public void addBeforeOperationListListener(IListenableListListener listener) {
-        this.beansList.addBeforeListener(listener);
+        this.beansList.addBeforeOperationListener(listener);
     }
 
     /**
      * @param orderCall
      * @param listener
-     * @see org.talend.commons.utils.data.list.ListenableList#addBeforeListener(int,
+     * @see org.talend.commons.utils.data.list.ListenableList#addBeforeOperationListener(int,
      * org.talend.commons.utils.data.list.IListenableListListener)
      */
     public void addBeforeOperationListListener(int orderCall, IListenableListListener listener) {
-        this.beansList.addBeforeListener(orderCall, listener);
+        this.beansList.addBeforeOperationListener(orderCall, listener);
     }
 
     public void removeModifiedListListener(IListenableListListener listenableListListener) {

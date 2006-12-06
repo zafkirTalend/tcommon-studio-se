@@ -673,7 +673,7 @@ public class ListenableListTest {
             }
 
         };
-        listenedList.addAfterListener(listener);
+        listenedList.addPostOperationListener(listener);
 
     }
 }

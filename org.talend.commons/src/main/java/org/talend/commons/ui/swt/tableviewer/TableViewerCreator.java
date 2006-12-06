@@ -35,7 +35,9 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ColumnLayoutData;
 import org.eclipse.jface.viewers.ColumnPixelData;
 import org.eclipse.jface.viewers.ColumnWeightData;
+import org.eclipse.jface.viewers.IBaseLabelProvider;
 import org.eclipse.jface.viewers.ICellModifier;
+import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableLayout;
@@ -1156,26 +1158,44 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     public ICellModifier getCellModifier() {
+        if (tableViewer != null && tableViewer.getCellModifier() != null) {
+            return tableViewer.getCellModifier();
+        }
         return cellModifier;
     }
 
     public void setCellModifier(ICellModifier cellModifier) {
+        if (tableViewer != null && tableViewer.getCellModifier() != cellModifier) {
+            tableViewer.setCellModifier(cellModifier);
+        }
         this.cellModifier = cellModifier;
     }
 
-    public ITableLabelProvider getLabelProvider() {
+    public IBaseLabelProvider getLabelProvider() {
+        if (tableViewer != null && tableViewer.getLabelProvider() != null) {
+            return tableViewer.getLabelProvider();
+        }
         return labelProvider;
     }
 
     public void setLabelProvider(ITableLabelProvider tableLabelProvider) {
+        if (tableViewer != null && tableViewer.getLabelProvider() != tableLabelProvider) {
+            tableViewer.setLabelProvider(tableLabelProvider);
+        }
         this.labelProvider = tableLabelProvider;
     }
 
-    public IStructuredContentProvider getContentProvider() {
+    public IContentProvider getContentProvider() {
+        if (tableViewer != null && tableViewer.getContentProvider() != null) {
+            return tableViewer.getContentProvider();
+        }
         return contentProvider;
     }
 
     public void setContentProvider(IStructuredContentProvider contentProvider) {
+        if (tableViewer != null && tableViewer.getContentProvider() != contentProvider) {
+            tableViewer.setContentProvider(contentProvider);
+        }
         this.contentProvider = contentProvider;
     }
 
@@ -1569,32 +1589,32 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      * DOC amaumont Comment method "setBeanValue".
      * 
      * @param currentRowObject
-     * @param useCommand TODO
+     * @param createNewCommand TODO
      * @param beanPropertyAccessors
      * @param b
      */
-    public void setBeanValue(TableViewerCreatorColumn column, B currentRowObject, Object value, boolean useCommand) {
+    public void setBeanValue(TableViewerCreatorColumn column, B currentRowObject, Object value, boolean createNewCommand) {
         boolean listened = modifiedBeanListeners.size() != 0;
 
-        Object previousValue = null;
-        if (listened) {
-            previousValue = AccessorUtils.get(currentRowObject, column);
-        }
-        AccessorUtils.set(column, currentRowObject, value);
-        tableViewer.refresh(currentRowObject);
+        Object previousValue = AccessorUtils.get(currentRowObject, column);
 
-        ModifiedBeanEvent<B> event = new ModifiedBeanEvent<B>();
-        event.bean = (B) currentRowObject;
-        event.column = column;
-        event.index = getInputList().indexOf(currentRowObject);
-        event.newValue = value;
-        event.previousValue = previousValue;
-        if (listened) {
-            fireModifiedBeanEvent(event);
-        }
-        if (useCommand && this.commandStack != null) {
-            ModifyBeanValueCommand<B> modifyBeanValueCommand = new ModifyBeanValueCommand<B>(event);
-            this.commandStack.execute(modifyBeanValueCommand);
+        if (value != null && !value.equals(previousValue)) {
+            AccessorUtils.set(column, currentRowObject, value);
+            tableViewer.refresh(currentRowObject);
+
+            ModifiedBeanEvent<B> event = new ModifiedBeanEvent<B>();
+            event.bean = (B) currentRowObject;
+            event.column = column;
+            event.index = getInputList().indexOf(currentRowObject);
+            event.newValue = value;
+            event.previousValue = previousValue;
+            if (listened) {
+                fireModifiedBeanEvent(event);
+            }
+            if (createNewCommand && this.commandStack != null) {
+                ModifyBeanValueCommand<B> modifyBeanValueCommand = new ModifyBeanValueCommand<B>(event);
+                this.commandStack.execute(modifyBeanValueCommand);
+            }
         }
     }
 

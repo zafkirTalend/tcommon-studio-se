@@ -31,6 +31,19 @@ import org.eclipse.core.runtime.ListenerList;
  */
 public abstract class AbstractExtendedControlModel {
 
+    
+    /**
+     * 
+     * Event type.
+     * <br/>
+     *
+     * $Id$
+     *
+     */
+    public enum EVENT_TYPE implements IExtendedControlEventType {
+        NAME_CHANGED,
+    };
+    
     public static final String NAME_CHANGED = "NAME_CHANGED";
 
     /*
@@ -65,7 +78,7 @@ public abstract class AbstractExtendedControlModel {
      */
     public void setName(String name) {
         this.name = name;
-        fireEvent(new ExtendedModelEvent(NAME_CHANGED));
+        fireEvent(new ExtendedModelEvent(EVENT_TYPE.NAME_CHANGED));
     }
 
     /**
@@ -73,7 +86,7 @@ public abstract class AbstractExtendedControlModel {
      * 
      * @param event
      */
-    private void fireEvent(ExtendedModelEvent event) {
+    protected void fireEvent(ExtendedModelEvent event) {
         final Object[] listenerArray = listeners.getListeners();
         for (int i = 0; i < listenerArray.length; i++) {
             ((IExtendedModelListener) listenerArray[i]).handleEvent(event);
@@ -89,7 +102,7 @@ public abstract class AbstractExtendedControlModel {
         this.listeners.add(listener);
     }
 
-    public void removeCellEditorAppliedListener(IExtendedModelListener listener) {
+    public void removeListener(IExtendedModelListener listener) {
         this.listeners.remove(listener);
     }
 
