@@ -61,7 +61,7 @@ public abstract class ButtonPushImageTableEditorContent extends TableEditorConte
         label.setImage(image);
         Point size = label.computeSize(SWT.DEFAULT, SWT.DEFAULT);
         Rectangle bounds = label.getBounds();
-        bounds.y -=5;
+        bounds.y -= 5;
         label.setBounds(bounds);
         tableEditor.grabHorizontal = true;
         tableEditor.grabVertical = true;
@@ -127,26 +127,25 @@ public abstract class ButtonPushImageTableEditorContent extends TableEditorConte
 
     public void setImageHover(Image imageHover) {
         throw new UnsupportedOperationException();
-//        this.imageHover = imageHover;
+        // this.imageHover = imageHover;
     }
 
-    
     /**
      * Getter for image.
+     * 
      * @return the image
      */
     public Image getImage() {
         return this.image;
     }
 
-    
     /**
      * Getter for imageHover.
+     * 
      * @return the imageHover
      */
     public Image getImageHover() {
         return this.imageHover;
     }
 
-    
 }

@@ -122,8 +122,7 @@ public class Form {
      * 
      * @return Composite
      */
-    public static Composite startNewGridLayout(Composite parent, int numColumns, boolean sameWidth, int styleHoryzontal,
-            int styleVertical) {
+    public static Composite startNewGridLayout(Composite parent, int numColumns, boolean sameWidth, int styleHoryzontal, int styleVertical) {
         Composite composite = new Composite(parent, SWT.NULL);
         composite.setLayout(new GridLayout(numColumns, sameWidth));
         composite.setLayoutData(new GridData(styleHoryzontal, styleVertical, true, true));

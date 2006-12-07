@@ -75,7 +75,7 @@ public class TableEditorManager {
 
     @SuppressWarnings("unchecked")
     public void refresh() {
-//        System.out.println("table editor refreshed");
+        // System.out.println("table editor refreshed");
         for (TableEditor tableEditor : tableEditorList) {
             tableEditor.getEditor().dispose();
         }
@@ -129,7 +129,7 @@ public class TableEditorManager {
     public void redrawControls() {
         for (TableEditor tableEditor : tableEditorList) {
             Control editor = tableEditor.getEditor();
-            if(editor != null) {
+            if (editor != null) {
                 editor.redraw();
             }
         }

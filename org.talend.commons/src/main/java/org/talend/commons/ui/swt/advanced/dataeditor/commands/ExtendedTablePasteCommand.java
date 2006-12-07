@@ -61,6 +61,7 @@ public abstract class ExtendedTablePasteCommand extends Command {
      * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void execute() {
 
@@ -75,14 +76,14 @@ public abstract class ExtendedTablePasteCommand extends Command {
 
     public abstract List createPastableBeansList(ExtendedTableModel extendedTable, List copiedObjectsList);
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#canUndo()
      */
     @Override
     public boolean canUndo() {
         return false;
     }
-    
-    
-    
+
 }

@@ -80,8 +80,6 @@ public class TableViewerCreatorColumn implements Cloneable {
         }
     }
 
-    private String beanPropertyName;
-
     private String id;
 
     private String title;
@@ -195,6 +193,7 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     /**
      * Note: used only when the weight is set.
+     * 
      * @param minimumWidth
      */
     public void setMinimumWidth(int minimumWidth) {
@@ -377,11 +376,11 @@ public class TableViewerCreatorColumn implements Cloneable {
     public ITableCellValueModifiedListener getCellEditorAppliedListener() {
         return this.cellEditorAppliedListener;
     }
-    
+
     public void setCellEditorAppliedListener(ITableCellValueModifiedListener cellEditorAppliedListener) {
         this.cellEditorAppliedListener = cellEditorAppliedListener;
     }
-    
+
     public String getId() {
         if (this.id == null) {
             this.id = this.title;
@@ -450,7 +449,8 @@ public class TableViewerCreatorColumn implements Cloneable {
      * 
      * <p>
      * <b>Warning</b>: this Image provider won't work if you set your custom LabelProvider to
-     * <code>TableViewerCreator</code>. So you can inherit <code>DefaultTableLabelProvider</code> and call super methods into.
+     * <code>TableViewerCreator</code>. So you can inherit <code>DefaultTableLabelProvider</code> and call super
+     * methods into.
      * 
      * @param columnImageProvider
      * @see ITableLabelProvider#getColumnImage(Object, int) is used
@@ -461,6 +461,7 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     /**
      * "getIndex" method.
+     * 
      * @return the index of the column
      */
     public int getIndex() {
@@ -469,6 +470,7 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     /**
      * Index is set by <code>TableViewerCreator</code> at initialization. This method shouldn't be called.
+     * 
      * @param index
      */
     public void setIndex(int index) {

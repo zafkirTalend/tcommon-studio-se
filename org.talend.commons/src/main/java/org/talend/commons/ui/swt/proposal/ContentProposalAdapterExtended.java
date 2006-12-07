@@ -135,7 +135,7 @@ public class ContentProposalAdapterExtended {
 
                 if (e.type == SWT.FocusOut && e.widget == control) {
 
-                    new Thread() {
+                    (new Thread() {
 
                         @Override
                         public void run() {
@@ -157,7 +157,7 @@ public class ContentProposalAdapterExtended {
                             });
                         }
 
-                    }.start();
+                    }).start();
                 }
 
                 // System.out.println(e + " " +hasFocus() + " " + control.isFocusControl());
@@ -291,6 +291,9 @@ public class ContentProposalAdapterExtended {
             private int lastCursorPosition;
 
             // Key events from the control
+            /**
+             * 
+             */
             public void handleEvent(Event e) {
                 // System.out.println(e);
                 // System.out.println(EventUtil.getEventName(e.type));
@@ -585,14 +588,13 @@ public class ContentProposalAdapterExtended {
                 Rectangle parentBounds = getParentShell().getBounds();
                 Rectangle proposedBounds;
                 // Try placing the info popup to the right
-                Rectangle rightProposedBounds = new Rectangle(parentBounds.x + parentBounds.width
-                        + PopupDialog.POPUP_HORIZONTALSPACING, parentBounds.y + PopupDialog.POPUP_VERTICALSPACING,
-                        parentBounds.width, parentBounds.height);
+                Rectangle rightProposedBounds = new Rectangle(parentBounds.x + parentBounds.width + PopupDialog.POPUP_HORIZONTALSPACING,
+                        parentBounds.y + PopupDialog.POPUP_VERTICALSPACING, parentBounds.width, parentBounds.height);
                 rightProposedBounds = getConstrainedShellBounds(rightProposedBounds);
                 // If it won't fit on the right, try the left
                 if (rightProposedBounds.intersects(parentBounds)) {
-                    Rectangle leftProposedBounds = new Rectangle(parentBounds.x - parentBounds.width - POPUP_HORIZONTALSPACING
-                            - 1, parentBounds.y, parentBounds.width, parentBounds.height);
+                    Rectangle leftProposedBounds = new Rectangle(parentBounds.x - parentBounds.width - POPUP_HORIZONTALSPACING - 1,
+                            parentBounds.y, parentBounds.width, parentBounds.height);
                     leftProposedBounds = getConstrainedShellBounds(leftProposedBounds);
                     // If it won't fit on the left, choose the proposed bounds
                     // that fits the best
@@ -1124,6 +1126,7 @@ public class ContentProposalAdapterExtended {
         /*
          * Filter the provided list of content proposals according to the filter text.
          */
+        @SuppressWarnings("unchecked")
         private IContentProposal[] filterProposals(IContentProposal[] proposals, String filterString) {
             if (filterString.length() == 0) {
                 return proposals;
@@ -1712,6 +1715,7 @@ public class ContentProposalAdapterExtended {
                                             try {
                                                 Thread.sleep(autoActivationDelay);
                                             } catch (InterruptedException e) {
+                                                // nothing
                                             }
                                             if (!isValid() || receivedKeyDown) {
                                                 return;

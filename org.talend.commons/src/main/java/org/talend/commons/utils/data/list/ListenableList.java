@@ -131,6 +131,7 @@ public class ListenableList<T> implements List<T> {
      * 
      * 
      */
+    @SuppressWarnings("unchecked")
     public void addAll(List<Integer> indices, Collection<? extends T> c) {
 
         fireAddedEvent(null, (Collection<T>) c, indices, true);
@@ -643,6 +644,7 @@ public class ListenableList<T> implements List<T> {
      * 
      * @param event
      */
+    @SuppressWarnings("unchecked")
     public void fireEvent(ListenableListEvent<T> event) {
         List<OrderableWrapper<IListenableListListener>> listeners = getCurrentListeners(event.beforeOperation);
 

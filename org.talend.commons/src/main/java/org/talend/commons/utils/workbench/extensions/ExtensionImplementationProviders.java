@@ -133,8 +133,7 @@ public final class ExtensionImplementationProviders {
      * value of the ext. point
      */
     @SuppressWarnings("unchecked")
-    public static <T> List<T> getInstance(ISimpleExtensionPoint extensionPoint, String plugInId)
-            throws IllegalPluginConfigurationException {
+    public static <T> List<T> getInstance(ISimpleExtensionPoint extensionPoint, String plugInId) throws IllegalPluginConfigurationException {
         List<T> toReturn = new ArrayList<T>();
 
         IExtensionRegistry reg = Platform.getExtensionRegistry();

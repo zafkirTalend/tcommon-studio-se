@@ -34,11 +34,13 @@ import org.w3c.dom.Node;
 public class XPathContentProposal implements IContentProposal {
 
     private String content;
+
     private Node node;
 
     /**
      * Constructs a new ContextParameterProposal.
-     * @param node 
+     * 
+     * @param node
      * 
      * @param language
      * @param control
@@ -54,7 +56,7 @@ public class XPathContentProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getContent()
      */
     public String getContent() {
-        if(this.node instanceof Attr) {
+        if (this.node instanceof Attr) {
             content = "/@" + this.node.getNodeName();
         } else {
             content = "/" + this.node.getNodeName();
@@ -97,7 +99,7 @@ public class XPathContentProposal implements IContentProposal {
      */
     public String getLabel() {
         String label = null;
-        if(this.node instanceof Attr) {
+        if (this.node instanceof Attr) {
             label = "/@" + this.node.getNodeName();
         } else {
             label = "/" + this.node.getNodeName();

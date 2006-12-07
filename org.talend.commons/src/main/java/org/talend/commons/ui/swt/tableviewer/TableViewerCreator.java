@@ -352,6 +352,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public List<B> getInputList() {
         return (List<B>) tableViewer.getInput();
     }
@@ -974,7 +975,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
          */
         FULL(SWT.FULL_SELECTION),
         /**
-         * Don't show selection
+         * Don't show selection.
          */
         HIDE(SWT.HIDE_SELECTION);
 
@@ -995,6 +996,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      */
     public enum LAYOUT_MODE {
         /**
+         * Layout mode.
          * Default layout based on <code>TableLayout</code> behavior :
          * <p>- Use width and weight to initialize columns size, but don't resize columns when table is resized
          * </p>
@@ -1002,6 +1004,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         DEFAULT(),
 
         /**
+         * Layout mode.
          * <p>- Use width and weight to initialize columns size, but don't resize columns when table is resized
          * </p>
          * <p>- Fill all empty space at initialization
@@ -1012,6 +1015,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         CONTINUOUS,
 
         /**
+         * Layout mode. 
          * <p>- Use width and weight to initialize columns size, but don't resize columns when table is resized
          * </p>
          * <p>- Fill all empty space at initialization
@@ -1485,6 +1489,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
+     * Get background color of selected line.
      * <p>
      * Note : only available on Win32
      * </p>
@@ -1496,7 +1501,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
-     * 
+     * Set background color of selected line.
      * <p>
      * Note : only available on Win32
      * </p>
@@ -1509,6 +1514,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
+     * Get foreground color of selected line.
      * <p>
      * Note : only available on Win32
      * </p>
@@ -1520,7 +1526,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
-     * 
+     * Set foreground color of selected line.
      * <p>
      * Note : only available on Win32
      * </p>
@@ -1533,6 +1539,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
+     * Get background color of selected line if Table is unactive.
      * <p>
      * Note : only available on Win32
      * </p>
@@ -1544,7 +1551,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
-     * 
+     * Set background color of selected line if Table is unactive.
      * <p>
      * Note : only available on Win32
      * </p>
@@ -1557,6 +1564,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
+     * Get foreground color of selected line if Table is unactive.
      * <p>
      * Note : only available on Win32
      * </p>
@@ -1568,7 +1576,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
-     * 
+     * Set foreground color of selected line if Table is unactive.
      * <p>
      * Note : only available on Win32
      * </p>
@@ -1613,6 +1621,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public B getBeanValue(TableViewerCreatorColumn column, Object currentRowObject) {
         return (B) AccessorUtils.get(currentRowObject, column);
     }
@@ -1625,6 +1634,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         this.modifiedBeanListeners.remove(modifiedBeanListener);
     }
 
+    @SuppressWarnings("unchecked")
     protected void fireModifiedBeanEvent(ModifiedBeanEvent<B> event) {
         // In all cases, notify listeners of an accepted proposal.
         final Object[] listenerArray = modifiedBeanListeners.getListeners();
@@ -1642,14 +1652,14 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         return this.compositeParent;
     }
 
-    /**
-     * DOC amaumont Comment method "removeEraseListener".
-     */
-    private void removeEraseListener() {
-        if (eraseItemListener != null) {
-            table.removeListener(SWT.EraseItem, eraseItemListener);
-        }
-    }
+//    /**
+//     * DOC amaumont Comment method "removeEraseListener".
+//     */
+//    private void removeEraseListener() {
+//        if (eraseItemListener != null) {
+//            table.removeListener(SWT.EraseItem, eraseItemListener);
+//        }
+//    }
 
     /**
      * DOC amaumont Comment method "addEraseListener".

@@ -26,7 +26,6 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -44,8 +43,6 @@ public class SelectionHelper {
     private ListenerList beforeSelectionListeners = new ListenerList();
 
     private ListenerList afterSelectionListeners = new ListenerList();
-    
-    private SelectionListener tableSelectionListener;
 
     private ISelectionChangedListener postSelectionChangedListener;
 
@@ -59,7 +56,7 @@ public class SelectionHelper {
      * DOC amaumont SelectionHelper constructor comment.
      * 
      * @param tableViewerCreator
-     * @param mouseTableSelectionHelper 
+     * @param mouseTableSelectionHelper
      */
     public SelectionHelper(TableViewerCreator tableViewerCreator, MouseTableSelectionHelper mouseTableSelectionHelper) {
         this.tableViewerCreator = tableViewerCreator;
@@ -71,18 +68,18 @@ public class SelectionHelper {
      * DOC amaumont Comment method "init".
      */
     private void init() {
-//        this.tableSelectionListener = new SelectionListener() {
-//
-//            public void widgetDefaultSelected(SelectionEvent e) {
-//
-//            }
-//
-//            public void widgetSelected(SelectionEvent e) {
-////                LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
-////                fireAfterSelectionChanged(lineSelectionEvent);
-//            }
-//
-//        };
+        // this.tableSelectionListener = new SelectionListener() {
+        //
+        // public void widgetDefaultSelected(SelectionEvent e) {
+        //
+        // }
+        //
+        // public void widgetSelected(SelectionEvent e) {
+        // // LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
+        // // fireAfterSelectionChanged(lineSelectionEvent);
+        // }
+        //
+        // };
 
         this.selectionChangedListener = new ISelectionChangedListener() {
 
@@ -94,14 +91,14 @@ public class SelectionHelper {
         };
 
         this.postSelectionChangedListener = new ISelectionChangedListener() {
-            
+
             public void selectionChanged(SelectionChangedEvent event) {
                 LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
                 fireAfterSelectionChanged(lineSelectionEvent);
             }
-            
+
         };
-        
+
     }
 
     private void fireBeforeSelectionChanged(LineSelectionEvent lineSelectionEvent) {
@@ -125,23 +122,22 @@ public class SelectionHelper {
             l.handle(lineSelectionEvent);
         }
     }
-    
 
     /**
      * DOC amaumont Comment method "addListeners".
      */
     private void addListeners() {
-//        this.tableViewerCreator.getTable().addSelectionListener(this.tableSelectionListener);
+        // this.tableViewerCreator.getTable().addSelectionListener(this.tableSelectionListener);
         this.tableViewerCreator.getTableViewer().addPostSelectionChangedListener(this.postSelectionChangedListener);
         this.tableViewerCreator.getTableViewer().addSelectionChangedListener(this.selectionChangedListener);
     }
 
     private void removeListeners() {
-//        this.tableViewerCreator.getTable().removeSelectionListener(this.tableSelectionListener);
+        // this.tableViewerCreator.getTable().removeSelectionListener(this.tableSelectionListener);
         this.tableViewerCreator.getTableViewer().removePostSelectionChangedListener(this.postSelectionChangedListener);
         this.tableViewerCreator.getTableViewer().removeSelectionChangedListener(this.selectionChangedListener);
     }
-    
+
     /**
      * 
      * DOC amaumont Comment method "setSelection".
@@ -302,7 +298,7 @@ public class SelectionHelper {
     public void deselectAll() {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
-fireBeforeSelectionChanged(lineSelectionEvent);
+        fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().deselectAll();
         fireAfterSelectionChanged(lineSelectionEvent);
     }
@@ -384,8 +380,9 @@ fireBeforeSelectionChanged(lineSelectionEvent);
 
     /**
      * 
-     * DOC amaumont Comment method "removeSelectionListener".
-     * Listeners on <code>Table</code> and <code>TableViewer</code> are unregistered when number of listeners become 0.
+     * DOC amaumont Comment method "removeSelectionListener". Listeners on <code>Table</code> and
+     * <code>TableViewer</code> are unregistered when number of listeners become 0.
+     * 
      * @param lineSelectionListener
      */
     public void removeBeforeSelectionListener(ILineSelectionListener lineSelectionListener) {
@@ -411,11 +408,12 @@ fireBeforeSelectionChanged(lineSelectionEvent);
         }
         afterSelectionListeners.add(lineSelectionListener);
     }
-    
+
     /**
      * 
-     * DOC amaumont Comment method "removeSelectionListener".
-     * Listeners on <code>Table</code> and <code>TableViewer</code> are unregistered when number of listeners become 0.
+     * DOC amaumont Comment method "removeSelectionListener". Listeners on <code>Table</code> and
+     * <code>TableViewer</code> are unregistered when number of listeners become 0.
+     * 
      * @param lineSelectionListener
      */
     public void removeAfterSelectionListener(ILineSelectionListener lineSelectionListener) {
@@ -433,22 +431,19 @@ fireBeforeSelectionChanged(lineSelectionEvent);
         }
         return mouseTableSelectionHelper.isDraggingOnSelectionColumn();
     }
-    
+
     /**
      * 
-     * DOC amaumont Comment method "setActiveFireChanged".
-     * activeFireChanged is true by default.
+     * DOC amaumont Comment method "setActiveFireChanged". activeFireChanged is true by default.
+     * 
      * @param activeFireChanged
      */
     public void setActiveFireSelectionChanged(boolean activeFireChanged) {
-        this.activeFireSelectionChanged  = activeFireChanged;
+        this.activeFireSelectionChanged = activeFireChanged;
     }
 
-    
     public boolean isActiveFireSelectionChanged() {
         return this.activeFireSelectionChanged;
     }
-    
-    
-    
+
 }

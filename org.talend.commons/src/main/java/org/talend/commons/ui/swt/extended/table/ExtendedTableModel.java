@@ -54,10 +54,9 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         super();
     }
 
-    
-    
     /**
      * DOC amaumont ExtendedTableModel constructor comment.
+     * 
      * @param name
      * @param beansList
      */
@@ -157,8 +156,6 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         this.beansList.clear();
     }
 
-    
-    
     /**
      * @param object1
      * @param object2

@@ -49,6 +49,7 @@ public class ExtendedTableRemoveCommand extends Command {
     private Object beanToRemove;
 
     private List removedBeans;
+
     private List removedBeansIndices;
 
     /**
@@ -74,7 +75,6 @@ public class ExtendedTableRemoveCommand extends Command {
      */
     public ExtendedTableRemoveCommand(ExtendedTableModel extendedTable, ArrayList beansToRemove) {
         this.extendedTable = extendedTable;
-        this.indexItemToRemove = indexItemToRemove;
     }
 
     /**
@@ -90,13 +90,15 @@ public class ExtendedTableRemoveCommand extends Command {
      * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void execute() {
 
         List beansList = extendedTable.getBeansList();
-        
+
         if (indexItemToRemove != null) {
             removedBeans = new ArrayList(1);
+            @SuppressWarnings("unused")
             Object removed = extendedTable.remove((int) indexItemToRemove);
             removedBeans.add(removedBeans);
             removedBeansIndices = new ArrayList(1);
@@ -107,13 +109,13 @@ public class ExtendedTableRemoveCommand extends Command {
             removedBeansIndices = Arrays.asList(ArrayUtils.toObject(indexItemsToRemove));
         }
         if (beansToRemove != null) {
-            
+
             int lstSize = beansToRemove.size();
             removedBeansIndices = new ArrayList();
-            List beansToRemove2 = new ArrayList(beansToRemove); 
+            List beansToRemove2 = new ArrayList(beansToRemove);
             for (int i = 0; i < lstSize; i++) {
                 int index = beansList.indexOf(beansToRemove2.get(i));
-                if(index != -1) {
+                if (index != -1) {
                     removedBeansIndices.add(index);
                 } else {
                     beansToRemove.remove(i);
@@ -127,7 +129,7 @@ public class ExtendedTableRemoveCommand extends Command {
         }
         if (beanToRemove != null) {
             int index = beansList.indexOf(beanToRemove);
-            if(extendedTable.remove(beanToRemove)) {
+            if (extendedTable.remove(beanToRemove)) {
                 removedBeans = new ArrayList(1);
                 removedBeans.add(beanToRemove);
                 removedBeansIndices = new ArrayList(1);
@@ -162,11 +164,12 @@ public class ExtendedTableRemoveCommand extends Command {
      * 
      * @see org.talend.commons.ui.command.CommonCommand#undo()
      */
+    @SuppressWarnings("unchecked")
     @Override
     public synchronized void undo() {
-        
+
         extendedTable.addAll(removedBeansIndices, removedBeans);
-        
+
     }
 
 }

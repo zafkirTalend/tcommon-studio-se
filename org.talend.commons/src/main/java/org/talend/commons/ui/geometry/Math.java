@@ -43,11 +43,10 @@ package org.talend.commons.ui.geometry;
 
 /**
  * 
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public final class Math {
 

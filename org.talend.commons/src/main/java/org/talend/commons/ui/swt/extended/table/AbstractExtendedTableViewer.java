@@ -317,6 +317,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * 
      * @return the extendedTable
      */
+    @SuppressWarnings("unchecked")
     public ExtendedTableModel<B> getExtendedTableModel() {
         return (ExtendedTableModel<B>) getExtendedControlModel();
     }

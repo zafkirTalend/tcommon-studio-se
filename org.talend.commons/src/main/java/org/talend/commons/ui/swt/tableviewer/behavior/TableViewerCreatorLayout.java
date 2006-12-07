@@ -134,10 +134,6 @@ public class TableViewerCreatorLayout extends Layout {
 
     protected Boolean mouseIsDown;
 
-    private Rectangle previousBounds;
-
-    private Rectangle previousClientArea;
-
     private AsynchronousThreading asyncThreadingForManualColumnResizingFalse;
 
     /**
@@ -147,14 +143,6 @@ public class TableViewerCreatorLayout extends Layout {
         this.tableViewerCreator = tableViewerCreator;
         init();
     }
-
-    // /**
-    // * Creates a new table layout.
-    // */
-    // public TableViewerCreatorLayout(TableViewerCreator tableViewerCreator, int timeBetweenTwoLayouts) {
-    // this.tableViewerCreator = tableViewerCreator;
-    // this.thisLayout = this;
-    // }
 
     /**
      * DOC amaumont Comment method "init".
@@ -306,16 +294,8 @@ public class TableViewerCreatorLayout extends Layout {
     }
 
     private void layout(final Composite c) {
-//         System.out.println("Layout" + System.currentTimeMillis());
+        // System.out.println("Layout" + System.currentTimeMillis());
         final Table table = (Table) c;
-        // System.out.println("\n");
-        // System.out.println("table.hashCode()=" + table.hashCode());
-        // System.out.println("table.getBounds()=" + table.getBounds());
-        // System.out.println("previousBounds=" + previousBounds);
-        // System.out.println("table.getClientArea()=" + table.getClientArea());
-        // System.out.println("previousClientArea=" + previousClientArea);
-        // System.out.println("lastDisplayedWidth=" + lastDisplayedWidth);
-        // System.out.println("referenceWidth=" + referenceWidth);
         Rectangle bounds = table.getBounds();
         Rectangle clientArea = table.getClientArea();
         if (WindowSystem.isGTK()) {
@@ -343,7 +323,6 @@ public class TableViewerCreatorLayout extends Layout {
                 } else {
                     displayedWidth = bounds.width + widthAdjustValue;
                 }
-//                displayedWidth = bounds.width + widthAdjustValue;
                 referenceWidth = displayedWidth;
                 lastDisplayedWidth = displayedWidth;
 
@@ -353,9 +332,7 @@ public class TableViewerCreatorLayout extends Layout {
                     newVisibleWidth += -table.getVerticalBar().getSize().x;
                 }
 
-                // System.out.println("newVisibleWidth=" + newVisibleWidth);
                 displayedWidth = referenceWidth - 2 * c.getBorderWidth() - (lastDisplayedWidth - newVisibleWidth);
-                // System.out.println("newDisplayedWidth=" + displayedWidth);
             }
 
         }
@@ -370,9 +347,8 @@ public class TableViewerCreatorLayout extends Layout {
         // Layout to null so we make sure we run it only when
         // the value is OK.
         if (displayedWidth <= 1) {
-             return;
+            return;
         }
-
 
         Item[] tableColumns = getColumns(c);
         int size = Math.min(columnsLayoutData.size(), tableColumns.length);
@@ -443,14 +419,6 @@ public class TableViewerCreatorLayout extends Layout {
         }
 
         columnsResizingByLayout = true;
-        // if (showAlwaysAllColumns) {
-        // to mask better horizontal bar when resize
-        // int widthLastColumn = getWidth(tableColumns[tableColumns.length - 1]) -5;
-        // if (widthLastColumn < 1) {
-        // widthLastColumn = 1;
-        // }
-        // setWidth(tableColumns[tableColumns.length - 1], widthLastColumn);
-        // }
 
         final boolean previousVisible = table.getVisible();
         if (previousVisible) {
@@ -458,28 +426,11 @@ public class TableViewerCreatorLayout extends Layout {
         }
 
         for (int i = 0; i < size; i++) {
-            // if (!firstTime && !manualResizing && referenceWidth < lastWidth) {
-            // int widthAll = 0;
-            // for (int j = 0; j < widths.length; j++) {
-            // widthAll += widths[j];
-            // }
-            // if (i == size - 1 && widthAll < newVisibleWidth) {
-            // widths[i] = newVisibleWidth - widthAll;
-            // }
-            // }
             setWidth(tableColumns[i], widths[i]);
         }
-//        System.out.println("Layout" + System.currentTimeMillis());
-//        tableViewerCreator.getTable().redraw();
-//        tableViewerCreator.redrawTableEditorControls();
         table.setVisible(previousVisible);
         columnsResizingByLayout = false;
         firstTime = false;
-
-        previousBounds = table.getBounds();
-        previousClientArea = table.getClientArea();
-        
-//        table.setVisible(true);
 
     }
 
@@ -531,20 +482,20 @@ public class TableViewerCreatorLayout extends Layout {
 
     }
 
-    /**
-     * Set the width of the item.
-     * 
-     * @param item
-     * @param width
-     */
-    private int getWidth(Item item) {
-        if (item instanceof TreeColumn) {
-            return ((TreeColumn) item).getWidth();
-        } else {
-            return ((TableColumn) item).getWidth();
-        }
-
-    }
+//    /**
+//     * Set the width of the item.
+//     * 
+//     * @param item
+//     * @param width
+//     */
+//    private int getWidth(Item item) {
+//        if (item instanceof TreeColumn) {
+//            return ((TreeColumn) item).getWidth();
+//        } else {
+//            return ((TableColumn) item).getWidth();
+//        }
+//
+//    }
 
     /**
      * Force the layout even if it is not the first layout.
@@ -643,7 +594,7 @@ public class TableViewerCreatorLayout extends Layout {
                     totalWidthWithWeight += columns[i].getWidth();
                 } else {
                     if (WindowSystem.isGTK()) {
-                     totalWidthWithWeight += columns[i].getWidth();
+                        totalWidthWithWeight += columns[i].getWidth();
                     }
                 }
             }
@@ -659,8 +610,8 @@ public class TableViewerCreatorLayout extends Layout {
      */
     private synchronized void controlResizedExecute(ControlEvent e) {
         final TableColumn currentTableColumn = (TableColumn) e.widget;
-        if (!WindowSystem.isGTK() &&!columnsResizingByLayout && (fillHorizontal || continuousLayout)) {
-//            System.out.println("controlResizedExecute");
+        if (!WindowSystem.isGTK() && !columnsResizingByLayout && (fillHorizontal || continuousLayout)) {
+            // System.out.println("controlResizedExecute");
             if (continuousLayout && !fillHorizontal) {
                 asyncThreadingForManualColumnResizingFalse.interrupt();
                 if (!fillHorizontal) {
@@ -676,9 +627,9 @@ public class TableViewerCreatorLayout extends Layout {
                 // System.out.println("currentTableColumn.hashCode()=" + currentTableColumn.hashCode());
 
                 if (table.getHorizontalBar().getSelection() == 0) {
-                     if (!WindowSystem.isGTK()) {
-                    changeColumnLayoutData(currentTableColumn, bounds);
-                     }
+                    if (!WindowSystem.isGTK()) {
+                        changeColumnLayoutData(currentTableColumn, bounds);
+                    }
 
                     lastDisplayedWidth = bounds.width + widthAdjustValue;
                     // System.out.println("lastWidth="+lastDisplayedWidth);

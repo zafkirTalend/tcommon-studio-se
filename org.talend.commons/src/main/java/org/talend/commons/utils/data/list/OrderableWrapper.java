@@ -21,19 +21,18 @@
 // ============================================================================
 package org.talend.commons.utils.data.list;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 /**
  * 
  * DOC amaumont ListenableList class global comment. Detailled comment <br/>
  * 
  * $Id$
+ * 
  * @param <B> bean which must be ordered by <code>order</code> value
  */
 class OrderableWrapper<B> implements Comparable<OrderableWrapper> {
@@ -76,8 +75,9 @@ class OrderableWrapper<B> implements Comparable<OrderableWrapper> {
         return 0;
     }
 
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -88,61 +88,67 @@ class OrderableWrapper<B> implements Comparable<OrderableWrapper> {
         return result;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final OrderableWrapper other = (OrderableWrapper) obj;
         if (this.bean == null) {
-            if (other.bean != null)
+            if (other.bean != null) {
                 return false;
-        } else if (!this.bean.equals(other.bean))
+            }
+        } else if (!this.bean.equals(other.bean)) {
             return false;
+        }
         return true;
     }
 
     /**
      * Getter for bean.
+     * 
      * @return the bean
      */
     public B getBean() {
         return this.bean;
     }
 
-    
     /**
      * Sets the bean.
+     * 
      * @param bean the bean to set
      */
     public void setBean(B bean) {
         this.bean = bean;
     }
 
-    
     /**
      * Getter for priorityCalled.
+     * 
      * @return the priorityCalled
      */
     public int getOrder() {
         return this.order;
     }
 
-    
     /**
      * Sets the priorityCalled.
+     * 
      * @param priorityCalled the priorityCalled to set
      */
     public void setOrder(int priorityCalled) {
         this.order = priorityCalled;
     }
 
-    
-    
 }

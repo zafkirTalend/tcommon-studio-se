@@ -48,11 +48,10 @@ import org.eclipse.swt.graphics.GC;
 
 /**
  * 
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class Curve2D extends Curve {
 

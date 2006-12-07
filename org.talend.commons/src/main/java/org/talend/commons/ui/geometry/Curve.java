@@ -20,7 +20,6 @@
 //
 // ============================================================================
 
-
 // Java & Bézier
 // (C) 2002 Emmanuel Turquin
 //
@@ -48,11 +47,10 @@ import org.eclipse.swt.graphics.Color;
 
 /**
  * 
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class Curve {
 

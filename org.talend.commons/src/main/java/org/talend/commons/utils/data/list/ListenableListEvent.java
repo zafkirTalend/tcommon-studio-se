@@ -66,7 +66,7 @@ public class ListenableListEvent<E> {
 
     /**
      * Value is true if event is fired before execution of operation, else false if event is fired after execution of
-     * operation
+     * operation.
      */
     public boolean beforeOperation;
 

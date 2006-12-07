@@ -40,14 +40,19 @@ import org.w3c.dom.Node;
 public class XPathProposalProvider implements IContentProposalProvider {
 
     public static final String EMPTY_STRING = "";
+
     public static final String SLASH = "/";
+
     private static final String PIPE = "|";
+
     private IContentProposalProvider[] otherContentProposalProviders;
+
     private NodeRetriever nodeRetriever;
 
     /**
      * Constructs a new ProcessProposalProvider.
-     * @param nodeRetriever 
+     * 
+     * @param nodeRetriever
      * 
      * @param tables
      * @param control
@@ -69,56 +74,54 @@ public class XPathProposalProvider implements IContentProposalProvider {
     public IContentProposal[] getProposals(String contents, int position) {
         List<IContentProposal> proposals = new ArrayList<IContentProposal>();
 
-        List<Node> nodeList = new ArrayList<Node>(); 
+        List<Node> nodeList = new ArrayList<Node>();
         String beforeCursorExp = contents.substring(0, position);
         int lastIndexSlash = beforeCursorExp.lastIndexOf(SLASH);
         int lastIndexPipe = beforeCursorExp.lastIndexOf(PIPE);
-        
+
         String currentExpr = null;
-        if(lastIndexSlash == -1 || lastIndexSlash < lastIndexPipe && lastIndexPipe != -1) {
+        if (lastIndexSlash == -1 || lastIndexSlash < lastIndexPipe && lastIndexPipe != -1) {
             currentExpr = EMPTY_STRING;
-        } else if( lastIndexPipe < lastIndexSlash && lastIndexPipe != -1) {
+        } else if (lastIndexPipe < lastIndexSlash && lastIndexPipe != -1) {
             currentExpr = beforeCursorExp.substring(lastIndexPipe + 1, lastIndexSlash + 1);
-        } else if( lastIndexSlash != -1) {
+        } else if (lastIndexSlash != -1) {
             currentExpr = beforeCursorExp.substring(0, lastIndexSlash + 1);
-//            currentExpr = beforeCursorExp;
+            // currentExpr = beforeCursorExp;
         } else {
             currentExpr = beforeCursorExp;
         }
-        
+
         currentExpr = currentExpr.trim();
-        
+
         String currentWord = extractLastWord(beforeCursorExp);
-        
-//        String xPathExpression = 
-//            
-////        +  " | " + 
-//        createXPathExpression(beforeCursorExp)
-//        ;
-//        System.out.println("#############################");
-//        System.out.println("currentExpr='"+currentExpr+"'");
-//        System.out.println("beforeCursorExp='"+beforeCursorExp+"'");
-//        System.out.println("currentWord='"+currentWord+"'");
-//        System.out.println("1");
+
+        // String xPathExpression =
+        //            
+        // // + " | " +
+        // createXPathExpression(beforeCursorExp)
+        // ;
+        // System.out.println("#############################");
+        // System.out.println("currentExpr='"+currentExpr+"'");
+        // System.out.println("beforeCursorExp='"+beforeCursorExp+"'");
+        // System.out.println("currentWord='"+currentWord+"'");
+        // System.out.println("1");
         List<Node> list = this.nodeRetriever.retrieveListOfNodes(createXPathExpression(currentExpr));
         nodeList.addAll(list);
-        if(list.size() == 0) {
+        if (list.size() == 0) {
             nodeList.addAll(nodeRetriever.retrieveListOfNodes(createXPathExpression(beforeCursorExp)));
         }
-//        System.out.println("nodeList.size()="+nodeList.size());
-        
-        if(nodeList != null) {
+        // System.out.println("nodeList.size()="+nodeList.size());
+
+        if (nodeList != null) {
             Set<String> alreadyAdded = new HashSet<String>();
             int nodeListLength = nodeList.size();
             for (int j = 0; j < nodeListLength; ++j) {
                 Node node = nodeList.get(j);
                 String nodeName = node.getNodeName();
                 String absoluteXPathFromNode = NodeRetriever.getAbsoluteXPathFromNode(node);
-                if(
-                        (currentWord.length() > 0 && nodeName.startsWith(currentWord) || currentWord.length() == 0)
-                        && 
-                        !alreadyAdded.contains(absoluteXPathFromNode) ) {
-//                    System.out.println(absoluteXPathFromNode);
+                if ((currentWord.length() > 0 && nodeName.startsWith(currentWord) || currentWord.length() == 0)
+                        && !alreadyAdded.contains(absoluteXPathFromNode)) {
+                    // System.out.println(absoluteXPathFromNode);
                     proposals.add(new XPathContentProposal(node));
                     alreadyAdded.add(absoluteXPathFromNode);
                 }
@@ -132,13 +135,14 @@ public class XPathProposalProvider implements IContentProposalProvider {
 
     /**
      * DOC amaumont Comment method "extractLastWord".
+     * 
      * @param currentExpr
      * @return
      */
     private String extractLastWord(String currentExpr) {
         int size = currentExpr.length();
         for (int i = size - 1; i > 0; i--) {
-            if(!("" + currentExpr.charAt(i)).matches("\\w")) {
+            if (!("" + currentExpr.charAt(i)).matches("\\w")) {
                 return currentExpr.substring(i + 1, currentExpr.length());
             }
         }
@@ -147,6 +151,7 @@ public class XPathProposalProvider implements IContentProposalProvider {
 
     /**
      * DOC amaumont Comment method "createXPathExpression".
+     * 
      * @param slash
      * @param currentExpr
      * @return
@@ -154,33 +159,31 @@ public class XPathProposalProvider implements IContentProposalProvider {
     private String createXPathExpression(String currentExpr) {
         String xPathExpression;
         String slash = SLASH;
-        if(currentExpr.endsWith(SLASH)) {
+        if (currentExpr.endsWith(SLASH)) {
             slash = EMPTY_STRING;
         }
-        
+
         xPathExpression = currentExpr + slash + "*" + " | " + currentExpr + slash + "@*";
-//        System.out.println("xPathExpression='"+xPathExpression+"'");
+        // System.out.println("xPathExpression='"+xPathExpression+"'");
         return xPathExpression;
     }
 
-    
     /**
      * Getter for otherContentProposalProviders.
+     * 
      * @return the otherContentProposalProviders
      */
     public IContentProposalProvider[] getOtherContentProposalProviders() {
         return this.otherContentProposalProviders;
     }
 
-    
     /**
      * Sets the otherContentProposalProviders.
+     * 
      * @param otherContentProposalProviders the otherContentProposalProviders to set
      */
     public void setOtherContentProposalProviders(IContentProposalProvider[] otherContentProposalProviders) {
         this.otherContentProposalProviders = otherContentProposalProviders;
     }
 
-    
-    
 }

@@ -143,8 +143,7 @@ public class LabelledText {
      * @param styleField
      * @param isFill
      */
-    private void createLabelledText(Composite composite, String string, int horizontalSpan, int styleField,
-            boolean isFill, int labelStyle) {
+    private void createLabelledText(Composite composite, String string, int horizontalSpan, int styleField, boolean isFill, int labelStyle) {
 
         label = new Label(composite, labelStyle);
         if (string != null) {
@@ -406,11 +405,12 @@ public class LabelledText {
 
     /**
      * DOC ocarbone Comment method "addFocusListener".
+     * 
      * @param listener
      */
     public void addFocusListener(FocusListener listener) {
         text.addFocusListener(listener);
-        
+
     }
 
 }

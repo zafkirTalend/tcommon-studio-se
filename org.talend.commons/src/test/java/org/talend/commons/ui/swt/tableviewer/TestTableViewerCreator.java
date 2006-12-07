@@ -56,9 +56,9 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
  * 
  */
 public final class TestTableViewerCreator {
+
     /**
-     * Default Constructor.
-     * Must not be used.
+     * Default Constructor. Must not be used.
      */
     private TestTableViewerCreator() {
     }
@@ -69,56 +69,56 @@ public final class TestTableViewerCreator {
         Display display = new Display();
         final Shell shell1 = new Shell(display);
         shell1.setLayout(new GridLayout());
-        
+
         ImageDescriptor imageDescriptor = ImageDescriptor.createFromFile(TestTableViewerCreator.class, "error_tsk.gif");
         final Image image = imageDescriptor.createImage();
 
         final TableViewerCreator tableViewerCreator = new TableViewerCreator(shell1);
         tableViewerCreator.setBorderVisible(true);
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
-        
+
         tableViewerCreator.setUseCustomItemColoring(true);
         tableViewerCreator.setAdjustWidthValue(-50);
-//        tableViewerCreator.setFirstVisibleColumnIsSelection(true);
-//        tableViewerCreator.setLabelProvider(new ITableLabelProvider() {
-//
-//            public Image getColumnImage(Object element, int columnIndex) {
-//                return image;
-//            }
-//
-//            public String getColumnText(Object element, int columnIndex) {
-//                // TODO Auto-generated method stub
-//                return null;
-//            }
-//
-//            public void addListener(ILabelProviderListener listener) {
-//                // TODO Auto-generated method stub
-//                
-//            }
-//
-//            public void dispose() {
-//                // TODO Auto-generated method stub
-//                
-//            }
-//
-//            public boolean isLabelProperty(Object element, String property) {
-//                // TODO Auto-generated method stub
-//                return false;
-//            }
-//
-//            public void removeListener(ILabelProviderListener listener) {
-//                // TODO Auto-generated method stub
-//                
-//            }
-//            
-//        });
+        // tableViewerCreator.setFirstVisibleColumnIsSelection(true);
+        // tableViewerCreator.setLabelProvider(new ITableLabelProvider() {
+        //
+        // public Image getColumnImage(Object element, int columnIndex) {
+        // return image;
+        // }
+        //
+        // public String getColumnText(Object element, int columnIndex) {
+        // // TODO Auto-generated method stub
+        // return null;
+        // }
+        //
+        // public void addListener(ILabelProviderListener listener) {
+        // // TODO Auto-generated method stub
+        //                
+        // }
+        //
+        // public void dispose() {
+        // // TODO Auto-generated method stub
+        //                
+        // }
+        //
+        // public boolean isLabelProperty(Object element, String property) {
+        // // TODO Auto-generated method stub
+        // return false;
+        // }
+        //
+        // public void removeListener(ILabelProviderListener listener) {
+        // // TODO Auto-generated method stub
+        //                
+        // }
+        //            
+        // });
 
         // tableEditor.setCheckboxInFirstColumn(true);
 
         final Table table = tableViewerCreator.createTable();
         GridData gridData = new GridData(GridData.FILL_HORIZONTAL, GridData.GRAB_HORIZONTAL);
         gridData.grabExcessHorizontalSpace = true;
-//        gridData.horizontalAlignment = GridData.FILL_HORIZONTAL;
+        // gridData.horizontalAlignment = GridData.FILL_HORIZONTAL;
         gridData.heightHint = 200;
         table.setLayoutData(gridData);
 
@@ -133,7 +133,7 @@ public final class TestTableViewerCreator {
             public Image getImage(Object bean) {
                 return image;
             }
-            
+
         });
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, String>() {
 
@@ -148,12 +148,12 @@ public final class TestTableViewerCreator {
         });
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        TableViewerCreatorColumn nameColumn = column;
+//        TableViewerCreatorColumn nameColumn = column;
         column.setTitle("Name");
         column.setResizable(true);
         column.setModifiable(true);
-//        column.setSortable(true);
-//        column.setOrderWithIgnoreCase(true);
+        // column.setSortable(true);
+        // column.setOrderWithIgnoreCase(true);
         column.setMinimumWidth(10);
         column.setWeight(20);
         column.setImageProvider(new IColumnImageProvider() {
@@ -161,7 +161,7 @@ public final class TestTableViewerCreator {
             public Image getImage(Object bean) {
                 return image;
             }
-            
+
         });
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, String>() {
 
@@ -212,19 +212,19 @@ public final class TestTableViewerCreator {
         column.setSortable(true);
         column.setResizable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Boolean>() {
-            
+
             public Boolean get(DataObject bean) {
                 return bean.isBool();
             }
-            
+
             public void set(DataObject bean, Boolean value) {
                 bean.setBool(value);
             }
-            
+
         });
         column.setWidth(50);
         column.setTableEditorContent(new CheckboxTableEditorContent());
-        
+
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Id");
         column.setModifiable(false);
@@ -277,7 +277,7 @@ public final class TestTableViewerCreator {
             public Image getImage(Object bean) {
                 return image;
             }
-            
+
         });
 
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
@@ -291,85 +291,83 @@ public final class TestTableViewerCreator {
             }
 
         });
-        
+
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Boolean2");
         column.setModifiable(false);
         column.setSortable(true);
         column.setResizable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Boolean>() {
-            
+
             public Boolean get(DataObject bean) {
                 return bean.isBool();
             }
-            
+
             public void set(DataObject bean, Boolean value) {
                 bean.setBool(value);
             }
-            
+
         });
-//        column.setWidth(20);
+        // column.setWidth(20);
         column.setWeight(20);
         column.setMinimumWidth(50);
         column.setTableEditorContent(new CheckboxTableEditorContent());
-        
-        
-        
-//        column.setTableEditorContent(new TableEditorContent() {
-//
-//            public TableEditor createTableEditor(Table table) {
-//                TableEditor tableEditor = new TableEditor(table);
-//                return tableEditor;
-//            }
-//
-//            public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
-//                    Object currentRowObject, Object currentCellValue) {
-//                Composite composite = new Composite(table, SWT.PUSH);
-//                // Set attributes of the button
-//                composite.setBackground(new Color(null, 255, 0, 0));
-//                composite.setSize(100 * ((Integer) currentCellValue).intValue() / 100, table.getItemHeight());
-//
-//                // Set attributes of the editor
-//                // tableEditor.grabHorizontal = true;
-//                tableEditor.minimumHeight = composite.getSize().y;
-//                tableEditor.horizontalAlignment = SWT.LEFT;
-//                tableEditor.minimumWidth = composite.getSize().x;
-//                return composite;
-//            }
-//
-//        });
 
-//        Listener eraseItemListener = new Listener() {
-//
-//            public void handleEvent(Event event) {
-//
-//                if ((event.detail & SWT.SELECTED) != 0) {
-//
-//                    GC gc = event.gc;
-//                    
-//
-//                    Rectangle rect = event.getBounds();
-//
-//                    Color background = gc.getBackground();
-//
-//                    gc.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_RED));
-//
-//                    // TODO: uncomment to see selection on linux gtk
-//
-//                    // ((TableItem)event.item).setBackground(null);
-//
-//                    gc.fillRectangle(rect);
-//
-//                    gc.setBackground(background);
-//
-//                    event.detail &= ~SWT.SELECTED;
-//
-//                }
-//
-//            }
-//
-//        };
-//        table.addListener(SWT.EraseItem, eraseItemListener);
+        // column.setTableEditorContent(new TableEditorContent() {
+        //
+        // public TableEditor createTableEditor(Table table) {
+        // TableEditor tableEditor = new TableEditor(table);
+        // return tableEditor;
+        // }
+        //
+        // public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
+        // Object currentRowObject, Object currentCellValue) {
+        // Composite composite = new Composite(table, SWT.PUSH);
+        // // Set attributes of the button
+        // composite.setBackground(new Color(null, 255, 0, 0));
+        // composite.setSize(100 * ((Integer) currentCellValue).intValue() / 100, table.getItemHeight());
+        //
+        // // Set attributes of the editor
+        // // tableEditor.grabHorizontal = true;
+        // tableEditor.minimumHeight = composite.getSize().y;
+        // tableEditor.horizontalAlignment = SWT.LEFT;
+        // tableEditor.minimumWidth = composite.getSize().x;
+        // return composite;
+        // }
+        //
+        // });
+
+        // Listener eraseItemListener = new Listener() {
+        //
+        // public void handleEvent(Event event) {
+        //
+        // if ((event.detail & SWT.SELECTED) != 0) {
+        //
+        // GC gc = event.gc;
+        //                    
+        //
+        // Rectangle rect = event.getBounds();
+        //
+        // Color background = gc.getBackground();
+        //
+        // gc.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_RED));
+        //
+        // // TODO: uncomment to see selection on linux gtk
+        //
+        // // ((TableItem)event.item).setBackground(null);
+        //
+        // gc.fillRectangle(rect);
+        //
+        // gc.setBackground(background);
+        //
+        // event.detail &= ~SWT.SELECTED;
+        //
+        // }
+        //
+        // }
+        //
+        // };
+        // table.addListener(SWT.EraseItem, eraseItemListener);
 
         Button buttonSelection = new Button(shell1, SWT.PUSH);
         buttonSelection.setText("buttonSelection");
@@ -377,62 +375,61 @@ public final class TestTableViewerCreator {
 
             public void widgetDefaultSelected(SelectionEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
 
             public void widgetSelected(SelectionEvent e) {
                 table.setSelection(1);
             }
-            
+
         });
-        
+
         Button buttonHighlightRow = new Button(shell1, SWT.PUSH);
         buttonHighlightRow.setText("buttonHighlightRow");
         buttonHighlightRow.addSelectionListener(new SelectionListener() {
-            
+
             public void widgetDefaultSelected(SelectionEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             public void widgetSelected(SelectionEvent e) {
                 TableItem tableItem1 = table.getItem(0);
                 tableItem1.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_RED));
                 tableItem1.setForeground(table.getDisplay().getSystemColor(SWT.COLOR_BLUE));
-//                tableViewerCreator.getTableViewer().refresh();
+                // tableViewerCreator.getTableViewer().refresh();
             }
-            
+
         });
-        
-        
+
         Button buttonHighlightCell = new Button(shell1, SWT.PUSH);
         buttonHighlightCell.setText("buttonHighlightCell");
         buttonHighlightCell.addSelectionListener(new SelectionListener() {
-            
+
             public void widgetDefaultSelected(SelectionEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             public void widgetSelected(SelectionEvent e) {
                 TableItem tableItem2 = table.getItem(1);
                 tableItem2.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_GREEN));
                 tableItem2.setBackground(1, table.getDisplay().getSystemColor(SWT.COLOR_GREEN));
                 tableItem2.setForeground(1, table.getDisplay().getSystemColor(SWT.COLOR_BLUE));
-//                tableViewerCreator.getTableViewer().refresh();
+                // tableViewerCreator.getTableViewer().refresh();
             }
-            
+
         });
-        
+
         Button buttonHighlightMultipleCell = new Button(shell1, SWT.PUSH);
         buttonHighlightMultipleCell.setText("buttonHighlightMultipleCell");
         buttonHighlightMultipleCell.addSelectionListener(new SelectionListener() {
-            
+
             public void widgetDefaultSelected(SelectionEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             public void widgetSelected(SelectionEvent e) {
                 TableItem tableItem2 = table.getItem(1);
                 tableItem2.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_YELLOW));
@@ -440,62 +437,61 @@ public final class TestTableViewerCreator {
                 tableItem2.setForeground(0, table.getDisplay().getSystemColor(SWT.COLOR_DARK_BLUE));
                 tableItem2.setBackground(1, table.getDisplay().getSystemColor(SWT.COLOR_GREEN));
                 tableItem2.setForeground(1, table.getDisplay().getSystemColor(SWT.COLOR_BLUE));
-//                tableViewerCreator.getTableViewer().refresh();
+                // tableViewerCreator.getTableViewer().refresh();
             }
-            
+
         });
-        
 
         Button buttonBGTable = new Button(shell1, SWT.PUSH);
         buttonBGTable.setText("buttonBGTable");
         buttonBGTable.addSelectionListener(new SelectionListener() {
-            
+
             public void widgetDefaultSelected(SelectionEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             public void widgetSelected(SelectionEvent e) {
                 table.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_CYAN));
                 table.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_CYAN));
             }
-            
+
         });
-        
+
         Button buttonClearTable = new Button(shell1, SWT.PUSH);
         buttonClearTable.setText("buttonClearTable");
         buttonClearTable.addSelectionListener(new SelectionListener() {
-            
+
             public void widgetDefaultSelected(SelectionEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             public void widgetSelected(SelectionEvent e) {
                 table.setBackground(null);
                 table.setForeground(null);
             }
-            
+
         });
-        
+
         Button buttonWhiteTable = new Button(shell1, SWT.PUSH);
         buttonWhiteTable.setText("buttonWhiteTable");
         buttonWhiteTable.addSelectionListener(new SelectionListener() {
-            
+
             public void widgetDefaultSelected(SelectionEvent e) {
                 // TODO Auto-generated method stub
-                
+
             }
-            
+
             public void widgetSelected(SelectionEvent e) {
                 table.setBackground(table.getDisplay().getSystemColor(SWT.COLOR_WHITE));
                 table.setForeground(table.getDisplay().getSystemColor(SWT.COLOR_BLACK));
             }
-            
+
         });
-        
-//        tableViewerCreator.setDefaultSort(nameColumn, SORT.DESC);
-        
+
+        // tableViewerCreator.setDefaultSort(nameColumn, SORT.DESC);
+
         list = new ArrayList<DataObject>();
         Random random = new Random();
         for (int i = 0; i < 2; i++) {

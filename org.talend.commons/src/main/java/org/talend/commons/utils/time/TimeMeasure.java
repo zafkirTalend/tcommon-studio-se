@@ -41,12 +41,12 @@ public class TimeMeasure {
     private static int indent = 0;
 
     /**
-     * measureActive is true by default. A true value means that all methods calls are processed else no one. 
+     * measureActive is true by default. A true value means that all methods calls are processed else no one.
      */
     public static boolean measureActive = true;
 
     /**
-     * display is true by default. A true value means that all informations are displayed. 
+     * display is true by default. A true value means that all informations are displayed.
      */
     public static boolean display = true;
 
@@ -57,8 +57,9 @@ public class TimeMeasure {
      * @param idTimer
      */
     public static void start(String idTimer) {
-        if (!measureActive)
+        if (!measureActive) {
             return;
+        }
         init();
         if (timers.containsKey(idTimer) && display) {
             System.out.println(indent(indent) + "Warning (start): timer " + idTimer + " already exists");
@@ -80,8 +81,9 @@ public class TimeMeasure {
      * @return total elapsed time since start in ms
      */
     public static long end(String idTimer) {
-        if (!measureActive)
+        if (!measureActive) {
             return 0;
+        }
         init();
         if (!timers.containsKey(idTimer) && display) {
             System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist");
@@ -113,8 +115,9 @@ public class TimeMeasure {
      * @return total elapsed time since start in ms
      */
     public static long timeSinceStart(String idTimer) {
-        if (!measureActive)
+        if (!measureActive) {
             return 0;
+        }
         init();
         if (!timers.containsKey(idTimer)) {
             System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist");
@@ -137,8 +140,9 @@ public class TimeMeasure {
      * @return elapsed time since previous step in ms
      */
     public static long step(String idTimer, String stepName) {
-        if (!measureActive)
+        if (!measureActive) {
             return 0;
+        }
         init();
         if (!timers.containsKey(idTimer)) {
             if (display) {

@@ -27,8 +27,8 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 
 /**
- * DataTypeManager is used to determine the Java Type or the Talend Type of a string.
- * TODO : This class don't determine the type DATE.
+ * DataTypeManager is used to determine the Java Type or the Talend Type of a string. TODO : This class don't determine
+ * the type DATE.
  * 
  * $Id$
  * 

@@ -62,9 +62,8 @@ public class DataObject {
      */
     private static Random random = new Random();
 
-    
     private boolean bool;
-    
+
     /**
      * libelle.
      */
@@ -74,11 +73,6 @@ public class DataObject {
      * total.
      */
     private double total;
-
-    /**
-     * Integer nullValue.
-     */
-    private Integer nullValue;
 
     /**
      * unit.
@@ -108,7 +102,7 @@ public class DataObject {
     /**
      * field2.
      */
-    private Object field3;
+//    private Object field3;
 
     /**
      * id.
@@ -194,7 +188,7 @@ public class DataObject {
         this.id = random.nextInt(A99998) + 1;
         this.money = (random.nextInt(A99998) + 1) / A100;
 
-        //int n = new Random().nextInt(A3);
+        // int n = new Random().nextInt(A3);
 
         // added sublist for testing of nested tables
         this.subList = new ArrayList<SubListItem>();
@@ -215,13 +209,13 @@ public class DataObject {
         this.vect.add(vect2);
 
         bool = random.nextBoolean();
-        
+
         libelle = libelles[random.nextInt(libelles.length)];
         field1 = new Double(money);
         unit = units[random.nextInt(units.length)];
         monnaie = monnaies[random.nextInt(monnaies.length)];
         field2 = new Double((random.nextInt(A99998) + 1) / A100);
-        field3 = new Double((random.nextInt(A99998) + 1) / A100);
+//        field3 = new Double((random.nextInt(A99998) + 1) / A100);
 
     }
 
@@ -314,7 +308,7 @@ public class DataObject {
      * 
      * @return null
      */
-    public String getNullValue() {
+    public String getStringNullValue() {
         return null;
     }
 
@@ -379,7 +373,7 @@ public class DataObject {
     }
 
     public void setField3(Object field3) {
-        this.field3 = field3;
+//        this.field3 = field3;
     }
 
     /**
@@ -574,10 +568,7 @@ public class DataObject {
         this.primaryIntegerValue = integerValue;
     }
 
-    public void setNullValue(Integer nullValue) {
-        this.nullValue = nullValue;
-    }
-
+    
     public String getEmptyString() {
         return emptyString;
     }
@@ -602,12 +593,10 @@ public class DataObject {
         this.integerValue1 = integerValue;
     }
 
-    
     public boolean isBool() {
         return this.bool;
     }
 
-    
     public void setBool(boolean bool) {
         this.bool = bool;
     }

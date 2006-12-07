@@ -27,22 +27,20 @@ import java.util.List;
 import org.eclipse.gef.commands.Command;
 import org.talend.commons.ui.utils.SimpleClipboard;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class ExtendedTableCopyCommand extends Command {
 
-    
     private List beansToCopy;
 
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
+    @SuppressWarnings("unchecked")
     public ExtendedTableCopyCommand(List beansToCopy) {
         super();
         this.beansToCopy = new ArrayList(beansToCopy);
@@ -51,15 +49,16 @@ public class ExtendedTableCopyCommand extends Command {
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
+    @SuppressWarnings("unchecked")
     public ExtendedTableCopyCommand(Object beanToCopy) {
         super();
         beansToCopy = new ArrayList(1);
         beansToCopy.add(beanToCopy);
     }
-    
 
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
     @Override
@@ -67,7 +66,9 @@ public class ExtendedTableCopyCommand extends Command {
         SimpleClipboard.getInstance().setData(beansToCopy);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#canUndo()
      */
     @Override
@@ -75,19 +76,22 @@ public class ExtendedTableCopyCommand extends Command {
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#redo()
      */
     @Override
     public void redo() {
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#undo()
      */
     @Override
     public void undo() {
     }
 
-    
 }

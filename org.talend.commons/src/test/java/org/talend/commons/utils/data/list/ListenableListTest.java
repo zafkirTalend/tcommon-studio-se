@@ -25,11 +25,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.ADDED;
-import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.CLEARED;
-import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.REMOVED;
-import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.REPLACED;
-import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.SWAPED;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -54,8 +49,6 @@ public class ListenableListTest {
 
     private ListenableList<String> listenedList;
 
-    private ListenableListTest instance;
-
     private boolean added;
 
     private boolean cleared;
@@ -78,7 +71,6 @@ public class ListenableListTest {
 
         ArrayList<String> list = new ArrayList<String>();
         listenedList = new ListenableList<String>(list);
-        instance = this;
 
     }
 

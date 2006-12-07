@@ -30,22 +30,24 @@ import org.eclipse.gef.commands.Command;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.utils.data.list.ListenableList;
 
-
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class ExtendedTableMoveCommand extends Command {
 
     private ExtendedTableModel extendedTable;
+
     private boolean moveUp;
+
     private int[] entriesIndices;
+
     private ArrayList<Integer> indicesOrigin;
+
     private ArrayList<Integer> indicesTarget;
+
     private ListenableList list;
 
     /**
@@ -57,13 +59,16 @@ public class ExtendedTableMoveCommand extends Command {
         this.moveUp = moveUp;
         this.entriesIndices = entriesIndices;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void execute() {
-        
+
         list = (ListenableList) extendedTable.getBeansList();
         Set<Integer> setIndicesSelectedMoved = new HashSet<Integer>();
         int increment;
@@ -103,10 +108,12 @@ public class ExtendedTableMoveCommand extends Command {
         }
 
         list.swapElements(indicesOrigin, indicesTarget);
-        
+
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#canExecute()
      */
     @Override
@@ -114,7 +121,9 @@ public class ExtendedTableMoveCommand extends Command {
         return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#canUndo()
      */
     @Override
@@ -122,9 +131,12 @@ public class ExtendedTableMoveCommand extends Command {
         return true;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#redo()
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void redo() {
         Collections.reverse(indicesTarget);
@@ -132,9 +144,12 @@ public class ExtendedTableMoveCommand extends Command {
         list.swapElements(indicesOrigin, indicesTarget);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#undo()
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void undo() {
         Collections.reverse(indicesTarget);
@@ -142,6 +157,4 @@ public class ExtendedTableMoveCommand extends Command {
         list.swapElements(indicesTarget, indicesOrigin);
     }
 
-    
-    
 }

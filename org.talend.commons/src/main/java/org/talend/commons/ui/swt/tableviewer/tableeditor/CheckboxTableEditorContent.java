@@ -74,6 +74,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
      * org.eclipse.swt.custom.TableEditor, org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn,
      * java.lang.Object, java.lang.Object)
      */
+    @SuppressWarnings("unchecked")
     public Control initialize(Table table, TableEditor tableEditor, final TableViewerCreatorColumn currentColumn,
             final Object currentRowObject, final Object currentCellValue) {
 

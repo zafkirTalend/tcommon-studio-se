@@ -23,39 +23,33 @@ package org.talend.commons.utils.threading;
 
 import org.eclipse.swt.widgets.Display;
 
-
 /**
- * This class is useful to execute code after a given time.
- * <br/>
- *
- *  Samples:
- *
- * new AsynchronousThread(50, false, dataMapTableView.getDisplay(), new Runnable() {
- *     public void run() {
- *
- *         // calls of Widget methods
- *                          
- *      }
- *  }).start();
- *
- * new AsynchronousThread(50, new Runnable() {
- *     public void run() {
- *
- *         // calls of methods except Widget methods  
- *                          
- *      }
- *  }).start();
- *
- *
+ * This class is useful to execute code after a given time. <br/>
+ * 
+ * Samples:
+ * 
+ * new AsynchronousThread(50, false, dataMapTableView.getDisplay(), new Runnable() { public void run() {
+ *  // calls of Widget methods
+ *  } }).start();
+ * 
+ * new AsynchronousThread(50, new Runnable() { public void run() {
+ *  // calls of methods except Widget methods
+ *  } }).start();
+ * 
+ * 
  * $Id$
- *
+ * 
  */
 public class AsynchronousThreading {
 
     private int sleepingTime;
+
     private boolean synchronousDisplayExecution;
+
     private Runnable target;
+
     private Display display;
+
     private Thread thread;
 
     /**
@@ -63,7 +57,7 @@ public class AsynchronousThreading {
      */
     public AsynchronousThreading(int sleepingTime, boolean synchronousDisplayExecution, Display display, Runnable target) {
         this.sleepingTime = sleepingTime;
-        this.synchronousDisplayExecution = synchronousDisplayExecution; 
+        this.synchronousDisplayExecution = synchronousDisplayExecution;
         this.target = target;
         this.display = display;
     }
@@ -75,9 +69,9 @@ public class AsynchronousThreading {
         this.sleepingTime = sleepingTime;
         this.target = target;
     }
-    
+
     public void start() {
-        
+
         thread = new Thread() {
 
             @Override
@@ -86,26 +80,28 @@ public class AsynchronousThreading {
                     try {
                         Thread.sleep(sleepingTime);
                     } catch (InterruptedException e) {
-//                        System.out.println("interrupted");
+                        // System.out.println("interrupted");
                         return;
                     }
                 }
                 if (display == null) {
-                    target.run(); 
+                    target.run();
                 } else {
                     if (display.isDisposed()) {
                         return;
                     }
                     if (synchronousDisplayExecution) {
                         display.syncExec(new Runnable() {
+
                             public void run() {
-                                target.run(); 
+                                target.run();
                             }
                         });
                     } else {
                         display.asyncExec(new Runnable() {
+
                             public void run() {
-                                target.run(); 
+                                target.run();
                             }
                         });
                     }
@@ -114,15 +110,13 @@ public class AsynchronousThreading {
 
         };
         thread.start();
- 
-        
+
     }
 
     public void interrupt() {
-        if(thread != null && !thread.isInterrupted()) {
+        if (thread != null && !thread.isInterrupted()) {
             thread.interrupt();
         }
     }
-    
-    
+
 }

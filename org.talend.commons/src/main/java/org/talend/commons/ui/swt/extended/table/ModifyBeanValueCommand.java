@@ -25,13 +25,11 @@ import org.eclipse.gef.commands.Command;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  * @param <B> modie
  */
 public class ModifyBeanValueCommand<B> extends Command {
@@ -40,15 +38,16 @@ public class ModifyBeanValueCommand<B> extends Command {
 
     /**
      * DOC amaumont ModifiedBeanValueCommand constructor comment.
+     * 
      * @param event
      */
     public ModifyBeanValueCommand(ModifiedBeanEvent<B> event) {
         this.event = event;
     }
 
-    
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#getLabel()
      */
     @Override
@@ -56,29 +55,33 @@ public class ModifyBeanValueCommand<B> extends Command {
         return "ModifyBeanValueCommand";
     }
 
-
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#redo()
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void redo() {
         TableViewerCreator tableViewerCreator = event.column.getTableViewerCreator();
         tableViewerCreator.setBeanValue(event.column, event.bean, event.newValue, false);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#undo()
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void undo() {
         TableViewerCreator tableViewerCreator = event.column.getTableViewerCreator();
         tableViewerCreator.setBeanValue(event.column, event.bean, event.previousValue, false);
     }
 
-
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#canUndo()
      */
     @Override
@@ -86,7 +89,4 @@ public class ModifyBeanValueCommand<B> extends Command {
         return true;
     }
 
-    
-    
-    
 }

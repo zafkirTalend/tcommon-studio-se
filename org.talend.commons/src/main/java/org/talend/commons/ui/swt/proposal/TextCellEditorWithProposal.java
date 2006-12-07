@@ -28,7 +28,6 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -45,8 +44,6 @@ public class TextCellEditorWithProposal extends TextCellEditor {
     private ContentProposalAdapterExtended contentProposalAdapter;
 
     protected Point selectionBeforeFocusLost;
-
-    private ModifyListener modifyListener;
 
     private TableViewerCreator tableViewerCreator;
 
@@ -72,16 +69,16 @@ public class TextCellEditorWithProposal extends TextCellEditor {
         super(parent);
         init(tableViewerCreatorColumn);
     }
-    
+
     /**
      * DOC amaumont Comment method "init".
-     * @param tableViewerCreatorColumn 
+     * 
+     * @param tableViewerCreatorColumn
      */
     private void init(TableViewerCreatorColumn tableViewerCreatorColumn) {
         this.tableViewerCreatorColumn = tableViewerCreatorColumn;
         this.tableViewerCreator = tableViewerCreatorColumn.getTableViewerCreator();
     }
-    
 
     @Override
     public void activate() {
@@ -188,8 +185,8 @@ public class TextCellEditorWithProposal extends TextCellEditor {
         if (cellEditorLocationHasChanged) {
             contentProposalAdapter.close();
         } else {
-//            System.out.println("indexColumn="+indexColumn);
-//            System.out.println("previousModifiedBean="+previousModifiedBean);
+            // System.out.println("indexColumn="+indexColumn);
+            // System.out.println("previousModifiedBean="+previousModifiedBean);
             tableViewerCreator.getTableViewer().editElement(previousModifiedBean, indexColumn);
         }
     }
@@ -207,12 +204,12 @@ public class TextCellEditorWithProposal extends TextCellEditor {
                 text.getDisplay().asyncExec(new Runnable() {
 
                     public void run() {
-                        
-                        //System.out.println("active async");
-                        
+
+                        // System.out.println("active async");
+
                         Point newSelection = selection;
                         if (!text.isFocusControl() && testFocus || !testFocus) {
-//                            System.out.println("activateCellEditorAsynch");
+                            // System.out.println("activateCellEditorAsynch");
                             activateCellEditor();
                         }
                         if (selection == null) {
@@ -229,15 +226,13 @@ public class TextCellEditorWithProposal extends TextCellEditor {
         }).start();
     }
 
-    
     /**
      * Getter for contentProposalAdapter.
+     * 
      * @return the contentProposalAdapter
      */
     public ContentProposalAdapterExtended getContentProposalAdapter() {
         return this.contentProposalAdapter;
     }
 
-    
-    
 }

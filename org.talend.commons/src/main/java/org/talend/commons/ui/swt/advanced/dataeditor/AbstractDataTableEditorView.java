@@ -237,7 +237,7 @@ public abstract class AbstractDataTableEditorView<B> {
      */
     protected void setTableViewerCreatorOptions(TableViewerCreator<B> newTableViewerCreator) {
         // newTableViewerCreator.setUseCustomItemColoring(true);
-//        newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
+        // newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
     }
 
     /**

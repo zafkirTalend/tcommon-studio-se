@@ -21,8 +21,6 @@
 // ============================================================================
 package org.talend.commons.utils.threading;
 
-import java.util.List;
-import java.util.Vector;
 
 /**
  * 
@@ -45,9 +43,9 @@ public abstract class ExecutionLimiter {
 
     private FinalExecution finalExecution;
 
-    private List<FinalExecution> finalThreadsList = new Vector<FinalExecution>();
+//    private List<FinalExecution> finalThreadsList = new Vector<FinalExecution>();
 
-    private Object[] finalThreadsListLock = new Object[0];
+//    private Object[] finalThreadsListLock = new Object[0];
 
     public ExecutionLimiter() {
         super();
@@ -152,23 +150,23 @@ public abstract class ExecutionLimiter {
                 return;
             }
             // System.out.println("Not Interrupted");
-//             System.out.println("Final thread executed");
+            // System.out.println("Final thread executed");
             execute(true);
             // removeThread();
         }
 
-        private void removeThread() {
-            // (new Thread() {
-            //
-            // @Override
-            // public void run() {
-            // synchronized (finalThreadsListLock) {
-            finalThreadsList.remove(this);
-            // }
-            // }
-            //
-            // }).start();
-        }
+//        private void removeThread() {
+//            // (new Thread() {
+//            //
+//            // @Override
+//            // public void run() {
+//            // synchronized (finalThreadsListLock) {
+//            finalThreadsList.remove(this);
+//            // }
+//            // }
+//            //
+//            // }).start();
+//        }
 
     }
 

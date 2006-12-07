@@ -95,7 +95,7 @@ public class LabelledCombo {
         }
         createLabelledCombo(parent, labelStr, tip, items, 1, isFill, DEFAULT_COMBO_STYLE, DEFAULT_LABEL_STYLE);
     }
-    
+
     /**
      * create Label and Combo width a Array of String.
      * 
@@ -108,10 +108,9 @@ public class LabelledCombo {
      * 
      * @return Combo
      */
-    public LabelledCombo(final Composite parent, final String labelStr, final String tip, final String[] item,
-            int horizontalSpan, boolean isFill) {
-        createLabelledCombo(parent, labelStr, tip, item, horizontalSpan, isFill, DEFAULT_COMBO_STYLE,
-                DEFAULT_LABEL_STYLE);
+    public LabelledCombo(final Composite parent, final String labelStr, final String tip, final String[] item, int horizontalSpan,
+            boolean isFill) {
+        createLabelledCombo(parent, labelStr, tip, item, horizontalSpan, isFill, DEFAULT_COMBO_STYLE, DEFAULT_LABEL_STYLE);
     }
 
     /**
@@ -126,8 +125,7 @@ public class LabelledCombo {
      * @return Combo
      */
     public LabelledCombo(Composite parent, String labelStr, String tip, String[] item, int horizontalSpan) {
-        createLabelledCombo(parent, labelStr, tip, item, horizontalSpan, false, DEFAULT_COMBO_STYLE,
-                DEFAULT_LABEL_STYLE);
+        createLabelledCombo(parent, labelStr, tip, item, horizontalSpan, false, DEFAULT_COMBO_STYLE, DEFAULT_LABEL_STYLE);
     }
 
     /**
@@ -155,8 +153,8 @@ public class LabelledCombo {
      * @param boolean isFill
      * @param int style
      */
-    public LabelledCombo(final Composite parent, final String labelStr, final String tip, final String[] item,
-            final int horizontalSpan, final boolean isFill, final int comboStyle) {
+    public LabelledCombo(final Composite parent, final String labelStr, final String tip, final String[] item, final int horizontalSpan,
+            final boolean isFill, final int comboStyle) {
         createLabelledCombo(parent, labelStr, tip, item, horizontalSpan, isFill, comboStyle, SWT.LEFT);
     }
 
@@ -173,8 +171,8 @@ public class LabelledCombo {
      * @param int labelStyle
      */
 
-    public LabelledCombo(final Composite parent, final String labelStr, final String tip, final String[] item,
-            final int horizontalSpan, final boolean isFill, final int comboStyle, int labelStyle) {
+    public LabelledCombo(final Composite parent, final String labelStr, final String tip, final String[] item, final int horizontalSpan,
+            final boolean isFill, final int comboStyle, int labelStyle) {
         createLabelledCombo(parent, labelStr, tip, item, horizontalSpan, isFill, comboStyle, labelStyle);
     }
 
@@ -190,9 +188,8 @@ public class LabelledCombo {
      * @param comboStyle
      * @param labelStyle
      */
-    private void createLabelledCombo(final Composite parent, final String labelStr, final String tip,
-            final String[] item, final int horizontalSpan, final boolean isFill, final int comboStyle,
-            final int labelStyle) {
+    private void createLabelledCombo(final Composite parent, final String labelStr, final String tip, final String[] item,
+            final int horizontalSpan, final boolean isFill, final int comboStyle, final int labelStyle) {
 
         label = new Label(parent, labelStyle);
         if (labelStr != null) {

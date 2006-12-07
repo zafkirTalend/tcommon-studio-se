@@ -31,7 +31,7 @@ package org.talend.commons.utils.performance;
 public class PerformanceEvaluator {
 
     /**
-     * if indice value less than this value, system has good performance
+     * if indice value less than this value, system has good performance.
      */
     public static final int GOOD_PERFORMANCE_INDICE = 350;
 

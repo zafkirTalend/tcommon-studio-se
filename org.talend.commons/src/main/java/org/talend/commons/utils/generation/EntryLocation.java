@@ -58,7 +58,7 @@ public class EntryLocation {
         this.tableName = tableEntryLocation.tableName;
         this.columnName = tableEntryLocation.columnName;
     }
-    
+
     public String toString() {
         return "{tableName=" + this.tableName + ", columnName=" + this.columnName + "}";
     }
@@ -74,23 +74,30 @@ public class EntryLocation {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final EntryLocation other = (EntryLocation) obj;
         if (this.columnName == null) {
-            if (other.columnName != null)
+            if (other.columnName != null) {
                 return false;
-        } else if (!this.columnName.equals(other.columnName))
+            }
+        } else if (!this.columnName.equals(other.columnName)) {
             return false;
+        }
         if (this.tableName == null) {
-            if (other.tableName != null)
+            if (other.tableName != null) {
                 return false;
-        } else if (!this.tableName.equals(other.tableName))
+            }
+        } else if (!this.tableName.equals(other.tableName)) {
             return false;
+        }
         return true;
     }
 

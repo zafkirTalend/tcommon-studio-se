@@ -145,16 +145,16 @@ public class Curve2DBezier extends Curve2D {
             this.points = new int[0];
         } else {
             this.points = ArrayUtils.subarray(pointsTmp, 2 * indexTStart, 2 * indexTEnd);
-//            System.out.println("pointsTmp=");
-//            for (int i = pointsTmp.length - 4; i < pointsTmp.length; i++) {
-//                System.out.println(pointsTmp[i]);
-//            }
-//            
-//            
-//            System.out.println("this.points=");
-//            for (int i = points.length - 4; i < points.length; i++) {
-//                System.out.println(points[i]);
-//            }
+            // System.out.println("pointsTmp=");
+            // for (int i = pointsTmp.length - 4; i < pointsTmp.length; i++) {
+            // System.out.println(pointsTmp[i]);
+            // }
+            //            
+            //            
+            // System.out.println("this.points=");
+            // for (int i = points.length - 4; i < points.length; i++) {
+            // System.out.println(points[i]);
+            // }
         }
     }
 
@@ -180,7 +180,7 @@ public class Curve2DBezier extends Curve2D {
             computeSegments();
         }
         gc.drawPolyline(points);
-//        System.out.println("lastPoint=" + points[points.length - 2] + "," + points[points.length - 1]);
+        // System.out.println("lastPoint=" + points[points.length - 2] + "," + points[points.length - 1]);
     }
 
 }

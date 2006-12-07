@@ -32,7 +32,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public class StringHelper {
 
-    private final static String OPEN_BRACE = "{";
+    private static final String OPEN_BRACE = "{";
 
     private static final String CLOSE_BRACE = "}";
 

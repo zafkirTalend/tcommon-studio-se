@@ -27,36 +27,35 @@ import org.osgi.framework.BundleContext;
 
 /**
  * 
- * DOC root  class global comment. Detailled comment
- * <br/>
- *
+ * DOC root class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
+@SuppressWarnings("restriction")
 public class WindowSystem {
 
     private static String ws;
-    
+
     static {
         BundleContext bundleContext = InternalPlatform.getDefault().getBundleContext();
         if (bundleContext != null) {
             ws = Platform.getWS();
         }
-        
+
     }
-    
 
     public static boolean isGTK() {
         return Platform.WS_GTK.equals(ws);
     }
-    
+
     /**
      * .
+     * 
      * @return true if WIN32 or eclipse bundle is null
      */
     public static boolean isWIN32() {
         return Platform.WS_WIN32.equals(ws) || ws == null;
     }
-    
-    
+
 }

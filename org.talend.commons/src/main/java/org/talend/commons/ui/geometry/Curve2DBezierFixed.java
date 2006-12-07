@@ -43,11 +43,10 @@ package org.talend.commons.ui.geometry;
 
 /**
  * 
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class Curve2DBezierFixed extends Curve2D {
 
@@ -77,6 +76,7 @@ public class Curve2DBezierFixed extends Curve2D {
     }
 
     // computeSegments
+    @SuppressWarnings("unchecked")
     void computeSegments() {
         Point2DList pl = (Point2DList) plist;
 
@@ -108,6 +108,7 @@ public class Curve2DBezierFixed extends Curve2D {
     /**
      * 
      * DOC amaumont Comment method "BezierTerm".
+     * 
      * @param d
      * @param i
      * @param t
