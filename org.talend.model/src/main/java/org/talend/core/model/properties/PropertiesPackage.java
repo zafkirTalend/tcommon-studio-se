@@ -702,13 +702,22 @@ public interface PropertiesPackage extends EPackage {
     int ROUTINE_ITEM__CONTENT = FILE_ITEM__CONTENT;
 
     /**
+     * The feature id for the '<em><b>Built In</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__BUILT_IN = FILE_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The number of structural features of the '<em>Routine Item</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int ROUTINE_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
+    int ROUTINE_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ConnectionItemImpl <em>Connection Item</em>}' class.
@@ -2021,6 +2030,17 @@ public interface PropertiesPackage extends EPackage {
     EClass getRoutineItem();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.RoutineItem#isBuiltIn <em>Built In</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Built In</em>'.
+     * @see org.talend.core.model.properties.RoutineItem#isBuiltIn()
+     * @see #getRoutineItem()
+     * @generated
+     */
+    EAttribute getRoutineItem_BuiltIn();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ByteArray <em>Byte Array</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Byte Array</em>'.
@@ -2978,6 +2998,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass ROUTINE_ITEM = eINSTANCE.getRoutineItem();
+
+        /**
+         * The meta object literal for the '<em><b>Built In</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ROUTINE_ITEM__BUILT_IN = eINSTANCE.getRoutineItem_BuiltIn();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ByteArrayImpl <em>Byte Array</em>}' class.
