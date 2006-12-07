@@ -23,7 +23,7 @@ package org.talend.core;
 
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.runprocess.IRunProcessService;
-
+import org.talend.repository.model.IRepositoryService;
 /**
  * DOC qian class global comment. Contains vary factories. <br/>
  * 
@@ -35,6 +35,8 @@ public class GlobalServiceRegister {
     private static ICodeGeneratorService codeGeneratorService;
 
     private static IRunProcessService runProcessService;
+    
+    private static IRepositoryService repositoryService;
 
     /**
      * Getter for codeGeneratorFactory.
@@ -72,4 +74,24 @@ public class GlobalServiceRegister {
         GlobalServiceRegister.runProcessService = service;
     }
 
+    
+    /**
+     * Getter for repositoryService.
+     * @return the repositoryService
+     */
+    public static IRepositoryService getRepositoryService() {
+        return repositoryService;
+    }
+
+    
+    /**
+     * Sets the repositoryService.
+     * @param repositoryService the repositoryService to set
+     */
+    public static void registerRepositoryService(IRepositoryService repositoryService) {
+        GlobalServiceRegister.repositoryService = repositoryService;
+    }
+
+    
+    
 }
