@@ -44,8 +44,7 @@ public enum ERepositoryObjectType {
     METADATA_FILE_REGEXP("repository.metadataFileRegexp"),
     METADATA_FILE_XML("repository.metadataFileXml"),
     METADATA_FILE_LDIF("repository.metadataFileLdif"),
-    FOLDER("repository.folder"),
-    RECYCLE_BIN("repository.recyclebin");
+    FOLDER("repository.folder");
 
     private String key;
 

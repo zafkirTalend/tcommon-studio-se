@@ -435,6 +435,11 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
             String folderName = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + BIN;
             createFolder(prj, folderHelper, folderName);
         }
+        
+        // 3. Code/routines/Snippets :
+        createFolder(prj, folderHelper, "code");
+        createFolder(prj, folderHelper, "code/snippets");
+        createFolder(prj, folderHelper, "code/routines");
     }
 
     /**

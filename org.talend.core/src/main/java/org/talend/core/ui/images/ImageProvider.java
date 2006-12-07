@@ -81,7 +81,7 @@ public class ImageProvider {
         return getImageDesc(getIcon(type));
     }
 
-    private static IImage getIcon(ERepositoryObjectType type) {
+    public static IImage getIcon(ERepositoryObjectType type) {
         switch (type) {
         case BUSINESS_PROCESS:
             return EImage.BUSINESS_PROCESS_ICON;
@@ -109,8 +109,6 @@ public class ImageProvider {
             return EImage.METADATA_FILE_XML_ICON;
         case METADATA_FILE_LDIF:
             return EImage.METADATA_FILE_LDIF_ICON;
-        case RECYCLE_BIN:
-            return EImage.RECYCLE_BIN_EMPTY_ICON;
         case FOLDER:
             return EImage.FOLDER_OPEN_ICON;
         default:
