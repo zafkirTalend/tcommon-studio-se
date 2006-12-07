@@ -91,6 +91,7 @@ public class CommandStackForComposite extends CommandStack {
             } else if (parentComposite == null) {
                 return false;
             }
+            control = parentComposite;
         }
 
     }

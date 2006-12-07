@@ -1601,7 +1601,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
         Object previousValue = AccessorUtils.get(currentRowObject, column);
 
-        if (value != null && !value.equals(previousValue)) {
+        if (value == null && previousValue != null || value != null && !value.equals(previousValue)) {
             AccessorUtils.set(column, currentRowObject, value);
             tableViewer.refresh(currentRowObject);
 

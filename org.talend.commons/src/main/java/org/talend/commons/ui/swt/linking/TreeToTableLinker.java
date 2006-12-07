@@ -51,6 +51,8 @@ import org.talend.commons.ui.swt.drawing.link.IStyleLink;
 import org.talend.commons.ui.swt.drawing.link.LinkDescriptor;
 import org.talend.commons.ui.swt.drawing.link.LinksManager;
 import org.talend.commons.ui.swt.drawing.link.StyleLink;
+import org.talend.commons.ui.utils.TableUtils;
+import org.talend.commons.ui.utils.TreeUtils;
 import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**
@@ -67,7 +69,7 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
 
     protected Table table;
 
-    protected LinksManager<TreeItem, D1, TableItem, D2> linksManager = new LinksManager<TreeItem, D1, TableItem, D2>();
+    protected LinksManager<D1, D2> linksManager = new LinksManager<D1, D2>();
 
     private IStyleLink defaultStyleLink;
 
@@ -75,7 +77,7 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
 
     private IStyleLink unselectedStyleLink;
 
-    private Comparator<LinkDescriptor<TreeItem, D1, TableItem, D2>> selectedLinksComparator;
+    private Comparator<LinkDescriptor<D1, D2>> selectedLinksComparator;
 
     private ExecutionLimiter executionLimiter = new ExecutionLimiter(50, true) {
 
@@ -139,11 +141,11 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
     /**
      * DOC amaumont Comment method "getSelectedLinksComparator".
      */
-    protected Comparator<LinkDescriptor<TreeItem, D1, TableItem, D2>> getSelectedLinksComparator() {
+    protected Comparator<LinkDescriptor<D1, D2>> getSelectedLinksComparator() {
         if (this.selectedLinksComparator == null) {
-            this.selectedLinksComparator = new Comparator<LinkDescriptor<TreeItem, D1, TableItem, D2>>() {
+            this.selectedLinksComparator = new Comparator<LinkDescriptor<D1, D2>>() {
 
-                public int compare(LinkDescriptor<TreeItem, D1, TableItem, D2> link1, LinkDescriptor<TreeItem, D1, TableItem, D2> link2) {
+                public int compare(LinkDescriptor<D1, D2> link1, LinkDescriptor<D1, D2> link2) {
                     IStyleLink link1StyleLink = link1.getStyleLink();
                     IStyleLink link2StyleLink = link2.getStyleLink();
                     if (link1StyleLink == link2StyleLink) {
@@ -267,7 +269,7 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
     @Override
     public void drawBackground(GC gc) {
 
-        List<LinkDescriptor<TreeItem, D1, TableItem, D2>> links = linksManager.getLinks();
+        List<LinkDescriptor<D1, D2>> links = linksManager.getLinks();
         int lstSize = links.size();
 
         int xStartBezierLink = findXRightStartBezierLink(tree.getItems(), 0);
@@ -292,7 +294,7 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             // gc.setAdvanced(false);
         }
         for (int i = 0; i < lstSize; i++) {
-            LinkDescriptor<TreeItem, D1, TableItem, D2> link = links.get(i);
+            LinkDescriptor<D1, D2> link = links.get(i);
 
             IDrawableLink drawableLink = link.getStyleLink().getDrawableLink();
             if (drawableLink == null) {
@@ -300,10 +302,10 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             }
             drawableLink.getStyle().apply(gc);
 
-            IExtremityLink<TreeItem, D1> extremity1 = link.getExtremity1();
-            IExtremityLink<TableItem, D2> extremity2 = link.getExtremity2();
+            IExtremityLink<D1> extremity1 = link.getExtremity1();
+            IExtremityLink<D2> extremity2 = link.getExtremity2();
 
-            TreeItem treeItem = extremity1.getGraphicalItem();
+            TreeItem treeItem = TreeUtils.getTreeItem(tree, (Object) extremity1.getDataItem());
 
             TreeItem firstExpandedAscTreeItem = findFirstVisibleItemAscFrom(treeItem);
 
@@ -313,7 +315,7 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             Point pointStartStraight = new Point(treeToCommonPoint.x + treeItemBounds.x + treeItemBounds.width, yStraight);
             Point pointEndStraight = new Point(treeToCommonPoint.x + xStartBezierLink, yStraight);
 
-            Rectangle tableItemBounds = extremity2.getGraphicalItem().getBounds();
+            Rectangle tableItemBounds = TableUtils.getTableItem(table, (Object) extremity2.getDataItem()).getBounds();
             Rectangle tableBounds = table.getBounds();
 
             Point pointEndCentralCurve = convertPointToCommonParentOrigin(new Point(tableItemBounds.x - 2, tableItemBounds.y
@@ -422,17 +424,16 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
         table.deselectAll();
 
         TreeItem[] selection = tree.getSelection();
-        HashSet<TreeItem> selectedItems = new HashSet<TreeItem>();
+        HashSet selectedItems = new HashSet();
         for (int i = 0; i < selection.length; i++) {
             TreeItem treeItem = selection[i];
-            selectedItems.add(treeItem);
+            selectedItems.add(treeItem.getData());
         }
 
-        List<LinkDescriptor<TreeItem, D1, TableItem, D2>> links = linksManager.getLinks();
-        for (LinkDescriptor<TreeItem, D1, TableItem, D2> link : links) {
+        List<LinkDescriptor<D1, D2>> links = linksManager.getLinks();
+        for (LinkDescriptor<D1, D2> link : links) {
             IStyleLink styleLink = null;
-            TreeItem currentTreeItem = link.getExtremity1().getGraphicalItem();
-            boolean currentItemIsSelected = selectedItems.contains(currentTreeItem);
+            boolean currentItemIsSelected = selectedItems.contains(link.getExtremity1().getDataItem());
             if (currentItemIsSelected) {
                 styleLink = selectedStyleLink;
             } else {
@@ -453,17 +454,16 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
         tree.deselectAll();
 
         TableItem[] selection = table.getSelection();
-        HashSet<TableItem> selectedItems = new HashSet<TableItem>();
+        HashSet selectedItems = new HashSet();
         for (int i = 0; i < selection.length; i++) {
-            TableItem treeItem = selection[i];
-            selectedItems.add(treeItem);
+            TableItem tableItem = selection[i];
+            selectedItems.add(tableItem.getData());
         }
 
-        List<LinkDescriptor<TreeItem, D1, TableItem, D2>> links = linksManager.getLinks();
-        for (LinkDescriptor<TreeItem, D1, TableItem, D2> link : links) {
+        List<LinkDescriptor<D1, D2>> links = linksManager.getLinks();
+        for (LinkDescriptor<D1, D2> link : links) {
             IStyleLink styleLink = null;
-            TableItem currentGraphicItem = link.getExtremity2().getGraphicalItem();
-            boolean currentItemIsSelected = selectedItems.contains(currentGraphicItem);
+            boolean currentItemIsSelected = selectedItems.contains(link.getExtremity2().getDataItem());
             if (currentItemIsSelected) {
                 styleLink = selectedStyleLink;
             } else {

@@ -23,19 +23,15 @@ package org.talend.commons.ui.swt.drawing.link;
 
 
 /**
- * DOC amaumont  class global comment. Detailled comment
+ * DOC amaumont  class global comment. Detailled comment    
  * <br/>
  *
  * $Id$
  *
- * @param <G> graphical item
  * @param <D> data item
  */
-public interface IExtremityLink<G, D> {
+public interface IExtremityLink<D> {
 
-    public G getGraphicalItem();
-    public void setGraphicalItem(G graphicalItem);
-    
     public D getDataItem();
     public void setDataItem(D dataItem);
 }

@@ -268,7 +268,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * 
      * @param event
      */
-    protected void handleBeforeListenableListOperationEvent(ListenableListEvent event) {
+    protected void handleBeforeListenableListOperationEvent(ListenableListEvent<B> event) {
         if (tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
             tableViewerCreator.setInputList(getBeansList());
             tableViewerCreator.layout();
@@ -288,7 +288,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * 
      * @param event
      */
-    protected void handleAfterListenableListOperationEvent(ListenableListEvent event) {
+    protected void handleAfterListenableListOperationEvent(ListenableListEvent<B> event) {
         if (event.type == TYPE.LIST_REGISTERED && tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
             tableViewerCreator.setInputList(getBeansList());
             new AsynchronousThreading(100, true, tableViewerCreator.getTable().getDisplay(), new Runnable() {

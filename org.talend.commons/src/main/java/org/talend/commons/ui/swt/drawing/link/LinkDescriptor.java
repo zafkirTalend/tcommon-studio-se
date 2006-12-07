@@ -29,16 +29,14 @@ package org.talend.commons.ui.swt.drawing.link;
  *
  * $Id$
  * 
- * @param <G1> the graphical item of extremety 1
  * @param <D1> the data item of extremety 1
- * @param <G2> the graphical item of extremety 2
  * @param <D2> the data item of extremety 2
  */
-public class LinkDescriptor<G1, D1, G2, D2> {
+public class LinkDescriptor<D1, D2> {
 
-    private IExtremityLink<G1, D1> extremity1;
+    private IExtremityLink<D1> extremity1;
     
-    private IExtremityLink<G2, D2> extremity2;
+    private IExtremityLink<D2> extremity2;
 
     private IStyleLink styleLink;
     
@@ -47,7 +45,7 @@ public class LinkDescriptor<G1, D1, G2, D2> {
      * @param extremity1
      * @param extremity2
      */
-    public LinkDescriptor(IExtremityLink<G1, D1> extremity1, IExtremityLink<G2, D2> extremity2) {
+    public LinkDescriptor(IExtremityLink<D1> extremity1, IExtremityLink<D2> extremity2) {
         super();
         this.extremity1 = extremity1;
         this.extremity2 = extremity2;
@@ -58,7 +56,7 @@ public class LinkDescriptor<G1, D1, G2, D2> {
      * Getter for tip1.
      * @return the tip1
      */
-    public IExtremityLink<G1, D1> getExtremity1() {
+    public IExtremityLink<D1> getExtremity1() {
         return this.extremity1;
     }
 
@@ -67,7 +65,7 @@ public class LinkDescriptor<G1, D1, G2, D2> {
      * Sets the tip1.
      * @param extremity1 the tip1 to set
      */
-    public void setExtremity1(IExtremityLink<G1, D1> extremity1) {
+    public void setExtremity1(IExtremityLink<D1> extremity1) {
         this.extremity1 = extremity1;
     }
 
@@ -76,7 +74,7 @@ public class LinkDescriptor<G1, D1, G2, D2> {
      * Getter for tip2.
      * @return the tip2
      */
-    public IExtremityLink<G2, D2> getExtremity2() {
+    public IExtremityLink<D2> getExtremity2() {
         return this.extremity2;
     }
 
@@ -85,7 +83,7 @@ public class LinkDescriptor<G1, D1, G2, D2> {
      * Sets the tip2.
      * @param extremity22 the tip2 to set
      */
-    public void setExtremity2(IExtremityLink<G2, D2> extremity22) {
+    public void setExtremity2(IExtremityLink<D2> extremity22) {
         this.extremity2 = extremity22;
     }
 

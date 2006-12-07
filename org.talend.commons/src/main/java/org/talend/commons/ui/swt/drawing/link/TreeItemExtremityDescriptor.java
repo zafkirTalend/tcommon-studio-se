@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.drawing.link;
 
-import org.eclipse.swt.widgets.TreeItem;
 
 
 /**
@@ -31,29 +30,19 @@ import org.eclipse.swt.widgets.TreeItem;
  * $Id$
  *
  */
-public class TreeItemExtremityDescriptor implements IExtremityLink<TreeItem, Object> {
+public class TreeItemExtremityDescriptor implements IExtremityLink<Object> {
 
-    private TreeItem treeItem;
     private Object dataObject;
 
     /**
      * DOC amaumont TreeItemExtremityDescriptor constructor comment.
+     * @param dataItem1 
      * @param treeItem
      */
-    public TreeItemExtremityDescriptor(TreeItem treeItem) {
+    public TreeItemExtremityDescriptor(Object dataItem1) {
         super();
-        this.treeItem = treeItem;
-//        this.dataObject = dataObject;
+        this.dataObject = dataItem1;
     }
-    
-    /* (non-Javadoc)
-     * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#getAssociatedItem()
-     */
-    public TreeItem getGraphicalItem() {
-        return treeItem;
-    }
-
-    
     
     /* (non-Javadoc)
      * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#getDataItem()
@@ -72,11 +61,4 @@ public class TreeItemExtremityDescriptor implements IExtremityLink<TreeItem, Obj
         this.dataObject = dataItem;
     }
 
-    /* (non-Javadoc)
-     * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#setGraphicalItem(java.lang.Object)
-     */
-    public void setGraphicalItem(TreeItem graphicalItem) {
-        this.treeItem = graphicalItem;
-    }
-    
 }

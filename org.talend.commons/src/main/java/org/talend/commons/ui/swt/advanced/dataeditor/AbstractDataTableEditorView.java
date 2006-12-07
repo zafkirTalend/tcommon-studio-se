@@ -193,7 +193,7 @@ public abstract class AbstractDataTableEditorView<B> {
              * @see org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer#handleBeforeListenableListOperationEvent(org.talend.commons.utils.data.list.ListenableListEvent)
              */
             @Override
-            protected void handleBeforeListenableListOperationEvent(ListenableListEvent event) {
+            protected void handleBeforeListenableListOperationEvent(ListenableListEvent<B> event) {
                 AbstractDataTableEditorView.this.handleBeforeListenableListOperationEvent(event);
                 super.handleBeforeListenableListOperationEvent(event);
             }
@@ -204,7 +204,7 @@ public abstract class AbstractDataTableEditorView<B> {
              * @see org.talend.commons.ui.swt.extended.macrotable.AbstractExtendedTableViewer#handleAfterListenableListOperationEvent(org.talend.commons.utils.data.list.ListenableListEvent)
              */
             @Override
-            protected void handleAfterListenableListOperationEvent(ListenableListEvent event) {
+            protected void handleAfterListenableListOperationEvent(ListenableListEvent<B> event) {
                 super.handleAfterListenableListOperationEvent(event);
                 AbstractDataTableEditorView.this.handleAfterListenableListOperationEvent(event);
             }
@@ -217,7 +217,7 @@ public abstract class AbstractDataTableEditorView<B> {
      * 
      * @param event
      */
-    protected void handleBeforeListenableListOperationEvent(ListenableListEvent event) {
+    protected void handleBeforeListenableListOperationEvent(ListenableListEvent<B> event) {
 
     }
 
@@ -226,7 +226,7 @@ public abstract class AbstractDataTableEditorView<B> {
      * 
      * @param event
      */
-    protected void handleAfterListenableListOperationEvent(ListenableListEvent event) {
+    protected void handleAfterListenableListOperationEvent(ListenableListEvent<B> event) {
 
     }
 
