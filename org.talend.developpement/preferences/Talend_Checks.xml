@@ -13,7 +13,8 @@ Description:
     <module name="TreeWalker">
         <property name="tabWidth" value="4"/>
         <module name="JavadocMethod">
-            <property name="severity" value="info"/>
+            <metadata name="com.atlassw.tools.eclipse.checkstyle.lastEnabledSeverity" value="info"/>
+            <property name="severity" value="ignore"/>
             <property name="tokens" value="METHOD_DEF"/>
         </module>
         <module name="JavadocType">
@@ -92,6 +93,7 @@ Description:
         <module name="EmptyStatement"/>
         <module name="EqualsHashCode"/>
         <module name="HiddenField">
+            <property name="tokens" value="VARIABLE_DEF"/>
             <property name="ignoreConstructorParameter" value="true"/>
             <property name="ignoreSetter" value="true"/>
             <property name="ignoreAbstractMethods" value="true"/>
