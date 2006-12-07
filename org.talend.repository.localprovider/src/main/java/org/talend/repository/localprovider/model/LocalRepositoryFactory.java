@@ -1305,6 +1305,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
         for (Iterator iter = users.iterator(); iter.hasNext();) {
             User emfUser = (User) iter.next();
+            xmiResourceManager.handleUserId(emfProject, emfUser);
             if (emfUser.getLogin().equals(getRepositoryContext().getUser().getLogin())) {
                 getRepositoryContext().setUser(emfUser);
                 return true;
@@ -1319,6 +1320,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
 
+        xmiResourceManager.handleUserId(emfProject, getRepositoryContext().getUser());
         projectResource.getContents().add(getRepositoryContext().getUser());
         xmiResourceManager.saveResource(projectResource);
     }

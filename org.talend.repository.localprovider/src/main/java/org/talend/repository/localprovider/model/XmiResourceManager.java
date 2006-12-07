@@ -23,6 +23,8 @@ package org.talend.repository.localprovider.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -43,6 +45,7 @@ import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.model.ResourceFilenameHelper.FileName;
@@ -248,6 +251,23 @@ public class XmiResourceManager {
             file.copy(path, true, null);
         } catch (CoreException e) {
             throw new PersistenceException(e);
+        }
+    }
+
+    //we need to affect an id to each user, because users objects are cross referenced across differents xmi resource
+    //also used to affect an id to users previously created without an id
+    public void handleUserId(Project emfProject, User user) throws PersistenceException {
+        int defaultId = 1;
+        if (user.getId() <= defaultId) {
+            Collection users = EcoreUtil.getObjectsByType(emfProject.eResource().getContents(), PropertiesPackage.eINSTANCE.getUser());
+            
+            for (Iterator iter = users.iterator(); iter.hasNext();) {
+                User emfUser = (User) iter.next();
+                defaultId = Math.max(defaultId, emfUser.getId());
+            }
+            
+            user.setId(defaultId + 1);
+            saveResource(emfProject.eResource());
         }
     }
 }
