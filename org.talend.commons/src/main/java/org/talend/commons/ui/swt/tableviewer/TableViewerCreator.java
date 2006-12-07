@@ -1366,11 +1366,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                         tableEditorManager.refresh();
                         tableEditorManager.redrawControls();
                     }
-                    // table.redraw();
-                    // table.layout(true, true);
-                    // table.layout();
-                    // table.forceFocus();
-                    // table.setVisible(true);
                 }
 
             }).start();

@@ -63,9 +63,11 @@ public class ListenableList<T> implements List<T> {
      * @see java.util.List#add(java.lang.Object)
      */
     public boolean add(T o) {
+        int index = this.list.indexOf(o);
+        fireAddedEvent(index, o, true);
         boolean returnValue = this.list.add(o);
         if (returnValue) {
-            fireAddedEvent(this.list.indexOf(o), o);
+            fireAddedEvent(index, o, false);
         }
         return returnValue;
 
@@ -76,11 +78,12 @@ public class ListenableList<T> implements List<T> {
      * 
      * @param i
      * @param o
+     * @param before TODO
      */
-    private void fireAddedEvent(int i, T o) {
+    private void fireAddedEvent(int i, T o, boolean before) {
         ArrayList<T> objects = new ArrayList<T>(1);
         objects.add(o);
-        fireAddedEvent(i, objects, null);
+        fireAddedEvent(i, objects, null, before);
     }
 
     /*
@@ -89,8 +92,9 @@ public class ListenableList<T> implements List<T> {
      * @see java.util.List#add(int, java.lang.Object)
      */
     public void add(int index, T element) {
+        fireAddedEvent(index, element, true);
         this.list.add(index, element);
-        fireAddedEvent(index, element);
+        fireAddedEvent(index, element, false);
     }
 
     /*
@@ -100,9 +104,10 @@ public class ListenableList<T> implements List<T> {
      */
     @SuppressWarnings("unchecked")
     public boolean addAll(Collection<? extends T> c) {
+        fireAddedEvent(this.list.size(), (Collection<T>) c, null, true);
         boolean returnValue = this.list.addAll(c);
         if (returnValue) {
-            fireAddedEvent(this.list.size() - c.size(), (Collection<T>) c, null);
+            fireAddedEvent(this.list.size() - c.size(), (Collection<T>) c, null, false);
         }
         return returnValue;
     }
@@ -114,9 +119,10 @@ public class ListenableList<T> implements List<T> {
      */
     @SuppressWarnings("unchecked")
     public boolean addAll(int index, Collection<? extends T> c) {
+        fireAddedEvent(index, (Collection<T>) c, null, true);
         boolean returnValue = this.list.addAll(index, c);
         if (returnValue) {
-            fireAddedEvent(index, (Collection<T>) c, null);
+            fireAddedEvent(index, (Collection<T>) c, null, false);
         }
         return returnValue;
     }
@@ -127,6 +133,7 @@ public class ListenableList<T> implements List<T> {
      */
     public void addAll(List<Integer> indices, Collection<? extends T> c) {
 
+        fireAddedEvent(null, (Collection<T>) c, indices, true);
         Iterator<Integer> iterIndice = indices.iterator();
         for (T t : c) {
             Integer indice = null;
@@ -140,7 +147,7 @@ public class ListenableList<T> implements List<T> {
             }
         }
 
-        fireAddedEvent(null, (Collection<T>) c, indices);
+        fireAddedEvent(null, (Collection<T>) c, indices, false);
     }
 
     /*
@@ -149,8 +156,9 @@ public class ListenableList<T> implements List<T> {
      * @see java.util.List#clear()
      */
     public void clear() {
+        fireClearedEvent(true);
         this.list.clear();
-        fireClearedEvent();
+        fireClearedEvent(false);
     }
 
     /*
@@ -221,6 +229,7 @@ public class ListenableList<T> implements List<T> {
 
             public void remove() {
                 Integer indexBeforeRemove = list.indexOf(current);
+                fireBeforeRemovedEvent(indexBeforeRemove);
                 internalIterator.remove();
                 fireRemovedEvent(indexBeforeRemove, current);
             }
@@ -251,7 +260,7 @@ public class ListenableList<T> implements List<T> {
 
             public void add(T o) {
                 internalListIterator.add(o);
-                fireAddedEvent(internalListIterator.previousIndex(), o);
+                fireAddedEvent(internalListIterator.previousIndex(), o, false);
             }
 
             public boolean hasPrevious() {
@@ -272,8 +281,9 @@ public class ListenableList<T> implements List<T> {
             }
 
             public void set(T o) {
+                fireReplacedEvent(internalListIterator.previousIndex() + 1, current, o, true);
                 internalListIterator.set(o);
-                fireReplacedEvent(internalListIterator.previousIndex() + 1, current, o);
+                fireReplacedEvent(internalListIterator.previousIndex() + 1, current, o, false);
             }
 
             public boolean hasNext() {
@@ -287,6 +297,7 @@ public class ListenableList<T> implements List<T> {
 
             public void remove() {
                 Integer indexBeforeRemove = internalListIterator.previousIndex() + 1;
+                fireBeforeRemovedEvent(indexBeforeRemove);
                 internalListIterator.remove();
                 fireRemovedEvent(indexBeforeRemove, current);
             }
@@ -418,8 +429,9 @@ public class ListenableList<T> implements List<T> {
      * @see java.util.List#set(int, java.lang.Object)
      */
     public T set(int index, T element) {
+        fireReplacedEvent(index, null, element, true);
         T replacedObject = this.list.set(index, element);
-        fireReplacedEvent(index, replacedObject, element);
+        fireReplacedEvent(index, replacedObject, element, false);
         return replacedObject;
     }
 
@@ -524,15 +536,17 @@ public class ListenableList<T> implements List<T> {
      * @param index
      * @param addedObjects
      * @param indicesTarget TODO
+     * @param before TODO
      * @param element
      */
-    public void fireAddedEvent(Integer index, Collection<T> addedObjects, List<Integer> indicesTarget) {
+    public void fireAddedEvent(Integer index, Collection<T> addedObjects, List<Integer> indicesTarget, boolean before) {
         ListenableListEvent<T> event = new ListenableListEvent<T>();
         event.type = TYPE.ADDED;
         event.index = index;
         event.indicesTarget = indicesTarget;
         event.addedObjects = addedObjects;
         event.source = this;
+        event.beforeOperation = before;
         fireEvent(event);
     }
 
@@ -579,9 +593,10 @@ public class ListenableList<T> implements List<T> {
      * 
      * @param index
      * @param index
+     * @param before TODO
      * @param element
      */
-    public void fireReplacedEvent(int index, T removedObject, T addedObject) {
+    public void fireReplacedEvent(int index, T removedObject, T addedObject, boolean before) {
         ListenableListEvent<T> event = new ListenableListEvent<T>();
         event.type = TYPE.REPLACED;
         event.index = index;
@@ -592,27 +607,34 @@ public class ListenableList<T> implements List<T> {
         List<T> addedObjects = new ArrayList<T>(1);
         addedObjects.add(addedObject);
         event.removedObjects = addedObjects;
+        event.beforeOperation = before;
 
         fireEvent(event);
     }
 
     /**
      * DOC amaumont Comment method "fireClearedListener".
+     * 
+     * @param before TODO
      */
-    public void fireClearedEvent() {
+    public void fireClearedEvent(boolean before) {
         ListenableListEvent<T> event = new ListenableListEvent<T>();
         event.type = TYPE.CLEARED;
         event.source = this;
+        event.beforeOperation = before;
         fireEvent(event);
     }
 
     /**
      * DOC amaumont Comment method "fireClearedListener".
+     * 
+     * @param before TODO
      */
-    public void fireListRegisteredEvent() {
+    public void fireListRegisteredEvent(boolean before) {
         ListenableListEvent<T> event = new ListenableListEvent<T>();
         event.type = TYPE.LIST_REGISTERED;
         event.source = this;
+        event.beforeOperation = before;
         fireEvent(event);
     }
 
@@ -702,9 +724,16 @@ public class ListenableList<T> implements List<T> {
         return this.list;
     }
 
-    public void registerList(List list) {
+    /**
+     * 
+     * Register list.
+     * 
+     * @param list
+     */
+    public void registerList(List<T> list) {
+        fireListRegisteredEvent(true);
         this.list = list;
-        fireListRegisteredEvent();
+        fireListRegisteredEvent(false);
     }
 
     /**

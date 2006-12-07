@@ -75,6 +75,7 @@ public class TableEditorManager {
 
     @SuppressWarnings("unchecked")
     public void refresh() {
+//        System.out.println("table editor refreshed");
         for (TableEditor tableEditor : tableEditorList) {
             tableEditor.getEditor().dispose();
         }

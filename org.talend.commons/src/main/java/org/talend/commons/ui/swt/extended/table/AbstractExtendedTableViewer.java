@@ -176,7 +176,6 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         });
     }
 
-
     /**
      * .
      * 
@@ -187,7 +186,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         newTableViewerCreator.setAllColumnsResizable(true);
         newTableViewerCreator.setBorderVisible(true);
         newTableViewerCreator.setFirstColumnMasked(true);
-//        newTableViewerCreator.setUseCustomItemColoring(true);
+        // newTableViewerCreator.setUseCustomItemColoring(true);
         newTableViewerCreator.setFirstVisibleColumnIsSelection(false);
         newTableViewerCreator.setCheckboxInFirstColumn(false);
         newTableViewerCreator.setBgColorForEmptyArea(getParentComposite().getDisplay().getSystemColor(SWT.COLOR_WHITE));
@@ -225,8 +224,8 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         getExtendedTableModel().addAfterOperationListListener(100, new IListenableListListener<B>() {
 
             public void handleEvent(ListenableListEvent<B> event) {
+                tableViewerCreator.getTable().forceFocus();
                 if (event.type == TYPE.ADDED) {
-                    tableViewerCreator.getTable().forceFocus();
                     if (event.index != null) {
                         tableViewerCreator.getSelectionHelper().setSelection(event.index, event.index + event.addedObjects.size() - 1);
                     } else if (event.indicesTarget != null) {
@@ -274,7 +273,9 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
             tableViewerCreator.setInputList(getBeansList());
             tableViewerCreator.layout();
         } else {
-            if (event.type == TYPE.REMOVED) {
+            if (event.type == TYPE.ADDED) {
+                tableViewerCreator.getTable().deselectAll();
+            } else if (event.type == TYPE.REMOVED) {
                 // tableViewerCreator.getTable().deselectAll();
                 // tableViewerCreator.getTableViewer().remove(event.removedObjects.toArray());
                 // tableViewerCreator.layout();
@@ -376,6 +377,5 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
     public void setExecuteSelectionEvent(boolean executeSelectionEvent) {
         this.executeSelectionEvent = executeSelectionEvent;
     }
-
 
 }
