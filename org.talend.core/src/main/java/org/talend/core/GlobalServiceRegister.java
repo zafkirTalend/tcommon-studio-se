@@ -21,9 +21,9 @@
 // ============================================================================
 package org.talend.core;
 
-import org.talend.designer.codegen.ICodeGeneratorService;
-import org.talend.designer.runprocess.IRunProcessService;
-import org.talend.repository.model.IRepositoryService;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * DOC qian class global comment. Contains vary factories. <br/>
  * 
@@ -32,66 +32,34 @@ import org.talend.repository.model.IRepositoryService;
  */
 public class GlobalServiceRegister {
 
-    private static ICodeGeneratorService codeGeneratorService;
+    // The shared instance
+    private static GlobalServiceRegister instance = new GlobalServiceRegister();
 
-    private static IRunProcessService runProcessService;
-    
-    private static IRepositoryService repositoryService;
+    public static GlobalServiceRegister getDefault() {
+        return instance;
+    }
+
+    private Map<Class, IService> services = new HashMap<Class, IService>();
 
     /**
-     * Getter for codeGeneratorFactory.
-     * 
-     * @return the codeGeneratorFactory
+     * DOC qian Comment method "registerService".Register the IService.
+     * @param klass
+     * @param service
      */
-    public static ICodeGeneratorService getCodeGeneratorService() {
-        return codeGeneratorService;
+    public void registerService(Class klass, IService service) {
+        services.put(klass, service);
     }
 
     /**
-     * Sets the codeGeneratorFactory.
-     * 
-     * @param codeGeneratorFactory the codeGeneratorFactory to set
+     * DOC qian Comment method "getService".Gets the specific IService.
+     * @param klass 
+     * @return IService
      */
-    public static void registerCodeGeneratorService(ICodeGeneratorService service) {
-        GlobalServiceRegister.codeGeneratorService = service;
+    public IService getService(Class klass) {
+        IService service = services.get(klass);
+        if (service == null) {
+            throw new RuntimeException("This service has not been registered.");
+        }
+        return service;
     }
-
-    /**
-     * Getter for runProcessFactory.
-     * 
-     * @return the runProcessFactory
-     */
-    public static IRunProcessService getRunProcessService() {
-        return runProcessService;
-    }
-
-    /**
-     * Sets the runProcessFactory.
-     * 
-     * @param runProcessFactory the runProcessFactory to set
-     */
-    public static void registerRunProcessService(IRunProcessService service) {
-        GlobalServiceRegister.runProcessService = service;
-    }
-
-    
-    /**
-     * Getter for repositoryService.
-     * @return the repositoryService
-     */
-    public static IRepositoryService getRepositoryService() {
-        return repositoryService;
-    }
-
-    
-    /**
-     * Sets the repositoryService.
-     * @param repositoryService the repositoryService to set
-     */
-    public static void registerRepositoryService(IRepositoryService repositoryService) {
-        GlobalServiceRegister.repositoryService = repositoryService;
-    }
-
-    
-    
 }

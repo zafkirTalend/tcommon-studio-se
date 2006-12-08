@@ -19,19 +19,14 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.repository.model;
-
-import org.talend.core.IService;
-import org.talend.core.model.components.IComponentsFactory;
+package org.talend.core;
 
 /**
- * DOC qian class global comment. Interface for RepositoryService. <br/>
+ * DOC qian class global comment. Each plugin should extends this interface to define its own Service. <br/>
  * 
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
  * 
  */
-public interface IRepositoryService extends IService {
-
-    public IComponentsFactory getComponentsFactory();
+public interface IService {
 
 }

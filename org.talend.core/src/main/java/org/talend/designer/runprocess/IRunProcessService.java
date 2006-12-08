@@ -25,6 +25,7 @@ import org.apache.log4j.Level;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.talend.core.IService;
 import org.talend.core.language.perl.ICodeSyntaxChecker;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.temp.ECodeLanguage;
@@ -35,7 +36,7 @@ import org.talend.core.model.temp.ECodeLanguage;
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
  * 
  */
-public interface IRunProcessService {
+public interface IRunProcessService extends IService {
 
     public ICodeSyntaxChecker getSyntaxChecker(ECodeLanguage codeLanguage);
 

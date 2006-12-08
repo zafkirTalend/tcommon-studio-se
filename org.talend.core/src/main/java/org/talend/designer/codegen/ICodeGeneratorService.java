@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.designer.codegen;
 
+import org.talend.core.IService;
 import org.talend.core.model.process.IProcess;
 
 /**
@@ -29,7 +30,7 @@ import org.talend.core.model.process.IProcess;
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
  * 
  */
-public interface ICodeGeneratorService {
+public interface ICodeGeneratorService extends IService {
 
     /**
      * DOC qian Comment method "createCodeGenerator".
