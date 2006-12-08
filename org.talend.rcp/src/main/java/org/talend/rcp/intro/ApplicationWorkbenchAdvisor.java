@@ -27,6 +27,8 @@ import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.internal.ide.IDEWorkbenchAdvisor;
+import org.talend.designer.codegen.CodeGeneratorActivator;
+import org.talend.designer.runprocess.RunProcessPlugin;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>
@@ -49,7 +51,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
     public void initialize(IWorkbenchConfigurer configurer) {
         super.initialize(configurer);
         configurer.setSaveAndRestore(true);
-        
+
         PlatformUI.getPreferenceStore().setValue(IWorkbenchPreferenceConstants.CLOSE_EDITORS_ON_EXIT, true);
         PlatformUI.getPreferenceStore().setValue(IWorkbenchPreferenceConstants.SHOW_TRADITIONAL_STYLE_TABS, false);
     }
@@ -57,4 +59,16 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
     public String getInitialWindowPerspectiveId() {
         return PERSPECTIVE_ID;
     }
+
+    @Override
+    public void preStartup() {
+        super.preStartup();
+
+        // Fix bug 329,control the startup sequence of the plugin.
+        // Promise the following plugin register themselves before system loaded.
+        RunProcessPlugin.getDefault();
+        CodeGeneratorActivator.getDefault();
+
+    }
+
 }
