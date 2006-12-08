@@ -42,6 +42,8 @@ public class IODataComponent {
 
     private IMetadataTable newMetadataTable;
 
+    private List<ColumnNameChanged> columnNameChanged = null;
+
     /**
      * DOC smallet IODataComponent constructor comment.
      * 
@@ -56,7 +58,11 @@ public class IODataComponent {
     public IODataComponent(IConnection connection, IMetadataTable clonedTable) {
         super();
         this.connection = connection;
-        this.newMetadataTable = clonedTable;
+        if (clonedTable == null) {
+            this.newMetadataTable = connection.getMetadataTable().clone();
+        } else {
+            this.newMetadataTable = clonedTable;
+        }
     }
 
     @Override
@@ -75,7 +81,7 @@ public class IODataComponent {
     public IMetadataTable getTable() {
         return newMetadataTable;
     }
-    
+
     public void setTable(IMetadataTable table) {
         this.newMetadataTable = table;
     }
@@ -94,29 +100,36 @@ public class IODataComponent {
 
     private IMetadataColumn getColumn(int id) {
         // PTODO SML Optimize
-//        for (IMetadataColumn col : oldMetadataTable.getListColumns()) {
-//            if (col.getId() == id) {
-//                return col;
-//            }
-//        }
-        if (newMetadataTable.getListColumns().size() > id) {
-            return newMetadataTable.getListColumns().get(id);
+        for (IMetadataColumn col : newMetadataTable.getListColumns()) {
+            if (col.getId() == id) {
+                return col;
+            }
         }
+        // if (newMetadataTable.getListColumns().size() > id) {
+        // return newMetadataTable.getListColumns().get(id);
+        // }
         return null;
     }
 
     public List<ColumnNameChanged> getColumnNameChanged() {
-        List<ColumnNameChanged> toReturn = new ArrayList<ColumnNameChanged>();
-        for (int i = 0; i <  connection.getMetadataTable().getListColumns().size(); i++) {
-            IMetadataColumn originalColumn = connection.getMetadataTable().getListColumns().get(i);
-            IMetadataColumn clonedColumn = getColumn(i);
-            if (clonedColumn != null) {
-                if (!originalColumn.getLabel().equals(clonedColumn.getLabel())) {
-                    toReturn.add(new ColumnNameChanged(originalColumn.getLabel(), clonedColumn.getLabel()));
+        if (columnNameChanged == null) {
+            columnNameChanged = new ArrayList<ColumnNameChanged>();
+            for (int i = 0; i < connection.getMetadataTable().getListColumns().size(); i++) {
+                IMetadataColumn originalColumn = connection.getMetadataTable().getListColumns().get(i);
+                IMetadataColumn clonedColumn = getColumn(originalColumn.getId());
+                if (clonedColumn != null) {
+                    if (!originalColumn.getLabel().equals(clonedColumn.getLabel())) {
+                        columnNameChanged
+                                .add(new ColumnNameChanged(originalColumn.getLabel(), clonedColumn.getLabel()));
+                    }
                 }
             }
         }
-        return toReturn;
+        return columnNameChanged;
+    }
+
+    public void setColumnNameChanged(List<ColumnNameChanged> columnNameChanged) {
+        this.columnNameChanged = columnNameChanged;
     }
 
     /**
