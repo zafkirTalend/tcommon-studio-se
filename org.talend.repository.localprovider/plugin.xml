@@ -2,7 +2,7 @@
 <?eclipse version="3.2"?>
 <plugin>
    <extension
-         point="org.talend.repository.repository_provider">
+         point="org.talend.core.repository_provider">
       <RepositoryFactory
             authenticationNeeded="false"
             class="org.talend.repository.localprovider.model.LocalRepositoryFactory"

@@ -21,19 +21,21 @@
 // ============================================================================
 package org.talend.repository.model;
 
-import org.eclipse.core.runtime.IPath;
-import org.talend.core.IService;
-import org.talend.core.model.components.IComponentsFactory;
-
 /**
- * DOC qian class global comment. Interface for RepositoryService. <br/>
+ * Defines some constants relative to repository such as file patterns.<br/>
  * 
- * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
+ * $Id: RepositoryConstants.java 8 2006-10-02 09:09:23 +0000 (星期一, 02 十月 2006) mhirt $
  * 
  */
-public interface IRepositoryService extends IService {
+public class RepositoryConstants {
 
-    public IComponentsFactory getComponentsFactory();
+    public static final String TEMP_DIRECTORY = "temp";
 
-    public IPath getPathFileName(String folderName, String fileName);
+    public static final String IMG_DIRECTORY = "images";
+
+    public static final String PROJECT_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9 \\-_]*$";
+
+    public static final String FILE_PATTERN = "^[a-zA-Z0-9 \\.\\-\\(\\)\\[\\]=]+$";
+
+    public static final String MAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*(\\.[_A-Za-z0-9-]+)";
 }
