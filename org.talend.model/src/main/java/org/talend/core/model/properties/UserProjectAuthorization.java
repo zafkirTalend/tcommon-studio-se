@@ -97,7 +97,7 @@ public interface UserProjectAuthorization extends EObject {
      * @see org.talend.core.model.properties.UserProjectAuthorizationType
      * @see #setType(UserProjectAuthorizationType)
      * @see org.talend.core.model.properties.PropertiesPackage#getUserProjectAuthorization_Type()
-     * @model default="ReadWrite"
+     * @model default="ReadWrite" unique="false"
      * @generated
      */
     UserProjectAuthorizationType getType();
