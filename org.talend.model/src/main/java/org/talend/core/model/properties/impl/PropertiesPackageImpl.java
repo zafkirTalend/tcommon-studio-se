@@ -32,6 +32,8 @@ import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
+import org.talend.core.model.properties.ProjectComponentAuthorisation;
+import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
@@ -183,6 +185,20 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass notationHolderEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass projectComponentAuthorisationEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass projectReferenceEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -374,7 +390,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_Author() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(14);
+        return (EReference)projectEClass.getEStructuralFeatures().get(12);
     }
 
     /**
@@ -383,6 +399,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getProject_UserAuthorization() {
+        return (EReference)projectEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProject_AllowedComponents() {
+        return (EReference)projectEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProject_ReferencedProjects() {
         return (EReference)projectEClass.getEStructuralFeatures().get(15);
     }
 
@@ -430,24 +464,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProject_Components() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(11);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getProject_ReferenceProjects() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(12);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public EAttribute getProject_CreationDate() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(13);
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(11);
     }
 
     /**
@@ -981,7 +999,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getComponent_Projects() {
-        return (EReference)componentEClass.getEStructuralFeatures().get(5);
+        return (EReference)componentEClass.getEStructuralFeatures().get(10);
     }
 
     /**
@@ -989,7 +1007,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getComponent_Author() {
-        return (EReference)componentEClass.getEStructuralFeatures().get(6);
+        return (EReference)componentEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -997,7 +1015,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getComponent_CreationDate() {
-        return (EAttribute)componentEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)componentEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -1005,7 +1023,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getComponent_DeleteDate() {
-        return (EAttribute)componentEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)componentEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -1013,7 +1031,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getComponent_Deleted() {
-        return (EAttribute)componentEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)componentEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -1022,7 +1040,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getComponent_FileDescriptor() {
-        return (EAttribute)componentEClass.getEStructuralFeatures().get(10);
+        return (EAttribute)componentEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -1047,6 +1065,60 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EAttribute getNotationHolder_NotationString() {
         return (EAttribute)notationHolderEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getProjectComponentAuthorisation() {
+        return projectComponentAuthorisationEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProjectComponentAuthorisation_Project() {
+        return (EReference)projectComponentAuthorisationEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProjectComponentAuthorisation_Component() {
+        return (EReference)projectComponentAuthorisationEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getProjectReference() {
+        return projectReferenceEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProjectReference_Project() {
+        return (EReference)projectReferenceEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProjectReference_ReferencedProject() {
+        return (EReference)projectReferenceEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -1180,11 +1252,11 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(projectEClass, PROJECT__FOLDERS);
         createEAttribute(projectEClass, PROJECT__DELETED);
         createEAttribute(projectEClass, PROJECT__DELETE_DATE);
-        createEReference(projectEClass, PROJECT__COMPONENTS);
-        createEReference(projectEClass, PROJECT__REFERENCE_PROJECTS);
         createEAttribute(projectEClass, PROJECT__CREATION_DATE);
         createEReference(projectEClass, PROJECT__AUTHOR);
         createEReference(projectEClass, PROJECT__USER_AUTHORIZATION);
+        createEReference(projectEClass, PROJECT__ALLOWED_COMPONENTS);
+        createEReference(projectEClass, PROJECT__REFERENCED_PROJECTS);
 
         statusEClass = createEClass(STATUS);
         createEAttribute(statusEClass, STATUS__LABEL);
@@ -1279,15 +1351,23 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(componentEClass, COMPONENT__VERSION);
         createEAttribute(componentEClass, COMPONENT__COMPONENT_NAME);
         createEAttribute(componentEClass, COMPONENT__LAST_UPDATE_DATE);
-        createEReference(componentEClass, COMPONENT__PROJECTS);
         createEReference(componentEClass, COMPONENT__AUTHOR);
         createEAttribute(componentEClass, COMPONENT__CREATION_DATE);
         createEAttribute(componentEClass, COMPONENT__DELETE_DATE);
         createEAttribute(componentEClass, COMPONENT__DELETED);
         createEAttribute(componentEClass, COMPONENT__FILE_DESCRIPTOR);
+        createEReference(componentEClass, COMPONENT__PROJECTS);
 
         notationHolderEClass = createEClass(NOTATION_HOLDER);
         createEAttribute(notationHolderEClass, NOTATION_HOLDER__NOTATION_STRING);
+
+        projectComponentAuthorisationEClass = createEClass(PROJECT_COMPONENT_AUTHORISATION);
+        createEReference(projectComponentAuthorisationEClass, PROJECT_COMPONENT_AUTHORISATION__PROJECT);
+        createEReference(projectComponentAuthorisationEClass, PROJECT_COMPONENT_AUTHORISATION__COMPONENT);
+
+        projectReferenceEClass = createEClass(PROJECT_REFERENCE);
+        createEReference(projectReferenceEClass, PROJECT_REFERENCE__PROJECT);
+        createEReference(projectReferenceEClass, PROJECT_REFERENCE__REFERENCED_PROJECT);
 
         ldifFileConnectionItemEClass = createEClass(LDIF_FILE_CONNECTION_ITEM);
 
@@ -1358,11 +1438,11 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getProject_Folders(), this.getFolderItem(), null, "folders", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_DeleteDate(), ecorePackage.getEDate(), "deleteDate", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getProject_Components(), this.getComponent(), this.getComponent_Projects(), "components", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getProject_ReferenceProjects(), this.getProject(), null, "referenceProjects", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_CreationDate(), ecorePackage.getEDate(), "creationDate", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProject_Author(), this.getUser(), null, "author", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProject_UserAuthorization(), this.getUserProjectAuthorization(), this.getUserProjectAuthorization_Project(), "userAuthorization", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProject_AllowedComponents(), this.getProjectComponentAuthorisation(), this.getProjectComponentAuthorisation_Project(), "allowedComponents", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProject_ReferencedProjects(), this.getProjectReference(), this.getProjectReference_Project(), "referencedProjects", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(statusEClass, Status.class, "Status", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getStatus_Label(), ecorePackage.getEString(), "label", null, 0, 1, Status.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1457,15 +1537,23 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getComponent_Version(), ecorePackage.getEFloat(), "version", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_ComponentName(), ecorePackage.getEString(), "componentName", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_LastUpdateDate(), ecorePackage.getEDate(), "lastUpdateDate", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getComponent_Projects(), this.getProject(), this.getProject_Components(), "projects", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getComponent_Author(), this.getUser(), null, "author", null, 1, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_CreationDate(), ecorePackage.getEDate(), "creationDate", null, 1, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_DeleteDate(), ecorePackage.getEDate(), "deleteDate", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_Deleted(), ecorePackage.getEBoolean(), "deleted", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_FileDescriptor(), ecorePackage.getEByteArray(), "fileDescriptor", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getComponent_Projects(), this.getProjectComponentAuthorisation(), this.getProjectComponentAuthorisation_Component(), "projects", null, 0, -1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(notationHolderEClass, NotationHolder.class, "NotationHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getNotationHolder_NotationString(), theEcorePackage.getEString(), "notationString", null, 0, 1, NotationHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(projectComponentAuthorisationEClass, ProjectComponentAuthorisation.class, "ProjectComponentAuthorisation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getProjectComponentAuthorisation_Project(), this.getProject(), this.getProject_AllowedComponents(), "project", null, 1, 1, ProjectComponentAuthorisation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProjectComponentAuthorisation_Component(), this.getComponent(), this.getComponent_Projects(), "component", null, 1, 1, ProjectComponentAuthorisation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(projectReferenceEClass, ProjectReference.class, "ProjectReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getProjectReference_Project(), this.getProject(), this.getProject_ReferencedProjects(), "project", null, 1, 1, ProjectReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProjectReference_ReferencedProject(), this.getProject(), null, "referencedProject", null, 1, 1, ProjectReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(ldifFileConnectionItemEClass, LdifFileConnectionItem.class, "LdifFileConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -27,11 +27,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Project#getFolders <em>Folders</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#isDeleted <em>Deleted</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getDeleteDate <em>Delete Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.Project#getComponents <em>Components</em>}</li>
- *   <li>{@link org.talend.core.model.properties.Project#getReferenceProjects <em>Reference Projects</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getUserAuthorization <em>User Authorization</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getAllowedComponents <em>Allowed Components</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getReferencedProjects <em>Referenced Projects</em>}</li>
  * </ul>
  * </p>
  *
@@ -218,6 +218,42 @@ public interface Project extends EObject {
     EList getUserAuthorization();
 
     /**
+     * Returns the value of the '<em><b>Allowed Components</b></em>' reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.ProjectComponentAuthorisation}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.ProjectComponentAuthorisation#getProject <em>Project</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Allowed Components</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Allowed Components</em>' reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_AllowedComponents()
+     * @see org.talend.core.model.properties.ProjectComponentAuthorisation#getProject
+     * @model type="org.talend.core.model.properties.ProjectComponentAuthorisation" opposite="project"
+     * @generated
+     */
+    EList getAllowedComponents();
+
+    /**
+     * Returns the value of the '<em><b>Referenced Projects</b></em>' reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.ProjectReference}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.ProjectReference#getProject <em>Project</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Referenced Projects</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Referenced Projects</em>' reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_ReferencedProjects()
+     * @see org.talend.core.model.properties.ProjectReference#getProject
+     * @model type="org.talend.core.model.properties.ProjectReference" opposite="project"
+     * @generated
+     */
+    EList getReferencedProjects();
+
+    /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -333,40 +369,6 @@ public interface Project extends EObject {
      * @generated
      */
     void setDeleteDate(Date value);
-
-    /**
-     * Returns the value of the '<em><b>Components</b></em>' reference list.
-     * The list contents are of type {@link org.talend.core.model.properties.Component}.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.Component#getProjects <em>Projects</em>}'.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Components</em>' reference list isn't clear, there really should be more of a
-     * description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Components</em>' reference list.
-     * @see org.talend.core.model.properties.PropertiesPackage#getProject_Components()
-     * @see org.talend.core.model.properties.Component#getProjects
-     * @model type="org.talend.core.model.properties.Component" opposite="projects"
-     * @generated
-     */
-    EList getComponents();
-
-    /**
-     * Returns the value of the '<em><b>Reference Projects</b></em>' reference list.
-     * The list contents are of type {@link org.talend.core.model.properties.Project}.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Reference Projects</em>' reference list isn't clear, there really should be more
-     * of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Reference Projects</em>' reference list.
-     * @see org.talend.core.model.properties.PropertiesPackage#getProject_ReferenceProjects()
-     * @model type="org.talend.core.model.properties.Project"
-     * @generated
-     */
-    EList getReferenceProjects();
 
     /**
      * Returns the value of the '<em><b>Creation Date</b></em>' attribute.

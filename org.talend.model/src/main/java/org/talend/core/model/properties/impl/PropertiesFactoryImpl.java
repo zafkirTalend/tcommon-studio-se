@@ -98,6 +98,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.FOLDER_ITEM: return createFolderItem();
             case PropertiesPackage.COMPONENT: return createComponent();
             case PropertiesPackage.NOTATION_HOLDER: return createNotationHolder();
+            case PropertiesPackage.PROJECT_COMPONENT_AUTHORISATION: return createProjectComponentAuthorisation();
+            case PropertiesPackage.PROJECT_REFERENCE: return createProjectReference();
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: return createLdifFileConnectionItem();
             case PropertiesPackage.USER_PROJECT_AUTHORIZATION: return createUserProjectAuthorization();
             default:
@@ -315,6 +317,26 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public NotationHolder createNotationHolder() {
         NotationHolderImpl notationHolder = new NotationHolderImpl();
         return notationHolder;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ProjectComponentAuthorisation createProjectComponentAuthorisation() {
+        ProjectComponentAuthorisationImpl projectComponentAuthorisation = new ProjectComponentAuthorisationImpl();
+        return projectComponentAuthorisation;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ProjectReference createProjectReference() {
+        ProjectReferenceImpl projectReference = new ProjectReferenceImpl();
+        return projectReference;
     }
 
     /**

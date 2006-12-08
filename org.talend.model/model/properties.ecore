@@ -25,15 +25,27 @@
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleteDate" unique="false"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="components" upperBound="-1"
-        eType="#//Component" eOpposite="#//Component/projects"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceProjects" upperBound="-1"
-        eType="#//Project"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationDate" unique="false"
         lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="author" eType="#//User"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="userAuthorization" upperBound="-1"
         eType="#//UserProjectAuthorization" eOpposite="#//UserProjectAuthorization/project"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="allowedComponents" upperBound="-1"
+        eType="#//ProjectComponentAuthorisation" eOpposite="#//ProjectComponentAuthorisation/project"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedProjects" upperBound="-1"
+        eType="#//ProjectReference" eOpposite="#//ProjectReference/project"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProjectComponentAuthorisation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="project" lowerBound="1"
+        eType="#//Project" eOpposite="#//Project/allowedComponents"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="component" lowerBound="1"
+        eType="#//Component" eOpposite="#//Component/projects"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ProjectReference">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="project" lowerBound="1"
+        eType="#//Project" eOpposite="#//Project/referencedProjects"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencedProject" lowerBound="1"
+        eType="#//Project"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Status">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -154,8 +166,6 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="lastUpdateDate" unique="false"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDate"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="projects" unique="false"
-        upperBound="-1" eType="#//Project" eOpposite="#//Project/components"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="author" unique="false"
         lowerBound="1" eType="#//User"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="creationDate" unique="false"
@@ -165,6 +175,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="deleted" unique="false"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="fileDescriptor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="projects" upperBound="-1"
+        eType="#//ProjectComponentAuthorisation" eOpposite="#//ProjectComponentAuthorisation/component"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NotationHolder">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationString" eType="ecore:EDataType ../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>

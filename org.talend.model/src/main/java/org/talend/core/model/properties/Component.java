@@ -24,12 +24,12 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Component#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#getComponentName <em>Component Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#getLastUpdateDate <em>Last Update Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.Component#getProjects <em>Projects</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#getDeleteDate <em>Delete Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#isDeleted <em>Deleted</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#getFileDescriptor <em>File Descriptor</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Component#getProjects <em>Projects</em>}</li>
  * </ul>
  * </p>
  *
@@ -170,8 +170,8 @@ public interface Component extends EObject {
 
     /**
      * Returns the value of the '<em><b>Projects</b></em>' reference list.
-     * The list contents are of type {@link org.talend.core.model.properties.Project}.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.Project#getComponents <em>Components</em>}'.
+     * The list contents are of type {@link org.talend.core.model.properties.ProjectComponentAuthorisation}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.ProjectComponentAuthorisation#getComponent <em>Component</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Projects</em>' reference list isn't clear,
@@ -180,8 +180,8 @@ public interface Component extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Projects</em>' reference list.
      * @see org.talend.core.model.properties.PropertiesPackage#getComponent_Projects()
-     * @see org.talend.core.model.properties.Project#getComponents
-     * @model type="org.talend.core.model.properties.Project" opposite="components"
+     * @see org.talend.core.model.properties.ProjectComponentAuthorisation#getComponent
+     * @model type="org.talend.core.model.properties.ProjectComponentAuthorisation" opposite="component"
      * @generated
      */
     EList getProjects();

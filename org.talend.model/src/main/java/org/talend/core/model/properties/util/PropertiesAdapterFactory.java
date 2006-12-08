@@ -156,6 +156,12 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseNotationHolder(NotationHolder object) {
                 return createNotationHolderAdapter();
             }
+            public Object caseProjectComponentAuthorisation(ProjectComponentAuthorisation object) {
+                return createProjectComponentAuthorisationAdapter();
+            }
+            public Object caseProjectReference(ProjectReference object) {
+                return createProjectReferenceAdapter();
+            }
             public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
                 return createLdifFileConnectionItemAdapter();
             }
@@ -440,6 +446,34 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createNotationHolderAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ProjectComponentAuthorisation <em>Project Component Authorisation</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ProjectComponentAuthorisation
+     * @generated
+     */
+    public Adapter createProjectComponentAuthorisationAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ProjectReference <em>Project Reference</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ProjectReference
+     * @generated
+     */
+    public Adapter createProjectReferenceAdapter() {
         return null;
     }
 

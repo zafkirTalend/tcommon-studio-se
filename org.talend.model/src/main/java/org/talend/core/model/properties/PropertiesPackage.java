@@ -167,31 +167,13 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__DELETE_DATE = 10;
 
     /**
-     * The feature id for the '<em><b>Components</b></em>' reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PROJECT__COMPONENTS = 11;
-
-    /**
-     * The feature id for the '<em><b>Reference Projects</b></em>' reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PROJECT__REFERENCE_PROJECTS = 12;
-
-    /**
      * The feature id for the '<em><b>Creation Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int PROJECT__CREATION_DATE = 13;
+    int PROJECT__CREATION_DATE = 11;
 
     /**
      * The feature id for the '<em><b>Author</b></em>' reference.
@@ -199,7 +181,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__AUTHOR = 14;
+    int PROJECT__AUTHOR = 12;
 
     /**
      * The feature id for the '<em><b>User Authorization</b></em>' reference list.
@@ -208,7 +190,25 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__USER_AUTHORIZATION = 15;
+    int PROJECT__USER_AUTHORIZATION = 13;
+
+    /**
+     * The feature id for the '<em><b>Allowed Components</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__ALLOWED_COMPONENTS = 14;
+
+    /**
+     * The feature id for the '<em><b>Referenced Projects</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__REFERENCED_PROJECTS = 15;
 
     /**
      * The number of structural features of the '<em>Project</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1319,21 +1319,12 @@ public interface PropertiesPackage extends EPackage {
     int COMPONENT__LAST_UPDATE_DATE = 4;
 
     /**
-     * The feature id for the '<em><b>Projects</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__PROJECTS = 5;
-
-    /**
      * The feature id for the '<em><b>Author</b></em>' reference.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT__AUTHOR = 6;
+    int COMPONENT__AUTHOR = 5;
 
     /**
      * The feature id for the '<em><b>Creation Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1342,7 +1333,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__CREATION_DATE = 7;
+    int COMPONENT__CREATION_DATE = 6;
 
     /**
      * The feature id for the '<em><b>Delete Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1351,7 +1342,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__DELETE_DATE = 8;
+    int COMPONENT__DELETE_DATE = 7;
 
     /**
      * The feature id for the '<em><b>Deleted</b></em>' attribute.
@@ -1359,7 +1350,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__DELETED = 9;
+    int COMPONENT__DELETED = 8;
 
     /**
      * The feature id for the '<em><b>File Descriptor</b></em>' attribute.
@@ -1368,7 +1359,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__FILE_DESCRIPTOR = 10;
+    int COMPONENT__FILE_DESCRIPTOR = 9;
+
+    /**
+     * The feature id for the '<em><b>Projects</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
+     * @generated
+     * @ordered
+     */
+    int COMPONENT__PROJECTS = 10;
 
     /**
      * The number of structural features of the '<em>Component</em>' class.
@@ -1407,6 +1407,80 @@ public interface PropertiesPackage extends EPackage {
     int NOTATION_HOLDER_FEATURE_COUNT = 1;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ProjectComponentAuthorisationImpl <em>Project Component Authorisation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ProjectComponentAuthorisationImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getProjectComponentAuthorisation()
+     * @generated
+     */
+    int PROJECT_COMPONENT_AUTHORISATION = 23;
+
+    /**
+     * The feature id for the '<em><b>Project</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT_COMPONENT_AUTHORISATION__PROJECT = 0;
+
+    /**
+     * The feature id for the '<em><b>Component</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT_COMPONENT_AUTHORISATION__COMPONENT = 1;
+
+    /**
+     * The number of structural features of the '<em>Project Component Authorisation</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT_COMPONENT_AUTHORISATION_FEATURE_COUNT = 2;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ProjectReferenceImpl <em>Project Reference</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ProjectReferenceImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getProjectReference()
+     * @generated
+     */
+    int PROJECT_REFERENCE = 24;
+
+    /**
+     * The feature id for the '<em><b>Project</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT_REFERENCE__PROJECT = 0;
+
+    /**
+     * The feature id for the '<em><b>Referenced Project</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT_REFERENCE__REFERENCED_PROJECT = 1;
+
+    /**
+     * The number of structural features of the '<em>Project Reference</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT_REFERENCE_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.LdifFileConnectionItemImpl <em>Ldif File Connection Item</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1414,7 +1488,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getLdifFileConnectionItem()
      * @generated
      */
-    int LDIF_FILE_CONNECTION_ITEM = 23;
+    int LDIF_FILE_CONNECTION_ITEM = 25;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -1460,7 +1534,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorization()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION = 24;
+    int USER_PROJECT_AUTHORIZATION = 26;
 
     /**
      * The feature id for the '<em><b>User</b></em>' reference.
@@ -1505,7 +1579,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 25;
+    int FOLDER_TYPE = 27;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -1515,7 +1589,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 26;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 28;
 
 
     /**
@@ -1640,6 +1714,28 @@ public interface PropertiesPackage extends EPackage {
     EReference getProject_UserAuthorization();
 
     /**
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.Project#getAllowedComponents <em>Allowed Components</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Allowed Components</em>'.
+     * @see org.talend.core.model.properties.Project#getAllowedComponents()
+     * @see #getProject()
+     * @generated
+     */
+    EReference getProject_AllowedComponents();
+
+    /**
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.Project#getReferencedProjects <em>Referenced Projects</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Referenced Projects</em>'.
+     * @see org.talend.core.model.properties.Project#getReferencedProjects()
+     * @see #getProject()
+     * @generated
+     */
+    EReference getProject_ReferencedProjects();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Technical Label</em>'.
@@ -1688,26 +1784,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getProject_DeleteDate();
-
-    /**
-     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.Project#getComponents <em>Components</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Components</em>'.
-     * @see org.talend.core.model.properties.Project#getComponents()
-     * @see #getProject()
-     * @generated
-     */
-    EReference getProject_Components();
-
-    /**
-     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.Project#getReferenceProjects <em>Reference Projects</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Reference Projects</em>'.
-     * @see org.talend.core.model.properties.Project#getReferenceProjects()
-     * @see #getProject()
-     * @generated
-     */
-    EReference getProject_ReferenceProjects();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getCreationDate <em>Creation Date</em>}'.
@@ -2452,6 +2528,70 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getNotationHolder_NotationString();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ProjectComponentAuthorisation <em>Project Component Authorisation</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Project Component Authorisation</em>'.
+     * @see org.talend.core.model.properties.ProjectComponentAuthorisation
+     * @generated
+     */
+    EClass getProjectComponentAuthorisation();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ProjectComponentAuthorisation#getProject <em>Project</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Project</em>'.
+     * @see org.talend.core.model.properties.ProjectComponentAuthorisation#getProject()
+     * @see #getProjectComponentAuthorisation()
+     * @generated
+     */
+    EReference getProjectComponentAuthorisation_Project();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ProjectComponentAuthorisation#getComponent <em>Component</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Component</em>'.
+     * @see org.talend.core.model.properties.ProjectComponentAuthorisation#getComponent()
+     * @see #getProjectComponentAuthorisation()
+     * @generated
+     */
+    EReference getProjectComponentAuthorisation_Component();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ProjectReference <em>Project Reference</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Project Reference</em>'.
+     * @see org.talend.core.model.properties.ProjectReference
+     * @generated
+     */
+    EClass getProjectReference();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ProjectReference#getProject <em>Project</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Project</em>'.
+     * @see org.talend.core.model.properties.ProjectReference#getProject()
+     * @see #getProjectReference()
+     * @generated
+     */
+    EReference getProjectReference_Project();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ProjectReference#getReferencedProject <em>Referenced Project</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Referenced Project</em>'.
+     * @see org.talend.core.model.properties.ProjectReference#getReferencedProject()
+     * @see #getProjectReference()
+     * @generated
+     */
+    EReference getProjectReference_ReferencedProject();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.LdifFileConnectionItem <em>Ldif File Connection Item</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2681,6 +2821,22 @@ public interface PropertiesPackage extends EPackage {
         EReference PROJECT__USER_AUTHORIZATION = eINSTANCE.getProject_UserAuthorization();
 
         /**
+         * The meta object literal for the '<em><b>Allowed Components</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT__ALLOWED_COMPONENTS = eINSTANCE.getProject_AllowedComponents();
+
+        /**
+         * The meta object literal for the '<em><b>Referenced Projects</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT__REFERENCED_PROJECTS = eINSTANCE.getProject_ReferencedProjects();
+
+        /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.
          * <!-- begin-user-doc
          * --> <!-- end-user-doc -->
@@ -2719,22 +2875,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PROJECT__DELETE_DATE = eINSTANCE.getProject_DeleteDate();
-
-        /**
-         * The meta object literal for the '<em><b>Components</b></em>' reference list feature.
-         * <!-- begin-user-doc
-         * --> <!-- end-user-doc -->
-         * @generated
-         */
-        EReference PROJECT__COMPONENTS = eINSTANCE.getProject_Components();
-
-        /**
-         * The meta object literal for the '<em><b>Reference Projects</b></em>' reference list feature. <!--
-         * begin-user-doc --> <!-- end-user-doc -->
-         * 
-         * @generated
-         */
-        EReference PROJECT__REFERENCE_PROJECTS = eINSTANCE.getProject_ReferenceProjects();
 
         /**
          * The meta object literal for the '<em><b>Creation Date</b></em>' attribute feature.
@@ -3355,6 +3495,58 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute NOTATION_HOLDER__NOTATION_STRING = eINSTANCE.getNotationHolder_NotationString();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ProjectComponentAuthorisationImpl <em>Project Component Authorisation</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ProjectComponentAuthorisationImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getProjectComponentAuthorisation()
+         * @generated
+         */
+        EClass PROJECT_COMPONENT_AUTHORISATION = eINSTANCE.getProjectComponentAuthorisation();
+
+        /**
+         * The meta object literal for the '<em><b>Project</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT_COMPONENT_AUTHORISATION__PROJECT = eINSTANCE.getProjectComponentAuthorisation_Project();
+
+        /**
+         * The meta object literal for the '<em><b>Component</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT_COMPONENT_AUTHORISATION__COMPONENT = eINSTANCE.getProjectComponentAuthorisation_Component();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ProjectReferenceImpl <em>Project Reference</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ProjectReferenceImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getProjectReference()
+         * @generated
+         */
+        EClass PROJECT_REFERENCE = eINSTANCE.getProjectReference();
+
+        /**
+         * The meta object literal for the '<em><b>Project</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT_REFERENCE__PROJECT = eINSTANCE.getProjectReference_Project();
+
+        /**
+         * The meta object literal for the '<em><b>Referenced Project</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT_REFERENCE__REFERENCED_PROJECT = eINSTANCE.getProjectReference_ReferencedProject();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.LdifFileConnectionItemImpl <em>Ldif File Connection Item</em>}' class.

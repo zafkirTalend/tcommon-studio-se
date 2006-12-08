@@ -22,6 +22,8 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.Component;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Project;
+import org.talend.core.model.properties.ProjectComponentAuthorisation;
+import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
@@ -44,11 +46,11 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getFolders <em>Folders</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#isDeleted <em>Deleted</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getDeleteDate <em>Delete Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getComponents <em>Components</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getReferenceProjects <em>Reference Projects</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getUserAuthorization <em>User Authorization</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAllowedComponents <em>Allowed Components</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getReferencedProjects <em>Referenced Projects</em>}</li>
  * </ul>
  * </p>
  *
@@ -244,26 +246,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected Date deleteDate = DELETE_DATE_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getComponents() <em>Components</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getComponents()
-     * @generated
-     * @ordered
-     */
-    protected EList components = null;
-
-    /**
-     * The cached value of the '{@link #getReferenceProjects() <em>Reference Projects</em>}' reference list. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @see #getReferenceProjects()
-     * @generated
-     * @ordered
-     */
-    protected EList referenceProjects = null;
-
-    /**
      * The default value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -302,6 +284,26 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @ordered
      */
     protected EList userAuthorization = null;
+
+    /**
+     * The cached value of the '{@link #getAllowedComponents() <em>Allowed Components</em>}' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAllowedComponents()
+     * @generated
+     * @ordered
+     */
+    protected EList allowedComponents = null;
+
+    /**
+     * The cached value of the '{@link #getReferencedProjects() <em>Referenced Projects</em>}' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getReferencedProjects()
+     * @generated
+     * @ordered
+     */
+    protected EList referencedProjects = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -465,6 +467,30 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getAllowedComponents() {
+        if (allowedComponents == null) {
+            allowedComponents = new EObjectWithInverseResolvingEList(ProjectComponentAuthorisation.class, this, PropertiesPackage.PROJECT__ALLOWED_COMPONENTS, PropertiesPackage.PROJECT_COMPONENT_AUTHORISATION__PROJECT);
+        }
+        return allowedComponents;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getReferencedProjects() {
+        if (referencedProjects == null) {
+            referencedProjects = new EObjectWithInverseResolvingEList(ProjectReference.class, this, PropertiesPackage.PROJECT__REFERENCED_PROJECTS, PropertiesPackage.PROJECT_REFERENCE__PROJECT);
+        }
+        return referencedProjects;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -555,28 +581,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EList getComponents() {
-        if (components == null) {
-            components = new EObjectWithInverseResolvingEList.ManyInverse(Component.class, this, PropertiesPackage.PROJECT__COMPONENTS, PropertiesPackage.COMPONENT__PROJECTS);
-        }
-        return components;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getReferenceProjects() {
-        if (referenceProjects == null) {
-            referenceProjects = new EObjectResolvingEList(Project.class, this, PropertiesPackage.PROJECT__REFERENCE_PROJECTS);
-        }
-        return referenceProjects;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public Date getCreationDate() {
         return creationDate;
     }
@@ -598,10 +602,12 @@ public class ProjectImpl extends EObjectImpl implements Project {
      */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case PropertiesPackage.PROJECT__COMPONENTS:
-                return ((InternalEList)getComponents()).basicAdd(otherEnd, msgs);
             case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
                 return ((InternalEList)getUserAuthorization()).basicAdd(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__ALLOWED_COMPONENTS:
+                return ((InternalEList)getAllowedComponents()).basicAdd(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__REFERENCED_PROJECTS:
+                return ((InternalEList)getReferencedProjects()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -618,10 +624,12 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return ((InternalEList)getDocumentationStatus()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__FOLDERS:
                 return ((InternalEList)getFolders()).basicRemove(otherEnd, msgs);
-            case PropertiesPackage.PROJECT__COMPONENTS:
-                return ((InternalEList)getComponents()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
                 return ((InternalEList)getUserAuthorization()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__ALLOWED_COMPONENTS:
+                return ((InternalEList)getAllowedComponents()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__REFERENCED_PROJECTS:
+                return ((InternalEList)getReferencedProjects()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -654,10 +662,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return isDeleted() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.PROJECT__DELETE_DATE:
                 return getDeleteDate();
-            case PropertiesPackage.PROJECT__COMPONENTS:
-                return getComponents();
-            case PropertiesPackage.PROJECT__REFERENCE_PROJECTS:
-                return getReferenceProjects();
             case PropertiesPackage.PROJECT__CREATION_DATE:
                 return getCreationDate();
             case PropertiesPackage.PROJECT__AUTHOR:
@@ -665,6 +669,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return basicGetAuthor();
             case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
                 return getUserAuthorization();
+            case PropertiesPackage.PROJECT__ALLOWED_COMPONENTS:
+                return getAllowedComponents();
+            case PropertiesPackage.PROJECT__REFERENCED_PROJECTS:
+                return getReferencedProjects();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -711,14 +719,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__DELETE_DATE:
                 setDeleteDate((Date)newValue);
                 return;
-            case PropertiesPackage.PROJECT__COMPONENTS:
-                getComponents().clear();
-                getComponents().addAll((Collection)newValue);
-                return;
-            case PropertiesPackage.PROJECT__REFERENCE_PROJECTS:
-                getReferenceProjects().clear();
-                getReferenceProjects().addAll((Collection)newValue);
-                return;
             case PropertiesPackage.PROJECT__CREATION_DATE:
                 setCreationDate((Date)newValue);
                 return;
@@ -728,6 +728,14 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
                 getUserAuthorization().clear();
                 getUserAuthorization().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.PROJECT__ALLOWED_COMPONENTS:
+                getAllowedComponents().clear();
+                getAllowedComponents().addAll((Collection)newValue);
+                return;
+            case PropertiesPackage.PROJECT__REFERENCED_PROJECTS:
+                getReferencedProjects().clear();
+                getReferencedProjects().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -772,12 +780,6 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__DELETE_DATE:
                 setDeleteDate(DELETE_DATE_EDEFAULT);
                 return;
-            case PropertiesPackage.PROJECT__COMPONENTS:
-                getComponents().clear();
-                return;
-            case PropertiesPackage.PROJECT__REFERENCE_PROJECTS:
-                getReferenceProjects().clear();
-                return;
             case PropertiesPackage.PROJECT__CREATION_DATE:
                 setCreationDate(CREATION_DATE_EDEFAULT);
                 return;
@@ -786,6 +788,12 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return;
             case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
                 getUserAuthorization().clear();
+                return;
+            case PropertiesPackage.PROJECT__ALLOWED_COMPONENTS:
+                getAllowedComponents().clear();
+                return;
+            case PropertiesPackage.PROJECT__REFERENCED_PROJECTS:
+                getReferencedProjects().clear();
                 return;
         }
         super.eUnset(featureID);
@@ -819,16 +827,16 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return deleted != DELETED_EDEFAULT;
             case PropertiesPackage.PROJECT__DELETE_DATE:
                 return DELETE_DATE_EDEFAULT == null ? deleteDate != null : !DELETE_DATE_EDEFAULT.equals(deleteDate);
-            case PropertiesPackage.PROJECT__COMPONENTS:
-                return components != null && !components.isEmpty();
-            case PropertiesPackage.PROJECT__REFERENCE_PROJECTS:
-                return referenceProjects != null && !referenceProjects.isEmpty();
             case PropertiesPackage.PROJECT__CREATION_DATE:
                 return CREATION_DATE_EDEFAULT == null ? creationDate != null : !CREATION_DATE_EDEFAULT.equals(creationDate);
             case PropertiesPackage.PROJECT__AUTHOR:
                 return author != null;
             case PropertiesPackage.PROJECT__USER_AUTHORIZATION:
                 return userAuthorization != null && !userAuthorization.isEmpty();
+            case PropertiesPackage.PROJECT__ALLOWED_COMPONENTS:
+                return allowedComponents != null && !allowedComponents.isEmpty();
+            case PropertiesPackage.PROJECT__REFERENCED_PROJECTS:
+                return referencedProjects != null && !referencedProjects.isEmpty();
         }
         return super.eIsSet(featureID);
     }

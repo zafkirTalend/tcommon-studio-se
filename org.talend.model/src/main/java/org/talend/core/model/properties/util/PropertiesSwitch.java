@@ -261,6 +261,18 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.PROJECT_COMPONENT_AUTHORISATION: {
+                ProjectComponentAuthorisation projectComponentAuthorisation = (ProjectComponentAuthorisation)theEObject;
+                Object result = caseProjectComponentAuthorisation(projectComponentAuthorisation);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.PROJECT_REFERENCE: {
+                ProjectReference projectReference = (ProjectReference)theEObject;
+                Object result = caseProjectReference(projectReference);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: {
                 LdifFileConnectionItem ldifFileConnectionItem = (LdifFileConnectionItem)theEObject;
                 Object result = caseLdifFileConnectionItem(ldifFileConnectionItem);
@@ -577,6 +589,36 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseNotationHolder(NotationHolder object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Project Component Authorisation</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Project Component Authorisation</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseProjectComponentAuthorisation(ProjectComponentAuthorisation object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Project Reference</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Project Reference</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseProjectReference(ProjectReference object) {
         return null;
     }
 

@@ -189,6 +189,24 @@ public interface PropertiesFactory extends EFactory {
     NotationHolder createNotationHolder();
 
     /**
+     * Returns a new object of class '<em>Project Component Authorisation</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Project Component Authorisation</em>'.
+     * @generated
+     */
+    ProjectComponentAuthorisation createProjectComponentAuthorisation();
+
+    /**
+     * Returns a new object of class '<em>Project Reference</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Project Reference</em>'.
+     * @generated
+     */
+    ProjectReference createProjectReference();
+
+    /**
      * Returns a new object of class '<em>Ldif File Connection Item</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

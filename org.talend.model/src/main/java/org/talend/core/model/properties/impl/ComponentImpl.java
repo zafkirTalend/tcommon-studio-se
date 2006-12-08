@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.Component;
+import org.talend.core.model.properties.ProjectComponentAuthorisation;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.User;
@@ -35,12 +36,12 @@ import org.talend.core.model.properties.User;
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getComponentName <em>Component Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getLastUpdateDate <em>Last Update Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getProjects <em>Projects</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getCreationDate <em>Creation Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getDeleteDate <em>Delete Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#isDeleted <em>Deleted</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getFileDescriptor <em>File Descriptor</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getProjects <em>Projects</em>}</li>
  * </ul>
  * </p>
  *
@@ -148,16 +149,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
     protected Date lastUpdateDate = LAST_UPDATE_DATE_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getProjects() <em>Projects</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getProjects()
-     * @generated
-     * @ordered
-     */
-    protected EList projects = null;
-
-    /**
      * The cached value of the '{@link #getAuthor() <em>Author</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -246,6 +237,16 @@ public class ComponentImpl extends EObjectImpl implements Component {
      * @ordered
      */
     protected byte[] fileDescriptor = FILE_DESCRIPTOR_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getProjects() <em>Projects</em>}' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProjects()
+     * @generated
+     * @ordered
+     */
+    protected EList projects = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -377,7 +378,7 @@ public class ComponentImpl extends EObjectImpl implements Component {
      */
     public EList getProjects() {
         if (projects == null) {
-            projects = new EObjectWithInverseResolvingEList.ManyInverse(Project.class, this, PropertiesPackage.COMPONENT__PROJECTS, PropertiesPackage.PROJECT__COMPONENTS);
+            projects = new EObjectWithInverseResolvingEList(ProjectComponentAuthorisation.class, this, PropertiesPackage.COMPONENT__PROJECTS, PropertiesPackage.PROJECT_COMPONENT_AUTHORISATION__COMPONENT);
         }
         return projects;
     }
@@ -547,8 +548,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
                 return getComponentName();
             case PropertiesPackage.COMPONENT__LAST_UPDATE_DATE:
                 return getLastUpdateDate();
-            case PropertiesPackage.COMPONENT__PROJECTS:
-                return getProjects();
             case PropertiesPackage.COMPONENT__AUTHOR:
                 if (resolve) return getAuthor();
                 return basicGetAuthor();
@@ -560,6 +559,8 @@ public class ComponentImpl extends EObjectImpl implements Component {
                 return isDeleted() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.COMPONENT__FILE_DESCRIPTOR:
                 return getFileDescriptor();
+            case PropertiesPackage.COMPONENT__PROJECTS:
+                return getProjects();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -586,10 +587,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
             case PropertiesPackage.COMPONENT__LAST_UPDATE_DATE:
                 setLastUpdateDate((Date)newValue);
                 return;
-            case PropertiesPackage.COMPONENT__PROJECTS:
-                getProjects().clear();
-                getProjects().addAll((Collection)newValue);
-                return;
             case PropertiesPackage.COMPONENT__AUTHOR:
                 setAuthor((User)newValue);
                 return;
@@ -604,6 +601,10 @@ public class ComponentImpl extends EObjectImpl implements Component {
                 return;
             case PropertiesPackage.COMPONENT__FILE_DESCRIPTOR:
                 setFileDescriptor((byte[])newValue);
+                return;
+            case PropertiesPackage.COMPONENT__PROJECTS:
+                getProjects().clear();
+                getProjects().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -631,9 +632,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
             case PropertiesPackage.COMPONENT__LAST_UPDATE_DATE:
                 setLastUpdateDate(LAST_UPDATE_DATE_EDEFAULT);
                 return;
-            case PropertiesPackage.COMPONENT__PROJECTS:
-                getProjects().clear();
-                return;
             case PropertiesPackage.COMPONENT__AUTHOR:
                 setAuthor((User)null);
                 return;
@@ -648,6 +646,9 @@ public class ComponentImpl extends EObjectImpl implements Component {
                 return;
             case PropertiesPackage.COMPONENT__FILE_DESCRIPTOR:
                 setFileDescriptor(FILE_DESCRIPTOR_EDEFAULT);
+                return;
+            case PropertiesPackage.COMPONENT__PROJECTS:
+                getProjects().clear();
                 return;
         }
         super.eUnset(featureID);
@@ -670,8 +671,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
                 return COMPONENT_NAME_EDEFAULT == null ? componentName != null : !COMPONENT_NAME_EDEFAULT.equals(componentName);
             case PropertiesPackage.COMPONENT__LAST_UPDATE_DATE:
                 return LAST_UPDATE_DATE_EDEFAULT == null ? lastUpdateDate != null : !LAST_UPDATE_DATE_EDEFAULT.equals(lastUpdateDate);
-            case PropertiesPackage.COMPONENT__PROJECTS:
-                return projects != null && !projects.isEmpty();
             case PropertiesPackage.COMPONENT__AUTHOR:
                 return author != null;
             case PropertiesPackage.COMPONENT__CREATION_DATE:
@@ -682,6 +681,8 @@ public class ComponentImpl extends EObjectImpl implements Component {
                 return deleted != DELETED_EDEFAULT;
             case PropertiesPackage.COMPONENT__FILE_DESCRIPTOR:
                 return FILE_DESCRIPTOR_EDEFAULT == null ? fileDescriptor != null : !FILE_DESCRIPTOR_EDEFAULT.equals(fileDescriptor);
+            case PropertiesPackage.COMPONENT__PROJECTS:
+                return projects != null && !projects.isEmpty();
         }
         return super.eIsSet(featureID);
     }
