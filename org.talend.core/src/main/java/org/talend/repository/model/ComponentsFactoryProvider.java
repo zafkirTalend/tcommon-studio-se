@@ -21,22 +21,33 @@
 // ============================================================================
 package org.talend.repository.model;
 
-import org.eclipse.core.runtime.IPath;
-import org.talend.core.IService;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.IllegalPluginConfigurationException;
+import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.repository.model.extensions.ExtensionPointFactory;
 
 /**
- * DOC qian class global comment. Interface for RepositoryService. <br/>
+ * Provides, using extension points, implementation of many factories.
  * 
- * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
+ * <ul>
+ * <li>IProcessFactory</li>
+ * </ul>
  * 
+ * $Id: ComponentsFactoryProvider.java 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
  */
-public interface IRepositoryService extends IService {
+public class ComponentsFactoryProvider {
 
-    public IComponentsFactory getComponentsFactory();
+    private static IComponentsFactory processSingleton = null;
 
-    public IPath getPathFileName(String folderName, String fileName);
-    
-    public IProxyRepositoryFactory getProxyRepositoryFactory();
-    
+    public static IComponentsFactory getInstance() {
+        if (processSingleton == null) {
+            try {
+                processSingleton = ExtensionImplementationProviders.getSingleInstance(ExtensionPointFactory.COMPONENTS_PROVIDER);
+            } catch (IllegalPluginConfigurationException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        return processSingleton;
+    }
 }

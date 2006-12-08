@@ -19,24 +19,25 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.repository.model;
+package org.talend.repository.model.extensions;
 
-import org.eclipse.core.runtime.IPath;
-import org.talend.core.IService;
-import org.talend.core.model.components.IComponentsFactory;
+import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
+import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
 
 /**
- * DOC qian class global comment. Interface for RepositoryService. <br/>
+ * Provides extension points for this plug-in.<br/>
  * 
- * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
+ * $Id: ExtensionPointFactory.java 911 2006-12-08 06:50:50 +0000 (星期五, 08 十二月 2006) bqian $
  * 
  */
-public interface IRepositoryService extends IService {
+public class ExtensionPointFactory {
 
-    public IComponentsFactory getComponentsFactory();
+    public static final ISimpleExtensionPoint COMPONENTS_PROVIDER = new ExtensionPointImpl(
+            "org.talend.core.components_provider", "ComponentsFactory", 1, 1);
 
-    public IPath getPathFileName(String folderName, String fileName);
-    
-    public IProxyRepositoryFactory getProxyRepositoryFactory();
-    
+    public static final ISimpleExtensionPoint EXTERNAL_COMPONENT = new ExtensionPointImpl(
+            "org.talend.core.external_component", "ExternalComponent", 1, 1);
+
+    public static final ISimpleExtensionPoint ACTIONS_GROUPS = new ExtensionPointImpl("org.talend.core.actions", "Group",
+            -1, -1);
 }

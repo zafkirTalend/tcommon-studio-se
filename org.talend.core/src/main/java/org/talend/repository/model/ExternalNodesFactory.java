@@ -21,22 +21,32 @@
 // ============================================================================
 package org.talend.repository.model;
 
-import org.eclipse.core.runtime.IPath;
-import org.talend.core.IService;
-import org.talend.core.model.components.IComponentsFactory;
+import java.util.List;
+
+import org.talend.commons.exception.IllegalPluginConfigurationException;
+import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
+import org.talend.core.model.process.IExternalNode;
+import org.talend.repository.model.extensions.ExtensionPointFactory;
 
 /**
- * DOC qian class global comment. Interface for RepositoryService. <br/>
+ * Provides, using extension points, implementation of many factories.
  * 
- * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
+ * <ul>
+ * <li>IProcessFactory</li>
+ * </ul>
  * 
+ * $Id: ExternalNodesFactory.java 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
  */
-public interface IRepositoryService extends IService {
+public class ExternalNodesFactory {
 
-    public IComponentsFactory getComponentsFactory();
-
-    public IPath getPathFileName(String folderName, String fileName);
-    
-    public IProxyRepositoryFactory getProxyRepositoryFactory();
-    
+    public static IExternalNode getInstance(final String extensionId) {
+        List<IExternalNode> listComponents;
+        try {
+            listComponents = ExtensionImplementationProviders.getInstance(ExtensionPointFactory.EXTERNAL_COMPONENT, extensionId);
+        } catch (IllegalPluginConfigurationException e) {
+            // e.printStackTrace();
+            return null;
+        }
+        return listComponents.get(0);
+    }
 }

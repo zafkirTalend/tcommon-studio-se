@@ -21,22 +21,48 @@
 // ============================================================================
 package org.talend.repository.model;
 
-import org.eclipse.core.runtime.IPath;
-import org.talend.core.IService;
-import org.talend.core.model.components.IComponentsFactory;
-
 /**
- * DOC qian class global comment. Interface for RepositoryService. <br/>
+ * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
+ * $Id$
  * 
  */
-public interface IRepositoryService extends IService {
+public enum ERepositoryStatus {
+    NEW(false, true),
+    LOCK_BY_USER(true, false),
+    LOCK_BY_OTHER(false, false),
+    DEFAULT(false, true),
+    NOT_UP_TO_DATE(false, false),
+    DELETED(false, false),
+    READ_ONLY(false, false),
+    // PTODO SML [FOLDERS++] Only to manage folders: temporary code
+    EDITABLE(true, false);
 
-    public IComponentsFactory getComponentsFactory();
+    private boolean editable;
 
-    public IPath getPathFileName(String folderName, String fileName);
-    
-    public IProxyRepositoryFactory getProxyRepositoryFactory();
-    
+    private boolean potentiallyEditable;
+
+    ERepositoryStatus(boolean editable, boolean potentiallyEditable) {
+        this.editable = editable;
+        this.potentiallyEditable = potentiallyEditable;
+    }
+
+    /**
+     * Getter for editable.
+     * 
+     * @return the editable
+     */
+    public boolean isEditable() {
+        return this.editable;
+    }
+
+    /**
+     * Getter for potentiallyEditable.
+     * 
+     * @return the potentiallyEditable
+     */
+    public boolean isPotentiallyEditable() {
+        return this.potentiallyEditable;
+    }
+
 }
