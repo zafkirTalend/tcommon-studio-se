@@ -21,11 +21,18 @@
 // ============================================================================
 package org.talend.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtensionRegistry;
+import org.eclipse.core.runtime.Platform;
+
 /**
- * DOC qian class global comment. Contains vary factories. <br/>
+ * DOC qian class global comment. A global service register provides the service registration and acquirement. <br/>
  * 
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
  * 
@@ -41,25 +48,63 @@ public class GlobalServiceRegister {
 
     private Map<Class, IService> services = new HashMap<Class, IService>();
 
+    //Stores all the services.
+    private List<IService> list = null;
+
     /**
-     * DOC qian Comment method "registerService".Register the IService.
-     * @param klass
-     * @param service
+     * DOC qian Comment method "initialServices".Loading services through extension point.
      */
-    public void registerService(Class klass, IService service) {
-        services.put(klass, service);
+    private void initialServices() {
+        IExtensionRegistry registry = Platform.getExtensionRegistry();
+        IConfigurationElement[] configurationElements = registry.getConfigurationElementsFor("org.talend.core.service");
+
+        list = new ArrayList<IService>();
+        for (int i = 0; i < configurationElements.length; i++) {
+            IConfigurationElement element = configurationElements[i];
+            try {
+                IService service = (IService) element.createExecutableExtension("class");
+                list.add(service);
+            } catch (Exception e) {
+                CorePlugin.log("Error occurs when load service", e);
+            }
+        }
     }
 
     /**
      * DOC qian Comment method "getService".Gets the specific IService.
-     * @param klass 
-     * @return IService
+     * 
+     * @param klass the Service type you want to get
+     * @return IService IService
      */
     public IService getService(Class klass) {
+        if (list == null) {
+            initialServices();
+        }
+
         IService service = services.get(klass);
         if (service == null) {
-            throw new RuntimeException("This service has not been registered.");
+            service = findService(klass);
+            if (service == null) {
+                throw new RuntimeException("This service has not been registered.");
+            }
+            services.put(klass, service);
         }
         return service;
+    }
+
+    /**
+     * DOC qian Comment method "findService".Finds the specific service from the list.
+     * 
+     * @param klass the interface type want to find.
+     * @return IService
+     */
+    private IService findService(Class klass) {
+        for (Iterator<IService> iter = list.iterator(); iter.hasNext();) {
+            IService service = (IService) iter.next();
+            if (klass.isInstance(service)) {
+                return service;
+            }
+        }
+        return null;
     }
 }
