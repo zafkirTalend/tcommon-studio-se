@@ -92,13 +92,14 @@ public class NodeRetriever {
     /**
      * 
      * DOC amaumont Comment method "retrieveListOfNodes".
+     * 
      * @param xPathExpression
      * @return always a <code>List</code> empty or not
      */
     public List<Node> retrieveListOfNodes(String xPathExpression) {
 
         NodeList nodeList = retrieveNodeList(xPathExpression);
-        if(nodeList != null) {
+        if (nodeList != null) {
             int nodeListLength = nodeList.getLength();
             List<Node> list = new ArrayList<Node>(nodeListLength);
             for (int j = 0; j < nodeListLength; ++j) {

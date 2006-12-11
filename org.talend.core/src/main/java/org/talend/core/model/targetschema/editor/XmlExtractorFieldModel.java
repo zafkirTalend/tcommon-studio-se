@@ -35,15 +35,15 @@ import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
  * $Id$
  * 
  */
-public class XmlExtractorSchemaModel extends ExtendedTableModel<SchemaTarget> {
+public class XmlExtractorFieldModel extends ExtendedTableModel<SchemaTarget> {
 
     private XmlXPathLoopDescriptor xmlXPathLoopDescriptor;
 
-    public XmlExtractorSchemaModel(String name) {
+    public XmlExtractorFieldModel(String name) {
         super(name);
     }
 
-    public XmlExtractorSchemaModel(XmlXPathLoopDescriptor xmlXPathLoopDescriptor, String name) {
+    public XmlExtractorFieldModel(XmlXPathLoopDescriptor xmlXPathLoopDescriptor, String name) {
         super(name);
         setXmlXPathLoopDescriptor(xmlXPathLoopDescriptor);
     }

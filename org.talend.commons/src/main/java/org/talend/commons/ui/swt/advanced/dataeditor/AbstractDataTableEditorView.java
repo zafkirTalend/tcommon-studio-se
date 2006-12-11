@@ -341,7 +341,7 @@ public abstract class AbstractDataTableEditorView<B> {
      * 
      * @return the abstractExtendedToolbar
      */
-    public AbstractExtendedToolbar getAbstractExtendedToolbar() {
+    public AbstractExtendedToolbar getExtendedToolbar() {
         return this.abstractExtendedToolbar;
     }
 

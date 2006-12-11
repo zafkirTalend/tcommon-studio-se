@@ -21,9 +21,12 @@
 // ============================================================================
 package org.talend.commons.ui.swt.advanced.dataeditor;
 
+import java.util.List;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
 
@@ -90,7 +93,13 @@ public abstract class AbstractExtendedToolbar {
     public AbstractExtendedTableViewer getExtendedTableViewer() {
         return this.extendedTableViewer;
     }
+
+    /**
+     * DOC amaumont Comment method "updateEnabledStateOfButtons".
+     */
+    public abstract void updateEnabledStateOfButtons();
     
+    public abstract List<ExtendedPushButton> getButtons();
     
     
 }

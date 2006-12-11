@@ -380,7 +380,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
     }
 
     public MetadataToolbarEditorView getToolBar() {
-        return (MetadataToolbarEditorView) getAbstractExtendedToolbar();
+        return (MetadataToolbarEditorView) getExtendedToolbar();
     }
 
 }
