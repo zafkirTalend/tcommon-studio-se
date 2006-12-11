@@ -56,6 +56,7 @@ public interface ProjectReference extends EObject {
 
     /**
      * Returns the value of the '<em><b>Referenced Project</b></em>' reference.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.Project#getAvailableRefProject <em>Available Ref Project</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Referenced Project</em>' reference isn't clear,
@@ -65,7 +66,8 @@ public interface ProjectReference extends EObject {
      * @return the value of the '<em>Referenced Project</em>' reference.
      * @see #setReferencedProject(Project)
      * @see org.talend.core.model.properties.PropertiesPackage#getProjectReference_ReferencedProject()
-     * @model required="true"
+     * @see org.talend.core.model.properties.Project#getAvailableRefProject
+     * @model opposite="availableRefProject" required="true"
      * @generated
      */
     Project getReferencedProject();

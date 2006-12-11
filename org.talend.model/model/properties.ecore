@@ -34,6 +34,8 @@
         eType="#//ProjectComponentAuthorisation" eOpposite="#//ProjectComponentAuthorisation/project"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedProjects" upperBound="-1"
         eType="#//ProjectReference" eOpposite="#//ProjectReference/project"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="availableRefProject" upperBound="-1"
+        eType="#//ProjectReference" eOpposite="#//ProjectReference/referencedProject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProjectComponentAuthorisation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="project" lowerBound="1"
@@ -45,7 +47,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="project" lowerBound="1"
         eType="#//Project" eOpposite="#//Project/referencedProjects"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referencedProject" lowerBound="1"
-        eType="#//Project"/>
+        eType="#//Project" eOpposite="#//Project/availableRefProject"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Status">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

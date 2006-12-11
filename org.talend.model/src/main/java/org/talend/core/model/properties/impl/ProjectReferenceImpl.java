@@ -163,11 +163,33 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setReferencedProject(Project newReferencedProject) {
+    public NotificationChain basicSetReferencedProject(Project newReferencedProject, NotificationChain msgs) {
         Project oldReferencedProject = referencedProject;
         referencedProject = newReferencedProject;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT_REFERENCE__REFERENCED_PROJECT, oldReferencedProject, referencedProject));
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT_REFERENCE__REFERENCED_PROJECT, oldReferencedProject, newReferencedProject);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setReferencedProject(Project newReferencedProject) {
+        if (newReferencedProject != referencedProject) {
+            NotificationChain msgs = null;
+            if (referencedProject != null)
+                msgs = ((InternalEObject)referencedProject).eInverseRemove(this, PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT, Project.class, msgs);
+            if (newReferencedProject != null)
+                msgs = ((InternalEObject)newReferencedProject).eInverseAdd(this, PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT, Project.class, msgs);
+            msgs = basicSetReferencedProject(newReferencedProject, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT_REFERENCE__REFERENCED_PROJECT, newReferencedProject, newReferencedProject));
     }
 
     /**
@@ -181,6 +203,10 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
                 if (project != null)
                     msgs = ((InternalEObject)project).eInverseRemove(this, PropertiesPackage.PROJECT__REFERENCED_PROJECTS, Project.class, msgs);
                 return basicSetProject((Project)otherEnd, msgs);
+            case PropertiesPackage.PROJECT_REFERENCE__REFERENCED_PROJECT:
+                if (referencedProject != null)
+                    msgs = ((InternalEObject)referencedProject).eInverseRemove(this, PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT, Project.class, msgs);
+                return basicSetReferencedProject((Project)otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -194,6 +220,8 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
         switch (featureID) {
             case PropertiesPackage.PROJECT_REFERENCE__PROJECT:
                 return basicSetProject(null, msgs);
+            case PropertiesPackage.PROJECT_REFERENCE__REFERENCED_PROJECT:
+                return basicSetReferencedProject(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }

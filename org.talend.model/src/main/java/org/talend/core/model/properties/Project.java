@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Project#getUserAuthorization <em>User Authorization</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getAllowedComponents <em>Allowed Components</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getReferencedProjects <em>Referenced Projects</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getAvailableRefProject <em>Available Ref Project</em>}</li>
  * </ul>
  * </p>
  *
@@ -252,6 +253,24 @@ public interface Project extends EObject {
      * @generated
      */
     EList getReferencedProjects();
+
+    /**
+     * Returns the value of the '<em><b>Available Ref Project</b></em>' reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.ProjectReference}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.ProjectReference#getReferencedProject <em>Referenced Project</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Available Ref Project</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Available Ref Project</em>' reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_AvailableRefProject()
+     * @see org.talend.core.model.properties.ProjectReference#getReferencedProject
+     * @model type="org.talend.core.model.properties.ProjectReference" opposite="referencedProject"
+     * @generated
+     */
+    EList getAvailableRefProject();
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.

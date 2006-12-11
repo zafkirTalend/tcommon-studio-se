@@ -51,6 +51,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getUserAuthorization <em>User Authorization</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAllowedComponents <em>Allowed Components</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getReferencedProjects <em>Referenced Projects</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAvailableRefProject <em>Available Ref Project</em>}</li>
  * </ul>
  * </p>
  *
@@ -306,6 +307,16 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList referencedProjects = null;
 
     /**
+     * The cached value of the '{@link #getAvailableRefProject() <em>Available Ref Project</em>}' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAvailableRefProject()
+     * @generated
+     * @ordered
+     */
+    protected EList availableRefProject = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -491,6 +502,18 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getAvailableRefProject() {
+        if (availableRefProject == null) {
+            availableRefProject = new EObjectWithInverseResolvingEList(ProjectReference.class, this, PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT, PropertiesPackage.PROJECT_REFERENCE__REFERENCED_PROJECT);
+        }
+        return availableRefProject;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -608,6 +631,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return ((InternalEList)getAllowedComponents()).basicAdd(otherEnd, msgs);
             case PropertiesPackage.PROJECT__REFERENCED_PROJECTS:
                 return ((InternalEList)getReferencedProjects()).basicAdd(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
+                return ((InternalEList)getAvailableRefProject()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -630,6 +655,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return ((InternalEList)getAllowedComponents()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__REFERENCED_PROJECTS:
                 return ((InternalEList)getReferencedProjects()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
+                return ((InternalEList)getAvailableRefProject()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -673,6 +700,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getAllowedComponents();
             case PropertiesPackage.PROJECT__REFERENCED_PROJECTS:
                 return getReferencedProjects();
+            case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
+                return getAvailableRefProject();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -737,6 +766,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 getReferencedProjects().clear();
                 getReferencedProjects().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
+                getAvailableRefProject().clear();
+                getAvailableRefProject().addAll((Collection)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -795,6 +828,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__REFERENCED_PROJECTS:
                 getReferencedProjects().clear();
                 return;
+            case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
+                getAvailableRefProject().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -837,6 +873,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return allowedComponents != null && !allowedComponents.isEmpty();
             case PropertiesPackage.PROJECT__REFERENCED_PROJECTS:
                 return referencedProjects != null && !referencedProjects.isEmpty();
+            case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
+                return availableRefProject != null && !availableRefProject.isEmpty();
         }
         return super.eIsSet(featureID);
     }

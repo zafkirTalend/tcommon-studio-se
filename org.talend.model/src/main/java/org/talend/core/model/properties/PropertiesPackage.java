@@ -211,13 +211,22 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__REFERENCED_PROJECTS = 15;
 
     /**
+     * The feature id for the '<em><b>Available Ref Project</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__AVAILABLE_REF_PROJECT = 16;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 16;
+    int PROJECT_FEATURE_COUNT = 17;
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -1736,6 +1745,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getProject_ReferencedProjects();
 
     /**
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.Project#getAvailableRefProject <em>Available Ref Project</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Available Ref Project</em>'.
+     * @see org.talend.core.model.properties.Project#getAvailableRefProject()
+     * @see #getProject()
+     * @generated
+     */
+    EReference getProject_AvailableRefProject();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Technical Label</em>'.
@@ -2835,6 +2855,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference PROJECT__REFERENCED_PROJECTS = eINSTANCE.getProject_ReferencedProjects();
+
+        /**
+         * The meta object literal for the '<em><b>Available Ref Project</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT__AVAILABLE_REF_PROJECT = eINSTANCE.getProject_AvailableRefProject();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.
