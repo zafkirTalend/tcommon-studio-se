@@ -20,6 +20,8 @@ import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.MetadataSchema;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 
+import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Xml File Connection</b></em>'.
@@ -238,7 +240,7 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      */
     public EList getSchema() {
         if (schema == null) {
-            schema = new EObjectContainmentWithInverseEList(MetadataSchema.class, this, ConnectionPackage.XML_FILE_CONNECTION__SCHEMA, ConnectionPackage.METADATA_SCHEMA__CONNECTION);
+            schema = new EObjectContainmentWithInverseEList(XmlXPathLoopDescriptor.class, this, ConnectionPackage.XML_FILE_CONNECTION__SCHEMA, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION);
         }
         return schema;
     }

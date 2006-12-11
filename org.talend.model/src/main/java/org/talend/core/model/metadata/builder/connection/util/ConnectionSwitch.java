@@ -199,12 +199,6 @@ public class ConnectionSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case ConnectionPackage.METADATA_SCHEMA: {
-                MetadataSchema metadataSchema = (MetadataSchema)theEObject;
-                Object result = caseMetadataSchema(metadataSchema);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
             case ConnectionPackage.SCHEMA_TARGET: {
                 SchemaTarget schemaTarget = (SchemaTarget)theEObject;
                 Object result = caseSchemaTarget(schemaTarget);
@@ -228,6 +222,12 @@ public class ConnectionSwitch {
                 Object result = caseLdifFileConnection(ldifFileConnection);
                 if (result == null) result = caseConnection(ldifFileConnection);
                 if (result == null) result = caseAbstractMetadataObject(ldifFileConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR: {
+                XmlXPathLoopDescriptor xmlXPathLoopDescriptor = (XmlXPathLoopDescriptor)theEObject;
+                Object result = caseXmlXPathLoopDescriptor(xmlXPathLoopDescriptor);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -416,21 +416,6 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Metadata Schema</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Metadata Schema</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseMetadataSchema(MetadataSchema object) {
-        return null;
-    }
-
-    /**
      * Returns the result of interpretting the object as an instance of '<em>Schema Target</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
@@ -487,6 +472,21 @@ public class ConnectionSwitch {
      * @generated
      */
     public Object caseLdifFileConnection(LdifFileConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Xml XPath Loop Descriptor</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Xml XPath Loop Descriptor</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseXmlXPathLoopDescriptor(XmlXPathLoopDescriptor object) {
         return null;
     }
 

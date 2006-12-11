@@ -90,11 +90,11 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.CSV_FILE_CONNECTION: return createCSVFileConnection();
             case ConnectionPackage.REGEXP_FILE_CONNECTION: return createRegexpFileConnection();
             case ConnectionPackage.XML_FILE_CONNECTION: return createXmlFileConnection();
-            case ConnectionPackage.METADATA_SCHEMA: return createMetadataSchema();
             case ConnectionPackage.SCHEMA_TARGET: return createSchemaTarget();
             case ConnectionPackage.QUERIES_CONNECTION: return createQueriesConnection();
             case ConnectionPackage.QUERY: return createQuery();
             case ConnectionPackage.LDIF_FILE_CONNECTION: return createLdifFileConnection();
+            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR: return createXmlXPathLoopDescriptor();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -240,15 +240,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public MetadataSchema createMetadataSchema() {
-        MetadataSchemaImpl metadataSchema = new MetadataSchemaImpl();
-        return metadataSchema;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public SchemaTarget createSchemaTarget() {
         SchemaTargetImpl schemaTarget = new SchemaTargetImpl();
         return schemaTarget;
@@ -282,6 +273,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public LdifFileConnection createLdifFileConnection() {
         LdifFileConnectionImpl ldifFileConnection = new LdifFileConnectionImpl();
         return ldifFileConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public XmlXPathLoopDescriptor createXmlXPathLoopDescriptor() {
+        XmlXPathLoopDescriptorImpl xmlXPathLoopDescriptor = new XmlXPathLoopDescriptorImpl();
+        return xmlXPathLoopDescriptor;
     }
 
     /**
@@ -449,10 +450,8 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      */
     public SchemaTarget copy(SchemaTarget column, String newId) {
         SchemaTarget newColumn = new SchemaTargetImpl();
-        newColumn.setXPathQuery(column.getXPathQuery());
+        newColumn.setRelativeXPathQuery(column.getRelativeXPathQuery());
         newColumn.setTagName(column.getTagName());
-        newColumn.setBoucle(column.isBoucle());
-        newColumn.setLimitBoucle(column.getLimitBoucle());
         return newColumn;
     }
     

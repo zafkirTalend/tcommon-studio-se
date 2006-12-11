@@ -122,9 +122,6 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl
             public Object caseXmlFileConnection(XmlFileConnection object) {
                 return createXmlFileConnectionAdapter();
             }
-            public Object caseMetadataSchema(MetadataSchema object) {
-                return createMetadataSchemaAdapter();
-            }
             public Object caseSchemaTarget(SchemaTarget object) {
                 return createSchemaTargetAdapter();
             }
@@ -136,6 +133,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl
             }
             public Object caseLdifFileConnection(LdifFileConnection object) {
                 return createLdifFileConnectionAdapter();
+            }
+            public Object caseXmlXPathLoopDescriptor(XmlXPathLoopDescriptor object) {
+                return createXmlXPathLoopDescriptorAdapter();
             }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
@@ -324,20 +324,6 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.MetadataSchema <em>Metadata Schema</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.metadata.builder.connection.MetadataSchema
-     * @generated
-     */
-    public Adapter createMetadataSchemaAdapter() {
-        return null;
-    }
-
-    /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget <em>Schema Target</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
@@ -390,6 +376,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl
      * @generated
      */
     public Adapter createLdifFileConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor <em>Xml XPath Loop Descriptor</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor
+     * @generated
+     */
+    public Adapter createXmlXPathLoopDescriptorAdapter() {
         return null;
     }
 

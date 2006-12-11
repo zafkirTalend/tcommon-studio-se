@@ -106,14 +106,6 @@ public interface ConnectionFactory extends EFactory {
     XmlFileConnection createXmlFileConnection();
 
     /**
-     * Returns a new object of class '<em>Metadata Schema</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Metadata Schema</em>'.
-     * @generated
-     */
-    MetadataSchema createMetadataSchema();
-
-    /**
      * Returns a new object of class '<em>Schema Target</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Schema Target</em>'.
@@ -147,6 +139,15 @@ public interface ConnectionFactory extends EFactory {
      * @generated
      */
     LdifFileConnection createLdifFileConnection();
+
+    /**
+     * Returns a new object of class '<em>Xml XPath Loop Descriptor</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Xml XPath Loop Descriptor</em>'.
+     * @generated
+     */
+    XmlXPathLoopDescriptor createXmlXPathLoopDescriptor();
 
     /**
      * Returns the package supported by this factory.

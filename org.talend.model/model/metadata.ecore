@@ -158,21 +158,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Guess" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="MaskXPattern" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="schema" upperBound="-1"
-        eType="#//MetadataSchema" containment="true" eOpposite="#//MetadataSchema/connection"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MetadataSchema">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="schemaTargets" upperBound="-1"
-        eType="#//SchemaTarget" containment="true" eOpposite="#//SchemaTarget/schema"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//XmlFileConnection"
-        resolveProxies="false" eOpposite="#//XmlFileConnection/schema"/>
+        eType="#//XmlXPathLoopDescriptor" containment="true" eOpposite="#//XmlXPathLoopDescriptor/connection"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SchemaTarget">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="XPathQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="RelativeXPathQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="TagName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Boucle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="LimitBoucle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="schema" eType="#//MetadataSchema"
-        eOpposite="#//MetadataSchema/schemaTargets"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="schema" eType="#//XmlXPathLoopDescriptor"
+        eOpposite="#//XmlXPathLoopDescriptor/schemaTargets"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="QueriesConnection">
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//DatabaseConnection"
@@ -198,5 +190,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="UseLimit" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Server" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="XmlXPathLoopDescriptor">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="LimitBoucle" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="AbsoluteXPathQuery" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//XmlFileConnection"
+        eOpposite="#//XmlFileConnection/schema"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="schemaTargets" upperBound="-1"
+        eType="#//SchemaTarget" containment="true" eOpposite="#//SchemaTarget/schema"/>
   </eClassifiers>
 </ecore:EPackage>

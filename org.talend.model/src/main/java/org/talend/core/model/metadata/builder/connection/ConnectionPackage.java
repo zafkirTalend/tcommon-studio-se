@@ -2237,58 +2237,22 @@ public interface ConnectionPackage extends EPackage {
     int XML_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 5;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataSchemaImpl <em>Metadata Schema</em>}' class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @see org.talend.core.model.metadata.builder.connection.impl.MetadataSchemaImpl
-     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMetadataSchema()
-     * @generated
-     */
-    int METADATA_SCHEMA = 12;
-
-    /**
-     * The feature id for the '<em><b>Schema Targets</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int METADATA_SCHEMA__SCHEMA_TARGETS = 0;
-
-    /**
-     * The feature id for the '<em><b>Connection</b></em>' container reference.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int METADATA_SCHEMA__CONNECTION = 1;
-
-    /**
-     * The number of structural features of the '<em>Metadata Schema</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int METADATA_SCHEMA_FEATURE_COUNT = 2;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl <em>Schema Target</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSchemaTarget()
      * @generated
      */
-    int SCHEMA_TARGET = 13;
+    int SCHEMA_TARGET = 12;
 
     /**
-     * The feature id for the '<em><b>XPath Query</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
+     * The feature id for the '<em><b>Relative XPath Query</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SCHEMA_TARGET__XPATH_QUERY = 0;
+    int SCHEMA_TARGET__RELATIVE_XPATH_QUERY = 0;
 
     /**
      * The feature id for the '<em><b>Tag Name</b></em>' attribute.
@@ -2299,31 +2263,13 @@ public interface ConnectionPackage extends EPackage {
     int SCHEMA_TARGET__TAG_NAME = 1;
 
     /**
-     * The feature id for the '<em><b>Boucle</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int SCHEMA_TARGET__BOUCLE = 2;
-
-    /**
-     * The feature id for the '<em><b>Limit Boucle</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int SCHEMA_TARGET__LIMIT_BOUCLE = 3;
-
-    /**
      * The feature id for the '<em><b>Schema</b></em>' container reference.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int SCHEMA_TARGET__SCHEMA = 4;
+    int SCHEMA_TARGET__SCHEMA = 2;
 
     /**
      * The number of structural features of the '<em>Schema Target</em>' class.
@@ -2332,7 +2278,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int SCHEMA_TARGET_FEATURE_COUNT = 5;
+    int SCHEMA_TARGET_FEATURE_COUNT = 3;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.QueriesConnectionImpl <em>Queries Connection</em>}' class.
@@ -2342,7 +2288,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQueriesConnection()
      * @generated
      */
-    int QUERIES_CONNECTION = 14;
+    int QUERIES_CONNECTION = 13;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
@@ -2379,7 +2325,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQuery()
      * @generated
      */
-    int QUERY = 15;
+    int QUERY = 14;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2443,7 +2389,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLdifFileConnection()
      * @generated
      */
-    int LDIF_FILE_CONNECTION = 16;
+    int LDIF_FILE_CONNECTION = 15;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2579,6 +2525,61 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int LDIF_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 5;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl <em>Xml XPath Loop Descriptor</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlXPathLoopDescriptor()
+     * @generated
+     */
+    int XML_XPATH_LOOP_DESCRIPTOR = 16;
+
+    /**
+     * The feature id for the '<em><b>Limit Boucle</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE = 0;
+
+    /**
+     * The feature id for the '<em><b>Absolute XPath Query</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY = 1;
+
+    /**
+     * The feature id for the '<em><b>Connection</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_XPATH_LOOP_DESCRIPTOR__CONNECTION = 2;
+
+    /**
+     * The feature id for the '<em><b>Schema Targets</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS = 3;
+
+    /**
+     * The number of structural features of the '<em>Xml XPath Loop Descriptor</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_XPATH_LOOP_DESCRIPTOR_FEATURE_COUNT = 4;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
@@ -3378,35 +3379,6 @@ public interface ConnectionPackage extends EPackage {
     EReference getXmlFileConnection_Schema();
 
     /**
-     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.MetadataSchema <em>Metadata Schema</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for class '<em>Metadata Schema</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.MetadataSchema
-     * @generated
-     */
-    EClass getMetadataSchema();
-
-    /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.MetadataSchema#getSchemaTargets <em>Schema Targets</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Schema Targets</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.MetadataSchema#getSchemaTargets()
-     * @see #getMetadataSchema()
-     * @generated
-     */
-    EReference getMetadataSchema_SchemaTargets();
-
-    /**
-     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.MetadataSchema#getConnection <em>Connection</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the container reference '<em>Connection</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.MetadataSchema#getConnection()
-     * @see #getMetadataSchema()
-     * @generated
-     */
-    EReference getMetadataSchema_Connection();
-
-    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget <em>Schema Target</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Schema Target</em>'.
@@ -3416,14 +3388,15 @@ public interface ConnectionPackage extends EPackage {
     EClass getSchemaTarget();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getXPathQuery <em>XPath Query</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>XPath Query</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.SchemaTarget#getXPathQuery()
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getRelativeXPathQuery <em>Relative XPath Query</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Relative XPath Query</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.SchemaTarget#getRelativeXPathQuery()
      * @see #getSchemaTarget()
      * @generated
      */
-    EAttribute getSchemaTarget_XPathQuery();
+    EAttribute getSchemaTarget_RelativeXPathQuery();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getTagName <em>Tag Name</em>}'.
@@ -3434,27 +3407,6 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EAttribute getSchemaTarget_TagName();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#isBoucle <em>Boucle</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Boucle</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.SchemaTarget#isBoucle()
-     * @see #getSchemaTarget()
-     * @generated
-     */
-    EAttribute getSchemaTarget_Boucle();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getLimitBoucle <em>Limit Boucle</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Limit Boucle</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.SchemaTarget#getLimitBoucle()
-     * @see #getSchemaTarget()
-     * @generated
-     */
-    EAttribute getSchemaTarget_LimitBoucle();
 
     /**
      * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget#getSchema <em>Schema</em>}'.
@@ -3627,6 +3579,60 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EAttribute getLdifFileConnection_Server();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor <em>Xml XPath Loop Descriptor</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Xml XPath Loop Descriptor</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor
+     * @generated
+     */
+    EClass getXmlXPathLoopDescriptor();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getLimitBoucle <em>Limit Boucle</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Limit Boucle</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getLimitBoucle()
+     * @see #getXmlXPathLoopDescriptor()
+     * @generated
+     */
+    EAttribute getXmlXPathLoopDescriptor_LimitBoucle();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getAbsoluteXPathQuery <em>Absolute XPath Query</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Absolute XPath Query</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getAbsoluteXPathQuery()
+     * @see #getXmlXPathLoopDescriptor()
+     * @generated
+     */
+    EAttribute getXmlXPathLoopDescriptor_AbsoluteXPathQuery();
+
+    /**
+     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getConnection <em>Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the container reference '<em>Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getConnection()
+     * @see #getXmlXPathLoopDescriptor()
+     * @generated
+     */
+    EReference getXmlXPathLoopDescriptor_Connection();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getSchemaTargets <em>Schema Targets</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Schema Targets</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getSchemaTargets()
+     * @see #getXmlXPathLoopDescriptor()
+     * @generated
+     */
+    EReference getXmlXPathLoopDescriptor_SchemaTargets();
 
     /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
@@ -4318,30 +4324,6 @@ public interface ConnectionPackage extends EPackage {
         EReference XML_FILE_CONNECTION__SCHEMA = eINSTANCE.getXmlFileConnection_Schema();
 
         /**
-         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataSchemaImpl <em>Metadata Schema</em>}' class.
-         * <!-- begin-user-doc --> <!-- end-user-doc -->
-         * @see org.talend.core.model.metadata.builder.connection.impl.MetadataSchemaImpl
-         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMetadataSchema()
-         * @generated
-         */
-        EClass METADATA_SCHEMA = eINSTANCE.getMetadataSchema();
-
-        /**
-         * The meta object literal for the '<em><b>Schema Targets</b></em>' containment reference list feature.
-         * <!-- begin-user-doc --> <!-- end-user-doc -->
-         * @generated
-         */
-        EReference METADATA_SCHEMA__SCHEMA_TARGETS = eINSTANCE.getMetadataSchema_SchemaTargets();
-
-        /**
-         * The meta object literal for the '<em><b>Connection</b></em>' container reference feature. <!--
-         * begin-user-doc --> <!-- end-user-doc -->
-         * 
-         * @generated
-         */
-        EReference METADATA_SCHEMA__CONNECTION = eINSTANCE.getMetadataSchema_Connection();
-
-        /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl <em>Schema Target</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl
@@ -4351,12 +4333,12 @@ public interface ConnectionPackage extends EPackage {
         EClass SCHEMA_TARGET = eINSTANCE.getSchemaTarget();
 
         /**
-         * The meta object literal for the '<em><b>XPath Query</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Relative XPath Query</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute SCHEMA_TARGET__XPATH_QUERY = eINSTANCE.getSchemaTarget_XPathQuery();
+        EAttribute SCHEMA_TARGET__RELATIVE_XPATH_QUERY = eINSTANCE.getSchemaTarget_RelativeXPathQuery();
 
         /**
          * The meta object literal for the '<em><b>Tag Name</b></em>' attribute feature.
@@ -4365,22 +4347,6 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute SCHEMA_TARGET__TAG_NAME = eINSTANCE.getSchemaTarget_TagName();
-
-        /**
-         * The meta object literal for the '<em><b>Boucle</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute SCHEMA_TARGET__BOUCLE = eINSTANCE.getSchemaTarget_Boucle();
-
-        /**
-         * The meta object literal for the '<em><b>Limit Boucle</b></em>' attribute feature.
-         * <!-- begin-user-doc
-         * --> <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute SCHEMA_TARGET__LIMIT_BOUCLE = eINSTANCE.getSchemaTarget_LimitBoucle();
 
         /**
          * The meta object literal for the '<em><b>Schema</b></em>' container reference feature. <!--
@@ -4515,6 +4481,48 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute LDIF_FILE_CONNECTION__SERVER = eINSTANCE.getLdifFileConnection_Server();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl <em>Xml XPath Loop Descriptor</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.XmlXPathLoopDescriptorImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlXPathLoopDescriptor()
+         * @generated
+         */
+        EClass XML_XPATH_LOOP_DESCRIPTOR = eINSTANCE.getXmlXPathLoopDescriptor();
+
+        /**
+         * The meta object literal for the '<em><b>Limit Boucle</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE = eINSTANCE.getXmlXPathLoopDescriptor_LimitBoucle();
+
+        /**
+         * The meta object literal for the '<em><b>Absolute XPath Query</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY = eINSTANCE.getXmlXPathLoopDescriptor_AbsoluteXPathQuery();
+
+        /**
+         * The meta object literal for the '<em><b>Connection</b></em>' container reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference XML_XPATH_LOOP_DESCRIPTOR__CONNECTION = eINSTANCE.getXmlXPathLoopDescriptor_Connection();
+
+        /**
+         * The meta object literal for the '<em><b>Schema Targets</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS = eINSTANCE.getXmlXPathLoopDescriptor_SchemaTargets();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

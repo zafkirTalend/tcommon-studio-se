@@ -17,6 +17,8 @@ import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.MetadataSchema;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 
+import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
+
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Schema Target</b></em>'.
@@ -24,10 +26,8 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl#getXPathQuery <em>XPath Query</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl#getRelativeXPathQuery <em>Relative XPath Query</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl#getTagName <em>Tag Name</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl#isBoucle <em>Boucle</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl#getLimitBoucle <em>Limit Boucle</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl#getSchema <em>Schema</em>}</li>
  * </ul>
  * </p>
@@ -37,24 +37,24 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget 
 {
     /**
-     * The default value of the '{@link #getXPathQuery() <em>XPath Query</em>}' attribute.
+     * The default value of the '{@link #getRelativeXPathQuery() <em>Relative XPath Query</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getXPathQuery()
+     * @see #getRelativeXPathQuery()
      * @generated
      * @ordered
      */
-    protected static final String XPATH_QUERY_EDEFAULT = null;
+    protected static final String RELATIVE_XPATH_QUERY_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getXPathQuery() <em>XPath Query</em>}' attribute.
+     * The cached value of the '{@link #getRelativeXPathQuery() <em>Relative XPath Query</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getXPathQuery()
+     * @see #getRelativeXPathQuery()
      * @generated
      * @ordered
      */
-    protected String xPathQuery = XPATH_QUERY_EDEFAULT;
+    protected String relativeXPathQuery = RELATIVE_XPATH_QUERY_EDEFAULT;
 
     /**
      * The default value of the '{@link #getTagName() <em>Tag Name</em>}' attribute.
@@ -75,46 +75,6 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      * @ordered
      */
     protected String tagName = TAG_NAME_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #isBoucle() <em>Boucle</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isBoucle()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean BOUCLE_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isBoucle() <em>Boucle</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isBoucle()
-     * @generated
-     * @ordered
-     */
-    protected boolean boucle = BOUCLE_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getLimitBoucle() <em>Limit Boucle</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getLimitBoucle()
-     * @generated
-     * @ordered
-     */
-    protected static final int LIMIT_BOUCLE_EDEFAULT = 0;
-
-    /**
-     * The cached value of the '{@link #getLimitBoucle() <em>Limit Boucle</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getLimitBoucle()
-     * @generated
-     * @ordered
-     */
-    protected int limitBoucle = LIMIT_BOUCLE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -139,8 +99,8 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getXPathQuery() {
-        return xPathQuery;
+    public String getRelativeXPathQuery() {
+        return relativeXPathQuery;
     }
 
     /**
@@ -148,11 +108,11 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setXPathQuery(String newXPathQuery) {
-        String oldXPathQuery = xPathQuery;
-        xPathQuery = newXPathQuery;
+    public void setRelativeXPathQuery(String newRelativeXPathQuery) {
+        String oldRelativeXPathQuery = relativeXPathQuery;
+        relativeXPathQuery = newRelativeXPathQuery;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SCHEMA_TARGET__XPATH_QUERY, oldXPathQuery, xPathQuery));
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SCHEMA_TARGET__RELATIVE_XPATH_QUERY, oldRelativeXPathQuery, relativeXPathQuery));
     }
 
     /**
@@ -181,51 +141,9 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isBoucle() {
-        return boucle;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setBoucle(boolean newBoucle) {
-        boolean oldBoucle = boucle;
-        boucle = newBoucle;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SCHEMA_TARGET__BOUCLE, oldBoucle, boucle));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public int getLimitBoucle() {
-        return limitBoucle;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setLimitBoucle(int newLimitBoucle) {
-        int oldLimitBoucle = limitBoucle;
-        limitBoucle = newLimitBoucle;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.SCHEMA_TARGET__LIMIT_BOUCLE, oldLimitBoucle, limitBoucle));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public MetadataSchema getSchema() {
+    public XmlXPathLoopDescriptor getSchema() {
         if (eContainerFeatureID != ConnectionPackage.SCHEMA_TARGET__SCHEMA) return null;
-        return (MetadataSchema)eContainer();
+        return (XmlXPathLoopDescriptor)eContainer();
     }
 
     /**
@@ -233,7 +151,7 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      * <!-- end-user-doc -->
      * @generated
      */
-    public NotificationChain basicSetSchema(MetadataSchema newSchema, NotificationChain msgs) {
+    public NotificationChain basicSetSchema(XmlXPathLoopDescriptor newSchema, NotificationChain msgs) {
         msgs = eBasicSetContainer((InternalEObject)newSchema, ConnectionPackage.SCHEMA_TARGET__SCHEMA, msgs);
         return msgs;
     }
@@ -243,7 +161,7 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setSchema(MetadataSchema newSchema) {
+    public void setSchema(XmlXPathLoopDescriptor newSchema) {
         if (newSchema != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.SCHEMA_TARGET__SCHEMA && newSchema != null)) {
             if (EcoreUtil.isAncestor(this, newSchema))
                 throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
@@ -251,7 +169,7 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
             if (newSchema != null)
-                msgs = ((InternalEObject)newSchema).eInverseAdd(this, ConnectionPackage.METADATA_SCHEMA__SCHEMA_TARGETS, MetadataSchema.class, msgs);
+                msgs = ((InternalEObject)newSchema).eInverseAdd(this, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS, XmlXPathLoopDescriptor.class, msgs);
             msgs = basicSetSchema(newSchema, msgs);
             if (msgs != null) msgs.dispatch();
         }
@@ -269,7 +187,7 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
             case ConnectionPackage.SCHEMA_TARGET__SCHEMA:
                 if (eInternalContainer() != null)
                     msgs = eBasicRemoveFromContainer(msgs);
-                return basicSetSchema((MetadataSchema)otherEnd, msgs);
+                return basicSetSchema((XmlXPathLoopDescriptor)otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }
@@ -295,7 +213,7 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
     public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
         switch (eContainerFeatureID) {
             case ConnectionPackage.SCHEMA_TARGET__SCHEMA:
-                return eInternalContainer().eInverseRemove(this, ConnectionPackage.METADATA_SCHEMA__SCHEMA_TARGETS, MetadataSchema.class, msgs);
+                return eInternalContainer().eInverseRemove(this, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS, XmlXPathLoopDescriptor.class, msgs);
         }
         return super.eBasicRemoveFromContainerFeature(msgs);
     }
@@ -307,14 +225,10 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.SCHEMA_TARGET__XPATH_QUERY:
-                return getXPathQuery();
+            case ConnectionPackage.SCHEMA_TARGET__RELATIVE_XPATH_QUERY:
+                return getRelativeXPathQuery();
             case ConnectionPackage.SCHEMA_TARGET__TAG_NAME:
                 return getTagName();
-            case ConnectionPackage.SCHEMA_TARGET__BOUCLE:
-                return isBoucle() ? Boolean.TRUE : Boolean.FALSE;
-            case ConnectionPackage.SCHEMA_TARGET__LIMIT_BOUCLE:
-                return new Integer(getLimitBoucle());
             case ConnectionPackage.SCHEMA_TARGET__SCHEMA:
                 return getSchema();
         }
@@ -328,20 +242,14 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.SCHEMA_TARGET__XPATH_QUERY:
-                setXPathQuery((String)newValue);
+            case ConnectionPackage.SCHEMA_TARGET__RELATIVE_XPATH_QUERY:
+                setRelativeXPathQuery((String)newValue);
                 return;
             case ConnectionPackage.SCHEMA_TARGET__TAG_NAME:
                 setTagName((String)newValue);
                 return;
-            case ConnectionPackage.SCHEMA_TARGET__BOUCLE:
-                setBoucle(((Boolean)newValue).booleanValue());
-                return;
-            case ConnectionPackage.SCHEMA_TARGET__LIMIT_BOUCLE:
-                setLimitBoucle(((Integer)newValue).intValue());
-                return;
             case ConnectionPackage.SCHEMA_TARGET__SCHEMA:
-                setSchema((MetadataSchema)newValue);
+                setSchema((XmlXPathLoopDescriptor)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -354,20 +262,14 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.SCHEMA_TARGET__XPATH_QUERY:
-                setXPathQuery(XPATH_QUERY_EDEFAULT);
+            case ConnectionPackage.SCHEMA_TARGET__RELATIVE_XPATH_QUERY:
+                setRelativeXPathQuery(RELATIVE_XPATH_QUERY_EDEFAULT);
                 return;
             case ConnectionPackage.SCHEMA_TARGET__TAG_NAME:
                 setTagName(TAG_NAME_EDEFAULT);
                 return;
-            case ConnectionPackage.SCHEMA_TARGET__BOUCLE:
-                setBoucle(BOUCLE_EDEFAULT);
-                return;
-            case ConnectionPackage.SCHEMA_TARGET__LIMIT_BOUCLE:
-                setLimitBoucle(LIMIT_BOUCLE_EDEFAULT);
-                return;
             case ConnectionPackage.SCHEMA_TARGET__SCHEMA:
-                setSchema((MetadataSchema)null);
+                setSchema((XmlXPathLoopDescriptor)null);
                 return;
         }
         super.eUnset(featureID);
@@ -380,14 +282,10 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.SCHEMA_TARGET__XPATH_QUERY:
-                return XPATH_QUERY_EDEFAULT == null ? xPathQuery != null : !XPATH_QUERY_EDEFAULT.equals(xPathQuery);
+            case ConnectionPackage.SCHEMA_TARGET__RELATIVE_XPATH_QUERY:
+                return RELATIVE_XPATH_QUERY_EDEFAULT == null ? relativeXPathQuery != null : !RELATIVE_XPATH_QUERY_EDEFAULT.equals(relativeXPathQuery);
             case ConnectionPackage.SCHEMA_TARGET__TAG_NAME:
                 return TAG_NAME_EDEFAULT == null ? tagName != null : !TAG_NAME_EDEFAULT.equals(tagName);
-            case ConnectionPackage.SCHEMA_TARGET__BOUCLE:
-                return boucle != BOUCLE_EDEFAULT;
-            case ConnectionPackage.SCHEMA_TARGET__LIMIT_BOUCLE:
-                return limitBoucle != LIMIT_BOUCLE_EDEFAULT;
             case ConnectionPackage.SCHEMA_TARGET__SCHEMA:
                 return getSchema() != null;
         }
@@ -403,14 +301,10 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (XPathQuery: ");
-        result.append(xPathQuery);
+        result.append(" (RelativeXPathQuery: ");
+        result.append(relativeXPathQuery);
         result.append(", TagName: ");
         result.append(tagName);
-        result.append(", Boucle: ");
-        result.append(boucle);
-        result.append(", LimitBoucle: ");
-        result.append(limitBoucle);
         result.append(')');
         return result.toString();
     }

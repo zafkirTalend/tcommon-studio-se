@@ -136,8 +136,8 @@ public interface XmlFileConnection extends Connection {
 
     /**
      * Returns the value of the '<em><b>Schema</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.MetadataSchema}.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.MetadataSchema#getConnection <em>Connection</em>}'.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getConnection <em>Connection</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Schema</em>' containment reference list isn't clear,
@@ -146,8 +146,8 @@ public interface XmlFileConnection extends Connection {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Schema</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_Schema()
-     * @see org.talend.core.model.metadata.builder.connection.MetadataSchema#getConnection
-     * @model type="org.talend.core.model.metadata.builder.connection.MetadataSchema" opposite="connection" containment="true"
+     * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getConnection
+     * @model type="org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor" opposite="connection" containment="true"
      * @generated
      */
     EList getSchema();
