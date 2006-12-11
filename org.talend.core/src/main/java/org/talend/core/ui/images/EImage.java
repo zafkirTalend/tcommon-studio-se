@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.core.ui.images;
 
+import org.talend.core.CorePlugin;
+
 /**
  * 
  * DOC smallet ImageProvider class global comment. Detailled comment <br/>
@@ -125,4 +127,14 @@ public enum EImage implements IImage {
     public String getPath() {
         return this.path;
     }
+
+    /**
+     * Getter for clazz.
+     * 
+     * @return the clazz
+     */
+    public Class getLocation() {
+        return CorePlugin.class;
+    }
+
 }

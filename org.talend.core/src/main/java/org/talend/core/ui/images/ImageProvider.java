@@ -22,12 +22,10 @@
 package org.talend.core.ui.images;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
+import org.apache.commons.collections.map.MultiKeyMap;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
-import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.ERepositoryObjectType;
 
 /**
@@ -42,25 +40,25 @@ public class ImageProvider {
         return desc.createImage();
     }
 
-    private static Map<String, ImageDescriptor> cacheDescriptors = new HashMap<String, ImageDescriptor>();
+    private static MultiKeyMap cacheDescriptors = new MultiKeyMap();
 
-    private static Map<String, Image> cacheImages = new HashMap<String, Image>();
+    private static MultiKeyMap cacheImages = new MultiKeyMap();
 
     public static Image getImage(IImage image) {
-        Image toReturn = cacheImages.get(image.getPath());
+        Image toReturn = (Image) cacheImages.get(image.getLocation(), image.getPath());
         if (toReturn == null) {
             ImageDescriptor desc = getImageDesc(image);
             toReturn = desc.createImage();
-            cacheImages.put(image.getPath(), toReturn);
+            cacheImages.put(image.getLocation(), image.getPath(), toReturn);
         }
         return toReturn;
     }
 
     public static ImageDescriptor getImageDesc(IImage image) {
-        ImageDescriptor toReturn = cacheDescriptors.get(image.getPath());
+        ImageDescriptor toReturn = (ImageDescriptor) cacheDescriptors.get(image.getLocation(), image.getPath());
         if (toReturn == null) {
-            toReturn = ImageDescriptor.createFromFile(CorePlugin.class, image.getPath());
-            cacheDescriptors.put(image.getPath(), toReturn);
+            toReturn = ImageDescriptor.createFromFile(image.getLocation(), image.getPath());
+            cacheDescriptors.put(image.getLocation(), image.getPath(), toReturn);
         }
         return toReturn;
     }

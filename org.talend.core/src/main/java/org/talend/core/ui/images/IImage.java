@@ -29,5 +29,7 @@ package org.talend.core.ui.images;
  */
 public interface IImage {
 
+    public Class getLocation();
+
     public String getPath();
 }
