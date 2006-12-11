@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.commons.ui.swt.extended.table;
 
+import java.beans.PropertyChangeSupport;
+
+import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.swt.widgets.Composite;
@@ -38,6 +41,25 @@ public abstract class AbstractExtendedControlViewer {
     private Composite parentComposite;
 
     private CommandStack commandStack;
+    
+    /**
+     * 
+     * Event type.
+     * <br/>
+     *
+     * $Id$
+     *
+     */
+    public enum EVENT_TYPE implements IExtendedControlEventType {
+        MODEL_CHANGED,
+    };
+    
+    /*
+     * The list of listeners who wish to be notified when something significant happens.
+     */
+    private ListenerList listeners = new ListenerList();
+
+
 
     /**
      * DOC amaumont AbstractExtendedControlViewer constructor comment.
@@ -85,12 +107,13 @@ public abstract class AbstractExtendedControlViewer {
     /**
      * Sets the extendedControl.
      * 
-     * @param extendedControl the extendedControl to set
+     * @param model the extendedControl to set
      */
-    public void setExtendedControlModel(AbstractExtendedControlModel extendedControl) {
+    public void setExtendedControlModel(AbstractExtendedControlModel model) {
         AbstractExtendedControlModel previousModel = this.extendedControlModel;
-        this.extendedControlModel = extendedControl;
-        modelChanged(previousModel, extendedControl);
+        this.extendedControlModel = model;
+        modelChanged(previousModel, model);
+        fireEvent(new ExtendedControlEvent(EVENT_TYPE.MODEL_CHANGED));
     }
 
     /**
@@ -125,6 +148,27 @@ public abstract class AbstractExtendedControlViewer {
         this.commandStack = commandStack;
     }
 
+    public void addListener(IExtendedControlListener listener) {
+        this.listeners.add(listener);
+    }
+
+    public void removeListener(IExtendedControlListener listener) {
+        this.listeners.remove(listener);
+    }
+
+    /**
+     * DOC amaumont Comment method "fireEvent".
+     * 
+     * @param event
+     */
+    protected void fireEvent(ExtendedControlEvent event) {
+        final Object[] listenerArray = listeners.getListeners();
+        for (int i = 0; i < listenerArray.length; i++) {
+            ((IExtendedControlListener) listenerArray[i]).handleEvent(event);
+        }
+        
+    }
+    
     
     
 }

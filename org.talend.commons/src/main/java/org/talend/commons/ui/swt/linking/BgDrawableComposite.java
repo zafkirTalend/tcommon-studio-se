@@ -19,7 +19,12 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.drawing.link;
+package org.talend.commons.ui.swt.linking;
+
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.ui.swt.drawing.background.BackgroundRefresher;
+import org.talend.commons.ui.swt.drawing.background.IBgDrawableComposite;
 
 
 /**
@@ -28,14 +33,32 @@ package org.talend.commons.ui.swt.drawing.link;
  *
  * $Id$
  *
- * @param <G> graphical item
- * @param <D> data item
  */
-public interface IExtremityLink<G, D> {
+public abstract class BgDrawableComposite implements IBgDrawableComposite {
 
-    public G getGraphicalObject();
-    public void setGraphicalObject(G graphicalItem);
+    private Composite commonParent;
+
+    /**
+     * DOC amaumont DrawableBackground constructor comment.
+     * @param commonParent
+     */
+    public BgDrawableComposite(Composite commonParent) {
+        this.commonParent = commonParent;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.swt.drawing.background.IDrawableComposite#drawBackground(org.eclipse.swt.graphics.GC)
+     */
+    public abstract void drawBackground(GC gc);
+
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.swt.drawing.background.IDrawableComposite#getComposite()
+     */
+    public Composite getBgDrawableComposite() {
+        return this.commonParent;
+    }
+
+
     
-    public D getDataItem();
-    public void setDataItem(D dataItem);
+    
 }

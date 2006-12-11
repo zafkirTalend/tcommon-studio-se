@@ -57,6 +57,8 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     private int index = -1;
 
+    private static int generatedId;
+    
     /**
      * . <br/>
      * 
@@ -142,6 +144,10 @@ public class TableViewerCreatorColumn implements Cloneable {
         super();
         this.tableViewerCreator = tableViewerCreator;
         tableViewerCreator.addColumn(this);
+        this.moveable = this.tableViewerCreator.isColumnsMoveableByDefault();
+        this.resizable = this.tableViewerCreator.isColumnsResizableByDefault();
+        this.sortable = this.tableViewerCreator.isColumnsSortableByDefault();
+        this.id = TableViewerCreatorColumn.getNewId();
     }
 
     public ALIGNMENT getAlignment() {
@@ -469,12 +475,16 @@ public class TableViewerCreatorColumn implements Cloneable {
     }
 
     /**
-     * Index is set by <code>TableViewerCreator</code> at initialization. This method shouldn't be called.
+     * Index is set by <code>TableViewerCreator</code> at initialization.
      * 
      * @param index
      */
-    public void setIndex(int index) {
+    protected void setIndex(int index) {
         this.index = index;
     }
 
+    private static synchronized String getNewId() {
+        return String.valueOf(generatedId++);
+    }
+    
 }

@@ -47,4 +47,6 @@ public abstract class RemovePushButton extends ExtendedPushButton {
         super(parent, extendedControlViewer, "Remove selected items", ImageProvider.getImage(EImage.DELETE_ICON));
     }
 
+    
+    
 }

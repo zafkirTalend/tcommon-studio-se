@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.core.model.targetschema.editor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
@@ -34,19 +35,18 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
  * $Id$
  * 
  */
-public class XPathNodeSchemaModel extends ExtendedTableModel<SchemaTarget> {
+public class XmlExtractorSchemaModel extends ExtendedTableModel<SchemaTarget> {
 
     private MetadataSchema metadataSchema;
 
-    public XPathNodeSchemaModel(String name) {
+    public XmlExtractorSchemaModel(String name) {
         super(name);
     }
 
-    public XPathNodeSchemaModel(MetadataSchema metadataSchema, String name) {
+    public XmlExtractorSchemaModel(MetadataSchema metadataSchema, String name) {
         super(name);
         setMetadataSchema(metadataSchema);
     }
-
 
     public MetadataSchema getMetadataSchema() {
         return this.metadataSchema;
@@ -58,12 +58,19 @@ public class XPathNodeSchemaModel extends ExtendedTableModel<SchemaTarget> {
      * @param metadataSchema
      */
     public void setMetadataSchema(MetadataSchema metadataSchema) {
-        this.metadataSchema = metadataSchema;
-        registerDataList((List<SchemaTarget>) metadataSchema.getSchemaTargets());
+        if (metadataSchema != null) {
+            this.metadataSchema = metadataSchema;
+            registerDataList((List<SchemaTarget>) metadataSchema.getSchemaTargets());
+        } else {
+            List<SchemaTarget> list = new ArrayList<SchemaTarget>();
+            list.add(createNewSchemaTarget());
+            registerDataList(list);
+        }
     }
 
     /**
      * DOC amaumont Comment method "createSchemaTarget".
+     * 
      * @return
      */
     public SchemaTarget createNewSchemaTarget() {

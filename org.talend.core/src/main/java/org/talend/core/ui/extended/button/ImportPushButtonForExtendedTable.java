@@ -40,7 +40,7 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
  * $Id$
  *
  */
-public abstract class ImportPushButtonForExtendedTable extends ImportPushButton {
+public abstract class ImportPushButtonForExtendedTable extends ImportPushButton implements IExtendedTablePushButton {
 
     private File file;
 
@@ -83,5 +83,13 @@ public abstract class ImportPushButtonForExtendedTable extends ImportPushButton 
         msgBox.setMessage(errorText);
         msgBox.open();
     }
+
+    /* (non-Javadoc)
+     * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
+     */
+    public AbstractExtendedTableViewer getExtendedTableViewer() {
+        return (AbstractExtendedTableViewer) getExtendedControlViewer();
+    }
+
 
 }

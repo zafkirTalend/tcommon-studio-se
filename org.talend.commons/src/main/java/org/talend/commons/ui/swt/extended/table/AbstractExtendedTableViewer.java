@@ -80,13 +80,14 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * 
      */
     protected void initTable() {
-        if (this.tableViewerCreator != null) {
+        if (this.tableViewerCreator != null && this.tableViewerCreator.getTable() != null) {
             this.tableViewerCreator.getTable().dispose();
         }
         this.tableViewerCreator = createTable(getParentComposite());
         createColumns(this.tableViewerCreator, this.tableViewerCreator.getTable());
-        loadTable();
+        loadTableData();
         initTableListeners();
+        this.tableViewerCreator.getTable().layout();
     }
 
     /**
@@ -99,7 +100,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
     /**
      * DOC amaumont Comment method "loadTable".
      */
-    private void loadTable() {
+    private void loadTableData() {
         ExtendedTableModel<B> extendedTableModel = getExtendedTableModel();
         if (extendedTableModel != null) {
             if (extendedTableModel.isDataRegistered()) {
@@ -108,6 +109,9 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
                 this.tableViewerCreator.init();
             }
             extendedTableModel.setModifiedBeanListenable(this.tableViewerCreator);
+        } else {
+            this.tableViewerCreator.init(null);
+//            this.tableViewerCreator.
         }
     }
 
@@ -183,7 +187,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      */
     protected void setTableViewerCreatorOptions(TableViewerCreator<B> newTableViewerCreator) {
         newTableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
-        newTableViewerCreator.setAllColumnsResizable(true);
+        newTableViewerCreator.setColumnsResizableByDefault(true);
         newTableViewerCreator.setBorderVisible(true);
         newTableViewerCreator.setFirstColumnMasked(true);
         // newTableViewerCreator.setUseCustomItemColoring(true);
@@ -205,61 +209,64 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * DOC amaumont Comment method "initListeners".
      */
     protected void initModelListeners() {
-        getExtendedTableModel().addBeforeOperationListListener(1, new IListenableListListener() {
-
-            public void handleEvent(ListenableListEvent event) {
-                handleBeforeListenableListOperationEvent(event);
-            }
-
-        });
-
-        getExtendedTableModel().addAfterOperationListListener(1, new IListenableListListener() {
-
-            public void handleEvent(ListenableListEvent event) {
-                handleAfterListenableListOperationEvent(event);
-            }
-
-        });
-
-        getExtendedTableModel().addAfterOperationListListener(100, new IListenableListListener<B>() {
-
-            public void handleEvent(ListenableListEvent<B> event) {
-                tableViewerCreator.getTable().forceFocus();
-                if (event.type == TYPE.ADDED) {
-                    if (event.index != null) {
-                        tableViewerCreator.getSelectionHelper().setSelection(event.index, event.index + event.addedObjects.size() - 1);
-                    } else if (event.indicesTarget != null) {
-                        int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
-                        tableViewerCreator.getSelectionHelper().setSelection(selection);
-
-                    }
-                } else if (event.type == TYPE.REMOVED) {
-                    if (event.index != null || event.indicesOrigin != null && event.indicesOrigin.size() > 0) {
-                        int index = 0;
-                        if (event.index != null) {
-                            index = event.index;
-                        } else {
-                            index = event.indicesOrigin.get(event.indicesOrigin.size() - 1);
-                        }
-                        int itemCount = tableViewerCreator.getTable().getItemCount();
-                        if (index >= itemCount) {
-                            index = itemCount - 1;
-                        }
-                        tableViewerCreator.getSelectionHelper().setSelection(index, index);
-                    } else {
-                        tableViewerCreator.getTable().deselectAll();
-                    }
-
-                } else if (event.type == TYPE.SWAPED) {
-                    if (event.indicesTarget != null) {
-                        int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
-                        tableViewerCreator.getSelectionHelper().setSelection(selection);
-                    }
+        if(getExtendedTableModel() != null) {
+            
+            getExtendedTableModel().addBeforeOperationListListener(1, new IListenableListListener() {
+                
+                public void handleEvent(ListenableListEvent event) {
+                    handleBeforeListenableListOperationEvent(event);
                 }
-
-            }
-
-        });
+                
+            });
+            
+            getExtendedTableModel().addAfterOperationListListener(1, new IListenableListListener() {
+                
+                public void handleEvent(ListenableListEvent event) {
+                    handleAfterListenableListOperationEvent(event);
+                }
+                
+            });
+            
+            getExtendedTableModel().addAfterOperationListListener(100, new IListenableListListener<B>() {
+                
+                public void handleEvent(ListenableListEvent<B> event) {
+                    tableViewerCreator.getTable().forceFocus();
+                    if (event.type == TYPE.ADDED) {
+                        if (event.index != null) {
+                            tableViewerCreator.getSelectionHelper().setSelection(event.index, event.index + event.addedObjects.size() - 1);
+                        } else if (event.indicesTarget != null) {
+                            int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
+                            tableViewerCreator.getSelectionHelper().setSelection(selection);
+                            
+                        }
+                    } else if (event.type == TYPE.REMOVED) {
+                        if (event.index != null || event.indicesOrigin != null && event.indicesOrigin.size() > 0) {
+                            int index = 0;
+                            if (event.index != null) {
+                                index = event.index;
+                            } else {
+                                index = event.indicesOrigin.get(event.indicesOrigin.size() - 1);
+                            }
+                            int itemCount = tableViewerCreator.getTable().getItemCount();
+                            if (index >= itemCount) {
+                                index = itemCount - 1;
+                            }
+                            tableViewerCreator.getSelectionHelper().setSelection(index, index);
+                        } else {
+                            tableViewerCreator.getTable().deselectAll();
+                        }
+                        
+                    } else if (event.type == TYPE.SWAPED) {
+                        if (event.indicesTarget != null) {
+                            int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
+                            tableViewerCreator.getSelectionHelper().setSelection(selection);
+                        }
+                    }
+                    
+                }
+                
+            });
+        }
 
     }
 
@@ -342,8 +349,9 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         if (previousModel != null) {
             previousModel.release();
         }
-        loadTable();
+        loadTableData();
         initModelListeners();
+        this.tableViewerCreator.getTable().layout();
     }
 
     /*
@@ -365,18 +373,19 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * @param selectionIndices
      */
     public void setTableSelection(int[] selectionIndices, boolean executeSelectionEvent) {
-        this.executeSelectionEvent = executeSelectionEvent;
-        getTableViewerCreator().getTable().setSelection(selectionIndices);
-        this.executeSelectionEvent = true;
+        SelectionHelper selectionHelper = getTableViewerCreator().getSelectionHelper();
+        selectionHelper.setActiveFireSelectionChanged(false);
+        selectionHelper.setSelection(selectionIndices);
+        selectionHelper.setActiveFireSelectionChanged(true);
 
     }
 
     public boolean isExecuteSelectionEvent() {
-        return this.executeSelectionEvent;
+        return getTableViewerCreator().getSelectionHelper().isActiveFireSelectionChanged();
     }
 
     public void setExecuteSelectionEvent(boolean executeSelectionEvent) {
-        this.executeSelectionEvent = executeSelectionEvent;
+        getTableViewerCreator().getSelectionHelper().setActiveFireSelectionChanged(executeSelectionEvent);
     }
 
 }

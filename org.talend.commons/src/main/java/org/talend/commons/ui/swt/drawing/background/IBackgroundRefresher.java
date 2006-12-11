@@ -19,15 +19,15 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.ui.extended.button;
+package org.talend.commons.ui.swt.drawing.background;
 
-import org.eclipse.gef.commands.Command;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
-import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
-import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
-import org.talend.core.ui.images.EImage;
-import org.talend.core.ui.images.ImageProvider;
+import org.eclipse.swt.widgets.ScrollBar;
 
 
 /**
@@ -37,19 +37,36 @@ import org.talend.core.ui.images.ImageProvider;
  * $Id$
  *
  */
-public abstract class PastePushButton extends ExtendedPushButton {
+public interface IBackgroundRefresher {
+
+    public abstract void refreshBackground();
 
     /**
-     * DOC amaumont AddPushButton constructor comment.
-     * @param parent
-     * @param tooltip
-     * @param image
+     * DOC amaumont Comment method "updateBackgroundWithLimiter".
      */
-    public PastePushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, "Paste", ImageProvider.getImage(EImage.PASTE_ICON));
-    }
+    public abstract void refreshBackgroundWithLimiter();
 
-    protected abstract Command getCommandToExecute();
+    /**
+     * Getter for backgroundColor.
+     * 
+     * @return the backgroundColor
+     */
+    public Color getBackgroundColor();
 
+    /**
+     * Sets the backgroundColor.
+     * 
+     * @param backgroundColor the backgroundColor to set
+     */
+    public void setBackgroundColor(Color backgroundColor);
 
+    public Point convertPointToCommonParentOrigin(Point point, Composite child);
+
+    /**
+     * Getter for antialiasActivated.
+     * 
+     * @return the antialiasActivated
+     */
+    public boolean isAntialiasAllowed();
+    
 }

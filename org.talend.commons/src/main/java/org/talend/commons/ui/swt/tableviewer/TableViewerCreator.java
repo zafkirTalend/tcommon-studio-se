@@ -211,11 +211,11 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     private boolean verticalScroll;
 
-    private boolean allColumnsMoveable;
+    private boolean columnsMoveableByDefault;
 
-    private boolean allColumnsResizable;
+    private boolean columnsResizableByDefault;
 
-    private boolean allColumnsSortable;
+    private boolean columnsSortableByDefault;
 
     private ICellModifier cellModifier;
 
@@ -344,9 +344,9 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             addListeners();
         }
         // long time11 = System.currentTimeMillis();
-        if (list != null) {
+//        if (list != null) {
             setInputList(list);
-        }
+//        }
         if (tableEditorManager != null) {
             tableEditorManager.init();
         }
@@ -855,19 +855,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 }
             }
 
-            if (this.allColumnsMoveable) {
-                tableColumn.setMoveable(true);
-            } else {
-                tableColumn.setMoveable(column.isMoveable());
-            }
-            if (this.allColumnsResizable) {
-                tableColumn.setResizable(true);
-            } else {
-                tableColumn.setResizable(column.isResizable());
-            }
-            if (this.allColumnsSortable) {
-                column.setSortable(true);
-            }
+            tableColumn.setMoveable(column.isMoveable());
+            tableColumn.setResizable(column.isResizable());
             if (column.isSortable()) {
                 ITableColumnSelectionListener columnSelectionListener = null;
                 if (column.getTableColumnSelectionListener() == null) {
@@ -1231,28 +1220,28 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
     }
 
-    public boolean isAllColumnsMoveable() {
-        return this.allColumnsMoveable;
+    public boolean isColumnsMoveableByDefault() {
+        return this.columnsMoveableByDefault;
     }
 
-    public void setAllColumnsMoveable(boolean allColumnsMoveable) {
-        this.allColumnsMoveable = allColumnsMoveable;
+    public void setColumnsMoveableByDefault(boolean allColumnsMoveable) {
+        this.columnsMoveableByDefault = allColumnsMoveable;
     }
 
-    public boolean isAllColumnsResizable() {
-        return this.allColumnsResizable;
+    public boolean isColumnsResizableByDefault() {
+        return this.columnsResizableByDefault;
     }
 
-    public void setAllColumnsResizable(boolean allColumnsResizable) {
-        this.allColumnsResizable = allColumnsResizable;
+    public void setColumnsResizableByDefault(boolean allColumnsResizable) {
+        this.columnsResizableByDefault = allColumnsResizable;
     }
 
-    public boolean isAllColumnsSortable() {
-        return this.allColumnsSortable;
+    public boolean isColumnsSortableByDefault() {
+        return this.columnsSortableByDefault;
     }
 
-    public void setAllColumnsSortable(boolean allColumnsSortable) {
-        this.allColumnsSortable = allColumnsSortable;
+    public void setColumnsSortableByDefault(boolean allColumnsSortable) {
+        this.columnsSortableByDefault = allColumnsSortable;
     }
 
     public int getAdjustWidthValue() {

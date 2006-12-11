@@ -19,14 +19,25 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.advanced.dataeditor.control;
+package org.talend.commons.ui.swt.drawing.background;
+
+import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
+
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
- * 
+ * DOC amaumont  class global comment. Detailled comment
+ * <br/>
+ *
  * $Id$
- * 
+ *
  */
-public class ExtendedTableButton {
+public interface IBgDrawableComposite {
 
+    public abstract void drawBackground(GC gc);
+    
+    public Composite getBgDrawableComposite();
+    
 }

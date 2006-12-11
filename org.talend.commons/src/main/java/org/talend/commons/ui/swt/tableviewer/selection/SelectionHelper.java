@@ -85,6 +85,7 @@ public class SelectionHelper {
 
             public void selectionChanged(SelectionChangedEvent event) {
                 LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
+                lineSelectionEvent.source = tableViewerCreator;
                 fireBeforeSelectionChanged(lineSelectionEvent);
             }
 
@@ -94,6 +95,7 @@ public class SelectionHelper {
 
             public void selectionChanged(SelectionChangedEvent event) {
                 LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
+                lineSelectionEvent.source = tableViewerCreator;
                 fireAfterSelectionChanged(lineSelectionEvent);
             }
 
@@ -149,6 +151,7 @@ public class SelectionHelper {
     public void setSelection(ISelection selection, boolean reveal) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTableViewer().setSelection(selection, reveal);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -163,6 +166,7 @@ public class SelectionHelper {
      */
     public void setSelection(ISelection selection) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTableViewer().setSelection(selection);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -178,6 +182,7 @@ public class SelectionHelper {
      */
     public void setSelection(int start, int end) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().setSelection(start, end);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -193,6 +198,7 @@ public class SelectionHelper {
     public void setSelection(int index) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().setSelection(index);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -208,6 +214,7 @@ public class SelectionHelper {
     public void setSelection(int[] indices) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().setSelection(indices);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -223,6 +230,7 @@ public class SelectionHelper {
     public void setSelection(TableItem item) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().setSelection(item);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -238,6 +246,7 @@ public class SelectionHelper {
     public void setSelection(TableItem[] items) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().setSelection(items);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -254,6 +263,7 @@ public class SelectionHelper {
     public void deselect(int start, int end) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().deselect(start, end);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -269,6 +279,7 @@ public class SelectionHelper {
     public void deselect(int index) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().deselect(index);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -284,6 +295,7 @@ public class SelectionHelper {
     public void deselect(int[] indices) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().deselect(indices);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -298,6 +310,7 @@ public class SelectionHelper {
     public void deselectAll() {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().deselectAll();
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -314,6 +327,7 @@ public class SelectionHelper {
     public void select(int start, int end) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().select(start, end);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -329,6 +343,7 @@ public class SelectionHelper {
     public void select(int index) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().select(index);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -344,6 +359,7 @@ public class SelectionHelper {
     public void select(int[] indices) {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().select(indices);
         fireAfterSelectionChanged(lineSelectionEvent);
@@ -358,6 +374,7 @@ public class SelectionHelper {
     public void selectAll() {
         LineSelectionEvent lineSelectionEvent = new LineSelectionEvent();
         lineSelectionEvent.selectionByMethod = true;
+        lineSelectionEvent.source = tableViewerCreator;
         fireBeforeSelectionChanged(lineSelectionEvent);
         this.tableViewerCreator.getTable().selectAll();
         fireAfterSelectionChanged(lineSelectionEvent);

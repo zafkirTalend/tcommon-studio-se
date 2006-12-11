@@ -322,6 +322,8 @@ public abstract class AbstractDataTableEditorView<B> {
         extendedTableViewer.setExtendedControlModel(extendedTableModel);
         if (extendedTableModel != null) {
             titleLabel.setText(extendedTableModel.getName() == null ? "" : extendedTableModel.getName());
+        } else {
+            titleLabel.setText("");
         }
     }
 

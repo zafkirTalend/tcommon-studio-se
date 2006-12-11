@@ -34,6 +34,7 @@ import org.talend.commons.utils.performance.IPerformanceEvaluatorListener;
 import org.talend.commons.utils.performance.PerformanceEvaluator;
 import org.talend.commons.utils.performance.PerformanceEvaluatorEvent;
 import org.talend.commons.utils.threading.AsynchronousThreading;
+import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -41,7 +42,7 @@ import org.talend.commons.utils.threading.AsynchronousThreading;
  * $Id$
  * 
  */
-public abstract class BackgroundRefresher {
+public class BackgroundRefresher implements IBackgroundRefresher {
 
     /**
      * in seconds.
@@ -56,35 +57,58 @@ public abstract class BackgroundRefresher {
 
     private final PerformanceEvaluator performanceEvaluator = new PerformanceEvaluator();
 
-    protected Composite commonParent;
+    protected IBgDrawableComposite drawableComposite;
 
-    private boolean antialiasAllowed;
+    boolean antialiasAllowed;
 
-    private Color backgroundColor;
+    Color backgroundColor;
 
     private Thread threadToEvaluatePerformance;
 
     /**
      * DOC amaumont Linker constructor comment.
      * 
-     * @param commonParent
+     * @param drawableComposite
      */
-    public BackgroundRefresher(Composite commonParent) {
+    public BackgroundRefresher(IBgDrawableComposite drawableComposite) {
         super();
-        this.commonParent = commonParent;
+        this.drawableComposite = drawableComposite;
         init();
     }
 
+    private ExecutionLimiter executionLimiter = new ExecutionLimiter(50, true) {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.commons.utils.threading.ExecutionLimiter#execute(boolean)
+         */
+        @Override
+        protected void execute(final boolean isFinalExecution) {
+            drawableComposite.getBgDrawableComposite().getDisplay().asyncExec(new Runnable() {
+
+                public void run() {
+                    // if (isFinalExecution) {
+                    refreshBackground();
+                    // }
+                }
+
+            });
+
+        }
+
+    };
+
     private void init() {
         initTimeLimitForBackgroundRefresh();
-        commonParent.addControlListener(new ControlListener() {
+        drawableComposite.getBgDrawableComposite().addControlListener(new ControlListener() {
 
             public void controlMoved(ControlEvent e) {
             }
 
             public void controlResized(ControlEvent e) {
                 createBgImages();
-                updateBackground();
+                refreshBackground();
                 // updateBackground(true, false);
             }
 
@@ -102,13 +126,14 @@ public abstract class BackgroundRefresher {
                         boolean previousAntialiasAllowed = antialiasAllowed;
                         antialiasAllowed = event.getIndicePerformance() < PerformanceEvaluator.GOOD_PERFORMANCE_INDICE;
                         // System.out.println(event.getIndicePerformance());
-                        if (previousAntialiasAllowed != antialiasAllowed && !commonParent.isDisposed() && commonParent.getDisplay() != null) {
+                        if (previousAntialiasAllowed != antialiasAllowed && !drawableComposite.getBgDrawableComposite().isDisposed()
+                                && drawableComposite.getBgDrawableComposite().getDisplay() != null) {
 
-                            new AsynchronousThreading(0, false, commonParent.getDisplay(), new Runnable() {
+                            new AsynchronousThreading(0, false, drawableComposite.getBgDrawableComposite().getDisplay(), new Runnable() {
 
                                 public void run() {
                                     // System.out.println(antialiasAllowed);
-                                    updateBackground();
+                                    refreshBackground();
 
                                 }
                             }).start();
@@ -131,24 +156,15 @@ public abstract class BackgroundRefresher {
     }
 
     /**
-     * Getter for commonParent.
-     * 
-     * @return the commonParent
-     */
-    public Composite getCommonParent() {
-        return this.commonParent;
-    }
-
-    /**
      * DOC amaumont Comment method "updateBackground".
      */
-    public synchronized void updateBackground() {
+    public synchronized void refreshBackground() {
         // System.out.println("updateBackground");
-        if (commonParent.isDisposed()) {
+        if (drawableComposite.getBgDrawableComposite().isDisposed()) {
             return;
         }
 
-        oldImage = commonParent.getBackgroundImage();
+        oldImage = drawableComposite.getBgDrawableComposite().getBackgroundImage();
         Image newImage = null;
         if (oldImage == null || oldImage.isDisposed()
         // || bgImage1 == null || bgImage1.isDisposed()
@@ -168,11 +184,11 @@ public abstract class BackgroundRefresher {
 
             GC gc = new GC(newImage);
 
-            drawBackground(gc);
+            drawableComposite.drawBackground(gc);
 
             gc.dispose();
 
-            commonParent.setBackgroundImage(newImage);
+            drawableComposite.getBgDrawableComposite().setBackgroundImage(newImage);
 
             clearImage(oldImage);
             oldImage = newImage;
@@ -181,20 +197,13 @@ public abstract class BackgroundRefresher {
 
     }
 
-    /**
-     * DOC amaumont Comment method "drawBackground".
-     * 
-     * @param gc
-     */
-    public abstract void drawBackground(GC gc);
-
     protected void createBgImages() {
-        Rectangle clientArea = commonParent.getBounds();
+        Rectangle clientArea = drawableComposite.getBgDrawableComposite().getBounds();
         Rectangle imageArea = new Rectangle(0, 0, clientArea.width, clientArea.height + 100);
         if (imageArea.width > 0 && imageArea.height > 0) {
             releaseBgImages();
-            bgImage1 = new Image(commonParent.getDisplay(), imageArea);
-            bgImage2 = new Image(commonParent.getDisplay(), imageArea);
+            bgImage1 = new Image(drawableComposite.getBgDrawableComposite().getDisplay(), imageArea);
+            bgImage2 = new Image(drawableComposite.getBgDrawableComposite().getDisplay(), imageArea);
             clearImage(bgImage1);
             clearImage(bgImage2);
         }
@@ -212,8 +221,8 @@ public abstract class BackgroundRefresher {
     protected void clearImage(final Image image) {
         if (image != null && !image.isDisposed()) {
             GC gc = new GC(image);
-            gc.setBackground(backgroundColor == null ? commonParent.getBackground() : backgroundColor);
-            gc.fillRectangle(commonParent.getClientArea());
+            gc.setBackground(backgroundColor == null ? drawableComposite.getBgDrawableComposite().getBackground() : backgroundColor);
+            gc.fillRectangle(drawableComposite.getBgDrawableComposite().getClientArea());
             gc.dispose();
         }
     }
@@ -234,7 +243,7 @@ public abstract class BackgroundRefresher {
                 } catch (InterruptedException e) {
                     return;
                 }
-                while (!commonParent.isDisposed()) {
+                while (!drawableComposite.getBgDrawableComposite().isDisposed()) {
                     performanceEvaluator.evaluate();
                     try {
                         // to start evaluation after window loaded
@@ -268,7 +277,7 @@ public abstract class BackgroundRefresher {
 
     public Point convertPointToCommonParentOrigin(Point point, Composite child) {
         Point returnedPoint = new Point(point.x, point.y);
-        while (child != commonParent) {
+        while (child != drawableComposite.getBgDrawableComposite()) {
             Rectangle bounds = child.getBounds();
             child = child.getParent();
             ScrollBar vScrollBar = child.getVerticalBar();
@@ -288,6 +297,13 @@ public abstract class BackgroundRefresher {
      */
     public boolean isAntialiasAllowed() {
         return this.antialiasAllowed;
+    }
+
+    /**
+     * DOC amaumont Comment method "updateBackroundAsynchronous".
+     */
+    public void refreshBackgroundWithLimiter() {
+        executionLimiter.startIfExecutable();
     }
 
 }

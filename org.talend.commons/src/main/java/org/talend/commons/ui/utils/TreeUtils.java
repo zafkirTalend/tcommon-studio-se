@@ -193,6 +193,51 @@ public class TreeUtils {
         return found;
     }
 
+    /**
+     * Find the next collapsed ascendant from the given item.
+     * 
+     * @param treeItem
+     */
+    private static TreeItem getNextCollapsedAscendant(TreeItem treeItem) {
+        TreeItem parentItem = treeItem.getParentItem();
+        if (parentItem == null) {
+            return null;
+        } else if (!parentItem.getExpanded()) {
+            return parentItem;
+        } else {
+            TreeItem treeItemFound = getNextCollapsedAscendant(parentItem);
+            if (treeItemFound != null) {
+                return parentItem;
+            } else {
+                return null;
+            }
+        }
+
+    }
+
+    /**
+     * Find the first visible ascendant item from the given item.
+     * 
+     * @param treeItem
+     */
+    public static TreeItem findFirstVisibleItemAscFrom(TreeItem treeItem) {
+        TreeItem parentItem = treeItem.getParentItem();
+        if (parentItem == null) {
+            return treeItem;
+        } else if (parentItem.getExpanded()) {
+            TreeItem treeItemFound = TreeUtils.getNextCollapsedAscendant(parentItem);
+            if (treeItemFound != null) {
+                return findFirstVisibleItemAscFrom(treeItemFound);
+            } else {
+                return treeItem;
+            }
+        } else {
+            return findFirstVisibleItemAscFrom(parentItem);
+        }
+    }
+
+
+
     // /**
     // * DOC amaumont Comment method "getTableItem".
     // *

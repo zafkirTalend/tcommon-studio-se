@@ -39,7 +39,7 @@ import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
  * $Id$
  *
  */
-public class CopyPushButtonForExtendedTable extends CopyPushButton {
+public class CopyPushButtonForExtendedTable extends CopyPushButton implements IExtendedTablePushButton {
 
     
     /**
@@ -60,4 +60,12 @@ public class CopyPushButtonForExtendedTable extends CopyPushButton {
         return new ExtendedTableCopyCommand(Arrays.asList(objects));
     }
     
+    /* (non-Javadoc)
+     * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
+     */
+    public AbstractExtendedTableViewer getExtendedTableViewer() {
+        return (AbstractExtendedTableViewer) getExtendedControlViewer();
+    }
+
+
 }

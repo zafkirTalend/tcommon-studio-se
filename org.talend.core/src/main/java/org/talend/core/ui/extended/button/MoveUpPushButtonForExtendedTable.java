@@ -34,10 +34,10 @@ import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
  * $Id$
  *
  */
-public class MoveUpPushButtonForExtendedTable extends MoveUpPushButton {
+public class MoveUpPushButtonForExtendedTable extends MoveUpPushButton implements IExtendedTablePushButton {
 
-    
-    
+    private EnableStateListenerForTableButton enableStateHandler;
+
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
      * @param parent
@@ -45,12 +45,26 @@ public class MoveUpPushButtonForExtendedTable extends MoveUpPushButton {
      */
     public MoveUpPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
         super(parent, extendedTableViewer);
+        this.enableStateHandler = new EnableStateListenerForTableButton(this);
     }
+
+    public boolean getEnabledState() {
+        return super.getEnabledState() && this.enableStateHandler.getEnabledState();
+    }
+    
 
     protected Command getCommandToExecute() {
         AbstractExtendedTableViewer viewer = (AbstractExtendedTableViewer) getExtendedControlViewer();
         return new ExtendedTableMoveCommand(viewer.getExtendedTableModel(), true, viewer.getTableViewerCreator().getTable()
                 .getSelectionIndices());
     }
-    
+
+    /* (non-Javadoc)
+     * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
+     */
+    public AbstractExtendedTableViewer getExtendedTableViewer() {
+        return (AbstractExtendedTableViewer) getExtendedControlViewer();
+    }
+
+
 }

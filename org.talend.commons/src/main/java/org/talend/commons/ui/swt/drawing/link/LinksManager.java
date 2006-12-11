@@ -35,18 +35,24 @@ import java.util.Set;
  * 
  * $Id: LinkManager.java 318 2006-11-03 09:44:45 +0000 (ven., 03 nov. 2006) amaumont $
  * 
+ * @param <G1> the graphical item of extremety 1
  * @param <D1> the data item of extremety 1
+ * @param <G2> the graphical item of extremety 2
  * @param <D2> the data item of extremety 2
  */
-public class LinksManager<D1, D2> {
+public class LinksManager<G1, D1, G2, D2> {
 
-    private List<LinkDescriptor<D1, D2>> links = new ArrayList<LinkDescriptor<D1, D2>>();
+    private List<LinkDescriptor<G1, D1, G2, D2>> links = new ArrayList<LinkDescriptor<G1, D1, G2, D2>>();
 
     private int currentNumberLinks = 0;
 
-    private Map<D1, Set<LinkDescriptor<D1, D2>>> d1ToLinks = new HashMap<D1, Set<LinkDescriptor<D1, D2>>>();
+    private Map<G1, Set<LinkDescriptor<G1, D1, G2, D2>>> g1ToLinks = new HashMap<G1, Set<LinkDescriptor<G1, D1, G2, D2>>>();
 
-    private Map<D2, Set<LinkDescriptor<D1, D2>>> d2ToLinks = new HashMap<D2, Set<LinkDescriptor<D1, D2>>>();
+    private Map<D1, Set<LinkDescriptor<G1, D1, G2, D2>>> d1ToLinks = new HashMap<D1, Set<LinkDescriptor<G1, D1, G2, D2>>>();
+
+    private Map<G2, Set<LinkDescriptor<G1, D1, G2, D2>>> g2ToLinks = new HashMap<G2, Set<LinkDescriptor<G1, D1, G2, D2>>>();
+
+    private Map<D2, Set<LinkDescriptor<G1, D1, G2, D2>>> d2ToLinks = new HashMap<D2, Set<LinkDescriptor<G1, D1, G2, D2>>>();
 
     public LinksManager() {
         super();
@@ -58,15 +64,17 @@ public class LinksManager<D1, D2> {
      * 
      * @param link
      */
-    public void addLink(LinkDescriptor<D1, D2> link) {
+    public void addLink(LinkDescriptor<G1, D1, G2, D2> link) {
         currentNumberLinks++;
 
         links.add(link);
+        
+        IExtremityLink<G1, D1> extremity1 = link.getExtremity1();
+        IExtremityLink<G2, D2> extremity2 = link.getExtremity2();
 
-        IExtremityLink<D1> extremity1 = link.getExtremity1();
-        IExtremityLink<D2> extremity2 = link.getExtremity2();
-
+        registerItem(link, g1ToLinks, extremity1.getGraphicalObject());
         registerItem(link, d1ToLinks, extremity1.getDataItem());
+        registerItem(link, g2ToLinks, extremity2.getGraphicalObject());
         registerItem(link, d2ToLinks, extremity2.getDataItem());
 
     }
@@ -78,10 +86,10 @@ public class LinksManager<D1, D2> {
      * @param extremity
      */
     @SuppressWarnings("unchecked")
-    private void registerItem(LinkDescriptor<D1, D2> link, Map gToLinks, Object item) {
-        Set<LinkDescriptor<D1, D2>> linksFromItem = (Set<LinkDescriptor<D1, D2>>) gToLinks.get(item);
+    private void registerItem(LinkDescriptor<G1, D1, G2, D2> link, Map gToLinks, Object item) {
+        Set<LinkDescriptor<G1, D1, G2, D2>> linksFromItem = (Set<LinkDescriptor<G1, D1, G2, D2>>) gToLinks.get(item);
         if (linksFromItem == null) {
-            linksFromItem = new HashSet<LinkDescriptor<D1, D2>>();
+            linksFromItem = new HashSet<LinkDescriptor<G1, D1, G2, D2>>();
             gToLinks.put(item, linksFromItem);
         }
         linksFromItem.add(link);
@@ -92,12 +100,14 @@ public class LinksManager<D1, D2> {
      * 
      * @param link
      */
-    public boolean removeLink(LinkDescriptor<D1, D2> link) {
+    public boolean removeLink(LinkDescriptor<G1, D1, G2, D2> link) {
         currentNumberLinks--;
 
         boolean removed = links.remove(link);
 
+        g1ToLinks.remove(link.getExtremity1().getGraphicalObject());
         d1ToLinks.remove(link.getExtremity1().getDataItem());
+        g2ToLinks.remove(link.getExtremity2().getGraphicalObject());
         d2ToLinks.remove(link.getExtremity2().getDataItem());
 
         return removed;
@@ -109,7 +119,9 @@ public class LinksManager<D1, D2> {
     public void clearLinks() {
         links.clear();
         d1ToLinks.clear();
+        g1ToLinks.clear();
         d2ToLinks.clear();
+        g2ToLinks.clear();
         currentNumberLinks = 0;
     }
 
@@ -118,37 +130,10 @@ public class LinksManager<D1, D2> {
      * 
      * @return
      */
-    public List<LinkDescriptor<D1, D2>> getLinks() {
+    public List<LinkDescriptor<G1, D1, G2, D2>> getLinks() {
         return this.links;
     }
 
-//    /**
-//     * 
-//     * DOC amaumont Comment method "changeTargetGraphicalItemFromTargetDataItem".
-//     * 
-//     * @param dataItemOfExtremity links are searched from this object
-//     * @param newGraphicalTarget new graphical target to set
-//     * @return true if change applied, else false if dataTarget doesn't have links
-//     */
-//    public boolean setNewGraphicalItemToExtremity2(D2 dataItemOfExtremity, G2 newGraphicalTarget) {
-//        Set<LinkDescriptor<D1, D2>> linksFromD2 = d2ToLinks.get(dataItemOfExtremity);
-//        if (linksFromD2 != null) {
-//            Set<LinkDescriptor<D1, D2>> linksForG2 = g2ToLinks.get(newGraphicalTarget);
-//            if (linksForG2 != null) {
-//                linksForG2.clear();
-//            } else {
-//                linksForG2 = new HashSet<LinkDescriptor<D1, D2>>();
-//            }
-//            g2ToLinks.put(newGraphicalTarget, linksForG2);
-//            for (LinkDescriptor<D1, D2> linkFromD2 : linksFromD2) {
-//                linksForG2.add(linkFromD2);
-//                linkFromD2.getExtremity2().setGraphicalItem(newGraphicalTarget);
-//            }
-//            return true;
-//        } else {
-//            return false;
-//        }
-//    }
 
     /**
      * Getter for currentNumberLinks.
@@ -159,26 +144,16 @@ public class LinksManager<D1, D2> {
         return this.currentNumberLinks;
     }
 
-    /**
-     * DOC amaumont Comment method "removeLink".
-     * 
-     * @param tableItem
-     */
     public boolean removeLinksFromDataItem1(D1 dataItem1) {
-        Set<LinkDescriptor<D1, D2>> linksFromD1 = d1ToLinks.get(dataItem1);
+        Set<LinkDescriptor<G1, D1, G2, D2>> linksFromD1 = d1ToLinks.get(dataItem1);
         if (linksFromD1 != null) {
             return removeLinks(linksFromD1);
         }
         return false;
     }
 
-    /**
-     * DOC amaumont Comment method "removeLink".
-     * 
-     * @param tableItem
-     */
     public boolean removeLinksFromDataItem2(D2 dataItem2) {
-        Set<LinkDescriptor<D1, D2>> linksFromD2 = d2ToLinks.get(dataItem2);
+        Set<LinkDescriptor<G1, D1, G2, D2>> linksFromD2 = d2ToLinks.get(dataItem2);
         if (linksFromD2 != null) {
             return removeLinks(linksFromD2);
         }
@@ -190,9 +165,9 @@ public class LinksManager<D1, D2> {
      * 
      * @param linksFromG2
      */
-    private boolean removeLinks(Set<LinkDescriptor<D1, D2>> linksFromG2) {
+    private boolean removeLinks(Set<LinkDescriptor<G1, D1, G2, D2>> linksFromG2) {
         boolean removed = false;
-        for (LinkDescriptor<D1, D2> linkDescriptor : linksFromG2) {
+        for (LinkDescriptor<G1, D1, G2, D2> linkDescriptor : linksFromG2) {
             if (removeLink(linkDescriptor)) {
                 removed = true;
             }
@@ -205,7 +180,16 @@ public class LinksManager<D1, D2> {
      * 
      * @param treeItem
      */
-    public Set<LinkDescriptor<D1, D2>> getLinksFromDataExtremity1(D1 dataItem) {
+    public Set<LinkDescriptor<G1, D1, G2, D2>> getLinksFromGraphicalExtremity1(G1 graphicalItem) {
+        return getLinks(g1ToLinks, graphicalItem);
+    }
+
+    /**
+     * DOC amaumont Comment method "getLinksFromExtremity1".
+     * 
+     * @param treeItem
+     */
+    public Set<LinkDescriptor<G1, D1, G2, D2>> getLinksFromDataExtremity1(D1 dataItem) {
         return getLinks(d1ToLinks, dataItem);
     }
 
@@ -214,7 +198,16 @@ public class LinksManager<D1, D2> {
      * 
      * @param treeItem
      */
-    public Set<LinkDescriptor<D1, D2>> getLinksFromDataExtremity2(D2 dataItem) {
+    public Set<LinkDescriptor<G1, D1, G2, D2>> getLinksFromGraphicalExtremity2(G2 graphicalItem) {
+        return getLinks(g2ToLinks, graphicalItem);
+    }
+
+    /**
+     * DOC amaumont Comment method "getLinksFromExtremity1".
+     * 
+     * @param treeItem
+     */
+    public Set<LinkDescriptor<G1, D1, G2, D2>> getLinksFromDataExtremity2(D2 dataItem) {
         return getLinks(d2ToLinks, dataItem);
     }
 
@@ -226,16 +219,18 @@ public class LinksManager<D1, D2> {
      * @return
      */
     @SuppressWarnings("unchecked")
-    private Set<LinkDescriptor<D1, D2>> getLinks(Map objectToLinks, Object object) {
-        Set<LinkDescriptor<D1, D2>> linksFound = (Set<LinkDescriptor<D1, D2>>) objectToLinks.get(object);
+    private Set<LinkDescriptor<G1, D1, G2, D2>> getLinks(Map objectToLinks, Object object) {
+        Set<LinkDescriptor<G1, D1, G2, D2>> linksFound = (Set<LinkDescriptor<G1, D1, G2, D2>>) objectToLinks.get(object);
         if (linksFound == null) {
-            return new HashSet<LinkDescriptor<D1, D2>>(0);
+            return new HashSet<LinkDescriptor<G1, D1, G2, D2>>(0);
         }
-        return new HashSet<LinkDescriptor<D1, D2>>(linksFound);
+        return new HashSet<LinkDescriptor<G1, D1, G2, D2>>(linksFound);
     }
 
-    public void sortLinks(Comparator<LinkDescriptor<D1, D2>> comparator) {
+    public void sortLinks(Comparator<LinkDescriptor<G1, D1, G2, D2>> comparator) {
         Collections.sort(links, comparator);
     }
-
+    
 }
+
+

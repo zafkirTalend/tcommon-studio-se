@@ -21,29 +21,24 @@
 // ============================================================================
 package org.talend.commons.ui.swt.linking;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ControlEvent;
-import org.eclipse.swt.events.ControlListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.events.TreeEvent;
-import org.eclipse.swt.events.TreeListener;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
-import org.talend.commons.ui.swt.drawing.background.BackgroundRefresher;
+import org.talend.commons.ui.swt.drawing.background.IBackgroundRefresher;
+import org.talend.commons.ui.swt.drawing.background.IBgDrawableComposite;
 import org.talend.commons.ui.swt.drawing.link.BezierHorizontalLink;
 import org.talend.commons.ui.swt.drawing.link.IDrawableLink;
 import org.talend.commons.ui.swt.drawing.link.IExtremityLink;
@@ -53,7 +48,6 @@ import org.talend.commons.ui.swt.drawing.link.LinksManager;
 import org.talend.commons.ui.swt.drawing.link.StyleLink;
 import org.talend.commons.ui.utils.TableUtils;
 import org.talend.commons.ui.utils.TreeUtils;
-import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -63,13 +57,9 @@ import org.talend.commons.utils.threading.ExecutionLimiter;
  * @param <D1> the data item of extremety 1
  * @param <D2> the data item of extremety 2
  */
-public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
+public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements IBgDrawableComposite {
 
-    protected Tree tree;
-
-    protected Table table;
-
-    protected LinksManager<D1, D2> linksManager = new LinksManager<D1, D2>();
+    protected LinksManager<TreeItem, D1, Table, D2> linksManager = new LinksManager<TreeItem, D1, Table, D2>();
 
     private IStyleLink defaultStyleLink;
 
@@ -77,30 +67,15 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
 
     private IStyleLink unselectedStyleLink;
 
-    private Comparator<LinkDescriptor<D1, D2>> selectedLinksComparator;
+    private Comparator<LinkDescriptor<TreeItem, D1, Table, D2>> selectedLinksComparator;
 
-    private ExecutionLimiter executionLimiter = new ExecutionLimiter(50, true) {
+    private IBackgroundRefresher backgroundRefresher;
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.talend.commons.utils.threading.ExecutionLimiter#execute(boolean)
-         */
-        @Override
-        protected void execute(final boolean isFinalExecution) {
-            commonParent.getDisplay().asyncExec(new Runnable() {
+    private Display display;
 
-                public void run() {
-                    // if (isFinalExecution) {
-                    updateBackground();
-                    // }
-                }
+    private Tree tree;
 
-            });
-
-        }
-
-    };
+    private List<Table> tables;
 
     /**
      * DOC amaumont TreeToTableLinker constructor comment.
@@ -108,21 +83,33 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
      * @param tree
      * @param table
      */
-    public TreeToTableLinker(Composite commonParent, Tree tree, Table table) {
+    public TreeToTablesLinker(Composite commonParent) {
         super(commonParent);
+    }
+
+    /**
+     * DOC amaumont Comment method "init".
+     * 
+     * @param tree
+     * @param tables
+     * @param backgroundRefresher
+     */
+    public void init(Tree tree, Table[] tables, IBackgroundRefresher backgroundRefresher) {
+        this.display = tree.getDisplay();
+        this.backgroundRefresher = backgroundRefresher;
+        for (Table table : tables) {
+            new LinkableTable(table, backgroundRefresher);
+        }
+        new LinkableTree(tree, backgroundRefresher);
+        this.tables = Arrays.asList(tables);
         this.tree = tree;
-        this.tree.setBackgroundMode(SWT.INHERIT_NONE); // to correct graphic bug when background is update with
-                                                        // ExecutionLimiter
-        this.table = table;
-        addListeners();
-        createLinksComparators();
     }
 
     protected IStyleLink getDefaultStyleLink() {
         if (defaultStyleLink == null) {
             StyleLink styleLink = new StyleLink();
             styleLink.setDrawableLink(new BezierHorizontalLink(styleLink));
-            styleLink.setForegroundColor(tree.getDisplay().getSystemColor(SWT.COLOR_BLACK));
+            styleLink.setForegroundColor(display.getSystemColor(SWT.COLOR_BLACK));
             styleLink.setLineWidth(2);
             this.defaultStyleLink = styleLink;
         }
@@ -141,11 +128,11 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
     /**
      * DOC amaumont Comment method "getSelectedLinksComparator".
      */
-    protected Comparator<LinkDescriptor<D1, D2>> getSelectedLinksComparator() {
+    protected Comparator<LinkDescriptor<TreeItem, D1, Table, D2>> getSelectedLinksComparator() {
         if (this.selectedLinksComparator == null) {
-            this.selectedLinksComparator = new Comparator<LinkDescriptor<D1, D2>>() {
+            this.selectedLinksComparator = new Comparator<LinkDescriptor<TreeItem, D1, Table, D2>>() {
 
-                public int compare(LinkDescriptor<D1, D2> link1, LinkDescriptor<D1, D2> link2) {
+                public int compare(LinkDescriptor<TreeItem, D1, Table, D2> link1, LinkDescriptor<TreeItem, D1, Table, D2> link2) {
                     IStyleLink link1StyleLink = link1.getStyleLink();
                     IStyleLink link2StyleLink = link2.getStyleLink();
                     if (link1StyleLink == link2StyleLink) {
@@ -162,105 +149,6 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
         return this.selectedLinksComparator;
     }
 
-    /**
-     * DOC amaumont Comment method "addListeners".
-     */
-    private void addListeners() {
-        ControlListener controlListener = new ControlListener() {
-
-            public void controlMoved(ControlEvent e) {
-                // updateBackgroundWithLimiter();
-            }
-
-            public void controlResized(ControlEvent e) {
-                updateBackgroundWithLimiter();
-            }
-
-        };
-
-        configureScrollBars(table.getDisplay());
-
-        table.addControlListener(controlListener);
-        tree.addControlListener(controlListener);
-
-        tree.addTreeListener(new TreeListener() {
-
-            public void treeCollapsed(TreeEvent e) {
-                updateBackgroundWithLimiter();
-            }
-
-            public void treeExpanded(TreeEvent e) {
-                updateBackgroundWithLimiter();
-            }
-
-        });
-
-        tree.addSelectionListener(new SelectionListener() {
-
-            public void widgetDefaultSelected(SelectionEvent e) {
-            }
-
-            public void widgetSelected(SelectionEvent e) {
-                updateLinksAndTableItemsHighlightState();
-            }
-
-        });
-
-        table.addSelectionListener(new SelectionListener() {
-
-            public void widgetDefaultSelected(SelectionEvent e) {
-            }
-
-            public void widgetSelected(SelectionEvent e) {
-                updateLinksAndTreeItemsHighlightState();
-            }
-
-        });
-
-    }
-
-    private void configureScrollBars(final Display display) {
-        ScrollBar vBarTable = table.getVerticalBar();
-        ScrollBar vBarTree = tree.getVerticalBar();
-        ScrollBar hBarTree = tree.getHorizontalBar();
-
-        vBarTree.addSelectionListener(new SelectionAdapter() {
-
-            public void widgetSelected(SelectionEvent event) {
-                updateBackground();
-            }
-        });
-
-        SelectionListener scrollListener = new SelectionAdapter() {
-
-            public void widgetSelected(SelectionEvent event) {
-                // updateBackgroundWithLimiter();
-                updateBackgroundWithLimiter();
-            }
-        };
-        vBarTable.addSelectionListener(scrollListener);
-        vBarTree.addSelectionListener(scrollListener);
-        hBarTree.addSelectionListener(scrollListener);
-    }
-
-    /**
-     * Getter for table.
-     * 
-     * @return the table
-     */
-    public Table getTable() {
-        return this.table;
-    }
-
-    /**
-     * Getter for tree.
-     * 
-     * @return the tree
-     */
-    public Tree getTree() {
-        return this.tree;
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -269,16 +157,13 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
     @Override
     public void drawBackground(GC gc) {
 
-        List<LinkDescriptor<D1, D2>> links = linksManager.getLinks();
+        List<LinkDescriptor<TreeItem, D1, Table, D2>> links = linksManager.getLinks();
         int lstSize = links.size();
 
         int xStartBezierLink = findXRightStartBezierLink(tree.getItems(), 0);
 
-        Display display = table.getDisplay();
-
-        Point treeToCommonPoint = display.map(tree, commonParent, new Point(0, 0));
+        Point treeToCommonPoint = display.map(tree, getBgDrawableComposite(), new Point(0, 0));
         // System.out.println("treeToCommonPoint=" + treeToCommonPoint);
-        Point tableToCommonPoint = display.map(table, commonParent, new Point(0, 0));
 
         int treeItemHeight = tree.getItemHeight();
         Rectangle treeBounds = tree.getBounds();
@@ -287,14 +172,17 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
                 - tree.getBorderWidth());
 
         // System.out.println(isAntialiasAllowed());
-        if (isAntialiasAllowed()) {
+        if (backgroundRefresher.isAntialiasAllowed()) {
             gc.setAntialias(SWT.ON);
         } else {
             gc.setAntialias(SWT.OFF);
             // gc.setAdvanced(false);
         }
         for (int i = 0; i < lstSize; i++) {
-            LinkDescriptor<D1, D2> link = links.get(i);
+            LinkDescriptor<TreeItem, D1, Table, D2> link = links.get(i);
+
+            Table table = link.getExtremity2().getGraphicalObject();
+            Point tableToCommonPoint = display.map(table, getBgDrawableComposite(), new Point(0, 0));
 
             IDrawableLink drawableLink = link.getStyleLink().getDrawableLink();
             if (drawableLink == null) {
@@ -302,12 +190,12 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             }
             drawableLink.getStyle().apply(gc);
 
-            IExtremityLink<D1> extremity1 = link.getExtremity1();
-            IExtremityLink<D2> extremity2 = link.getExtremity2();
+            IExtremityLink<TreeItem, D1> extremity1 = link.getExtremity1();
+            IExtremityLink<Table, D2> extremity2 = link.getExtremity2();
 
             TreeItem treeItem = TreeUtils.getTreeItem(tree, (Object) extremity1.getDataItem());
 
-            TreeItem firstExpandedAscTreeItem = findFirstVisibleItemAscFrom(treeItem);
+            TreeItem firstExpandedAscTreeItem = TreeUtils.findFirstVisibleItemAscFrom(treeItem);
 
             Rectangle treeItemBounds = firstExpandedAscTreeItem.getBounds();
 
@@ -318,12 +206,12 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
             Rectangle tableItemBounds = TableUtils.getTableItem(table, (Object) extremity2.getDataItem()).getBounds();
             Rectangle tableBounds = table.getBounds();
 
-            Point pointEndCentralCurve = convertPointToCommonParentOrigin(new Point(tableItemBounds.x - 2, tableItemBounds.y
-                    + table.getItemHeight() / 2 + table.getBorderWidth()), table);
+            Point pointEndCentralCurve = backgroundRefresher.convertPointToCommonParentOrigin(new Point(tableItemBounds.x - 2,
+                    tableItemBounds.y + table.getItemHeight() / 2 + table.getBorderWidth()), table);
 
             boolean lineStyleDot = false;
 
-            Point point = display.map(tree, commonParent, new Point(0, 0));
+            Point point = display.map(tree, getBgDrawableComposite(), new Point(0, 0));
 
             if (yStraight < point.y || yStraight > point.y + treeBounds.height) {
                 lineStyleDot = true;
@@ -356,49 +244,6 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
     }
 
     /**
-     * DOC amaumont Comment method "findFirstVisibleItemAscFrom".
-     * 
-     * @param treeItem
-     */
-    private TreeItem findFirstVisibleItemAscFrom(TreeItem treeItem) {
-        TreeItem parentItem = treeItem.getParentItem();
-        if (parentItem == null) {
-            return treeItem;
-        } else if (parentItem.getExpanded()) {
-            TreeItem treeItemFound = getNextCollapseParent(parentItem);
-            if (treeItemFound != null) {
-                return findFirstVisibleItemAscFrom(treeItemFound);
-            } else {
-                return treeItem;
-            }
-        } else {
-            return findFirstVisibleItemAscFrom(parentItem);
-        }
-    }
-
-    /**
-     * DOC amaumont Comment method "getNextCollapseParent".
-     * 
-     * @param parentItem
-     */
-    private TreeItem getNextCollapseParent(TreeItem treeItem) {
-        TreeItem parentItem = treeItem.getParentItem();
-        if (parentItem == null) {
-            return null;
-        } else if (!parentItem.getExpanded()) {
-            return parentItem;
-        } else {
-            TreeItem treeItemFound = getNextCollapseParent(parentItem);
-            if (treeItemFound != null) {
-                return parentItem;
-            } else {
-                return null;
-            }
-        }
-
-    }
-
-    /**
      * DOC amaumont Comment method "findMaxWidth".
      * 
      * @param items
@@ -419,19 +264,45 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
         return maxWidth;
     }
 
-    public void updateLinksAndTableItemsHighlightState() {
+    @SuppressWarnings("unchecked")
+    public void updateLinksStyleAndControlsSelection(Control currentControl) {
 
-        table.deselectAll();
 
-        TreeItem[] selection = tree.getSelection();
-        HashSet selectedItems = new HashSet();
-        for (int i = 0; i < selection.length; i++) {
-            TreeItem treeItem = selection[i];
-            selectedItems.add(treeItem.getData());
+        boolean isTable = false;
+        if (currentControl instanceof Table) {
+            isTable = true;
+        } else if (currentControl instanceof Tree) {
+            isTable = false;
+        } else {
+            throw new IllegalArgumentException("This type of currentControl is unsupported");
         }
 
-        List<LinkDescriptor<D1, D2>> links = linksManager.getLinks();
-        for (LinkDescriptor<D1, D2> link : links) {
+        HashSet selectedItems = new HashSet();
+        
+        if (isTable) {
+            for (Table table : tables) {
+                if (table != currentControl) {
+                    table.deselectAll();
+                }
+            }
+            TreeItem[] selection = tree.getSelection();
+            for (int i = 0; i < selection.length; i++) {
+                TreeItem treeItem = selection[i];
+                selectedItems.add(treeItem.getData());
+            }
+        } else {
+            tree.deselectAll();
+
+            TableItem[] selection = ((Table)currentControl).getSelection();
+            for (int i = 0; i < selection.length; i++) {
+                TableItem tableItem = selection[i];
+                selectedItems.add(tableItem.getData());
+            }
+
+        }
+
+        List<LinkDescriptor<TreeItem, D1, Table, D2>> links = linksManager.getLinks();
+        for (LinkDescriptor<TreeItem, D1, Table, D2> link : links) {
             IStyleLink styleLink = null;
             boolean currentItemIsSelected = selectedItems.contains(link.getExtremity1().getDataItem());
             if (currentItemIsSelected) {
@@ -446,37 +317,7 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
 
         }
         linksManager.sortLinks(getSelectedLinksComparator());
-        updateBackground();
-    }
-
-    public void updateLinksAndTreeItemsHighlightState() {
-
-        tree.deselectAll();
-
-        TableItem[] selection = table.getSelection();
-        HashSet selectedItems = new HashSet();
-        for (int i = 0; i < selection.length; i++) {
-            TableItem tableItem = selection[i];
-            selectedItems.add(tableItem.getData());
-        }
-
-        List<LinkDescriptor<D1, D2>> links = linksManager.getLinks();
-        for (LinkDescriptor<D1, D2> link : links) {
-            IStyleLink styleLink = null;
-            boolean currentItemIsSelected = selectedItems.contains(link.getExtremity2().getDataItem());
-            if (currentItemIsSelected) {
-                styleLink = selectedStyleLink;
-            } else {
-                styleLink = unselectedStyleLink;
-            }
-            if (styleLink == null) {
-                styleLink = getDefaultStyleLink();
-            }
-            link.setStyleLink(styleLink);
-
-        }
-        linksManager.sortLinks(getSelectedLinksComparator());
-        updateBackgroundWithLimiter();
+        backgroundRefresher.refreshBackground();
     }
 
     /**
@@ -515,11 +356,51 @@ public class TreeToTableLinker<D1, D2> extends BackgroundRefresher {
         this.unselectedStyleLink = unselectedStyleLink;
     }
 
+    
     /**
-     * DOC amaumont Comment method "updateBackroundAsynchronous".
+     * Getter for backgroundRefresher.
+     * @return the backgroundRefresher
      */
-    private void updateBackgroundWithLimiter() {
-        executionLimiter.startIfExecutable();
+    public IBackgroundRefresher getBackgroundRefresher() {
+        return this.backgroundRefresher;
     }
 
+    
+    /**
+     * Sets the backgroundRefresher.
+     * @param backgroundRefresher the backgroundRefresher to set
+     */
+    public void setBackgroundRefresher(IBackgroundRefresher backgroundRefresher) {
+        this.backgroundRefresher = backgroundRefresher;
+    }
+
+    
+    /**
+     * Getter for tables.
+     * @return the tables
+     */
+    public List<Table> getTables() {
+        return this.tables;
+    }
+
+    
+    /**
+     * Getter for tree.
+     * @return the tree
+     */
+    public Tree getTree() {
+        return this.tree;
+    }
+
+    
+    /**
+     * Getter for linksManager.
+     * @return the linksManager
+     */
+    protected LinksManager<TreeItem, D1, Table, D2> getLinksManager() {
+        return this.linksManager;
+    }
+
+ 
+    
 }

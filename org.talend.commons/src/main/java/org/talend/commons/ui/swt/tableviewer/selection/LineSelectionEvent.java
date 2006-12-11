@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.selection;
 
+import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+
 
 /**
  * DOC amaumont  class global comment. Detailled comment
@@ -37,4 +40,6 @@ public class LineSelectionEvent {
      * unlike a selection with keyboard and/or mouse.
      */
     public boolean selectionByMethod;
+    
+    public TableViewerCreator source;
 }

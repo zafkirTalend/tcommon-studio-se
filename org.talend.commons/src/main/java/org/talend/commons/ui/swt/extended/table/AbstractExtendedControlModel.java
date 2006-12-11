@@ -81,19 +81,6 @@ public abstract class AbstractExtendedControlModel {
         fireEvent(new ExtendedModelEvent(EVENT_TYPE.NAME_CHANGED));
     }
 
-    /**
-     * DOC amaumont Comment method "fireEvent".
-     * 
-     * @param event
-     */
-    protected void fireEvent(ExtendedModelEvent event) {
-        final Object[] listenerArray = listeners.getListeners();
-        for (int i = 0; i < listenerArray.length; i++) {
-            ((IExtendedModelListener) listenerArray[i]).handleEvent(event);
-        }
-
-    }
-
     public abstract boolean isDataRegistered();
 
     public abstract void release();
@@ -106,4 +93,17 @@ public abstract class AbstractExtendedControlModel {
         this.listeners.remove(listener);
     }
 
+    /**
+     * DOC amaumont Comment method "fireEvent".
+     * 
+     * @param event
+     */
+    protected void fireEvent(ExtendedModelEvent event) {
+        final Object[] listenerArray = listeners.getListeners();
+        for (int i = 0; i < listenerArray.length; i++) {
+            ((IExtendedModelListener) listenerArray[i]).handleEvent(event);
+        }
+        
+    }
+    
 }

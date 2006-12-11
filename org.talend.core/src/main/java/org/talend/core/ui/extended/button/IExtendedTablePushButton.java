@@ -19,8 +19,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.drawing.link;
+package org.talend.core.ui.extended.button;
 
+import org.talend.commons.ui.swt.advanced.dataeditor.control.IExtendedPushButton;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
 
 /**
@@ -30,35 +32,8 @@ package org.talend.commons.ui.swt.drawing.link;
  * $Id$
  *
  */
-public class TreeItemExtremityDescriptor implements IExtremityLink<Object> {
+public interface IExtendedTablePushButton extends IExtendedPushButton {
 
-    private Object dataObject;
-
-    /**
-     * DOC amaumont TreeItemExtremityDescriptor constructor comment.
-     * @param dataItem1 
-     * @param treeItem
-     */
-    public TreeItemExtremityDescriptor(Object dataItem1) {
-        super();
-        this.dataObject = dataItem1;
-    }
+    public AbstractExtendedTableViewer getExtendedTableViewer();
     
-    /* (non-Javadoc)
-     * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#getDataItem()
-     */
-    public Object getDataItem() {
-        return dataObject;
-    }
-
-    
-    
-    
-    /* (non-Javadoc)
-     * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#setDataItem(java.lang.Object)
-     */
-    public void setDataItem(Object dataItem) {
-        this.dataObject = dataItem;
-    }
-
 }

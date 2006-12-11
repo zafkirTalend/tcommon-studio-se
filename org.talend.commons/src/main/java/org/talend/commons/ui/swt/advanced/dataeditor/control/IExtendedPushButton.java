@@ -19,7 +19,11 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.drawing.link;
+package org.talend.commons.ui.swt.advanced.dataeditor.control;
+
+import org.eclipse.swt.widgets.Button;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlModel;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
 
 
 /**
@@ -28,14 +32,23 @@ package org.talend.commons.ui.swt.drawing.link;
  *
  * $Id$
  *
- * @param <G> graphical item
- * @param <D> data item
  */
-public interface IExtremityLink<G, D> {
+public interface IExtendedPushButton {
 
-    public G getGraphicalObject();
-    public void setGraphicalObject(G graphicalItem);
-    
-    public D getDataItem();
-    public void setDataItem(D dataItem);
+    /**
+     * Getter for button.
+     * 
+     * @return the button
+     */
+    public Button getButton();
+
+    /**
+     * Getter for extendedTableViewer.
+     * 
+     * @return the extendedTableViewer
+     */
+    public AbstractExtendedControlViewer getExtendedControlViewer();
+
+    public boolean getEnabledState();
+
 }

@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.drawing.link;
+package org.talend.commons.ui.swt.extended.table;
 
 
 /**
@@ -28,14 +28,13 @@ package org.talend.commons.ui.swt.drawing.link;
  *
  * $Id$
  *
- * @param <G> graphical item
- * @param <D> data item
  */
-public interface IExtremityLink<G, D> {
+public interface IExtendedControlListener {
 
-    public G getGraphicalObject();
-    public void setGraphicalObject(G graphicalItem);
-    
-    public D getDataItem();
-    public void setDataItem(D dataItem);
+    /**
+     * DOC amaumont Comment method "handleEvent".
+     * @param event
+     */
+    void handleEvent(ExtendedControlEvent event);
+
 }

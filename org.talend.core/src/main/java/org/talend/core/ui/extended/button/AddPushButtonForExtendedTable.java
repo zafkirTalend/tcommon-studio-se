@@ -33,7 +33,7 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
  * $Id$
  * 
  */
-public abstract class AddPushButtonForExtendedTable extends AddPushButton {
+public abstract class AddPushButtonForExtendedTable extends AddPushButton implements IExtendedTablePushButton {
 
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
@@ -58,5 +58,13 @@ public abstract class AddPushButtonForExtendedTable extends AddPushButton {
     }
 
     protected abstract Object getObjectToAdd();
+
+    /* (non-Javadoc)
+     * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
+     */
+    public AbstractExtendedTableViewer getExtendedTableViewer() {
+        return (AbstractExtendedTableViewer) getExtendedControlViewer();
+    }
+
 
 }

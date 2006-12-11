@@ -28,25 +28,29 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlModel;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
-
+import org.talend.commons.ui.swt.extended.table.ExtendedControlEvent;
+import org.talend.commons.ui.swt.extended.table.IExtendedControlListener;
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
-public abstract class ExtendedPushButton {
+public abstract class ExtendedPushButton implements IExtendedPushButton {
 
-    private Button button;
+    Button button;
+
     protected AbstractExtendedControlViewer extendedControlViewer;
+
     private Command commandToExecute;
 
     /**
      * DOC amaumont ExtendedTableButton constructor comment.
-     * @param extendedViewer 
+     * 
+     * @param extendedViewer
      */
     public ExtendedPushButton(Composite parent, AbstractExtendedControlViewer extendedViewer, String tooltip, Image image) {
         super();
@@ -56,9 +60,10 @@ public abstract class ExtendedPushButton {
 
     /**
      * DOC amaumont Comment method "init".
-     * @param image 
-     * @param tooltip 
-     * @param parent2 
+     * 
+     * @param image
+     * @param tooltip
+     * @param parent2
      */
     private void init(Composite parent, String tooltip, Image image) {
         button = new Button(parent, SWT.PUSH);
@@ -72,30 +77,44 @@ public abstract class ExtendedPushButton {
             }
 
         });
-                
-        
+
+        if (extendedControlViewer.getExtendedControlModel() == null) {
+            button.setEnabled(false);
+        }
+
+        this.extendedControlViewer.addListener(new IExtendedControlListener() {
+
+            public void handleEvent(ExtendedControlEvent event) {
+                if (event.getType() == AbstractExtendedControlViewer.EVENT_TYPE.MODEL_CHANGED) {
+                    button.setEnabled(getEnabledState());
+                }
+            }
+
+        });
+
     }
 
-    
     /**
      * Getter for button.
+     * 
      * @return the button
      */
     public Button getButton() {
         return this.button;
     }
 
-    
     /**
      * Getter for extendedTableViewer.
+     * 
      * @return the extendedTableViewer
      */
     public AbstractExtendedControlViewer getExtendedControlViewer() {
         return this.extendedControlViewer;
     }
-    
+
     /**
      * DOC amaumont Comment method "executeCommand".
+     * 
      * @param command
      */
     public void executeCommand(Command command) {
@@ -105,6 +124,7 @@ public abstract class ExtendedPushButton {
     /**
      * 
      * This method is not intended to be overriden.
+     * 
      * @param event
      */
     protected void handleSelectionEvent(Event event) {
@@ -124,18 +144,27 @@ public abstract class ExtendedPushButton {
 
     /**
      * DOC amaumont Comment method "getCommandToExecute".
+     * 
      * @return
      */
     protected abstract Command getCommandToExecute();
-    
+
     /**
      * This method is called after getCommandToExecute() to get data or errors after command execution.
-     * @param executedCommand 
+     * 
+     * @param executedCommand
      */
     protected void afterCommandExecution(Command executedCommand) {
         // override it if needed
     }
 
+    public boolean getEnabledState() {
+        AbstractExtendedControlModel extendedControlModel = extendedControlViewer.getExtendedControlModel();
+        if (extendedControlModel == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
-    
 }

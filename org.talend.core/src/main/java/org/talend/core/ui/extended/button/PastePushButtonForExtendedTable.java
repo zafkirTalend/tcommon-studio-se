@@ -32,7 +32,7 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
  * $Id$
  * 
  */
-public abstract class PastePushButtonForExtendedTable extends PastePushButton {
+public abstract class PastePushButtonForExtendedTable extends PastePushButton implements IExtendedTablePushButton {
 
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
@@ -57,5 +57,13 @@ public abstract class PastePushButtonForExtendedTable extends PastePushButton {
     }
 
     protected abstract Command getCommandToExecute(ExtendedTableModel extendedTableModel, Integer indexWhereInsert);
+
+    /* (non-Javadoc)
+     * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
+     */
+    public AbstractExtendedTableViewer getExtendedTableViewer() {
+        return (AbstractExtendedTableViewer) getExtendedControlViewer();
+    }
+
 
 }
