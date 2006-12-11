@@ -21,23 +21,30 @@
 // ============================================================================
 package org.talend.repository.model;
 
-import org.eclipse.core.runtime.IPath;
-import org.talend.core.IService;
-import org.talend.core.model.components.IComponentsFactory;
+import org.eclipse.core.resources.IProject;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.model.general.Project;
 
 /**
- * DOC qian class global comment. Interface for RepositoryService. <br/>
+ * Provides utilities methods relative to model on IResource. <br/>
  * 
- * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
+ * $Id: ResourceModelUtils.java 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
  * 
  */
-public interface IRepositoryService extends IService {
+public class ResourceModelUtils {
 
-    public IComponentsFactory getComponentsFactory();
-
-    public IPath getPathFileName(String folderName, String fileName);
-    
-    public IProxyRepositoryFactory getProxyRepositoryFactory();
-    
-    public IPath getRepositoryPath(RepositoryNode node);
+    /**
+     * Load a project (IResource speaking) in the current workspace from a project (model speaking).
+     * 
+     * @param project - the project to retrieve
+     * @return the IProject matching the project
+     * @throws PersistenceException if the IProject cannot be retrieve
+     */
+    public static IProject getProject(Project project) throws PersistenceException {
+        if (project == null) {
+            throw new PersistenceException("");
+        }
+        return ResourceUtils.getProject(project.getTechnicalLabel());
+    }
 }

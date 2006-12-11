@@ -19,25 +19,35 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.repository.model;
+package org.talend.repository.ui.views;
 
-import org.eclipse.core.runtime.IPath;
-import org.talend.core.IService;
-import org.talend.core.model.components.IComponentsFactory;
+import org.eclipse.jface.viewers.StructuredViewer;
+import org.eclipse.ui.IViewPart;
+import org.talend.repository.model.RepositoryNode;
 
 /**
- * DOC qian class global comment. Interface for RepositoryService. <br/>
+ * Defines all methods a repository view must provides. Actually the only view implementing this interface is
+ * RepositoryView.<br/>
  * 
- * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
+ * $Id: IRepositoryView.java 797 2006-11-30 16:16:52 +0000 (星期四, 30 十一月 2006) amaumont $
  * 
  */
-public interface IRepositoryService extends IService {
+public interface IRepositoryView extends IViewPart {
 
-    public IComponentsFactory getComponentsFactory();
+    public static final String VIEW_ID = "org.talend.repository.views.repository";
+    
+    public StructuredViewer getViewer();
 
-    public IPath getPathFileName(String folderName, String fileName);
-    
-    public IProxyRepositoryFactory getProxyRepositoryFactory();
-    
-    public IPath getRepositoryPath(RepositoryNode node);
+    public void refresh();
+
+    public void refresh(Object object);
+
+    public void expand(Object object);
+
+    public void expand(Object object, boolean state);
+
+    public boolean getExpandedState(Object object);
+
+    public RepositoryNode getRoot();
+
 }
