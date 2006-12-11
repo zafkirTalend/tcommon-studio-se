@@ -26,8 +26,8 @@ import java.util.List;
 
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
-import org.talend.core.model.metadata.builder.connection.MetadataSchema;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
+import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 
 /**
  * DOC cantoine class global comment. Detailled comment <br/>
@@ -37,30 +37,30 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
  */
 public class XmlExtractorSchemaModel extends ExtendedTableModel<SchemaTarget> {
 
-    private MetadataSchema metadataSchema;
+    private XmlXPathLoopDescriptor xmlXPathLoopDescriptor;
 
     public XmlExtractorSchemaModel(String name) {
         super(name);
     }
 
-    public XmlExtractorSchemaModel(MetadataSchema metadataSchema, String name) {
+    public XmlExtractorSchemaModel(XmlXPathLoopDescriptor xmlXPathLoopDescriptor, String name) {
         super(name);
-        setMetadataSchema(metadataSchema);
+        setXmlXPathLoopDescriptor(xmlXPathLoopDescriptor);
     }
 
-    public MetadataSchema getMetadataSchema() {
-        return this.metadataSchema;
+    public XmlXPathLoopDescriptor getXmlXPathLoopDescriptor() {
+        return this.xmlXPathLoopDescriptor;
     }
 
     /**
-     * set MetadataSchema.
+     * set XmlXPathLoopDescriptor.
      * 
-     * @param metadataSchema
+     * @param xmlXPathLoopDescriptor
      */
-    public void setMetadataSchema(MetadataSchema metadataSchema) {
-        if (metadataSchema != null) {
-            this.metadataSchema = metadataSchema;
-            registerDataList((List<SchemaTarget>) metadataSchema.getSchemaTargets());
+    public void setXmlXPathLoopDescriptor(XmlXPathLoopDescriptor xmlXPathLoopDescriptor) {
+        if (xmlXPathLoopDescriptor != null) {
+            this.xmlXPathLoopDescriptor = xmlXPathLoopDescriptor;
+            registerDataList((List<SchemaTarget>) xmlXPathLoopDescriptor.getSchemaTargets());
         } else {
             List<SchemaTarget> list = new ArrayList<SchemaTarget>();
             list.add(createNewSchemaTarget());

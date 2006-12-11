@@ -341,22 +341,9 @@ public final class MetadataSchema {
                 final NamedNodeMap nodeMap = nodetoParse.getAttributes();
                 final Node xPathQuery = nodeMap.getNamedItem("XPathQuery");
                 final Node tagName = nodeMap.getNamedItem("TagName");
-                final Node limitBoucle = nodeMap.getNamedItem("LimitBoucle");
-                final Node boucle = nodeMap.getNamedItem("Boucle");
 
-                schemaTarget.setXPathQuery(xPathQuery.getNodeValue());
+                schemaTarget.setRelativeXPathQuery(xPathQuery.getNodeValue());
                 schemaTarget.setTagName(tagName.getNodeValue());
-                if (limitBoucle.getNodeValue() != null) {
-                    try {
-                        schemaTarget.setLimitBoucle(Integer.parseInt(limitBoucle.getNodeValue()));
-                    } catch (final NumberFormatException e) {
-                        schemaTarget.setLimitBoucle(0);
-                    }
-                } else {
-                    schemaTarget.setLimitBoucle(0);
-                }
-                schemaTarget.setBoucle(Boolean.parseBoolean(boucle.getNodeValue()));
-
                 listSchemaTargets.add(schemaTarget);
             }
         }
@@ -505,20 +492,13 @@ public final class MetadataSchema {
                 racine.appendChild(column);
 
                 Attr xPathQuery = document.createAttribute("XPathQuery");
-                xPathQuery.setNodeValue(schemaTarget.getXPathQuery());
+                xPathQuery.setNodeValue(schemaTarget.getRelativeXPathQuery());
                 column.setAttributeNode(xPathQuery);
 
                 Attr tagName = document.createAttribute("TagName");
                 tagName.setNodeValue(String.valueOf(schemaTarget.getTagName()));
                 column.setAttributeNode(tagName);
 
-                Attr isBoucle = document.createAttribute("Boucle");
-                isBoucle.setNodeValue(String.valueOf(schemaTarget.isBoucle()));
-                column.setAttributeNode(isBoucle);
-
-                Attr limitBoucle = document.createAttribute("LimitBoucle");
-                limitBoucle.setNodeValue(String.valueOf(schemaTarget.getLimitBoucle()));
-                column.setAttributeNode(limitBoucle);
             }
 
             // use specific Xerces class to write DOM-data to a file:
