@@ -19,29 +19,22 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.repository.model;
+package org.talend.designer.codegen.perlmodule;
 
-import org.eclipse.core.resources.IProject;
-import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.utils.workbench.resources.ResourceUtils;
-import org.talend.core.model.general.Project;
+import java.net.URL;
+import java.util.List;
+
+import org.talend.core.IService;
 
 /**
- * Provides utilities methods relative to model on IResource. <br/>
+ * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id: ResourceModelUtils.java 1 2006-09-29 17:06:40 +0000 (星期五, 29 九月 2006) nrousseau $
+ * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public class ResourceModelUtils {
+public interface IPerlModuleService extends IService {
 
-    /**
-     * Load a project (IResource speaking) in the current workspace from a project (model speaking).
-     * 
-     * @param project - the project to retrieve
-     * @return the IProject matching the project
-     * @throws PersistenceException if the IProject cannot be retrieve
-     */
-    public static IProject getProject(Project project) throws PersistenceException {
-        return ResourceUtils.getProject(project.getTechnicalLabel());
-    }
+    public List<URL> getBuiltInRoutines();
+
+    public URL getRoutineTemplate();
 }

@@ -110,8 +110,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath, boolean readOnly) {
         super(pageName);
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                IRepositoryService.class);
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         statusHelper = new StatusHelper(service.getProxyRepositoryFactory());
         this.destinationPath = destinationPath;
 
@@ -404,8 +403,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     public boolean isValid(String itemName) {
 
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                IRepositoryService.class);
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
         try {
             return repositoryFactory.isNameAvailable(property.getItem(), itemName);
@@ -415,5 +413,6 @@ public abstract class PropertiesWizardPage extends WizardPage {
         }
     }
 
+    // TODO SML Remove
     public abstract ERepositoryObjectType getRepositoryObjectType();
 }

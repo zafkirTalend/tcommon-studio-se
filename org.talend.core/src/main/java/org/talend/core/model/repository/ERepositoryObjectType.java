@@ -77,7 +77,7 @@ public enum ERepositoryObjectType {
         case PROCESS:
             return "process";
         case ROUTINES:
-            return "routines";
+            return "code/routines";
         case DOCUMENTATION:
             return "documentations";
         case METADATA:

@@ -47,7 +47,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -60,6 +59,7 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
@@ -91,7 +91,7 @@ import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.temp.ECodeLanguage;
-import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
+import org.talend.designer.codegen.perlmodule.IPerlModuleService;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.model.AbstractRepositoryFactory;
 import org.talend.repository.model.ERepositoryStatus;
@@ -200,7 +200,8 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
                 if (!current.getName().equals(BIN)) {
                     Container<K, T> cont = toReturn.addSubContainer(current.getName());
                     FolderHelper folderHelper = LocalFolderHelper.createInstance(getRepositoryContext().getProject());
-                    Property property = folderHelper.getFolder(current.getProjectRelativePath()).getProperty();
+                    FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
+                    Property property = folder.getProperty();
                     cont.setProperty(property);
                     cont.setId(property.getId());
                     addFolderMembers(type, cont, (IFolder) current, onlyLastVersion);
@@ -329,6 +330,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_XML);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_LDIF);
         needsBinFolder.add(ERepositoryObjectType.PROCESS);
+        needsBinFolder.add(ERepositoryObjectType.ROUTINES);
     }
 
     public Project createProject(String label, String description, ECodeLanguage language, User author)
@@ -352,7 +354,6 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         } catch (CoreException e) {
             throw new PersistenceException(e);
         }
-        createFolders(prj, project);
 
         // Fill project object
         project.setLabel(label);
@@ -365,43 +366,65 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         projectResource.getContents().add(author);
         xmiResourceManager.saveResource(projectResource);
 
-        getRepositoryContext().setProject(project);
-
-        // Sample Routines file
-        // FIXME SML get this url by service
-        URL url = Platform.getBundle("org.talend.designer.codegen.perlmodule").getEntry("perl/routines/routines.pm");
-        if (url != null) {
-            InputStream stream = null;
-            try {
-                Property property = PropertiesFactory.eINSTANCE.createProperty();
-                property.setId(getNextId());
-                property.setLabel("Routines");
-
-                ByteArray byteArray = PropertiesFactory.eINSTANCE.createByteArray();
-                stream = url.openStream();
-                byte[] innerContent = new byte[stream.available()];
-                stream.read(innerContent);
-                stream.close();
-                byteArray.setInnerContent(innerContent);
-
-                RoutineItem routineItem = PropertiesFactory.eINSTANCE.createRoutineItem();
-                routineItem.setProperty(property);
-                routineItem.setContent(byteArray);
-
-                create(routineItem, new Path(""));
-            } catch (IOException ioe) {
-                if (stream != null) {
-                    try {
-                        stream.close();
-                    } catch (IOException e) {
-                        throw new PersistenceException(ioe);
-                    }
-                }
-                throw new PersistenceException(ioe);
-            }
-        }
-
         return project;
+    }
+
+    /**
+     * DOC smallet Comment method "synchronizeRoutines".
+     * 
+     * @throws PersistenceException
+     */
+    private void synchronizeRoutines() throws PersistenceException {
+        IPerlModuleService service = (IPerlModuleService) GlobalServiceRegister.getDefault().getService(IPerlModuleService.class);
+        List<URL> routines = service.getBuiltInRoutines();
+        Path path = new Path(RepositoryConstants.SYSTEM_DIRECTORY);
+        for (URL url : routines) {
+            createRoutine(url, path);
+        }
+    }
+
+    /**
+     * DOC smallet Comment method "createRoutine".
+     * 
+     * @param url
+     * @throws PersistenceException
+     */
+    private void createRoutine(URL url, IPath path) throws PersistenceException {
+        if (url == null) {
+            throw new IllegalArgumentException();
+        }
+        InputStream stream = null;
+        try {
+            Property property = PropertiesFactory.eINSTANCE.createProperty();
+            property.setId(getNextId());
+
+            String[] fragments = url.toString().split("/");
+            String label = fragments[fragments.length - 1];
+            String[] tmp = label.split("\\.");
+            property.setLabel(tmp[0]);
+
+            ByteArray byteArray = PropertiesFactory.eINSTANCE.createByteArray();
+            stream = url.openStream();
+            byte[] innerContent = new byte[stream.available()];
+            stream.read(innerContent);
+            stream.close();
+            byteArray.setInnerContent(innerContent);
+
+            RoutineItem routineItem = PropertiesFactory.eINSTANCE.createRoutineItem();
+            routineItem.setProperty(property);
+            routineItem.setContent(byteArray);
+            routineItem.setBuiltIn(true);
+            create(routineItem, path);
+        } catch (IOException ioe) {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    throw new PersistenceException(ioe);
+                }
+            }
+            throw new PersistenceException(ioe);
+        }
     }
 
     /**
@@ -411,8 +434,19 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
      * @param project
      * @throws PersistenceException
      */
-    private void createFolders(IProject prj, Project project) throws PersistenceException {
-        FolderHelper folderHelper = LocalFolderHelper.createInstance(project.getEmfProject());
+    private void createFolders(IProject prj, org.talend.core.model.properties.Project emfProject) throws PersistenceException {
+        FolderHelper folderHelper = LocalFolderHelper.createInstance(emfProject);
+
+        // Purge old routines :
+        // 1. old built-in:
+        IFolder f1 = ResourceUtils.getFolder(prj, ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
+                + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
+        ResourceUtils.deleteFolder(f1);
+        // 2. from old workspace:
+        String oldRoutinesPath = "routines"; // Routines path as it was in talend v1.0.n and until 1.1.m2
+        IFolder f2 = ResourceUtils.getFolder(prj, oldRoutinesPath, false);
+        ResourceUtils.deleteFolder(f2);
+
         // Folder creation :
         for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
             try {
@@ -435,10 +469,8 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
             String folderName = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + BIN;
             createFolder(prj, folderHelper, folderName);
         }
-        
+
         // 3. Code/routines/Snippets :
-        createFolder(prj, folderHelper, "code");
-        createFolder(prj, folderHelper, "code/snippets");
         createFolder(prj, folderHelper, "code/routines");
     }
 
@@ -466,9 +498,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
             IProject p = prjs[i];
             org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
             if (emfProject.isLocal() == local) {
-                synchronizeFolders(p, emfProject);
                 Project project = new Project(emfProject);
-                createFolders(p, project);
                 toReturn.add(project);
             }
         }
@@ -1334,6 +1364,13 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         // unused in local mode
     }
 
+    public void logOnProject(Project project) throws PersistenceException {
+        IProject project2 = ResourceModelUtils.getProject(project);
+        createFolders(project2, project.getEmfProject());
+        synchronizeRoutines();
+        synchronizeFolders(project2, project.getEmfProject());
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -1351,6 +1388,12 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
                 return ERepositoryStatus.LOCK_BY_USER;
             } else {
                 return ERepositoryStatus.LOCK_BY_OTHER;
+            }
+        }
+
+        if (item instanceof RoutineItem) {
+            if (((RoutineItem) item).isBuiltIn()) {
+                return ERepositoryStatus.READ_ONLY;
             }
         }
 

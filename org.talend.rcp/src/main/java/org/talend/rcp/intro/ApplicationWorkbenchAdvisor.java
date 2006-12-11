@@ -68,7 +68,8 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         // Promise the following plugin register themselves before system loaded.
         RunProcessPlugin.getDefault();
         CodeGeneratorActivator.getDefault();
-
+        // FIXME SML Remove that
+        // PerlModuleActivator.getDefault();
     }
 
 }

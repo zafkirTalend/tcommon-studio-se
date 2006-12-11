@@ -124,6 +124,11 @@ public final class ResourceUtils {
 
     public static void createFolder(IFolder folder) throws PersistenceException {
         try {
+            if (!folder.getParent().exists()) {
+                if (folder.getParent() instanceof IFolder) {
+                    createFolder((IFolder) folder.getParent());
+                }
+            }
             folder.create(true, true, null);
         } catch (CoreException e) {
             String msg = Messages.getString("resources.folder.notCreated", folder.getName());

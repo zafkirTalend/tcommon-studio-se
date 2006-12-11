@@ -33,6 +33,8 @@ public class RepositoryConstants {
 
     public static final String IMG_DIRECTORY = "images";
 
+    public static final String SYSTEM_DIRECTORY = "builtin";
+
     public static final String PROJECT_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9 \\-_]*$";
 
     public static final String FILE_PATTERN = "^[a-zA-Z0-9 \\.\\-\\(\\)\\[\\]=]+$";
