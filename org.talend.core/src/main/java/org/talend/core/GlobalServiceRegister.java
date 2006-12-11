@@ -48,7 +48,7 @@ public class GlobalServiceRegister {
 
     private Map<Class, IService> services = new HashMap<Class, IService>();
 
-    //Stores all the services.
+    // Stores all the services.
     private List<IService> list = null;
 
     /**
@@ -85,7 +85,7 @@ public class GlobalServiceRegister {
         if (service == null) {
             service = findService(klass);
             if (service == null) {
-                throw new RuntimeException("This service has not been registered.");
+                throw new RuntimeException("The service " + klass.getName() + " has not been registered.");
             }
             services.put(klass, service);
         }
