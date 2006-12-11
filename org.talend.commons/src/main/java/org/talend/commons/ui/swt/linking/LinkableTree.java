@@ -46,14 +46,16 @@ public class LinkableTree implements ILinkableControl {
 
     private Tree tree;
     private IBackgroundRefresher backgroundRefresher;
+    private IControlsLinker controlsLinker;
     
     /**
      * DOC amaumont LinkableTable constructor comment.
      * @param tree
      */
-    public LinkableTree(Tree tree, IBackgroundRefresher backgroundRefresher) {
+    public LinkableTree(IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher, Tree tree) {
         super();
         this.tree = tree;
+        this.controlsLinker = controlsLinker;
         
         // setBackgroundMode to correct graphic bug when background is update with ExecutionLimiter
         this.tree.setBackgroundMode(SWT.INHERIT_NONE);
@@ -115,7 +117,7 @@ public class LinkableTree implements ILinkableControl {
             }
 
             public void widgetSelected(SelectionEvent e) {
-//                updateLinksAndTableItemsHighlightState();
+                controlsLinker.updateLinksStyleAndControlsSelection(tree);
             }
 
         });

@@ -57,7 +57,7 @@ import org.talend.commons.ui.utils.TreeUtils;
  * @param <D1> the data item of extremety 1
  * @param <D2> the data item of extremety 2
  */
-public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements IBgDrawableComposite {
+public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements IBgDrawableComposite, IControlsLinker {
 
     protected LinksManager<TreeItem, D1, Table, D2> linksManager = new LinksManager<TreeItem, D1, Table, D2>();
 
@@ -98,9 +98,9 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         this.display = tree.getDisplay();
         this.backgroundRefresher = backgroundRefresher;
         for (Table table : tables) {
-            new LinkableTable(table, backgroundRefresher);
+            new LinkableTable(this, backgroundRefresher, table);
         }
-        new LinkableTree(tree, backgroundRefresher);
+        new LinkableTree(this, backgroundRefresher, tree);
         this.tables = Arrays.asList(tables);
         this.tree = tree;
     }
@@ -267,7 +267,6 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
     @SuppressWarnings("unchecked")
     public void updateLinksStyleAndControlsSelection(Control currentControl) {
 
-
         boolean isTable = false;
         if (currentControl instanceof Table) {
             isTable = true;
@@ -278,25 +277,27 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         }
 
         HashSet selectedItems = new HashSet();
-        
+
         if (isTable) {
             for (Table table : tables) {
                 if (table != currentControl) {
                     table.deselectAll();
                 }
             }
+
+            TableItem[] selection = ((Table) currentControl).getSelection();
+            for (int i = 0; i < selection.length; i++) {
+                TableItem tableItem = selection[i];
+                selectedItems.add(tableItem.getData());
+            }
+
+        } else {
+            tree.deselectAll();
+
             TreeItem[] selection = tree.getSelection();
             for (int i = 0; i < selection.length; i++) {
                 TreeItem treeItem = selection[i];
                 selectedItems.add(treeItem.getData());
-            }
-        } else {
-            tree.deselectAll();
-
-            TableItem[] selection = ((Table)currentControl).getSelection();
-            for (int i = 0; i < selection.length; i++) {
-                TableItem tableItem = selection[i];
-                selectedItems.add(tableItem.getData());
             }
 
         }
@@ -304,7 +305,13 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         List<LinkDescriptor<TreeItem, D1, Table, D2>> links = linksManager.getLinks();
         for (LinkDescriptor<TreeItem, D1, Table, D2> link : links) {
             IStyleLink styleLink = null;
-            boolean currentItemIsSelected = selectedItems.contains(link.getExtremity1().getDataItem());
+            IExtremityLink extremity = null;
+            if (isTable) {
+                extremity = link.getExtremity2();
+            } else {
+                extremity = link.getExtremity1();
+            }
+            boolean currentItemIsSelected = selectedItems.contains(extremity.getDataItem());
             if (currentItemIsSelected) {
                 styleLink = selectedStyleLink;
             } else {
@@ -356,51 +363,49 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         this.unselectedStyleLink = unselectedStyleLink;
     }
 
-    
     /**
      * Getter for backgroundRefresher.
+     * 
      * @return the backgroundRefresher
      */
     public IBackgroundRefresher getBackgroundRefresher() {
         return this.backgroundRefresher;
     }
 
-    
     /**
      * Sets the backgroundRefresher.
+     * 
      * @param backgroundRefresher the backgroundRefresher to set
      */
     public void setBackgroundRefresher(IBackgroundRefresher backgroundRefresher) {
         this.backgroundRefresher = backgroundRefresher;
     }
 
-    
     /**
      * Getter for tables.
+     * 
      * @return the tables
      */
     public List<Table> getTables() {
         return this.tables;
     }
 
-    
     /**
      * Getter for tree.
+     * 
      * @return the tree
      */
     public Tree getTree() {
         return this.tree;
     }
 
-    
     /**
      * Getter for linksManager.
+     * 
      * @return the linksManager
      */
     protected LinksManager<TreeItem, D1, Table, D2> getLinksManager() {
         return this.linksManager;
     }
 
- 
-    
 }

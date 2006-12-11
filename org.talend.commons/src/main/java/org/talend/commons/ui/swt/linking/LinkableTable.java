@@ -29,32 +29,53 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.drawing.background.IBackgroundRefresher;
-
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
+import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class LinkableTable implements ILinkableControl {
 
     private Table table;
+
     private IBackgroundRefresher backgroundRefresher;
-    
+
+    private IControlsLinker controlsLinker;
+
+    private TableViewerCreator tableViewerCreator;
+
     /**
      * DOC amaumont LinkableTable constructor comment.
+     * 
      * @param table
      */
-    public LinkableTable(Table table, IBackgroundRefresher backgroundRefresher) {
+    public LinkableTable(IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher, Table table) {
         super();
         this.table = table;
+        this.controlsLinker = controlsLinker;
         this.backgroundRefresher = backgroundRefresher;
         init();
     }
 
-    
+    /**
+     * DOC amaumont LinkableTable constructor comment.
+     * 
+     * @param table
+     */
+    public LinkableTable(IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher, TableViewerCreator tableViewerCreator) {
+        super();
+        this.tableViewerCreator = tableViewerCreator;
+        this.table = this.tableViewerCreator.getTable();
+        this.controlsLinker = controlsLinker;
+        this.backgroundRefresher = backgroundRefresher;
+        init();
+    }
+
     /**
      * DOC amaumont Comment method "init".
      */
@@ -62,9 +83,9 @@ public class LinkableTable implements ILinkableControl {
         addListeners();
     }
 
-
     /**
      * Getter for table.
+     * 
      * @return the table
      */
     public Table getTable() {
@@ -85,18 +106,29 @@ public class LinkableTable implements ILinkableControl {
             }
 
         };
-
         table.addControlListener(controlListener);
-        table.addSelectionListener(new SelectionListener() {
 
-            public void widgetDefaultSelected(SelectionEvent e) {
-            }
+        if (tableViewerCreator != null) {
+            tableViewerCreator.getSelectionHelper().addAfterSelectionListener(new ILineSelectionListener() {
 
-            public void widgetSelected(SelectionEvent e) {
-//                updateLinksAndTreeItemsHighlightState();
-            }
+                public void handle(LineSelectionEvent e) {
+                    controlsLinker.updateLinksStyleAndControlsSelection(table);
+                }
 
-        });
+            });
+
+        } else {
+            table.addSelectionListener(new SelectionListener() {
+
+                public void widgetDefaultSelected(SelectionEvent e) {
+                }
+
+                public void widgetSelected(SelectionEvent e) {
+                    controlsLinker.updateLinksStyleAndControlsSelection(table);
+                }
+
+            });
+        }
 
         ScrollBar vBarTable = table.getVerticalBar();
 
@@ -110,6 +142,4 @@ public class LinkableTable implements ILinkableControl {
 
     }
 
-    
-    
 }
