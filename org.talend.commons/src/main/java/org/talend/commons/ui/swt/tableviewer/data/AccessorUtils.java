@@ -45,8 +45,8 @@ public final class AccessorUtils {
                 value = column.getBeanPropertyAccessors().get(bean);
             } catch (ClassCastException cce) {
 
-                String message = "The 'BeanPropertyAccessors' of the column (title) '" + column.getTitle()
-                        + "' is not configured correctly. " + " " + bean.getClass() + " is required for bean <B>";
+                String message = "The 'BeanPropertyAccessors' of the column (with title '" + column.getTitle() + "' and id '"
+                        + column.getId() + "') is not configured correctly. " + " " + bean.getClass() + " is required for bean <B>";
                 cce.printStackTrace();
                 throw new RuntimeException(message, cce);
             } catch (NoClassDefFoundError e) {
@@ -64,8 +64,8 @@ public final class AccessorUtils {
                 column.getBeanPropertyAccessors().set(bean, value);
             } catch (ClassCastException cce) {
 
-                String message = "The 'BeanPropertyAccessors' of the column (title) '" + column.getTitle()
-                        + "' is not configured correctly. ";
+                String message = "The 'BeanPropertyAccessors' of the column (with title '" + column.getTitle() + "' and id '"
+                        + column.getId() + "') is not configured correctly. ";
                 if (bean != null) {
                     message += "\n " + bean.getClass() + " is required for the bean (<B>).";
                 }

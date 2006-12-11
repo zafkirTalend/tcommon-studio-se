@@ -57,11 +57,12 @@ public class XmlExtractorLoopModel extends ExtendedTableModel<XmlXPathLoopDescri
      * @param xmlXPathLoopDescriptor
      */
     public void setXmlXPathLoopDescriptor(XmlXPathLoopDescriptor xmlXPathLoopDescriptor) {
+        List<XmlXPathLoopDescriptor> list = new ArrayList<XmlXPathLoopDescriptor>();
         if (xmlXPathLoopDescriptor != null) {
             this.xmlXPathLoopDescriptor = xmlXPathLoopDescriptor;
-            registerDataList((List<XmlXPathLoopDescriptor>) xmlXPathLoopDescriptor.getSchemaTargets());
+            list.add(xmlXPathLoopDescriptor);
+            registerDataList(list);
         } else {
-            List<XmlXPathLoopDescriptor> list = new ArrayList<XmlXPathLoopDescriptor>();
             list.add(createXmlXPathLoopDescriptor());
             registerDataList(list);
         }

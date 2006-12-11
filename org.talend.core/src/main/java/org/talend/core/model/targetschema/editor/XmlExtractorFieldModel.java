@@ -24,6 +24,7 @@ package org.talend.core.model.targetschema.editor;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
@@ -37,35 +38,22 @@ import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
  */
 public class XmlExtractorFieldModel extends ExtendedTableModel<SchemaTarget> {
 
-    private XmlXPathLoopDescriptor xmlXPathLoopDescriptor;
-
     public XmlExtractorFieldModel(String name) {
         super(name);
     }
 
-    public XmlExtractorFieldModel(XmlXPathLoopDescriptor xmlXPathLoopDescriptor, String name) {
+    public XmlExtractorFieldModel(List schemaTargetList, String name) {
         super(name);
-        setXmlXPathLoopDescriptor(xmlXPathLoopDescriptor);
-    }
-
-    public XmlXPathLoopDescriptor getXmlXPathLoopDescriptor() {
-        return this.xmlXPathLoopDescriptor;
+        setXmlXPathLoopDescriptor(schemaTargetList);
     }
 
     /**
      * set XmlXPathLoopDescriptor.
      * 
-     * @param xmlXPathLoopDescriptor
+     * @param schemaTargetList
      */
-    public void setXmlXPathLoopDescriptor(XmlXPathLoopDescriptor xmlXPathLoopDescriptor) {
-        if (xmlXPathLoopDescriptor != null) {
-            this.xmlXPathLoopDescriptor = xmlXPathLoopDescriptor;
-            registerDataList((List<SchemaTarget>) xmlXPathLoopDescriptor.getSchemaTargets());
-        } else {
-            List<SchemaTarget> list = new ArrayList<SchemaTarget>();
-            list.add(createNewSchemaTarget());
-            registerDataList(list);
-        }
+    public void setXmlXPathLoopDescriptor(List schemaTargetList) {
+        registerDataList((List<SchemaTarget>) schemaTargetList);
     }
 
     /**
