@@ -65,7 +65,7 @@ public final class AccessorUtils {
             } catch (ClassCastException cce) {
 
                 String message = "The 'BeanPropertyAccessors' of the column (with title '" + column.getTitle() + "' and id '"
-                        + column.getId() + "') is not configured correctly. ";
+                        + column.getId() + "') is not configured correctly or the value set has not the correct type. ";
                 if (bean != null) {
                     message += "\n " + bean.getClass() + " is required for the bean (<B>).";
                 }

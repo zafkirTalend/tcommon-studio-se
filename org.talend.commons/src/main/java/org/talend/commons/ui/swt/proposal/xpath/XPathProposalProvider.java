@@ -80,7 +80,8 @@ public class XPathProposalProvider implements IContentProposalProvider {
         List<Node> nodeList = new ArrayList<Node>();
 
         String beforeCursorExp = null;
-        if (isRelative) {
+        boolean expressionIsRelative = !contents.trim().startsWith(SLASH);
+        if (isRelative && expressionIsRelative) {
             beforeCursorExp = nodeRetriever.getCurrentLoopXPath() + SLASH + contents;
         } else {
             beforeCursorExp = contents.substring(0, position);
@@ -89,7 +90,7 @@ public class XPathProposalProvider implements IContentProposalProvider {
         int lastIndexPipe = beforeCursorExp.lastIndexOf(PIPE);
 
         String currentExpr = null;
-        if (isRelative) {
+        if (isRelative && expressionIsRelative) {
             currentExpr = beforeCursorExp;
         } 
         if (lastIndexSlash == -1 || lastIndexSlash < lastIndexPipe && lastIndexPipe != -1) {
@@ -131,11 +132,11 @@ public class XPathProposalProvider implements IContentProposalProvider {
                 Node node = nodeList.get(j);
                 String nodeName = node.getNodeName();
                 String absoluteXPathFromNode = NodeRetriever.getAbsoluteXPathFromNode(node);
-                if ((currentWord.length() > 0 && nodeName.startsWith(currentWord) || currentWord.length() == 0)
+                if ((currentWord.length() > 0 && nodeName.startsWith(currentWord) || currentWord.length() == 0 || currentWord.equals("/"))
                         && !alreadyAdded.contains(absoluteXPathFromNode)) {
                     // System.out.println(absoluteXPathFromNode);
                     XPathContentProposal contentProposal = new XPathContentProposal(node);
-                    if (isRelative) {
+                    if (isRelative && expressionIsRelative) {
                         contentProposal.setRelative(isRelative);
                         contentProposal.setFirstRelativeNode(contents.indexOf(SLASH) == -1);
                     }

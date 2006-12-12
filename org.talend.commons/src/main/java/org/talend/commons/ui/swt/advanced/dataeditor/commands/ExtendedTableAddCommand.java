@@ -22,6 +22,7 @@
 package org.talend.commons.ui.swt.advanced.dataeditor.commands;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.eclipse.gef.commands.Command;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
@@ -38,12 +39,12 @@ public class ExtendedTableAddCommand extends Command {
 
     private Integer indexStartAdd;
 
-    private ArrayList beansToAdd;
+    private List beansToAdd;
 
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
-    public ExtendedTableAddCommand(ExtendedTableModel extendedTable, Integer indexStartAdd, ArrayList beansToAdd) {
+    public ExtendedTableAddCommand(ExtendedTableModel extendedTable, List beansToAdd, Integer indexStartAdd) {
         super();
         this.extendedTable = extendedTable;
         this.indexStartAdd = indexStartAdd;
@@ -53,8 +54,8 @@ public class ExtendedTableAddCommand extends Command {
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
-    public ExtendedTableAddCommand(ExtendedTableModel extendedTable, ArrayList beansToAdd) {
-        this(extendedTable, null, beansToAdd);
+    public ExtendedTableAddCommand(ExtendedTableModel extendedTable, List beansToAdd) {
+        this(extendedTable, beansToAdd, null);
     }
 
     /**
@@ -86,6 +87,10 @@ public class ExtendedTableAddCommand extends Command {
     @SuppressWarnings("unchecked")
     public void execute() {
 
+//        for (Object object : beansToAdd) {
+//            extendedTable.add(object);
+//        }
+        
         extendedTable.addAll(indexStartAdd, beansToAdd);
 
     }

@@ -151,17 +151,32 @@ public class NodeRetriever {
 
 
     public static void main(String[] args) {
-        String filePath = "D:\\dev\\examples\\java\\xml\\saxon-resources8-8\\use-cases\\r\\users.xml";
+        String filePath = "C:/test_xml/Microsoft.DirectX.Direct3DX.xml";
 
         NodeRetriever pathRetriever = new NodeRetriever(filePath, "");
 
-        String xPathExpression = "/users/user_tuple/userid2/@attr";
+        String currentExpr = "/doc/members/member/..";
 
+        
+        String xPathExpression;
+        String slash = "/";
+        if (currentExpr.endsWith("/")) {
+            slash = "";
+        }
+
+//        xPathExpression = currentExpr + slash + "*"; //+ " | " + currentExpr + slash + "@*";
+        xPathExpression = currentExpr + slash + "*" + " | " + currentExpr + slash + "@*";
+        
+        System.out.println("xPathExpression = '"+xPathExpression + "'");
+        
         List<Node> nodeList = pathRetriever.retrieveListOfNodes(xPathExpression);
 
-        for (Node node : nodeList) {
-            System.out.println(node.getNodeName() + ":" + node.getFirstChild().getNodeValue());
-        }
+        System.out.println("Count result : "+ nodeList.size());
+        
+//        for (Node node : nodeList) {
+////            System.out.println(node.getNodeName() + ":" + node.getFirstChild().getNodeValue());
+//            System.out.println(node.getNodeName());
+//        }
 
     }
 
