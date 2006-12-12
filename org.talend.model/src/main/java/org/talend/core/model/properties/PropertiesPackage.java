@@ -1310,22 +1310,13 @@ public interface PropertiesPackage extends EPackage {
     int COMPONENT__VERSION = 2;
 
     /**
-     * The feature id for the '<em><b>Component Name</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__COMPONENT_NAME = 3;
-
-    /**
      * The feature id for the '<em><b>Last Update Date</b></em>' attribute.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT__LAST_UPDATE_DATE = 4;
+    int COMPONENT__LAST_UPDATE_DATE = 3;
 
     /**
      * The feature id for the '<em><b>Author</b></em>' reference.
@@ -1333,7 +1324,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__AUTHOR = 5;
+    int COMPONENT__AUTHOR = 4;
 
     /**
      * The feature id for the '<em><b>Creation Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1342,7 +1333,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__CREATION_DATE = 6;
+    int COMPONENT__CREATION_DATE = 5;
 
     /**
      * The feature id for the '<em><b>Delete Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1351,7 +1342,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__DELETE_DATE = 7;
+    int COMPONENT__DELETE_DATE = 6;
 
     /**
      * The feature id for the '<em><b>Deleted</b></em>' attribute.
@@ -1359,7 +1350,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__DELETED = 8;
+    int COMPONENT__DELETED = 7;
 
     /**
      * The feature id for the '<em><b>File Descriptor</b></em>' attribute.
@@ -1368,7 +1359,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__FILE_DESCRIPTOR = 9;
+    int COMPONENT__FILE_DESCRIPTOR = 8;
 
     /**
      * The feature id for the '<em><b>Projects</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1377,7 +1368,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__PROJECTS = 10;
+    int COMPONENT__PROJECTS = 9;
 
     /**
      * The number of structural features of the '<em>Component</em>' class.
@@ -1386,7 +1377,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_FEATURE_COUNT = 11;
+    int COMPONENT_FEATURE_COUNT = 10;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.NotationHolderImpl <em>Notation Holder</em>}' class.
@@ -2439,16 +2430,6 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getComponent_Version();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Component#getComponentName <em>Component Name</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Component Name</em>'.
-     * @see org.talend.core.model.properties.Component#getComponentName()
-     * @see #getComponent()
-     * @generated
-     */
-    EAttribute getComponent_ComponentName();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Component#getLastUpdateDate <em>Last Update Date</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Last Update Date</em>'.
@@ -3433,14 +3414,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute COMPONENT__VERSION = eINSTANCE.getComponent_Version();
-
-        /**
-         * The meta object literal for the '<em><b>Component Name</b></em>' attribute feature.
-         * <!-- begin-user-doc
-         * --> <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute COMPONENT__COMPONENT_NAME = eINSTANCE.getComponent_ComponentName();
 
         /**
          * The meta object literal for the '<em><b>Last Update Date</b></em>' attribute feature. <!--

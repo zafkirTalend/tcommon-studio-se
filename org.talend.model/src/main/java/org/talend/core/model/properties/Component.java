@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Component#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#getVersion <em>Version</em>}</li>
- *   <li>{@link org.talend.core.model.properties.Component#getComponentName <em>Component Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#getLastUpdateDate <em>Last Update Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Component#getCreationDate <em>Creation Date</em>}</li>
@@ -115,32 +114,6 @@ public interface Component extends EObject {
      * @generated
      */
     void setVersion(float value);
-
-    /**
-     * Returns the value of the '<em><b>Component Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Component Name</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Component Name</em>' attribute.
-     * @see #setComponentName(String)
-     * @see org.talend.core.model.properties.PropertiesPackage#getComponent_ComponentName()
-     * @model unique="false"
-     * @generated
-     */
-    String getComponentName();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.Component#getComponentName <em>Component Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Component Name</em>' attribute.
-     * @see #getComponentName()
-     * @generated
-     */
-    void setComponentName(String value);
 
     /**
      * Returns the value of the '<em><b>Last Update Date</b></em>' attribute.

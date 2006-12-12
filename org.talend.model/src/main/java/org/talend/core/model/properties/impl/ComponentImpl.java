@@ -34,7 +34,6 @@ import org.talend.core.model.properties.User;
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getVersion <em>Version</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getComponentName <em>Component Name</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getLastUpdateDate <em>Last Update Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getCreationDate <em>Creation Date</em>}</li>
@@ -107,26 +106,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
      * @ordered
      */
     protected float version = VERSION_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getComponentName() <em>Component Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getComponentName()
-     * @generated
-     * @ordered
-     */
-    protected static final String COMPONENT_NAME_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getComponentName() <em>Component Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getComponentName()
-     * @generated
-     * @ordered
-     */
-    protected String componentName = COMPONENT_NAME_EDEFAULT;
 
     /**
      * The default value of the '{@link #getLastUpdateDate() <em>Last Update Date</em>}' attribute.
@@ -334,27 +313,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getComponentName() {
-        return componentName;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setComponentName(String newComponentName) {
-        String oldComponentName = componentName;
-        componentName = newComponentName;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.COMPONENT__COMPONENT_NAME, oldComponentName, componentName));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public Date getLastUpdateDate() {
         return lastUpdateDate;
     }
@@ -544,8 +502,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
                 return getLabel();
             case PropertiesPackage.COMPONENT__VERSION:
                 return new Float(getVersion());
-            case PropertiesPackage.COMPONENT__COMPONENT_NAME:
-                return getComponentName();
             case PropertiesPackage.COMPONENT__LAST_UPDATE_DATE:
                 return getLastUpdateDate();
             case PropertiesPackage.COMPONENT__AUTHOR:
@@ -580,9 +536,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
                 return;
             case PropertiesPackage.COMPONENT__VERSION:
                 setVersion(((Float)newValue).floatValue());
-                return;
-            case PropertiesPackage.COMPONENT__COMPONENT_NAME:
-                setComponentName((String)newValue);
                 return;
             case PropertiesPackage.COMPONENT__LAST_UPDATE_DATE:
                 setLastUpdateDate((Date)newValue);
@@ -626,9 +579,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
             case PropertiesPackage.COMPONENT__VERSION:
                 setVersion(VERSION_EDEFAULT);
                 return;
-            case PropertiesPackage.COMPONENT__COMPONENT_NAME:
-                setComponentName(COMPONENT_NAME_EDEFAULT);
-                return;
             case PropertiesPackage.COMPONENT__LAST_UPDATE_DATE:
                 setLastUpdateDate(LAST_UPDATE_DATE_EDEFAULT);
                 return;
@@ -667,8 +617,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
             case PropertiesPackage.COMPONENT__VERSION:
                 return version != VERSION_EDEFAULT;
-            case PropertiesPackage.COMPONENT__COMPONENT_NAME:
-                return COMPONENT_NAME_EDEFAULT == null ? componentName != null : !COMPONENT_NAME_EDEFAULT.equals(componentName);
             case PropertiesPackage.COMPONENT__LAST_UPDATE_DATE:
                 return LAST_UPDATE_DATE_EDEFAULT == null ? lastUpdateDate != null : !LAST_UPDATE_DATE_EDEFAULT.equals(lastUpdateDate);
             case PropertiesPackage.COMPONENT__AUTHOR:
@@ -702,8 +650,6 @@ public class ComponentImpl extends EObjectImpl implements Component {
         result.append(label);
         result.append(", version: ");
         result.append(version);
-        result.append(", componentName: ");
-        result.append(componentName);
         result.append(", lastUpdateDate: ");
         result.append(lastUpdateDate);
         result.append(", creationDate: ");

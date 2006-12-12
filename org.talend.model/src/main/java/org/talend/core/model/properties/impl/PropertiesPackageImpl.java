@@ -991,7 +991,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getComponent_ComponentName() {
+    public EAttribute getComponent_LastUpdateDate() {
         return (EAttribute)componentEClass.getEStructuralFeatures().get(3);
     }
 
@@ -999,16 +999,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getComponent_LastUpdateDate() {
-        return (EAttribute)componentEClass.getEStructuralFeatures().get(4);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public EReference getComponent_Projects() {
-        return (EReference)componentEClass.getEStructuralFeatures().get(10);
+        return (EReference)componentEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -1016,7 +1008,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getComponent_Author() {
-        return (EReference)componentEClass.getEStructuralFeatures().get(5);
+        return (EReference)componentEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -1024,7 +1016,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getComponent_CreationDate() {
-        return (EAttribute)componentEClass.getEStructuralFeatures().get(6);
+        return (EAttribute)componentEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -1032,7 +1024,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getComponent_DeleteDate() {
-        return (EAttribute)componentEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)componentEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -1040,7 +1032,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getComponent_Deleted() {
-        return (EAttribute)componentEClass.getEStructuralFeatures().get(8);
+        return (EAttribute)componentEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -1049,7 +1041,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getComponent_FileDescriptor() {
-        return (EAttribute)componentEClass.getEStructuralFeatures().get(9);
+        return (EAttribute)componentEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -1359,7 +1351,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(componentEClass, COMPONENT__ID);
         createEAttribute(componentEClass, COMPONENT__LABEL);
         createEAttribute(componentEClass, COMPONENT__VERSION);
-        createEAttribute(componentEClass, COMPONENT__COMPONENT_NAME);
         createEAttribute(componentEClass, COMPONENT__LAST_UPDATE_DATE);
         createEReference(componentEClass, COMPONENT__AUTHOR);
         createEAttribute(componentEClass, COMPONENT__CREATION_DATE);
@@ -1546,7 +1537,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getComponent_Id(), ecorePackage.getEInt(), "id", null, 1, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_Label(), ecorePackage.getEString(), "label", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_Version(), ecorePackage.getEFloat(), "version", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getComponent_ComponentName(), ecorePackage.getEString(), "componentName", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_LastUpdateDate(), ecorePackage.getEDate(), "lastUpdateDate", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getComponent_Author(), this.getUser(), null, "author", null, 1, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_CreationDate(), ecorePackage.getEDate(), "creationDate", null, 1, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
