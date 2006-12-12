@@ -48,7 +48,6 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -65,27 +64,18 @@ import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
-import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.model.properties.DatabaseConnectionItem;
-import org.talend.core.model.properties.DelimitedFileConnectionItem;
-import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
-import org.talend.core.model.properties.LdifFileConnectionItem;
-import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
-import org.talend.core.model.properties.XmlFileConnectionItem;
-import org.talend.core.model.properties.util.PropertiesSwitch;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -93,7 +83,7 @@ import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.temp.ECodeLanguage;
 import org.talend.designer.codegen.perlmodule.IPerlModuleService;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
-import org.talend.repository.model.AbstractRepositoryFactory;
+import org.talend.repository.model.AbstractEMFRepositoryFactory;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.FolderHelper;
 import org.talend.repository.model.IRepositoryFactory;
@@ -108,7 +98,7 @@ import org.talend.repository.model.VersionList;
  * RepositoryFactory.java,v 1.55 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
-public class LocalRepositoryFactory extends AbstractRepositoryFactory implements IRepositoryFactory {
+public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements IRepositoryFactory {
 
     private static final String BIN = "bin";
 
