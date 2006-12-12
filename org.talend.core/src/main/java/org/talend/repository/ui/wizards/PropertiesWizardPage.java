@@ -21,13 +21,19 @@
 // ============================================================================
 package org.talend.repository.ui.wizards;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.window.Window;
 import org.eclipse.jface.wizard.WizardPage;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -41,6 +47,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.dialogs.ListDialog;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
@@ -86,6 +93,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
     /** Version upgrade minor button. */
     private Button versionMinorBtn;
 
+    private Text pathText;
+
     private IStatus nameStatus;
 
     private IStatus purposeStatus;
@@ -98,29 +107,50 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     protected Property property;
 
-    protected IPath destinationPath;
+    private IPath destinationPath;
 
     private boolean readOnly;
 
     private StatusHelper statusHelper = null;
 
+    private boolean editPath = true;
+
     protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath) {
-        this(pageName, property, destinationPath, false);
+        this(pageName, property, destinationPath, false, true);
     }
 
-    protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath, boolean readOnly) {
+    protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath, boolean readOnly, boolean editPath) {
         super(pageName);
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         statusHelper = new StatusHelper(service.getProxyRepositoryFactory());
         this.destinationPath = destinationPath;
 
         this.readOnly = readOnly;
+        this.editPath = editPath;
 
         nameStatus = createOkStatus();
         purposeStatus = createOkStatus();
         commentStatus = createOkStatus();
 
         this.property = property;
+    }
+
+    /**
+     * Getter for editPath.
+     * 
+     * @return the editPath
+     */
+    public boolean isEditPath() {
+        return this.editPath;
+    }
+
+    /**
+     * Sets the editPath.
+     * 
+     * @param editPath the editPath to set
+     */
+    public void setEditPath(boolean editPath) {
+        this.editPath = editPath;
     }
 
     /**
@@ -157,6 +187,15 @@ public abstract class PropertiesWizardPage extends WizardPage {
      */
     public void setNameModifiedByUser(boolean nameModifiedByUser) {
         this.nameModifiedByUser = nameModifiedByUser;
+    }
+
+    /**
+     * Getter for destinationPath.
+     * 
+     * @return the destinationPath
+     */
+    public IPath getDestinationPath() {
+        return new Path(pathText.getText());
     }
 
     /*
@@ -241,6 +280,111 @@ public abstract class PropertiesWizardPage extends WizardPage {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        // Path:
+        Label pathLab = new Label(parent, SWT.NONE);
+        pathLab.setText("Path");
+
+        Composite pathContainer = new Composite(parent, SWT.NONE);
+        pathContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        GridLayout pathLayout = new GridLayout(2, false);
+        pathLayout.marginHeight = 0;
+        pathLayout.marginWidth = 0;
+        pathLayout.horizontalSpacing = 0;
+        pathContainer.setLayout(pathLayout);
+
+        pathText = new Text(pathContainer, SWT.BORDER);
+        pathText.setEnabled(false);
+        pathText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+        if (editPath) {
+            Button button = new Button(pathContainer, SWT.PUSH);
+            button.setText("Select");
+
+            button.addSelectionListener(new SelectionAdapter() {
+
+                @Override
+                public void widgetSelected(SelectionEvent e) {
+                    openFolderSelectionDialog();
+                }
+            });
+        }
+    }
+
+    /**
+     * Provides all user folders for a given type.<br/>
+     * 
+     * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
+     * 
+     */
+    private class FoldersContentProvider implements IStructuredContentProvider {
+
+        private static final String DEFAULT = "(default)";
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
+         */
+        public Object[] getElements(Object inputElement) {
+            ERepositoryObjectType type = (ERepositoryObjectType) inputElement;
+            IProxyRepositoryFactory factory = ((IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IRepositoryService.class)).getProxyRepositoryFactory();
+            try {
+                List<String> folders = factory.getFolders(type);
+                folders.add(DEFAULT);
+                Collections.sort(folders);
+                String[] toReturn = folders.toArray(new String[0]);
+                return toReturn;
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+                return new String[0];
+            }
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.IContentProvider#dispose()
+         */
+        public void dispose() {
+            // TODO Auto-generated method stub
+
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
+         * java.lang.Object, java.lang.Object)
+         */
+        public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+            // TODO Auto-generated method stub
+
+        }
+
+    }
+
+    private void openFolderSelectionDialog() {
+        ListDialog dlg = new ListDialog(getShell());
+        dlg.setInput(getRepositoryObjectType());
+        dlg.setContentProvider(new FoldersContentProvider());
+        dlg.setLabelProvider(new LabelProvider());
+        dlg.setTitle("Select folder");
+        dlg.setMessage("Select the folder in which the item will be created");
+
+        String defaultValue = (pathText.getText().equals("") ? FoldersContentProvider.DEFAULT : pathText.getText());
+        dlg.setInitialSelections(new String[] { defaultValue });
+
+        if (dlg.open() == Window.OK) {
+            String string = (String) dlg.getResult()[0];
+            if (string.equals(FoldersContentProvider.DEFAULT)) {
+                pathText.setText("");
+            } else {
+                pathText.setText(string);
+            }
+        }
+
     }
 
     public String[] toArray(List<org.talend.core.model.properties.Status> status) {
@@ -259,6 +403,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
         authorText.setText(property.getAuthor().getLogin());
         versionText.setText(property.getVersion());
         statusText.setText(statusHelper.getStatusLabel(property.getStatusCode()));
+        pathText.setText(destinationPath.toString());
 
         evaluateFields();
     }
@@ -413,6 +558,5 @@ public abstract class PropertiesWizardPage extends WizardPage {
         }
     }
 
-    // TODO SML Remove
     public abstract ERepositoryObjectType getRepositoryObjectType();
 }
