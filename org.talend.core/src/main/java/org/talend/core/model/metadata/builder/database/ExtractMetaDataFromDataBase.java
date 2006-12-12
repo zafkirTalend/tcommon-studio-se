@@ -67,7 +67,7 @@ public class ExtractMetaDataFromDataBase {
             rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, null, tableTypes);
             while (rsTables.next()) {
                 MetadataTable medataTable = new MetadataTable();
-                medataTable.setId(medataTables.size() + 1 + ""); // FIXME MHE
+                medataTable.setId(medataTables.size() + 1 + "");
                 medataTable.setLabel(rsTables.getString("TABLE_NAME"));
                 medataTable.setTableName(medataTable.getLabel());
                 medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS"));
@@ -103,7 +103,7 @@ public class ExtractMetaDataFromDataBase {
             rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableLabel, tableTypes);
             while (rsTables.next()) {
                 MetadataTable medataTable = new MetadataTable();
-                medataTable.setId(medataTables.size() + 1 + ""); // FIXME MHE
+                medataTable.setId(medataTables.size() + 1 + "");
                 medataTable.setLabel(rsTables.getString("TABLE_NAME"));
                 medataTable.setTableName(medataTable.getLabel());
                 medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS"));
