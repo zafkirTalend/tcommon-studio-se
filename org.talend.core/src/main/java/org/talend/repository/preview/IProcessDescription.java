@@ -22,6 +22,7 @@
 package org.talend.repository.preview;
 
 import java.util.List;
+import java.util.Map;
 
 import org.talend.core.model.metadata.IMetadataTable;
 
@@ -215,4 +216,31 @@ public interface IProcessDescription {
      */
     public void setSchema(List<IMetadataTable> schema);
 
+    /**
+     * Getter for loopQuery.
+     * 
+     * @return the loopQuery
+     */
+    public String getLoopQuery();
+
+    /**
+     * Sets the loopQuery.
+     * 
+     * @param loopQuery the loopQuery to set
+     */
+    public void setLoopQuery(String loopQuery);
+    
+    /**
+     * Getter for mapping.
+     * 
+     * @return the mapping
+     */
+    public List<Map<String, String>> getMapping();
+
+    /**
+     * Sets the mapping.
+     * 
+     * @param mapping the mapping to set
+     */
+    public void setMapping(List<Map<String, String>> mapping);
 }

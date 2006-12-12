@@ -91,7 +91,8 @@ public final class ElementParameterParser {
 
     private static Map<String, String> copyLine(Map<String, Object> currentLine, IElementParameter param) {
         Map<String, String> newLine = new HashMap<String, String>();
-        String[] items = param.getListItemsDisplayCodeName();
+        //PTODO cantoine : check with Nico if cause trouble with others Components.
+        String[] items =  currentLine.keySet().toArray(new String[]{});  //param.getListItemsDisplayCodeName(); //{"QUERY"};
         for (int i = 0; i < items.length; i++) {
             Object o = currentLine.get(items[i]);
             if (o instanceof Integer) {
