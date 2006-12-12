@@ -53,7 +53,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * @generated
      * @ordered
      */
-    protected static final int LIMIT_BOUCLE_EDEFAULT = 0;
+    protected static final Integer LIMIT_BOUCLE_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getLimitBoucle() <em>Limit Boucle</em>}' attribute.
@@ -63,7 +63,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * @generated
      * @ordered
      */
-    protected int limitBoucle = LIMIT_BOUCLE_EDEFAULT;
+    protected Integer limitBoucle = LIMIT_BOUCLE_EDEFAULT;
 
     /**
      * The default value of the '{@link #getAbsoluteXPathQuery() <em>Absolute XPath Query</em>}' attribute.
@@ -118,7 +118,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * <!-- end-user-doc -->
      * @generated
      */
-    public int getLimitBoucle() {
+    public Integer getLimitBoucle() {
         return limitBoucle;
     }
 
@@ -127,8 +127,8 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setLimitBoucle(int newLimitBoucle) {
-        int oldLimitBoucle = limitBoucle;
+    public void setLimitBoucle(Integer newLimitBoucle) {
+        Integer oldLimitBoucle = limitBoucle;
         limitBoucle = newLimitBoucle;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE, oldLimitBoucle, limitBoucle));
@@ -261,7 +261,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE:
-                return new Integer(getLimitBoucle());
+                return getLimitBoucle();
             case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY:
                 return getAbsoluteXPathQuery();
             case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:
@@ -280,7 +280,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE:
-                setLimitBoucle(((Integer)newValue).intValue());
+                setLimitBoucle((Integer)newValue);
                 return;
             case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY:
                 setAbsoluteXPathQuery((String)newValue);
@@ -327,7 +327,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__LIMIT_BOUCLE:
-                return limitBoucle != LIMIT_BOUCLE_EDEFAULT;
+                return LIMIT_BOUCLE_EDEFAULT == null ? limitBoucle != null : !LIMIT_BOUCLE_EDEFAULT.equals(limitBoucle);
             case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__ABSOLUTE_XPATH_QUERY:
                 return ABSOLUTE_XPATH_QUERY_EDEFAULT == null ? absoluteXPathQuery != null : !ABSOLUTE_XPATH_QUERY_EDEFAULT.equals(absoluteXPathQuery);
             case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION:

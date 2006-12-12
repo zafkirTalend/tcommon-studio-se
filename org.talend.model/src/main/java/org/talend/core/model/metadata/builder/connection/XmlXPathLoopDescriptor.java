@@ -39,12 +39,12 @@ public interface XmlXPathLoopDescriptor extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Limit Boucle</em>' attribute.
-     * @see #setLimitBoucle(int)
+     * @see #setLimitBoucle(Integer)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlXPathLoopDescriptor_LimitBoucle()
      * @model
      * @generated
      */
-    int getLimitBoucle();
+    Integer getLimitBoucle();
 
     /**
      * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getLimitBoucle <em>Limit Boucle</em>}' attribute.
@@ -54,7 +54,7 @@ public interface XmlXPathLoopDescriptor extends EObject {
      * @see #getLimitBoucle()
      * @generated
      */
-    void setLimitBoucle(int value);
+    void setLimitBoucle(Integer value);
 
     /**
      * Returns the value of the '<em><b>Absolute XPath Query</b></em>' attribute.

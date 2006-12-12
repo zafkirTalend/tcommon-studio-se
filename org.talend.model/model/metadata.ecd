@@ -324,8 +324,8 @@
     <model href="metadata.ecore#//Metadata"/>
     <classifierPreferences xsi:type="editmodel:EMFClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.22/@sourceConnections.0" name="SchemaTarget" location="899,795" size="140,75" id="platform:/resource/org.talend.core/models/metadata.ecore#//SchemaTarget" runTimeClassModel="TagName,RelativeXPathQuery">
-    <children xsi:type="editmodel:CompartmentEditModel" size="117,72">
+  <children xsi:type="editmodel:ClassEditModel" targetConnections="//@children.22/@sourceConnections.0" name="SchemaTarget" location="899,795" size="178,75" id="platform:/resource/org.talend.core/models/metadata.ecore#//SchemaTarget" runTimeClassModel="TagName,RelativeXPathQuery">
+    <children xsi:type="editmodel:CompartmentEditModel" size="155,72">
       <children xsi:type="editmodel:AttributeEditModel" name="TagName" id="platform:/resource/org.talend.core/models/metadata.ecore#//SchemaTarget/TagName">
         <model href="metadata.ecore#//SchemaTarget/TagName"/>
       </children>
@@ -571,14 +571,14 @@
     <children xsi:type="editmodel:CompartmentEditModel"/>
     <children xsi:type="editmodel:CompartmentEditModel"/>
     <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" source="//@children.22" target="//@children.13" targetEnd="//@children.22/@sourceConnections.0/@children.1" sourceEnd="//@children.22/@sourceConnections.0/@children.0" connectionRouterKind="Manhattan">
-      <children xsi:type="editmodel:AssociationEndEditModel" name="schema" location="191,75" id="platform:/resource/org.talend.model/model/metadata.ecore#//SchemaTarget/schema.1" attachSource="true" multiplicityLabel="//@children.22/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.22/@sourceConnections.0/@children.0/@children.0" navigable="true">
-        <children xsi:type="editmodel:LabelEditModel" name="schema" location="731,772" size="38,14" fontInfo="Arial-8-0" anchorKind="FirstPart"/>
-        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="783,772" size="18,14" fontInfo="Arial-8-0" anchorKind="FirstPart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="schema" location="201,65" id="platform:/resource/org.talend.model/model/metadata.ecore#//SchemaTarget/schema.1" attachSource="true" multiplicityLabel="//@children.22/@sourceConnections.0/@children.0/@children.1" roleLabel="//@children.22/@sourceConnections.0/@children.0/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name="schema" location="793,734" size="38,14" fontInfo="Arial-8-0" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="793,762" size="18,14" fontInfo="Arial-8-0" anchorKind="FirstPart"/>
         <model href="metadata.ecore#//SchemaTarget/schema"/>
       </children>
-      <children xsi:type="editmodel:AssociationEndEditModel" name="schemaTargets" location="0,10" id="platform:/resource/org.talend.model/model/metadata.ecore#//XmlXPathLoopDescriptor/schemaTargets" multiplicityLabel="//@children.22/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.22/@sourceConnections.0/@children.1/@children.0" aggregationKind="Composition" navigable="true">
-        <children xsi:type="editmodel:LabelEditModel" name="schemaTargets" location="817,812" size="75,14" fontInfo="Arial-8-0" anchorKind="LastPart"/>
-        <children xsi:type="editmodel:LabelEditModel" name="*" location="888,784" size="4,14" fontInfo="Arial-8-0" anchorKind="LastPart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="schemaTargets" location="10,0" id="platform:/resource/org.talend.model/model/metadata.ecore#//XmlXPathLoopDescriptor/schemaTargets" multiplicityLabel="//@children.22/@sourceConnections.0/@children.1/@children.1" roleLabel="//@children.22/@sourceConnections.0/@children.1/@children.0" aggregationKind="Composition" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name="schemaTargets" location="916,774" size="75,14" fontInfo="Arial-8-0" anchorKind="LastPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="*" location="898,774" size="4,14" fontInfo="Arial-8-0" anchorKind="LastPart"/>
         <model href="metadata.ecore#//XmlXPathLoopDescriptor/schemaTargets"/>
       </children>
     </sourceConnections>
