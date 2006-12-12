@@ -99,6 +99,7 @@ import org.talend.repository.model.FolderHelper;
 import org.talend.repository.model.IRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.ResourceModelUtils;
+import org.talend.repository.model.VersionList;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -216,11 +217,6 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         return convert(getSerializableFromFolder(folder, null, type, false, true));
     }
 
-    public List<IRepositoryObject> getAllVersion(String id) throws PersistenceException {
-        List<IRepositoryObject> serializableAllVersion = getSerializable(getRepositoryContext().getProject(), id, true);
-        return convert(serializableAllVersion);
-    }
-
     public IRepositoryObject getLastVersion(String id) throws PersistenceException {
         List<IRepositoryObject> serializableAllVersion = getSerializable(getRepositoryContext().getProject(), id, false);
 
@@ -231,37 +227,6 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         } else {
             return null;
         }
-    }
-
-    /**
-     * DOC smallet Comment method "convert".
-     * 
-     * @param toReturn
-     * @param serializableAllVersion
-     */
-    private List<IRepositoryObject> convert(List<IRepositoryObject> serializableAllVersion) {
-        List<IRepositoryObject> toReturn = new ArrayList<IRepositoryObject>();
-        for (IRepositoryObject current : serializableAllVersion) {
-            toReturn.add(current);
-        }
-        return toReturn;
-    }
-
-    private List<IRepositoryObject> getSerializable(Project project, String id, boolean allVersion) throws PersistenceException {
-        IProject fsProject = ResourceModelUtils.getProject(project);
-
-        List<IRepositoryObject> toReturn = new ArrayList<IRepositoryObject>();
-
-        ERepositoryObjectType[] repositoryObjectTypeList = new ERepositoryObjectType[] { ERepositoryObjectType.BUSINESS_PROCESS,
-                ERepositoryObjectType.DOCUMENTATION, ERepositoryObjectType.METADATA_CONNECTIONS,
-                ERepositoryObjectType.METADATA_FILE_DELIMITED, ERepositoryObjectType.METADATA_FILE_POSITIONAL,
-                ERepositoryObjectType.METADATA_FILE_REGEXP, ERepositoryObjectType.METADATA_FILE_XML,
-                ERepositoryObjectType.METADATA_FILE_LDIF, ERepositoryObjectType.PROCESS, ERepositoryObjectType.ROUTINES };
-        for (ERepositoryObjectType repositoryObjectType : repositoryObjectTypeList) {
-            IFolder folder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(repositoryObjectType), true);
-            toReturn.addAll(getSerializableFromFolder(folder, id, repositoryObjectType, allVersion, true));
-        }
-        return toReturn;
     }
 
     /**
@@ -276,11 +241,11 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
      * @return a list (may be empty) of objects found
      * @throws PersistenceException
      */
-    private List<IRepositoryObject> getSerializableFromFolder(IFolder folder, String id, ERepositoryObjectType type,
+    protected List<IRepositoryObject> getSerializableFromFolder(Object folder, String id, ERepositoryObjectType type,
             boolean allVersion, boolean searchInChildren) throws PersistenceException {
         List<IRepositoryObject> toReturn = new VersionList(allVersion);
 
-        for (IResource current : ResourceUtils.getMembers(folder)) {
+        for (IResource current : ResourceUtils.getMembers((IFolder) folder)) {
             if (current instanceof IFile) {
                 if (XmiResourceManager.isPropertyFile((IFile) current)) {
                     Property property = xmiResourceManager.loadProperty(current);
@@ -566,84 +531,6 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         ResourceUtils.createFolder(folder);
 
         return new Folder(folderItem.getProperty(), type);
-    }
-
-    ERepositoryObjectType getItemType(Item item) {
-        return (ERepositoryObjectType) new PropertiesSwitch() {
-
-            public Object caseDocumentationItem(DocumentationItem object) {
-                return ERepositoryObjectType.DOCUMENTATION;
-            }
-
-            public Object caseRoutineItem(RoutineItem object) {
-                return ERepositoryObjectType.ROUTINES;
-            }
-
-            public Object caseProcessItem(ProcessItem object) {
-                return ERepositoryObjectType.PROCESS;
-            }
-
-            public Object caseBusinessProcessItem(BusinessProcessItem object) {
-                return ERepositoryObjectType.BUSINESS_PROCESS;
-            }
-
-            public Object caseCSVFileConnectionItem(CSVFileConnectionItem object) {
-                throw new IllegalStateException("not implemented");
-            }
-
-            public Object caseDatabaseConnectionItem(DatabaseConnectionItem object) {
-                return ERepositoryObjectType.METADATA_CONNECTIONS;
-            }
-
-            public Object caseDelimitedFileConnectionItem(DelimitedFileConnectionItem object) {
-                return ERepositoryObjectType.METADATA_FILE_DELIMITED;
-            }
-
-            public Object casePositionalFileConnectionItem(PositionalFileConnectionItem object) {
-                return ERepositoryObjectType.METADATA_FILE_POSITIONAL;
-            }
-
-            public Object caseRegExFileConnectionItem(RegExFileConnectionItem object) {
-                return ERepositoryObjectType.METADATA_FILE_REGEXP;
-            }
-
-            public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
-                return ERepositoryObjectType.METADATA_FILE_XML;
-            }
-
-            public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
-                return ERepositoryObjectType.METADATA_FILE_LDIF;
-            }
-
-            public Object defaultCase(EObject object) {
-                throw new IllegalStateException();
-            }
-        }.doSwitch(item);
-    }
-
-    public boolean isNameAvailable(Item item, String name) throws PersistenceException {
-        if (name == null) {
-            name = item.getProperty().getLabel();
-        }
-
-        if (item instanceof FolderItem) {
-            FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
-            return !folderHelper.pathExists((FolderItem) item, name);
-        }
-
-        ERepositoryObjectType type = getItemType(item);
-
-        if (type == ERepositoryObjectType.METADATA_CON_TABLE) {
-            return false;
-        }
-        List<IRepositoryObject> list = getAll(type);
-
-        for (IRepositoryObject current : list) {
-            if (name.equals(current.getProperty().getLabel()) && item.getProperty().getId() != current.getProperty().getId()) {
-                return false;
-            }
-        }
-        return true;
     }
 
     /*
