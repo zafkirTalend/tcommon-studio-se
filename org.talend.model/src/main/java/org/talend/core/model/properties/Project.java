@@ -18,7 +18,6 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.core.model.properties.Project#getTechnicalStatus <em>Technical Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getDocumentationStatus <em>Documentation Status</em>}</li>
- *   <li>{@link org.talend.core.model.properties.Project#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getLanguage <em>Language</em>}</li>
@@ -73,32 +72,6 @@ public interface Project extends EObject {
      * @generated
      */
     EList getDocumentationStatus();
-
-    /**
-     * Returns the value of the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Id</em>' attribute isn't clear, there really should be more of a description
-     * here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Id</em>' attribute.
-     * @see #setId(int)
-     * @see org.talend.core.model.properties.PropertiesPackage#getProject_Id()
-     * @model id="true" required="true"
-     * @generated
-     */
-    int getId();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.Project#getId <em>Id</em>}' attribute. <!--
-     * begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @param value the new value of the '<em>Id</em>' attribute.
-     * @see #getId()
-     * @generated
-     */
-    void setId(int value);
 
     /**
      * Returns the value of the '<em><b>Label</b></em>' attribute.

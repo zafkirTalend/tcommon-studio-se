@@ -131,24 +131,6 @@ public class Project {
     }
 
     /**
-     * Getter for id.
-     * 
-     * @return the id
-     */
-    public int getId() {
-        return project.getId();
-    }
-
-    /**
-     * Sets the id.
-     * 
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        project.setId(id);
-    }
-
-    /**
      * Getter for language.
      * 
      * @return the language

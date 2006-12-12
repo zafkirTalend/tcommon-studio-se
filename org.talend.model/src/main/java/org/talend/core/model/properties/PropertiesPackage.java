@@ -91,20 +91,12 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__DOCUMENTATION_STATUS = 1;
 
     /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int PROJECT__ID = 2;
-
-    /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROJECT__LABEL = 3;
+    int PROJECT__LABEL = 2;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -113,7 +105,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__DESCRIPTION = 4;
+    int PROJECT__DESCRIPTION = 3;
 
     /**
      * The feature id for the '<em><b>Language</b></em>' attribute.
@@ -121,7 +113,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__LANGUAGE = 5;
+    int PROJECT__LANGUAGE = 4;
 
     /**
      * The feature id for the '<em><b>Technical Label</b></em>' attribute.
@@ -130,7 +122,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__TECHNICAL_LABEL = 6;
+    int PROJECT__TECHNICAL_LABEL = 5;
 
     /**
      * The feature id for the '<em><b>Local</b></em>' attribute.
@@ -138,7 +130,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__LOCAL = 7;
+    int PROJECT__LOCAL = 6;
 
     /**
      * The feature id for the '<em><b>Folders</b></em>' containment reference list.
@@ -147,7 +139,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__FOLDERS = 8;
+    int PROJECT__FOLDERS = 7;
 
     /**
      * The feature id for the '<em><b>Deleted</b></em>' attribute.
@@ -155,7 +147,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__DELETED = 9;
+    int PROJECT__DELETED = 8;
 
     /**
      * The feature id for the '<em><b>Delete Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -164,7 +156,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__DELETE_DATE = 10;
+    int PROJECT__DELETE_DATE = 9;
 
     /**
      * The feature id for the '<em><b>Creation Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -173,7 +165,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__CREATION_DATE = 11;
+    int PROJECT__CREATION_DATE = 10;
 
     /**
      * The feature id for the '<em><b>Author</b></em>' reference.
@@ -181,7 +173,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__AUTHOR = 12;
+    int PROJECT__AUTHOR = 11;
 
     /**
      * The feature id for the '<em><b>User Authorization</b></em>' reference list.
@@ -190,7 +182,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__USER_AUTHORIZATION = 13;
+    int PROJECT__USER_AUTHORIZATION = 12;
 
     /**
      * The feature id for the '<em><b>Allowed Components</b></em>' reference list.
@@ -199,7 +191,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__ALLOWED_COMPONENTS = 14;
+    int PROJECT__ALLOWED_COMPONENTS = 13;
 
     /**
      * The feature id for the '<em><b>Referenced Projects</b></em>' reference list.
@@ -208,7 +200,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__REFERENCED_PROJECTS = 15;
+    int PROJECT__REFERENCED_PROJECTS = 14;
 
     /**
      * The feature id for the '<em><b>Available Ref Project</b></em>' reference list.
@@ -217,7 +209,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT__AVAILABLE_REF_PROJECT = 16;
+    int PROJECT__AVAILABLE_REF_PROJECT = 15;
 
     /**
      * The number of structural features of the '<em>Project</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
@@ -226,7 +218,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 17;
+    int PROJECT_FEATURE_COUNT = 16;
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -1102,20 +1094,12 @@ public interface PropertiesPackage extends EPackage {
     int PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int USER_ROLE__ID = 0;
-
-    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int USER_ROLE__NAME = 1;
+    int USER_ROLE__NAME = 0;
 
     /**
      * The feature id for the '<em><b>Localized Label</b></em>' attribute.
@@ -1124,7 +1108,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER_ROLE__LOCALIZED_LABEL = 2;
+    int USER_ROLE__LOCALIZED_LABEL = 1;
 
     /**
      * The number of structural features of the '<em>User Role</em>' class.
@@ -1133,7 +1117,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int USER_ROLE_FEATURE_COUNT = 3;
+    int USER_ROLE_FEATURE_COUNT = 2;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1286,20 +1270,12 @@ public interface PropertiesPackage extends EPackage {
     int FOLDER_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 2;
 
     /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int COMPONENT__ID = 0;
-
-    /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT__LABEL = 1;
+    int COMPONENT__LABEL = 0;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1307,7 +1283,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__VERSION = 2;
+    int COMPONENT__VERSION = 1;
 
     /**
      * The feature id for the '<em><b>Last Update Date</b></em>' attribute.
@@ -1316,7 +1292,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__LAST_UPDATE_DATE = 3;
+    int COMPONENT__LAST_UPDATE_DATE = 2;
 
     /**
      * The feature id for the '<em><b>Author</b></em>' reference.
@@ -1324,7 +1300,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__AUTHOR = 4;
+    int COMPONENT__AUTHOR = 3;
 
     /**
      * The feature id for the '<em><b>Creation Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1333,7 +1309,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__CREATION_DATE = 5;
+    int COMPONENT__CREATION_DATE = 4;
 
     /**
      * The feature id for the '<em><b>Delete Date</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1342,7 +1318,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__DELETE_DATE = 6;
+    int COMPONENT__DELETE_DATE = 5;
 
     /**
      * The feature id for the '<em><b>Deleted</b></em>' attribute.
@@ -1350,7 +1326,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__DELETED = 7;
+    int COMPONENT__DELETED = 6;
 
     /**
      * The feature id for the '<em><b>File Descriptor</b></em>' attribute.
@@ -1359,7 +1335,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__FILE_DESCRIPTOR = 8;
+    int COMPONENT__FILE_DESCRIPTOR = 7;
 
     /**
      * The feature id for the '<em><b>Projects</b></em>' reference list. <!-- begin-user-doc --> <!-- end-user-doc
@@ -1368,7 +1344,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT__PROJECTS = 9;
+    int COMPONENT__PROJECTS = 8;
 
     /**
      * The number of structural features of the '<em>Component</em>' class.
@@ -1377,7 +1353,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_FEATURE_COUNT = 10;
+    int COMPONENT_FEATURE_COUNT = 9;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.NotationHolderImpl <em>Notation Holder</em>}' class.
@@ -1651,16 +1627,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getProject_DocumentationStatus();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getId <em>Id</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Id</em>'.
-     * @see org.talend.core.model.properties.Project#getId()
-     * @see #getProject()
-     * @generated
-     */
-    EAttribute getProject_Id();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getLabel <em>Label</em>}'.
@@ -2400,16 +2366,6 @@ public interface PropertiesPackage extends EPackage {
     EClass getComponent();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Component#getId <em>Id</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Id</em>'.
-     * @see org.talend.core.model.properties.Component#getId()
-     * @see #getComponent()
-     * @generated
-     */
-    EAttribute getComponent_Id();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Component#getLabel <em>Label</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Label</em>'.
@@ -2675,16 +2631,6 @@ public interface PropertiesPackage extends EPackage {
     EClass getUserRole();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.UserRole#getId <em>Id</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Id</em>'.
-     * @see org.talend.core.model.properties.UserRole#getId()
-     * @see #getUserRole()
-     * @generated
-     */
-    EAttribute getUserRole_Id();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.UserRole#getName <em>Name</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Name</em>'.
@@ -2772,14 +2718,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference PROJECT__DOCUMENTATION_STATUS = eINSTANCE.getProject_DocumentationStatus();
-
-        /**
-         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-         * <!-- begin-user-doc --> <!--
-         * end-user-doc -->
-         * @generated
-         */
-        EAttribute PROJECT__ID = eINSTANCE.getProject_Id();
 
         /**
          * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
@@ -3392,14 +3330,6 @@ public interface PropertiesPackage extends EPackage {
         EClass COMPONENT = eINSTANCE.getComponent();
 
         /**
-         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-         * <!-- begin-user-doc --> <!--
-         * end-user-doc -->
-         * @generated
-         */
-        EAttribute COMPONENT__ID = eINSTANCE.getComponent_Id();
-
-        /**
          * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
          * <!-- begin-user-doc --> <!--
          * end-user-doc -->
@@ -3620,14 +3550,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass USER_ROLE = eINSTANCE.getUserRole();
-
-        /**
-         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-         * <!-- begin-user-doc --> <!--
-         * end-user-doc -->
-         * @generated
-         */
-        EAttribute USER_ROLE__ID = eINSTANCE.getUserRole_Id();
 
         /**
          * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
