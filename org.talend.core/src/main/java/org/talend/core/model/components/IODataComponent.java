@@ -58,11 +58,7 @@ public class IODataComponent {
     public IODataComponent(IConnection connection, IMetadataTable clonedTable) {
         super();
         this.connection = connection;
-        if (clonedTable == null) {
-            this.newMetadataTable = connection.getMetadataTable().clone();
-        } else {
-            this.newMetadataTable = clonedTable;
-        }
+        this.newMetadataTable = clonedTable;
     }
 
     @Override
