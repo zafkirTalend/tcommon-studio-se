@@ -339,23 +339,23 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
-        column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Default");
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
-
-            public String get(IMetadataColumn bean) {
-                return bean.getDefault();
-            }
-
-            public void set(IMetadataColumn bean, String value) {
-                bean.setDefault(value);
-            }
-
-        });
-        column.setWeight(8);
-        column.setModifiable(!isReadOnly());
-        column.setMinimumWidth(30);
-        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+//        column = new TableViewerCreatorColumn(tableViewerCreator);
+//        column.setTitle("Default");
+//        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
+//
+//            public String get(IMetadataColumn bean) {
+//                return bean.getDefault();
+//            }
+//
+//            public void set(IMetadataColumn bean, String value) {
+//                bean.setDefault(value);
+//            }
+//
+//        });
+//        column.setWeight(8);
+//        column.setModifiable(!isReadOnly());
+//        column.setMinimumWidth(30);
+//        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
 
         // //////////////////////////////////////////////////////////////////////////////////////
 

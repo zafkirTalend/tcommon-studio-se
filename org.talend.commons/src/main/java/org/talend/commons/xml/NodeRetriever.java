@@ -55,12 +55,15 @@ public class NodeRetriever {
 
     private XPath xpath;
 
+    private String currentLoopXPath;
+
     /**
      * DOC amaumont XMLNodeRetriever constructor comment.
+     * @param string 
      */
-    public NodeRetriever(String filePath) {
+    public NodeRetriever(String filePath, String loopXPath) {
         super();
-
+        this.currentLoopXPath = loopXPath;
         initSource(filePath);
 
     }
@@ -130,10 +133,27 @@ public class NodeRetriever {
         return nodeList;
     }
 
+//    /**
+//     * DOC amaumont Comment method "retrieveListOfNodes".
+//     * @param relativeXpath
+//     * @param node
+//     */
+//    public NodeList retrieveListOfNodes(String relativeXpath, Node node) {
+//        NodeList nodeList = null;
+//        try {
+//            XPathExpression xpathSchema = xpath.compile(relativeXpath);
+//            nodeList = (NodeList) xpathSchema.evaluate(document, XPathConstants.NODESET);
+//        } catch (Exception e) {
+//            return null;
+//        }
+//        return nodeList;
+//    }
+
+
     public static void main(String[] args) {
         String filePath = "D:\\dev\\examples\\java\\xml\\saxon-resources8-8\\use-cases\\r\\users.xml";
 
-        NodeRetriever pathRetriever = new NodeRetriever(filePath);
+        NodeRetriever pathRetriever = new NodeRetriever(filePath, "");
 
         String xPathExpression = "/users/user_tuple/userid2/@attr";
 
@@ -187,4 +207,22 @@ public class NodeRetriever {
         return this.document;
     }
 
+    /**
+     * DOC amaumont Comment method "setCurrentLoopXPath".
+     * @param newValue
+     */
+    public void setCurrentLoopXPath(String currentLoopXPath) {
+        this.currentLoopXPath = currentLoopXPath;
+    }
+
+    
+    /**
+     * Getter for currentLoopXPath.
+     * @return the currentLoopXPath
+     */
+    public String getCurrentLoopXPath() {
+        return this.currentLoopXPath;
+    }
+
+    
 }

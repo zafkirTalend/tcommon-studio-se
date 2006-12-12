@@ -298,6 +298,14 @@ public abstract class AbstractDataTableEditorView<B> {
         return this.extendedTableViewer.getTableViewerCreator();
     }
 
+    public Table getTable() {
+        TableViewerCreator<B> tableViewerCreator = getTableViewerCreator();
+        if (tableViewerCreator == null) {
+            return null;
+        }
+        return tableViewerCreator.getTable();
+    }
+
     /**
      * Getter for extendedTableModel.
      * 

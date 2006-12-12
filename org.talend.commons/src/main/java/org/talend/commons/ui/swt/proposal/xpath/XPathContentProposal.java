@@ -37,6 +37,11 @@ public class XPathContentProposal implements IContentProposal {
 
     private Node node;
 
+    private boolean relative;
+    
+    private boolean firstRelativeNode;
+    
+    
     /**
      * Constructs a new ContextParameterProposal.
      * 
@@ -56,11 +61,7 @@ public class XPathContentProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getContent()
      */
     public String getContent() {
-        if (this.node instanceof Attr) {
-            content = "/@" + this.node.getNodeName();
-        } else {
-            content = "/" + this.node.getNodeName();
-        }
+        content = getLabel();
         return content;
     }
 
@@ -98,13 +99,57 @@ public class XPathContentProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getLabel()
      */
     public String getLabel() {
-        String label = null;
-        if (this.node instanceof Attr) {
-            label = "/@" + this.node.getNodeName();
+        String label = "";
+        if (relative && firstRelativeNode) {
+            // nothing
         } else {
-            label = "/" + this.node.getNodeName();
+            label = XPathProposalProvider.SLASH;
+        }
+        
+        if (this.node instanceof Attr) {
+            label = label + "@" + this.node.getNodeName();
+        } else {
+            label = label + this.node.getNodeName();
         }
         return label;
     }
 
+    
+    /**
+     * Getter for relative.
+     * @return the relative
+     */
+    public boolean isRelative() {
+        return this.relative;
+    }
+
+    
+    /**
+     * Sets the relative.
+     * @param relative the relative to set
+     */
+    public void setRelative(boolean relative) {
+        this.relative = relative;
+    }
+
+    
+    /**
+     * Getter for startOfExpression.
+     * @return the startOfExpression
+     */
+    public boolean isFirstRelativeNode() {
+        return this.firstRelativeNode;
+    }
+
+    
+    /**
+     * Sets the startOfExpression.
+     * @param startOfExpression the startOfExpression to set
+     */
+    public void setFirstRelativeNode(boolean startOfExpression) {
+        this.firstRelativeNode = startOfExpression;
+    }
+
+    
+    
 }

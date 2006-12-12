@@ -49,6 +49,8 @@ public class XPathProposalProvider implements IContentProposalProvider {
 
     private NodeRetriever nodeRetriever;
 
+    private boolean isRelative;
+
     /**
      * Constructs a new ProcessProposalProvider.
      * 
@@ -57,9 +59,10 @@ public class XPathProposalProvider implements IContentProposalProvider {
      * @param tables
      * @param control
      */
-    public XPathProposalProvider(NodeRetriever nodeRetriever) {
+    public XPathProposalProvider(NodeRetriever nodeRetriever, boolean isRelative) {
         super();
         this.nodeRetriever = nodeRetriever;
+        this.isRelative = isRelative;
     }
 
     public void init() {
@@ -75,11 +78,20 @@ public class XPathProposalProvider implements IContentProposalProvider {
         List<IContentProposal> proposals = new ArrayList<IContentProposal>();
 
         List<Node> nodeList = new ArrayList<Node>();
-        String beforeCursorExp = contents.substring(0, position);
+
+        String beforeCursorExp = null;
+        if (isRelative) {
+            beforeCursorExp = nodeRetriever.getCurrentLoopXPath() + SLASH + contents;
+        } else {
+            beforeCursorExp = contents.substring(0, position);
+        }
         int lastIndexSlash = beforeCursorExp.lastIndexOf(SLASH);
         int lastIndexPipe = beforeCursorExp.lastIndexOf(PIPE);
 
         String currentExpr = null;
+        if (isRelative) {
+            currentExpr = beforeCursorExp;
+        } 
         if (lastIndexSlash == -1 || lastIndexSlash < lastIndexPipe && lastIndexPipe != -1) {
             currentExpr = EMPTY_STRING;
         } else if (lastIndexPipe < lastIndexSlash && lastIndexPipe != -1) {
@@ -122,7 +134,12 @@ public class XPathProposalProvider implements IContentProposalProvider {
                 if ((currentWord.length() > 0 && nodeName.startsWith(currentWord) || currentWord.length() == 0)
                         && !alreadyAdded.contains(absoluteXPathFromNode)) {
                     // System.out.println(absoluteXPathFromNode);
-                    proposals.add(new XPathContentProposal(node));
+                    XPathContentProposal contentProposal = new XPathContentProposal(node);
+                    if (isRelative) {
+                        contentProposal.setRelative(isRelative);
+                        contentProposal.setFirstRelativeNode(contents.indexOf(SLASH) == -1);
+                    }
+                    proposals.add(contentProposal);
                     alreadyAdded.add(absoluteXPathFromNode);
                 }
             }
