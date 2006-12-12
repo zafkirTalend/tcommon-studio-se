@@ -60,7 +60,7 @@ public interface IRunProcessService extends IService {
      * @throws ProcessorException
      */
     public int exec(StringBuffer out, StringBuffer err, IPath absCodePath, IPath absContextPath, Level level,
-            String perlInterpreterLibOption, String perlInterpreterLibCtxOption, int statOption, int traceOption,
+            String perlInterpreterLibOption, String perlInterpreterLibCtxOption, String perlModuleDirectoryOption, int statOption, int traceOption,
             String... codeOptions) throws ProcessorException;
 
     /**
