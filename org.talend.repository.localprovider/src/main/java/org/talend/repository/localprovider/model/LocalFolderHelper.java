@@ -46,10 +46,6 @@ public class LocalFolderHelper extends FolderHelper {
         super(project);
     }
 
-    public static FolderHelper createInstance(org.talend.core.model.general.Project project) {
-        return createInstance(project.getEmfProject());
-    }
-
     public static FolderHelper createInstance(Project project) {
         return new LocalFolderHelper(project);
     }

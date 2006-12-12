@@ -115,17 +115,16 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
 
     /**
      * DOC smallet Comment method "getObjectFromFolder".
-     * 
-     * @param <T> - DOC smallet
-     * @param project - the project to searched in
      * @param type - the type of object to search
-     * @param theType - supp ??
      * @param onlyLastVersion specify <i>true</i> if only the last version of an object must be returned, false for all
      * version
+     * @param project - the project to searched in
+     * 
+     * @param <T> - DOC smallet
      * @return a structure of all object of type in the project
      * @throws PersistenceException if project, folder or resource cannot be found
      */
-    private <K, T> RootContainer<K, T> getObjectFromFolder(ERepositoryObjectType type, T theType, boolean onlyLastVersion)
+    protected <K, T> RootContainer<K, T> getObjectFromFolder(ERepositoryObjectType type, boolean onlyLastVersion)
             throws PersistenceException {
         long currentTime = System.currentTimeMillis();
 
@@ -155,9 +154,9 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
      * version
      * @throws PersistenceException - DOC smallet
      */
-    private <K, T> void addFolderMembers(ERepositoryObjectType type, Container<K, T> toReturn, IFolder objectFolder,
+    protected <K, T> void addFolderMembers(ERepositoryObjectType type, Container<K, T> toReturn, Object objectFolder,
             boolean onlyLastVersion) throws PersistenceException {
-        for (IResource current : ResourceUtils.getMembers(objectFolder)) {
+        for (IResource current : ResourceUtils.getMembers((IFolder) objectFolder)) {
             if (current instanceof IFile) {
                 try {
                     IRepositoryObject currentObject = null;
@@ -199,7 +198,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
             } else if (current instanceof IFolder) {
                 if (!current.getName().equals(BIN)) {
                     Container<K, T> cont = toReturn.addSubContainer(current.getName());
-                    FolderHelper folderHelper = LocalFolderHelper.createInstance(getRepositoryContext().getProject());
+                    FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
                     FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
                     Property property = folder.getProperty();
                     cont.setProperty(property);
@@ -296,19 +295,6 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
             }
         }
         return toReturn;
-    }
-
-    /**
-     * Generates the next id for serializable. If no serializable returns 0.
-     * 
-     * @param project the project to scan
-     * 
-     * @return the next id for the project
-     * @throws PersistenceException
-     * @throws PersistenceException if processes cannot be retrieved
-     */
-    public String getNextId() {
-        return EcoreUtil.generateUUID();
     }
 
     /**
@@ -435,7 +421,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
      * @throws PersistenceException
      */
     private void createFolders(IProject prj, org.talend.core.model.properties.Project emfProject) throws PersistenceException {
-        FolderHelper folderHelper = LocalFolderHelper.createInstance(emfProject);
+        FolderHelper folderHelper = getFolderHelper(emfProject);
 
         // Purge old routines :
         // 1. old built-in:
@@ -472,6 +458,10 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
 
         // 3. Code/routines/Snippets :
         createFolder(prj, folderHelper, "code/routines");
+    }
+
+    protected FolderHelper getFolderHelper(org.talend.core.model.properties.Project emfProject) {
+        return LocalFolderHelper.createInstance(emfProject);
     }
 
     /**
@@ -515,7 +505,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
 
     private void synchronizeFolders(final IProject project, final org.talend.core.model.properties.Project emfProject)
             throws PersistenceException {
-        final FolderHelper helper = LocalFolderHelper.createInstance(emfProject);
+        final FolderHelper helper = getFolderHelper(emfProject);
         final Set<IPath> listFolders = helper.listFolders();
         try {
             project.accept(new IResourceVisitor() {
@@ -569,7 +559,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
 
         String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString() + IPath.SEPARATOR
                 + label;
-        FolderItem folderItem = LocalFolderHelper.createInstance(getRepositoryContext().getProject()).createFolder(completePath);
+        FolderItem folderItem = getFolderHelper(getRepositoryContext().getProject().getEmfProject()).createFolder(completePath);
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
@@ -637,7 +627,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         }
 
         if (item instanceof FolderItem) {
-            FolderHelper folderHelper = LocalFolderHelper.createInstance(getRepositoryContext().getProject());
+            FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
             return !folderHelper.pathExists((FolderItem) item, name);
         }
 
@@ -688,7 +678,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
 
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, true);
-        LocalFolderHelper.createInstance(getRepositoryContext().getProject()).deleteFolder(completePath);
+        getFolderHelper(getRepositoryContext().getProject().getEmfProject()).deleteFolder(completePath);
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
 
         ResourceUtils.deleteFolder(folder);
@@ -705,7 +695,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, false);
 
         IFolder newFolder = ResourceUtils.getFolder(fsProject, completeNewPath, false);
-        LocalFolderHelper.createInstance(getRepositoryContext().getProject()).moveFolder(completeOldPath, completeNewPath);
+        getFolderHelper(getRepositoryContext().getProject().getEmfProject()).moveFolder(completeOldPath, completeNewPath);
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
         ResourceUtils.moveResource(folder, newFolder.getFullPath());
     }
@@ -720,33 +710,10 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
         // IPath targetPath = new
         // Path(SystemFolderNameFactory.getFolderName(type)).append(path).removeLastSegments(1).append(label);
         IPath targetPath = new Path(label);
-        LocalFolderHelper.createInstance(getRepositoryContext().getProject()).renameFolder(completePath, label);
+        getFolderHelper(getRepositoryContext().getProject().getEmfProject()).renameFolder(completePath, label);
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
 
         ResourceUtils.moveResource(folder, targetPath);
-    }
-
-    /**
-     * 
-     * DOC smallet Comment method "getProcessFromFolder".
-     * 
-     * @param project - DOC smallet
-     * @return - DOC smallet
-     * @throws PersistenceException - DOC smallet
-     */
-    private RootContainer<String, IRepositoryObject> getProcessFromFolder() throws PersistenceException {
-        return getObjectFromFolder(ERepositoryObjectType.PROCESS, null, true);
-    }
-
-    /**
-     * Returns all processes of a given project.
-     * 
-     * @param project - DOC smallet
-     * @return - DOC smallet
-     * @throws PersistenceException - DOC smallet
-     */
-    public RootContainer<String, IRepositoryObject> getProcess() throws PersistenceException {
-        return getProcessFromFolder();
     }
 
     /*
@@ -757,7 +724,7 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
     public List<IRepositoryObject> getProcess2() throws PersistenceException {
         List<IRepositoryObject> toReturn = new VersionList(false);
 
-        FolderHelper folderHelper = LocalFolderHelper.createInstance(getRepositoryContext().getProject());
+        FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
         IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(), ERepositoryObjectType.PROCESS);
 
         for (IResource current : ResourceUtils.getMembers(folder)) {
@@ -775,104 +742,6 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
             }
         }
         return toReturn;
-    }
-
-    /**
-     * 
-     * DOC smallet Comment method "getMetadataConnectionFromFolder".
-     * 
-     * @param project - DOC smallet
-     * @return - DOC smallet
-     * @throws PersistenceException - DOC smallet
-     */
-    private RootContainer<String, IRepositoryObject> getMetadataConnectionFromFolder() throws PersistenceException {
-        return getObjectFromFolder(ERepositoryObjectType.METADATA_CONNECTIONS, null, true);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.designer.core.model.metadata.IMetadataFactory#getMetadataConnection(org.talend.core.model.temp.Project)
-     */
-    public RootContainer<String, IRepositoryObject> getMetadataConnection() throws PersistenceException {
-        return getMetadataConnectionFromFolder();
-    }
-
-    private RootContainer<String, IRepositoryObject> getMetadataFileDelimitedFromFolder() throws PersistenceException {
-        return getObjectFromFolder(ERepositoryObjectType.METADATA_FILE_DELIMITED, null, true);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.designer.core.model.metadata.IMetadataFactory#getMetadataConnection(org.talend.core.model.temp.Project)
-     */
-    public RootContainer<String, IRepositoryObject> getMetadataFileDelimited() throws PersistenceException {
-        return getMetadataFileDelimitedFromFolder();
-    }
-
-    private void collect(RootContainer<String, IRepositoryObject> rootContainer, List<ConnectionItem> result)
-            throws PersistenceException {
-        for (IRepositoryObject repositoryObject : rootContainer.getAbsoluteMembers().objects()) {
-            ConnectionItem connectionItem = (ConnectionItem) repositoryObject.getProperty().getItem();
-            if (getStatus(connectionItem) != ERepositoryStatus.DELETED) {
-                result.add(connectionItem);
-            }
-        }
-    }
-
-    // gather all the metadata connections (file / db / etc ...)
-    public List<ConnectionItem> getMetadataConnectionsItem() throws PersistenceException {
-        // PTODO tgu implementation a revoir
-        List<ConnectionItem> result = new ArrayList<ConnectionItem>();
-
-        collect(getMetadataFileDelimited(), result);
-        collect(getMetadataFilePositional(), result);
-        collect(getMetadataFileRegexp(), result);
-        collect(getMetadataFileXml(), result);
-        collect(getMetadataFileLdif(), result);
-        collect(getMetadataConnection(), result);
-
-        return result;
-    }
-
-    private RootContainer<String, IRepositoryObject> getBusinessProcessFromFolder() throws PersistenceException {
-        return getObjectFromFolder(ERepositoryObjectType.BUSINESS_PROCESS, null, true);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.repository.factories.IBusinessProcessFactory#getBusinessProcess(org.talend.core.model.temp.Project)
-     */
-    public RootContainer<String, IRepositoryObject> getBusinessProcess() throws PersistenceException {
-        return getBusinessProcessFromFolder();
-    }
-
-    private RootContainer<String, IRepositoryObject> getDocumentationFromFolder() throws PersistenceException {
-        return getObjectFromFolder(ERepositoryObjectType.DOCUMENTATION, null, true);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.repository.factories.IDocumentationFactory#getRoutines(org.talend.core.model.temp.Project)
-     */
-    public RootContainer<String, IRepositoryObject> getDocumentation() throws PersistenceException {
-        return getDocumentationFromFolder();
-    }
-
-    private RootContainer<String, IRepositoryObject> getRoutineFromFolder() throws PersistenceException {
-        return getObjectFromFolder(ERepositoryObjectType.ROUTINES, null, true);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.repository.factories.IRoutineFactory#getRoutine(org.talend.core.model.temp.Project)
-     */
-    public RootContainer<String, IRepositoryObject> getRoutine() throws PersistenceException {
-        return getRoutineFromFolder();
     }
 
     /*
@@ -977,41 +846,6 @@ public class LocalRepositoryFactory extends AbstractRepositoryFactory implements
                 xmiResourceManager.saveResource(resource);
             }
         }
-    }
-
-    private RootContainer<String, IRepositoryObject> getMetadataFilePositionalFromFolder() throws PersistenceException {
-        return getObjectFromFolder(ERepositoryObjectType.METADATA_FILE_POSITIONAL, null, true);
-    }
-
-    public RootContainer<String, IRepositoryObject> getMetadataFilePositional() throws PersistenceException {
-        return getMetadataFilePositionalFromFolder();
-    }
-
-    // REGEXP FILE
-    private RootContainer<String, IRepositoryObject> getMetadataFileRegexpFromFolder() throws PersistenceException {
-        return getObjectFromFolder(ERepositoryObjectType.METADATA_FILE_REGEXP, null, true);
-    }
-
-    public RootContainer<String, IRepositoryObject> getMetadataFileRegexp() throws PersistenceException {
-        return getMetadataFileRegexpFromFolder();
-    }
-
-    // XML FILE
-    private RootContainer<String, IRepositoryObject> getMetadataFileXmlFromFolder() throws PersistenceException {
-        return getObjectFromFolder(ERepositoryObjectType.METADATA_FILE_XML, null, true);
-    }
-
-    public RootContainer<String, IRepositoryObject> getMetadataFileXml() throws PersistenceException {
-        return getMetadataFileXmlFromFolder();
-    }
-
-    // LDIF FILE
-    private RootContainer<String, IRepositoryObject> getMetadataFileLdifFromFolder() throws PersistenceException {
-        return getObjectFromFolder(ERepositoryObjectType.METADATA_FILE_LDIF, null, true);
-    }
-
-    public RootContainer<String, IRepositoryObject> getMetadataFileLdif() throws PersistenceException {
-        return getMetadataFileLdifFromFolder();
     }
 
     private XmiResourceManager xmiResourceManager = new XmiResourceManager();;
