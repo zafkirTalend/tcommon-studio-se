@@ -31,6 +31,7 @@ import org.talend.core.model.properties.User;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ComponentImpl#getLastUpdateDate <em>Last Update Date</em>}</li>
@@ -46,6 +47,26 @@ import org.talend.core.model.properties.User;
  * @generated
  */
 public class ComponentImpl extends EObjectImpl implements Component {
+    /**
+     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getId()
+     * @generated
+     * @ordered
+     */
+    protected static final int ID_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getId()
+     * @generated
+     * @ordered
+     */
+    protected int id = ID_EDEFAULT;
+
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -222,6 +243,27 @@ public class ComponentImpl extends EObjectImpl implements Component {
      */
     protected EClass eStaticClass() {
         return PropertiesPackage.Literals.COMPONENT;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setId(int newId) {
+        int oldId = id;
+        id = newId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.COMPONENT__ID, oldId, id));
     }
 
     /**
@@ -454,6 +496,8 @@ public class ComponentImpl extends EObjectImpl implements Component {
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
+            case PropertiesPackage.COMPONENT__ID:
+                return new Integer(getId());
             case PropertiesPackage.COMPONENT__LABEL:
                 return getLabel();
             case PropertiesPackage.COMPONENT__VERSION:
@@ -484,6 +528,9 @@ public class ComponentImpl extends EObjectImpl implements Component {
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
+            case PropertiesPackage.COMPONENT__ID:
+                setId(((Integer)newValue).intValue());
+                return;
             case PropertiesPackage.COMPONENT__LABEL:
                 setLabel((String)newValue);
                 return;
@@ -523,6 +570,9 @@ public class ComponentImpl extends EObjectImpl implements Component {
      */
     public void eUnset(int featureID) {
         switch (featureID) {
+            case PropertiesPackage.COMPONENT__ID:
+                setId(ID_EDEFAULT);
+                return;
             case PropertiesPackage.COMPONENT__LABEL:
                 setLabel(LABEL_EDEFAULT);
                 return;
@@ -561,6 +611,8 @@ public class ComponentImpl extends EObjectImpl implements Component {
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
+            case PropertiesPackage.COMPONENT__ID:
+                return id != ID_EDEFAULT;
             case PropertiesPackage.COMPONENT__LABEL:
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
             case PropertiesPackage.COMPONENT__VERSION:
@@ -592,7 +644,9 @@ public class ComponentImpl extends EObjectImpl implements Component {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (label: ");
+        result.append(" (id: ");
+        result.append(id);
+        result.append(", label: ");
         result.append(label);
         result.append(", version: ");
         result.append(version);

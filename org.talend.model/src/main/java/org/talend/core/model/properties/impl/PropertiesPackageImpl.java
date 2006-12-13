@@ -354,10 +354,11 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProject_Label() {
+    public EAttribute getProject_Id() {
         return (EAttribute)projectEClass.getEStructuralFeatures().get(2);
     }
 
@@ -365,7 +366,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProject_Description() {
+    public EAttribute getProject_Label() {
         return (EAttribute)projectEClass.getEStructuralFeatures().get(3);
     }
 
@@ -373,7 +374,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProject_Language() {
+    public EAttribute getProject_Description() {
         return (EAttribute)projectEClass.getEStructuralFeatures().get(4);
     }
 
@@ -381,16 +382,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProject_Author() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(11);
+    public EAttribute getProject_Language() {
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(5);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProject_UserAuthorization() {
+    public EReference getProject_Author() {
         return (EReference)projectEClass.getEStructuralFeatures().get(12);
     }
 
@@ -399,7 +399,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProject_AllowedComponents() {
+    public EReference getProject_UserAuthorization() {
         return (EReference)projectEClass.getEStructuralFeatures().get(13);
     }
 
@@ -408,7 +408,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProject_ReferencedProjects() {
+    public EReference getProject_AllowedComponents() {
         return (EReference)projectEClass.getEStructuralFeatures().get(14);
     }
 
@@ -417,8 +417,17 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProject_AvailableRefProject() {
+    public EReference getProject_ReferencedProjects() {
         return (EReference)projectEClass.getEStructuralFeatures().get(15);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProject_AvailableRefProject() {
+        return (EReference)projectEClass.getEStructuralFeatures().get(16);
     }
 
     /**
@@ -426,14 +435,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_TechnicalLabel() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(5);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getProject_Local() {
         return (EAttribute)projectEClass.getEStructuralFeatures().get(6);
     }
 
@@ -441,8 +442,16 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getProject_Local() {
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getProject_Folders() {
-        return (EReference)projectEClass.getEStructuralFeatures().get(7);
+        return (EReference)projectEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -450,14 +459,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getProject_Deleted() {
-        return (EAttribute)projectEClass.getEStructuralFeatures().get(8);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getProject_DeleteDate() {
         return (EAttribute)projectEClass.getEStructuralFeatures().get(9);
     }
 
@@ -465,8 +466,16 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProject_CreationDate() {
+    public EAttribute getProject_DeleteDate() {
         return (EAttribute)projectEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getProject_CreationDate() {
+        return (EAttribute)projectEClass.getEStructuralFeatures().get(11);
     }
 
     /**
@@ -956,10 +965,11 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getComponent_Label() {
+    public EAttribute getComponent_Id() {
         return (EAttribute)componentEClass.getEStructuralFeatures().get(0);
     }
 
@@ -967,7 +977,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getComponent_Version() {
+    public EAttribute getComponent_Label() {
         return (EAttribute)componentEClass.getEStructuralFeatures().get(1);
     }
 
@@ -975,7 +985,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getComponent_LastUpdateDate() {
+    public EAttribute getComponent_Version() {
         return (EAttribute)componentEClass.getEStructuralFeatures().get(2);
     }
 
@@ -983,8 +993,16 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getComponent_LastUpdateDate() {
+        return (EAttribute)componentEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
     public EReference getComponent_Projects() {
-        return (EReference)componentEClass.getEStructuralFeatures().get(8);
+        return (EReference)componentEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -992,7 +1010,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EReference getComponent_Author() {
-        return (EReference)componentEClass.getEStructuralFeatures().get(3);
+        return (EReference)componentEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -1000,14 +1018,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getComponent_CreationDate() {
-        return (EAttribute)componentEClass.getEStructuralFeatures().get(4);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getComponent_DeleteDate() {
         return (EAttribute)componentEClass.getEStructuralFeatures().get(5);
     }
 
@@ -1015,8 +1025,16 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getComponent_Deleted() {
+    public EAttribute getComponent_DeleteDate() {
         return (EAttribute)componentEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getComponent_Deleted() {
+        return (EAttribute)componentEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -1025,7 +1043,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     public EAttribute getComponent_FileDescriptor() {
-        return (EAttribute)componentEClass.getEStructuralFeatures().get(7);
+        return (EAttribute)componentEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -1177,10 +1195,11 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getUserRole_Name() {
+    public EAttribute getUserRole_Id() {
         return (EAttribute)userRoleEClass.getEStructuralFeatures().get(0);
     }
 
@@ -1188,8 +1207,16 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getUserRole_LocalizedLabel() {
+    public EAttribute getUserRole_Name() {
         return (EAttribute)userRoleEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getUserRole_LocalizedLabel() {
+        return (EAttribute)userRoleEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -1220,6 +1247,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         projectEClass = createEClass(PROJECT);
         createEReference(projectEClass, PROJECT__TECHNICAL_STATUS);
         createEReference(projectEClass, PROJECT__DOCUMENTATION_STATUS);
+        createEAttribute(projectEClass, PROJECT__ID);
         createEAttribute(projectEClass, PROJECT__LABEL);
         createEAttribute(projectEClass, PROJECT__DESCRIPTION);
         createEAttribute(projectEClass, PROJECT__LANGUAGE);
@@ -1300,6 +1328,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(processItemEClass, PROCESS_ITEM__PROCESS);
 
         userRoleEClass = createEClass(USER_ROLE);
+        createEAttribute(userRoleEClass, USER_ROLE__ID);
         createEAttribute(userRoleEClass, USER_ROLE__NAME);
         createEAttribute(userRoleEClass, USER_ROLE__LOCALIZED_LABEL);
 
@@ -1322,6 +1351,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(folderItemEClass, FOLDER_ITEM__TYPE);
 
         componentEClass = createEClass(COMPONENT);
+        createEAttribute(componentEClass, COMPONENT__ID);
         createEAttribute(componentEClass, COMPONENT__LABEL);
         createEAttribute(componentEClass, COMPONENT__VERSION);
         createEAttribute(componentEClass, COMPONENT__LAST_UPDATE_DATE);
@@ -1403,6 +1433,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getProject_TechnicalStatus(), this.getStatus(), null, "technicalStatus", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProject_DocumentationStatus(), this.getStatus(), null, "documentationStatus", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getProject_Id(), ecorePackage.getEInt(), "id", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Label(), ecorePackage.getEString(), "label", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Description(), ecorePackage.getEString(), "description", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_Language(), ecorePackage.getEString(), "language", null, 1, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1483,6 +1514,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getProcessItem_Process(), theTalendFilePackage.getProcessType(), null, "process", null, 0, 1, ProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(userRoleEClass, UserRole.class, "UserRole", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getUserRole_Id(), ecorePackage.getEInt(), "id", null, 1, 1, UserRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUserRole_Name(), ecorePackage.getEString(), "name", null, 1, 1, UserRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getUserRole_LocalizedLabel(), ecorePackage.getEString(), "localizedLabel", null, 1, 1, UserRole.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1505,6 +1537,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getFolderItem_Type(), this.getFolderType(), "type", null, 1, 1, FolderItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(componentEClass, Component.class, "Component", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getComponent_Id(), ecorePackage.getEInt(), "id", null, 1, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_Label(), ecorePackage.getEString(), "label", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_Version(), ecorePackage.getEFloat(), "version", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getComponent_LastUpdateDate(), ecorePackage.getEDate(), "lastUpdateDate", null, 0, 1, Component.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
