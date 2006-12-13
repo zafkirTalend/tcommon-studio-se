@@ -91,8 +91,9 @@ public final class ElementParameterParser {
 
     private static Map<String, String> copyLine(Map<String, Object> currentLine, IElementParameter param) {
         Map<String, String> newLine = new HashMap<String, String>();
-        //PTODO cantoine : check with Nico if cause trouble with others Components.
-        String[] items =  currentLine.keySet().toArray(new String[]{});  //param.getListItemsDisplayCodeName(); //{"QUERY"};
+        // PTODO cantoine : check with Nico if cause trouble with others Components.
+        String[] items = currentLine.keySet().toArray(new String[] {}); // param.getListItemsDisplayCodeName();
+        // //{"QUERY"};
         for (int i = 0; i < items.length; i++) {
             Object o = currentLine.get(items[i]);
             if (o instanceof Integer) {
@@ -103,7 +104,15 @@ public final class ElementParameterParser {
                     newLine.put(items[i], (String) tmpParam.getListItemsValue()[(Integer) o]);
                 }
             } else {
-                newLine.put(items[i], (String) o);
+                if (o instanceof String) {
+                    newLine.put(items[i], (String) o);
+                } else {
+                    if (o instanceof Boolean) {
+                        newLine.put(items[i], ((Boolean) o).toString());
+                    } else {
+                        newLine.put(items[i], "*** ERROR in Table ***");
+                    }
+                }
             }
         }
         return newLine;
