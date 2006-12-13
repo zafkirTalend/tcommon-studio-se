@@ -16,10 +16,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.talend.core.model.properties.Component;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.ProjectComponentAuthorisation;
@@ -27,7 +25,6 @@ import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
-
 import org.talend.core.model.properties.UserProjectAuthorization;
 
 /**
@@ -856,6 +853,38 @@ public class ProjectImpl extends EObjectImpl implements Project {
         result.append(creationDate);
         result.append(')');
         return result.toString();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int PRIME = 31;
+        int result = 1;
+        result = PRIME * result + this.label.hashCode();
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final ProjectImpl other = (ProjectImpl) obj;
+        if (this.label != other.label)
+            return false;
+        return true;
     }
 
 } // ProjectImpl
