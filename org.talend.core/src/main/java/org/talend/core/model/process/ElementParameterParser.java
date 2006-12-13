@@ -91,8 +91,69 @@ public final class ElementParameterParser {
 
     private static Map<String, String> copyLine(Map<String, Object> currentLine, IElementParameter param) {
         Map<String, String> newLine = new HashMap<String, String>();
+        String[] items = param.getListItemsDisplayCodeName(); 
+        for (int i = 0; i < items.length; i++) {
+            Object o = currentLine.get(items[i]);
+            if (o instanceof Integer) {
+                IElementParameter tmpParam = (IElementParameter) param.getListItemsValue()[i];
+                if ((((Integer) o) == -1) || (tmpParam.getListItemsValue().length == 0)) {
+                    newLine.put(items[i], "");
+                } else {
+                    newLine.put(items[i], (String) tmpParam.getListItemsValue()[(Integer) o]);
+                }
+            } else {
+                if (o instanceof String) {
+                    newLine.put(items[i], (String) o);
+                } else {
+                    if (o instanceof Boolean) {
+                        newLine.put(items[i], ((Boolean) o).toString());
+                    } else {
+                        newLine.put(items[i], "*** ERROR in Table ***");
+                    }
+                }
+            }
+        }
+        return newLine;
+    }
+    
+    /**
+     * Only work with one element.
+     * 
+     * @param element
+     * @param text
+     * @return
+     */
+    public static Object getObjectValueXML(final IElement element, final String text) {
+        if (text == null) {
+            return null;
+        }
+        IElementParameter param;
+
+        for (int i = 0; i < element.getElementParameters().size(); i++) {
+            param = (IElementParameter) element.getElementParameters().get(i);
+            if (text.indexOf(param.getVariableName()) != -1) {
+                if (param.getField() == EParameterFieldType.TABLE) {
+                    return createTableValuesXML((List<Map<String, Object>>) param.getValue(), param);
+                }
+                return param.getValue();
+            }
+        }
+        return null;
+    }
+
+    private static List<Map<String, String>> createTableValuesXML(final List<Map<String, Object>> paramValues,
+            final IElementParameter param) {
+        List<Map<String, String>> tableValues = new ArrayList<Map<String, String>>();
+        for (Map<String, Object> currentLine : paramValues) {
+            tableValues.add(copyLineXML(currentLine, param));
+        }
+        return tableValues;
+    }
+    
+    private static Map<String, String> copyLineXML(Map<String, Object> currentLine, IElementParameter param) {
+        Map<String, String> newLine = new HashMap<String, String>();
         // PTODO cantoine : check with Nico if cause trouble with others Components.
-        String[] items = currentLine.keySet().toArray(new String[] {}); // param.getListItemsDisplayCodeName();
+        String[] items = currentLine.keySet().toArray(new String[] {}); 
         // //{"QUERY"};
         for (int i = 0; i < items.length; i++) {
             Object o = currentLine.get(items[i]);
@@ -117,7 +178,7 @@ public final class ElementParameterParser {
         }
         return newLine;
     }
-
+    
     public static String parse(final IElement element, final String text) {
         String newText = ""; //$NON-NLS-1$
         if (text == null) {
