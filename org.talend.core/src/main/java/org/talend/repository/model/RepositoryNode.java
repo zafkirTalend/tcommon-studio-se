@@ -124,7 +124,7 @@ public class RepositoryNode {
      */
     public List<RepositoryNode> getChildren() {
         if (true) {
-            // FIXME SML Remove when MHE attach item to folders
+            // FIXME SML Remove when mhelleboid attach item to folders
             return children;
         }
         if (type == ENodeType.STABLE_SYSTEM_FOLDER || type == ENodeType.SYSTEM_FOLDER) {
