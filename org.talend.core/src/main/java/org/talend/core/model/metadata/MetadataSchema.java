@@ -182,6 +182,7 @@ public final class MetadataSchema {
                 final Node type = nodeMap.getNamedItem("talendType");
                 final Node length = nodeMap.getNamedItem("length");
                 final Node nullable = nodeMap.getNamedItem("nullable");
+                final Node precision = nodeMap.getNamedItem("precision");
                 final Node defaultValue = nodeMap.getNamedItem("default");
                 final Node comment = nodeMap.getNamedItem("comment");
 
@@ -196,6 +197,15 @@ public final class MetadataSchema {
                     }
                 } else {
                     metadataColumn.setLength(null);
+                }
+                if (precision.getNodeValue() != null) {
+                    try {
+                        metadataColumn.setPrecision(Integer.parseInt(precision.getNodeValue()));
+                    } catch (final NumberFormatException e) {
+                        metadataColumn.setPrecision(null);
+                    }
+                } else {
+                    metadataColumn.setPrecision(null);
                 }
                 metadataColumn.setNullable(Boolean.parseBoolean(nullable.getNodeValue()));
                 metadataColumn.setDefault(defaultValue.getNodeValue());
