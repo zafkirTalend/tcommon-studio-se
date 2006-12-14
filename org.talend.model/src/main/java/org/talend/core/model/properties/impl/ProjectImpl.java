@@ -918,7 +918,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
     public int hashCode() {
         final int PRIME = 31;
         int result = 1;
-        result = PRIME * result + this.label.hashCode();
+        result = PRIME * result + this.id;
         return result;
     }
 
@@ -936,7 +936,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
         if (getClass() != obj.getClass())
             return false;
         final ProjectImpl other = (ProjectImpl) obj;
-        if (this.label != other.label)
+        if (this.id != other.id)
             return false;
         return true;
     }
