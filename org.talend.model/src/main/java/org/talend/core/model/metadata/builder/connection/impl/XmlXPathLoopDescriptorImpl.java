@@ -53,7 +53,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * @generated
      * @ordered
      */
-    protected static final Integer LIMIT_BOUCLE_EDEFAULT = null;
+    protected static final Integer LIMIT_BOUCLE_EDEFAULT= null;
 
     /**
      * The cached value of the '{@link #getLimitBoucle() <em>Limit Boucle</em>}' attribute.

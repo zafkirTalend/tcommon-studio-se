@@ -34,6 +34,7 @@ import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#isGuess <em>Guess</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#getMaskXPattern <em>Mask XPattern</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#getSchema <em>Schema</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.XmlFileConnectionImpl#getEncoding <em>Encoding</em>}</li>
  * </ul>
  * </p>
  *
@@ -130,6 +131,26 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * @ordered
      */
     protected EList schema = null;
+
+    /**
+     * The default value of the '{@link #getEncoding() <em>Encoding</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getEncoding()
+     * @generated
+     * @ordered
+     */
+    protected static final String ENCODING_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getEncoding() <em>Encoding</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getEncoding()
+     * @generated
+     * @ordered
+     */
+    protected String encoding = ENCODING_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -250,6 +271,27 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getEncoding() {
+        return encoding;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setEncoding(String newEncoding) {
+        String oldEncoding = encoding;
+        encoding = newEncoding;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.XML_FILE_CONNECTION__ENCODING, oldEncoding, encoding));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
@@ -288,6 +330,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
                 return getMaskXPattern();
             case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
                 return getSchema();
+            case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
+                return getEncoding();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -315,6 +359,9 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
                 getSchema().clear();
                 getSchema().addAll((Collection)newValue);
                 return;
+            case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
+                setEncoding((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -341,6 +388,9 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
             case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
                 getSchema().clear();
                 return;
+            case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
+                setEncoding(ENCODING_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -362,6 +412,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
                 return MASK_XPATTERN_EDEFAULT == null ? maskXPattern != null : !MASK_XPATTERN_EDEFAULT.equals(maskXPattern);
             case ConnectionPackage.XML_FILE_CONNECTION__SCHEMA:
                 return schema != null && !schema.isEmpty();
+            case ConnectionPackage.XML_FILE_CONNECTION__ENCODING:
+                return ENCODING_EDEFAULT == null ? encoding != null : !ENCODING_EDEFAULT.equals(encoding);
         }
         return super.eIsSet(featureID);
     }
@@ -383,6 +435,8 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
         result.append(guess);
         result.append(", MaskXPattern: ");
         result.append(maskXPattern);
+        result.append(", Encoding: ");
+        result.append(encoding);
         result.append(')');
         return result.toString();
     }

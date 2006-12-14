@@ -22,6 +22,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#isGuess <em>Guess</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getMaskXPattern <em>Mask XPattern</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getSchema <em>Schema</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getEncoding <em>Encoding</em>}</li>
  * </ul>
  * </p>
  *
@@ -151,5 +152,31 @@ public interface XmlFileConnection extends Connection {
      * @generated
      */
     EList getSchema();
+
+    /**
+     * Returns the value of the '<em><b>Encoding</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Encoding</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Encoding</em>' attribute.
+     * @see #setEncoding(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlFileConnection_Encoding()
+     * @model
+     * @generated
+     */
+    String getEncoding();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getEncoding <em>Encoding</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Encoding</em>' attribute.
+     * @see #getEncoding()
+     * @generated
+     */
+    void setEncoding(String value);
 
 } // XmlFileConnection

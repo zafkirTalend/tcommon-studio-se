@@ -2228,13 +2228,22 @@ public interface ConnectionPackage extends EPackage {
     int XML_FILE_CONNECTION__SCHEMA = CONNECTION_FEATURE_COUNT + 4;
 
     /**
+     * The feature id for the '<em><b>Encoding</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION__ENCODING = CONNECTION_FEATURE_COUNT + 5;
+
+    /**
      * The number of structural features of the '<em>Xml File Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int XML_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 5;
+    int XML_FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 6;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl <em>Schema Target</em>}' class.
@@ -3379,6 +3388,17 @@ public interface ConnectionPackage extends EPackage {
     EReference getXmlFileConnection_Schema();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.XmlFileConnection#getEncoding <em>Encoding</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Encoding</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getEncoding()
+     * @see #getXmlFileConnection()
+     * @generated
+     */
+    EAttribute getXmlFileConnection_Encoding();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.SchemaTarget <em>Schema Target</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Schema Target</em>'.
@@ -4322,6 +4342,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference XML_FILE_CONNECTION__SCHEMA = eINSTANCE.getXmlFileConnection_Schema();
+
+        /**
+         * The meta object literal for the '<em><b>Encoding</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute XML_FILE_CONNECTION__ENCODING = eINSTANCE.getXmlFileConnection_Encoding();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.SchemaTargetImpl <em>Schema Target</em>}' class.

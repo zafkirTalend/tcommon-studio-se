@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="metadata" size="1251,1386" id="platform:/resource/org.talend.core/models/metadata.ecore#/" metadata="emf-1.0" initialized="true" scrolledX="-20" scrolledY="348" tag="1000" key="3230303631303136206F72672E74616C656E642E6D6F64656C2F63616E746F696E65">
+<editmodel:ClassDiagramEditModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:editmodel="editmodel.xmi" xmlns:options="options.xmi" name="metadata" size="1251,1386" id="platform:/resource/org.talend.core/models/metadata.ecore#/" metadata="emf-1.0" initialized="true" scrolledX="-20" scrolledY="391" tag="1000" key="3230303631303136206F72672E74616C656E642E6D6F64656C2F63616E746F696E65">
   <children xsi:type="editmodel:EnumerationEditModel" name="DatabaseProperties" location="50,1061" size="166,305" id="platform:/resource/org.talend.core/models/metadata.ecore#//DatabaseProperties">
     <children xsi:type="editmodel:CompartmentEditModel" size="114,252">
       <children xsi:type="editmodel:EnumerationLiteralEditModel" name="DatabaseType" id="platform:/resource/org.talend.core/models/metadata.ecore#//DatabaseProperties/DatabaseType">
@@ -401,8 +401,8 @@
     <model href="metadata.ecore#//MetadataColumn"/>
     <classifierPreferences xsi:type="editmodel:EMFClassDiagramClassifierPreference" showStereotype="true" attributeSorter="Natural" methodSorter="Natural"/>
   </children>
-  <children xsi:type="editmodel:ClassEditModel" name="XmlFileConnection" location="600,480" size="163,111" id="platform:/resource/org.talend.core/models/metadata.ecore#//XmlFileConnection" runTimeClassModel="XmlFilePath,MaskXPattern,Guess,XsdFilePath">
-    <children xsi:type="editmodel:CompartmentEditModel" size="125,72">
+  <children xsi:type="editmodel:ClassEditModel" name="XmlFileConnection" location="600,480" size="163,129" id="platform:/resource/org.talend.core/models/metadata.ecore#//XmlFileConnection" runTimeClassModel="Encoding,XmlFilePath,MaskXPattern,Guess,XsdFilePath">
+    <children xsi:type="editmodel:CompartmentEditModel" size="125,90">
       <children xsi:type="editmodel:AttributeEditModel" name="Guess" id="platform:/resource/org.talend.core/models/metadata.ecore#//XmlFileConnection/IsGuess">
         <model href="metadata.ecore#//XmlFileConnection/Guess"/>
       </children>
@@ -415,6 +415,9 @@
       <children xsi:type="editmodel:AttributeEditModel" name="XsdFilePath" id="platform:/resource/org.talend.core/models/metadata.ecore#//XmlFileConnection/XsdFilePath">
         <model href="metadata.ecore#//XmlFileConnection/XsdFilePath"/>
       </children>
+      <children xsi:type="editmodel:AttributeEditModel" name="Encoding" id="platform:/resource/org.talend.model/model/metadata.ecore#//XmlFileConnection/Encoding">
+        <model href="metadata.ecore#//XmlFileConnection/Encoding"/>
+      </children>
     </children>
     <children xsi:type="editmodel:CompartmentEditModel"/>
     <children xsi:type="editmodel:CompartmentEditModel"/>
@@ -423,9 +426,9 @@
       <children xsi:type="editmodel:AssociationEndEditModel"/>
     </sourceConnections>
     <sourceConnections xsi:type="editmodel:AssociationEditModel" autoLocated="true" source="//@children.16" target="//@children.22" targetEnd="//@children.16/@sourceConnections.1/@children.1" sourceEnd="//@children.16/@sourceConnections.1/@children.0" connectionRouterKind="Manhattan">
-      <children xsi:type="editmodel:AssociationEndEditModel" name="connection" location="81,111" id="platform:/resource/org.talend.model/model/metadata.ecore#//XmlXPathLoopDescriptor/connection" attachSource="true" multiplicityLabel="//@children.16/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.16/@sourceConnections.1/@children.0/@children.0" navigable="true">
-        <children xsi:type="editmodel:LabelEditModel" name="connection" location="688,598" size="53,14" fontInfo="Arial-8-0" anchorKind="FirstPart"/>
-        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="656,598" size="18,14" fontInfo="Arial-8-0" anchorKind="FirstPart"/>
+      <children xsi:type="editmodel:AssociationEndEditModel" name="connection" location="81,129" id="platform:/resource/org.talend.model/model/metadata.ecore#//XmlXPathLoopDescriptor/connection" attachSource="true" multiplicityLabel="//@children.16/@sourceConnections.1/@children.0/@children.1" roleLabel="//@children.16/@sourceConnections.1/@children.0/@children.0" navigable="true">
+        <children xsi:type="editmodel:LabelEditModel" name="connection" location="688,616" size="53,14" fontInfo="Arial-8-0" anchorKind="FirstPart"/>
+        <children xsi:type="editmodel:LabelEditModel" name="0..1" location="656,616" size="18,14" fontInfo="Arial-8-0" anchorKind="FirstPart"/>
         <model href="metadata.ecore#//XmlXPathLoopDescriptor/connection"/>
       </children>
       <children xsi:type="editmodel:AssociationEndEditModel" name="schema" location="96,0" id="platform:/resource/org.talend.model/model/metadata.ecore#//XmlFileConnection/schema.1" multiplicityLabel="//@children.16/@sourceConnections.1/@children.1/@children.1" roleLabel="//@children.16/@sourceConnections.1/@children.1/@children.0" aggregationKind="Composition" navigable="true">
