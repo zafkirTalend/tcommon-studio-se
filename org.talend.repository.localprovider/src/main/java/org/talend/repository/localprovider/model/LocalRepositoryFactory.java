@@ -1043,8 +1043,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
-    public boolean findUser(Project project) throws PersistenceException {
-        IProject iProject = ResourceModelUtils.getProject(project);
+    public boolean doesLoggedUserExist() throws PersistenceException {
+        IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
         org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
 
@@ -1061,8 +1061,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return false;
     }
 
-    public void createUser(Project project) throws PersistenceException {
-        IProject iProject = ResourceModelUtils.getProject(project);
+    public void createUser() throws PersistenceException {
+        IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
         org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
 
@@ -1109,16 +1109,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         return ERepositoryStatus.DEFAULT;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IRepositoryFactory#commit(org.talend.core.model.properties.Item)
-     */
-    public void commit(Item obj) {
-        // TODO SML Delete this method
-        // Nothing to do
     }
 
 }

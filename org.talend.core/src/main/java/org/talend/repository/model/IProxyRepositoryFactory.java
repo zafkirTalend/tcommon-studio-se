@@ -335,11 +335,9 @@ public interface IProxyRepositoryFactory {
      */
     public abstract void unlock(Item obj) throws PersistenceException;
 
-    public abstract void commit(Item obj) throws PersistenceException;
+    public abstract boolean doesLoggedUserExist() throws PersistenceException;
 
-    public abstract boolean findUser(Project project) throws PersistenceException;
-
-    public abstract void createUser(Project project) throws PersistenceException;
+    public abstract void createUser() throws PersistenceException;
 
     public abstract void initialize();
 
