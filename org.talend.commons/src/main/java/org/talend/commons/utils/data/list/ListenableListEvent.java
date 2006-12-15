@@ -56,7 +56,7 @@ public class ListenableListEvent<E> {
 
     public Object[] swapedObjects;
 
-    public ListenableList<E> source;
+    public IExtendedList<E> source;
 
     public Collection<E> addedObjects;
 

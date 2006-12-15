@@ -46,7 +46,7 @@ import org.xml.sax.SAXException;
  * $Id$
  * 
  */
-public class NodeRetriever {
+public class NodeRetriever2 {
 
     public static final String STRING_EMPTY = "";
 
@@ -62,7 +62,7 @@ public class NodeRetriever {
      * DOC amaumont XMLNodeRetriever constructor comment.
      * @param string 
      */
-    public NodeRetriever(String filePath, String loopXPath) {
+    public NodeRetriever2(String filePath, String loopXPath) {
         super();
         this.currentLoopXPath = loopXPath;
         initSource(filePath);
@@ -135,7 +135,7 @@ public class NodeRetriever {
     public static void main(String[] args) throws XPathExpressionException {
         String filePath = "C:/test_xml/Microsoft.DirectX.Direct3DX.xml";
 
-        NodeRetriever pathRetriever = new NodeRetriever(filePath, "");
+        NodeRetriever2 pathRetriever = new NodeRetriever2(filePath, "");
 
         String currentExpr = "/doc/members";
 //        String currentExpr = "/doc/members";

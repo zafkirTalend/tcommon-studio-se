@@ -72,6 +72,7 @@ import org.talend.commons.ui.swt.tableviewer.sort.TableViewerCreatorSorter;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.ui.utils.TableUtils;
 import org.talend.commons.ui.ws.WindowSystem;
+import org.talend.commons.utils.data.list.ListenableList;
 import org.talend.commons.utils.threading.AsynchronousThreading;
 
 /**
@@ -267,6 +268,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     private boolean useCustomItemColoring;
 
+    private List list;
+
     /**
      * Constructor.
      * 
@@ -294,15 +297,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      */
     public void init() {
         init(null);
-    }
-
-    @SuppressWarnings("unchecked")
-    public void init(Collection collection) {
-        if (collection != null) {
-            init(new ArrayList<B>(collection));
-        } else {
-            init();
-        }
     }
 
     /**
@@ -343,10 +337,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             attachCellEditors();
             addListeners();
         }
-        // long time11 = System.currentTimeMillis();
-//        if (list != null) {
-            setInputList(list);
-//        }
+        this.list = list;
+        setInputList(list);
         if (tableEditorManager != null) {
             tableEditorManager.init();
         }
@@ -358,6 +350,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     public void setInputList(List list) {
+        this.list = list;
         tableViewer.setInput(list);
         refreshTableEditorControls();
     }
@@ -985,8 +978,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      */
     public enum LAYOUT_MODE {
         /**
-         * Layout mode.
-         * Default layout based on <code>TableLayout</code> behavior :
+         * Layout mode. Default layout based on <code>TableLayout</code> behavior :
          * <p>- Use width and weight to initialize columns size, but don't resize columns when table is resized
          * </p>
          */
@@ -1004,7 +996,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         CONTINUOUS,
 
         /**
-         * Layout mode. 
+         * Layout mode.
          * <p>- Use width and weight to initialize columns size, but don't resize columns when table is resized
          * </p>
          * <p>- Fill all empty space at initialization
@@ -1578,13 +1570,14 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
-     * DOC amaumont Comment method "setBeanValue".
+     * Change value in model and refresh auomatically the <code>TableViewer</code> if <code>Table</code> is not disposed.
      * 
      * @param currentRowObject
      * @param createNewCommand TODO
      * @param beanPropertyAccessors
      * @param b
      */
+    @SuppressWarnings("unchecked")
     public void setBeanValue(TableViewerCreatorColumn column, B currentRowObject, Object value, boolean createNewCommand) {
         boolean listened = modifiedBeanListeners.size() != 0;
 
@@ -1592,12 +1585,17 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
         if (value == null && previousValue != null || value != null && !value.equals(previousValue)) {
             AccessorUtils.set(column, currentRowObject, value);
-            tableViewer.refresh(currentRowObject);
+            if (getTable() != null && !getTable().isDisposed()) {
+                tableViewer.refresh(currentRowObject);
+            }
+            
+            ListenableList<B> extendedList = new ListenableList<B>(this.list);
+            extendedList.setUseEquals(false);
 
             ModifiedBeanEvent<B> event = new ModifiedBeanEvent<B>();
             event.bean = (B) currentRowObject;
             event.column = column;
-            event.index = getInputList().indexOf(currentRowObject);
+            event.index = extendedList.indexOf(currentRowObject);
             event.newValue = value;
             event.previousValue = previousValue;
             if (listened) {
@@ -1641,14 +1639,14 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         return this.compositeParent;
     }
 
-//    /**
-//     * DOC amaumont Comment method "removeEraseListener".
-//     */
-//    private void removeEraseListener() {
-//        if (eraseItemListener != null) {
-//            table.removeListener(SWT.EraseItem, eraseItemListener);
-//        }
-//    }
+    // /**
+    // * DOC amaumont Comment method "removeEraseListener".
+    // */
+    // private void removeEraseListener() {
+    // if (eraseItemListener != null) {
+    // table.removeListener(SWT.EraseItem, eraseItemListener);
+    // }
+    // }
 
     /**
      * DOC amaumont Comment method "addEraseListener".

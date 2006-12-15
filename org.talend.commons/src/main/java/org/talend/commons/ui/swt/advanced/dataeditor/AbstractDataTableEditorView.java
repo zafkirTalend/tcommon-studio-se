@@ -24,6 +24,7 @@ package org.talend.commons.ui.swt.advanced.dataeditor;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -62,6 +63,8 @@ public abstract class AbstractDataTableEditorView<B> {
 
     private boolean toolbarVisible = true;
 
+    private boolean labelVisible = true;
+
     // private IExtendedModelListener modelNameListener = new IExtendedModelListener() {
     //
     // public void handleEvent(ExtendedModelEvent event) {
@@ -79,15 +82,17 @@ public abstract class AbstractDataTableEditorView<B> {
      * @param parentComposite
      * @param mainCompositeStyle
      * @param extendedTableModel
+     * @param labelVisible TODO
      */
     public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<B> extendedTableModel,
-            boolean readOnly, boolean toolbarVisible) {
+            boolean readOnly, boolean toolbarVisible, boolean labelVisible) {
         super();
         this.parentComposite = parentComposite;
         this.mainCompositeStyle = mainCompositeStyle;
         this.extendedTableModel = extendedTableModel;
         this.readOnly = readOnly;
         this.toolbarVisible = toolbarVisible;
+        this.labelVisible = labelVisible;
         initGraphicComponents();
         setExtendedTableModel(extendedTableModel);
     }
@@ -103,7 +108,7 @@ public abstract class AbstractDataTableEditorView<B> {
      * @param extendedTableModel
      */
     public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<B> extendedTableModel) {
-        this(parentComposite, mainCompositeStyle, extendedTableModel, false, true);
+        this(parentComposite, mainCompositeStyle, extendedTableModel, false, true, true);
     }
 
     /**
@@ -140,12 +145,20 @@ public abstract class AbstractDataTableEditorView<B> {
     public void initGraphicComponents() {
 
         mainComposite = new Composite(parentComposite, mainCompositeStyle);
+        if (parentComposite.getBackground() != null && !parentComposite.getBackground().equals(mainComposite.getBackground())) {
+            mainComposite.setBackground(parentComposite.getBackground());
+        }
         GridLayout layout = new GridLayout();
         mainComposite.setLayout(layout);
 
-        titleLabel = new Label(mainComposite, SWT.NONE);
-        titleLabel.setText("");
-        titleLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        if (this.labelVisible) {
+            titleLabel = new Label(mainComposite, SWT.NONE);
+            titleLabel.setText("");
+            titleLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+            if (parentComposite.getBackground() != null && !parentComposite.getBackground().equals(titleLabel.getBackground())) {
+                titleLabel.setBackground(parentComposite.getBackground());
+            }
+        }
 
         initTable();
 
@@ -328,10 +341,12 @@ public abstract class AbstractDataTableEditorView<B> {
      */
     public void setExtendedTableModel(ExtendedTableModel<B> extendedTableModel) {
         extendedTableViewer.setExtendedControlModel(extendedTableModel);
-        if (extendedTableModel != null) {
-            titleLabel.setText(extendedTableModel.getName() == null ? "" : extendedTableModel.getName());
-        } else {
-            titleLabel.setText("");
+        if (titleLabel != null) {
+            if (extendedTableModel != null) {
+                titleLabel.setText(extendedTableModel.getName() == null ? "" : extendedTableModel.getName());
+            } else {
+                titleLabel.setText("");
+            }
         }
     }
 

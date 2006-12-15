@@ -36,7 +36,7 @@ import org.talend.commons.utils.data.list.ListenableList;
  * $Id$
  * 
  */
-public class ExtendedTableMoveCommand extends Command {
+public class ExtendedTableMoveCommand extends Command implements IExtendedTableCommand {
 
     private ExtendedTableModel extendedTable;
 
@@ -50,11 +50,13 @@ public class ExtendedTableMoveCommand extends Command {
 
     private ListenableList list;
 
+    public static final String LABEL = "Move up or down, one or more table entries";
+
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
     public ExtendedTableMoveCommand(ExtendedTableModel extendedTable, boolean moveUp, int[] entriesIndices) {
-        super();
+        super(LABEL);
         this.extendedTable = extendedTable;
         this.moveUp = moveUp;
         this.entriesIndices = entriesIndices;
@@ -139,9 +141,7 @@ public class ExtendedTableMoveCommand extends Command {
     @SuppressWarnings("unchecked")
     @Override
     public void redo() {
-        Collections.reverse(indicesTarget);
-        Collections.reverse(indicesOrigin);
-        list.swapElements(indicesOrigin, indicesTarget);
+        undo();
     }
 
     /*

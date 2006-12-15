@@ -26,8 +26,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.xpath.XPathExpressionException;
+
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.xml.NodeRetriever;
 import org.w3c.dom.Node;
 
@@ -118,10 +121,19 @@ public class XPathProposalProvider implements IContentProposalProvider {
         // System.out.println("beforeCursorExp='"+beforeCursorExp+"'");
         // System.out.println("currentWord='"+currentWord+"'");
         // System.out.println("1");
-        List<Node> list = this.nodeRetriever.retrieveListOfNodes(createXPathExpression(currentExpr));
+        List<Node> list = new ArrayList<Node>(0);
+        try {
+            list = this.nodeRetriever.retrieveListOfNodes(createXPathExpression(currentExpr));
+        } catch (XPathExpressionException e) {
+            ExceptionHandler.process(e);
+        }
         nodeList.addAll(list);
         if (list.size() == 0) {
-            nodeList.addAll(nodeRetriever.retrieveListOfNodes(createXPathExpression(beforeCursorExp)));
+            try {
+                nodeList.addAll(nodeRetriever.retrieveListOfNodes(createXPathExpression(beforeCursorExp)));
+            } catch (XPathExpressionException e) {
+                ExceptionHandler.process(e);
+            }
         }
         // System.out.println("nodeList.size()="+nodeList.size());
 

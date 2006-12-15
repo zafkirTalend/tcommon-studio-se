@@ -52,7 +52,7 @@ public class ModifyBeanValueCommand<B> extends Command {
      */
     @Override
     public String getLabel() {
-        return "ModifyBeanValueCommand";
+        return "Modify cell value";
     }
 
     /*

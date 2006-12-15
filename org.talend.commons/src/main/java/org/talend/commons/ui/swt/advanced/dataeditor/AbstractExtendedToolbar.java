@@ -66,6 +66,7 @@ public abstract class AbstractExtendedToolbar {
     protected void initMainComponent(Composite parent, int style) {
         this.parentComposite = parent;
         toolbar = new Composite(parent, style);
+        toolbar.setBackground(parent.getBackground());
         toolbar.setLayout(new RowLayout(SWT.HORIZONTAL));
     }
 

@@ -45,6 +45,14 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
 
     public ExtendedTableModel(String name) {
         super(name);
+        init();
+    }
+
+    /**
+     * DOC amaumont Comment method "init".
+     */
+    private void init() {
+        beansList.setUseEquals(false);        
     }
 
     /**
@@ -52,6 +60,7 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      */
     public ExtendedTableModel() {
         super();
+        init();
     }
 
     /**
@@ -62,6 +71,7 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      */
     public ExtendedTableModel(String name, List<B> dataList) {
         super(name);
+        init();
         registerDataList(dataList);
     }
 

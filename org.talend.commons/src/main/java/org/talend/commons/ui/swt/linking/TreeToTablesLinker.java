@@ -67,7 +67,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
 
     private IStyleLink unselectedStyleLink;
 
-    private Comparator<LinkDescriptor<TreeItem, D1, Table, D2>> selectedLinksComparator;
+    private Comparator<LinkDescriptor<TreeItem, D1, Table, D2>> drawingLinksComparator;
 
     private IBackgroundRefresher backgroundRefresher;
 
@@ -121,16 +121,16 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
      */
     protected void createLinksComparators() {
 
-        this.selectedLinksComparator = getSelectedLinksComparator();
+        this.drawingLinksComparator = getDrawingLinksComparator();
 
     }
 
     /**
-     * DOC amaumont Comment method "getSelectedLinksComparator".
+     * Define a comparator to draw links.
      */
-    protected Comparator<LinkDescriptor<TreeItem, D1, Table, D2>> getSelectedLinksComparator() {
-        if (this.selectedLinksComparator == null) {
-            this.selectedLinksComparator = new Comparator<LinkDescriptor<TreeItem, D1, Table, D2>>() {
+    protected Comparator<LinkDescriptor<TreeItem, D1, Table, D2>> getDrawingLinksComparator() {
+        if (this.drawingLinksComparator == null) {
+            this.drawingLinksComparator = new Comparator<LinkDescriptor<TreeItem, D1, Table, D2>>() {
 
                 public int compare(LinkDescriptor<TreeItem, D1, Table, D2> link1, LinkDescriptor<TreeItem, D1, Table, D2> link2) {
                     IStyleLink link1StyleLink = link1.getStyleLink();
@@ -146,7 +146,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
 
             };
         }
-        return this.selectedLinksComparator;
+        return this.drawingLinksComparator;
     }
 
     /*
@@ -323,7 +323,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
             link.setStyleLink(styleLink);
 
         }
-        linksManager.sortLinks(getSelectedLinksComparator());
+        linksManager.sortLinks(getDrawingLinksComparator());
         backgroundRefresher.refreshBackground();
     }
 

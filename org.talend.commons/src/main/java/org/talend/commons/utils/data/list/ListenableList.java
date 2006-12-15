@@ -32,17 +32,21 @@ import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
+ *
+ * $Id$
  * 
- * @param <T> $Id$
+ * @param <T> type of beans in list
  * 
  */
-public class ListenableList<T> implements List<T> {
+public class ListenableList<T> implements IExtendedList<T> {
 
-    private List<OrderableWrapper<IListenableListListener>> beforeListeners = new ArrayList<OrderableWrapper<IListenableListListener>>();
+    List<OrderableWrapper<IListenableListListener>> beforeListeners = new ArrayList<OrderableWrapper<IListenableListListener>>();
 
     private List<OrderableWrapper<IListenableListListener>> afterListeners = new ArrayList<OrderableWrapper<IListenableListListener>>();
 
-    private List<T> list;
+    List<T> list;
+
+    boolean useEquals = true;
 
     /**
      * DOC amaumont ListenableList constructor comment.
@@ -63,7 +67,7 @@ public class ListenableList<T> implements List<T> {
      * @see java.util.List#add(java.lang.Object)
      */
     public boolean add(T o) {
-        int index = this.list.indexOf(o);
+        int index = this.list.size();
         fireAddedEvent(index, o, true);
         boolean returnValue = this.list.add(o);
         if (returnValue) {
@@ -162,13 +166,72 @@ public class ListenableList<T> implements List<T> {
         fireClearedEvent(false);
     }
 
-    /*
-     * (non-Javadoc)
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see java.util.List#contains(java.lang.Object)
+    // */
+    // public boolean contains(Object o) {
+    // return this.list.contains(o);
+    // }
+
+    /**
+     * Returns whether the list contains the object. This implementation uses either <code>equals</code> or
+     * <code>"=="</code> depending on {@link #isUseEquals useEquals}.
      * 
-     * @see java.util.List#contains(java.lang.Object)
+     * @param object the object in question.
+     * @return whether the list contains the object.
+     * @see #useEquals
      */
-    public boolean contains(Object o) {
-        return this.list.contains(o);
+    public boolean contains(Object object) {
+
+        int size = list.size();
+
+        if (useEquals && object != null) {
+            return this.list.contains(object);
+        } else {
+            for (int i = 0; i < size; ++i) {
+                if (list.get(i) == object) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see java.util.List#indexOf(java.lang.Object)
+    // */
+    // public int indexOf(Object o) {
+    // return this.list.indexOf(o);
+    // }
+
+    /**
+     * Returns the position of the first occurrence of the object in the list. This implementation uses either
+     * <code>equals</code> or <code>"=="</code> depending on {@link #isUseEquals useEquals}.
+     * 
+     * @param object the object in question.
+     * @return the position of the first occurrence of the object in the list.
+     */
+    public int indexOf(Object object) {
+        int size = list.size();
+        if (useEquals && object != null) {
+            for (int i = 0; i < size; ++i) {
+                if (object.equals(this.list.get(i))) {
+                    return i;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; ++i) {
+                if (this.list.get(i) == object) {
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     /*
@@ -187,15 +250,6 @@ public class ListenableList<T> implements List<T> {
      */
     public T get(int index) {
         return this.list.get(index);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.List#indexOf(java.lang.Object)
-     */
-    public int indexOf(Object o) {
-        return this.list.indexOf(o);
     }
 
     /*
@@ -229,7 +283,7 @@ public class ListenableList<T> implements List<T> {
             }
 
             public void remove() {
-                Integer indexBeforeRemove = list.indexOf(current);
+                Integer indexBeforeRemove = indexOf(current);
                 fireBeforeRemovedEvent(indexBeforeRemove);
                 internalIterator.remove();
                 fireRemovedEvent(indexBeforeRemove, current);
@@ -322,7 +376,7 @@ public class ListenableList<T> implements List<T> {
      */
     @SuppressWarnings("unchecked")
     public boolean remove(Object o) {
-        int index = this.list.indexOf(o);
+        int index = indexOf(o);
         boolean returnValue = this.list.remove(o);
         if (returnValue) {
             fireRemovedEvent(index, (T) o);
@@ -365,22 +419,31 @@ public class ListenableList<T> implements List<T> {
         }
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Removes each object of the collection from the list and returns whether any object was actually contained by the
+     * list.
      * 
-     * @see java.util.List#removeAll(java.util.Collection)
+     * @param collection the collection of objects to be removed.
+     * @return whether any object was actually contained by the list.
      */
     @SuppressWarnings("unchecked")
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(Collection<?> collection) {
 
-        List<Integer> indices = getIndices(c);
+        List<Integer> indices = getIndices(collection);
 
-        fireRemovedEvent(null, new ArrayList(c), indices, true);
-        boolean returnValue = this.list.removeAll(c);
-        if (returnValue) {
-            fireRemovedEvent(null, new ArrayList(c), indices, false);
+        fireRemovedEvent(null, new ArrayList(collection), indices, true);
+        if(this.list == null) {
+            return false;
         }
-        return returnValue;
+        boolean modified = false;
+        for (int i = indices.size(); --i >= 0;) {
+            this.list.remove((int) indices.get(i));
+            modified = true;
+        }
+        if (modified) {
+            fireRemovedEvent(null, new ArrayList(collection), indices, false);
+        }
+        return modified;
     }
 
     /**
@@ -391,7 +454,7 @@ public class ListenableList<T> implements List<T> {
     private List<Integer> getIndices(Collection<?> c) {
         List<Integer> indices = new ArrayList<Integer>(c.size());
         for (Object bean : c) {
-            int i = this.list.indexOf(bean);
+            int i = indexOf(bean);
             if (i != -1) {
                 indices.add(i);
             } else {
@@ -415,7 +478,7 @@ public class ListenableList<T> implements List<T> {
             List<T> removedObjects = new ArrayList<T>();
             for (int i = 0; i < size; i++) {
                 T removedObject = all.get(i);
-                if (this.list.indexOf(removedObject) < 0) {
+                if (indexOf(removedObject) < 0) {
                     removedObjects.add(removedObject);
                 }
             }
@@ -489,7 +552,7 @@ public class ListenableList<T> implements List<T> {
         fireSwapedEvent(indexList1, indexList2, new Object[] { this.list.get(index1), this.list.get(index2) }, false);
     }
 
-    private void internalSwap(int index1, int index2) {
+    void internalSwap(int index1, int index2) {
         if (index1 == index2) {
             return;
         }
@@ -528,7 +591,7 @@ public class ListenableList<T> implements List<T> {
     }
 
     public void swapElement(T object1, T object2) {
-        swap(this.list.indexOf(object1), this.list.indexOf(object2));
+        swap(indexOf(object1), indexOf(object2));
     }
 
     /**
@@ -650,7 +713,8 @@ public class ListenableList<T> implements List<T> {
 
         int size = listeners.size();
         for (int i = 0; i < size; i++) {
-            listeners.get(i).getBean().handleEvent(event);
+            IListenableListListener bean = listeners.get(i).getBean();
+            bean.handleEvent(event);
         }
     }
 
@@ -745,6 +809,24 @@ public class ListenableList<T> implements List<T> {
      */
     public boolean isListRegistered() {
         return list != null;
+    }
+
+    /**
+     * Getter for useEquals.
+     * 
+     * @return the useEquals
+     */
+    public boolean isUseEquals() {
+        return this.useEquals;
+    }
+
+    /**
+     * Sets the useEquals.
+     * 
+     * @param useEquals the useEquals to set
+     */
+    public void setUseEquals(boolean useEquals) {
+        this.useEquals = useEquals;
     }
 
 }

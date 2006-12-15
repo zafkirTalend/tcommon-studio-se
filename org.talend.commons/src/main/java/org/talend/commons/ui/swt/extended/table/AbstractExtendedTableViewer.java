@@ -111,7 +111,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
             extendedTableModel.setModifiedBeanListenable(this.tableViewerCreator);
         } else {
             this.tableViewerCreator.init(null);
-//            this.tableViewerCreator.
+            // this.tableViewerCreator.
         }
     }
 
@@ -209,62 +209,65 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * DOC amaumont Comment method "initListeners".
      */
     protected void initModelListeners() {
-        if(getExtendedTableModel() != null) {
-            
+        if (getExtendedTableModel() != null) {
+
             getExtendedTableModel().addBeforeOperationListListener(1, new IListenableListListener() {
-                
+
                 public void handleEvent(ListenableListEvent event) {
                     handleBeforeListenableListOperationEvent(event);
                 }
-                
+
             });
-            
+
             getExtendedTableModel().addAfterOperationListListener(1, new IListenableListListener() {
-                
+
                 public void handleEvent(ListenableListEvent event) {
                     handleAfterListenableListOperationEvent(event);
                 }
-                
+
             });
-            
+
             getExtendedTableModel().addAfterOperationListListener(100, new IListenableListListener<B>() {
-                
+
                 public void handleEvent(ListenableListEvent<B> event) {
-                    tableViewerCreator.getTable().forceFocus();
-                    if (event.type == TYPE.ADDED) {
-                        if (event.index != null) {
-                            tableViewerCreator.getSelectionHelper().setSelection(event.index, event.index + event.addedObjects.size() - 1);
-                        } else if (event.indicesTarget != null) {
-                            int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
-                            tableViewerCreator.getSelectionHelper().setSelection(selection);
-                            
-                        }
-                    } else if (event.type == TYPE.REMOVED) {
-                        if (event.index != null || event.indicesOrigin != null && event.indicesOrigin.size() > 0) {
-                            int index = 0;
+                    if (tableViewerCreator.getTable() != null && !tableViewerCreator.getTable().isDisposed()) {
+                        tableViewerCreator.getTable().forceFocus();
+                        if (event.type == TYPE.ADDED) {
                             if (event.index != null) {
-                                index = event.index;
+                                tableViewerCreator.getSelectionHelper().setSelection(event.index,
+                                        event.index + event.addedObjects.size() - 1);
+                            } else if (event.indicesTarget != null) {
+                                int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
+                                tableViewerCreator.getSelectionHelper().setSelection(selection);
+
+                            }
+                        } else if (event.type == TYPE.REMOVED) {
+                            if (event.index != null || event.indicesOrigin != null && event.indicesOrigin.size() > 0) {
+                                int index = 0;
+                                if (event.index != null) {
+                                    index = event.index;
+                                } else {
+                                    index = event.indicesOrigin.get(event.indicesOrigin.size() - 1);
+                                }
+                                int itemCount = tableViewerCreator.getTable().getItemCount();
+                                if (index >= itemCount) {
+                                    index = itemCount - 1;
+                                }
+                                tableViewerCreator.getSelectionHelper().setSelection(index, index);
                             } else {
-                                index = event.indicesOrigin.get(event.indicesOrigin.size() - 1);
+                                tableViewerCreator.getTable().deselectAll();
                             }
-                            int itemCount = tableViewerCreator.getTable().getItemCount();
-                            if (index >= itemCount) {
-                                index = itemCount - 1;
+
+                        } else if (event.type == TYPE.SWAPED) {
+                            if (event.indicesTarget != null) {
+                                int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
+                                tableViewerCreator.getSelectionHelper().setSelection(selection);
                             }
-                            tableViewerCreator.getSelectionHelper().setSelection(index, index);
-                        } else {
-                            tableViewerCreator.getTable().deselectAll();
-                        }
-                        
-                    } else if (event.type == TYPE.SWAPED) {
-                        if (event.indicesTarget != null) {
-                            int[] selection = ArrayUtils.toPrimitive((Integer[]) event.indicesTarget.toArray(new Integer[0]));
-                            tableViewerCreator.getSelectionHelper().setSelection(selection);
                         }
                     }
-                    
+
                 }
-                
+
             });
         }
 
@@ -276,16 +279,18 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * @param event
      */
     protected void handleBeforeListenableListOperationEvent(ListenableListEvent<B> event) {
-        if (tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
-            tableViewerCreator.setInputList(getBeansList());
-            tableViewerCreator.layout();
-        } else {
-            if (event.type == TYPE.ADDED) {
-                tableViewerCreator.getTable().deselectAll();
-            } else if (event.type == TYPE.REMOVED) {
-                // tableViewerCreator.getTable().deselectAll();
-                // tableViewerCreator.getTableViewer().remove(event.removedObjects.toArray());
-                // tableViewerCreator.layout();
+        if (tableViewerCreator.getTable() != null && !tableViewerCreator.getTable().isDisposed()) {
+            if (tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
+                tableViewerCreator.setInputList(getBeansList());
+                tableViewerCreator.layout();
+            } else {
+                if (event.type == TYPE.ADDED) {
+                    tableViewerCreator.getTable().deselectAll();
+                } else if (event.type == TYPE.REMOVED) {
+                    // tableViewerCreator.getTable().deselectAll();
+                    // tableViewerCreator.getTableViewer().remove(event.removedObjects.toArray());
+                    // tableViewerCreator.layout();
+                }
             }
         }
     }
@@ -296,19 +301,22 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * @param event
      */
     protected void handleAfterListenableListOperationEvent(ListenableListEvent<B> event) {
-        if (event.type == TYPE.LIST_REGISTERED && tableViewerCreator.getInputList() == null && getExtendedTableModel().isDataRegistered()) {
-            tableViewerCreator.setInputList(getBeansList());
-            new AsynchronousThreading(100, true, tableViewerCreator.getTable().getDisplay(), new Runnable() {
+        if (tableViewerCreator.getTable() != null && !tableViewerCreator.getTable().isDisposed()) {
+            if (event.type == TYPE.LIST_REGISTERED && tableViewerCreator.getInputList() == null
+                    && getExtendedTableModel().isDataRegistered()) {
+                tableViewerCreator.setInputList(getBeansList());
+                new AsynchronousThreading(100, true, tableViewerCreator.getTable().getDisplay(), new Runnable() {
 
-                public void run() {
-                    tableViewerCreator.layout();
-                }
+                    public void run() {
+                        tableViewerCreator.layout();
+                    }
 
-            }).start();
-        } else {
+                }).start();
+            } else {
 
-            tableViewerCreator.getTableViewer().refresh();
+                tableViewerCreator.getTableViewer().refresh();
 
+            }
         }
     }
 

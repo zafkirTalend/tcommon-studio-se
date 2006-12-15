@@ -21,8 +21,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.extended.table;
 
-import java.beans.PropertyChangeSupport;
-
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.gef.commands.CommandStack;
@@ -41,25 +39,22 @@ public abstract class AbstractExtendedControlViewer {
     private Composite parentComposite;
 
     private CommandStack commandStack;
-    
+
     /**
      * 
-     * Event type.
-     * <br/>
-     *
+     * Event type. <br/>
+     * 
      * $Id$
-     *
+     * 
      */
     public enum EVENT_TYPE implements IExtendedControlEventType {
         MODEL_CHANGED,
     };
-    
+
     /*
      * The list of listeners who wish to be notified when something significant happens.
      */
     private ListenerList listeners = new ListenerList();
-
-
 
     /**
      * DOC amaumont AbstractExtendedControlViewer constructor comment.
@@ -112,8 +107,10 @@ public abstract class AbstractExtendedControlViewer {
     public void setExtendedControlModel(AbstractExtendedControlModel model) {
         AbstractExtendedControlModel previousModel = this.extendedControlModel;
         this.extendedControlModel = model;
-        modelChanged(previousModel, model);
-        fireEvent(new ExtendedControlEvent(EVENT_TYPE.MODEL_CHANGED));
+        if (previousModel != this.extendedControlModel) {
+            modelChanged(previousModel, model);
+            fireEvent(new ExtendedControlEvent(EVENT_TYPE.MODEL_CHANGED));
+        }
     }
 
     /**
@@ -130,18 +127,18 @@ public abstract class AbstractExtendedControlViewer {
         return this.parentComposite;
     }
 
-    
     /**
      * Getter for commandStackAdapter.
+     * 
      * @return the commandStackAdapter
      */
     public CommandStack getCommandStack() {
         return this.commandStack;
     }
 
-    
     /**
      * Sets the commandStackAdapter.
+     * 
      * @param commandStack the commandStackAdapter to set
      */
     public void setCommandStack(CommandStack commandStack) {
@@ -166,9 +163,7 @@ public abstract class AbstractExtendedControlViewer {
         for (int i = 0; i < listenerArray.length; i++) {
             ((IExtendedControlListener) listenerArray[i]).handleEvent(event);
         }
-        
+
     }
-    
-    
-    
+
 }

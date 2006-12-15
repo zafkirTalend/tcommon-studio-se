@@ -33,16 +33,18 @@ import org.talend.commons.ui.utils.SimpleClipboard;
  * $Id$
  * 
  */
-public class ExtendedTableCopyCommand extends Command {
+public class ExtendedTableCopyCommand extends Command implements IExtendedTableCommand {
 
     private List beansToCopy;
 
+    public static final String LABEL = "Copy one or more table entries in the internal clipboard";
+    
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
     @SuppressWarnings("unchecked")
     public ExtendedTableCopyCommand(List beansToCopy) {
-        super();
+        super(LABEL);
         this.beansToCopy = new ArrayList(beansToCopy);
     }
 
@@ -51,7 +53,7 @@ public class ExtendedTableCopyCommand extends Command {
      */
     @SuppressWarnings("unchecked")
     public ExtendedTableCopyCommand(Object beanToCopy) {
-        super();
+        super(LABEL);
         beansToCopy = new ArrayList(1);
         beansToCopy.add(beanToCopy);
     }

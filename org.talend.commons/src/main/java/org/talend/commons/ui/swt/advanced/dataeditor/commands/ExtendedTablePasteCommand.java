@@ -34,17 +34,19 @@ import org.talend.commons.ui.utils.SimpleClipboard;
  * $Id$
  * 
  */
-public abstract class ExtendedTablePasteCommand extends Command {
+public abstract class ExtendedTablePasteCommand extends Command implements IExtendedTableCommand {
 
     private ExtendedTableModel extendedTable;
 
     private Integer indexStart;
 
+    public static final String LABEL = "Paste data from the internal clipoard";
+
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
     public ExtendedTablePasteCommand(ExtendedTableModel extendedTable, Integer indexStartAdd) {
-        super();
+        super(LABEL);
         this.extendedTable = extendedTable;
         this.indexStart = indexStartAdd;
     }
@@ -83,7 +85,7 @@ public abstract class ExtendedTablePasteCommand extends Command {
      */
     @Override
     public boolean canUndo() {
-        return false;
+        return true;
     }
 
 }

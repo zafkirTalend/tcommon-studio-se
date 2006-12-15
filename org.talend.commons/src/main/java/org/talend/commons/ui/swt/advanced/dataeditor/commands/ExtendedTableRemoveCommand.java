@@ -36,7 +36,7 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
  * $Id$
  * 
  */
-public class ExtendedTableRemoveCommand extends Command {
+public class ExtendedTableRemoveCommand extends Command implements IExtendedTableCommand {
 
     private ExtendedTableModel extendedTable;
 
@@ -52,11 +52,13 @@ public class ExtendedTableRemoveCommand extends Command {
 
     private List removedBeansIndices;
 
+    public static final String LABEL = "Remove table entries";
+
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
     public ExtendedTableRemoveCommand(ExtendedTableModel extendedTable, Integer indexItemToRemove) {
-        super();
+        super(LABEL);
         this.extendedTable = extendedTable;
         this.indexItemToRemove = indexItemToRemove;
     }
@@ -64,8 +66,8 @@ public class ExtendedTableRemoveCommand extends Command {
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
-    public ExtendedTableRemoveCommand(ExtendedTableModel extendedTable, Object beanToRemove) {
-        super();
+    public ExtendedTableRemoveCommand(Object beanToRemove, ExtendedTableModel extendedTable) {
+        super(LABEL);
         this.extendedTable = extendedTable;
         this.beanToRemove = beanToRemove;
     }
@@ -75,6 +77,7 @@ public class ExtendedTableRemoveCommand extends Command {
      */
     public ExtendedTableRemoveCommand(ExtendedTableModel extendedTable, ArrayList beansToRemove) {
         this.extendedTable = extendedTable;
+        this.beansToRemove = beansToRemove;
     }
 
     /**
@@ -98,8 +101,7 @@ public class ExtendedTableRemoveCommand extends Command {
 
         if (indexItemToRemove != null) {
             removedBeans = new ArrayList(1);
-            @SuppressWarnings("unused")
-            Object removed = extendedTable.remove((int) indexItemToRemove);
+            extendedTable.remove((int) indexItemToRemove);
             removedBeans.add(removedBeans);
             removedBeansIndices = new ArrayList(1);
             removedBeansIndices.add(indexItemToRemove);

@@ -33,7 +33,7 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
  * $Id$
  * 
  */
-public class ExtendedTableAddCommand extends Command {
+public class ExtendedTableAddCommand extends Command implements IExtendedTableCommand {
 
     private ExtendedTableModel extendedTable;
 
@@ -41,11 +41,13 @@ public class ExtendedTableAddCommand extends Command {
 
     private List beansToAdd;
 
+    public static final String LABEL = "Add one or more table entries";
+    
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
     public ExtendedTableAddCommand(ExtendedTableModel extendedTable, List beansToAdd, Integer indexStartAdd) {
-        super();
+        super(LABEL);
         this.extendedTable = extendedTable;
         this.indexStartAdd = indexStartAdd;
         this.beansToAdd = beansToAdd;
@@ -54,7 +56,7 @@ public class ExtendedTableAddCommand extends Command {
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
-    public ExtendedTableAddCommand(ExtendedTableModel extendedTable, List beansToAdd) {
+    public ExtendedTableAddCommand(List beansToAdd, ExtendedTableModel extendedTable) {
         this(extendedTable, beansToAdd, null);
     }
 
@@ -63,7 +65,7 @@ public class ExtendedTableAddCommand extends Command {
      */
     @SuppressWarnings("unchecked")
     public ExtendedTableAddCommand(ExtendedTableModel extendedTable, Integer indexStartAdd, Object beanToAdd) {
-        super();
+        super(LABEL);
         this.extendedTable = extendedTable;
         this.indexStartAdd = indexStartAdd;
         ArrayList list = new ArrayList(1);
@@ -75,7 +77,7 @@ public class ExtendedTableAddCommand extends Command {
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
     public ExtendedTableAddCommand(ExtendedTableModel extendedTable, Object beanToAdd) {
-        this(extendedTable, null, beanToAdd);
+        this(extendedTable, (Integer) null, beanToAdd);
     }
 
     /*

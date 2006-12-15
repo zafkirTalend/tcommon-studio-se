@@ -84,7 +84,7 @@ public class MetadataEmfTableEditorView extends AbstractDataTableEditorView<Meta
      */
     public MetadataEmfTableEditorView(Composite parentComposite, int mainCompositeStyle,
             ExtendedTableModel<MetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible) {
-        super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible);
+        super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, true);
     }
 
     /**
