@@ -1044,6 +1044,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public boolean doesLoggedUserExist() throws PersistenceException {
+        boolean exist = false;
         IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
         org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
@@ -1051,14 +1052,50 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
         for (Iterator iter = users.iterator(); iter.hasNext();) {
             User emfUser = (User) iter.next();
-            xmiResourceManager.handleUserId(emfProject, emfUser);
+            
+            boolean idAssigned = xmiResourceManager.handleUserId(emfProject, emfUser);
+            if (idAssigned) {
+                updateUserIdInPropertiesFiles(iProject);
+            }
+            
             if (emfUser.getLogin().equals(getRepositoryContext().getUser().getLogin())) {
                 getRepositoryContext().setUser(emfUser);
-                return true;
+                exist = true;
             }
         }
 
-        return false;
+        return exist;
+    }
+
+    //fix to update user ref with its new id (instead of order in talendProject xmi file)
+    private void updateUserIdInPropertiesFiles(IProject project) throws PersistenceException {
+        try {
+            project.accept(new IResourceVisitor() {
+                public boolean visit(IResource resource) throws CoreException {
+                    if (resource.getType() == IResource.FILE)
+                    {
+                        boolean isPropertyFile = xmiResourceManager.isPropertyFile((IFile) resource);
+                        if (isPropertyFile) {
+                            Property property = xmiResourceManager.loadProperty(resource);
+                            
+                            //we access the author (resolve proxy)
+                            property.getAuthor();
+
+                            try {
+                                property.eResource().setModified(true);
+                                xmiResourceManager.saveResource(property.eResource());
+                            } catch (PersistenceException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    
+                    return true;
+                }
+            });
+        } catch (CoreException e) {
+            throw new PersistenceException(e);
+        }
     }
 
     public void createUser() throws PersistenceException {

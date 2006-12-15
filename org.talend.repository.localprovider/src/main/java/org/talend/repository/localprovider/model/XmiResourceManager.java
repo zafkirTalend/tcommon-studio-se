@@ -187,7 +187,7 @@ public class XmiResourceManager {
     }
 
     public static boolean isPropertyFile(IFile file) {
-        return file.getFileExtension().equals(PROPERTIES_EXTENSION);
+        return PROPERTIES_EXTENSION.equals(file.getFileExtension());
     }
 
     public void propagateFileName(Property lastVersionProperty, Property resourceProperty) throws PersistenceException {
@@ -256,7 +256,7 @@ public class XmiResourceManager {
 
     //we need to affect an id to each user, because users objects are cross referenced across differents xmi resource
     //also used to affect an id to users previously created without an id
-    public void handleUserId(Project emfProject, User user) throws PersistenceException {
+    public boolean handleUserId(Project emfProject, User user) throws PersistenceException {
         int defaultId = 1;
         if (user.getId() <= defaultId) {
             Collection users = EcoreUtil.getObjectsByType(emfProject.eResource().getContents(), PropertiesPackage.eINSTANCE.getUser());
@@ -268,6 +268,10 @@ public class XmiResourceManager {
             
             user.setId(defaultId + 1);
             saveResource(emfProject.eResource());
+            
+            return true;
         }
+        
+        return false;
     }
 }
