@@ -10,7 +10,6 @@
         <filter-data value="src/test/java/org/talend/commons/ui"/>
         <filter-data value="src/test/java/org/talend/commons/ui/swt"/>
         <filter-data value="src/test/java/org/talend/commons/ui/swt/advanced"/>
-        <filter-data value="src/test/java/org/talend/commons/ui/swt/formtools"/>
         <filter-data value="src/test/java/org/talend/commons/ui/swt/tableviewer"/>
         <filter-data value="src/test/java/org/talend/commons/utils"/>
         <filter-data value="src/test/java/org/talend/commons/utils/data"/>

@@ -914,31 +914,31 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * 
      * @see java.lang.Object#hashCode()
      */
-    @Override
-    public int hashCode() {
-        final int PRIME = 31;
-        int result = 1;
-        result = PRIME * result + this.id;
-        return result;
-    }
+//    @Override
+//    public int hashCode() {
+//        final int PRIME = 31;
+//        int result = 1;
+//        result = PRIME * result + this.id;
+//        return result;
+//    }
 
     /*
      * (non-Javadoc)
      * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final ProjectImpl other = (ProjectImpl) obj;
-        if (this.id != other.id)
-            return false;
-        return true;
-    }
+//    @Override
+//    public boolean equals(Object obj) {
+//        if (this == obj)
+//            return true;
+//        if (obj == null)
+//            return false;
+//        if (getClass() != obj.getClass())
+//            return false;
+//        final ProjectImpl other = (ProjectImpl) obj;
+//        if (this.id != other.id)
+//            return false;
+//        return true;
+//    }
 
 } // ProjectImpl
