@@ -47,7 +47,7 @@ public class Perspective implements IPerspectiveFactory {
         String pdeTaskViewId = "org.eclipse.ui.views.TaskList";
         String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview";
         String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView";
-        String modulesViewId = "org.talend.designer.core.ui.views.ModulesView";
+        String modulesViewId = "org.talend.designer.codegen.perlmodule.ModulesView";
         String schedulerViewId = "org.talend.scheduler.views.Scheduler";
 
         // leftTopLayout

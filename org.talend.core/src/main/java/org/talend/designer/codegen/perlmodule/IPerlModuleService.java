@@ -24,7 +24,9 @@ package org.talend.designer.codegen.perlmodule;
 import java.net.URL;
 import java.util.List;
 
+import org.talend.commons.exception.BusinessException;
 import org.talend.core.IService;
+import org.talend.designer.codegen.perlmodule.ModuleNeeded.ModuleStatus;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -37,4 +39,8 @@ public interface IPerlModuleService extends IService {
     public List<URL> getBuiltInRoutines();
 
     public URL getRoutineTemplate();
+
+    public List<ModuleNeeded> getModulesNeeded(String componentName);
+
+    public ModuleStatus getModuleStatus(String moduleName) throws BusinessException;
 }

@@ -29,6 +29,7 @@ import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
 import org.talend.core.model.process.INodeReturn;
 import org.talend.core.model.temp.ECodeLanguage;
+import org.talend.designer.codegen.perlmodule.ModuleNeeded;
 
 /**
  * Interface that describes the functions that a must implements a component manager. <br/>
@@ -80,6 +81,8 @@ public interface IComponent {
     public IMultipleComponentManager getMultipleComponentManager();
 
     public boolean isLoaded();
-    
+
     public boolean isVisible();
+
+    public List<ModuleNeeded> getModulesNeeded();
 }
