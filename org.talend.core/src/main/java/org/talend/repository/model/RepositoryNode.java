@@ -82,7 +82,7 @@ public class RepositoryNode {
 
     private List<RepositoryNode> children = new ArrayList<RepositoryNode>();
 
-    private ENodeType type;
+    protected ENodeType type;
 
     private Map<EProperties, Object> properties = new Hashtable<EProperties, Object>();
 

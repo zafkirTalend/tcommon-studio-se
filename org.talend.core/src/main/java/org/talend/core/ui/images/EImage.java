@@ -87,6 +87,7 @@ public enum EImage implements IImage {
     METADATA_CONNECTION_ICON("/icons/connection.png"),
     METADATA_CONNECTION_WIZ("/icons/connection_wiz.png"),
     METADATA_TABLE_ICON("/icons/table.gif"),
+    METADATA_QUERY_ICON("/icons/query.gif"),
     METADATA_FILE_DELIMITED_ICON("/icons/filedelimited.png"),
     METADATA_FILE_DELIMITED_WIZ("/icons/delimited_wiz.png"),
     METADATA_FILE_POSITIONAL_ICON("/icons/filepositional.png"),

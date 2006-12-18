@@ -38,6 +38,7 @@ public enum ERepositoryObjectType {
     DOCUMENTATION("repository.documentation"),
     METADATA("repository.metadata"),
     METADATA_CON_TABLE("repository.metadataTable"),
+    METADATA_CON_QUERY("repository.query"),
     METADATA_CONNECTIONS("repository.metadataConnections"),
     METADATA_FILE_DELIMITED("repository.metadataFileDelimited"),
     METADATA_FILE_POSITIONAL("repository.metadataFilePositional"),
