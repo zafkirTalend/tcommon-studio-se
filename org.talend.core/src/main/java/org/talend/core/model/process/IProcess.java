@@ -49,4 +49,6 @@ public interface IProcess extends IRepositoryObject, IElement {
     public boolean checkValidConnectionName(String connectionName);
 
     public IContextManager getContextManager();
+    
+    public List<? extends INode> getNodesOfType(String componentName);
 }
