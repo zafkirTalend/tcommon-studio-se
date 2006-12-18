@@ -38,21 +38,29 @@ public class XPathContentProposal implements IContentProposal {
     private Node node;
 
     private boolean relative;
-    
+
     private boolean firstRelativeNode;
-    
-    
+
+    private String comment;
+
     /**
      * Constructs a new ContextParameterProposal.
      * 
      * @param node
-     * 
-     * @param language
-     * @param control
      */
     public XPathContentProposal(Node node) {
         super();
         this.node = node;
+    }
+
+    /**
+     * Constructs a new ContextParameterProposal.
+     * 
+     * @param node
+     */
+    public XPathContentProposal(String comment) {
+        super();
+        this.comment = comment;
     }
 
     /*
@@ -61,7 +69,11 @@ public class XPathContentProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getContent()
      */
     public String getContent() {
-        content = getLabel();
+        if (comment != null) {
+            content = "";
+        } else {
+            content = getLabel();
+        }
         return content;
     }
 
@@ -99,13 +111,17 @@ public class XPathContentProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getLabel()
      */
     public String getLabel() {
+        if (comment != null) {
+            return comment;
+        }
+
         String label = "";
         if (relative && firstRelativeNode) {
             // nothing
         } else {
-            label = XPathProposalProvider.SLASH;
+            label = "/";
         }
-        
+
         if (this.node instanceof Attr) {
             label = label + "@" + this.node.getNodeName();
         } else {
@@ -114,42 +130,40 @@ public class XPathContentProposal implements IContentProposal {
         return label;
     }
 
-    
     /**
      * Getter for relative.
+     * 
      * @return the relative
      */
     public boolean isRelative() {
         return this.relative;
     }
 
-    
     /**
      * Sets the relative.
+     * 
      * @param relative the relative to set
      */
     public void setRelative(boolean relative) {
         this.relative = relative;
     }
 
-    
     /**
      * Getter for startOfExpression.
+     * 
      * @return the startOfExpression
      */
     public boolean isFirstRelativeNode() {
         return this.firstRelativeNode;
     }
 
-    
     /**
      * Sets the startOfExpression.
+     * 
      * @param startOfExpression the startOfExpression to set
      */
     public void setFirstRelativeNode(boolean startOfExpression) {
         this.firstRelativeNode = startOfExpression;
     }
 
-    
-    
 }

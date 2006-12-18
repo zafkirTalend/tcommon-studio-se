@@ -346,6 +346,18 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         return this.tableViewerCreator;
     }
 
+    /**
+     * Getter for tableViewerCreator.
+     * 
+     * @return the tableViewerCreator
+     */
+    public Table getTable() {
+        if(this.tableViewerCreator != null) {
+            return this.tableViewerCreator.getTable();
+        }
+        return null;
+    }
+    
     /*
      * (non-Javadoc)
      * 
