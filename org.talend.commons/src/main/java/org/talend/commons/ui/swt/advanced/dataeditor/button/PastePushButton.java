@@ -19,20 +19,39 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.extended.table;
+package org.talend.commons.ui.swt.advanced.dataeditor.button;
+
+import java.util.List;
+
+import org.eclipse.gef.commands.Command;
+import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.ui.image.EImage;
+import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
+import org.talend.commons.ui.utils.SimpleClipboard;
+
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
- * 
+ * DOC amaumont  class global comment. Detailled comment
+ * <br/>
+ *
  * $Id$
- * 
+ *
  */
-public interface IExtendedModelListener {
+public abstract class PastePushButton extends ExtendedPushButton {
 
     /**
-     * Handle event.
-     * @param event 
+     * DOC amaumont AddPushButton constructor comment.
+     * @param parent
+     * @param tooltip
+     * @param image
      */
-    public void handleEvent(ExtendedModelEvent event);
+    public PastePushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
+        super(parent, extendedControlViewer, "Paste", ImageProvider.getImage(EImage.PASTE_ICON));
+    }
+
+    protected abstract Command getCommandToExecute();
+
 
 }

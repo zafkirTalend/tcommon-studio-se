@@ -19,20 +19,32 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.commons.ui.swt.extended.table;
+package org.talend.commons.ui.swt.advanced.dataeditor.button;
+
+import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.ui.image.EImage;
+import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
+import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
+
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
- * 
+ * DOC amaumont  class global comment. Detailled comment
+ * <br/>
+ *
  * $Id$
- * 
+ *
  */
-public interface IExtendedModelListener {
+public abstract class RemovePushButton extends ExtendedPushButton {
 
     /**
-     * Handle event.
-     * @param event 
+     * DOC amaumont AddPushButton constructor comment.
+     * @param parent
+     * @param tooltip
+     * @param image
      */
-    public void handleEvent(ExtendedModelEvent event);
-
+    public RemovePushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
+        super(parent, extendedControlViewer, "Remove selected items", ImageProvider.getImage(EImage.DELETE_ICON));
+    }
+    
 }

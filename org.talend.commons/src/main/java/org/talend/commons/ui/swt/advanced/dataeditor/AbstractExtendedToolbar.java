@@ -58,6 +58,7 @@ public abstract class AbstractExtendedToolbar {
         this.extendedTableViewer = extendedTableViewer;
         initMainComponent(parent, style);
         createComponents(toolbar);
+        updateEnabledStateOfButtons();
     }
 
     /**

@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.commons.ui.utils;
 
-import org.eclipse.core.runtime.ListenerList;
 import org.talend.commons.ui.swt.extended.table.ClipboardEvent;
 
 
@@ -32,51 +31,11 @@ import org.talend.commons.ui.swt.extended.table.ClipboardEvent;
  * $Id$
  *
  */
-public class SimpleClipboard {
-
-    private ListenerList listeners = new ListenerList();
-
-    private static SimpleClipboard instance;
-
-    public static SimpleClipboard getInstance() {
-        if (instance == null) {
-            instance = new SimpleClipboard();
-        }
-        return instance;
-    }
-
-    private Object object;
-    
-    public void setData(Object object) {
-        this.object = object;
-        fireEvent(new ClipboardEvent());
-    }
-    
-    public Object getData() {
-        return object;
-    }
-    
-    
-    public void addListener(IClipoardListener listener) {
-        this.listeners.add(listener);
-    }
-
-    public void removeListener(IClipoardListener listener) {
-        this.listeners.remove(listener);
-    }
-
+public interface IClipoardListener {
     /**
-     * DOC amaumont Comment method "fireEvent".
-     * 
-     * @param event
+     * Handle event.
+     * @param event 
      */
-    protected void fireEvent(ClipboardEvent event) {
-        final Object[] listenerArray = listeners.getListeners();
-        for (int i = 0; i < listenerArray.length; i++) {
-            ((IClipoardListener) listenerArray[i]).handleEvent(event);
-        }
-        
-    }
+    public void handleEvent(ClipboardEvent event);
 
-    
 }
