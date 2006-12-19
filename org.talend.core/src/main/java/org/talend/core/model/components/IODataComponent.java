@@ -21,11 +21,11 @@
 // ============================================================================
 package org.talend.core.model.components;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.talend.core.model.metadata.IMetadataColumn;
+import org.talend.core.model.metadata.ColumnNameChanged;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.INode;
@@ -94,92 +94,14 @@ public class IODataComponent {
         return !newMetadataTable.sameMetadataAs(connection.getMetadataTable());
     }
 
-    private IMetadataColumn getColumn(int id) {
-        // PTODO SML Optimize
-        for (IMetadataColumn col : newMetadataTable.getListColumns()) {
-            if (col.getId() == id) {
-                return col;
-            }
-        }
-        // if (newMetadataTable.getListColumns().size() > id) {
-        // return newMetadataTable.getListColumns().get(id);
-        // }
-        return null;
-    }
-
     public List<ColumnNameChanged> getColumnNameChanged() {
         if (columnNameChanged == null) {
-            columnNameChanged = new ArrayList<ColumnNameChanged>();
-            for (int i = 0; i < connection.getMetadataTable().getListColumns().size(); i++) {
-                IMetadataColumn originalColumn = connection.getMetadataTable().getListColumns().get(i);
-                IMetadataColumn clonedColumn = getColumn(originalColumn.getId());
-                if (clonedColumn != null) {
-                    if (!originalColumn.getLabel().equals(clonedColumn.getLabel())) {
-                        columnNameChanged
-                                .add(new ColumnNameChanged(originalColumn.getLabel(), clonedColumn.getLabel()));
-                    }
-                }
-            }
+            columnNameChanged = MetadataTool.getColumnNameChanged(connection.getMetadataTable(), newMetadataTable);
         }
         return columnNameChanged;
     }
 
     public void setColumnNameChanged(List<ColumnNameChanged> columnNameChanged) {
         this.columnNameChanged = columnNameChanged;
-    }
-
-    /**
-     * 
-     * DOC smallet IODataComponentContainer class global comment. Detailled comment <br/>
-     * 
-     * $Id$
-     * 
-     */
-    public class ColumnNameChanged {
-
-        private String oldName;
-
-        private String newName;
-
-        /**
-         * DOC smallet ColumnNameChanged constructor comment.
-         * 
-         * @param oldName
-         * @param newName
-         */
-        public ColumnNameChanged(String oldName, String newName) {
-            super();
-            this.oldName = oldName;
-            this.newName = newName;
-        }
-
-        /**
-         * Getter for newName.
-         * 
-         * @return the newName
-         */
-        public String getNewName() {
-            return this.newName;
-        }
-
-        /**
-         * Getter for oldName.
-         * 
-         * @return the oldName
-         */
-        public String getOldName() {
-            return this.oldName;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#toString()
-         */
-        @Override
-        public String toString() {
-            return "Column changed : " + oldName + "->" + newName;
-        }
-
     }
 }

@@ -22,6 +22,7 @@
 package org.talend.core.model.metadata.designerproperties;
 
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -31,6 +32,7 @@ import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
+import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -61,6 +63,9 @@ public class RepositoryToComponentProperty {
     public static Object getValue(Connection connection, String value) {
         if (connection instanceof FileConnection) {
             return getFileValue((FileConnection) connection, value);
+        }
+        if (connection instanceof XmlFileConnection) {
+            return getXmlFileValue((XmlFileConnection) connection, value);
         }
         if (connection instanceof DatabaseConnection) {
             return getDatabaseValue((DatabaseConnection) connection, value);
@@ -109,10 +114,16 @@ public class RepositoryToComponentProperty {
     }
 
     private static String checkStringQuotes(String str) {
+        if (str == null) {
+            return "";
+        }
         return str.replace("'", "\\'");
     }
 
     private static String checkStringQuotationMarks(String str) {
+        if (str == null) {
+            return "";
+        }
         return str.replace("\"", "\\\"");
     }
 
@@ -215,9 +226,6 @@ public class RepositoryToComponentProperty {
         if (connection instanceof RegexpFileConnection) {
             return getRegexpFileValue((RegexpFileConnection) connection, value);
         }
-        if (connection instanceof XmlFileConnection) {
-            return getXmlFileValue((XmlFileConnection) connection, value);
-        }
         if (connection instanceof LdifFileConnection) {
             return getLdifFileValue((LdifFileConnection) connection, value);
         }
@@ -240,51 +248,58 @@ public class RepositoryToComponentProperty {
 
     private static Object getDelimitedFileValue(DelimitedFileConnection connection, String value) {
         if (value.equals("ESCAPE_CHAR")) {
-            if (connection.getEscapeChar() == null) {
-                return "''";
-            } else {
-                return "'" + checkStringQuotes(connection.getEscapeChar()) + "'";
-            }
+            return "'" + checkStringQuotes(connection.getEscapeChar()) + "'";
         }
         if (value.equals("TEXT_ENCLOSURE")) {
-            if (connection.getTextEnclosure() == null) {
-                return "''";
-            } else {
-                return "'" + checkStringQuotes(connection.getTextEnclosure()) + "'";
-            }
+            return "'" + checkStringQuotes(connection.getTextEnclosure()) + "'";
         }
         return null;
     }
 
     private static Object getRegexpFileValue(RegexpFileConnection connection, String value) {
         if (value.equals("ESCAPE_CHAR")) {
-            if (connection.getEscapeChar() == null) {
-                return "''";
-            } else {
-                return "'" + checkStringQuotes(connection.getEscapeChar()) + "'";
-            }
+            return "'" + checkStringQuotes(connection.getEscapeChar()) + "'";
         }
         if (value.equals("TEXT_ENCLOSURE")) {
-            if (connection.getTextEnclosure() == null) {
-                return "''";
-            } else {
-                return "'" + checkStringQuotes(connection.getTextEnclosure()) + "'";
-            }
+            return "'" + checkStringQuotes(connection.getTextEnclosure()) + "'";
         }
         if (value.equals("REGEXP")) {
-            if (connection.getFieldSeparatorValue() == null) {
-                return "''";
-            } else {
-                return "'" + checkStringQuotes(connection.getFieldSeparatorValue()) + "'";
-            }
+            return "'" + checkStringQuotes(connection.getFieldSeparatorValue()) + "'";
         }
         return null;
     }
 
     private static Object getXmlFileValue(XmlFileConnection connection, String value) {
+        EObjectContainmentWithInverseEList list = (EObjectContainmentWithInverseEList) connection.getSchema();
+        XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) list.get(0);
+        if (value.equals("FILE_PATH")) {
+            Path p = new Path(connection.getXmlFilePath());
+            return "'" + checkStringQuotes(p.toOSString()) + "'";
+        }
+        if (value.equals("LIMIT")) {
+            if (xmlDesc == null) {
+                return "''";
+            } else {
+                return "'" + checkStringQuotes(xmlDesc.getLimitBoucle().toString()) + "'";
+            }
+        }
+        if (value.equals("XPATH_QUERY")) {
+            if (xmlDesc == null) {
+                return "''";
+            } else {
+                return "'" + checkStringQuotes(xmlDesc.getAbsoluteXPathQuery()) + "'";
+            }
+        }
+        if (value.equals("XML_MAPPING")) {
+            if (xmlDesc == null) {
+                return null;
+            } else {
+                return xmlDesc.getSchemaTargets();
+            }
+        }
         return null;
     }
-    
+
     private static Object getLdifFileValue(LdifFileConnection connection, String value) {
         return null;
     }

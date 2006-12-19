@@ -25,7 +25,7 @@ import java.util.List;
 
 import org.talend.core.model.components.IODataComponent;
 import org.talend.core.model.components.IODataComponentContainer;
-import org.talend.core.model.components.IODataComponent.ColumnNameChanged;
+import org.talend.core.model.metadata.ColumnNameChanged;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
