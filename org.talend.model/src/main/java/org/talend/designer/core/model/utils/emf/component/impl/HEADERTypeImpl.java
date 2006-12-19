@@ -360,7 +360,7 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @generated
      * @ordered
      */
-    protected static final boolean TSTATCATCHERSTATS_EDEFAULT = true;
+    protected static final boolean TSTATCATCHERSTATS_EDEFAULT = false;
 
     /**
      * The cached value of the '{@link #isTSTATCATCHERSTATS() <em>TSTATCATCHERSTATS</em>}' attribute.

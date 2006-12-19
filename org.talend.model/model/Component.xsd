@@ -37,7 +37,7 @@
 			<xs:attribute name="SCHEMA_AUTO_PROPAGATE" type="xs:boolean" use="optional" default="true"/>
 			<xs:attribute name="DATA_AUTO_PROPAGATE" type="xs:boolean" use="optional" default="true"/>
 			<xs:attribute name="VISIBLE" type="xs:boolean" use="optional" default="true"/>
-			<xs:attribute name="TSTATCATCHER_STATS" type="xs:boolean" use="optional" default="true"/>
+			<xs:attribute name="TSTATCATCHER_STATS" type="xs:boolean" use="optional" default="false"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="DOCUMENTATION">
