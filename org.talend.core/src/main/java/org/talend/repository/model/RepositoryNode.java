@@ -28,7 +28,6 @@ import java.util.Map;
 
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.image.IImage;
-import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;

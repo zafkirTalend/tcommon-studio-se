@@ -26,19 +26,19 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractExtendedToolbar;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.AddPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.CopyPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.ExportPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.ImportPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveDownPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveUpPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
-import org.talend.core.ui.extended.button.AddPushButton;
-import org.talend.core.ui.extended.button.CopyPushButton;
 import org.talend.core.ui.extended.button.CopyPushButtonForExtendedTable;
-import org.talend.core.ui.extended.button.ExportPushButton;
-import org.talend.core.ui.extended.button.ImportPushButton;
-import org.talend.core.ui.extended.button.MoveDownPushButton;
 import org.talend.core.ui.extended.button.MoveDownPushButtonForExtendedTable;
-import org.talend.core.ui.extended.button.MoveUpPushButton;
 import org.talend.core.ui.extended.button.MoveUpPushButtonForExtendedTable;
-import org.talend.core.ui.extended.button.PastePushButton;
-import org.talend.core.ui.extended.button.RemovePushButton;
 import org.talend.core.ui.extended.button.RemovePushButtonForExtendedTable;
 
 /**

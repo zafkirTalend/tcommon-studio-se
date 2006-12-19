@@ -21,10 +21,18 @@
 // ============================================================================
 package org.talend.core.ui.extended.button;
 
+import java.util.List;
+
 import org.eclipse.gef.commands.Command;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
+import org.talend.commons.ui.swt.extended.table.ClipboardEvent;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
+import org.talend.commons.ui.utils.IClipoardListener;
+import org.talend.commons.ui.utils.SimpleClipboard;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -42,6 +50,21 @@ public abstract class PastePushButtonForExtendedTable extends PastePushButton im
      */
     public PastePushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
         super(parent, extendedTableViewer);
+        final IClipoardListener clipoardListener = new IClipoardListener() {
+
+            public void handleEvent(ClipboardEvent event) {
+                getButton().setEnabled(getEnabledState());
+            }
+            
+        };
+        SimpleClipboard.getInstance().addListener(clipoardListener);
+        getButton().addDisposeListener(new DisposeListener() {
+
+            public void widgetDisposed(DisposeEvent e) {
+                SimpleClipboard.getInstance().removeListener(clipoardListener);
+            }
+            
+        });
     }
 
     @Override
@@ -65,5 +88,9 @@ public abstract class PastePushButtonForExtendedTable extends PastePushButton im
         return (AbstractExtendedTableViewer) getExtendedControlViewer();
     }
 
+    public boolean getEnabledState() {
+        Object data = SimpleClipboard.getInstance().getData();
+        return super.getEnabledState() && data != null && data instanceof List;
+    }
 
 }

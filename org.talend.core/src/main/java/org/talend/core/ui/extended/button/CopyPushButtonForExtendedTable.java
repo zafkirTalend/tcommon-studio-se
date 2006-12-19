@@ -28,6 +28,7 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.CopyPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableCopyCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
@@ -41,7 +42,8 @@ import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
  */
 public class CopyPushButtonForExtendedTable extends CopyPushButton implements IExtendedTablePushButton {
 
-    
+    private EnableStateListenerForTableButton enableStateHandler;
+
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
      * @param parent
@@ -49,6 +51,7 @@ public class CopyPushButtonForExtendedTable extends CopyPushButton implements IE
      */
     public CopyPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
         super(parent, extendedTableViewer);
+        this.enableStateHandler = new EnableStateListenerForTableButton(this);
     }
 
     protected Command getCommandToExecute() {
@@ -65,6 +68,10 @@ public class CopyPushButtonForExtendedTable extends CopyPushButton implements IE
      */
     public AbstractExtendedTableViewer getExtendedTableViewer() {
         return (AbstractExtendedTableViewer) getExtendedControlViewer();
+    }
+
+    public boolean getEnabledState() {
+        return super.getEnabledState() && this.enableStateHandler.getEnabledState();
     }
 
 
