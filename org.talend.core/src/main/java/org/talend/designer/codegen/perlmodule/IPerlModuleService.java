@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.designer.codegen.perlmodule;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -39,6 +40,16 @@ public interface IPerlModuleService extends IService {
     public List<URL> getBuiltInRoutines();
 
     public URL getRoutineTemplate();
+
+    /**
+     * DOC qian Gets the full path of the perl model files. The location of the files is
+     * org.talend.designer.codegen.perlmodule/perl/talend The result of URL is like
+     * "file:/F:/eclipse_all/eclipse/talend_SVN_Workspace/org.talend.designer.codegen.perlmodule/perl/"
+     * 
+     * @return List< URL > The URL here displays full path.
+     * @throws IOException
+     */
+    public List<URL> getPerlModule() throws IOException;
 
     public List<ModuleNeeded> getModulesNeeded(String componentName);
 

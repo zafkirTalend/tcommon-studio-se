@@ -42,32 +42,17 @@ public class GlobalServiceRegister {
     // The shared instance
     private static GlobalServiceRegister instance = new GlobalServiceRegister();
 
+    private static IConfigurationElement[] configurationElements;
+
     public static GlobalServiceRegister getDefault() {
         return instance;
     }
 
     private Map<Class, IService> services = new HashMap<Class, IService>();
 
-    // Stores all the services.
-    private List<IService> list = null;
-
-    /**
-     * DOC qian Comment method "initialServices".Loading services through extension point.
-     */
-    private void initialServices() {
+    static {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
-        IConfigurationElement[] configurationElements = registry.getConfigurationElementsFor("org.talend.core.service");
-
-        list = new ArrayList<IService>();
-        for (int i = 0; i < configurationElements.length; i++) {
-            IConfigurationElement element = configurationElements[i];
-            try {
-                IService service = (IService) element.createExecutableExtension("class");
-                list.add(service);
-            } catch (Exception e) {
-                CorePlugin.log("Error occurs when load service", e);
-            }
-        }
+        configurationElements = registry.getConfigurationElementsFor("org.talend.core.service");
     }
 
     /**
@@ -77,10 +62,6 @@ public class GlobalServiceRegister {
      * @return IService IService
      */
     public IService getService(Class klass) {
-        if (list == null) {
-            initialServices();
-        }
-
         IService service = services.get(klass);
         if (service == null) {
             service = findService(klass);
@@ -99,12 +80,19 @@ public class GlobalServiceRegister {
      * @return IService
      */
     private IService findService(Class klass) {
-        for (Iterator<IService> iter = list.iterator(); iter.hasNext();) {
-            IService service = (IService) iter.next();
-            if (klass.isInstance(service)) {
-                return service;
+        for (int i = 0; i < configurationElements.length; i++) {
+            IConfigurationElement element = configurationElements[i];
+            try {
+                Object service = element.createExecutableExtension("class");
+                if (klass.isInstance(service)) {
+                    return (IService) service;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                CorePlugin.log("Error occurs when load service", e);
             }
         }
+
         return null;
     }
 }
