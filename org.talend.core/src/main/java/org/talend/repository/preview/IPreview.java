@@ -23,6 +23,7 @@ package org.talend.repository.preview;
 
 import org.eclipse.core.runtime.CoreException;
 import org.talend.core.utils.XmlArray;
+import org.talend.designer.runprocess.ProcessorException;
 
 /**
  * Generates the preview of a file delimited input.

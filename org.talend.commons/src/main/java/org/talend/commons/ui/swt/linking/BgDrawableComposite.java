@@ -23,7 +23,6 @@ package org.talend.commons.ui.swt.linking;
 
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.swt.drawing.background.BackgroundRefresher;
 import org.talend.commons.ui.swt.drawing.background.IBgDrawableComposite;
 
 

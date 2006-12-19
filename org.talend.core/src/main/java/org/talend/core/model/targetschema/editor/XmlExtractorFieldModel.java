@@ -21,14 +21,11 @@
 // ============================================================================
 package org.talend.core.model.targetschema.editor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
-import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 
 /**
  * DOC cantoine class global comment. Detailled comment <br/>

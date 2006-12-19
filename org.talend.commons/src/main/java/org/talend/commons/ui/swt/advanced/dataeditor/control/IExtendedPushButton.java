@@ -22,7 +22,6 @@
 package org.talend.commons.ui.swt.advanced.dataeditor.control;
 
 import org.eclipse.swt.widgets.Button;
-import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlModel;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
 
 

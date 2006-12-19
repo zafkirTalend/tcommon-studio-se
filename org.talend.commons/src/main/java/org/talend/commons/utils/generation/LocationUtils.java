@@ -21,9 +21,6 @@
 // ============================================================================
 package org.talend.commons.utils.generation;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;

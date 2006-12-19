@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.selection;
 
-import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 
 

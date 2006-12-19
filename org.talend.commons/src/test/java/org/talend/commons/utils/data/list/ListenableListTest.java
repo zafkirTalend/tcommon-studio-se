@@ -25,6 +25,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.ADDED;
+import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.CLEARED;
+import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.REMOVED;
+import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.REPLACED;
+import static org.talend.commons.utils.data.list.ListenableListEvent.TYPE.SWAPED;
 
 import java.util.ArrayList;
 import java.util.Iterator;

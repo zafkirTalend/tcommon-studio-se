@@ -22,7 +22,6 @@
 package org.talend.commons.utils.data.list;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 
