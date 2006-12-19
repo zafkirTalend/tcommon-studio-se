@@ -30,6 +30,8 @@ import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.image.EImage;
+import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractExtendedToolbar;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
@@ -44,8 +46,6 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
-import org.talend.core.ui.images.EImage;
-import org.talend.core.ui.images.ImageProvider;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/> TGU same purpose as MetadataTableEditorView but uses EMF
@@ -230,7 +230,7 @@ public class MetadataEmfTableEditorView extends AbstractDataTableEditorView<Meta
 
         });
         final Image imageKey = ImageProvider.getImage(EImage.KEY_ICON);
-        final Image imageEmpty = org.talend.core.ui.images.ImageProvider.getImage(EImage.EMPTY);
+        final Image imageEmpty = org.talend.commons.ui.image.ImageProvider.getImage(EImage.EMPTY);
         column.setImageProvider(new IColumnImageProvider() {
 
             public Image getImage(Object element) {

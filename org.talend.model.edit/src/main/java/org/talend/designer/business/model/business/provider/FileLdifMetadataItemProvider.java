@@ -22,7 +22,7 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.jface.resource.ImageDescriptor;
 
-import org.talend.core.ui.images.EImage;
+import org.talend.core.ui.images.ECoreImage;
 import org.talend.designer.business.model.business.FileLdifMetadata;
 
 /**
@@ -74,7 +74,7 @@ public class FileLdifMetadataItemProvider
      * This returns FileMetadata.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
      */
     public Object getImage(Object object) {
-        return ImageDescriptor.createFromFile(EImage.class, EImage.METADATA_FILE_LDIF_ICON.getPath()).createImage();
+        return ImageDescriptor.createFromFile(ECoreImage.class, ECoreImage.METADATA_FILE_LDIF_ICON.getPath()).createImage();
     }
 
     /**

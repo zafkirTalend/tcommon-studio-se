@@ -19,7 +19,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.talend.designer.business.model.business.Routine;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.talend.core.ui.images.EImage;
+import org.talend.core.ui.images.ECoreImage;
 
 /**
  * This is the item provider adapter for a {@link org.talend.designer.business.model.business.Routine} object. <!--
@@ -62,7 +62,7 @@ public class RoutineItemProvider extends TalendItemItemProvider implements IEdit
      * This returns Routine.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
      */
     public Object getImage(Object object) {
-        return ImageDescriptor.createFromFile(EImage.class, EImage.ROUTINE_ICON.getPath()).createImage();
+        return ImageDescriptor.createFromFile(ECoreImage.class, ECoreImage.ROUTINE_ICON.getPath()).createImage();
     }
 
     /**

@@ -28,6 +28,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.image.EImage;
+import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractExtendedToolbar;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
@@ -43,8 +45,6 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
-import org.talend.core.ui.images.EImage;
-import org.talend.core.ui.images.ImageProvider;
 
 /**
  * MetadataTableEditorView2 must be used.
@@ -207,7 +207,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
         });
         final Image imageKey = ImageProvider.getImage(EImage.KEY_ICON);
-        final Image imageEmpty = org.talend.core.ui.images.ImageProvider.getImage(EImage.EMPTY);
+        final Image imageEmpty = org.talend.commons.ui.image.ImageProvider.getImage(EImage.EMPTY);
         column.setImageProvider(new IColumnImageProvider() {
 
             public Image getImage(Object element) {

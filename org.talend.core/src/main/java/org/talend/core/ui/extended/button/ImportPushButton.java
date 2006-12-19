@@ -22,10 +22,10 @@
 package org.talend.core.ui.extended.button;
 
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.ui.image.EImage;
+import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
-import org.talend.core.ui.images.EImage;
-import org.talend.core.ui.images.ImageProvider;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>

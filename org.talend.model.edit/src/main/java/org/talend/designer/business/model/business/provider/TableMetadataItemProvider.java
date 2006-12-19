@@ -19,7 +19,7 @@ import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.talend.designer.business.model.business.TableMetadata;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.talend.core.ui.images.EImage;
+import org.talend.core.ui.images.ECoreImage;
 
 /**
  * This is the item provider adapter for a {@link org.talend.designer.business.model.business.TableMetadata} object.
@@ -61,7 +61,7 @@ public class TableMetadataItemProvider extends TalendItemItemProvider implements
      * This returns Routine.gif. <!-- begin-user-doc --> <!-- end-user-doc -->
      */
     public Object getImage(Object object) {
-        return ImageDescriptor.createFromFile(EImage.class, EImage.METADATA_TABLE_ICON.getPath()).createImage();
+        return ImageDescriptor.createFromFile(ECoreImage.class, ECoreImage.METADATA_TABLE_ICON.getPath()).createImage();
     }
 
     /**

@@ -23,7 +23,7 @@ package org.talend.core.model.action;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
-import org.talend.core.ui.images.ImageProvider;
+import org.talend.commons.ui.image.ImageProvider;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

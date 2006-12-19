@@ -27,12 +27,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.image.IImage;
+import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
-import org.talend.core.ui.images.IImage;
-import org.talend.core.ui.images.ImageProvider;
+import org.talend.core.ui.images.CoreImageProvider;
 
 /**
  * Node used to fill the repository view TreeViewer. Each node has a type defines in ENodeType enum. Object isn't stored
@@ -251,9 +252,9 @@ public class RepositoryNode {
         switch (getType()) {
         case REPOSITORY_ELEMENT:
         case SIMPLE_FOLDER:
-            return ImageProvider.getIcon(getObjectType());
+            return CoreImageProvider.getIcon(getObjectType());
         default:
-            return ImageProvider.getIcon(getContentType());
+            return CoreImageProvider.getIcon(getContentType());
         }
     }
 

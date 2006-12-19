@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.ui.images;
+package org.talend.commons.ui.image;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
