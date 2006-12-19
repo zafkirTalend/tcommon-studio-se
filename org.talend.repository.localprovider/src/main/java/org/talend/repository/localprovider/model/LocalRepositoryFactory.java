@@ -47,6 +47,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -1036,11 +1037,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return ResourceModelUtils.getProject(getRepositoryContext().getProject());
     }
 
-    public void reload(Property property) {
+    public Property reload(Property property) {
+        IFile file = URIHelper.getFile(property.eResource().getURI());
+        
         List<Resource> affectedResources = xmiResourceManager.getAffectedResources(property);
         for (Resource resource : affectedResources) {
             resource.unload();
         }
+
+        return xmiResourceManager.loadProperty(file);
     }
 
     public boolean doesLoggedUserExist() throws PersistenceException {

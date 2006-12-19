@@ -49,6 +49,10 @@ public class RepositoryEditorInput extends FileEditorInput {
     public Item getItem() {
         return this.item;
     }
+    
+    public void setItem(Item item) {
+        this.item = item;
+    }
 
     public boolean equals(Object obj) {
         if (this == obj) {

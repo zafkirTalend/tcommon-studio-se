@@ -318,7 +318,7 @@ public interface IProxyRepositoryFactory {
 
     public abstract Item copy(Item item, IPath path) throws PersistenceException;
 
-    public abstract void reload(Property property);
+    public abstract Property reload(Property property);
 
     /*
      * (non-Javadoc)

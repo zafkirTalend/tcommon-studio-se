@@ -57,6 +57,10 @@ public class RepositoryObject implements IRepositoryObject {
         return this.property;
     }
 
+    public void setProperty(Property property) {
+        this.property = property;
+    }
+
     public RepositoryObject(String id, String label) {
         this.setId(id);
         this.setLabel(label);

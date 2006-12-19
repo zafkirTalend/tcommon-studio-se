@@ -90,5 +90,7 @@ public interface IRepositoryObject {
 
     public Property getProperty();
 
+    public void setProperty(Property property);
+
     public List<IRepositoryObject> getChildren();
 }
