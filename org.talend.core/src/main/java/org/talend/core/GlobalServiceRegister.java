@@ -88,8 +88,7 @@ public class GlobalServiceRegister {
                     return (IService) service;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
-                CorePlugin.log("Error occurs when load service", e);
+                CorePlugin.log("Error occurs when load service " + klass.getName(), e);
             }
         }
 
