@@ -229,6 +229,20 @@ public interface IProcessDescription {
      * @param loopQuery the loopQuery to set
      */
     public void setLoopQuery(String loopQuery);
+
+    /**
+     * Getter for loopLimit.
+     * 
+     * @return the loopLimit
+     */
+    public String getLoopLimit();
+
+    /**
+     * Sets the loopLimit.
+     * 
+     * @param loopLimit the loopLimit to set
+     */
+    public void setLoopLimit(String loopLimit);
     
     /**
      * Getter for mapping.

@@ -213,7 +213,15 @@ public class ExtractMetaDataFromDataBase {
                 // "+ExtractMetaDataUtils.getStringMetaDataInfo(columns,
                 // "TABLE_REMARKS"));
                 metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS"));
-                metadataColumn.setDefaultValue(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"));
+
+                //PTODO cantoine : patch to fix 0x0 pb cause by Bad Schema description  
+                String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF");
+                if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0
+                        && stringMetaDataInfo.charAt(0) == 0x0) {
+                    stringMetaDataInfo = "\\1";
+                }
+                metadataColumn.setDefaultValue(stringMetaDataInfo);
+
                 metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS"));
                 metadataColumns.add(metadataColumn);
 
