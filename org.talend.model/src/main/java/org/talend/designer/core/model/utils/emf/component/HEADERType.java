@@ -455,7 +455,7 @@ public interface HEADERType extends EObject {
 
     /**
      * Returns the value of the '<em><b>TSTATCATCHERSTATS</b></em>' attribute.
-     * The default value is <code>"false"</code>.
+     * The default value is <code>"true"</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>TSTATCATCHERSTATS</em>' attribute isn't clear,
@@ -467,7 +467,7 @@ public interface HEADERType extends EObject {
      * @see #unsetTSTATCATCHERSTATS()
      * @see #setTSTATCATCHERSTATS(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_TSTATCATCHERSTATS()
-     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="true" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='TSTATCATCHER_STATS' namespace='##targetNamespace'"
      * @generated
      */
