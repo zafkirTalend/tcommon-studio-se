@@ -22,6 +22,7 @@
 package org.talend.commons.ui.swt.linking;
 
 import org.eclipse.swt.graphics.GC;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.swt.drawing.background.IBgDrawableComposite;
 
@@ -36,6 +37,7 @@ import org.talend.commons.ui.swt.drawing.background.IBgDrawableComposite;
 public abstract class BgDrawableComposite implements IBgDrawableComposite {
 
     private Composite commonParent;
+	private Point offsetPoint = new Point(0, 0);
 
     /**
      * DOC amaumont DrawableBackground constructor comment.
@@ -57,7 +59,14 @@ public abstract class BgDrawableComposite implements IBgDrawableComposite {
         return this.commonParent;
     }
 
+	public void setOffset(Point offsetPoint) {
+		this.offsetPoint = offsetPoint;
+	}
 
+	public Point getOffset() {
+		return this.offsetPoint;
+	}
+	
     
     
 }

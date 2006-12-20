@@ -29,119 +29,147 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.events.TreeEvent;
 import org.eclipse.swt.events.TreeListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Tree;
 import org.talend.commons.ui.swt.drawing.background.IBackgroundRefresher;
-
+import org.talend.commons.ui.ws.WindowSystem;
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class LinkableTree implements ILinkableControl {
 
-    private Tree tree;
-    private IBackgroundRefresher backgroundRefresher;
-    private IControlsLinker controlsLinker;
-    
-    /**
-     * DOC amaumont LinkableTable constructor comment.
-     * @param tree
-     */
-    public LinkableTree(IControlsLinker controlsLinker, IBackgroundRefresher backgroundRefresher, Tree tree) {
-        super();
-        this.tree = tree;
-        this.controlsLinker = controlsLinker;
-        
-        // setBackgroundMode to correct graphic bug when background is update with ExecutionLimiter
-        this.tree.setBackgroundMode(SWT.INHERIT_NONE);
-        
-        this.backgroundRefresher = backgroundRefresher;
-        init();
-    }
+	private Tree tree;
 
-    
-    /**
-     * DOC amaumont Comment method "init".
-     */
-    private void init() {
-        addListeners();
-    }
+	private IBackgroundRefresher backgroundRefresher;
 
+	private IControlsLinker controlsLinker;
 
-    /**
-     * Getter for table.
-     * @return the table
-     */
-    public Tree getTree() {
-        return this.tree;
-    }
+	private BgDrawableComposite bgDrawableComposite;
 
-    /**
-     * DOC amaumont Comment method "addListeners".
-     */
-    private void addListeners() {
-        ControlListener controlListener = new ControlListener() {
+	/**
+	 * DOC amaumont LinkableTable constructor comment.
+	 * 
+	 * @param tree
+	 * @param bgDrawableComposite
+	 */
+	public LinkableTree(IControlsLinker controlsLinker,
+			IBackgroundRefresher backgroundRefresher, Tree tree,
+			BgDrawableComposite bgDrawableComposite) {
+		super();
+		this.tree = tree;
+		this.controlsLinker = controlsLinker;
+		this.bgDrawableComposite = bgDrawableComposite;
 
-            public void controlMoved(ControlEvent e) {
-                // updateBackgroundWithLimiter();
-            }
+		// setBackgroundMode to correct graphic bug when background is update
+		// with ExecutionLimiter
+		// this.tree.setBackgroundMode(SWT.INHERIT_NONE);
+		// this.tree.setBackgroundMode(SWT.INHERIT_FORCE);
 
-            public void controlResized(ControlEvent e) {
-                backgroundRefresher.refreshBackgroundWithLimiter();
-            }
+		this.backgroundRefresher = backgroundRefresher;
+		init();
+	}
 
-        };
+	/**
+	 * DOC amaumont Comment method "init".
+	 */
+	private void init() {
+		addListeners();
+	}
 
-        tree.addControlListener(controlListener);
+	/**
+	 * Getter for table.
+	 * 
+	 * @return the table
+	 */
+	public Tree getTree() {
+		return this.tree;
+	}
 
-        tree.addTreeListener(new TreeListener() {
+	/**
+	 * DOC amaumont Comment method "addListeners".
+	 */
+	private void addListeners() {
+		if (WindowSystem.isGTK()) {
+			tree.addListener(SWT.Paint, new Listener() {
 
-            public void treeCollapsed(TreeEvent e) {
-                backgroundRefresher.refreshBackgroundWithLimiter();
-            }
+				public void handleEvent(Event event) {
+					paintEvent(event);
+				}
 
-            public void treeExpanded(TreeEvent e) {
-                backgroundRefresher.refreshBackgroundWithLimiter();
-            }
+			});
+		}
 
-        });
+		ControlListener controlListener = new ControlListener() {
 
-        tree.addSelectionListener(new SelectionListener() {
+			public void controlMoved(ControlEvent e) {
+				// updateBackgroundWithLimiter();
+			}
 
-            public void widgetDefaultSelected(SelectionEvent e) {
-            }
+			public void controlResized(ControlEvent e) {
+				backgroundRefresher.refreshBackgroundWithLimiter();
+			}
 
-            public void widgetSelected(SelectionEvent e) {
-                controlsLinker.updateLinksStyleAndControlsSelection(tree);
-            }
+		};
 
-        });
+		tree.addControlListener(controlListener);
 
-        ScrollBar vBarTree = tree.getVerticalBar();
-        ScrollBar hBarTree = tree.getHorizontalBar();
+		tree.addTreeListener(new TreeListener() {
 
-        vBarTree.addSelectionListener(new SelectionAdapter() {
+			public void treeCollapsed(TreeEvent e) {
+				backgroundRefresher.refreshBackgroundWithLimiter();
+			}
 
-            public void widgetSelected(SelectionEvent event) {
-                backgroundRefresher.refreshBackground();
-            }
-        });
+			public void treeExpanded(TreeEvent e) {
+				backgroundRefresher.refreshBackgroundWithLimiter();
+			}
 
-        SelectionListener scrollListener = new SelectionAdapter() {
+		});
 
-            public void widgetSelected(SelectionEvent event) {
-                // updateBackgroundWithLimiter();
-                backgroundRefresher.refreshBackgroundWithLimiter();
-            }
-        };
-        vBarTree.addSelectionListener(scrollListener);
-        hBarTree.addSelectionListener(scrollListener);
+		tree.addSelectionListener(new SelectionListener() {
 
-    }
+			public void widgetDefaultSelected(SelectionEvent e) {
+			}
 
-    
+			public void widgetSelected(SelectionEvent e) {
+				controlsLinker.updateLinksStyleAndControlsSelection(tree);
+			}
+
+		});
+
+		ScrollBar vBarTree = tree.getVerticalBar();
+		ScrollBar hBarTree = tree.getHorizontalBar();
+
+		vBarTree.addSelectionListener(new SelectionAdapter() {
+
+			public void widgetSelected(SelectionEvent event) {
+				backgroundRefresher.refreshBackground();
+			}
+		});
+
+		SelectionListener scrollListener = new SelectionAdapter() {
+
+			public void widgetSelected(SelectionEvent event) {
+				// updateBackgroundWithLimiter();
+				backgroundRefresher.refreshBackgroundWithLimiter();
+			}
+		};
+		vBarTree.addSelectionListener(scrollListener);
+		hBarTree.addSelectionListener(scrollListener);
+
+	}
+
+	protected void paintEvent(Event event) {
+		Point offsetPoint = event.display.map(bgDrawableComposite.getBgDrawableComposite(), tree, new Point(0, 0));
+		bgDrawableComposite.setOffset(offsetPoint);
+		bgDrawableComposite.drawBackground(event.gc);
+
+	}
+
 }

@@ -30,6 +30,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ScrollBar;
+import org.eclipse.swt.widgets.Table;
+import org.talend.commons.ui.ws.WindowSystem;
 import org.talend.commons.utils.performance.IPerformanceEvaluatorListener;
 import org.talend.commons.utils.performance.PerformanceEvaluator;
 import org.talend.commons.utils.performance.PerformanceEvaluatorEvent;
@@ -184,6 +186,8 @@ public class BackgroundRefresher implements IBackgroundRefresher {
 
             GC gc = new GC(newImage);
 
+            drawableComposite.setOffset(new Point(0,0));
+
             drawableComposite.drawBackground(gc);
 
             gc.dispose();
@@ -279,6 +283,9 @@ public class BackgroundRefresher implements IBackgroundRefresher {
         Point returnedPoint = new Point(point.x, point.y);
         while (child != drawableComposite.getBgDrawableComposite()) {
             Rectangle bounds = child.getBounds();
+            if(WindowSystem.isGTK() && child instanceof Table) {
+            	returnedPoint.y += ((Table) child).getHeaderHeight();
+            }
             child = child.getParent();
             ScrollBar vScrollBar = child.getVerticalBar();
             if (vScrollBar != null) {
@@ -286,6 +293,8 @@ public class BackgroundRefresher implements IBackgroundRefresher {
             }
             returnedPoint.x += bounds.x;
             returnedPoint.y += bounds.y;
+            
+            
         }
         return returnedPoint;
     }
