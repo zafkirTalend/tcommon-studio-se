@@ -217,7 +217,7 @@ public class TypedTextCommandExecutor {
     }
 
     private void focusLostExecute(FocusEvent e) {
-        // executeCommand((Control) e.getSource());
+        updateCommand((Control) e.getSource());
     }
 
 }
