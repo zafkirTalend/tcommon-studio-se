@@ -277,7 +277,7 @@ public class RepositoryToComponentProperty {
             return "'" + checkStringQuotes(p.toOSString()) + "'";
         }
         if (value.equals("LIMIT")) {
-            if (xmlDesc == null) {
+            if ((xmlDesc == null) || (xmlDesc.getLimitBoucle() == null)) {
                 return "''";
             } else {
                 return "'" + checkStringQuotes(xmlDesc.getLimitBoucle().toString()) + "'";
