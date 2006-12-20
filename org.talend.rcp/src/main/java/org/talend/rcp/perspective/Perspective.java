@@ -48,7 +48,7 @@ public class Perspective implements IPerspectiveFactory {
         String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview";
         String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView";
         String modulesViewId = "org.talend.designer.codegen.perlmodule.ModulesView";
-        // String schedulerViewId = "org.talend.scheduler.views.Scheduler";
+        String schedulerViewId = "org.talend.scheduler.views.Scheduler";
 
         // leftTopLayout
         IFolderLayout leftTopLayout = layout.createFolder("navigatorLayout", IPageLayout.LEFT, new Float(0.3),
@@ -75,7 +75,7 @@ public class Perspective implements IPerspectiveFactory {
         bottomLayout.addView(runProcessViewId);
         bottomLayout.addView(problemsViewId);
         bottomLayout.addView(modulesViewId);
-        // bottomLayout.addView(schedulerViewId);
+        bottomLayout.addView(schedulerViewId);
         // rightTopLayout
         // IFolderLayout rightTopLayout = layout.createFolder("rightLayout", IPageLayout.RIGHT, new Float(0.7),
         // IPageLayout.ID_EDITOR_AREA);
