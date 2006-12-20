@@ -67,10 +67,8 @@ public class LinkableTree implements ILinkableControl {
 		this.controlsLinker = controlsLinker;
 		this.bgDrawableComposite = bgDrawableComposite;
 
-		// setBackgroundMode to correct graphic bug when background is update
-		// with ExecutionLimiter
-		// this.tree.setBackgroundMode(SWT.INHERIT_NONE);
-		// this.tree.setBackgroundMode(SWT.INHERIT_FORCE);
+		// setBackgroundMode to correct graphic bug when background is update with ExecutionLimiter
+		this.tree.setBackgroundMode(SWT.INHERIT_NONE);
 
 		this.backgroundRefresher = backgroundRefresher;
 		init();
