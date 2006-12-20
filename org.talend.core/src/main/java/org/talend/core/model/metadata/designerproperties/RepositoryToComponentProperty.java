@@ -21,9 +21,14 @@
 // ============================================================================
 package org.talend.core.model.metadata.designerproperties;
 
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.talend.core.model.metadata.EMetadataEncoding;
+import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
@@ -31,8 +36,10 @@ import org.talend.core.model.metadata.builder.connection.FileConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
+import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
+import org.talend.core.model.process.IElementParameter;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -290,14 +297,49 @@ public class RepositoryToComponentProperty {
                 return "'" + checkStringQuotes(xmlDesc.getAbsoluteXPathQuery()) + "'";
             }
         }
-        if (value.equals("XML_MAPPING")) {
-            if (xmlDesc == null) {
-                return null;
-            } else {
-                return xmlDesc.getSchemaTargets();
+        return null;
+    }
+
+    public static void getTableXmlFileValue(Connection connection, String value, IElementParameter param,
+            List<Map<String, Object>> tableInfo, IMetadataTable metaTable) {
+        if (connection instanceof XmlFileConnection) {
+            XmlFileConnection xmlConnection = (XmlFileConnection) connection;
+            EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection
+                    .getSchema();
+            XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
+            if (value.equals("XML_MAPPING")) {
+                if (xmlDesc == null) {
+                    return;
+                } else {
+                    String[] list = param.getListRepositoryItems();
+
+                    int column = 0;
+                    boolean found = false;
+                    for (int k = 0; (k < list.length) && (!found); k++) {
+                        if (list[k].equals("XML_QUERY")) {
+                            column = k;
+                            found = true;
+                        }
+                    }
+                    EList schemaList = (EList) xmlDesc.getSchemaTargets();
+                    String[] names = param.getListItemsDisplayCodeName();
+                    for (int k = 0; k < schemaList.size(); k++) {
+                        if (tableInfo.size() > k) {
+                            Map<String, Object> line = tableInfo.get(k);
+                            if (metaTable != null) {
+                                if (metaTable.getListColumns().size() > k) {
+                                    SchemaTarget schemaTarget = (SchemaTarget) schemaList.get(k);
+                                    String strValue = "'"
+                                            + checkStringQuotes(schemaTarget
+                                                    .getRelativeXPathQuery()) + "'";
+                                    line.put(names[column], strValue);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
-        return null;
     }
 
     private static Object getLdifFileValue(LdifFileConnection connection, String value) {
