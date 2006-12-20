@@ -81,7 +81,7 @@ public class NodeReturnProposal implements IContentProposal {
         message += "\n\nVariable Name: {5}";
 
         MessageFormat format = new MessageFormat(message);
-        Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponentName(), node.getUniqueName(),
+        Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponent().getTranslatedName(), node.getUniqueName(),
                 nodeReturn.getType().getDisplayName(), nodeReturn.getAvailability(), getContent() };
         return format.format(args);
     }

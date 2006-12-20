@@ -63,13 +63,6 @@ public interface INode extends IElement {
     public boolean isSubProcessStart();
 
     /**
-     * Gives the name of the node. Typically it's the name of the component type.
-     * 
-     * @return
-     */
-    public String getComponentName();
-
-    /**
      * Gives all incoming connections (only).
      * 
      * @return List of Connection

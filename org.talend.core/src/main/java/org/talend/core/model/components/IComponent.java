@@ -52,6 +52,8 @@ public interface IComponent {
 
     public String getName();
 
+    public String getTranslatedName();
+
     public String getLongName();
 
     public String getFamily();
