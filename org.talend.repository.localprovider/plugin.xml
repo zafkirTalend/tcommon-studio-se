@@ -8,5 +8,9 @@
             class="org.talend.repository.localprovider.model.LocalRepositoryFactory"
             name="Local"/>
    </extension>
+   <extension
+         point="org.talend.core.global_actions">
+      <GlobalAction class="org.talend.repository.localprovider.ui.actions.ReloadSystemRoutinesAction"/>
+   </extension>
 
 </plugin>

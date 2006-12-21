@@ -104,8 +104,23 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     private static Logger log = Logger.getLogger(LocalRepositoryFactory.class);
 
+    private static LocalRepositoryFactory singleton = null;
+
+    public LocalRepositoryFactory() {
+        super();
+        singleton = this;
+    }
+
+    public static LocalRepositoryFactory getInstance() {
+        if (singleton == null) {
+            singleton = new LocalRepositoryFactory();
+        }
+        return singleton;
+    }
+
     /**
      * DOC smallet Comment method "getObjectFromFolder".
+     * 
      * @param type - the type of object to search
      * @param onlyLastVersion specify <i>true</i> if only the last version of an object must be returned, false for all
      * version
@@ -315,7 +330,22 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * 
      * @throws PersistenceException
      */
-    private void synchronizeRoutines() throws PersistenceException {
+    public void synchronizeRoutines(IProject prj) throws PersistenceException {
+        if (prj == null) {
+            Project project = getRepositoryContext().getProject();
+            prj = ResourceModelUtils.getProject(project);
+        }
+
+        // Purge old routines :
+        // 1. old built-in:
+        IFolder f1 = ResourceUtils.getFolder(prj, ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
+                + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
+        ResourceUtils.deleteFolder(f1);
+        // 2. from old workspace:
+        String oldRoutinesPath = "routines"; // Routines path as it was in talend v1.0.n and until 1.1.m2
+        IFolder f2 = ResourceUtils.getFolder(prj, oldRoutinesPath, false);
+        ResourceUtils.deleteFolder(f2);
+
         IPerlModuleService service = (IPerlModuleService) GlobalServiceRegister.getDefault().getService(IPerlModuleService.class);
         List<URL> routines = service.getBuiltInRoutines();
         Path path = new Path(RepositoryConstants.SYSTEM_DIRECTORY);
@@ -377,16 +407,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      */
     private void createFolders(IProject prj, org.talend.core.model.properties.Project emfProject) throws PersistenceException {
         FolderHelper folderHelper = getFolderHelper(emfProject);
-
-        // Purge old routines :
-        // 1. old built-in:
-        IFolder f1 = ResourceUtils.getFolder(prj, ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
-                + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
-        ResourceUtils.deleteFolder(f1);
-        // 2. from old workspace:
-        String oldRoutinesPath = "routines"; // Routines path as it was in talend v1.0.n and until 1.1.m2
-        IFolder f2 = ResourceUtils.getFolder(prj, oldRoutinesPath, false);
-        ResourceUtils.deleteFolder(f2);
 
         // Folder creation :
         for (ERepositoryObjectType type : ERepositoryObjectType.values()) {
@@ -1038,7 +1058,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public Property reload(Property property) {
         IFile file = URIHelper.getFile(property.eResource().getURI());
-        
+
         List<Resource> affectedResources = xmiResourceManager.getAffectedResources(property);
         for (Resource resource : affectedResources) {
             resource.unload();
@@ -1056,12 +1076,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
         for (Iterator iter = users.iterator(); iter.hasNext();) {
             User emfUser = (User) iter.next();
-            
+
             boolean idAssigned = xmiResourceManager.handleUserId(emfProject, emfUser);
             if (idAssigned) {
                 updateUserIdInPropertiesFiles(iProject);
             }
-            
+
             if (emfUser.getLogin().equals(getRepositoryContext().getUser().getLogin())) {
                 getRepositoryContext().setUser(emfUser);
                 exist = true;
@@ -1071,17 +1091,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return exist;
     }
 
-    //fix to update user ref with its new id (instead of order in talendProject xmi file)
+    // fix to update user ref with its new id (instead of order in talendProject xmi file)
     private void updateUserIdInPropertiesFiles(IProject project) throws PersistenceException {
         try {
             project.accept(new IResourceVisitor() {
+
                 public boolean visit(IResource resource) throws CoreException {
                     if (resource.getType() == IResource.FILE) {
                         boolean isPropertyFile = xmiResourceManager.isPropertyFile((IFile) resource);
                         if (isPropertyFile) {
                             Property property = xmiResourceManager.loadProperty(resource);
-                            
-                            //we access the author (resolve proxy)
+
+                            // we access the author (resolve proxy)
                             property.getAuthor();
 
                             try {
@@ -1092,7 +1113,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                             }
                         }
                     }
-                    
+
                     return true;
                 }
             });
@@ -1118,7 +1139,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public void logOnProject(Project project) throws PersistenceException {
         IProject project2 = ResourceModelUtils.getProject(project);
         createFolders(project2, project.getEmfProject());
-        synchronizeRoutines();
+        synchronizeRoutines(project2);
         synchronizeFolders(project2, project.getEmfProject());
     }
 
