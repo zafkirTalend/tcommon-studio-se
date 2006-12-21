@@ -4,9 +4,13 @@
    <extension
          point="org.eclipse.ui.commands">
       <command
-            categoryId="Talend"
+            categoryId="talend"
             id="logImageCache"
             name="Log image cache"/>
+      <command
+            categoryId="talend"
+            id="reloadSystemRoutines"
+            name="Reload system routines"/>
    </extension>
    <extension
          point="org.eclipse.ui.bindings">
@@ -15,6 +19,11 @@
             contextId="talend.global"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
             sequence="CTRL+SHIFT+F2"/>
+      <key
+            commandId="reloadSystemRoutines"
+            contextId="talend.global"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+SHIFT+F5"/>
    </extension>
    <extension
          point="org.talend.core.global_actions">
