@@ -21,13 +21,11 @@
 // ============================================================================
 package org.talend.commons.ui.swt.advanced.dataeditor.commands;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface IExtendedTableCommand {
 

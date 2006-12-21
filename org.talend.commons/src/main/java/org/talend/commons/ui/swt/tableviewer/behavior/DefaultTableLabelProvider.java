@@ -41,7 +41,7 @@ import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
  */
 public class DefaultTableLabelProvider implements ITableLabelProvider, ITableColorProvider {
 
-   protected TableViewerCreator tableViewerCreator;
+    protected TableViewerCreator tableViewerCreator;
 
     public DefaultTableLabelProvider(TableViewerCreator tableViewerCreator) {
         super();
@@ -49,8 +49,7 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
     }
 
     public Image getColumnImage(Object element, int columnIndex) {
-        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns()
-        .get(columnIndex);
+        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns().get(columnIndex);
         if (column.getImageProvider() != null) {
             return column.getImageProvider().getImage(element);
         }
@@ -59,10 +58,8 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
 
     public String getColumnText(Object element, int columnIndex) {
         String returnValue = null;
-        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns()
-                .get(columnIndex);
-        if (column.getDisplayedValue() != null || column.getDefaultDisplayedValue() != null
-                || column.getBeanPropertyAccessors() == null) {
+        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns().get(columnIndex);
+        if (column.getDisplayedValue() != null || column.getDefaultDisplayedValue() != null || column.getBeanPropertyAccessors() == null) {
             String defaultValue = column.getDefaultDisplayedValue();
             String imposedDisplayedValue = column.getDisplayedValue();
             if (imposedDisplayedValue != null) {
@@ -100,14 +97,18 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
     public void removeListener(ILabelProviderListener lpl) {
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.viewers.ITableColorProvider#getBackground(java.lang.Object, int)
      */
     public Color getBackground(Object element, int columnIndex) {
         return tableViewerCreator.getTable().getDisplay().getSystemColor(SWT.COLOR_WHITE);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.viewers.ITableColorProvider#getForeground(java.lang.Object, int)
      */
     public Color getForeground(Object element, int columnIndex) {

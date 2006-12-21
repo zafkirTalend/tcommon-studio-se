@@ -49,9 +49,7 @@ public class StraightLinkWithHorizontalConnectors extends AbstractDrawableLink {
     @Override
     public void drawBody(GC gc) {
 
-        gc.drawPolyline(new int[] { point1.x, point1.y,
-                point1.x + connectorWidth, point1.y,
-                point2.x - connectorWidth, point2.y, point2.x,
+        gc.drawPolyline(new int[] { point1.x, point1.y, point1.x + connectorWidth, point1.y, point2.x - connectorWidth, point2.y, point2.x,
                 point2.y });
     }
 

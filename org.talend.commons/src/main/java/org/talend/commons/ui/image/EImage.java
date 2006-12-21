@@ -23,7 +23,6 @@ package org.talend.commons.ui.image;
 
 import org.talend.commons.CommonsPlugin;
 
-
 /**
  * 
  * DOC smallet ImageProvider class global comment. Detailled comment <br/>
@@ -32,7 +31,7 @@ import org.talend.commons.CommonsPlugin;
  * 
  */
 public enum EImage implements IImage {
-    
+
     DEFAULT_IMAGE,
     EMPTY("/icons/empty.gif"),
 
@@ -63,7 +62,7 @@ public enum EImage implements IImage {
     HIERARCHY_ICON("/icons/hierarchicalLayout.gif"),
 
     ;
-    
+
     private String path;
 
     EImage() {

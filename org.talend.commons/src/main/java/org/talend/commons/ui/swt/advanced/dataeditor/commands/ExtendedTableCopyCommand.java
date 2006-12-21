@@ -38,7 +38,7 @@ public class ExtendedTableCopyCommand extends Command implements IExtendedTableC
     private List beansToCopy;
 
     public static final String LABEL = "Copy one or more table entries in the internal clipboard";
-    
+
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */

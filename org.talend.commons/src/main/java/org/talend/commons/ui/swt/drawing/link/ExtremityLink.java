@@ -21,38 +21,33 @@
 // ============================================================================
 package org.talend.commons.ui.swt.drawing.link;
 
-import org.eclipse.swt.widgets.TreeItem;
+import org.talend.commons.ui.swt.drawing.link.IExtremityLink;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
  * $Id$
  * 
+ * @param <G>
+ * @param <D>
+ * 
  */
-public class TreeExtremityDescriptor implements IExtremityLink<TreeItem, Object> {
+public class ExtremityLink<G, D> implements IExtremityLink<G, D> {
 
-    private TreeItem treeItem;
+    private D dataItem;
+    private G graphicalObject;
 
-    private Object dataObject;
-
+    
+    
     /**
-     * DOC amaumont TreeItemExtremityDescriptor constructor comment.
+     * DOC amaumont TableItemExtremityDescriptor constructor comment.
      * 
-     * @param treeItem
+     * @param tableItem
      */
-    public TreeExtremityDescriptor(TreeItem treeItem, Object dataObject) {
+    public ExtremityLink(G graphicalObject, D dataItem) {
         super();
-        this.treeItem = treeItem;
-        this.dataObject = dataObject;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#getAssociatedItem()
-     */
-    public TreeItem getGraphicalObject() {
-        return treeItem;
+        this.dataItem = dataItem;
+        this.graphicalObject = graphicalObject;
     }
 
     /*
@@ -60,8 +55,8 @@ public class TreeExtremityDescriptor implements IExtremityLink<TreeItem, Object>
      * 
      * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#getDataItem()
      */
-    public Object getDataItem() {
-        return dataObject;
+    public D getDataItem() {
+        return this.dataItem;
     }
 
     /*
@@ -69,17 +64,24 @@ public class TreeExtremityDescriptor implements IExtremityLink<TreeItem, Object>
      * 
      * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#setDataItem(java.lang.Object)
      */
-    public void setDataItem(Object dataItem) {
-        this.dataObject = dataItem;
+    public void setDataItem(D dataItem) {
+        this.dataItem = dataItem;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#getGraphicalItem()
+     */
+    public G getGraphicalObject() {
+        return graphicalObject;
+    }
+
+    /* (non-Javadoc)
      * @see org.talend.commons.ui.swt.drawing.link.IExtremityLink#setGraphicalItem(java.lang.Object)
      */
-    public void setGraphicalObject(TreeItem graphicalItem) {
-        this.treeItem = graphicalItem;
+    public void setGraphicalObject(G graphicalObject) {
+        this.graphicalObject = graphicalObject;
     }
 
+    
+    
 }

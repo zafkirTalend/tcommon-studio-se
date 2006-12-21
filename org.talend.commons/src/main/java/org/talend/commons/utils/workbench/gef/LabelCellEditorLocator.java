@@ -40,6 +40,7 @@ public final class LabelCellEditorLocator implements CellEditorLocator {
      * 
      */
     private static final int A_4 = 4;
+
     private Label label;
 
     public LabelCellEditorLocator(Label label) {

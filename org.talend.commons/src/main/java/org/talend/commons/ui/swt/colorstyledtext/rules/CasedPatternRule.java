@@ -36,16 +36,15 @@ public class CasedPatternRule extends PatternRule {
 
     protected boolean ignoreCase;
 
-    public CasedPatternRule(String startSequence, String endSequence, IToken token, char escapeCharacter,
-            boolean breaksOnEOL) {
+    public CasedPatternRule(String startSequence, String endSequence, IToken token, char escapeCharacter, boolean breaksOnEOL) {
         this(startSequence, endSequence, token, escapeCharacter, breaksOnEOL, false);
     }
 
-    public CasedPatternRule(String startSequence, String endSequence, IToken token, char escapeCharacter,
-            boolean breaksOnEOL, boolean ignoreCase) {
+    public CasedPatternRule(String startSequence, String endSequence, IToken token, char escapeCharacter, boolean breaksOnEOL,
+            boolean ignoreCase) {
 
-        super((ignoreCase ? startSequence.toLowerCase() : startSequence), (endSequence == null ? null
-                : (ignoreCase ? endSequence.toLowerCase() : endSequence)), token, escapeCharacter, breaksOnEOL);
+        super((ignoreCase ? startSequence.toLowerCase() : startSequence), (endSequence == null ? null : (ignoreCase ? endSequence
+                .toLowerCase() : endSequence)), token, escapeCharacter, breaksOnEOL);
         this.ignoreCase = ignoreCase;
     }
 
@@ -83,8 +82,7 @@ public class CasedPatternRule extends PatternRule {
             if (c == fEscapeCharacter) {
                 // Skip the escaped character.
                 scanner.read();
-            } else if (fEndSequence.length > 0
-                    && (c == fEndSequence[0] || Character.toLowerCase((char) c) == fEndSequence[0])) {
+            } else if (fEndSequence.length > 0 && (c == fEndSequence[0] || Character.toLowerCase((char) c) == fEndSequence[0])) {
                 // Check if the specified end sequence has been found.
                 if (sequenceDetected(scanner, fEndSequence, true)) {
                     return true;

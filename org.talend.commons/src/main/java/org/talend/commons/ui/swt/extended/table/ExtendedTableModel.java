@@ -52,7 +52,7 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
      * DOC amaumont Comment method "init".
      */
     private void init() {
-        beansList.setUseEquals(false);        
+        beansList.setUseEquals(false);
     }
 
     /**

@@ -32,7 +32,7 @@ import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
- *
+ * 
  * $Id$
  * 
  * @param <T> type of beans in list
@@ -432,7 +432,7 @@ public class ListenableList<T> implements IExtendedList<T> {
         List<Integer> indices = getIndices(collection);
 
         fireRemovedEvent(null, new ArrayList(collection), indices, true);
-        if(this.list == null) {
+        if (this.list == null) {
             return false;
         }
         boolean modified = false;

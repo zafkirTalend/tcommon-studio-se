@@ -21,21 +21,21 @@
 // ============================================================================
 package org.talend.commons.ui.swt.drawing.link;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  * @param <G> graphical item
  * @param <D> data item
  */
 public interface IExtremityLink<G, D> {
 
     public G getGraphicalObject();
+
     public void setGraphicalObject(G graphicalItem);
-    
+
     public D getDataItem();
+
     public void setDataItem(D dataItem);
 }

@@ -23,22 +23,19 @@ package org.talend.commons.ui.swt.tableviewer.selection;
 
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class LineSelectionEvent {
 
-    /** 
-     * Indicate if the current line selection has been made
-     * by calling a selection method of <code>Table</code> or <code>TableViewer</code>,
-     * unlike a selection with keyboard and/or mouse.
+    /**
+     * Indicate if the current line selection has been made by calling a selection method of <code>Table</code> or
+     * <code>TableViewer</code>, unlike a selection with keyboard and/or mouse.
      */
     public boolean selectionByMethod;
-    
+
     public TableViewerCreator source;
 }

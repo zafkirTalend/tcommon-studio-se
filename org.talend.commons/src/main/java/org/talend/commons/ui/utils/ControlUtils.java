@@ -37,6 +37,7 @@ public class ControlUtils {
     /**
      * 
      * DOC amaumont Comment method "getText".
+     * 
      * @param control
      * @return
      */
@@ -56,6 +57,7 @@ public class ControlUtils {
     /**
      * 
      * DOC amaumont Comment method "getText".
+     * 
      * @param control
      * @return
      */
@@ -67,12 +69,13 @@ public class ControlUtils {
         } else {
             throw new UnsupportedOperationException("This control (" + control.getClass() + ") is not supported, add case if you want...");
         }
-        
+
     }
-    
+
     /**
      * 
      * DOC amaumont Comment method "getText".
+     * 
      * @param control
      * @return
      */
@@ -88,6 +91,7 @@ public class ControlUtils {
 
     /**
      * DOC amaumont Comment method "removeModifyListener".
+     * 
      * @param control
      * @param modifyListener
      */
@@ -100,5 +104,5 @@ public class ControlUtils {
             throw new UnsupportedOperationException("This control (" + control.getClass() + ") is not supported, add case if you want...");
         }
     }
-    
+
 }

@@ -28,13 +28,11 @@ import org.eclipse.swt.widgets.Display;
  * 
  * Samples:
  * 
- * new AsynchronousThread(50, false, dataMapTableView.getDisplay(), new Runnable() { public void run() {
- *  // calls of Widget methods
- *  } }).start();
+ * new AsynchronousThread(50, false, dataMapTableView.getDisplay(), new Runnable() { public void run() { // calls of
+ * Widget methods } }).start();
  * 
- * new AsynchronousThread(50, new Runnable() { public void run() {
- *  // calls of methods except Widget methods
- *  } }).start();
+ * new AsynchronousThread(50, new Runnable() { public void run() { // calls of methods except Widget methods }
+ * }).start();
  * 
  * 
  * $Id$

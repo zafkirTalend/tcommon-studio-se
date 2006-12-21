@@ -272,7 +272,7 @@ public class SimpleHtmlFigure extends Figure {
             horizContainer.add(label);
         }
     }
-    
+
     private Font getUsedFont() {
         Font font = null;
         IFigure f = this;

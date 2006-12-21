@@ -27,18 +27,17 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class MoveDownPushButton extends ExtendedPushButton {
 
     /**
      * DOC amaumont AddPushButton constructor comment.
+     * 
      * @param parent
      * @param tooltip
      * @param image
@@ -47,5 +46,4 @@ public abstract class MoveDownPushButton extends ExtendedPushButton {
         super(parent, extendedControlViewer, "Move down selected items", ImageProvider.getImage(EImage.DOWN_ICON));
     }
 
-    
 }

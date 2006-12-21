@@ -43,8 +43,7 @@ public class DefaultHeaderColumnSelectionListener implements ITableColumnSelecti
 
     private List<IColumnSortedListener> sortListenerList = new ArrayList<IColumnSortedListener>();
 
-    public DefaultHeaderColumnSelectionListener(TableViewerCreatorColumn tableViewerCreatorColumn,
-            TableViewerCreator tableViewerCreator) {
+    public DefaultHeaderColumnSelectionListener(TableViewerCreatorColumn tableViewerCreatorColumn, TableViewerCreator tableViewerCreator) {
         super();
         this.tableViewerCreatorColumn = tableViewerCreatorColumn;
         this.tableViewerCreator = tableViewerCreator;
@@ -66,8 +65,7 @@ public class DefaultHeaderColumnSelectionListener implements ITableColumnSelecti
      * @see org.eclipse.swt.events.SelectionListener#widgetSelected(org.eclipse.swt.events.SelectionEvent)
      */
     public void widgetSelected(SelectionEvent e) {
-        TableViewerCreatorSorter viewerSorter = (TableViewerCreatorSorter) tableViewerCreator.getTableViewer()
-                .getSorter();
+        TableViewerCreatorSorter viewerSorter = (TableViewerCreatorSorter) tableViewerCreator.getTableViewer().getSorter();
         viewerSorter.prepareSort(tableViewerCreator, tableViewerCreatorColumn);
         tableViewerCreator.getTableViewer().refresh();
         fireColumnSorted();

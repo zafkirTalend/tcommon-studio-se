@@ -86,8 +86,7 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
                 CELL_EDITOR_STATE.EDITING);
     }
 
-    protected void onValueChanged(final String newValue, boolean showAlertIfError, final Object currentModifiedBean,
-            CELL_EDITOR_STATE state) {
+    protected void onValueChanged(final String newValue, boolean showAlertIfError, final Object currentModifiedBean, CELL_EDITOR_STATE state) {
         final Text text = (Text) cellEditor.getControl();
         final ModifiedObjectInfo modifiedObjectInfo = tableViewerCreator.getModifiedObjectInfo();
         Object originalValue = modifiedObjectInfo.getOriginalPropertyBeanValue();
@@ -123,6 +122,7 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
 
     /**
      * Implement this to execute treatments when new value is valid.
+     * 
      * @param itemIndex TODO
      * @param previousValue
      * @param newValue
@@ -132,6 +132,7 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
 
     /**
      * DOC amaumont Comment method "validateValue".
+     * 
      * @param value to validate
      * @param beanPosition
      * @return error message if value is invalid, null else

@@ -31,19 +31,17 @@ import org.eclipse.core.runtime.ListenerList;
  */
 public abstract class AbstractExtendedControlModel {
 
-    
     /**
      * 
-     * Event type.
-     * <br/>
-     *
+     * Event type. <br/>
+     * 
      * $Id$
-     *
+     * 
      */
     public enum EVENT_TYPE implements IExtendedControlEventType {
         NAME_CHANGED,
     };
-    
+
     public static final String NAME_CHANGED = "NAME_CHANGED";
 
     /*
@@ -103,7 +101,7 @@ public abstract class AbstractExtendedControlModel {
         for (int i = 0; i < listenerArray.length; i++) {
             ((IExtendedModelListener) listenerArray[i]).handleEvent(event);
         }
-        
+
     }
-    
+
 }

@@ -24,32 +24,29 @@ package org.talend.commons.ui.swt.proposal;
 import org.eclipse.jface.fieldassist.IControlContentAdapter;
 import org.eclipse.swt.widgets.Control;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface IControlContentAdapterExtended extends IControlContentAdapter {
 
     /**
      * 
-     * Return the last word before the cursor.
-     * If control contains "test filter value" and cursor is at offset 8,
-     * The filter value is "fil".
+     * Return the last word before the cursor. If control contains "test filter value" and cursor is at offset 8, The
+     * filter value is "fil".
      * 
      * @param control
      * @return return the last word before the cursor.
      */
     public String getFilterValue(Control control);
-    
+
     /**
-     * Proposal set the used filter. 
+     * Proposal set the used filter.
      * 
      * @param filterValue
      */
     public void setUsedFilterValue(String filterValue);
-    
+
 }

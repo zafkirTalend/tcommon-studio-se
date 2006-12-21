@@ -53,10 +53,9 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
  * 
  */
 public final class TestTableViewerCreator2 {
-    
+
     /**
-     * Default Constructor.
-     * Must not be used.
+     * Default Constructor. Must not be used.
      */
     private TestTableViewerCreator2() {
     }
@@ -90,7 +89,7 @@ public final class TestTableViewerCreator2 {
         tableViewerCreator.setColumnsResizableByDefault(true);
         tableViewerCreator.setColumnsSortableByDefault(true);
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
-//        tableViewerCreator.setAdjustWidthValue(-50);
+        // tableViewerCreator.setAdjustWidthValue(-50);
 
         Table table = tableViewerCreator.createTable();
         // When the table is in a Composite (and not direct in a Shell),
@@ -155,8 +154,7 @@ public final class TestTableViewerCreator2 {
      * @param table
      * @param intValueAdapter
      */
-    private static void initColumns(TableViewerCreator tableViewerCreator, Table table,
-            CellEditorValueAdapter intValueAdapter) {
+    private static void initColumns(TableViewerCreator tableViewerCreator, Table table, CellEditorValueAdapter intValueAdapter) {
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
         column.setWidth(0);
@@ -166,9 +164,11 @@ public final class TestTableViewerCreator2 {
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
             public Integer get(DataObject bean) {
                 return bean.getIntegerValue1();
             }
+
             public void set(DataObject bean, Integer value) {
                 bean.setIntegerValue1(value);
             }
@@ -181,9 +181,11 @@ public final class TestTableViewerCreator2 {
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
             public Integer get(DataObject bean) {
                 return bean.getIntegerValue2();
             }
+
             public void set(DataObject bean, Integer value) {
                 bean.setIntegerValue2(value);
             }
@@ -195,9 +197,11 @@ public final class TestTableViewerCreator2 {
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, String>() {
+
             public String get(DataObject bean) {
                 return bean.getLibelle();
             }
+
             public void set(DataObject bean, String value) {
                 bean.setLibelle(value);
             }
@@ -209,9 +213,11 @@ public final class TestTableViewerCreator2 {
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Integer Null Value");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
             public Integer get(DataObject bean) {
                 return bean.getIntegerValue2();
             }
+
             public void set(DataObject bean, Integer value) {
                 bean.setIntegerValue2(value);
             }
@@ -220,6 +226,7 @@ public final class TestTableViewerCreator2 {
         column.setWidth(ONE_HUNDRED);
         final String[] valueSet = new String[] { "xxx", "yyy", "zzz" };
         column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
+
             public String getColumnText(CellEditor cellEditor, Object cellEditorValue) {
                 String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
                 int index = (Integer) cellEditorValue;
@@ -233,15 +240,18 @@ public final class TestTableViewerCreator2 {
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Id");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
             public Integer get(DataObject bean) {
                 return bean.getId();
             }
+
             public void set(DataObject bean, Integer value) {
                 bean.setId(value);
             }
         });
         column.setWeight(FIFTY);
         column.setTableEditorContent(new TableEditorContent() {
+
             public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
                     Object currentRowObject, Object currentCellValue) {
                 Button button = new Button(table, SWT.PUSH);
@@ -257,9 +267,11 @@ public final class TestTableViewerCreator2 {
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Id2");
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
+
             public Integer get(DataObject bean) {
                 return bean.getIntegerValue2();
             }
+
             public void set(DataObject bean, Integer value) {
                 bean.setIntegerValue2(value);
             }
@@ -267,13 +279,13 @@ public final class TestTableViewerCreator2 {
         column.setWidth(TWO_HUNDRED);
         column.setModifiable(true);
         column.setTableEditorContent(new TableEditorContent() {
+
             public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
                     Object currentRowObject, Object currentCellValue) {
                 Composite composite = new Composite(table, SWT.PUSH);
                 // Set attributes of the button
                 composite.setBackground(new Color(null, ALL, ZERO, ZERO));
-                composite.setSize(ONE_HUNDRED * ((Integer) currentCellValue).intValue() / ONE_HUNDRED, table
-                        .getItemHeight());
+                composite.setSize(ONE_HUNDRED * ((Integer) currentCellValue).intValue() / ONE_HUNDRED, table.getItemHeight());
                 // Set attributes of the editor
                 // tableEditor.grabHorizontal = true;
                 tableEditor.minimumHeight = composite.getSize().y;
@@ -284,6 +296,7 @@ public final class TestTableViewerCreator2 {
 
         });
         column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
+
             public String getColumnText(CellEditor cellEditor, Object cellEditorValue) {
                 String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
                 int index = (Integer) cellEditorValue;

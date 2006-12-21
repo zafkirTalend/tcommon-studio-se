@@ -102,7 +102,7 @@ public final class TestExtendedTableViewer extends AbstractDataTableEditorView<D
         ExtendedTableModel<DataObject> extendedTable = new ExtendedTableModel<DataObject>();
         extendedTable.registerDataList(list);
 
-//        TestExtendedTableViewer viewer = new TestExtendedTableViewer(extendedTable, shell1);
+        // TestExtendedTableViewer viewer = new TestExtendedTableViewer(extendedTable, shell1);
 
         shell1.setSize(HEIGHT_HUNDRED, FIVE_HUNDRED);
         shell1.setSize(HEIGHT_HUNDRED + TEN, FIVE_HUNDRED);

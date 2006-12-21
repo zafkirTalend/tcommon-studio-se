@@ -33,10 +33,13 @@ import org.talend.commons.utils.Bean;
 
 /**
  * 
- * @author amaumont <br/> $Id$
+ * @author amaumont <br/> $Id: MultiplePropertiesBeanComparatorTest.java 1 2006-09-29 17:06:40 +0000 (ven., 29 sept.
+ * 2006) nrousseau $
  */
 public class MultiplePropertiesBeanComparatorTest extends TestCase {
+
     private final int fiveHundred = 500;
+
     private final int ten = 10;
 
     /*
@@ -74,8 +77,8 @@ public class MultiplePropertiesBeanComparatorTest extends TestCase {
                 }
             }
         }
-        MultiplePropertiesBeanComparator comparator = new MultiplePropertiesBeanComparator(true, new String[] {
-                "string1", "string2", "string3" });
+        MultiplePropertiesBeanComparator comparator = new MultiplePropertiesBeanComparator(true, new String[] { "string1", "string2",
+                "string3" });
 
         long time1 = System.currentTimeMillis();
         Collections.sort(list, comparator);
@@ -141,8 +144,7 @@ public class MultiplePropertiesBeanComparatorTest extends TestCase {
                 }
             }
         }
-        MultiplePropertiesBeanComparator comparator = new MultiplePropertiesBeanComparator(true,
-                new String[] { "string1" });
+        MultiplePropertiesBeanComparator comparator = new MultiplePropertiesBeanComparator(true, new String[] { "string1" });
 
         long time1 = System.currentTimeMillis();
         Collections.sort(list, comparator);

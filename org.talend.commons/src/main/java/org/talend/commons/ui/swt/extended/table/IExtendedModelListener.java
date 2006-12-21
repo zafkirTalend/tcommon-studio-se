@@ -31,7 +31,8 @@ public interface IExtendedModelListener {
 
     /**
      * Handle event.
-     * @param event 
+     * 
+     * @param event
      */
     public void handleEvent(ExtendedModelEvent event);
 

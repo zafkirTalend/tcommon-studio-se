@@ -23,18 +23,18 @@ package org.talend.commons.ui.utils;
 
 import org.talend.commons.ui.swt.extended.table.ClipboardEvent;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface IClipoardListener {
+
     /**
      * Handle event.
-     * @param event 
+     * 
+     * @param event
      */
     public void handleEvent(ClipboardEvent event);
 

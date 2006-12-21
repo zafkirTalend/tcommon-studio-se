@@ -61,5 +61,4 @@ public abstract class MoveUpPushButton extends ExtendedPushButton {
                 .getSelectionIndices());
     }
 
-
 }

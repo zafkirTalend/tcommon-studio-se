@@ -26,47 +26,49 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.swt.drawing.background.IBgDrawableComposite;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class BgDrawableComposite implements IBgDrawableComposite {
 
     private Composite commonParent;
-	private Point offsetPoint = new Point(0, 0);
+
+    private Point offsetPoint = new Point(0, 0);
 
     /**
      * DOC amaumont DrawableBackground constructor comment.
+     * 
      * @param commonParent
      */
     public BgDrawableComposite(Composite commonParent) {
         this.commonParent = commonParent;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.drawing.background.IDrawableComposite#drawBackground(org.eclipse.swt.graphics.GC)
      */
     public abstract void drawBackground(GC gc);
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.drawing.background.IDrawableComposite#getComposite()
      */
     public Composite getBgDrawableComposite() {
         return this.commonParent;
     }
 
-	public void setOffset(Point offsetPoint) {
-		this.offsetPoint = offsetPoint;
-	}
+    public void setOffset(Point offsetPoint) {
+        this.offsetPoint = offsetPoint;
+    }
 
-	public Point getOffset() {
-		return this.offsetPoint;
-	}
-	
-    
-    
+    public Point getOffset() {
+        return this.offsetPoint;
+    }
+
 }

@@ -32,9 +32,9 @@ import org.apache.commons.beanutils.PropertyUtils;
  * 
  */
 public final class ReflectUtils {
+
     /**
-     * Default Constructor.
-     * Must not be used.
+     * Default Constructor. Must not be used.
      */
     private ReflectUtils() {
     }

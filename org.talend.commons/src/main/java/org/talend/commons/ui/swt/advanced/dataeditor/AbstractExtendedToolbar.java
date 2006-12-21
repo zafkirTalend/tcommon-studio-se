@@ -29,22 +29,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class AbstractExtendedToolbar {
-    
+
     protected Composite toolbar;
 
     protected AbstractExtendedTableViewer extendedTableViewer;
 
     private Composite parentComposite;
-
 
     /**
      * DOC amaumont MatadataToolbarEditor constructor comment.
@@ -78,18 +75,18 @@ public abstract class AbstractExtendedToolbar {
 
     public abstract void setReadOnly(boolean b);
 
-    
     /**
      * Getter for parentComposite.
+     * 
      * @return the parentComposite
      */
     public Composite getParentComposite() {
         return this.parentComposite;
     }
 
-    
     /**
      * Getter for extendedTableViewer.
+     * 
      * @return the extendedTableViewer
      */
     public AbstractExtendedTableViewer getExtendedTableViewer() {
@@ -100,8 +97,7 @@ public abstract class AbstractExtendedToolbar {
      * DOC amaumont Comment method "updateEnabledStateOfButtons".
      */
     public abstract void updateEnabledStateOfButtons();
-    
+
     public abstract List<ExtendedPushButton> getButtons();
-    
-    
+
 }

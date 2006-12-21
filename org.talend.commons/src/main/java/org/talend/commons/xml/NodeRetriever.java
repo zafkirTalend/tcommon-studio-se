@@ -423,5 +423,13 @@ public class NodeRetriever {
         return this.currentLoopXPath;
     }
 
-    
+    /**
+     * DOC amaumont Comment method "dispose".
+     */
+    public void dispose() {
+        if (document != null) {
+            // document.re
+        }
+    }
+
 }

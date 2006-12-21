@@ -236,8 +236,6 @@ public class TreeUtils {
         }
     }
 
-
-
     // /**
     // * DOC amaumont Comment method "getTableItem".
     // *
@@ -253,6 +251,5 @@ public class TreeUtils {
     // }
     // return -1;
     // }
-
 
 }

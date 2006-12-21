@@ -102,8 +102,7 @@ public class DataObject {
     /**
      * field2.
      */
-//    private Object field3;
-
+    // private Object field3;
     /**
      * id.
      */
@@ -215,7 +214,7 @@ public class DataObject {
         unit = units[random.nextInt(units.length)];
         monnaie = monnaies[random.nextInt(monnaies.length)];
         field2 = new Double((random.nextInt(A99998) + 1) / A100);
-//        field3 = new Double((random.nextInt(A99998) + 1) / A100);
+        // field3 = new Double((random.nextInt(A99998) + 1) / A100);
 
     }
 
@@ -373,7 +372,7 @@ public class DataObject {
     }
 
     public void setField3(Object field3) {
-//        this.field3 = field3;
+        // this.field3 = field3;
     }
 
     /**
@@ -568,7 +567,6 @@ public class DataObject {
         this.primaryIntegerValue = integerValue;
     }
 
-    
     public String getEmptyString() {
         return emptyString;
     }

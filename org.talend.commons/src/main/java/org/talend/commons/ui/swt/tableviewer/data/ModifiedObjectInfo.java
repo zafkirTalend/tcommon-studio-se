@@ -47,7 +47,7 @@ public class ModifiedObjectInfo<O> {
     private int currentModifiedIndex;
 
     private int previousModifiedIndex;
-    
+
     public O getCurrentModifiedBean() {
         return currentModifiedBean;
     }
@@ -105,26 +105,23 @@ public class ModifiedObjectInfo<O> {
 
     /**
      * DOC amaumont Comment method "setCurrentModifiedIndex".
+     * 
      * @param i
      */
     public void setCurrentModifiedIndex(int currentModifiedIndex) {
         this.currentModifiedIndex = currentModifiedIndex;
     }
 
-    
     public int getCurrentModifiedIndex() {
         return this.currentModifiedIndex;
     }
 
-    
     public int getPreviousModifiedIndex() {
         return this.previousModifiedIndex;
     }
 
-    
     public void setPreviousModifiedIndex(int previousModifiedIndex) {
         this.previousModifiedIndex = previousModifiedIndex;
     }
 
-    
 }

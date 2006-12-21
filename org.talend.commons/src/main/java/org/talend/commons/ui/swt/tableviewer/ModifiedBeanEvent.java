@@ -21,21 +21,23 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  * @param <B> Type of beans
  */
 public class ModifiedBeanEvent<B> {
 
-    public B bean; 
-    public int index; 
+    public B bean;
+
+    public int index;
+
     public TableViewerCreatorColumn column;
-    public Object newValue; 
-    public Object previousValue; 
-    
+
+    public Object newValue;
+
+    public Object previousValue;
+
 }

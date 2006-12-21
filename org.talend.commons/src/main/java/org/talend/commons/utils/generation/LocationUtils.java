@@ -42,19 +42,19 @@ public class LocationUtils {
 
     private Perl5Compiler compiler = new Perl5Compiler();
 
-//    private List<EntryLocation> resultList = new ArrayList<EntryLocation>();
+    // private List<EntryLocation> resultList = new ArrayList<EntryLocation>();
 
     private Pattern pattern;
 
-//    private PatternMatcherInput patternMatcherInput;
+    // private PatternMatcherInput patternMatcherInput;
 
-//    private String locationPattern;
+    // private String locationPattern;
 
     private static final String DOUBLE_ESCAPE = "\\";
 
     private static final String PREFIX_VARIABLE_NAME = "$";
 
-//    private static final String AND_CONDITION = " && ";
+    // private static final String AND_CONDITION = " && ";
 
     private static final String PREFIX_FIELD_NAME = "[";
 
@@ -64,9 +64,9 @@ public class LocationUtils {
 
     private static final String PREFIX_TABLE_NAME_REGEXP = DOUBLE_ESCAPE + PREFIX_TABLE_NAME;
 
-//    private static final String SUFFIX_TABLE_NAME = "";
+    // private static final String SUFFIX_TABLE_NAME = "";
 
-//    private static final String SUFFIX_TABLE_NAME_REGEXP = SUFFIX_TABLE_NAME;
+    // private static final String SUFFIX_TABLE_NAME_REGEXP = SUFFIX_TABLE_NAME;
 
     private static final String PREFIX_FIELD_NAME_REGEXP = DOUBLE_ESCAPE + PREFIX_FIELD_NAME;
 

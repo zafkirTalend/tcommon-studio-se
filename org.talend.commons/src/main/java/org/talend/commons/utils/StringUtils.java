@@ -24,16 +24,15 @@ package org.talend.commons.utils;
 
 /**
  * 
- * Utility class for strings.
- * <br/>
- *
+ * Utility class for strings. <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class StringUtils {
-	
+
     public static String repeat(String str, int repeat) {
-    	return org.apache.commons.lang.StringUtils.repeat(str, repeat);
+        return org.apache.commons.lang.StringUtils.repeat(str, repeat);
     }
 
 }

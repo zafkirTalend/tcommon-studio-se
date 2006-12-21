@@ -103,29 +103,28 @@ public class TableEditorManager {
             if (tableEditorContent != null) {
 
                 String idProperty = column.getId();
-//                Collection collection = (Collection) tableViewerCreator.getTableViewer().getInput();
-//                if (collection != null) {
-//                    for (Object currentRowObject : collection) {
-//                        TableEditor tableEditor = tableEditorContent.createTableEditor(tableViewerCreator.getTable());
-//                        tableEditorList.add(tableEditor);
-//                        Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-//                        Control control = tableEditorContent.initialize(tableViewerCreator.getTable(), tableEditor, column,
-//                                currentRowObject, value);
-//                        TableItem tableItem = objectRowToTableItem.get(currentRowObject);
-//                        if (tableItem != null && !tableItem.isDisposed()) {
-//                            tableEditor.setEditor(control, objectRowToTableItem.get(currentRowObject), iCol);
-//                        }
-//                    }
-//                }
-                
+                // Collection collection = (Collection) tableViewerCreator.getTableViewer().getInput();
+                // if (collection != null) {
+                // for (Object currentRowObject : collection) {
+                // TableEditor tableEditor = tableEditorContent.createTableEditor(tableViewerCreator.getTable());
+                // tableEditorList.add(tableEditor);
+                // Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
+                // Control control = tableEditorContent.initialize(tableViewerCreator.getTable(), tableEditor, column,
+                // currentRowObject, value);
+                // TableItem tableItem = objectRowToTableItem.get(currentRowObject);
+                // if (tableItem != null && !tableItem.isDisposed()) {
+                // tableEditor.setEditor(control, objectRowToTableItem.get(currentRowObject), iCol);
+                // }
+                // }
+                // }
+
                 for (int i = 0; i < items.length; i++) {
                     TableEditor tableEditor = tableEditorContent.createTableEditor(table);
                     TableItem tableItem = items[i];
                     tableEditorList.add(tableEditor);
                     Object currentRowObject = tableItem.getData();
                     Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-                    Control control = tableEditorContent.initialize(table, tableEditor, column,
-                            currentRowObject, value);
+                    Control control = tableEditorContent.initialize(table, tableEditor, column, currentRowObject, value);
                     if (tableItem != null && !tableItem.isDisposed()) {
                         tableEditor.setEditor(control, tableItem, iCol);
                     }

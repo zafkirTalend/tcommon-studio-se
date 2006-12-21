@@ -27,20 +27,19 @@ import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.graphics.ImageLoader;
 import org.eclipse.swt.graphics.Transform;
 
-
 /**
- * Image utilities.
- * <br/>
- *
+ * Image utilities. <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class ImageUtils {
 
     /**
      * Save an image in a file.
+     * 
      * @param image
-     * @param file 
+     * @param file
      * @param format SWT.IMAGE_BMP, SWT.IMAGE_GIF, etc.
      */
     public static void save(Image image, String filePath, int format) {
@@ -49,8 +48,6 @@ public class ImageUtils {
         loader.save(filePath, format);
     }
 
-
-    
     /**
      * Scale image with provided percent value.
      */
@@ -63,11 +60,10 @@ public class ImageUtils {
         GC gc = new GC(image);
         gc.setTransform(transform);
         gc.drawImage(image, 0, 0);
-        
+
         Image newImage = new Image(image.getDevice(), newWidth, newHeight);
         gc.copyArea(newImage, 0, 0);
         return newImage;
     }
-    
-    
+
 }

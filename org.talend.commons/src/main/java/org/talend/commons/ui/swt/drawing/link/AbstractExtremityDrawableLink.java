@@ -36,9 +36,9 @@ public abstract class AbstractExtremityDrawableLink implements IExtremityDrawabl
     protected IStyleLink styleLink;
 
     protected int xOffset;
-    
+
     protected int yOffset;
-    
+
     /**
      * DOC amaumont AbstractTipLink constructor comment.
      * 
@@ -50,6 +50,7 @@ public abstract class AbstractExtremityDrawableLink implements IExtremityDrawabl
 
     /**
      * DOC amaumont AbstractTipLink constructor comment.
+     * 
      * @param styleLink
      * @param xOffset
      * @param yOffset
@@ -61,11 +62,9 @@ public abstract class AbstractExtremityDrawableLink implements IExtremityDrawabl
         this.yOffset = yOffset;
     }
 
-
     /**
-     * Return the current foregroundColor if defined
-     * , else return styleLink foreground if defined
-     * , else return gc foreground.
+     * Return the current foregroundColor if defined , else return styleLink foreground if defined , else return gc
+     * foreground.
      * 
      * @return the foregroundColor
      */
@@ -102,42 +101,40 @@ public abstract class AbstractExtremityDrawableLink implements IExtremityDrawabl
         this.styleLink = styleLink;
     }
 
-    
     /**
      * Getter for xOffset.
+     * 
      * @return the xOffset
      */
     public int getXOffset() {
         return this.xOffset;
     }
 
-    
     /**
      * Sets the xOffset.
+     * 
      * @param offset the xOffset to set
      */
     public void setXOffset(int offset) {
         this.xOffset = offset;
     }
 
-    
     /**
      * Getter for yOffset.
+     * 
      * @return the yOffset
      */
     public int getYOffset() {
         return this.yOffset;
     }
 
-    
     /**
      * Sets the yOffset.
+     * 
      * @param offset the yOffset to set
      */
     public void setYOffset(int offset) {
         this.yOffset = offset;
     }
 
-    
-    
 }

@@ -21,13 +21,11 @@
 // ============================================================================
 package org.talend.commons.ui.swt.extended.table;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class ClipboardEvent {
 

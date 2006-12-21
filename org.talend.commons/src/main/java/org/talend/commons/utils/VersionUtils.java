@@ -31,113 +31,112 @@ import java.util.StringTokenizer;
  */
 public class VersionUtils {
 
-	public static final String DEFAULT_VERSION = "0.1";
+    public static final String DEFAULT_VERSION = "0.1";
 
-	/**
-	 * 
-	 * @author smallet
-	 * 
-	 */
-	private static class Version implements Comparable<Version> {
-		private static final String LEVEL_SEPARATOR = ".";
+    /**
+     * 
+     * @author smallet
+     * 
+     */
+    private static class Version implements Comparable<Version> {
 
-		private int major = 0;
+        private static final String LEVEL_SEPARATOR = ".";
 
-		private int minor = 1;
+        private int major = 0;
 
-		/**
-		 * Empty constructor.
-		 */
-		public Version() {
-		}
+        private int minor = 1;
 
-		/**
-		 * Version initialized constructor.
-		 * 
-		 * @param major
-		 * @param minor
-		 */
-		public Version(int major, int minor) {
-			this();
-			this.major = major;
-			this.minor = minor;
-		}
+        /**
+         * Empty constructor.
+         */
+        public Version() {
+        }
 
-		public Version(String version) {
-			StringTokenizer stringTokenizer = new StringTokenizer(version,
-					LEVEL_SEPARATOR);
-			try {
-				this.major = Integer.parseInt(stringTokenizer.nextToken());
-				this.minor = Integer.parseInt(stringTokenizer.nextToken());
-			} catch (NumberFormatException e) {
-				throw new IllegalArgumentException("Malformed string "
-						+ version + " (attending M" + LEVEL_SEPARATOR + "m)", e);
-			}
-		}
+        /**
+         * Version initialized constructor.
+         * 
+         * @param major
+         * @param minor
+         */
+        public Version(int major, int minor) {
+            this();
+            this.major = major;
+            this.minor = minor;
+        }
 
-		public void upMajor() {
-			this.major++;
-			this.minor = 0;
-		}
+        public Version(String version) {
+            StringTokenizer stringTokenizer = new StringTokenizer(version, LEVEL_SEPARATOR);
+            try {
+                this.major = Integer.parseInt(stringTokenizer.nextToken());
+                this.minor = Integer.parseInt(stringTokenizer.nextToken());
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Malformed string " + version + " (attending M" + LEVEL_SEPARATOR + "m)", e);
+            }
+        }
 
-		public void upMinor() {
-			this.minor++;
-		}
+        public void upMajor() {
+            this.major++;
+            this.minor = 0;
+        }
 
-		/**
-		 * Getter for major.
-		 * 
-		 * @return the major
-		 */
-		public int getMajor() {
-			return this.major;
-		}
+        public void upMinor() {
+            this.minor++;
+        }
 
-		/**
-		 * Getter for minor.
-		 * 
-		 * @return the minor
-		 */
-		public int getMinor() {
-			return this.minor;
-		}
+        /**
+         * Getter for major.
+         * 
+         * @return the major
+         */
+        public int getMajor() {
+            return this.major;
+        }
 
-		@Override
-		public String toString() {
-			return major + LEVEL_SEPARATOR + minor;
-		}
+        /**
+         * Getter for minor.
+         * 
+         * @return the minor
+         */
+        public int getMinor() {
+            return this.minor;
+        }
 
-		public int compareTo(Version arg0) {
-			if (this.equals(arg0)) {
-				return 0;
-			}
+        @Override
+        public String toString() {
+            return major + LEVEL_SEPARATOR + minor;
+        }
 
-			if (this.getMajor() == arg0.getMajor()) {
-				Integer m1 = this.getMinor();
-				Integer m2 = arg0.getMinor();
-				return m1.compareTo(m2);
-			} else {
-				Integer m1 = this.getMajor();
-				Integer m2 = arg0.getMajor();
-				return m1.compareTo(m2);
-			}
-		}
+        public int compareTo(Version arg0) {
+            if (this.equals(arg0)) {
+                return 0;
+            }
 
-	}
+            if (this.getMajor() == arg0.getMajor()) {
+                Integer m1 = this.getMinor();
+                Integer m2 = arg0.getMinor();
+                return m1.compareTo(m2);
+            } else {
+                Integer m1 = this.getMajor();
+                Integer m2 = arg0.getMajor();
+                return m1.compareTo(m2);
+            }
+        }
 
-	public static int compareTo(String arg0, String arg1) {
-		return new Version(arg0).compareTo(new Version(arg1));
-	}
+    }
 
-	public static String upMinor(String version) {
-		Version toReturn = new Version(version);
-		toReturn.upMinor();
-		return toReturn.toString();
-	}
+    public static int compareTo(String arg0, String arg1) {
+        return new Version(arg0).compareTo(new Version(arg1));
+    }
 
-	public static String upMajor(String version) {
-		Version toReturn = new Version(version);
-		toReturn.upMajor();
-		return toReturn.toString();
-	}
+    public static String upMinor(String version) {
+        Version toReturn = new Version(version);
+        toReturn.upMinor();
+        return toReturn.toString();
+    }
+
+    public static String upMajor(String version) {
+        Version toReturn = new Version(version);
+        toReturn.upMajor();
+        return toReturn.toString();
+    }
 }

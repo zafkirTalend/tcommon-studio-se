@@ -21,20 +21,19 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.behavior;
 
-
 /**
- * Listener used in <code>TableViewerCreator</code> to notify that a cell value has changed.
- * <br/>
- *
+ * Listener used in <code>TableViewerCreator</code> to notify that a cell value has changed. <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface ITableCellValueModifiedListener {
 
     /**
      * This method is called after data is stored and <code>TableViewer</code> refreshed.
+     * 
      * @param e
      */
     public void cellValueModified(TableCellValueModifiedEvent e);
-    
+
 }

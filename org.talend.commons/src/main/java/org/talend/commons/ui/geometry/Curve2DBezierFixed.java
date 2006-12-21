@@ -20,7 +20,7 @@
 //
 // ============================================================================
 
-// Java & Bézier
+// Java & Bï¿½zier
 // (C) 2002 Emmanuel Turquin
 //
 // Curve2DBezierFixed.java

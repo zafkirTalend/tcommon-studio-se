@@ -39,6 +39,7 @@ public final class SimpleHtmlCellEditorLocator implements CellEditorLocator {
      * 
      */
     private static final int A_4 = 4;
+
     private SimpleHtmlFigure label;
 
     public SimpleHtmlCellEditorLocator(SimpleHtmlFigure label) {

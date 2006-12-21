@@ -42,7 +42,7 @@ public class ExtendedTableAddCommand extends Command implements IExtendedTableCo
     private List beansToAdd;
 
     public static final String LABEL = "Add one or more table entries";
-    
+
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
@@ -89,10 +89,10 @@ public class ExtendedTableAddCommand extends Command implements IExtendedTableCo
     @SuppressWarnings("unchecked")
     public void execute() {
 
-//        for (Object object : beansToAdd) {
-//            extendedTable.add(object);
-//        }
-        
+        // for (Object object : beansToAdd) {
+        // extendedTable.add(object);
+        // }
+
         extendedTable.addAll(indexStartAdd, beansToAdd);
 
     }

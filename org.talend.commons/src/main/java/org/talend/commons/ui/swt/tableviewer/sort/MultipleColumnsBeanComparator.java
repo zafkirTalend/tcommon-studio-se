@@ -30,7 +30,8 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.data.AccessorUtils;
 
 /**
- * @author amaumont <br/> $Id$
+ * @author amaumont <br/> $Id: MultipleColumnsBeanComparator.java 294 2006-11-02 08:27:05 +0000 (jeu., 02 nov. 2006)
+ * smallet $
  */
 public class MultipleColumnsBeanComparator implements Comparator {
 
@@ -116,7 +117,7 @@ public class MultipleColumnsBeanComparator implements Comparator {
         } else if (object1 instanceof Comparable && object2 instanceof Comparable) {
             returnValue = ((Comparable) object1).compareTo(object2);
         } else if (object1 != null && object2 != null) {
-            // si les objets sont différents de null on les compare avec le
+            // si les objets sont diffï¿½rents de null on les compare avec le
             // toString
             returnValue = compareStrings(object1.toString(), object2.toString());
         } else if (object1 == null && object2 != null) {
@@ -140,7 +141,7 @@ public class MultipleColumnsBeanComparator implements Comparator {
     }
 
     @SuppressWarnings("unchecked")
-    public static void sort(boolean orderAscendant, List< ? extends Object> collection, TableViewerCreatorColumn... propertiesByPriority) {
+    public static void sort(boolean orderAscendant, List<? extends Object> collection, TableViewerCreatorColumn... propertiesByPriority) {
         Collections.sort(collection, new MultipleColumnsBeanComparator(orderAscendant, propertiesByPriority));
     }
 

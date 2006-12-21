@@ -45,7 +45,7 @@ public class TypedTextCommandExecutor {
     private static final int KEY_CODE_UNDO = 122; // 'z'
 
     private static final int KEY_CODE_PROPOSAL = 27; // ' '
-    
+
     private Key previousKey;
 
     private String previousText;
@@ -116,7 +116,7 @@ public class TypedTextCommandExecutor {
 
         String currentText = ControlUtils.getText(control);
 
-//        System.out.println(e);
+        // System.out.println(e);
 
         boolean alphaNumMatched = matcher.matches(String.valueOf(e.character), patternAlphaNum);
         boolean ctrlKey = (e.stateMask & (SWT.CTRL)) != 0;
@@ -126,8 +126,8 @@ public class TypedTextCommandExecutor {
         if (combinedKeys && !undoOrRedo && currentText.equals(previousText) || proposal) {
             // nothing
         } else if (!currentText.equals(previousText)) {
-//            System.out.println("undoOrRedo===============" + undoOrRedo);
-//            System.out.println("ctrlKey===============" + ctrlKey);
+            // System.out.println("undoOrRedo===============" + undoOrRedo);
+            // System.out.println("ctrlKey===============" + ctrlKey);
             if (undoOrRedo) {
                 // nothing
             } else if ((this.previousKey != null && alphaNumMatched && this.previousKey.alphaNumMatched) || e.character == ' ') {

@@ -23,18 +23,17 @@ package org.talend.commons.utils.data.list;
 
 import java.util.List;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  * @param <B> type of beans
  */
 public abstract class UniqueStringGenerator<B> {
 
     private String baseValue;
+
     private List<B> beans;
 
     /**
@@ -79,5 +78,5 @@ public abstract class UniqueStringGenerator<B> {
     }
 
     protected abstract String getBeanString(B bean);
-    
+
 }

@@ -58,7 +58,7 @@ public class TableViewerCreatorColumn implements Cloneable {
     private int index = -1;
 
     private static int generatedId;
-    
+
     /**
      * . <br/>
      * 
@@ -486,5 +486,5 @@ public class TableViewerCreatorColumn implements Cloneable {
     private static synchronized String getNewId() {
         return String.valueOf(generatedId++);
     }
-    
+
 }

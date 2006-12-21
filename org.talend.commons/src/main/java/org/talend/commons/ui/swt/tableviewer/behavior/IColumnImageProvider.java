@@ -24,8 +24,8 @@ package org.talend.commons.ui.swt.tableviewer.behavior;
 import org.eclipse.swt.graphics.Image;
 
 /**
- * <code>IColumnImageProvider</code> provide a method which return the image for a given bean of the table
- * (element) and the current column. <br/>
+ * <code>IColumnImageProvider</code> provide a method which return the image for a given bean of the table (element)
+ * and the current column. <br/>
  * 
  * $Id$
  * 
@@ -34,8 +34,10 @@ public interface IColumnImageProvider {
 
     /**
      * Get the image.
+     * 
      * @param element bean of the <code>TableViewerCreator</code>
-     * @return return the image for the current given bean of the <code>TableViewerCreator</code> and the current column
+     * @return return the image for the current given bean of the <code>TableViewerCreator</code> and the current
+     * column
      */
     public Image getImage(Object bean);
 

@@ -296,8 +296,8 @@ public class StarRule implements IPredicateRule {
         int c = scanner.read();
         scanner.unread();
         if (c == text[0]) {
-            return (fColumn == scanner.getColumn() ? (isPrevious ? doEvaluatePrevious(scanner, resume)
-                    : doEvaluateFollowing(scanner, resume)) : Token.UNDEFINED);
+            return (fColumn == scanner.getColumn() ? (isPrevious ? doEvaluatePrevious(scanner, resume) : doEvaluateFollowing(scanner,
+                    resume)) : Token.UNDEFINED);
         }
         return Token.UNDEFINED;
     }

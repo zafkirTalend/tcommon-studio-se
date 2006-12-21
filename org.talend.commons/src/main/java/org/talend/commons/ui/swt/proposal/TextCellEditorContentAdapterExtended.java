@@ -24,13 +24,11 @@ package org.talend.commons.ui.swt.proposal;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Control;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class TextCellEditorContentAdapterExtended extends TextContentAdapterExtended {
 
@@ -41,5 +39,4 @@ public class TextCellEditorContentAdapterExtended extends TextContentAdapterExte
         return bounds;
     }
 
-    
 }

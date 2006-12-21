@@ -29,7 +29,8 @@ import java.util.List;
 import org.apache.commons.beanutils.PropertyUtils;
 
 /**
- * @author amaumont <br/> $Id$
+ * @author amaumont <br/> $Id: MultiplePropertiesBeanComparator.java 33 2006-10-02 15:04:29 +0000 (lun., 02 oct. 2006)
+ * amaumont $
  */
 public class MultiplePropertiesBeanComparator implements Comparator {
 
@@ -92,8 +93,8 @@ public class MultiplePropertiesBeanComparator implements Comparator {
         return returnValue;
     }
 
-    private int compare(String property, Object object1, Object object2) throws IllegalAccessException,
-            InvocationTargetException, NoSuchMethodException {
+    private int compare(String property, Object object1, Object object2) throws IllegalAccessException, InvocationTargetException,
+            NoSuchMethodException {
         Object value1 = null;
         Object value2 = null;
         if (property != null && !property.equals("")) {
@@ -115,7 +116,7 @@ public class MultiplePropertiesBeanComparator implements Comparator {
         } else if (object1 instanceof Comparable && object2 instanceof Comparable) {
             returnValue = ((Comparable) object1).compareTo(object2);
         } else if (object1 != null && object2 != null) {
-            // si les objets sont différents de null on les compare avec le
+            // si les objets sont diffï¿½rents de null on les compare avec le
             // toString
             returnValue = compareStrings(object1.toString(), object2.toString());
         } else if (object1 == null && object2 != null) {
@@ -139,7 +140,7 @@ public class MultiplePropertiesBeanComparator implements Comparator {
     }
 
     @SuppressWarnings("unchecked")
-    public static void sort(boolean orderAscendant, List< ? extends Object> collection, String... propertiesByPriority) {
+    public static void sort(boolean orderAscendant, List<? extends Object> collection, String... propertiesByPriority) {
         Collections.sort(collection, new MultiplePropertiesBeanComparator(orderAscendant, propertiesByPriority));
     }
 

@@ -21,17 +21,14 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.selection;
 
-
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface ILineSelectionListener {
 
     public void handle(LineSelectionEvent e);
-    
+
 }

@@ -28,9 +28,9 @@ package org.talend.commons.ui.swt.formtools;
  * 
  */
 public final class TestDataTypeHelper {
+
     /**
-     * Default Constructor.
-     * Must not be used.
+     * Default Constructor. Must not be used.
      */
     private TestDataTypeHelper() {
     }
@@ -58,21 +58,16 @@ public final class TestDataTypeHelper {
 
         System.out.println("__________________________");
 
-        // * float flottant (real) -1.4*10 -45 à 3.4*10 38
+        // * float flottant (real) -1.4*10 -45 ï¿½ 3.4*10 38
         System.out.println("float:" + DataTypeHelper.getTalendTypeOfValue("1.11111111111"));
-        System.out.println("float:"
-                + DataTypeHelper.getTalendTypeOfValue("-0.0000000000000000000000000000000000000000000014"));
+        System.out.println("float:" + DataTypeHelper.getTalendTypeOfValue("-0.0000000000000000000000000000000000000000000014"));
         System.out.println("float:" + DataTypeHelper.getTalendTypeOfValue("339999999999999999999999999999999999999.9")); // *
-                                                                                                                    // double
-        // flottant double 4.9*10 -324 à 1.7*10 308
-        System.out
-                .println("double:"
-                        + DataTypeHelper
-                                .getTalendTypeOfValue("1699999999999999999999999999999999999999999999999999999999999999999999999999.9"));
-        System.out
-                .println("double:"
-                        + DataTypeHelper
-                                .getTalendTypeOfValue("1700000000000000000000000000000000000000000000000000000000000000000000000000"));
+        // double
+        // flottant double 4.9*10 -324 ï¿½ 1.7*10 308
+        System.out.println("double:"
+                + DataTypeHelper.getTalendTypeOfValue("1699999999999999999999999999999999999999999999999999999999999999999999999999.9"));
+        System.out.println("double:"
+                + DataTypeHelper.getTalendTypeOfValue("1700000000000000000000000000000000000000000000000000000000000000000000000000"));
     }
 
 }

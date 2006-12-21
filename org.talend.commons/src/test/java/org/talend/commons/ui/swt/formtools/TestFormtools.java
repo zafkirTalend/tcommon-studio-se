@@ -39,16 +39,16 @@ import org.eclipse.swt.widgets.Text;
  * 
  */
 public final class TestFormtools {
+
     /**
-     * Default Constructor.
-     * Must not be used.
+     * Default Constructor. Must not be used.
      */
     private TestFormtools() {
     }
 
     private static final String WINDOWTITLE = "Test org.talend.commons.ui.swt.formtools";
 
-    //private static Label statusLabel;
+    // private static Label statusLabel;
 
     private static Display display;
 
@@ -62,7 +62,7 @@ public final class TestFormtools {
     private static Combo sampleCombo;
 
     /**
-     * méthode principale.
+     * mï¿½thode principale.
      * 
      * @param args
      */
@@ -93,7 +93,7 @@ public final class TestFormtools {
         nameText.setEditable(false);
 
         String[] itemTable = { "option1", "option2" };
-        LabelledCombo tableCombo = new LabelledCombo(compositeGroup, "Table", "Aide à la saisie", itemTable);
+        LabelledCombo tableCombo = new LabelledCombo(compositeGroup, "Table", "Aide ï¿½ la saisie", itemTable);
 
         String[] extensions = { "*.mdb" };
         LabelledFileField file = new LabelledFileField(compositeGroup, "Mdb File", extensions);
@@ -117,14 +117,13 @@ public final class TestFormtools {
      * 
      * @param String
      */
-//    private static void updateStatus(String string) {
-//        if (string != null) {
-//            statusLabel.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
-//            statusLabel.setText(string);
-//        } else {
-//            statusLabel.setBackground(display.getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
-//            statusLabel.setText("");
-//        }
-//    }
-
+    // private static void updateStatus(String string) {
+    // if (string != null) {
+    // statusLabel.setBackground(display.getSystemColor(SWT.COLOR_WHITE));
+    // statusLabel.setText(string);
+    // } else {
+    // statusLabel.setBackground(display.getSystemColor(SWT.COLOR_WIDGET_BACKGROUND));
+    // statusLabel.setText("");
+    // }
+    // }
 }

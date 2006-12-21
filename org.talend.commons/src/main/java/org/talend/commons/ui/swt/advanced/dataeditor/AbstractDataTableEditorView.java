@@ -24,19 +24,14 @@ package org.talend.commons.ui.swt.advanced.dataeditor;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Table;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableRemoveCommand;
-import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -280,8 +275,7 @@ public abstract class AbstractDataTableEditorView<B> {
                     if (e.character == SWT.DEL) {
                         ExtendedTableModel model = extendedTableViewer.getExtendedTableModel();
                         if (model != null && model.isDataRegistered()) {
-                            ExtendedTableRemoveCommand command = new ExtendedTableRemoveCommand(model, table
-                                    .getSelectionIndices());
+                            ExtendedTableRemoveCommand command = new ExtendedTableRemoveCommand(model, table.getSelectionIndices());
                             extendedTableViewer.executeCommand(command);
                         }
                     }

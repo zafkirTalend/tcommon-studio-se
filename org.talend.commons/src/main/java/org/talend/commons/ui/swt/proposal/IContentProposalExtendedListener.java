@@ -24,13 +24,11 @@ package org.talend.commons.ui.swt.proposal;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalListener;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface IContentProposalExtendedListener extends IContentProposalListener {
 
@@ -38,16 +36,17 @@ public interface IContentProposalExtendedListener extends IContentProposalListen
      * A proposal popup has been opened.
      */
     public void proposalOpened();
-    
+
     /**
      * A proposal popup has been closed.
      */
     public void proposalClosed();
-    
+
     /**
      * Before the control attached is modified by proposal.
-     * @param proposal 
+     * 
+     * @param proposal
      */
     public void proposalBeforeModifyControl(IContentProposal proposal);
-    
+
 }

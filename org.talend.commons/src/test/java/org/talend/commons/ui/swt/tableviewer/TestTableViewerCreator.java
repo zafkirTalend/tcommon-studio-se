@@ -148,7 +148,7 @@ public final class TestTableViewerCreator {
         });
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-//        TableViewerCreatorColumn nameColumn = column;
+        // TableViewerCreatorColumn nameColumn = column;
         column.setTitle("Name");
         column.setResizable(true);
         column.setModifiable(true);

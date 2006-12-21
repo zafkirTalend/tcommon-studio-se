@@ -482,20 +482,20 @@ public class TableViewerCreatorLayout extends Layout {
 
     }
 
-//    /**
-//     * Set the width of the item.
-//     * 
-//     * @param item
-//     * @param width
-//     */
-//    private int getWidth(Item item) {
-//        if (item instanceof TreeColumn) {
-//            return ((TreeColumn) item).getWidth();
-//        } else {
-//            return ((TableColumn) item).getWidth();
-//        }
-//
-//    }
+    // /**
+    // * Set the width of the item.
+    // *
+    // * @param item
+    // * @param width
+    // */
+    // private int getWidth(Item item) {
+    // if (item instanceof TreeColumn) {
+    // return ((TreeColumn) item).getWidth();
+    // } else {
+    // return ((TableColumn) item).getWidth();
+    // }
+    //
+    // }
 
     /**
      * Force the layout even if it is not the first layout.

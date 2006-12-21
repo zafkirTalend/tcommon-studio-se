@@ -193,12 +193,12 @@ public class TableUtils {
         return -1;
     }
 
-//    public static Rectangle getTableItemBounds(TableItem tableItem) {
-//    	Rectangle bounds = tableItem.getBounds();
-//    	if(WindowSystem.isGTK()) {
-////    		bounds.y +
-//    	}
-//    	return null; 
-//    }
-    
+    // public static Rectangle getTableItemBounds(TableItem tableItem) {
+    // Rectangle bounds = tableItem.getBounds();
+    // if(WindowSystem.isGTK()) {
+    // // bounds.y +
+    // }
+    // return null;
+    // }
+
 }

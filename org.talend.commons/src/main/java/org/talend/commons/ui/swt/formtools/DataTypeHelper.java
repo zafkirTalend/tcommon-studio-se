@@ -92,7 +92,7 @@ public final class DataTypeHelper {
         // only 1 char => type is char or int
         if (value.length() == 1) {
             try {
-                // * int Entier -2 147 483 648 à 2 147 483 647
+                // * int Entier -2 147 483 648 ï¿½ 2 147 483 647
                 Integer nbr = Integer.parseInt(value);
                 if ((nbr >= INT_MIN) && (nbr <= INT_MAX)) {
                     return "Integer";
@@ -134,7 +134,7 @@ public final class DataTypeHelper {
                 }
 
                 try {
-                    // * double flottant double 4.9*10 -324 à 1.7*10 308
+                    // * double flottant double 4.9*10 -324 ï¿½ 1.7*10 308
                     Double nbrDouble = Double.parseDouble(value);
                     if ((!nbrDouble.toString().equals("Infinity")) && (!nbrDouble.toString().equals("-Infinity"))) {
                         if ((nbrDouble >= DOUBLE_MIN) && (nbrDouble <= DOUBLE_MAX)) {

@@ -186,7 +186,7 @@ public class BackgroundRefresher implements IBackgroundRefresher {
 
             GC gc = new GC(newImage);
 
-            drawableComposite.setOffset(new Point(0,0));
+            drawableComposite.setOffset(new Point(0, 0));
 
             drawableComposite.drawBackground(gc);
 
@@ -283,8 +283,8 @@ public class BackgroundRefresher implements IBackgroundRefresher {
         Point returnedPoint = new Point(point.x, point.y);
         while (child != drawableComposite.getBgDrawableComposite()) {
             Rectangle bounds = child.getBounds();
-            if(WindowSystem.isGTK() && child instanceof Table) {
-            	returnedPoint.y += ((Table) child).getHeaderHeight();
+            if (WindowSystem.isGTK() && child instanceof Table) {
+                returnedPoint.y += ((Table) child).getHeaderHeight();
             }
             child = child.getParent();
             ScrollBar vScrollBar = child.getVerticalBar();
@@ -293,8 +293,7 @@ public class BackgroundRefresher implements IBackgroundRefresher {
             }
             returnedPoint.x += bounds.x;
             returnedPoint.y += bounds.y;
-            
-            
+
         }
         return returnedPoint;
     }

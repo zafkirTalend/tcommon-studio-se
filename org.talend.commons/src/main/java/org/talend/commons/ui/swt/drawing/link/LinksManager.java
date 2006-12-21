@@ -68,7 +68,7 @@ public class LinksManager<G1, D1, G2, D2> {
         currentNumberLinks++;
 
         links.add(link);
-        
+
         IExtremityLink<G1, D1> extremity1 = link.getExtremity1();
         IExtremityLink<G2, D2> extremity2 = link.getExtremity2();
 
@@ -133,7 +133,6 @@ public class LinksManager<G1, D1, G2, D2> {
     public List<LinkDescriptor<G1, D1, G2, D2>> getLinks() {
         return this.links;
     }
-
 
     /**
      * Getter for currentNumberLinks.
@@ -230,7 +229,5 @@ public class LinksManager<G1, D1, G2, D2> {
     public void sortLinks(Comparator<LinkDescriptor<G1, D1, G2, D2>> comparator) {
         Collections.sort(links, comparator);
     }
-    
+
 }
-
-

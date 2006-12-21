@@ -62,7 +62,7 @@ public class MouseTableSelectionHelper {
 
     private Image imageSelectionCursor;
 
-//    private int[] selectionnableColumns;
+    // private int[] selectionnableColumns;
 
     private Table table;
 

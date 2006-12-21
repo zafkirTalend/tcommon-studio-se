@@ -21,20 +21,17 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  * @param <B> Type of beans
  */
 public interface IModifiedBeanListenable<B> {
 
     public void addModifiedBeanListener(IModifiedBeanListener<B> listenableListListener);
-    
+
     public void removeModifiedBeanListener(IModifiedBeanListener<B> listenableListListener);
-    
 
 }

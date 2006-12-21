@@ -72,6 +72,6 @@ public class StyledTextContentAdapter implements IControlContentAdapter {
     }
 
     public void setCursorPosition(Control control, int position) {
-//        ((StyledText) control).setSelection(new Point(position, position));
+        // ((StyledText) control).setSelection(new Point(position, position));
     }
 }

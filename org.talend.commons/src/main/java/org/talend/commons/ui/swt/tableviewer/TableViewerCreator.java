@@ -1569,7 +1569,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     /**
-     * Change value in model and refresh auomatically the <code>TableViewer</code> if <code>Table</code> is not disposed.
+     * Change value in model and refresh auomatically the <code>TableViewer</code> if <code>Table</code> is not
+     * disposed.
      * 
      * @param currentRowObject
      * @param createNewCommand TODO
@@ -1587,7 +1588,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             if (getTable() != null && !getTable().isDisposed()) {
                 tableViewer.refresh(currentRowObject);
             }
-            
+
             ListenableList<B> extendedList = new ListenableList<B>(this.list);
             extendedList.setUseEquals(false);
 

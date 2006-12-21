@@ -82,8 +82,8 @@ public class ColoringEditorTools {
                  * Using a PatternRule instead of a MultiLineRule because PatternRule exposes the break on newline
                  * behavior.
                  */
-                PatternRule pat = new CasedPatternRule(span.getStart(), span.getEnd(), defaultToken, mode
-                        .getDefaultRuleSet().getEscape(), span.noLineBreak(), ignoreCase);
+                PatternRule pat = new CasedPatternRule(span.getStart(), span.getEnd(), defaultToken, mode.getDefaultRuleSet().getEscape(),
+                        span.noLineBreak(), ignoreCase);
                 rules.add(pat);
             }
 
