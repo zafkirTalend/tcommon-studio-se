@@ -15,8 +15,7 @@ Require-Bundle: org.eclipse.ui,
  org.talend.commons,
  org.talend.sqlbuilder,
  org.talend.designer.runprocess,
- org.talend.designer.codegen,
- org.talend.designer.codegen.perlmodule
+ org.talend.designer.codegen
 Eclipse-LazyStart: true
 Export-Package: org.talend.rcp,
  org.talend.rcp.intro
