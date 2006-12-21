@@ -35,6 +35,7 @@ public enum EParameterFieldType {
     CHECK,
     MEMO,
     SCHEMA_TYPE,
+    QUERYSTORE_TYPE,
     PROPERTY_TYPE,
     EXTERNAL,
     FILE,
