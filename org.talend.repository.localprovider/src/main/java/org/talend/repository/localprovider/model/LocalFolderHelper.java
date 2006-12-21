@@ -26,19 +26,16 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
-import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.repository.model.FolderHelper;
 
-
 /**
- * DOC matthieu  class global comment. Detailled comment
- * <br/>
- *
+ * DOC matthieu class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class LocalFolderHelper extends FolderHelper {
 
@@ -64,24 +61,24 @@ public class LocalFolderHelper extends FolderHelper {
             cleanResource(resource, (FolderItem) o);
         }
     }
-    
+
     protected FolderItem doCreateFolder(String name, FolderType type) {
         FolderItem folder;
         folder = PropertiesFactory.eINSTANCE.createFolderItem();
         folder.setType(type);
-        
+
         Property property = PropertiesFactory.eINSTANCE.createProperty();
         project.eResource().getContents().add(property);
         property.setId(EcoreUtil.generateUUID());
         property.setLabel(name);
         folder.setProperty(property);
-        
+
         createItemState(folder);
-        
+
         project.eResource().setModified(true);
         return folder;
     }
-    
+
     public void doCreateItemState(FolderItem folder) {
         project.eResource().getContents().add(folder.getState());
     }

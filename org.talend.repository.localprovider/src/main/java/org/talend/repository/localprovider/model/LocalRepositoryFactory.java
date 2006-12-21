@@ -47,7 +47,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
@@ -1077,8 +1076,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         try {
             project.accept(new IResourceVisitor() {
                 public boolean visit(IResource resource) throws CoreException {
-                    if (resource.getType() == IResource.FILE)
-                    {
+                    if (resource.getType() == IResource.FILE) {
                         boolean isPropertyFile = xmiResourceManager.isPropertyFile((IFile) resource);
                         if (isPropertyFile) {
                             Property property = xmiResourceManager.loadProperty(resource);
