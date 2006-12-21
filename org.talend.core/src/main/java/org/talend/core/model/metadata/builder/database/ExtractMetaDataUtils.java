@@ -133,8 +133,8 @@ public class ExtractMetaDataUtils {
         return metaDataInfo;
     }
 
-    // PTODO cantoine : Be careful : Intégrer dans un properties ou preference gérer par l'appli
-    // OCA : stocker au même endroit les chaines de connections et les regex associées
+    // PTODO cantoine : Be careful : Integrate in properties or preferences of Talend Product
+    // OCA : save connectionString  and associated regex in the same place.
     /**
      * DOC cantoine. Method to return MetaDataInfo on Column DataBaseConnection.
      * 
@@ -188,7 +188,7 @@ public class ExtractMetaDataUtils {
                 schema = schemaBase;
             } else {
                 schema = null;
-                // PTODO vérifier l'utilité du Shéma pour chaque type de BDD lors du non renseignement
+                // PTODO vï¿½rifier l'utilitï¿½ du Shï¿½ma pour chaque type de BDD lors du non renseignement
                 // if (dataBase.equals("")) {
                 // schema = null;
                 // } else {
