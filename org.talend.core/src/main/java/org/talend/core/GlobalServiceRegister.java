@@ -24,9 +24,11 @@ package org.talend.core;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * DOC qian class global comment. A global service register provides the service registration and acquirement. <br/>
@@ -84,11 +86,15 @@ public class GlobalServiceRegister {
                 if (klass.isInstance(service)) {
                     return (IService) service;
                 }
-            } catch (Exception e) {
-                CorePlugin.log("Error occurs when load service ", e);
+            } catch (CoreException e) {
+                if (e.getMessage().equals(
+                        "Plug-in org.talend.designer.core was unable to load"
+                                + " class org.talend.designer.core.DesignerCoreService.")) {
+                    return null;
+                }
+                ExceptionHandler.process(e);
             }
         }
-
         return null;
     }
 }
