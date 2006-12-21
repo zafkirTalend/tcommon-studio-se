@@ -79,7 +79,7 @@ public class GlobalServiceRegister {
      * @return IService
      */
     private IService findService(Class klass) {
-        for (int i = 0; i < configurationElements.length; i++) {
+        for (int i = configurationElements.length - 1; i >= 0; i--) {
             IConfigurationElement element = configurationElements[i];
             try {
                 Object service = element.createExecutableExtension("class");
@@ -87,12 +87,7 @@ public class GlobalServiceRegister {
                     return (IService) service;
                 }
             } catch (CoreException e) {
-                if (e.getMessage().equals(
-                        "Plug-in org.talend.designer.core was unable to load"
-                                + " class org.talend.designer.core.DesignerCoreService.")) {
-                    return null;
-                }
-                ExceptionHandler.process(e);
+                // Do nothing here.
             }
         }
         return null;
