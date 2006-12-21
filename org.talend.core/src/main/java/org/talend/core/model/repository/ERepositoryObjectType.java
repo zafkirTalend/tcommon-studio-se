@@ -39,15 +39,17 @@ public enum ERepositoryObjectType {
     METADATA("repository.metadata"),
     METADATA_CON_TABLE("repository.metadataTable"),
     METADATA_CON_QUERY("repository.query"),
-    METADATA_CONNECTIONS("repository.metadataConnections"),
-    METADATA_FILE_DELIMITED("repository.metadataFileDelimited"),
-    METADATA_FILE_POSITIONAL("repository.metadataFilePositional"),
-    METADATA_FILE_REGEXP("repository.metadataFileRegexp"),
-    METADATA_FILE_XML("repository.metadataFileXml"),
-    METADATA_FILE_LDIF("repository.metadataFileLdif"),
+    METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"),
+    METADATA_FILE_DELIMITED("repository.metadataFileDelimited", "repository.metadataFileDelimited.alias"),
+    METADATA_FILE_POSITIONAL("repository.metadataFilePositional", "repository.metadataFilePositional.alias"),
+    METADATA_FILE_REGEXP("repository.metadataFileRegexp", "repository.metadataFileRegexp.alias"),
+    METADATA_FILE_XML("repository.metadataFileXml", "repository.metadataFileXml.alias"),
+    METADATA_FILE_LDIF("repository.metadataFileLdif", "repository.metadataFileLdif.alias"),
     FOLDER("repository.folder");
 
     private String key;
+
+    private String alias;
 
     /**
      * Constructor with the i18n key used to display the folder wich contains this object type.
@@ -58,8 +60,20 @@ public enum ERepositoryObjectType {
         this.key = key;
     }
 
+    ERepositoryObjectType(String key, String alias) {
+        this(key);
+        this.alias = alias;
+    }
+
     public String toString() {
         return Messages.getString(getKey());
+    }
+
+    public String getAlias() {
+        if (alias == null) {
+            return null;
+        }
+        return Messages.getString(alias);
     }
 
     /**
