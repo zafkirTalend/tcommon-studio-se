@@ -456,6 +456,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public Project[] readProject(boolean local) throws PersistenceException {
         // TODO SML Delete this method when remote is implemented
+
         IProject[] prjs = ResourceUtils.getProjetWithNature(TalendNature.ID);
 
         List<Project> toReturn = new ArrayList<Project>();
@@ -1136,7 +1137,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // unused in local mode
     }
 
+    // FIXME SML Remove param project
     public void logOnProject(Project project) throws PersistenceException {
+        if (!doesLoggedUserExist()) {
+            createUser();
+        }
+        
         IProject project2 = ResourceModelUtils.getProject(project);
         createFolders(project2, project.getEmfProject());
         synchronizeRoutines(project2);

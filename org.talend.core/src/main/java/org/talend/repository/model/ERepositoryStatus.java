@@ -28,7 +28,7 @@ package org.talend.repository.model;
  * 
  */
 public enum ERepositoryStatus {
-    NEW(false, true),
+    NEW(true, true),
     LOCK_BY_USER(true, false),
     LOCK_BY_OTHER(false, false),
     DEFAULT(false, true),

@@ -176,10 +176,12 @@ public interface IProxyRepositoryFactory {
      * @param password
      * @return
      * @throws PersistenceException
+     * @throws BusinessException
      * @see org.talend.core.model.repository.factories.IRepositoryFactory#readProject(java.lang.String,
      * java.lang.String, java.lang.String)
      */
-    public abstract Project[] readProject() throws PersistenceException;
+    // TODO SML Rename in getProjects
+    public abstract Project[] readProject() throws PersistenceException, BusinessException;
 
     /**
      * @param project
@@ -246,14 +248,15 @@ public interface IProxyRepositoryFactory {
      */
     public abstract RootContainer<String, IRepositoryObject> getMetadataFileLdif() throws PersistenceException;
 
-    public abstract void lock(IRepositoryObject obj) throws PersistenceException;
+    public abstract void lock(IRepositoryObject obj) throws PersistenceException, BusinessException;
 
     /**
      * @param item
      * @throws PersistenceException
+     * @throws BusinessException
      * @see org.talend.repository.model.IRepositoryFactory#lock(org.talend.core.model.properties.Item)
      */
-    public abstract void lock(Item item) throws PersistenceException;
+    public abstract void lock(Item item) throws PersistenceException, BusinessException;
 
     /*
      * (non-Javadoc)
@@ -308,8 +311,7 @@ public interface IProxyRepositoryFactory {
      * 
      * @see org.talend.repository.model.IRepositoryFactory#isServerValid()
      */
-    public abstract String isServerValid();
-
+    // public abstract String isServerValid();
     public abstract void create(Item item, IPath path) throws PersistenceException;
 
     public abstract void save(Item item) throws PersistenceException;
@@ -335,9 +337,9 @@ public interface IProxyRepositoryFactory {
      */
     public abstract void unlock(Item obj) throws PersistenceException;
 
-    public abstract boolean doesLoggedUserExist() throws PersistenceException;
+    // public abstract boolean doesLoggedUserExist() throws PersistenceException;
 
-    public abstract void createUser() throws PersistenceException;
+    // public abstract void createUser() throws PersistenceException;
 
     public abstract void initialize();
 
