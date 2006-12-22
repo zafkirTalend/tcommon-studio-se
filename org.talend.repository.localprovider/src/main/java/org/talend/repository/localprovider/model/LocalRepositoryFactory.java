@@ -462,10 +462,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<Project> toReturn = new ArrayList<Project>();
         for (int i = 0; i < prjs.length; i++) {
             IProject p = prjs[i];
-            org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
-            if (emfProject.isLocal() == local) {
-                Project project = new Project(emfProject);
-                toReturn.add(project);
+
+            if (xmiResourceManager.hasTalendProjectFile(p)) {
+                org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
+                if (emfProject.isLocal() == local) {
+                    Project project = new Project(emfProject);
+                    toReturn.add(project);
+                }
             }
         }
         return toReturn.toArray(new Project[toReturn.size()]);

@@ -34,6 +34,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -70,10 +71,18 @@ public class XmiResourceManager {
 
     public Project loadProject(IProject project) throws PersistenceException {
         URI uri = getProjectResourceUri(project);
+        
         Resource resource = resourceSet.getResource(uri, true);
         Project emfProject = (Project) EcoreUtil
                 .getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());
         return emfProject;
+    }
+
+    public boolean hasTalendProjectFile(IProject project) {
+        URI uri = getProjectResourceUri(project);
+        IPath path = URIHelper.convert(uri);
+        IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+        return file.exists();
     }
 
     public Property loadProperty(IResource iResource) {
