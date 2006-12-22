@@ -30,7 +30,7 @@ package org.talend.commons.ui.swt.extended.table;
 public interface IExtendedControlListener {
 
     /**
-     * DOC amaumont Comment method "handleEvent".
+     * Handle event.
      * 
      * @param event
      */
