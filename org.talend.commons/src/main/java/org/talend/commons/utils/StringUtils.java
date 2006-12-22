@@ -35,4 +35,7 @@ public class StringUtils {
         return org.apache.commons.lang.StringUtils.repeat(str, repeat);
     }
 
+    public static String join(Object[] array, String separator) {
+    	return org.apache.commons.lang.StringUtils.join(array, separator);
+    }
 }

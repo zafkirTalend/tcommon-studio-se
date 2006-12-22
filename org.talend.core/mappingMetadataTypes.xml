@@ -159,7 +159,7 @@
 <versions>
 	<version name="MICROSOFT SQL SERVER (ODBC DRIVER)"/>
 </versions>
-<type talend="int" dbms="INT"/>
+<type talend="int" dbms="INT" default="true" />
 <type talend="int" dbms="BIGINT"/>
 <type talend="int" dbms="SMALLINT"/>
 <type talend="int" dbms="TINYINT"/>
@@ -172,7 +172,7 @@
 <type talend="boolean" dbms="BIT"/>
 <type talend="float" dbms="MONEY"/>
 <type talend="float" dbms="SMALLMONEY"/>
-<type talend="float" dbms="FLOAT"/>
+<type talend="float" dbms="FLOAT" default="true" />
 <type talend="double" dbms="DECIMAL"/>
 <type talend="double" dbms="REAL"/>
 <type talend="double" dbms="DEC"/>
@@ -188,7 +188,7 @@
 <type talend="Day" dbms="TIMESTAMP"/>
 <type talend="Day" dbms="SMALLDATETIME"/>
 <type talend="Day" dbms="INTERVAL"/>
-<type talend="char" dbms="CHAR"/>
+<type talend="char" dbms="CHAR" default="true" />
 <type talend="char" dbms="CHARACTER"/>
 <type talend="String" dbms="VARCHAR"/>
 <type talend="String" dbms="TEXT"/>
