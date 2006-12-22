@@ -42,4 +42,9 @@ public interface IPreview {
      * @throws ProcessorException
      */
     XmlArray preview(IProcessDescription description, String type) throws CoreException;
+
+    /**
+     * Stop loading preview.
+     */
+    public void stopLoading();
 }
