@@ -128,7 +128,7 @@
 <type talend="Day" dbms="TIMESTAMP"/>
 <type talend="Day" dbms="SMALLDATETIME"/>
 <type talend="Day" dbms="INTERVAL"/>
-<type talend="char" dbms="CHAR"/>
+<type talend="char" dbms="CHAR" default="true" />
 <type talend="char" dbms="CHARACTER"/>
 <type talend="String" dbms="VARCHAR"/>
 <type talend="String" dbms="TEXT"/>
