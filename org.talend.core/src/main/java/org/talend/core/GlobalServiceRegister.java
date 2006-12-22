@@ -79,15 +79,21 @@ public class GlobalServiceRegister {
      * @return IService
      */
     private IService findService(Class klass) {
-        for (int i = configurationElements.length - 1; i >= 0; i--) {
+        String key = klass.getName();
+        for (int i = 0; i < configurationElements.length; i++) {
             IConfigurationElement element = configurationElements[i];
+            String id = element.getAttribute("serviceId");
+            
+            if (!key.endsWith(id)) {
+                continue;
+            }
             try {
                 Object service = element.createExecutableExtension("class");
                 if (klass.isInstance(service)) {
                     return (IService) service;
                 }
             } catch (CoreException e) {
-                // Do nothing here.
+                ExceptionHandler.process(e);
             }
         }
         return null;
