@@ -218,7 +218,7 @@ public class ExtractMetaDataFromDataBase {
                 String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF");
                 if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0
                         && stringMetaDataInfo.charAt(0) == 0x0) {
-                    stringMetaDataInfo = "\\1";
+                    stringMetaDataInfo = "\\0";
                 }
                 metadataColumn.setDefaultValue(stringMetaDataInfo);
 
