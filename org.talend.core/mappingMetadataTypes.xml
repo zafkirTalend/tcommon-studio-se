@@ -201,8 +201,8 @@
 <type talend="String" dbms="CHAR VARYING"/>
 <type talend="String" dbms="LONG VARCHAR"/>
 <type talend="String" dbms="DATALINK"/>
-<type talend="String" dbms="VARCHAR2" default="true" />
-<type talend="String" dbms="NVARCHAR2"/>
+<type talend="String" dbms="VARCHAR" default="true" />
+<type talend="String" dbms="NVARCHAR"/>
 <type talend="String" dbms="LONG"/>
 <type talend="String" dbms="CLOB"/>
 <type talend="String" dbms="TINYTEXT"/>
