@@ -89,6 +89,7 @@ import org.talend.repository.model.FolderHelper;
 import org.talend.repository.model.IRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.ResourceModelUtils;
+import org.talend.repository.model.URIHelper;
 import org.talend.repository.model.VersionList;
 
 /**
@@ -1108,6 +1109,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
                             // we access the author (resolve proxy)
                             property.getAuthor();
+                            
+                            //if .properties is saved then migrated .item must also be saved
+                            if (property.getItem() instanceof BusinessProcessItem) {
+                                BusinessProcessItem businessProcessItem = (BusinessProcessItem) property.getItem();
+                                businessProcessItem.getNotation();
+                            }
 
                             try {
                                 property.eResource().setModified(true);
