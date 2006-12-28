@@ -23,12 +23,9 @@
 package org.talend.repository.localprovider.model;
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.core.model.properties.FolderItem;
-import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.Project;
-import org.talend.core.model.properties.PropertiesFactory;
-import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.User;
 import org.talend.repository.model.FolderHelper;
 
 /**
@@ -39,12 +36,12 @@ import org.talend.repository.model.FolderHelper;
  */
 public class LocalFolderHelper extends FolderHelper {
 
-    protected LocalFolderHelper(Project project) {
-        super(project);
+    protected LocalFolderHelper(Project project, User connectedUser) {
+        super(project, connectedUser);
     }
 
-    public static FolderHelper createInstance(Project project) {
-        return new LocalFolderHelper(project);
+    public static FolderHelper createInstance(Project project, User connectedUser) {
+        return new LocalFolderHelper(project, connectedUser);
     }
 
     protected void removeFromResource(FolderItem folder) {
@@ -62,21 +59,9 @@ public class LocalFolderHelper extends FolderHelper {
         }
     }
 
-    protected FolderItem doCreateFolder(String name, FolderType type) {
-        FolderItem folder;
-        folder = PropertiesFactory.eINSTANCE.createFolderItem();
-        folder.setType(type);
-
-        Property property = PropertiesFactory.eINSTANCE.createProperty();
-        project.eResource().getContents().add(property);
-        property.setId(EcoreUtil.generateUUID());
-        property.setLabel(name);
-        folder.setProperty(property);
-
-        createItemState(folder);
-
+    protected void doCreateFolder(FolderItem folderItem) {
+        project.eResource().getContents().add(folderItem.getProperty());
         project.eResource().setModified(true);
-        return folder;
     }
 
     public void doCreateItemState(FolderItem folder) {

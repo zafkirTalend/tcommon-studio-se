@@ -436,7 +436,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     protected FolderHelper getFolderHelper(org.talend.core.model.properties.Project emfProject) {
-        return LocalFolderHelper.createInstance(emfProject);
+        return LocalFolderHelper.createInstance(emfProject, getRepositoryContext().getUser());
     }
 
     /**
