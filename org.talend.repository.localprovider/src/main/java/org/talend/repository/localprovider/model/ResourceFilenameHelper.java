@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.talend.core.model.properties.Property;
+import org.talend.repository.model.URIHelper;
 
 /**
  * $Id$

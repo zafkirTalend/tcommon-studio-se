@@ -50,6 +50,7 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.model.ResourceFilenameHelper.FileName;
+import org.talend.repository.model.URIHelper;
 
 /**
  * DOC mhelleboid class global comment. Detailled comment <br/>
