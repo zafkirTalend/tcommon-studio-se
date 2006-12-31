@@ -22,23 +22,13 @@
 package org.talend.designer.core;
 
 import org.talend.core.IService;
-import org.talend.core.model.process.IContextManager;
-import org.talend.core.model.properties.ProcessItem;
 
 /**
- * Provides Designer core services for other components <br/>
+ * Provides Designer core services for other components <br/>.
  * 
  * $Id: IDesignerCore.java 1 2006-12-19 上午10:16:43 bqian
  * 
  */
 public interface IDesignerCoreService extends IService {
-
-    /**
-     * Load a temporary process from a xml file to have an access to the context manager.
-     * 
-     * @param ProcessItem
-     * @return IContextManager
-     */
-    public IContextManager getContextManagerFromXmlProcess(ProcessItem processItem);
 
 }
