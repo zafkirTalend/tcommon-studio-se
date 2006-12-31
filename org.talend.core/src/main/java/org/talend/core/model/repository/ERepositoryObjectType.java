@@ -21,7 +21,21 @@
 // ============================================================================
 package org.talend.core.model.repository;
 
+import org.eclipse.emf.ecore.EObject;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.properties.BusinessProcessItem;
+import org.talend.core.model.properties.CSVFileConnectionItem;
+import org.talend.core.model.properties.DatabaseConnectionItem;
+import org.talend.core.model.properties.DelimitedFileConnectionItem;
+import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.LdifFileConnectionItem;
+import org.talend.core.model.properties.PositionalFileConnectionItem;
+import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.RegExFileConnectionItem;
+import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.XmlFileConnectionItem;
+import org.talend.core.model.properties.util.PropertiesSwitch;
 
 /**
  * This enum represents all objects types that can be store in the repository.<br/> Exception is the recycle bin that
@@ -112,6 +126,59 @@ public enum ERepositoryObjectType {
         default:
             throw new IllegalArgumentException("Folder for type " + type + " cannot be found");
         }
+    }
+    
+    public static ERepositoryObjectType getItemType(Item item) {
+        return (ERepositoryObjectType) new PropertiesSwitch() {
+
+            public Object caseDocumentationItem(DocumentationItem object) {
+                return DOCUMENTATION;
+            }
+
+            public Object caseRoutineItem(RoutineItem object) {
+                return ROUTINES;
+            }
+
+            public Object caseProcessItem(ProcessItem object) {
+                return PROCESS;
+            }
+
+            public Object caseBusinessProcessItem(BusinessProcessItem object) {
+                return BUSINESS_PROCESS;
+            }
+
+            public Object caseCSVFileConnectionItem(CSVFileConnectionItem object) {
+                throw new IllegalStateException("not implemented");
+            }
+
+            public Object caseDatabaseConnectionItem(DatabaseConnectionItem object) {
+                return METADATA_CONNECTIONS;
+            }
+
+            public Object caseDelimitedFileConnectionItem(DelimitedFileConnectionItem object) {
+                return METADATA_FILE_DELIMITED;
+            }
+
+            public Object casePositionalFileConnectionItem(PositionalFileConnectionItem object) {
+                return METADATA_FILE_POSITIONAL;
+            }
+
+            public Object caseRegExFileConnectionItem(RegExFileConnectionItem object) {
+                return METADATA_FILE_REGEXP;
+            }
+
+            public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
+                return METADATA_FILE_XML;
+            }
+
+            public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
+                return METADATA_FILE_LDIF;
+            }
+
+            public Object defaultCase(EObject object) {
+                throw new IllegalStateException();
+            }
+        }.doSwitch(item);
     }
 
 }
