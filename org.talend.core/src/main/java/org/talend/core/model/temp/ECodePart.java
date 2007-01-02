@@ -30,7 +30,7 @@ package org.talend.core.model.temp;
  */
 public enum ECodePart {
     MAIN("main"),
-    START("start"),
+    BEGIN("begin"),
     END("end");
 
     private ECodePart(String name) {
