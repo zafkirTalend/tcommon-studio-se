@@ -72,6 +72,8 @@ public abstract class ImportPushButtonForExtendedTable extends ImportPushButton 
         String fileName = dial.open();
         if ((fileName != null) && (!fileName.equals(""))) {
             file = new File(fileName);
+            AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
+            extendedTableViewer.getExtendedTableModel().removeAll();
         }
     }
 
