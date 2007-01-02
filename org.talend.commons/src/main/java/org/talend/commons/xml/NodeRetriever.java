@@ -137,6 +137,7 @@ public class NodeRetriever {
         xPathExpression = simplifyXPathExpression(xPathExpression);
 
         NodeList nodeList = null;
+//        System.out.println("xPathExpression = "+xPathExpression);
         XPathExpression xpathSchema = xpath.compile(xPathExpression);
         nodeList = (NodeList) xpathSchema.evaluate(document, XPathConstants.NODESET);
         return nodeList;
