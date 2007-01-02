@@ -95,8 +95,8 @@ import org.talend.repository.model.VersionList;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id:
- * RepositoryFactory.java,v 1.55 2006/08/23 14:30:39 tguiu Exp $
+ * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
+ * 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements IRepositoryFactory {
@@ -218,9 +218,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
     }
 
-    public List<IRepositoryObject> getAll(ERepositoryObjectType type) throws PersistenceException {
+    public List<IRepositoryObject> getAll(ERepositoryObjectType type, boolean withDeleted) throws PersistenceException {
         IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(), type);
-        return convert(getSerializableFromFolder(folder, null, type, false, true));
+        return convert(getSerializableFromFolder(folder, null, type, false, true, withDeleted));
     }
 
     public IRepositoryObject getLastVersion(String id) throws PersistenceException {
@@ -248,7 +248,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @throws PersistenceException
      */
     protected List<IRepositoryObject> getSerializableFromFolder(Object folder, String id, ERepositoryObjectType type,
-            boolean allVersion, boolean searchInChildren) throws PersistenceException {
+            boolean allVersion, boolean searchInChildren, boolean withDeleted) throws PersistenceException {
         List<IRepositoryObject> toReturn = new VersionList(allVersion);
 
         for (IResource current : ResourceUtils.getMembers((IFolder) folder)) {
@@ -256,12 +256,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 if (XmiResourceManager.isPropertyFile((IFile) current)) {
                     Property property = xmiResourceManager.loadProperty(current);
                     if (id == null || property.getId().equals(id)) {
-                        toReturn.add(new RepositoryObject(property));
+                        if (withDeleted || !property.getItem().getState().isDeleted()) {
+                            toReturn.add(new RepositoryObject(property));
+                        }
                     }
                 }
             } else if (current instanceof IFolder) {
                 if (searchInChildren) {
-                    toReturn.addAll(getSerializableFromFolder((IFolder) current, id, type, allVersion, true));
+                    toReturn.addAll(getSerializableFromFolder((IFolder) current, id, type, allVersion, true, withDeleted));
                 }
             }
         }
@@ -1109,8 +1111,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
                             // we access the author (resolve proxy)
                             property.getAuthor();
-                            
-                            //if .properties is saved then migrated .item must also be saved
+
+                            // if .properties is saved then migrated .item must also be saved
                             if (property.getItem() instanceof BusinessProcessItem) {
                                 BusinessProcessItem businessProcessItem = (BusinessProcessItem) property.getItem();
                                 businessProcessItem.getNotation();
@@ -1152,7 +1154,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (!doesLoggedUserExist()) {
             createUser();
         }
-        
+
         IProject project2 = ResourceModelUtils.getProject(project);
         createFolders(project2, project.getEmfProject());
         synchronizeRoutines(project2);
