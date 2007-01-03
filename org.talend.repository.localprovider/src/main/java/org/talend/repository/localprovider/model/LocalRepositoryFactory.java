@@ -950,11 +950,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             Resource createResource = new ResourceSetImpl().createResource(resource.getURI());
             ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
             createResource.load(in, null);
-            Item newItem = (Item) EcoreUtil.getObjectByType(createResource.getContents(), PropertiesPackage.eINSTANCE.getItem());
-            Property property = newItem.getProperty();
-            property.setId(getNextId());
-            setPropNewName(property);
-            EcoreUtil.resolveAll(createResource);
+            Item newItem = copyFromResource(createResource);
             create(newItem, path);
             return newItem;
         } catch (IOException e) {
@@ -968,29 +964,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<IRepositoryObject> allVersionToMove = getSerializable(getRepositoryContext().getProject(), property.getId(), true);
         for (IRepositoryObject object : allVersionToMove) {
             xmiResourceManager.propagateFileName(property, object.getProperty());
-        }
-    }
-
-    /**
-     * DOC smallet Comment method "getCopiedLabel".
-     * 
-     * @param copiedProperty
-     * @return
-     * @throws PersistenceException
-     */
-    private void setPropNewName(Property copiedProperty) throws PersistenceException {
-        String originalLabel = copiedProperty.getLabel();
-        String add1 = "Copy of ";
-        String initialTry = add1 + originalLabel;
-        copiedProperty.setLabel(initialTry);
-        if (isNameAvailable(copiedProperty.getItem(), null)) {
-            return;
-        } else {
-            int i = 2;
-            while (!isNameAvailable(copiedProperty.getItem(), null)) {
-                String nextTry = initialTry + " (" + (i++) + ")";
-                copiedProperty.setLabel(nextTry);
-            }
         }
     }
 
