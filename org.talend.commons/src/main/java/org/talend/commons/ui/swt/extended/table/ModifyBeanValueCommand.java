@@ -22,8 +22,10 @@
 package org.talend.commons.ui.swt.extended.table;
 
 import org.eclipse.gef.commands.Command;
+import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.ui.utils.TableUtils;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -64,7 +66,28 @@ public class ModifyBeanValueCommand<B> extends Command {
     @Override
     public void redo() {
         TableViewerCreator tableViewerCreator = event.column.getTableViewerCreator();
-        tableViewerCreator.setBeanValue(event.column, event.bean, event.newValue, false);
+        Object bean = getBean(tableViewerCreator);
+        tableViewerCreator.setBeanValue(event.column, bean, event.newValue, false);
+    }
+
+    /**
+     * DOC amaumont Comment method "getBean".
+     * 
+     * @param tableViewerCreator
+     * @return
+     */
+    private Object getBean(TableViewerCreator tableViewerCreator) {
+        B bean = this.event.bean;
+        Table table = tableViewerCreator.getTable();
+        int beanIndex = TableUtils.getItemIndex(table, bean);
+        if (beanIndex != -1) {
+            return bean;
+        } else {
+            if (event.index > 0 && event.index < table.getItemCount()) {
+                return table.getItem(event.index).getData();
+            }
+        }
+        return null;
     }
 
     /*
@@ -76,7 +99,8 @@ public class ModifyBeanValueCommand<B> extends Command {
     @Override
     public void undo() {
         TableViewerCreator tableViewerCreator = event.column.getTableViewerCreator();
-        tableViewerCreator.setBeanValue(event.column, event.bean, event.previousValue, false);
+        Object bean = getBean(tableViewerCreator);
+        tableViewerCreator.setBeanValue(event.column, bean, event.previousValue, false);
     }
 
     /*
