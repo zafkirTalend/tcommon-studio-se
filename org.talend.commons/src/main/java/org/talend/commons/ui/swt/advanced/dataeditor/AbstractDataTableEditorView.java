@@ -23,6 +23,7 @@ package org.talend.commons.ui.swt.advanced.dataeditor;
 
 import java.util.List;
 
+import org.eclipse.jface.viewers.IElementComparer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
@@ -165,7 +166,9 @@ public abstract class AbstractDataTableEditorView<B> {
         }
 
         initTable();
-
+        
+        this.extendedTableViewer.getTableViewerCreator().getTableViewer().setComparer(createElementComparer());
+        
         this.extendedTableViewer.getTableViewerCreator().getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
 
         if (toolbarVisible) {
@@ -173,6 +176,23 @@ public abstract class AbstractDataTableEditorView<B> {
         }
 
         addListeners();
+    }
+
+    /**
+     * DOC amaumont Comment method "createElementComparer".
+     */
+    protected IElementComparer createElementComparer() {
+        return new IElementComparer() {
+
+            public boolean equals(Object a, Object b) {
+                return a == b;
+            }
+
+            public int hashCode(Object element) {
+                return 0;
+            }
+            
+        };
     }
 
     /**
