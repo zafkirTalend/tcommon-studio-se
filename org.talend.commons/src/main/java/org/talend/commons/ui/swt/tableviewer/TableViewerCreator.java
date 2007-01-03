@@ -503,7 +503,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         table.setHeaderVisible(headerVisible);
         table.setLinesVisible(linesVisible);
 
-        if (this.emptyZoneColor != null) {
+        if (this.emptyZoneColor != null && !WindowSystem.isGTK()) {
             Listener paintListener = new Listener() {
 
                 public void handleEvent(Event event) {
