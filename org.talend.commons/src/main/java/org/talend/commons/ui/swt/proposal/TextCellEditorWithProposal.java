@@ -207,16 +207,19 @@ public class TextCellEditorWithProposal extends TextCellEditor {
 
                         // System.out.println("active async");
 
-                        Point newSelection = selection;
-                        if (!text.isFocusControl() && testFocus || !testFocus) {
-                            // System.out.println("activateCellEditorAsynch");
-                            activateCellEditor();
-                        }
-                        if (selection == null) {
-                            newSelection = selectionBeforeFocusLost;
-                        }
-                        if (!cellEditorLocationHasChanged) {
-                            text.setSelection(new Point(newSelection.x, newSelection.y));
+                        if (!text.isDisposed()) {
+
+                            Point newSelection = selection;
+                            if (!text.isFocusControl() && testFocus || !testFocus) {
+                                // System.out.println("activateCellEditorAsynch");
+                                activateCellEditor();
+                            }
+                            if (selection == null) {
+                                newSelection = selectionBeforeFocusLost;
+                            }
+                            if (!cellEditorLocationHasChanged) {
+                                text.setSelection(new Point(newSelection.x, newSelection.y));
+                            }
                         }
                     }
 
