@@ -217,7 +217,10 @@ public class TypedTextCommandExecutor {
     }
 
     private void focusLostExecute(FocusEvent e) {
-        updateCommand((Control) e.getSource());
+        String currentText = ControlUtils.getText((Control) e.getSource());
+        if (!currentText.equals(previousText)) {
+            updateCommand((Control) e.getSource());
+        }
     }
 
 }
