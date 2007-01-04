@@ -1144,14 +1144,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return ERepositoryStatus.DELETED;
         }
 
+        // FIXME SML Move
         if (item.getState().isLocked()) {
-            User locker = item.getState().getLocker();
-            User connected = getRepositoryContext().getUser();
-            if (connected.equals(locker)) {
-                return ERepositoryStatus.LOCK_BY_USER;
-            } else {
-                return ERepositoryStatus.LOCK_BY_OTHER;
-            }
+            // User locker = item.getState().getLocker();
+            // User connected = getRepositoryContext().getUser();
+            // if (connected.equals(locker)) {
+            return ERepositoryStatus.LOCK_BY_USER;
+            // } else {
+            // return ERepositoryStatus.LOCK_BY_OTHER;
+            // }
         }
 
         if (item instanceof RoutineItem) {
