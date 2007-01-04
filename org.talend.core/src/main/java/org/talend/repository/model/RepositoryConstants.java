@@ -37,7 +37,7 @@ public class RepositoryConstants {
 
     public static final String PROJECT_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9 \\-_]*$";
 
-    public static final String FILE_PATTERN = "^[a-zA-Z0-9\\.\\-\\_\\(\\)\\[\\]=]+$";
+    public static final String FILE_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$";
 
     public static final String MAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*(\\.[_A-Za-z0-9-]+)";
 }
