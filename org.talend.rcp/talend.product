@@ -31,11 +31,9 @@ Visit http://www.talend.com
    <launcher name="Talend">
       <linux icon="/org.talend.rcp/icons/appli_48x48.xpm"/>
       <solaris/>
-      <win useIco="false">
-         <bmp
-            winSmallHigh="/org.talend.rcp/icons/appli_16x16.bmp"
-            winMediumHigh="/org.talend.rcp/icons/appli_32x32.bmp"
-            winLargeHigh="/org.talend.rcp/icons/appli_48x48.bmp"/>
+      <win useIco="true">
+         <ico path="/org.talend.rcp/icons/appli.ico"/>
+         <bmp/>
       </win>
    </launcher>
 
