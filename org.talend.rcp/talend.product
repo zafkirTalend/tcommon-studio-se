@@ -21,7 +21,7 @@ Visit http://www.talend.com
    <launcherArgs>
    </launcherArgs>
 
-   <windowImages i32="/org.talend.rcp/icons/designer32x32.gif"/>
+   <windowImages i16="/org.talend.rcp/icons/appli_16x16.gif" i32="/org.talend.rcp/icons/appli_32x32.gif" i48="/org.talend.rcp/icons/appli_48x48.gif"/>
 
    <splash
       location="org.talend.rcp"
@@ -29,10 +29,13 @@ Visit http://www.talend.com
       startupMessageRect="7,220,441,20"
       startupForegroundColor="000000" />
    <launcher name="Talend">
+      <linux icon="/org.talend.rcp/icons/appli_48x48.xpm"/>
       <solaris/>
-      <win useIco="true">
-         <ico path="/org.talend.rcp/icons/designer.ico"/>
-         <bmp/>
+      <win useIco="false">
+         <bmp
+            winSmallHigh="/org.talend.rcp/icons/appli_16x16.bmp"
+            winMediumHigh="/org.talend.rcp/icons/appli_32x32.bmp"
+            winLargeHigh="/org.talend.rcp/icons/appli_48x48.bmp"/>
       </win>
    </launcher>
 
