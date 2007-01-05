@@ -47,6 +47,8 @@ public interface IProcess extends IRepositoryObject, IElement {
     public void removeUniqueConnectionName(String uniqueConnectionName);
 
     public boolean checkValidConnectionName(String connectionName);
+    
+    public boolean checkValidConnectionName(String connectionName, boolean checkExists);
 
     public IContextManager getContextManager();
     
