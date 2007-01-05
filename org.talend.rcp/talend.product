@@ -28,11 +28,11 @@ Visit http://www.talend.com
       startupProgressRect="0,280,455,15"
       startupMessageRect="7,220,441,20"
       startupForegroundColor="000000" />
-   <launcher name="Talend">
+   <launcher name="TalendOpenStudio">
       <linux icon="/org.talend.rcp/icons/appli_48x48.xpm"/>
       <solaris/>
       <win useIco="true">
-         <ico path="/org.talend.rcp/icons/appli.ico"/>
+         <ico path="/org.talend.rcp/icons/designer.ico"/>
          <bmp/>
       </win>
    </launcher>
