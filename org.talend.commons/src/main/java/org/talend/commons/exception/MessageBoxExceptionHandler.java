@@ -45,9 +45,13 @@ public final class MessageBoxExceptionHandler {
      * @param ex - exception to log
      */
     public static void process(Throwable ex) {
+        process(ex, new Shell());
+    }
+
+    public static void process(Throwable ex, Shell shell) {
         ExceptionHandler.process(ex);
 
-        showError(ex);
+        showError(ex, shell);
     }
 
     /**
@@ -55,10 +59,10 @@ public final class MessageBoxExceptionHandler {
      * 
      * @param ex - exception to show
      */
-    protected static void showError(Throwable ex) {
+    protected static void showError(Throwable ex, Shell shell) {
         String title = Messages.getString("commons.error");
         String msg = Messages.getString("exception.errorOccured", ex.getMessage());
 
-        MessageDialog.openError(new Shell(), title, msg);
+        MessageDialog.openError(shell, title, msg);
     }
 }

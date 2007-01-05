@@ -24,6 +24,7 @@ package org.talend.commons.exception;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
+import org.eclipse.swt.widgets.Shell;
 
 /**
  * Implementation of exception handling strategy.<br/>
@@ -54,7 +55,7 @@ public final class ExceptionHandler {
         log.log(priority, message, ex);
 
         if (priority == Level.FATAL) {
-            MessageBoxExceptionHandler.showError(ex);
+            MessageBoxExceptionHandler.showError(ex, new Shell());
         }
     }
 
