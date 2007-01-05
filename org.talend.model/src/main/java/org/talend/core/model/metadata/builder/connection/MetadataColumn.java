@@ -44,7 +44,7 @@ public interface MetadataColumn extends AbstractMetadataObject {
      * @return the value of the '<em>Source Type</em>' attribute.
      * @see #setSourceType(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_SourceType()
-     * @model required="true"
+     * @model
      * @generated
      */
     String getSourceType();
@@ -97,7 +97,7 @@ public interface MetadataColumn extends AbstractMetadataObject {
      * @return the value of the '<em>Talend Type</em>' attribute.
      * @see #setTalendType(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_TalendType()
-     * @model required="true"
+     * @model
      * @generated
      */
     String getTalendType();

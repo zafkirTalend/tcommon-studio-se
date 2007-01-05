@@ -506,7 +506,7 @@ public interface FileConnection extends Connection {
      * @return the value of the '<em>Escape Char</em>' attribute.
      * @see #setEscapeChar(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileConnection_EscapeChar()
-     * @model required="true"
+     * @model
      * @generated
      */
     String getEscapeChar();
@@ -532,7 +532,7 @@ public interface FileConnection extends Connection {
      * @return the value of the '<em>Text Enclosure</em>' attribute.
      * @see #setTextEnclosure(String)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileConnection_TextEnclosure()
-     * @model required="true"
+     * @model
      * @generated
      */
     String getTextEnclosure();
