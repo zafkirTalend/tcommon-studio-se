@@ -24,8 +24,6 @@ package org.talend.repository.localprovider.model;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -58,7 +56,6 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
@@ -81,7 +78,6 @@ import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.temp.ECodeLanguage;
-import org.talend.designer.codegen.perlmodule.IPerlModuleService;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.model.AbstractEMFRepositoryFactory;
 import org.talend.repository.model.ERepositoryStatus;
@@ -349,56 +345,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IFolder f2 = ResourceUtils.getFolder(prj, oldRoutinesPath, false);
         ResourceUtils.deleteFolder(f2);
 
-        IPerlModuleService service = (IPerlModuleService) GlobalServiceRegister.getDefault().getService(IPerlModuleService.class);
-        List<URL> routines = service.getBuiltInRoutines();
-        Path path = new Path(RepositoryConstants.SYSTEM_DIRECTORY);
-        for (URL url : routines) {
-            createRoutine(url, path);
-        }
-    }
-
-    /**
-     * DOC smallet Comment method "createRoutine".
-     * 
-     * @param url
-     * @throws PersistenceException
-     */
-    private void createRoutine(URL url, IPath path) throws PersistenceException {
-        if (url == null) {
-            throw new IllegalArgumentException();
-        }
-        InputStream stream = null;
-        try {
-            Property property = PropertiesFactory.eINSTANCE.createProperty();
-            property.setId(getNextId());
-
-            String[] fragments = url.toString().split("/");
-            String label = fragments[fragments.length - 1];
-            String[] tmp = label.split("\\.");
-            property.setLabel(tmp[0]);
-
-            ByteArray byteArray = PropertiesFactory.eINSTANCE.createByteArray();
-            stream = url.openStream();
-            byte[] innerContent = new byte[stream.available()];
-            stream.read(innerContent);
-            stream.close();
-            byteArray.setInnerContent(innerContent);
-
-            RoutineItem routineItem = PropertiesFactory.eINSTANCE.createRoutineItem();
-            routineItem.setProperty(property);
-            routineItem.setContent(byteArray);
-            routineItem.setBuiltIn(true);
-            create(routineItem, path);
-        } catch (IOException ioe) {
-            if (stream != null) {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    throw new PersistenceException(ioe);
-                }
-            }
-            throw new PersistenceException(ioe);
-        }
+        createSystemRoutines();
     }
 
     /**
