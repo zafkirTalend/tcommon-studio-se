@@ -6,13 +6,7 @@
    <aboutInfo>
       <image path="/org.talend.rcp/icons/about.gif"/>
       <text>
-         Talend Open Studio product
-
-Version: Beta 2
-Build id: 
-
-(c) Copyright 2006 Talend SA.  All rights reserved.
-Visit http://www.talend.com
+         %productBlurb
       </text>
    </aboutInfo>
 
