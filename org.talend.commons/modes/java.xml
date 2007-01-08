@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-
+<!--
 <!DOCTYPE MODE SYSTEM "xmode.dtd">
-
+-->
 <MODE>
 	<PROPS>
 		<PROPERTY NAME="indentOpenBrackets" VALUE="{" />
