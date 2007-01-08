@@ -21,10 +21,19 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.core.runtime.IExtension;
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.action.ToolBarContributionItem;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.swt.SWT;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
@@ -34,6 +43,10 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.registry.ActionSetRegistry;
 import org.eclipse.ui.internal.registry.IActionSetDescriptor;
+import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
+import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
+import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
+import org.talend.designer.runprocess.RunProcessPlugin;
 import org.talend.rcp.perspective.PerspectiveMenuManager;
 
 /**
@@ -61,10 +74,19 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         actionBarConfigurer = configurer;
     }
 
+    private List<IAction> actions = new ArrayList<IAction>();
+
+    public static final ISimpleExtensionPoint GLOBAL_ACTIONS = new ExtensionPointImpl("org.talend.core.global_actions",
+            "GlobalAction", -1, -1);
+
     protected void makeActions(final IWorkbenchWindow myWindow) {
         this.window = myWindow;
         introAction = ActionFactory.INTRO.create(myWindow);
         register(introAction);
+
+        // List<IAction> list = ExtensionImplementationProviders.getInstance(GLOBAL_ACTIONS);
+        // actions.addAll(list);
+
         registerGlobalActions();
     }
 
@@ -77,6 +99,19 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         actionBarConfigurer.registerGlobalAction(ActionFactory.PASTE.create(window));
         actionBarConfigurer.registerGlobalAction(ActionFactory.DELETE.create(window));
         actionBarConfigurer.registerGlobalAction(ActionFactory.SELECT_ALL.create(window));
+
+        // IContextService contextService = (IContextService) Activator.getDefault().getWorkbench()
+        // .getAdapter(IContextService.class);
+        // contextService.activateContext("talend.global");
+        //        
+        // IWorkbench workbench = PlatformUI.getWorkbench();
+        // IHandlerService handlerService = (IHandlerService) workbench.getService(IHandlerService.class);
+        //        
+        // IHandler handler;
+        // for (IAction action : actions) {
+        // handler = new ActionHandler(action);
+        // handlerService.activateHandler(action.getActionDefinitionId(), handler);
+        // }
     }
 
     private void removeAction(final ActionSetRegistry reg, final IActionSetDescriptor actionSet) {
@@ -153,6 +188,18 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         helpMenu.add(introAction);
         helpMenu.add(ActionFactory.HELP_CONTENTS.create(window));
         helpMenu.add(ActionFactory.ABOUT.create(window));
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.application.ActionBarAdvisor#fillCoolBar(org.eclipse.jface.action.ICoolBarManager)
+     */
+    @Override
+    protected void fillCoolBar(ICoolBarManager coolBar) {
+        IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
+        coolBar.add(new ToolBarContributionItem(toolbar, "main"));
+        toolbar.add(new ShowViewAction());
     }
 
 }
