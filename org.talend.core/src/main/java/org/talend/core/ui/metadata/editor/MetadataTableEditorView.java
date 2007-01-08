@@ -33,6 +33,7 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractExtendedToolbar;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
+import org.talend.commons.ui.swt.tableviewer.CellEditorValueAdapterFactory;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
@@ -101,9 +102,9 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         setExtendedTableModel(metadataTableEditor);
     }
 
-    
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView#setTableViewerCreatorOptions(org.talend.commons.ui.swt.tableviewer.TableViewerCreator)
      */
     @Override
@@ -141,24 +142,8 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
             e.printStackTrace();
         }
 
-        CellEditorValueAdapter intValueAdapter = new CellEditorValueAdapter() {
-
-            public Object getOriginalTypedValue(final CellEditor cellEditor, Object value) {
-                try {
-                    return new Integer(value.toString());
-                } catch (Exception ex) {
-                    return null;
-                }
-            }
-
-            public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
-                if (value != null) {
-                    return String.valueOf(value);
-                }
-                return "";
-            }
-        };
-
+        CellEditorValueAdapter positiveIntValueAdapter = CellEditorValueAdapterFactory.getPositiveIntAdapter();
+        
         // comboValueAdapter
         CellEditorValueAdapter comboValueAdapter = new CellEditorValueAdapter() {
 
@@ -296,7 +281,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         });
         column.setModifiable(!isReadOnly());
         column.setWidth(55);
-        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
+        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), positiveIntValueAdapter);
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -315,7 +300,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         });
         column.setModifiable(!isReadOnly());
         column.setWidth(60);
-        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), intValueAdapter);
+        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), positiveIntValueAdapter);
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -339,23 +324,23 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
-//        column = new TableViewerCreatorColumn(tableViewerCreator);
-//        column.setTitle("Default");
-//        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
-//
-//            public String get(IMetadataColumn bean) {
-//                return bean.getDefault();
-//            }
-//
-//            public void set(IMetadataColumn bean, String value) {
-//                bean.setDefault(value);
-//            }
-//
-//        });
-//        column.setWeight(8);
-//        column.setModifiable(!isReadOnly());
-//        column.setMinimumWidth(30);
-//        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+        // column = new TableViewerCreatorColumn(tableViewerCreator);
+        // column.setTitle("Default");
+        // column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
+        //
+        // public String get(IMetadataColumn bean) {
+        // return bean.getDefault();
+        // }
+        //
+        // public void set(IMetadataColumn bean, String value) {
+        // bean.setDefault(value);
+        // }
+        //
+        // });
+        // column.setWeight(8);
+        // column.setModifiable(!isReadOnly());
+        // column.setMinimumWidth(30);
+        // column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
