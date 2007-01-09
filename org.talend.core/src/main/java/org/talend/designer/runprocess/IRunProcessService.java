@@ -70,7 +70,17 @@ public interface IRunProcessService extends IService {
      * @param filenameFromLabel
      * @return IPerlProcessor
      */
-    public IPerlProcessor createPerlProcessor(IProcess process, boolean filenameFromLabel);
+    public IProcessor createPerlProcessor(IProcess process, boolean filenameFromLabel);
+    
+    
+    /**
+     * creat the Java processor.
+     * @param process
+     * @param filenameFromLabel
+     * @return
+     */
+    public IProcessor createJavaProcessor(IProcess process, boolean filenameFromLabel);
+
 
     /**
      * DOC qian Comment method "createPerformanceData".

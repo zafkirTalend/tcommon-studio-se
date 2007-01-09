@@ -31,6 +31,7 @@ public enum EParameterFieldType {
     TEXT,
     MEMO_SQL,
     MEMO_PERL,
+    MEMO_JAVA,
     CLOSED_LIST,
     CHECK,
     MEMO,
