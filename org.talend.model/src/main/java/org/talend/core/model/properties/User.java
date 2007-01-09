@@ -100,12 +100,12 @@ public interface User extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * @return the value of the '<em>Password</em>' attribute.
-     * @see #setPassword(String)
+     * @see #setPassword(byte[])
      * @see org.talend.core.model.properties.PropertiesPackage#getUser_Password()
      * @model unique="false" required="true"
      * @generated
      */
-    String getPassword();
+    byte[] getPassword();
 
     /**
      * Sets the value of the '{@link org.talend.core.model.properties.User#getPassword <em>Password</em>}' attribute.
@@ -115,7 +115,7 @@ public interface User extends EObject {
      * @see #getPassword()
      * @generated
      */
-    void setPassword(String value);
+    void setPassword(byte[] value);
 
     /**
      * Returns the value of the '<em><b>First Name</b></em>' attribute.

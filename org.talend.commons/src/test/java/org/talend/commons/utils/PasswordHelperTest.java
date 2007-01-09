@@ -12,10 +12,12 @@ public class PasswordHelperTest {
     @Test
     public void testVerifyPassword() {
         String passwd = "good passwd";
+        String passwd2 = "false passwd";
         try {
-            String  encryptPasswd = PasswordHelper.encryptPasswd(passwd);
-            assertTrue(PasswordHelper.verifyPassword(passwd, encryptPasswd));
-            assertFalse(PasswordHelper.verifyPassword("false passwd", encryptPasswd));
+            byte[] bs1 = PasswordHelper.encryptPasswd(passwd);
+            byte[] bs2 = PasswordHelper.encryptPasswd(passwd2);
+            assertTrue(PasswordHelper.verifyPassword(bs1, bs1));
+            assertFalse(PasswordHelper.verifyPassword(bs1, bs2));
         } catch (NoSuchAlgorithmException e) {
             fail();
         }

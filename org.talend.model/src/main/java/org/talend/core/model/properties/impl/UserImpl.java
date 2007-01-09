@@ -97,7 +97,7 @@ public class UserImpl extends EObjectImpl implements User {
      * @generated
      * @ordered
      */
-    protected static final String PASSWORD_EDEFAULT = null;
+    protected static final byte[] PASSWORD_EDEFAULT = null;
 
     /**
      * The cached value of the '{@link #getPassword() <em>Password</em>}' attribute.
@@ -107,7 +107,7 @@ public class UserImpl extends EObjectImpl implements User {
      * @generated
      * @ordered
      */
-    protected String password = PASSWORD_EDEFAULT;
+    protected byte[] password = PASSWORD_EDEFAULT;
 
     /**
      * The default value of the '{@link #getFirstName() <em>First Name</em>}' attribute.
@@ -334,7 +334,7 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getPassword() {
+    public byte[] getPassword() {
         return password;
     }
 
@@ -343,8 +343,8 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setPassword(String newPassword) {
-        String oldPassword = password;
+    public void setPassword(byte[] newPassword) {
+        byte[] oldPassword = password;
         password = newPassword;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__PASSWORD, oldPassword, password));
@@ -623,7 +623,7 @@ public class UserImpl extends EObjectImpl implements User {
                 setLogin((String)newValue);
                 return;
             case PropertiesPackage.USER__PASSWORD:
-                setPassword((String)newValue);
+                setPassword((byte[])newValue);
                 return;
             case PropertiesPackage.USER__FIRST_NAME:
                 setFirstName((String)newValue);
