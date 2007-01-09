@@ -22,6 +22,7 @@
 package org.talend.rcp.intro;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.runtime.IExtension;
@@ -118,26 +119,26 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         IExtension ext = actionSet.getConfigurationElement().getDeclaringExtension();
         reg.removeExtension(ext, new Object[] { actionSet });
     }
+    
+    private static final String[] ACTIONSETID = new String[] {
+        "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo",
+        "org.eclipse.ui.edit.text.actionSet.annotationNavigation",
+        "org.eclipse.ui.NavigateActionSet",
+        "org.eclipse.ui.WorkingSetActionSet",
+        "org.eclipse.ui.edit.text.actionSet.navigation",
+        "org.eclipse.search.searchActionSet"};    
 
     protected void fillMenuBar(final IMenuManager menuBar) {
 
         ActionSetRegistry reg = WorkbenchPlugin.getDefault().getActionSetRegistry();
         IActionSetDescriptor[] actionSets = reg.getActionSets();
-        String actionSetId1 = "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo";
-        String actionSetId2 = "org.eclipse.ui.edit.text.actionSet.annotationNavigation";
-        String actionSetId3 = "org.eclipse.ui.NavigateActionSet";
-        String actionSetId4 = "org.eclipse.ui.WorkingSetActionSet";
-        String actionSetId5 = "org.eclipse.ui.edit.text.actionSet.navigation";
-
+        List list = Arrays.asList(ACTIONSETID);        
         for (int i = 0; i < actionSets.length; i++) {
-            if (actionSets[i].getId().equals(actionSetId1) || actionSets[i].getId().equals(actionSetId2)
-                    || actionSets[i].getId().equals(actionSetId3) || actionSets[i].getId().equals(actionSetId4)
-                    || actionSets[i].getId().equals(actionSetId5)) {
+            if (list.contains(actionSets[i].getId())) {
                 removeAction(reg, actionSets[i]);
             }
-            /*
-             * else { System.out.println(actionSets[i].getId()); }
-             */
+            /*else { System.out.println(actionSets[i].getId()); }*/
+             
         }
 
         MenuManager fileMenu = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
