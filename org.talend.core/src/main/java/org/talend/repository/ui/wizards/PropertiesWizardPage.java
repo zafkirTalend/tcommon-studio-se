@@ -487,7 +487,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
     protected void evaluateTextField() {
         if (nameText.getText().length() == 0) {
             nameStatus = createStatus(IStatus.ERROR, "Name is empty.");
-        } else if (!Pattern.matches(RepositoryConstants.REPOSITORY_ITEM_PATTERN, nameText.getText())) {
+        } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())) {
             nameStatus = createStatus(IStatus.ERROR, "Name contains incorrect characters.");
         } else if (!isValid(nameText.getText()) && nameModifiedByUser) {
             nameStatus = createStatus(IStatus.ERROR, "Item with the same name already exists");

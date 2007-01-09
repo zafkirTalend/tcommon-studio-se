@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.repository.model;
 
+import org.talend.core.model.repository.ERepositoryObjectType;
+
 /**
  * Defines some constants relative to repository such as file patterns.<br/>
  * 
@@ -37,7 +39,23 @@ public class RepositoryConstants {
 
     public static final String PROJECT_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9 \\-_]*$";
 
-    public static final String REPOSITORY_ITEM_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$";
+    public static final String CODE_ITEM_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$";
+
+    public static final String FOLDER_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$";
+
+    public static final String REPOSITORY_ITEM_PATTERN = "^[a-zA-Z0-9\\.\\-\\_\\ \\(\\)\\[\\]=]+$";
 
     public static final String MAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*(\\.[_A-Za-z0-9-]+)";
+
+    public static String getPattern(ERepositoryObjectType type) {
+        switch (type) {
+        case FOLDER:
+            return FOLDER_PATTERN;
+        case PROCESS:
+        case ROUTINES:
+            return CODE_ITEM_PATTERN;
+        default:
+            return REPOSITORY_ITEM_PATTERN;
+        }
+    }
 }
