@@ -21,12 +21,10 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.runtime.IExtension;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
@@ -44,10 +42,8 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.registry.ActionSetRegistry;
 import org.eclipse.ui.internal.registry.IActionSetDescriptor;
-import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
 import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
-import org.talend.designer.runprocess.RunProcessPlugin;
 import org.talend.rcp.perspective.PerspectiveMenuManager;
 
 /**
@@ -75,7 +71,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         actionBarConfigurer = configurer;
     }
 
-    private List<IAction> actions = new ArrayList<IAction>();
+    // private List<IAction> actions = new ArrayList<IAction>();
 
     public static final ISimpleExtensionPoint GLOBAL_ACTIONS = new ExtensionPointImpl("org.talend.core.global_actions",
             "GlobalAction", -1, -1);
@@ -87,9 +83,23 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
         // List<IAction> list = ExtensionImplementationProviders.getInstance(GLOBAL_ACTIONS);
         // actions.addAll(list);
+        // makeTalendGlobalActions();
 
         registerGlobalActions();
     }
+
+    // private void makeTalendGlobalActions() {
+    // List<IConfigurationElement> extension = ExtensionImplementationProviders.getInstanceV2(GLOBAL_ACTIONS);
+    //
+    // for (IConfigurationElement current : extension) {
+    // try {
+    // IAction currentAction = (IAction) current.createExecutableExtension("class");
+    // actions.add(currentAction);
+    // } catch (CoreException e) {
+    // e.printStackTrace();
+    // }
+    // }
+    // }
 
     private void registerGlobalActions() {
         actionBarConfigurer.registerGlobalAction(ActionFactory.SAVE.create(window));
@@ -104,14 +114,16 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         // IContextService contextService = (IContextService) Activator.getDefault().getWorkbench()
         // .getAdapter(IContextService.class);
         // contextService.activateContext("talend.global");
-        //        
+        //
         // IWorkbench workbench = PlatformUI.getWorkbench();
         // IHandlerService handlerService = (IHandlerService) workbench.getService(IHandlerService.class);
-        //        
+        //
         // IHandler handler;
         // for (IAction action : actions) {
+        // if (action.getActionDefinitionId() != null) {
         // handler = new ActionHandler(action);
         // handlerService.activateHandler(action.getActionDefinitionId(), handler);
+        // }
         // }
     }
 
@@ -119,26 +131,23 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         IExtension ext = actionSet.getConfigurationElement().getDeclaringExtension();
         reg.removeExtension(ext, new Object[] { actionSet });
     }
-    
-    private static final String[] ACTIONSETID = new String[] {
-        "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo",
-        "org.eclipse.ui.edit.text.actionSet.annotationNavigation",
-        "org.eclipse.ui.NavigateActionSet",
-        "org.eclipse.ui.WorkingSetActionSet",
-        "org.eclipse.ui.edit.text.actionSet.navigation",
-        "org.eclipse.search.searchActionSet"};    
+
+    private static final String[] ACTIONSETID = new String[] { "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo",
+            "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet",
+            "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation",
+            "org.eclipse.search.searchActionSet" };
 
     protected void fillMenuBar(final IMenuManager menuBar) {
 
         ActionSetRegistry reg = WorkbenchPlugin.getDefault().getActionSetRegistry();
         IActionSetDescriptor[] actionSets = reg.getActionSets();
-        List list = Arrays.asList(ACTIONSETID);        
+        List list = Arrays.asList(ACTIONSETID);
         for (int i = 0; i < actionSets.length; i++) {
             if (list.contains(actionSets[i].getId())) {
                 removeAction(reg, actionSets[i]);
             }
-            /*else { System.out.println(actionSets[i].getId()); }*/
-             
+            /* else { System.out.println(actionSets[i].getId()); } */
+
         }
 
         MenuManager fileMenu = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
@@ -200,7 +209,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     protected void fillCoolBar(ICoolBarManager coolBar) {
         IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
         coolBar.add(new ToolBarContributionItem(toolbar, "main"));
-        toolbar.add(new ShowViewAction());
+
+        // for (IAction action : coolbaractions) {
+        // toolbar.add(action);
+        // }
     }
 
 }

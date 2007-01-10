@@ -27,8 +27,6 @@ import java.util.List;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.commands.ActionHandler;
-import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -74,7 +72,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void preWindowOpen() {
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
         configurer.setInitialSize(new Point(1000, 750));
-        configurer.setShowCoolBar(false);
+        configurer.setShowCoolBar(true);
         configurer.setShowStatusLine(true);
 
         RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
@@ -96,6 +94,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         createActions();
         registerActions();
     }
+
     /**
      * DOC smallet Comment method "createActions".
      */
@@ -121,20 +120,22 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             handlerService.activateHandler(action.getActionDefinitionId(), handler);
         }
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.ui.application.WorkbenchWindowAdvisor#postWindowClose()
      */
     @Override
     public void postWindowClose() {
-    	Shell[]  shelles = Display.getDefault().getShells();
-    	for (Shell shell : shelles) {
-    		if (shell.getData() != null) {
-    			if (shell.getData() instanceof SQLBuilderDialog) {
-    				((SQLBuilderDialog) shell.getData()).close();
-    			}
-    		}
-		}
-    	super.postWindowClose();
+        Shell[] shelles = Display.getDefault().getShells();
+        for (Shell shell : shelles) {
+            if (shell.getData() != null) {
+                if (shell.getData() instanceof SQLBuilderDialog) {
+                    ((SQLBuilderDialog) shell.getData()).close();
+                }
+            }
+        }
+        super.postWindowClose();
     }
 }
