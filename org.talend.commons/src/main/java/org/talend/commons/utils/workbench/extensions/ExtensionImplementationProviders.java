@@ -91,26 +91,27 @@ public final class ExtensionImplementationProviders {
         List<IConfigurationElement> toReturn = new ArrayList<IConfigurationElement>();
 
         IExtensionRegistry reg = Platform.getExtensionRegistry();
+        // TODO SLM Clean
+        // IExtensionPoint pt = reg.getExtensionPoint(extensionPoint.getExtPointId());
+        // if (pt == null) {
+        // String msg = Messages.getString("utils.workbench.extensions.noExtension", extensionPoint.getExtPointId());
+        // throw new IllegalPluginConfigurationException(msg);
+        // }
 
-        IExtensionPoint pt = reg.getExtensionPoint(extensionPoint.getExtPointId());
-        if (pt == null) {
-            String msg = Messages.getString("utils.workbench.extensions.noExtension", extensionPoint.getExtPointId());
-            throw new IllegalPluginConfigurationException(msg);
-        }
+        // IExtension[] ext = pt.getExtensions();
 
-        IExtension[] ext = pt.getExtensions();
+        // for (IExtension currentExt : ext) {
 
-        for (IExtension currentExt : ext) {
-
-            if (plugInId == null || currentExt.getNamespaceIdentifier().equals(plugInId)) {
-                IConfigurationElement[] configs = currentExt.getConfigurationElements();
-                for (IConfigurationElement currentConfig : configs) {
-                    if (currentConfig.getName().equals(extensionPoint.getElementName())) {
-                        toReturn.add(currentConfig);
-                    }
-                }
+        // if (plugInId == null || currentExt.getNamespaceIdentifier().equals(plugInId)) {
+        IConfigurationElement[] configs = reg.getConfigurationElementsFor(extensionPoint.getExtPointId());
+        // IConfigurationElement[] configs = currentExt.getConfigurationElements();
+        for (IConfigurationElement currentConfig : configs) {
+            if (currentConfig.getName().equals(extensionPoint.getElementName())) {
+                toReturn.add(currentConfig);
             }
         }
+        // }
+        // }
 
         if ((toReturn.size() < extensionPoint.getMinOcc() && extensionPoint.getMinOcc() != -1)
                 || (toReturn.size() > extensionPoint.getMaxOcc() && extensionPoint.getMaxOcc() != -1)) {
@@ -133,7 +134,8 @@ public final class ExtensionImplementationProviders {
      * value of the ext. point
      */
     @SuppressWarnings("unchecked")
-    public static <T> List<T> getInstance(ISimpleExtensionPoint extensionPoint, String plugInId) throws IllegalPluginConfigurationException {
+    public static <T> List<T> getInstance(ISimpleExtensionPoint extensionPoint, String plugInId)
+            throws IllegalPluginConfigurationException {
         List<T> toReturn = new ArrayList<T>();
 
         IExtensionRegistry reg = Platform.getExtensionRegistry();
