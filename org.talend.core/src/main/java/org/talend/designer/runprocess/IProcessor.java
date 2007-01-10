@@ -39,11 +39,10 @@ public interface IProcessor {
             throws ProcessorException;
 
     /**
-     * DOC mhirt Comment method "getPerlContext".
-     * 
+     * getter the code context.
      * @return
      */
-    public String getPerlContext();
+    public String getCodeContext();
 
     /**
      * Getter for codePath.
@@ -59,12 +58,12 @@ public interface IProcessor {
      */
     public IPath getContextPath();
 
+    
     /**
-     * Getter for perlProject.
-     * 
-     * @return the perlProject
+     * getter the code project.
+     * @return
      */
-    public IProject getPerlProject();
+    public IProject getCodeProject();
 
     /**
      * Return line number where stands specific node in code generated.
