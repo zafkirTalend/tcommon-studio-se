@@ -38,6 +38,10 @@ public class RepositoryContext {
 
     private String context;
 
+    private String dbLogin;
+
+    private String dbPassword;
+
     private User user;
 
     private Project project;
@@ -219,6 +223,42 @@ public class RepositoryContext {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Getter for dbLogin.
+     * 
+     * @return the dbLogin
+     */
+    public String getDbLogin() {
+        return this.dbLogin;
+    }
+
+    /**
+     * Sets the dbLogin.
+     * 
+     * @param dbLogin the dbLogin to set
+     */
+    public void setDbLogin(String dbLogin) {
+        this.dbLogin = dbLogin;
+    }
+
+    /**
+     * Getter for dbPassword.
+     * 
+     * @return the dbPassword
+     */
+    public String getDbPassword() {
+        return this.dbPassword;
+    }
+
+    /**
+     * Sets the dbPassword.
+     * 
+     * @param dbPassword the dbPassword to set
+     */
+    public void setDbPassword(String dbPassword) {
+        this.dbPassword = dbPassword;
     }
 
 }

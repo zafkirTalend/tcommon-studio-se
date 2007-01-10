@@ -21,55 +21,64 @@
 // ============================================================================
 package org.talend.core.prefs;
 
-
 /**
- * Core preferences. Detailled comment
- * <br/>
- *
+ * Core preferences. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public interface ITalendCorePrefConstants {
 
     /** Path to the directory of temporary files. */
     String FILE_PATH_TEMP = "filePathTemp";
-    
+
     /** Perl interpreter. */
     String PERL_INTERPRETER = "perlInterpreter";
-    
+
     /** Perl library directory. */
-//    String PERL_LIB = "perlLib";
-    
+    // String PERL_LIB = "perlLib";
     /** Known servers list. */
     String SERVERS = "servers";
-    
+
     /** Known context list. */
     String CONTEXTS = "servers";
-    
+
+    /** Known context list. */
+    String DBLOGINS = "dblogins";
+
+    /** Known context list. */
+    String DBPASSWORDS = "dbpasswords";
+
     /** Known ports list. */
     String PORTS = "ports";
-    
+
     /** Known servers list. */
     String REPOSITORIES = "repositories";
-    
+
     /** Known users list. */
     String USERS = "users";
-    
+
     /** Last used server. */
     String LAST_USED_SERVER = "lastUSedServer";
-    
+
     /** Last used context. */
     String LAST_USED_CONTEXT = "lastUSedContext";
-    
+
     /** Last used port. */
     String LAST_USED_PORT = "lastUSedPort";
-    
+
+    /** Last used port. */
+    String LAST_USED_DBLOGIN = "lastUSedDblogin";
+
+    /** Last used port. */
+    String LAST_USED_DBPASSWORD = "lastUSedDbpassword";
+
     /** Last used repository. */
     String LAST_USED_REPOSITORY = "lastUSedRepository";
-    
+
     /** Last used project. */
     String LAST_USED_PROJECT = "lastUSedProject";
-    
+
     /** Last used user. */
     String LAST_USED_USER = "lastUSedUser";
 
