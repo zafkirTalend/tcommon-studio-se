@@ -24,6 +24,8 @@ package org.talend.repository.model;
 import org.eclipse.core.runtime.IPath;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.repository.IRepositoryChangedListener;
+import org.talend.repository.RepositoryElementDelta;
 
 /**
  * DOC qian class global comment. Interface for RepositoryService. <br/>
@@ -36,8 +38,14 @@ public interface IRepositoryService extends IService {
     public IComponentsFactory getComponentsFactory();
 
     public IPath getPathFileName(String folderName, String fileName);
-    
+
     public IProxyRepositoryFactory getProxyRepositoryFactory();
-    
+
     public IPath getRepositoryPath(RepositoryNode node);
+
+    public void registerRepositoryChangedListener(IRepositoryChangedListener listener);
+
+    public void removeRepositoryChangedListener(IRepositoryChangedListener listener);
+
+    public void repositoryChanged(RepositoryElementDelta event);
 }
