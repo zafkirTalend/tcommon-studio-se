@@ -60,27 +60,18 @@ public interface IRunProcessService extends IService {
      * @throws ProcessorException
      */
     public int exec(StringBuffer out, StringBuffer err, IPath absCodePath, IPath absContextPath, Level level,
-            String perlInterpreterLibOption, String perlInterpreterLibCtxOption, String perlModuleDirectoryOption, int statOption, int traceOption,
-            String... codeOptions) throws ProcessorException;
+            String perlInterpreterLibOption, String perlInterpreterLibCtxOption, String perlModuleDirectoryOption,
+            int statOption, int traceOption, String... codeOptions) throws ProcessorException;
 
+  
     /**
-     * DOC qian Comment method "createPerlProcessor".
-     * 
+     * DOC xue Comment method "createCodeProcessor".
      * @param process
-     * @param filenameFromLabel
-     * @return IPerlProcessor
-     */
-    public IProcessor createPerlProcessor(IProcess process, boolean filenameFromLabel);
-    
-    
-    /**
-     * creat the Java processor.
-     * @param process
+     * @param language
      * @param filenameFromLabel
      * @return
      */
-    public IProcessor createJavaProcessor(IProcess process, boolean filenameFromLabel);
-
+    public IProcessor createCodeProcessor(IProcess process, ECodeLanguage language, boolean filenameFromLabel);
 
     /**
      * DOC qian Comment method "createPerformanceData".
