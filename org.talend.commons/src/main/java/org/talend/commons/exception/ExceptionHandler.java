@@ -48,9 +48,12 @@ public final class ExceptionHandler {
      * @param ex - exception to log
      */
     public static void process(Throwable ex) {
-        String message = ex.getMessage();
-
         Priority priority = getPriority(ex);
+        process(ex, priority);
+    }
+
+    public static void process(Throwable ex, Priority priority) {
+        String message = ex.getMessage();
 
         log.log(priority, message, ex);
 
