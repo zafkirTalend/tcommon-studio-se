@@ -24,6 +24,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.core.model.utils.emf.talendfile.RequiredType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
 /**
@@ -41,6 +42,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.DocumentRootImpl#getElementParameter <em>Element Parameter</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.DocumentRootImpl#getNode <em>Node</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.DocumentRootImpl#getProcess <em>Process</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.DocumentRootImpl#getRequired <em>Required</em>}</li>
  * </ul>
  * </p>
  *
@@ -271,6 +273,33 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
+    public RequiredType getRequired() {
+        return (RequiredType)getMixed().get(TalendFilePackage.Literals.DOCUMENT_ROOT__REQUIRED, true);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetRequired(RequiredType newRequired, NotificationChain msgs) {
+        return ((FeatureMap.Internal)getMixed()).basicAdd(TalendFilePackage.Literals.DOCUMENT_ROOT__REQUIRED, newRequired, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRequired(RequiredType newRequired) {
+        ((FeatureMap.Internal)getMixed()).set(TalendFilePackage.Literals.DOCUMENT_ROOT__REQUIRED, newRequired);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case TalendFilePackage.DOCUMENT_ROOT__MIXED:
@@ -289,6 +318,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return basicSetNode(null, msgs);
             case TalendFilePackage.DOCUMENT_ROOT__PROCESS:
                 return basicSetProcess(null, msgs);
+            case TalendFilePackage.DOCUMENT_ROOT__REQUIRED:
+                return basicSetRequired(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -319,6 +350,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getNode();
             case TalendFilePackage.DOCUMENT_ROOT__PROCESS:
                 return getProcess();
+            case TalendFilePackage.DOCUMENT_ROOT__REQUIRED:
+                return getRequired();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -353,6 +386,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return;
             case TalendFilePackage.DOCUMENT_ROOT__PROCESS:
                 setProcess((ProcessType)newValue);
+                return;
+            case TalendFilePackage.DOCUMENT_ROOT__REQUIRED:
+                setRequired((RequiredType)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -389,6 +425,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             case TalendFilePackage.DOCUMENT_ROOT__PROCESS:
                 setProcess((ProcessType)null);
                 return;
+            case TalendFilePackage.DOCUMENT_ROOT__REQUIRED:
+                setRequired((RequiredType)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -416,6 +455,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getNode() != null;
             case TalendFilePackage.DOCUMENT_ROOT__PROCESS:
                 return getProcess() != null;
+            case TalendFilePackage.DOCUMENT_ROOT__REQUIRED:
+                return getRequired() != null;
         }
         return super.eIsSet(featureID);
     }

@@ -50,7 +50,7 @@ public interface TalendFilePackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "TalendFile";
+    String eNS_PREFIX = "talendfile";
 
     /**
      * The singleton instance of the package.
@@ -435,13 +435,22 @@ public interface TalendFilePackage extends EPackage {
     int DOCUMENT_ROOT__PROCESS = 7;
 
     /**
+     * The feature id for the '<em><b>Required</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENT_ROOT__REQUIRED = 8;
+
+    /**
      * The number of structural features of the '<em>Document Root</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT_FEATURE_COUNT = 8;
+    int DOCUMENT_ROOT_FEATURE_COUNT = 9;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl <em>Element Parameter Type</em>}' class.
@@ -536,6 +545,43 @@ public interface TalendFilePackage extends EPackage {
     int ELEMENT_VALUE_TYPE_FEATURE_COUNT = 2;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.JobTypeImpl <em>Job Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.JobTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getJobType()
+     * @generated
+     */
+    int JOB_TYPE = 7;
+
+    /**
+     * The feature id for the '<em><b>Context</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_TYPE__CONTEXT = 0;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_TYPE__NAME = 1;
+
+    /**
+     * The number of structural features of the '<em>Job Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_TYPE_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.LogsTypeImpl <em>Logs Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -543,7 +589,7 @@ public interface TalendFilePackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getLogsType()
      * @generated
      */
-    int LOGS_TYPE = 7;
+    int LOGS_TYPE = 8;
 
     /**
      * The feature id for the '<em><b>Log To File</b></em>' containment reference.
@@ -589,7 +635,7 @@ public interface TalendFilePackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getLogToDatabaseType()
      * @generated
      */
-    int LOG_TO_DATABASE_TYPE = 8;
+    int LOG_TO_DATABASE_TYPE = 9;
 
     /**
      * The feature id for the '<em><b>Database</b></em>' attribute.
@@ -635,7 +681,7 @@ public interface TalendFilePackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getLogToFileType()
      * @generated
      */
-    int LOG_TO_FILE_TYPE = 9;
+    int LOG_TO_FILE_TYPE = 10;
 
     /**
      * The feature id for the '<em><b>Filename</b></em>' attribute.
@@ -681,7 +727,7 @@ public interface TalendFilePackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getLogToStdOutType()
      * @generated
      */
-    int LOG_TO_STD_OUT_TYPE = 10;
+    int LOG_TO_STD_OUT_TYPE = 11;
 
     /**
      * The feature id for the '<em><b>Level</b></em>' attribute.
@@ -718,7 +764,7 @@ public interface TalendFilePackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getMetadataType()
      * @generated
      */
-    int METADATA_TYPE = 11;
+    int METADATA_TYPE = 12;
 
     /**
      * The feature id for the '<em><b>Column</b></em>' containment reference list.
@@ -773,7 +819,7 @@ public interface TalendFilePackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getNodeType()
      * @generated
      */
-    int NODE_TYPE = 12;
+    int NODE_TYPE = 13;
 
     /**
      * The feature id for the '<em><b>Element Parameter</b></em>' containment reference list.
@@ -882,7 +928,7 @@ public interface TalendFilePackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getProcessType()
      * @generated
      */
-    int PROCESS_TYPE = 13;
+    int PROCESS_TYPE = 14;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -894,13 +940,22 @@ public interface TalendFilePackage extends EPackage {
     int PROCESS_TYPE__DESCRIPTION = 0;
 
     /**
+     * The feature id for the '<em><b>Required</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_TYPE__REQUIRED = 1;
+
+    /**
      * The feature id for the '<em><b>Context</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__CONTEXT = 1;
+    int PROCESS_TYPE__CONTEXT = 2;
 
     /**
      * The feature id for the '<em><b>Node</b></em>' containment reference list.
@@ -909,7 +964,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__NODE = 2;
+    int PROCESS_TYPE__NODE = 3;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' containment reference list.
@@ -918,7 +973,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__CONNECTION = 3;
+    int PROCESS_TYPE__CONNECTION = 4;
 
     /**
      * The feature id for the '<em><b>Logs</b></em>' containment reference.
@@ -927,7 +982,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__LOGS = 4;
+    int PROCESS_TYPE__LOGS = 5;
 
     /**
      * The feature id for the '<em><b>Author</b></em>' attribute.
@@ -936,7 +991,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__AUTHOR = 5;
+    int PROCESS_TYPE__AUTHOR = 6;
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
@@ -945,7 +1000,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__COMMENT = 6;
+    int PROCESS_TYPE__COMMENT = 7;
 
     /**
      * The feature id for the '<em><b>Default Context</b></em>' attribute.
@@ -954,7 +1009,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__DEFAULT_CONTEXT = 7;
+    int PROCESS_TYPE__DEFAULT_CONTEXT = 8;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -963,7 +1018,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__NAME = 8;
+    int PROCESS_TYPE__NAME = 9;
 
     /**
      * The feature id for the '<em><b>Purpose</b></em>' attribute.
@@ -972,7 +1027,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__PURPOSE = 9;
+    int PROCESS_TYPE__PURPOSE = 10;
 
     /**
      * The feature id for the '<em><b>Status</b></em>' attribute.
@@ -981,7 +1036,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__STATUS = 10;
+    int PROCESS_TYPE__STATUS = 11;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -990,7 +1045,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__VERSION = 11;
+    int PROCESS_TYPE__VERSION = 12;
 
     /**
      * The number of structural features of the '<em>Process Type</em>' class.
@@ -999,7 +1054,36 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE_FEATURE_COUNT = 12;
+    int PROCESS_TYPE_FEATURE_COUNT = 13;
+
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.RequiredTypeImpl <em>Required Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.RequiredTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getRequiredType()
+     * @generated
+     */
+    int REQUIRED_TYPE = 15;
+
+    /**
+     * The feature id for the '<em><b>Job</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REQUIRED_TYPE__JOB = 0;
+
+    /**
+     * The number of structural features of the '<em>Required Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REQUIRED_TYPE_FEATURE_COUNT = 1;
 
 
     /**
@@ -1405,6 +1489,17 @@ public interface TalendFilePackage extends EPackage {
     EReference getDocumentRoot_Process();
 
     /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getRequired <em>Required</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Required</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getRequired()
+     * @see #getDocumentRoot()
+     * @generated
+     */
+    EReference getDocumentRoot_Required();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType <em>Element Parameter Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1489,6 +1584,38 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EAttribute getElementValueType_Value();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.JobType <em>Job Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Job Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.JobType
+     * @generated
+     */
+    EClass getJobType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.JobType#getContext <em>Context</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Context</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.JobType#getContext()
+     * @see #getJobType()
+     * @generated
+     */
+    EAttribute getJobType_Context();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.JobType#getName <em>Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Name</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.JobType#getName()
+     * @see #getJobType()
+     * @generated
+     */
+    EAttribute getJobType_Name();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.LogsType <em>Logs Type</em>}'.
@@ -1847,6 +1974,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getProcessType_Description();
 
     /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRequired <em>Required</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Required</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRequired()
+     * @see #getProcessType()
+     * @generated
+     */
+    EReference getProcessType_Required();
+
+    /**
      * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getContext <em>Context</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1966,6 +2104,27 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EAttribute getProcessType_Version();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.RequiredType <em>Required Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Required Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.RequiredType
+     * @generated
+     */
+    EClass getRequiredType();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.talendfile.RequiredType#getJob <em>Job</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Job</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.RequiredType#getJob()
+     * @see #getRequiredType()
+     * @generated
+     */
+    EReference getRequiredType_Job();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -2296,6 +2455,14 @@ public interface TalendFilePackage extends EPackage {
         EReference DOCUMENT_ROOT__PROCESS = eINSTANCE.getDocumentRoot_Process();
 
         /**
+         * The meta object literal for the '<em><b>Required</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DOCUMENT_ROOT__REQUIRED = eINSTANCE.getDocumentRoot_Required();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl <em>Element Parameter Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2362,6 +2529,32 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute ELEMENT_VALUE_TYPE__VALUE = eINSTANCE.getElementValueType_Value();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.JobTypeImpl <em>Job Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.JobTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getJobType()
+         * @generated
+         */
+        EClass JOB_TYPE = eINSTANCE.getJobType();
+
+        /**
+         * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute JOB_TYPE__CONTEXT = eINSTANCE.getJobType_Context();
+
+        /**
+         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute JOB_TYPE__NAME = eINSTANCE.getJobType_Name();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.LogsTypeImpl <em>Logs Type</em>}' class.
@@ -2642,6 +2835,14 @@ public interface TalendFilePackage extends EPackage {
         EAttribute PROCESS_TYPE__DESCRIPTION = eINSTANCE.getProcessType_Description();
 
         /**
+         * The meta object literal for the '<em><b>Required</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROCESS_TYPE__REQUIRED = eINSTANCE.getProcessType_Required();
+
+        /**
          * The meta object literal for the '<em><b>Context</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2728,6 +2929,24 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute PROCESS_TYPE__VERSION = eINSTANCE.getProcessType_Version();
+
+            /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.RequiredTypeImpl <em>Required Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.RequiredTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getRequiredType()
+         * @generated
+         */
+        EClass REQUIRED_TYPE = eINSTANCE.getRequiredType();
+
+        /**
+         * The meta object literal for the '<em><b>Job</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference REQUIRED_TYPE__JOB = eINSTANCE.getRequiredType_Job();
 
     }
 

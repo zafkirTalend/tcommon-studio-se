@@ -144,6 +144,12 @@ public class TalendFileSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case TalendFilePackage.JOB_TYPE: {
+                JobType jobType = (JobType)theEObject;
+                Object result = caseJobType(jobType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case TalendFilePackage.LOGS_TYPE: {
                 LogsType logsType = (LogsType)theEObject;
                 Object result = caseLogsType(logsType);
@@ -183,6 +189,12 @@ public class TalendFileSwitch {
             case TalendFilePackage.PROCESS_TYPE: {
                 ProcessType processType = (ProcessType)theEObject;
                 Object result = caseProcessType(processType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case TalendFilePackage.REQUIRED_TYPE: {
+                RequiredType requiredType = (RequiredType)theEObject;
+                Object result = caseRequiredType(requiredType);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -296,6 +308,21 @@ public class TalendFileSwitch {
     }
 
     /**
+     * Returns the result of interpretting the object as an instance of '<em>Job Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Job Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseJobType(JobType object) {
+        return null;
+    }
+
+    /**
      * Returns the result of interpretting the object as an instance of '<em>Logs Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
@@ -397,6 +424,21 @@ public class TalendFileSwitch {
      * @generated
      */
     public Object caseProcessType(ProcessType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Required Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Required Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseRequiredType(RequiredType object) {
         return null;
     }
 

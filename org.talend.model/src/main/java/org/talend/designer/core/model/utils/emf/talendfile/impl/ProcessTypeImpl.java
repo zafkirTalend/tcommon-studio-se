@@ -22,6 +22,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.LogsType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.core.model.utils.emf.talendfile.RequiredType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
 /**
@@ -32,6 +33,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getRequired <em>Required</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getNode <em>Node</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getConnection <em>Connection</em>}</li>
@@ -68,6 +70,16 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * @ordered
      */
     protected String description = DESCRIPTION_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getRequired() <em>Required</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRequired()
+     * @generated
+     * @ordered
+     */
+    protected RequiredType required = null;
 
     /**
      * The cached value of the '{@link #getContext() <em>Context</em>}' containment reference list.
@@ -286,6 +298,49 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         description = newDescription;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__DESCRIPTION, oldDescription, description));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public RequiredType getRequired() {
+        return required;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetRequired(RequiredType newRequired, NotificationChain msgs) {
+        RequiredType oldRequired = required;
+        required = newRequired;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__REQUIRED, oldRequired, newRequired);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRequired(RequiredType newRequired) {
+        if (newRequired != required) {
+            NotificationChain msgs = null;
+            if (required != null)
+                msgs = ((InternalEObject)required).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.PROCESS_TYPE__REQUIRED, null, msgs);
+            if (newRequired != null)
+                msgs = ((InternalEObject)newRequired).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.PROCESS_TYPE__REQUIRED, null, msgs);
+            msgs = basicSetRequired(newRequired, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__REQUIRED, newRequired, newRequired));
     }
 
     /**
@@ -521,6 +576,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
+            case TalendFilePackage.PROCESS_TYPE__REQUIRED:
+                return basicSetRequired(null, msgs);
             case TalendFilePackage.PROCESS_TYPE__CONTEXT:
                 return ((InternalEList)getContext()).basicRemove(otherEnd, msgs);
             case TalendFilePackage.PROCESS_TYPE__NODE:
@@ -542,6 +599,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         switch (featureID) {
             case TalendFilePackage.PROCESS_TYPE__DESCRIPTION:
                 return getDescription();
+            case TalendFilePackage.PROCESS_TYPE__REQUIRED:
+                return getRequired();
             case TalendFilePackage.PROCESS_TYPE__CONTEXT:
                 return getContext();
             case TalendFilePackage.PROCESS_TYPE__NODE:
@@ -577,6 +636,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         switch (featureID) {
             case TalendFilePackage.PROCESS_TYPE__DESCRIPTION:
                 setDescription((String)newValue);
+                return;
+            case TalendFilePackage.PROCESS_TYPE__REQUIRED:
+                setRequired((RequiredType)newValue);
                 return;
             case TalendFilePackage.PROCESS_TYPE__CONTEXT:
                 getContext().clear();
@@ -628,6 +690,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__DESCRIPTION:
                 setDescription(DESCRIPTION_EDEFAULT);
                 return;
+            case TalendFilePackage.PROCESS_TYPE__REQUIRED:
+                setRequired((RequiredType)null);
+                return;
             case TalendFilePackage.PROCESS_TYPE__CONTEXT:
                 getContext().clear();
                 return;
@@ -674,6 +739,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         switch (featureID) {
             case TalendFilePackage.PROCESS_TYPE__DESCRIPTION:
                 return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case TalendFilePackage.PROCESS_TYPE__REQUIRED:
+                return required != null;
             case TalendFilePackage.PROCESS_TYPE__CONTEXT:
                 return context != null && !context.isEmpty();
             case TalendFilePackage.PROCESS_TYPE__NODE:

@@ -89,6 +89,15 @@ public interface TalendFileFactory extends EFactory {
     ElementValueType createElementValueType();
 
     /**
+     * Returns a new object of class '<em>Job Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Job Type</em>'.
+     * @generated
+     */
+    JobType createJobType();
+
+    /**
      * Returns a new object of class '<em>Logs Type</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -150,6 +159,15 @@ public interface TalendFileFactory extends EFactory {
      * @generated
      */
     ProcessType createProcessType();
+
+    /**
+     * Returns a new object of class '<em>Required Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Required Type</em>'.
+     * @generated
+     */
+    RequiredType createRequiredType();
 
     /**
      * Returns the package supported by this factory.

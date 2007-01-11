@@ -80,6 +80,7 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
             case TalendFilePackage.DOCUMENT_ROOT: return createDocumentRoot();
             case TalendFilePackage.ELEMENT_PARAMETER_TYPE: return createElementParameterType();
             case TalendFilePackage.ELEMENT_VALUE_TYPE: return createElementValueType();
+            case TalendFilePackage.JOB_TYPE: return createJobType();
             case TalendFilePackage.LOGS_TYPE: return createLogsType();
             case TalendFilePackage.LOG_TO_DATABASE_TYPE: return createLogToDatabaseType();
             case TalendFilePackage.LOG_TO_FILE_TYPE: return createLogToFileType();
@@ -87,6 +88,7 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
             case TalendFilePackage.METADATA_TYPE: return createMetadataType();
             case TalendFilePackage.NODE_TYPE: return createNodeType();
             case TalendFilePackage.PROCESS_TYPE: return createProcessType();
+            case TalendFilePackage.REQUIRED_TYPE: return createRequiredType();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -167,6 +169,16 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
      * <!-- end-user-doc -->
      * @generated
      */
+    public JobType createJobType() {
+        JobTypeImpl jobType = new JobTypeImpl();
+        return jobType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public LogsType createLogsType() {
         LogsTypeImpl logsType = new LogsTypeImpl();
         return logsType;
@@ -230,6 +242,16 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
     public ProcessType createProcessType() {
         ProcessTypeImpl processType = new ProcessTypeImpl();
         return processType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public RequiredType createRequiredType() {
+        RequiredTypeImpl requiredType = new RequiredTypeImpl();
+        return requiredType;
     }
 
     /**

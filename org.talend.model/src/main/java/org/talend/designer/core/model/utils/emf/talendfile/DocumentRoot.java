@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getElementParameter <em>Element Parameter</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getNode <em>Node</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getProcess <em>Process</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getRequired <em>Required</em>}</li>
  * </ul>
  * </p>
  *
@@ -221,5 +222,32 @@ public interface DocumentRoot extends EObject {
      * @generated
      */
     void setProcess(ProcessType value);
+
+    /**
+     * Returns the value of the '<em><b>Required</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Required</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Required</em>' containment reference.
+     * @see #setRequired(RequiredType)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getDocumentRoot_Required()
+     * @model containment="true" upper="-2" transient="true" volatile="true" derived="true"
+     *        extendedMetaData="kind='element' name='Required' namespace='##targetNamespace'"
+     * @generated
+     */
+    RequiredType getRequired();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getRequired <em>Required</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Required</em>' containment reference.
+     * @see #getRequired()
+     * @generated
+     */
+    void setRequired(RequiredType value);
 
 } // DocumentRoot

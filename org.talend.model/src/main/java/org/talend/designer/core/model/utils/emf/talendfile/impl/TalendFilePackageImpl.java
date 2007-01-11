@@ -19,6 +19,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
+import org.talend.designer.core.model.utils.emf.talendfile.JobType;
 import org.talend.designer.core.model.utils.emf.talendfile.LogToDatabaseType;
 import org.talend.designer.core.model.utils.emf.talendfile.LogToFileType;
 import org.talend.designer.core.model.utils.emf.talendfile.LogToStdOutType;
@@ -26,6 +27,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.LogsType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.core.model.utils.emf.talendfile.RequiredType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
@@ -90,6 +92,13 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
+    private EClass jobTypeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     private EClass logsTypeEClass = null;
 
     /**
@@ -133,6 +142,13 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * @generated
      */
     private EClass processTypeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass requiredTypeEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -543,6 +559,15 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getDocumentRoot_Required() {
+        return (EReference)documentRootEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getElementParameterType() {
         return elementParameterTypeEClass;
     }
@@ -608,6 +633,33 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      */
     public EAttribute getElementValueType_Value() {
         return (EAttribute)elementValueTypeEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getJobType() {
+        return jobTypeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getJobType_Context() {
+        return (EAttribute)jobTypeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getJobType_Name() {
+        return (EAttribute)jobTypeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -912,7 +964,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProcessType_Context() {
+    public EReference getProcessType_Required() {
         return (EReference)processTypeEClass.getEStructuralFeatures().get(1);
     }
 
@@ -921,7 +973,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProcessType_Node() {
+    public EReference getProcessType_Context() {
         return (EReference)processTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -930,7 +982,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProcessType_Connection() {
+    public EReference getProcessType_Node() {
         return (EReference)processTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -939,7 +991,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProcessType_Logs() {
+    public EReference getProcessType_Connection() {
         return (EReference)processTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -948,8 +1000,8 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_Author() {
-        return (EAttribute)processTypeEClass.getEStructuralFeatures().get(5);
+    public EReference getProcessType_Logs() {
+        return (EReference)processTypeEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -957,7 +1009,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_Comment() {
+    public EAttribute getProcessType_Author() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -966,7 +1018,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_DefaultContext() {
+    public EAttribute getProcessType_Comment() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -975,7 +1027,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_Name() {
+    public EAttribute getProcessType_DefaultContext() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(8);
     }
 
@@ -984,7 +1036,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_Purpose() {
+    public EAttribute getProcessType_Name() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(9);
     }
 
@@ -993,7 +1045,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_Status() {
+    public EAttribute getProcessType_Purpose() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(10);
     }
 
@@ -1002,8 +1054,35 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_Version() {
+    public EAttribute getProcessType_Status() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getProcessType_Version() {
+        return (EAttribute)processTypeEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getRequiredType() {
+        return requiredTypeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getRequiredType_Job() {
+        return (EReference)requiredTypeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -1075,6 +1154,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEReference(documentRootEClass, DOCUMENT_ROOT__ELEMENT_PARAMETER);
         createEReference(documentRootEClass, DOCUMENT_ROOT__NODE);
         createEReference(documentRootEClass, DOCUMENT_ROOT__PROCESS);
+        createEReference(documentRootEClass, DOCUMENT_ROOT__REQUIRED);
 
         elementParameterTypeEClass = createEClass(ELEMENT_PARAMETER_TYPE);
         createEReference(elementParameterTypeEClass, ELEMENT_PARAMETER_TYPE__ELEMENT_VALUE);
@@ -1085,6 +1165,10 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         elementValueTypeEClass = createEClass(ELEMENT_VALUE_TYPE);
         createEAttribute(elementValueTypeEClass, ELEMENT_VALUE_TYPE__ELEMENT_REF);
         createEAttribute(elementValueTypeEClass, ELEMENT_VALUE_TYPE__VALUE);
+
+        jobTypeEClass = createEClass(JOB_TYPE);
+        createEAttribute(jobTypeEClass, JOB_TYPE__CONTEXT);
+        createEAttribute(jobTypeEClass, JOB_TYPE__NAME);
 
         logsTypeEClass = createEClass(LOGS_TYPE);
         createEReference(logsTypeEClass, LOGS_TYPE__LOG_TO_FILE);
@@ -1125,6 +1209,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
 
         processTypeEClass = createEClass(PROCESS_TYPE);
         createEAttribute(processTypeEClass, PROCESS_TYPE__DESCRIPTION);
+        createEReference(processTypeEClass, PROCESS_TYPE__REQUIRED);
         createEReference(processTypeEClass, PROCESS_TYPE__CONTEXT);
         createEReference(processTypeEClass, PROCESS_TYPE__NODE);
         createEReference(processTypeEClass, PROCESS_TYPE__CONNECTION);
@@ -1136,6 +1221,9 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(processTypeEClass, PROCESS_TYPE__PURPOSE);
         createEAttribute(processTypeEClass, PROCESS_TYPE__STATUS);
         createEAttribute(processTypeEClass, PROCESS_TYPE__VERSION);
+
+        requiredTypeEClass = createEClass(REQUIRED_TYPE);
+        createEReference(requiredTypeEClass, REQUIRED_TYPE__JOB);
     }
 
     /**
@@ -1208,6 +1296,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEReference(getDocumentRoot_ElementParameter(), this.getElementParameterType(), null, "elementParameter", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_Node(), this.getNodeType(), null, "node", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_Process(), this.getProcessType(), null, "process", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEReference(getDocumentRoot_Required(), this.getRequiredType(), null, "required", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
         initEClass(elementParameterTypeEClass, ElementParameterType.class, "ElementParameterType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getElementParameterType_ElementValue(), this.getElementValueType(), null, "elementValue", null, 0, -1, ElementParameterType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1218,6 +1307,10 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEClass(elementValueTypeEClass, ElementValueType.class, "ElementValueType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getElementValueType_ElementRef(), theXMLTypePackage.getString(), "elementRef", null, 0, 1, ElementValueType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getElementValueType_Value(), theXMLTypePackage.getString(), "value", null, 0, 1, ElementValueType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(jobTypeEClass, JobType.class, "JobType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getJobType_Context(), theXMLTypePackage.getString(), "context", null, 0, 1, JobType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getJobType_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, JobType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(logsTypeEClass, LogsType.class, "LogsType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getLogsType_LogToFile(), this.getLogToFileType(), null, "logToFile", null, 1, 1, LogsType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1258,6 +1351,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
 
         initEClass(processTypeEClass, ProcessType.class, "ProcessType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getProcessType_Description(), theXMLTypePackage.getString(), "description", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProcessType_Required(), this.getRequiredType(), null, "required", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProcessType_Context(), this.getContextType(), null, "context", null, 0, -1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProcessType_Node(), this.getNodeType(), null, "node", null, 0, -1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProcessType_Connection(), this.getConnectionType(), null, "connection", null, 0, -1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1269,6 +1363,9 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getProcessType_Purpose(), theXMLTypePackage.getString(), "purpose", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProcessType_Status(), theXMLTypePackage.getString(), "status", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProcessType_Version(), theXMLTypePackage.getString(), "version", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(requiredTypeEClass, RequiredType.class, "RequiredType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getRequiredType_Job(), this.getJobType(), null, "job", null, 0, -1, RequiredType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);
@@ -1581,6 +1678,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (getDocumentRoot_Required(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "Required",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (elementParameterTypeEClass, 
            source, 
            new String[] {
@@ -1640,6 +1745,29 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
            new String[] {
              "kind", "attribute",
              "name", "value",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (jobTypeEClass, 
+           source, 
+           new String[] {
+             "name", "Job_._type",
+             "kind", "empty"
+           });		
+        addAnnotation
+          (getJobType_Context(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "context",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getJobType_Name(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "name",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
@@ -1900,6 +2028,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (getProcessType_Required(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "Required",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (getProcessType_Context(), 
            source, 
            new String[] {
@@ -1985,6 +2121,21 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
            new String[] {
              "kind", "attribute",
              "name", "version",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (requiredTypeEClass, 
+           source, 
+           new String[] {
+             "name", "Required_._type",
+             "kind", "elementOnly"
+           });		
+        addAnnotation
+          (getRequiredType_Job(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "Job",
              "namespace", "##targetNamespace"
            });
     }

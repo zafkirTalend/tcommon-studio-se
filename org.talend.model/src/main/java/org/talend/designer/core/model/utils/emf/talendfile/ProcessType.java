@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRequired <em>Required</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getNode <em>Node</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getConnection <em>Connection</em>}</li>
@@ -63,6 +64,33 @@ public interface ProcessType extends EObject {
      * @generated
      */
     void setDescription(String value);
+
+    /**
+     * Returns the value of the '<em><b>Required</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Required</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Required</em>' containment reference.
+     * @see #setRequired(RequiredType)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Required()
+     * @model containment="true"
+     *        extendedMetaData="kind='element' name='Required' namespace='##targetNamespace'"
+     * @generated
+     */
+    RequiredType getRequired();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRequired <em>Required</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Required</em>' containment reference.
+     * @see #getRequired()
+     * @generated
+     */
+    void setRequired(RequiredType value);
 
     /**
      * Returns the value of the '<em><b>Context</b></em>' containment reference list.

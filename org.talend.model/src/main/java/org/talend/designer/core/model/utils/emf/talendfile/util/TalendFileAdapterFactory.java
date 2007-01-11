@@ -104,6 +104,9 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
             public Object caseElementValueType(ElementValueType object) {
                 return createElementValueTypeAdapter();
             }
+            public Object caseJobType(JobType object) {
+                return createJobTypeAdapter();
+            }
             public Object caseLogsType(LogsType object) {
                 return createLogsTypeAdapter();
             }
@@ -124,6 +127,9 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseProcessType(ProcessType object) {
                 return createProcessTypeAdapter();
+            }
+            public Object caseRequiredType(RequiredType object) {
+                return createRequiredTypeAdapter();
             }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
@@ -242,6 +248,20 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.talendfile.JobType <em>Job Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.JobType
+     * @generated
+     */
+    public Adapter createJobTypeAdapter() {
+        return null;
+    }
+
+    /**
      * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.talendfile.LogsType <em>Logs Type</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
@@ -336,6 +356,20 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createProcessTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.talendfile.RequiredType <em>Required Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.RequiredType
+     * @generated
+     */
+    public Adapter createRequiredTypeAdapter() {
         return null;
     }
 
