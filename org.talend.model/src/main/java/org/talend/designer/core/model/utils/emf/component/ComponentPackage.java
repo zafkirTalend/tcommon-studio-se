@@ -1251,13 +1251,22 @@ public interface ComponentPackage extends EPackage {
     int TEMPLATEPARAM_TYPE__TARGET = 1;
 
     /**
+     * The feature id for the '<em><b>VALUE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEMPLATEPARAM_TYPE__VALUE = 2;
+
+    /**
      * The number of structural features of the '<em>TEMPLATEPARAM Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TEMPLATEPARAM_TYPE_FEATURE_COUNT = 2;
+    int TEMPLATEPARAM_TYPE_FEATURE_COUNT = 3;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl <em>TEMPLATES Type</em>}' class.
@@ -2572,6 +2581,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getTEMPLATEPARAMType_TARGET();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType#getVALUE <em>VALUE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>VALUE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType#getVALUE()
+     * @see #getTEMPLATEPARAMType()
+     * @generated
+     */
+    EAttribute getTEMPLATEPARAMType_VALUE();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATESType <em>TEMPLATES Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3628,6 +3648,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute TEMPLATEPARAM_TYPE__TARGET = eINSTANCE.getTEMPLATEPARAMType_TARGET();
+
+        /**
+         * The meta object literal for the '<em><b>VALUE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEMPLATEPARAM_TYPE__VALUE = eINSTANCE.getTEMPLATEPARAMType_VALUE();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATESTypeImpl <em>TEMPLATES Type</em>}' class.

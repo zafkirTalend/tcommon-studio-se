@@ -45,5 +45,7 @@ public interface IMultipleComponentManager {
 
     public void addParam(String source, String target);
     
+    public void addValue(String target, String value);
+    
     public List<IMultipleComponentParameter> getParamList();
 }

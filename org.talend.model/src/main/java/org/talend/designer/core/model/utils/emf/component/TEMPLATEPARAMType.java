@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType#getSOURCE <em>SOURCE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType#getTARGET <em>TARGET</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType#getVALUE <em>VALUE</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,5 +80,32 @@ public interface TEMPLATEPARAMType extends EObject {
      * @generated
      */
     void setTARGET(String value);
+
+    /**
+     * Returns the value of the '<em><b>VALUE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>VALUE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>VALUE</em>' attribute.
+     * @see #setVALUE(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATEPARAMType_VALUE()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='VALUE' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getVALUE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType#getVALUE <em>VALUE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>VALUE</em>' attribute.
+     * @see #getVALUE()
+     * @generated
+     */
+    void setVALUE(String value);
 
 } // TEMPLATEPARAMType
