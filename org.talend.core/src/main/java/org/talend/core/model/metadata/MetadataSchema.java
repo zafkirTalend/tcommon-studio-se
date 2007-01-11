@@ -35,6 +35,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
+import org.talend.commons.xml.XSDValidator;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
@@ -144,34 +145,11 @@ public final class MetadataSchema {
             IOException {
         final List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
         if (file != null) {
-            final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
-
             final Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
-            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema");
-            fabrique.setAttribute(SCHEMA_VALIDATOR, schema);
-            fabrique.setValidating(true);
-
-            final DocumentBuilder analyseur = fabrique.newDocumentBuilder();
-            analyseur.setErrorHandler(new ErrorHandler() {
-
-                public void error(final SAXParseException exception) throws SAXException {
-                    throw exception;
-                }
-
-                public void fatalError(final SAXParseException exception) throws SAXException {
-                    throw exception;
-                }
-
-                public void warning(final SAXParseException exception) throws SAXException {
-                    throw exception;
-                }
-
-            });
-
-            final Document document = analyseur.parse(file);
+            final Document document = XSDValidator.checkXSD(file, schema);
             final NodeList nodes = document.getElementsByTagName("column");
             for (int i = 0; i < nodes.getLength(); i++) {
                 final IMetadataColumn metadataColumn = new MetadataColumn();

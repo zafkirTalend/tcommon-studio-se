@@ -60,9 +60,15 @@ public interface IComponent {
 
     public ImageDescriptor getIcon32();
 
+    public void setIcon32(ImageDescriptor icon32);
+
     public ImageDescriptor getIcon24();
 
+    public void setIcon24(ImageDescriptor icon24);
+
     public ImageDescriptor getIcon16();
+
+    public void setIcon16(ImageDescriptor icon16);
 
     public List<? extends IElementParameter> createElementParameters(INode node);
 
