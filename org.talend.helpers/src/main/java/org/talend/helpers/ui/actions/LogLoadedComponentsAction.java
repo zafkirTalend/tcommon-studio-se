@@ -21,16 +21,15 @@
 // ============================================================================
 package org.talend.helpers.ui.actions;
 
-import java.util.Collection;
-
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.eclipse.ui.contexts.IContextService;
-import org.talend.helpers.HelpersPlugin;
+import org.talend.core.model.components.IComponent;
+import org.talend.core.model.components.IComponentsFactory;
+import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -38,13 +37,13 @@ import org.talend.helpers.HelpersPlugin;
  * $Id$
  * 
  */
-public class LogActiveContextsAction extends Action implements IWorkbenchWindowActionDelegate {
+public class LogLoadedComponentsAction extends Action implements IWorkbenchWindowActionDelegate {
 
-    private static Logger log = Logger.getLogger(LogActiveContextsAction.class);
+    private static Logger log = Logger.getLogger(LogLoadedComponentsAction.class);
 
-    public LogActiveContextsAction() {
+    public LogLoadedComponentsAction() {
         super();
-        this.setActionDefinitionId("logActiveContexts");
+        this.setActionDefinitionId("logLoadedComponents");
     }
 
     /*
@@ -54,11 +53,9 @@ public class LogActiveContextsAction extends Action implements IWorkbenchWindowA
      */
     @Override
     public void run() {
-        IContextService contextService = (IContextService) HelpersPlugin.getDefault().getWorkbench().getAdapter(
-                IContextService.class);
-        Collection col = contextService.getActiveContextIds();
-        for (Object o : col) {
-            log.info("Active context: " + o);
+        IComponentsFactory componentsFactory = ComponentsFactoryProvider.getInstance();
+        for (IComponent component : componentsFactory.getComponents()) {
+            log.info("Component: " + component.getName());
         }
     }
 

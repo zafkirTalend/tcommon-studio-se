@@ -39,4 +39,29 @@
       <GlobalAction class="org.talend.core.model.action.LogImageCacheAction"/>
       <GlobalAction class="org.talend.helpers.ui.actions.LogActiveContextsAction"/>
    </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="helpers"
+            label="helpers"
+            visible="true">
+         <menu
+               id="talend"
+               label="Talend">
+            <separator name="helpers"/>
+         </menu>
+         <action
+               class="org.talend.helpers.ui.actions.LogLoadedComponentsAction"
+               id="org.talend.helpers.logLoadedComponentsAction"
+               label="Log loaded components"
+               style="push"
+               toolbarPath="helpers"/>
+         <action
+               class="org.talend.helpers.ui.actions.LogActiveContextsAction"
+               id="org.talend.helpers.logActiveContextsAction"
+               label="Log active contexts"
+               style="push"
+               toolbarPath="helpers"/>
+      </actionSet>
+   </extension>
 </plugin>
