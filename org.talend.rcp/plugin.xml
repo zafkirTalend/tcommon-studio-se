@@ -13,9 +13,10 @@
    <extension
          point="org.eclipse.ui.perspectives">
       <perspective
-            name="%perspective.talend"
             class="org.talend.rcp.perspective.Perspective"
-            id="org.talend.rcp.perspective">
+            icon="icons/appli_16x16.png"
+            id="org.talend.rcp.perspective"
+            name="%perspective.talend">
       </perspective>
    </extension>
    <extension
