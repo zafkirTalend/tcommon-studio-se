@@ -32,6 +32,8 @@ import org.talend.core.model.repository.IRepositoryObject;
  * 
  */
 public interface IProcess extends IRepositoryObject, IElement {
+    
+    public String getName();
 
     // list of nodes that are in the designer
     public List<? extends INode> getGraphicalNodes();
