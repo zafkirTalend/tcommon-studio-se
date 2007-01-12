@@ -23,10 +23,13 @@ package org.talend.commons.ui.swt.advanced.dataeditor;
 
 import java.util.List;
 
+import javax.swing.plaf.FontUIResource;
+
 import org.eclipse.jface.viewers.IElementComparer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;

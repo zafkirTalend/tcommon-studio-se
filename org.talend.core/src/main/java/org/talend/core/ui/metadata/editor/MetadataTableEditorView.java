@@ -144,29 +144,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
         CellEditorValueAdapter positiveIntValueAdapter = CellEditorValueAdapterFactory.getPositiveIntAdapter();
         
-        // comboValueAdapter
-        CellEditorValueAdapter comboValueAdapter = new CellEditorValueAdapter() {
-
-            public Object getOriginalTypedValue(final CellEditor cellEditor, Object value) {
-                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
-                int i = new Integer(value.toString());
-                if (i >= 0) {
-                    return items[i];
-                } else {
-                    return "";
-                }
-            }
-
-            public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
-                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
-                for (int i = 0; i < items.length; i++) {
-                    if (items[i] == value) {
-                        return i;
-                    }
-                }
-                return -1;
-            }
-        };
+        CellEditorValueAdapter comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter();
 
         // //////////////////////////////////////////////////////////////////////////////////////
 

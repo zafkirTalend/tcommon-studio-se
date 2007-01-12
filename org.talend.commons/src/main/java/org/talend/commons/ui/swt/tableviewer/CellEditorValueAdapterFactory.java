@@ -22,6 +22,7 @@
 package org.talend.commons.ui.swt.tableviewer;
 
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 
 
@@ -72,6 +73,49 @@ public class CellEditorValueAdapterFactory {
         };
 
         return positiveIntValueAdapter;
+    }
+
+    /**
+     * DOC amaumont Comment method "getComboAdapter".
+     * @return
+     */
+    public static CellEditorValueAdapter getComboAdapter() {
+        return new CellEditorValueAdapter() {
+
+            public Object getOriginalTypedValue(final CellEditor cellEditor, Object value) {
+                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
+                int i = new Integer(value.toString());
+                if (i >= 0) {
+                    return items[i];
+                } else {
+                    return "";
+                }
+            }
+
+            public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
+                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
+                for (int i = 0; i < items.length; i++) {
+                    if (items[i].equals(value)) {
+                        return i;
+                    }
+                }
+                return -1;
+            }
+
+            /* (non-Javadoc)
+             * @see org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter#getColumnText(org.eclipse.jface.viewers.CellEditor, java.lang.Object)
+             */
+            @Override
+            public String getColumnText(CellEditor cellEditor, Object cellEditorTypedValue) {
+                return super.getColumnText(cellEditor, cellEditorTypedValue);
+            }
+            
+            
+            
+        };
+        
+        
+        
     }
     
     
