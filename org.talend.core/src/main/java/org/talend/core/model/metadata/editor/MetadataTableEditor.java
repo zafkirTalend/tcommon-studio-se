@@ -30,9 +30,13 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
+import org.talend.core.CorePlugin;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
+import org.talend.core.model.temp.ECodeLanguage;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -49,7 +53,7 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
     private static Pattern validPatternColumnNameRegexp = null;
 
     private static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][a-zA-Z_0-9]*$";
-    
+
     private IMetadataTable metadataTable;
 
     public MetadataTableEditor() {
@@ -150,11 +154,19 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
 
         return uniqueStringGenerator.getUniqueString();
     }
-    
+
     public IMetadataColumn createNewMetadataColumn() {
-      MetadataColumn metadataColumn = new MetadataColumn();
-      metadataColumn.setLabel(getNextGeneratedColumnName());
-      return metadataColumn;
+        MetadataColumn metadataColumn = new MetadataColumn();
+        metadataColumn.setLabel(getNextGeneratedColumnName());
+
+        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        ECodeLanguage codeLanguage = repositoryContext.getProject().getLanguage();
+        if (codeLanguage == ECodeLanguage.JAVA) {
+            metadataColumn.setType("String");
+            metadataColumn.setTalendType("String");
+        }
+
+        return metadataColumn;
     }
-    
+
 }

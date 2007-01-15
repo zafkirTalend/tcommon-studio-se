@@ -56,15 +56,16 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
     }
 
     /**
-     * DOC amaumont AbstractMacroTable constructor comment.
+     * Create a new empty list automatically.
      */
     public ExtendedTableModel() {
         super();
         init();
+        registerDataList(new ArrayList<B>());
     }
 
     /**
-     * DOC amaumont ExtendedTableModel constructor comment.
+     * Use the given list to load data.
      * 
      * @param name
      * @param beansList

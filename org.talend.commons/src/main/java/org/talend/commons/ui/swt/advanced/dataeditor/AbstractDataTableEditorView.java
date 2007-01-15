@@ -55,6 +55,8 @@ public abstract class AbstractDataTableEditorView<B> {
 
     private Label titleLabel;
 
+    private String title;
+
     private Composite mainComposite;
 
     private int mainCompositeStyle;
@@ -146,7 +148,7 @@ public abstract class AbstractDataTableEditorView<B> {
     /**
      * DOC amaumont AbstractDataTableEditorView constructor comment.
      */
-    public AbstractDataTableEditorView() {
+    protected AbstractDataTableEditorView() {
         super();
     }
 
@@ -161,17 +163,17 @@ public abstract class AbstractDataTableEditorView<B> {
 
         if (this.labelVisible) {
             titleLabel = new Label(mainComposite, SWT.NONE);
-            titleLabel.setText("");
             titleLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             if (parentComposite.getBackground() != null && !parentComposite.getBackground().equals(titleLabel.getBackground())) {
                 titleLabel.setBackground(parentComposite.getBackground());
             }
+            titleLabel.setVisible(false);
         }
 
         initTable();
-        
+
         this.extendedTableViewer.getTableViewerCreator().getTableViewer().setComparer(createElementComparer());
-        
+
         this.extendedTableViewer.getTableViewerCreator().getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
 
         if (toolbarVisible) {
@@ -194,7 +196,7 @@ public abstract class AbstractDataTableEditorView<B> {
             public int hashCode(Object element) {
                 return 0;
             }
-            
+
         };
     }
 
@@ -426,6 +428,31 @@ public abstract class AbstractDataTableEditorView<B> {
      */
     public boolean isReadOnly() {
         return this.readOnly;
+    }
+
+    /**
+     * Getter for title.
+     * 
+     * @return the title
+     */
+    public String getTitle() {
+        return this.title;
+    }
+
+    /**
+     * Sets the title.
+     * 
+     * @param title the title to set
+     */
+    public void setTitle(String title) {
+        if (title == null) {
+            titleLabel.setVisible(false);
+            titleLabel.setText("");
+        } else {
+            titleLabel.setVisible(true);
+            titleLabel.setText(title);
+        }
+        this.title = title;
     }
 
 }

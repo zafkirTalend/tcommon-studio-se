@@ -19,13 +19,17 @@
 <versions>
 	<version name="JAVA"/>
 </versions>
-<type talend="int" dbms="int" default="true"/>
-<type talend="long" dbms="long" default="true"/>
-<type talend="float" dbms="float" default="true"/>
-<type talend="double" dbms="double" default="true"/>
-<type talend="char" dbms="char" default="true"/>
-<type talend="String" dbms="String" default="true"/>
-<type talend="Day" dbms="Date" default="true"/>
+<type talend="int" dbms="NUMBER" default="true"/>
+<type talend="Integer" dbms="NUMBER" nullable="true"/>
+<type talend="long" dbms="LONG" default="true"/>
+<type talend="Long" dbms="LONG" nullable="true"/>
+<type talend="float" dbms="FLOAT" default="true"/>
+<type talend="Float" dbms="FLOAT" nullable="true"/>
+<type talend="double" dbms="DOUBLE" default="true"/>
+<type talend="Double" dbms="DOUBLE" nullable="true"/>
+<type talend="char" dbms="CHAR" default="true"/>
+<type talend="String" dbms="STRING" default="true" nullable="true"/>
+<type talend="Date" dbms="DATE" default="true" nullable="true"/>
 </dbms>
 
 <dbms family="MYSQL">

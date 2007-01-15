@@ -42,10 +42,14 @@ import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
+import org.talend.core.CorePlugin;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.model.temp.ECodeLanguage;
 
 /**
  * MetadataTableEditorView2 must be used.
@@ -131,9 +135,21 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
      */
     @Override
     protected void createColumns(final TableViewerCreator<IMetadataColumn> tableViewerCreator, final Table table) {
+        CellEditorValueAdapter comboValueAdapter = null;
+        String dbms = null;
+        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        ECodeLanguage codeLanguage = repositoryContext.getProject().getLanguage();
+        if (codeLanguage == ECodeLanguage.JAVA) {
+            comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter("String");
+            dbms = MetadataTalendType.LANGUAGE_JAVA;
+        } else {
+            comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter();
+            dbms = MetadataTalendType.TALENDDEFAULT;
+        }
+        
         String[] arrayTalendTypes = new String[0];
         try {
-            arrayTalendTypes = MetadataTalendType.loadTalendTypes("TALENDDEFAULT", false);
+            arrayTalendTypes = MetadataTalendType.loadTalendTypes(dbms, false);
         } catch (NoClassDefFoundError e) {
             // shouln't be happend
             e.printStackTrace();
@@ -142,9 +158,9 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
             e.printStackTrace();
         }
 
+
         CellEditorValueAdapter positiveIntValueAdapter = CellEditorValueAdapterFactory.getPositiveIntAdapter();
-        
-        CellEditorValueAdapter comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter();
+
 
         // //////////////////////////////////////////////////////////////////////////////////////
 

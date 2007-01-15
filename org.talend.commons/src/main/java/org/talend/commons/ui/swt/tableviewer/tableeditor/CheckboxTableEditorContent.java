@@ -49,6 +49,8 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
     private boolean readOnly;
 
+    private String toolTipText;
+
     /**
      * DOC amaumont CheckboxTableEditorContent constructor comment.
      */
@@ -89,6 +91,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         final Button check = new Button(table, SWT.CHECK);
         check.setEnabled(!this.readOnly);
         check.setText("");
+        check.setToolTipText(toolTipText);
         check.setBackground(table.getBackground());
         check.setSelection(currentCellValue.equals(true));
         check.addSelectionListener(new SelectionListener() {
@@ -128,4 +131,15 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         return check;
     }
 
+    
+    /**
+     * Sets the toolTipText.
+     * @param toolTipText the toolTipText to set
+     */
+    public void setToolTipText(String toolTipText) {
+        this.toolTipText = toolTipText;
+    }
+
+    
+    
 }

@@ -26,8 +26,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -63,9 +66,35 @@ public final class MetadataTalendType {
 
     private static final String MAPPING_METADATA_TYPES_XML = "mappingMetadataTypes.xml";
 
-    private static HashMap<String, HashMap<String, String>> talendTypes = null;
+    private static Map<String, Map<String, String>> talendTypes = null;
 
-    private static HashMap<String, HashMap<String, String>> defaultvalue = null;
+    private static Map<String, Map<String, String>> defaultvalue = null;
+
+    public static final String NULLABLE = "nullable";
+    
+    public static final String LANGUAGE_JAVA = "JAVA";
+    public static final String TALENDDEFAULT = "TALENDDEFAULT";
+
+    private static Comparator<String> comparatorIgnoreCase = new Comparator<String>() {
+
+        public int compare(String o1, String o2) {
+            if (o1 == null) {
+                return 1;
+            }
+            if (o2 == null) {
+                return -1;
+            }
+
+            int compareIgnoreCase = o1.compareToIgnoreCase(o2);
+            int compare = o1.compareTo(o2);
+            if (compareIgnoreCase == 0 && compare != 0) {
+                return -1 * compare;
+            }
+
+            return compareIgnoreCase;
+        }
+
+    };
 
     /**
      * Get the Talend Type for a particular type of a particular database.
@@ -109,6 +138,7 @@ public final class MetadataTalendType {
      * @return
      */
     public static String[] loadTalendTypes(String dbms, boolean reload) {
+
         dbms = dbms.toUpperCase();
         Collection<String> types = new TreeSet<String>();
         checkTypesAreInitialized(dbms, reload);
@@ -143,8 +173,8 @@ public final class MetadataTalendType {
      * @throws SystemException
      */
     private static void init() throws SystemException {
-        talendTypes = new HashMap<String, HashMap<String, String>>();
-        defaultvalue = new HashMap<String, HashMap<String, String>>();
+        talendTypes = new HashMap<String, Map<String, String>>();
+        defaultvalue = new HashMap<String, Map<String, String>>();
 
         try {
             DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
@@ -161,16 +191,23 @@ public final class MetadataTalendType {
                 NamedNodeMap nodeMap = nodetoParse.getAttributes();
                 Node version = nodeMap.getNamedItem("name");
                 Node brotherNode = nodetoParse.getParentNode().getParentNode().getFirstChild();
-                HashMap<String, String> value = new HashMap<String, String>();
-                HashMap<String, String> dv = new HashMap<String, String>();
+                Map<String, String> value = new HashMap<String, String>();
+                Map<String, String> dv = new HashMap<String, String>();
                 while (brotherNode != null) {
                     if (brotherNode.getNodeName().compareTo("type") == 0) {
                         NamedNodeMap typeNodeAttributes = brotherNode.getAttributes();
-                        value.put(typeNodeAttributes.getNamedItem("dbms").getNodeValue(), typeNodeAttributes.getNamedItem(
-                                "talend").getNodeValue());
-                        if (typeNodeAttributes.getNamedItem("default") != null) {
-                            dv.put(typeNodeAttributes.getNamedItem("talend").getNodeValue(), typeNodeAttributes.getNamedItem(
-                                    "dbms").getNodeValue());
+                        String dbmsNodeValue = typeNodeAttributes.getNamedItem("dbms").getNodeValue();
+                        Node nullableNamedItem = typeNodeAttributes.getNamedItem(NULLABLE);
+                        String keyForValues = dbmsNodeValue;
+                        if (nullableNamedItem != null && "true".equals(nullableNamedItem.getNodeValue())) {
+                            keyForValues = dbmsNodeValue + NULLABLE;
+                        }
+                        value.put(keyForValues, typeNodeAttributes.getNamedItem("talend").getNodeValue());
+
+                        Node defaultNamedItem = typeNodeAttributes.getNamedItem("default");
+                        if (defaultNamedItem != null && "true".equals(defaultNamedItem.getNodeValue())) {
+                            dv.put(typeNodeAttributes.getNamedItem("talend").getNodeValue(), typeNodeAttributes.getNamedItem("dbms")
+                                    .getNodeValue());
                         }
                     }
                     brotherNode = brotherNode.getNextSibling();
@@ -194,7 +231,7 @@ public final class MetadataTalendType {
      * @return
      */
     private static String[] createStringArray(Collection<String> types) {
-        SortedSet<String> sortedTypes = new TreeSet<String>();
+        SortedSet<String> sortedTypes = new TreeSet<String>(comparatorIgnoreCase);
         sortedTypes.addAll(types);
         return sortedTypes.toArray(new String[] {});
     }
