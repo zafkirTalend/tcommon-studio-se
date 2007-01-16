@@ -56,7 +56,7 @@ public class TimeMeasure {
      * 
      * @param idTimer
      */
-    public static void start(String idTimer) {
+    public static void begin(String idTimer) {
         if (!measureActive) {
             return;
         }
@@ -114,7 +114,7 @@ public class TimeMeasure {
      * @param idTimer
      * @return total elapsed time since start in ms
      */
-    public static long timeSinceStart(String idTimer) {
+    public static long timeSinceBegin(String idTimer) {
         if (!measureActive) {
             return 0;
         }
