@@ -25,6 +25,10 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.core.context.Context;
+import org.talend.designer.core.IDesignerCoreService;
+import org.talend.designer.runprocess.IRunProcessService;
+import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryService;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -95,5 +99,30 @@ public class CorePlugin extends AbstractUIPlugin {
      */
     public static ImageDescriptor getImageDescriptor(String path) {
         return imageDescriptorFromPlugin(PLUGIN_ID, path);
+    }
+    
+    public IRepositoryService getRepositoryService() {
+        IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        return (IRepositoryService) service;
+    }
+
+    public IProxyRepositoryFactory getProxyRepositoryFactory() {
+        IRepositoryService service = getRepositoryService();
+        return service.getProxyRepositoryFactory();
+    }
+    
+    /**
+     * DOC get a implement of RunProcessService.
+     * 
+     * @return a implement of RunProcessService
+     */
+    public IRunProcessService getRunProcessService() {
+        IService service = GlobalServiceRegister.getDefault().getService(IRunProcessService.class);
+        return (IRunProcessService) service;
+    }
+    
+    public IDesignerCoreService getDesignerCoreService() {
+        IService service = GlobalServiceRegister.getDefault().getService(IDesignerCoreService.class);
+        return (IDesignerCoreService) service;
     }
 }

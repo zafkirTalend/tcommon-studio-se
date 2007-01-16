@@ -22,6 +22,8 @@
 package org.talend.designer.core;
 
 import org.talend.core.IService;
+import org.talend.core.model.process.IProcess;
+import org.talend.core.model.properties.ProcessItem;
 
 /**
  * Provides Designer core services for other components <br/>.
@@ -31,4 +33,7 @@ import org.talend.core.IService;
  */
 public interface IDesignerCoreService extends IService {
 
+    // ¨Process will be loaded from XML File with this method, so it can be slow
+    // This won't load the graphics of the job, only the datas
+    public IProcess getProcessFromProcessItem(ProcessItem processItem);
 }

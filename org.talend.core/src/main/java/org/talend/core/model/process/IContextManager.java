@@ -36,6 +36,8 @@ public interface IContextManager {
     public void setListContext(List<IContext> listContext);
 
     public IContext getDefaultContext();
+    
+    public IContext getContext(String name);
 
     public void setDefaultContext(IContext context);
 
