@@ -61,6 +61,8 @@ public enum EImage implements IImage {
     KEY_ICON("/icons/key.gif"),
     HIERARCHY_ICON("/icons/hierarchicalLayout.gif"),
 
+    THREE_DOTS_ICON("/icons/dots_button.gif"),
+
     ;
 
     private String path;
