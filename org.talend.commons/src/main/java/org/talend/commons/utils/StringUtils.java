@@ -36,6 +36,10 @@ public class StringUtils {
     }
 
     public static String join(Object[] array, String separator) {
-    	return org.apache.commons.lang.StringUtils.join(array, separator);
+        return org.apache.commons.lang.StringUtils.join(array, separator);
+    }
+
+    public static String capitalize(String str) {
+        return org.apache.commons.lang.StringUtils.capitalize(str);
     }
 }
