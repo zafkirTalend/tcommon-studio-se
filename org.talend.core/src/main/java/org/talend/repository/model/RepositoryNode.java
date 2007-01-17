@@ -109,7 +109,8 @@ public class RepositoryNode {
             return getObject().toString();
         case SIMPLE_FOLDER:
         case SYSTEM_FOLDER:
-            IRepositoryService service = (IRepositoryService)GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+            IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IRepositoryService.class);
             return service.getRepositoryPath(this).toString();
         default:
             return getType() + "-" + getProperties(EProperties.LABEL);
@@ -169,7 +170,8 @@ public class RepositoryNode {
      */
     public IRepositoryObject getObject() {
         if (this.object == null) {
-            IRepositoryService service = (IRepositoryService)GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+            IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                    IRepositoryService.class);
             IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
             try {
                 return factory.getLastVersion(this.id);
@@ -264,6 +266,10 @@ public class RepositoryNode {
     // TODO SML Remove theses props
     public Object getProperties(EProperties key) {
         return properties.get(key);
+    }
+
+    public boolean isBin() {
+        return false;
     }
 
     private static final int PRIME = 31;

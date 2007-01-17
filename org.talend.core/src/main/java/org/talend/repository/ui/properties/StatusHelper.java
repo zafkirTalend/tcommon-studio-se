@@ -54,6 +54,9 @@ public class StatusHelper {
     }
 
     public String getStatusLabel(String statusCode) {
+        if (statusCode == null) {
+            return "";
+        }
         Status status = code2status.get(statusCode);
         return status == null ? statusCode : status.getLabel();
     }
@@ -84,7 +87,7 @@ public class StatusHelper {
                 status = repositoryFactory.getDocumentationStatus();
                 break;
             }
-        }        
+        }
         if (status == null) {
             status = new ArrayList<Status>();
         }

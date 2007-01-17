@@ -276,6 +276,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
             statusText.setItems(toArray(statusList));
             statusText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             statusText.setEditable(!readOnly);
+            statusText.setEnabled(!readOnly);
         } catch (PersistenceException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -457,6 +458,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                 version = VersionUtils.upMajor(version);
                 versionText.setText(version);
                 property.setVersion(version);
+                updatePageStatus();
             }
         });
 
@@ -468,6 +470,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                 version = VersionUtils.upMinor(version);
                 versionText.setText(version);
                 property.setVersion(version);
+                updatePageStatus();
             }
         });
 
@@ -475,6 +478,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
             public void modifyText(ModifyEvent e) {
                 property.setStatusCode(statusHelper.getStatusCode(statusText.getText()));
+                updatePageStatus();
             }
 
         });
