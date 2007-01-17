@@ -341,6 +341,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
         ResourceUtils.deleteFolder(f1);
         // 2. from old workspace:
+        // FIXEME SML Move to migration tool
         String oldRoutinesPath = "routines"; // Routines path as it was in talend v1.0.n and until 1.1.m2
         IFolder f2 = ResourceUtils.getFolder(prj, oldRoutinesPath, false);
         ResourceUtils.deleteFolder(f2);
