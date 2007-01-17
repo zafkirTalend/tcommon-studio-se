@@ -109,4 +109,14 @@ public interface INode extends IElement {
     public void metadataInputChanged(IODataComponent dataComponent, String connectionToApply);
 
     public void metadataOutputChanged(IODataComponent dataComponent, String connectionToApply);
+    
+    /**
+     * Will return the first item of the subprocess. If "withCondition" is true, if there is links from type RunIf /
+     * RunAfter / RunBefore, it will return the first element found. If "withCondition" is false, it will return the
+     * first element with no active link from type Main/Ref/Iterate.<br>
+     * 
+     * @param withCondition
+     * @return Start Node found.
+     */
+    public INode getSubProcessStartNode(boolean withConditions);
 }
