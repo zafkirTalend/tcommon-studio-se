@@ -37,44 +37,14 @@ public interface ITalendCorePrefConstants {
 
     /** Perl library directory. */
     // String PERL_LIB = "perlLib";
-    /** Known servers list. */
-    String SERVERS = "servers";
-
-    /** Known context list. */
-    String CONTEXTS = "servers";
-
-    /** Known context list. */
-    String DBLOGINS = "dblogins";
-
-    /** Known context list. */
-    String DBPASSWORDS = "dbpasswords";
-
-    /** Known ports list. */
-    String PORTS = "ports";
-
-    /** Known servers list. */
-    String REPOSITORIES = "repositories";
 
     /** Known users list. */
     String USERS = "users";
 
-    /** Last used server. */
-    String LAST_USED_SERVER = "lastUSedServer";
+    String CONNECTIONS = "connections";
 
-    /** Last used context. */
-    String LAST_USED_CONTEXT = "lastUSedContext";
-
-    /** Last used port. */
-    String LAST_USED_PORT = "lastUSedPort";
-
-    /** Last used port. */
-    String LAST_USED_DBLOGIN = "lastUSedDblogin";
-
-    /** Last used port. */
-    String LAST_USED_DBPASSWORD = "lastUSedDbpassword";
-
-    /** Last used repository. */
-    String LAST_USED_REPOSITORY = "lastUSedRepository";
+    /** Last used connection. */
+    String LAST_USED_CONNECTION = "lastUSedConnection";
 
     /** Last used project. */
     String LAST_USED_PROJECT = "lastUSedProject";

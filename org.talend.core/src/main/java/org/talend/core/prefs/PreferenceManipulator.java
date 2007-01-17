@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.talend.core.model.general.ConnectionBean;
 
 /**
  * DOC chuger class global comment. Detailled comment <br/>
@@ -108,116 +109,41 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         }
     }
 
-    /**
-     * Read all known servers in the preference store.
-     * 
-     * @return all known servers.
-     */
-    public String[] readServers() {
-        return readStringArray(SERVERS);
+    public List<ConnectionBean> readConnections() {
+        List<ConnectionBean> toReturn = new ArrayList<ConnectionBean>();
+        for (String currentConnectionToLoad : readStringArray(CONNECTIONS)) {
+            toReturn.add(ConnectionBean.writeFromString(currentConnectionToLoad));
+        }
+
+        // Recup old data:
+        // FIXME SML Move into Migration tool
+        if (toReturn.isEmpty()) {
+            if (getLastUser() != null && getLastUser().length() > 0) {
+                ConnectionBean recup = new ConnectionBean();
+                recup.setRepositoryId("local");
+                recup.setName("Default");
+                recup.setDescription("-Created by Talend-");
+                recup.setUser(getLastUser());
+                recup.setPassword("");
+                recup.setComplete(true);
+                toReturn.add(recup);
+
+                saveConnections(toReturn);
+
+                setLastUser("");
+            }
+        }
+
+        return toReturn;
     }
 
-    /**
-     * Save all known servers in the preference store.
-     * 
-     * @param servers all known servers.
-     */
-    public void saveServers(String[] servers) {
-        saveStringArray(servers, SERVERS);
-    }
-
-    public void addServer(String server) {
-        addStringToArray(server, SERVERS);
-    }
-
-    /**
-     * Read all known contexts in the preference store.
-     * 
-     * @return all known contexts.
-     */
-    public String[] readContexts() {
-        return readStringArray(CONTEXTS);
-    }
-
-    /**
-     * Save all known contexts in the preference store.
-     * 
-     * @param contexts all known contexts.
-     */
-    public void saveContexts(String[] contexts) {
-        saveStringArray(contexts, CONTEXTS);
-    }
-
-    public void addContext(String context) {
-        addStringToArray(context, CONTEXTS);
-    }
-
-    public String[] readDblogins() {
-        return readStringArray(DBLOGINS);
-    }
-
-    public void saveDblogins(String[] dblogins) {
-        saveStringArray(dblogins, DBLOGINS);
-    }
-
-    public void addDblogin(String dblogin) {
-        addStringToArray(dblogin, DBLOGINS);
-    }
-
-    public String[] readDbpasswords() {
-        return readStringArray(DBPASSWORDS);
-    }
-
-    public void saveDbpasswords(String[] dbpasswords) {
-        saveStringArray(dbpasswords, DBPASSWORDS);
-    }
-
-    public void addDbpassword(String dbpassword) {
-        addStringToArray(dbpassword, DBPASSWORDS);
-    }
-
-    /**
-     * Read all known ports in the preference store.
-     * 
-     * @return all known ports.
-     */
-    public String[] readPorts() {
-        return readStringArray(PORTS);
-    }
-
-    /**
-     * Save all known ports in the preference store.
-     * 
-     * @param ports all known ports.
-     */
-    public void savePorts(String[] ports) {
-        saveStringArray(ports, PORTS);
-    }
-
-    public void addPort(String port) {
-        addStringToArray(port, PORTS);
-    }
-
-    /**
-     * Read all known repositories in the preference store.
-     * 
-     * @return all known repositories.
-     */
-    public String[] readRepositories() {
-        return readStringArray(REPOSITORIES);
-    }
-
-    /**
-     * Save all known repositories in the preference store.
-     * 
-     * @param repositories all known repositories.
-     */
-    public void saveRepositories(String[] repositories) {
-        saveStringArray(repositories, REPOSITORIES);
-    }
-
-    public void addRepository(String repository) {
-        addStringToArray(repository, REPOSITORIES);
+    public void saveConnections(List<ConnectionBean> cons) {
+        String[] prefArray = new String[cons.size()];
+        int i = 0;
+        for (ConnectionBean currentConnection : cons) {
+            prefArray[i++] = currentConnection.readToString();
+        }
+        saveStringArray(prefArray, CONNECTIONS);
     }
 
     /**
@@ -242,52 +168,12 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         addStringToArray(user, USERS);
     }
 
-    public String getLastServer() {
-        return store.getString(LAST_USED_SERVER);
+    public String getLastConnection() {
+        return store.getString(LAST_USED_CONNECTION);
     }
 
-    public String getLastContext() {
-        return store.getString(LAST_USED_CONTEXT);
-    }
-
-    public void setLastServer(String server) {
-        store.setValue(LAST_USED_SERVER, server);
-    }
-
-    public void setLastContext(String context) {
-        store.setValue(LAST_USED_CONTEXT, context);
-    }
-
-    public String getLastPort() {
-        return store.getString(LAST_USED_PORT);
-    }
-
-    public void setLastPort(String port) {
-        store.setValue(LAST_USED_PORT, port);
-    }
-
-    public String getLastDblogin() {
-        return store.getString(LAST_USED_DBLOGIN);
-    }
-
-    public void setLastDblogin(String dblogin) {
-        store.setValue(LAST_USED_DBLOGIN, dblogin);
-    }
-
-    public String getLastDbpassword() {
-        return store.getString(LAST_USED_DBPASSWORD);
-    }
-
-    public void setLastDbpassword(String dbpassword) {
-        store.setValue(LAST_USED_DBPASSWORD, dbpassword);
-    }
-
-    public String getLastRepository() {
-        return store.getString(LAST_USED_REPOSITORY);
-    }
-
-    public void setLastRepository(String repository) {
-        store.setValue(LAST_USED_REPOSITORY, repository);
+    public void setLastConnection(String connection) {
+        store.setValue(LAST_USED_CONNECTION, connection);
     }
 
     public String getLastProject() {
@@ -305,4 +191,5 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
     public void setLastUser(String user) {
         store.setValue(LAST_USED_USER, user);
     }
+
 }

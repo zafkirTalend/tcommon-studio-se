@@ -19,16 +19,6 @@
             name="%prefsName"/>
       <page
             category="org.talend.core.prefs"
-            class="org.talend.core.prefs.ui.ServerPreferencePage"
-            id="org.talend.core.pref.serverpreferencepage"
-            name="%prefServerName"/>
-      <page
-            category="org.talend.core.prefs"
-            class="org.talend.core.prefs.ui.UserPreferencePage"
-            id="org.talend.core.pref.userpreferencepage"
-            name="%prefUserName"/>
-      <page
-            category="org.talend.core.prefs"
             class="org.talend.core.prefs.ui.ColorsCodeViewerPreferencePage"
             id="org.talend.core.pref.colorcodeviewer"
             name="%prefColors"/>
