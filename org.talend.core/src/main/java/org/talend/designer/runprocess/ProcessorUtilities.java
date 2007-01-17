@@ -59,6 +59,7 @@ public class ProcessorUtilities {
                 if (processName.equals(process.getLabel())) {
                     if (process.getProperty().getItem() instanceof ProcessItem) {
                         selectedProcessItem = (ProcessItem) process.getProperty().getItem();
+                        break;
                     }
                 }
             }
