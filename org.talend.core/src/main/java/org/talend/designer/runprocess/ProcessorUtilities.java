@@ -118,12 +118,14 @@ public class ProcessorUtilities {
             MessageBoxExceptionHandler.process(pe);
         }
 
-        EList emfJobList = selectedProcessItem.getProcess().getRequired().getJob();
-        for (int j = 0; j < emfJobList.size(); j++) {
-            JobType jType = (JobType) emfJobList.get(j);
-            JobInfo subJobInfo = new JobInfo(jType);
-            if (!jobList.contains(subJobInfo)) {
-                generateCode(subJobInfo);
+        if (selectedProcessItem.getProcess().getRequired() != null) {
+            EList emfJobList = selectedProcessItem.getProcess().getRequired().getJob();
+            for (int j = 0; j < emfJobList.size(); j++) {
+                JobType jType = (JobType) emfJobList.get(j);
+                JobInfo subJobInfo = new JobInfo(jType);
+                if (!jobList.contains(subJobInfo)) {
+                    generateCode(subJobInfo);
+                }
             }
         }
     }
