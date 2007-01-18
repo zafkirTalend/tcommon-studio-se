@@ -57,6 +57,16 @@ public class ConnectionBean implements Cloneable {
         super();
     }
 
+    public static ConnectionBean getDefaultConnectionBean() {
+        ConnectionBean newConnection = new ConnectionBean();
+        newConnection.setName("Local");
+        newConnection.setDescription("Default connection");
+        newConnection.setRepositoryId("local");
+        newConnection.setPassword("");
+        newConnection.setUser("your@userName.here");
+        return newConnection;
+    }
+
     public String getRepositoryId() {
         return this.repositoryId;
     }
