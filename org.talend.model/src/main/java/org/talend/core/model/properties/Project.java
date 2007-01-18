@@ -33,6 +33,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Project#getAllowedComponents <em>Allowed Components</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getReferencedProjects <em>Referenced Projects</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getAvailableRefProject <em>Available Ref Project</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getMigrationTasks <em>Migration Tasks</em>}</li>
  * </ul>
  * </p>
  *
@@ -271,6 +272,22 @@ public interface Project extends EObject {
      * @generated
      */
     EList getAvailableRefProject();
+
+    /**
+     * Returns the value of the '<em><b>Migration Tasks</b></em>' attribute list.
+     * The list contents are of type {@link java.lang.String}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Migration Tasks</em>' attribute list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Migration Tasks</em>' attribute list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_MigrationTasks()
+     * @model type="java.lang.String"
+     * @generated
+     */
+    EList getMigrationTasks();
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.

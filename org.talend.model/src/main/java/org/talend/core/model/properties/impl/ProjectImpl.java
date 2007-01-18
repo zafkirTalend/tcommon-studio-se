@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -49,6 +50,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAllowedComponents <em>Allowed Components</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getReferencedProjects <em>Referenced Projects</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAvailableRefProject <em>Available Ref Project</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getMigrationTasks <em>Migration Tasks</em>}</li>
  * </ul>
  * </p>
  *
@@ -315,6 +317,16 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList availableRefProject = null;
 
     /**
+     * The cached value of the '{@link #getMigrationTasks() <em>Migration Tasks</em>}' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMigrationTasks()
+     * @generated
+     * @ordered
+     */
+    protected EList migrationTasks = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -514,6 +526,18 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getMigrationTasks() {
+        if (migrationTasks == null) {
+            migrationTasks = new EDataTypeUniqueEList(String.class, this, PropertiesPackage.PROJECT__MIGRATION_TASKS);
+        }
+        return migrationTasks;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -702,6 +726,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getReferencedProjects();
             case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
                 return getAvailableRefProject();
+            case PropertiesPackage.PROJECT__MIGRATION_TASKS:
+                return getMigrationTasks();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -770,6 +796,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 getAvailableRefProject().clear();
                 getAvailableRefProject().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.PROJECT__MIGRATION_TASKS:
+                getMigrationTasks().clear();
+                getMigrationTasks().addAll((Collection)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -831,6 +861,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
                 getAvailableRefProject().clear();
                 return;
+            case PropertiesPackage.PROJECT__MIGRATION_TASKS:
+                getMigrationTasks().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -875,6 +908,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return referencedProjects != null && !referencedProjects.isEmpty();
             case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
                 return availableRefProject != null && !availableRefProject.isEmpty();
+            case PropertiesPackage.PROJECT__MIGRATION_TASKS:
+                return migrationTasks != null && !migrationTasks.isEmpty();
         }
         return super.eIsSet(featureID);
     }
@@ -905,6 +940,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
         result.append(deleteDate);
         result.append(", creationDate: ");
         result.append(creationDate);
+        result.append(", migrationTasks: ");
+        result.append(migrationTasks);
         result.append(')');
         return result.toString();
     }

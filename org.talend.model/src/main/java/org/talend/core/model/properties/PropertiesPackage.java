@@ -221,13 +221,22 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__AVAILABLE_REF_PROJECT = 16;
 
     /**
+     * The feature id for the '<em><b>Migration Tasks</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__MIGRATION_TASKS = 17;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 17;
+    int PROJECT_FEATURE_COUNT = 18;
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -1751,6 +1760,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getProject_AvailableRefProject();
 
     /**
+     * Returns the meta object for the attribute list '{@link org.talend.core.model.properties.Project#getMigrationTasks <em>Migration Tasks</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute list '<em>Migration Tasks</em>'.
+     * @see org.talend.core.model.properties.Project#getMigrationTasks()
+     * @see #getProject()
+     * @generated
+     */
+    EAttribute getProject_MigrationTasks();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Technical Label</em>'.
@@ -2850,6 +2870,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference PROJECT__AVAILABLE_REF_PROJECT = eINSTANCE.getProject_AvailableRefProject();
+
+        /**
+         * The meta object literal for the '<em><b>Migration Tasks</b></em>' attribute list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROJECT__MIGRATION_TASKS = eINSTANCE.getProject_MigrationTasks();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.
