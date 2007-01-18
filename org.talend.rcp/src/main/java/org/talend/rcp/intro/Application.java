@@ -27,6 +27,8 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.repository.ui.login.LoginDialog;
 
 /**
@@ -35,15 +37,21 @@ import org.talend.repository.ui.login.LoginDialog;
 public class Application implements IPlatformRunnable {
 
     public Shell shell;
-    
-	/* (non-Javadoc)
-	 * @see org.eclipse.core.runtime.IPlatformRunnable#run(java.lang.Object)
-	 */
-	public Object run(Object args) throws Exception {
-		Display display = PlatformUI.createDisplay();
-        
-		try {
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.core.runtime.IPlatformRunnable#run(java.lang.Object)
+     */
+    public Object run(Object args) throws Exception {
+        Display display = PlatformUI.createDisplay();
+
+        try {
             shell = new Shell(display, SWT.ON_TOP);
+
+            IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
+                    IMigrationToolService.class);
+            service.executeWorspaceTasks();
 
             try {
                 if (!logUserOnProject(shell)) {
@@ -55,19 +63,19 @@ public class Application implements IPlatformRunnable {
                     shell.dispose();
                 }
             }
-            
-			int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
-            
-			if (returnCode == PlatformUI.RETURN_RESTART) {
-				return IPlatformRunnable.EXIT_RESTART;
-			}
-			return IPlatformRunnable.EXIT_OK;
+
+            int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
+
+            if (returnCode == PlatformUI.RETURN_RESTART) {
+                return IPlatformRunnable.EXIT_RESTART;
+            }
+            return IPlatformRunnable.EXIT_OK;
 
         } finally {
-			display.dispose();
-		}
-	}
-    
+            display.dispose();
+        }
+    }
+
     private boolean logUserOnProject(Shell shell) {
         boolean logged = false;
         LoginDialog loginDialog = new LoginDialog(shell);
