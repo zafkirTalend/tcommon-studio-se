@@ -28,9 +28,10 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.SortedSet;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -57,6 +58,19 @@ import org.xml.sax.SAXException;
  * 
  */
 public final class MetadataTalendType {
+
+    
+    private static final Set<String> PRIMITIVE_TYPES = new HashSet<String>(6);
+
+
+    static {
+        PRIMITIVE_TYPES.add("short");
+        PRIMITIVE_TYPES.add("int");
+        PRIMITIVE_TYPES.add("long");
+        PRIMITIVE_TYPES.add("float");
+        PRIMITIVE_TYPES.add("double");
+        PRIMITIVE_TYPES.add("char");
+    }
 
     /**
      * Default Constructor. Must not be used.
@@ -255,4 +269,9 @@ public final class MetadataTalendType {
             }
         }
     }
+    
+    public static boolean isJavaPrimitiveType(String type) {
+        return PRIMITIVE_TYPES.contains(type);
+    }
+    
 }
