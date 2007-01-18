@@ -37,7 +37,6 @@ public interface ITalendCorePrefConstants {
 
     /** Perl library directory. */
     // String PERL_LIB = "perlLib";
-
     /** Known users list. */
     String USERS = "users";
 
@@ -54,4 +53,6 @@ public interface ITalendCorePrefConstants {
 
     /** Preview Limit. */
     String PREVIEW_LIMIT = "previewLimit";
+
+    String WORKSPACE_TASKS_DONE = "workspaceTasksDone";
 }

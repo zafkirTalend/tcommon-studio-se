@@ -60,6 +60,14 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
      * @return an array of strings.
      */
     private String[] readStringArray(final String prefName) {
+        List<String> strings = readStringList(prefName);
+
+        String[] array = new String[strings.size()];
+        array = strings.toArray(array);
+        return array;
+    }
+
+    private List<String> readStringList(final String prefName) {
         String prefs = store.getString(prefName);
         List<String> strings = new ArrayList<String>();
         StringTokenizer st = new StringTokenizer(prefs, PREF_DELIMITER);
@@ -67,9 +75,7 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
             strings.add(st.nextToken());
         }
 
-        String[] array = new String[strings.size()];
-        array = strings.toArray(array);
-        return array;
+        return strings;
     }
 
     /**
@@ -114,26 +120,6 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         for (String currentConnectionToLoad : readStringArray(CONNECTIONS)) {
             toReturn.add(ConnectionBean.writeFromString(currentConnectionToLoad));
         }
-
-        // Recup old data:
-        // FIXME SML Move into Migration tool
-        if (toReturn.isEmpty()) {
-            if (getLastUser() != null && getLastUser().length() > 0) {
-                ConnectionBean recup = new ConnectionBean();
-                recup.setRepositoryId("local");
-                recup.setName("Default");
-                recup.setDescription("-Created by Talend-");
-                recup.setUser(getLastUser());
-                recup.setPassword("");
-                recup.setComplete(true);
-                toReturn.add(recup);
-
-                saveConnections(toReturn);
-
-                setLastUser("");
-            }
-        }
-
         return toReturn;
     }
 
@@ -144,6 +130,10 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
             prefArray[i++] = currentConnection.readToString();
         }
         saveStringArray(prefArray, CONNECTIONS);
+    }
+
+    public void addConnection(ConnectionBean con) {
+        addStringToArray(con.readToString(), CONNECTIONS);
     }
 
     /**
@@ -192,4 +182,11 @@ public final class PreferenceManipulator implements ITalendCorePrefConstants {
         store.setValue(LAST_USED_USER, user);
     }
 
+    public List<String> readWorkspaceTasksDone() {
+        return readStringList(WORKSPACE_TASKS_DONE);
+    }
+
+    public void addWorkspaceTaskDone(String task) {
+        addStringToArray(task, WORKSPACE_TASKS_DONE);
+    }
 }

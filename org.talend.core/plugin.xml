@@ -9,6 +9,7 @@
    <extension-point id="external_component" name="External component" schema="schema/external_component.exsd"/>
    <extension-point id="repositoryContextualsActions" name="Repository actions" schema="schema/repository_actions.exsd"/>
    <extension-point id="service" name="Service Registration" schema="schema/service.exsd"/>
+   <extension-point id="migrationTask" name="Migration tool atomic task" schema="schema/migrationTask.exsd"/>
   
 	
 	<extension
@@ -40,6 +41,19 @@
                <category
             id="org.talend.core.root"
             name="Talend"/>
+   </extension>
+   <extension
+         point="org.talend.core.migrationTask">
+      <task
+            class="org.talend.core.model.migration.InitWorkspaceMigrationTask"
+            forWorkspace="true"
+            id="org.talend.core.InitWorkspaceMigrationTask"
+            name="Init workspace"/>
+      <task
+            class="org.talend.core.prefs.InitConnectionsMigrationTask"
+            forWorkspace="true"
+            id="org.talend.core.InitConnectionsMigrationTask"
+            name="Init connections preferences"/>
    </extension>
 
 </plugin>
