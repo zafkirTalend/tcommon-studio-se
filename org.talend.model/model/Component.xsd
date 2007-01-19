@@ -26,9 +26,9 @@
 			<xs:attribute name="SERIAL" type="xs:string" use="required"/>
 			<xs:attribute name="VERSION" type="xs:decimal" use="required"/>
 			<xs:attribute name="STATUS" type="xs:string" use="required"/>
-			<xs:attribute name="ICON32" type="xs:string" use="required"/>
-			<xs:attribute name="ICON24" type="xs:string" use="optional"/>
-			<xs:attribute name="ICON16" type="xs:string" use="optional"/>
+
+
+
 			<xs:attribute name="COMPATIBILITY" type="xs:string" use="required"/>
 			<xs:attribute name="AUTHOR" type="xs:string" use="required"/>
 			<xs:attribute name="RELEASE_DATE" type="xs:string" use="required"/>
@@ -145,6 +145,7 @@
 									<xs:attribute name="NAME" type="xs:string" use="optional"/>
 									<xs:attribute name="COMPONENT" type="xs:string" use="optional"/>
 									<xs:attribute name="MULTIPLE_METHODS" type="xs:boolean" use="optional"/>
+									<xs:attribute name="HAS_CONDITIONAL_OUTPUTS" type="xs:boolean" use="optional"/>
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="TEMPLATE_PARAM" minOccurs="0" maxOccurs="unbounded">

@@ -23,9 +23,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMPATIBILITY <em>COMPATIBILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEXTENSION <em>EXTENSION</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON16 <em>ICON16</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON24 <em>ICON24</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON32 <em>ICON32</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
@@ -208,33 +205,6 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setEXTENSION(String value);
-
-    /**
-     * Returns the value of the '<em><b>ICON32</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>ICON32</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>ICON32</em>' attribute.
-     * @see #setICON32(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_ICON32()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
-     *        extendedMetaData="kind='attribute' name='ICON32' namespace='##targetNamespace'"
-     * @generated
-     */
-    String getICON32();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON32 <em>ICON32</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>ICON32</em>' attribute.
-     * @see #getICON32()
-     * @generated
-     */
-    void setICON32(String value);
 
     /**
      * Returns the value of the '<em><b>PLATEFORM</b></em>' attribute.
@@ -589,59 +559,5 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetVISIBLE();
-
-    /**
-     * Returns the value of the '<em><b>ICON24</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>ICON24</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>ICON24</em>' attribute.
-     * @see #setICON24(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_ICON24()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='ICON24' namespace='##targetNamespace'"
-     * @generated
-     */
-    String getICON24();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON24 <em>ICON24</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>ICON24</em>' attribute.
-     * @see #getICON24()
-     * @generated
-     */
-    void setICON24(String value);
-
-    /**
-     * Returns the value of the '<em><b>ICON16</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>ICON16</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>ICON16</em>' attribute.
-     * @see #setICON16(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_ICON16()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='ICON16' namespace='##targetNamespace'"
-     * @generated
-     */
-    String getICON16();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON16 <em>ICON16</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>ICON16</em>' attribute.
-     * @see #getICON16()
-     * @generated
-     */
-    void setICON16(String value);
 
 } // HEADERType

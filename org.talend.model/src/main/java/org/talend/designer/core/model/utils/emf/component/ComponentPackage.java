@@ -601,40 +601,13 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__EXTENSION = 4;
 
     /**
-     * The feature id for the '<em><b>ICON16</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HEADER_TYPE__ICON16 = 5;
-
-    /**
-     * The feature id for the '<em><b>ICON24</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HEADER_TYPE__ICON24 = 6;
-
-    /**
-     * The feature id for the '<em><b>ICON32</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HEADER_TYPE__ICON32 = 7;
-
-    /**
      * The feature id for the '<em><b>PLATEFORM</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__PLATEFORM = 8;
+    int HEADER_TYPE__PLATEFORM = 5;
 
     /**
      * The feature id for the '<em><b>RELEASEDATE</b></em>' attribute.
@@ -643,7 +616,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__RELEASEDATE = 9;
+    int HEADER_TYPE__RELEASEDATE = 6;
 
     /**
      * The feature id for the '<em><b>SCHEMAAUTOPROPAGATE</b></em>' attribute.
@@ -652,7 +625,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SCHEMAAUTOPROPAGATE = 10;
+    int HEADER_TYPE__SCHEMAAUTOPROPAGATE = 7;
 
     /**
      * The feature id for the '<em><b>SERIAL</b></em>' attribute.
@@ -661,7 +634,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SERIAL = 11;
+    int HEADER_TYPE__SERIAL = 8;
 
     /**
      * The feature id for the '<em><b>STARTABLE</b></em>' attribute.
@@ -670,7 +643,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STARTABLE = 12;
+    int HEADER_TYPE__STARTABLE = 9;
 
     /**
      * The feature id for the '<em><b>STATUS</b></em>' attribute.
@@ -679,7 +652,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STATUS = 13;
+    int HEADER_TYPE__STATUS = 10;
 
     /**
      * The feature id for the '<em><b>TSTATCATCHERSTATS</b></em>' attribute.
@@ -688,7 +661,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__TSTATCATCHERSTATS = 14;
+    int HEADER_TYPE__TSTATCATCHERSTATS = 11;
 
     /**
      * The feature id for the '<em><b>VERSION</b></em>' attribute.
@@ -697,7 +670,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VERSION = 15;
+    int HEADER_TYPE__VERSION = 12;
 
     /**
      * The feature id for the '<em><b>VISIBLE</b></em>' attribute.
@@ -706,7 +679,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VISIBLE = 16;
+    int HEADER_TYPE__VISIBLE = 13;
 
     /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
@@ -715,7 +688,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 17;
+    int HEADER_TYPE_FEATURE_COUNT = 14;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -1352,13 +1325,22 @@ public interface ComponentPackage extends EPackage {
     int TEMPLATE_TYPE__COMPONENT = 1;
 
     /**
+     * The feature id for the '<em><b>HASCONDITIONALOUTPUTS</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TEMPLATE_TYPE__HASCONDITIONALOUTPUTS = 2;
+
+    /**
      * The feature id for the '<em><b>MULTIPLEMETHODS</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TEMPLATE_TYPE__MULTIPLEMETHODS = 2;
+    int TEMPLATE_TYPE__MULTIPLEMETHODS = 3;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -1367,7 +1349,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEMPLATE_TYPE__NAME = 3;
+    int TEMPLATE_TYPE__NAME = 4;
 
     /**
      * The number of structural features of the '<em>TEMPLATE Type</em>' class.
@@ -1376,7 +1358,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEMPLATE_TYPE_FEATURE_COUNT = 4;
+    int TEMPLATE_TYPE_FEATURE_COUNT = 5;
 
 
     /**
@@ -1932,17 +1914,6 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_EXTENSION();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON32 <em>ICON32</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>ICON32</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getICON32()
-     * @see #getHEADERType()
-     * @generated
-     */
-    EAttribute getHEADERType_ICON32();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2040,28 +2011,6 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getHEADERType_VISIBLE();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON24 <em>ICON24</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>ICON24</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getICON24()
-     * @see #getHEADERType()
-     * @generated
-     */
-    EAttribute getHEADERType_ICON24();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getICON16 <em>ICON16</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>ICON16</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getICON16()
-     * @see #getHEADERType()
-     * @generated
-     */
-    EAttribute getHEADERType_ICON16();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.IMPORTSType <em>IMPORTS Type</em>}'.
@@ -2678,6 +2627,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getTEMPLATEType_COMPONENT();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>HASCONDITIONALOUTPUTS</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATEType#isHASCONDITIONALOUTPUTS()
+     * @see #getTEMPLATEType()
+     * @generated
+     */
+    EAttribute getTEMPLATEType_HASCONDITIONALOUTPUTS();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#isMULTIPLEMETHODS <em>MULTIPLEMETHODS</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3148,14 +3108,6 @@ public interface ComponentPackage extends EPackage {
         EAttribute HEADER_TYPE__EXTENSION = eINSTANCE.getHEADERType_EXTENSION();
 
         /**
-         * The meta object literal for the '<em><b>ICON32</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute HEADER_TYPE__ICON32 = eINSTANCE.getHEADERType_ICON32();
-
-        /**
          * The meta object literal for the '<em><b>PLATEFORM</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3226,22 +3178,6 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__VISIBLE = eINSTANCE.getHEADERType_VISIBLE();
-
-        /**
-         * The meta object literal for the '<em><b>ICON24</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute HEADER_TYPE__ICON24 = eINSTANCE.getHEADERType_ICON24();
-
-        /**
-         * The meta object literal for the '<em><b>ICON16</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute HEADER_TYPE__ICON16 = eINSTANCE.getHEADERType_ICON16();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -3724,6 +3660,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute TEMPLATE_TYPE__COMPONENT = eINSTANCE.getTEMPLATEType_COMPONENT();
+
+        /**
+         * The meta object literal for the '<em><b>HASCONDITIONALOUTPUTS</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TEMPLATE_TYPE__HASCONDITIONALOUTPUTS = eINSTANCE.getTEMPLATEType_HASCONDITIONALOUTPUTS();
 
         /**
          * The meta object literal for the '<em><b>MULTIPLEMETHODS</b></em>' attribute feature.
