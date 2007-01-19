@@ -21,16 +21,23 @@
 // ============================================================================
 package org.talend.migrationtool;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
-import org.talend.core.model.migration.IMigrationTask;
+import org.talend.core.model.general.Project;
 import org.talend.core.model.migration.IMigrationToolService;
+import org.talend.core.model.migration.IProjectMigrationTask;
+import org.talend.core.model.migration.IWorkspaceMigrationTask;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.migrationtool.model.GetTasksHelper;
+import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryService;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -50,7 +57,42 @@ public class MigrationToolService implements IMigrationToolService {
     public void executeProjectTasks() {
         RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
                 Context.REPOSITORY_CONTEXT_KEY);
-        log.trace("Migration tool: project [" + repositoryContext.getProject().getLabel() + "] tasks");
+        Project project = repositoryContext.getProject();
+
+        log.trace("Migration tool: project [" + project.getLabel() + "] tasks");
+
+        List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks();
+        List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
+
+        for (IProjectMigrationTask task : toExecute) {
+            if (!done.contains(task.getId())) {
+                if (task.execute(project)) {
+                    done.add(task.getId());
+                    log.debug("Task \"" + task.getName() + "\" done");
+                } else {
+                    log.debug("Task \"" + task.getName() + "\" failed");
+                }
+            }
+        }
+
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        IProxyRepositoryFactory repFactory = service.getProxyRepositoryFactory();
+        try {
+            repFactory.setMigrationTasksDone(done);
+        } catch (PersistenceException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.migration.IMigrationToolService#initNewProjectTasks()
+     */
+    public void initNewProjectTasks() {
+        // List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks();
+        // setTasksDone(toExecute);
     }
 
     /*
@@ -62,7 +104,7 @@ public class MigrationToolService implements IMigrationToolService {
         log.trace("Migration tool: workspace tasks");
 
         PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
-        List<IMigrationTask> toExecute = GetTasksHelper.getWorkspaceTasks();
+        List<IWorkspaceMigrationTask> toExecute = GetTasksHelper.getWorkspaceTasks();
         List<String> done = prefManipulator.readWorkspaceTasksDone();
 
         if (done.isEmpty()) {
@@ -70,13 +112,13 @@ public class MigrationToolService implements IMigrationToolService {
             done = prefManipulator.readWorkspaceTasksDone();
         }
 
-        for (IMigrationTask task : toExecute) {
+        for (IWorkspaceMigrationTask task : toExecute) {
             if (!done.contains(task.getId())) {
                 if (task.execute()) {
                     prefManipulator.addWorkspaceTaskDone(task.getId());
-                    log.debug("Task " + task.getName() + " done");
+                    log.debug("Task \"" + task.getName() + "\" done");
                 } else {
-                    log.debug("Task " + task.getName() + " failed");
+                    log.debug("Task \"" + task.getName() + "\" failed");
                 }
             }
         }
@@ -85,23 +127,12 @@ public class MigrationToolService implements IMigrationToolService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.model.migration.IMigrationToolService#initNewProjectTasks()
-     */
-    public void initNewProjectTasks() {
-        // TODO Auto-generated method stub
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see org.talend.core.model.migration.IMigrationToolService#initNewWorkspaceTasks()
      */
     public void initNewWorkspaceTasks() {
+        List<IWorkspaceMigrationTask> toExecute = GetTasksHelper.getWorkspaceTasks();
         PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
-        List<IMigrationTask> toExecute = GetTasksHelper.getWorkspaceTasks();
-
-        for (IMigrationTask task : toExecute) {
+        for (IWorkspaceMigrationTask task : toExecute) {
             prefManipulator.addWorkspaceTaskDone(task.getId());
         }
     }

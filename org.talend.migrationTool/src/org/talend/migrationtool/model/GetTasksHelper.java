@@ -29,7 +29,8 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
 import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
-import org.talend.core.model.migration.IMigrationTask;
+import org.talend.core.model.migration.IProjectMigrationTask;
+import org.talend.core.model.migration.IWorkspaceMigrationTask;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -39,29 +40,40 @@ import org.talend.core.model.migration.IMigrationTask;
  */
 public class GetTasksHelper {
 
-    public static List<IMigrationTask> getWorkspaceTasks() {
-        return getTasks(true);
-    }
-
-    public static List<IMigrationTask> getProjectTasks() {
-        return getTasks(false);
-    }
-
-    public static List<IMigrationTask> getTasks(boolean forWorkspace) {
-        List<IMigrationTask> toReturn = new ArrayList<IMigrationTask>();
-        ISimpleExtensionPoint actionExtensionPoint = new ExtensionPointImpl("org.talend.core.migrationTask", "task", -1, -1);
+    public static List<IProjectMigrationTask> getProjectTasks() {
+        List<IProjectMigrationTask> toReturn = new ArrayList<IProjectMigrationTask>();
+        ISimpleExtensionPoint actionExtensionPoint = new ExtensionPointImpl("org.talend.core.migrationTask", "projecttask", -1,
+                -1);
         List<IConfigurationElement> extension = ExtensionImplementationProviders.getInstanceV2(actionExtensionPoint);
 
         for (IConfigurationElement current : extension) {
-            if (new Boolean(current.getAttribute("forWorkspace")) == forWorkspace) {
-                try {
-                    IMigrationTask currentAction = (IMigrationTask) current.createExecutableExtension("class");
-                    currentAction.setId(current.getAttribute("id"));
-                    currentAction.setName(current.getAttribute("name"));
-                    toReturn.add(currentAction);
-                } catch (CoreException e) {
-                    e.printStackTrace();
-                }
+            try {
+                IProjectMigrationTask currentAction = (IProjectMigrationTask) current.createExecutableExtension("class");
+                currentAction.setId(current.getAttribute("id"));
+                currentAction.setName(current.getAttribute("name"));
+                toReturn.add(currentAction);
+            } catch (CoreException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return toReturn;
+    }
+
+    public static List<IWorkspaceMigrationTask> getWorkspaceTasks() {
+        List<IWorkspaceMigrationTask> toReturn = new ArrayList<IWorkspaceMigrationTask>();
+        ISimpleExtensionPoint actionExtensionPoint = new ExtensionPointImpl("org.talend.core.migrationTask", "workspacetask", -1,
+                -1);
+        List<IConfigurationElement> extension = ExtensionImplementationProviders.getInstanceV2(actionExtensionPoint);
+
+        for (IConfigurationElement current : extension) {
+            try {
+                IWorkspaceMigrationTask currentAction = (IWorkspaceMigrationTask) current.createExecutableExtension("class");
+                currentAction.setId(current.getAttribute("id"));
+                currentAction.setName(current.getAttribute("name"));
+                toReturn.add(currentAction);
+            } catch (CoreException e) {
+                e.printStackTrace();
             }
         }
 
