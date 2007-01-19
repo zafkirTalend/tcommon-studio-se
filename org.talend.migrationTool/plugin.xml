@@ -7,5 +7,16 @@
             class="org.talend.migrationtool.MigrationToolService"
             serviceId="IMigrationToolService"/>
    </extension>
+   <extension
+         point="org.talend.core.migrationTask">
+      <workspacetask
+            class="org.talend.migrationtool.model.InitWorkspaceMigrationTask"
+            id="org.talend.migrationTool.InitWorkspaceMigrationTask"
+            name="InitWorkspaceMigrationTask"/>
+      <projecttask
+            class="org.talend.migrationtool.model.InitWorkspaceMigrationTask"
+            id="org.talend.migrationTool.InitProjectMigrationTask"
+            name="InitProjectMigrationTask"/>
+   </extension>
 
 </plugin>

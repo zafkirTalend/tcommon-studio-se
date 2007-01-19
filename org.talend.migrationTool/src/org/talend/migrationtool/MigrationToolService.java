@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -64,6 +65,12 @@ public class MigrationToolService implements IMigrationToolService {
         List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks();
         List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
 
+        if (done.isEmpty()) {
+            // We are sure that on a initializd workspace, there must be at least one task due to the dummy
+            // "InitProjectMigrationTask" task:
+            done = initNewProjectTasks();
+        }
+
         for (IProjectMigrationTask task : toExecute) {
             if (!done.contains(task.getId())) {
                 if (task.execute(project)) {
@@ -80,8 +87,7 @@ public class MigrationToolService implements IMigrationToolService {
         try {
             repFactory.setMigrationTasksDone(done);
         } catch (PersistenceException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            MessageBoxExceptionHandler.process(e);
         }
     }
 
@@ -90,9 +96,13 @@ public class MigrationToolService implements IMigrationToolService {
      * 
      * @see org.talend.core.model.migration.IMigrationToolService#initNewProjectTasks()
      */
-    public void initNewProjectTasks() {
-        // List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks();
-        // setTasksDone(toExecute);
+    public List<String> initNewProjectTasks() {
+        List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks();
+        List<String> done = new ArrayList<String>();
+        for (IProjectMigrationTask task : toExecute) {
+            done.add(task.getId());
+        }
+        return done;
     }
 
     /*
@@ -108,6 +118,8 @@ public class MigrationToolService implements IMigrationToolService {
         List<String> done = prefManipulator.readWorkspaceTasksDone();
 
         if (done.isEmpty()) {
+            // We are sure that on a initializd workspace, there must be at least one task due to the dummy
+            // "InitWorkspaceMigrationTask" task:
             initNewWorkspaceTasks();
             done = prefManipulator.readWorkspaceTasksDone();
         }
