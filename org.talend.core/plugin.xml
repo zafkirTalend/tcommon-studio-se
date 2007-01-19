@@ -44,14 +44,12 @@
    </extension>
    <extension
          point="org.talend.core.migrationTask">
-      <task
+      <workspacetask
             class="org.talend.core.model.migration.InitWorkspaceMigrationTask"
-            forWorkspace="true"
             id="org.talend.core.InitWorkspaceMigrationTask"
             name="Init workspace"/>
-      <task
+      <workspacetask
             class="org.talend.core.prefs.InitConnectionsMigrationTask"
-            forWorkspace="true"
             id="org.talend.core.InitConnectionsMigrationTask"
             name="Init connections preferences"/>
    </extension>

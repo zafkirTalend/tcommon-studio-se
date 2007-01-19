@@ -21,13 +21,16 @@
 // ============================================================================
 package org.talend.core.model.migration;
 
+import org.talend.core.model.general.Project;
+
 /**
- * DOC smallet class global comment. Detailled comment <br/>
+ * Define an atomic migration task to run on a project to assure comptibility trough Talend versions. See
+ * org.talend.core.migrationTask extension point.<br/>
  * 
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public interface IMigrationTask {
+public interface IProjectMigrationTask {
 
     public String getId();
 
@@ -37,5 +40,5 @@ public interface IMigrationTask {
 
     public void setName(String name);
 
-    public boolean execute();
+    public boolean execute(Project project);
 }

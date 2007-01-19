@@ -6,14 +6,15 @@
          <meta.schema plugin="org.talend.core" id="migrationTask" name="Migration tool atomic task"/>
       </appInfo>
       <documentation>
-         [Enter description of this extension point.]
+         Define migration tasks to run to assure ascendant compatibility through Talend version for workspace and projects.
       </documentation>
    </annotation>
 
    <element name="extension">
       <complexType>
          <sequence>
-            <element ref="task"/>
+            <element ref="workspacetask" minOccurs="0" maxOccurs="unbounded"/>
+            <element ref="projecttask" minOccurs="0" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -42,7 +43,7 @@
       </complexType>
    </element>
 
-   <element name="task">
+   <element name="workspacetask">
       <complexType>
          <attribute name="id" type="string" use="required">
             <annotation>
@@ -67,15 +68,37 @@
                   
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.talend.core.model.migration.IMigrationTask"/>
+                  <meta.attribute kind="java" basedOn="org.talend.core.model.migration.IWorkspaceMigrationTask"/>
                </appInfo>
             </annotation>
          </attribute>
-         <attribute name="forWorkspace" type="boolean">
+      </complexType>
+   </element>
+
+   <element name="projecttask">
+      <complexType>
+         <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>
                   
                </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="name" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
+         <attribute name="class" type="string" use="required">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appInfo>
+                  <meta.attribute kind="java" basedOn="org.talend.core.model.migration.IProjectMigrationTask"/>
+               </appInfo>
             </annotation>
          </attribute>
       </complexType>
@@ -122,7 +145,8 @@
          <meta.section type="copyright"/>
       </appInfo>
       <documentation>
-         
+         Talend Community Edition&lt;br&gt;
+Copyright (C) 2007 Talend - www.talend.com
       </documentation>
    </annotation>
 

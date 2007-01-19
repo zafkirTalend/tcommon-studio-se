@@ -26,6 +26,7 @@ import java.util.List;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.general.ConnectionBean;
 import org.talend.core.model.migration.AbstractMigrationTask;
+import org.talend.core.model.migration.IWorkspaceMigrationTask;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -33,7 +34,7 @@ import org.talend.core.model.migration.AbstractMigrationTask;
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public class InitConnectionsMigrationTask extends AbstractMigrationTask {
+public class InitConnectionsMigrationTask extends AbstractMigrationTask implements IWorkspaceMigrationTask {
 
     /*
      * (non-Javadoc)

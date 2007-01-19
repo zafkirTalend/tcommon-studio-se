@@ -21,14 +21,13 @@
 // ============================================================================
 package org.talend.core.model.migration;
 
-
 /**
  * Used to know if workspace has been initialized.<br/>
  * 
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public class InitWorkspaceMigrationTask extends AbstractMigrationTask {
+public class InitWorkspaceMigrationTask extends AbstractMigrationTask implements IWorkspaceMigrationTask {
 
     public boolean execute() {
         return true;

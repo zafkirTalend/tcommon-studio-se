@@ -22,49 +22,21 @@
 package org.talend.core.model.migration;
 
 /**
- * DOC smallet class global comment. Detailled comment <br/>
+ * Define an atomic migration task to run on a workspace to assure comptibility trough Talend versions. See
+ * org.talend.core.migrationTask extension point.<br/>
  * 
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public abstract class AbstractMigrationTask {
+public interface IWorkspaceMigrationTask {
 
-    private String id;
+    public String getId();
 
-    private String name;
+    public void setId(String id);
 
-    /**
-     * DOC smallet AbstractMigrationTask constructor comment.
-     */
-    public AbstractMigrationTask() {
-        super();
-    }
+    public String getName();
 
-    /**
-     * DOC smallet AbstractMigrationTask constructor comment.
-     * 
-     * @param id
-     * @param name
-     */
-    public AbstractMigrationTask(String id, String name) {
-        super();
-        this.id = id;
-        this.name = name;
-    }
+    public void setName(String name);
 
-    public String getId() {
-        return this.id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    public boolean execute();
 }
