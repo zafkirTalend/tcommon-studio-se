@@ -340,11 +340,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IFolder f1 = ResourceUtils.getFolder(prj, ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
                 + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
         ResourceUtils.deleteFolder(f1);
-        // 2. from old workspace:
-        // FIXEME SML Move to migration tool
-        String oldRoutinesPath = "routines"; // Routines path as it was in talend v1.0.n and until 1.1.m2
-        IFolder f2 = ResourceUtils.getFolder(prj, oldRoutinesPath, false);
-        ResourceUtils.deleteFolder(f2);
 
         createSystemRoutines();
     }
@@ -751,6 +746,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
         loadProject.getTechnicalStatus().clear();
         loadProject.getTechnicalStatus().addAll(list);
+        xmiResourceManager.saveResource(loadProject.eResource());
+    }
+
+    public void setMigrationTasksDone(List<String> list) throws PersistenceException {
+        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
+        loadProject.getMigrationTasks().clear();
+        loadProject.getMigrationTasks().addAll(list);
         xmiResourceManager.saveResource(loadProject.eResource());
     }
 

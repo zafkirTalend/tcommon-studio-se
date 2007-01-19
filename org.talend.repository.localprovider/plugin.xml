@@ -13,5 +13,12 @@
          point="org.talend.core.global_actions">
       <GlobalAction class="org.talend.repository.localprovider.ui.actions.ReloadSystemRoutinesAction"/>
    </extension>
+   <extension
+         point="org.talend.core.migrationTask">
+      <projecttask
+            class="org.talend.repository.localprovider.model.migration.RemoveRoutineFolderTask"
+            id="org.talend.repository.localprovider.RemoveRoutineFolderTask"
+            name="Remove routine folder"/>
+   </extension>
 
 </plugin>
