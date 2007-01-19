@@ -42,11 +42,9 @@ import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProv
 import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
 import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
 import org.talend.core.CorePlugin;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
-import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.rcp.Activator;
 import org.talend.sqlbuilder.ui.SQLBuilderDialog;
 
@@ -72,10 +70,6 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     }
 
     public void preWindowOpen() {
-        IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
-                IMigrationToolService.class);
-        service.executeProjectTasks();
-
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
         configurer.setInitialSize(new Point(1000, 750));
         configurer.setShowCoolBar(true);
