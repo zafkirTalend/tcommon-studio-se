@@ -33,9 +33,6 @@ public interface IMigrationToolService extends IService {
 
     public void executeWorspaceTasks();
 
-    public void initNewWorkspaceTasks();
-
     public void executeProjectTasks();
 
-    public void initNewProjectTasks();
 }

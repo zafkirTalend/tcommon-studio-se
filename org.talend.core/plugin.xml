@@ -45,10 +45,6 @@
    <extension
          point="org.talend.core.migrationTask">
       <workspacetask
-            class="org.talend.core.model.migration.InitWorkspaceMigrationTask"
-            id="org.talend.core.InitWorkspaceMigrationTask"
-            name="Init workspace"/>
-      <workspacetask
             class="org.talend.core.prefs.InitConnectionsMigrationTask"
             id="org.talend.core.InitConnectionsMigrationTask"
             name="Init connections preferences"/>
