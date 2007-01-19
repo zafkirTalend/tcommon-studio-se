@@ -307,7 +307,7 @@ public interface IProxyRepositoryFactory {
      */
     public abstract void setTechnicalStatus(List<Status> list) throws PersistenceException;
 
-    public abstract void setMigrationTasksDone(List<String> list) throws PersistenceException;
+    public abstract void setMigrationTasksDone(Project project, List<String> list) throws PersistenceException;
 
     /*
      * (non-Javadoc)

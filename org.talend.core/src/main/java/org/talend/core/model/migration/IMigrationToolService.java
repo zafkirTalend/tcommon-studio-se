@@ -22,6 +22,7 @@
 package org.talend.core.model.migration;
 
 import org.talend.core.IService;
+import org.talend.core.model.general.Project;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -33,6 +34,8 @@ public interface IMigrationToolService extends IService {
 
     public void executeWorspaceTasks();
 
-    public void executeProjectTasks();
+    public void executeProjectTasks(Project project);
+
+    public void initNewProjectTasks(Project project);
 
 }
