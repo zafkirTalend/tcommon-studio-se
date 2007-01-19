@@ -749,8 +749,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         xmiResourceManager.saveResource(loadProject.eResource());
     }
 
-    public void setMigrationTasksDone(List<String> list) throws PersistenceException {
-        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
+    public void setMigrationTasksDone(Project project, List<String> list) throws PersistenceException {
+        IProject iproject = ResourceModelUtils.getProject(project);
+        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(iproject);
         loadProject.getMigrationTasks().clear();
         loadProject.getMigrationTasks().addAll(list);
         xmiResourceManager.saveResource(loadProject.eResource());
