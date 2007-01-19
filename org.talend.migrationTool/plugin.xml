@@ -13,10 +13,6 @@
             class="org.talend.migrationtool.model.InitWorkspaceMigrationTask"
             id="org.talend.migrationTool.InitWorkspaceMigrationTask"
             name="InitWorkspaceMigrationTask"/>
-      <projecttask
-            class="org.talend.migrationtool.model.InitWorkspaceMigrationTask"
-            id="org.talend.migrationTool.InitProjectMigrationTask"
-            name="InitProjectMigrationTask"/>
    </extension>
 
 </plugin>

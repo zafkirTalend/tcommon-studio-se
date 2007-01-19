@@ -21,9 +21,7 @@
 // ============================================================================
 package org.talend.migrationtool.model;
 
-import org.talend.core.model.general.Project;
 import org.talend.core.model.migration.AbstractMigrationTask;
-import org.talend.core.model.migration.IProjectMigrationTask;
 import org.talend.core.model.migration.IWorkspaceMigrationTask;
 
 /**
@@ -32,13 +30,9 @@ import org.talend.core.model.migration.IWorkspaceMigrationTask;
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public class InitWorkspaceMigrationTask extends AbstractMigrationTask implements IWorkspaceMigrationTask, IProjectMigrationTask {
+public class InitWorkspaceMigrationTask extends AbstractMigrationTask implements IWorkspaceMigrationTask {
 
     public boolean execute() {
-        return true;
-    }
-
-    public boolean execute(Project project) {
         return true;
     }
 

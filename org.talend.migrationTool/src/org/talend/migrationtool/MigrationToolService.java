@@ -29,8 +29,6 @@ import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.core.model.migration.IProjectMigrationTask;
@@ -55,21 +53,11 @@ public class MigrationToolService implements IMigrationToolService {
      * 
      * @see org.talend.core.model.migration.IMigrationToolService#executeProjectTasks()
      */
-    public void executeProjectTasks() {
-        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY);
-        Project project = repositoryContext.getProject();
-
+    public void executeProjectTasks(Project project) {
         log.trace("Migration tool: project [" + project.getLabel() + "] tasks");
 
         List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks();
         List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
-
-        if (done.isEmpty()) {
-            // We are sure that on a initializd workspace, there must be at least one task due to the dummy
-            // "InitProjectMigrationTask" task:
-            done = initNewProjectTasks();
-        }
 
         for (IProjectMigrationTask task : toExecute) {
             if (!done.contains(task.getId())) {
@@ -82,13 +70,7 @@ public class MigrationToolService implements IMigrationToolService {
             }
         }
 
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-        IProxyRepositoryFactory repFactory = service.getProxyRepositoryFactory();
-        try {
-            repFactory.setMigrationTasksDone(done);
-        } catch (PersistenceException e) {
-            MessageBoxExceptionHandler.process(e);
-        }
+        saveProjectMigrationTasksDone(project, done);
     }
 
     /*
@@ -96,13 +78,31 @@ public class MigrationToolService implements IMigrationToolService {
      * 
      * @see org.talend.core.model.migration.IMigrationToolService#initNewProjectTasks()
      */
-    public List<String> initNewProjectTasks() {
+    public void initNewProjectTasks(Project project) {
         List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks();
         List<String> done = new ArrayList<String>();
+
         for (IProjectMigrationTask task : toExecute) {
             done.add(task.getId());
         }
-        return done;
+
+        saveProjectMigrationTasksDone(project, done);
+    }
+
+    /**
+     * DOC smallet Comment method "saveProjectMigrationTasksDone".
+     * 
+     * @param project
+     * @param done
+     */
+    private void saveProjectMigrationTasksDone(Project project, List<String> done) {
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        IProxyRepositoryFactory repFactory = service.getProxyRepositoryFactory();
+        try {
+            repFactory.setMigrationTasksDone(project, done);
+        } catch (PersistenceException e) {
+            MessageBoxExceptionHandler.process(e);
+        }
     }
 
     /*
@@ -118,7 +118,7 @@ public class MigrationToolService implements IMigrationToolService {
         List<String> done = prefManipulator.readWorkspaceTasksDone();
 
         if (done.isEmpty()) {
-            // We are sure that on a initializd workspace, there must be at least one task due to the dummy
+            // We are sure that on a initialized workspace, there must be at least one task due to the dummy
             // "InitWorkspaceMigrationTask" task:
             initNewWorkspaceTasks();
             done = prefManipulator.readWorkspaceTasksDone();
