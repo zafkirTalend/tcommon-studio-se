@@ -56,6 +56,7 @@ public class InitConnectionsMigrationTask extends AbstractMigrationTask implemen
                 prefManipulator.saveConnections(toReturn);
 
                 prefManipulator.setLastUser("");
+                prefManipulator.saveUsers(new String[] {});
             }
         }
         return true;
