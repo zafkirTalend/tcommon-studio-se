@@ -117,12 +117,18 @@ public class MigrationToolService implements IMigrationToolService {
         List<IWorkspaceMigrationTask> toExecute = GetTasksHelper.getWorkspaceTasks();
         List<String> done = prefManipulator.readWorkspaceTasksDone();
 
-        if (done.isEmpty()) {
-            // We are sure that on a initialized workspace, there must be at least one task due to the dummy
-            // "InitWorkspaceMigrationTask" task:
-            initNewWorkspaceTasks();
-            done = prefManipulator.readWorkspaceTasksDone();
+        // --------------------------------------------------------------------------------------------------
+        // This code part aim is to know if we have a new workspace or one from an old Talend version:
+        // --------------------------------------------------------------------------------------------------
+        String lastUser = prefManipulator.getLastUser();
+        if (lastUser == null || lastUser.length() == 0) {
+            if (done.isEmpty()) {
+                // We are sure on a initialized or new workspace:
+                initNewWorkspaceTasks();
+                done = prefManipulator.readWorkspaceTasksDone();
+            }
         }
+        // --------------------------------------------------------------------------------------------------
 
         for (IWorkspaceMigrationTask task : toExecute) {
             if (!done.contains(task.getId())) {
