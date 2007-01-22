@@ -27,6 +27,7 @@ import java.util.List;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.commands.ActionHandler;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -46,6 +47,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.rcp.Activator;
+import org.talend.sqlbuilder.erdiagram.ui.ErDiagramDialog;
 import org.talend.sqlbuilder.ui.SQLBuilderDialog;
 
 /**
@@ -133,6 +135,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
             if (shell.getData() != null) {
                 if (shell.getData() instanceof SQLBuilderDialog) {
                     ((SQLBuilderDialog) shell.getData()).close();
+                } else if (shell.getData() instanceof ErDiagramDialog) {
+                    ((ErDiagramDialog) shell.getData()).close();
                 }
             }
         }
