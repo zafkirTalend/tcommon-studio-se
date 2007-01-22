@@ -167,7 +167,7 @@ public abstract class AbstractDataTableEditorView<B> {
             if (parentComposite.getBackground() != null && !parentComposite.getBackground().equals(titleLabel.getBackground())) {
                 titleLabel.setBackground(parentComposite.getBackground());
             }
-            titleLabel.setVisible(false);
+            titleLabel.setVisible(this.labelVisible);
         }
 
         initTable();
