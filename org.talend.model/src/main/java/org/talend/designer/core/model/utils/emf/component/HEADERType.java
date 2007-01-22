@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMPATIBILITY <em>COMPATIBILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEXTENSION <em>EXTENSION</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
@@ -205,6 +206,60 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setEXTENSION(String value);
+
+    /**
+     * Returns the value of the '<em><b>HASCONDITIONALOUTPUTS</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>HASCONDITIONALOUTPUTS</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>HASCONDITIONALOUTPUTS</em>' attribute.
+     * @see #isSetHASCONDITIONALOUTPUTS()
+     * @see #unsetHASCONDITIONALOUTPUTS()
+     * @see #setHASCONDITIONALOUTPUTS(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_HASCONDITIONALOUTPUTS()
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='HAS_CONDITIONAL_OUTPUTS' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isHASCONDITIONALOUTPUTS();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>HASCONDITIONALOUTPUTS</em>' attribute.
+     * @see #isSetHASCONDITIONALOUTPUTS()
+     * @see #unsetHASCONDITIONALOUTPUTS()
+     * @see #isHASCONDITIONALOUTPUTS()
+     * @generated
+     */
+    void setHASCONDITIONALOUTPUTS(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetHASCONDITIONALOUTPUTS()
+     * @see #isHASCONDITIONALOUTPUTS()
+     * @see #setHASCONDITIONALOUTPUTS(boolean)
+     * @generated
+     */
+    void unsetHASCONDITIONALOUTPUTS();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>HASCONDITIONALOUTPUTS</em>' attribute is set.
+     * @see #unsetHASCONDITIONALOUTPUTS()
+     * @see #isHASCONDITIONALOUTPUTS()
+     * @see #setHASCONDITIONALOUTPUTS(boolean)
+     * @generated
+     */
+    boolean isSetHASCONDITIONALOUTPUTS();
 
     /**
      * Returns the value of the '<em><b>PLATEFORM</b></em>' attribute.

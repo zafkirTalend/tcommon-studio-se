@@ -733,7 +733,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_PLATEFORM() {
+    public EAttribute getHEADERType_HASCONDITIONALOUTPUTS() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -742,7 +742,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_RELEASEDATE() {
+    public EAttribute getHEADERType_PLATEFORM() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -751,7 +751,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_SCHEMAAUTOPROPAGATE() {
+    public EAttribute getHEADERType_RELEASEDATE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -760,7 +760,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_SERIAL() {
+    public EAttribute getHEADERType_SCHEMAAUTOPROPAGATE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(8);
     }
 
@@ -769,7 +769,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_STARTABLE() {
+    public EAttribute getHEADERType_SERIAL() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(9);
     }
 
@@ -778,7 +778,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_STATUS() {
+    public EAttribute getHEADERType_STARTABLE() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(10);
     }
 
@@ -787,7 +787,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_TSTATCATCHERSTATS() {
+    public EAttribute getHEADERType_STATUS() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(11);
     }
 
@@ -796,7 +796,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_VERSION() {
+    public EAttribute getHEADERType_TSTATCATCHERSTATS() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(12);
     }
 
@@ -805,8 +805,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getHEADERType_VISIBLE() {
+    public EAttribute getHEADERType_VERSION() {
         return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getHEADERType_VISIBLE() {
+        return (EAttribute)headerTypeEClass.getEStructuralFeatures().get(14);
     }
 
     /**
@@ -1327,7 +1336,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTEMPLATEType_HASCONDITIONALOUTPUTS() {
+    public EAttribute getTEMPLATEType_MULTIPLEMETHODS() {
         return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -1336,17 +1345,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTEMPLATEType_MULTIPLEMETHODS() {
-        return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EAttribute getTEMPLATEType_NAME() {
-        return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(4);
+        return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(3);
     }
 
     /**
@@ -1436,6 +1436,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(headerTypeEClass, HEADER_TYPE__COMPATIBILITY);
         createEAttribute(headerTypeEClass, HEADER_TYPE__DATAAUTOPROPAGATE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__EXTENSION);
+        createEAttribute(headerTypeEClass, HEADER_TYPE__HASCONDITIONALOUTPUTS);
         createEAttribute(headerTypeEClass, HEADER_TYPE__PLATEFORM);
         createEAttribute(headerTypeEClass, HEADER_TYPE__RELEASEDATE);
         createEAttribute(headerTypeEClass, HEADER_TYPE__SCHEMAAUTOPROPAGATE);
@@ -1515,7 +1516,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         templateTypeEClass = createEClass(TEMPLATE_TYPE);
         createEReference(templateTypeEClass, TEMPLATE_TYPE__LINKTO);
         createEAttribute(templateTypeEClass, TEMPLATE_TYPE__COMPONENT);
-        createEAttribute(templateTypeEClass, TEMPLATE_TYPE__HASCONDITIONALOUTPUTS);
         createEAttribute(templateTypeEClass, TEMPLATE_TYPE__MULTIPLEMETHODS);
         createEAttribute(templateTypeEClass, TEMPLATE_TYPE__NAME);
     }
@@ -1608,6 +1608,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getHEADERType_COMPATIBILITY(), theXMLTypePackage.getString(), "cOMPATIBILITY", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_DATAAUTOPROPAGATE(), theXMLTypePackage.getBoolean(), "dATAAUTOPROPAGATE", "true", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_EXTENSION(), theXMLTypePackage.getString(), "eXTENSION", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getHEADERType_HASCONDITIONALOUTPUTS(), theXMLTypePackage.getBoolean(), "hASCONDITIONALOUTPUTS", null, 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_PLATEFORM(), theXMLTypePackage.getString(), "pLATEFORM", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_RELEASEDATE(), theXMLTypePackage.getString(), "rELEASEDATE", null, 1, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getHEADERType_SCHEMAAUTOPROPAGATE(), theXMLTypePackage.getBoolean(), "sCHEMAAUTOPROPAGATE", "true", 0, 1, HEADERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1687,7 +1688,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEClass(templateTypeEClass, TEMPLATEType.class, "TEMPLATEType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getTEMPLATEType_LINKTO(), this.getLINKTOType(), null, "lINKTO", null, 0, -1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTEMPLATEType_COMPONENT(), theXMLTypePackage.getString(), "cOMPONENT", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTEMPLATEType_HASCONDITIONALOUTPUTS(), theXMLTypePackage.getBoolean(), "hASCONDITIONALOUTPUTS", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTEMPLATEType_MULTIPLEMETHODS(), theXMLTypePackage.getBoolean(), "mULTIPLEMETHODS", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTEMPLATEType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -2106,6 +2106,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "EXTENSION",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getHEADERType_HASCONDITIONALOUTPUTS(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "HAS_CONDITIONAL_OUTPUTS",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
@@ -2621,14 +2629,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "COMPONENT",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getTEMPLATEType_HASCONDITIONALOUTPUTS(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "HAS_CONDITIONAL_OUTPUTS",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

@@ -27,6 +27,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getCOMPATIBILITY <em>COMPATIBILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getEXTENSION <em>EXTENSION</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
@@ -150,6 +151,35 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected String eXTENSION = EXTENSION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isHASCONDITIONALOUTPUTS() <em>HASCONDITIONALOUTPUTS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isHASCONDITIONALOUTPUTS()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean HASCONDITIONALOUTPUTS_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isHASCONDITIONALOUTPUTS() <em>HASCONDITIONALOUTPUTS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isHASCONDITIONALOUTPUTS()
+     * @generated
+     * @ordered
+     */
+    protected boolean hASCONDITIONALOUTPUTS = HASCONDITIONALOUTPUTS_EDEFAULT;
+
+    /**
+     * This is true if the HASCONDITIONALOUTPUTS attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean hASCONDITIONALOUTPUTSESet = false;
 
     /**
      * The default value of the '{@link #getPLATEFORM() <em>PLATEFORM</em>}' attribute.
@@ -520,6 +550,52 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isHASCONDITIONALOUTPUTS() {
+        return hASCONDITIONALOUTPUTS;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setHASCONDITIONALOUTPUTS(boolean newHASCONDITIONALOUTPUTS) {
+        boolean oldHASCONDITIONALOUTPUTS = hASCONDITIONALOUTPUTS;
+        hASCONDITIONALOUTPUTS = newHASCONDITIONALOUTPUTS;
+        boolean oldHASCONDITIONALOUTPUTSESet = hASCONDITIONALOUTPUTSESet;
+        hASCONDITIONALOUTPUTSESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS, oldHASCONDITIONALOUTPUTS, hASCONDITIONALOUTPUTS, !oldHASCONDITIONALOUTPUTSESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetHASCONDITIONALOUTPUTS() {
+        boolean oldHASCONDITIONALOUTPUTS = hASCONDITIONALOUTPUTS;
+        boolean oldHASCONDITIONALOUTPUTSESet = hASCONDITIONALOUTPUTSESet;
+        hASCONDITIONALOUTPUTS = HASCONDITIONALOUTPUTS_EDEFAULT;
+        hASCONDITIONALOUTPUTSESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS, oldHASCONDITIONALOUTPUTS, HASCONDITIONALOUTPUTS_EDEFAULT, oldHASCONDITIONALOUTPUTSESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetHASCONDITIONALOUTPUTS() {
+        return hASCONDITIONALOUTPUTSESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getPLATEFORM() {
         return pLATEFORM;
     }
@@ -821,6 +897,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isDATAAUTOPROPAGATE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 return getEXTENSION();
+            case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
+                return isHASCONDITIONALOUTPUTS() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 return getPLATEFORM();
             case ComponentPackage.HEADER_TYPE__RELEASEDATE:
@@ -864,6 +942,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 setEXTENSION((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
+                setHASCONDITIONALOUTPUTS(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 setPLATEFORM((String)newValue);
@@ -918,6 +999,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 setEXTENSION(EXTENSION_EDEFAULT);
                 return;
+            case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
+                unsetHASCONDITIONALOUTPUTS();
+                return;
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 setPLATEFORM(PLATEFORM_EDEFAULT);
                 return;
@@ -966,6 +1050,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return isSetDATAAUTOPROPAGATE();
             case ComponentPackage.HEADER_TYPE__EXTENSION:
                 return EXTENSION_EDEFAULT == null ? eXTENSION != null : !EXTENSION_EDEFAULT.equals(eXTENSION);
+            case ComponentPackage.HEADER_TYPE__HASCONDITIONALOUTPUTS:
+                return isSetHASCONDITIONALOUTPUTS();
             case ComponentPackage.HEADER_TYPE__PLATEFORM:
                 return PLATEFORM_EDEFAULT == null ? pLATEFORM != null : !PLATEFORM_EDEFAULT.equals(pLATEFORM);
             case ComponentPackage.HEADER_TYPE__RELEASEDATE:
@@ -1007,6 +1093,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         if (dATAAUTOPROPAGATEESet) result.append(dATAAUTOPROPAGATE); else result.append("<unset>");
         result.append(", eXTENSION: ");
         result.append(eXTENSION);
+        result.append(", hASCONDITIONALOUTPUTS: ");
+        if (hASCONDITIONALOUTPUTSESet) result.append(hASCONDITIONALOUTPUTS); else result.append("<unset>");
         result.append(", pLATEFORM: ");
         result.append(pLATEFORM);
         result.append(", rELEASEDATE: ");

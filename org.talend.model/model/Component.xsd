@@ -36,6 +36,7 @@
 			<xs:attribute name="EXTENSION" type="xs:string" use="optional"/>
 			<xs:attribute name="SCHEMA_AUTO_PROPAGATE" type="xs:boolean" use="optional" default="true"/>
 			<xs:attribute name="DATA_AUTO_PROPAGATE" type="xs:boolean" use="optional" default="true"/>
+			<xs:attribute name="HAS_CONDITIONAL_OUTPUTS" type="xs:boolean" use="optional"/>
 			<xs:attribute name="VISIBLE" type="xs:boolean" use="optional" default="true"/>
 			<xs:attribute name="TSTATCATCHER_STATS" type="xs:boolean" use="optional" default="false"/>
 		</xs:complexType>
@@ -145,7 +146,6 @@
 									<xs:attribute name="NAME" type="xs:string" use="optional"/>
 									<xs:attribute name="COMPONENT" type="xs:string" use="optional"/>
 									<xs:attribute name="MULTIPLE_METHODS" type="xs:boolean" use="optional"/>
-									<xs:attribute name="HAS_CONDITIONAL_OUTPUTS" type="xs:boolean" use="optional"/>
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="TEMPLATE_PARAM" minOccurs="0" maxOccurs="unbounded">
