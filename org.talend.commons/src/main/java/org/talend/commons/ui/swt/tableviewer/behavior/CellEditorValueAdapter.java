@@ -35,37 +35,27 @@ import org.eclipse.jface.viewers.CellEditor;
  * <code>
  *  column.setCellEditor(new TextCellEditor(table), new CellEditorValueAdapter() {
  *
- *     public Object getOriginalTypedValue(CellEditor cellEditor, Object value) {
- *                return new Integer((String)value);
+ *    public String getColumnText(CellEditor cellEditor, Object originalTypedValue) {
+ *       String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
+ *       int index = (Integer) originalTypedValue;
+ *       if (index >= 0 && index < items.length) {
+ *          return items[index];
+ *       } else {
+ *          return "";
+ *       }
+ *    };
+ *
+ *     public Object getOriginalTypedValue(CellEditor cellEditor, Object cellEditorTypedValue) {
+ *        return new Integer((String)cellEditorTypedValue);
  *     }
  *
- *     public Object getCellEditorTypedValue(CellEditor cellEditor, Object value) {
- *          return String.valueOf(value);
+ *     public Object getCellEditorTypedValue(CellEditor cellEditor, Object originalTypedValue) {
+ *        return String.valueOf(originalTypedValue);
  *     }
  *   });
  * </code>
  * </p>
- * 
- * Other example with ComboBoxCellEditor :
- * <p>
- * <code>
- * 
- *        final String[] VALUE_SET = new String[] { "xxx", "yyy", "zzz" };
- *        column.setCellEditor(new ComboBoxCellEditor(table, VALUE_SET), new CellEditorValueAdapter() {
- *
- *            public String getColumnText(CellEditor cellEditor, Object value) {
- *                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
- *                int index = (Integer) value;
- *                if (index >= 0 && index < items.length) {
- *                    return items[index];
- *                } else {
- *                    return "";
- *                }
- *            }
- *        });
- * </code>
- * </p>
- * 
+ *  
  * <br/>
  * 
  * $Id$
@@ -77,11 +67,11 @@ public class CellEditorValueAdapter {
      * Convert cellEditorValue to String value which will be set in the current cell of the <code>Table</code>.
      * 
      * @param cellEditor current cellEditor, use if necessary.
-     * @param cellEditorTypedValue value returned by cellEditor.
+     * @param originalTypedValue.
      * @return
      */
-    public String getColumnText(CellEditor cellEditor, Object cellEditorTypedValue) {
-        return String.valueOf(cellEditorTypedValue);
+    public String getColumnText(CellEditor cellEditor, Object originalTypedValue) {
+        return String.valueOf(originalTypedValue);
     };
 
     /**
