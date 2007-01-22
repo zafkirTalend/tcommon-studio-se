@@ -66,7 +66,7 @@ public class RepositoryEditorInput extends FileEditorInput {
             if (other.item != null) {
                 return false;
             }
-        } else if (!this.item.equals(other.item)) {
+        } else if (!this.item.getProperty().getId().equals(other.item.getProperty().getId())) {
             return false;
         }
         return true;
