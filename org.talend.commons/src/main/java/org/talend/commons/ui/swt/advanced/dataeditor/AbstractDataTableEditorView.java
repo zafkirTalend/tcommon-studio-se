@@ -67,7 +67,7 @@ public abstract class AbstractDataTableEditorView<B> {
 
     private ExtendedTableModel<B> extendedTableModel;
 
-    private AbstractExtendedToolbar abstractExtendedToolbar;
+    private ExtendedToolbarView extendedToolbar;
 
     private boolean toolbarVisible = true;
 
@@ -177,7 +177,7 @@ public abstract class AbstractDataTableEditorView<B> {
         this.extendedTableViewer.getTableViewerCreator().getTable().setLayoutData(new GridData(GridData.FILL_BOTH));
 
         if (toolbarVisible) {
-            this.abstractExtendedToolbar = initToolBar();
+            this.extendedToolbar = initToolBar();
         }
 
         addListeners();
@@ -203,7 +203,7 @@ public abstract class AbstractDataTableEditorView<B> {
     /**
      * DOC amaumont Comment method "initToolBar".
      */
-    protected AbstractExtendedToolbar initToolBar() {
+    protected ExtendedToolbarView initToolBar() {
         return null;
     }
 
@@ -297,7 +297,9 @@ public abstract class AbstractDataTableEditorView<B> {
                 }
 
                 public void keyReleased(KeyEvent e) {
-                    if (e.character == SWT.DEL) {
+                    if (e.character == SWT.DEL
+                            && (toolbarVisible && getExtendedToolbar().getRemoveButton() != null && getExtendedToolbar().getRemoveButton()
+                                    .getEnabledState())) {
                         ExtendedTableModel model = extendedTableViewer.getExtendedTableModel();
                         if (model != null && model.isDataRegistered()) {
                             ExtendedTableRemoveCommand command = new ExtendedTableRemoveCommand(model, table.getSelectionIndices());
@@ -330,8 +332,8 @@ public abstract class AbstractDataTableEditorView<B> {
 
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
-        if (abstractExtendedToolbar != null) {
-            abstractExtendedToolbar.setReadOnly(readOnly);
+        if (extendedToolbar != null) {
+            extendedToolbar.setReadOnly(readOnly);
         }
 
         TableViewerCreator<B> tableViewerCreator = extendedTableViewer.getTableViewerCreator();
@@ -413,12 +415,12 @@ public abstract class AbstractDataTableEditorView<B> {
     }
 
     /**
-     * Getter for abstractExtendedToolbar.
+     * Getter for extendedToolbar.
      * 
-     * @return the abstractExtendedToolbar
+     * @return the extendedToolbar
      */
-    public AbstractExtendedToolbar getExtendedToolbar() {
-        return this.abstractExtendedToolbar;
+    public ExtendedToolbarView getExtendedToolbar() {
+        return this.extendedToolbar;
     }
 
     /**

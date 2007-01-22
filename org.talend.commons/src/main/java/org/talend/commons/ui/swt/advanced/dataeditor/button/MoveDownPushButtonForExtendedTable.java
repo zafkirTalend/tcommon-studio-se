@@ -19,11 +19,10 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.ui.extended.button;
+package org.talend.commons.ui.swt.advanced.dataeditor.button;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveUpPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableMoveCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
@@ -35,8 +34,10 @@ import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
  * $Id$
  *
  */
-public class MoveUpPushButtonForExtendedTable extends MoveUpPushButton implements IExtendedTablePushButton {
+public class MoveDownPushButtonForExtendedTable extends MoveDownPushButton implements IExtendedTablePushButton {
 
+    
+    
     private EnableStateListenerForTableButton enableStateHandler;
 
     /**
@@ -44,7 +45,7 @@ public class MoveUpPushButtonForExtendedTable extends MoveUpPushButton implement
      * @param parent
      * @param extendedControlViewer
      */
-    public MoveUpPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
+    public MoveDownPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
         super(parent, extendedTableViewer);
         this.enableStateHandler = new EnableStateListenerForTableButton(this);
     }
@@ -56,10 +57,10 @@ public class MoveUpPushButtonForExtendedTable extends MoveUpPushButton implement
 
     protected Command getCommandToExecute() {
         AbstractExtendedTableViewer viewer = (AbstractExtendedTableViewer) getExtendedControlViewer();
-        return new ExtendedTableMoveCommand(viewer.getExtendedTableModel(), true, viewer.getTableViewerCreator().getTable()
+        return new ExtendedTableMoveCommand(viewer.getExtendedTableModel(), false, viewer.getTableViewerCreator().getTable()
                 .getSelectionIndices());
     }
-
+   
     /* (non-Javadoc)
      * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
      */

@@ -19,27 +19,26 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.ui.extended;
+package org.talend.commons.ui.swt.advanced.dataeditor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.swt.advanced.dataeditor.AbstractExtendedToolbar;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.AddPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.CopyPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.CopyPushButtonForExtendedTable;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.ExportPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.ImportPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveDownPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveDownPushButtonForExtendedTable;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveUpPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveUpPushButtonForExtendedTable;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButtonForExtendedTable;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
-import org.talend.core.ui.extended.button.CopyPushButtonForExtendedTable;
-import org.talend.core.ui.extended.button.MoveDownPushButtonForExtendedTable;
-import org.talend.core.ui.extended.button.MoveUpPushButtonForExtendedTable;
-import org.talend.core.ui.extended.button.RemovePushButtonForExtendedTable;
 
 /**
  * DOC cantoine class global comment. Detailled comment <br/>

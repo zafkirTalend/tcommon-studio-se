@@ -19,14 +19,19 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.ui.extended.button;
+package org.talend.commons.ui.swt.advanced.dataeditor.button;
+
+import java.util.List;
 
 import org.eclipse.gef.commands.Command;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.AddPushButton;
-import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableAddCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
+import org.talend.commons.ui.swt.extended.table.ClipboardEvent;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
+import org.talend.commons.ui.utils.IClipoardListener;
+import org.talend.commons.ui.utils.SimpleClipboard;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -34,7 +39,7 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
  * $Id$
  * 
  */
-public abstract class AddPushButtonForExtendedTable extends AddPushButton implements IExtendedTablePushButton {
+public abstract class PastePushButtonForExtendedTable extends PastePushButton implements IExtendedTablePushButton {
 
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
@@ -42,8 +47,23 @@ public abstract class AddPushButtonForExtendedTable extends AddPushButton implem
      * @param parent
      * @param extendedControlViewer
      */
-    public AddPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
+    public PastePushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
         super(parent, extendedTableViewer);
+        final IClipoardListener clipoardListener = new IClipoardListener() {
+
+            public void handleEvent(ClipboardEvent event) {
+                getButton().setEnabled(getEnabledState());
+            }
+            
+        };
+        SimpleClipboard.getInstance().addListener(clipoardListener);
+        getButton().addDisposeListener(new DisposeListener() {
+
+            public void widgetDisposed(DisposeEvent e) {
+                SimpleClipboard.getInstance().removeListener(clipoardListener);
+            }
+            
+        });
     }
 
     @Override
@@ -55,10 +75,10 @@ public abstract class AddPushButtonForExtendedTable extends AddPushButton implem
         if (selection.length > 0) {
             indexWhereInsert = selection[selection.length - 1] + 1;
         }
-        return new ExtendedTableAddCommand(extendedTableModel, indexWhereInsert, getObjectToAdd());
+        return getCommandToExecute(extendedTableModel, indexWhereInsert);
     }
 
-    protected abstract Object getObjectToAdd();
+    protected abstract Command getCommandToExecute(ExtendedTableModel extendedTableModel, Integer indexWhereInsert);
 
     /* (non-Javadoc)
      * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
@@ -67,5 +87,9 @@ public abstract class AddPushButtonForExtendedTable extends AddPushButton implem
         return (AbstractExtendedTableViewer) getExtendedControlViewer();
     }
 
+    public boolean getEnabledState() {
+        Object data = SimpleClipboard.getInstance().getData();
+        return super.getEnabledState() && data != null && data instanceof List;
+    }
 
 }

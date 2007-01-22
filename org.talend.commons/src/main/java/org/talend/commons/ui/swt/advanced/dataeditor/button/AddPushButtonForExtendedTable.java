@@ -19,49 +19,46 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.ui.extended.button;
+package org.talend.commons.ui.swt.advanced.dataeditor.button;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveDownPushButton;
-import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableMoveCommand;
+import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableAddCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
-
+import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
-public class MoveDownPushButtonForExtendedTable extends MoveDownPushButton implements IExtendedTablePushButton {
-
-    
-    
-    private EnableStateListenerForTableButton enableStateHandler;
+public abstract class AddPushButtonForExtendedTable extends AddPushButton implements IExtendedTablePushButton {
 
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
+     * 
      * @param parent
      * @param extendedControlViewer
      */
-    public MoveDownPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
+    public AddPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
         super(parent, extendedTableViewer);
-        this.enableStateHandler = new EnableStateListenerForTableButton(this);
     }
 
-    public boolean getEnabledState() {
-        return super.getEnabledState() && this.enableStateHandler.getEnabledState();
-    }
-    
-
+    @Override
     protected Command getCommandToExecute() {
-        AbstractExtendedTableViewer viewer = (AbstractExtendedTableViewer) getExtendedControlViewer();
-        return new ExtendedTableMoveCommand(viewer.getExtendedTableModel(), false, viewer.getTableViewerCreator().getTable()
-                .getSelectionIndices());
+        AbstractExtendedTableViewer abstractExtendedTableViewer = ((AbstractExtendedTableViewer) getExtendedControlViewer());
+        ExtendedTableModel extendedTableModel = abstractExtendedTableViewer.getExtendedTableModel();
+        int[] selection = abstractExtendedTableViewer.getTableViewerCreator().getTable().getSelectionIndices();
+        Integer indexWhereInsert = null;
+        if (selection.length > 0) {
+            indexWhereInsert = selection[selection.length - 1] + 1;
+        }
+        return new ExtendedTableAddCommand(extendedTableModel, indexWhereInsert, getObjectToAdd());
     }
-   
+
+    protected abstract Object getObjectToAdd();
+
     /* (non-Javadoc)
      * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
      */

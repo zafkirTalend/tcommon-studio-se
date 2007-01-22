@@ -19,72 +19,43 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.ui.extended.button;
-
-import java.io.File;
+package org.talend.commons.ui.swt.advanced.dataeditor.button;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.ImportPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableRemoveCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
-import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
-
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
-public abstract class ImportPushButtonForExtendedTable extends ImportPushButton implements IExtendedTablePushButton {
+public class RemovePushButtonForExtendedTable extends RemovePushButton implements IExtendedTablePushButton {
 
-    private File file;
+    private EnableStateListenerForTableButton enableStateHandler;
 
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
+     * 
      * @param parent
      * @param extendedControlViewer
      */
-    public ImportPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
+    public RemovePushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
         super(parent, extendedTableViewer);
+        this.enableStateHandler = new EnableStateListenerForTableButton(this);
     }
 
+    public boolean getEnabledState() {
+        return super.getEnabledState() && this.enableStateHandler.getEnabledState();
+    }
+    
     protected Command getCommandToExecute() {
         AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
         Table table = extendedTableViewer.getTableViewerCreator().getTable();
-        return getCommandToExecute(extendedTableViewer.getExtendedTableModel(), file);
-    }
-    
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#beforeCommandExecution()
-     */
-    @Override
-    protected void beforeCommandExecution() {
-        FileDialog dial = new FileDialog(getButton().getShell(), SWT.OPEN);
-        dial.setFilterExtensions(new String[] { "*.xml" });
-        String fileName = dial.open();
-        if ((fileName != null) && (!fileName.equals(""))) {
-            file = new File(fileName);
-            AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
-            extendedTableViewer.getExtendedTableModel().removeAll();
-        }
-    }
-
-    protected abstract Command getCommandToExecute(ExtendedTableModel model, File file);
-    
-    
-    private void openMessageError(String errorText) {
-        MessageBox msgBox = new MessageBox(getButton().getShell());
-        msgBox.setText("Error occurred");
-        msgBox.setMessage(errorText);
-        msgBox.open();
+        return new ExtendedTableRemoveCommand(extendedTableViewer.getExtendedTableModel(), table.getSelectionIndices());
     }
 
     /* (non-Javadoc)
@@ -93,6 +64,5 @@ public abstract class ImportPushButtonForExtendedTable extends ImportPushButton 
     public AbstractExtendedTableViewer getExtendedTableViewer() {
         return (AbstractExtendedTableViewer) getExtendedControlViewer();
     }
-
 
 }

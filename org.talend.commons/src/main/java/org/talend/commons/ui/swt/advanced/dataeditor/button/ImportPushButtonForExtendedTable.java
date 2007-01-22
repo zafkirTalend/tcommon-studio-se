@@ -19,18 +19,18 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.ui.extended.button;
+package org.talend.commons.ui.swt.advanced.dataeditor.button;
 
-import java.util.Arrays;
+import java.io.File;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TableViewer;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.CopyPushButton;
-import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableCopyCommand;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
+import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 
 
 /**
@@ -40,38 +40,57 @@ import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
  * $Id$
  *
  */
-public class CopyPushButtonForExtendedTable extends CopyPushButton implements IExtendedTablePushButton {
+public abstract class ImportPushButtonForExtendedTable extends ImportPushButton implements IExtendedTablePushButton {
 
-    private EnableStateListenerForTableButton enableStateHandler;
+    private File file;
 
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
      * @param parent
      * @param extendedControlViewer
      */
-    public CopyPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
+    public ImportPushButtonForExtendedTable(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
         super(parent, extendedTableViewer);
-        this.enableStateHandler = new EnableStateListenerForTableButton(this);
     }
 
     protected Command getCommandToExecute() {
         AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
-        TableViewer tableViewer = extendedTableViewer.getTableViewerCreator().getTableViewer();
-        ISelection selection = tableViewer.getSelection();
-        StructuredSelection structuredSelection = (StructuredSelection) selection;
-        Object[] objects = structuredSelection.toArray();
-        return new ExtendedTableCopyCommand(Arrays.asList(objects));
+        Table table = extendedTableViewer.getTableViewerCreator().getTable();
+        return getCommandToExecute(extendedTableViewer.getExtendedTableModel(), file);
     }
     
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#beforeCommandExecution()
+     */
+    @Override
+    protected void beforeCommandExecution() {
+        FileDialog dial = new FileDialog(getButton().getShell(), SWT.OPEN);
+        dial.setFilterExtensions(new String[] { "*.xml" });
+        String fileName = dial.open();
+        if ((fileName != null) && (!fileName.equals(""))) {
+            file = new File(fileName);
+            AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
+            extendedTableViewer.getExtendedTableModel().removeAll();
+        }
+    }
+
+    protected abstract Command getCommandToExecute(ExtendedTableModel model, File file);
+    
+    
+    private void openMessageError(String errorText) {
+        MessageBox msgBox = new MessageBox(getButton().getShell());
+        msgBox.setText("Error occurred");
+        msgBox.setMessage(errorText);
+        msgBox.open();
+    }
+
     /* (non-Javadoc)
      * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
      */
     public AbstractExtendedTableViewer getExtendedTableViewer() {
         return (AbstractExtendedTableViewer) getExtendedControlViewer();
-    }
-
-    public boolean getEnabledState() {
-        return super.getEnabledState() && this.enableStateHandler.getEnabledState();
     }
 
 
