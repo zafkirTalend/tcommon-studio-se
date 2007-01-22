@@ -89,8 +89,8 @@ public class ProcessorUtilities {
      */
     public static IProcessor getProcessor(IProcess process, IContext context) {
         IRunProcessService service = CorePlugin.getDefault().getRunProcessService();
-        IProcessor processor = service.createCodeProcessor(process, ((RepositoryContext) CorePlugin.getContext()
-                .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage(), true);
+        IProcessor processor = service.createCodeProcessor(process, ((RepositoryContext) CorePlugin.getContext().getProperty(
+                Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage(), true);
         try {
             processor.initPaths(context);
         } catch (ProcessorException pe) {
