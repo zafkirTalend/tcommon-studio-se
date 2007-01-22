@@ -80,6 +80,8 @@ public interface INode extends IElement {
 
     public Boolean isMultipleMethods();
 
+    public Boolean hasConditionalOutputs();
+    
     /**
      * Set performance data on this node.
      * 
@@ -119,4 +121,7 @@ public interface INode extends IElement {
      * @return Start Node found.
      */
     public INode getSubProcessStartNode(boolean withConditions);
+    
+    
+    
 }

@@ -61,6 +61,8 @@ public abstract class AbstractNode implements INode {
     
     private boolean readOnly;
 
+    private Boolean hasConditionalOutputs = Boolean.FALSE;
+
     public String getComponentName() {
         return componentName;
     }
@@ -110,7 +112,6 @@ public abstract class AbstractNode implements INode {
     }
 
     public String getUniqueName() {
-        // TODO Auto-generated method stub
         return uniqueName;
     }
 
@@ -245,4 +246,22 @@ public abstract class AbstractNode implements INode {
         return nb;
     }
 
+    /* (non-Javadoc)
+     * @see org.talend.core.model.process.INode#hasConditionnalOutputs()
+     */
+    public Boolean hasConditionalOutputs() {
+        return this.hasConditionalOutputs;
+    }
+
+    
+    /**
+     * Sets the hasConditionnalOutputs.
+     * @param hasConditionalOutputs the hasConditionnalOutputs to set
+     */
+    public void setHasConditionalOutputs(boolean hasConditionalOutputs) {
+        this.hasConditionalOutputs = hasConditionalOutputs;
+    }
+
+    
+    
 }

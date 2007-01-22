@@ -78,6 +78,8 @@ public interface IComponent {
 
     public Boolean isMultipleMethods(ECodeLanguage language);
 
+    public Boolean hasConditionalOutputs();
+    
     public String getPluginFullName();
 
     public boolean isSchemaAutoPropagated();

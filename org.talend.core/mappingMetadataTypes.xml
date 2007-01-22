@@ -21,8 +21,12 @@
 </versions>
 <type talend="int" dbms="NUMBER" default="true"/>
 <type talend="Integer" dbms="NUMBER" nullable="true"/>
+
+<!-- 
 <type talend="short" dbms="NUMBER" default="true"/>
 <type talend="Short" dbms="NUMBER" nullable="true"/>
+ -->
+
 <type talend="long" dbms="LONG" default="true"/>
 <type talend="Long" dbms="LONG" nullable="true"/>
 <type talend="float" dbms="FLOAT" default="true"/>
