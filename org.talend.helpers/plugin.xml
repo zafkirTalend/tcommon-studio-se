@@ -44,7 +44,7 @@
       <actionSet
             id="helpers"
             label="helpers"
-            visible="true">
+            >
          <menu
                id="talend"
                label="Talend">
