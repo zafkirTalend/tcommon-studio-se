@@ -76,7 +76,9 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         }
 
         node.put(ITalendCorePrefConstants.PREVIEW_LIMIT, "50");
-        
+
+        node.put(ITalendCorePrefConstants.COMP_DEFAULT_FILE_DIR, Platform.getLocation().toOSString());
+
         initializeUpdatePreference();
 
         // Initialize editors properties : line number shown
@@ -99,7 +101,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         nodeScheduler.put(SchedulerStartup.P_SCHEDULE, SchedulerStartup.VALUE_ON_STARTUP);
         nodeScheduler.putBoolean(SchedulerStartup.P_DOWNLOAD, true);
     }
-    
+
     public static void setProxy(String proxyHost, String proxyPort) {
         SiteManager.setHttpProxyInfo(true, proxyHost, proxyPort);
     }

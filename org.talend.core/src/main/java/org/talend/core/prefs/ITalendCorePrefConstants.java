@@ -34,6 +34,9 @@ public interface ITalendCorePrefConstants {
 
     /** Perl interpreter. */
     String PERL_INTERPRETER = "perlInterpreter";
+    
+    /** Path used for components for the default file directory. */
+    String COMP_DEFAULT_FILE_DIR = "compFileDir";
 
     /** Perl library directory. */
     // String PERL_LIB = "perlLib";
