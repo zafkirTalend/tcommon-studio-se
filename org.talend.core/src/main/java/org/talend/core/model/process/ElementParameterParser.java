@@ -91,7 +91,7 @@ public final class ElementParameterParser {
 
     private static Map<String, String> copyLine(Map<String, Object> currentLine, IElementParameter param) {
         Map<String, String> newLine = new HashMap<String, String>();
-        String[] items = param.getListItemsDisplayCodeName(); 
+        String[] items = param.getListItemsDisplayCodeName();
         for (int i = 0; i < items.length; i++) {
             Object o = currentLine.get(items[i]);
             if (o instanceof Integer) {
@@ -115,7 +115,7 @@ public final class ElementParameterParser {
         }
         return newLine;
     }
-    
+
     /**
      * Only work with one element.
      * 
@@ -149,11 +149,11 @@ public final class ElementParameterParser {
         }
         return tableValues;
     }
-    
+
     private static Map<String, String> copyLineXML(Map<String, Object> currentLine, IElementParameter param) {
         Map<String, String> newLine = new HashMap<String, String>();
         // PTODO cantoine : check with Nico if cause trouble with others Components.
-        String[] items = currentLine.keySet().toArray(new String[] {}); 
+        String[] items = currentLine.keySet().toArray(new String[] {});
         // //{"QUERY"};
         for (int i = 0; i < items.length; i++) {
             Object o = currentLine.get(items[i]);
@@ -178,10 +178,10 @@ public final class ElementParameterParser {
         }
         return newLine;
     }
-    
+
     public static String parse(final IElement element, final String text) {
         String newText = ""; //$NON-NLS-1$
-        if (text == null) {
+        if ((element == null) || (text == null)) {
             return newText;
         }
         IElementParameter param;
