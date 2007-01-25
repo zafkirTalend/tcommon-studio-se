@@ -24,6 +24,7 @@ package org.talend.designer.runprocess;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.IPath;
 import org.talend.core.model.process.IContext;
+import org.talend.designer.core.ISyntaxCheckableEditor;
 
 /**
  * DOC qian class global comment. Detailled comment <br/>
@@ -76,11 +77,38 @@ public interface IProcessor {
     /**
      * Get the interpreter for each kinds of language.
      * 
-     * DOC yzhang Comment method "getInterpreter".
+     * yzhang Comment method "getInterpreter".
      * 
      * @return
      * @throws ProcessorException
      */
     public String getInterpreter() throws ProcessorException;
+
+    /**
+     * Get the processor type, e.g. java processor, perl processor.
+     * 
+     * yzhang Comment method "getProcessorType".
+     * 
+     * @return
+     */
+    public String getProcessorType();
+
+    /**
+     * Set the processor's current states.
+     * 
+     * yzhang Comment method "getProcessorStates".
+     * 
+     * @return
+     */
+    public void setProcessorStates(String states);
+
+    /**
+     * Add the Syntax Checkable Editor for refresh format of the code wihtin the editor, and also for error check.
+     * 
+     * yzhang Comment method "addSyntaxCheckableEditor".
+     * 
+     * @param editor
+     */
+    public void addSyntaxCheckableEditor(ISyntaxCheckableEditor editor);
 
 }
