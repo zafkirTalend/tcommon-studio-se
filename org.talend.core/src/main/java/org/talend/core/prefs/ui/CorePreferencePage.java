@@ -59,16 +59,20 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
                 "&Temporary files : ", getFieldEditorParent());
         addField(filePathTemp);
 
-        FileFieldEditor perlInterpreter = new FileFieldEditor(ITalendCorePrefConstants.PERL_INTERPRETER,
-                "&Perl interpreter :", true, getFieldEditorParent());
+        FileFieldEditor perlInterpreter = new FileFieldEditor(ITalendCorePrefConstants.PERL_INTERPRETER, "&Perl interpreter :",
+                true, getFieldEditorParent());
         addField(perlInterpreter);
 
         // DirectoryFieldEditor perlLib = new DirectoryFieldEditor(ITalendCorePrefConstants.PERL_LIB,
         // "Perl &libraries : ", getFieldEditorParent());
         // addField(perlLib);
 
-        IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT,
-                "&Preview limit :", getFieldEditorParent(), 9);
+        FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER, "&Java interpreter :",
+                true, getFieldEditorParent());
+        addField(javaInterpreter);
+
+        IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT, "&Preview limit :",
+                getFieldEditorParent(), 9);
         previewLimit.setEmptyStringAllowed(false);
         previewLimit.setValidRange(1, 999999999);
         addField(previewLimit);
