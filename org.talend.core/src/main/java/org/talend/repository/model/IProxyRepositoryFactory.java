@@ -273,13 +273,9 @@ public interface IProxyRepositoryFactory {
      */
     public abstract IRepositoryObject getLastVersion(String id) throws PersistenceException;
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.repository.model.IRepositoryFactory#getAll(org.talend.core.model.general.Project,
-     * org.talend.core.model.repository.ERepositoryObjectType)
-     */
     public abstract List<IRepositoryObject> getAll(ERepositoryObjectType type) throws PersistenceException;
+
+    public abstract List<IRepositoryObject> getAll(ERepositoryObjectType type, boolean withDeleted) throws PersistenceException;
 
     public abstract List<String> getFolders(ERepositoryObjectType type) throws PersistenceException;
 
