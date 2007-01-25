@@ -40,6 +40,7 @@ public interface IProcessor {
 
     /**
      * getter the code context.
+     * 
      * @return
      */
     public String getCodeContext();
@@ -58,9 +59,9 @@ public interface IProcessor {
      */
     public IPath getContextPath();
 
-    
     /**
      * getter the code project.
+     * 
      * @return
      */
     public IProject getCodeProject();
@@ -71,5 +72,15 @@ public interface IProcessor {
      * @param nodeName
      */
     public int getLineNumber(String nodeName);
+
+    /**
+     * Get the interpreter for each kinds of language.
+     * 
+     * DOC yzhang Comment method "getInterpreter".
+     * 
+     * @return
+     * @throws ProcessorException
+     */
+    public String getInterpreter() throws ProcessorException;
 
 }
