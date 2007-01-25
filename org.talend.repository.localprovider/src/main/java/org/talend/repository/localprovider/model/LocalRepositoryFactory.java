@@ -1073,7 +1073,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // unused in local mode
     }
 
-    // FIXME SML Remove param project
     public void logOnProject(Project project) throws PersistenceException {
         if (!doesLoggedUserExist()) {
             createUser();
@@ -1095,7 +1094,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return ERepositoryStatus.DELETED;
         }
 
-        // FIXME SML Move
+        // FIXME SML [Synchronizer] Move
         if (item.getState().isLocked()) {
             // User locker = item.getState().getLocker();
             // User connected = getRepositoryContext().getUser();
