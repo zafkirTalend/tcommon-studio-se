@@ -59,6 +59,8 @@ public class Problem {
     private ProblemStatus status;
     
     private ProblemAction action;
+    
+    private String key;
 
     /**
      * DOC smallet Problem constructor comment.
@@ -124,4 +126,25 @@ public class Problem {
     public void setAction(ProblemAction action) {
         this.action = action;
     }
+
+    
+    /**
+     * Getter for key.
+     * @return the key
+     */
+    public String getKey() {
+        return this.key;
+    }
+
+    
+    /**
+     * Sets the key.
+     * @param key the key to set
+     */
+    public void setKey(String key) {
+        this.key = key;
+    }
+    
+    
+    
 }

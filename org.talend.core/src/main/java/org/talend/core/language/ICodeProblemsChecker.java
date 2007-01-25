@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.core.language;
 
+import java.util.List;
+import java.util.Map;
+
 import org.talend.core.model.process.Problem;
 
 /**
@@ -30,8 +33,13 @@ import org.talend.core.model.process.Problem;
  * $Id$
  *
  */
-public interface ICodeSyntaxChecker {
+public interface ICodeProblemsChecker {
 
-    public abstract Problem checkSyntax(String expression);
+    public abstract List<Problem> checkProblems(String expression);
 
+    public abstract List<Problem> checkProblems();
+    
+    public abstract List<Problem> checkProblemsFromKey(String key);
+    
+    public abstract List<Problem> getProblemsFromKey(String key);
 }

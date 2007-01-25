@@ -26,7 +26,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.talend.core.IService;
-import org.talend.core.language.ICodeSyntaxChecker;
+import org.talend.core.language.ICodeProblemsChecker;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.temp.ECodeLanguage;
 
@@ -38,7 +38,7 @@ import org.talend.core.model.temp.ECodeLanguage;
  */
 public interface IRunProcessService extends IService {
 
-    public ICodeSyntaxChecker getSyntaxChecker(ECodeLanguage codeLanguage);
+    public ICodeProblemsChecker getSyntaxChecker(ECodeLanguage codeLanguage);
 
     /**
      * Sets the activeProcess.
