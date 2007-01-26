@@ -32,6 +32,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getSourceName <em>Source Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getColumns <em>Columns</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getConnection <em>Connection</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl#getTableType <em>Table Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -68,6 +69,26 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
      * @ordered
      */
     protected EList columns = null;
+
+    /**
+     * The default value of the '{@link #getTableType() <em>Table Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTableType()
+     * @generated
+     * @ordered
+     */
+    protected static final String TABLE_TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getTableType() <em>Table Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTableType()
+     * @generated
+     * @ordered
+     */
+    protected String tableType = TABLE_TYPE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -171,6 +192,27 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getTableType() {
+        return tableType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setTableType(String newTableType) {
+        String oldTableType = tableType;
+        tableType = newTableType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_TABLE__TABLE_TYPE, oldTableType, tableType));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ConnectionPackage.METADATA_TABLE__COLUMNS:
@@ -224,6 +266,8 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
                 return getColumns();
             case ConnectionPackage.METADATA_TABLE__CONNECTION:
                 return getConnection();
+            case ConnectionPackage.METADATA_TABLE__TABLE_TYPE:
+                return getTableType();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -245,6 +289,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
             case ConnectionPackage.METADATA_TABLE__CONNECTION:
                 setConnection((Connection)newValue);
                 return;
+            case ConnectionPackage.METADATA_TABLE__TABLE_TYPE:
+                setTableType((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -265,6 +312,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
             case ConnectionPackage.METADATA_TABLE__CONNECTION:
                 setConnection((Connection)null);
                 return;
+            case ConnectionPackage.METADATA_TABLE__TABLE_TYPE:
+                setTableType(TABLE_TYPE_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -282,6 +332,8 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
                 return columns != null && !columns.isEmpty();
             case ConnectionPackage.METADATA_TABLE__CONNECTION:
                 return getConnection() != null;
+            case ConnectionPackage.METADATA_TABLE__TABLE_TYPE:
+                return TABLE_TYPE_EDEFAULT == null ? tableType != null : !TABLE_TYPE_EDEFAULT.equals(tableType);
         }
         return super.eIsSet(featureID);
     }
@@ -297,6 +349,8 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (sourceName: ");
         result.append(sourceName);
+        result.append(", tableType: ");
+        result.append(tableType);
         result.append(')');
         return result.toString();
     }

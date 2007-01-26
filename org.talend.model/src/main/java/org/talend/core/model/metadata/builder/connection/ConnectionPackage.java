@@ -557,13 +557,22 @@ public interface ConnectionPackage extends EPackage {
     int METADATA_TABLE__CONNECTION = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
 
     /**
+     * The feature id for the '<em><b>Table Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_TABLE__TABLE_TYPE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
+
+    /**
      * The number of structural features of the '<em>Metadata Table</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int METADATA_TABLE_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
+    int METADATA_TABLE_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 4;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl <em>File Connection</em>}' class.
@@ -2732,6 +2741,17 @@ public interface ConnectionPackage extends EPackage {
     EReference getMetadataTable_Connection();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getTableType <em>Table Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Table Type</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MetadataTable#getTableType()
+     * @see #getMetadataTable()
+     * @generated
+     */
+    EAttribute getMetadataTable_TableType();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn <em>Metadata Column</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Metadata Column</em>'.
@@ -3805,6 +3825,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference METADATA_TABLE__CONNECTION = eINSTANCE.getMetadataTable_Connection();
+
+        /**
+         * The meta object literal for the '<em><b>Table Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute METADATA_TABLE__TABLE_TYPE = eINSTANCE.getMetadataTable_TableType();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl <em>Metadata Column</em>}' class.

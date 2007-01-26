@@ -1,4 +1,6 @@
-#Wed Dec 06 11:05:23 CST 2006
+#Tue Jan 23 20:06:31 CST 2007
 eclipse.preferences.version=1
 encoding//src/main/java/org/talend/core/model/components/IComponent.java=UTF-8
 encoding/<project>=UTF-8
+encoding/talend_metadata_columns_schema.xsd=UTF8
+encoding/talend_targetschema_columns_schema.xsd=UTF8

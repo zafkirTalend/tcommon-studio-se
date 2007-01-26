@@ -66,6 +66,10 @@ public class CoreImageProvider {
             return ECoreImage.METADATA_CONNECTION_ICON;
         case METADATA_CON_TABLE:
             return ECoreImage.METADATA_TABLE_ICON;
+        case METADATA_CON_VIEW:
+            return  ECoreImage.METADATA_VIEW_ICON;
+        case METADATA_CON_SYNONYM:
+            return  ECoreImage.METADATA_SYNONYM_ICON;
         case METADATA_FILE_DELIMITED:
             return ECoreImage.METADATA_FILE_DELIMITED_ICON;
         case METADATA_FILE_POSITIONAL:

@@ -52,6 +52,8 @@ public enum ERepositoryObjectType {
     DOCUMENTATION("repository.documentation"),
     METADATA("repository.metadata"),
     METADATA_CON_TABLE("repository.metadataTable"),
+    METADATA_CON_VIEW("repository.metadataView"),
+    METADATA_CON_SYNONYM("repository.synonym"),
     METADATA_CON_QUERY("repository.query"),
     METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"),
     METADATA_FILE_DELIMITED("repository.metadataFileDelimited", "repository.metadataFileDelimited.alias"),

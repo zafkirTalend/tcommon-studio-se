@@ -19,6 +19,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getSourceName <em>Source Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getColumns <em>Columns</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getConnection <em>Connection</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getTableType <em>Table Type</em>}</li>
  * </ul>
  * </p>
  *
@@ -98,5 +99,31 @@ public interface MetadataTable extends AbstractMetadataObject {
      * @generated
      */
     void setConnection(Connection value);
+
+    /**
+     * Returns the value of the '<em><b>Table Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Table Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Table Type</em>' attribute.
+     * @see #setTableType(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_TableType()
+     * @model
+     * @generated
+     */
+    String getTableType();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataTable#getTableType <em>Table Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Table Type</em>' attribute.
+     * @see #getTableType()
+     * @generated
+     */
+    void setTableType(String value);
 
 } // MetadataTable

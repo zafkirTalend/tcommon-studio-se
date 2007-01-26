@@ -88,6 +88,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
         IMetadataTable clonedMetadata = null;
         try {
             clonedMetadata = (IMetadataTable) super.clone();
+
             List<IMetadataColumn> clonedMetaColumns = new ArrayList<IMetadataColumn>();
             clonedMetadata.setListColumns(clonedMetaColumns);
             for (int i = 0; i < listColumns.size(); i++) {

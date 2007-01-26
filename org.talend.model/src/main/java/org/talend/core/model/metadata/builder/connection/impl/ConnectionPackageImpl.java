@@ -330,6 +330,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataTable_TableType() {
+        return (EAttribute)metadataTableEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1188,6 +1197,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(metadataTableEClass, METADATA_TABLE__SOURCE_NAME);
         createEReference(metadataTableEClass, METADATA_TABLE__COLUMNS);
         createEReference(metadataTableEClass, METADATA_TABLE__CONNECTION);
+        createEAttribute(metadataTableEClass, METADATA_TABLE__TABLE_TYPE);
 
         fileConnectionEClass = createEClass(FILE_CONNECTION);
         createEAttribute(fileConnectionEClass, FILE_CONNECTION__SERVER);
@@ -1352,6 +1362,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getMetadataTable_SourceName(), ecorePackage.getEString(), "sourceName", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getMetadataTable_Columns(), this.getMetadataColumn(), this.getMetadataColumn_Table(), "columns", null, 0, -1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getMetadataTable_Connection(), this.getConnection(), this.getConnection_Tables(), "connection", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataTable_TableType(), ecorePackage.getEString(), "tableType", null, 0, 1, MetadataTable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(fileConnectionEClass, FileConnection.class, "FileConnection", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getFileConnection_Server(), ecorePackage.getEString(), "Server", null, 1, 1, FileConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

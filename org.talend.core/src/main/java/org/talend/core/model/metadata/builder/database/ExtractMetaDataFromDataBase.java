@@ -28,8 +28,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.talend.core.i18n.Messages;
@@ -51,6 +53,11 @@ public class ExtractMetaDataFromDataBase {
     private static Logger log = Logger.getLogger(ExtractMetaDataFromDataBase.class);
 
     /**
+     * This map represents sets of table type and table name key value pair.
+     */
+    private static Map<String, String> tableTypeMap = new Hashtable<String, String>();
+
+    /**
      * DOC cantoine. Method to return a Collection of Tables for a DB connection.
      * 
      * @param DatabaseMetaData dbMetaData
@@ -62,7 +69,7 @@ public class ExtractMetaDataFromDataBase {
 
         try {
 
-            String[] tableTypes = { "TABLE" };
+            String[] tableTypes = { "TABLE", "VIEW", "SYNONYM" };
             ResultSet rsTables = null;
             rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, null, tableTypes);
             while (rsTables.next()) {
@@ -71,6 +78,7 @@ public class ExtractMetaDataFromDataBase {
                 medataTable.setLabel(rsTables.getString("TABLE_NAME"));
                 medataTable.setTableName(medataTable.getLabel());
                 medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS"));
+                tableTypeMap.put(medataTable.getLabel(), rsTables.getString("TABLE_TYPE"));
                 medataTables.add(medataTable);
             }
             rsTables.close();
@@ -92,35 +100,35 @@ public class ExtractMetaDataFromDataBase {
      * @param String tableLabel
      * @return Collection of MetadataTable Object, Normally 1 Element in Collection except when tableLabel is Null
      */
-    public static List<IMetadataTable> returnMetadataTable(DatabaseMetaData dbMetaData, String tableLabel) {
-
-        List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
-
-        try {
-
-            String[] tableTypes = { "TABLE" };
-            ResultSet rsTables = null;
-            rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableLabel, tableTypes);
-            while (rsTables.next()) {
-                MetadataTable medataTable = new MetadataTable();
-                medataTable.setId(medataTables.size() + 1 + "");
-                medataTable.setLabel(rsTables.getString("TABLE_NAME"));
-                medataTable.setTableName(medataTable.getLabel());
-                medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS"));
-                medataTables.add(medataTable);
-            }
-            rsTables.close();
-
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        }
-        return medataTables;
-    }
-
+    // public static List<IMetadataTable> returnMetadataTable(DatabaseMetaData dbMetaData, String tableLabel) {
+    //
+    // List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
+    //
+    // try {
+    //
+    // String[] tableTypes = { "TABLE", "VIEW", "SYNONYM" };
+    // ResultSet rsTables = null;
+    // rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableLabel, tableTypes);
+    // while (rsTables.next()) {
+    // MetadataTable medataTable = new MetadataTable();
+    // medataTable.setId(medataTables.size() + 1 + "");
+    // medataTable.setLabel(rsTables.getString("TABLE_NAME"));
+    // medataTable.setTableType(rsTables.getString("TABLE_TYPE"));
+    // medataTable.setTableName(medataTable.getLabel());
+    // medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS"));
+    // medataTables.add(medataTable);
+    // }
+    // rsTables.close();
+    //
+    // } catch (SQLException e) {
+    // log.error(e.toString());
+    // throw new RuntimeException(e);
+    // } catch (Exception e) {
+    // log.error(e.toString());
+    // throw new RuntimeException(e);
+    // }
+    // return medataTables;
+    // }
     /**
      * DOC cantoine. Method to return a Collection of Column about a Table for a DB connection.
      * 
@@ -214,7 +222,7 @@ public class ExtractMetaDataFromDataBase {
                 // "TABLE_REMARKS"));
                 metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS"));
 
-                //PTODO cantoine : patch to fix 0x0 pb cause by Bad Schema description  
+                // PTODO cantoine : patch to fix 0x0 pb cause by Bad Schema description
                 String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF");
                 if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0
                         && stringMetaDataInfo.charAt(0) == 0x0) {
@@ -391,4 +399,16 @@ public class ExtractMetaDataFromDataBase {
         return itemTablesName;
     }
 
+    /**
+     * This method is used for getting table type(table,view or synonym etc.) by table name.
+     * 
+     * @param tableName a string representing table name
+     * @return a string representing table type
+     */
+    public static String getTableTypeByTableName(String tableName) {
+        if (tableTypeMap.containsKey(tableName)) {
+            return tableTypeMap.get(tableName);
+        }
+        return null;
+    }
 }

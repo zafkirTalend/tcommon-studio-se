@@ -48,6 +48,7 @@
         eType="#//MetadataColumn" containment="true" eOpposite="#//MetadataColumn/table"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//Connection"
         eOpposite="#//Connection/tables"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tableType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Map" instanceClassName="java.util.HashMap"/>
   <eClassifiers xsi:type="ecore:EEnum" name="DatabaseProperties">
