@@ -59,9 +59,15 @@ import org.xml.sax.SAXException;
  */
 public final class MetadataTalendType {
 
-    
     private static final Set<String> PRIMITIVE_TYPES = new HashSet<String>(6);
 
+    public static final String DEFAULT_CHAR = "' '";
+
+    public static final String DEFAULT_NUMBER = "0";
+
+    public static final String NULL = "null";
+
+    public static final String CHAR = "char";
 
     static {
         PRIMITIVE_TYPES.add("short");
@@ -69,7 +75,7 @@ public final class MetadataTalendType {
         PRIMITIVE_TYPES.add("long");
         PRIMITIVE_TYPES.add("float");
         PRIMITIVE_TYPES.add("double");
-        PRIMITIVE_TYPES.add("char");
+        PRIMITIVE_TYPES.add(CHAR);
     }
 
     /**
@@ -85,8 +91,9 @@ public final class MetadataTalendType {
     private static Map<String, Map<String, String>> defaultvalue = null;
 
     public static final String NULLABLE = "nullable";
-    
+
     public static final String LANGUAGE_JAVA = "JAVA";
+
     public static final String TALENDDEFAULT = "TALENDDEFAULT";
 
     private static Comparator<String> comparatorIgnoreCase = new Comparator<String>() {
@@ -269,9 +276,24 @@ public final class MetadataTalendType {
             }
         }
     }
-    
+
     public static boolean isJavaPrimitiveType(String type) {
         return PRIMITIVE_TYPES.contains(type);
     }
-    
+
+    public static String getDefaultValueFromJavaType(String type) {
+        if (type == null) {
+            throw new IllegalArgumentException();
+        }
+        if (isJavaPrimitiveType(type)) {
+            if (type.equals(CHAR)) {
+                return DEFAULT_CHAR;
+            } else {
+                return DEFAULT_NUMBER;
+            }
+        } else {
+            return NULL;
+        }
+    }
+
 }
