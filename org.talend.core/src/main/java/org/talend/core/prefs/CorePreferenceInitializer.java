@@ -71,8 +71,11 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         String os = Platform.getOS();
         if (os.equals(Platform.OS_WIN32)) {
             node.put(ITalendCorePrefConstants.PERL_INTERPRETER, "C:\\Perl\\bin\\perl.exe");
+            node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, "C:\\Program Files\\Java\\jdk1.5.0_10\\bin\\java.exe");
         } else if (os.equals(Platform.OS_LINUX)) {
             node.put(ITalendCorePrefConstants.PERL_INTERPRETER, "/usr/bin/perl");
+            node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, "/usr/bin/java");
+
         }
 
         node.put(ITalendCorePrefConstants.PREVIEW_LIMIT, "50");
