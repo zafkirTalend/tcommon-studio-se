@@ -31,7 +31,7 @@ import java.util.List;
  */
 public interface IComponentsFactory {
 
-    String COMPONENTS_LOCATION = "org.talend.designer.core";
+    String COMPONENTS_LOCATION = "org.talend.designer.components.localprovider";
 
     String COMPONENTS_DIRECTORY = "components";
 
