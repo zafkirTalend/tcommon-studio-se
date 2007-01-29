@@ -59,13 +59,13 @@ public interface IRunProcessService extends IService {
      * @return Command Process Launched
      * @throws ProcessorException
      */
-    public int exec(StringBuffer out, StringBuffer err, IPath absCodePath, IPath absContextPath, Level level,
+    public int perlExec(StringBuffer out, StringBuffer err, IPath absCodePath, IPath absContextPath, Level level,
             String perlInterpreterLibOption, String perlInterpreterLibCtxOption, String perlModuleDirectoryOption,
             int statOption, int traceOption, String... codeOptions) throws ProcessorException;
 
-  
     /**
      * DOC xue Comment method "createCodeProcessor".
+     * 
      * @param process
      * @param language
      * @param filenameFromLabel
