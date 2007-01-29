@@ -210,7 +210,7 @@ public abstract class AbstractNode implements INode {
     public AbstractNode getSubProcessStartNode(boolean withConditions) {
         if (!withConditions) {
             if ((getCurrentActiveLinksNbInput(EConnectionType.FLOW_MAIN) == 0)
-                    && (getCurrentActiveLinksNbInput(EConnectionType.FLOW_REF) == 0)
+//                    && (getCurrentActiveLinksNbInput(EConnectionType.FLOW_REF) == 0)
                     && (getCurrentActiveLinksNbInput(EConnectionType.ITERATE) == 0)) {
                 return this;
             }
