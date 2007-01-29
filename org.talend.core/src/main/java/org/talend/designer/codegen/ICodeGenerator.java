@@ -59,6 +59,6 @@ public interface ICodeGenerator {
      */
     public String generateComponentCode(INode node, ECodePart part) throws SystemException;
     
-    public String generateComponentCodeWithRows(INode node);
+    public String generateComponentCodeWithRows(String nodeName);
 
 }
