@@ -82,15 +82,15 @@
    </plugins>
 
    <features>
-      <feature id="org.eclipse.datatools_feature" version="1.0.0"/>
+      <feature id="org.eclipse.datatools_feature" version="1.2.0.qualifier"/>
       <feature id="org.epic_feature" version="0.3.12.qualifier"/>
-      <feature id="org.talend.commons_feature" version="1.0.0.qualifier"/>
-      <feature id="org.talend.core_feature" version="1.0.0.qualifier"/>
-      <feature id="org.talend.designer.business_feature" version="1.0.0.qualifier"/>
-      <feature id="org.talend.designer_feature" version="1.0.0.qualifier"/>
-      <feature id="org.talend.help_feature" version="1.0.0.qualifier"/>
-      <feature id="org.talend.rcp_feature" version="1.0.0.qualifier"/>
-      <feature id="org.talend.repository_feature" version="1.0.0.qualifier"/>
+      <feature id="org.talend.commons_feature" version="1.2.0.qualifier"/>
+      <feature id="org.talend.core_feature" version="1.2.0.qualifier"/>
+      <feature id="org.talend.designer.business_feature" version="1.2.0.qualifier"/>
+      <feature id="org.talend.designer_feature" version="1.2.0.qualifier"/>
+      <feature id="org.talend.help_feature" version="1.2.0.qualifier"/>
+      <feature id="org.talend.rcp_feature" version="1.2.0.qualifier"/>
+      <feature id="org.talend.repository_feature" version="1.2.0.qualifier"/>
    </features>
 
 </product>
