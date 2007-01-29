@@ -27,7 +27,6 @@ import java.util.List;
 import org.eclipse.core.commands.IHandler;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.commands.ActionHandler;
-import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
@@ -47,6 +46,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.Project;
 import org.talend.rcp.Activator;
+import org.talend.rcp.i18n.Messages;
 import org.talend.sqlbuilder.erdiagram.ui.ErDiagramDialog;
 import org.talend.sqlbuilder.ui.SQLBuilderDialog;
 
@@ -83,7 +83,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         Object buildId = Activator.getDefault().getBundle().getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
 
-        configurer.setTitle("Talend Open Studio (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel());
+        String appName = Messages.getString("productLongName");
+        configurer.setTitle(appName + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel());
     }
 
     /*

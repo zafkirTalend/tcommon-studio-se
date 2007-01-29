@@ -27,12 +27,8 @@ import java.util.List;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
-import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.action.ToolBarContributionItem;
-import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.swt.SWT;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
@@ -197,7 +193,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         // Help
         helpMenu.add(introAction);
         helpMenu.add(ActionFactory.HELP_CONTENTS.create(window));
-        helpMenu.add(ActionFactory.ABOUT.create(window));
+        IWorkbenchAction create = ActionFactory.ABOUT.create(window);
+        helpMenu.add(create);
     }
 
     /*
@@ -207,8 +204,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
      */
     @Override
     protected void fillCoolBar(ICoolBarManager coolBar) {
-        IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
-        coolBar.add(new ToolBarContributionItem(toolbar, "main"));
+        // IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
+        // coolBar.add(new ToolBarContributionItem(toolbar, "main"));
 
         // for (IAction action : coolbaractions) {
         // toolbar.add(action);
