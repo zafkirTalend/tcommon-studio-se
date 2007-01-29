@@ -61,6 +61,9 @@ public abstract class MessagesCore {
      * @return the string for the given key in the given resource bundle
      */
     public static String getString(String key, ResourceBundle resourceBundle) {
+        if (resourceBundle == null) {
+            return KEY_NOT_FOUND_PREFIX + key + KEY_NOT_FOUND_SUFFIX;
+        }
         log.trace("Getting key " + key + " in " + resourceBundle.toString());
         try {
             return resourceBundle.getString(key);
