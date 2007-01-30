@@ -16,7 +16,7 @@
             class="org.talend.rcp.perspective.Perspective"
             icon="icons/appli_16x16.png"
             id="org.talend.rcp.perspective"
-            name="%perspective.talend">
+            name="Design Workspace">
       </perspective>
    </extension>
    <extension
@@ -51,7 +51,7 @@
       point="org.eclipse.core.runtime.products">
    <product
          application="org.talend.rcp.application"
-         name="JasperETL">
+         name="Talend">
       <property
             name="startupForegroundColor"
             value="000000"/>
