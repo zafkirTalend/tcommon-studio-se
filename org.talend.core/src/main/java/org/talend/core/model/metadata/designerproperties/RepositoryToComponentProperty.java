@@ -40,6 +40,7 @@ import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.utils.TalendTextUtils;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -120,20 +121,6 @@ public class RepositoryToComponentProperty {
         return "";
     }
 
-    private static String checkStringQuotes(String str) {
-        if (str == null) {
-            return "";
-        }
-        return str.replace("'", "\\'");
-    }
-
-    private static String checkStringQuotationMarks(String str) {
-        if (str == null) {
-            return "";
-        }
-        return str.replace("\"", "\\\"");
-    }
-
     /**
      * DOC nrousseau Comment method "getDatabaseValue".
      * 
@@ -146,29 +133,29 @@ public class RepositoryToComponentProperty {
             return getStandardDbTypeFromConnection(connection.getDatabaseType());
         }
         if (value.equals("SERVER_NAME")) {
-            return "'" + checkStringQuotes(connection.getServerName()) + "'";
+            return TalendTextUtils.addQuotes(connection.getServerName());
         }
         if (value.equals("PORT")) {
-            return "'" + checkStringQuotes(connection.getPort()) + "'";
+            return TalendTextUtils.addQuotes(connection.getPort());
         }
         if (value.equals("SID")) {
             if (("").equals(connection.getSID())) {
-                return "'" + checkStringQuotes(connection.getDatasourceName()) + "'";
+                return  TalendTextUtils.addQuotes(connection.getDatasourceName());
             } else {
-                return "'" + checkStringQuotes(connection.getSID()) + "'";
+                return  TalendTextUtils.addQuotes(connection.getSID());
             }
         }
         if (value.equals("USERNAME")) {
-            return "'" + checkStringQuotes(connection.getUsername()) + "'";
+            return  TalendTextUtils.addQuotes(connection.getUsername());
         }
         if (value.equals("PASSWORD")) {
-            return "'" + checkStringQuotes(connection.getPassword()) + "'";
+            return  TalendTextUtils.addQuotes(connection.getPassword());
         }
         if (value.equals("NULL_CHAR")) {
-            return "'" + checkStringQuotes(connection.getNullChar()) + "'";
+            return  TalendTextUtils.addQuotes(connection.getNullChar());
         }
         if (value.equals("SCHEMA")) {
-            return "'" + checkStringQuotes(connection.getSchema()) + "'";
+            return  TalendTextUtils.addQuotes(connection.getSchema());
         }
         return null;
     }
@@ -183,13 +170,13 @@ public class RepositoryToComponentProperty {
     private static Object getFileValue(FileConnection connection, String value) {
         if (value.equals("FILE_PATH")) {
             Path p = new Path(connection.getFilePath());
-            return "'" + checkStringQuotes(p.toOSString()) + "'";
+            return  TalendTextUtils.addQuotes(p.toOSString());
         }
         if (value.equals("ROW_SEPARATOR")) {
-            return "\"" + checkStringQuotationMarks(connection.getRowSeparatorValue()) + "\"";
+            return  TalendTextUtils.addQuotes(connection.getRowSeparatorValue(), TalendTextUtils.QUOTATION_MARK);
         }
         if (value.equals("FIELD_SEPARATOR")) {
-            return "\"" + checkStringQuotationMarks(connection.getFieldSeparatorValue()) + "\"";
+            return TalendTextUtils.addQuotes(connection.getFieldSeparatorValue(), TalendTextUtils.QUOTATION_MARK);
         }
         if (value.equals("HEADER")) {
             if (connection.isUseHeader()) {
@@ -215,9 +202,9 @@ public class RepositoryToComponentProperty {
         if (value.equals("ENCODING")) {
             if (connection.getEncoding() == null) {
                 // get the default encoding
-                return "'" + checkStringQuotes(EMetadataEncoding.getMetadataEncoding("").getName()) + "'";
+                return TalendTextUtils.addQuotes(EMetadataEncoding.getMetadataEncoding("").getName());
             } else {
-                return "'" + checkStringQuotes(connection.getEncoding()) + "'";
+                return TalendTextUtils.addQuotes(connection.getEncoding());
             }
         }
         if (value.equals("REMOVE_EMPTY_ROW")) {
@@ -248,30 +235,30 @@ public class RepositoryToComponentProperty {
      */
     private static Object getPositionalFileValue(PositionalFileConnection connection, String value) {
         if (value.equals("PATTERN")) {
-            return "'" + checkStringQuotes(connection.getFieldSeparatorValue()) + "'";
+            return TalendTextUtils.addQuotes(connection.getFieldSeparatorValue());
         }
         return null;
     }
 
     private static Object getDelimitedFileValue(DelimitedFileConnection connection, String value) {
         if (value.equals("ESCAPE_CHAR")) {
-            return "'" + checkStringQuotes(connection.getEscapeChar()) + "'";
+            return TalendTextUtils.addQuotes(connection.getEscapeChar());
         }
         if (value.equals("TEXT_ENCLOSURE")) {
-            return "'" + checkStringQuotes(connection.getTextEnclosure()) + "'";
+            return TalendTextUtils.addQuotes(connection.getTextEnclosure());
         }
         return null;
     }
 
     private static Object getRegexpFileValue(RegexpFileConnection connection, String value) {
         if (value.equals("ESCAPE_CHAR")) {
-            return "'" + checkStringQuotes(connection.getEscapeChar()) + "'";
+            return TalendTextUtils.addQuotes(connection.getEscapeChar());
         }
         if (value.equals("TEXT_ENCLOSURE")) {
-            return "'" + checkStringQuotes(connection.getTextEnclosure()) + "'";
+            return TalendTextUtils.addQuotes(connection.getTextEnclosure());
         }
         if (value.equals("REGEXP")) {
-            return "'" + checkStringQuotes(connection.getFieldSeparatorValue()) + "'";
+            return TalendTextUtils.addQuotes(connection.getFieldSeparatorValue());
         }
         return null;
     }
@@ -281,20 +268,20 @@ public class RepositoryToComponentProperty {
         XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) list.get(0);
         if (value.equals("FILE_PATH")) {
             Path p = new Path(connection.getXmlFilePath());
-            return "'" + checkStringQuotes(p.toOSString()) + "'";
+            return TalendTextUtils.addQuotes(p.toOSString());
         }
         if (value.equals("LIMIT")) {
             if ((xmlDesc == null) || (xmlDesc.getLimitBoucle() == null)) {
                 return "";
             } else {
-                return "'" + checkStringQuotes(xmlDesc.getLimitBoucle().toString()) + "'";
+                return TalendTextUtils.addQuotes(xmlDesc.getLimitBoucle().toString());
             }
         }
         if (value.equals("XPATH_QUERY")) {
             if (xmlDesc == null) {
-                return "''";
+                return "";
             } else {
-                return "'" + checkStringQuotes(xmlDesc.getAbsoluteXPathQuery()) + "'";
+                return TalendTextUtils.addQuotes(xmlDesc.getAbsoluteXPathQuery());
             }
         }
         return null;
@@ -329,9 +316,8 @@ public class RepositoryToComponentProperty {
                             if (metaTable != null) {
                                 if (metaTable.getListColumns().size() > k) {
                                     SchemaTarget schemaTarget = (SchemaTarget) schemaList.get(k);
-                                    String strValue = "'"
-                                            + checkStringQuotes(schemaTarget
-                                                    .getRelativeXPathQuery()) + "'";
+                                    String strValue = TalendTextUtils.addQuotes(schemaTarget
+                                                    .getRelativeXPathQuery());
                                     line.put(names[column], strValue);
                                 }
                             }
