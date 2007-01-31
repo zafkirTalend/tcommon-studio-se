@@ -27,6 +27,7 @@ import java.util.List;
 
 import org.apache.commons.collections.map.MultiValueMap;
 import org.talend.core.model.process.Problem;
+import org.talend.designer.codegen.IAloneProcessNodeConfigurer;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -45,8 +46,9 @@ public abstract class CodeProblemsChecker implements ICodeProblemsChecker {
      * 
      * @see org.talend.core.language.ICodeProblemsChecker#checkProblemsFromKey(java.lang.String)
      */
-    public List<Problem> checkProblemsFromKey(String key) {
-        List<Problem> problems = checkProblems();
+    public List<Problem> checkProblemsFromKey(String key, IAloneProcessNodeConfigurer nodeConfigurer) {
+        List<Problem> problems = checkProblems(nodeConfigurer);
+        setProblems(new ArrayList<Problem>(problems));
         if (problems == null) {
             problems = null;
         } else {
@@ -62,7 +64,6 @@ public abstract class CodeProblemsChecker implements ICodeProblemsChecker {
                 problems = new ArrayList<Problem>(problems);
             }
         }
-        setProblems(problems);
         return problems;
     }
 

@@ -59,6 +59,13 @@ public interface ICodeGenerator {
      */
     public String generateComponentCode(INode node, ECodePart part) throws SystemException;
     
-    public String generateComponentCodeWithRows(String nodeName);
+    /**
+     * Generate Part Code for a given node, with optional nodeConfigurer.
+     * 
+     * @param node
+     * @param nodeConfigurer allows to configure thr process node, can be null
+     * @return generated code
+     */
+    public String generateComponentCodeWithRows(String nodeName, IAloneProcessNodeConfigurer nodeConfigurer);
 
 }

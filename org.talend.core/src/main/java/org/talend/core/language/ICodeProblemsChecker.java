@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.talend.core.model.process.Problem;
+import org.talend.designer.codegen.IAloneProcessNodeConfigurer;
 
 /**
  * DOC amaumont  class global comment. Detailled comment
@@ -35,11 +36,31 @@ import org.talend.core.model.process.Problem;
  */
 public interface ICodeProblemsChecker {
 
-    public abstract List<Problem> checkProblems(String expression);
+    public abstract List<Problem> checkProblemsForExpression(String code);
 
-    public abstract List<Problem> checkProblems();
+    /**
+     * 
+     * Force code generation, check all problems and load problems in cache.
+     * @param externalData TODO
+     * @return
+     */
+    public abstract List<Problem> checkProblems(IAloneProcessNodeConfigurer nodeConfigurer);
     
-    public abstract List<Problem> checkProblemsFromKey(String key);
+    /**
+     * 
+     * Force code generation, check problems which matches with given key and load all problems in cache.
+     * @param key
+     * @param externalData 
+     * @return
+     */
+    public abstract List<Problem> checkProblemsFromKey(String key, IAloneProcessNodeConfigurer nodeConfigurer);
     
+    /**
+     * 
+     * Use cache of problems and get problems.
+     * @param key
+     * @return
+     */
     public abstract List<Problem> getProblemsFromKey(String key);
+    
 }

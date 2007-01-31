@@ -64,6 +64,8 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
     public static final String ID_COLUMN_KEY = "ID_COLUMN_KEY";
 
+    public static final String ID_COLUMN_TYPE = "ID_COLUMN_TYPE";
+    
     /**
      * DOC amaumont MetadataTableEditorView constructor comment.
      * 
@@ -243,6 +245,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Type");
+        column.setId(ID_COLUMN_TYPE);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
 
             public String get(IMetadataColumn bean) {

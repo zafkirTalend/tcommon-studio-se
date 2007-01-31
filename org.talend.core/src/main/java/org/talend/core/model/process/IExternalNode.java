@@ -58,8 +58,23 @@ public interface IExternalNode extends INode {
 
     public Object getExternalData();
 
+    /**
+     * 
+     * ExternalData to Xml.
+     * @param out
+     * @param writer
+     * @throws IOException
+     */
     public void loadDataOut(OutputStream out, Writer writer) throws IOException;
 
+    /**
+     * 
+     * Xml to ExternalData.
+     * @param inputStream
+     * @param reader
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public void loadDataIn(InputStream inputStream, Reader reader) throws IOException, ClassNotFoundException;
 
     public List<Problem> getProblems();

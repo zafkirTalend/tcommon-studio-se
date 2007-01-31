@@ -69,6 +69,14 @@ public class IODataComponent {
     public String getName() {
         return connection.getName();
     }
+    
+    /**
+     * Getter for connection.
+     * @return the connection
+     */
+    public IConnection getConnection() {
+        return this.connection;
+    }
 
     public EConnectionType getConnectionType() {
         return connection.getLineStyle();
