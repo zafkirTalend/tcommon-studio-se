@@ -603,8 +603,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         IFolder bin = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToDelete.getType())
                 + IPath.SEPARATOR + BIN, true);
 
-        List<IRepositoryObject> allVersionToDelete = getSerializable(getRepositoryContext().getProject(), objToDelete.getId(),
-                true);
+        List<IRepositoryObject> allVersionToDelete = getAllVersion(objToDelete.getId());
         for (IRepositoryObject currentVersion : allVersionToDelete) {
             ItemState state = objToDelete.getProperty().getItem().getState();
             state.setDeleted(true);
@@ -623,8 +622,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void deleteObjectPhysical(IRepositoryObject objToDelete) throws PersistenceException {
-        List<IRepositoryObject> allVersionToDelete = getSerializable(getRepositoryContext().getProject(), objToDelete.getId(),
-                true);
+        List<IRepositoryObject> allVersionToDelete = getAllVersion(objToDelete.getId());
         for (IRepositoryObject currentVersion : allVersionToDelete) {
             List<Resource> affectedResources = xmiResourceManager.getAffectedResources(currentVersion.getProperty());
             for (Resource resource : affectedResources) {
@@ -640,8 +638,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // IPath thePath = (path == null ? typeRootFolder.getFullPath() : typeRootFolder.getFullPath().append(path));
         org.talend.core.model.properties.Project project = xmiResourceManager.loadProject(getProject());
 
-        List<IRepositoryObject> allVersionToDelete = getSerializable(getRepositoryContext().getProject(), objToRestore.getId(),
-                true);
+        List<IRepositoryObject> allVersionToDelete = getAllVersion(objToRestore.getId());
         for (IRepositoryObject currentVersion : allVersionToDelete) {
             ItemState itemState = currentVersion.getProperty().getItem().getState();
             itemState.setDeleted(false);
@@ -678,7 +675,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         String folderName = ERepositoryObjectType.getFolderName(objToMove.getType()) + IPath.SEPARATOR + newPath;
         IFolder folder = ResourceUtils.getFolder(fsProject, folderName, true);
 
-        List<IRepositoryObject> allVersionToMove = getSerializable(getRepositoryContext().getProject(), objToMove.getId(), true);
+        List<IRepositoryObject> allVersionToMove = getAllVersion(objToMove.getId());
         for (IRepositoryObject obj : allVersionToMove) {
             ItemState state = obj.getProperty().getItem().getState();
             state.setPath(newPath.toString());
@@ -912,7 +909,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private void propagateFileName(Property property) throws PersistenceException {
-        List<IRepositoryObject> allVersionToMove = getSerializable(getRepositoryContext().getProject(), property.getId(), true);
+        List<IRepositoryObject> allVersionToMove = getAllVersion(property.getId());
         for (IRepositoryObject object : allVersionToMove) {
             xmiResourceManager.propagateFileName(property, object.getProperty());
         }
@@ -1112,6 +1109,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         return ERepositoryStatus.DEFAULT;
+    }
+
+    @Override
+    protected Object getFolder(Project project, ERepositoryObjectType repositoryObjectType) throws PersistenceException {
+        IProject fsProject = ResourceModelUtils.getProject(project);
+        return ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(repositoryObjectType), true);
     }
 
 }
