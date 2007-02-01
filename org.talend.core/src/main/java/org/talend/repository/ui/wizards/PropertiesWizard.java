@@ -126,11 +126,15 @@ public class PropertiesWizard extends Wizard {
 
     @Override
     public boolean performCancel() {
-        reloadProperty();
+        try {
+            reloadProperty();
+        } catch (PersistenceException e) {
+            MessageBoxExceptionHandler.process(e);
+        }
         return true;
     }
 
-    private void reloadProperty() {
+    private void reloadProperty() throws PersistenceException {
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         Property property = repositoryFactory.reload(object.getProperty());
         object.setProperty(property);
