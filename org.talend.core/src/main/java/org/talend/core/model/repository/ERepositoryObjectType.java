@@ -97,7 +97,7 @@ public enum ERepositoryObjectType {
      * 
      * @return the key
      */
-    private String getKey() {
+    public String getKey() {
         return this.key;
     }
 
