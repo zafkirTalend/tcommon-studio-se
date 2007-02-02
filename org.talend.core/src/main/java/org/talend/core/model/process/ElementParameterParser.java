@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.talend.commons.utils.generation.CodeGenerationUtils;
+
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -37,7 +39,7 @@ public final class ElementParameterParser {
     private ElementParameterParser() {
     }
 
-    public static String getValue(final IElement element, final String text) {
+    public static String getValue(final IElement node, final String text) {
         String newText = new String(""); //$NON-NLS-1$
         if (text == null) {
             return newText;
@@ -45,14 +47,28 @@ public final class ElementParameterParser {
         IElementParameter param;
         boolean end = false;
 
-        for (int i = 0; i < element.getElementParameters().size() && !end; i++) {
-            param = (IElementParameter) element.getElementParameters().get(i);
+        for (int i = 0; i < node.getElementParameters().size() && !end; i++) {
+            param = (IElementParameter) node.getElementParameters().get(i);
             if (text.indexOf(param.getVariableName()) != -1) {
                 newText = getDisplayValue(param);
                 end = true;
             }
         }
         return newText;
+    }
+
+    /**
+     * Prefixes and suffixes a Java comment to match Java code problems with UI designer fields.
+     * 
+     * @param node
+     * @param text
+     * @param fieldName name of field declared in xml component file (or other value for a manual processing) 
+     * @return
+     */
+    public static String getValueWithUIFieldKey(final INode node, final String text, String fieldName) {
+        String value = getValue(node, text);
+        String key = CodeGenerationUtils.buildProblemKey(node.getUniqueName(), fieldName);
+        return CodeGenerationUtils.buildJavaStartFieldKey(key) + value + CodeGenerationUtils.buildJavaEndFieldKey(key);
     }
 
     /**
@@ -80,8 +96,7 @@ public final class ElementParameterParser {
         return null;
     }
 
-    private static List<Map<String, String>> createTableValues(final List<Map<String, Object>> paramValues,
-            final IElementParameter param) {
+    private static List<Map<String, String>> createTableValues(final List<Map<String, Object>> paramValues, final IElementParameter param) {
         List<Map<String, String>> tableValues = new ArrayList<Map<String, String>>();
         for (Map<String, Object> currentLine : paramValues) {
             tableValues.add(copyLine(currentLine, param));
@@ -141,8 +156,7 @@ public final class ElementParameterParser {
         return null;
     }
 
-    private static List<Map<String, String>> createTableValuesXML(final List<Map<String, Object>> paramValues,
-            final IElementParameter param) {
+    private static List<Map<String, String>> createTableValuesXML(final List<Map<String, Object>> paramValues, final IElementParameter param) {
         List<Map<String, String>> tableValues = new ArrayList<Map<String, String>>();
         for (Map<String, Object> currentLine : paramValues) {
             tableValues.add(copyLineXML(currentLine, param));

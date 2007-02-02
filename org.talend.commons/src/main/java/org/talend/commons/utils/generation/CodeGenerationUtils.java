@@ -32,7 +32,11 @@ package org.talend.commons.utils.generation;
 public class CodeGenerationUtils {
 
     public static final String PROBLEM_KEY_FIELD_SEPARATOR = ":";
+    
+    public static final String START_FIELD = "Start field";
 
+    public static final String END_FIELD = "End field";
+    
     /**
      * DOC amaumont Comment method "buildProblemKey".
      * 
@@ -63,8 +67,8 @@ public class CodeGenerationUtils {
      * @param expression
      * @return
      */
-    public static String buildStartFieldKey(String key) {
-        return "\n// Start field " + key + "\n";
+    public static String buildJavaStartFieldKey(String key) {
+        return "/** "+ START_FIELD +" " + key + " */";
     }
 
     /**
@@ -73,8 +77,8 @@ public class CodeGenerationUtils {
      * @param key
      * @return
      */
-    public static String buildEndFieldKey(String key) {
-        return "\n// End field " + key + "\n";
+    public static String buildJavaEndFieldKey(String key) {
+        return "/** "+ END_FIELD +" " + key + " */";
     }
 
 
