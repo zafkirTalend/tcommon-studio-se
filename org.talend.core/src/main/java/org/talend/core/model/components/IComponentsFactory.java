@@ -33,7 +33,9 @@ public interface IComponentsFactory {
 
     String COMPONENTS_LOCATION = "org.talend.designer.components.localprovider";
 
-    String COMPONENTS_DIRECTORY = "components";
+    String COMPONENTS_INNER_FOLDER = "components";
+
+    String COMPONENTS_USER_INNER_FOLDER = "user";
 
     public void init();
 

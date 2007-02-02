@@ -78,7 +78,7 @@ public interface IComponent {
     public Boolean isMultipleMethods();
 
     public Boolean hasConditionalOutputs();
-    
+
     public String getPluginFullName();
 
     public boolean isSchemaAutoPropagated();
@@ -94,4 +94,6 @@ public interface IComponent {
     public boolean isVisible();
 
     public List<ModuleNeeded> getModulesNeeded();
+
+    public String getPathSource();
 }

@@ -23,9 +23,10 @@ package org.talend.repository.model;
 
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.IllegalPluginConfigurationException;
-import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.components.IComponentFileNaming;
 import org.talend.core.model.components.IComponentsFactory;
-import org.talend.repository.model.extensions.ExtensionPointFactory;
+import org.talend.core.model.components.IComponentsService;
 
 /**
  * Provides, using extension points, implementation of many factories.
@@ -38,16 +39,35 @@ import org.talend.repository.model.extensions.ExtensionPointFactory;
  */
 public class ComponentsFactoryProvider {
 
-    private static IComponentsFactory processSingleton = null;
+    private static IComponentsFactory factorySingleton = null;
+
+    private static IComponentFileNaming componentFileNaming = null;
 
     public static IComponentsFactory getInstance() {
-        if (processSingleton == null) {
+        if (factorySingleton == null) {
             try {
-                processSingleton = ExtensionImplementationProviders.getSingleInstance(ExtensionPointFactory.COMPONENTS_PROVIDER);
+                // processSingleton =
+                // ExtensionImplementationProviders.getSingleInstance(ExtensionPointFactory.COMPONENTS_PROVIDER);
+                IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                        IComponentsService.class);
+                factorySingleton = service.getComponentsFactory();
             } catch (IllegalPluginConfigurationException e) {
                 ExceptionHandler.process(e);
             }
         }
-        return processSingleton;
+        return factorySingleton;
+    }
+
+    public static IComponentFileNaming getFileNamingInstance() {
+        if (componentFileNaming == null) {
+            try {
+                IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                        IComponentsService.class);
+                componentFileNaming = service.getComponentFileNaming();
+            } catch (IllegalPluginConfigurationException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+        return componentFileNaming;
     }
 }
