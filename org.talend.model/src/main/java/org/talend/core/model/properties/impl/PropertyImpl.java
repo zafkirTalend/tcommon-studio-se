@@ -650,9 +650,9 @@ public class PropertyImpl extends EObjectImpl implements Property {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer();
-        result.append("(id: ");
+        result.append("(id: "); //$NON-NLS-1$
         result.append(id);
-        result.append(", label: ");
+        result.append(", label: "); //$NON-NLS-1$
         result.append(label);
         result.append(')');
         return result.toString();

@@ -36,7 +36,7 @@ public class RepositoryImpl extends EObjectImpl implements Repository {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getTalenditems() <em>Talenditems</em>}' containment reference list. <!--

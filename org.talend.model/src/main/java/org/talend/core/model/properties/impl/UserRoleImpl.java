@@ -253,11 +253,11 @@ public class UserRoleImpl extends EObjectImpl implements UserRole {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: ");
+        result.append(" (id: "); //$NON-NLS-1$
         result.append(id);
-        result.append(", name: ");
+        result.append(", name: "); //$NON-NLS-1$
         result.append(name);
-        result.append(", localizedLabel: ");
+        result.append(", localizedLabel: "); //$NON-NLS-1$
         result.append(localizedLabel);
         result.append(')');
         return result.toString();

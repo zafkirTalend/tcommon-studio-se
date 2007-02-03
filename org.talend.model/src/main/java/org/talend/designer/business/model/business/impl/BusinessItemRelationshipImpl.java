@@ -33,7 +33,7 @@ public class BusinessItemRelationshipImpl extends BusinessItemImpl implements Bu
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getSource() <em>Source</em>}' reference.

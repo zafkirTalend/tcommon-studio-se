@@ -741,7 +741,7 @@ public class UserImpl extends EObjectImpl implements User {
 
     public String toString() {
         if (firstName != null && lastName != null)
-            return lastName + ", " + firstName;
+            return lastName + ", " + firstName; //$NON-NLS-1$
 
         return login;
     }

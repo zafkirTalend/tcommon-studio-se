@@ -922,25 +922,25 @@ public class ProjectImpl extends EObjectImpl implements Project {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: ");
+        result.append(" (id: "); //$NON-NLS-1$
         result.append(id);
-        result.append(", label: ");
+        result.append(", label: "); //$NON-NLS-1$
         result.append(label);
-        result.append(", description: ");
+        result.append(", description: "); //$NON-NLS-1$
         result.append(description);
-        result.append(", language: ");
+        result.append(", language: "); //$NON-NLS-1$
         result.append(language);
-        result.append(", technicalLabel: ");
+        result.append(", technicalLabel: "); //$NON-NLS-1$
         result.append(technicalLabel);
-        result.append(", local: ");
+        result.append(", local: "); //$NON-NLS-1$
         result.append(local);
-        result.append(", deleted: ");
+        result.append(", deleted: "); //$NON-NLS-1$
         result.append(deleted);
-        result.append(", deleteDate: ");
+        result.append(", deleteDate: "); //$NON-NLS-1$
         result.append(deleteDate);
-        result.append(", creationDate: ");
+        result.append(", creationDate: "); //$NON-NLS-1$
         result.append(creationDate);
-        result.append(", migrationTasks: ");
+        result.append(", migrationTasks: "); //$NON-NLS-1$
         result.append(migrationTasks);
         result.append(')');
         return result.toString();

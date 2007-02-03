@@ -29,28 +29,28 @@ public interface BusinessPackage extends EPackage {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String copyright = "";
+    String copyright = ""; //$NON-NLS-1$
 
     /**
      * The package name.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String eNAME = "business";
+    String eNAME = "business"; //$NON-NLS-1$
 
     /**
      * The package namespace URI.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String eNS_URI = "business";
+    String eNS_URI = "business"; //$NON-NLS-1$
 
     /**
      * The package namespace name.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "business";
+    String eNS_PREFIX = "business"; //$NON-NLS-1$
 
     /**
      * The singleton instance of the package.

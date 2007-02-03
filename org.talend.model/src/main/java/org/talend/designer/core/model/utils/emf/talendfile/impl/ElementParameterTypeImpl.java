@@ -308,11 +308,11 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (field: ");
+        result.append(" (field: "); //$NON-NLS-1$
         result.append(field);
-        result.append(", name: ");
+        result.append(", name: "); //$NON-NLS-1$
         result.append(name);
-        result.append(", value: ");
+        result.append(", value: "); //$NON-NLS-1$
         result.append(value);
         result.append(')');
         return result.toString();

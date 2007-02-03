@@ -240,7 +240,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties DATABASE_TYPE_LITERAL = new DatabaseProperties(DATABASE_TYPE, "DatabaseType", "DatabaseType");
+    public static final DatabaseProperties DATABASE_TYPE_LITERAL = new DatabaseProperties(DATABASE_TYPE, "DatabaseType", "DatabaseType"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Driver Class</b></em>' literal object.
@@ -250,7 +250,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties DRIVER_CLASS_LITERAL = new DatabaseProperties(DRIVER_CLASS, "DriverClass", "DriverClass");
+    public static final DatabaseProperties DRIVER_CLASS_LITERAL = new DatabaseProperties(DRIVER_CLASS, "DriverClass", "DriverClass"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>URL</b></em>' literal object.
@@ -260,7 +260,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties URL_LITERAL = new DatabaseProperties(URL, "URL", "URL");
+    public static final DatabaseProperties URL_LITERAL = new DatabaseProperties(URL, "URL", "URL"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Port</b></em>' literal object.
@@ -270,7 +270,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties PORT_LITERAL = new DatabaseProperties(PORT, "Port", "Port");
+    public static final DatabaseProperties PORT_LITERAL = new DatabaseProperties(PORT, "Port", "Port"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Username</b></em>' literal object.
@@ -280,7 +280,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties USERNAME_LITERAL = new DatabaseProperties(USERNAME, "Username", "Username");
+    public static final DatabaseProperties USERNAME_LITERAL = new DatabaseProperties(USERNAME, "Username", "Username"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Password</b></em>' literal object.
@@ -290,7 +290,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties PASSWORD_LITERAL = new DatabaseProperties(PASSWORD, "Password", "Password");
+    public static final DatabaseProperties PASSWORD_LITERAL = new DatabaseProperties(PASSWORD, "Password", "Password"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Server Name</b></em>' literal object.
@@ -300,7 +300,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties SERVER_NAME_LITERAL = new DatabaseProperties(SERVER_NAME, "ServerName", "ServerName");
+    public static final DatabaseProperties SERVER_NAME_LITERAL = new DatabaseProperties(SERVER_NAME, "ServerName", "ServerName"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Datasource Name</b></em>' literal object.
@@ -310,7 +310,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties DATASOURCE_NAME_LITERAL = new DatabaseProperties(DATASOURCE_NAME, "DatasourceName", "DatasourceName");
+    public static final DatabaseProperties DATASOURCE_NAME_LITERAL = new DatabaseProperties(DATASOURCE_NAME, "DatasourceName", "DatasourceName"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>File Field Name</b></em>' literal object.
@@ -320,7 +320,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties FILE_FIELD_NAME_LITERAL = new DatabaseProperties(FILE_FIELD_NAME, "FileFieldName", "FileFieldName");
+    public static final DatabaseProperties FILE_FIELD_NAME_LITERAL = new DatabaseProperties(FILE_FIELD_NAME, "FileFieldName", "FileFieldName"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Schema</b></em>' literal object.
@@ -330,7 +330,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties SCHEMA_LITERAL = new DatabaseProperties(SCHEMA, "Schema", "Schema");
+    public static final DatabaseProperties SCHEMA_LITERAL = new DatabaseProperties(SCHEMA, "Schema", "Schema"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>SID</b></em>' literal object.
@@ -340,7 +340,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties SID_LITERAL = new DatabaseProperties(SID, "SID", "SID");
+    public static final DatabaseProperties SID_LITERAL = new DatabaseProperties(SID, "SID", "SID"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Sql Synthax</b></em>' literal object.
@@ -350,7 +350,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties SQL_SYNTHAX_LITERAL = new DatabaseProperties(SQL_SYNTHAX, "SqlSynthax", "SqlSynthax");
+    public static final DatabaseProperties SQL_SYNTHAX_LITERAL = new DatabaseProperties(SQL_SYNTHAX, "SqlSynthax", "SqlSynthax"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>String Quote</b></em>' literal object.
@@ -360,7 +360,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties STRING_QUOTE_LITERAL = new DatabaseProperties(STRING_QUOTE, "StringQuote", "StringQuote");
+    public static final DatabaseProperties STRING_QUOTE_LITERAL = new DatabaseProperties(STRING_QUOTE, "StringQuote", "StringQuote"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Null Char</b></em>' literal object.
@@ -370,7 +370,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final DatabaseProperties NULL_CHAR_LITERAL = new DatabaseProperties(NULL_CHAR, "NullChar", "NullChar");
+    public static final DatabaseProperties NULL_CHAR_LITERAL = new DatabaseProperties(NULL_CHAR, "NullChar", "NullChar"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * An array of all the '<em><b>Database Properties</b></em>' enumerators.

@@ -23,7 +23,7 @@ public class ListBusinessItemImpl extends BusinessItemShapeImpl implements ListB
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

@@ -72,7 +72,7 @@ public final class FolderType extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FolderType FOLDER_LITERAL = new FolderType(FOLDER, "FOLDER", "FOLDER");
+    public static final FolderType FOLDER_LITERAL = new FolderType(FOLDER, "FOLDER", "FOLDER"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>SYSTEM FOLDER</b></em>' literal object.
@@ -81,7 +81,7 @@ public final class FolderType extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FolderType SYSTEM_FOLDER_LITERAL = new FolderType(SYSTEM_FOLDER, "SYSTEM_FOLDER", "SYSTEM_FOLDER");
+    public static final FolderType SYSTEM_FOLDER_LITERAL = new FolderType(SYSTEM_FOLDER, "SYSTEM_FOLDER", "SYSTEM_FOLDER"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>STABLE SYSTEM FOLDER</b></em>' literal object.
@@ -90,7 +90,7 @@ public final class FolderType extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FolderType STABLE_SYSTEM_FOLDER_LITERAL = new FolderType(STABLE_SYSTEM_FOLDER, "STABLE_SYSTEM_FOLDER", "STABLE_SYSTEM_FOLDER");
+    public static final FolderType STABLE_SYSTEM_FOLDER_LITERAL = new FolderType(STABLE_SYSTEM_FOLDER, "STABLE_SYSTEM_FOLDER", "STABLE_SYSTEM_FOLDER"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * An array of all the '<em><b>Folder Type</b></em>' enumerators.

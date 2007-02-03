@@ -32,21 +32,21 @@ public interface ConnectionPackage extends EPackage {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String eNAME = "connection";
+    String eNAME = "connection"; //$NON-NLS-1$
 
     /**
      * The package namespace URI.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String eNS_URI = "http://www.talend.org";
+    String eNS_URI = "http://www.talend.org"; //$NON-NLS-1$
 
     /**
      * The package namespace name.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "TalendMetadata";
+    String eNS_PREFIX = "TalendMetadata"; //$NON-NLS-1$
 
     /**
      * The singleton instance of the package.

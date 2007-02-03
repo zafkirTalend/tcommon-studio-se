@@ -37,7 +37,7 @@ public class ComponentXMLProcessor extends XMLProcessor {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     protected Map getRegistrations() {
         if (registrations == null) {
             super.getRegistrations();

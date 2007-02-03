@@ -67,7 +67,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * @generated
      * @ordered
      */
-    protected static final String DEFAULT_VALUE_EDEFAULT = "";
+    protected static final String DEFAULT_VALUE_EDEFAULT = ""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
@@ -187,7 +187,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * @generated
      * @ordered
      */
-	protected static final String ORIGINAL_FIELD_EDEFAULT = "";
+	protected static final String ORIGINAL_FIELD_EDEFAULT = ""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getOriginalField() <em>Original Field</em>}' attribute.
@@ -397,7 +397,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     public void setTable(MetadataTable newTable) {
         if (newTable != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.METADATA_COLUMN__TABLE && newTable != null)) {
             if (EcoreUtil.isAncestor(this, newTable))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
@@ -615,21 +615,21 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (sourceType: ");
+        result.append(" (sourceType: "); //$NON-NLS-1$
         result.append(sourceType);
-        result.append(", defaultValue: ");
+        result.append(", defaultValue: "); //$NON-NLS-1$
         result.append(defaultValue);
-        result.append(", talendType: ");
+        result.append(", talendType: "); //$NON-NLS-1$
         result.append(talendType);
-        result.append(", key: ");
+        result.append(", key: "); //$NON-NLS-1$
         result.append(key);
-        result.append(", nullable: ");
+        result.append(", nullable: "); //$NON-NLS-1$
         result.append(nullable);
-        result.append(", length: ");
+        result.append(", length: "); //$NON-NLS-1$
         result.append(length);
-        result.append(", precision: ");
+        result.append(", precision: "); //$NON-NLS-1$
         result.append(precision);
-        result.append(", originalField: ");
+        result.append(", originalField: "); //$NON-NLS-1$
         result.append(originalField);
         result.append(')');
         return result.toString();

@@ -150,7 +150,7 @@ public class DelimitedFileConnectionImpl extends FileConnectionImpl implements D
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (FieldSeparatorType: ");
+        result.append(" (FieldSeparatorType: "); //$NON-NLS-1$
         result.append(fieldSeparatorType);
         result.append(')');
         return result.toString();

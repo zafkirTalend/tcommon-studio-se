@@ -597,19 +597,19 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (comment: ");
+        result.append(" (comment: "); //$NON-NLS-1$
         result.append(comment);
-        result.append(", key: ");
-        if (keyESet) result.append(key); else result.append("<unset>");
-        result.append(", length: ");
-        if (lengthESet) result.append(length); else result.append("<unset>");
-        result.append(", name: ");
+        result.append(", key: "); //$NON-NLS-1$
+        if (keyESet) result.append(key); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", length: "); //$NON-NLS-1$
+        if (lengthESet) result.append(length); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", name: "); //$NON-NLS-1$
         result.append(name);
-        result.append(", nullable: ");
-        if (nullableESet) result.append(nullable); else result.append("<unset>");
-        result.append(", precision: ");
-        if (precisionESet) result.append(precision); else result.append("<unset>");
-        result.append(", type: ");
+        result.append(", nullable: "); //$NON-NLS-1$
+        if (nullableESet) result.append(nullable); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", precision: "); //$NON-NLS-1$
+        if (precisionESet) result.append(precision); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", type: "); //$NON-NLS-1$
         result.append(type);
         result.append(')');
         return result.toString();

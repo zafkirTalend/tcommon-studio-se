@@ -24,9 +24,9 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Status extends EObject {
 
-    public static final String TECHNICAL_STATUS = "org.talend.repository.properties.status.technical";
+    public static final String TECHNICAL_STATUS = "org.talend.repository.properties.status.technical"; //$NON-NLS-1$
 
-    public static final String DOCUMENTATION_STATUS = "org.talend.repository.properties.status.documentation";
+    public static final String DOCUMENTATION_STATUS = "org.talend.repository.properties.status.documentation"; //$NON-NLS-1$
 
     /**
      * Returns the value of the '<em><b>Label</b></em>' attribute.

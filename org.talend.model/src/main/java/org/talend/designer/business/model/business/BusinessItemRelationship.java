@@ -27,7 +27,7 @@ public interface BusinessItemRelationship extends BusinessItem {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String copyright = "";
+    String copyright = ""; //$NON-NLS-1$
 
     /**
      * Returns the value of the '<em><b>Source</b></em>' reference.

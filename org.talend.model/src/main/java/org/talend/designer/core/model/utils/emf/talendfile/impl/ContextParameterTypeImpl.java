@@ -443,17 +443,17 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (comment: ");
+        result.append(" (comment: "); //$NON-NLS-1$
         result.append(comment);
-        result.append(", name: ");
+        result.append(", name: "); //$NON-NLS-1$
         result.append(name);
-        result.append(", prompt: ");
+        result.append(", prompt: "); //$NON-NLS-1$
         result.append(prompt);
-        result.append(", promptNeeded: ");
-        if (promptNeededESet) result.append(promptNeeded); else result.append("<unset>");
-        result.append(", type: ");
+        result.append(", promptNeeded: "); //$NON-NLS-1$
+        if (promptNeededESet) result.append(promptNeeded); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", type: "); //$NON-NLS-1$
         result.append(type);
-        result.append(", value: ");
+        result.append(", value: "); //$NON-NLS-1$
         result.append(value);
         result.append(')');
         return result.toString();

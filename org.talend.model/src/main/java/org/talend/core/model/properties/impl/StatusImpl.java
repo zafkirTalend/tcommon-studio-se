@@ -188,9 +188,9 @@ public class StatusImpl extends EObjectImpl implements Status {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (label: ");
+        result.append(" (label: "); //$NON-NLS-1$
         result.append(label);
-        result.append(", code: ");
+        result.append(", code: "); //$NON-NLS-1$
         result.append(code);
         result.append(')');
         return result.toString();

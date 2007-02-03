@@ -51,7 +51,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
      */
     public static ComponentFactory init() {
         try {
-            ComponentFactory theComponentFactory = (ComponentFactory)EPackage.Registry.INSTANCE.getEFactory("platform:/resource/org.talend.model/model/Component.xsd"); 
+            ComponentFactory theComponentFactory = (ComponentFactory)EPackage.Registry.INSTANCE.getEFactory("platform:/resource/org.talend.model/model/Component.xsd");  //$NON-NLS-1$
             if (theComponentFactory != null) {
                 return theComponentFactory;
             }
@@ -102,7 +102,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
             case ComponentPackage.TEMPLATES_TYPE: return createTEMPLATESType();
             case ComponentPackage.TEMPLATE_TYPE: return createTEMPLATEType();
             default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 

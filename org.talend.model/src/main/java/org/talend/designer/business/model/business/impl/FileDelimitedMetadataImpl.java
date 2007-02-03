@@ -25,7 +25,7 @@ public class FileDelimitedMetadataImpl extends TalendItemImpl implements FileDel
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * <!-- begin-user-doc -->

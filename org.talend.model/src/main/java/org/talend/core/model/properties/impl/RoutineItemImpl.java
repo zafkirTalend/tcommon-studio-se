@@ -143,7 +143,7 @@ public class RoutineItemImpl extends FileItemImpl implements RoutineItem {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (builtIn: ");
+        result.append(" (builtIn: "); //$NON-NLS-1$
         result.append(builtIn);
         result.append(')');
         return result.toString();

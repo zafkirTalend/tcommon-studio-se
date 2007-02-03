@@ -75,7 +75,7 @@ public final class FileFormat extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FileFormat UNIX_LITERAL = new FileFormat(UNIX, "UNIX", "UNIX");
+    public static final FileFormat UNIX_LITERAL = new FileFormat(UNIX, "UNIX", "UNIX"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>MAC</b></em>' literal object.
@@ -85,7 +85,7 @@ public final class FileFormat extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FileFormat MAC_LITERAL = new FileFormat(MAC, "MAC", "MAC");
+    public static final FileFormat MAC_LITERAL = new FileFormat(MAC, "MAC", "MAC"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>WINDOWS</b></em>' literal object.
@@ -95,7 +95,7 @@ public final class FileFormat extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FileFormat WINDOWS_LITERAL = new FileFormat(WINDOWS, "WINDOWS", "WINDOWS");
+    public static final FileFormat WINDOWS_LITERAL = new FileFormat(WINDOWS, "WINDOWS", "WINDOWS"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * An array of all the '<em><b>File Format</b></em>' enumerators.

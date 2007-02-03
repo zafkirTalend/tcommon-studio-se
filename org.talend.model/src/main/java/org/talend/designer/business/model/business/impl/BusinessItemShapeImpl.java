@@ -36,7 +36,7 @@ public abstract class BusinessItemShapeImpl extends BusinessItemImpl implements 
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getIncomingRelationships() <em>Incoming Relationships</em>}' reference list.

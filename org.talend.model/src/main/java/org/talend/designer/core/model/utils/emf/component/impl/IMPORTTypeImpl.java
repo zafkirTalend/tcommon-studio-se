@@ -287,12 +287,12 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (mODULE: ");
+        result.append(" (mODULE: "); //$NON-NLS-1$
         result.append(mODULE);
-        result.append(", nAME: ");
+        result.append(", nAME: "); //$NON-NLS-1$
         result.append(nAME);
-        result.append(", rEQUIRED: ");
-        if (rEQUIREDESet) result.append(rEQUIRED); else result.append("<unset>");
+        result.append(", rEQUIRED: "); //$NON-NLS-1$
+        if (rEQUIREDESet) result.append(rEQUIRED); else result.append("<unset>"); //$NON-NLS-1$
         result.append(')');
         return result.toString();
     }

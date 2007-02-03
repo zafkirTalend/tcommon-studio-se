@@ -222,7 +222,7 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.TEMPLATES_TYPE__TEMPLATE:
@@ -294,9 +294,9 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (iNPUT: ");
+        result.append(" (iNPUT: "); //$NON-NLS-1$
         result.append(iNPUT);
-        result.append(", oUTPUT: ");
+        result.append(", oUTPUT: "); //$NON-NLS-1$
         result.append(oUTPUT);
         result.append(')');
         return result.toString();

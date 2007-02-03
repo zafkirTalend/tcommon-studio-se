@@ -408,15 +408,15 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (path: ");
+        result.append(" (path: "); //$NON-NLS-1$
         result.append(path);
-        result.append(", deleted: ");
+        result.append(", deleted: "); //$NON-NLS-1$
         result.append(deleted);
-        result.append(", locked: ");
+        result.append(", locked: "); //$NON-NLS-1$
         result.append(locked);
-        result.append(", lockDate: ");
+        result.append(", lockDate: "); //$NON-NLS-1$
         result.append(lockDate);
-        result.append(", commitDate: ");
+        result.append(", commitDate: "); //$NON-NLS-1$
         result.append(commitDate);
         result.append(')');
         return result.toString();

@@ -23,6 +23,6 @@ public interface FileDelimitedMetadata extends TalendItem {
      * <!-- end-user-doc -->
      * @generated
      */
-    String copyright = "";
+    String copyright = ""; //$NON-NLS-1$
 
 } // FileDelimitedMetadata

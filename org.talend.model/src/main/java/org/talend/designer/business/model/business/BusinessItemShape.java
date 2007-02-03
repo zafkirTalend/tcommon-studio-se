@@ -28,7 +28,7 @@ public interface BusinessItemShape extends BusinessItem {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String copyright = "";
+    String copyright = ""; //$NON-NLS-1$
 
     /**
      * Returns the value of the '<em><b>Incoming Relationships</b></em>' reference list.

@@ -600,19 +600,19 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (dEFAULT: ");
+        result.append(" (dEFAULT: "); //$NON-NLS-1$
         result.append(dEFAULT);
-        result.append(", kEY: ");
-        if (kEYESet) result.append(kEY); else result.append("<unset>");
-        result.append(", lENGTH: ");
-        if (lENGTHESet) result.append(lENGTH); else result.append("<unset>");
-        result.append(", nAME: ");
+        result.append(", kEY: "); //$NON-NLS-1$
+        if (kEYESet) result.append(kEY); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", lENGTH: "); //$NON-NLS-1$
+        if (lENGTHESet) result.append(lENGTH); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", nAME: "); //$NON-NLS-1$
         result.append(nAME);
-        result.append(", nULLABLE: ");
-        if (nULLABLEESet) result.append(nULLABLE); else result.append("<unset>");
-        result.append(", pRECISION: ");
-        if (pRECISIONESet) result.append(pRECISION); else result.append("<unset>");
-        result.append(", tYPE: ");
+        result.append(", nULLABLE: "); //$NON-NLS-1$
+        if (nULLABLEESet) result.append(nULLABLE); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", pRECISION: "); //$NON-NLS-1$
+        if (pRECISIONESet) result.append(pRECISION); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", tYPE: "); //$NON-NLS-1$
         result.append(tYPE);
         result.append(')');
         return result.toString();

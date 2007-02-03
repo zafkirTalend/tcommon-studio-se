@@ -19,6 +19,6 @@ public interface Process extends TalendItem {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String copyright = "";
+    String copyright = ""; //$NON-NLS-1$
 
 } // Process

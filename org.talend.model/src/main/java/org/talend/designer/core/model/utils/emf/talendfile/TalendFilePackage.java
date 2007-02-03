@@ -34,7 +34,7 @@ public interface TalendFilePackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNAME = "talendfile";
+    String eNAME = "talendfile"; //$NON-NLS-1$
 
     /**
      * The package namespace URI.
@@ -42,7 +42,7 @@ public interface TalendFilePackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_URI = "platform:/resource/org.talend.model/model/TalendFile.xsd";
+    String eNS_URI = "platform:/resource/org.talend.model/model/TalendFile.xsd"; //$NON-NLS-1$
 
     /**
      * The package namespace name.
@@ -50,7 +50,7 @@ public interface TalendFilePackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "talendfile";
+    String eNS_PREFIX = "talendfile"; //$NON-NLS-1$
 
     /**
      * The singleton instance of the package.

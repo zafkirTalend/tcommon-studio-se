@@ -579,18 +579,18 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (bUILTIN: ");
-        if (bUILTINESet) result.append(bUILTIN); else result.append("<unset>");
-        result.append(", cTYPE: ");
+        result.append(" (bUILTIN: "); //$NON-NLS-1$
+        if (bUILTINESet) result.append(bUILTIN); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", cTYPE: "); //$NON-NLS-1$
         result.append(cTYPE);
-        result.append(", mAXINPUT: ");
-        if (mAXINPUTESet) result.append(mAXINPUT); else result.append("<unset>");
-        result.append(", mAXOUTPUT: ");
-        if (mAXOUTPUTESet) result.append(mAXOUTPUT); else result.append("<unset>");
-        result.append(", mININPUT: ");
-        if (mININPUTESet) result.append(mININPUT); else result.append("<unset>");
-        result.append(", mINOUTPUT: ");
-        if (mINOUTPUTESet) result.append(mINOUTPUT); else result.append("<unset>");
+        result.append(", mAXINPUT: "); //$NON-NLS-1$
+        if (mAXINPUTESet) result.append(mAXINPUT); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", mAXOUTPUT: "); //$NON-NLS-1$
+        if (mAXOUTPUTESet) result.append(mAXOUTPUT); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", mININPUT: "); //$NON-NLS-1$
+        if (mININPUTESet) result.append(mININPUT); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", mINOUTPUT: "); //$NON-NLS-1$
+        if (mINOUTPUTESet) result.append(mINOUTPUT); else result.append("<unset>"); //$NON-NLS-1$
         result.append(')');
         return result.toString();
     }

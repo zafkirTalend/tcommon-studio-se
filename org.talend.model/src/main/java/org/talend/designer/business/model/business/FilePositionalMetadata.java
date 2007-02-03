@@ -23,6 +23,6 @@ public interface FilePositionalMetadata extends TalendItem {
      * <!-- end-user-doc -->
      * @generated
      */
-    String copyright = "";
+    String copyright = ""; //$NON-NLS-1$
 
 } // FilePositionalMetadata

@@ -42,15 +42,15 @@ public class GetTasksHelper {
 
     public static List<IProjectMigrationTask> getProjectTasks() {
         List<IProjectMigrationTask> toReturn = new ArrayList<IProjectMigrationTask>();
-        ISimpleExtensionPoint actionExtensionPoint = new ExtensionPointImpl("org.talend.core.migrationTask", "projecttask", -1,
+        ISimpleExtensionPoint actionExtensionPoint = new ExtensionPointImpl("org.talend.core.migrationTask", "projecttask", -1, //$NON-NLS-1$ //$NON-NLS-2$
                 -1);
         List<IConfigurationElement> extension = ExtensionImplementationProviders.getInstanceV2(actionExtensionPoint);
 
         for (IConfigurationElement current : extension) {
             try {
-                IProjectMigrationTask currentAction = (IProjectMigrationTask) current.createExecutableExtension("class");
-                currentAction.setId(current.getAttribute("id"));
-                currentAction.setName(current.getAttribute("name"));
+                IProjectMigrationTask currentAction = (IProjectMigrationTask) current.createExecutableExtension("class"); //$NON-NLS-1$
+                currentAction.setId(current.getAttribute("id")); //$NON-NLS-1$
+                currentAction.setName(current.getAttribute("name")); //$NON-NLS-1$
                 toReturn.add(currentAction);
             } catch (CoreException e) {
                 e.printStackTrace();
@@ -62,15 +62,15 @@ public class GetTasksHelper {
 
     public static List<IWorkspaceMigrationTask> getWorkspaceTasks() {
         List<IWorkspaceMigrationTask> toReturn = new ArrayList<IWorkspaceMigrationTask>();
-        ISimpleExtensionPoint actionExtensionPoint = new ExtensionPointImpl("org.talend.core.migrationTask", "workspacetask", -1,
+        ISimpleExtensionPoint actionExtensionPoint = new ExtensionPointImpl("org.talend.core.migrationTask", "workspacetask", -1, //$NON-NLS-1$ //$NON-NLS-2$
                 -1);
         List<IConfigurationElement> extension = ExtensionImplementationProviders.getInstanceV2(actionExtensionPoint);
 
         for (IConfigurationElement current : extension) {
             try {
-                IWorkspaceMigrationTask currentAction = (IWorkspaceMigrationTask) current.createExecutableExtension("class");
-                currentAction.setId(current.getAttribute("id"));
-                currentAction.setName(current.getAttribute("name"));
+                IWorkspaceMigrationTask currentAction = (IWorkspaceMigrationTask) current.createExecutableExtension("class"); //$NON-NLS-1$
+                currentAction.setId(current.getAttribute("id")); //$NON-NLS-1$
+                currentAction.setName(current.getAttribute("name")); //$NON-NLS-1$
                 toReturn.add(currentAction);
             } catch (CoreException e) {
                 e.printStackTrace();

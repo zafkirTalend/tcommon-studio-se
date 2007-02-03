@@ -94,7 +94,7 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
     public void setConnection(DatabaseConnection newConnection) {
         if (newConnection != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.QUERIES_CONNECTION__CONNECTION && newConnection != null)) {
             if (EcoreUtil.isAncestor(this, newConnection))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);

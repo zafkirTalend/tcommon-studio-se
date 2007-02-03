@@ -37,7 +37,7 @@ public class BusinessAssignmentImpl extends EObjectImpl implements BusinessAssig
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getTalendItem() <em>Talend Item</em>}' reference.
@@ -110,7 +110,7 @@ public class BusinessAssignmentImpl extends EObjectImpl implements BusinessAssig
     public void setBusinessItem(BusinessItem newBusinessItem) {
         if (newBusinessItem != eInternalContainer() || (eContainerFeatureID != BusinessPackage.BUSINESS_ASSIGNMENT__BUSINESS_ITEM && newBusinessItem != null)) {
             if (EcoreUtil.isAncestor(this, newBusinessItem))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
@@ -321,7 +321,7 @@ public class BusinessAssignmentImpl extends EObjectImpl implements BusinessAssig
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (comment: ");
+        result.append(" (comment: "); //$NON-NLS-1$
         result.append(comment);
         result.append(')');
         return result.toString();

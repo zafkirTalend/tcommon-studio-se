@@ -41,7 +41,7 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -114,7 +114,7 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
     public void setBusinessProcess(BusinessProcess newBusinessProcess) {
         if (newBusinessProcess != eInternalContainer() || (eContainerFeatureID != BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS && newBusinessProcess != null)) {
             if (EcoreUtil.isAncestor(this, newBusinessProcess))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
@@ -278,7 +278,7 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (name: ");
+        result.append(" (name: "); //$NON-NLS-1$
         result.append(name);
         result.append(')');
         return result.toString();

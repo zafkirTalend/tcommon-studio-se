@@ -31,21 +31,21 @@ public interface PropertiesPackage extends EPackage {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String eNAME = "properties";
+    String eNAME = "properties"; //$NON-NLS-1$
 
     /**
      * The package namespace URI.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String eNS_URI = "http://www.talend.org/properties";
+    String eNS_URI = "http://www.talend.org/properties"; //$NON-NLS-1$
 
     /**
      * The package namespace name.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "TalendProperties";
+    String eNS_PREFIX = "TalendProperties"; //$NON-NLS-1$
 
     /**
      * The singleton instance of the package.

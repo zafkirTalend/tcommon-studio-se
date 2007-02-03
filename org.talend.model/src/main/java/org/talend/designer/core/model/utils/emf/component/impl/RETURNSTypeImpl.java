@@ -104,7 +104,7 @@ public class RETURNSTypeImpl extends EObjectImpl implements RETURNSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.RETURNS_TYPE__RETURN:

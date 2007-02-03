@@ -30,7 +30,7 @@ public interface TalendItem extends EObject {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String copyright = "";
+    String copyright = ""; //$NON-NLS-1$
 
     /**
      * Returns the value of the '<em><b>Id</b></em>' attribute.

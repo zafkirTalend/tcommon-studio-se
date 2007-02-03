@@ -26,7 +26,7 @@ import org.osgi.framework.BundleContext;
 
 public class ModelPlugin extends AbstractUIPlugin {
 
-    public static final String MODEL_PLUGIN_ID = "org.talend.model";
+    public static final String MODEL_PLUGIN_ID = "org.talend.model"; //$NON-NLS-1$
 
     // The shared instance
     private static ModelPlugin plugin;

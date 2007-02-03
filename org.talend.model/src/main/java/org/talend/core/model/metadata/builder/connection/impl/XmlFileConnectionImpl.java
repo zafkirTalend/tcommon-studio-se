@@ -427,15 +427,15 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (XsdFilePath: ");
+        result.append(" (XsdFilePath: "); //$NON-NLS-1$
         result.append(xsdFilePath);
-        result.append(", XmlFilePath: ");
+        result.append(", XmlFilePath: "); //$NON-NLS-1$
         result.append(xmlFilePath);
-        result.append(", Guess: ");
+        result.append(", Guess: "); //$NON-NLS-1$
         result.append(guess);
-        result.append(", MaskXPattern: ");
+        result.append(", MaskXPattern: "); //$NON-NLS-1$
         result.append(maskXPattern);
-        result.append(", Encoding: ");
+        result.append(", Encoding: "); //$NON-NLS-1$
         result.append(encoding);
         result.append(')');
         return result.toString();

@@ -41,7 +41,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
@@ -70,7 +70,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
      * @generated
      * @ordered
      */
-    protected static final String LABEL_EDEFAULT = "";
+    protected static final String LABEL_EDEFAULT = ""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
@@ -90,7 +90,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
      * @generated
      * @ordered
      */
-    protected static final String AUTHOR_EDEFAULT = "";
+    protected static final String AUTHOR_EDEFAULT = ""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getAuthor() <em>Author</em>}' attribute.
@@ -130,7 +130,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
      * @generated
      * @ordered
      */
-    protected static final String COMMENT_EDEFAULT = "";
+    protected static final String COMMENT_EDEFAULT = ""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
@@ -299,7 +299,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
     public void setRepository(Repository newRepository) {
         if (newRepository != eInternalContainer() || (eContainerFeatureID != BusinessPackage.TALEND_ITEM__REPOSITORY && newRepository != null)) {
             if (EcoreUtil.isAncestor(this, newRepository))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
@@ -473,15 +473,15 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: ");
+        result.append(" (id: "); //$NON-NLS-1$
         result.append(id);
-        result.append(", label: ");
+        result.append(", label: "); //$NON-NLS-1$
         result.append(label);
-        result.append(", author: ");
+        result.append(", author: "); //$NON-NLS-1$
         result.append(author);
-        result.append(", version: ");
+        result.append(", version: "); //$NON-NLS-1$
         result.append(version);
-        result.append(", comment: ");
+        result.append(", comment: "); //$NON-NLS-1$
         result.append(comment);
         result.append(')');
         return result.toString();

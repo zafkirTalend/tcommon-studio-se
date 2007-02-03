@@ -60,7 +60,7 @@ public final class UserProjectAuthorizationType extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final UserProjectAuthorizationType READ_WRITE_LITERAL = new UserProjectAuthorizationType(READ_WRITE, "ReadWrite", "ReadWrite");
+    public static final UserProjectAuthorizationType READ_WRITE_LITERAL = new UserProjectAuthorizationType(READ_WRITE, "ReadWrite", "ReadWrite"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Read Only</b></em>' literal object.
@@ -70,7 +70,7 @@ public final class UserProjectAuthorizationType extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final UserProjectAuthorizationType READ_ONLY_LITERAL = new UserProjectAuthorizationType(READ_ONLY, "ReadOnly", "ReadOnly");
+    public static final UserProjectAuthorizationType READ_ONLY_LITERAL = new UserProjectAuthorizationType(READ_ONLY, "ReadOnly", "ReadOnly"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * An array of all the '<em><b>User Project Authorization Type</b></em>' enumerators.

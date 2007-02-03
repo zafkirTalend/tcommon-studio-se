@@ -164,7 +164,7 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
     public void setSchema(XmlXPathLoopDescriptor newSchema) {
         if (newSchema != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.SCHEMA_TARGET__SCHEMA && newSchema != null)) {
             if (EcoreUtil.isAncestor(this, newSchema))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
@@ -301,9 +301,9 @@ public class SchemaTargetImpl extends EObjectImpl implements SchemaTarget
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (RelativeXPathQuery: ");
+        result.append(" (RelativeXPathQuery: "); //$NON-NLS-1$
         result.append(relativeXPathQuery);
-        result.append(", TagName: ");
+        result.append(", TagName: "); //$NON-NLS-1$
         result.append(tagName);
         result.append(')');
         return result.toString();

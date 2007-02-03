@@ -38,7 +38,7 @@ import org.talend.core.model.properties.Status;
  */
 public final class StatusHelper {
 
-    private static final String STATUS_DELIMITER = ";";
+    private static final String STATUS_DELIMITER = ";"; //$NON-NLS-1$
     private static final char CODE_LABEL_DELIMITER = ' ';
 
     public static String writeString(List<String> items) {
@@ -53,7 +53,7 @@ public final class StatusHelper {
     }
     
     public static List<String> readString(String stringList) {
-        if (stringList == null || "".equals(stringList))
+        if (stringList == null || "".equals(stringList)) //$NON-NLS-1$
             return EMPTY_STRING_LIST;
         check(stringList);
         ArrayList<String> result = new ArrayList<String>(50);
@@ -64,7 +64,7 @@ public final class StatusHelper {
     }
 
     public static List<Status> parse(String stringList) {
-        if (stringList == null || "".equals(stringList))
+        if (stringList == null || "".equals(stringList)) //$NON-NLS-1$
             return EMPTY_STATUS_LIST;
         final List<String> strings = readString(stringList);
         List<Status> result = new ArrayList<Status>();
@@ -88,13 +88,13 @@ public final class StatusHelper {
     public static final String getCode(String value) {
         check(value);
         int index = value.indexOf(CODE_LABEL_DELIMITER);
-        return index < 0 ? "PB" : value.substring(0, index);
+        return index < 0 ? "PB" : value.substring(0, index); //$NON-NLS-1$
     }
     
     public static final String getLabel(String value) {
         check(value);
         int index = value.indexOf(CODE_LABEL_DELIMITER);
-        return index < 0 ? "PB" : value.substring(index + 1);
+        return index < 0 ? "PB" : value.substring(index + 1); //$NON-NLS-1$
     }
     
     public static final String getString(String code, String label) {
@@ -104,7 +104,7 @@ public final class StatusHelper {
     }
     
     private static void check(String str) {
-        if (str == null || str.equals(""))
+        if (str == null || str.equals("")) //$NON-NLS-1$
             throw new IllegalArgumentException();
     }
     

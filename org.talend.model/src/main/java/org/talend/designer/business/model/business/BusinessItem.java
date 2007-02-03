@@ -30,7 +30,7 @@ public interface BusinessItem extends EObject {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String copyright = "";
+    String copyright = ""; //$NON-NLS-1$
 
     /**
      * Returns the value of the '<em><b>Business Process</b></em>' container reference.

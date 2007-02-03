@@ -20,6 +20,6 @@ public interface TerminalBusinessItem extends BusinessItemShape {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String copyright = "";
+    String copyright = ""; //$NON-NLS-1$
 
 } // TerminalBusinessItem

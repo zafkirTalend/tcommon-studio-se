@@ -38,7 +38,7 @@ public class BusinessProcessImpl extends TalendItemImpl implements BusinessProce
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getBusinessItems() <em>Business Items</em>}' containment reference list. <!--

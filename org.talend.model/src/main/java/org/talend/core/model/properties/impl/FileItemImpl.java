@@ -255,9 +255,9 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (name: ");
+        result.append(" (name: "); //$NON-NLS-1$
         result.append(name);
-        result.append(", extension: ");
+        result.append(", extension: "); //$NON-NLS-1$
         result.append(extension);
         result.append(')');
         return result.toString();
@@ -271,7 +271,7 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
         URI proxyUri = proxy.eProxyURI();
         URI resourceUri = proxyUri.trimFragment();
 
-        if ("platform".equals(proxyUri.scheme()) && proxyUri.segmentCount() > 1 && "resource".equals(proxyUri.segment(0))) {
+        if ("platform".equals(proxyUri.scheme()) && proxyUri.segmentCount() > 1 && "resource".equals(proxyUri.segment(0))) { //$NON-NLS-1$ //$NON-NLS-2$
 
             ResourceSet resourceSet = eResource().getResourceSet();
             URIConverter theURIConverter = resourceSet.getURIConverter();

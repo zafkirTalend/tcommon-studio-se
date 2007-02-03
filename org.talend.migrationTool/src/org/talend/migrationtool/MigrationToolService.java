@@ -54,7 +54,7 @@ public class MigrationToolService implements IMigrationToolService {
      * @see org.talend.core.model.migration.IMigrationToolService#executeProjectTasks()
      */
     public void executeProjectTasks(Project project) {
-        log.trace("Migration tool: project [" + project.getLabel() + "] tasks");
+        log.trace("Migration tool: project [" + project.getLabel() + "] tasks"); //$NON-NLS-1$ //$NON-NLS-2$
 
         List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks();
         List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
@@ -63,9 +63,9 @@ public class MigrationToolService implements IMigrationToolService {
             if (!done.contains(task.getId())) {
                 if (task.execute(project)) {
                     done.add(task.getId());
-                    log.debug("Task \"" + task.getName() + "\" done");
+                    log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
-                    log.debug("Task \"" + task.getName() + "\" failed");
+                    log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                 }
             }
         }
@@ -111,7 +111,7 @@ public class MigrationToolService implements IMigrationToolService {
      * @see org.talend.core.model.migration.IMigrationToolService#executeWorspaceTasks()
      */
     public void executeWorspaceTasks() {
-        log.trace("Migration tool: workspace tasks");
+        log.trace("Migration tool: workspace tasks"); //$NON-NLS-1$
 
         PreferenceManipulator prefManipulator = new PreferenceManipulator(CorePlugin.getDefault().getPreferenceStore());
         List<IWorkspaceMigrationTask> toExecute = GetTasksHelper.getWorkspaceTasks();
@@ -134,9 +134,9 @@ public class MigrationToolService implements IMigrationToolService {
             if (!done.contains(task.getId())) {
                 if (task.execute()) {
                     prefManipulator.addWorkspaceTaskDone(task.getId());
-                    log.debug("Task \"" + task.getName() + "\" done");
+                    log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
                 } else {
-                    log.debug("Task \"" + task.getName() + "\" failed");
+                    log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                 }
             }
         }

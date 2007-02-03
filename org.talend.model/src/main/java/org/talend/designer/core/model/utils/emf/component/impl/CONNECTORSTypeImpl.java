@@ -104,7 +104,7 @@ public class CONNECTORSTypeImpl extends EObjectImpl implements CONNECTORSType {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ComponentPackage.CONNECTORS_TYPE__CONNECTOR:

@@ -34,7 +34,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNAME = "org.talend.designer.core.model.utils.emf.component";
+    String eNAME = "org.talend.designer.core.model.utils.emf.component"; //$NON-NLS-1$
 
     /**
      * The package namespace URI.
@@ -42,7 +42,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_URI = "platform:/resource/org.talend.model/model/Component.xsd";
+    String eNS_URI = "platform:/resource/org.talend.model/model/Component.xsd"; //$NON-NLS-1$
 
     /**
      * The package namespace name.
@@ -50,7 +50,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "Component";
+    String eNS_PREFIX = "Component"; //$NON-NLS-1$
 
     /**
      * The singleton instance of the package.

@@ -25,7 +25,7 @@ public class FilePositionalMetadataImpl extends TalendItemImpl implements FilePo
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * <!-- begin-user-doc -->

@@ -353,15 +353,15 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (value: ");
+        result.append(" (value: "); //$NON-NLS-1$
         result.append(value);
-        result.append(", FilePath: ");
+        result.append(", FilePath: "); //$NON-NLS-1$
         result.append(filePath);
-        result.append(", LimitEntry: ");
+        result.append(", LimitEntry: "); //$NON-NLS-1$
         result.append(limitEntry);
-        result.append(", UseLimit: ");
+        result.append(", UseLimit: "); //$NON-NLS-1$
         result.append(useLimit);
-        result.append(", Server: ");
+        result.append(", Server: "); //$NON-NLS-1$
         result.append(server);
         result.append(')');
         return result.toString();

@@ -28,7 +28,7 @@ public interface BusinessProcess extends TalendItem {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String copyright = "";
+    String copyright = ""; //$NON-NLS-1$
 
     /**
      * Returns the value of the '<em><b>Business Items</b></em>' containment reference list.

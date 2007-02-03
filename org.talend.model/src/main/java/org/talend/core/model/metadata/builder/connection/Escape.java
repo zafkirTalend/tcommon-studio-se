@@ -60,7 +60,7 @@ public final class Escape extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final Escape DELIMITED_LITERAL = new Escape(DELIMITED, "Delimited", "Delimited");
+    public static final Escape DELIMITED_LITERAL = new Escape(DELIMITED, "Delimited", "Delimited"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>CSV</b></em>' literal object.
@@ -70,7 +70,7 @@ public final class Escape extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final Escape CSV_LITERAL = new Escape(CSV, "CSV", "CSV");
+    public static final Escape CSV_LITERAL = new Escape(CSV, "CSV", "CSV"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * An array of all the '<em><b>Escape</b></em>' enumerators.

@@ -149,7 +149,7 @@ public class DOCUMENTATIONTypeImpl extends EObjectImpl implements DOCUMENTATIONT
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (uRL: ");
+        result.append(" (uRL: "); //$NON-NLS-1$
         result.append(uRL);
         result.append(')');
         return result.toString();

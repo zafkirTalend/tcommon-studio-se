@@ -342,11 +342,11 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (cOMPONENT: ");
+        result.append(" (cOMPONENT: "); //$NON-NLS-1$
         result.append(cOMPONENT);
-        result.append(", mULTIPLEMETHODS: ");
-        if (mULTIPLEMETHODSESet) result.append(mULTIPLEMETHODS); else result.append("<unset>");
-        result.append(", nAME: ");
+        result.append(", mULTIPLEMETHODS: "); //$NON-NLS-1$
+        if (mULTIPLEMETHODSESet) result.append(mULTIPLEMETHODS); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", nAME: "); //$NON-NLS-1$
         result.append(nAME);
         result.append(')');
         return result.toString();

@@ -290,9 +290,9 @@ public class ContextTypeImpl extends EObjectImpl implements ContextType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (confirmationNeeded: ");
-        if (confirmationNeededESet) result.append(confirmationNeeded); else result.append("<unset>");
-        result.append(", name: ");
+        result.append(" (confirmationNeeded: "); //$NON-NLS-1$
+        if (confirmationNeededESet) result.append(confirmationNeeded); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", name: "); //$NON-NLS-1$
         result.append(name);
         result.append(')');
         return result.toString();

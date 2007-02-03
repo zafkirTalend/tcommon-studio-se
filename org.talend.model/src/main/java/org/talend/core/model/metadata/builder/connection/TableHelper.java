@@ -35,7 +35,7 @@ import org.eclipse.emf.common.util.EList;
  *
  */
 public class TableHelper {
-    public static final String DELETED = "deleted";
+    public static final String DELETED = "deleted"; //$NON-NLS-1$
     
     public static boolean isDeleted(MetadataTable table)
     {
@@ -88,9 +88,9 @@ public class TableHelper {
     public static MetadataTable findByLabel (Connection connection, String label)
     {
         if (connection == null)
-            throw new IllegalArgumentException("null connection");
-        if (label == null || "".equals(label))
-            throw new IllegalArgumentException("null/empty label");
+            throw new IllegalArgumentException("null connection"); //$NON-NLS-1$
+        if (label == null || "".equals(label)) //$NON-NLS-1$
+            throw new IllegalArgumentException("null/empty label"); //$NON-NLS-1$
         EList tables = connection.getTables();
         for (int i = 0; i<tables.size(); i++)
         {

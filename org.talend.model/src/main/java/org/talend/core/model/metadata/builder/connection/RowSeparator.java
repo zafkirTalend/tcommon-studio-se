@@ -59,7 +59,7 @@ public final class RowSeparator extends AbstractEnumerator {
      * @see #CUSTOM_STRING
      * @ordered
      */
-    public static final RowSeparator CUSTOM_STRING_LITERAL = new RowSeparator(CUSTOM_STRING, "Custom String", "Custom String");
+    public static final RowSeparator CUSTOM_STRING_LITERAL = new RowSeparator(CUSTOM_STRING, "Custom String", "Custom String"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Standart EOL</b></em>' literal object.
@@ -68,7 +68,7 @@ public final class RowSeparator extends AbstractEnumerator {
      * @see #STANDART_EOL
      * @ordered
      */
-    public static final RowSeparator STANDART_EOL_LITERAL = new RowSeparator(STANDART_EOL, "Standart EOL", "Standard EOL");
+    public static final RowSeparator STANDART_EOL_LITERAL = new RowSeparator(STANDART_EOL, "Standart EOL", "Standard EOL"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * An array of all the '<em><b>Row Separator</b></em>' enumerators.

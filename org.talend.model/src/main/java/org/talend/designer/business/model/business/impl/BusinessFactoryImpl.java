@@ -44,7 +44,7 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * Creates the default factory implementation.
@@ -53,7 +53,7 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
      */
     public static BusinessFactory init() {
         try {
-            BusinessFactory theBusinessFactory = (BusinessFactory)EPackage.Registry.INSTANCE.getEFactory("business"); 
+            BusinessFactory theBusinessFactory = (BusinessFactory)EPackage.Registry.INSTANCE.getEFactory("business");  //$NON-NLS-1$
             if (theBusinessFactory != null) {
                 return theBusinessFactory;
             }
@@ -102,7 +102,7 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.FILE_XML_METADATA: return createFileXmlMetadata();
             case BusinessPackage.FILE_LDIF_METADATA: return createFileLdifMetadata();
             default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 

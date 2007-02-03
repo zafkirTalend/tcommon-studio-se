@@ -644,21 +644,21 @@ public class ComponentImpl extends EObjectImpl implements Component {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: ");
+        result.append(" (id: "); //$NON-NLS-1$
         result.append(id);
-        result.append(", label: ");
+        result.append(", label: "); //$NON-NLS-1$
         result.append(label);
-        result.append(", version: ");
+        result.append(", version: "); //$NON-NLS-1$
         result.append(version);
-        result.append(", lastUpdateDate: ");
+        result.append(", lastUpdateDate: "); //$NON-NLS-1$
         result.append(lastUpdateDate);
-        result.append(", creationDate: ");
+        result.append(", creationDate: "); //$NON-NLS-1$
         result.append(creationDate);
-        result.append(", deleteDate: ");
+        result.append(", deleteDate: "); //$NON-NLS-1$
         result.append(deleteDate);
-        result.append(", deleted: ");
+        result.append(", deleted: "); //$NON-NLS-1$
         result.append(deleted);
-        result.append(", fileDescriptor: ");
+        result.append(", fileDescriptor: "); //$NON-NLS-1$
         result.append(fileDescriptor);
         result.append(')');
         return result.toString();

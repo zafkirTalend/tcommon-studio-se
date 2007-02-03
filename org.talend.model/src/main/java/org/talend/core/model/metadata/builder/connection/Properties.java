@@ -165,7 +165,7 @@ public final class Properties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final Properties SERVER_LITERAL = new Properties(SERVER, "Server", "Server");
+    public static final Properties SERVER_LITERAL = new Properties(SERVER, "Server", "Server"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>File Path</b></em>' literal object.
@@ -175,7 +175,7 @@ public final class Properties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final Properties FILE_PATH_LITERAL = new Properties(FILE_PATH, "FilePath", "FilePath");
+    public static final Properties FILE_PATH_LITERAL = new Properties(FILE_PATH, "FilePath", "FilePath"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Format</b></em>' literal object.
@@ -185,7 +185,7 @@ public final class Properties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final Properties FORMAT_LITERAL = new Properties(FORMAT, "Format", "Format");
+    public static final Properties FORMAT_LITERAL = new Properties(FORMAT, "Format", "Format"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Encoding</b></em>' literal object.
@@ -195,7 +195,7 @@ public final class Properties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final Properties ENCODING_LITERAL = new Properties(ENCODING, "Encoding", "Encoding");
+    public static final Properties ENCODING_LITERAL = new Properties(ENCODING, "Encoding", "Encoding"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Field Separator</b></em>' literal object.
@@ -205,7 +205,7 @@ public final class Properties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final Properties FIELD_SEPARATOR_LITERAL = new Properties(FIELD_SEPARATOR, "FieldSeparator", "FieldSeparator");
+    public static final Properties FIELD_SEPARATOR_LITERAL = new Properties(FIELD_SEPARATOR, "FieldSeparator", "FieldSeparator"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Field Separator Reg Exp</b></em>' literal object.
@@ -215,7 +215,7 @@ public final class Properties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final Properties FIELD_SEPARATOR_REG_EXP_LITERAL = new Properties(FIELD_SEPARATOR_REG_EXP, "FieldSeparatorRegExp", "FieldSeparatorRegExp");
+    public static final Properties FIELD_SEPARATOR_REG_EXP_LITERAL = new Properties(FIELD_SEPARATOR_REG_EXP, "FieldSeparatorRegExp", "FieldSeparatorRegExp"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Row Separator</b></em>' literal object.
@@ -225,7 +225,7 @@ public final class Properties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final Properties ROW_SEPARATOR_LITERAL = new Properties(ROW_SEPARATOR, "RowSeparator", "RowSeparator");
+    public static final Properties ROW_SEPARATOR_LITERAL = new Properties(ROW_SEPARATOR, "RowSeparator", "RowSeparator"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Use Header</b></em>' literal object.
@@ -235,7 +235,7 @@ public final class Properties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final Properties USE_HEADER_LITERAL = new Properties(USE_HEADER, "UseHeader", "UseHeader");
+    public static final Properties USE_HEADER_LITERAL = new Properties(USE_HEADER, "UseHeader", "UseHeader"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Header Value</b></em>' literal object.
@@ -245,7 +245,7 @@ public final class Properties extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final Properties HEADER_VALUE_LITERAL = new Properties(HEADER_VALUE, "HeaderValue", "HeaderValue");
+    public static final Properties HEADER_VALUE_LITERAL = new Properties(HEADER_VALUE, "HeaderValue", "HeaderValue"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * An array of all the '<em><b>Properties</b></em>' enumerators.

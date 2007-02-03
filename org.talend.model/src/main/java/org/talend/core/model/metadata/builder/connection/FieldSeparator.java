@@ -150,7 +150,7 @@ public final class FieldSeparator extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FieldSeparator TABULATION_LITERAL = new FieldSeparator(TABULATION, "Tabulation", "Tabulation");
+    public static final FieldSeparator TABULATION_LITERAL = new FieldSeparator(TABULATION, "Tabulation", "Tabulation"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Semicolon</b></em>' literal object.
@@ -160,7 +160,7 @@ public final class FieldSeparator extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FieldSeparator SEMICOLON_LITERAL = new FieldSeparator(SEMICOLON, "Semicolon", "Semicolon");
+    public static final FieldSeparator SEMICOLON_LITERAL = new FieldSeparator(SEMICOLON, "Semicolon", "Semicolon"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Comma</b></em>' literal object.
@@ -170,7 +170,7 @@ public final class FieldSeparator extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FieldSeparator COMMA_LITERAL = new FieldSeparator(COMMA, "Comma", "Comma");
+    public static final FieldSeparator COMMA_LITERAL = new FieldSeparator(COMMA, "Comma", "Comma"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Space</b></em>' literal object.
@@ -180,7 +180,7 @@ public final class FieldSeparator extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final FieldSeparator SPACE_LITERAL = new FieldSeparator(SPACE, "Space", "Space");
+    public static final FieldSeparator SPACE_LITERAL = new FieldSeparator(SPACE, "Space", "Space"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Alt 65</b></em>' literal object.
@@ -189,7 +189,7 @@ public final class FieldSeparator extends AbstractEnumerator {
      * @see #ALT_65
      * @ordered
      */
-    public static final FieldSeparator ALT_65_LITERAL = new FieldSeparator(ALT_65, "''(Alt 65, #A4)", "''(Alt 65, #A4)");
+    public static final FieldSeparator ALT_65_LITERAL = new FieldSeparator(ALT_65, "''(Alt 65, #A4)", "''(Alt 65, #A4)"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Custom ANSI</b></em>' literal object.
@@ -198,7 +198,7 @@ public final class FieldSeparator extends AbstractEnumerator {
      * @see #CUSTOM_ANSI
      * @ordered
      */
-    public static final FieldSeparator CUSTOM_ANSI_LITERAL = new FieldSeparator(CUSTOM_ANSI, "Custom ANSI", "Custom ANSI");
+    public static final FieldSeparator CUSTOM_ANSI_LITERAL = new FieldSeparator(CUSTOM_ANSI, "Custom ANSI", "Custom ANSI"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Custom UTF8</b></em>' literal object.
@@ -207,7 +207,7 @@ public final class FieldSeparator extends AbstractEnumerator {
      * @see #CUSTOM_UTF8
      * @ordered
      */
-    public static final FieldSeparator CUSTOM_UTF8_LITERAL = new FieldSeparator(CUSTOM_UTF8, "Custom UTF8", "Custom UTF8");
+    public static final FieldSeparator CUSTOM_UTF8_LITERAL = new FieldSeparator(CUSTOM_UTF8, "Custom UTF8", "Custom UTF8"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * The '<em><b>Custom Reg Exp</b></em>' literal object.
@@ -216,7 +216,7 @@ public final class FieldSeparator extends AbstractEnumerator {
      * @see #CUSTOM_REG_EXP
      * @ordered
      */
-    public static final FieldSeparator CUSTOM_REG_EXP_LITERAL = new FieldSeparator(CUSTOM_REG_EXP, "Custom RegExp", "Custom RegExp");
+    public static final FieldSeparator CUSTOM_REG_EXP_LITERAL = new FieldSeparator(CUSTOM_REG_EXP, "Custom RegExp", "Custom RegExp"); //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * An array of all the '<em><b>Field Separator</b></em>' enumerators.

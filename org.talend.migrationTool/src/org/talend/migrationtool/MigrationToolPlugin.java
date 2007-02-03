@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext;
 public class MigrationToolPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.talend.migrationTool";
+	public static final String PLUGIN_ID = "org.talend.migrationTool"; //$NON-NLS-1$
 
 	// The shared instance
 	private static MigrationToolPlugin plugin;

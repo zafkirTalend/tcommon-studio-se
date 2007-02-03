@@ -194,7 +194,7 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * @generated
      * @ordered
      */
-    protected static final String TEXT_IDENTIFIER_EDEFAULT = "";
+    protected static final String TEXT_IDENTIFIER_EDEFAULT = ""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getTextIdentifier() <em>Text Identifier</em>}' attribute.
@@ -1086,43 +1086,43 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (Server: ");
+        result.append(" (Server: "); //$NON-NLS-1$
         result.append(server);
-        result.append(", FilePath: ");
+        result.append(", FilePath: "); //$NON-NLS-1$
         result.append(filePath);
-        result.append(", Format: ");
+        result.append(", Format: "); //$NON-NLS-1$
         result.append(format);
-        result.append(", Encoding: ");
+        result.append(", Encoding: "); //$NON-NLS-1$
         result.append(encoding);
-        result.append(", FieldSeparatorValue: ");
+        result.append(", FieldSeparatorValue: "); //$NON-NLS-1$
         result.append(fieldSeparatorValue);
-        result.append(", RowSeparatorType: ");
+        result.append(", RowSeparatorType: "); //$NON-NLS-1$
         result.append(rowSeparatorType);
-        result.append(", RowSeparatorValue: ");
+        result.append(", RowSeparatorValue: "); //$NON-NLS-1$
         result.append(rowSeparatorValue);
-        result.append(", TextIdentifier: ");
+        result.append(", TextIdentifier: "); //$NON-NLS-1$
         result.append(textIdentifier);
-        result.append(", UseHeader: ");
+        result.append(", UseHeader: "); //$NON-NLS-1$
         result.append(useHeader);
-        result.append(", HeaderValue: ");
+        result.append(", HeaderValue: "); //$NON-NLS-1$
         result.append(headerValue);
-        result.append(", UseFooter: ");
+        result.append(", UseFooter: "); //$NON-NLS-1$
         result.append(useFooter);
-        result.append(", FooterValue: ");
+        result.append(", FooterValue: "); //$NON-NLS-1$
         result.append(footerValue);
-        result.append(", UseLimit: ");
+        result.append(", UseLimit: "); //$NON-NLS-1$
         result.append(useLimit);
-        result.append(", LimitValue: ");
+        result.append(", LimitValue: "); //$NON-NLS-1$
         result.append(limitValue);
-        result.append(", FirstLineCaption: ");
+        result.append(", FirstLineCaption: "); //$NON-NLS-1$
         result.append(firstLineCaption);
-        result.append(", RemoveEmptyRow: ");
+        result.append(", RemoveEmptyRow: "); //$NON-NLS-1$
         result.append(removeEmptyRow);
-        result.append(", EscapeType: ");
+        result.append(", EscapeType: "); //$NON-NLS-1$
         result.append(escapeType);
-        result.append(", EscapeChar: ");
+        result.append(", EscapeChar: "); //$NON-NLS-1$
         result.append(escapeChar);
-        result.append(", TextEnclosure: ");
+        result.append(", TextEnclosure: "); //$NON-NLS-1$
         result.append(textEnclosure);
         result.append(')');
         return result.toString();

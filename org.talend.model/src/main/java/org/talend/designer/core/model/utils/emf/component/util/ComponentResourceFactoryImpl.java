@@ -49,7 +49,7 @@ public class ComponentResourceFactoryImpl extends ResourceFactoryImpl {
      * <!-- end-user-doc -->
      * @generated
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public Resource createResource(URI uri) {
         XMLResource result = new ComponentResourceImpl(uri);
         result.getDefaultSaveOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, extendedMetaData);

@@ -26,7 +26,7 @@ public class FileLdifMetadataImpl extends TalendItemImpl implements FileLdifMeta
      * <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * <!-- begin-user-doc -->

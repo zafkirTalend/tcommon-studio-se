@@ -19,7 +19,7 @@ public interface BusinessFactory extends EFactory {
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    String copyright = "";
+    String copyright = ""; //$NON-NLS-1$
 
     /**
      * The singleton instance of the factory.

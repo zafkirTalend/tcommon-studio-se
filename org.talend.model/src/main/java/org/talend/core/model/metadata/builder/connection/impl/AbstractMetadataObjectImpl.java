@@ -43,7 +43,7 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
      * @generated
      * @ordered
      */
-    protected static final HashMap PROPERTIES_EDEFAULT = (HashMap)ConnectionFactory.eINSTANCE.createFromString(ConnectionPackage.eINSTANCE.getMap(), "");
+    protected static final HashMap PROPERTIES_EDEFAULT = (HashMap)ConnectionFactory.eINSTANCE.createFromString(ConnectionPackage.eINSTANCE.getMap(), ""); //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getProperties() <em>Properties</em>}' attribute. <!-- begin-user-doc --> <!--
@@ -81,7 +81,7 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
      * @generated
      * @ordered
      */
-    protected static final String COMMENT_EDEFAULT = "";
+    protected static final String COMMENT_EDEFAULT = ""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
@@ -435,17 +435,17 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (properties: ");
+        result.append(" (properties: "); //$NON-NLS-1$
         result.append(properties);
-        result.append(", id: ");
+        result.append(", id: "); //$NON-NLS-1$
         result.append(id);
-        result.append(", comment: ");
+        result.append(", comment: "); //$NON-NLS-1$
         result.append(comment);
-        result.append(", label: ");
+        result.append(", label: "); //$NON-NLS-1$
         result.append(label);
-        result.append(", synchronised: ");
+        result.append(", synchronised: "); //$NON-NLS-1$
         result.append(synchronised);
-        result.append(", divergency: ");
+        result.append(", divergency: "); //$NON-NLS-1$
         result.append(divergency);
         result.append(')');
         return result.toString();

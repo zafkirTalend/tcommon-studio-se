@@ -51,7 +51,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      */
     public static PropertiesFactory init() {
         try {
-            PropertiesFactory thePropertiesFactory = (PropertiesFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.talend.org/properties"); 
+            PropertiesFactory thePropertiesFactory = (PropertiesFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.talend.org/properties");  //$NON-NLS-1$
             if (thePropertiesFactory != null) {
                 return thePropertiesFactory;
             }
@@ -103,7 +103,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: return createLdifFileConnectionItem();
             case PropertiesPackage.USER_PROJECT_AUTHORIZATION: return createUserProjectAuthorization();
             default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 
@@ -118,7 +118,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.USER_PROJECT_AUTHORIZATION_TYPE:
                 return createUserProjectAuthorizationTypeFromString(eDataType, initialValue);
             default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 
@@ -133,7 +133,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.USER_PROJECT_AUTHORIZATION_TYPE:
                 return convertUserProjectAuthorizationTypeToString(eDataType, instanceValue);
             default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 
@@ -365,7 +365,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      */
     public FolderType createFolderTypeFromString(EDataType eDataType, String initialValue) {
         FolderType result = FolderType.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         return result;
     }
 
@@ -384,7 +384,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      */
     public UserProjectAuthorizationType createUserProjectAuthorizationTypeFromString(EDataType eDataType, String initialValue) {
         UserProjectAuthorizationType result = UserProjectAuthorizationType.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         return result;
     }
 

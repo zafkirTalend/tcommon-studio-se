@@ -297,7 +297,7 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @generated
      * @ordered
      */
-    protected static final String STRING_QUOTE_EDEFAULT = "\"";
+    protected static final String STRING_QUOTE_EDEFAULT = "\""; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getStringQuote() <em>String Quote</em>}' attribute.
@@ -317,7 +317,7 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @generated
      * @ordered
      */
-    protected static final String NULL_CHAR_EDEFAULT = "000";
+    protected static final String NULL_CHAR_EDEFAULT = "000"; //$NON-NLS-1$
 
     /**
      * The cached value of the '{@link #getNullChar() <em>Null Char</em>}' attribute.
@@ -893,33 +893,33 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (DatabaseType: ");
+        result.append(" (DatabaseType: "); //$NON-NLS-1$
         result.append(databaseType);
-        result.append(", DriverClass: ");
+        result.append(", DriverClass: "); //$NON-NLS-1$
         result.append(driverClass);
-        result.append(", URL: ");
+        result.append(", URL: "); //$NON-NLS-1$
         result.append(url);
-        result.append(", Port: ");
+        result.append(", Port: "); //$NON-NLS-1$
         result.append(port);
-        result.append(", Username: ");
+        result.append(", Username: "); //$NON-NLS-1$
         result.append(username);
-        result.append(", Password: ");
+        result.append(", Password: "); //$NON-NLS-1$
         result.append(password);
-        result.append(", ServerName: ");
+        result.append(", ServerName: "); //$NON-NLS-1$
         result.append(serverName);
-        result.append(", DatasourceName: ");
+        result.append(", DatasourceName: "); //$NON-NLS-1$
         result.append(datasourceName);
-        result.append(", FileFieldName: ");
+        result.append(", FileFieldName: "); //$NON-NLS-1$
         result.append(fileFieldName);
-        result.append(", Schema: ");
+        result.append(", Schema: "); //$NON-NLS-1$
         result.append(schema);
-        result.append(", SID: ");
+        result.append(", SID: "); //$NON-NLS-1$
         result.append(sid);
-        result.append(", SqlSynthax: ");
+        result.append(", SqlSynthax: "); //$NON-NLS-1$
         result.append(sqlSynthax);
-        result.append(", StringQuote: ");
+        result.append(", StringQuote: "); //$NON-NLS-1$
         result.append(stringQuote);
-        result.append(", NullChar: ");
+        result.append(", NullChar: "); //$NON-NLS-1$
         result.append(nullChar);
         result.append(')');
         return result.toString();
