@@ -42,7 +42,7 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
      * @Override public void preStartup() { WorkbenchAdapterBuilder.registerAdapters(); super.preStartup(); }
      */
 
-    private static final String PERSPECTIVE_ID = "org.talend.rcp.perspective";
+    private static final String PERSPECTIVE_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
 
     public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         return new ApplicationWorkbenchWindowAdvisor(configurer);

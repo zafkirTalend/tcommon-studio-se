@@ -60,8 +60,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     private List<IAction> actions = new ArrayList<IAction>();
 
-    public static final ISimpleExtensionPoint GLOBAL_ACTIONS = new ExtensionPointImpl("org.talend.core.global_actions",
-            "GlobalAction", -1, -1);
+    public static final ISimpleExtensionPoint GLOBAL_ACTIONS = new ExtensionPointImpl("org.talend.core.global_actions", //$NON-NLS-1$
+            "GlobalAction", -1, -1); //$NON-NLS-1$
 
     public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         super(configurer);
@@ -84,7 +84,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         Object buildId = Activator.getDefault().getBundle().getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
 
         String appName = BrandingService.getInstance().getFullProductName();
-        configurer.setTitle(appName + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel());
+        configurer.setTitle(appName + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
     /*
@@ -112,7 +112,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     private void registerActions() {
         IContextService contextService = (IContextService) Activator.getDefault().getWorkbench()
                 .getAdapter(IContextService.class);
-        contextService.activateContext("talend.global");
+        contextService.activateContext("talend.global"); //$NON-NLS-1$
 
         IWorkbench workbench = PlatformUI.getWorkbench();
         IHandlerService handlerService = (IHandlerService) workbench.getService(IHandlerService.class);

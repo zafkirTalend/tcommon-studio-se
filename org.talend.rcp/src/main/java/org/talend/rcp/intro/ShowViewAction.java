@@ -25,6 +25,7 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.action.Action;
 import org.eclipse.ui.handlers.ShowViewHandler;
+import org.talend.rcp.i18n.Messages;
 
 
 /**
@@ -42,7 +43,7 @@ public class ShowViewAction extends Action {
      * Constructs a new ShowViewAction.
      */
     public ShowViewAction() {
-        super("Show &view...");
+        super(Messages.getString("ShowViewAction.actionLabel")); //$NON-NLS-1$
         
         handler = new ShowViewHandler(false);
     }

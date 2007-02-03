@@ -29,6 +29,7 @@ import org.eclipse.ui.IPerspectiveRegistry;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
+import org.talend.rcp.i18n.Messages;
 
 /**
  * Menu manager for perspective switching. <br/>
@@ -38,18 +39,18 @@ import org.eclipse.ui.PlatformUI;
  */
 public class PerspectiveMenuManager extends MenuManager {
     
-    private static final String[] PERSPECTIVE_IDS = new String[] {"org.talend.rcp.perspective", "org.eclipse.debug.ui.DebugPerspective"};
+    private static final String[] PERSPECTIVE_IDS = new String[] {"org.talend.rcp.perspective", "org.eclipse.debug.ui.DebugPerspective"}; //$NON-NLS-1$ //$NON-NLS-2$
 
     /**
      * Constructs a new PerspectiveMenuManager.
      */
     public PerspectiveMenuManager() {
-        super("&Perspective", "perspective");
+        super(Messages.getString("PerspectiveMenuManager.perspectiveLabel"), "perspective"); //$NON-NLS-1$ //$NON-NLS-2$
         
         addMenuListener(new MenuFiller());
         
         setRemoveAllWhenShown(true);
-        add(new ChangePerspectiveAction("Dummy"));
+        add(new ChangePerspectiveAction(Messages.getString("PerspectiveMenuManager.dummy"))); //$NON-NLS-1$
     }
 
     /**

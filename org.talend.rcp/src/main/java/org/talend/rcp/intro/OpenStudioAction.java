@@ -23,6 +23,7 @@ package org.talend.rcp.intro;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.rcp.i18n.Messages;
 import org.talend.repository.ui.login.LoginDialog;
 
 /**
@@ -33,13 +34,13 @@ import org.talend.repository.ui.login.LoginDialog;
  */
 public class OpenStudioAction extends Action {
 
-    private static final String PERSPECTIVE_ID = "org.talend.rcp.perspective";
+    private static final String PERSPECTIVE_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
     
     /**
      * Constructs a new SwitchProjectAction.
      */
     public OpenStudioAction() {
-        super("Open &Studio...");
+        super(Messages.getString("OpenStudioAction.label")); //$NON-NLS-1$
     }
 
     /*

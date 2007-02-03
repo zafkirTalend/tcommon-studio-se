@@ -40,6 +40,7 @@ import org.eclipse.ui.internal.registry.ActionSetRegistry;
 import org.eclipse.ui.internal.registry.IActionSetDescriptor;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
 import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
+import org.talend.rcp.i18n.Messages;
 import org.talend.rcp.perspective.PerspectiveMenuManager;
 
 /**
@@ -56,11 +57,11 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     private IActionBarConfigurer actionBarConfigurer;
 
-    private static final String GROUP_UNDO = "group undo";
+    private static final String GROUP_UNDO = "group undo"; //$NON-NLS-1$
 
-    private static final String GROUP_COPY = "group copy";
+    private static final String GROUP_COPY = "group copy"; //$NON-NLS-1$
 
-    private static final String GROUP_DELETE = "group delete";
+    private static final String GROUP_DELETE = "group delete"; //$NON-NLS-1$
 
     public ApplicationActionBarAdvisor(IActionBarConfigurer configurer) {
         super(configurer);
@@ -69,8 +70,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     // private List<IAction> actions = new ArrayList<IAction>();
 
-    public static final ISimpleExtensionPoint GLOBAL_ACTIONS = new ExtensionPointImpl("org.talend.core.global_actions",
-            "GlobalAction", -1, -1);
+    public static final ISimpleExtensionPoint GLOBAL_ACTIONS = new ExtensionPointImpl("org.talend.core.global_actions", //$NON-NLS-1$
+            "GlobalAction", -1, -1); //$NON-NLS-1$
 
     protected void makeActions(final IWorkbenchWindow myWindow) {
         this.window = myWindow;
@@ -128,10 +129,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         reg.removeExtension(ext, new Object[] { actionSet });
     }
 
-    private static final String[] ACTIONSETID = new String[] { "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo",
-            "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet",
-            "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation",
-            "org.eclipse.search.searchActionSet" };
+    private static final String[] ACTIONSETID = new String[] { "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
+            "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
+            "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
+            "org.eclipse.search.searchActionSet" }; //$NON-NLS-1$
 
     protected void fillMenuBar(final IMenuManager menuBar) {
 
@@ -146,7 +147,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
         }
 
-        MenuManager fileMenu = new MenuManager("&File", IWorkbenchActionConstants.M_FILE);
+        MenuManager fileMenu = new MenuManager(Messages.getString("ApplicationActionBarAdvisor.menuFileLabel"), IWorkbenchActionConstants.M_FILE); //$NON-NLS-1$
         menuBar.add(fileMenu);
         // MenuManager subFile = new MenuManager("&New", IWorkbenchActionConstants.NEW_EXT);
         // subFile.add(ActionFactory.NEW.create(window));
@@ -158,7 +159,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(new SwitchProjectAction());
         fileMenu.add(ActionFactory.PRINT.create(window));
         fileMenu.add(ActionFactory.QUIT.create(window));
-        MenuManager editMenu = new MenuManager("&Edit", IWorkbenchActionConstants.M_EDIT);
+        MenuManager editMenu = new MenuManager(Messages.getString("ApplicationActionBarAdvisor.menuEditLabel"), IWorkbenchActionConstants.M_EDIT); //$NON-NLS-1$
         menuBar.add(editMenu);
         editMenu.add(new Separator(GROUP_UNDO));
         editMenu.add(new Separator(GROUP_COPY));
@@ -173,7 +174,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
         MenuManager perspMenu = new PerspectiveMenuManager();
 
-        MenuManager windowMenu = new MenuManager("&Window", IWorkbenchActionConstants.M_WINDOW);
+        MenuManager windowMenu = new MenuManager(Messages.getString("ApplicationActionBarAdvisor.menuWindowLabel"), IWorkbenchActionConstants.M_WINDOW); //$NON-NLS-1$
         menuBar.add(windowMenu);
         windowMenu.add(perspMenu);
         windowMenu.add(new ShowViewAction());
@@ -187,7 +188,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         // windowMenu.add(ActionFactory.MAXIMIZE.create(window));
         windowMenu.add(ActionFactory.PREFERENCES.create(window));
 
-        MenuManager helpMenu = new MenuManager("&Help", IWorkbenchActionConstants.M_HELP);
+        MenuManager helpMenu = new MenuManager(Messages.getString("ApplicationActionBarAdvisor.menuHelpLabel"), IWorkbenchActionConstants.M_HELP); //$NON-NLS-1$
         menuBar.add(helpMenu);
 
         // Help

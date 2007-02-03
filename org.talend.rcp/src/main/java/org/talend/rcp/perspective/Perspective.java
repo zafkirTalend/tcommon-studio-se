@@ -34,36 +34,36 @@ import org.eclipse.ui.IPerspectiveFactory;
 public class Perspective implements IPerspectiveFactory {
 
     public void createInitialLayout(IPageLayout layout) {
-        String propertyId = "org.eclipse.ui.views.PropertySheet";
-        String navigatorId = "org.eclipse.ui.views.ResourceNavigator";
-        String outlineId = "org.eclipse.ui.views.ContentOutline";
-        String codeId = "org.talend.designer.core.codeView";
-        String repositoryId = "org.talend.repository.views.repository";
-        String epicPerlDocId = "org.epic.perleditor.views.PerlDocView";
+        String propertyId = "org.eclipse.ui.views.PropertySheet"; //$NON-NLS-1$
+        String navigatorId = "org.eclipse.ui.views.ResourceNavigator"; //$NON-NLS-1$
+        String outlineId = "org.eclipse.ui.views.ContentOutline"; //$NON-NLS-1$
+        String codeId = "org.talend.designer.core.codeView"; //$NON-NLS-1$
+        String repositoryId = "org.talend.repository.views.repository"; //$NON-NLS-1$
+        String epicPerlDocId = "org.epic.perleditor.views.PerlDocView"; //$NON-NLS-1$
         // String epicExplainErrorsViewId = "org.epic.perleditor.views.ExplainErrorsView";
         // String epicBrowserViewId = "org.epic.core.views.browser.BrowserView";
-        String epicRegExpViewId = "org.epic.regexp.views.RegExpView";
-        String pdeErrorViewId = "org.eclipse.pde.runtime.LogView";
-        String pdeTaskViewId = "org.eclipse.ui.views.TaskList";
-        String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview";
-        String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView";
-        String modulesViewId = "org.talend.designer.codegen.perlmodule.ModulesView";
-        String schedulerViewId = "org.talend.scheduler.views.Scheduler";
+        String epicRegExpViewId = "org.epic.regexp.views.RegExpView"; //$NON-NLS-1$
+        String pdeErrorViewId = "org.eclipse.pde.runtime.LogView"; //$NON-NLS-1$
+        String pdeTaskViewId = "org.eclipse.ui.views.TaskList"; //$NON-NLS-1$
+        String runProcessViewId = "org.talend.designer.runprocess.ui.views.processview"; //$NON-NLS-1$
+        String problemsViewId = "org.talend.designer.core.ui.views.ProblemsView"; //$NON-NLS-1$
+        String modulesViewId = "org.talend.designer.codegen.perlmodule.ModulesView"; //$NON-NLS-1$
+        String schedulerViewId = "org.talend.scheduler.views.Scheduler"; //$NON-NLS-1$
 
         // leftTopLayout
-        IFolderLayout leftTopLayout = layout.createFolder("navigatorLayout", IPageLayout.LEFT, new Float(0.3),
+        IFolderLayout leftTopLayout = layout.createFolder("navigatorLayout", IPageLayout.LEFT, new Float(0.3), //$NON-NLS-1$
                 IPageLayout.ID_EDITOR_AREA);
         leftTopLayout.addView(repositoryId);
         leftTopLayout.addView(navigatorId);
 
         // leftBottomLayout
-        IFolderLayout leftBottomLayout = layout.createFolder("outlineCodeLayout", IPageLayout.BOTTOM, new Float(0.6),
+        IFolderLayout leftBottomLayout = layout.createFolder("outlineCodeLayout", IPageLayout.BOTTOM, new Float(0.6), //$NON-NLS-1$
                 repositoryId);
         leftBottomLayout.addView(outlineId);
         leftBottomLayout.addView(codeId);
 
         // bottomLayout
-        IFolderLayout bottomLayout = layout.createFolder("bottomLayout", IPageLayout.BOTTOM, new Float(0.6),
+        IFolderLayout bottomLayout = layout.createFolder("bottomLayout", IPageLayout.BOTTOM, new Float(0.6), //$NON-NLS-1$
                 IPageLayout.ID_EDITOR_AREA);
         bottomLayout.addView(propertyId);
         bottomLayout.addView(epicPerlDocId);

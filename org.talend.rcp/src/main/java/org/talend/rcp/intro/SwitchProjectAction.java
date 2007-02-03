@@ -24,6 +24,7 @@ package org.talend.rcp.intro;
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
+import org.talend.rcp.i18n.Messages;
 import org.talend.repository.ui.login.LoginDialog;
 
 /**
@@ -34,13 +35,13 @@ import org.talend.repository.ui.login.LoginDialog;
  */
 public class SwitchProjectAction extends Action {
 
-    private static final String PERSPECTIVE_ID = "org.talend.rcp.perspective";
+    private static final String PERSPECTIVE_ID = "org.talend.rcp.perspective"; //$NON-NLS-1$
 
     /**
      * Constructs a new SwitchProjectAction.
      */
     public SwitchProjectAction() {
-        super("Switch &Project...");
+        super(Messages.getString("SwitchProjectAction_actionLabel")); //$NON-NLS-1$
     }
 
     /*
