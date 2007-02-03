@@ -313,13 +313,14 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
             return false;
         }
         final MetadataColumn other = (MetadataColumn) metaColumn;
-        if (this.defaut == null) {
-            if (other.defaut != null) {
-                return false;
-            }
-        } else if (!this.defaut.equals(other.defaut)) {
-            return false;
-        }
+        // Default value is not saved in the talend file, so no need to check. 
+//        if (this.defaut == null) {
+//            if (other.defaut != null) {
+//                return false;
+//            }
+//        } else if (!this.defaut.equals(other.defaut)) {
+//            return false;
+//        }
         if (this.comment == null) {
             if (other.comment != null) {
                 return false;
