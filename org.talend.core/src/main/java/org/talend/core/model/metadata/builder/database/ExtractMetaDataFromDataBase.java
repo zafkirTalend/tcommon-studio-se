@@ -26,6 +26,7 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -52,6 +53,12 @@ public class ExtractMetaDataFromDataBase {
 
     private static Logger log = Logger.getLogger(ExtractMetaDataFromDataBase.class);
 
+    private static final String TABLETYPE_TABLE = "TABLE";
+
+    private static final String TABLETYPE_VIEW = "VIEW";
+
+    private static final String TABLETYPE_SYNONYM = "SYNONYM";
+
     /**
      * This map represents sets of table type and table name key value pair.
      */
@@ -69,9 +76,10 @@ public class ExtractMetaDataFromDataBase {
 
         try {
 
-            String[] tableTypes = { "TABLE", "VIEW", "SYNONYM" };
+            String[] tableTypes = { TABLETYPE_TABLE, TABLETYPE_VIEW, TABLETYPE_SYNONYM };
             ResultSet rsTables = null;
             rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, null, tableTypes);
+            
             while (rsTables.next()) {
                 MetadataTable medataTable = new MetadataTable();
                 medataTable.setId(medataTables.size() + 1 + "");
@@ -101,11 +109,11 @@ public class ExtractMetaDataFromDataBase {
      * @return Collection of MetadataTable Object, Normally 1 Element in Collection except when tableLabel is Null
      */
     // public static List<IMetadataTable> returnMetadataTable(DatabaseMetaData dbMetaData, String tableLabel) {
-    //
+    //    
     // List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
-    //
+    //    
     // try {
-    //
+    //    
     // String[] tableTypes = { "TABLE", "VIEW", "SYNONYM" };
     // ResultSet rsTables = null;
     // rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableLabel, tableTypes);
@@ -119,7 +127,7 @@ public class ExtractMetaDataFromDataBase {
     // medataTables.add(medataTable);
     // }
     // rsTables.close();
-    //
+    //    
     // } catch (SQLException e) {
     // log.error(e.toString());
     // throw new RuntimeException(e);
@@ -158,6 +166,14 @@ public class ExtractMetaDataFromDataBase {
                 }
             }
 
+            String name = getTableTypeByTableName(metaTable1.getLabel());
+            
+            if (name != null && name.equals(TABLETYPE_SYNONYM)) {
+                String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, metaTable1.getTableName());
+                metaTable1.setLabel(tableName);
+                metaTable1.setTableName(tableName);
+            }
+
             metadataColumns = ExtractMetaDataFromDataBase.extractMetadataColumnsFormTable(dbMetaData, metaTable1,
                     iMetadataConnection.getDbType());
 
@@ -169,6 +185,33 @@ public class ExtractMetaDataFromDataBase {
         }
 
         return metadataColumns;
+    }
+
+    /**
+     * Retrieves table name by synonym, this method is only for Oracle as we cannot get column informations by metadata
+     * in Oracle.
+     * 
+     * @param connection
+     * 
+     * @param name synonym
+     * @param tableType
+     * @return table name
+     */
+    public static String getTableNameBySynonym(Connection conn, String name) {
+        try {
+            String sql = "";
+            sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'";
+            Statement sta;
+            sta = conn.createStatement();
+            ResultSet resultSet = sta.executeQuery(sql);
+            while (resultSet.next()) {
+                return resultSet.getString("TABLE_NAME");
+            }
+        } catch (SQLException e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        }
+        return null;
     }
 
     /**
@@ -411,4 +454,5 @@ public class ExtractMetaDataFromDataBase {
         }
         return null;
     }
+
 }
