@@ -37,7 +37,7 @@ public class BusinessItemItemProvider extends ItemProviderAdapter implements IEd
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * This constructs an instance from a factory and a notifier.
@@ -72,8 +72,8 @@ public class BusinessItemItemProvider extends ItemProviderAdapter implements IEd
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_BusinessItem_name_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItem_name_feature", "_UI_BusinessItem_type"),
+                 getString("_UI_BusinessItem_name_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItem_name_feature", "_UI_BusinessItem_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.BUSINESS_ITEM__NAME,
                  true,
                  false,
@@ -105,7 +105,7 @@ public class BusinessItemItemProvider extends ItemProviderAdapter implements IEd
      * @generated
      */
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/BusinessItem"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/BusinessItem")); //$NON-NLS-1$
     }
 
     /**
@@ -116,8 +116,8 @@ public class BusinessItemItemProvider extends ItemProviderAdapter implements IEd
     public String getText(Object object) {
         String label = ((BusinessItem)object).getName();
         return label == null || label.length() == 0 ?
-            getString("_UI_BusinessItem_type") :
-            getString("_UI_BusinessItem_type") + " " + label;
+            getString("_UI_BusinessItem_type") : //$NON-NLS-1$
+            getString("_UI_BusinessItem_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**

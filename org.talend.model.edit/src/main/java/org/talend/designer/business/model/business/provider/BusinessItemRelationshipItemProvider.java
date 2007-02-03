@@ -32,7 +32,7 @@ public class BusinessItemRelationshipItemProvider extends BusinessItemItemProvid
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * This constructs an instance from a factory and a notifier.
@@ -68,8 +68,8 @@ public class BusinessItemRelationshipItemProvider extends BusinessItemItemProvid
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_BusinessItemRelationship_source_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItemRelationship_source_feature", "_UI_BusinessItemRelationship_type"),
+                 getString("_UI_BusinessItemRelationship_source_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItemRelationship_source_feature", "_UI_BusinessItemRelationship_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.BUSINESS_ITEM_RELATIONSHIP__SOURCE,
                  true,
                  false,
@@ -89,8 +89,8 @@ public class BusinessItemRelationshipItemProvider extends BusinessItemItemProvid
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_BusinessItemRelationship_target_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItemRelationship_target_feature", "_UI_BusinessItemRelationship_type"),
+                 getString("_UI_BusinessItemRelationship_target_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItemRelationship_target_feature", "_UI_BusinessItemRelationship_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.BUSINESS_ITEM_RELATIONSHIP__TARGET,
                  true,
                  false,
@@ -106,7 +106,7 @@ public class BusinessItemRelationshipItemProvider extends BusinessItemItemProvid
      * @generated
      */
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/BusinessItemRelationship"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/BusinessItemRelationship")); //$NON-NLS-1$
     }
 
     /**
@@ -117,8 +117,8 @@ public class BusinessItemRelationshipItemProvider extends BusinessItemItemProvid
     public String getText(Object object) {
         String label = ((BusinessItemRelationship)object).getName();
         return label == null || label.length() == 0 ?
-            getString("_UI_BusinessItemRelationship_type") :
-            getString("_UI_BusinessItemRelationship_type") + " " + label;
+            getString("_UI_BusinessItemRelationship_type") : //$NON-NLS-1$
+            getString("_UI_BusinessItemRelationship_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**

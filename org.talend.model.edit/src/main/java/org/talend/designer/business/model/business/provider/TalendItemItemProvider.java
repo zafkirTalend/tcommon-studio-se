@@ -36,7 +36,7 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * This constructs an instance from a factory and a notifier.
@@ -76,8 +76,8 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_TalendItem_id_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_TalendItem_id_feature", "_UI_TalendItem_type"),
+                 getString("_UI_TalendItem_id_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_TalendItem_id_feature", "_UI_TalendItem_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.TALEND_ITEM__ID,
                  true,
                  false,
@@ -97,8 +97,8 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_TalendItem_label_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_TalendItem_label_feature", "_UI_TalendItem_type"),
+                 getString("_UI_TalendItem_label_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_TalendItem_label_feature", "_UI_TalendItem_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.TALEND_ITEM__LABEL,
                  true,
                  false,
@@ -118,8 +118,8 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_TalendItem_author_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_TalendItem_author_feature", "_UI_TalendItem_type"),
+                 getString("_UI_TalendItem_author_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_TalendItem_author_feature", "_UI_TalendItem_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.TALEND_ITEM__AUTHOR,
                  true,
                  false,
@@ -139,8 +139,8 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_TalendItem_version_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_TalendItem_version_feature", "_UI_TalendItem_type"),
+                 getString("_UI_TalendItem_version_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_TalendItem_version_feature", "_UI_TalendItem_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.TALEND_ITEM__VERSION,
                  true,
                  false,
@@ -160,8 +160,8 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_TalendItem_comment_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_TalendItem_comment_feature", "_UI_TalendItem_type"),
+                 getString("_UI_TalendItem_comment_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_TalendItem_comment_feature", "_UI_TalendItem_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.TALEND_ITEM__COMMENT,
                  true,
                  false,
@@ -181,8 +181,8 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_TalendItem_assignments_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_TalendItem_assignments_feature", "_UI_TalendItem_type"),
+                 getString("_UI_TalendItem_assignments_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_TalendItem_assignments_feature", "_UI_TalendItem_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.TALEND_ITEM__ASSIGNMENTS,
                  true,
                  false,
@@ -198,7 +198,7 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
      * @generated
      */
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/TalendItem"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/TalendItem")); //$NON-NLS-1$
     }
 
     /**

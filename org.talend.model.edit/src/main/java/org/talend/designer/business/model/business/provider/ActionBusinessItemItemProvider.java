@@ -30,7 +30,7 @@ public class ActionBusinessItemItemProvider extends BusinessItemShapeItemProvide
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * This constructs an instance from a factory and a notifier.
@@ -60,7 +60,7 @@ public class ActionBusinessItemItemProvider extends BusinessItemShapeItemProvide
      * @generated
      */
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/ActionBusinessItem"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/ActionBusinessItem")); //$NON-NLS-1$
     }
 
     /**
@@ -71,8 +71,8 @@ public class ActionBusinessItemItemProvider extends BusinessItemShapeItemProvide
     public String getText(Object object) {
         String label = ((ActionBusinessItem)object).getName();
         return label == null || label.length() == 0 ?
-            getString("_UI_ActionBusinessItem_type") :
-            getString("_UI_ActionBusinessItem_type") + " " + label;
+            getString("_UI_ActionBusinessItem_type") : //$NON-NLS-1$
+            getString("_UI_ActionBusinessItem_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**

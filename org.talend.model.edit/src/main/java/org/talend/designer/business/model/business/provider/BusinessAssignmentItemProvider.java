@@ -49,7 +49,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * This constructs an instance from a factory and a notifier.
@@ -85,8 +85,8 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_BusinessAssignment_talendItem_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessAssignment_talendItem_feature", "_UI_BusinessAssignment_type"),
+                 getString("_UI_BusinessAssignment_talendItem_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessAssignment_talendItem_feature", "_UI_BusinessAssignment_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.BUSINESS_ASSIGNMENT__TALEND_ITEM,
                  true,
                  false,
@@ -106,8 +106,8 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_BusinessAssignment_comment_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessAssignment_comment_feature", "_UI_BusinessAssignment_type"),
+                 getString("_UI_BusinessAssignment_comment_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessAssignment_comment_feature", "_UI_BusinessAssignment_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.BUSINESS_ASSIGNMENT__COMMENT,
                  true,
                  false,
@@ -214,7 +214,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                  */
                 @Override
                 public Object caseBusinessProcess(BusinessProcess object) {
-                    return getString("_UI_BusinessProcess_type");
+                    return getString("_UI_BusinessProcess_type"); //$NON-NLS-1$
                 }
 
                 /*
@@ -224,7 +224,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                  */
                 @Override
                 public Object caseDatabaseMetadata(DatabaseMetadata object) {
-                    return getString("_UI_DatabaseMetadata_type");
+                    return getString("_UI_DatabaseMetadata_type"); //$NON-NLS-1$
                 }
 
                 /*
@@ -234,7 +234,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                  */
                 @Override
                 public Object caseDocumentation(Documentation object) {
-                    return getString("_UI_Documentation_type");
+                    return getString("_UI_Documentation_type"); //$NON-NLS-1$
                 }
 
                 /* (non-Javadoc)
@@ -242,7 +242,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                  */
                 @Override
                 public Object caseFileDelimitedMetadata(FileDelimitedMetadata object) {
-                    return getString("_UI_FileDelimitedMetadata_type");
+                    return getString("_UI_FileDelimitedMetadata_type"); //$NON-NLS-1$
                 }
 
                 /* (non-Javadoc)
@@ -250,7 +250,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                  */
                 @Override
                 public Object caseFilePositionalMetadata(FilePositionalMetadata object) {
-                    return getString("_UI_FilePositionalMetadata_type");
+                    return getString("_UI_FilePositionalMetadata_type"); //$NON-NLS-1$
                 }
                 
                 /*
@@ -260,7 +260,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                  */
                 @Override
                 public Object caseProcess(Process object) {
-                    return getString("_UI_Process_type");
+                    return getString("_UI_Process_type"); //$NON-NLS-1$
                 }
 
                 /*
@@ -270,7 +270,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                  */
                 @Override
                 public Object caseRoutine(Routine object) {
-                    return getString("_UI_Routine_type");
+                    return getString("_UI_Routine_type"); //$NON-NLS-1$
                 }
 
                 /*
@@ -280,7 +280,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                  */
                 @Override
                 public Object caseTableMetadata(TableMetadata object) {
-                    return getString("_UI_TableMetadata_type");
+                    return getString("_UI_TableMetadata_type"); //$NON-NLS-1$
                 }
 
                 /* (non-Javadoc)
@@ -288,7 +288,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                  */
                 @Override
                 public Object caseFileRegexpMetadata(FileRegexpMetadata object) {
-                    return getString("_UI_FileRegexpMetadata_type");
+                    return getString("_UI_FileRegexpMetadata_type"); //$NON-NLS-1$
                 }
 
                 /* (non-Javadoc)
@@ -296,7 +296,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                  */
                 @Override
                 public Object caseFileXmlMetadata(FileXmlMetadata object) {
-                    return getString("_UI_FileXmlMetadata_type");
+                    return getString("_UI_FileXmlMetadata_type"); //$NON-NLS-1$
                 }
 
                 /* (non-Javadoc)
@@ -304,7 +304,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                  */
                 @Override
                 public Object caseFileLdifMetadata(FileLdifMetadata object) {
-                    return getString("_UI_FileLdifMetadata_type");
+                    return getString("_UI_FileLdifMetadata_type"); //$NON-NLS-1$
                 }
             }.doSwitch(businessAssignment.getTalendItem());
 

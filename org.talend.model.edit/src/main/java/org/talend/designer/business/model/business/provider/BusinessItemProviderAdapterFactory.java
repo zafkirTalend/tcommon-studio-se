@@ -40,7 +40,7 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * This keeps track of the root adapter factory that delegates to this adapter factory.

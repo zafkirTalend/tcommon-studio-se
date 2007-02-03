@@ -35,7 +35,7 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * This constructs an instance from a factory and a notifier.
@@ -81,7 +81,7 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
      * @generated
      */
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/Repository"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/Repository")); //$NON-NLS-1$
     }
 
     /**
@@ -90,7 +90,7 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
      * @generated
      */
     public String getText(Object object) {
-        return getString("_UI_Repository_type");
+        return getString("_UI_Repository_type"); //$NON-NLS-1$
     }
 
     /**

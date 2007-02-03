@@ -32,7 +32,7 @@ public class BusinessItemShapeItemProvider extends BusinessItemItemProvider impl
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * This constructs an instance from a factory and a notifier.
@@ -69,8 +69,8 @@ public class BusinessItemShapeItemProvider extends BusinessItemItemProvider impl
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_BusinessItemShape_incomingRelationships_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItemShape_incomingRelationships_feature", "_UI_BusinessItemShape_type"),
+                 getString("_UI_BusinessItemShape_incomingRelationships_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItemShape_incomingRelationships_feature", "_UI_BusinessItemShape_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.BUSINESS_ITEM_SHAPE__INCOMING_RELATIONSHIPS,
                  true,
                  false,
@@ -91,8 +91,8 @@ public class BusinessItemShapeItemProvider extends BusinessItemItemProvider impl
             (createItemPropertyDescriptor
                 (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
                  getResourceLocator(),
-                 getString("_UI_BusinessItemShape_outgoingRelationships_feature"),
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItemShape_outgoingRelationships_feature", "_UI_BusinessItemShape_type"),
+                 getString("_UI_BusinessItemShape_outgoingRelationships_feature"), //$NON-NLS-1$
+                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItemShape_outgoingRelationships_feature", "_UI_BusinessItemShape_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                  BusinessPackage.Literals.BUSINESS_ITEM_SHAPE__OUTGOING_RELATIONSHIPS,
                  true,
                  false,
@@ -110,8 +110,8 @@ public class BusinessItemShapeItemProvider extends BusinessItemItemProvider impl
     public String getText(Object object) {
         String label = ((BusinessItemShape)object).getName();
         return label == null || label.length() == 0 ?
-            getString("_UI_BusinessItemShape_type") :
-            getString("_UI_BusinessItemShape_type") + " " + label;
+            getString("_UI_BusinessItemShape_type") : //$NON-NLS-1$
+            getString("_UI_BusinessItemShape_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**
