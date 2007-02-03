@@ -111,4 +111,11 @@ public interface IProcessor {
      */
     public void addSyntaxCheckableEditor(ISyntaxCheckableEditor editor);
 
+    /**
+     * Get Current type name for launching.
+     * 
+     * yzhang Comment method "getTypeName".
+     */
+    public String getTypeName();
+
 }

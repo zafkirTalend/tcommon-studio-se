@@ -50,5 +50,19 @@ public interface ICodeGeneratorService extends IService {
      */
     public ICodeGenerator createCodeGenerator(IProcess process, boolean statistics, boolean trace, String... options);
 
-    public IRoutineSynchronizer createRoutineSynchronizer();
+    /**
+     * Create the routine synchronizer for Perl project.
+     * 
+     *  yzhang Comment method "creatPerlRoutineSynchronizer".
+     * @return
+     */
+    public IRoutineSynchronizer createPerlRoutineSynchronizer();
+
+    /**
+     * Create the routine synchronizer for Java project.
+     * 
+     *  yzhang Comment method "creatJavaRoutineSynchronizer".
+     * @return
+     */
+    public IRoutineSynchronizer createJavaRoutineSynchronizer();
 }

@@ -82,18 +82,30 @@ public interface IRunProcessService extends IService {
     public IPerformanceData createPerformanceData(String data);
 
     /**
-     * DOC qian Gets perl project.
-     * 
-     * @return IProject
-     * @throws CoreException
-     */
-    public IProject getProject() throws CoreException;
-
-    /**
      * DOC qian Gets routine filename extension.
      * 
      * @return
      */
     public String getRoutineFilenameExt();
+
+    /**
+     * Gets perl project.
+     * 
+     * qian Comment method "getPerlProject".
+     * 
+     * @return IProject
+     * @throws CoreException
+     */
+    public IProject getPerlProject() throws CoreException;
+
+    /**
+     * Gets java project
+     * 
+     * yzhang Comment method "getJavaProject".
+     * 
+     * @return
+     * @throws CoreException
+     */
+    public IProject getJavaProject() throws CoreException;
 
 }
