@@ -76,10 +76,6 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         previewLimit.setEmptyStringAllowed(false);
         previewLimit.setValidRange(1, 999999999);
         addField(previewLimit);
-
-        DirectoryFieldEditor compDefaultFileDir = new DirectoryFieldEditor(ITalendCorePrefConstants.COMP_DEFAULT_FILE_DIR,
-                "&Component default file directory:", getFieldEditorParent());
-        addField(compDefaultFileDir);
     }
 
     /**
