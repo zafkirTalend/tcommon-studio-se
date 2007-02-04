@@ -79,6 +79,7 @@ import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
 import org.talend.core.model.temp.ECodeLanguage;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
+import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.AbstractEMFRepositoryFactory;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.FolderHelper;
@@ -91,13 +92,13 @@ import org.talend.repository.model.VersionList;
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id$ $Id: RepositoryFactory.java,v 1.55 2006/08/23
- * 14:30:39 tguiu Exp $
+ * $Id$ $Id:
+ * RepositoryFactory.java,v 1.55 2006/08/23 14:30:39 tguiu Exp $
  * 
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements IRepositoryFactory {
 
-    private static final String BIN = "bin";
+    private static final String BIN = Messages.getString("LocalRepositoryFactory.bin"); //$NON-NLS-1$
 
     private static Logger log = Logger.getLogger(LocalRepositoryFactory.class);
 
@@ -139,8 +140,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         addFolderMembers(type, toReturn, objectFolder, onlyLastVersion);
 
-        log.trace("Retrieving " + toReturn.absoluteSize() + " files in " + (System.currentTimeMillis() - currentTime) / 1000
-                + " sec");
+        String arg1 = toReturn.absoluteSize() + ""; //$NON-NLS-1$
+        String arg2 = (System.currentTimeMillis() - currentTime) / 1000 + ""; //$NON-NLS-1$
+
+        log.trace(Messages.getString("LocalRepositoryFactory.logRetrievingFiles", new String[] { arg1, arg2 })); //$NON-NLS-1$
 
         return toReturn;
     }
@@ -223,7 +226,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<IRepositoryObject> serializableAllVersion = getSerializable(getRepositoryContext().getProject(), id, false);
 
         if (serializableAllVersion.size() > 1) {
-            throw new PersistenceException("Only one occurence must be found !!");
+            throw new PersistenceException(Messages.getString("LocalRepositoryFactory.persistenceException")); //$NON-NLS-1$
         } else if (serializableAllVersion.size() == 1) {
             return serializableAllVersion.get(0);
         } else {
@@ -378,7 +381,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         }
 
         // 3. Code/routines/Snippets :
-        createFolder(prj, folderHelper, "code/routines");
+        createFolder(prj, folderHelper, "code/routines"); //$NON-NLS-1$
     }
 
     protected FolderHelper getFolderHelper(org.talend.core.model.properties.Project emfProject) {
@@ -471,13 +474,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      */
     public Folder createFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
         if (type == null) {
-            throw new IllegalArgumentException("Type cannot be null");
+            throw new IllegalArgumentException(Messages.getString("LocalRepositoryFactory.illegalArgumentException01")); //$NON-NLS-1$
         }
         if (path == null) {
-            throw new IllegalArgumentException("Path cannot be null");
+            throw new IllegalArgumentException(Messages.getString("LocalRepositoryFactory.illegalArgumentException02")); //$NON-NLS-1$
         }
         if (label == null || label.length() == 0) {
-            throw new IllegalArgumentException("Label cannot be null nor empty");
+            throw new IllegalArgumentException(Messages.getString("LocalRepositoryFactory.illegalArgumentException03")); //$NON-NLS-1$
         }
 
         IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
@@ -760,7 +763,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @see org.talend.repository.model.IRepositoryFactory#isServerValid(java.lang.String, java.lang.String, int)
      */
     public String isServerValid() {
-        return "";
+        return ""; //$NON-NLS-1$
     }
 
     private Resource create(BusinessProcessItem item, IPath path) throws PersistenceException {

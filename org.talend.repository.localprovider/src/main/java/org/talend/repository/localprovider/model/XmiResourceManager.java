@@ -49,6 +49,7 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.model.ResourceFilenameHelper.FileName;
 import org.talend.repository.model.URIHelper;
 
@@ -62,9 +63,9 @@ public class XmiResourceManager {
 
     public static final String PROPERTIES_EXTENSION = PropertiesPackage.eNAME;
 
-    public static final String ITEM_EXTENSION = "item";
+    public static final String ITEM_EXTENSION = "item"; //$NON-NLS-1$
 
-    private static final String PROJECT_DESCRIPTION_FILE = "talendProject";
+    private static final String PROJECT_DESCRIPTION_FILE = Messages.getString("XmiResourceManager.projectFile"); //$NON-NLS-1$
 
     // PTODO MHE should use a custom ResourceFactory
     // PTODO MHE test duplicate resourcesUri in resourceSet !
@@ -212,7 +213,7 @@ public class XmiResourceManager {
 
             if (ResourceFilenameHelper.mustChangeVersion(fileName)) {
                 IPath path = URIHelper.convert(resource.getURI());
-                IPath bakPath = path.addFileExtension("bak");
+                IPath bakPath = path.addFileExtension("bak"); //$NON-NLS-1$
 
                 // Create copy
                 copyResource(resource, bakPath);

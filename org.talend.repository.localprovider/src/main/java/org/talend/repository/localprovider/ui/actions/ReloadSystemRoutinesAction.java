@@ -27,6 +27,7 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.model.LocalRepositoryFactory;
 import org.talend.repository.ui.views.IRepositoryView;
 
@@ -42,7 +43,7 @@ public class ReloadSystemRoutinesAction extends Action {
 
     public ReloadSystemRoutinesAction() {
         super();
-        this.setActionDefinitionId("reloadSystemRoutines");
+        this.setActionDefinitionId(Messages.getString("ReloadSystemRoutinesAction.0")); //$NON-NLS-1$
     }
 
     @Override
@@ -52,7 +53,7 @@ public class ReloadSystemRoutinesAction extends Action {
             IWorkbenchPage iwp = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
             IRepositoryView viewPart = (IRepositoryView) iwp.findView(IRepositoryView.VIEW_ID);
             viewPart.refresh();
-            log.info("System routines successfully reloaded");
+            log.info(Messages.getString("ReloadSystemRoutinesAction.logInfo.sysRoutinesSuccessfullyReloaded")); //$NON-NLS-1$
         } catch (PersistenceException e) {
             MessageBoxExceptionHandler.process(e);
         }
