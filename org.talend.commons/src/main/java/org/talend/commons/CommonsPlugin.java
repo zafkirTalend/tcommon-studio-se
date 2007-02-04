@@ -32,7 +32,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 public class CommonsPlugin extends AbstractUIPlugin {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.talend.commons";
+    public static final String PLUGIN_ID = "org.talend.commons"; //$NON-NLS-1$
 
     // The shared instance
     private static CommonsPlugin plugin;

@@ -37,6 +37,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.drawing.background.IBackgroundRefresher;
 import org.talend.commons.ui.swt.drawing.background.IBgDrawableComposite;
 import org.talend.commons.ui.swt.drawing.link.BezierHorizontalLink;
@@ -290,7 +291,7 @@ public class TreeToTablesLinker<D1, D2> extends BgDrawableComposite implements I
         } else if (currentControl instanceof Tree) {
             isTable = false;
         } else {
-            throw new IllegalArgumentException("This type of currentControl is unsupported");
+            throw new IllegalArgumentException(Messages.getString("TreeToTablesLinker.Type.Unsupported")); //$NON-NLS-1$
         }
 
         HashSet selectedItems = new HashSet();

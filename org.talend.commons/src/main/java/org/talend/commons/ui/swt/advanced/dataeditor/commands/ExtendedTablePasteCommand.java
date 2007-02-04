@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.gef.commands.Command;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.utils.SimpleClipboard;
 
@@ -40,7 +41,7 @@ public abstract class ExtendedTablePasteCommand extends Command implements IExte
 
     private Integer indexStart;
 
-    public static final String LABEL = "Paste data from the internal clipoard";
+    public static final String LABEL = Messages.getString("ExtendedTablePasteCommand.Paste.Label"); //$NON-NLS-1$
 
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
@@ -63,7 +64,7 @@ public abstract class ExtendedTablePasteCommand extends Command implements IExte
      * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     @Override
     public void execute() {
 

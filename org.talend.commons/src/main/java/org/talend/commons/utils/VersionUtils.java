@@ -23,6 +23,8 @@ package org.talend.commons.utils;
 
 import java.util.StringTokenizer;
 
+import org.talend.commons.i18n.internal.Messages;
+
 /**
  * Represents a version. Contents a major and a minor version.<br/>
  * 
@@ -70,7 +72,7 @@ public class VersionUtils {
                 this.major = Integer.parseInt(stringTokenizer.nextToken());
                 this.minor = Integer.parseInt(stringTokenizer.nextToken());
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Malformed string " + version + " (attending M" + LEVEL_SEPARATOR + "m)", e);
+                throw new IllegalArgumentException(Messages.getString("VersionUtils.Version.Error2", version), e); //$NON-NLS-1$
             }
         }
 

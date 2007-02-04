@@ -30,7 +30,7 @@ package org.talend.commons.exception;
  */
 public class IllegalPluginConfigurationException extends FatalException {
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("unused") //$NON-NLS-1$
     private static final long serialVersionUID = 1L;
 
     public IllegalPluginConfigurationException(String message) {

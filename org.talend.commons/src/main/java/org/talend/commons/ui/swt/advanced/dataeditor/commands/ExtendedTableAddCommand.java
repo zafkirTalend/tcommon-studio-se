@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.gef.commands.Command;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 
 /**
@@ -41,7 +42,7 @@ public class ExtendedTableAddCommand extends Command implements IExtendedTableCo
 
     private List beansToAdd;
 
-    public static final String LABEL = "Add one or more table entries";
+    public static final String LABEL = Messages.getString("ExtendedTableAddCommand.Add.Label"); //$NON-NLS-1$
 
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
@@ -63,7 +64,7 @@ public class ExtendedTableAddCommand extends Command implements IExtendedTableCo
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public ExtendedTableAddCommand(ExtendedTableModel extendedTable, Integer indexStartAdd, Object beanToAdd) {
         super(LABEL);
         this.extendedTable = extendedTable;
@@ -86,7 +87,7 @@ public class ExtendedTableAddCommand extends Command implements IExtendedTableCo
      * @see org.eclipse.gef.commands.Command#execute()
      */
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public void execute() {
 
         // for (Object object : beansToAdd) {
@@ -122,7 +123,7 @@ public class ExtendedTableAddCommand extends Command implements IExtendedTableCo
      * 
      * @see org.talend.commons.ui.command.CommonCommand#undo()
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     @Override
     public void undo() {
 

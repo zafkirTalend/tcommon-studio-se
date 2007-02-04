@@ -26,6 +26,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
+import org.talend.commons.i18n.internal.Messages;
 
 /**
  * Core of i18n management.<br/>
@@ -49,9 +50,9 @@ public abstract class MessagesCore {
 
     private static Logger log = Logger.getLogger(MessagesCore.class);
 
-    public static final String KEY_NOT_FOUND_PREFIX = "!!!";
+    public static final String KEY_NOT_FOUND_PREFIX = "!!!"; //$NON-NLS-1$
 
-    public static final String KEY_NOT_FOUND_SUFFIX = "!!!";
+    public static final String KEY_NOT_FOUND_SUFFIX = "!!!"; //$NON-NLS-1$
 
     /**
      * Returns the i18n formatted message for <i>key</i> in the specified bundle.
@@ -64,7 +65,7 @@ public abstract class MessagesCore {
         if (resourceBundle == null) {
             return KEY_NOT_FOUND_PREFIX + key + KEY_NOT_FOUND_SUFFIX;
         }
-        log.trace("Getting key " + key + " in " + resourceBundle.toString());
+        log.trace(Messages.getString("MessagesCore.Getting.Key", key) + resourceBundle.toString()); //$NON-NLS-1$ //$NON-NLS-2$
         try {
             return resourceBundle.getString(key);
         } catch (MissingResourceException e) {

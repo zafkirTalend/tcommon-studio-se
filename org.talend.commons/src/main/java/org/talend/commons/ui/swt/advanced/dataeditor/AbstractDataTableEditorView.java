@@ -398,9 +398,9 @@ public abstract class AbstractDataTableEditorView<B> {
         extendedTableViewer.setExtendedControlModel(extendedTableModel);
         if (titleLabel != null) {
             if (extendedTableModel != null) {
-                titleLabel.setText(extendedTableModel.getName() == null ? "" : extendedTableModel.getName());
+                titleLabel.setText(extendedTableModel.getName() == null ? "" : extendedTableModel.getName()); //$NON-NLS-1$
             } else {
-                titleLabel.setText("");
+                titleLabel.setText(""); //$NON-NLS-1$
             }
         }
     }
@@ -449,7 +449,7 @@ public abstract class AbstractDataTableEditorView<B> {
     public void setTitle(String title) {
         if (title == null) {
             titleLabel.setVisible(false);
-            titleLabel.setText("");
+            titleLabel.setText(""); //$NON-NLS-1$
         } else {
             titleLabel.setVisible(true);
             titleLabel.setText(title);

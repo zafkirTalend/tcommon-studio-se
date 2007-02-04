@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.gef.commands.Command;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.utils.SimpleClipboard;
 
 /**
@@ -37,12 +38,12 @@ public class ExtendedTableCopyCommand extends Command implements IExtendedTableC
 
     private List beansToCopy;
 
-    public static final String LABEL = "Copy one or more table entries in the internal clipboard";
+    public static final String LABEL = Messages.getString("ExtendedTableCopyCommand.Copy.Label"); //$NON-NLS-1$
 
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public ExtendedTableCopyCommand(List beansToCopy) {
         super(LABEL);
         this.beansToCopy = new ArrayList(beansToCopy);
@@ -51,7 +52,7 @@ public class ExtendedTableCopyCommand extends Command implements IExtendedTableC
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public ExtendedTableCopyCommand(Object beanToCopy) {
         super(LABEL);
         beansToCopy = new ArrayList(1);

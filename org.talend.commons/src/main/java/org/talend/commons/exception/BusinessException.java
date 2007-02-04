@@ -30,7 +30,7 @@ package org.talend.commons.exception;
  */
 public class BusinessException extends Exception {
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("unused") //$NON-NLS-1$
     private static final long serialVersionUID = 1L;
 
     public BusinessException(String message, Throwable cause) {

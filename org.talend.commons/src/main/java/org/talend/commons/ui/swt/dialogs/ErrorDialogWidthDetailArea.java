@@ -26,6 +26,7 @@ import org.eclipse.core.runtime.MultiStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.i18n.internal.Messages;
 
 /**
  * Open an Error dialog with a details area (title = "Error Message"). This dialog box show a Details button that shows
@@ -60,6 +61,6 @@ public class ErrorDialogWidthDetailArea {
                 info.add(new Status(IStatus.INFO, pid, 1, lines[i].replaceAll("\t", "    ").replaceAll("\r", ""), null));
             }
         }
-        ErrorDialog.openError(shell, "Error Message", null, info);
+        ErrorDialog.openError(shell, Messages.getString("ErrorDialogWidthDetailArea.ErrorMessage.Text"), null, info); //$NON-NLS-1$
     }
 }

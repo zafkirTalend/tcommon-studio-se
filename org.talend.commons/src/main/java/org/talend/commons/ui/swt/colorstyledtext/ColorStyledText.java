@@ -38,6 +38,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Mode;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Modes;
 import org.talend.commons.ui.swt.colorstyledtext.rules.CToken;
@@ -72,7 +73,7 @@ public class ColorStyledText extends StyledText {
         Image image = sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_COPY).createImage();
         Menu popupMenu = new Menu(this);
         MenuItem copyItem = new MenuItem(popupMenu, SWT.PUSH);
-        copyItem.setText("Copy");
+        copyItem.setText(Messages.getString("ColorStyledText.CopyItem.Text")); //$NON-NLS-1$
         copyItem.setImage(image);
         copyItem.addListener(SWT.Selection, new Listener() {
 
@@ -82,7 +83,7 @@ public class ColorStyledText extends StyledText {
         });
         this.setMenu(popupMenu);
         MenuItem selectAllItem = new MenuItem(popupMenu, SWT.PUSH);
-        selectAllItem.setText("Select All");
+        selectAllItem.setText(Messages.getString("ColorStyledText.SelectAllItem.Text")); //$NON-NLS-1$
         selectAllItem.addListener(SWT.Selection, new Listener() {
 
             public void handleEvent(Event event) {

@@ -29,6 +29,7 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringEditorTools;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringScanner;
 
@@ -92,7 +93,7 @@ public class ModeReader {
         } else if (element.getName().equals("WHITESPACE")) {
             // ignore for now
         } else {
-            System.out.println("Ignore unknown element " + element.getName());
+            System.out.println(Messages.getString("ModeReader.IgnoreElement") + element.getName()); //$NON-NLS-1$
         }
     }
 

@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.data;
 
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 
 /**
@@ -45,13 +46,12 @@ public final class AccessorUtils {
                 value = column.getBeanPropertyAccessors().get(bean);
             } catch (ClassCastException cce) {
 
-                String message = "The 'BeanPropertyAccessors' of the column (with title '" + column.getTitle() + "' and id '"
-                        + column.getId() + "') is not configured correctly. " + " " + bean.getClass() + " is required for bean <B>";
+                String message = Messages.getString("AccessorUtils.Assert0", column.getTitle(), column.getId(), bean.getClass()); //$NON-NLS-1$
                 cce.printStackTrace();
                 throw new RuntimeException(message, cce);
             } catch (NoClassDefFoundError e) {
                 // e.printStackTrace();
-                System.err.println("NoClassDefFoundError (" + AccessorUtils.class + "):" + e.getMessage());
+                System.err.println(Messages.getString("AccessorUtils.NoClassDef", AccessorUtils.class) + e.getMessage()); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         return value;
@@ -64,14 +64,12 @@ public final class AccessorUtils {
                 column.getBeanPropertyAccessors().set(bean, value);
             } catch (ClassCastException cce) {
 
-                String message = "The 'BeanPropertyAccessors' of the column (with title '" + column.getTitle() + "' and id '"
-                        + column.getId() + "') is not configured correctly or the value set has not the correct type. ";
+                String message = Messages.getString("AccessorUtils.Assert1", column.getTitle(), column.getId()); //$NON-NLS-1$
                 if (bean != null) {
-                    message += "\n " + bean.getClass() + " is required for the bean (<B>).";
+                    message += "\n " + bean.getClass() + Messages.getString("AccessorUtils.isReq"); //$NON-NLS-2$
                 }
                 if (value != null) {
-                    message += "\n " + value.getClass()
-                            + " is required for the value (<V>), but the value could be adapted with CellEditorValueAdapter.";
+                    message += "\n " + value.getClass() + Messages.getString("AccessorUtils.isReqValue"); //$NON-NLS-1$
                 }
                 throw new RuntimeException(message, cce);
             }

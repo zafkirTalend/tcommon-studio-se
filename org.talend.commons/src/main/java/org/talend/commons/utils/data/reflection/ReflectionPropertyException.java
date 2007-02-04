@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.commons.utils.data.reflection;
 
+import org.talend.commons.i18n.internal.Messages;
+
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
@@ -36,7 +38,7 @@ public class ReflectionPropertyException extends RuntimeException {
 
     public ReflectionPropertyException(Class reflectedClass, String reflectedProperty, boolean isGetter, Throwable cause) {
 
-        super("Error when trying to access to the " + (isGetter ? "getter" : "setter") + " of the property '" + reflectedProperty + "' "
-                + "of the class '" + (reflectedClass != null ? reflectedClass.getName() : "class null") + "'", cause);
+        super(Messages.getString("ReflectionPropertyException.Access.ErrorMsg3", (isGetter ? "getter" : "setter"),
+                reflectedProperty, (reflectedClass != null ? reflectedClass.getName() : "class null")), cause);
     }
 }

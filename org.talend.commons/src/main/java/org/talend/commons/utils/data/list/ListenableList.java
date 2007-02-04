@@ -28,6 +28,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.utils.data.list.ListenableListEvent.TYPE;
 
 /**
@@ -53,7 +54,7 @@ public class ListenableList<T> implements IExtendedList<T> {
      */
     public ListenableList(List<T> list) {
         if (list == null) {
-            throw new IllegalArgumentException("list can't be null");
+            throw new IllegalArgumentException(Messages.getString("ListenableList.List.BeNull")); //$NON-NLS-1$
         }
         this.list = list;
     }
@@ -575,7 +576,7 @@ public class ListenableList<T> implements IExtendedList<T> {
 
     public void swapElements(List<Integer> indicesOrigin, List<Integer> indicesTarget) {
         if (indicesOrigin.size() != indicesTarget.size()) {
-            throw new IllegalArgumentException("indexOrigin and indexDestination must have same length");
+            throw new IllegalArgumentException(Messages.getString("ListenableList.IndexSameLength.Error")); //$NON-NLS-1$
         }
         ArrayList<T> swapedObjects = new ArrayList<T>();
         fireSwapedEvent(indicesOrigin, indicesTarget, null, true);

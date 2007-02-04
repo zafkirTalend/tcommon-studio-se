@@ -22,6 +22,7 @@
 package org.talend.commons.utils;
 
 import org.eclipse.swt.SWT;
+import org.talend.commons.i18n.internal.Messages;
 
 /**
  * Utility class for event handling.
@@ -110,7 +111,7 @@ public final class EventUtil {
         case SWT.Verify:
             return "verify";
         default:
-            return "unkown ??? value of event type : " + eventType;
+            return Messages.getString("EventUtil.UnknowType") + eventType; //$NON-NLS-1$
         }
     }
 
@@ -121,7 +122,7 @@ public final class EventUtil {
         case SWT.SELECTED:
             return "SELECTED=" + SWT.SELECTED;
         default:
-            return "unkown ??? value of event detail : " + eventDetail;
+            return Messages.getString("EventUtil.UnknowDetail") + eventDetail; //$NON-NLS-1$
         }
     }
 

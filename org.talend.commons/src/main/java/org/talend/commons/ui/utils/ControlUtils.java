@@ -25,6 +25,7 @@ import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.i18n.internal.Messages;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -48,7 +49,7 @@ public class ControlUtils {
         } else if (control instanceof StyledText) {
             value = ((StyledText) control).getText();
         } else {
-            throw new UnsupportedOperationException("This control (" + control.getClass() + ") is not supported, add case if you want...");
+            throw new UnsupportedOperationException(Messages.getString("ControlUtils.Unsupported1", control.getClass())); //$NON-NLS-1$
         }
         return value;
 
@@ -67,7 +68,7 @@ public class ControlUtils {
         } else if (control instanceof StyledText) {
             ((StyledText) control).setText(text);
         } else {
-            throw new UnsupportedOperationException("This control (" + control.getClass() + ") is not supported, add case if you want...");
+            throw new UnsupportedOperationException(Messages.getString("ControlUtils.Unsupported1", control.getClass())); //$NON-NLS-1$
         }
 
     }
@@ -85,7 +86,7 @@ public class ControlUtils {
         } else if (control instanceof StyledText) {
             ((StyledText) control).addModifyListener(modifyListener);
         } else {
-            throw new UnsupportedOperationException("This control (" + control.getClass() + ") is not supported, add case if you want...");
+            throw new UnsupportedOperationException(Messages.getString("ControlUtils.Unsupported1", control.getClass())); //$NON-NLS-1$
         }
     }
 
@@ -101,7 +102,7 @@ public class ControlUtils {
         } else if (control instanceof StyledText) {
             ((StyledText) control).removeModifyListener(modifyListener);
         } else {
-            throw new UnsupportedOperationException("This control (" + control.getClass() + ") is not supported, add case if you want...");
+            throw new UnsupportedOperationException(Messages.getString("ControlUtils.Unsupported1", control.getClass())); //$NON-NLS-1$
         }
     }
 

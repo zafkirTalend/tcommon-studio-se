@@ -76,7 +76,7 @@ public class Curve2DBezierFixed extends Curve2D {
     }
 
     // computeSegments
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     void computeSegments() {
         Point2DList pl = (Point2DList) plist;
 

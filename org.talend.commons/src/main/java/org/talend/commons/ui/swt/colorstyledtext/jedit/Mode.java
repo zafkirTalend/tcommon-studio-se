@@ -27,6 +27,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import org.talend.commons.i18n.internal.Messages;
+
 import com.sun.org.apache.regexp.internal.RE;
 import com.sun.org.apache.regexp.internal.RESyntaxException;
 
@@ -61,14 +63,15 @@ public class Mode {
             Mode.this.add(currentRule);
         }
 
-        public void newSpan(String type, String begin, String end, boolean atLineStart, boolean excludeMatch, boolean noLineBreak,
-                boolean noWordBreak, String delegate) {
+        public void newSpan(String type, String begin, String end, boolean atLineStart, boolean excludeMatch,
+                boolean noLineBreak, boolean noWordBreak, String delegate) {
             currentRule.add(Type.newSpan(type, begin, end, atLineStart, excludeMatch, noLineBreak, noWordBreak, delegate));
         }
 
-        public void newMark(String type, String text, boolean atLineStart, boolean atWhitespaceEnd, boolean atWordStart, String delegate,
-                boolean isPrevious, boolean excludeMatch) {
-            currentRule.add(Type.newMark(type, text, atLineStart, atWhitespaceEnd, atWordStart, delegate, isPrevious, excludeMatch));
+        public void newMark(String type, String text, boolean atLineStart, boolean atWhitespaceEnd, boolean atWordStart,
+                String delegate, boolean isPrevious, boolean excludeMatch) {
+            currentRule.add(Type.newMark(type, text, atLineStart, atWhitespaceEnd, atWordStart, delegate, isPrevious,
+                    excludeMatch));
         }
 
         public void newTextSequence(String type, String text, boolean atLineStart, boolean atWhitespaceEnd, boolean atWordStart,
@@ -143,7 +146,7 @@ public class Mode {
     }
 
     public String toString() {
-        return "Mode [" + name + "]";
+        return Messages.getString("Mode.Mode.ToString", name); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     public static Mode newMode(String name, String filename, String fileGlob, String firstLineGlob) {

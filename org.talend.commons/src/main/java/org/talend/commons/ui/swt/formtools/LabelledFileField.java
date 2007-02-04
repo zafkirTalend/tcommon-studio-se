@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.i18n.internal.Messages;
 
 /**
  * Create a Label and a Text.
@@ -164,7 +165,7 @@ public class LabelledFileField {
         compositeButton.setLayout(new GridLayout());
         compositeButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, true));
         button = new Button(compositeButton, SWT.PUSH);
-        button.setText("Browse...");
+        button.setText(Messages.getString("LabelledFileField.BrowseButton.Text")); //$NON-NLS-1$
 
         // The action of the button "Browse..."
         button.addSelectionListener(new SelectionAdapter() {
@@ -198,7 +199,7 @@ public class LabelledFileField {
     protected void displayDialog(Composite composite, String[] extensions) {
         FileDialog fileDialog = new FileDialog(composite.getShell(), SWT.OPEN);
         fileDialog.setFileName(text.getText());
-        fileDialog.setText("Select a " + label.getText());
+        fileDialog.setText(Messages.getString("LabelledFileField.FileDialog.Text") + label.getText()); //$NON-NLS-1$
         if (extensions != null) {
             fileDialog.setFilterExtensions(extensions);
         }

@@ -25,6 +25,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Priority;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.i18n.internal.Messages;
 
 /**
  * Implementation of exception handling strategy.<br/>
@@ -70,7 +71,7 @@ public final class ExceptionHandler {
      */
     private static Priority getPriority(Throwable ex) {
         if (ex == null) {
-            throw new IllegalArgumentException("ex param cannot be null");
+            throw new IllegalArgumentException(Messages.getString("ExceptionHandler.Parameter.BeNull")); //$NON-NLS-1$
         }
 
         if (ex instanceof BusinessException) {

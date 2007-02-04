@@ -45,6 +45,7 @@ import java.util.ListIterator;
 
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
+import org.talend.commons.i18n.internal.Messages;
 
 /**
  * 
@@ -134,7 +135,7 @@ public abstract class Curve2D extends Curve {
      */
     public void setMaximumSegements(int maximumSegements) {
         if (maximumSegements < 0) {
-            throw new IllegalArgumentException("maximumSegements must positive or 0");
+            throw new IllegalArgumentException(Messages.getString("Curve2D.MaxNum.Be0")); //$NON-NLS-1$
         }
         this.maximumSegements = maximumSegements;
     }
@@ -151,7 +152,7 @@ public abstract class Curve2D extends Curve {
      */
     public void setMinimumSegements(int minimumSegements) {
         if (maximumSegements < 0) {
-            throw new IllegalArgumentException("minimumSegements must positive or 0");
+            throw new IllegalArgumentException(Messages.getString("Curve2D.MinNum.Be0")); //$NON-NLS-1$
         }
         this.minimumSegements = minimumSegements;
     }

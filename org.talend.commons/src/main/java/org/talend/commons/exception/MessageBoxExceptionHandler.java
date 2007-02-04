@@ -60,8 +60,8 @@ public final class MessageBoxExceptionHandler {
      * @param ex - exception to show
      */
     protected static void showError(Throwable ex, Shell shell) {
-        String title = Messages.getString("commons.error");
-        String msg = Messages.getString("exception.errorOccured", ex.getMessage());
+        String title = Messages.getString("commons.error"); //$NON-NLS-1$
+        String msg = Messages.getString("exception.errorOccured", ex.getMessage()); //$NON-NLS-1$
 
         MessageDialog.openError(shell, title, msg);
     }

@@ -27,6 +27,7 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
@@ -108,7 +109,7 @@ public abstract class DialogErrorForCellEditorListener implements ICellEditorLis
 
                     public void run() {
 
-                        MessageDialog.openError(text.getShell(), "Error", errorMessage);
+                        MessageDialog.openError(text.getShell(), Messages.getString("DialogErrorForCellEditorListener.Error.MsgDialogTitle"), errorMessage); //$NON-NLS-1$
                         final int columnPosition = tableViewerCreator.getColumns().indexOf(column);
                         tableViewerCreator.getTableViewer().editElement(currentModifiedBean, columnPosition);
                         text.setText(newValue);

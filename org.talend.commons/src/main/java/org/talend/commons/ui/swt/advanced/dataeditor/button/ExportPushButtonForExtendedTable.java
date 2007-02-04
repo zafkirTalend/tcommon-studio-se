@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Table;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedControlEvent;
@@ -108,7 +109,7 @@ public abstract class ExportPushButtonForExtendedTable extends ExportPushButton 
         FileDialog dial = new FileDialog(getButton().getShell(), SWT.SAVE);
         dial.setFilterExtensions(new String[] { "*.xml" });
         String fileName = dial.open();
-        if ((fileName != null) && (!fileName.equals(""))) {
+        if ((fileName != null) && (!fileName.equals(""))) { //$NON-NLS-1$
             this.file = new File(fileName);
         }
 
@@ -118,7 +119,7 @@ public abstract class ExportPushButtonForExtendedTable extends ExportPushButton 
 
     private void openMessageError(String errorText) {
         MessageBox msgBox = new MessageBox(getButton().getShell());
-        msgBox.setText("Error occurred");
+        msgBox.setText(Messages.getString("ExportPushButtonForExtendedTable.ErrorMsg.Text")); //$NON-NLS-1$
         msgBox.setMessage(errorText);
         msgBox.open();
     }

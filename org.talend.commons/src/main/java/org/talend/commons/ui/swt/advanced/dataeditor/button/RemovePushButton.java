@@ -22,6 +22,7 @@
 package org.talend.commons.ui.swt.advanced.dataeditor.button;
 
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
@@ -43,7 +44,7 @@ public abstract class RemovePushButton extends ExtendedPushButton {
      * @param image
      */
     public RemovePushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, "Remove selected items", ImageProvider.getImage(EImage.DELETE_ICON));
+        super(parent, extendedControlViewer, Messages.getString("RemovePushButton.RemoveButton.Tip"), ImageProvider.getImage(EImage.DELETE_ICON)); //$NON-NLS-1$
     }
 
 }

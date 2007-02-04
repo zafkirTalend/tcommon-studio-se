@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListenable;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.utils.data.list.IListenableListListener;
@@ -243,7 +244,7 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         if (this.modifiedBeanListenable != null) {
             this.modifiedBeanListenable.addModifiedBeanListener(modifiedBeanListener);
         } else {
-            throw new IllegalStateException("ModifiedBeanListenable object must be set before use this method");
+            throw new IllegalStateException(Messages.getString("ExtendedTableModel.ModifiedObject.Error")); //$NON-NLS-1$
         }
     }
 
@@ -251,7 +252,7 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         if (this.modifiedBeanListenable != null) {
             this.modifiedBeanListenable.removeModifiedBeanListener(modifiedBeanListener);
         } else {
-            throw new IllegalStateException("ModifiedBeanListenable object must be set before use this method");
+            throw new IllegalStateException(Messages.getString("ExtendedTableModel.ModifiedObject.Error")); //$NON-NLS-1$
         }
     }
 

@@ -22,6 +22,7 @@
 package org.talend.commons.ui.swt.advanced.dataeditor.button;
 
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
@@ -43,7 +44,7 @@ public abstract class MoveDownPushButton extends ExtendedPushButton {
      * @param image
      */
     public MoveDownPushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, "Move down selected items", ImageProvider.getImage(EImage.DOWN_ICON));
+        super(parent, extendedControlViewer, Messages.getString("MoveDownPushButton.MoveDownTip"), ImageProvider.getImage(EImage.DOWN_ICON)); //$NON-NLS-1$
     }
 
 }

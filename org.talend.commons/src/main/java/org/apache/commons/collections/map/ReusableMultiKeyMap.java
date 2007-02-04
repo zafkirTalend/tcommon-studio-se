@@ -46,6 +46,7 @@ import java.util.Set;
 import org.apache.commons.collections.IterableMap;
 import org.apache.commons.collections.MapIterator;
 import org.apache.commons.collections.keyvalue.MultiKey;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.utils.data.map.ReusableMultiKey;
 
 /**
@@ -118,10 +119,10 @@ public class ReusableMultiKeyMap
      */
     public static MultiKeyMap decorate(AbstractHashedMap map) {
         if (map == null) {
-            throw new IllegalArgumentException("Map must not be null");
+            throw new IllegalArgumentException(Messages.getString("ReusableMultiKeyMap.Map.BeNull")); //$NON-NLS-1$
         }
         if (map.size() > 0) {
-            throw new IllegalArgumentException("Map must be empty");
+            throw new IllegalArgumentException(Messages.getString("ReusableMultiKeyMap.Map.BeEmpty")); //$NON-NLS-1$
         }
         return new MultiKeyMap(map);
     }
@@ -825,10 +826,10 @@ public class ReusableMultiKeyMap
      */
     protected void checkKey(Object key) {
         if (key == null) {
-            throw new NullPointerException("Key must not be null");
+            throw new NullPointerException(Messages.getString("ReusableMultiKeyMap.Key.BeNull")); //$NON-NLS-1$
         }
         if (key instanceof ReusableMultiKey == false) {
-            throw new ClassCastException("Key must be a ReusableMultiKey");
+            throw new ClassCastException(Messages.getString("ReusableMultiKeyMap.Key.BeMultiKey")); //$NON-NLS-1$
         }
     }
 

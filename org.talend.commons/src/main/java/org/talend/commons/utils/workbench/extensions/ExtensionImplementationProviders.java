@@ -60,7 +60,7 @@ public final class ExtensionImplementationProviders {
      * value of the ext. point
      */
     public static <T> T getSingleInstance(ISimpleExtensionPoint extensionPoint) throws IllegalPluginConfigurationException {
-        Assert.isTrue(extensionPoint.getMaxOcc() == 1, "Extension point must authoriez a single instance");
+        Assert.isTrue(extensionPoint.getMaxOcc() == 1, Messages.getString("ExtensionImplementationProviders.ExtensionPointError")); //$NON-NLS-1$
 
         List<T> list = getInstance(extensionPoint);
 

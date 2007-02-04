@@ -55,6 +55,7 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.extended.table.ModifyBeanValueCommand;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultHeaderColumnSelectionListener;
@@ -784,11 +785,11 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 tableColumn = createTableColumn(column);
                 column.setTableColumn(tableColumn);
             } else {
-                Assert.isTrue(tableColumn.getParent() == this.table, "The TableColumn of TableEditorColumn with idProperty '"
-                        + column.getId() + "' has not the correct Table parent");
+                Assert.isTrue(tableColumn.getParent() == this.table, Messages.getString(
+                        "TableViewerCreator.TableColumn.AssertMsg", column.getId())); //$NON-NLS-1$
             }
-            Assert.isTrue(idToTableViewerCreatorColumn.get(column.getId()) == null,
-                    "You must change the idProperty of one of your column, the idProperty must be unique for each column for one Table.");
+            Assert.isTrue(idToTableViewerCreatorColumn.get(column.getId()) == null, Messages
+                    .getString("TableViewerCreator.IdProperty.AssertMsg")); //$NON-NLS-1$
 
             idToTableViewerCreatorColumn.put(column.getId(), column);
         }
@@ -1285,7 +1286,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     public void layout() {
         if (table == null) {
-            throw new IllegalStateException("table is null");
+            throw new IllegalStateException(Messages.getString("TableViewerCreator.Table.BeNull")); //$NON-NLS-1$
         }
         if (table.isDisposed()) {
             return;
@@ -1398,13 +1399,13 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      */
     public void addCellValueModifiedListener(ITableCellValueModifiedListener tableCellValueModifiedListener) {
         if (this.cellModifier == null) {
-            throw new IllegalStateException("You can call this method only if you have already called createTable()");
+            throw new IllegalStateException(Messages.getString("TableViewerCreator.CallMethod.ErrorMsg")); //$NON-NLS-1$
         }
         if (this.cellModifier instanceof DefaultCellModifier) {
             ((DefaultCellModifier) this.cellModifier).addCellEditorAppliedListener(tableCellValueModifiedListener);
         } else {
-            throw new UnsupportedOperationException("The current CellModifier does'nt support this operation. \n Use '"
-                    + DefaultCellModifier.class + "' or a class which extends it to use this feature");
+            throw new UnsupportedOperationException(Messages.getString(
+                    "TableViewerCreator.CellModifier.ExError", DefaultCellModifier.class)); //$NON-NLS-1$
         }
     }
 
@@ -1418,13 +1419,13 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
      */
     public void removeCellValueModifiedListener(ITableCellValueModifiedListener tableCellValueModifiedListener) {
         if (this.cellModifier == null) {
-            throw new IllegalStateException("You can call this method only if you have already called createTable()");
+            throw new IllegalStateException(Messages.getString("TableViewerCreator.CallMethod.ErrorMsg")); //$NON-NLS-1$
         }
         if (this.cellModifier instanceof DefaultCellModifier) {
             ((DefaultCellModifier) this.cellModifier).removeCellEditorAppliedListener(tableCellValueModifiedListener);
         } else {
-            throw new UnsupportedOperationException("The current CellModifier does'nt support this operation. \n Use '"
-                    + DefaultCellModifier.class + "' or a class which extends it to use this feature");
+            throw new UnsupportedOperationException(Messages.getString(
+                    "TableViewerCreator.CellModifier.ExError", DefaultCellModifier.class)); //$NON-NLS-1$
         }
     }
 
@@ -1583,17 +1584,17 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
         Object previousValue = AccessorUtils.get(currentRowObject, column);
 
-//        System.out.println();
-//        System.out.println("previousValue="+previousValue);
-//        System.out.println("value="+value);
-        
+        // System.out.println();
+        // System.out.println("previousValue="+previousValue);
+        // System.out.println("value="+value);
+
         if (value == null && previousValue != null || value != null && !value.equals(previousValue)) {
-                
+
             AccessorUtils.set(column, currentRowObject, value);
 
-//            System.out.println("Set : " + "currentRowObject=" + currentRowObject + "  value="+ value );
+            // System.out.println("Set : " + "currentRowObject=" + currentRowObject + " value="+ value );
             if (getTable() != null && !getTable().isDisposed()) {
-//                System.out.println(currentRowObject + " refreshed");
+                // System.out.println(currentRowObject + " refreshed");
                 tableViewer.refresh(currentRowObject);
             }
 

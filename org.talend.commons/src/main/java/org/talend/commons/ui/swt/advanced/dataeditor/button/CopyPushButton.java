@@ -23,6 +23,7 @@ package org.talend.commons.ui.swt.advanced.dataeditor.button;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
@@ -44,7 +45,7 @@ public abstract class CopyPushButton extends ExtendedPushButton {
      * @param image
      */
     public CopyPushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, "Copy selected items", ImageProvider.getImage(EImage.COPY_ICON));
+        super(parent, extendedControlViewer, Messages.getString("CopyPushButton.CopyButton.Tip"), ImageProvider.getImage(EImage.COPY_ICON)); //$NON-NLS-1$
     }
 
     protected abstract Command getCommandToExecute();

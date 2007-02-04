@@ -27,6 +27,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.eclipse.gef.commands.Command;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.utils.data.list.ListenableList;
 
@@ -50,7 +51,7 @@ public class ExtendedTableMoveCommand extends Command implements IExtendedTableC
 
     private ListenableList list;
 
-    public static final String LABEL = "Move up or down, one or more table entries";
+    public static final String LABEL = Messages.getString("ExtendedTableMoveCommand.MoveLabel"); //$NON-NLS-1$
 
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
@@ -67,7 +68,7 @@ public class ExtendedTableMoveCommand extends Command implements IExtendedTableC
      * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     @Override
     public void execute() {
 
@@ -138,7 +139,7 @@ public class ExtendedTableMoveCommand extends Command implements IExtendedTableC
      * 
      * @see org.talend.commons.ui.command.CommonCommand#redo()
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     @Override
     public void redo() {
         undo();
@@ -149,7 +150,7 @@ public class ExtendedTableMoveCommand extends Command implements IExtendedTableC
      * 
      * @see org.talend.commons.ui.command.CommonCommand#undo()
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     @Override
     public void undo() {
         Collections.reverse(indicesTarget);

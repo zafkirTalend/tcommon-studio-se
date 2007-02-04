@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.talend.commons.i18n.internal.Messages;
+
 /**
  * Timer to measure elapsed time of any process or between steps.
  * 
@@ -62,11 +64,11 @@ public class TimeMeasure {
         }
         init();
         if (timers.containsKey(idTimer) && display) {
-            System.out.println(indent(indent) + "Warning (start): timer " + idTimer + " already exists");
+            System.out.println(indent(indent) + Messages.getString("TimeMeasure.Warning.TimerExist", idTimer)); //$NON-NLS-1$
         }
         indent++;
         if (display) {
-            System.out.println(indent(indent) + "Start '" + idTimer + "' ...");
+            System.out.println(indent(indent) + Messages.getString("TimeMeasure.StartTime", idTimer)); //$NON-NLS-1$
         }
         times = new ArrayList<Long>();
         times.add(System.currentTimeMillis());
@@ -86,20 +88,20 @@ public class TimeMeasure {
         }
         init();
         if (!timers.containsKey(idTimer) && display) {
-            System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist");
+            System.out.println(indent(indent) + Messages.getString("TimeMeasure.Warning.EndTimer", idTimer)); //$NON-NLS-1$
         } else {
             times = timers.get(idTimer);
             timers.remove(idTimer);
             if (times.size() > 1) {
                 long elapsedTimeSinceLastRequest = System.currentTimeMillis() - times.get(times.size() - 1);
                 if (display) {
-                    System.out.println(indent(indent) + "End '" + idTimer + "', elapsed time since last request: "
-                            + elapsedTimeSinceLastRequest + " ms ");
+                    System.out.println(indent(indent)
+                            + Messages.getString("TimeMeasure.EndTimer", idTimer, elapsedTimeSinceLastRequest));
                 }
             }
             long totalElapsedTime = System.currentTimeMillis() - times.get(0);
             if (display) {
-                System.out.println(indent(indent) + "End '" + idTimer + "', total elapsed time: " + totalElapsedTime + " ms ");
+                System.out.println(indent(indent) + Messages.getString("TimeMeasure.TotalTimer", idTimer, totalElapsedTime)); //$NON-NLS-1$
             }
             indent--;
             return totalElapsedTime;
@@ -120,12 +122,12 @@ public class TimeMeasure {
         }
         init();
         if (!timers.containsKey(idTimer)) {
-            System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist");
+            System.out.println(indent(indent) + Messages.getString("TimeMeasure.EndTime.NotExist", idTimer)); //$NON-NLS-1$
         } else {
             long time1 = timers.get(idTimer).get(0);
             long time = System.currentTimeMillis() - time1;
             if (display) {
-                System.out.println(indent(indent) + "-> '" + idTimer + "', elapsed time since start: " + time + " ms ");
+                System.out.println(indent(indent) + Messages.getString("TimeMeasure.ElapsedTime", idTimer, time)); //$NON-NLS-1$
             }
             return time;
         }
@@ -146,7 +148,7 @@ public class TimeMeasure {
         init();
         if (!timers.containsKey(idTimer)) {
             if (display) {
-                System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist");
+                System.out.println(indent(indent) + Messages.getString("TimeMeasure.EndTime.NotExist", idTimer)); //$NON-NLS-1$
             }
         } else {
             times = timers.get(idTimer);
@@ -155,8 +157,7 @@ public class TimeMeasure {
             times.add(currentTime);
             long time = currentTime - lastTime;
             if (display) {
-                System.out.println(indent(indent) + "-> '" + idTimer + "', step name '" + stepName
-                        + "', elapsed time since previous step: " + time + " ms ");
+                System.out.println(indent(indent) + Messages.getString("TimeMeasure.StepTime", idTimer, stepName, time));
             }
             return time;
         }

@@ -48,6 +48,8 @@ package org.talend.commons.utils.data.map;
 import java.io.Serializable;
 import java.util.Arrays;
 
+import org.talend.commons.i18n.internal.Messages;
+
 /** 
  * A <code>MultiKey</code> allows multiple map keys to be merged together.
  * <p>
@@ -290,7 +292,7 @@ public class ReusableMultiKey implements Serializable {
         
     public void setKeys(Object[] keys, boolean makeClone) {
         if (keys == null) {
-            throw new IllegalArgumentException("The array of keys must not be null");
+            throw new IllegalArgumentException(Messages.getString("ReusableMultiKey.Keys.BeNull")); //$NON-NLS-1$
         }
         if (makeClone) {
             this.keys = (Object[]) keys.clone();

@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.commons.exception;
 
+import org.talend.commons.i18n.internal.Messages;
+
 /**
  * Defines system exception - Use or extends this class when a system problem occurs and affects a fonctionnality but
  * application can keep running.<br/>
@@ -30,7 +32,7 @@ package org.talend.commons.exception;
  */
 public class SystemException extends Exception {
 
-    @SuppressWarnings("unused")
+    @SuppressWarnings("unused") //$NON-NLS-1$
     private static final long serialVersionUID = 1L;
 
     public SystemException(String message, Throwable cause) {

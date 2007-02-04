@@ -23,6 +23,7 @@ package org.talend.commons.ui.swt.advanced.dataeditor.button;
 
 import org.eclipse.gef.commands.Command;
 import org.eclipse.swt.widgets.Composite;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableMoveCommand;
@@ -46,7 +47,7 @@ public abstract class MoveUpPushButton extends ExtendedPushButton {
      * @param image
      */
     public MoveUpPushButton(Composite parent, AbstractExtendedControlViewer extendedControlViewer) {
-        super(parent, extendedControlViewer, "Move up selected items", ImageProvider.getImage(EImage.UP_ICON));
+        super(parent, extendedControlViewer, Messages.getString("MoveUpPushButton.MoveUpButton.Tip"), ImageProvider.getImage(EImage.UP_ICON)); //$NON-NLS-1$
     }
 
     /*

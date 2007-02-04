@@ -31,6 +31,7 @@ import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.i18n.internal.Messages;
 
 /**
  * Utilities for proposals. <br/>
@@ -53,7 +54,7 @@ public final class ProposalUtils {
         } else if (control instanceof StyledText) {
             controlContentAdapter = new StyledTextContentAdapterExtended();
         } else {
-            throw new IllegalArgumentException("Proposal for this type of Control is unsupported : " + control.getClass());
+            throw new IllegalArgumentException(Messages.getString("ProposalUtils.CtrlProposal.ErrorMsg") + control.getClass()); //$NON-NLS-1$
         }
         final ContentProposalAdapterExtended contentProposalAdapter = getContentProposalAdapter(control, controlContentAdapter,
                 proposalProvider);
@@ -108,7 +109,7 @@ public final class ProposalUtils {
         if (cellEditor instanceof TextCellEditorWithProposal) {
             return getContentProposalAdapter(cellEditor.getControl(), new TextCellEditorContentAdapterExtended());
         } else {
-            throw new IllegalArgumentException("Proposal of this type of CellEditor is unsupported : " + cellEditor.getClass());
+            throw new IllegalArgumentException(Messages.getString("ProposalUtils.CellProposal.Error") + cellEditor.getClass()); //$NON-NLS-1$
         }
     }
 

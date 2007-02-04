@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.gef.commands.Command;
+import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 
 /**
@@ -52,7 +53,7 @@ public class ExtendedTableRemoveCommand extends Command implements IExtendedTabl
 
     private List removedBeansIndices;
 
-    public static final String LABEL = "Remove table entries";
+    public static final String LABEL = Messages.getString("ExtendedTableRemoveCommand.Romve.Label"); //$NON-NLS-1$
 
     /**
      * DOC amaumont ExtendedTableAddCommand constructor comment.
@@ -93,7 +94,7 @@ public class ExtendedTableRemoveCommand extends Command implements IExtendedTabl
      * 
      * @see org.eclipse.gef.commands.Command#execute()
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     @Override
     public void execute() {
 
@@ -166,7 +167,7 @@ public class ExtendedTableRemoveCommand extends Command implements IExtendedTabl
      * 
      * @see org.talend.commons.ui.command.CommonCommand#undo()
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     @Override
     public synchronized void undo() {
 
