@@ -62,7 +62,9 @@ public class RepositoryToComponentProperty {
 
     public static final String IBM_DB2 = "IBM_DB2"; //$NON-NLS-1$
 
-    public static final String SYBASE = "SYBASE"; //$NON-NLS-1$
+    public static final String SYBASE_ASE = "SYBASE_ASE"; //$NON-NLS-1$
+    
+    public static final String SYBASE_IQ = "SYBASE_IQ"; //$NON-NLS-1$
 
     public static final String SQL_SERVER = "SQL_SERVER"; //$NON-NLS-1$
 
@@ -100,23 +102,14 @@ public class RepositoryToComponentProperty {
         if (dbType.equals("Microsoft SQL Server (Odbc driver)")) { //$NON-NLS-1$
             return ODBC_JDBC;
         }
-        // if (dbType.equals("Oracle Thin")) {
-        // return ORACLE;
-        // }
-        // if (dbType.equals("Oracle Oci")) {
-        // return ORACLE;
-        // }
         if (dbType.equals("IBM DB2")) { //$NON-NLS-1$
             return IBM_DB2;
         }
-        if (dbType.equals("Sybase")) { //$NON-NLS-1$
-            return SYBASE;
+        if (dbType.equals("Sybase ASE")) { //$NON-NLS-1$
+            return SYBASE_ASE;
         }
-        if (dbType.equals("Microsoft SQL Server")) { //$NON-NLS-1$
-            return SQL_SERVER;
-        }
-        if (dbType.equals("Microsoft Access")) { //$NON-NLS-1$
-            return MS_ACCESS;
+        if (dbType.equals("Sybase IQ")) { //$NON-NLS-1$
+            return SYBASE_IQ;
         }
         return ""; //$NON-NLS-1$
     }

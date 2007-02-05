@@ -155,13 +155,11 @@ public class ExtractMetaDataUtils {
             hashTable.put("Generic ODBC", "sun.jdbc.odbc.JdbcOdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
             hashTable.put("Microsoft SQL Server (Odbc driver)", "sun.jdbc.odbc.JdbcOdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
 
-            // hashTable.put("Oracle Thin", "oracle.jdbc.driver.OracleDriver");
-            // hashTable.put("Oracle Oci", "oracle.jdbc.driver.OracleDriver");
             hashTable.put("IBM DB2", "com.ibm.db2.jcc.DB2Driver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Sybase", "net.sourceforge.jtds.jdbc.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Microsoft SQL Server", "net.sourceforge.jtds.jdbc.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Microsoft Access", "sun.jdbc.odbc.JdbcOdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            hashTable.put("Microsoft Access with authentification", "sun.jdbc.odbc.JdbcOdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("Sybase ASE", "com.sybase.jdbc3.jdbc.SybDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("Sybase IQ", "com.sybase.jdbc3.jdbc.SybDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            //hashTable.put("Sybase", "net.sourceforge.jtds.jdbc.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
+            //hashTable.put("Microsoft SQL Server", "net.sourceforge.jtds.jdbc.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
             driverClass = hashTable.get(dbType);
 
         } catch (Exception e) {
@@ -188,7 +186,7 @@ public class ExtractMetaDataUtils {
                 schema = schemaBase;
             } else {
                 schema = null;
-                // PTODO v�rifier l'utilit� du Sh�ma pour chaque type de BDD lors du non renseignement
+                // PTODO Verify for each Database type the Schema necessity
                 // if (dataBase.equals("")) {
                 // schema = null;
                 // } else {
