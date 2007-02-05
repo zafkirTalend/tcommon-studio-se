@@ -98,7 +98,7 @@ import org.talend.repository.model.VersionList;
  */
 public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory implements IRepositoryFactory {
 
-    private static final String BIN = Messages.getString("LocalRepositoryFactory.bin"); //$NON-NLS-1$
+    private static final String BIN = "bin"; //$NON-NLS-1$
 
     private static Logger log = Logger.getLogger(LocalRepositoryFactory.class);
 
@@ -226,7 +226,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<IRepositoryObject> serializableAllVersion = getSerializable(getRepositoryContext().getProject(), id, false);
 
         if (serializableAllVersion.size() > 1) {
-            throw new PersistenceException(Messages.getString("LocalRepositoryFactory.persistenceException")); //$NON-NLS-1$
+            throw new PersistenceException(Messages.getString("LocalRepositoryFactory.presistenceException.onlyOneOccurenceAllowed")); //$NON-NLS-1$
         } else if (serializableAllVersion.size() == 1) {
             return serializableAllVersion.get(0);
         } else {

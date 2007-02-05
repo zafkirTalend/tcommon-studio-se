@@ -43,7 +43,7 @@ public class ReloadSystemRoutinesAction extends Action {
 
     public ReloadSystemRoutinesAction() {
         super();
-        this.setActionDefinitionId(Messages.getString("ReloadSystemRoutinesAction.0")); //$NON-NLS-1$
+        this.setActionDefinitionId("reloadSystemRoutines"); //$NON-NLS-1$
     }
 
     @Override

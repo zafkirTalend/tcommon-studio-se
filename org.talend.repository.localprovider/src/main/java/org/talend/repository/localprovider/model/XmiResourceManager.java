@@ -65,7 +65,7 @@ public class XmiResourceManager {
 
     public static final String ITEM_EXTENSION = "item"; //$NON-NLS-1$
 
-    private static final String PROJECT_DESCRIPTION_FILE = Messages.getString("XmiResourceManager.projectFile"); //$NON-NLS-1$
+    private static final String PROJECT_DESCRIPTION_FILE = "talendProject";//$NON-NLS-1$
 
     // PTODO MHE should use a custom ResourceFactory
     // PTODO MHE test duplicate resourcesUri in resourceSet !
@@ -73,7 +73,7 @@ public class XmiResourceManager {
 
     public Project loadProject(IProject project) throws PersistenceException {
         URI uri = getProjectResourceUri(project);
-        
+
         Resource resource = resourceSet.getResource(uri, true);
         Project emfProject = (Project) EcoreUtil
                 .getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());
@@ -265,24 +265,25 @@ public class XmiResourceManager {
         }
     }
 
-    //we need to affect an id to each user, because users objects are cross referenced across differents xmi resource
-    //also used to affect an id to users previously created without an id
+    // we need to affect an id to each user, because users objects are cross referenced across differents xmi resource
+    // also used to affect an id to users previously created without an id
     public boolean handleUserId(Project emfProject, User user) throws PersistenceException {
         int defaultId = 1;
         if (user.getId() <= defaultId) {
-            Collection users = EcoreUtil.getObjectsByType(emfProject.eResource().getContents(), PropertiesPackage.eINSTANCE.getUser());
-            
+            Collection users = EcoreUtil.getObjectsByType(emfProject.eResource().getContents(), PropertiesPackage.eINSTANCE
+                    .getUser());
+
             for (Iterator iter = users.iterator(); iter.hasNext();) {
                 User emfUser = (User) iter.next();
                 defaultId = Math.max(defaultId, emfUser.getId());
             }
-            
+
             user.setId(defaultId + 1);
             saveResource(emfProject.eResource());
-            
+
             return true;
         }
-        
+
         return false;
     }
 }
