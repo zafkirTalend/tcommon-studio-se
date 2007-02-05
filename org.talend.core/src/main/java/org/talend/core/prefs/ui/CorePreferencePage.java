@@ -27,7 +27,6 @@ import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.core.CorePlugin;
@@ -41,8 +40,6 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
  * 
  */
 public class CorePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
-
-    private Button enableSecondaryButton;
 
     /**
      * Construct a new CorePreferencePage.
@@ -83,12 +80,6 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         previewLimit.setEmptyStringAllowed(false);
         previewLimit.setValidRange(1, 999999999);
         addField(previewLimit);
-
-        DirectoryFieldEditor compDefaultFileDir = new DirectoryFieldEditor(
-                ITalendCorePrefConstants.COMP_DEFAULT_FILE_DIR, Messages
-                        .getString("CorePreferencePage.componentDefaultFileDirectory"), //$NON-NLS-1$
-                getFieldEditorParent());
-        addField(compDefaultFileDir);
     }
 
     /**
