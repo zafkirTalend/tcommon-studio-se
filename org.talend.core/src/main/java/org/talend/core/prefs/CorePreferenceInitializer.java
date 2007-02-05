@@ -49,7 +49,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
     private static final String JAVA_LINUX_INTERPRETER_PATH = "/java"; // NON-NLS-1$
 
-    private static final String JAVA_WIN32_INTERPRETER = "/java.exe"; // NON-NLS-1$
+    private static final String JAVA_WIN32_INTERPRETER = "\\java.exe"; // NON-NLS-1$
 
     private static final String PERL_LINUX_INTERPRETER_PATH = "/usr/bin/perl"; // NON-NLS-1$
 
