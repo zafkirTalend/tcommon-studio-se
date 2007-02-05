@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
 import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
@@ -53,7 +54,7 @@ public class GetTasksHelper {
                 currentAction.setName(current.getAttribute("name")); //$NON-NLS-1$
                 toReturn.add(currentAction);
             } catch (CoreException e) {
-                e.printStackTrace();
+                ExceptionHandler.process(e);
             }
         }
 
