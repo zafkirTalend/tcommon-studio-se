@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.core.model.general;
 
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.temp.ECodeLanguage;
@@ -175,8 +176,8 @@ public class Project {
     public static String createTechnicalName(String name) {
         if (name != null) {
             name = name.toUpperCase();
-            name = name.replace(" ", "_");
-            name = name.replace("-", "_");
+            name = name.replace(" ", "_"); //$NON-NLS-1$ //$NON-NLS-2$
+            name = name.replace("-", "_"); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return name;
     }
