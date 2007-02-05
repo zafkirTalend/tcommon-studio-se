@@ -72,7 +72,7 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         addField(secondaryPerlInterpreter);
 
         FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER,
-                "&Java interpreter :", true, getFieldEditorParent()); //$NON-NLS-1$
+                Messages.getString("CorePreferencePage.javaInterpreter"), true, getFieldEditorParent());  //$NON-NLS-1$
         addField(javaInterpreter);
 
         IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT, Messages
