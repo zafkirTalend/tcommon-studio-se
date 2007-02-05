@@ -228,7 +228,7 @@ public final class ElementParameterParser {
             String stringValues = "{"; //$NON-NLS-1$
             for (int i = 0; i < tableValues.size(); i++) {
                 Map<String, Object> lineValues = tableValues.get(i);
-                stringValues += Messages.getString("ElementParameterParser.6"); //$NON-NLS-1$
+                stringValues += "["; //$NON-NLS-1$
                 for (int j = 0; j < items.length; j++) {
 
                     Object currentValue = lineValues.get(items[j]);

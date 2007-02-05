@@ -282,7 +282,7 @@ public class MetadataEmfTableEditorView extends AbstractDataTableEditorView<Meta
 
         });
         column.setWidth(35);
-        column.setDisplayedValue(Messages.getString("MetadataEmfTableEditorView.8")); //$NON-NLS-1$
+        column.setDisplayedValue("");
         column.setTableEditorContent(new CheckboxTableEditorContent());
 
         if (showDbTypeColumn) {

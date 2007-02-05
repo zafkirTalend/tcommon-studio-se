@@ -118,7 +118,7 @@ public enum ERepositoryObjectType {
         case METADATA_FILE_DELIMITED:
             return "metadata/fileDelimited"; //$NON-NLS-1$
         case METADATA_FILE_POSITIONAL:
-            return Messages.getString("ERepositoryObjectType.30"); //$NON-NLS-1$
+            return "metadata/filePositional"; //$NON-NLS-1$
         case METADATA_FILE_REGEXP:
             return "metadata/fileRegex"; //$NON-NLS-1$
         case METADATA_FILE_XML:

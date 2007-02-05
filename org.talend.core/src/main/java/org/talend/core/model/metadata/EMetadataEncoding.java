@@ -49,7 +49,7 @@ public enum EMetadataEncoding {
     windows1252("windows-1252", "Microsoft (Latin-1)"), //$NON-NLS-1$
     BIG5("BIG5", "Big Five (Chinois traditionnel)"), //$NON-NLS-1$
     GB18030("GB18030", "Standard national Chinois"), //$NON-NLS-1$
-    GB2312(Messages.getString("EMetadataEncoding.0"), "Chinois"), //$NON-NLS-1$
+    GB2312("GB2312", "Chinois"), //$NON-NLS-1$
     EUC_CN("EUC_CN", "Chinois simplifi� (Code-CN Unix �tendu)"); //$NON-NLS-1$
 
     /*
