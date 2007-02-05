@@ -37,7 +37,15 @@ public interface ITalendCorePrefConstants {
     /** Perl interpreter. */
     String PERL_INTERPRETER = "perlInterpreter"; //$NON-NLS-1$
 
-    /** Java interpreter */
+    
+    /** Perl secondary interpreter. */
+    String PERL_SECONDARY_INTERPRETER = "perlSecondaryInterpreter";
+    
+    /** Path used for components for the default file directory. */
+    String COMP_DEFAULT_FILE_DIR = "compFileDir";
+
+
+    /** Java interpreter. */
     String JAVA_INTERPRETER = "javaInterpreter"; //$NON-NLS-1$
 
     /** Perl library directory. */

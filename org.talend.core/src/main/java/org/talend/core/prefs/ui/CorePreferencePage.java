@@ -26,9 +26,12 @@ import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.IntegerFieldEditor;
+import org.eclipse.jface.preference.StringFieldEditor;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.core.CorePlugin;
+import org.talend.core.i18n.Messages;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 
 /**
@@ -38,6 +41,8 @@ import org.talend.core.prefs.ITalendCorePrefConstants;
  * 
  */
 public class CorePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
+
+    private Button enableSecondaryButton;
 
     /**
      * Construct a new CorePreferencePage.
@@ -55,27 +60,35 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
      */
     @Override
     protected void createFieldEditors() {
-        DirectoryFieldEditor filePathTemp = new DirectoryFieldEditor(ITalendCorePrefConstants.FILE_PATH_TEMP,
-                "&Temporary files : ", getFieldEditorParent());
+        DirectoryFieldEditor filePathTemp = new DirectoryFieldEditor(ITalendCorePrefConstants.FILE_PATH_TEMP, Messages
+                .getString("CorePreferencePage.temporaryFiles"), getFieldEditorParent()); //$NON-NLS-1$
         addField(filePathTemp);
 
-        FileFieldEditor perlInterpreter = new FileFieldEditor(ITalendCorePrefConstants.PERL_INTERPRETER, "&Perl interpreter :",
-                true, getFieldEditorParent());
+        FileFieldEditor perlInterpreter = new FileFieldEditor(ITalendCorePrefConstants.PERL_INTERPRETER, Messages
+                .getString("CorePreferencePage.perlInterpreter"), true, getFieldEditorParent()); //$NON-NLS-1$
         addField(perlInterpreter);
 
-        // DirectoryFieldEditor perlLib = new DirectoryFieldEditor(ITalendCorePrefConstants.PERL_LIB,
-        // "Perl &libraries : ", getFieldEditorParent());
-        // addField(perlLib);
+        StringFieldEditor secondaryPerlInterpreter = new StringFieldEditor(
+                ITalendCorePrefConstants.PERL_SECONDARY_INTERPRETER, Messages
+                        .getString("CorePreferencePage.secondaryPerlInterpreter"), //$NON-NLS-1$
+                getFieldEditorParent());
+        addField(secondaryPerlInterpreter);
 
-        FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER, "&Java interpreter :",
-                true, getFieldEditorParent());
+        FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER,
+                "&Java interpreter :", true, getFieldEditorParent()); //$NON-NLS-1$
         addField(javaInterpreter);
 
-        IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT, "&Preview limit :",
-                getFieldEditorParent(), 9);
+        IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT, Messages
+                .getString("CorePreferencePage.previewLimit"), getFieldEditorParent(), 9); //$NON-NLS-1$
         previewLimit.setEmptyStringAllowed(false);
         previewLimit.setValidRange(1, 999999999);
         addField(previewLimit);
+
+        DirectoryFieldEditor compDefaultFileDir = new DirectoryFieldEditor(
+                ITalendCorePrefConstants.COMP_DEFAULT_FILE_DIR, Messages
+                        .getString("CorePreferencePage.componentDefaultFileDirectory"), //$NON-NLS-1$
+                getFieldEditorParent());
+        addField(compDefaultFileDir);
     }
 
     /**

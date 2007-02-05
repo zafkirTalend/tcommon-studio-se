@@ -36,7 +36,6 @@ import org.eclipse.update.core.SiteManager;
 import org.eclipse.update.internal.scheduler.SchedulerStartup;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
-import org.talend.core.i18n.Messages;
 
 /**
  * Intializer of core preferences. <br/>
@@ -45,6 +44,14 @@ import org.talend.core.i18n.Messages;
  * 
  */
 public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
+
+    private static final String JAVA_LINUX_INTERPRETER_PATH = "/usr/bin/java"; // NON-NLS-1$
+
+    private static final String JAVA_WIN32_INTERPRETER = "C:\\Program Files\\Java\\jdk1.5.0_10\\bin\\java.exe"; // NON-NLS-1$
+
+    private static final String PERL_LINUX_INTERPRETER_PATH = "/usr/bin/perl"; // NON-NLS-1$
+
+    private static final String PERL_WIN32_INTERPRETER_PATH = "C:\\Perl\\bin\\perl.exe"; // NON-NLS-1$
 
     /**
      * Construct a new CorePreferenceInitializer.
@@ -61,7 +68,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         IEclipsePreferences node = new DefaultScope().getNode(CorePlugin.getDefault().getBundle().getSymbolicName());
 
         // Building temporary files directory path
-        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); //$NON-NLS-1$ //$NON-NLS-2$
+        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp");// NON-NLS-1$// NON-NLS-2$
         File tempFile = tempPath.toFile();
         if (!tempFile.exists()) {
             tempFile.mkdirs();
@@ -71,23 +78,25 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         // TODO CCA : Change this default value
         String os = Platform.getOS();
         if (os.equals(Platform.OS_WIN32)) {
-            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, "C:\\Perl\\bin\\perl.exe"); //$NON-NLS-1$
-            node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, "C:\\Program Files\\Java\\jdk1.5.0_10\\bin\\java.exe"); //$NON-NLS-1$
+            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, PERL_WIN32_INTERPRETER_PATH);
+            node.put(ITalendCorePrefConstants.PERL_SECONDARY_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);
+            node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, JAVA_WIN32_INTERPRETER);
         } else if (os.equals(Platform.OS_LINUX)) {
-            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, "/usr/bin/perl"); //$NON-NLS-1$
-            node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, "/usr/bin/java"); //$NON-NLS-1$
+            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);
+            node.put(ITalendCorePrefConstants.PERL_SECONDARY_INTERPRETER, PERL_WIN32_INTERPRETER_PATH);
+            node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, JAVA_LINUX_INTERPRETER_PATH);
 
         }
 
-        node.put(ITalendCorePrefConstants.PREVIEW_LIMIT, "50"); //$NON-NLS-1$
+        node.put(ITalendCorePrefConstants.PREVIEW_LIMIT, "50");
 
         initializeUpdatePreference();
 
         // Initialize editors properties : line number shown
-        final String perlEditorBundleName = "org.epic.perleditor"; //$NON-NLS-1$
-        final String editorsBundleName = "org.eclipse.ui.editors"; //$NON-NLS-1$
+        final String perlEditorBundleName = "org.epic.perleditor";// NON-NLS-1$
+        final String editorsBundleName = "org.eclipse.ui.editors";// NON-NLS-1$
         // AbstractDecoratedTextEditorPreferenceConstants.EDITOR_LINE_NUMBER_RULER = "lineNumberRuler"
-        final String editorLineNumberRuler = "lineNumberRuler"; //$NON-NLS-1$
+        final String editorLineNumberRuler = "lineNumberRuler";
         IPreferenceStore store = new ScopedPreferenceStore(new InstanceScope(), perlEditorBundleName);
         store.setValue(editorLineNumberRuler, true);
         store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
@@ -98,7 +107,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
     }
 
     public void initializeUpdatePreference() {
-        IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$ //$NON-NLS-1$
+        IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$
         nodeScheduler.putBoolean(SchedulerStartup.P_ENABLED, true);
         nodeScheduler.put(SchedulerStartup.P_SCHEDULE, SchedulerStartup.VALUE_ON_STARTUP);
         nodeScheduler.putBoolean(SchedulerStartup.P_DOWNLOAD, true);
