@@ -40,9 +40,9 @@ public final class Context {
 
     Map<String, Object> properties = new Hashtable<String, Object>();
 
-    public static final String REPOSITORY_CONTEXT_KEY = "repositoryContext";
+    public static final String REPOSITORY_CONTEXT_KEY = "repositoryContext"; //$NON-NLS-1$
 
-    private static final String BREAKPOINTS = "BREAKPOINTS";
+    private static final String BREAKPOINTS = "BREAKPOINTS"; //$NON-NLS-1$
 
     /**
      * Constructs a new Context.

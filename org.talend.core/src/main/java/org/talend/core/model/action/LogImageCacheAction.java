@@ -24,6 +24,7 @@ package org.talend.core.model.action;
 import org.apache.log4j.Logger;
 import org.eclipse.jface.action.Action;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.core.i18n.Messages;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -37,7 +38,7 @@ public class LogImageCacheAction extends Action {
 
     public LogImageCacheAction() {
         super();
-        this.setActionDefinitionId("logImageCache");
+        this.setActionDefinitionId("logImageCache"); //$NON-NLS-1$
     }
 
     /*
@@ -47,8 +48,8 @@ public class LogImageCacheAction extends Action {
      */
     @Override
     public void run() {
-        log.info("Cache image: " + ImageProvider.getImageCache());
-        log.info("Cache image desc: " + ImageProvider.getImageDescCache());
+        log.info(Messages.getString("LogImageCacheAction.CacheImage") + ImageProvider.getImageCache()); //$NON-NLS-1$
+        log.info(Messages.getString("LogImageCacheAction.CacheImageDesc") + ImageProvider.getImageDescCache()); //$NON-NLS-1$
     }
 
 }

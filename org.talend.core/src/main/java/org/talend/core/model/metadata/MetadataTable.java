@@ -41,9 +41,9 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
 
     @Override
     public String toString() {
-        StringBuffer toReturn = new StringBuffer(getTableName() + ":");
+        StringBuffer toReturn = new StringBuffer(getTableName() + ":"); //$NON-NLS-1$
         for (IMetadataColumn cur : listColumns) {
-            toReturn.append(cur.toString() + " ");
+            toReturn.append(cur.toString() + " "); //$NON-NLS-1$
         }
         return toReturn.toString();
     }

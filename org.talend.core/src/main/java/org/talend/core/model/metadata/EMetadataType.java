@@ -28,8 +28,8 @@ package org.talend.core.model.metadata;
  * 
  */
 public enum EMetadataType {
-    INTEGER("Integer", ""),
-    STRING("String", "");
+    INTEGER("Integer", ""), //$NON-NLS-1$ //$NON-NLS-2$
+    STRING("String", ""); //$NON-NLS-1$ //$NON-NLS-2$
 
     // BOOLEAN("Boolean", ""),
     // DATE("Date", "");

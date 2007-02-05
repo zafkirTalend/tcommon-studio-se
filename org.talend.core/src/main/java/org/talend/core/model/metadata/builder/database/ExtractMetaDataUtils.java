@@ -77,7 +77,7 @@ public class ExtractMetaDataUtils {
         try {
             metaDataInfo = columns.getString(infoType);
             // Replace ALL ' in the retrieveSchema, cause PB for Default Value.
-            metaDataInfo = metaDataInfo.replaceAll("'", "");
+            metaDataInfo = metaDataInfo.replaceAll("'", ""); //$NON-NLS-1$ //$NON-NLS-2$
         } catch (SQLException e) {
             // log.error(e.toString());
             return metaDataInfo;
@@ -120,7 +120,7 @@ public class ExtractMetaDataUtils {
         boolean metaDataInfo = false;
         try {
             String result = columns.getString(infoType);
-            if (result != null && result.equals("YES")) {
+            if (result != null && result.equals("YES")) { //$NON-NLS-1$
                 metaDataInfo = true;
             }
         } catch (SQLException e) {
@@ -148,20 +148,20 @@ public class ExtractMetaDataUtils {
         try {
 
             Hashtable<String, String> hashTable = new Hashtable<String, String>();
-            hashTable.put("MySQL", "org.gjt.mm.mysql.Driver");
-            hashTable.put("PostgreSQL", "org.postgresql.Driver");
-            hashTable.put("Oracle with SID", "oracle.jdbc.driver.OracleDriver");
-            hashTable.put("Oracle with service name", "oracle.jdbc.driver.OracleDriver");
-            hashTable.put("Generic ODBC", "sun.jdbc.odbc.JdbcOdbcDriver");
-            hashTable.put("Microsoft SQL Server (Odbc driver)", "sun.jdbc.odbc.JdbcOdbcDriver");
+            hashTable.put("MySQL", "org.gjt.mm.mysql.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("PostgreSQL", "org.postgresql.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("Oracle with SID", "oracle.jdbc.driver.OracleDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("Oracle with service name", "oracle.jdbc.driver.OracleDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("Generic ODBC", "sun.jdbc.odbc.JdbcOdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("Microsoft SQL Server (Odbc driver)", "sun.jdbc.odbc.JdbcOdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
 
             // hashTable.put("Oracle Thin", "oracle.jdbc.driver.OracleDriver");
             // hashTable.put("Oracle Oci", "oracle.jdbc.driver.OracleDriver");
-            hashTable.put("IBM DB2", "com.ibm.db2.jcc.DB2Driver");
-            hashTable.put("Sybase", "net.sourceforge.jtds.jdbc.Driver");
-            hashTable.put("Microsoft SQL Server", "net.sourceforge.jtds.jdbc.Driver");
-            hashTable.put("Microsoft Access", "sun.jdbc.odbc.JdbcOdbcDriver");
-            hashTable.put("Microsoft Access with authentification", "sun.jdbc.odbc.JdbcOdbcDriver");
+            hashTable.put("IBM DB2", "com.ibm.db2.jcc.DB2Driver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("Sybase", "net.sourceforge.jtds.jdbc.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("Microsoft SQL Server", "net.sourceforge.jtds.jdbc.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("Microsoft Access", "sun.jdbc.odbc.JdbcOdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("Microsoft Access with authentification", "sun.jdbc.odbc.JdbcOdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
             driverClass = hashTable.get(dbType);
 
         } catch (Exception e) {
@@ -184,7 +184,7 @@ public class ExtractMetaDataUtils {
         try {
             Class.forName(getDriverClassByDbType(dbType)).newInstance();
             conn = DriverManager.getConnection(url, username, pwd);
-            if (schemaBase != null && !schemaBase.equals("")) {
+            if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
                 schema = schemaBase;
             } else {
                 schema = null;

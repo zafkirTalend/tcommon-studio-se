@@ -36,16 +36,10 @@ import org.talend.repository.model.IRepositoryService;
  * $Id$
  * 
  */
-/**
- * DOC nrousseau class global comment. Detailled comment <br/>
- * 
- * $Id$
- * 
- */
 public class CorePlugin extends AbstractUIPlugin {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "org.talend.core";
+    public static final String PLUGIN_ID = "org.talend.core"; //$NON-NLS-1$
 
     // The shared instance
     private static CorePlugin plugin;

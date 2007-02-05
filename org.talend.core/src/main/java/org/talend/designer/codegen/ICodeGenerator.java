@@ -22,6 +22,7 @@
 package org.talend.designer.codegen;
 
 import org.talend.commons.exception.SystemException;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.temp.ECodePart;
@@ -40,7 +41,7 @@ public interface ICodeGenerator {
      * @return
      * @throws CodeGeneratorException
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public String generateProcessCode() throws SystemException;
 
     /**

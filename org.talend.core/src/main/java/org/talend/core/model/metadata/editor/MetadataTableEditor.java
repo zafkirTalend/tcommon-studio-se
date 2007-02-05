@@ -33,6 +33,7 @@ import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
@@ -52,7 +53,7 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
 
     private static Pattern validPatternColumnNameRegexp = null;
 
-    private static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][a-zA-Z_0-9]*$";
+    private static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][a-zA-Z_0-9]*$"; //$NON-NLS-1$
 
     private IMetadataTable metadataTable;
 
@@ -105,7 +106,7 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
      */
     public String validateColumnName(String columnName, int beanPosition) {
         if (columnName == null) {
-            return "Error: Column name is null";
+            return Messages.getString("MetadataTableEditor.ColumnNameIsNull"); //$NON-NLS-1$
         }
         validPatternColumnNameRegexp = null;
         if (validPatternColumnNameRegexp == null) {
@@ -119,13 +120,13 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
 
         if (!match) {
-            return "The column name '" + columnName + "' is invalid.";
+            return Messages.getString("MetadataTableEditor.ColumnNameIsInvalid") + columnName + "' is invalid."; //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         int lstSize = getBeansList().size();
         for (int i = 0; i < lstSize; i++) {
             if (columnName.equals(getBeansList().get(i).getLabel()) && i != beanPosition) {
-                return "The column name '" + columnName + "' already exists.";
+                return Messages.getString("MetadataTableEditor.ColumnNameExists",columnName); //$NON-NLS-1$
             }
 
         }
@@ -133,12 +134,12 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
     }
 
     public String getNextGeneratedColumnName() {
-        return getNextGeneratedColumnName("newColumn");
+        return getNextGeneratedColumnName("newColumn"); //$NON-NLS-1$
     }
 
     public String getNextGeneratedColumnName(String oldColumnName) {
-        UniqueStringGenerator<IMetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<IMetadataColumn>(oldColumnName,
-                getBeansList()) {
+        UniqueStringGenerator<IMetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<IMetadataColumn>(
+                oldColumnName, getBeansList()) {
 
             /*
              * (non-Javadoc)
@@ -159,11 +160,12 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         MetadataColumn metadataColumn = new MetadataColumn();
         metadataColumn.setLabel(getNextGeneratedColumnName());
 
-        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
+                Context.REPOSITORY_CONTEXT_KEY);
         ECodeLanguage codeLanguage = repositoryContext.getProject().getLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
-            metadataColumn.setType("String");
-            metadataColumn.setTalendType("String");
+            metadataColumn.setType("String"); //$NON-NLS-1$
+            metadataColumn.setTalendType("String"); //$NON-NLS-1$
         }
 
         return metadataColumn;

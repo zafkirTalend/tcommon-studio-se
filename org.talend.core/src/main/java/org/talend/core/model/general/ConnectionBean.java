@@ -24,6 +24,8 @@ package org.talend.core.model.general;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.talend.core.i18n.Messages;
+
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
@@ -32,9 +34,9 @@ import java.util.Map;
  */
 public class ConnectionBean implements Cloneable {
 
-    private static final String DYN_FIELDS_SEPARATOR = "=";
+    private static final String DYN_FIELDS_SEPARATOR = "="; //$NON-NLS-1$
 
-    private static final String FIELDS_SEPARATOR = "#";
+    private static final String FIELDS_SEPARATOR = "#"; //$NON-NLS-1$
 
     private String repositoryId;
 
@@ -59,11 +61,11 @@ public class ConnectionBean implements Cloneable {
 
     public static ConnectionBean getDefaultConnectionBean() {
         ConnectionBean newConnection = new ConnectionBean();
-        newConnection.setName("Local");
-        newConnection.setDescription("Default connection");
-        newConnection.setRepositoryId("local");
-        newConnection.setPassword("");
-        newConnection.setUser("your@userName.here");
+        newConnection.setName("Local"); //$NON-NLS-1$
+        newConnection.setDescription("Default connection"); //$NON-NLS-1$
+        newConnection.setRepositoryId("local"); //$NON-NLS-1$
+        newConnection.setPassword(""); //$NON-NLS-1$
+        newConnection.setUser("your@userName.here"); //$NON-NLS-1$
         return newConnection;
     }
 
@@ -172,9 +174,10 @@ public class ConnectionBean implements Cloneable {
 
     @Override
     public String toString() {
-        StringBuffer string = new StringBuffer("Repository:" + getRepositoryId() + ", Name:" + getName() + ", Desription:"
-                + getDescription() + ", User:" + getUser() + ", Password:" + getPassword() + ", Complete:" + isComplete());
-        string.append(", Dyn:").append(dynamicFields);
+        StringBuffer string = new StringBuffer("Repository:" + getRepositoryId() + ", Name:" + getName() //$NON-NLS-1$ //$NON-NLS-2$
+                + ", Desription:" + getDescription() + ", User:" + getUser() + ", Password:" + getPassword() //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+                + ", Complete:" + isComplete()); //$NON-NLS-1$
+        string.append(", Dyn:").append(dynamicFields); //$NON-NLS-1$
         return string.toString();
     }
 
@@ -209,23 +212,22 @@ public class ConnectionBean implements Cloneable {
                 toReturn.getDynamicFields().put(st2[0], st2[1]);
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("String to parse:" + s);
             e.printStackTrace();
         }
         return toReturn;
     }
 
-    public static void main(String[] args) {
-        ConnectionBean tt = new ConnectionBean();
-        tt.setName("tagada");
-        System.out.println(tt);
-        tt.setDescription("MyDesc");
-        tt.setUser("smallet@talend.com");
-        tt.setPassword("");
-        tt.getDynamicFields().put("DbLogin", "root");
-        tt.getDynamicFields().put("DbPassword", "toor");
-        String test2 = tt.readToString();
-        ConnectionBean bean2 = writeFromString(test2);
-        System.out.println(bean2 + " (" + test2 + ")");
-    }
+    // public static void main(String[] args) {
+    // ConnectionBean tt = new ConnectionBean();
+    // tt.setName("tagada");
+    // System.out.println(tt);
+    // tt.setDescription("MyDesc");
+    // tt.setUser("smallet@talend.com");
+    // tt.setPassword("");
+    // tt.getDynamicFields().put("DbLogin", "root");
+    // tt.getDynamicFields().put("DbPassword", "toor");
+    // String test2 = tt.readToString();
+    // ConnectionBean bean2 = writeFromString(test2);
+    // System.out.println(bean2 + " (" + test2 + ")");
+    // }
 }

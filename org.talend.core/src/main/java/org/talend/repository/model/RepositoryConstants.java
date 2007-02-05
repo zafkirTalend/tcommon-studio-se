@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.repository.model;
 
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.repository.ERepositoryObjectType;
 
 /**
@@ -31,21 +32,21 @@ import org.talend.core.model.repository.ERepositoryObjectType;
  */
 public class RepositoryConstants {
 
-    public static final String TEMP_DIRECTORY = "temp";
+    public static final String TEMP_DIRECTORY = "temp"; //$NON-NLS-1$
 
-    public static final String IMG_DIRECTORY = "images";
+    public static final String IMG_DIRECTORY = "images"; //$NON-NLS-1$
 
-    public static final String SYSTEM_DIRECTORY = "system";
+    public static final String SYSTEM_DIRECTORY = "system"; //$NON-NLS-1$
 
-    public static final String PROJECT_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9 \\-_]*$";
+    public static final String PROJECT_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9 \\-_]*$"; //$NON-NLS-1$
 
-    public static final String CODE_ITEM_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$";
+    public static final String CODE_ITEM_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$"; //$NON-NLS-1$
 
-    public static final String FOLDER_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$";
+    public static final String FOLDER_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$"; //$NON-NLS-1$
 
-    public static final String REPOSITORY_ITEM_PATTERN = "^[a-zA-Z0-9\\.\\-\\_\\ \\(\\)\\[\\]=]+$";
+    public static final String REPOSITORY_ITEM_PATTERN = "^[a-zA-Z0-9\\.\\-\\_\\ \\(\\)\\[\\]=]+$"; //$NON-NLS-1$
 
-    public static final String MAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*(\\.[_A-Za-z0-9-]+)";
+    public static final String MAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*(\\.[_A-Za-z0-9-]+)"; //$NON-NLS-1$
 
     public static String getPattern(ERepositoryObjectType type) {
         switch (type) {

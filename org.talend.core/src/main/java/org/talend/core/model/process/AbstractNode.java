@@ -24,6 +24,7 @@ package org.talend.core.model.process;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
 
@@ -117,7 +118,7 @@ public abstract class AbstractNode implements INode {
 
     public void setUniqueName(String uniqueName) {
     	for (IElementParameter param : elementParameters) {
-    		if (param.getName().equals("UNIQUE_NAME")) {
+    		if (param.getName().equals("UNIQUE_NAME")) { //$NON-NLS-1$
     			param.setValue(uniqueName);
     		}
     	}

@@ -30,6 +30,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.talend.core.i18n.Messages;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -43,11 +44,11 @@ import org.xml.sax.SAXException;
  */
 public class XmlArray {
 
-    private static final String TAG_ARRAY = "array";
+    private static final String TAG_ARRAY = "array"; //$NON-NLS-1$
 
-    private static final String TAG_ROW = "row";
+    private static final String TAG_ROW = "row"; //$NON-NLS-1$
 
-    private static final String TAG_FIELD = "field";
+    private static final String TAG_FIELD = "field"; //$NON-NLS-1$
 
     private List<XmlRow> rows;
 
@@ -86,7 +87,7 @@ public class XmlArray {
         Document document = builder.parse(is);
         Node root = document.getFirstChild();
         if (!TAG_ARRAY.equals(root.getNodeName())) {
-            throw new IOException("Invalid file.");
+            throw new IOException(Messages.getString("XmlArray.InvalidFile")); //$NON-NLS-1$
         }
 
         // Rows

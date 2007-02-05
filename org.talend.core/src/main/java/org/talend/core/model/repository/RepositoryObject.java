@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
@@ -158,7 +159,7 @@ public class RepositoryObject implements IRepositoryObject {
             }
 
             public Object caseCSVFileConnectionItem(CSVFileConnectionItem object) {
-                throw new IllegalStateException("not implemented");
+                throw new IllegalStateException(Messages.getString("RepositoryObject.NotImplemented")); //$NON-NLS-1$
             }
 
             public Object caseDatabaseConnectionItem(DatabaseConnectionItem object) {

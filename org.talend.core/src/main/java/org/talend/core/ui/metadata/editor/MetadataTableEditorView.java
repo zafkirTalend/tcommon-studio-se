@@ -46,6 +46,7 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -60,11 +61,11 @@ import org.talend.core.model.temp.ECodeLanguage;
  */
 public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetadataColumn> {
 
-    public static final String ID_COLUMN_NAME = "ID_COLUMN_NAME";
+    public static final String ID_COLUMN_NAME = "ID_COLUMN_NAME"; //$NON-NLS-1$
 
-    public static final String ID_COLUMN_KEY = "ID_COLUMN_KEY";
+    public static final String ID_COLUMN_KEY = "ID_COLUMN_KEY"; //$NON-NLS-1$
 
-    public static final String ID_COLUMN_TYPE = "ID_COLUMN_TYPE";
+    public static final String ID_COLUMN_TYPE = "ID_COLUMN_TYPE"; //$NON-NLS-1$
     
     /**
      * DOC amaumont MetadataTableEditorView constructor comment.
@@ -143,7 +144,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
         ECodeLanguage codeLanguage = repositoryContext.getProject().getLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
-            comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter("String");
+            comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter(Messages.getString("MetadataTableEditorView.3")); //$NON-NLS-1$
             dbms = MetadataTalendType.LANGUAGE_JAVA;
         } else {
             comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter();
@@ -168,15 +169,15 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         // //////////////////////////////////////////////////////////////////////////////////////
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("");
-        column.setDefaultInternalValue("");
+        column.setTitle(""); //$NON-NLS-1$
+        column.setDefaultInternalValue(""); //$NON-NLS-1$
         column.setWidth(15);
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setId(ID_COLUMN_NAME);
-        column.setTitle("Column");
+        column.setTitle(Messages.getString("MetadataTableEditorView.ColumnTitle")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
 
             public String get(IMetadataColumn bean) {
@@ -223,7 +224,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Key");
+        column.setTitle(Messages.getString("MetadataTableEditorView.KeyTitle")); //$NON-NLS-1$
         column.setId(ID_COLUMN_KEY);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, Boolean>() {
 
@@ -237,14 +238,14 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
         });
         column.setWidth(35);
-        column.setDisplayedValue("");
+        column.setDisplayedValue(""); //$NON-NLS-1$
         CheckboxTableEditorContent checkboxTableEditorContent = new CheckboxTableEditorContent(isReadOnly());
         column.setTableEditorContent(checkboxTableEditorContent);
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Type");
+        column.setTitle(Messages.getString("MetadataTableEditorView.TypleTitle")); //$NON-NLS-1$
         column.setId(ID_COLUMN_TYPE);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
 
@@ -265,7 +266,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Length");
+        column.setTitle(Messages.getString("MetadataTableEditorView.LengthTitle")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, Integer>() {
 
             public Integer get(IMetadataColumn bean) {
@@ -284,7 +285,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Precision");
+        column.setTitle(Messages.getString("MetadataTableEditorView.PrecisionTitle")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, Integer>() {
 
             public Integer get(IMetadataColumn bean) {
@@ -303,7 +304,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Nullable");
+        column.setTitle(Messages.getString("MetadataTableEditorView.NullableTitle")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, Boolean>() {
 
             public Boolean get(IMetadataColumn bean) {
@@ -317,7 +318,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         });
         column.setModifiable(!isReadOnly());
         column.setWidth(56);
-        column.setDisplayedValue("");
+        column.setDisplayedValue(""); //$NON-NLS-1$
         column.setTableEditorContent(new CheckboxTableEditorContent(isReadOnly()));
 
         // //////////////////////////////////////////////////////////////////////////////////////
@@ -343,7 +344,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         // //////////////////////////////////////////////////////////////////////////////////////
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle("Comment");
+        column.setTitle(Messages.getString("MetadataTableEditorView.CommentTitle")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
 
             public String get(IMetadataColumn bean) {

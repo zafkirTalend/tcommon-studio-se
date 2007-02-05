@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.talend.commons.utils.generation.CodeGenerationUtils;
+import org.talend.core.i18n.Messages;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -112,7 +113,7 @@ public final class ElementParameterParser {
             if (o instanceof Integer) {
                 IElementParameter tmpParam = (IElementParameter) param.getListItemsValue()[i];
                 if ((((Integer) o) == -1) || (tmpParam.getListItemsValue().length == 0)) {
-                    newLine.put(items[i], "");
+                    newLine.put(items[i], ""); //$NON-NLS-1$
                 } else {
                     newLine.put(items[i], (String) tmpParam.getListItemsValue()[(Integer) o]);
                 }
@@ -174,7 +175,7 @@ public final class ElementParameterParser {
             if (o instanceof Integer) {
                 IElementParameter tmpParam = (IElementParameter) param.getListItemsValue()[i];
                 if ((((Integer) o) == -1) || (tmpParam.getListItemsValue().length == 0)) {
-                    newLine.put(items[i], "");
+                    newLine.put(items[i], ""); //$NON-NLS-1$
                 } else {
                     newLine.put(items[i], (String) tmpParam.getListItemsValue()[(Integer) o]);
                 }
@@ -185,7 +186,7 @@ public final class ElementParameterParser {
                     if (o instanceof Boolean) {
                         newLine.put(items[i], ((Boolean) o).toString());
                     } else {
-                        newLine.put(items[i], "*** ERROR in Table ***");
+                        newLine.put(items[i], "*** ERROR in Table ***"); //$NON-NLS-1$
                     }
                 }
             }
@@ -211,7 +212,7 @@ public final class ElementParameterParser {
         return newText;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     private static String getDisplayValue(final IElementParameter param) {
         Object value = param.getValue();
         if (value instanceof String) {
@@ -224,10 +225,10 @@ public final class ElementParameterParser {
         if (param.getField() == EParameterFieldType.TABLE) {
             List<Map<String, Object>> tableValues = (List<Map<String, Object>>) param.getValue();
             String[] items = (String[]) param.getListItemsDisplayCodeName();
-            String stringValues = "{";
+            String stringValues = "{"; //$NON-NLS-1$
             for (int i = 0; i < tableValues.size(); i++) {
                 Map<String, Object> lineValues = tableValues.get(i);
-                stringValues += "[";
+                stringValues += Messages.getString("ElementParameterParser.6"); //$NON-NLS-1$
                 for (int j = 0; j < items.length; j++) {
 
                     Object currentValue = lineValues.get(items[j]);
@@ -241,15 +242,15 @@ public final class ElementParameterParser {
                     }
 
                     if (j != (items.length - 1)) {
-                        stringValues += ",";
+                        stringValues += ","; //$NON-NLS-1$
                     }
                 }
-                stringValues += "]";
+                stringValues += "]"; //$NON-NLS-1$
                 if (i != (tableValues.size() - 1)) {
-                    stringValues += ",";
+                    stringValues += ","; //$NON-NLS-1$
                 }
             }
-            stringValues += "}";
+            stringValues += "}"; //$NON-NLS-1$
             return stringValues;
         }
         return new String(""); //$NON-NLS-1$

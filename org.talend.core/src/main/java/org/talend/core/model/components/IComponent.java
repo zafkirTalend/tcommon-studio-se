@@ -37,17 +37,17 @@ import org.talend.designer.codegen.perlmodule.ModuleNeeded;
  */
 public interface IComponent {
 
-    String PROP_NAME = "NAME";
+    String PROP_NAME = "NAME"; //$NON-NLS-1$
 
-    String PROP_LONG_NAME = "LONG_NAME";
+    String PROP_LONG_NAME = "LONG_NAME"; //$NON-NLS-1$
 
-    String PROP_FAMILY = "FAMILY";
+    String PROP_FAMILY = "FAMILY"; //$NON-NLS-1$
 
-    String PROP_MENU = "MENU";
+    String PROP_MENU = "MENU"; //$NON-NLS-1$
 
-    String PROP_LINK = "LINK";
+    String PROP_LINK = "LINK"; //$NON-NLS-1$
 
-    String PROP_HELP = "HELP";
+    String PROP_HELP = "HELP"; //$NON-NLS-1$
 
     public String getName();
 

@@ -53,6 +53,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -208,7 +209,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         // Name
         Label nameLab = new Label(parent, SWT.NONE);
-        nameLab.setText("Name");
+        nameLab.setText(Messages.getString("PropertiesWizardPage.Name")); //$NON-NLS-1$
 
         nameText = new Text(parent, SWT.BORDER);
         nameText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -216,7 +217,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         // Purpose
         Label purposeLab = new Label(parent, SWT.NONE);
-        purposeLab.setText("Purpose");
+        purposeLab.setText(Messages.getString("PropertiesWizardPage.Purpose")); //$NON-NLS-1$
 
         purposeText = new Text(parent, SWT.BORDER);
         purposeText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -224,7 +225,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         // Description
         Label descriptionLab = new Label(parent, SWT.NONE);
-        descriptionLab.setText("Description");
+        descriptionLab.setText(Messages.getString("PropertiesWizardPage.Description")); //$NON-NLS-1$
         descriptionLab.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
 
         descriptionText = new Text(parent, SWT.BORDER | SWT.MULTI | SWT.WRAP);
@@ -235,7 +236,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         // Author
         Label authorLab = new Label(parent, SWT.NONE);
-        authorLab.setText("Author");
+        authorLab.setText(Messages.getString("PropertiesWizardPage.Author")); //$NON-NLS-1$
 
         authorText = new Text(parent, SWT.BORDER);
         authorText.setEnabled(false);
@@ -243,7 +244,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         // Version
         Label versionLab = new Label(parent, SWT.NONE);
-        versionLab.setText("Version");
+        versionLab.setText(Messages.getString("PropertiesWizardPage.Version")); //$NON-NLS-1$
 
         Composite versionContainer = new Composite(parent, SWT.NONE);
         versionContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -258,16 +259,16 @@ public abstract class PropertiesWizardPage extends WizardPage {
         versionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         versionMajorBtn = new Button(versionContainer, SWT.PUSH);
-        versionMajorBtn.setText("M");
+        versionMajorBtn.setText("M"); //$NON-NLS-1$
         versionMajorBtn.setEnabled(!readOnly);
 
         versionMinorBtn = new Button(versionContainer, SWT.PUSH);
-        versionMinorBtn.setText("m");
+        versionMinorBtn.setText(Messages.getString("PropertiesWizardPage.1")); //$NON-NLS-1$
         versionMinorBtn.setEnabled(!readOnly);
 
         // Status
         Label statusLab = new Label(parent, SWT.NONE);
-        statusLab.setText("Status");
+        statusLab.setText(Messages.getString("PropertiesWizardPage.Status")); //$NON-NLS-1$
 
         statusText = new CCombo(parent, SWT.BORDER);
         List<org.talend.core.model.properties.Status> statusList;
@@ -284,7 +285,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         // Path:
         Label pathLab = new Label(parent, SWT.NONE);
-        pathLab.setText("Path");
+        pathLab.setText(Messages.getString("PropertiesWizardPage.Path")); //$NON-NLS-1$
 
         Composite pathContainer = new Composite(parent, SWT.NONE);
         pathContainer.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -300,7 +301,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
         if (editPath) {
             Button button = new Button(pathContainer, SWT.PUSH);
-            button.setText("Select");
+            button.setText(Messages.getString("PropertiesWizardPage.Select")); //$NON-NLS-1$
 
             button.addSelectionListener(new SelectionAdapter() {
 
@@ -320,7 +321,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
      */
     private class FoldersContentProvider implements IStructuredContentProvider {
 
-        private static final String DEFAULT = "(default)";
+        private static final String DEFAULT = "(default)"; //$NON-NLS-1$
 
         /*
          * (non-Javadoc)
@@ -371,16 +372,16 @@ public abstract class PropertiesWizardPage extends WizardPage {
         dlg.setInput(getRepositoryObjectType());
         dlg.setContentProvider(new FoldersContentProvider());
         dlg.setLabelProvider(new LabelProvider());
-        dlg.setTitle("Select folder");
-        dlg.setMessage("Select the folder in which the item will be created");
+        dlg.setTitle(Messages.getString("PropertiesWizardPage.SelectfolderTitle")); //$NON-NLS-1$
+        dlg.setMessage(Messages.getString("PropertiesWizardPage.SelectfolderMessage")); //$NON-NLS-1$
 
-        String defaultValue = (pathText.getText().equals("") ? FoldersContentProvider.DEFAULT : pathText.getText());
+        String defaultValue = (pathText.getText().equals("") ? FoldersContentProvider.DEFAULT : pathText.getText()); //$NON-NLS-1$
         dlg.setInitialSelections(new String[] { defaultValue });
 
         if (dlg.open() == Window.OK) {
             String string = (String) dlg.getResult()[0];
             if (string.equals(FoldersContentProvider.DEFAULT)) {
-                pathText.setText("");
+                pathText.setText(""); //$NON-NLS-1$
             } else {
                 pathText.setText(string);
             }
@@ -428,7 +429,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
             public void modifyText(ModifyEvent e) {
                 if (purposeText.getText().length() == 0) {
-                    purposeStatus = createStatus(IStatus.WARNING, "Empty purpose is discouraged.");
+                    purposeStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyPurposeWarning")); //$NON-NLS-1$
                 } else {
                     purposeStatus = createOkStatus();
                 }
@@ -441,7 +442,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
             public void modifyText(ModifyEvent e) {
                 if (descriptionText.getText().length() == 0) {
-                    commentStatus = createStatus(IStatus.WARNING, "Empty description is discouraged.");
+                    commentStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyDescWarning")); //$NON-NLS-1$
                 } else {
                     commentStatus = createOkStatus();
                 }
@@ -490,11 +491,11 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     protected void evaluateTextField() {
         if (nameText.getText().length() == 0) {
-            nameStatus = createStatus(IStatus.ERROR, "Name is empty.");
+            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
         } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())) {
-            nameStatus = createStatus(IStatus.ERROR, "Name contains incorrect characters.");
+            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
         } else if (!isValid(nameText.getText()) && nameModifiedByUser) {
-            nameStatus = createStatus(IStatus.ERROR, "Item with the same name already exists");
+            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
         } else {
             nameStatus = createOkStatus();
         }

@@ -43,6 +43,7 @@ import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
@@ -72,11 +73,11 @@ public class MetadataDialog extends Dialog {
 
     private IMetadataTable inputMetaTable;
 
-    private String text = "";
+    private String text = ""; //$NON-NLS-1$
 
-    private String titleOutput = "";
+    private String titleOutput = ""; //$NON-NLS-1$
 
-    private String titleInput = "";
+    private String titleInput = ""; //$NON-NLS-1$
 
     private boolean inputReadOnly = false;
 
@@ -138,7 +139,7 @@ public class MetadataDialog extends Dialog {
         } else {
             GridLayout gridLayout = new GridLayout(3, false);
             composite.setLayout(gridLayout);
-            metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)");
+            metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
             inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, inputReadOnly,
                     !inputReadOnly);
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -151,14 +152,14 @@ public class MetadataDialog extends Dialog {
             // Input => Output
             Button copyToOutput = new Button(buttonComposite, SWT.NONE);
             copyToOutput.setImage(ImageProvider.getImage(EImage.RIGHT_ICON));
-            copyToOutput.setToolTipText("Copy all columns from input schema to output schema");
+            copyToOutput.setToolTipText(Messages.getString("MetadataDialog.CopyToOutput.ToolTopText")); //$NON-NLS-1$
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
                     MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
                             | SWT.CANCEL);
-                    messageBox.setText("Schema modification");
-                    messageBox.setMessage("All columns from the input schema will be transfered to the output schema");
+                    messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
+                    messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
                         outputMetaView.getMetadataTableEditor().removeAll();
                         outputMetaView.getMetadataTableEditor().addAll(
@@ -170,14 +171,14 @@ public class MetadataDialog extends Dialog {
             // Output => Input
             Button copyToInput = new Button(buttonComposite, SWT.NONE);
             copyToInput.setImage(ImageProvider.getImage(EImage.LEFT_ICON));
-            copyToInput.setToolTipText("Copy all columns from output schema to input schema");
+            copyToInput.setToolTipText(Messages.getString("MetadataDialog.CopyToInput")); //$NON-NLS-1$
             copyToInput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
                     MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
                             | SWT.CANCEL);
-                    messageBox.setText("Schema modification");
-                    messageBox.setMessage("All columns from the output schema will be transfered to the input schema");
+                    messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
+                    messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
                         inputMetaView.getMetadataTableEditor().removeAll();
                         inputMetaView.getMetadataTableEditor().addAll(
@@ -191,7 +192,7 @@ public class MetadataDialog extends Dialog {
             }
 
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, new MetadataTableEditor(outputMetaTable,
-                    titleOutput + " (Output)"), outputReadOnly, !outputReadOnly);
+                    titleOutput + " (Output)"), outputReadOnly, !outputReadOnly); //$NON-NLS-1$
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
             outputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
             if (outputReadOnly) {

@@ -50,23 +50,23 @@ import org.talend.core.model.utils.TalendTextUtils;
  */
 public class RepositoryToComponentProperty {
 
-    public static final String MYSQL = "MYSQL";
+    public static final String MYSQL = "MYSQL"; //$NON-NLS-1$
 
-    public static final String POSTGRESQL = "POSTGRESQL";
+    public static final String POSTGRESQL = "POSTGRESQL"; //$NON-NLS-1$
 
-    public static final String ODBC_JDBC = "ODBC_JDBC";
+    public static final String ODBC_JDBC = "ODBC_JDBC"; //$NON-NLS-1$
 
-    public static final String ODBC = "ODBC";
+    public static final String ODBC = "ODBC"; //$NON-NLS-1$
 
-    public static final String ORACLE = "ORACLE";
+    public static final String ORACLE = "ORACLE"; //$NON-NLS-1$
 
-    public static final String IBM_DB2 = "IBM_DB2";
+    public static final String IBM_DB2 = "IBM_DB2"; //$NON-NLS-1$
 
-    public static final String SYBASE = "SYBASE";
+    public static final String SYBASE = "SYBASE"; //$NON-NLS-1$
 
-    public static final String SQL_SERVER = "SQL_SERVER";
+    public static final String SQL_SERVER = "SQL_SERVER"; //$NON-NLS-1$
 
-    public static final String MS_ACCESS = "MS_ACCESS";
+    public static final String MS_ACCESS = "MS_ACCESS"; //$NON-NLS-1$
 
     public static Object getValue(Connection connection, String value) {
         if (connection instanceof FileConnection) {
@@ -82,22 +82,22 @@ public class RepositoryToComponentProperty {
     }
 
     private static String getStandardDbTypeFromConnection(String dbType) {
-        if (dbType.equals("MySQL")) {
+        if (dbType.equals("MySQL")) { //$NON-NLS-1$
             return MYSQL;
         }
-        if (dbType.equals("PostgreSQL")) {
+        if (dbType.equals("PostgreSQL")) { //$NON-NLS-1$
             return POSTGRESQL;
         }
-        if (dbType.equals("Oracle with SID")) {
+        if (dbType.equals("Oracle with SID")) { //$NON-NLS-1$
             return ORACLE;
         }
-        if (dbType.equals("Oracle with service name")) {
+        if (dbType.equals("Oracle with service name")) { //$NON-NLS-1$
             return ORACLE;
         }
-        if (dbType.equals("Generic ODBC")) {
+        if (dbType.equals("Generic ODBC")) { //$NON-NLS-1$
             return ODBC;
         }
-        if (dbType.equals("Microsoft SQL Server (Odbc driver)")) {
+        if (dbType.equals("Microsoft SQL Server (Odbc driver)")) { //$NON-NLS-1$
             return ODBC_JDBC;
         }
         // if (dbType.equals("Oracle Thin")) {
@@ -106,19 +106,19 @@ public class RepositoryToComponentProperty {
         // if (dbType.equals("Oracle Oci")) {
         // return ORACLE;
         // }
-        if (dbType.equals("IBM DB2")) {
+        if (dbType.equals("IBM DB2")) { //$NON-NLS-1$
             return IBM_DB2;
         }
-        if (dbType.equals("Sybase")) {
+        if (dbType.equals("Sybase")) { //$NON-NLS-1$
             return SYBASE;
         }
-        if (dbType.equals("Microsoft SQL Server")) {
+        if (dbType.equals("Microsoft SQL Server")) { //$NON-NLS-1$
             return SQL_SERVER;
         }
-        if (dbType.equals("Microsoft Access")) {
+        if (dbType.equals("Microsoft Access")) { //$NON-NLS-1$
             return MS_ACCESS;
         }
-        return "";
+        return ""; //$NON-NLS-1$
     }
 
     /**
@@ -129,32 +129,32 @@ public class RepositoryToComponentProperty {
      * @return
      */
     private static Object getDatabaseValue(DatabaseConnection connection, String value) {
-        if (value.equals("TYPE")) {
+        if (value.equals("TYPE")) { //$NON-NLS-1$
             return getStandardDbTypeFromConnection(connection.getDatabaseType());
         }
-        if (value.equals("SERVER_NAME")) {
+        if (value.equals("SERVER_NAME")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getServerName());
         }
-        if (value.equals("PORT")) {
+        if (value.equals("PORT")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getPort());
         }
-        if (value.equals("SID")) {
-            if (("").equals(connection.getSID())) {
+        if (value.equals("SID")) { //$NON-NLS-1$
+            if (("").equals(connection.getSID())) { //$NON-NLS-1$
                 return  TalendTextUtils.addQuotes(connection.getDatasourceName());
             } else {
                 return  TalendTextUtils.addQuotes(connection.getSID());
             }
         }
-        if (value.equals("USERNAME")) {
+        if (value.equals("USERNAME")) { //$NON-NLS-1$
             return  TalendTextUtils.addQuotes(connection.getUsername());
         }
-        if (value.equals("PASSWORD")) {
+        if (value.equals("PASSWORD")) { //$NON-NLS-1$
             return  TalendTextUtils.addQuotes(connection.getPassword());
         }
-        if (value.equals("NULL_CHAR")) {
+        if (value.equals("NULL_CHAR")) { //$NON-NLS-1$
             return  TalendTextUtils.addQuotes(connection.getNullChar());
         }
-        if (value.equals("SCHEMA")) {
+        if (value.equals("SCHEMA")) { //$NON-NLS-1$
             return  TalendTextUtils.addQuotes(connection.getSchema());
         }
         return null;
@@ -168,46 +168,46 @@ public class RepositoryToComponentProperty {
      * @return
      */
     private static Object getFileValue(FileConnection connection, String value) {
-        if (value.equals("FILE_PATH")) {
+        if (value.equals("FILE_PATH")) { //$NON-NLS-1$
             Path p = new Path(connection.getFilePath());
             return  TalendTextUtils.addQuotes(p.toOSString());
         }
-        if (value.equals("ROW_SEPARATOR")) {
+        if (value.equals("ROW_SEPARATOR")) { //$NON-NLS-1$
             return  TalendTextUtils.addQuotes(connection.getRowSeparatorValue(), TalendTextUtils.QUOTATION_MARK);
         }
-        if (value.equals("FIELD_SEPARATOR")) {
+        if (value.equals("FIELD_SEPARATOR")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getFieldSeparatorValue(), TalendTextUtils.QUOTATION_MARK);
         }
-        if (value.equals("HEADER")) {
+        if (value.equals("HEADER")) { //$NON-NLS-1$
             if (connection.isUseHeader()) {
                 return String.valueOf(connection.getHeaderValue());
             } else {
-                return "0";
+                return "0"; //$NON-NLS-1$
             }
         }
-        if (value.equals("FOOTER")) {
+        if (value.equals("FOOTER")) { //$NON-NLS-1$
             if (connection.isUseFooter()) {
                 return String.valueOf(connection.getFooterValue());
             } else {
-                return "0";
+                return "0"; //$NON-NLS-1$
             }
         }
-        if (value.equals("LIMIT")) {
+        if (value.equals("LIMIT")) { //$NON-NLS-1$
             if (connection.isUseLimit()) {
                 return String.valueOf(connection.getLimitValue());
             } else {
-                return "";
+                return ""; //$NON-NLS-1$
             }
         }
-        if (value.equals("ENCODING")) {
+        if (value.equals("ENCODING")) { //$NON-NLS-1$
             if (connection.getEncoding() == null) {
                 // get the default encoding
-                return TalendTextUtils.addQuotes(EMetadataEncoding.getMetadataEncoding("").getName());
+                return TalendTextUtils.addQuotes(EMetadataEncoding.getMetadataEncoding("").getName()); //$NON-NLS-1$
             } else {
                 return TalendTextUtils.addQuotes(connection.getEncoding());
             }
         }
-        if (value.equals("REMOVE_EMPTY_ROW")) {
+        if (value.equals("REMOVE_EMPTY_ROW")) { //$NON-NLS-1$
             return new Boolean(connection.isRemoveEmptyRow());
         }
 
@@ -234,30 +234,30 @@ public class RepositoryToComponentProperty {
      * @return
      */
     private static Object getPositionalFileValue(PositionalFileConnection connection, String value) {
-        if (value.equals("PATTERN")) {
+        if (value.equals("PATTERN")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getFieldSeparatorValue());
         }
         return null;
     }
 
     private static Object getDelimitedFileValue(DelimitedFileConnection connection, String value) {
-        if (value.equals("ESCAPE_CHAR")) {
+        if (value.equals("ESCAPE_CHAR")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getEscapeChar());
         }
-        if (value.equals("TEXT_ENCLOSURE")) {
+        if (value.equals("TEXT_ENCLOSURE")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getTextEnclosure());
         }
         return null;
     }
 
     private static Object getRegexpFileValue(RegexpFileConnection connection, String value) {
-        if (value.equals("ESCAPE_CHAR")) {
+        if (value.equals("ESCAPE_CHAR")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getEscapeChar());
         }
-        if (value.equals("TEXT_ENCLOSURE")) {
+        if (value.equals("TEXT_ENCLOSURE")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getTextEnclosure());
         }
-        if (value.equals("REGEXP")) {
+        if (value.equals("REGEXP")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getFieldSeparatorValue());
         }
         return null;
@@ -266,20 +266,20 @@ public class RepositoryToComponentProperty {
     private static Object getXmlFileValue(XmlFileConnection connection, String value) {
         EObjectContainmentWithInverseEList list = (EObjectContainmentWithInverseEList) connection.getSchema();
         XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) list.get(0);
-        if (value.equals("FILE_PATH")) {
+        if (value.equals("FILE_PATH")) { //$NON-NLS-1$
             Path p = new Path(connection.getXmlFilePath());
             return TalendTextUtils.addQuotes(p.toOSString());
         }
-        if (value.equals("LIMIT")) {
+        if (value.equals("LIMIT")) { //$NON-NLS-1$
             if ((xmlDesc == null) || (xmlDesc.getLimitBoucle() == null)) {
-                return "";
+                return ""; //$NON-NLS-1$
             } else {
                 return TalendTextUtils.addQuotes(xmlDesc.getLimitBoucle().toString());
             }
         }
-        if (value.equals("XPATH_QUERY")) {
+        if (value.equals("XPATH_QUERY")) { //$NON-NLS-1$
             if (xmlDesc == null) {
-                return "";
+                return ""; //$NON-NLS-1$
             } else {
                 return TalendTextUtils.addQuotes(xmlDesc.getAbsoluteXPathQuery());
             }
@@ -294,7 +294,7 @@ public class RepositoryToComponentProperty {
             EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection
                     .getSchema();
             XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
-            if (value.equals("XML_MAPPING")) {
+            if (value.equals("XML_MAPPING")) { //$NON-NLS-1$
                 if (xmlDesc == null) {
                     return;
                 } else {
@@ -303,7 +303,7 @@ public class RepositoryToComponentProperty {
                     int column = 0;
                     boolean found = false;
                     for (int k = 0; (k < list.length) && (!found); k++) {
-                        if (list[k].equals("XML_QUERY")) {
+                        if (list[k].equals("XML_QUERY")) { //$NON-NLS-1$
                             column = k;
                             found = true;
                         }

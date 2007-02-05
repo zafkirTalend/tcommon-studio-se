@@ -23,6 +23,8 @@ package org.talend.core.model.process;
 
 import java.util.List;
 
+import org.talend.core.i18n.Messages;
+
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -31,7 +33,7 @@ import java.util.List;
  */
 public interface IContext {
 
-    String DEFAULT = "Default";
+    String DEFAULT = "Default"; //$NON-NLS-1$
 
     public void setName(String name);
 

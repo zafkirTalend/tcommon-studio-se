@@ -44,6 +44,7 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.CorePlugin;
+import org.talend.core.i18n.Messages;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -61,20 +62,20 @@ public final class MetadataTalendType {
 
     private static final Set<String> PRIMITIVE_TYPES = new HashSet<String>(6);
 
-    public static final String DEFAULT_CHAR = "' '";
+    public static final String DEFAULT_CHAR = "' '"; //$NON-NLS-1$
 
-    public static final String DEFAULT_NUMBER = "0";
+    public static final String DEFAULT_NUMBER = "0"; //$NON-NLS-1$
 
-    public static final String NULL = "null";
+    public static final String NULL = "null"; //$NON-NLS-1$
 
-    public static final String CHAR = "char";
+    public static final String CHAR = "char"; //$NON-NLS-1$
 
     static {
-        PRIMITIVE_TYPES.add("short");
-        PRIMITIVE_TYPES.add("int");
-        PRIMITIVE_TYPES.add("long");
-        PRIMITIVE_TYPES.add("float");
-        PRIMITIVE_TYPES.add("double");
+        PRIMITIVE_TYPES.add("short"); //$NON-NLS-1$
+        PRIMITIVE_TYPES.add("int"); //$NON-NLS-1$
+        PRIMITIVE_TYPES.add("long"); //$NON-NLS-1$
+        PRIMITIVE_TYPES.add("float"); //$NON-NLS-1$
+        PRIMITIVE_TYPES.add("double"); //$NON-NLS-1$
         PRIMITIVE_TYPES.add(CHAR);
     }
 
@@ -84,17 +85,17 @@ public final class MetadataTalendType {
     private MetadataTalendType() {
     }
 
-    private static final String MAPPING_METADATA_TYPES_XML = "mappingMetadataTypes.xml";
+    private static final String MAPPING_METADATA_TYPES_XML = "mappingMetadataTypes.xml"; //$NON-NLS-1$
 
     private static Map<String, Map<String, String>> talendTypes = null;
 
     private static Map<String, Map<String, String>> defaultvalue = null;
 
-    public static final String NULLABLE = "nullable";
+    public static final String NULLABLE = "nullable"; //$NON-NLS-1$
 
-    public static final String LANGUAGE_JAVA = "JAVA";
+    public static final String LANGUAGE_JAVA = "JAVA"; //$NON-NLS-1$
 
-    public static final String TALENDDEFAULT = "TALENDDEFAULT";
+    public static final String TALENDDEFAULT = "TALENDDEFAULT"; //$NON-NLS-1$
 
     private static Comparator<String> comparatorIgnoreCase = new Comparator<String>() {
 
@@ -210,24 +211,24 @@ public final class MetadataTalendType {
             for (int i = 0; i < nodes.getLength(); i++) {
                 Node nodetoParse = nodes.item(i);
                 NamedNodeMap nodeMap = nodetoParse.getAttributes();
-                Node version = nodeMap.getNamedItem("name");
+                Node version = nodeMap.getNamedItem("name"); //$NON-NLS-1$
                 Node brotherNode = nodetoParse.getParentNode().getParentNode().getFirstChild();
                 Map<String, String> value = new HashMap<String, String>();
                 Map<String, String> dv = new HashMap<String, String>();
                 while (brotherNode != null) {
-                    if (brotherNode.getNodeName().compareTo("type") == 0) {
+                    if (brotherNode.getNodeName().compareTo("type") == 0) { //$NON-NLS-1$
                         NamedNodeMap typeNodeAttributes = brotherNode.getAttributes();
-                        String dbmsNodeValue = typeNodeAttributes.getNamedItem("dbms").getNodeValue();
+                        String dbmsNodeValue = typeNodeAttributes.getNamedItem("dbms").getNodeValue(); //$NON-NLS-1$
                         Node nullableNamedItem = typeNodeAttributes.getNamedItem(NULLABLE);
                         String keyForValues = dbmsNodeValue;
-                        if (nullableNamedItem != null && "true".equals(nullableNamedItem.getNodeValue())) {
+                        if (nullableNamedItem != null && "true".equals(nullableNamedItem.getNodeValue())) { //$NON-NLS-1$
                             keyForValues = dbmsNodeValue + NULLABLE;
                         }
-                        value.put(keyForValues, typeNodeAttributes.getNamedItem("talend").getNodeValue());
+                        value.put(keyForValues, typeNodeAttributes.getNamedItem("talend").getNodeValue()); //$NON-NLS-1$
 
-                        Node defaultNamedItem = typeNodeAttributes.getNamedItem("default");
-                        if (defaultNamedItem != null && "true".equals(defaultNamedItem.getNodeValue())) {
-                            dv.put(typeNodeAttributes.getNamedItem("talend").getNodeValue(), typeNodeAttributes.getNamedItem("dbms")
+                        Node defaultNamedItem = typeNodeAttributes.getNamedItem("default"); //$NON-NLS-1$
+                        if (defaultNamedItem != null && "true".equals(defaultNamedItem.getNodeValue())) { //$NON-NLS-1$
+                            dv.put(typeNodeAttributes.getNamedItem("talend").getNodeValue(), typeNodeAttributes.getNamedItem("dbms") //$NON-NLS-1$ //$NON-NLS-2$
                                     .getNodeValue());
                         }
                     }
@@ -266,7 +267,7 @@ public final class MetadataTalendType {
      */
     private static void checkTypesAreInitialized(String dbms, boolean reload) {
         if (dbms == null) {
-            throw new NullPointerException("DBMS not setted");
+            throw new NullPointerException(Messages.getString("MetadataTalendType.DBMSNotSetted")); //$NON-NLS-1$
         }
         if ((talendTypes == null) || (reload)) {
             try {

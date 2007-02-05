@@ -31,7 +31,7 @@ import org.talend.core.model.components.IComponent;
  */
 public class ModuleNeeded {
 
-    private static final String GLOBAL_MODULE_NAME = "--";
+    private static final String GLOBAL_MODULE_NAME = "--"; //$NON-NLS-1$
 
     private IComponent component;
 

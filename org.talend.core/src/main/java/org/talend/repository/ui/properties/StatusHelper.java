@@ -28,6 +28,7 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
@@ -55,7 +56,7 @@ public class StatusHelper {
 
     public String getStatusLabel(String statusCode) {
         if (statusCode == null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
         Status status = code2status.get(statusCode);
         return status == null ? statusCode : status.getLabel();

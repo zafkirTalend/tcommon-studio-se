@@ -62,13 +62,13 @@ public final class MetadataSchema {
     /**
      * 
      */
-    private static final String SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
+    private static final String SCHEMA_LANGUAGE = "http://java.sun.com/xml/jaxp/properties/schemaLanguage"; //$NON-NLS-1$
 
-    private static final String SCHEMA_XSD = "talend_metadata_columns_schema.xsd";
+    private static final String SCHEMA_XSD = "talend_metadata_columns_schema.xsd"; //$NON-NLS-1$
 
-    private static final String TARGETSCHEMA_XSD = "talend_targetschema_columns_schema.xsd";
+    private static final String TARGETSCHEMA_XSD = "talend_targetschema_columns_schema.xsd"; //$NON-NLS-1$
 
-    private static final String SCHEMA_VALIDATOR = "http://java.sun.com/xml/jaxp/properties/schemaSource";
+    private static final String SCHEMA_VALIDATOR = "http://java.sun.com/xml/jaxp/properties/schemaSource"; //$NON-NLS-1$
 
     /**
      * default constructor. Must not be used
@@ -150,19 +150,19 @@ public final class MetadataSchema {
             final File schema = new File(url.getPath());
 
             final Document document = XSDValidator.checkXSD(file, schema);
-            final NodeList nodes = document.getElementsByTagName("column");
+            final NodeList nodes = document.getElementsByTagName("column"); //$NON-NLS-1$
             for (int i = 0; i < nodes.getLength(); i++) {
                 final IMetadataColumn metadataColumn = new MetadataColumn();
                 final Node nodetoParse = nodes.item(i);
                 final NamedNodeMap nodeMap = nodetoParse.getAttributes();
-                final Node label = nodeMap.getNamedItem("label");
-                final Node key = nodeMap.getNamedItem("key");
-                final Node type = nodeMap.getNamedItem("talendType");
-                final Node length = nodeMap.getNamedItem("length");
-                final Node nullable = nodeMap.getNamedItem("nullable");
-                final Node precision = nodeMap.getNamedItem("precision");
-                final Node defaultValue = nodeMap.getNamedItem("default");
-                final Node comment = nodeMap.getNamedItem("comment");
+                final Node label = nodeMap.getNamedItem("label"); //$NON-NLS-1$
+                final Node key = nodeMap.getNamedItem("key"); //$NON-NLS-1$
+                final Node type = nodeMap.getNamedItem("talendType"); //$NON-NLS-1$
+                final Node length = nodeMap.getNamedItem("length"); //$NON-NLS-1$
+                final Node nullable = nodeMap.getNamedItem("nullable"); //$NON-NLS-1$
+                final Node precision = nodeMap.getNamedItem("precision"); //$NON-NLS-1$
+                final Node defaultValue = nodeMap.getNamedItem("default"); //$NON-NLS-1$
+                final Node comment = nodeMap.getNamedItem("comment"); //$NON-NLS-1$
 
                 metadataColumn.setLabel(label.getNodeValue());
                 metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
@@ -213,7 +213,7 @@ public final class MetadataSchema {
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
-            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema");
+            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema"); //$NON-NLS-1$
             fabrique.setAttribute(SCHEMA_VALIDATOR, schema);
             fabrique.setValidating(true);
 
@@ -235,20 +235,20 @@ public final class MetadataSchema {
             });
 
             final Document document = analyseur.parse(file);
-            final NodeList nodes = document.getElementsByTagName("column");
+            final NodeList nodes = document.getElementsByTagName("column"); //$NON-NLS-1$
             for (int i = 0; i < nodes.getLength(); i++) {
                 final org.talend.core.model.metadata.builder.connection.MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE
                         .createMetadataColumn();
                 final Node nodetoParse = nodes.item(i);
                 final NamedNodeMap nodeMap = nodetoParse.getAttributes();
-                final Node label = nodeMap.getNamedItem("label");
-                final Node key = nodeMap.getNamedItem("key");
-                final Node type = nodeMap.getNamedItem("talendType");
-                final Node length = nodeMap.getNamedItem("length");
-                final Node precision = nodeMap.getNamedItem("precision");
-                final Node nullable = nodeMap.getNamedItem("nullable");
-                final Node defaultValue = nodeMap.getNamedItem("default");
-                final Node comment = nodeMap.getNamedItem("comment");
+                final Node label = nodeMap.getNamedItem("label"); //$NON-NLS-1$
+                final Node key = nodeMap.getNamedItem("key"); //$NON-NLS-1$
+                final Node type = nodeMap.getNamedItem("talendType"); //$NON-NLS-1$
+                final Node length = nodeMap.getNamedItem("length"); //$NON-NLS-1$
+                final Node precision = nodeMap.getNamedItem("precision"); //$NON-NLS-1$
+                final Node nullable = nodeMap.getNamedItem("nullable"); //$NON-NLS-1$
+                final Node defaultValue = nodeMap.getNamedItem("default"); //$NON-NLS-1$
+                final Node comment = nodeMap.getNamedItem("comment"); //$NON-NLS-1$
 
                 metadataColumn.setLabel(label.getNodeValue());
                 metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
@@ -299,7 +299,7 @@ public final class MetadataSchema {
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(TARGETSCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
-            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema");
+            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema"); //$NON-NLS-1$
             fabrique.setAttribute(SCHEMA_VALIDATOR, schema);
             fabrique.setValidating(true);
 
@@ -321,14 +321,14 @@ public final class MetadataSchema {
             });
 
             final Document document = analyseur.parse(file);
-            final NodeList nodes = document.getElementsByTagName("schemaTargets");
+            final NodeList nodes = document.getElementsByTagName("schemaTargets"); //$NON-NLS-1$
             for (int i = 0; i < nodes.getLength(); i++) {
                 final org.talend.core.model.metadata.builder.connection.SchemaTarget schemaTarget = ConnectionFactory.eINSTANCE
                         .createSchemaTarget();
                 final Node nodetoParse = nodes.item(i);
                 final NamedNodeMap nodeMap = nodetoParse.getAttributes();
-                final Node xPathQuery = nodeMap.getNamedItem("XPathQuery");
-                final Node tagName = nodeMap.getNamedItem("TagName");
+                final Node xPathQuery = nodeMap.getNamedItem("XPathQuery"); //$NON-NLS-1$
+                final Node tagName = nodeMap.getNamedItem("TagName"); //$NON-NLS-1$
 
                 schemaTarget.setRelativeXPathQuery(xPathQuery.getNodeValue());
                 schemaTarget.setTagName(tagName.getNodeValue());
@@ -358,7 +358,7 @@ public final class MetadataSchema {
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
-            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema");
+            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema"); //$NON-NLS-1$
             fabrique.setAttribute(SCHEMA_VALIDATOR, schema);
             fabrique.setValidating(true);
 
@@ -380,43 +380,43 @@ public final class MetadataSchema {
             });
 
             Document document = analyseur.newDocument();
-            Element racine = document.createElement("schema");
+            Element racine = document.createElement("schema"); //$NON-NLS-1$
             document.appendChild(racine);
 
             for (Object list : table.getColumns()) {
                 org.talend.core.model.metadata.builder.connection.MetadataColumn metadataColumn = (org.talend.core.model.metadata.builder.connection.MetadataColumn) list;
-                Element column = document.createElement("column");
+                Element column = document.createElement("column"); //$NON-NLS-1$
                 racine.appendChild(column);
 
-                Attr label = document.createAttribute("label");
+                Attr label = document.createAttribute("label"); //$NON-NLS-1$
                 label.setNodeValue(metadataColumn.getLabel());
                 column.setAttributeNode(label);
 
-                Attr key = document.createAttribute("key");
+                Attr key = document.createAttribute("key"); //$NON-NLS-1$
                 key.setNodeValue(String.valueOf(metadataColumn.isKey()));
                 column.setAttributeNode(key);
 
-                Attr talendType = document.createAttribute("talendType");
+                Attr talendType = document.createAttribute("talendType"); //$NON-NLS-1$
                 talendType.setNodeValue(metadataColumn.getTalendType());
                 column.setAttributeNode(talendType);
 
-                Attr length = document.createAttribute("length");
+                Attr length = document.createAttribute("length"); //$NON-NLS-1$
                 length.setNodeValue(String.valueOf(metadataColumn.getLength()));
                 column.setAttributeNode(length);
 
-                Attr precision = document.createAttribute("precision");
+                Attr precision = document.createAttribute("precision"); //$NON-NLS-1$
                 precision.setNodeValue(String.valueOf(metadataColumn.getPrecision()));
                 column.setAttributeNode(precision);
 
-                Attr nullable = document.createAttribute("nullable");
+                Attr nullable = document.createAttribute("nullable"); //$NON-NLS-1$
                 nullable.setNodeValue(String.valueOf(metadataColumn.isNullable()));
                 column.setAttributeNode(nullable);
 
-                Attr defaultValue = document.createAttribute("default");
+                Attr defaultValue = document.createAttribute("default"); //$NON-NLS-1$
                 defaultValue.setNodeValue(metadataColumn.getDefaultValue());
                 column.setAttributeNode(defaultValue);
 
-                Attr comment = document.createAttribute("comment");
+                Attr comment = document.createAttribute("comment"); //$NON-NLS-1$
                 comment.setNodeValue(metadataColumn.getComment());
                 column.setAttributeNode(comment);
             }
@@ -449,7 +449,7 @@ public final class MetadataSchema {
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(TARGETSCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
-            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema");
+            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema"); //$NON-NLS-1$
             fabrique.setAttribute(SCHEMA_VALIDATOR, schema);
             fabrique.setValidating(true);
 
@@ -471,19 +471,19 @@ public final class MetadataSchema {
             });
 
             Document document = analyseur.newDocument();
-            Element racine = document.createElement("schema");
+            Element racine = document.createElement("schema"); //$NON-NLS-1$
             document.appendChild(racine);
 
             for (Object list : table.getSchemaTargets()) {
                 SchemaTarget schemaTarget = (SchemaTarget) list;
-                Element column = document.createElement("schemaTargets");
+                Element column = document.createElement("schemaTargets"); //$NON-NLS-1$
                 racine.appendChild(column);
 
-                Attr xPathQuery = document.createAttribute("XPathQuery");
+                Attr xPathQuery = document.createAttribute("XPathQuery"); //$NON-NLS-1$
                 xPathQuery.setNodeValue(schemaTarget.getRelativeXPathQuery());
                 column.setAttributeNode(xPathQuery);
 
-                Attr tagName = document.createAttribute("TagName");
+                Attr tagName = document.createAttribute("TagName"); //$NON-NLS-1$
                 tagName.setNodeValue(String.valueOf(schemaTarget.getTagName()));
                 column.setAttributeNode(tagName);
 
@@ -518,7 +518,7 @@ public final class MetadataSchema {
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
             final File schema = new File(url.getPath());
 
-            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema");
+            fabrique.setAttribute(SCHEMA_LANGUAGE, "http://www.w3.org/2001/XMLSchema"); //$NON-NLS-1$
             fabrique.setAttribute(SCHEMA_VALIDATOR, schema);
             fabrique.setValidating(true);
 
@@ -540,51 +540,51 @@ public final class MetadataSchema {
             });
 
             Document document = analyseur.newDocument();
-            Element racine = document.createElement("schema");
+            Element racine = document.createElement("schema"); //$NON-NLS-1$
             document.appendChild(racine);
 
             for (IMetadataColumn metadataColumn : table.getListColumns()) {
-                Element column = document.createElement("column");
+                Element column = document.createElement("column"); //$NON-NLS-1$
                 racine.appendChild(column);
 
-                Attr label = document.createAttribute("label");
+                Attr label = document.createAttribute("label"); //$NON-NLS-1$
                 label.setNodeValue(metadataColumn.getLabel());
                 column.setAttributeNode(label);
 
-                Attr key = document.createAttribute("key");
+                Attr key = document.createAttribute("key"); //$NON-NLS-1$
                 key.setNodeValue(String.valueOf(metadataColumn.isKey()));
                 column.setAttributeNode(key);
 
-                Attr talendType = document.createAttribute("talendType");
+                Attr talendType = document.createAttribute("talendType"); //$NON-NLS-1$
                 talendType.setNodeValue(metadataColumn.getTalendType());
                 column.setAttributeNode(talendType);
 
-                Attr length = document.createAttribute("length");
+                Attr length = document.createAttribute("length"); //$NON-NLS-1$
                 if (metadataColumn.getLength() == null) {
-                    length.setNodeValue("-1");
+                    length.setNodeValue("-1"); //$NON-NLS-1$
                 } else {
                     length.setNodeValue(String.valueOf(metadataColumn.getLength()));
                 }
                 column.setAttributeNode(length);
 
-                Attr precision = document.createAttribute("precision");
+                Attr precision = document.createAttribute("precision"); //$NON-NLS-1$
                 if (metadataColumn.getPrecision() == null) {
-                    precision.setNodeValue("-1");
+                    precision.setNodeValue("-1"); //$NON-NLS-1$
                 } else {
                     precision.setNodeValue(String.valueOf(metadataColumn.getPrecision()));
                 }
 
                 column.setAttributeNode(precision);
 
-                Attr nullable = document.createAttribute("nullable");
+                Attr nullable = document.createAttribute("nullable"); //$NON-NLS-1$
                 nullable.setNodeValue(String.valueOf(metadataColumn.isNullable()));
                 column.setAttributeNode(nullable);
 
-                Attr defaultValue = document.createAttribute("default");
+                Attr defaultValue = document.createAttribute("default"); //$NON-NLS-1$
                 defaultValue.setNodeValue(metadataColumn.getDefault());
                 column.setAttributeNode(defaultValue);
 
-                Attr comment = document.createAttribute("comment");
+                Attr comment = document.createAttribute("comment"); //$NON-NLS-1$
                 comment.setNodeValue(metadataColumn.getComment());
                 column.setAttributeNode(comment);
             }

@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
+import org.talend.core.i18n.Messages;
+
 /**
  * Enum for available Code Languages in the application.
  * 
@@ -29,30 +31,30 @@ package org.talend.core.model.metadata;
  */
 public enum EMetadataEncoding {
 
-    UTF8("UTF-8", "Unicode 2.0 UTF-8"),
-    UTF16("UTF-16", "Unicode 2.0 (16 bit)"),
-    UTF16LE("UTF-16LE", "Unicode (16 bit)"),
-    UTF16BE("UTF-16BE", "Unicode BigEndian (16 bit)"),
-    UTF7("UTF-7", "Unicode 2.0 UTF-7"),
-    ISO88591("ISO-8859-1", "(Latin-1) Europe occidentale, Amérique latine"),
-    ISO88592("ISO-8859-2", "(Latin-2) Europe centrale et orientale"),
-    ISO88593("ISO-8859-3", "(Latin-3) Europe du sud-est"),
-    ISO88594("ISO-8859-4", "(Latin-4) Scandinavie, pays Baltes"),
-    ISO88595("ISO-8859-5", "Cyrillique"),
-    ISO88596("ISO-8859-6", "Arabe"),
-    ISO88597("ISO-8859-7", "Grec"),
-    ISO88598("ISO-8859-8", "Hébreu"),
-    ISO88599("ISO-8859-9", "Turc"),
-    ISO885910("ISO-8859-10", "Langues lapone, nordique, esquimaude"),
-    windows1252("windows-1252", "Microsoft (Latin-1)"),
-    BIG5("BIG5", "Big Five (Chinois traditionnel)"),
-    GB18030("GB18030", "Standard national Chinois"),
-    GB2312("GB2312", "Chinois"),
-    EUC_CN("EUC_CN", "Chinois simplifié (Code-CN Unix étendu)");
+    UTF8("UTF-8", "Unicode 2.0 UTF-8"), //$NON-NLS-1$ //$NON-NLS-2$
+    UTF16("UTF-16", "Unicode 2.0 (16 bit)"), //$NON-NLS-1$ //$NON-NLS-2$
+    UTF16LE("UTF-16LE", "Unicode (16 bit)"), //$NON-NLS-1$ //$NON-NLS-2$
+    UTF16BE("UTF-16BE", "Unicode BigEndian (16 bit)"), //$NON-NLS-1$ //$NON-NLS-2$
+    UTF7("UTF-7", "Unicode 2.0 UTF-7"), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88591("ISO-8859-1", "(Latin-1) Europe occidentale, Amï¿½rique latine"), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88592("ISO-8859-2", "(Latin-2) Europe centrale et orientale"), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88593("ISO-8859-3", "(Latin-3) Europe du sud-est"), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88594("ISO-8859-4", "(Latin-4) Scandinavie, pays Baltes"), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88595("ISO-8859-5", "Cyrillique"), //$NON-NLS-1$
+    ISO88596("ISO-8859-6", "Arabe"), //$NON-NLS-1$
+    ISO88597("ISO-8859-7", "Grec"), //$NON-NLS-1$
+    ISO88598("ISO-8859-8", "Hï¿½breu"), //$NON-NLS-1$
+    ISO88599("ISO-8859-9", "Turc"), //$NON-NLS-1$
+    ISO885910("ISO-8859-10", "Langues lapone, nordique, esquimaude"), //$NON-NLS-1$
+    windows1252("windows-1252", "Microsoft (Latin-1)"), //$NON-NLS-1$
+    BIG5("BIG5", "Big Five (Chinois traditionnel)"), //$NON-NLS-1$
+    GB18030("GB18030", "Standard national Chinois"), //$NON-NLS-1$
+    GB2312(Messages.getString("EMetadataEncoding.0"), "Chinois"), //$NON-NLS-1$
+    EUC_CN("EUC_CN", "Chinois simplifiï¿½ (Code-CN Unix ï¿½tendu)"); //$NON-NLS-1$
 
     /*
-     * EUC_JP Code-JP Unix étendu Japonais EUC_KR Code-KR Unix étendu Coréen EUC_TW Code-TW Unix étendu Chinois
-     * traditionnel, taïwanais GBK Standard national étendu Chinois simplifié ISO 2022-CN ("GB") GB 2312-80
+     * EUC_JP Code-JP Unix ï¿½tendu Japonais EUC_KR Code-KR Unix ï¿½tendu Corï¿½en EUC_TW Code-TW Unix ï¿½tendu Chinois
+     * traditionnel, taï¿½wanais GBK Standard national ï¿½tendu Chinois simplifiï¿½ ISO 2022-CN ("GB") GB 2312-80
      */
 
     private EMetadataEncoding(String name, String label) {

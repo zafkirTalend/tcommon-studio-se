@@ -34,6 +34,7 @@ import org.eclipse.swt.widgets.List;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.talend.core.CorePlugin;
+import org.talend.core.i18n.Messages;
 
 /**
  * Preference page for a simple list of String data. <br/>
@@ -70,7 +71,7 @@ public abstract class ListPreferencePage extends PreferencePage implements IWork
         dataList.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         removeBtn = new Button(container, SWT.PUSH);
-        removeBtn.setText("Remove");
+        removeBtn.setText(Messages.getString("ListPreferencePage.RemoveButtonName")); //$NON-NLS-1$
         removeBtn.setEnabled(false);
         removeBtn.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
 

@@ -33,6 +33,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -88,7 +89,7 @@ public class PropertiesWizard extends Wizard {
 
     @Override
     public void addPages() {
-        mainPage = new PropertiesWizardPage("WizardPage", object.getProperty(), path, isReadOnly(), false) {
+        mainPage = new PropertiesWizardPage("WizardPage", object.getProperty(), path, isReadOnly(), false) { //$NON-NLS-1$
 
             public void createControl(Composite parent) {
                 Composite container = new Composite(parent, SWT.NONE);
@@ -109,7 +110,7 @@ public class PropertiesWizard extends Wizard {
             }
         };
         addPage(mainPage);
-        setWindowTitle("Edit properties");
+        setWindowTitle(Messages.getString("PropertiesWizard.EditPropertiesPageTitle")); //$NON-NLS-1$
     }
 
     @Override

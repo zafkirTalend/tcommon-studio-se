@@ -33,15 +33,15 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 
     private int id;
 
-    private String label = "";
+    private String label = ""; //$NON-NLS-1$
 
     private boolean key = false;
 
-    private String type = "";
+    private String type = ""; //$NON-NLS-1$
 
-    private String talendType = "";
+    private String talendType = ""; //$NON-NLS-1$
 
-    private String dbms = "";
+    private String dbms = ""; //$NON-NLS-1$
 
     private boolean nullable = false;
 
@@ -49,9 +49,9 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 
     private Integer precision;
 
-    private String defaut = "";
+    private String defaut = ""; //$NON-NLS-1$
 
-    private String comment = "";
+    private String comment = ""; //$NON-NLS-1$
 
     public MetadataColumn() {
         super();
@@ -168,7 +168,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.core.model.metadata.IMetadataColumn#getTalendType()
      */
     public String getTalendType() {
-        if ((talendType == null) || (talendType.compareTo("") == 0)) {
+        if ((talendType == null) || (talendType.compareTo("") == 0)) { //$NON-NLS-1$
             this.talendType = MetadataTalendType.loadTalendType(this.type, this.dbms, false);
         }
         return talendType;

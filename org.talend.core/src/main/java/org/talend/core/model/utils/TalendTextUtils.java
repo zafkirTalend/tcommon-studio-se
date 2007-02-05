@@ -22,6 +22,7 @@
 package org.talend.core.model.utils;
 
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.temp.ECodeLanguage;
 
 
@@ -33,9 +34,9 @@ import org.talend.core.model.temp.ECodeLanguage;
  *
  */
 public class TalendTextUtils {
-    public static final String SINGLE_QUOTE = "'";
+    public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
     
-    public static final String QUOTATION_MARK = "\"";
+    public static final String QUOTATION_MARK = "\""; //$NON-NLS-1$
     
     public static String addQuotes(String text) {
         ECodeLanguage language = ((RepositoryContext) org.talend.core.CorePlugin.getContext().getProperty(
@@ -62,15 +63,15 @@ public class TalendTextUtils {
     
     private static String checkStringQuotes(String str) {
         if (str == null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
-        return str.replace("'", "\\'");
+        return str.replace("'", "\\'"); //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     private static String checkStringQuotationMarks(String str) {
         if (str == null) {
-            return "";
+            return ""; //$NON-NLS-1$
         }
-        return str.replace("\"", "\\\"");
+        return str.replace("\"", "\\\""); //$NON-NLS-1$ //$NON-NLS-2$
     }
 }

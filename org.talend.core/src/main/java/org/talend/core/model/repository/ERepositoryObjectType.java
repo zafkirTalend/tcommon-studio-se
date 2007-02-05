@@ -45,23 +45,23 @@ import org.talend.core.model.properties.util.PropertiesSwitch;
  * 
  */
 public enum ERepositoryObjectType {
-    BUSINESS_PROCESS("repository.businessProcess"),
-    PROCESS("repository.process"),
-    ROUTINES("repository.routines"),
-    SNIPPETS("repository.snippets"),
-    DOCUMENTATION("repository.documentation"),
-    METADATA("repository.metadata"),
-    METADATA_CON_TABLE("repository.metadataTable"),
-    METADATA_CON_VIEW("repository.metadataView"),
-    METADATA_CON_SYNONYM("repository.synonym"),
-    METADATA_CON_QUERY("repository.query"),
-    METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"),
-    METADATA_FILE_DELIMITED("repository.metadataFileDelimited", "repository.metadataFileDelimited.alias"),
-    METADATA_FILE_POSITIONAL("repository.metadataFilePositional", "repository.metadataFilePositional.alias"),
-    METADATA_FILE_REGEXP("repository.metadataFileRegexp", "repository.metadataFileRegexp.alias"),
-    METADATA_FILE_XML("repository.metadataFileXml", "repository.metadataFileXml.alias"),
-    METADATA_FILE_LDIF("repository.metadataFileLdif", "repository.metadataFileLdif.alias"),
-    FOLDER("repository.folder");
+    BUSINESS_PROCESS("repository.businessProcess"), //$NON-NLS-1$
+    PROCESS("repository.process"), //$NON-NLS-1$
+    ROUTINES("repository.routines"), //$NON-NLS-1$
+    SNIPPETS("repository.snippets"), //$NON-NLS-1$
+    DOCUMENTATION("repository.documentation"), //$NON-NLS-1$
+    METADATA("repository.metadata"), //$NON-NLS-1$
+    METADATA_CON_TABLE("repository.metadataTable"), //$NON-NLS-1$
+    METADATA_CON_VIEW("repository.metadataView"), //$NON-NLS-1$
+    METADATA_CON_SYNONYM("repository.synonym"), //$NON-NLS-1$
+    METADATA_CON_QUERY("repository.query"), //$NON-NLS-1$
+    METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_FILE_DELIMITED("repository.metadataFileDelimited", "repository.metadataFileDelimited.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_FILE_POSITIONAL("repository.metadataFilePositional", "repository.metadataFilePositional.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_FILE_REGEXP("repository.metadataFileRegexp", "repository.metadataFileRegexp.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_FILE_XML("repository.metadataFileXml", "repository.metadataFileXml.alias"),  //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_FILE_LDIF("repository.metadataFileLdif", "repository.metadataFileLdif.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    FOLDER("repository.folder"); //$NON-NLS-1$
 
     private String key;
 
@@ -104,29 +104,29 @@ public enum ERepositoryObjectType {
     public static String getFolderName(ERepositoryObjectType type) {
         switch (type) {
         case BUSINESS_PROCESS:
-            return "businessProcess";
+            return "businessProcess"; //$NON-NLS-1$
         case PROCESS:
-            return "process";
+            return "process"; //$NON-NLS-1$
         case ROUTINES:
-            return "code/routines";
+            return "code/routines"; //$NON-NLS-1$
         case DOCUMENTATION:
-            return "documentations";
+            return "documentations"; //$NON-NLS-1$
         case METADATA:
-            return "metadata";
+            return "metadata"; //$NON-NLS-1$
         case METADATA_CONNECTIONS:
-            return "metadata/connections";
+            return "metadata/connections"; //$NON-NLS-1$
         case METADATA_FILE_DELIMITED:
-            return "metadata/fileDelimited";
+            return "metadata/fileDelimited"; //$NON-NLS-1$
         case METADATA_FILE_POSITIONAL:
-            return "metadata/filePositional";
+            return Messages.getString("ERepositoryObjectType.30"); //$NON-NLS-1$
         case METADATA_FILE_REGEXP:
-            return "metadata/fileRegex";
+            return "metadata/fileRegex"; //$NON-NLS-1$
         case METADATA_FILE_XML:
-            return "metadata/fileXml";
+            return "metadata/fileXml"; //$NON-NLS-1$
         case METADATA_FILE_LDIF:
-            return "metadata/fileLdif";
+            return "metadata/fileLdif"; //$NON-NLS-1$
         default:
-            throw new IllegalArgumentException("Folder for type " + type + " cannot be found");
+            throw new IllegalArgumentException(Messages.getString("ERepositoryObjectType.FolderNotFound",type)); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
     
@@ -150,7 +150,7 @@ public enum ERepositoryObjectType {
             }
 
             public Object caseCSVFileConnectionItem(CSVFileConnectionItem object) {
-                throw new IllegalStateException("not implemented");
+                throw new IllegalStateException(Messages.getString("ERepositoryObjectType.NotImplemented")); //$NON-NLS-1$
             }
 
             public Object caseDatabaseConnectionItem(DatabaseConnectionItem object) {

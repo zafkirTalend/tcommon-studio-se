@@ -23,6 +23,7 @@ package org.talend.repository.model.extensions;
 
 import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
 import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
+import org.talend.core.i18n.Messages;
 
 /**
  * Provides extension points for this plug-in.<br/>
@@ -33,11 +34,11 @@ import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
 public class ExtensionPointFactory {
 
     public static final ISimpleExtensionPoint COMPONENTS_PROVIDER = new ExtensionPointImpl(
-            "org.talend.core.components_provider", "ComponentsFactory", 1, 1);
+            "org.talend.core.components_provider", "ComponentsFactory", 1, 1); //$NON-NLS-1$ //$NON-NLS-2$
 
     public static final ISimpleExtensionPoint EXTERNAL_COMPONENT = new ExtensionPointImpl(
-            "org.talend.core.external_component", "ExternalComponent", 1, 1);
+            "org.talend.core.external_component", "ExternalComponent", 1, 1); //$NON-NLS-1$ //$NON-NLS-2$
 
-    public static final ISimpleExtensionPoint ACTIONS_GROUPS = new ExtensionPointImpl("org.talend.core.actions", "Group",
+    public static final ISimpleExtensionPoint ACTIONS_GROUPS = new ExtensionPointImpl("org.talend.core.actions", "Group", //$NON-NLS-1$ //$NON-NLS-2$
             -1, -1);
 }

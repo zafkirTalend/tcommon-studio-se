@@ -36,7 +36,7 @@ import org.talend.core.CorePlugin;
  */
 public class TalendNature implements IProjectNature {
     
-    public static final String ID = CorePlugin.PLUGIN_ID + ".talendnature";
+    public static final String ID = CorePlugin.PLUGIN_ID + ".talendnature"; //$NON-NLS-1$
     
     private IProject project;
 

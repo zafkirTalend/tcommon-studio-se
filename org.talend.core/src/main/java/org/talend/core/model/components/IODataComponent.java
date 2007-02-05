@@ -63,7 +63,7 @@ public class IODataComponent {
 
     @Override
     public String toString() {
-        return "Connection=[" + connection + "], Table=[" + newMetadataTable + "]";
+        return "Connection=[" + connection + "], Table=[" + newMetadataTable + "]"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
     public String getName() {

@@ -72,7 +72,7 @@ public class ColumnNameChanged {
      */
     @Override
     public String toString() {
-        return "Column changed : " + oldName + "->" + newName;
+        return "Column changed : " + oldName + "->" + newName;  //$NON-NLS-1$//$NON-NLS-2$
     }
 
 }

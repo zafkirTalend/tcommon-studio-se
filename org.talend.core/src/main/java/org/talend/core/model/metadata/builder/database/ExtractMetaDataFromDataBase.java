@@ -53,11 +53,11 @@ public class ExtractMetaDataFromDataBase {
 
     private static Logger log = Logger.getLogger(ExtractMetaDataFromDataBase.class);
 
-    private static final String TABLETYPE_TABLE = "TABLE";
+    private static final String TABLETYPE_TABLE = "TABLE"; //$NON-NLS-1$
 
-    private static final String TABLETYPE_VIEW = "VIEW";
+    private static final String TABLETYPE_VIEW = "VIEW"; //$NON-NLS-1$
 
-    private static final String TABLETYPE_SYNONYM = "SYNONYM";
+    private static final String TABLETYPE_SYNONYM = "SYNONYM"; //$NON-NLS-1$
 
     /**
      * This map represents sets of table type and table name key value pair.
@@ -82,11 +82,11 @@ public class ExtractMetaDataFromDataBase {
             
             while (rsTables.next()) {
                 MetadataTable medataTable = new MetadataTable();
-                medataTable.setId(medataTables.size() + 1 + "");
-                medataTable.setLabel(rsTables.getString("TABLE_NAME"));
+                medataTable.setId(medataTables.size() + 1 + ""); //$NON-NLS-1$
+                medataTable.setLabel(rsTables.getString("TABLE_NAME")); //$NON-NLS-1$
                 medataTable.setTableName(medataTable.getLabel());
-                medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS"));
-                tableTypeMap.put(medataTable.getLabel(), rsTables.getString("TABLE_TYPE"));
+                medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS")); //$NON-NLS-1$
+                tableTypeMap.put(medataTable.getLabel(), rsTables.getString("TABLE_TYPE")); //$NON-NLS-1$
                 medataTables.add(medataTable);
             }
             rsTables.close();
@@ -199,13 +199,13 @@ public class ExtractMetaDataFromDataBase {
      */
     public static String getTableNameBySynonym(Connection conn, String name) {
         try {
-            String sql = "";
-            sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'";
+            String sql = ""; //$NON-NLS-1$
+            sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$
             Statement sta;
             sta = conn.createStatement();
             ResultSet resultSet = sta.executeQuery(sql);
             while (resultSet.next()) {
-                return resultSet.getString("TABLE_NAME");
+                return resultSet.getString("TABLE_NAME"); //$NON-NLS-1$
             }
         } catch (SQLException e) {
             log.error(e.toString());
@@ -234,7 +234,7 @@ public class ExtractMetaDataFromDataBase {
                 ResultSet keys = dbMetaData.getPrimaryKeys(null, ExtractMetaDataUtils.schema, medataTable.getLabel());
                 primaryKeys.clear();
                 while (keys.next()) {
-                    primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY");
+                    primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
                 }
                 keys.close();
             } catch (Exception e) {
@@ -246,34 +246,34 @@ public class ExtractMetaDataFromDataBase {
             while (columns.next()) {
 
                 MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME"));
+                metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
                 metadataColumn.setOriginalField(metadataColumn.getLabel());
                 if (primaryKeys != null && !primaryKeys.isEmpty() && primaryKeys.get(metadataColumn.getLabel()) != null) {
                     metadataColumn.setKey(true);
                 } else {
                     metadataColumn.setKey(false);
                 }
-                metadataColumn.setSourceType(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME"));
+                metadataColumn.setSourceType(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME")); //$NON-NLS-1$
                 metadataColumn.setNullable(new Boolean(ExtractMetaDataUtils.getBooleanMetaDataInfo(columns,
-                        "IS_NULLABLE")).booleanValue());
-                metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE"));
+                        "IS_NULLABLE")).booleanValue()); //$NON-NLS-1$
+                metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
                 // Convert dbmsType to TalendType
                 String talendType = MetadataTalendType.loadTalendType(metadataColumn.getSourceType(), dbms, false);
                 metadataColumn.setTalendType(talendType);
                 // System.out.println("COMMENT :
                 // "+ExtractMetaDataUtils.getStringMetaDataInfo(columns,
                 // "TABLE_REMARKS"));
-                metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS"));
+                metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
 
                 // PTODO cantoine : patch to fix 0x0 pb cause by Bad Schema description
-                String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF");
+                String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
                 if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0
                         && stringMetaDataInfo.charAt(0) == 0x0) {
-                    stringMetaDataInfo = "\\0";
+                    stringMetaDataInfo = "\\0"; //$NON-NLS-1$
                 }
                 metadataColumn.setDefaultValue(stringMetaDataInfo);
 
-                metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS"));
+                metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
                 metadataColumns.add(metadataColumn);
 
             }
@@ -307,18 +307,18 @@ public class ExtractMetaDataFromDataBase {
         try {
             Class.forName(ExtractMetaDataUtils.getDriverClassByDbType(dbType)).newInstance();
             connection = DriverManager.getConnection(url, username, pwd);
-            if ((schema != null) && (schema.compareTo("") != 0)) {
+            if ((schema != null) && (schema.compareTo("") != 0)) { //$NON-NLS-1$
                 // We have to check schema
                 if (!checkSchemaConnection(schema, connection)) {
                     connectionStatus.setMessageException(Messages
-                            .getString("ExtractMetaDataFromDataBase.SchemaNoPresent"));
+                            .getString("ExtractMetaDataFromDataBase.SchemaNoPresent")); //$NON-NLS-1$
                     return connectionStatus;
                 }
             }
             connection.close();
             connectionStatus.setResult(true);
             connectionStatus
-                    .setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful"));
+                    .setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful")); //$NON-NLS-1$
         } catch (SQLException e) {
             connectionStatus.setMessageException(e.getMessage());
         } catch (Exception e) {

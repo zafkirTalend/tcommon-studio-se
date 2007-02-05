@@ -29,6 +29,7 @@ import java.util.Map;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.image.IImage;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -97,7 +98,7 @@ public class RepositoryNode {
      */
     public RepositoryNode(IRepositoryObject object, RepositoryNode parent, ENodeType type) {
         super();
-        this.id = (object == null ? "-1" : object.getId());
+        this.id = (object == null ? "-1" : object.getId()); //$NON-NLS-1$
         this.object = object;
         this.parent = parent;
         this.type = type;
@@ -113,7 +114,7 @@ public class RepositoryNode {
                     IRepositoryService.class);
             return service.getRepositoryPath(this).toString();
         default:
-            return getType() + "-" + getProperties(EProperties.LABEL);
+            return getType() + "-" + getProperties(EProperties.LABEL); //$NON-NLS-1$
         }
     }
 

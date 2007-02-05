@@ -33,63 +33,63 @@ import org.talend.core.CorePlugin;
  */
 public enum ECoreImage implements IImage {
 
-    PROJECT_WIZ("/icons/project_wiz.png"),
+    PROJECT_WIZ("/icons/project_wiz.png"), //$NON-NLS-1$
 
-    RECYCLE_BIN_EMPTY_ICON("/icons/recyclebinempty.png"),
-    RECYCLE_BIN_FULL_ICON("/icons/recyclebinfull.png"),
-    FOLDER_OPEN_ICON("/icons/folder_open.gif"),
-    FOLDER_CLOSE_ICON("/icons/folder_close.png"),
-    FOLDER_WIZ("/icons/folder_wiz.gif"),
+    RECYCLE_BIN_EMPTY_ICON("/icons/recyclebinempty.png"), //$NON-NLS-1$
+    RECYCLE_BIN_FULL_ICON("/icons/recyclebinfull.png"), //$NON-NLS-1$
+    FOLDER_OPEN_ICON("/icons/folder_open.gif"), //$NON-NLS-1$
+    FOLDER_CLOSE_ICON("/icons/folder_close.png"), //$NON-NLS-1$
+    FOLDER_WIZ("/icons/folder_wiz.gif"), //$NON-NLS-1$
 
-    BUSINESS_PROCESS_ICON("/icons/businessProcess.gif"),
-    BUSINESS_PROCESS_WIZ("/icons/business_wiz.png"),
-    PROCESS_ICON("/icons/process_icon.gif"),
-    PROCESS_WIZ("/icons/process_wiz.png"),
-    CODE_ICON("/icons/code.png"),
-    ROUTINE_ICON("/icons/routine.gif"),
-    SNIPPETS_ICON("/icons/snippet.png"),
+    BUSINESS_PROCESS_ICON("/icons/businessProcess.gif"), //$NON-NLS-1$
+    BUSINESS_PROCESS_WIZ("/icons/business_wiz.png"), //$NON-NLS-1$
+    PROCESS_ICON("/icons/process_icon.gif"), //$NON-NLS-1$
+    PROCESS_WIZ("/icons/process_wiz.png"), //$NON-NLS-1$
+    CODE_ICON("/icons/code.png"), //$NON-NLS-1$
+    ROUTINE_ICON("/icons/routine.gif"), //$NON-NLS-1$
+    SNIPPETS_ICON("/icons/snippet.png"), //$NON-NLS-1$
     // SUBROUTINE_ICON("/icons/subroutine.gif"),
-    DOCUMENTATION_ICON("/icons/documentation.gif"),
-    DOCUMENTATION_WIZ("/icons/documentation_wiz.png"),
-    DOC_WORD_ICON("/icons/docs/word.png"),
-    DOC_EXCEL_ICON("/icons/docs/excel.png"),
-    DOC_POWERPOINT_ICON("/icons/docs/powerpoint.png"),
-    DOC_PDF_ICON("/icons/docs/pdf.png"),
-    DOC_IMAGE_ICON("/icons/docs/image.png"),
+    DOCUMENTATION_ICON("/icons/documentation.gif"), //$NON-NLS-1$
+    DOCUMENTATION_WIZ("/icons/documentation_wiz.png"), //$NON-NLS-1$
+    DOC_WORD_ICON("/icons/docs/word.png"), //$NON-NLS-1$
+    DOC_EXCEL_ICON("/icons/docs/excel.png"), //$NON-NLS-1$
+    DOC_POWERPOINT_ICON("/icons/docs/powerpoint.png"), //$NON-NLS-1$
+    DOC_PDF_ICON("/icons/docs/pdf.png"), //$NON-NLS-1$
+    DOC_IMAGE_ICON("/icons/docs/image.png"), //$NON-NLS-1$
 
-    METADATA_ICON("/icons/metadata.png"),
-    METADATA_CONNECTION_ICON("/icons/connection.gif"),
-    METADATA_CONNECTION_WIZ("/icons/connection_wiz.png"),
-    METADATA_TABLE_ICON("/icons/table.gif"),
-    METADATA_VIEW_ICON("/icons/view.gif"),
-    METADATA_SYNONYM_ICON("/icons/synonym.gif"),
-    METADATA_QUERY_ICON("/icons/query.gif"),
-    METADATA_FILE_DELIMITED_ICON("/icons/filedelimited.gif"),
-    METADATA_FILE_DELIMITED_WIZ("/icons/delimited_wiz.png"),
-    METADATA_FILE_POSITIONAL_ICON("/icons/filepositional.gif"),
-    METADATA_FILE_POSITIONAL_WIZ("/icons/positional_wiz.png"),
-    METADATA_FILE_REGEXP_ICON("/icons/fileregexp.gif"),
-    METADATA_FILE_REGEXP_WIZ("/icons/regexp_wiz.png"),
-    METADATA_FILE_XML_ICON("/icons/filexml.gif"),
-    METADATA_FILE_XML_WIZ("/icons/xml_wiz.png"),
-    METADATA_FILE_LDIF_ICON("/icons/fileldif.gif"),
-    METADATA_FILE_LDIF_WIZ("/icons/empty.gif"),
+    METADATA_ICON("/icons/metadata.png"), //$NON-NLS-1$
+    METADATA_CONNECTION_ICON("/icons/connection.gif"), //$NON-NLS-1$
+    METADATA_CONNECTION_WIZ("/icons/connection_wiz.png"), //$NON-NLS-1$
+    METADATA_TABLE_ICON("/icons/table.gif"), //$NON-NLS-1$
+    METADATA_VIEW_ICON("/icons/view.gif"), //$NON-NLS-1$
+    METADATA_SYNONYM_ICON("/icons/synonym.gif"), //$NON-NLS-1$
+    METADATA_QUERY_ICON("/icons/query.gif"), //$NON-NLS-1$
+    METADATA_FILE_DELIMITED_ICON("/icons/filedelimited.gif"), //$NON-NLS-1$
+    METADATA_FILE_DELIMITED_WIZ("/icons/delimited_wiz.png"), //$NON-NLS-1$
+    METADATA_FILE_POSITIONAL_ICON("/icons/filepositional.gif"), //$NON-NLS-1$
+    METADATA_FILE_POSITIONAL_WIZ("/icons/positional_wiz.png"), //$NON-NLS-1$
+    METADATA_FILE_REGEXP_ICON("/icons/fileregexp.gif"), //$NON-NLS-1$
+    METADATA_FILE_REGEXP_WIZ("/icons/regexp_wiz.png"), //$NON-NLS-1$
+    METADATA_FILE_XML_ICON("/icons/filexml.gif"), //$NON-NLS-1$
+    METADATA_FILE_XML_WIZ("/icons/xml_wiz.png"), //$NON-NLS-1$
+    METADATA_FILE_LDIF_ICON("/icons/fileldif.gif"), //$NON-NLS-1$
+    METADATA_FILE_LDIF_WIZ("/icons/empty.gif"), //$NON-NLS-1$
 
-    MODULE_INSTALLED_ICON("/icons/checked.gif"),
-    MODULE_ERROR_ICON("/icons/error.gif"),
-    MODULE_WARNING_ICON("/icons/warning.gif"),
-    MODULE_UNKNOWN_ICON("/icons/unknown.gif"),
-    MODULE_REQUIRED_ICON("/icons/checked.gif"),
-    MODULE_NOTREQUIRED_ICON("/icons/empty.gif"),
+    MODULE_INSTALLED_ICON("/icons/checked.gif"), //$NON-NLS-1$
+    MODULE_ERROR_ICON("/icons/error.gif"), //$NON-NLS-1$
+    MODULE_WARNING_ICON("/icons/warning.gif"), //$NON-NLS-1$
+    MODULE_UNKNOWN_ICON("/icons/unknown.gif"), //$NON-NLS-1$
+    MODULE_REQUIRED_ICON("/icons/checked.gif"), //$NON-NLS-1$
+    MODULE_NOTREQUIRED_ICON("/icons/empty.gif"), //$NON-NLS-1$
 
-    LOCKED_USER_OVERLAY("/icons/locked_green_overlay.gif"),
-    LOCKED_OTHER_OVERLAY("/icons/locked_red_overlay.gif"),
-    NEW_OVERLAY("/icons/new_overlay.gif");
+    LOCKED_USER_OVERLAY("/icons/locked_green_overlay.gif"), //$NON-NLS-1$
+    LOCKED_OTHER_OVERLAY("/icons/locked_red_overlay.gif"), //$NON-NLS-1$
+    NEW_OVERLAY("/icons/new_overlay.gif"); //$NON-NLS-1$
 
     private String path;
 
     ECoreImage() {
-        this.path = "/icons/unknown.gif";
+        this.path = "/icons/unknown.gif"; //$NON-NLS-1$
     }
 
     ECoreImage(String path) {

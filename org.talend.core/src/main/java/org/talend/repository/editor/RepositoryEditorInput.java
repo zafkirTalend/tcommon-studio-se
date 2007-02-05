@@ -24,6 +24,7 @@ package org.talend.repository.editor;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.part.FileEditorInput;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.properties.Item;
 
 /**
@@ -43,7 +44,7 @@ public class RepositoryEditorInput extends FileEditorInput {
 
     public String getName() {
         // PTODO MHE use RepositoryLabelProvider when ready
-        return "Model " + item.getProperty().getLabel();
+        return "Model " + item.getProperty().getLabel(); //$NON-NLS-1$
     }
 
     public Item getItem() {

@@ -31,11 +31,11 @@ import java.util.List;
  */
 public interface IComponentsFactory {
 
-    String COMPONENTS_LOCATION = "org.talend.designer.components.localprovider";
+    String COMPONENTS_LOCATION = "org.talend.designer.components.localprovider"; //$NON-NLS-1$
 
-    String COMPONENTS_INNER_FOLDER = "components";
+    String COMPONENTS_INNER_FOLDER = "components"; //$NON-NLS-1$
 
-    String COMPONENTS_USER_INNER_FOLDER = "user";
+    String COMPONENTS_USER_INNER_FOLDER = "user"; //$NON-NLS-1$
 
     public void init();
 

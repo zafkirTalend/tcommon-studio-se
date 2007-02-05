@@ -29,6 +29,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.core.i18n.Messages;
 
 /**
  * DOC qian class global comment. A global service register provides the service registration and acquirement. <br/>
@@ -51,7 +52,7 @@ public class GlobalServiceRegister {
 
     static {
         IExtensionRegistry registry = Platform.getExtensionRegistry();
-        configurationElements = registry.getConfigurationElementsFor("org.talend.core.service");
+        configurationElements = registry.getConfigurationElementsFor("org.talend.core.service"); //$NON-NLS-1$
     }
 
     /**
@@ -65,7 +66,7 @@ public class GlobalServiceRegister {
         if (service == null) {
             service = findService(klass);
             if (service == null) {
-                throw new RuntimeException("The service " + klass.getName() + " has not been registered.");
+                throw new RuntimeException(Messages.getString("GlobalServiceRegister.ServiceNotRegistered",klass.getName())); //$NON-NLS-1$ //$NON-NLS-2$
             }
             services.put(klass, service);
         }
@@ -82,13 +83,13 @@ public class GlobalServiceRegister {
         String key = klass.getName();
         for (int i = 0; i < configurationElements.length; i++) {
             IConfigurationElement element = configurationElements[i];
-            String id = element.getAttribute("serviceId");
+            String id = element.getAttribute("serviceId"); //$NON-NLS-1$
             
             if (!key.endsWith(id)) {
                 continue;
             }
             try {
-                Object service = element.createExecutableExtension("class");
+                Object service = element.createExecutableExtension("class"); //$NON-NLS-1$
                 if (klass.isInstance(service)) {
                     return (IService) service;
                 }

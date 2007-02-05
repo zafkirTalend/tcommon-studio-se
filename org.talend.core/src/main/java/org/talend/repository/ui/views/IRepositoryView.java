@@ -23,6 +23,7 @@ package org.talend.repository.ui.views;
 
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.ui.IViewPart;
+import org.talend.core.i18n.Messages;
 import org.talend.repository.model.RepositoryNode;
 
 /**
@@ -34,7 +35,7 @@ import org.talend.repository.model.RepositoryNode;
  */
 public interface IRepositoryView extends IViewPart {
 
-    public static final String VIEW_ID = "org.talend.repository.views.repository";
+    public static final String VIEW_ID = "org.talend.repository.views.repository"; //$NON-NLS-1$
     
     public StructuredViewer getViewer();
 

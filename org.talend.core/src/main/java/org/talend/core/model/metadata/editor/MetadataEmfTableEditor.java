@@ -30,6 +30,7 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -42,15 +43,15 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
  */
 public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
 
-    private String defaultLabel = "newColumn";
+    private String defaultLabel = "newColumn"; //$NON-NLS-1$
 
     private static int indexNewColumn;
 
-    public static final String VALID_CHAR_COLUMN_NAME = "a-zA-Z_0-9";
+    public static final String VALID_CHAR_COLUMN_NAME = "a-zA-Z_0-9"; //$NON-NLS-1$
 
     private static final PatternCompiler COMPILER = new Perl5Compiler();
 
-    private static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][" + VALID_CHAR_COLUMN_NAME + "]*$";
+    private static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][" + VALID_CHAR_COLUMN_NAME + "]*$"; //$NON-NLS-1$ //$NON-NLS-2$
 
     private static Pattern validPatternColumnNameRegexp = null;
 
@@ -115,7 +116,7 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
      */
     public String validateColumnName(String columnName, int beanPosition, List<MetadataColumn> metadataColumns) {
         if (columnName == null) {
-            return "Error: Column name is null";
+            return Messages.getString("MetadataEmfTableEditor.ColumnNameIsNullError"); //$NON-NLS-1$
         }
 
         validPatternColumnNameRegexp = null;
@@ -129,13 +130,13 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
         Perl5Matcher matcher = new Perl5Matcher();
         boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
         if (!match) {
-            return "The column name '" + columnName + "' is invalid.";
+            return Messages.getString(("MetadataEmfTableEditor.ColumnInvalid"), columnName); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         int lstSize = metadataColumns.size();
         for (int i = 0; i < lstSize; i++) {
             if (columnName.equals(metadataColumns.get(i).getLabel()) && i != beanPosition) {
-                return "The column name '" + columnName + "' already exists.";
+                return Messages.getString("MetadataEmfTableEditor.ColumnNameExists", columnName); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
         return null;
@@ -162,8 +163,8 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
      */
     protected String getNextGeneratedColumnName(String oldColumnName, List<MetadataColumn> metadataColumns) {
 
-        UniqueStringGenerator<MetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<MetadataColumn>(oldColumnName,
-                metadataColumns) {
+        UniqueStringGenerator<MetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<MetadataColumn>(
+                oldColumnName, metadataColumns) {
 
             /*
              * (non-Javadoc)

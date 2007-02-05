@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.core.prefs;
 
+import org.talend.core.i18n.Messages;
+
 /**
  * Core preferences. Detailled comment <br/>
  * 
@@ -30,32 +32,32 @@ package org.talend.core.prefs;
 public interface ITalendCorePrefConstants {
 
     /** Path to the directory of temporary files. */
-    String FILE_PATH_TEMP = "filePathTemp";
+    String FILE_PATH_TEMP = "filePathTemp"; //$NON-NLS-1$
 
     /** Perl interpreter. */
-    String PERL_INTERPRETER = "perlInterpreter";
+    String PERL_INTERPRETER = "perlInterpreter"; //$NON-NLS-1$
 
     /** Java interpreter */
-    String JAVA_INTERPRETER = "javaInterpreter";
+    String JAVA_INTERPRETER = "javaInterpreter"; //$NON-NLS-1$
 
     /** Perl library directory. */
     // String PERL_LIB = "perlLib";
     /** Known users list. */
-    String USERS = "users";
+    String USERS = "users"; //$NON-NLS-1$
 
-    String CONNECTIONS = "connections";
+    String CONNECTIONS = "connections"; //$NON-NLS-1$
 
     /** Last used connection. */
-    String LAST_USED_CONNECTION = "lastUSedConnection";
+    String LAST_USED_CONNECTION = "lastUSedConnection"; //$NON-NLS-1$
 
     /** Last used project. */
-    String LAST_USED_PROJECT = "lastUSedProject";
+    String LAST_USED_PROJECT = "lastUSedProject"; //$NON-NLS-1$
 
     /** Last used user. */
-    String LAST_USED_USER = "lastUSedUser";
+    String LAST_USED_USER = "lastUSedUser"; //$NON-NLS-1$
 
     /** Preview Limit. */
-    String PREVIEW_LIMIT = "previewLimit";
+    String PREVIEW_LIMIT = "previewLimit"; //$NON-NLS-1$
 
-    String WORKSPACE_TASKS_DONE = "workspaceTasksDone";
+    String WORKSPACE_TASKS_DONE = "workspaceTasksDone"; //$NON-NLS-1$
 }

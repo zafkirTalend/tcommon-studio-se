@@ -31,6 +31,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ProcessItem;
@@ -184,7 +185,7 @@ public class ProcessorUtilities {
 
         @Override
         public String toString() {
-            return "job:" + jobName + " / context:" + contextName;
+            return "job:" + jobName + " / context:" + contextName; //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         String jobName, contextName;

@@ -28,6 +28,7 @@ import org.eclipse.jface.fieldassist.IContentProposal;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.temp.ECodeLanguage;
 import org.talend.core.model.utils.ContextParameterUtils;
@@ -82,7 +83,7 @@ public class ContextParameterProposal implements IContentProposal {
         if (!StringUtils.isEmpty(contextParameter.getComment())) {
             desc = contextParameter.getComment();
         } else {
-            desc = "no comment available.";
+            desc = Messages.getString("ContextParameterProposal.NoCommentAvaiable"); //$NON-NLS-1$
         }
         
         String message = "Description: {0}";

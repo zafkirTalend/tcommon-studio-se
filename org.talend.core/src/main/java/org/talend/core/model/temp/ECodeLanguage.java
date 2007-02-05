@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.core.model.temp;
 
+import org.talend.core.i18n.Messages;
+
 /**
  * Enum for available Code Languages in the application.
  * 
@@ -28,8 +30,8 @@ package org.talend.core.model.temp;
  * 
  */
 public enum ECodeLanguage {
-    PERL("perl", "perl"),
-    JAVA("java", "java");
+    PERL("perl", "perl"), //$NON-NLS-1$ //$NON-NLS-2$
+    JAVA("java", "java"); //$NON-NLS-1$ //$NON-NLS-2$
 
     private ECodeLanguage(String name, String extension) {
         this.name = name;

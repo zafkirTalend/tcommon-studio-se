@@ -28,6 +28,7 @@ import org.eclipse.swt.graphics.Image;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.IImage;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.repository.ERepositoryObjectType;
 
 
@@ -90,15 +91,15 @@ public class CoreImageProvider {
     public static Image getImage(String extOriginal) {
         if (extOriginal != null) {
             String ext = extOriginal.toLowerCase();
-            if (Arrays.asList(new String[] { "doc", "dot" }).contains(ext)) {
+            if (Arrays.asList(new String[] { "doc", "dot" }).contains(ext)) { //$NON-NLS-1$ //$NON-NLS-2$
                 return ImageProvider.getImage(ECoreImage.DOC_WORD_ICON);
-            } else if (Arrays.asList(new String[] { "xls", "xlt" }).contains(ext)) {
+            } else if (Arrays.asList(new String[] { "xls", "xlt" }).contains(ext)) { //$NON-NLS-1$ //$NON-NLS-2$
                 return ImageProvider.getImage(ECoreImage.DOC_EXCEL_ICON);
-            } else if (Arrays.asList(new String[] { "ppt", "pps", "pot" }).contains(ext)) {
+            } else if (Arrays.asList(new String[] { "ppt", "pps", "pot" }).contains(ext)) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
                 return ImageProvider.getImage(ECoreImage.DOC_POWERPOINT_ICON);
-            } else if (Arrays.asList(new String[] { "pps" }).contains(ext)) {
+            } else if (Arrays.asList(new String[] { "pps" }).contains(ext)) { //$NON-NLS-1$
                 return ImageProvider.getImage(ECoreImage.DOC_PDF_ICON);
-            } else if (Arrays.asList(new String[] { "gif", "jpg", "jpeg", "bmp", "gif", "png" }).contains(ext)) {
+            } else if (Arrays.asList(new String[] { "gif", "jpg", "jpeg", "bmp", "gif", "png" }).contains(ext)) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
                 return ImageProvider.getImage(ECoreImage.DOC_IMAGE_ICON);
             }
         }

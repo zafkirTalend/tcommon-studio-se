@@ -28,6 +28,8 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.talend.core.i18n.Messages;
+
 /**
  * Abstract base class of elements in the model. All elements in the diagram must extends this class <br/>
  * 
@@ -108,7 +110,7 @@ public abstract class Element implements Cloneable, IElement {
         return listParam;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked") //$NON-NLS-1$
     public void setElementParameters(List<? extends IElementParameter> parameters) {
         this.listParam = (List<IElementParameter>) parameters;
     }

@@ -24,6 +24,7 @@ package org.talend.core.model.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.temp.ECodeLanguage;
 
@@ -52,7 +53,7 @@ public final class ContextParameterUtils {
         String code;
         switch (language) {
         case PERL:
-            code = "$_context{" + parameter.getName() + "}";
+            code = "$_context{" + parameter.getName() + "}"; //$NON-NLS-1$ //$NON-NLS-2$
             break;
         default:
             code = parameter.getName();
@@ -73,7 +74,7 @@ public final class ContextParameterUtils {
         boolean valid;
         switch (language) {
         case PERL:
-            String perlPattern = "[a-zA-Z0-9_]+";
+            String perlPattern = "[a-zA-Z0-9_]+"; //$NON-NLS-1$
             Pattern p = Pattern.compile(perlPattern);
             Matcher m = p.matcher(name);
             valid = m.matches();
