@@ -31,6 +31,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.contexts.IContextService;
 import org.talend.helpers.HelpersPlugin;
+import org.talend.helpers.i18n.Messages;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -44,7 +45,7 @@ public class LogActiveContextsAction extends Action implements IWorkbenchWindowA
 
     public LogActiveContextsAction() {
         super();
-        this.setActionDefinitionId("logActiveContexts");
+        this.setActionDefinitionId("logActiveContexts"); //$NON-NLS-1$
     }
 
     /*
@@ -58,7 +59,7 @@ public class LogActiveContextsAction extends Action implements IWorkbenchWindowA
                 IContextService.class);
         Collection col = contextService.getActiveContextIds();
         for (Object o : col) {
-            log.info("Active context: " + o);
+            log.info(Messages.getString("LogActiveContextsAction.activeContextLog",o) ); //$NON-NLS-1$
         }
     }
 

@@ -29,6 +29,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.helpers.i18n.Messages;
 import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**
@@ -43,7 +44,7 @@ public class LogLoadedComponentsAction extends Action implements IWorkbenchWindo
 
     public LogLoadedComponentsAction() {
         super();
-        this.setActionDefinitionId("logLoadedComponents");
+        this.setActionDefinitionId("logLoadedComponents"); //$NON-NLS-1$
     }
 
     /*
@@ -55,7 +56,7 @@ public class LogLoadedComponentsAction extends Action implements IWorkbenchWindo
     public void run() {
         IComponentsFactory componentsFactory = ComponentsFactoryProvider.getInstance();
         for (IComponent component : componentsFactory.getComponents()) {
-            log.info("Component: " + component.getName());
+            log.info(Messages.getString("LogLoadedComponentsAction.componentLog",component.getName()));  //$NON-NLS-1$
         }
     }
 

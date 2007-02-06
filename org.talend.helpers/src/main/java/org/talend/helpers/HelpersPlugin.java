@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext;
 public class HelpersPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "org.talend.helpers";
+	public static final String PLUGIN_ID = "org.talend.helpers"; //$NON-NLS-1$
 
 	// The shared instance
 	private static HelpersPlugin plugin;
