@@ -19,10 +19,9 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.designer.codegen.perlmodule;
+package org.talend.designer.codegen.javamodule;
 
 import org.talend.designer.codegen.IModuleService;
-
 
 /**
  * DOC mhirt  class global comment. Detailled comment
@@ -31,6 +30,6 @@ import org.talend.designer.codegen.IModuleService;
  * $Id$
  *
  */
-public interface IPerlModuleService extends IModuleService {
+public interface IJavaModuleService extends IModuleService {
 
 }
