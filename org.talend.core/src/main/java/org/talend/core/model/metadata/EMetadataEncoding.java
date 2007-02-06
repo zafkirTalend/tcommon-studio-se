@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
+import org.talend.core.i18n.Messages;
 
 /**
  * Enum for available Code Languages in the application.
@@ -30,26 +31,26 @@ package org.talend.core.model.metadata;
  */
 public enum EMetadataEncoding {
 
-    UTF8("UTF-8", "Unicode 2.0 UTF-8"), //$NON-NLS-1$
-    UTF16("UTF-16", "Unicode 2.0 (16 bit)"), //$NON-NLS-1$
-    UTF16LE("UTF-16LE", "Unicode (16 bit)"), //$NON-NLS-1$
-    UTF16BE("UTF-16BE", "Unicode BigEndian (16 bit)"), //$NON-NLS-1$
-    UTF7("UTF-7", "Unicode 2.0 UTF-7"), //$NON-NLS-1$
-    ISO88591("ISO-8859-1", "(Latin-1) Europe occidentale, Am�rique latine"),//West European //$NON-NLS-1$
-    ISO88592("ISO-8859-2", "(Latin-2) Europe centrale et orientale"),//East European //$NON-NLS-1$
-    ISO88593("ISO-8859-3", "(Latin-3) Europe du sud-est"),//South European //$NON-NLS-1$
-    ISO88594("ISO-8859-4", "(Latin-4) Scandinavie, pays Baltes"),//North European //$NON-NLS-1$
-    ISO88595("ISO-8859-5", "Cyrillique"), //$NON-NLS-1$
-    ISO88596("ISO-8859-6", "Arabe"), //$NON-NLS-1$
-    ISO88597("ISO-8859-7", "Grec"), //$NON-NLS-1$
-    ISO88598("ISO-8859-8", "H�breu"), //$NON-NLS-1$
-    ISO88599("ISO-8859-9", "Turc"), //$NON-NLS-1$
-    ISO885910("ISO-8859-10", "Langues lapone, nordique, esquimaude"), //$NON-NLS-1$
-    windows1252("windows-1252", "Microsoft (Latin-1)"), //$NON-NLS-1$
-    BIG5("BIG5", "Big Five (Chinois traditionnel)"), //$NON-NLS-1$
-    GB18030("GB18030", "Standard national Chinois"), //$NON-NLS-1$
-    GB2312("GB2312", "Chinois"), //$NON-NLS-1$
-    EUC_CN("EUC_CN", "Chinois simplifi� (Code-CN Unix extended)"); //$NON-NLS-1$
+    UTF8("UTF-8", Messages.getString("EMetadataEncoding.UTF8")), //$NON-NLS-1$ //$NON-NLS-2$
+    UTF16("UTF-16", Messages.getString("EMetadataEncoding.UTF16")), //$NON-NLS-1$ //$NON-NLS-2$
+    UTF16LE("UTF-16LE", Messages.getString("EMetadataEncoding.UTF16LE")), //$NON-NLS-1$ //$NON-NLS-2$
+    UTF16BE("UTF-16BE", Messages.getString("EMetadataEncoding.UTF16BE")), //$NON-NLS-1$ //$NON-NLS-2$
+    UTF7("UTF-7", Messages.getString("EMetadataEncoding.UTF7")), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88591("ISO-8859-1", Messages.getString("EMetadataEncoding.Latin1")), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88592("ISO-8859-2", Messages.getString("EMetadataEncoding.Latin2")), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88593("ISO-8859-3", Messages.getString("EMetadataEncoding.Latin3")), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88594("ISO-8859-4", Messages.getString("EMetadataEncoding.Latin4")), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88595("ISO-8859-5", Messages.getString("EMetadataEncoding.Cyrillic")), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88596("ISO-8859-6", Messages.getString("EMetadataEncoding.Arabic")), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88597("ISO-8859-7", Messages.getString("EMetadataEncoding.Greek")), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88598("ISO-8859-8", Messages.getString("EMetadataEncoding.Hebrew")), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO88599("ISO-8859-9", Messages.getString("EMetadataEncoding.Latin5")), //$NON-NLS-1$ //$NON-NLS-2$
+    ISO885910("ISO-8859-10", Messages.getString("EMetadataEncoding.Latin6")), //$NON-NLS-1$ //$NON-NLS-2$
+    windows1252("windows-1252", Messages.getString("EMetadataEncoding.Microsoft_Latin1")), //$NON-NLS-1$ //$NON-NLS-2$
+    BIG5("BIG5", Messages.getString("EMetadataEncoding.Big5")), //$NON-NLS-1$ //$NON-NLS-2$
+    GB18030("GB18030", Messages.getString("EMetadataEncoding.GB18030")), //$NON-NLS-1$ //$NON-NLS-2$
+    GB2312("GB2312", Messages.getString("EMetadataEncoding.GB2312")), //$NON-NLS-1$ //$NON-NLS-2$
+    EUC_CN("EUC_CN", Messages.getString("EMetadataEncoding.EUC_CN")); //$NON-NLS-1$ //$NON-NLS-2$
 
     /*
      * EUC_JP Code-JP Unix �tendu Japonais EUC_KR Code-KR Unix �tendu Cor�en EUC_TW Code-TW Unix �tendu Chinois
