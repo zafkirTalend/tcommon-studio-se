@@ -24,6 +24,7 @@ package org.talend.core.prefs;
 import java.util.List;
 
 import org.talend.core.CorePlugin;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.general.ConnectionBean;
 import org.talend.core.model.migration.AbstractMigrationTask;
 import org.talend.core.model.migration.IWorkspaceMigrationTask;
@@ -55,7 +56,7 @@ public class InitConnectionsMigrationTask extends AbstractMigrationTask implemen
 
                 prefManipulator.saveConnections(toReturn);
 
-                prefManipulator.setLastUser("");
+                prefManipulator.setLastUser(""); //$NON-NLS-1$
                 prefManipulator.saveUsers(new String[] {});
             }
         }

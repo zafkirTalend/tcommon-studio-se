@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.general.ConnectionBean;
 
 /**
@@ -37,7 +38,7 @@ import org.talend.core.model.general.ConnectionBean;
  */
 public final class PreferenceManipulator implements ITalendCorePrefConstants {
 
-    private static final String PREF_DELIMITER = "|";
+    private static final String PREF_DELIMITER = "|"; //$NON-NLS-1$
 
     /** The preference store manipulated. */
     private IPreferenceStore store;
