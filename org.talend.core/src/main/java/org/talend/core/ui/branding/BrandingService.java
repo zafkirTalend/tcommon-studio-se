@@ -43,18 +43,18 @@ public class BrandingService {
     }
 
     public String getFullProductName() {
-        return BrandingMessages.getString("productfullname");
+        return BrandingMessages.getString("productfullname"); //$NON-NLS-1$
     }
 
     public String getShortProductName() {
-        return BrandingMessages.getString("productshortname");
+        return BrandingMessages.getString("productshortname"); //$NON-NLS-1$
     }
 
     public ImageDescriptor getLoginVImage() {
-        return CorePlugin.imageDescriptorFromPlugin(CorePlugin.PLUGIN_ID, BrandingMessages.getString("loginimageleft"));
+        return CorePlugin.imageDescriptorFromPlugin(CorePlugin.PLUGIN_ID, BrandingMessages.getString("loginimageleft")); //$NON-NLS-1$
     }
 
     public ImageDescriptor getLoginHImage() {
-        return CorePlugin.imageDescriptorFromPlugin(CorePlugin.PLUGIN_ID, BrandingMessages.getString("loginimagehigh"));
+        return CorePlugin.imageDescriptorFromPlugin(CorePlugin.PLUGIN_ID, BrandingMessages.getString("loginimagehigh")); //$NON-NLS-1$
     }
 }

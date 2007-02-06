@@ -207,7 +207,7 @@ public final class MetadataTalendType {
             File dir = new File(url.getPath());
             Document document = analyseur.parse(dir);
 
-            NodeList nodes = document.getElementsByTagName("version");
+            NodeList nodes = document.getElementsByTagName("version"); //$NON-NLS-1$
             for (int i = 0; i < nodes.getLength(); i++) {
                 Node nodetoParse = nodes.item(i);
                 NamedNodeMap nodeMap = nodetoParse.getAttributes();

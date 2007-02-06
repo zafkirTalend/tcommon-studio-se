@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-import org.talend.core.i18n.Messages;
 
 /**
  * Enum for available Code Languages in the application.
@@ -31,15 +30,15 @@ import org.talend.core.i18n.Messages;
  */
 public enum EMetadataEncoding {
 
-    UTF8("UTF-8", "Unicode 2.0 UTF-8"), //$NON-NLS-1$ //$NON-NLS-2$
-    UTF16("UTF-16", "Unicode 2.0 (16 bit)"), //$NON-NLS-1$ //$NON-NLS-2$
-    UTF16LE("UTF-16LE", "Unicode (16 bit)"), //$NON-NLS-1$ //$NON-NLS-2$
-    UTF16BE("UTF-16BE", "Unicode BigEndian (16 bit)"), //$NON-NLS-1$ //$NON-NLS-2$
-    UTF7("UTF-7", "Unicode 2.0 UTF-7"), //$NON-NLS-1$ //$NON-NLS-2$
-    ISO88591("ISO-8859-1", "(Latin-1) Europe occidentale, Am�rique latine"), //$NON-NLS-1$ //$NON-NLS-2$
-    ISO88592("ISO-8859-2", "(Latin-2) Europe centrale et orientale"), //$NON-NLS-1$ //$NON-NLS-2$
-    ISO88593("ISO-8859-3", "(Latin-3) Europe du sud-est"), //$NON-NLS-1$ //$NON-NLS-2$
-    ISO88594("ISO-8859-4", "(Latin-4) Scandinavie, pays Baltes"), //$NON-NLS-1$ //$NON-NLS-2$
+    UTF8("UTF-8", "Unicode 2.0 UTF-8"), //$NON-NLS-1$
+    UTF16("UTF-16", "Unicode 2.0 (16 bit)"), //$NON-NLS-1$
+    UTF16LE("UTF-16LE", "Unicode (16 bit)"), //$NON-NLS-1$
+    UTF16BE("UTF-16BE", "Unicode BigEndian (16 bit)"), //$NON-NLS-1$
+    UTF7("UTF-7", "Unicode 2.0 UTF-7"), //$NON-NLS-1$
+    ISO88591("ISO-8859-1", "(Latin-1) Europe occidentale, Am�rique latine"),//West European //$NON-NLS-1$
+    ISO88592("ISO-8859-2", "(Latin-2) Europe centrale et orientale"),//East European //$NON-NLS-1$
+    ISO88593("ISO-8859-3", "(Latin-3) Europe du sud-est"),//South European //$NON-NLS-1$
+    ISO88594("ISO-8859-4", "(Latin-4) Scandinavie, pays Baltes"),//North European //$NON-NLS-1$
     ISO88595("ISO-8859-5", "Cyrillique"), //$NON-NLS-1$
     ISO88596("ISO-8859-6", "Arabe"), //$NON-NLS-1$
     ISO88597("ISO-8859-7", "Grec"), //$NON-NLS-1$
@@ -50,7 +49,7 @@ public enum EMetadataEncoding {
     BIG5("BIG5", "Big Five (Chinois traditionnel)"), //$NON-NLS-1$
     GB18030("GB18030", "Standard national Chinois"), //$NON-NLS-1$
     GB2312("GB2312", "Chinois"), //$NON-NLS-1$
-    EUC_CN("EUC_CN", "Chinois simplifi� (Code-CN Unix �tendu)"); //$NON-NLS-1$
+    EUC_CN("EUC_CN", "Chinois simplifi� (Code-CN Unix extended)"); //$NON-NLS-1$
 
     /*
      * EUC_JP Code-JP Unix �tendu Japonais EUC_KR Code-KR Unix �tendu Cor�en EUC_TW Code-TW Unix �tendu Chinois
