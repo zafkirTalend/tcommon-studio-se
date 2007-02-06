@@ -1,0 +1,161 @@
+// ============================================================================
+//
+// Talend Community Edition
+//
+// Copyright (C) 2006 Talend - www.talend.com
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// ============================================================================
+package org.talend.core.model.metadata;
+
+
+
+/**
+ * 
+ * DOC amaumont TypesManager class global comment. Detailled comment <br/>
+ * 
+ * $Id$
+ * 
+ */
+public class MappingType {
+
+    String dbmsType;
+
+    String talendType;
+
+    Boolean nullable;
+
+    Boolean defaultSelected;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.dbmsType == null) ? 0 : this.dbmsType.hashCode());
+        result = prime * result + ((this.defaultSelected == null) ? 0 : this.defaultSelected.hashCode());
+        result = prime * result + ((this.talendType == null) ? 0 : this.talendType.hashCode());
+        result = prime * result + ((this.nullable == null) ? 0 : this.nullable.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final MappingType other = (MappingType) obj;
+
+        if (this.dbmsType != null && !this.dbmsType.equals(other.dbmsType))
+            return false;
+
+        if (this.defaultSelected != null && !this.defaultSelected.equals(other.defaultSelected))
+            return false;
+
+        if (this.talendType != null && !this.talendType.equals(other.talendType))
+            return false;
+
+        if (this.nullable != null && !this.nullable.equals(other.nullable))
+            return false;
+        return true;
+    }
+
+    /**
+     * Getter for dbmsType.
+     * 
+     * @return the dbmsType
+     */
+    public String getDbmsType() {
+        return this.dbmsType;
+    }
+
+    /**
+     * Sets the dbmsType.
+     * 
+     * @param dbmsType the dbmsType to set
+     */
+    public void setDbmsType(String dbmsType) {
+        this.dbmsType = dbmsType;
+    }
+
+    /**
+     * Getter for defaultSelected.
+     * 
+     * @return the defaultSelected
+     */
+    public Boolean getDefaultSelected() {
+        return this.defaultSelected;
+    }
+
+    /**
+     * Sets the defaultSelected.
+     * 
+     * @param defaultSelected the defaultSelected to set
+     */
+    public void setDefaultSelected(Boolean defaultSelected) {
+        this.defaultSelected = defaultSelected;
+    }
+
+    /**
+     * Getter for languageType.
+     * 
+     * @return the languageType
+     */
+    public String getTalendType() {
+        return this.talendType;
+    }
+
+    /**
+     * Sets the languageType.
+     * 
+     * @param talendType the languageType to set
+     */
+    public void setTalendType(String talendType) {
+        this.talendType = talendType;
+    }
+
+    /**
+     * Getter for nullable.
+     * 
+     * @return the nullable
+     */
+    public Boolean getNullable() {
+        return this.nullable;
+    }
+
+    /**
+     * Sets the nullable.
+     * 
+     * @param nullable the nullable to set
+     */
+    public void setNullable(Boolean nullable) {
+        this.nullable = nullable;
+    }
+
+}
+

@@ -25,8 +25,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.talend.core.i18n.Messages;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.model.temp.ECodeLanguage;
 
 /**
  * Utilities to work with IContextParamet objects. <br/>

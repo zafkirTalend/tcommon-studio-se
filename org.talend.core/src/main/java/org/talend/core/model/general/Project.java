@@ -22,9 +22,9 @@
 package org.talend.core.model.general;
 
 import org.talend.core.i18n.Messages;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.User;
-import org.talend.core.model.temp.ECodeLanguage;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

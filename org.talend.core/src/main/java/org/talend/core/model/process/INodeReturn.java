@@ -21,8 +21,8 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.metadata.EMetadataType;
-import org.talend.core.model.temp.ECodeLanguage;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>

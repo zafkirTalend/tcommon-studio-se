@@ -47,11 +47,12 @@ import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
-import org.talend.core.model.temp.ECodeLanguage;
 
 /**
  * MetadataTableEditorView2 must be used.
@@ -66,7 +67,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
     public static final String ID_COLUMN_KEY = "ID_COLUMN_KEY"; //$NON-NLS-1$
 
     public static final String ID_COLUMN_TYPE = "ID_COLUMN_TYPE"; //$NON-NLS-1$
-    
+
     /**
      * DOC amaumont MetadataTableEditorView constructor comment.
      * 
@@ -141,19 +142,18 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
     protected void createColumns(final TableViewerCreator<IMetadataColumn> tableViewerCreator, final Table table) {
         CellEditorValueAdapter comboValueAdapter = null;
         String dbms = null;
-        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
-        ECodeLanguage codeLanguage = repositoryContext.getProject().getLanguage();
+        ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
             comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter(Messages.getString("MetadataTableEditorView.3")); //$NON-NLS-1$
             dbms = MetadataTalendType.LANGUAGE_JAVA;
-        } else {
+        } else if (codeLanguage == ECodeLanguage.PERL) {
             comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter();
             dbms = MetadataTalendType.TALENDDEFAULT;
         }
-        
+
         String[] arrayTalendTypes = new String[0];
         try {
-            arrayTalendTypes = MetadataTalendType.loadTalendTypes(dbms, false);
+            arrayTalendTypes = MetadataTalendType.getTalendTypes();
         } catch (NoClassDefFoundError e) {
             // shouln't be happend
             e.printStackTrace();
@@ -162,9 +162,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
             e.printStackTrace();
         }
 
-
         CellEditorValueAdapter positiveIntValueAdapter = CellEditorValueAdapterFactory.getPositiveIntAdapter();
-
 
         // //////////////////////////////////////////////////////////////////////////////////////
 

@@ -23,7 +23,7 @@ package org.talend.core.model.utils;
 
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
-import org.talend.core.model.temp.ECodeLanguage;
+import org.talend.core.language.ECodeLanguage;
 
 
 /**

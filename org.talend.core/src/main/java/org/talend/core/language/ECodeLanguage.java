@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.model.temp;
+package org.talend.core.language;
 
 import org.talend.core.i18n.Messages;
 
@@ -32,7 +32,7 @@ import org.talend.core.i18n.Messages;
 public enum ECodeLanguage {
     PERL("perl", "perl"), //$NON-NLS-1$ //$NON-NLS-2$
     JAVA("java", "java"); //$NON-NLS-1$ //$NON-NLS-2$
-
+    
     private ECodeLanguage(String name, String extension) {
         this.name = name;
         this.extension = extension;

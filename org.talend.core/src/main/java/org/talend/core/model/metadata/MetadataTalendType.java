@@ -25,10 +25,13 @@ package org.talend.core.model.metadata;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
@@ -38,13 +41,19 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.log4j.Priority;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.CorePlugin;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
+import org.talend.core.language.ECodeLanguage;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -60,24 +69,39 @@ import org.xml.sax.SAXException;
  */
 public final class MetadataTalendType {
 
-    private static final Set<String> PRIMITIVE_TYPES = new HashSet<String>(6);
+    public static final String DEFAULT_CHAR = "' '";
 
-    public static final String DEFAULT_CHAR = "' '"; //$NON-NLS-1$
+    public static final String DEFAULT_NUMBER = "0";
 
-    public static final String DEFAULT_NUMBER = "0"; //$NON-NLS-1$
+    public static final String NULL = "null";
 
-    public static final String NULL = "null"; //$NON-NLS-1$
+    public static final String JAVA_PRIMITIVE_CHAR = "char";
 
-    public static final String CHAR = "char"; //$NON-NLS-1$
+    private static ECodeLanguage codeLanguage = ECodeLanguage.JAVA;
+
+    private static final String[] JAVA_PRIMITIVE_TYPES = new String[] { "short", "boolean", "int", "long", "float", "double",
+            JAVA_PRIMITIVE_CHAR };
+
+    private static final String[] JAVA_TYPES = new String[] { "boolean", "Boolean", JAVA_PRIMITIVE_CHAR, "Character", "double", "Double",
+            "float", "Float", "int", "Integer", "long", "Long", "String" };
+
+    private static final String[] PERL_TYPES = new String[] { "boolean", "date", "datetime", "number", "time", "string" };
 
     static {
-        PRIMITIVE_TYPES.add("short"); //$NON-NLS-1$
-        PRIMITIVE_TYPES.add("int"); //$NON-NLS-1$
-        PRIMITIVE_TYPES.add("long"); //$NON-NLS-1$
-        PRIMITIVE_TYPES.add("float"); //$NON-NLS-1$
-        PRIMITIVE_TYPES.add("double"); //$NON-NLS-1$
-        PRIMITIVE_TYPES.add(CHAR);
+
+        try {
+            codeLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
+                    .getLanguage();
+        } catch (RuntimeException e) {
+            // should be done only when testing
+            e.printStackTrace();
+        }
+
     }
+
+    private static final Set<String> PRIMITIVE_TYPES_SET = new HashSet<String>(Arrays.asList(JAVA_PRIMITIVE_TYPES));
+
+    private static Set dbmsSet = new HashSet();
 
     /**
      * Default Constructor. Must not be used.
@@ -279,7 +303,7 @@ public final class MetadataTalendType {
     }
 
     public static boolean isJavaPrimitiveType(String type) {
-        return PRIMITIVE_TYPES.contains(type);
+        return PRIMITIVE_TYPES_SET.contains(type);
     }
 
     public static String getDefaultValueFromJavaType(String type) {
@@ -287,7 +311,7 @@ public final class MetadataTalendType {
             throw new IllegalArgumentException();
         }
         if (isJavaPrimitiveType(type)) {
-            if (type.equals(CHAR)) {
+            if (type.equals(JAVA_PRIMITIVE_CHAR)) {
                 return DEFAULT_CHAR;
             } else {
                 return DEFAULT_NUMBER;
@@ -295,6 +319,171 @@ public final class MetadataTalendType {
         } else {
             return NULL;
         }
+    }
+
+    public static String[] getTalendTypes() {
+        if (codeLanguage == ECodeLanguage.JAVA) {
+            return (String[]) ArrayUtils.clone(JAVA_TYPES);
+        } else if (codeLanguage == ECodeLanguage.PERL) {
+            return (String[]) ArrayUtils.clone(PERL_TYPES);
+        }
+        throw new IllegalStateException("Case not found.");
+    }
+
+    public static void loadCommonMappings() throws SystemException {
+
+        String dirName = "mappings";
+
+        String dirPath = "/" + dirName;
+
+        Path filePath = new Path(dirPath);
+
+        Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
+        URL url;
+        try {
+            if (b != null) {
+                url = FileLocator.toFileURL(FileLocator.find(b, filePath, null));
+            } else {
+                url = MetadataTalendType.class.getResource(dirPath);
+            }
+        } catch (IOException e) {
+            throw new SystemException(e.getCause());
+        }
+        File dir = new File(url.getPath());
+
+        if (dir.isDirectory()) {
+            File[] files = dir.listFiles();
+            for (File file : files) {
+                if (file.getName().matches("^mapping_.*\\.xml$")) {
+                    loadMapping(file);
+                }
+            }
+        }
+
+    }
+
+    private static void loadMapping(File file) throws SystemException {
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder analyser = documentBuilderFactory.newDocumentBuilder();
+            Document document = analyser.parse(file);
+
+            NodeList dbmsNodes = document.getElementsByTagName("dbms");
+
+            for (int iDbms = 0; iDbms < dbmsNodes.getLength(); iDbms++) {
+                Node dbmsNode = dbmsNodes.item(iDbms);
+
+                NamedNodeMap dbmsAttributes = dbmsNode.getAttributes();
+                String dbmsIdValue = dbmsAttributes.getNamedItem("id").getNodeValue();
+                String dbmsLabelValue = dbmsAttributes.getNamedItem("label").getNodeValue();
+
+                Dbms dbms = new Dbms(dbmsIdValue);
+                dbms.setLabel(dbmsLabelValue);
+                boolean dbmsOverwriteExisting = !dbmsSet.add(dbms);
+                if (dbmsOverwriteExisting) {
+                    ExceptionHandler.process(new Exception("Dbms with id '" + dbmsIdValue + "' already exists !"), Priority.WARN);
+                }
+
+                // list all dbms children nodes
+                List<Node> childrenOfDbmsNodes = getChildElementNodes(dbmsNode);
+
+                // search "dbms_types" node
+                Node dbmsTypesNode = childrenOfDbmsNodes.get(0);
+
+                // search and load "dbms_types/type" nodes
+                ArrayList<String> dbmsTypes = new ArrayList<String>();
+                dbms.setDbmsTypes(dbmsTypes);
+                List<Node> typeNodes = getChildElementNodes(dbmsTypesNode);
+                for (Node typeNode : typeNodes) {
+                    NamedNodeMap typeNodeAtttributes = typeNode.getAttributes();
+                    dbmsTypes.add(typeNodeAtttributes.getNamedItem("dbmsType").getNodeValue());
+                }
+
+                // search and load "language/type" nodes
+                List<Node> languageNodes = new ArrayList<Node>(childrenOfDbmsNodes);
+                languageNodes.remove(0);
+                ArrayList<MappingType> mappingTypes = new ArrayList<MappingType>();
+                dbms.setMappingTypes(mappingTypes);
+                for (int i = 0; i < languageNodes.size(); i++) {
+                    Node languageNode = languageNodes.get(i);
+
+                    String languageValue = languageNode.getAttributes().getNamedItem("name").getNodeValue();
+
+                    if (codeLanguage.getName().equalsIgnoreCase(languageValue)) {
+
+                        List<Node> languageTypesNodes = getChildElementNodes(languageNode);
+
+                        for (int j = 0; j < languageTypesNodes.size(); j++) {
+
+                            Node languageTypeNode = languageTypesNodes.get(j);
+
+                            NamedNodeMap dbmsTypeAttributes = languageTypeNode.getAttributes();
+
+                            Node talendTypeItem = dbmsTypeAttributes.getNamedItem("talendType");
+                            if (talendTypeItem == null) {
+                                continue;
+                            }
+
+                            Node dbmsTypeItem = dbmsTypeAttributes.getNamedItem("dbmsType");
+                            if (dbmsTypeItem == null) {
+                                continue;
+                            }
+
+                            Node defaultSelectedItem = dbmsTypeAttributes.getNamedItem("defaultSelected");
+                            Node nullableItem = dbmsTypeAttributes.getNamedItem("nullable");
+
+                            MappingType mappingType = new MappingType();
+                            mappingType.setTalendType(talendTypeItem.getNodeValue());
+                            mappingType.setDbmsType(dbmsTypeItem.getNodeValue());
+                            mappingType.setDefaultSelected(defaultSelectedItem != null
+                                    && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE);
+                            mappingType
+                                    .setNullable(nullableItem != null && nullableItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE
+                                            : Boolean.FALSE);
+                            mappingTypes.add(mappingType);
+                        }
+                    }
+                }
+
+            }
+
+        } catch (IOException e) {
+            throw new SystemException(e.getCause());
+        } catch (ParserConfigurationException e) {
+            throw new SystemException(e.getCause());
+        } catch (SAXException e) {
+            throw new SystemException(e.getCause());
+        }
+
+        System.out.println(dbmsSet);
+    }
+
+    /**
+     * DOC amaumont Comment method "getChildNodes".
+     * 
+     * @param node
+     * @return
+     */
+    private static List<Node> getChildElementNodes(Node node) {
+        Node dbmsTypesNode = node.getFirstChild();
+        ArrayList<Node> list = new ArrayList<Node>();
+        while (dbmsTypesNode != null) {
+            if (dbmsTypesNode.getNodeType() == Node.ELEMENT_NODE) {
+                list.add(dbmsTypesNode);
+            }
+            dbmsTypesNode = dbmsTypesNode.getNextSibling();
+        }
+        return list;
+    }
+
+    public static void main(String[] args) {
+        try {
+            MetadataTalendType.loadCommonMappings();
+        } catch (SystemException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println();
     }
 
 }
