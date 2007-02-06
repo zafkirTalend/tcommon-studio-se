@@ -42,10 +42,6 @@ public abstract class ExecutionLimiter {
 
     private FinalExecution finalExecution;
 
-    // private List<FinalExecution> finalThreadsList = new Vector<FinalExecution>();
-
-    // private Object[] finalThreadsListLock = new Object[0];
-
     public ExecutionLimiter() {
         super();
     }
@@ -63,6 +59,14 @@ public abstract class ExecutionLimiter {
         return startIfExecutable(false);
     }
 
+    /**
+     * Start execution if executable, after <code>timeBeforeNewExecute</code> is elapsed if
+     * <code>executeAtEndOfTime</code> is true.
+     * 
+     * @param executeAtEndOfTime if true call <code>execute()</code> now, else call <code>execute()</code> at end of
+     * <code>timeBeforeNewExecute</code>
+     * @return true if executable, false else
+     */
     public boolean startIfExecutable(boolean executeAtEndOfTime) {
         boolean executable = false;
         executable = isExecutable(executeAtEndOfTime);
@@ -112,16 +116,6 @@ public abstract class ExecutionLimiter {
             @Override
             public void run() {
                 FinalExecution finalThread = new FinalExecution();
-                // synchronized (finalThreadsListLock) {
-                // for (Iterator<FinalExecution> iter = finalThreadsList.iterator(); iter.hasNext();) {
-                // FinalExecution currentFinalThread = iter.next();
-                // if (currentFinalThread != null && !currentFinalThread.isInterrupted()) {
-                // currentFinalThread.interrupt();
-                // iter.remove();
-                // }
-                // }
-                // finalThreadsList.add(finalThread);
-                // }
                 if (finalExecution != null && !finalExecution.isInterrupted()) {
                     finalExecution.interrupt();
                 }
@@ -151,21 +145,7 @@ public abstract class ExecutionLimiter {
             // System.out.println("Not Interrupted");
             // System.out.println("Final thread executed");
             execute(true);
-            // removeThread();
         }
-
-        // private void removeThread() {
-        // // (new Thread() {
-        // //
-        // // @Override
-        // // public void run() {
-        // // synchronized (finalThreadsListLock) {
-        // finalThreadsList.remove(this);
-        // // }
-        // // }
-        // //
-        // // }).start();
-        // }
 
     }
 
