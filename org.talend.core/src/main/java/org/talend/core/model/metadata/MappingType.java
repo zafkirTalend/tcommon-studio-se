@@ -32,13 +32,13 @@ package org.talend.core.model.metadata;
  */
 public class MappingType {
 
-    String dbmsType;
+    private String dbType;
 
-    String talendType;
+    private String talendType;
 
-    Boolean nullable;
+    private Boolean nullable;
 
-    Boolean defaultSelected;
+    private Boolean defaultSelected;
 
     /*
      * (non-Javadoc)
@@ -49,7 +49,7 @@ public class MappingType {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((this.dbmsType == null) ? 0 : this.dbmsType.hashCode());
+        result = prime * result + ((this.dbType == null) ? 0 : this.dbType.hashCode());
         result = prime * result + ((this.defaultSelected == null) ? 0 : this.defaultSelected.hashCode());
         result = prime * result + ((this.talendType == null) ? 0 : this.talendType.hashCode());
         result = prime * result + ((this.nullable == null) ? 0 : this.nullable.hashCode());
@@ -71,7 +71,7 @@ public class MappingType {
             return false;
         final MappingType other = (MappingType) obj;
 
-        if (this.dbmsType != null && !this.dbmsType.equals(other.dbmsType))
+        if (this.dbType != null && !this.dbType.equals(other.dbType))
             return false;
 
         if (this.defaultSelected != null && !this.defaultSelected.equals(other.defaultSelected))
@@ -90,8 +90,8 @@ public class MappingType {
      * 
      * @return the dbmsType
      */
-    public String getDbmsType() {
-        return this.dbmsType;
+    public String getDbType() {
+        return this.dbType;
     }
 
     /**
@@ -99,8 +99,8 @@ public class MappingType {
      * 
      * @param dbmsType the dbmsType to set
      */
-    public void setDbmsType(String dbmsType) {
-        this.dbmsType = dbmsType;
+    public void setDbType(String dbmsType) {
+        this.dbType = dbmsType;
     }
 
     /**
@@ -157,5 +157,23 @@ public class MappingType {
         this.nullable = nullable;
     }
 
+    /**
+         * toString method: creates a String representation of the object
+         * @return the String representation
+         * @author 
+         */
+        public String toString() {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append("MappingType[");
+            buffer.append("dbmsType = ").append(dbType);
+            buffer.append(", talendType = ").append(talendType);
+            buffer.append(", defaultSelected = ").append(defaultSelected);
+            buffer.append(", nullable = ").append(nullable);
+            buffer.append("]");
+            return buffer.toString();
+        }
+
+    
+    
 }
 

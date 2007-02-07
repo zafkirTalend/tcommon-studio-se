@@ -153,7 +153,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
         String[] arrayTalendTypes = new String[0];
         try {
-            arrayTalendTypes = MetadataTalendType.getTalendTypes();
+            arrayTalendTypes = MetadataTalendType.getTalendTypesLabels();
         } catch (NoClassDefFoundError e) {
             // shouln't be happend
             e.printStackTrace();

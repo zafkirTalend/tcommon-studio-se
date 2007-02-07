@@ -34,8 +34,12 @@ import java.util.List;
 public class Dbms {
 
     private String id;
+    
+    private String product;
 
     private String label;
+    
+    private String defaultDbType;
 
     private List<String> dbmsTypes;
 
@@ -71,7 +75,7 @@ public class Dbms {
      * 
      * @return the dbmsTypes
      */
-    public List<String> getDbmsTypes() {
+    public List<String> getDbTypes() {
         return this.dbmsTypes;
     }
 
@@ -138,6 +142,46 @@ public class Dbms {
         this.mappingTypes = mappingTypes;
     }
 
+    
+    
+    
+    /**
+     * Getter for product.
+     * @return the product
+     */
+    public String getProduct() {
+        return this.product;
+    }
+
+    
+    /**
+     * Sets the product.
+     * @param product the product to set
+     */
+    protected void setProduct(String product) {
+        this.product = product;
+    }
+
+    
+    
+    
+    /**
+     * Getter for defaultDbType.
+     * @return the defaultDbType
+     */
+    public String getDefaultDbType() {
+        return this.defaultDbType;
+    }
+
+    
+    /**
+     * Sets the defaultDbType.
+     * @param defaultDbType the defaultDbType to set
+     */
+    protected void setDefaultDbType(String defaultDbType) {
+        this.defaultDbType = defaultDbType;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -173,4 +217,24 @@ public class Dbms {
         return true;
     }
 
+    /**
+         * toString method: creates a String representation of the object
+         * @return the String representation
+         * @author 
+         */
+        public String toString() {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append("Dbms[");
+            buffer.append("product = ").append(product);
+            buffer.append(", id = ").append(id);
+            buffer.append(", label = ").append(label);
+            buffer.append(", defaultDbType = ").append(defaultDbType);
+            buffer.append(", dbmsTypes = ").append(dbmsTypes);
+            buffer.append(", mappingTypes = ").append(mappingTypes);
+            buffer.append("]");
+            return buffer.toString();
+        }
+
+    
+    
 }

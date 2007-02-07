@@ -42,7 +42,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.lang.ArrayUtils;
-import org.apache.log4j.Priority;
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -50,10 +50,9 @@ import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.SystemException;
 import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -69,6 +68,8 @@ import org.xml.sax.SAXException;
  */
 public final class MetadataTalendType {
 
+    private static Logger log = Logger.getLogger(MetadataTalendType.class);
+
     public static final String DEFAULT_CHAR = "' '";
 
     public static final String DEFAULT_NUMBER = "0";
@@ -77,31 +78,19 @@ public final class MetadataTalendType {
 
     public static final String JAVA_PRIMITIVE_CHAR = "char";
 
-    private static ECodeLanguage codeLanguage = ECodeLanguage.JAVA;
+    private static ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
 
     private static final String[] JAVA_PRIMITIVE_TYPES = new String[] { "short", "boolean", "int", "long", "float", "double",
             JAVA_PRIMITIVE_CHAR };
 
-    private static final String[] JAVA_TYPES = new String[] { "boolean", "Boolean", JAVA_PRIMITIVE_CHAR, "Character", "double", "Double",
-            "float", "Float", "int", "Integer", "long", "Long", "String" };
+    private static final String[] JAVA_TYPES = new String[] { "boolean", "Boolean", JAVA_PRIMITIVE_CHAR, "Character", "Date", "double",
+            "Double", "float", "Float", "int", "Integer", "long", "Long", "String" };
 
-    private static final String[] PERL_TYPES = new String[] { "boolean", "date", "datetime", "number", "time", "string" };
-
-    static {
-
-        try {
-            codeLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
-                    .getLanguage();
-        } catch (RuntimeException e) {
-            // should be done only when testing
-            e.printStackTrace();
-        }
-
-    }
+    private static final String[] PERL_TYPES = new String[] { "boolean", "date", "datetime", "integer", "float", "time", "string" };
 
     private static final Set<String> PRIMITIVE_TYPES_SET = new HashSet<String>(Arrays.asList(JAVA_PRIMITIVE_TYPES));
 
-    private static Set dbmsSet = new HashSet();
+    private static Set<Dbms> dbmsSet = new HashSet<Dbms>();
 
     /**
      * Default Constructor. Must not be used.
@@ -149,6 +138,7 @@ public final class MetadataTalendType {
      * @param dbms
      * @param reload, true if it's necessary to reload mapping from our repository
      * @return
+     * @deprecated Use {@link MetadataTalendType#getTalendTypesLabels()} method instead.
      */
     public static String loadTalendType(String type, String dbms, boolean reload) {
         dbms = dbms.toUpperCase();
@@ -166,6 +156,7 @@ public final class MetadataTalendType {
      * @param dbms
      * @param reload
      * @return
+     * @deprecated
      */
     public static String loadDBMSType(String talendType, String dbms, boolean reload) {
         dbms = dbms.toUpperCase();
@@ -182,6 +173,7 @@ public final class MetadataTalendType {
      * @param dbms
      * @param reload
      * @return
+     * @deprecated Use {@link MetadataTalendType#getTalendTypesLabels()} method instead.
      */
     public static String[] loadTalendTypes(String dbms, boolean reload) {
 
@@ -201,6 +193,7 @@ public final class MetadataTalendType {
      * @param dbms
      * @param reload
      * @return
+     * @deprecated.
      */
     public static String[] loadDatabaseTypes(String dbms, boolean reload) {
         dbms = dbms.toUpperCase();
@@ -217,6 +210,7 @@ public final class MetadataTalendType {
      * 
      * @return
      * @throws SystemException
+     * @deprecated.
      */
     private static void init() throws SystemException {
         talendTypes = new HashMap<String, Map<String, String>>();
@@ -275,6 +269,7 @@ public final class MetadataTalendType {
      * 
      * @param types
      * @return
+     * @deprecated
      */
     private static String[] createStringArray(Collection<String> types) {
         SortedSet<String> sortedTypes = new TreeSet<String>(comparatorIgnoreCase);
@@ -288,6 +283,7 @@ public final class MetadataTalendType {
      * @param dbms
      * @param reload
      * @throws SystemException
+     * @deprecated
      */
     private static void checkTypesAreInitialized(String dbms, boolean reload) {
         if (dbms == null) {
@@ -302,10 +298,23 @@ public final class MetadataTalendType {
         }
     }
 
+    /**
+     * 
+     * Return true if given type represents a primitive java type.
+     * 
+     * @param type
+     * @return true if given type represents a primitive java type
+     */
     public static boolean isJavaPrimitiveType(String type) {
         return PRIMITIVE_TYPES_SET.contains(type);
     }
 
+    /**
+     * 
+     * Return the default value for a given type.
+     * @param type
+     * @return
+     */
     public static String getDefaultValueFromJavaType(String type) {
         if (type == null) {
             throw new IllegalArgumentException();
@@ -321,15 +330,88 @@ public final class MetadataTalendType {
         }
     }
 
-    public static String[] getTalendTypes() {
+    /**
+     * 
+     * Return the talend types function of the current language.
+     * @return
+     */
+    public static String[] getTalendTypesLabels() {
         if (codeLanguage == ECodeLanguage.JAVA) {
             return (String[]) ArrayUtils.clone(JAVA_TYPES);
         } else if (codeLanguage == ECodeLanguage.PERL) {
-            return (String[]) ArrayUtils.clone(PERL_TYPES);
+//            return (String[]) ArrayUtils.clone(PERL_TYPES);
+            return loadTalendTypes("TALENDDEFAULT", false);
         }
         throw new IllegalStateException("Case not found.");
     }
 
+    public static Dbms[] getAllDbmsArray() {
+        return dbmsSet.toArray(new Dbms[0]);
+    }
+
+    /**
+     * 
+     * Return array of Dbms which have the given product value.
+     * 
+     * @param product
+     * @return array of Dbms which have the given product value
+     */
+    public static Dbms[] getDbmsArrayFromProduct(String product) {
+        if (product == null) {
+            throw new IllegalArgumentException();
+        }
+        Dbms[] allDbmsArray = getAllDbmsArray();
+        ArrayList<Dbms> list = new ArrayList<Dbms>();
+        for (int i = 0; i < allDbmsArray.length; i++) {
+            Dbms dbms = allDbmsArray[i];
+            if (product.equals(dbms.getProduct())) {
+                list.add(dbms);
+            }
+        }
+        return list.toArray(new Dbms[0]);
+    }
+
+    /**
+     * 
+     * Retrieve and return the dbms from the given id.
+     * 
+     * @param dbmsId
+     * @return the dbms from the given id
+     */
+    public static Dbms getDbms(String dbmsId) {
+        if (dbmsId == null) {
+            throw new IllegalArgumentException();
+        }
+        Dbms[] allDbmsArray = getAllDbmsArray();
+        for (int i = 0; i < allDbmsArray.length; i++) {
+            Dbms dbms = allDbmsArray[i];
+            if (dbmsId.equals(dbms.getId())) {
+                return dbms;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Retrievd the dbms from the given dbmsId and return db types from it. 
+     * 
+     * @param dbmsId
+     * @return return db types from the dbms
+     */
+    public static String[] getDbTypes(String dbmsId) {
+        if (dbmsId == null) {
+            throw new IllegalArgumentException();
+        }
+        Dbms dbms = getDbms(dbmsId);
+        return dbms.getDbTypes().toArray(new String[0]);
+    }
+
+    /**
+     * 
+     * Load db types and mapping with the current activated language (Java, Perl, ...)
+     * 
+     * @throws SystemException
+     */
     public static void loadCommonMappings() throws SystemException {
 
         String dirName = "mappings";
@@ -374,34 +456,42 @@ public final class MetadataTalendType {
                 Node dbmsNode = dbmsNodes.item(iDbms);
 
                 NamedNodeMap dbmsAttributes = dbmsNode.getAttributes();
+                String dbmsProductValue = dbmsAttributes.getNamedItem("product").getNodeValue();
                 String dbmsIdValue = dbmsAttributes.getNamedItem("id").getNodeValue();
                 String dbmsLabelValue = dbmsAttributes.getNamedItem("label").getNodeValue();
 
                 Dbms dbms = new Dbms(dbmsIdValue);
                 dbms.setLabel(dbmsLabelValue);
+                dbms.setProduct(dbmsProductValue);
                 boolean dbmsOverwriteExisting = !dbmsSet.add(dbms);
                 if (dbmsOverwriteExisting) {
-                    ExceptionHandler.process(new Exception("Dbms with id '" + dbmsIdValue + "' already exists !"), Priority.WARN);
+                    log.warn("Dbms with id '" + dbmsIdValue + "' already exists !");
                 }
 
                 // list all dbms children nodes
-                List<Node> childrenOfDbmsNodes = getChildElementNodes(dbmsNode);
+                List<Node> childrenOfDbmsNode = getChildElementNodes(dbmsNode);
 
-                // search "dbms_types" node
-                Node dbmsTypesNode = childrenOfDbmsNodes.get(0);
+                // TODO create a dtd
 
-                // search and load "dbms_types/type" nodes
-                ArrayList<String> dbmsTypes = new ArrayList<String>();
-                dbms.setDbmsTypes(dbmsTypes);
-                List<Node> typeNodes = getChildElementNodes(dbmsTypesNode);
+                // search "db_types" node
+                Node dbTypesNode = childrenOfDbmsNode.get(0);
+
+                // search and load "db_types/type" nodes
+                ArrayList<String> dbTypes = new ArrayList<String>();
+                dbms.setDbmsTypes(dbTypes);
+                List<Node> typeNodes = getChildElementNodes(dbTypesNode);
                 for (Node typeNode : typeNodes) {
                     NamedNodeMap typeNodeAtttributes = typeNode.getAttributes();
-                    dbmsTypes.add(typeNodeAtttributes.getNamedItem("dbmsType").getNodeValue());
+                    String typeValue = typeNodeAtttributes.getNamedItem("dbType").getNodeValue();
+                    Node defaultTypeItem = typeNodeAtttributes.getNamedItem("default");
+                    dbTypes.add(typeValue);
+                    if (defaultTypeItem != null && "true".equals(defaultTypeItem.getNodeValue())) {
+                        dbms.setDefaultDbType(typeValue);
+                    }
                 }
 
                 // search and load "language/type" nodes
-                List<Node> languageNodes = new ArrayList<Node>(childrenOfDbmsNodes);
-                languageNodes.remove(0);
+                List<Node> languageNodes = childrenOfDbmsNode.subList(1, childrenOfDbmsNode.size());
                 ArrayList<MappingType> mappingTypes = new ArrayList<MappingType>();
                 dbms.setMappingTypes(mappingTypes);
                 for (int i = 0; i < languageNodes.size(); i++) {
@@ -417,24 +507,24 @@ public final class MetadataTalendType {
 
                             Node languageTypeNode = languageTypesNodes.get(j);
 
-                            NamedNodeMap dbmsTypeAttributes = languageTypeNode.getAttributes();
+                            NamedNodeMap dbTypeAttributes = languageTypeNode.getAttributes();
 
-                            Node talendTypeItem = dbmsTypeAttributes.getNamedItem("talendType");
+                            Node talendTypeItem = dbTypeAttributes.getNamedItem("talendType");
                             if (talendTypeItem == null) {
                                 continue;
                             }
 
-                            Node dbmsTypeItem = dbmsTypeAttributes.getNamedItem("dbmsType");
-                            if (dbmsTypeItem == null) {
+                            Node dbTypeItem = dbTypeAttributes.getNamedItem("dbType");
+                            if (dbTypeItem == null) {
                                 continue;
                             }
 
-                            Node defaultSelectedItem = dbmsTypeAttributes.getNamedItem("defaultSelected");
-                            Node nullableItem = dbmsTypeAttributes.getNamedItem("nullable");
+                            Node defaultSelectedItem = dbTypeAttributes.getNamedItem("defaultSelected");
+                            Node nullableItem = dbTypeAttributes.getNamedItem("nullable");
 
                             MappingType mappingType = new MappingType();
                             mappingType.setTalendType(talendTypeItem.getNodeValue());
-                            mappingType.setDbmsType(dbmsTypeItem.getNodeValue());
+                            mappingType.setDbType(dbTypeItem.getNodeValue());
                             mappingType.setDefaultSelected(defaultSelectedItem != null
                                     && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE);
                             mappingType
@@ -448,41 +538,91 @@ public final class MetadataTalendType {
             }
 
         } catch (IOException e) {
-            throw new SystemException(e.getCause());
+            throw new SystemException(e);
         } catch (ParserConfigurationException e) {
-            throw new SystemException(e.getCause());
+            throw new SystemException(e);
         } catch (SAXException e) {
-            throw new SystemException(e.getCause());
+            throw new SystemException(e);
         }
-
-        System.out.println(dbmsSet);
     }
 
     /**
-     * DOC amaumont Comment method "getChildNodes".
+     * Get children of type ELEMENT_NODE from parent <code>parentNode</code>.
      * 
-     * @param node
+     * @param parentNode
      * @return
      */
-    private static List<Node> getChildElementNodes(Node node) {
-        Node dbmsTypesNode = node.getFirstChild();
+    private static List<Node> getChildElementNodes(Node parentNode) {
+        Node childNode = parentNode.getFirstChild();
         ArrayList<Node> list = new ArrayList<Node>();
-        while (dbmsTypesNode != null) {
-            if (dbmsTypesNode.getNodeType() == Node.ELEMENT_NODE) {
-                list.add(dbmsTypesNode);
+        while (childNode != null) {
+            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+                list.add(childNode);
             }
-            dbmsTypesNode = dbmsTypesNode.getNextSibling();
+            childNode = childNode.getNextSibling();
         }
         return list;
     }
 
+    /**
+     * Create and return a MappingTypeRetriever which helps to retrieve dbType from a talendType or the contrary.
+     * 
+     * @param dbmsId
+     * @return new MappingTypeRetriever loaded with Dbms found with given dbmsId
+     */
+    public static MappingTypeRetriever getMappingTypeRetriever(String dbmsId) {
+        if (dbmsId == null) {
+            throw new IllegalArgumentException();
+        }
+        Dbms dbms = getDbms(dbmsId);
+        if (dbms == null) {
+            return null;
+        }
+        return new MappingTypeRetriever(dbms);
+    }
+
+    /**
+     * 
+     * Return the default Talend type function of the current language.
+     * @return the default Talend type function of the current language
+     */
+    public static String getDefaultTalendType() {
+        if (codeLanguage == ECodeLanguage.JAVA) {
+            return "String";
+        } else if (codeLanguage == ECodeLanguage.PERL) {
+            return "";
+        } else {
+            throw new IllegalStateException("Case not found");
+        }
+    }
+
     public static void main(String[] args) {
+        codeLanguage = ECodeLanguage.JAVA;
         try {
             MetadataTalendType.loadCommonMappings();
         } catch (SystemException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
+        String dbmsId = "Oracle10g";
+        Dbms dbms = getDbms(dbmsId);
+        System.out.println("Oracle10g dbms:" + dbms);
+        System.out.println("Oracle10g types:" + Arrays.asList(getDbTypes(dbmsId)));
+
+        MappingTypeRetriever mappingTypeRetriever = getMappingTypeRetriever(dbmsId);
+        System.out.println("java int => " + mappingTypeRetriever.getDefaultSelectedDbType("int", false));
+        System.out.println("java int nullable => " + mappingTypeRetriever.getDefaultSelectedDbType("int", true));
+
+        System.out.println("Db INT => " + mappingTypeRetriever.getDefaultSelectedTalendType("INT", false));
+        System.out.println("Db INT nullable => " + mappingTypeRetriever.getDefaultSelectedTalendType("INT", true));
+        
+        System.out.println("java UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedDbType("UNKNOWN", false));
+        System.out.println("java UNKNOWN TYPE nullable => " + mappingTypeRetriever.getDefaultSelectedDbType("UNKNOWN", false));
+
+        System.out.println("Db UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN", false));
+        System.out.println("Db UNKNOWN TYPE nullable => " + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN", false));
+        
         System.out.println();
     }
 
