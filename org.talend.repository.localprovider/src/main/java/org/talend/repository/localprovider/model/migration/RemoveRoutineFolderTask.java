@@ -45,9 +45,14 @@ public class RemoveRoutineFolderTask extends AbstractMigrationTask implements IP
      * @see org.talend.core.model.migration.IMigrationTask#execute()
      */
     public boolean execute(Project project) {
+        if (!project.isLocal()) {
+            return true;
+        }
+
         try {
             IProject iproject = ResourceModelUtils.getProject(project);
-            String oldRoutinesPath = "routines"; // Routines path as it was in talend v1.0.n and until 1.1.m2 //$NON-NLS-1$
+            String oldRoutinesPath = "routines"; // Routines path as it was in talend v1.0.n and until 1.1.m2
+            // //$NON-NLS-1$
             IFolder f2 = ResourceUtils.getFolder(iproject, oldRoutinesPath, false);
             ResourceUtils.deleteFolder(f2);
             return true;
