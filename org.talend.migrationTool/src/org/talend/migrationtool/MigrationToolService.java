@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
@@ -61,10 +62,15 @@ public class MigrationToolService implements IMigrationToolService {
 
         for (IProjectMigrationTask task : toExecute) {
             if (!done.contains(task.getId())) {
-                if (task.execute(project)) {
-                    done.add(task.getId());
-                    log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
-                } else {
+                try {
+                    if (task.execute(project)) {
+                        done.add(task.getId());
+                        log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
+                    } else {
+                        log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
+                    }
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
                     log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                 }
             }
