@@ -22,8 +22,6 @@
 package org.talend.core.prefs;
 
 import java.io.File;
-import java.util.Iterator;
-import java.util.TreeSet;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -93,9 +91,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
             node.put(ITalendCorePrefConstants.PERL_SECONDARY_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_WIN32_INTERPRETER);
         } else if (os.equals(Platform.OS_LINUX)) {
-            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, Platform.getInstallLocation().getURL().getFile()
-                    .substring(1)
-                    + PERL_EMBEDDED_INTERPRETER_DIRECTORY);
+            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);
             node.put(ITalendCorePrefConstants.PERL_SECONDARY_INTERPRETER, PERL_WIN32_INTERPRETER_PATH);
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_LINUX_INTERPRETER_PATH);
 
