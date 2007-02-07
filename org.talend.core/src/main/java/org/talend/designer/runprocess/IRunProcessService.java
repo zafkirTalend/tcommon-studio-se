@@ -53,14 +53,14 @@ public interface IRunProcessService extends IService {
      * Code Execution, used, when you know where the code stands.
      * 
      * @param Perl Absolute Code Path
-     * @param Context path
+     * @param Context Name
      * @param Port Statistics
      * @param Port Trace
      * @return Command Process Launched
      * @throws ProcessorException
      */
-    public int perlExec(StringBuffer out, StringBuffer err, IPath absCodePath, IPath absContextPath, Level level,
-            String perlInterpreterLibOption, String perlInterpreterLibCtxOption, String perlModuleDirectoryOption,
+    public int perlExec(StringBuffer out, StringBuffer err, IPath absCodePath, String contextName, Level level,
+            String perlInterpreterLibOption, String perlModuleDirectoryOption,
             int statOption, int traceOption, String... codeOptions) throws ProcessorException;
 
     /**
