@@ -47,6 +47,11 @@ import org.talend.core.CorePlugin;
  */
 public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
+    /**
+     * 
+     */
+    private static final String PERL_EMBEDDED_INTERPRETER_DIRECTORY = "perl/perl.exe";
+
     private static final String JAVA_LINUX_INTERPRETER_PATH = "/java"; // NON-NLS-1$
 
     private static final String JAVA_WIN32_INTERPRETER = "\\java.exe"; // NON-NLS-1$
@@ -82,11 +87,15 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         String os = Platform.getOS();
         String javaPath = System.getProperty("sun.boot.library.path"); // NON-NLS-1$
         if (os.equals(Platform.OS_WIN32)) {
-            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, PERL_WIN32_INTERPRETER_PATH);
+            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, Platform.getInstallLocation().getURL().getFile()
+                    .substring(1)
+                    + PERL_EMBEDDED_INTERPRETER_DIRECTORY);
             node.put(ITalendCorePrefConstants.PERL_SECONDARY_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_WIN32_INTERPRETER);
         } else if (os.equals(Platform.OS_LINUX)) {
-            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);
+            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, Platform.getInstallLocation().getURL().getFile()
+                    .substring(1)
+                    + PERL_EMBEDDED_INTERPRETER_DIRECTORY);
             node.put(ITalendCorePrefConstants.PERL_SECONDARY_INTERPRETER, PERL_WIN32_INTERPRETER_PATH);
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_LINUX_INTERPRETER_PATH);
 
