@@ -49,7 +49,7 @@ public class GetTasksHelper {
 
         for (IConfigurationElement current : extension) {
             try {
-                if (new Boolean(current.getAttribute("name")) == beforeLogon) {
+                if (new Boolean(current.getAttribute("beforeLogon")) == beforeLogon) {
                     IProjectMigrationTask currentAction = (IProjectMigrationTask) current.createExecutableExtension("class"); //$NON-NLS-1$
                     currentAction.setId(current.getAttribute("id")); //$NON-NLS-1$
                     currentAction.setName(current.getAttribute("name")); //$NON-NLS-1$
