@@ -57,11 +57,11 @@ public abstract class AbstractDataTableEditorView<B> {
 
     private String title;
 
-    private Composite mainComposite;
+    protected Composite mainComposite;
 
-    private int mainCompositeStyle;
+    protected int mainCompositeStyle;
 
-    private Composite parentComposite;
+    protected Composite parentComposite;
 
     private AbstractExtendedTableViewer<B> extendedTableViewer;
 
