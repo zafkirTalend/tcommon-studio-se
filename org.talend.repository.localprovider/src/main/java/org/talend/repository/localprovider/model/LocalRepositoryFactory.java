@@ -167,7 +167,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 try {
                     IRepositoryObject currentObject = null;
 
-                    if (XmiResourceManager.isPropertyFile((IFile) current)) {
+                    if (xmiResourceManager.isPropertyFile((IFile) current)) {
                         Property property = xmiResourceManager.loadProperty(current);
                         currentObject = new RepositoryObject(property);
                     }
@@ -252,7 +252,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         for (IResource current : ResourceUtils.getMembers((IFolder) folder)) {
             if (current instanceof IFile) {
-                if (XmiResourceManager.isPropertyFile((IFile) current)) {
+                if (xmiResourceManager.isPropertyFile((IFile) current)) {
                     Property property = xmiResourceManager.loadProperty(current);
                     if (id == null || property.getId().equals(id)) {
                         if (withDeleted || !property.getItem().getState().isDeleted()) {
@@ -412,6 +412,17 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (int i = 0; i < prjs.length; i++) {
             IProject p = prjs[i];
 
+            readProject(local, toReturn, p, false);
+            readProject(local, toReturn, p, true);
+        }
+        
+        return toReturn.toArray(new Project[toReturn.size()]);
+    }
+
+    private void readProject(boolean local, List<Project> toReturn, IProject p, boolean useOldProjectFile) {
+        xmiResourceManager.setUseOldProjectFile(useOldProjectFile);
+        
+        try {
             if (xmiResourceManager.hasTalendProjectFile(p)) {
                 org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(p);
                 if (emfProject.isLocal() == local) {
@@ -419,8 +430,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     toReturn.add(project);
                 }
             }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
         }
-        return toReturn.toArray(new Project[toReturn.size()]);
+
+        xmiResourceManager.setUseOldProjectFile(false);
     }
 
     /**
@@ -579,7 +593,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         for (IResource current : ResourceUtils.getMembers(folder)) {
             if (current instanceof IFile) {
-                if (XmiResourceManager.isPropertyFile((IFile) current)) {
+                if (xmiResourceManager.isPropertyFile((IFile) current)) {
                     Property property = xmiResourceManager.loadProperty(current);
                     toReturn.add(new RepositoryObject(property));
                 }
@@ -1008,11 +1022,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         for (Iterator iter = users.iterator(); iter.hasNext();) {
             User emfUser = (User) iter.next();
 
-            boolean idAssigned = xmiResourceManager.handleUserId(emfProject, emfUser);
-            if (idAssigned) {
-                updateUserIdInPropertiesFiles(iProject);
-            }
-
             if (emfUser.getLogin().equals(getRepositoryContext().getUser().getLogin())) {
                 getRepositoryContext().setUser(emfUser);
                 exist = true;
@@ -1022,49 +1031,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return exist;
     }
 
-    // fix to update user ref with its new id (instead of order in talendProject xmi file)
-    private void updateUserIdInPropertiesFiles(IProject project) throws PersistenceException {
-        try {
-            project.accept(new IResourceVisitor() {
-
-                public boolean visit(IResource resource) throws CoreException {
-                    if (resource.getType() == IResource.FILE) {
-                        boolean isPropertyFile = xmiResourceManager.isPropertyFile((IFile) resource);
-                        if (isPropertyFile) {
-                            Property property = xmiResourceManager.loadProperty(resource);
-
-                            // we access the author (resolve proxy)
-                            property.getAuthor();
-
-                            // if .properties is saved then migrated .item must also be saved
-                            if (property.getItem() instanceof BusinessProcessItem) {
-                                BusinessProcessItem businessProcessItem = (BusinessProcessItem) property.getItem();
-                                businessProcessItem.getNotation();
-                            }
-
-                            try {
-                                property.eResource().setModified(true);
-                                xmiResourceManager.saveResource(property.eResource());
-                            } catch (PersistenceException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-
-                    return true;
-                }
-            });
-        } catch (CoreException e) {
-            throw new PersistenceException(e);
-        }
-    }
-
     public void createUser() throws PersistenceException {
         IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
         org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
 
-        xmiResourceManager.handleUserId(emfProject, getRepositoryContext().getUser());
         projectResource.getContents().add(getRepositoryContext().getUser());
         xmiResourceManager.saveResource(projectResource);
     }

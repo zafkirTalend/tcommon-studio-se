@@ -20,6 +20,20 @@
             class="org.talend.repository.localprovider.model.migration.RemoveRoutineFolderTask"
             id="org.talend.repository.localprovider.RemoveRoutineFolderTask"
             name="Remove routine folder"/>
+      <projecttask
+            beforeLogon="true"
+            class="org.talend.repository.localprovider.model.migration.ChangeXmiSerialization"
+            id="org.talend.repository.localprovider.model.migration.ChangeXmiSerialization"
+            name="Change xmi serialization"/>
+   </extension>
+   <extension
+         point="org.eclipse.emf.ecore.extension_parser">
+      <parser
+            class="org.talend.repository.localprovider.model.PropertiesProjectResourcesFactory"
+            type="properties"/>
+      <parser
+            class="org.talend.repository.localprovider.model.PropertiesProjectResourcesFactory"
+            type="project"/>
    </extension>
 
 </plugin>

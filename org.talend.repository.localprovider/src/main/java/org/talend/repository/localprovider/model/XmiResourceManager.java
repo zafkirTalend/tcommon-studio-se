@@ -34,7 +34,6 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -49,7 +48,6 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.model.ResourceFilenameHelper.FileName;
 import org.talend.repository.model.URIHelper;
 
@@ -61,16 +59,23 @@ import org.talend.repository.model.URIHelper;
  */
 public class XmiResourceManager {
 
-    public static final String PROPERTIES_EXTENSION = PropertiesPackage.eNAME;
+    private static final String PROPERTIES_EXTENSION = "properties"; //$NON-NLS-1$
 
-    public static final String ITEM_EXTENSION = "item"; //$NON-NLS-1$
+    private static final String ITEM_EXTENSION = "item"; //$NON-NLS-1$
 
-    private static final String PROJECT_DESCRIPTION_FILE = "talendProject";//$NON-NLS-1$
+    private static final String OLD_PROJECT_FILENAME = "talendProject";//$NON-NLS-1$
+    private static final String PROJECT_FILENAME = "talend.project";//$NON-NLS-1$
 
     // PTODO MHE should use a custom ResourceFactory
     // PTODO MHE test duplicate resourcesUri in resourceSet !
-    private ResourceSet resourceSet = new ResourceSetImpl();
+    private static ResourceSet resourceSet = new ResourceSetImpl();
 
+    private boolean useOldProjectFile;
+
+    public XmiResourceManager() {
+        setUseOldProjectFile(false);
+    }
+    
     public Project loadProject(IProject project) throws PersistenceException {
         URI uri = getProjectResourceUri(project);
 
@@ -106,7 +111,7 @@ public class XmiResourceManager {
     }
 
     private URI getProjectResourceUri(IProject project) {
-        URI uri = URI.createPlatformResourceURI(project.getFullPath().append(PROJECT_DESCRIPTION_FILE).toString());
+        URI uri = URI.createPlatformResourceURI(project.getFullPath().append(getProjectFilename()).toString());
         return uri;
     }
 
@@ -197,8 +202,12 @@ public class XmiResourceManager {
         return URI.createPlatformResourceURI(resourcePath.toOSString());
     }
 
-    public static boolean isPropertyFile(IFile file) {
+    public boolean isPropertyFile(IFile file) {
         return PROPERTIES_EXTENSION.equals(file.getFileExtension());
+    }
+
+    public boolean isProjectFile(IFile file) {
+        return getProjectFilename().equals(file.getName());
     }
 
     public void propagateFileName(Property lastVersionProperty, Property resourceProperty) throws PersistenceException {
@@ -265,25 +274,16 @@ public class XmiResourceManager {
         }
     }
 
-    // we need to affect an id to each user, because users objects are cross referenced across differents xmi resource
-    // also used to affect an id to users previously created without an id
-    public boolean handleUserId(Project emfProject, User user) throws PersistenceException {
-        int defaultId = 1;
-        if (user.getId() <= defaultId) {
-            Collection users = EcoreUtil.getObjectsByType(emfProject.eResource().getContents(), PropertiesPackage.eINSTANCE
-                    .getUser());
-
-            for (Iterator iter = users.iterator(); iter.hasNext();) {
-                User emfUser = (User) iter.next();
-                defaultId = Math.max(defaultId, emfUser.getId());
-            }
-
-            user.setId(defaultId + 1);
-            saveResource(emfProject.eResource());
-
-            return true;
+    private String getProjectFilename() {
+        if (useOldProjectFile) {
+            return OLD_PROJECT_FILENAME;
+        } else {
+            return PROJECT_FILENAME;
         }
+    }
 
-        return false;
+    
+    public void setUseOldProjectFile(boolean useOldProjectFile) {
+        this.useOldProjectFile = useOldProjectFile;
     }
 }
