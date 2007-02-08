@@ -50,12 +50,8 @@ public enum ECoreImage implements IImage {
     SNIPPETS_ICON("/icons/snippet.png"), //$NON-NLS-1$
     // SUBROUTINE_ICON("/icons/subroutine.gif"),
     DOCUMENTATION_ICON("/icons/documentation.gif"), //$NON-NLS-1$
+    DOCUMENTATION_SINGLE_ICON("/icons/Documentation_feuillet.png"), //$NON-NLS-1$
     DOCUMENTATION_WIZ("/icons/documentation_wiz.png"), //$NON-NLS-1$
-    DOC_WORD_ICON("/icons/docs/word.png"), //$NON-NLS-1$
-    DOC_EXCEL_ICON("/icons/docs/excel.png"), //$NON-NLS-1$
-    DOC_POWERPOINT_ICON("/icons/docs/powerpoint.png"), //$NON-NLS-1$
-    DOC_PDF_ICON("/icons/docs/pdf.png"), //$NON-NLS-1$
-    DOC_IMAGE_ICON("/icons/docs/image.png"), //$NON-NLS-1$
 
     METADATA_ICON("/icons/metadata.png"), //$NON-NLS-1$
     METADATA_CONNECTION_ICON("/icons/connection.gif"), //$NON-NLS-1$
@@ -84,7 +80,11 @@ public enum ECoreImage implements IImage {
 
     LOCKED_USER_OVERLAY("/icons/locked_green_overlay.gif"), //$NON-NLS-1$
     LOCKED_OTHER_OVERLAY("/icons/locked_red_overlay.gif"), //$NON-NLS-1$
-    NEW_OVERLAY("/icons/new_overlay.gif"); //$NON-NLS-1$
+    NEW_OVERLAY("/icons/new_overlay.gif"), //$NON-NLS-1$
+    DOC_PPT_OVERLAY("/icons/docs/doc_ppt_overlay.gif"), //$NON-NLS-1$
+    DOC_PDF_OVERLAY("/icons/docs/doc_pdf_overlay.gif"), //$NON-NLS-1$
+    DOC_EXCEL_OVERLAY("/icons/docs/doc_excel_overlay.gif"), //$NON-NLS-1$
+    DOC_WORD_OVERLAY("/icons/docs/doc_word_overlay.gif"); //$NON-NLS-1$
 
     private String path;
 

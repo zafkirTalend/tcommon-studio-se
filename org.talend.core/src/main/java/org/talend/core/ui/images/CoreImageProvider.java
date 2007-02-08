@@ -21,23 +21,18 @@
 // ============================================================================
 package org.talend.core.ui.images;
 
-import java.util.Arrays;
-
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.IImage;
 import org.talend.commons.ui.image.ImageProvider;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.repository.ERepositoryObjectType;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class CoreImageProvider {
 
@@ -68,9 +63,9 @@ public class CoreImageProvider {
         case METADATA_CON_TABLE:
             return ECoreImage.METADATA_TABLE_ICON;
         case METADATA_CON_VIEW:
-            return  ECoreImage.METADATA_VIEW_ICON;
+            return ECoreImage.METADATA_VIEW_ICON;
         case METADATA_CON_SYNONYM:
-            return  ECoreImage.METADATA_SYNONYM_ICON;
+            return ECoreImage.METADATA_SYNONYM_ICON;
         case METADATA_FILE_DELIMITED:
             return ECoreImage.METADATA_FILE_DELIMITED_ICON;
         case METADATA_FILE_POSITIONAL:
@@ -86,24 +81,6 @@ public class CoreImageProvider {
         default:
             return EImage.DEFAULT_IMAGE;
         }
-    }
-
-    public static Image getImage(String extOriginal) {
-        if (extOriginal != null) {
-            String ext = extOriginal.toLowerCase();
-            if (Arrays.asList(new String[] { "doc", "dot" }).contains(ext)) { //$NON-NLS-1$ //$NON-NLS-2$
-                return ImageProvider.getImage(ECoreImage.DOC_WORD_ICON);
-            } else if (Arrays.asList(new String[] { "xls", "xlt" }).contains(ext)) { //$NON-NLS-1$ //$NON-NLS-2$
-                return ImageProvider.getImage(ECoreImage.DOC_EXCEL_ICON);
-            } else if (Arrays.asList(new String[] { "ppt", "pps", "pot" }).contains(ext)) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                return ImageProvider.getImage(ECoreImage.DOC_POWERPOINT_ICON);
-            } else if (Arrays.asList(new String[] { "pps" }).contains(ext)) { //$NON-NLS-1$
-                return ImageProvider.getImage(ECoreImage.DOC_PDF_ICON);
-            } else if (Arrays.asList(new String[] { "gif", "jpg", "jpeg", "bmp", "gif", "png" }).contains(ext)) { //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
-                return ImageProvider.getImage(ECoreImage.DOC_IMAGE_ICON);
-            }
-        }
-        return CoreImageProvider.getImage(ERepositoryObjectType.DOCUMENTATION);
     }
 
 }
