@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.core.prefs.ui;
 
+import java.util.Locale;
+
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
@@ -29,6 +31,7 @@ import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
+import org.talend.commons.utils.workbench.preferences.ComboFieldEditor;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -71,8 +74,8 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
                 getFieldEditorParent());
         addField(secondaryPerlInterpreter);
 
-        FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER,
-                Messages.getString("CorePreferencePage.javaInterpreter"), true, getFieldEditorParent());  //$NON-NLS-1$
+        FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER, Messages
+                .getString("CorePreferencePage.javaInterpreter"), true, getFieldEditorParent()); //$NON-NLS-1$
         addField(javaInterpreter);
 
         IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT, Messages
@@ -80,6 +83,16 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         previewLimit.setEmptyStringAllowed(false);
         previewLimit.setValidRange(1, 999999999);
         addField(previewLimit);
+
+        //Adds a combo for language selection.
+        String[][] entryNamesAndValues = { { Locale.ENGLISH.getDisplayLanguage(), Locale.ENGLISH.getLanguage() },
+                { Locale.FRENCH.getDisplayLanguage(), Locale.FRENCH.getLanguage() },
+                { Locale.CHINESE.getDisplayLanguage(), Locale.CHINESE.getLanguage() } };
+        ComboFieldEditor languageSelectionEditor = new OneLineComboFieldEditor(
+                ITalendCorePrefConstants.LANGUAGE_SELECTOR, Messages.getString("CorePreferencePage.LocalLanguage"), entryNamesAndValues,
+                getFieldEditorParent());
+        addField(languageSelectionEditor);
+        // ends
     }
 
     /**
@@ -88,5 +101,4 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
     public void init(IWorkbench workbench) {
         // Do nothing
     }
-
 }

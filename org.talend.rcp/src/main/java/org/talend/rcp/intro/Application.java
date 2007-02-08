@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
+import java.util.Locale;
+
 import org.eclipse.core.runtime.IPlatformRunnable;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.swt.SWT;
@@ -28,6 +30,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.PlatformUI;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.i18n.LocalLanguageFactory;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.repository.ui.login.LoginDialog;
 
@@ -44,8 +47,8 @@ public class Application implements IPlatformRunnable {
      * @see org.eclipse.core.runtime.IPlatformRunnable#run(java.lang.Object)
      */
     public Object run(Object args) throws Exception {
-        Display display = PlatformUI.createDisplay();
-
+        Display display = PlatformUI.createDisplay();      
+        Locale.setDefault(LocalLanguageFactory.getLocalLanguage());
         try {
             shell = new Shell(display, SWT.ON_TOP);
 

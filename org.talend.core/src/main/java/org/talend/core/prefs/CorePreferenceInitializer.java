@@ -22,6 +22,7 @@
 package org.talend.core.prefs;
 
 import java.io.File;
+import java.util.Locale;
 
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -96,6 +97,9 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_LINUX_INTERPRETER_PATH);
 
         }
+
+        //Sets default language
+        node.put(ITalendCorePrefConstants.LANGUAGE_SELECTOR, Locale.getDefault().getLanguage());
 
         node.put(ITalendCorePrefConstants.PREVIEW_LIMIT, "50");
 
