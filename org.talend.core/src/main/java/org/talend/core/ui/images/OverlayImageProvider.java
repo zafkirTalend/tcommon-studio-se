@@ -25,9 +25,12 @@ import java.util.Arrays;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.graphics.Image;
+import org.talend.commons.ui.image.EImage;
+import org.talend.commons.ui.image.IImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.image.OverlayImage;
 import org.talend.commons.ui.image.OverlayImage.EPosition;
+import org.talend.repository.model.ERepositoryStatus;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -66,5 +69,27 @@ public class OverlayImageProvider {
             }
         }
         return source;
+    }
+
+    public static ImageDescriptor getImageWithStatus(Image source, ERepositoryStatus status) {
+        IImage statusOverlay;
+        switch (status) {
+        case NEW:
+            statusOverlay = ECoreImage.NEW_OVERLAY;
+            break;
+        case LOCK_BY_OTHER:
+            statusOverlay = ECoreImage.LOCKED_OTHER_OVERLAY;
+            break;
+        case LOCK_BY_USER:
+            statusOverlay = ECoreImage.LOCKED_USER_OVERLAY;
+            break;
+        default:
+            statusOverlay = EImage.EMPTY;
+            break;
+        }
+        ImageDescriptor img = ImageProvider.getImageDesc(statusOverlay);
+        EPosition position = EPosition.BOTTOM_LEFT;
+        OverlayImage overlayImage = new OverlayImage(source, img, position);
+        return overlayImage;
     }
 }
