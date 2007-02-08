@@ -41,7 +41,7 @@ import org.talend.core.model.migration.IWorkspaceMigrationTask;
  */
 public class GetTasksHelper {
 
-    public static List<IProjectMigrationTask> getProjectTasks() {
+    public static List<IProjectMigrationTask> getProjectTasks(boolean beforeLogon) {
         List<IProjectMigrationTask> toReturn = new ArrayList<IProjectMigrationTask>();
         ISimpleExtensionPoint actionExtensionPoint = new ExtensionPointImpl("org.talend.core.migrationTask", "projecttask", -1, //$NON-NLS-1$ //$NON-NLS-2$
                 -1);
@@ -49,10 +49,12 @@ public class GetTasksHelper {
 
         for (IConfigurationElement current : extension) {
             try {
-                IProjectMigrationTask currentAction = (IProjectMigrationTask) current.createExecutableExtension("class"); //$NON-NLS-1$
-                currentAction.setId(current.getAttribute("id")); //$NON-NLS-1$
-                currentAction.setName(current.getAttribute("name")); //$NON-NLS-1$
-                toReturn.add(currentAction);
+                if (new Boolean(current.getAttribute("name")) == beforeLogon) {
+                    IProjectMigrationTask currentAction = (IProjectMigrationTask) current.createExecutableExtension("class"); //$NON-NLS-1$
+                    currentAction.setId(current.getAttribute("id")); //$NON-NLS-1$
+                    currentAction.setName(current.getAttribute("name")); //$NON-NLS-1$
+                    toReturn.add(currentAction);
+                }
             } catch (CoreException e) {
                 ExceptionHandler.process(e);
             }

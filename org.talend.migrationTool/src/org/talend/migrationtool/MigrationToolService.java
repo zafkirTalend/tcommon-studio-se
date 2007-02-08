@@ -49,15 +49,10 @@ public class MigrationToolService implements IMigrationToolService {
 
     private static Logger log = Logger.getLogger(MigrationToolService.class);
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.migration.IMigrationToolService#executeProjectTasks()
-     */
-    public void executeProjectTasks(Project project) {
+    public void executeProjectTasks(Project project, boolean beforeLogon) {
         log.trace("Migration tool: project [" + project.getLabel() + "] tasks"); //$NON-NLS-1$ //$NON-NLS-2$
 
-        List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks();
+        List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(beforeLogon);
         List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
 
         for (IProjectMigrationTask task : toExecute) {
@@ -85,7 +80,8 @@ public class MigrationToolService implements IMigrationToolService {
      * @see org.talend.core.model.migration.IMigrationToolService#initNewProjectTasks()
      */
     public void initNewProjectTasks(Project project) {
-        List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks();
+        List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(true);
+        toExecute.addAll(GetTasksHelper.getProjectTasks(false));
         List<String> done = new ArrayList<String>();
 
         for (IProjectMigrationTask task : toExecute) {

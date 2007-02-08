@@ -101,6 +101,13 @@
                </appInfo>
             </annotation>
          </attribute>
+         <attribute name="beforeLogon" type="boolean" use="default" value="false">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
