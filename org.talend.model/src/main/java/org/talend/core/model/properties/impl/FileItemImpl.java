@@ -255,9 +255,9 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (name: "); //$NON-NLS-1$
+        result.append(" (name: ");
         result.append(name);
-        result.append(", extension: "); //$NON-NLS-1$
+        result.append(", extension: ");
         result.append(extension);
         result.append(')');
         return result.toString();

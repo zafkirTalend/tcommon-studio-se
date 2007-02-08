@@ -148,7 +148,7 @@ public class ByteArrayImpl extends EObjectImpl implements ByteArray {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (innerContent: "); //$NON-NLS-1$
+        result.append(" (innerContent: ");
         result.append(innerContent);
         result.append(')');
         return result.toString();

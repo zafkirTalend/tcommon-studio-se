@@ -38,6 +38,7 @@
         eType="#//ProjectReference" eOpposite="#//ProjectReference/referencedProject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="migrationTasks" upperBound="-1"
         eType="ecore:EDataType ../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="masterJobId" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProjectComponentAuthorisation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="project" lowerBound="1"

@@ -230,13 +230,22 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__MIGRATION_TASKS = 17;
 
     /**
+     * The feature id for the '<em><b>Master Job Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__MASTER_JOB_ID = 18;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 18;
+    int PROJECT_FEATURE_COUNT = 19;
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -1771,6 +1780,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getProject_MigrationTasks();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getMasterJobId <em>Master Job Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Master Job Id</em>'.
+     * @see org.talend.core.model.properties.Project#getMasterJobId()
+     * @see #getProject()
+     * @generated
+     */
+    EAttribute getProject_MasterJobId();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Technical Label</em>'.
@@ -2878,6 +2898,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PROJECT__MIGRATION_TASKS = eINSTANCE.getProject_MigrationTasks();
+
+        /**
+         * The meta object literal for the '<em><b>Master Job Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROJECT__MASTER_JOB_ID = eINSTANCE.getProject_MasterJobId();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.

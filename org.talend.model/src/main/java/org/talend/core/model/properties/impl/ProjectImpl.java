@@ -28,6 +28,8 @@ import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserProjectAuthorization;
 
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Project</b></em>'. <!-- end-user-doc -->
  * <p>
@@ -51,6 +53,7 @@ import org.talend.core.model.properties.UserProjectAuthorization;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getReferencedProjects <em>Referenced Projects</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAvailableRefProject <em>Available Ref Project</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getMigrationTasks <em>Migration Tasks</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getMasterJobId <em>Master Job Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -327,6 +330,26 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList migrationTasks = null;
 
     /**
+     * The default value of the '{@link #getMasterJobId() <em>Master Job Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMasterJobId()
+     * @generated
+     * @ordered
+     */
+    protected static final String MASTER_JOB_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getMasterJobId() <em>Master Job Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMasterJobId()
+     * @generated
+     * @ordered
+     */
+    protected String masterJobId = MASTER_JOB_ID_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -538,6 +561,27 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getMasterJobId() {
+        return masterJobId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMasterJobId(String newMasterJobId) {
+        String oldMasterJobId = masterJobId;
+        masterJobId = newMasterJobId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.PROJECT__MASTER_JOB_ID, oldMasterJobId, masterJobId));
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -728,6 +772,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getAvailableRefProject();
             case PropertiesPackage.PROJECT__MIGRATION_TASKS:
                 return getMigrationTasks();
+            case PropertiesPackage.PROJECT__MASTER_JOB_ID:
+                return getMasterJobId();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -800,6 +846,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 getMigrationTasks().clear();
                 getMigrationTasks().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.PROJECT__MASTER_JOB_ID:
+                setMasterJobId((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -864,6 +913,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__MIGRATION_TASKS:
                 getMigrationTasks().clear();
                 return;
+            case PropertiesPackage.PROJECT__MASTER_JOB_ID:
+                setMasterJobId(MASTER_JOB_ID_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -910,6 +962,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return availableRefProject != null && !availableRefProject.isEmpty();
             case PropertiesPackage.PROJECT__MIGRATION_TASKS:
                 return migrationTasks != null && !migrationTasks.isEmpty();
+            case PropertiesPackage.PROJECT__MASTER_JOB_ID:
+                return MASTER_JOB_ID_EDEFAULT == null ? masterJobId != null : !MASTER_JOB_ID_EDEFAULT.equals(masterJobId);
         }
         return super.eIsSet(featureID);
     }
@@ -922,26 +976,28 @@ public class ProjectImpl extends EObjectImpl implements Project {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: "); //$NON-NLS-1$
+        result.append(" (id: ");
         result.append(id);
-        result.append(", label: "); //$NON-NLS-1$
+        result.append(", label: ");
         result.append(label);
-        result.append(", description: "); //$NON-NLS-1$
+        result.append(", description: ");
         result.append(description);
-        result.append(", language: "); //$NON-NLS-1$
+        result.append(", language: ");
         result.append(language);
-        result.append(", technicalLabel: "); //$NON-NLS-1$
+        result.append(", technicalLabel: ");
         result.append(technicalLabel);
-        result.append(", local: "); //$NON-NLS-1$
+        result.append(", local: ");
         result.append(local);
-        result.append(", deleted: "); //$NON-NLS-1$
+        result.append(", deleted: ");
         result.append(deleted);
-        result.append(", deleteDate: "); //$NON-NLS-1$
+        result.append(", deleteDate: ");
         result.append(deleteDate);
-        result.append(", creationDate: "); //$NON-NLS-1$
+        result.append(", creationDate: ");
         result.append(creationDate);
-        result.append(", migrationTasks: "); //$NON-NLS-1$
+        result.append(", migrationTasks: ");
         result.append(migrationTasks);
+        result.append(", masterJobId: ");
+        result.append(masterJobId);
         result.append(')');
         return result.toString();
     }

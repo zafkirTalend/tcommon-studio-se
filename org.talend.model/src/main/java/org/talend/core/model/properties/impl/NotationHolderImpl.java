@@ -139,7 +139,7 @@ public class NotationHolderImpl extends EObjectImpl implements NotationHolder {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (notationString: "); //$NON-NLS-1$
+        result.append(" (notationString: ");
         result.append(notationString);
         result.append(')');
         return result.toString();

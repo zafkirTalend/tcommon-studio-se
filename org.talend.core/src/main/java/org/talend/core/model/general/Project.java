@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.core.model.general;
 
-import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.User;
@@ -184,6 +183,16 @@ public class Project {
 
     public org.talend.core.model.properties.Project getEmfProject() {
         return project;
+    }
+
+    public String getMasterJobId() {
+        return project.getMasterJobId();
+    }
+
+    public void setMasterJobId(String masterJobId) {
+        if (masterJobId != null) {
+            project.setMasterJobId(masterJobId);
+        }
     }
 
     /*

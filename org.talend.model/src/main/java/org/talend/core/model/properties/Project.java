@@ -10,6 +10,8 @@ import java.util.Date;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Project</b></em>'. <!-- end-user-doc -->
  *
@@ -34,6 +36,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.Project#getReferencedProjects <em>Referenced Projects</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getAvailableRefProject <em>Available Ref Project</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getMigrationTasks <em>Migration Tasks</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getMasterJobId <em>Master Job Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -288,6 +291,32 @@ public interface Project extends EObject {
      * @generated
      */
     EList getMigrationTasks();
+
+    /**
+     * Returns the value of the '<em><b>Master Job Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Master Job Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Master Job Id</em>' attribute.
+     * @see #setMasterJobId(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_MasterJobId()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @generated
+     */
+    String getMasterJobId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.Project#getMasterJobId <em>Master Job Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Master Job Id</em>' attribute.
+     * @see #getMasterJobId()
+     * @generated
+     */
+    void setMasterJobId(String value);
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.
