@@ -46,7 +46,8 @@ public enum EParameterFieldType {
     PROCESS_TYPE,
     IMAGE,
     COLUMN_LIST,
-    PREV_COLUMN_LIST;
+    PREV_COLUMN_LIST,
+    TECHNICAL; // means field not displayed directly
 
     public String getName() {
         return toString();
