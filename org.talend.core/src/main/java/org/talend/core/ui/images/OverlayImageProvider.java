@@ -88,7 +88,7 @@ public class OverlayImageProvider {
             break;
         }
         ImageDescriptor img = ImageProvider.getImageDesc(statusOverlay);
-        EPosition position = EPosition.BOTTOM_LEFT;
+        EPosition position = EPosition.BOTTOM_RIGHT;
         OverlayImage overlayImage = new OverlayImage(source, img, position);
         return overlayImage;
     }
