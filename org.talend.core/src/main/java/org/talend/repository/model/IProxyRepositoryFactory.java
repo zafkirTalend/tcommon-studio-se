@@ -368,13 +368,6 @@ public interface IProxyRepositoryFactory {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.repository.model.IRepositoryFactory#isPotentiallyEditable(org.talend.core.model.properties.Item)
-     */
-    public abstract boolean isPotentiallyEditable(Item item);
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see org.talend.repository.model.IRepositoryFactory#isPotentiallyEditable(org.talend.core.model.repository.IRepositoryObject)
      */
     public abstract boolean isPotentiallyEditable(IRepositoryObject obj);
