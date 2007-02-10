@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.core.model.components;
 
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -46,5 +47,7 @@ public interface IComponentsFactory {
     public IComponent get(int i);
 
     public IComponent get(String name);
+
+    public List<URL> getComponentModel(String componentName, String modelFileSuffix);
 
 }
