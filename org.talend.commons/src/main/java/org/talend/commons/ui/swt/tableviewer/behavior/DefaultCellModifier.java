@@ -39,9 +39,8 @@ import org.talend.commons.ui.swt.tableviewer.data.ModifiedObjectInfo;
  * 
  * @see ICellModifier
  * 
- * @param <O>
  */
-public class DefaultCellModifier<O> implements ICellModifier {
+public class DefaultCellModifier implements ICellModifier {
 
     private TableViewerCreator tableViewerCreator;
 
@@ -153,4 +152,15 @@ public class DefaultCellModifier<O> implements ICellModifier {
         this.cellEditorAppliedListeners.remove(cellEditorAppliedListener);
     }
 
+    
+    /**
+     * Getter for tableViewerCreator.
+     * @return the tableViewerCreator
+     */
+    public TableViewerCreator getTableViewerCreator() {
+        return this.tableViewerCreator;
+    }
+
+    
+    
 }

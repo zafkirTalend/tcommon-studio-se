@@ -21,21 +21,18 @@
 // ============================================================================
 package org.talend.core.ui.metadata.editor;
 
-import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
+import org.eclipse.jface.viewers.ICellModifier;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
-import org.talend.commons.ui.swt.advanced.dataeditor.AbstractExtendedToolbar;
 import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.CellEditorValueAdapterFactory;
@@ -43,14 +40,11 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
-import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
-import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -60,7 +54,6 @@ import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
-import org.talend.designer.core.ui.celleditor.TalendCellEditorValueAdapterFactory;
 
 /**
  * MetadataTableEditorView2 must be used.
@@ -77,6 +70,8 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
     public static final String ID_COLUMN_TYPE = "ID_COLUMN_TYPE"; //$NON-NLS-1$
 
     public static final String ID_COLUMN_NULLABLE = "ID_COLUMN_NULLABLE"; //$NON-NLS-1$
+
+    public static final String ID_COLUMN_PATTERN = "ID_COLUMN_PATTERN"; //$NON-NLS-1$
 
     /**
      * DOC amaumont MetadataTableEditorView constructor comment.
@@ -332,6 +327,7 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
             column = new TableViewerCreatorColumn(tableViewerCreator);
             String patternTitle = Messages.getString("MetadataTableEditorView.PatternTitle"); //$NON-NLS-1$
             column.setTitle(patternTitle);
+            column.setId(ID_COLUMN_PATTERN);
             column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
 
                 public String get(IMetadataColumn bean) {
@@ -346,7 +342,8 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
             column.setModifiable(!isReadOnly());
             column.setToolTipHeader(patternTitle);
             column.setWeight(16);
-            column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+            TextCellEditor patternCellEditor = new TextCellEditor(tableViewerCreator.getTable());
+            column.setCellEditor(patternCellEditor);
         }
 
         // //////////////////////////////////////////////////////////////////////////////////////
@@ -427,10 +424,53 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         column.setMinimumWidth(20);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
 
+        
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+            configureCellModifierForJava(tableViewerCreator);
+        }
+        
     }
 
     public MetadataToolbarEditorView getToolBar() {
         return (MetadataToolbarEditorView) getExtendedToolbar();
+    }
+    
+    protected void configureCellModifierForJava(TableViewerCreator<IMetadataColumn> tableViewerCreator) {
+        ICellModifier cellModifier = new MetadataTableCellModifierForJava(tableViewerCreator);
+        tableViewerCreator.setCellModifier(cellModifier);
+    }
+    
+    /**
+     * 
+     * .
+     * <br/>
+     *
+     * $Id$
+     *
+     */
+    class MetadataTableCellModifierForJava extends DefaultCellModifier {
+
+        /**
+         * DOC amaumont MetadataTableCellModifier constructor comment.
+         * @param tableViewerCreator
+         */
+        public MetadataTableCellModifierForJava(TableViewerCreator tableViewerCreator) {
+            super(tableViewerCreator);
+        }
+
+        /* (non-Javadoc)
+         * @see org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier#canModify(java.lang.Object, java.lang.String)
+         */
+        @Override
+        public boolean canModify(Object element, String property) {
+            IMetadataColumn metadataColumn = (IMetadataColumn) element;
+            boolean typeIsDate = JavaTypesManager.DATE.getId().equals(metadataColumn.getTalendType());
+            boolean columnIsPattern = ID_COLUMN_PATTERN.equals(property);
+            return super.canModify(element, property) && (columnIsPattern && typeIsDate || !columnIsPattern);
+        }
+        
+        
+        
     }
 
 }
