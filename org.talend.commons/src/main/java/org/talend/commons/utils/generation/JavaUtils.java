@@ -44,6 +44,9 @@ public final class JavaUtils {
 
     /** Java File Extension. */
     public static final String JAVA_EXTENSION = ".java";
+    
+    /** Java Context Extension. */
+    public static final String JAVA_CONTEXT_EXTENSION = ".properties";
 
     /** Java Directory. */
     public static final String JAVA_DIRECTORY = "java";
