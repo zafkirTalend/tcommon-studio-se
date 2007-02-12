@@ -195,7 +195,7 @@ public final class TestTableViewerCreator {
         final String[] valueSet = new String[] { "xxx", "yyy", "zzz" };
         column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
 
-            public String getColumnText(CellEditor cellEditor, Object value) {
+            public String getColumnText(CellEditor cellEditor, Object bean, Object value) {
                 String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
                 int index = (Integer) value;
                 if (index >= 0 && index < items.length) {

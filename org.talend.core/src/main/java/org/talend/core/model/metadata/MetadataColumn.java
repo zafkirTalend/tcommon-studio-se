@@ -52,6 +52,8 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     private String defaut = ""; //$NON-NLS-1$
 
     private String comment = ""; //$NON-NLS-1$
+    
+    private String pattern = ""; //$NON-NLS-1$
 
     public MetadataColumn() {
         super();
@@ -291,6 +293,22 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         this.comment = comment;
     }
 
+    
+    
+    /* (non-Javadoc)
+     * @see org.talend.core.model.metadata.IMetadataColumn#getPattern()
+     */
+    public String getPattern() {
+        return this.pattern;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.core.model.metadata.IMetadataColumn#setPattern(java.lang.String)
+     */
+    public void setPattern(String pattern) {
+        this.pattern = pattern;
+    }
+
     @Override
     public IMetadataColumn clone() {
         IMetadataColumn clonedMetacolumn = null;
@@ -336,6 +354,13 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
                 return false;
             }
         } else if (!this.label.equals(other.label)) {
+            return false;
+        }
+        if (this.pattern == null) {
+            if (other.pattern != null) {
+                return false;
+            }
+        } else if (!this.pattern.equals(other.pattern)) {
             return false;
         }
         if (this.length == null) {

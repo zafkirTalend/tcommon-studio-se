@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -53,6 +54,8 @@ import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.metadata.types.JavaType;
+import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -70,25 +73,9 @@ public final class MetadataTalendType {
 
     private static Logger log = Logger.getLogger(MetadataTalendType.class);
 
-    public static final String DEFAULT_CHAR = "' '";
-
-    public static final String DEFAULT_NUMBER = "0";
-
-    public static final String NULL = "null";
-
-    public static final String JAVA_PRIMITIVE_CHAR = "char";
-
     private static ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
 
-    private static final String[] JAVA_PRIMITIVE_TYPES = new String[] { "short", "boolean", "int", "long", "float", "double",
-            JAVA_PRIMITIVE_CHAR };
-
-    private static final String[] JAVA_TYPES = new String[] { "boolean", "Boolean", JAVA_PRIMITIVE_CHAR, "Character", "Date", "double",
-            "Double", "float", "Float", "int", "Integer", "long", "Long", "String" };
-
     private static final String[] PERL_TYPES = new String[] { "boolean", "date", "datetime", "integer", "float", "time", "string" };
-
-    private static final Set<String> PRIMITIVE_TYPES_SET = new HashSet<String>(Arrays.asList(JAVA_PRIMITIVE_TYPES));
 
     private static Set<Dbms> dbmsSet = new HashSet<Dbms>();
 
@@ -300,46 +287,15 @@ public final class MetadataTalendType {
 
     /**
      * 
-     * Return true if given type represents a primitive java type.
-     * 
-     * @param type
-     * @return true if given type represents a primitive java type
-     */
-    public static boolean isJavaPrimitiveType(String type) {
-        return PRIMITIVE_TYPES_SET.contains(type);
-    }
-
-    /**
-     * 
-     * Return the default value for a given type.
-     * @param type
-     * @return
-     */
-    public static String getDefaultValueFromJavaType(String type) {
-        if (type == null) {
-            throw new IllegalArgumentException();
-        }
-        if (isJavaPrimitiveType(type)) {
-            if (type.equals(JAVA_PRIMITIVE_CHAR)) {
-                return DEFAULT_CHAR;
-            } else {
-                return DEFAULT_NUMBER;
-            }
-        } else {
-            return NULL;
-        }
-    }
-
-    /**
-     * 
      * Return the talend types function of the current language.
+     * 
      * @return
      */
     public static String[] getTalendTypesLabels() {
         if (codeLanguage == ECodeLanguage.JAVA) {
-            return (String[]) ArrayUtils.clone(JAVA_TYPES);
+            return JavaTypesManager.getJavaTypesLabels();
         } else if (codeLanguage == ECodeLanguage.PERL) {
-//            return (String[]) ArrayUtils.clone(PERL_TYPES);
+            // return (String[]) ArrayUtils.clone(PERL_TYPES);
             return loadTalendTypes("TALENDDEFAULT", false);
         }
         throw new IllegalStateException("Case not found.");
@@ -393,7 +349,7 @@ public final class MetadataTalendType {
     }
 
     /**
-     * Retrievd the dbms from the given dbmsId and return db types from it. 
+     * Retrievd the dbms from the given dbmsId and return db types from it.
      * 
      * @param dbmsId
      * @return return db types from the dbms
@@ -403,6 +359,9 @@ public final class MetadataTalendType {
             throw new IllegalArgumentException();
         }
         Dbms dbms = getDbms(dbmsId);
+        if (dbms == null) {
+            throw new IllegalStateException("Unknown dbmsId");
+        }
         return dbms.getDbTypes().toArray(new String[0]);
     }
 
@@ -426,10 +385,11 @@ public final class MetadataTalendType {
             if (b != null) {
                 url = FileLocator.toFileURL(FileLocator.find(b, filePath, null));
             } else {
+                // for testing only, see org.talend.core\src\test\java\mappings for test files
                 url = MetadataTalendType.class.getResource(dirPath);
             }
         } catch (IOException e) {
-            throw new SystemException(e.getCause());
+            throw new SystemException(e);
         }
         File dir = new File(url.getPath());
 
@@ -584,6 +544,7 @@ public final class MetadataTalendType {
     /**
      * 
      * Return the default Talend type function of the current language.
+     * 
      * @return the default Talend type function of the current language
      */
     public static String getDefaultTalendType() {
@@ -616,13 +577,13 @@ public final class MetadataTalendType {
 
         System.out.println("Db INT => " + mappingTypeRetriever.getDefaultSelectedTalendType("INT", false));
         System.out.println("Db INT nullable => " + mappingTypeRetriever.getDefaultSelectedTalendType("INT", true));
-        
+
         System.out.println("java UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedDbType("UNKNOWN", false));
         System.out.println("java UNKNOWN TYPE nullable => " + mappingTypeRetriever.getDefaultSelectedDbType("UNKNOWN", false));
 
         System.out.println("Db UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN", false));
         System.out.println("Db UNKNOWN TYPE nullable => " + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN", false));
-        
+
         System.out.println();
     }
 

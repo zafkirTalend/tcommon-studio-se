@@ -67,10 +67,11 @@ public class CellEditorValueAdapter {
      * Convert cellEditorValue to String value which will be set in the current cell of the <code>Table</code>.
      * 
      * @param cellEditor current cellEditor, use if necessary.
+     * @param bean TODO
      * @param originalTypedValue.
      * @return
      */
-    public String getColumnText(CellEditor cellEditor, Object originalTypedValue) {
+    public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {
         return String.valueOf(originalTypedValue);
     };
 

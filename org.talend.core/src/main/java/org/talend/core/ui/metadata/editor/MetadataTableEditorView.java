@@ -25,8 +25,12 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
@@ -42,6 +46,7 @@ import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
+import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
@@ -53,6 +58,9 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
+import org.talend.designer.core.ui.celleditor.TalendCellEditorValueAdapterFactory;
 
 /**
  * MetadataTableEditorView2 must be used.
@@ -67,6 +75,8 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
     public static final String ID_COLUMN_KEY = "ID_COLUMN_KEY"; //$NON-NLS-1$
 
     public static final String ID_COLUMN_TYPE = "ID_COLUMN_TYPE"; //$NON-NLS-1$
+
+    public static final String ID_COLUMN_NULLABLE = "ID_COLUMN_NULLABLE"; //$NON-NLS-1$
 
     /**
      * DOC amaumont MetadataTableEditorView constructor comment.
@@ -141,14 +151,24 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
     @Override
     protected void createColumns(final TableViewerCreator<IMetadataColumn> tableViewerCreator, final Table table) {
         CellEditorValueAdapter comboValueAdapter = null;
-        String dbms = null;
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+
+        IBeanPropertyAccessors<IMetadataColumn, Boolean> nullableAccessors = new IBeanPropertyAccessors<IMetadataColumn, Boolean>() {
+
+            public Boolean get(IMetadataColumn bean) {
+                return new Boolean(bean.isNullable());
+            }
+
+            public void set(IMetadataColumn bean, Boolean value) {
+                bean.setNullable(value);
+            }
+
+        };
+
         if (codeLanguage == ECodeLanguage.JAVA) {
-            comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter(Messages.getString("MetadataTableEditorView.3")); //$NON-NLS-1$
-            dbms = MetadataTalendType.LANGUAGE_JAVA;
+            comboValueAdapter = new JavaTypeComboValueAdapter<IMetadataColumn>(JavaTypesManager.getDefaultJavaType(), nullableAccessors);
         } else if (codeLanguage == ECodeLanguage.PERL) {
             comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter();
-            dbms = MetadataTalendType.TALENDDEFAULT;
         }
 
         String[] arrayTalendTypes = new String[0];
@@ -237,8 +257,9 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         });
         column.setWidth(35);
         column.setDisplayedValue(""); //$NON-NLS-1$
-        CheckboxTableEditorContent checkboxTableEditorContent = new CheckboxTableEditorContent(isReadOnly());
-        column.setTableEditorContent(checkboxTableEditorContent);
+        CheckboxTableEditorContent keyCheckbox = new CheckboxTableEditorContent(isReadOnly());
+        column.setTableEditorContent(keyCheckbox);
+        keyCheckbox.setToolTipText(Messages.getString("MetadataTableEditorView.KeyTitle")); //$NON-NLS-1$
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -259,7 +280,74 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         column.setModifiable(!isReadOnly());
         column.setWeight(10);
         column.setMinimumWidth(30);
-        column.setCellEditor(new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes), comboValueAdapter);
+        ComboBoxCellEditor typeComboEditor = new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes, SWT.READ_ONLY);
+        CCombo typeCombo = (CCombo) typeComboEditor.getControl();
+        typeCombo.setEditable(false);
+        column.setCellEditor(typeComboEditor, comboValueAdapter);
+
+        // final CellEditorValueAdapter finalComboValueAdapter = comboValueAdapter;
+        // final String[] finalArrayTalendTypes = arrayTalendTypes;
+        //        
+        // column.setTableEditorContent(new TableEditorContent() {
+        //
+        // /* (non-Javadoc)
+        // * @see
+        // org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent#initialize(org.eclipse.swt.widgets.Table,
+        // org.eclipse.swt.custom.TableEditor, org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn,
+        // java.lang.Object, java.lang.Object)
+        // */
+        // @Override
+        // public Control initialize(Table table, TableEditor tableEditor, TableViewerCreatorColumn currentColumn,
+        // Object currentRowObject, Object currentCellValue) {
+        // CCombo combo = new CCombo(table, SWT.FLAT | SWT.READ_ONLY);
+        // combo.setItems(finalArrayTalendTypes);
+        // // combo.setText(String.valueOf(currentCellValue));
+        // combo.computeSize(SWT.DEFAULT, table.getItemHeight());
+        // // Set attributes of the editor
+        // tableEditor.grabHorizontal = true;
+        // tableEditor.minimumHeight = combo.getSize().y - 4;
+        // tableEditor.minimumWidth = combo.getSize().x;
+        // return combo;
+        // }
+        //            
+        // });
+
+        // //////////////////////////////////////////////////////////////////////////////////////
+
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        String nullableTitle = Messages.getString("MetadataTableEditorView.NullableTitle"); //$NON-NLS-1$
+        column.setTitle(nullableTitle);
+        column.setId(ID_COLUMN_NULLABLE);
+        column.setBeanPropertyAccessors(nullableAccessors);
+        column.setModifiable(!isReadOnly());
+        column.setWidth(56);
+        column.setDisplayedValue(""); //$NON-NLS-1$
+        CheckboxTableEditorContent nullableCheckbox = new CheckboxTableEditorContent(isReadOnly());
+        nullableCheckbox.setToolTipText(nullableTitle);
+        column.setTableEditorContent(nullableCheckbox);
+        column.setToolTipHeader(nullableTitle);
+
+        // //////////////////////////////////////////////////////////////////////////////////////
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+            column = new TableViewerCreatorColumn(tableViewerCreator);
+            String patternTitle = Messages.getString("MetadataTableEditorView.PatternTitle"); //$NON-NLS-1$
+            column.setTitle(patternTitle);
+            column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
+
+                public String get(IMetadataColumn bean) {
+                    return bean.getPattern();
+                }
+
+                public void set(IMetadataColumn bean, String value) {
+                    bean.setPattern(value);
+                }
+
+            });
+            column.setModifiable(!isReadOnly());
+            column.setToolTipHeader(patternTitle);
+            column.setWeight(16);
+            column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -298,26 +386,6 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         column.setModifiable(!isReadOnly());
         column.setWidth(60);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), positiveIntValueAdapter);
-
-        // //////////////////////////////////////////////////////////////////////////////////////
-
-        column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle(Messages.getString("MetadataTableEditorView.NullableTitle")); //$NON-NLS-1$
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, Boolean>() {
-
-            public Boolean get(IMetadataColumn bean) {
-                return new Boolean(bean.isNullable());
-            }
-
-            public void set(IMetadataColumn bean, Boolean value) {
-                bean.setNullable(value);
-            }
-
-        });
-        column.setModifiable(!isReadOnly());
-        column.setWidth(56);
-        column.setDisplayedValue(""); //$NON-NLS-1$
-        column.setTableEditorContent(new CheckboxTableEditorContent(isReadOnly()));
 
         // //////////////////////////////////////////////////////////////////////////////////////
 

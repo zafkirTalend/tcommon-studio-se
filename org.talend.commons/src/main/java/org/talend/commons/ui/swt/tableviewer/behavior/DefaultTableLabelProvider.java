@@ -74,7 +74,7 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
             CellEditor cellEditor = column.getCellEditor();
             CellEditorValueAdapter retrieverValue = column.getRetrieverValue();
             if (cellEditor != null && retrieverValue != null && value != null) {
-                returnValue = retrieverValue.getColumnText(cellEditor, value);
+                returnValue = retrieverValue.getColumnText(cellEditor, element, value);
             } else if (value != null) {
                 returnValue = String.valueOf(value);
             } else {

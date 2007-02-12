@@ -49,6 +49,10 @@ public interface IMetadataColumn {
 
     public void setTalendType(String talendType);
 
+    public String getPattern();
+    
+    public void setPattern(String pattern);
+    
     public String getDbms();
 
     public void setDbms(String dbms);

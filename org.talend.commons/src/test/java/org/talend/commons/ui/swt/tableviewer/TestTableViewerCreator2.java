@@ -227,7 +227,7 @@ public final class TestTableViewerCreator2 {
         final String[] valueSet = new String[] { "xxx", "yyy", "zzz" };
         column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
 
-            public String getColumnText(CellEditor cellEditor, Object cellEditorValue) {
+            public String getColumnText(CellEditor cellEditor, Object bean, Object cellEditorValue) {
                 String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
                 int index = (Integer) cellEditorValue;
                 if (index >= 0 && index < items.length) {
@@ -297,7 +297,7 @@ public final class TestTableViewerCreator2 {
         });
         column.setCellEditor(new ComboBoxCellEditor(table, valueSet), new CellEditorValueAdapter() {
 
-            public String getColumnText(CellEditor cellEditor, Object cellEditorValue) {
+            public String getColumnText(CellEditor cellEditor, Object bean, Object cellEditorValue) {
                 String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
                 int index = (Integer) cellEditorValue;
                 if (index >= 0 && index < items.length) {

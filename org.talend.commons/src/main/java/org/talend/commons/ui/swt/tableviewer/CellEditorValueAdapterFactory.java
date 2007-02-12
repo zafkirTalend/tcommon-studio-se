@@ -63,7 +63,7 @@ public class CellEditorValueAdapterFactory {
              * java.lang.Object)
              */
             @Override
-            public String getColumnText(CellEditor cellEditor, Object cellEditorTypedValue) {
+            public String getColumnText(CellEditor cellEditor, Object bean, Object cellEditorTypedValue) {
                 return (String) getCellEditorTypedValue(cellEditor, cellEditorTypedValue);
             }
 
@@ -112,8 +112,8 @@ public class CellEditorValueAdapterFactory {
              * java.lang.Object)
              */
             @Override
-            public String getColumnText(CellEditor cellEditor, Object cellEditorTypedValue) {
-                String displayedValue = super.getColumnText(cellEditor, cellEditorTypedValue);
+            public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {
+                String displayedValue = super.getColumnText(cellEditor, bean, originalTypedValue);
                 if (displayedValue == null && defaultItem != null) {
                     displayedValue = defaultItem;
                 }
