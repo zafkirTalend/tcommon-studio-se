@@ -215,7 +215,7 @@ public class MetadataDialog extends Dialog {
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
 
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
-                if (AbstractMetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
+                if (MetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
                     IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
                     if (modifiedObject != null) {
                         String originalLabel = changedNameColumns.get(modifiedObject);
