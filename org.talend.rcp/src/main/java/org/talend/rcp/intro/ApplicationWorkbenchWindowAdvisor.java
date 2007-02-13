@@ -133,7 +133,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
     public void postWindowClose() {
         Shell[] shelles = Display.getDefault().getShells();
         for (Shell shell : shelles) {
-            if (shell.getData() != null) {
+            if (!shell.isDisposed() && shell.getData() != null) {
                 if (shell.getData() instanceof SQLBuilderDialog) {
                     ((SQLBuilderDialog) shell.getData()).close();
                 } else if (shell.getData() instanceof ErDiagramDialog) {
