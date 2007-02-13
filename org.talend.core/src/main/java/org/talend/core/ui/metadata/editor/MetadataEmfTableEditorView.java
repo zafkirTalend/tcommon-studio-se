@@ -26,6 +26,7 @@ import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
@@ -40,6 +41,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.behavior.IColumnColorProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
@@ -63,19 +65,20 @@ public class MetadataEmfTableEditorView extends AbstractDataTableEditorView<Meta
     private boolean showDbTypeColumn = false;
 
     /**
-     * MetadataTableEditorView2 constructor comment.
+     * You must initialize graphicals components by calling <code>initGraphicComponents()</code>.
      * 
      * @param parent
      * @param style
      * @param showDbTypeColumn
      */
     public MetadataEmfTableEditorView(Composite parent, int style, boolean showDbTypeColumn) {
-        super(parent, style);
+        super(parent, style, false);
         this.showDbTypeColumn = showDbTypeColumn;
+        initGraphicComponents();
     }
 
     /**
-     * DOC amaumont MetadataEmfTableEditorView constructor comment.
+     * Graphics components are automatically initialized.
      * 
      * @param parentComposite
      * @param mainCompositeStyle
@@ -89,7 +92,7 @@ public class MetadataEmfTableEditorView extends AbstractDataTableEditorView<Meta
     }
 
     /**
-     * DOC amaumont MetadataEmfTableEditorView constructor comment.
+     * Graphics components are automatically initialized.
      * 
      * @param parentComposite
      * @param mainCompositeStyle
@@ -101,7 +104,7 @@ public class MetadataEmfTableEditorView extends AbstractDataTableEditorView<Meta
     }
 
     /**
-     * DOC amaumont MetadataEmfTableEditorView constructor comment.
+     * Graphics components are automatically initialized.
      * 
      * @param parentComposite
      * @param mainCompositeStyle
@@ -303,6 +306,19 @@ public class MetadataEmfTableEditorView extends AbstractDataTableEditorView<Meta
             column.setModifiable(false);
             column.setWeight(10);
             column.setMinimumWidth(60);
+            final Color readonlyColor = tableViewerCreator.getTable().getDisplay().getSystemColor(SWT.COLOR_GRAY);
+            
+            column.setColorProvider(new IColumnColorProvider() {
+
+                public Color getBackgroundColor(Object bean) {
+                    return readonlyColor;
+                }
+
+                public Color getForegroundColor(Object bean) {
+                    return null;
+                }
+                
+            });
         }
 
         // //////////////////////////////////////////////////////////////////////////////////////

@@ -229,7 +229,7 @@ public final class MetadataTalendType {
                         if (nullableNamedItem != null && "true".equals(nullableNamedItem.getNodeValue())) { //$NON-NLS-1$
                             keyForValues = dbmsNodeValue + NULLABLE;
                         }
-                        value.put(keyForValues, typeNodeAttributes.getNamedItem("talend").getNodeValue()); //$NON-NLS-1$
+                        value.put(keyForValues.toUpperCase(), typeNodeAttributes.getNamedItem("talend").getNodeValue()); //$NON-NLS-1$
 
                         Node defaultNamedItem = typeNodeAttributes.getNamedItem("default"); //$NON-NLS-1$
                         if (defaultNamedItem != null && "true".equals(defaultNamedItem.getNodeValue())) { //$NON-NLS-1$

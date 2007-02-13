@@ -27,6 +27,7 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
@@ -41,6 +42,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
+import org.talend.commons.ui.swt.tableviewer.behavior.IColumnColorProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
@@ -73,6 +75,10 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
     public static final String ID_COLUMN_PATTERN = "ID_COLUMN_PATTERN"; //$NON-NLS-1$
 
+    private boolean showDbTypeColumn;
+
+    private boolean showDbTypeColumnAtLeftPosition;
+
     /**
      * DOC amaumont MetadataTableEditorView constructor comment.
      * 
@@ -103,9 +109,60 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
      * 
      * @param parentComposite
      * @param mainCompositeStyle
+     * @param extendedTableModel
+     * @param readOnly
+     * @param toolbarVisible
+     * @param labelVisible
+     * @param initGraphicsComponents
+     */
+    public MetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<IMetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible, boolean labelVisible,
+            boolean initGraphicsComponents) {
+        super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible, initGraphicsComponents);
+    }
+
+    /**
+     * DOC amaumont MetadataTableEditorView constructor comment.
+     */
+    public MetadataTableEditorView() {
+        super();
+    }
+
+    /**
+     * DOC amaumont MetadataTableEditorView constructor comment.
+     * 
+     * @param parentComposite
+     * @param mainCompositeStyle
+     * @param initGraphicsComponents
      */
     public MetadataTableEditorView(Composite parentComposite, int mainCompositeStyle) {
-        super(parentComposite, mainCompositeStyle);
+        super(parentComposite, mainCompositeStyle, false);
+    }
+
+    /**
+     * DOC amaumont MetadataTableEditorView constructor comment.
+     * 
+     * @param parentComposite
+     * @param mainCompositeStyle
+     * @param extendedTableModel
+     * @param readOnly
+     * @param toolbarVisible
+     * @param labelVisible
+     */
+    public MetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<IMetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible, boolean labelVisible) {
+        super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible);
+    }
+
+    /**
+     * DOC amaumont MetadataTableEditorView constructor comment.
+     * 
+     * @param parentComposite
+     * @param mainCompositeStyle
+     * @param extendedTableModel
+     */
+    public MetadataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<IMetadataColumn> extendedTableModel) {
+        super(parentComposite, mainCompositeStyle, extendedTableModel);
     }
 
     public MetadataTableEditor getMetadataTableEditor() {
@@ -258,27 +315,17 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
-        column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle(Messages.getString("MetadataTableEditorView.TypleTitle")); //$NON-NLS-1$
-        column.setId(ID_COLUMN_TYPE);
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
-
-            public String get(IMetadataColumn bean) {
-                return bean.getTalendType();
+        if (showDbTypeColumn) {
+            if (showDbTypeColumnAtLeftPosition) {
+                initDbTypeColumn(tableViewerCreator);
+                initTalendTypeColumn(tableViewerCreator, comboValueAdapter, arrayTalendTypes);
+            } else {
+                initTalendTypeColumn(tableViewerCreator, comboValueAdapter, arrayTalendTypes);
+                initDbTypeColumn(tableViewerCreator);
             }
-
-            public void set(IMetadataColumn bean, String value) {
-                bean.setTalendType(value);
-            }
-
-        });
-        column.setModifiable(!isReadOnly());
-        column.setWeight(10);
-        column.setMinimumWidth(30);
-        ComboBoxCellEditor typeComboEditor = new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes, SWT.READ_ONLY);
-        CCombo typeCombo = (CCombo) typeComboEditor.getControl();
-        typeCombo.setEditable(false);
-        column.setCellEditor(typeComboEditor, comboValueAdapter);
+        } else {
+            initTalendTypeColumn(tableViewerCreator, comboValueAdapter, arrayTalendTypes);
+        }
 
         // final CellEditorValueAdapter finalComboValueAdapter = comboValueAdapter;
         // final String[] finalArrayTalendTypes = arrayTalendTypes;
@@ -424,42 +471,114 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
         column.setMinimumWidth(20);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
 
-        
         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
             configureCellModifierForJava(tableViewerCreator);
         }
-        
+
+    }
+
+    /**
+     * DOC amaumont Comment method "initTalendTypeColumn".
+     * 
+     * @param tableViewerCreator
+     * @param comboValueAdapter
+     * @param arrayTalendTypes
+     */
+    private void initTalendTypeColumn(final TableViewerCreator<IMetadataColumn> tableViewerCreator,
+            CellEditorValueAdapter comboValueAdapter, String[] arrayTalendTypes) {
+        TableViewerCreatorColumn column;
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle(Messages.getString("MetadataTableEditorView.TypleTitle")); //$NON-NLS-1$
+        column.setId(ID_COLUMN_TYPE);
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
+
+            public String get(IMetadataColumn bean) {
+                return bean.getTalendType();
+            }
+
+            public void set(IMetadataColumn bean, String value) {
+                bean.setTalendType(value);
+            }
+
+        });
+        column.setModifiable(!isReadOnly());
+        column.setWeight(10);
+        column.setMinimumWidth(30);
+        ComboBoxCellEditor typeComboEditor = new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes, SWT.READ_ONLY);
+        CCombo typeCombo = (CCombo) typeComboEditor.getControl();
+        typeCombo.setEditable(false);
+        column.setCellEditor(typeComboEditor, comboValueAdapter);
+    }
+
+    /**
+     * DOC amaumont Comment method "initDbTypeColumn".
+     * 
+     * @param tableViewerCreator
+     */
+    private void initDbTypeColumn(final TableViewerCreator<IMetadataColumn> tableViewerCreator) {
+        TableViewerCreatorColumn column;
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle(Messages.getString("MetadataEmfTableEditorView.DBTypeTitle")); //$NON-NLS-1$
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IMetadataColumn, String>() {
+
+            public String get(IMetadataColumn bean) {
+                return bean.getType();
+            }
+
+            public void set(IMetadataColumn bean, String value) {
+                throw new UnsupportedOperationException();
+            }
+
+        });
+        column.setModifiable(false);
+        column.setWeight(10);
+        column.setMinimumWidth(60);
+        final Color readonlyColor = tableViewerCreator.getTable().getDisplay().getSystemColor(SWT.COLOR_GRAY);
+
+        column.setColorProvider(new IColumnColorProvider() {
+
+            public Color getBackgroundColor(Object bean) {
+                return readonlyColor;
+            }
+
+            public Color getForegroundColor(Object bean) {
+                return null;
+            }
+
+        });
     }
 
     public MetadataToolbarEditorView getToolBar() {
         return (MetadataToolbarEditorView) getExtendedToolbar();
     }
-    
+
     protected void configureCellModifierForJava(TableViewerCreator<IMetadataColumn> tableViewerCreator) {
         ICellModifier cellModifier = new MetadataTableCellModifierForJava(tableViewerCreator);
         tableViewerCreator.setCellModifier(cellModifier);
     }
-    
+
     /**
+     * . <br/>
      * 
-     * .
-     * <br/>
-     *
      * $Id$
-     *
+     * 
      */
     class MetadataTableCellModifierForJava extends DefaultCellModifier {
 
         /**
          * DOC amaumont MetadataTableCellModifier constructor comment.
+         * 
          * @param tableViewerCreator
          */
         public MetadataTableCellModifierForJava(TableViewerCreator tableViewerCreator) {
             super(tableViewerCreator);
         }
 
-        /* (non-Javadoc)
-         * @see org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier#canModify(java.lang.Object, java.lang.String)
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier#canModify(java.lang.Object,
+         * java.lang.String)
          */
         @Override
         public boolean canModify(Object element, String property) {
@@ -468,9 +587,12 @@ public class MetadataTableEditorView extends AbstractDataTableEditorView<IMetada
             boolean columnIsPattern = ID_COLUMN_PATTERN.equals(property);
             return super.canModify(element, property) && (columnIsPattern && typeIsDate || !columnIsPattern);
         }
-        
-        
-        
+
+    }
+
+    public void setDbTypeColumnsState(boolean showDbTypeColumn, boolean showDbTypeColumnAtLeftPosition) {
+        this.showDbTypeColumn = showDbTypeColumn;
+        this.showDbTypeColumnAtLeftPosition = showDbTypeColumnAtLeftPosition;
     }
 
 }

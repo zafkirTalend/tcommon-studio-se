@@ -47,6 +47,7 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
 
 /**
@@ -56,6 +57,8 @@ import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
  * 
  */
 public class MetadataDialog extends Dialog {
+
+    private static final Object DATABASE_LABEL = "Database";
 
     @Override
     protected void setShellStyle(int newShellStyle) {
@@ -87,14 +90,21 @@ public class MetadataDialog extends Dialog {
 
     private CommandStack commandStack;
 
-    public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, String titleInput, IMetadataTable outputMetaTable,
-            String titleOutput, CommandStack commandStack) {
+    private String outputFamily;
+
+    private String inputFamily;
+
+    public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, String titleInput, String inputFamily,
+            IMetadataTable outputMetaTable, String titleOutput, String outputFamily, CommandStack commandStack) {
         super(parent);
         this.inputMetaTable = inputMetaTable;
         this.titleInput = titleInput;
         this.outputMetaTable = outputMetaTable;
         this.titleOutput = titleOutput;
         this.commandStack = commandStack;
+        this.inputFamily = inputFamily;
+        this.outputFamily = outputFamily;
+
         if (inputMetaTable == null) {
             size = new Point(550, 400);
         } else {
@@ -102,8 +112,8 @@ public class MetadataDialog extends Dialog {
         }
     }
 
-    public MetadataDialog(Shell parent, IMetadataTable outputMetaTable, String titleOutput, CommandStack commandStack) {
-        this(parent, null, null, outputMetaTable, titleOutput, commandStack);
+    public MetadataDialog(Shell parent, IMetadataTable outputMetaTable, String titleOutput, String outputFamily, CommandStack commandStack) {
+        this(parent, null, null, null, outputMetaTable, titleOutput, outputFamily, commandStack);
     }
 
     public void setText(String text) {
@@ -133,15 +143,19 @@ public class MetadataDialog extends Dialog {
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, !outputReadOnly);
+            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, !outputReadOnly, true,
+                    false);
+            outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), false);
+            outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
-            // outputMetaView.getTableViewerCreator().layout();
         } else {
             GridLayout gridLayout = new GridLayout(3, false);
             composite.setLayout(gridLayout);
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
-            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, inputReadOnly,
-                    !inputReadOnly);
+            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, inputReadOnly, !inputReadOnly, true,
+                    false);
+            inputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(inputFamily), true);
+            inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
 
             inputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
@@ -156,14 +170,12 @@ public class MetadataDialog extends Dialog {
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
-                            | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
                         outputMetaView.getMetadataTableEditor().removeAll();
-                        outputMetaView.getMetadataTableEditor().addAll(
-                                inputMetaView.getMetadataTableEditor().getMetadataColumnList());
+                        outputMetaView.getMetadataTableEditor().addAll(inputMetaView.getMetadataTableEditor().getMetadataColumnList());
                     }
                 }
             });
@@ -175,14 +187,12 @@ public class MetadataDialog extends Dialog {
             copyToInput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
-                            | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
                         inputMetaView.getMetadataTableEditor().removeAll();
-                        inputMetaView.getMetadataTableEditor().addAll(
-                                outputMetaView.getMetadataTableEditor().getMetadataColumnList());
+                        inputMetaView.getMetadataTableEditor().addAll(outputMetaView.getMetadataTableEditor().getMetadataColumnList());
                     }
                 }
             });
@@ -191,18 +201,21 @@ public class MetadataDialog extends Dialog {
                 copyToInput.setEnabled(false);
             }
 
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, new MetadataTableEditor(outputMetaTable,
-                    titleOutput + " (Output)"), outputReadOnly, !outputReadOnly); //$NON-NLS-1$
+            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, new MetadataTableEditor(outputMetaTable, titleOutput
+                    + " (Output)"), outputReadOnly, !outputReadOnly, true, //$NON-NLS-1$
+                    false);
+            outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), false);
+            outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
             outputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
             if (outputReadOnly) {
                 copyToOutput.setEnabled(false);
             }
-		}
+        }
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
 
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
-                if (MetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
+                if (AbstractMetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
                     IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
                     if (modifiedObject != null) {
                         String originalLabel = changedNameColumns.get(modifiedObject);

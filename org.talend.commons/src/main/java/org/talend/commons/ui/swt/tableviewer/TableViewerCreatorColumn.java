@@ -29,6 +29,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TableColumn;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.behavior.IColumnColorProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.ITableCellValueModifiedListener;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
@@ -125,6 +126,8 @@ public class TableViewerCreatorColumn implements Cloneable {
     private TableViewerCreator tableViewerCreator;
 
     private ITableCellValueModifiedListener cellEditorAppliedListener;
+
+    private IColumnColorProvider colorProvider;
 
     /**
      * 
@@ -487,4 +490,23 @@ public class TableViewerCreatorColumn implements Cloneable {
         return String.valueOf(generatedId++);
     }
 
+    /**
+     * Gets the colorProvider.
+     * @return
+     */
+    public IColumnColorProvider getColorProvider() {
+        return colorProvider;
+    }
+
+    
+    /**
+     * Sets the colorProvider.
+     * @param colorProvider the colorProvider to set
+     */
+    public void setColorProvider(IColumnColorProvider colorProvider) {
+        this.colorProvider = colorProvider;
+    }
+
+    
+    
 }

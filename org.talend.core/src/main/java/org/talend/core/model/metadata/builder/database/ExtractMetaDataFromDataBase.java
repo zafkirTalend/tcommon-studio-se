@@ -253,7 +253,7 @@ public class ExtractMetaDataFromDataBase {
                 } else {
                     metadataColumn.setKey(false);
                 }
-                metadataColumn.setSourceType(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME")); //$NON-NLS-1$
+                metadataColumn.setSourceType(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase()); //$NON-NLS-1$
                 metadataColumn.setNullable(new Boolean(ExtractMetaDataUtils.getBooleanMetaDataInfo(columns,
                         "IS_NULLABLE")).booleanValue()); //$NON-NLS-1$
                 metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$

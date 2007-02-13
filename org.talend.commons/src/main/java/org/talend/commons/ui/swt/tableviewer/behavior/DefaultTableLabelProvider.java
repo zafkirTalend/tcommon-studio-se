@@ -103,6 +103,10 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
      * @see org.eclipse.jface.viewers.ITableColorProvider#getBackground(java.lang.Object, int)
      */
     public Color getBackground(Object element, int columnIndex) {
+        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns().get(columnIndex);
+        if (column.getColorProvider() != null) {
+            return column.getColorProvider().getBackgroundColor(element);
+        }
         return tableViewerCreator.getTable().getDisplay().getSystemColor(SWT.COLOR_WHITE);
     }
 
@@ -112,6 +116,10 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
      * @see org.eclipse.jface.viewers.ITableColorProvider#getForeground(java.lang.Object, int)
      */
     public Color getForeground(Object element, int columnIndex) {
+        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns().get(columnIndex);
+        if (column.getColorProvider() != null) {
+            return column.getColorProvider().getForegroundColor(element);
+        }
         return tableViewerCreator.getTable().getDisplay().getSystemColor(SWT.COLOR_BLACK);
     }
 }

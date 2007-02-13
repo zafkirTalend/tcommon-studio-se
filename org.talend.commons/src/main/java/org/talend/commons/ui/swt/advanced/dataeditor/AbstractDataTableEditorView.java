@@ -96,6 +96,20 @@ public abstract class AbstractDataTableEditorView<B> {
      */
     public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<B> extendedTableModel,
             boolean readOnly, boolean toolbarVisible, boolean labelVisible) {
+        this(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible, true);
+    }
+
+    /**
+     * 
+     * This constructor init graphics components, then load model.
+     * 
+     * @param parentComposite
+     * @param mainCompositeStyle
+     * @param extendedTableModel
+     * @param labelVisible TODO
+     */
+    public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<B> extendedTableModel,
+            boolean readOnly, boolean toolbarVisible, boolean labelVisible, boolean initGraphicsComponents) {
         super();
         this.parentComposite = parentComposite;
         this.mainCompositeStyle = mainCompositeStyle;
@@ -103,8 +117,9 @@ public abstract class AbstractDataTableEditorView<B> {
         this.readOnly = readOnly;
         this.toolbarVisible = toolbarVisible;
         this.labelVisible = labelVisible;
-        initGraphicComponents();
-        setExtendedTableModel(extendedTableModel);
+        if (initGraphicsComponents) {
+            initGraphicComponents();
+        }
     }
 
     /**
@@ -180,7 +195,12 @@ public abstract class AbstractDataTableEditorView<B> {
             this.extendedToolbar = initToolBar();
         }
 
+        setReadOnly(this.readOnly);
+
         addListeners();
+        
+        setExtendedTableModel(this.extendedTableModel);
+        
     }
 
     /**
@@ -336,11 +356,14 @@ public abstract class AbstractDataTableEditorView<B> {
             extendedToolbar.setReadOnly(readOnly);
         }
 
-        TableViewerCreator<B> tableViewerCreator = extendedTableViewer.getTableViewerCreator();
+        if (extendedTableViewer != null) {
 
-        List<TableViewerCreatorColumn> columns = tableViewerCreator.getColumns();
-        for (TableViewerCreatorColumn column : columns) {
-            column.setModifiable(!readOnly);
+            TableViewerCreator<B> tableViewerCreator = extendedTableViewer.getTableViewerCreator();
+
+            List<TableViewerCreatorColumn> columns = tableViewerCreator.getColumns();
+            for (TableViewerCreatorColumn column : columns) {
+                column.setModifiable(!readOnly);
+            }
         }
     }
 

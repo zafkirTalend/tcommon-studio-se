@@ -38,6 +38,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
+import org.talend.core.model.metadata.types.JavaTypesManager;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -164,8 +165,7 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
                 Context.REPOSITORY_CONTEXT_KEY);
         ECodeLanguage codeLanguage = repositoryContext.getProject().getLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
-            metadataColumn.setType("String"); //$NON-NLS-1$
-            metadataColumn.setTalendType("String"); //$NON-NLS-1$
+            metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
         }
 
         return metadataColumn;
