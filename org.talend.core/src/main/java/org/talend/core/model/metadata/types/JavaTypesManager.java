@@ -46,7 +46,7 @@ public final class JavaTypesManager {
     public static final String NULL = "null";
 
     public static final String JAVA_PRIMITIVE_CHAR = "char";
-    
+
     public static final JavaType BOOLEAN = new JavaType(Boolean.class, boolean.class);
 
     public static final JavaType BYTE = new JavaType(Byte.class, byte.class);
@@ -88,13 +88,12 @@ public final class JavaTypesManager {
 
     private static final List<String> JAVA_PRIMITIVE_TYPES = new ArrayList<String>();
 
-
     static {
         init();
     }
 
     private static final Set<String> PRIMITIVE_TYPES_SET = new HashSet<String>(JAVA_PRIMITIVE_TYPES);
-    
+
     /**
      * DOC amaumont Comment method "init".
      */
@@ -165,7 +164,11 @@ public final class JavaTypesManager {
      * @return JavaType if found, else null
      */
     public static JavaType getJavaTypeFromId(String id) {
-        return idToJavaType.get(id);
+        JavaType javaTypeFromId = idToJavaType.get(id);
+        if (javaTypeFromId == null) {
+            throw new IllegalArgumentException("Unknown java id type : '" + id + "'");
+        }
+        return javaTypeFromId;
     }
 
     public static String[] getJavaTypesLabels() {
@@ -209,6 +212,7 @@ public final class JavaTypesManager {
 
     /**
      * DOC amaumont Comment method "getFinalType".
+     * 
      * @param javaType
      * @param nullable
      * @return
@@ -260,7 +264,7 @@ public final class JavaTypesManager {
         String typeToGenerate = getTypeToGenerate(idType, nullable);
         return isJavaPrimitiveType(typeToGenerate);
     }
-    
+
     /**
      * 
      * Return true if given type represents a primitive java type.
@@ -272,7 +276,7 @@ public final class JavaTypesManager {
         String typeToGenerate = getTypeToGenerate(javaType, nullable);
         return isJavaPrimitiveType(typeToGenerate);
     }
-    
+
     /**
      * 
      * Return the default value for a given type.
@@ -306,7 +310,6 @@ public final class JavaTypesManager {
         String typeToGenerate = getTypeToGenerate(idType, nullable);
         return getDefaultValueFromJavaType(typeToGenerate);
     }
-    
 
     public static JavaType getDefaultJavaType() {
         return STRING;
