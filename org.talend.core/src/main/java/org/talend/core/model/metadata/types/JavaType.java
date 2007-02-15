@@ -187,4 +187,8 @@ public final class JavaType {
         return buffer.toString();
     }
 
+    public boolean isPrimitive() {
+        return this.primitiveClass != null;
+    }
+    
 }

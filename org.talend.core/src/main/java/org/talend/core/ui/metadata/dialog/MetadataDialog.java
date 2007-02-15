@@ -47,6 +47,7 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
 
 /**
@@ -144,7 +145,7 @@ public class MetadataDialog extends Dialog {
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, !outputReadOnly, true,
                     false);
-            outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), false);
+            outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), true);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
         } else {
@@ -214,7 +215,7 @@ public class MetadataDialog extends Dialog {
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
 
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
-                if (MetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
+                if (AbstractMetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
                     IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
                     if (modifiedObject != null) {
                         String originalLabel = changedNameColumns.get(modifiedObject);

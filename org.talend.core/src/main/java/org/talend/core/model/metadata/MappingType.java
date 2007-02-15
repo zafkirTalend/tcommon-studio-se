@@ -34,7 +34,7 @@ public class MappingType {
 
     private String dbType;
 
-    private String talendType;
+    private String talendTypeName;
 
     private Boolean nullable;
 
@@ -51,7 +51,7 @@ public class MappingType {
         int result = 1;
         result = prime * result + ((this.dbType == null) ? 0 : this.dbType.hashCode());
         result = prime * result + ((this.defaultSelected == null) ? 0 : this.defaultSelected.hashCode());
-        result = prime * result + ((this.talendType == null) ? 0 : this.talendType.hashCode());
+        result = prime * result + ((this.talendTypeName == null) ? 0 : this.talendTypeName.hashCode());
         result = prime * result + ((this.nullable == null) ? 0 : this.nullable.hashCode());
         return result;
     }
@@ -77,7 +77,7 @@ public class MappingType {
         if (this.defaultSelected != null && !this.defaultSelected.equals(other.defaultSelected))
             return false;
 
-        if (this.talendType != null && !this.talendType.equals(other.talendType))
+        if (this.talendTypeName != null && !this.talendTypeName.equals(other.talendTypeName))
             return false;
 
         if (this.nullable != null && !this.nullable.equals(other.nullable))
@@ -126,17 +126,17 @@ public class MappingType {
      * 
      * @return the languageType
      */
-    public String getTalendType() {
-        return this.talendType;
+    public String getTalendTypeName() {
+        return this.talendTypeName;
     }
 
     /**
      * Sets the languageType.
      * 
-     * @param talendType the languageType to set
+     * @param talendTypeName the languageType to set
      */
-    public void setTalendType(String talendType) {
-        this.talendType = talendType;
+    public void setTalendTypeName(String talendTypeName) {
+        this.talendTypeName = talendTypeName;
     }
 
     /**
@@ -166,7 +166,7 @@ public class MappingType {
             StringBuffer buffer = new StringBuffer();
             buffer.append("MappingType[");
             buffer.append("dbmsType = ").append(dbType);
-            buffer.append(", talendType = ").append(talendType);
+            buffer.append(", talendType = ").append(talendTypeName);
             buffer.append(", defaultSelected = ").append(defaultSelected);
             buffer.append(", nullable = ").append(nullable);
             buffer.append("]");

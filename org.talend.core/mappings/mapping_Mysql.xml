@@ -2,26 +2,34 @@
 <mapping>
 	<dbms product="MYSQL" id="Mysql5.1" label="Mapping Mysql 5.1">
 
-		<defaultType dbType="VARCHAR"/>
-		
 		<db_types>
 			<type dbType="BOOLEAN"/>
 			<type dbType="TINYINT"/>
+			<type dbType="TINYINT UNSIGNED"/>
 			<type dbType="SMALLINT"/>
+			<type dbType="SMALLINT UNSIGNED"/>
 			<type dbType="MEDIUMINT"/>
+			<type dbType="MEDIUMINT UNSIGNED"/>
 			<type dbType="INT"/>
-			<type dbType="INTEGER"/>
 			<type dbType="INT UNSIGNED"/>
+			<type dbType="INTEGER"/>
+			<type dbType="INTEGER UNSIGNED"/>
 			<type dbType="BIGINT"/>
+			<type dbType="BIGINT UNSIGNED"/>
 			<type dbType="REAL"/>
+			<type dbType="REAL UNSIGNED"/>
 			<type dbType="LONG"/>
+			<type dbType="LONG UNSIGNED"/>
 			<type dbType="FLOAT"/>
+			<type dbType="FLOAT UNSIGNED"/>
 			<type dbType="DOUBLE"/>
+			<type dbType="DOUBLE UNSIGNED"/>
 			<type dbType="NUMBER"/>
+			<type dbType="NUMBER UNSIGNED"/>
 			<type dbType="NUMBER-2"/>
-			<type dbType="REAL"/>
-			<type dbType="DOUBLE"/>
+			<type dbType="NUMBER-2 UNSIGNED"/>
 			<type dbType="DECIMAL"/>
+			<type dbType="DECIMAL UNSIGNED"/>
 			<type dbType="CHAR"/>
 			<type dbType="VARCHAR" default="true"/>
 			<type dbType="CLOB"/>
@@ -52,27 +60,26 @@
 			<type talendType="double" dbType="REAL" />
 			<type talendType="double" dbType="DOUBLE" />
 			<type talendType="double" dbType="DECIMAL" />
+			
+			<type talendType="int" dbType="TINYINT UNSIGNED" />
+			<type talendType="int" dbType="SMALLINT UNSIGNED" />
+			<type talendType="int" dbType="MEDIUMINT UNSIGNED" />
+			<type talendType="int" dbType="INT UNSIGNED" defaultSelected="true" />
+			<type talendType="int" dbType="INTEGER UNSIGNED" />
+			<type talendType="int" dbType="INT UNSIGNED UNSIGNED" />
+			<type talendType="int" dbType="BIGINT UNSIGNED" />
+			<type talendType="long" dbType="LONG UNSIGNED" defaultSelected="true" />
+			<type talendType="float" dbType="FLOAT UNSIGNED" defaultSelected="true" />
+			<type talendType="double" dbType="DOUBLE UNSIGNED" defaultSelected="true" />
+			<type talendType="double" dbType="REAL UNSIGNED" />
+			<type talendType="double" dbType="NUMBER UNSIGNED" />
+			<type talendType="double" dbType="NUMBER-2 UNSIGNED" />
+			<type talendType="double" dbType="REAL UNSIGNED" />
+			<type talendType="double" dbType="DOUBLE UNSIGNED" />
+			<type talendType="double" dbType="DECIMAL UNSIGNED" />
+			
 			<type talendType="char" dbType="CHAR" defaultSelected="true" />
 			<type talendType="boolean" dbType="BOOLEAN" defaultSelected="true" />
-			
-			<type talendType="Integer" dbType="TINYINT" nullable="true"/>
-			<type talendType="Integer" dbType="SMALLINT" nullable="true" />
-			<type talendType="Integer" dbType="MEDIUMINT" nullable="true" />
-			<type talendType="Integer" dbType="INT" nullable="true" defaultSelected="true" />
-			<type talendType="Integer" dbType="INTEGER"  nullable="true" />
-			<type talendType="Integer" dbType="INT UNSIGNED"  nullable="true" />
-			<type talendType="Integer" dbType="BIGINT"  nullable="true" />
-			<type talendType="Long" dbType="LONG" nullable="true" defaultSelected="true"/>
-			<type talendType="Float" dbType="FLOAT" nullable="true" defaultSelected="true" />
-			<type talendType="Double" dbType="FLOAT"  nullable="true" />
-			<type talendType="Double" dbType="DOUBLE" nullable="true" defaultSelected="true"/>
-			<type talendType="Double" dbType="NUMBER"  nullable="true" />
-			<type talendType="Double" dbType="NUMBER-2"  nullable="true" />
-			<type talendType="Double" dbType="REAL"  nullable="true" />
-			<type talendType="Double" dbType="DOUBLE"  nullable="true" />
-			<type talendType="Double" dbType="DECIMAL"  nullable="true" />
-			<type talendType="Character" dbType="CHAR" nullable="true" defaultSelected="true"  />
-			<type talendType="Boolean" dbType="BOOLEAN" nullable="true" defaultSelected="true" />
 			
 			<type talendType="String" dbType="VARCHAR" nullable="true" defaultSelected="true" />
 			<type talendType="String" dbType="CLOB" nullable="true"/>
@@ -94,16 +101,15 @@
 			<type talendType="number" dbType="INTEGER" />
 			<type talendType="number" dbType="INT UNSIGNED" />
 			<type talendType="number" dbType="BIGINT" />
-			<type talendType="number" dbType="BIGINT" />
 			<type talendType="number" dbType="LONG"/>
-			<type talendType="number" dbType="FLOAT"/>
-			<type talendType="number" dbType="DOUBLE"/>
-			<type talendType="number" dbType="REAL" />
-			<type talendType="number" dbType="NUMBER" />
-			<type talendType="number" dbType="NUMBER-2" />
-			<type talendType="number" dbType="REAL" />
-			<type talendType="number" dbType="DOUBLE" />
-			<type talendType="number" dbType="DECIMAL" />
+			
+			<type talendType="decimal" dbType="NUMBER" />
+			<type talendType="decimal" dbType="NUMBER-2" />
+			<type talendType="decimal" dbType="FLOAT"/>
+			<type talendType="decimal" dbType="REAL" />
+			<type talendType="decimal" dbType="DOUBLE" />
+			<type talendType="decimal" dbType="DECIMAL" />
+			
 			<type talendType="boolean" dbType="BOOLEAN" defaultSelected="true"/>
 			
 			<type talendType="string" dbType="CHAR"/>
@@ -122,8 +128,6 @@
 	
 	<dbms product="MYSQL" id="Mysql4" label="Mapping Mysql 4">
 
-		<defaultType dbType="VARCHAR"/>
-		
 		<db_types>
 			<type dbType="BOOLEAN"/>
 			<type dbType="TINYINT"/>
@@ -175,25 +179,6 @@
 			<type talendType="char" dbType="CHAR" defaultSelected="true" />
 			<type talendType="boolean" dbType="BOOLEAN" defaultSelected="true" />
 			
-			<type talendType="Integer" dbType="TINYINT" nullable="true"/>
-			<type talendType="Integer" dbType="SMALLINT" nullable="true" />
-			<type talendType="Integer" dbType="MEDIUMINT" nullable="true" />
-			<type talendType="Integer" dbType="INT" nullable="true" defaultSelected="true" />
-			<type talendType="Integer" dbType="INTEGER"  nullable="true" />
-			<type talendType="Integer" dbType="INT UNSIGNED"  nullable="true" />
-			<type talendType="Integer" dbType="BIGINT"  nullable="true" />
-			<type talendType="Long" dbType="LONG" nullable="true" defaultSelected="true"/>
-			<type talendType="Float" dbType="FLOAT" nullable="true" defaultSelected="true" />
-			<type talendType="Double" dbType="FLOAT"  nullable="true" />
-			<type talendType="Double" dbType="DOUBLE" nullable="true" defaultSelected="true"/>
-			<type talendType="Double" dbType="NUMBER"  nullable="true" />
-			<type talendType="Double" dbType="NUMBER-2"  nullable="true" />
-			<type talendType="Double" dbType="REAL"  nullable="true" />
-			<type talendType="Double" dbType="DOUBLE"  nullable="true" />
-			<type talendType="Double" dbType="DECIMAL"  nullable="true" />
-			<type talendType="Character" dbType="CHAR" nullable="true" defaultSelected="true"  />
-			<type talendType="Boolean" dbType="BOOLEAN" nullable="true" defaultSelected="true" />
-			
 			<type talendType="String" dbType="VARCHAR" nullable="true" defaultSelected="true" />
 			<type talendType="String" dbType="CLOB" nullable="true"/>
 			<type talendType="String" dbType="TINYTEXT" nullable="true"/>
@@ -216,15 +201,15 @@
 			<type talendType="number" dbType="BIGINT" />
 			<type talendType="number" dbType="BIGINT" />
 			<type talendType="number" dbType="LONG"/>
-			<type talendType="number" dbType="FLOAT"/>
-			<type talendType="number" dbType="DOUBLE"/>
-			<type talendType="number" dbType="REAL" />
-			<type talendType="number" dbType="NUMBER" />
-			<type talendType="number" dbType="NUMBER-2" />
-			<type talendType="number" dbType="REAL" />
-			<type talendType="number" dbType="DOUBLE" />
-			<type talendType="number" dbType="DECIMAL" />
+
 			<type talendType="boolean" dbType="BOOLEAN" defaultSelected="true"/>
+			
+			<type talendType="decimal" dbType="FLOAT"/>
+			<type talendType="decimal" dbType="REAL" />
+			<type talendType="decimal" dbType="DOUBLE" />
+			<type talendType="decimal" dbType="DECIMAL" />
+			<type talendType="decimal" dbType="NUMBER" />
+			<type talendType="decimal" dbType="NUMBER-2" />
 			
 			<type talendType="string" dbType="CHAR"/>
 			<type talendType="string" dbType="VARCHAR" defaultSelected="true" />

@@ -250,6 +250,9 @@ public final class JavaTypesManager {
      * @return true if given type represents a primitive java type
      */
     public static boolean isJavaPrimitiveType(String type) {
+        if (type == null) {
+            throw new IllegalArgumentException();
+        }
         return PRIMITIVE_TYPES_SET.contains(type);
     }
 
@@ -301,6 +304,25 @@ public final class JavaTypesManager {
 
     /**
      * 
+     * Return the default value for a given type, if the given parameter "defaultValue" is set, this value is returned.
+     * 
+     * @param type
+     * @return string value if the case is valid or the default value is valid. If the type is primitive and the
+     * <code>defaultValue</code> is not set, java null is returned.
+     */
+    public static String getDefaultValueFromJavaType(String type, String defaultValue) {
+        if (defaultValue != null && defaultValue.length() > 0) {
+            return defaultValue;
+        } else if (isJavaPrimitiveType(type)) {
+            return null;
+        } else {
+            return getDefaultValueFromJavaType(type);
+        }
+
+    }
+
+    /**
+     * 
      * Return the default value for a given type.
      * 
      * @param type
@@ -309,6 +331,18 @@ public final class JavaTypesManager {
     public static String getDefaultValueFromJavaIdType(String idType, boolean nullable) {
         String typeToGenerate = getTypeToGenerate(idType, nullable);
         return getDefaultValueFromJavaType(typeToGenerate);
+    }
+
+    /**
+     * 
+     * Return the default value for a given type.
+     * 
+     * @param type
+     * @return
+     */
+    public static String getDefaultValueFromJavaIdType(String idType, boolean nullable, String defaultValue) {
+        String typeToGenerate = getTypeToGenerate(idType, nullable);
+        return getDefaultValueFromJavaType(typeToGenerate, defaultValue);
     }
 
     public static JavaType getDefaultJavaType() {

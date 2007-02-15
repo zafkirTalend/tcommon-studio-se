@@ -118,6 +118,14 @@ public final class MetadataTalendType {
 
     };
 
+    static {
+        try {
+            MetadataTalendType.loadCommonMappings();
+        } catch (SystemException e) {
+            ExceptionHandler.process(e);
+        }
+    }
+
     /**
      * Get the Talend Type for a particular type of a particular database.
      * 
@@ -164,14 +172,18 @@ public final class MetadataTalendType {
      */
     public static String[] loadTalendTypes(String dbms, boolean reload) {
 
-        dbms = dbms.toUpperCase();
-        Collection<String> types = new TreeSet<String>();
-        checkTypesAreInitialized(dbms, reload);
-        if (talendTypes.get(dbms) != null) {
-            types = talendTypes.get(dbms).values();
-        }
+        if (codeLanguage == ECodeLanguage.JAVA) {
+            return JavaTypesManager.getJavaTypesLabels();
+        } else {
+            dbms = dbms.toUpperCase();
+            Collection<String> types = new TreeSet<String>();
+            checkTypesAreInitialized(dbms, reload);
+            if (talendTypes.get(dbms) != null) {
+                types = talendTypes.get(dbms).values();
+            }
 
-        return createStringArray(types);
+            return createStringArray(types);
+        }
     }
 
     /**
@@ -457,6 +469,8 @@ public final class MetadataTalendType {
                 for (int i = 0; i < languageNodes.size(); i++) {
                     Node languageNode = languageNodes.get(i);
 
+                    System.out.println();
+                    
                     String languageValue = languageNode.getAttributes().getNamedItem("name").getNodeValue();
 
                     if (codeLanguage.getName().equalsIgnoreCase(languageValue)) {
@@ -480,17 +494,51 @@ public final class MetadataTalendType {
                             }
 
                             Node defaultSelectedItem = dbTypeAttributes.getNamedItem("defaultSelected");
-                            Node nullableItem = dbTypeAttributes.getNamedItem("nullable");
 
-                            MappingType mappingType = new MappingType();
-                            mappingType.setTalendType(talendTypeItem.getNodeValue());
-                            mappingType.setDbType(dbTypeItem.getNodeValue());
-                            mappingType.setDefaultSelected(defaultSelectedItem != null
-                                    && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE);
-                            mappingType
-                                    .setNullable(nullableItem != null && nullableItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE
-                                            : Boolean.FALSE);
-                            mappingTypes.add(mappingType);
+                            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+
+                                String talendType = talendTypeItem.getNodeValue();
+                                JavaType javaType = JavaTypesManager.getJavaTypeFromName(talendType);
+
+                                boolean defaultSelected = defaultSelectedItem != null
+                                        && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE;
+
+                                if (javaType != null) {
+
+                                    if (javaType.isPrimitive()) {
+                                        MappingType primitiveMappingType = new MappingType();
+                                        primitiveMappingType.setTalendTypeName(javaType.getPrimitiveClass().getSimpleName());
+                                        primitiveMappingType.setDbType(dbTypeItem.getNodeValue());
+                                        primitiveMappingType.setDefaultSelected(defaultSelected);
+                                        primitiveMappingType.setNullable(Boolean.FALSE);
+                                        mappingTypes.add(primitiveMappingType);
+                                    }
+
+                                    MappingType objectMappingType = new MappingType();
+                                    objectMappingType.setTalendTypeName(javaType.getNullableClass().getSimpleName());
+                                    objectMappingType.setDbType(dbTypeItem.getNodeValue());
+                                    objectMappingType.setDefaultSelected(defaultSelected);
+                                    objectMappingType.setNullable(Boolean.TRUE);
+                                    mappingTypes.add(objectMappingType);
+
+                                } else {
+                                    
+                                    log.warn("'" + talendType + "' is not a valid Java Talend type.");
+                                    
+                                }
+
+                            } else if (LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
+
+                                MappingType mappingType = new MappingType();
+                                mappingType.setTalendTypeName(talendTypeItem.getNodeValue());
+                                mappingType.setDbType(dbTypeItem.getNodeValue());
+                                mappingType.setDefaultSelected(defaultSelectedItem != null
+                                        && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE);
+                                mappingType.setNullable(Boolean.FALSE);
+                                mappingTypes.add(mappingType);
+
+                            }
+
                         }
                     }
                 }
@@ -566,7 +614,7 @@ public final class MetadataTalendType {
             e.printStackTrace();
         }
 
-        String dbmsId = "Oracle10g";
+        String dbmsId = "Mysql5.1";
         Dbms dbms = getDbms(dbmsId);
         System.out.println("Oracle10g dbms:" + dbms);
         System.out.println("Oracle10g types:" + Arrays.asList(getDbTypes(dbmsId)));

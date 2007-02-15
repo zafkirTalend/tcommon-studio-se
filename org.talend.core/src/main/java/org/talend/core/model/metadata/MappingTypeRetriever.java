@@ -69,13 +69,13 @@ public class MappingTypeRetriever {
             MappingType mappingType = mappingTypes.get(i);
 
             MappingType mapDbToTalendKey = new MappingType();
-            mapDbToTalendKey.setDbType(mappingType.getDbType());
+            mapDbToTalendKey.setDbType(mappingType.getDbType().toUpperCase());
             mapDbToTalendKey.setNullable(mappingType.getNullable());
             mapDbToTalendKey.setDefaultSelected(mappingType.getDefaultSelected());
             mapDbToTalend.put(mapDbToTalendKey, mappingType);
 
             MappingType mapTalendToDbKey = new MappingType();
-            mapTalendToDbKey.setTalendType(mappingType.getTalendType());
+            mapTalendToDbKey.setTalendTypeName(mappingType.getTalendTypeName());
             mapTalendToDbKey.setNullable(mappingType.getNullable());
             mapTalendToDbKey.setDefaultSelected(mappingType.getDefaultSelected());
             mapTalendToDb.put(mapTalendToDbKey, mappingType);
@@ -83,8 +83,8 @@ public class MappingTypeRetriever {
     }
 
     public MappingType getMappingType(String dbmsType, String talendType, Boolean nullable, Boolean defaultSelected) {
-        mappingTypeKey.setDbType(dbmsType);
-        mappingTypeKey.setTalendType(talendType);
+        mappingTypeKey.setDbType(dbmsType.toUpperCase());
+        mappingTypeKey.setTalendTypeName(talendType);
         mappingTypeKey.setNullable(nullable);
         mappingTypeKey.setDefaultSelected(defaultSelected);
         MappingType mappingType = mapDbToTalend.get(mappingTypeKey);
@@ -100,8 +100,8 @@ public class MappingTypeRetriever {
      * @return
      */
     public String getDefaultSelectedTalendType(String dbmsType, boolean nullable) {
-        mappingTypeKey.setDbType(dbmsType);
-        mappingTypeKey.setTalendType(null);
+        mappingTypeKey.setDbType(dbmsType.toUpperCase());
+        mappingTypeKey.setTalendTypeName(null);
         mappingTypeKey.setNullable(nullable);
         mappingTypeKey.setDefaultSelected(Boolean.TRUE);
         MappingType mappingType = mapDbToTalend.get(mappingTypeKey);
@@ -109,10 +109,18 @@ public class MappingTypeRetriever {
             mappingTypeKey.setNullable(!nullable);
             mappingType = mapDbToTalend.get(mappingTypeKey);
             if (mappingType == null) {
-                return MetadataTalendType.getDefaultTalendType();
+                mappingTypeKey.setDefaultSelected(Boolean.FALSE);
+                mappingType = mapDbToTalend.get(mappingTypeKey);
+                if (mappingType == null) {
+                    mappingTypeKey.setNullable(nullable);
+                    mappingType = mapDbToTalend.get(mappingTypeKey);
+                    if (mappingType == null) {
+                        return MetadataTalendType.getDefaultTalendType();
+                    }
+                }
             }
         }
-        return mappingType.getTalendType();
+        return mappingType.getTalendTypeName();
     }
 
     /**
@@ -125,7 +133,7 @@ public class MappingTypeRetriever {
      */
     public String getDefaultSelectedDbType(String talendType, boolean nullable) {
         mappingTypeKey.setDbType(null);
-        mappingTypeKey.setTalendType(talendType);
+        mappingTypeKey.setTalendTypeName(talendType);
         mappingTypeKey.setNullable(nullable);
         mappingTypeKey.setDefaultSelected(Boolean.TRUE);
         MappingType mappingType = mapTalendToDb.get(mappingTypeKey);
