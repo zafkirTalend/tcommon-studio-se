@@ -44,8 +44,6 @@ public interface IComponentsFactory {
 
     public List<IComponent> getComponents();
 
-    public IComponent get(int i);
-
     public IComponent get(String name);
 
     public List<URL> getComponentModel(String componentName, String modelFileSuffix);
