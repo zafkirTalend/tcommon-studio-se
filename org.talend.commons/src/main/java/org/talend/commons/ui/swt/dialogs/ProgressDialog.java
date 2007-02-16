@@ -29,6 +29,8 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.threading.AsynchronousThreading;
+import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -40,12 +42,30 @@ public abstract class ProgressDialog {
 
     private Shell parentShell;
 
+    private int timeBeforeShowDialog;
+
     /**
-     * DOC amaumont ProgressDialog constructor comment.
+     * 
+     * Show progress dialog when executeProcess() is called.
+     * 
+     * @param parentShell
      */
     public ProgressDialog(Shell parentShell) {
         super();
         this.parentShell = parentShell;
+    }
+
+    /**
+     * 
+     * Show progress dialog when executeProcess() is called and <code>timeBeforeShowDialog</code> is elapsed.
+     * 
+     * @param parentShell
+     * @param timeBeforeShowDialog time before show dialog
+     */
+    public ProgressDialog(Shell parentShell, int timeBeforeShowDialog) {
+        super();
+        this.parentShell = parentShell;
+        this.timeBeforeShowDialog = timeBeforeShowDialog;
     }
 
     public void executeProcess() {
@@ -72,7 +92,20 @@ public abstract class ProgressDialog {
 
             public void run() {
                 try {
-                    new ProgressMonitorDialog(parentShell).run(true, true, op);
+                    final ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(parentShell);
+                    progressMonitorDialog.setOpenOnRun(false);
+                    if (timeBeforeShowDialog > 0) {
+                        AsynchronousThreading asynchronousThreading = new AsynchronousThreading(timeBeforeShowDialog, true, display,
+                                new Runnable() {
+
+                                    public void run() {
+                                        progressMonitorDialog.open();
+                                    }
+                                });
+                        asynchronousThreading.start();
+                    }
+                    progressMonitorDialog.run(true, true, op);
+
                 } catch (InvocationTargetException e) {
                     ExceptionHandler.process(e);
                 } catch (InterruptedException e) {

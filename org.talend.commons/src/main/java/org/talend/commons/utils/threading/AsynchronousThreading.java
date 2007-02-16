@@ -61,7 +61,10 @@ public class AsynchronousThreading {
     }
 
     /**
-     * DOC amaumont AsynchronousDisplayThread constructor comment.
+     * 
+     * DOC amaumont AsynchronousThreading constructor comment.
+     * @param sleepingTime before execution in ms
+     * @param target
      */
     public AsynchronousThreading(int sleepingTime, Runnable target) {
         this.sleepingTime = sleepingTime;

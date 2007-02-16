@@ -42,4 +42,32 @@ public class StringUtils {
     public static String capitalize(String str) {
         return org.apache.commons.lang.StringUtils.capitalize(str);
     }
+
+
+
+    /**
+     * Extract string between the first delimiter and the second delimiter.
+     * 
+     * @param text
+     * @param delimiter
+     * @return
+     */
+    public static String extractFirstDelimitedString(String text, String delimiter) {
+
+        String returned = "";
+
+        int start = text.indexOf(delimiter, 0);
+
+        if (start != -1) {
+
+            int end = text.indexOf(delimiter, start + 1);
+
+            if (end != -1) {
+                returned = text.substring(start + 1, end);
+            }
+        }
+
+        return returned;
+    }
+
 }

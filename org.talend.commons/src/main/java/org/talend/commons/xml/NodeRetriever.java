@@ -23,8 +23,10 @@ package org.talend.commons.xml;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -40,6 +42,7 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.oro.text.regex.Perl5Substitution;
 import org.apache.oro.text.regex.Util;
+import org.talend.commons.exception.ExceptionHandler;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -64,6 +67,8 @@ public class NodeRetriever {
 
     private String currentLoopXPath;
 
+    private NamespaceContext namespaceContext;
+
     /**
      * DOC amaumont XMLNodeRetriever constructor comment.
      * 
@@ -72,7 +77,39 @@ public class NodeRetriever {
     public NodeRetriever(String filePath, String loopXPath) {
         super();
         this.currentLoopXPath = loopXPath;
+        initNamespaceContext();
         initSource(filePath);
+
+    }
+
+    /**
+     * DOC amaumont Comment method "initNamespaceContext".
+     */
+    private void initNamespaceContext() {
+        namespaceContext = new NamespaceContext() {
+
+            public String getNamespaceURI(String prefix) {
+                String uri;
+//                if (prefix.equals("h"))
+//                    uri = "http://www.w3.org/TR/REC-html40";
+//                else if (prefix.equals("r"))
+//                    uri = "http://itworld.com/ROYAL";
+//                else
+                    uri = null;
+                return uri;
+            }
+
+            // Dummy implementation - not used!
+            public Iterator getPrefixes(String val) {
+                return null;
+            }
+
+            // Dummy implemenation - not used!
+            public String getPrefix(String uri) {
+                return null;
+            }
+        };
+
 
     }
 
@@ -85,6 +122,7 @@ public class NodeRetriever {
         // Parse document containing schemas and validation roots
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
+//            dbf.setNamespaceAware(true);
             DocumentBuilder db = dbf.newDocumentBuilder();
             document = db.parse(filePath);
         } catch (ParserConfigurationException e) {
@@ -97,7 +135,7 @@ public class NodeRetriever {
         // Create XPath factory for selecting schema and validation roots
         XPathFactory xpf = XPathFactory.newInstance();
         xpath = xpf.newXPath();
-
+        xpath.setNamespaceContext(namespaceContext);
     }
 
     /**
@@ -137,7 +175,7 @@ public class NodeRetriever {
         xPathExpression = simplifyXPathExpression(xPathExpression);
 
         NodeList nodeList = null;
-//        System.out.println("xPathExpression = "+xPathExpression);
+        // System.out.println("xPathExpression = "+xPathExpression);
         XPathExpression xpathSchema = xpath.compile(xPathExpression);
         nodeList = (NodeList) xpathSchema.evaluate(document, XPathConstants.NODESET);
         return nodeList;
@@ -159,7 +197,7 @@ public class NodeRetriever {
         try {
             pattern = compiler.compile("(.*)/\\s*\\w+\\s*(/(\\.\\.|parent))(.*)");
         } catch (MalformedPatternException e) {
-            e.printStackTrace();
+            ExceptionHandler.process(e);
         }
 
         Perl5Substitution substitution = new Perl5Substitution("$1$4", Perl5Substitution.INTERPOLATE_ALL);
@@ -244,7 +282,7 @@ public class NodeRetriever {
             return;
         }
 
-        String filePath = "C:/test_xml/Microsoft.DirectX.Direct3DX.xml";
+        String filePath = "C:/test_xml/test.xml";
 
         NodeRetriever pathRetriever = new NodeRetriever(filePath, "");
 

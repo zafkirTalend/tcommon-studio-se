@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.commons.ui.swt.formtools;
 
+import org.eclipse.core.runtime.Path;
+import org.eclipse.osgi.framework.adaptor.FilePath;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -35,6 +37,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.i18n.internal.Messages;
+import org.talend.commons.ui.utils.PathUtils;
 
 /**
  * Create a Label and a Text.
@@ -198,7 +201,7 @@ public class LabelledFileField {
      */
     protected void displayDialog(Composite composite, String[] extensions) {
         FileDialog fileDialog = new FileDialog(composite.getShell(), SWT.OPEN);
-        fileDialog.setFileName(text.getText());
+        fileDialog.setFileName(new Path(text.getText()).toOSString());
         fileDialog.setText(Messages.getString("LabelledFileField.FileDialog.Text") + label.getText()); //$NON-NLS-1$
         if (extensions != null) {
             fileDialog.setFilterExtensions(extensions);
@@ -206,7 +209,7 @@ public class LabelledFileField {
         // fileDialog.setFilterNames(filterNames);
         String result = fileDialog.open();
         if (result != null) {
-            text.setText(result);
+            text.setText(PathUtils.getPortablePath(result));
         }
     }
 
