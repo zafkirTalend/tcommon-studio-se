@@ -69,10 +69,6 @@ public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
 
         JavaType javaType = JavaTypesManager.getJavaTypeFromId((String) originalTypedValue);
 
-        if (javaType == null) {
-            javaType = JavaTypesManager.getDefaultJavaType();
-        }
-
         String label = javaType.getLabel();
 
         if (originalTypedValue == null && defaultJavaType != null) {
@@ -96,10 +92,6 @@ public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
     @Override
     public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {
         JavaType javaType = JavaTypesManager.getJavaTypeFromId((String) originalTypedValue);
-
-        if (javaType == null) {
-            javaType = JavaTypesManager.getDefaultJavaType();
-        }
 
         Class primitiveClass = javaType.getPrimitiveClass();
         Boolean nullable = nullableAccessors.get((B) bean);
