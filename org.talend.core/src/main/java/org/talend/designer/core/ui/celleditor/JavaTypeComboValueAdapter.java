@@ -33,7 +33,6 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
  * $Id$
- * 
  * @param <B> type of bean
  */
 public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
@@ -68,12 +67,10 @@ public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
     public Object getCellEditorTypedValue(final CellEditor cellEditor, Object originalTypedValue) {
         String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
 
-        JavaType javaType;
+        JavaType javaType = JavaTypesManager.getJavaTypeFromId((String) originalTypedValue);
 
-        try {
-            javaType = JavaTypesManager.getJavaTypeFromId((String) originalTypedValue);
-        } catch (Exception e) {
-            javaType = JavaTypesManager.getJavaTypeFromName(MetadataTalendType.getDefaultTalendType());
+        if (javaType == null) {
+            javaType = JavaTypesManager.getDefaultJavaType();
         }
 
         String label = javaType.getLabel();
@@ -98,12 +95,10 @@ public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
      */
     @Override
     public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {
-        JavaType javaType;
+        JavaType javaType = JavaTypesManager.getJavaTypeFromId((String) originalTypedValue);
 
-        try {
-            javaType = JavaTypesManager.getJavaTypeFromId((String) originalTypedValue);
-        } catch (Exception e) {
-            javaType = JavaTypesManager.getJavaTypeFromName(MetadataTalendType.getDefaultTalendType());
+        if (javaType == null) {
+            javaType = JavaTypesManager.getDefaultJavaType();
         }
 
         Class primitiveClass = javaType.getPrimitiveClass();

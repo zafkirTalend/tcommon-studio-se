@@ -597,7 +597,7 @@ public final class MetadataTalendType {
      */
     public static String getDefaultTalendType() {
         if (codeLanguage == ECodeLanguage.JAVA) {
-            return "String";
+            return JavaTypesManager.getDefaultJavaType().getId();
         } else if (codeLanguage == ECodeLanguage.PERL) {
             return "";
         } else {
