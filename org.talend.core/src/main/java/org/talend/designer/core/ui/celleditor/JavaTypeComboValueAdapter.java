@@ -33,6 +33,7 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
  * $Id$
+ * 
  * @param <B> type of bean
  */
 public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
@@ -67,9 +68,11 @@ public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
     public Object getCellEditorTypedValue(final CellEditor cellEditor, Object originalTypedValue) {
         String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
 
-        JavaType javaType = JavaTypesManager.getJavaTypeFromId((String) originalTypedValue);
+        JavaType javaType;
 
-        if (javaType == null) {
+        try {
+            javaType = JavaTypesManager.getJavaTypeFromId((String) originalTypedValue);
+        } catch (Exception e) {
             javaType = JavaTypesManager.getJavaTypeFromName(MetadataTalendType.getDefaultTalendType());
         }
 
@@ -95,9 +98,11 @@ public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
      */
     @Override
     public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {
-        JavaType javaType = JavaTypesManager.getJavaTypeFromId((String) originalTypedValue);
+        JavaType javaType;
 
-        if (javaType == null) {
+        try {
+            javaType = JavaTypesManager.getJavaTypeFromId((String) originalTypedValue);
+        } catch (Exception e) {
             javaType = JavaTypesManager.getJavaTypeFromName(MetadataTalendType.getDefaultTalendType());
         }
 
