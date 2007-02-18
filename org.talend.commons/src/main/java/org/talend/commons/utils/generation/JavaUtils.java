@@ -28,7 +28,7 @@ package org.talend.commons.utils.generation;
  * 
  */
 public final class JavaUtils {
-    
+
     public static final String JAVAMODULE_PLUGIN_ID = "org.talend.designer.codegen.javamodule";
 
     public static final String JAVA_LAUNCHCONFIGURATION = "org.talend.designer.runprocess.launchConfigurationJava"; //$NON-NLS-1$
@@ -44,15 +44,18 @@ public final class JavaUtils {
 
     /** Java File Extension. */
     public static final String JAVA_EXTENSION = ".java";
-    
+
     /** Java Context Extension. */
     public static final String JAVA_CONTEXT_EXTENSION = ".properties";
 
     /** Java Directory. */
     public static final String JAVA_DIRECTORY = "java";
-    
+
     /** Java Routines Directory. */
     public static final String JAVA_ROUTINES_DIRECTORY = "routines";
+    
+    /** Java Routines Directory. */
+    public static final String JAVA_SYSTEM_ROUTINES_DIRECTORY = "system";
 
     /** Java Classes Directory. */
     public static final String JAVA_CLASSES_DIRECTORY = "classes";
@@ -62,5 +65,4 @@ public final class JavaUtils {
 
     /** Java Source Directory. */
     public static final String JAVA_SRC_DIRECTORY = "src";
-
 }
