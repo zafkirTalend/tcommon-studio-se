@@ -47,6 +47,13 @@ public class OverlayImageProvider {
         return overlayImage;
     }
 
+    public static ImageDescriptor getImageWithSpecial(Image source) {
+        ImageDescriptor img = ImageProvider.getImageDesc(ECoreImage.MASTER_OVERLAY);
+        EPosition position = EPosition.TOP_RIGHT;
+        OverlayImage overlayImage = new OverlayImage(source, img, position);
+        return overlayImage;
+    }
+
     public static Image getImageWithDocExt(String extension) {
         Image source = ImageProvider.getImage(ECoreImage.DOCUMENTATION_SINGLE_ICON);
         if (extension != null) {

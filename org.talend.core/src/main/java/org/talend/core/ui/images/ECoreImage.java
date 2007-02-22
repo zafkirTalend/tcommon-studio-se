@@ -41,7 +41,7 @@ public enum ECoreImage implements IImage {
     FOLDER_CLOSE_ICON("/icons/folder_close.png"), //$NON-NLS-1$
     FOLDER_WIZ("/icons/folder_wiz.gif"), //$NON-NLS-1$
 
-    BUSINESS_PROCESS_ICON("/icons/businessProcess.gif"), //$NON-NLS-1$
+    BUSINESS_PROCESS_ICON("/icons/JobContexts1.png"), //$NON-NLS-1$
     BUSINESS_PROCESS_WIZ("/icons/business_wiz.png"), //$NON-NLS-1$
     PROCESS_ICON("/icons/process_icon.gif"), //$NON-NLS-1$
     PROCESS_WIZ("/icons/process_wiz.png"), //$NON-NLS-1$
@@ -56,7 +56,7 @@ public enum ECoreImage implements IImage {
     METADATA_ICON("/icons/metadata.png"), //$NON-NLS-1$
     METADATA_CONNECTION_ICON("/icons/connection.gif"), //$NON-NLS-1$
     METADATA_CONNECTION_WIZ("/icons/connection_wiz.png"), //$NON-NLS-1$
-    METADATA_TABLE_ICON("/icons/table.gif"), //$NON-NLS-1$
+    METADATA_TABLE_ICON("/icons/querySQL.gif"), //$NON-NLS-1$
     METADATA_VIEW_ICON("/icons/view.gif"), //$NON-NLS-1$
     METADATA_SYNONYM_ICON("/icons/synonym.gif"), //$NON-NLS-1$
     METADATA_QUERY_ICON("/icons/query.gif"), //$NON-NLS-1$
@@ -78,9 +78,10 @@ public enum ECoreImage implements IImage {
     MODULE_REQUIRED_ICON("/icons/checked.gif"), //$NON-NLS-1$
     MODULE_NOTREQUIRED_ICON("/icons/empty.gif"), //$NON-NLS-1$
 
-    LOCKED_USER_OVERLAY("/icons/locked_green_overlay.gif"), //$NON-NLS-1$
+    LOCKED_USER_OVERLAY("/icons/locked_red_overlay.gif"), //$NON-NLS-1$
     LOCKED_OTHER_OVERLAY("/icons/locked_red_overlay.gif"), //$NON-NLS-1$
     NEW_OVERLAY("/icons/new_overlay.gif"), //$NON-NLS-1$
+    MASTER_OVERLAY("/icons/etoile-master-job1.gif"), //$NON-NLS-1$
     DOC_PPT_OVERLAY("/icons/docs/doc_ppt_overlay.gif"), //$NON-NLS-1$
     DOC_PDF_OVERLAY("/icons/docs/doc_pdf_overlay.gif"), //$NON-NLS-1$
     DOC_EXCEL_OVERLAY("/icons/docs/doc_excel_overlay.gif"), //$NON-NLS-1$
