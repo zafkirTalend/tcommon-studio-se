@@ -45,7 +45,7 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
      */
     public static TalendFileFactory init() {
         try {
-            TalendFileFactory theTalendFileFactory = (TalendFileFactory)EPackage.Registry.INSTANCE.getEFactory("platform:/resource/org.talend.model/model/TalendFile.xsd");  //$NON-NLS-1$
+            TalendFileFactory theTalendFileFactory = (TalendFileFactory)EPackage.Registry.INSTANCE.getEFactory("platform:/resource/org.talend.model/model/TalendFile.xsd"); 
             if (theTalendFileFactory != null) {
                 return theTalendFileFactory;
             }
@@ -90,7 +90,7 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
             case TalendFilePackage.PROCESS_TYPE: return createProcessType();
             case TalendFilePackage.REQUIRED_TYPE: return createRequiredType();
             default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 

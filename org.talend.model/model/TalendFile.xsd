@@ -59,6 +59,7 @@
 									</xs:sequence>
 									<xs:attribute name="name" type="xs:string"/>
 									<xs:attribute name="type" type="xs:string"/>
+									<xs:attribute name="sourceType" type="xs:string"/>
 									<xs:attribute name="key" type="xs:boolean"/>
 									<xs:attribute name="nullable" type="xs:boolean"/>
 									<xs:attribute name="length" type="xs:int"/>

@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isNullable <em>Nullable</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getPrecision <em>Precision</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getSourceType <em>Source Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getType <em>Type</em>}</li>
  * </ul>
  * </p>
@@ -300,6 +301,33 @@ public interface ColumnType extends EObject {
      * @generated
      */
     boolean isSetPrecision();
+
+    /**
+     * Returns the value of the '<em><b>Source Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Source Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Source Type</em>' attribute.
+     * @see #setSourceType(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_SourceType()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='sourceType' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getSourceType();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getSourceType <em>Source Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Source Type</em>' attribute.
+     * @see #getSourceType()
+     * @generated
+     */
+    void setSourceType(String value);
 
     /**
      * Returns the value of the '<em><b>Type</b></em>' attribute.

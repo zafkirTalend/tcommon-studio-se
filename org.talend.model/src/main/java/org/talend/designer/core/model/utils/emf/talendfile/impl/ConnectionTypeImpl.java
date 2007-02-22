@@ -618,19 +618,19 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (label: "); //$NON-NLS-1$
+        result.append(" (label: ");
         result.append(label);
-        result.append(", lineStyle: "); //$NON-NLS-1$
-        if (lineStyleESet) result.append(lineStyle); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", metaname: "); //$NON-NLS-1$
+        result.append(", lineStyle: ");
+        if (lineStyleESet) result.append(lineStyle); else result.append("<unset>");
+        result.append(", metaname: ");
         result.append(metaname);
-        result.append(", offsetLabelX: "); //$NON-NLS-1$
-        if (offsetLabelXESet) result.append(offsetLabelX); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", offsetLabelY: "); //$NON-NLS-1$
-        if (offsetLabelYESet) result.append(offsetLabelY); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", source: "); //$NON-NLS-1$
+        result.append(", offsetLabelX: ");
+        if (offsetLabelXESet) result.append(offsetLabelX); else result.append("<unset>");
+        result.append(", offsetLabelY: ");
+        if (offsetLabelYESet) result.append(offsetLabelY); else result.append("<unset>");
+        result.append(", source: ");
         result.append(source);
-        result.append(", target: "); //$NON-NLS-1$
+        result.append(", target: ");
         result.append(target);
         result.append(')');
         return result.toString();

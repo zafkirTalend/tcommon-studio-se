@@ -776,21 +776,21 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (description: "); //$NON-NLS-1$
+        result.append(" (description: ");
         result.append(description);
-        result.append(", author: "); //$NON-NLS-1$
+        result.append(", author: ");
         result.append(author);
-        result.append(", comment: "); //$NON-NLS-1$
+        result.append(", comment: ");
         result.append(comment);
-        result.append(", defaultContext: "); //$NON-NLS-1$
+        result.append(", defaultContext: ");
         result.append(defaultContext);
-        result.append(", name: "); //$NON-NLS-1$
+        result.append(", name: ");
         result.append(name);
-        result.append(", purpose: "); //$NON-NLS-1$
+        result.append(", purpose: ");
         result.append(purpose);
-        result.append(", status: "); //$NON-NLS-1$
+        result.append(", status: ");
         result.append(status);
-        result.append(", version: "); //$NON-NLS-1$
+        result.append(", version: ");
         result.append(version);
         result.append(')');
         return result.toString();

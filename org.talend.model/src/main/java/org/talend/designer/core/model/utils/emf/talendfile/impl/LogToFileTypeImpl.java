@@ -321,12 +321,12 @@ public class LogToFileTypeImpl extends EObjectImpl implements LogToFileType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (filename: "); //$NON-NLS-1$
+        result.append(" (filename: ");
         result.append(filename);
-        result.append(", level: "); //$NON-NLS-1$
-        if (levelESet) result.append(level); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", selected: "); //$NON-NLS-1$
-        if (selectedESet) result.append(selected); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", level: ");
+        if (levelESet) result.append(level); else result.append("<unset>");
+        result.append(", selected: ");
+        if (selectedESet) result.append(selected); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }

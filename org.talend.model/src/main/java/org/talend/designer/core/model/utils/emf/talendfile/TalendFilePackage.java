@@ -125,13 +125,22 @@ public interface TalendFilePackage extends EPackage {
     int COLUMN_TYPE__PRECISION = 5;
 
     /**
+     * The feature id for the '<em><b>Source Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__SOURCE_TYPE = 6;
+
+    /**
      * The feature id for the '<em><b>Type</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__TYPE = 6;
+    int COLUMN_TYPE__TYPE = 7;
 
     /**
      * The number of structural features of the '<em>Column Type</em>' class.
@@ -140,7 +149,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 7;
+    int COLUMN_TYPE_FEATURE_COUNT = 8;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl <em>Connection Type</em>}' class.
@@ -1161,6 +1170,17 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EAttribute getColumnType_Precision();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getSourceType <em>Source Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Source Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getSourceType()
+     * @see #getColumnType()
+     * @generated
+     */
+    EAttribute getColumnType_SourceType();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getType <em>Type</em>}'.
@@ -2207,6 +2227,14 @@ public interface TalendFilePackage extends EPackage {
         EAttribute COLUMN_TYPE__PRECISION = eINSTANCE.getColumnType_Precision();
 
         /**
+         * The meta object literal for the '<em><b>Source Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__SOURCE_TYPE = eINSTANCE.getColumnType_SourceType();
+
+        /**
          * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2930,7 +2958,7 @@ public interface TalendFilePackage extends EPackage {
          */
         EAttribute PROCESS_TYPE__VERSION = eINSTANCE.getProcessType_Version();
 
-            /**
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.RequiredTypeImpl <em>Required Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->

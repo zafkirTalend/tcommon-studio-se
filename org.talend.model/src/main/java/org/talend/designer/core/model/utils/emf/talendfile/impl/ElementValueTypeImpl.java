@@ -201,9 +201,9 @@ public class ElementValueTypeImpl extends EObjectImpl implements ElementValueTyp
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (elementRef: "); //$NON-NLS-1$
+        result.append(" (elementRef: ");
         result.append(elementRef);
-        result.append(", value: "); //$NON-NLS-1$
+        result.append(", value: ");
         result.append(value);
         result.append(')');
         return result.toString();

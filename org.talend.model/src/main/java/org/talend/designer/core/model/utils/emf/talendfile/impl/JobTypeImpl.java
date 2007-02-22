@@ -204,9 +204,9 @@ public class JobTypeImpl extends EObjectImpl implements JobType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (context: "); //$NON-NLS-1$
+        result.append(" (context: ");
         result.append(context);
-        result.append(", name: "); //$NON-NLS-1$
+        result.append(", name: ");
         result.append(name);
         result.append(')');
         return result.toString();

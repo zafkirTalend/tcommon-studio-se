@@ -308,11 +308,11 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (comment: "); //$NON-NLS-1$
+        result.append(" (comment: ");
         result.append(comment);
-        result.append(", name: "); //$NON-NLS-1$
+        result.append(", name: ");
         result.append(name);
-        result.append(", source: "); //$NON-NLS-1$
+        result.append(", source: ");
         result.append(source);
         result.append(')');
         return result.toString();

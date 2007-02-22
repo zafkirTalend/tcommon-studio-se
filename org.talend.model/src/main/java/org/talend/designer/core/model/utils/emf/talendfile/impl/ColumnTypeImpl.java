@@ -26,6 +26,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#isNullable <em>Nullable</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getPrecision <em>Precision</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getSourceType <em>Source Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
@@ -188,6 +189,26 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @ordered
      */
     protected boolean precisionESet = false;
+
+    /**
+     * The default value of the '{@link #getSourceType() <em>Source Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSourceType()
+     * @generated
+     * @ordered
+     */
+    protected static final String SOURCE_TYPE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getSourceType() <em>Source Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSourceType()
+     * @generated
+     * @ordered
+     */
+    protected String sourceType = SOURCE_TYPE_EDEFAULT;
 
     /**
      * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -458,6 +479,27 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getSourceType() {
+        return sourceType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSourceType(String newSourceType) {
+        String oldSourceType = sourceType;
+        sourceType = newSourceType;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE, oldSourceType, sourceType));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getType() {
         return type;
     }
@@ -493,6 +535,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return isNullable() ? Boolean.TRUE : Boolean.FALSE;
             case TalendFilePackage.COLUMN_TYPE__PRECISION:
                 return new Integer(getPrecision());
+            case TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE:
+                return getSourceType();
             case TalendFilePackage.COLUMN_TYPE__TYPE:
                 return getType();
         }
@@ -523,6 +567,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return;
             case TalendFilePackage.COLUMN_TYPE__PRECISION:
                 setPrecision(((Integer)newValue).intValue());
+                return;
+            case TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE:
+                setSourceType((String)newValue);
                 return;
             case TalendFilePackage.COLUMN_TYPE__TYPE:
                 setType((String)newValue);
@@ -556,6 +603,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
             case TalendFilePackage.COLUMN_TYPE__PRECISION:
                 unsetPrecision();
                 return;
+            case TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE:
+                setSourceType(SOURCE_TYPE_EDEFAULT);
+                return;
             case TalendFilePackage.COLUMN_TYPE__TYPE:
                 setType(TYPE_EDEFAULT);
                 return;
@@ -582,6 +632,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return isSetNullable();
             case TalendFilePackage.COLUMN_TYPE__PRECISION:
                 return isSetPrecision();
+            case TalendFilePackage.COLUMN_TYPE__SOURCE_TYPE:
+                return SOURCE_TYPE_EDEFAULT == null ? sourceType != null : !SOURCE_TYPE_EDEFAULT.equals(sourceType);
             case TalendFilePackage.COLUMN_TYPE__TYPE:
                 return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
         }
@@ -597,19 +649,21 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (comment: "); //$NON-NLS-1$
+        result.append(" (comment: ");
         result.append(comment);
-        result.append(", key: "); //$NON-NLS-1$
-        if (keyESet) result.append(key); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", length: "); //$NON-NLS-1$
-        if (lengthESet) result.append(length); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", name: "); //$NON-NLS-1$
+        result.append(", key: ");
+        if (keyESet) result.append(key); else result.append("<unset>");
+        result.append(", length: ");
+        if (lengthESet) result.append(length); else result.append("<unset>");
+        result.append(", name: ");
         result.append(name);
-        result.append(", nullable: "); //$NON-NLS-1$
-        if (nullableESet) result.append(nullable); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", precision: "); //$NON-NLS-1$
-        if (precisionESet) result.append(precision); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", type: "); //$NON-NLS-1$
+        result.append(", nullable: ");
+        if (nullableESet) result.append(nullable); else result.append("<unset>");
+        result.append(", precision: ");
+        if (precisionESet) result.append(precision); else result.append("<unset>");
+        result.append(", sourceType: ");
+        result.append(sourceType);
+        result.append(", type: ");
         result.append(type);
         result.append(')');
         return result.toString();

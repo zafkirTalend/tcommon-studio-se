@@ -741,22 +741,22 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (binaryData: "); //$NON-NLS-1$
+        result.append(" (binaryData: ");
         result.append(binaryData);
-        result.append(", stringData: "); //$NON-NLS-1$
+        result.append(", stringData: ");
         result.append(stringData);
-        result.append(", componentName: "); //$NON-NLS-1$
+        result.append(", componentName: ");
         result.append(componentName);
-        result.append(", componentVersion: "); //$NON-NLS-1$
+        result.append(", componentVersion: ");
         result.append(componentVersion);
-        result.append(", offsetLabelX: "); //$NON-NLS-1$
-        if (offsetLabelXESet) result.append(offsetLabelX); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", offsetLabelY: "); //$NON-NLS-1$
-        if (offsetLabelYESet) result.append(offsetLabelY); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", posX: "); //$NON-NLS-1$
-        if (posXESet) result.append(posX); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", posY: "); //$NON-NLS-1$
-        if (posYESet) result.append(posY); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", offsetLabelX: ");
+        if (offsetLabelXESet) result.append(offsetLabelX); else result.append("<unset>");
+        result.append(", offsetLabelY: ");
+        if (offsetLabelYESet) result.append(offsetLabelY); else result.append("<unset>");
+        result.append(", posX: ");
+        if (posXESet) result.append(posX); else result.append("<unset>");
+        result.append(", posY: ");
+        if (posYESet) result.append(posY); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }
