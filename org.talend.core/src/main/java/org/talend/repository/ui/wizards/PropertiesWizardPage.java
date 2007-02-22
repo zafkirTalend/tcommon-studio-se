@@ -259,11 +259,11 @@ public abstract class PropertiesWizardPage extends WizardPage {
         versionText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         versionMajorBtn = new Button(versionContainer, SWT.PUSH);
-        versionMajorBtn.setText("M"); //$NON-NLS-1$
+        versionMajorBtn.setText(Messages.getString("PropertiesWizardPage.Version.Major")); //$NON-NLS-1$
         versionMajorBtn.setEnabled(!readOnly);
 
         versionMinorBtn = new Button(versionContainer, SWT.PUSH);
-        versionMinorBtn.setText(Messages.getString("PropertiesWizardPage.1")); //$NON-NLS-1$
+        versionMinorBtn.setText(Messages.getString("PropertiesWizardPage.Version.Minor")); //$NON-NLS-1$
         versionMinorBtn.setEnabled(!readOnly);
 
         // Status
