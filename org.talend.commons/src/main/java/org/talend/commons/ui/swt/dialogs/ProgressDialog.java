@@ -24,13 +24,12 @@ package org.talend.commons.ui.swt.dialogs;
 import java.lang.reflect.InvocationTargetException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
-import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.threading.AsynchronousThreading;
-import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -60,7 +59,7 @@ public abstract class ProgressDialog {
      * Show progress dialog when executeProcess() is called and <code>timeBeforeShowDialog</code> is elapsed.
      * 
      * @param parentShell
-     * @param timeBeforeShowDialog time before show dialog in ms
+     * @param timeBeforeShowDialog time before show dialog
      */
     public ProgressDialog(Shell parentShell, int timeBeforeShowDialog) {
         super();
@@ -68,30 +67,41 @@ public abstract class ProgressDialog {
         this.timeBeforeShowDialog = timeBeforeShowDialog;
     }
 
-    public void executeProcess() {
+    public void executeProcess() throws InvocationTargetException, InterruptedException {
         final Display display = parentShell.getDisplay();
-        final IRunnableWithProgress op = new IRunnableWithProgress() {
+        final InvocationTargetException[] iteHolder = new InvocationTargetException[1];
+        try {
+            final IRunnableWithProgress op = new IRunnableWithProgress() {
 
-            public void run(final IProgressMonitor monitor) {
-                display.asyncExec(new Runnable() {
+                public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                    final InvocationTargetException[] iteHolder1 = new InvocationTargetException[1];
+                    display.syncExec(new Runnable() {
 
-                    public void run() {
-                        try {
-                            ProgressDialog.this.run(monitor);
-                        } catch (RuntimeException e) {
-                            ExceptionHandler.process(e);
-                            monitor.done();
+                        public void run() {
+                            try {
+                                ProgressDialog.this.run(monitor);
+                            } catch (InvocationTargetException e) {
+                                // Pass it outside the workspace runnable
+                                iteHolder1[0] = e;
+                            } catch (InterruptedException e) {
+                                // Re-throw as OperationCanceledException, which will be
+                                // caught and re-thrown as InterruptedException below.
+                                throw new OperationCanceledException(e.getMessage());
+                            }
+                            // CoreException and OperationCanceledException are propagated
                         }
+
+                    });
+                    // Re-throw the InvocationTargetException, if any occurred
+                    if (iteHolder1[0] != null) {
+                        throw iteHolder1[0];
                     }
+                }
+            };
 
-                });
-            }
-        };
+            display.syncExec(new Runnable() {
 
-        display.asyncExec(new Runnable() {
-
-            public void run() {
-                try {
+                public void run() {
                     final ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(parentShell);
                     progressMonitorDialog.setOpenOnRun(false);
                     AsynchronousThreading asynchronousThreading = new AsynchronousThreading(timeBeforeShowDialog, true, display,
@@ -102,18 +112,28 @@ public abstract class ProgressDialog {
                                 }
                             });
                     asynchronousThreading.start();
-                    progressMonitorDialog.run(true, true, op);
-
-                } catch (InvocationTargetException e) {
-                    ExceptionHandler.process(e);
-                } catch (InterruptedException e) {
-                    ExceptionHandler.process(e);
+                    try {
+                        progressMonitorDialog.run(false, true, op);
+                    } catch (InvocationTargetException e) {
+                        // Pass it outside the workspace runnable
+                        iteHolder[0] = e;
+                    } catch (InterruptedException e) {
+                        // Re-throw as OperationCanceledException, which will be
+                        // caught and re-thrown as InterruptedException below.
+                        throw new OperationCanceledException(e.getMessage());
+                    }
                 }
-            }
-        });
+            });
 
+        } catch (OperationCanceledException e) {
+            throw new InterruptedException(e.getMessage());
+        }
+        // Re-throw the InvocationTargetException, if any occurred
+        if (iteHolder[0] != null) {
+            throw iteHolder[0];
+        }
     }
 
-    public abstract void run(final IProgressMonitor monitor);
+    public abstract void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException;
 
 }
