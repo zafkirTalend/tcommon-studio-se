@@ -192,7 +192,7 @@ public final class MetadataTalendType {
      * @param dbms
      * @param reload
      * @return
-     * @deprecated.
+     * @deprecated 
      */
     public static String[] loadDatabaseTypes(String dbms, boolean reload) {
         dbms = dbms.toUpperCase();
@@ -372,7 +372,7 @@ public final class MetadataTalendType {
         }
         Dbms dbms = getDbms(dbmsId);
         if (dbms == null) {
-            throw new IllegalStateException("Unknown dbmsId");
+            throw new IllegalArgumentException("Unknown dbmsId: '" + dbmsId + "'");
         }
         return dbms.getDbTypes().toArray(new String[0]);
     }

@@ -243,7 +243,6 @@ public class ExtractMetaDataFromDataBase {
                 log.error(e.toString());
             }
 
-            MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever("Mysql5.1");
             ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(), null);
             while (columns.next()) {
 
@@ -264,13 +263,14 @@ public class ExtractMetaDataFromDataBase {
 
                 String talendType = null;
                 if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+                    MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever("Mysql5.1");
                     String idJavaType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, isNullable);
                     JavaType javaTypeFromName = JavaTypesManager.getJavaTypeFromId(idJavaType);
                     if (javaTypeFromName != null) {
                         talendType = javaTypeFromName.getId();
                     } else {
                         talendType = JavaTypesManager.getDefaultJavaType().getId();
-                        log.warn("dbType '" + dbType + "' not found  ");
+                        log.warn("dbType '" + dbType + "' not found  "); //$NON-NLS-1$
                     }
                 } else {
                     talendType = MetadataTalendType.loadTalendType(metadataColumn.getSourceType(), dbms, false);

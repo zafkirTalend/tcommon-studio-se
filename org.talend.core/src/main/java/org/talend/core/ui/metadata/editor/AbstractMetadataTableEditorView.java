@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.core.ui.metadata.editor;
 
+import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.IColorProvider;
@@ -65,6 +66,8 @@ import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
  */
 public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTableEditorView<B> {
 
+    private static Logger log = Logger.getLogger(AbstractMetadataTableEditorView.class);
+
     public static final Color READONLY_CELL_BG_COLOR = Display.getCurrent().getSystemColor(SWT.COLOR_GRAY);
 
     public static final String ID_COLUMN_NAME = "ID_COLUMN_NAME"; //$NON-NLS-1$
@@ -82,6 +85,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     protected boolean showDbTypeColumnAtLeftPosition;
 
     private MetadataTableCellModifierForJava cellModifier;
+
+    private boolean dbTypeColumnWritable;
 
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
@@ -242,10 +247,11 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * 
      * @param tableViewerCreator
      */
-    private void configureCommentColumn(TableViewerCreator<B> tableViewerCreator) {
+    protected void configureCommentColumn(TableViewerCreator<B> tableViewerCreator) {
         TableViewerCreatorColumn column;
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("MetadataTableEditorView.CommentTitle")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.CommentTitle")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(getCommentAccessor());
         column.setWeight(10);
         column.setModifiable(!isReadOnly());
@@ -265,17 +271,16 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * 
      * @param tableViewerCreator
      */
-    private void configureDefaultColumn(TableViewerCreator<B> tableViewerCreator) {
-        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-            TableViewerCreatorColumn column;
-            column = new TableViewerCreatorColumn(tableViewerCreator);
-            column.setTitle("Default");
-            column.setBeanPropertyAccessors(getDefaultValueAccessor());
-            column.setWeight(8);
-            column.setModifiable(!isReadOnly());
-            column.setMinimumWidth(30);
-            column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
-        }
+    protected void configureDefaultColumn(TableViewerCreator<B> tableViewerCreator) {
+        TableViewerCreatorColumn column;
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle(Messages.getString("MetadataTableEditorView.DefaultTitle")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.DefaultTitle")); //$NON-NLS-1$
+        column.setBeanPropertyAccessors(getDefaultValueAccessor());
+        column.setWeight(8);
+        column.setModifiable(!isReadOnly());
+        column.setMinimumWidth(30);
+        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
     }
 
     /**
@@ -290,10 +295,11 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * 
      * @param tableViewerCreator
      */
-    private void configurePrecisionColumn(TableViewerCreator<B> tableViewerCreator) {
+    protected void configurePrecisionColumn(TableViewerCreator<B> tableViewerCreator) {
         TableViewerCreatorColumn column;
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("MetadataTableEditorView.PrecisionTitle")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.PrecisionTitle")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(getPrecisionAccessor());
         column.setModifiable(!isReadOnly());
         column.setWidth(60);
@@ -313,10 +319,11 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @param tableViewerCreator
      * @param positiveIntValueAdapter
      */
-    private void configureLengthColumn(TableViewerCreator<B> tableViewerCreator) {
+    protected void configureLengthColumn(TableViewerCreator<B> tableViewerCreator) {
         TableViewerCreatorColumn column;
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("MetadataTableEditorView.LengthTitle")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.LengthTitle")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(getLengthAccessor());
         column.setModifiable(!isReadOnly());
         column.setWidth(55);
@@ -335,15 +342,15 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * 
      * @param tableViewerCreator
      */
-    private void configurePatternColumn(TableViewerCreator<B> tableViewerCreator) {
+    protected void configurePatternColumn(TableViewerCreator<B> tableViewerCreator) {
         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
             final TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
             String patternTitle = Messages.getString("MetadataTableEditorView.PatternTitle"); //$NON-NLS-1$
             column.setTitle(patternTitle);
+            column.setToolTipHeader(patternTitle);
             column.setId(ID_COLUMN_PATTERN);
             column.setBeanPropertyAccessors(getPatternAccessor());
             column.setModifiable(!isReadOnly());
-            column.setToolTipHeader(patternTitle);
             column.setWeight(16);
             column.setColorProvider(new IColumnColorProvider() {
 
@@ -377,11 +384,12 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * 
      * @param tableViewerCreator
      */
-    private void configureNullableColumn(TableViewerCreator<B> tableViewerCreator) {
+    protected void configureNullableColumn(TableViewerCreator<B> tableViewerCreator) {
         TableViewerCreatorColumn column;
         column = new TableViewerCreatorColumn(tableViewerCreator);
         String nullableTitle = Messages.getString("MetadataTableEditorView.NullableTitle"); //$NON-NLS-1$
         column.setTitle(nullableTitle);
+        column.setToolTipHeader(nullableTitle);
         column.setId(ID_COLUMN_NULLABLE);
         column.setBeanPropertyAccessors(getNullableAccessor());
         column.setModifiable(!isReadOnly());
@@ -390,7 +398,6 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         CheckboxTableEditorContent nullableCheckbox = new CheckboxTableEditorContent(isReadOnly());
         nullableCheckbox.setToolTipText(nullableTitle);
         column.setTableEditorContent(nullableCheckbox);
-        column.setToolTipHeader(nullableTitle);
     }
 
     /**
@@ -407,30 +414,13 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @param comboValueAdapter
      * @param arrayTalendTypes
      */
-    private void configureTypeColumns(TableViewerCreator<B> tableViewerCreator) {
-        String[] arrayTalendTypes = new String[0];
-        try {
-            arrayTalendTypes = MetadataTalendType.getTalendTypesLabels();
-        } catch (NoClassDefFoundError e) {
-            // shouln't be happend
-            e.printStackTrace();
-        } catch (ExceptionInInitializerError e) {
-            // shouln't be happend
-            e.printStackTrace();
-        }
-
+    protected void configureTypeColumns(TableViewerCreator<B> tableViewerCreator) {
         if (showDbTypeColumn) {
             if (showDbTypeColumnAtLeftPosition) {
-                TableViewerCreatorColumn dbTypeColumn = configureDbTypeColumn(tableViewerCreator);
-                String title = dbTypeColumn.getTitle() + " =>";
-                dbTypeColumn.setTitle(title);
-                dbTypeColumn.setToolTipHeader(title);
+                configureDbTypeColumn(tableViewerCreator);
                 configureTalendTypeColumn(tableViewerCreator);
             } else {
-                TableViewerCreatorColumn talendTypeColumn = configureTalendTypeColumn(tableViewerCreator);
-                String title = talendTypeColumn.getTitle() + " =>";
-                talendTypeColumn.setTitle(title);
-                talendTypeColumn.setToolTipHeader(title);
+                configureTalendTypeColumn(tableViewerCreator);
                 configureDbTypeColumn(tableViewerCreator);
             }
         } else {
@@ -443,10 +433,11 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * 
      * @param tableViewerCreator
      */
-    private void configureKeyColumn(TableViewerCreator<B> tableViewerCreator) {
+    protected void configureKeyColumn(TableViewerCreator<B> tableViewerCreator) {
         TableViewerCreatorColumn column;
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("MetadataTableEditorView.KeyTitle")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.KeyTitle")); //$NON-NLS-1$
         column.setId(ID_COLUMN_KEY);
         column.setBeanPropertyAccessors(getKeyAccesor());
         column.setWidth(35);
@@ -468,11 +459,12 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * 
      * @param tableViewerCreator
      */
-    private void configureNameColumn(TableViewerCreator<B> tableViewerCreator) {
+    protected void configureNameColumn(TableViewerCreator<B> tableViewerCreator) {
         TableViewerCreatorColumn column;
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setId(ID_COLUMN_NAME);
         column.setTitle(Messages.getString("MetadataTableEditorView.ColumnTitle")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.ColumnTitle")); //$NON-NLS-1$
 
         column.setBeanPropertyAccessors(getLabelAccessor());
         final Image imageKey = ImageProvider.getImage(EImage.KEY_ICON);
@@ -554,6 +546,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("MetadataTableEditorView.TypleTitle")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.TypleTitle")); //$NON-NLS-1$
         column.setId(ID_COLUMN_TYPE);
         column.setBeanPropertyAccessors(getTalendTypeAccessor());
         column.setModifiable(!isReadOnly());
@@ -579,28 +572,71 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @param tableViewerCreator
      */
     private TableViewerCreatorColumn configureDbTypeColumn(final TableViewerCreator<B> tableViewerCreator) {
+
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle(Messages.getString("MetadataEmfTableEditorView.DBTypeTitle")); //$NON-NLS-1$
+        column.setTitle(Messages.getString("MetadataTableEditorView.DBTypeTitle")); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.DBTypeTitle")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(getDbTypeAccessor());
         column.setModifiable(false);
         column.setWeight(10);
         column.setMinimumWidth(60);
 
-        column.setColorProvider(new IColumnColorProvider() {
+        if (dbTypeColumnWritable) {
 
-            public Color getBackgroundColor(Object bean) {
-                return READONLY_CELL_BG_COLOR;
+            CellEditorValueAdapter comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter();
+            ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+            String[] arrayDbTypes = new String[0];
+
+            try {
+                if (codeLanguage == ECodeLanguage.JAVA) {
+                    comboValueAdapter = new JavaTypeComboValueAdapter<B>(JavaTypesManager.getDefaultJavaType(), getNullableAccessor());
+                    arrayDbTypes = MetadataTalendType.getDbTypes("Mysql5.1");
+                    log.error("Bad Db types are loaded");
+                } else if (codeLanguage == ECodeLanguage.PERL) {
+                    String currentDbms = getCurrentDbms();
+                    if (currentDbms != null) {
+                        arrayDbTypes = MetadataTalendType.loadDatabaseTypes(currentDbms, false);
+                    }
+                    // log.error("Bad Db types are loaded");
+                    // arrayDbTypes = MetadataTalendType.getDbTypes("Mysql5.1");
+                }
+
+            } catch (NoClassDefFoundError e) {
+                // shouln't be happend
+                e.printStackTrace();
+            } catch (ExceptionInInitializerError e) {
+                // shouln't be happend
+                e.printStackTrace();
             }
+            ComboBoxCellEditor typeComboEditor = new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayDbTypes, SWT.READ_ONLY);
+            CCombo typeCombo = (CCombo) typeComboEditor.getControl();
+            typeCombo.setEditable(false);
+            column.setCellEditor(typeComboEditor, comboValueAdapter);
 
-            public Color getForegroundColor(Object bean) {
-                return null;
-            }
+        } else {
+            column.setColorProvider(new IColumnColorProvider() {
 
-        });
+                public Color getBackgroundColor(Object bean) {
+                    return READONLY_CELL_BG_COLOR;
+                }
+
+                public Color getForegroundColor(Object bean) {
+                    return null;
+                }
+
+            });
+        }
 
         return column;
 
     }
+
+    /**
+     * Return the current dbms if exists.
+     * 
+     * @return the current dbms if exists, null else.
+     */
+    protected abstract String getCurrentDbms();
 
     /**
      * DOC amaumont Comment method "getDbTypeAccessor".
@@ -666,9 +702,10 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     }
 
-    public void setDbTypeColumnsState(boolean showDbTypeColumn, boolean showDbTypeColumnAtLeftPosition) {
+    public void setDbTypeColumnsState(boolean showDbTypeColumn, boolean showDbTypeColumnAtLeftPosition, boolean writable) {
         this.showDbTypeColumn = showDbTypeColumn;
         this.showDbTypeColumnAtLeftPosition = showDbTypeColumnAtLeftPosition;
+        this.dbTypeColumnWritable = writable;
     }
 
     /**
@@ -687,6 +724,4 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     }
 
-
-    
 }

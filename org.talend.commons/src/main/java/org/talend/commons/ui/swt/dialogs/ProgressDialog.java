@@ -60,7 +60,7 @@ public abstract class ProgressDialog {
      * Show progress dialog when executeProcess() is called and <code>timeBeforeShowDialog</code> is elapsed.
      * 
      * @param parentShell
-     * @param timeBeforeShowDialog time before show dialog
+     * @param timeBeforeShowDialog time before show dialog in ms
      */
     public ProgressDialog(Shell parentShell, int timeBeforeShowDialog) {
         super();
@@ -94,16 +94,14 @@ public abstract class ProgressDialog {
                 try {
                     final ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(parentShell);
                     progressMonitorDialog.setOpenOnRun(false);
-                    if (timeBeforeShowDialog > 0) {
-                        AsynchronousThreading asynchronousThreading = new AsynchronousThreading(timeBeforeShowDialog, true, display,
-                                new Runnable() {
+                    AsynchronousThreading asynchronousThreading = new AsynchronousThreading(timeBeforeShowDialog, true, display,
+                            new Runnable() {
 
-                                    public void run() {
-                                        progressMonitorDialog.open();
-                                    }
-                                });
-                        asynchronousThreading.start();
-                    }
+                                public void run() {
+                                    progressMonitorDialog.open();
+                                }
+                            });
+                    asynchronousThreading.start();
                     progressMonitorDialog.run(true, true, op);
 
                 } catch (InvocationTargetException e) {

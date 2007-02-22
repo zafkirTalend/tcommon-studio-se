@@ -28,6 +28,8 @@ import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
+import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 
@@ -267,6 +269,29 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer());
     }
 
+
+
+    /* (non-Javadoc)
+     * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#configureDefaultColumn(org.talend.commons.ui.swt.tableviewer.TableViewerCreator)
+     */
+    @Override
+    protected void configureDefaultColumn(TableViewerCreator<MetadataColumn> tableViewerCreator) {
+        super.configureDefaultColumn(tableViewerCreator);
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#getCurrentDbms()
+     */
+    @Override
+    protected String getCurrentDbms() {
+        Connection connection = getMetadataEditor().getMetadataTable().getConnection();
+        if(connection instanceof DatabaseConnection) {
+            return ((DatabaseConnection) connection).getDatabaseType();
+        }
+        return null;
+    }
+
+    
     
     
 }

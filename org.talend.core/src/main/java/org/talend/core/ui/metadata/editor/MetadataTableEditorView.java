@@ -27,8 +27,14 @@ import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataColumn;
+import org.talend.core.model.metadata.IMetadataConnection;
+import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.model.process.IConnection;
 
 /**
  * MetadataTableEditorView2 must be used.
@@ -143,7 +149,9 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
         newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#getNullableAccessor()
      */
     @Override
@@ -164,143 +172,145 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
     @Override
     protected IBeanPropertyAccessors<IMetadataColumn, String> getCommentAccessor() {
         return new IBeanPropertyAccessors<IMetadataColumn, String>() {
-    
+
             public String get(IMetadataColumn bean) {
                 return bean.getComment();
             }
-    
+
             public void set(IMetadataColumn bean, String value) {
                 bean.setComment(value);
             }
-    
+
         };
     }
 
     @Override
     protected IBeanPropertyAccessors<IMetadataColumn, String> getDefaultValueAccessor() {
         return new IBeanPropertyAccessors<IMetadataColumn, String>() {
-    
+
             public String get(IMetadataColumn bean) {
                 return bean.getDefault();
             }
-    
+
             public void set(IMetadataColumn bean, String value) {
                 bean.setDefault(value);
             }
-    
+
         };
     }
 
     @Override
     protected IBeanPropertyAccessors<IMetadataColumn, Integer> getPrecisionAccessor() {
         return new IBeanPropertyAccessors<IMetadataColumn, Integer>() {
-    
+
             public Integer get(IMetadataColumn bean) {
                 return bean.getPrecision();
             }
-    
+
             public void set(IMetadataColumn bean, Integer value) {
                 bean.setPrecision(value);
             }
-    
+
         };
     }
 
     @Override
     protected IBeanPropertyAccessors<IMetadataColumn, Integer> getLengthAccessor() {
         return new IBeanPropertyAccessors<IMetadataColumn, Integer>() {
-    
+
             public Integer get(IMetadataColumn bean) {
                 return bean.getLength();
             }
-    
+
             public void set(IMetadataColumn bean, Integer value) {
                 bean.setLength(value);
             }
-    
+
         };
     }
 
     @Override
     protected IBeanPropertyAccessors<IMetadataColumn, String> getPatternAccessor() {
         return new IBeanPropertyAccessors<IMetadataColumn, String>() {
-    
+
             public String get(IMetadataColumn bean) {
                 return bean.getPattern();
             }
-    
+
             public void set(IMetadataColumn bean, String value) {
                 bean.setPattern(value);
             }
-    
+
         };
     }
 
     @Override
     protected IBeanPropertyAccessors<IMetadataColumn, Boolean> getKeyAccesor() {
         return new IBeanPropertyAccessors<IMetadataColumn, Boolean>() {
-    
+
             public Boolean get(IMetadataColumn bean) {
                 return new Boolean(bean.isKey());
             }
-    
+
             public void set(IMetadataColumn bean, Boolean value) {
                 bean.setKey(value);
             }
-    
+
         };
     }
 
     @Override
     protected IBeanPropertyAccessors<IMetadataColumn, String> getLabelAccessor() {
         return new IBeanPropertyAccessors<IMetadataColumn, String>() {
-    
+
             public String get(IMetadataColumn bean) {
                 return bean.getLabel();
             }
-    
+
             public void set(IMetadataColumn bean, String value) {
                 bean.setLabel(value);
             }
-    
+
         };
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#validateColumnName(java.lang.String, int)
      */
     @Override
     protected String validateColumnName(String newValue, int beanPosition) {
-        return getMetadataTableEditor().validateColumnName(newValue, beanPosition);        
+        return getMetadataTableEditor().validateColumnName(newValue, beanPosition);
     }
 
     @Override
     protected IBeanPropertyAccessors<IMetadataColumn, String> getTalendTypeAccessor() {
         return new IBeanPropertyAccessors<IMetadataColumn, String>() {
-    
+
             public String get(IMetadataColumn bean) {
                 return bean.getTalendType();
             }
-    
+
             public void set(IMetadataColumn bean, String value) {
                 bean.setTalendType(value);
             }
-    
+
         };
     }
 
     @Override
     protected IBeanPropertyAccessors getDbTypeAccessor() {
         return new IBeanPropertyAccessors<IMetadataColumn, String>() {
-    
+
             public String get(IMetadataColumn bean) {
                 return bean.getType();
             }
-    
+
             public void set(IMetadataColumn bean, String value) {
-                throw new UnsupportedOperationException();
+                bean.setType(value);
             }
-    
+
         };
     }
 
@@ -318,6 +328,30 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
         return (MetadataToolbarEditorView) getExtendedToolbar();
     }
 
- 
-    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#configureDefaultColumn(org.talend.commons.ui.swt.tableviewer.TableViewerCreator)
+     */
+    @Override
+    protected void configureDefaultColumn(TableViewerCreator<IMetadataColumn> tableViewerCreator) {
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+            super.configureDefaultColumn(tableViewerCreator);
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#getCurrentDbms()
+     */
+    @Override
+    protected String getCurrentDbms() {
+        IMetadataConnection connection = getMetadataTableEditor().getMetadataTable().getParent();
+        if(connection != null) {
+            return connection.getDatabase();
+        }
+        return null;
+    }
+
 }

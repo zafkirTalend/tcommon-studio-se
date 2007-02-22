@@ -145,7 +145,7 @@ public class MetadataDialog extends Dialog {
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, !outputReadOnly, true,
                     false);
-            outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), true);
+            outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), true, false);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
         } else {
@@ -154,7 +154,7 @@ public class MetadataDialog extends Dialog {
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
             inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, inputReadOnly, !inputReadOnly, true,
                     false);
-            inputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(inputFamily), true);
+            inputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(inputFamily), true, false);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
 
@@ -204,7 +204,7 @@ public class MetadataDialog extends Dialog {
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, new MetadataTableEditor(outputMetaTable, titleOutput
                     + " (Output)"), outputReadOnly, !outputReadOnly, true, //$NON-NLS-1$
                     false);
-            outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), false);
+            outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), false, true);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
             outputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
