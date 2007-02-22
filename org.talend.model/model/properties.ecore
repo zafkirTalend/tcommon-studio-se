@@ -104,6 +104,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="RoutineItem" eSuperTypes="#//FileItem">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="builtIn" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
+        eType="ecore:EClass Component.ecore#//IMPORTType" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="ecore:EClass metadata.ecore#//Connection"/>

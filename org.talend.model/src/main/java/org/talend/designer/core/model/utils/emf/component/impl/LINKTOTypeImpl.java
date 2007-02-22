@@ -201,9 +201,9 @@ public class LINKTOTypeImpl extends EObjectImpl implements LINKTOType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (cTYPE: "); //$NON-NLS-1$
+        result.append(" (cTYPE: ");
         result.append(cTYPE);
-        result.append(", nAME: "); //$NON-NLS-1$
+        result.append(", nAME: ");
         result.append(nAME);
         result.append(')');
         return result.toString();

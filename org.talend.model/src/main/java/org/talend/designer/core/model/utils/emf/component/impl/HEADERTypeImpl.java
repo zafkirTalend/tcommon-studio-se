@@ -1083,36 +1083,36 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (sIGNATURE: "); //$NON-NLS-1$
+        result.append(" (sIGNATURE: ");
         result.append(sIGNATURE);
-        result.append(", aUTHOR: "); //$NON-NLS-1$
+        result.append(", aUTHOR: ");
         result.append(aUTHOR);
-        result.append(", cOMPATIBILITY: "); //$NON-NLS-1$
+        result.append(", cOMPATIBILITY: ");
         result.append(cOMPATIBILITY);
-        result.append(", dATAAUTOPROPAGATE: "); //$NON-NLS-1$
-        if (dATAAUTOPROPAGATEESet) result.append(dATAAUTOPROPAGATE); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", eXTENSION: "); //$NON-NLS-1$
+        result.append(", dATAAUTOPROPAGATE: ");
+        if (dATAAUTOPROPAGATEESet) result.append(dATAAUTOPROPAGATE); else result.append("<unset>");
+        result.append(", eXTENSION: ");
         result.append(eXTENSION);
-        result.append(", hASCONDITIONALOUTPUTS: "); //$NON-NLS-1$
-        if (hASCONDITIONALOUTPUTSESet) result.append(hASCONDITIONALOUTPUTS); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", pLATEFORM: "); //$NON-NLS-1$
+        result.append(", hASCONDITIONALOUTPUTS: ");
+        if (hASCONDITIONALOUTPUTSESet) result.append(hASCONDITIONALOUTPUTS); else result.append("<unset>");
+        result.append(", pLATEFORM: ");
         result.append(pLATEFORM);
-        result.append(", rELEASEDATE: "); //$NON-NLS-1$
+        result.append(", rELEASEDATE: ");
         result.append(rELEASEDATE);
-        result.append(", sCHEMAAUTOPROPAGATE: "); //$NON-NLS-1$
-        if (sCHEMAAUTOPROPAGATEESet) result.append(sCHEMAAUTOPROPAGATE); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", sERIAL: "); //$NON-NLS-1$
+        result.append(", sCHEMAAUTOPROPAGATE: ");
+        if (sCHEMAAUTOPROPAGATEESet) result.append(sCHEMAAUTOPROPAGATE); else result.append("<unset>");
+        result.append(", sERIAL: ");
         result.append(sERIAL);
-        result.append(", sTARTABLE: "); //$NON-NLS-1$
-        if (sTARTABLEESet) result.append(sTARTABLE); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", sTATUS: "); //$NON-NLS-1$
+        result.append(", sTARTABLE: ");
+        if (sTARTABLEESet) result.append(sTARTABLE); else result.append("<unset>");
+        result.append(", sTATUS: ");
         result.append(sTATUS);
-        result.append(", tSTATCATCHERSTATS: "); //$NON-NLS-1$
-        if (tSTATCATCHERSTATSESet) result.append(tSTATCATCHERSTATS); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", vERSION: "); //$NON-NLS-1$
+        result.append(", tSTATCATCHERSTATS: ");
+        if (tSTATCATCHERSTATSESet) result.append(tSTATCATCHERSTATS); else result.append("<unset>");
+        result.append(", vERSION: ");
         result.append(vERSION);
-        result.append(", vISIBLE: "); //$NON-NLS-1$
-        if (vISIBLEESet) result.append(vISIBLE); else result.append("<unset>"); //$NON-NLS-1$
+        result.append(", vISIBLE: ");
+        if (vISIBLEESet) result.append(vISIBLE); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }

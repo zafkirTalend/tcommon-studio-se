@@ -4,7 +4,7 @@
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.talend.model/src/main/java"
     editDirectory="/org.talend.model.edit/src" editorDirectory="/org.talend.model.editor/src"
     modelPluginID="org.talend.model" modelName="Properties" importerID="org.eclipse.emf.importer.ecore"
-    usedGenPackages="Business.genmodel#//business ../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore metadata.genmodel#//connection ../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation TalendFile.genmodel#//talendfile">
+    usedGenPackages="Business.genmodel#//business Component.genmodel#//component ../../../plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore metadata.genmodel#//connection ../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation TalendFile.genmodel#//talendfile">
   <foreignModel>properties.ecore</foreignModel>
   <genPackages prefix="Properties" basePackage="org.talend.core.model" disposableProviderFactory="true"
       ecorePackage="properties.ecore#/">

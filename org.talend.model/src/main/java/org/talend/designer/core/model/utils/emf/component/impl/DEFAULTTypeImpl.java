@@ -253,11 +253,11 @@ public class DEFAULTTypeImpl extends EObjectImpl implements DEFAULTType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (value: "); //$NON-NLS-1$
+        result.append(" (value: ");
         result.append(value);
-        result.append(", iF: "); //$NON-NLS-1$
+        result.append(", iF: ");
         result.append(iF);
-        result.append(", nOTIF: "); //$NON-NLS-1$
+        result.append(", nOTIF: ");
         result.append(nOTIF);
         result.append(')');
         return result.toString();

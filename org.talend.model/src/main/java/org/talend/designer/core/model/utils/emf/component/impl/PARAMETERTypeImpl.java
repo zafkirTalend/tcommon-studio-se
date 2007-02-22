@@ -978,25 +978,25 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (fIELD: "); //$NON-NLS-1$
+        result.append(" (fIELD: ");
         result.append(fIELD);
-        result.append(", nAME: "); //$NON-NLS-1$
+        result.append(", nAME: ");
         result.append(nAME);
-        result.append(", nBLINES: "); //$NON-NLS-1$
-        if (nBLINESESet) result.append(nBLINES); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", nOTSHOWIF: "); //$NON-NLS-1$
+        result.append(", nBLINES: ");
+        if (nBLINESESet) result.append(nBLINES); else result.append("<unset>");
+        result.append(", nOTSHOWIF: ");
         result.append(nOTSHOWIF);
-        result.append(", nUMROW: "); //$NON-NLS-1$
-        if (nUMROWESet) result.append(nUMROW); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", rEADONLY: "); //$NON-NLS-1$
-        if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", rEPOSITORYVALUE: "); //$NON-NLS-1$
+        result.append(", nUMROW: ");
+        if (nUMROWESet) result.append(nUMROW); else result.append("<unset>");
+        result.append(", rEADONLY: ");
+        if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
+        result.append(", rEPOSITORYVALUE: ");
         result.append(rEPOSITORYVALUE);
-        result.append(", rEQUIRED: "); //$NON-NLS-1$
-        if (rEQUIREDESet) result.append(rEQUIRED); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", sHOW: "); //$NON-NLS-1$
-        if (sHOWESet) result.append(sHOW); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", sHOWIF: "); //$NON-NLS-1$
+        result.append(", rEQUIRED: ");
+        if (rEQUIREDESet) result.append(rEQUIRED); else result.append("<unset>");
+        result.append(", sHOW: ");
+        if (sHOWESet) result.append(sHOW); else result.append("<unset>");
+        result.append(", sHOWIF: ");
         result.append(sHOWIF);
         result.append(')');
         return result.toString();

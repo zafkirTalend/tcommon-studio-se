@@ -48,6 +48,8 @@ import org.talend.core.model.properties.UserProjectAuthorizationType;
 import org.talend.core.model.properties.UserRole;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.designer.business.model.business.BusinessPackage;
+import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
+
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
 /**
@@ -290,6 +292,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         // Initialize simple dependencies
         BusinessPackage.eINSTANCE.eClass();
+        ComponentPackage.eINSTANCE.eClass();
         EcorePackage.eINSTANCE.eClass();
         ConnectionPackage.eINSTANCE.eClass();
         NotationPackage.eINSTANCE.eClass();
@@ -758,6 +761,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EAttribute getRoutineItem_BuiltIn() {
         return (EAttribute)routineItemEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getRoutineItem_Imports() {
+        return (EReference)routineItemEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -1331,6 +1343,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         routineItemEClass = createEClass(ROUTINE_ITEM);
         createEAttribute(routineItemEClass, ROUTINE_ITEM__BUILT_IN);
+        createEReference(routineItemEClass, ROUTINE_ITEM__IMPORTS);
 
         connectionItemEClass = createEClass(CONNECTION_ITEM);
         createEReference(connectionItemEClass, CONNECTION_ITEM__CONNECTION);
@@ -1434,6 +1447,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         XMLTypePackage theXMLTypePackage = (XMLTypePackage)EPackage.Registry.INSTANCE.getEPackage(XMLTypePackage.eNS_URI);
         NotationPackage theNotationPackage = (NotationPackage)EPackage.Registry.INSTANCE.getEPackage(NotationPackage.eNS_URI);
         BusinessPackage theBusinessPackage = (BusinessPackage)EPackage.Registry.INSTANCE.getEPackage(BusinessPackage.eNS_URI);
+        ComponentPackage theComponentPackage = (ComponentPackage)EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI);
         ConnectionPackage theConnectionPackage = (ConnectionPackage)EPackage.Registry.INSTANCE.getEPackage(ConnectionPackage.eNS_URI);
         TalendFilePackage theTalendFilePackage = (TalendFilePackage)EPackage.Registry.INSTANCE.getEPackage(TalendFilePackage.eNS_URI);
 
@@ -1520,6 +1534,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(routineItemEClass, RoutineItem.class, "RoutineItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getRoutineItem_BuiltIn(), ecorePackage.getEBoolean(), "builtIn", "false", 0, 1, RoutineItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getRoutineItem_Imports(), theComponentPackage.getIMPORTType(), null, "imports", null, 0, -1, RoutineItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectionItemEClass, ConnectionItem.class, "ConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getConnectionItem_Connection(), theConnectionPackage.getConnection(), null, "connection", null, 0, 1, ConnectionItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

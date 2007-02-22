@@ -525,17 +525,17 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (fIELD: "); //$NON-NLS-1$
-        if (fIELDESet) result.append(fIELD); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", nAME: "); //$NON-NLS-1$
+        result.append(" (fIELD: ");
+        if (fIELDESet) result.append(fIELD); else result.append("<unset>");
+        result.append(", nAME: ");
         result.append(nAME);
-        result.append(", nOTSHOWIF: "); //$NON-NLS-1$
+        result.append(", nOTSHOWIF: ");
         result.append(nOTSHOWIF);
-        result.append(", rEPOSITORYITEM: "); //$NON-NLS-1$
+        result.append(", rEPOSITORYITEM: ");
         result.append(rEPOSITORYITEM);
-        result.append(", sHOWIF: "); //$NON-NLS-1$
+        result.append(", sHOWIF: ");
         result.append(sHOWIF);
-        result.append(", vALUE: "); //$NON-NLS-1$
+        result.append(", vALUE: ");
         result.append(vALUE);
         result.append(')');
         return result.toString();

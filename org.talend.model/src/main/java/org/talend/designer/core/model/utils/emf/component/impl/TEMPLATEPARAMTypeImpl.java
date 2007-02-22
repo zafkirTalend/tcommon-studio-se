@@ -253,11 +253,11 @@ public class TEMPLATEPARAMTypeImpl extends EObjectImpl implements TEMPLATEPARAMT
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (sOURCE: "); //$NON-NLS-1$
+        result.append(" (sOURCE: ");
         result.append(sOURCE);
-        result.append(", tARGET: "); //$NON-NLS-1$
+        result.append(", tARGET: ");
         result.append(tARGET);
-        result.append(", vALUE: "); //$NON-NLS-1$
+        result.append(", vALUE: ");
         result.append(vALUE);
         result.append(')');
         return result.toString();

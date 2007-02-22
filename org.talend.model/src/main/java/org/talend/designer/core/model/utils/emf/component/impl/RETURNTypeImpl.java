@@ -253,11 +253,11 @@ public class RETURNTypeImpl extends EObjectImpl implements RETURNType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (aVAILABILITY: "); //$NON-NLS-1$
+        result.append(" (aVAILABILITY: ");
         result.append(aVAILABILITY);
-        result.append(", nAME: "); //$NON-NLS-1$
+        result.append(", nAME: ");
         result.append(nAME);
-        result.append(", tYPE: "); //$NON-NLS-1$
+        result.append(", tYPE: ");
         result.append(tYPE);
         result.append(')');
         return result.toString();

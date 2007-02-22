@@ -291,9 +291,9 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (bASEDONSCHEMA: "); //$NON-NLS-1$
-        if (bASEDONSCHEMAESet) result.append(bASEDONSCHEMA); else result.append("<unset>"); //$NON-NLS-1$
-        result.append(", dEFAULT: "); //$NON-NLS-1$
+        result.append(" (bASEDONSCHEMA: ");
+        if (bASEDONSCHEMAESet) result.append(bASEDONSCHEMA); else result.append("<unset>");
+        result.append(", dEFAULT: ");
         result.append(dEFAULT);
         result.append(')');
         return result.toString();
