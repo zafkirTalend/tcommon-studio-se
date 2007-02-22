@@ -27,7 +27,9 @@ import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.internal.ide.IDEWorkbenchAdvisor;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.designer.codegen.CodeGeneratorActivator;
+import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.runprocess.RunProcessPlugin;
 
 /**
@@ -70,6 +72,14 @@ public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
         CodeGeneratorActivator.getDefault();
         // FIXME SML Remove that
         // PerlModuleActivator.getDefault();
+    }
+
+    @Override
+    public void postStartup() {
+        super.postStartup();
+        ICodeGeneratorService codeGenService = (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(
+                ICodeGeneratorService.class);
+        codeGenService.initializeTemplates();
     }
 
 }

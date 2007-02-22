@@ -76,6 +76,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setInitialSize(new Point(1000, 750));
         configurer.setShowCoolBar(true);
         configurer.setShowStatusLine(true);
+        configurer.setShowProgressIndicator(true);
 
         RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
                 Context.REPOSITORY_CONTEXT_KEY);
