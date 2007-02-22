@@ -40,7 +40,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     private String type = ""; //$NON-NLS-1$
 
     private String talendType = ""; //$NON-NLS-1$
-
+    
     private String dbms = ""; //$NON-NLS-1$
 
     private boolean nullable = false;
@@ -75,6 +75,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
             // should never happend when product run
             e.printStackTrace();
         }
+        this.type = metadataColumn.getType();
         this.dbms = metadataColumn.getDbms();
         this.nullable = metadataColumn.isNullable();
         this.length = metadataColumn.getLength();
@@ -387,6 +388,13 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         } else if (!this.talendType.equals(other.talendType)) {
             return false;
         }
+        if (this.type == null) {
+            if (other.type != null) {
+                return false;
+            }
+        } else if (!this.type.equals(other.type)) {
+            return false;
+        }        
         return true;
     }
 }

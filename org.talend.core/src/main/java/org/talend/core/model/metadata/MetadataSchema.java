@@ -158,6 +158,7 @@ public final class MetadataSchema {
                 final Node label = nodeMap.getNamedItem("label"); //$NON-NLS-1$
                 final Node key = nodeMap.getNamedItem("key"); //$NON-NLS-1$
                 final Node type = nodeMap.getNamedItem("talendType"); //$NON-NLS-1$
+                final Node sourceType = nodeMap.getNamedItem("type"); //$NON-NLS-1$
                 final Node length = nodeMap.getNamedItem("length"); //$NON-NLS-1$
                 final Node nullable = nodeMap.getNamedItem("nullable"); //$NON-NLS-1$
                 final Node precision = nodeMap.getNamedItem("precision"); //$NON-NLS-1$
@@ -167,6 +168,7 @@ public final class MetadataSchema {
                 metadataColumn.setLabel(label.getNodeValue());
                 metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
                 metadataColumn.setTalendType(type.getNodeValue());
+                metadataColumn.setType(sourceType.getNodeValue());
                 if (length.getNodeValue() != null) {
                     try {
                         metadataColumn.setLength(Integer.parseInt(length.getNodeValue()));
@@ -185,6 +187,7 @@ public final class MetadataSchema {
                 } else {
                     metadataColumn.setPrecision(null);
                 }
+                
                 metadataColumn.setNullable(Boolean.parseBoolean(nullable.getNodeValue()));
                 metadataColumn.setDefault(defaultValue.getNodeValue());
                 metadataColumn.setComment(comment.getNodeValue());
@@ -244,6 +247,7 @@ public final class MetadataSchema {
                 final Node label = nodeMap.getNamedItem("label"); //$NON-NLS-1$
                 final Node key = nodeMap.getNamedItem("key"); //$NON-NLS-1$
                 final Node type = nodeMap.getNamedItem("talendType"); //$NON-NLS-1$
+                final Node sourceType = nodeMap.getNamedItem("type"); //$NON-NLS-1$
                 final Node length = nodeMap.getNamedItem("length"); //$NON-NLS-1$
                 final Node precision = nodeMap.getNamedItem("precision"); //$NON-NLS-1$
                 final Node nullable = nodeMap.getNamedItem("nullable"); //$NON-NLS-1$
@@ -253,6 +257,7 @@ public final class MetadataSchema {
                 metadataColumn.setLabel(label.getNodeValue());
                 metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
                 metadataColumn.setTalendType(type.getNodeValue());
+                metadataColumn.setSourceType(sourceType.getNodeValue());
                 if (length.getNodeValue() != null) {
                     try {
                         metadataColumn.setLength(Integer.parseInt(length.getNodeValue()));
