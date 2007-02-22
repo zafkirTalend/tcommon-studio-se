@@ -41,7 +41,7 @@ public enum ECoreImage implements IImage {
     FOLDER_CLOSE_ICON("/icons/folder_close.png"), //$NON-NLS-1$
     FOLDER_WIZ("/icons/folder_wiz.gif"), //$NON-NLS-1$
 
-    BUSINESS_PROCESS_ICON("/icons/JobContexts1.png"), //$NON-NLS-1$
+    BUSINESS_PROCESS_ICON("/icons/businessProcess.gif"), //$NON-NLS-1$
     BUSINESS_PROCESS_WIZ("/icons/business_wiz.png"), //$NON-NLS-1$
     PROCESS_ICON("/icons/process_icon.gif"), //$NON-NLS-1$
     PROCESS_WIZ("/icons/process_wiz.png"), //$NON-NLS-1$
@@ -56,7 +56,7 @@ public enum ECoreImage implements IImage {
     METADATA_ICON("/icons/metadata.png"), //$NON-NLS-1$
     METADATA_CONNECTION_ICON("/icons/connection.gif"), //$NON-NLS-1$
     METADATA_CONNECTION_WIZ("/icons/connection_wiz.png"), //$NON-NLS-1$
-    METADATA_TABLE_ICON("/icons/querySQL.gif"), //$NON-NLS-1$
+    METADATA_TABLE_ICON("/icons/table.gif"), //$NON-NLS-1$
     METADATA_VIEW_ICON("/icons/view.gif"), //$NON-NLS-1$
     METADATA_SYNONYM_ICON("/icons/synonym.gif"), //$NON-NLS-1$
     METADATA_QUERY_ICON("/icons/query.gif"), //$NON-NLS-1$
