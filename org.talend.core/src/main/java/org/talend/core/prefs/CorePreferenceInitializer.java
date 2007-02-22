@@ -49,7 +49,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
     /**
      * 
      */
-    private static final String PERL_EMBEDDED_INTERPRETER_DIRECTORY = "perl/perl.exe";
+    private static final String PERL_EMBEDDED_INTERPRETER_DIRECTORY = "perl/bin/perl.exe";
 
     private static final String JAVA_LINUX_INTERPRETER_PATH = "/java"; // NON-NLS-1$
 
