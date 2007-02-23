@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.commons.utils.generation;
 
+import org.eclipse.core.runtime.Platform;
+
 /**
  * Utilities around perl stuff. <br/>
  * 
@@ -53,7 +55,7 @@ public final class JavaUtils {
 
     /** Java Routines Directory. */
     public static final String JAVA_ROUTINES_DIRECTORY = "routines";
-    
+
     /** Java Routines Directory. */
     public static final String JAVA_SYSTEM_ROUTINES_DIRECTORY = "system";
 
@@ -65,4 +67,8 @@ public final class JavaUtils {
 
     /** Java Source Directory. */
     public static final String JAVA_SRC_DIRECTORY = "src";
+
+    /** Java ClassPath Separator. */
+    public static final String JAVA_CLASSPATH_SEPARATOR = (Platform.getOS().compareTo(Platform.WS_WIN32) == 0) ? ";"
+            : ":";
 }
