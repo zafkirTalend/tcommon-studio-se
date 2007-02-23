@@ -220,7 +220,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public List<IRepositoryObject> getAll(ERepositoryObjectType type, boolean withDeleted) throws PersistenceException {
         IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(), type);
         return convert(getSerializableFromFolder(folder, null, type, false, true, withDeleted));
-    }
+    } 
 
     public IRepositoryObject getLastVersion(String id) throws PersistenceException {
         List<IRepositoryObject> serializableAllVersion = getSerializable(getRepositoryContext().getProject(), id, false);
@@ -558,10 +558,32 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completeOldPath, false);
 
-        IFolder newFolder = ResourceUtils.getFolder(fsProject, completeNewPath, false);
-        getFolderHelper(getRepositoryContext().getProject().getEmfProject()).moveFolder(completeOldPath, completeNewPath);
+        FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
+        FolderItem emfFolder = folderHelper.getFolder(completeOldPath);
+
+        createFolder(type, targetPath, emfFolder.getProperty().getLabel());
+
+        Item[] childrens = (Item[]) emfFolder.getChildren().toArray();
+        for (int i = 0; i < childrens.length; i++) {
+            FolderItem children = (FolderItem) childrens[i];
+            moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder.getProperty().getLabel()));
+        }
+
+        List<IRepositoryObject> serializableFromFolder = getSerializableFromFolder(folder, null, type, true, true, true);
+        for (IRepositoryObject object : serializableFromFolder) {
+            List<Resource> affectedResources = xmiResourceManager.getAffectedResources(object.getProperty());
+            for (Resource resource : affectedResources) {
+                IPath path = getProject().getFullPath().append(completeNewPath).append(resource.getURI().lastSegment());
+                xmiResourceManager.moveResource(resource, path);
+            }
+            for (Resource resource : affectedResources) {
+                xmiResourceManager.saveResource(resource);
+            }
+        }
+
+        deleteFolder(type, sourcePath);
+        
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
-        ResourceUtils.moveResource(folder, newFolder.getFullPath());
     }
 
     public void renameFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException {
