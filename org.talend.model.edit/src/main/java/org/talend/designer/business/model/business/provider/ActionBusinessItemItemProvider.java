@@ -57,7 +57,7 @@ public class ActionBusinessItemItemProvider extends BusinessItemShapeItemProvide
     /**
      * This returns ActionBusinessItem.gif.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Object getImage(Object object) {
         return overlayImage(object, getResourceLocator().getImage("full/obj16/ActionBusinessItem")); //$NON-NLS-1$
@@ -66,7 +66,7 @@ public class ActionBusinessItemItemProvider extends BusinessItemShapeItemProvide
     /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String getText(Object object) {
         String label = ((ActionBusinessItem)object).getName();

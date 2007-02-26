@@ -61,7 +61,7 @@ public class BusinessItemRelationshipItemProvider extends BusinessItemItemProvid
     /**
      * This adds a property descriptor for the Source feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addSourcePropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -82,7 +82,7 @@ public class BusinessItemRelationshipItemProvider extends BusinessItemItemProvid
     /**
      * This adds a property descriptor for the Target feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addTargetPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -103,7 +103,7 @@ public class BusinessItemRelationshipItemProvider extends BusinessItemItemProvid
     /**
      * This returns BusinessItemRelationship.gif.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Object getImage(Object object) {
         return overlayImage(object, getResourceLocator().getImage("full/obj16/BusinessItemRelationship")); //$NON-NLS-1$
@@ -112,7 +112,7 @@ public class BusinessItemRelationshipItemProvider extends BusinessItemItemProvid
     /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String getText(Object object) {
         String label = ((BusinessItemRelationship)object).getName();

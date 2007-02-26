@@ -109,7 +109,7 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public void setBusinessProcess(BusinessProcess newBusinessProcess) {
         if (newBusinessProcess != eInternalContainer() || (eContainerFeatureID != BusinessPackage.BUSINESS_ITEM__BUSINESS_PROCESS && newBusinessProcess != null)) {
@@ -272,7 +272,7 @@ public abstract class BusinessItemImpl extends EObjectImpl implements BusinessIt
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String toString() {
         if (eIsProxy()) return super.toString();

@@ -105,7 +105,7 @@ public class BusinessAssignmentImpl extends EObjectImpl implements BusinessAssig
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public void setBusinessItem(BusinessItem newBusinessItem) {
         if (newBusinessItem != eInternalContainer() || (eContainerFeatureID != BusinessPackage.BUSINESS_ASSIGNMENT__BUSINESS_ITEM && newBusinessItem != null)) {
@@ -315,7 +315,7 @@ public class BusinessAssignmentImpl extends EObjectImpl implements BusinessAssig
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String toString() {
         if (eIsProxy()) return super.toString();

@@ -294,7 +294,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public void setRepository(Repository newRepository) {
         if (newRepository != eInternalContainer() || (eContainerFeatureID != BusinessPackage.TALEND_ITEM__REPOSITORY && newRepository != null)) {
@@ -467,7 +467,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String toString() {
         if (eIsProxy()) return super.toString();

@@ -65,7 +65,7 @@ public class BusinessItemItemProvider extends ItemProviderAdapter implements IEd
     /**
      * This adds a property descriptor for the Name feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addNamePropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -102,7 +102,7 @@ public class BusinessItemItemProvider extends ItemProviderAdapter implements IEd
     /**
      * This returns BusinessItem.gif.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Object getImage(Object object) {
         return overlayImage(object, getResourceLocator().getImage("full/obj16/BusinessItem")); //$NON-NLS-1$
@@ -111,7 +111,7 @@ public class BusinessItemItemProvider extends ItemProviderAdapter implements IEd
     /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String getText(Object object) {
         String label = ((BusinessItem)object).getName();

@@ -69,7 +69,7 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
     /**
      * This adds a property descriptor for the Id feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addIdPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -90,7 +90,7 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
     /**
      * This adds a property descriptor for the Label feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addLabelPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -111,7 +111,7 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
     /**
      * This adds a property descriptor for the Author feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addAuthorPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -132,7 +132,7 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
     /**
      * This adds a property descriptor for the Version feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addVersionPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -153,7 +153,7 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
     /**
      * This adds a property descriptor for the Comment feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addCommentPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -174,7 +174,7 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
     /**
      * This adds a property descriptor for the Assignments feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addAssignmentsPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -195,7 +195,7 @@ public class TalendItemItemProvider extends ItemProviderAdapter implements IEdit
     /**
      * This returns TalendItem.gif.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Object getImage(Object object) {
         return overlayImage(object, getResourceLocator().getImage("full/obj16/TalendItem")); //$NON-NLS-1$

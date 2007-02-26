@@ -78,7 +78,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
     /**
      * This adds a property descriptor for the Talend Item feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addTalendItemPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -99,7 +99,7 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
     /**
      * This adds a property descriptor for the Comment feature.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     protected void addCommentPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add

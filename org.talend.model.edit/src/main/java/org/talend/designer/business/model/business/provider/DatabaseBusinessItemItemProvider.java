@@ -57,7 +57,7 @@ public class DatabaseBusinessItemItemProvider extends BusinessItemShapeItemProvi
     /**
      * This returns DatabaseBusinessItem.gif.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Object getImage(Object object) {
         return overlayImage(object, getResourceLocator().getImage("full/obj16/DatabaseBusinessItem")); //$NON-NLS-1$
@@ -66,7 +66,7 @@ public class DatabaseBusinessItemItemProvider extends BusinessItemShapeItemProvi
     /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String getText(Object object) {
         String label = ((DatabaseBusinessItem)object).getName();

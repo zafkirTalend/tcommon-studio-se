@@ -57,7 +57,7 @@ public class TerminalBusinessItemItemProvider extends BusinessItemShapeItemProvi
     /**
      * This returns TerminalBusinessItem.gif.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Object getImage(Object object) {
         return overlayImage(object, getResourceLocator().getImage("full/obj16/TerminalBusinessItem")); //$NON-NLS-1$
@@ -66,7 +66,7 @@ public class TerminalBusinessItemItemProvider extends BusinessItemShapeItemProvi
     /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String getText(Object object) {
         String label = ((TerminalBusinessItem)object).getName();

@@ -62,7 +62,7 @@ public class BusinessItemShapeItemProvider extends BusinessItemItemProvider impl
      * This adds a property descriptor for the Incoming Relationships feature. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
-     * @generated
+     * @generated NOT
      */
     protected void addIncomingRelationshipsPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -84,7 +84,7 @@ public class BusinessItemShapeItemProvider extends BusinessItemItemProvider impl
      * This adds a property descriptor for the Outgoing Relationships feature. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
-     * @generated
+     * @generated NOT
      */
     protected void addOutgoingRelationshipsPropertyDescriptor(Object object) {
         itemPropertyDescriptors.add
@@ -105,7 +105,7 @@ public class BusinessItemShapeItemProvider extends BusinessItemItemProvider impl
     /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String getText(Object object) {
         String label = ((BusinessItemShape)object).getName();

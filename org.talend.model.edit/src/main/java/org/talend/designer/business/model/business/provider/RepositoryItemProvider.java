@@ -78,7 +78,7 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
     /**
      * This returns Repository.gif.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Object getImage(Object object) {
         return overlayImage(object, getResourceLocator().getImage("full/obj16/Repository")); //$NON-NLS-1$
@@ -87,7 +87,7 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
     /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String getText(Object object) {
         return getString("_UI_Repository_type"); //$NON-NLS-1$

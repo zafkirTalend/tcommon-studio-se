@@ -49,7 +49,7 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
     /**
      * Creates the default factory implementation.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public static BusinessFactory init() {
         try {
