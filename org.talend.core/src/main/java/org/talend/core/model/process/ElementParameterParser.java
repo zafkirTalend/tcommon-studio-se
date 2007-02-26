@@ -124,7 +124,7 @@ public final class ElementParameterParser {
                     if (o instanceof Boolean) {
                         newLine.put(items[i], ((Boolean) o).toString());
                     } else {
-                        newLine.put(items[i], "*** ERROR in Table ***");
+                        newLine.put(items[i], Messages.getString("ElementParameterParser.ErrorInTable")); //$NON-NLS-1$
                     }
                 }
             }

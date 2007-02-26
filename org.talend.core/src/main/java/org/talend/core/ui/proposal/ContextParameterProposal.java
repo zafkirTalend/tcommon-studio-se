@@ -86,10 +86,10 @@ public class ContextParameterProposal implements IContentProposal {
             desc = Messages.getString("ContextParameterProposal.NoCommentAvaiable"); //$NON-NLS-1$
         }
         
-        String message = "Description: {0}";
-        message += "\n\nContext variable.";
-        message += "\nType: {1}";
-        message += "\n\nVariable Name: {2}";
+        String message = Messages.getString("ContextParameterProposal.Description"); //$NON-NLS-1$
+        message += Messages.getString("ContextParameterProposal.ContextVariable"); //$NON-NLS-1$
+        message += Messages.getString("ContextParameterProposal.Type"); //$NON-NLS-1$
+        message += Messages.getString("ContextParameterProposal.VariableName"); //$NON-NLS-1$
 
         MessageFormat format = new MessageFormat(message);
         Object[] args = new Object[] { desc, contextParameter.getType().getDisplayName(), getContent() };
@@ -102,7 +102,7 @@ public class ContextParameterProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getLabel()
      */
     public String getLabel() {
-        return "context." + contextParameter.getName();
+        return "context." + contextParameter.getName(); //$NON-NLS-1$
     }
 
 }

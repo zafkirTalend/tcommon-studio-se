@@ -164,12 +164,12 @@ public class MappingType {
          */
         public String toString() {
             StringBuffer buffer = new StringBuffer();
-            buffer.append("MappingType[");
-            buffer.append("dbmsType = ").append(dbType);
-            buffer.append(", talendType = ").append(talendTypeName);
-            buffer.append(", defaultSelected = ").append(defaultSelected);
-            buffer.append(", nullable = ").append(nullable);
-            buffer.append("]");
+            buffer.append("MappingType["); //$NON-NLS-1$
+            buffer.append("dbmsType = ").append(dbType); //$NON-NLS-1$
+            buffer.append(", talendType = ").append(talendTypeName); //$NON-NLS-1$
+            buffer.append(", defaultSelected = ").append(defaultSelected); //$NON-NLS-1$
+            buffer.append(", nullable = ").append(nullable); //$NON-NLS-1$
+            buffer.append("]"); //$NON-NLS-1$
             return buffer.toString();
         }
 

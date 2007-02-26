@@ -224,14 +224,14 @@ public class Dbms {
          */
         public String toString() {
             StringBuffer buffer = new StringBuffer();
-            buffer.append("Dbms[");
-            buffer.append("product = ").append(product);
-            buffer.append(", id = ").append(id);
-            buffer.append(", label = ").append(label);
-            buffer.append(", defaultDbType = ").append(defaultDbType);
-            buffer.append(", dbmsTypes = ").append(dbmsTypes);
-            buffer.append(", mappingTypes = ").append(mappingTypes);
-            buffer.append("]");
+            buffer.append("Dbms["); //$NON-NLS-1$
+            buffer.append("product = ").append(product); //$NON-NLS-1$
+            buffer.append(", id = ").append(id); //$NON-NLS-1$
+            buffer.append(", label = ").append(label); //$NON-NLS-1$
+            buffer.append(", defaultDbType = ").append(defaultDbType); //$NON-NLS-1$
+            buffer.append(", dbmsTypes = ").append(dbmsTypes); //$NON-NLS-1$
+            buffer.append(", mappingTypes = ").append(mappingTypes); //$NON-NLS-1$
+            buffer.append("]"); //$NON-NLS-1$
             return buffer.toString();
         }
 

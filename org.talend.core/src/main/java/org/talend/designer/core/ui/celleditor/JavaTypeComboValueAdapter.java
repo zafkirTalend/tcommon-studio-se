@@ -61,7 +61,7 @@ public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
         // else {
         // return null;
         // }
-        throw new IllegalStateException("No selection is invalid");
+        throw new IllegalStateException("No selection is invalid"); //$NON-NLS-1$
     }
 
     public Object getCellEditorTypedValue(final CellEditor cellEditor, Object originalTypedValue) {

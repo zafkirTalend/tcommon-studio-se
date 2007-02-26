@@ -49,15 +49,15 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
     /**
      * 
      */
-    private static final String PERL_EMBEDDED_INTERPRETER_DIRECTORY = "perl/bin/perl.exe";
+    private static final String PERL_EMBEDDED_INTERPRETER_DIRECTORY = "perl/bin/perl.exe"; //$NON-NLS-1$
 
-    private static final String JAVA_LINUX_INTERPRETER_PATH = "/java"; // NON-NLS-1$
+    private static final String JAVA_LINUX_INTERPRETER_PATH = "/java"; // NON-NLS-1$ //$NON-NLS-1$
 
-    private static final String JAVA_WIN32_INTERPRETER = "\\java.exe"; // NON-NLS-1$
+    private static final String JAVA_WIN32_INTERPRETER = "\\java.exe"; // NON-NLS-1$ //$NON-NLS-1$
 
-    private static final String PERL_LINUX_INTERPRETER_PATH = "/usr/bin/perl"; // NON-NLS-1$
+    private static final String PERL_LINUX_INTERPRETER_PATH = "/usr/bin/perl"; // NON-NLS-1$ //$NON-NLS-1$
 
-    private static final String PERL_WIN32_INTERPRETER_PATH = "C:\\Perl\\bin\\perl.exe"; // NON-NLS-1$
+    private static final String PERL_WIN32_INTERPRETER_PATH = "C:\\Perl\\bin\\perl.exe"; // NON-NLS-1$ //$NON-NLS-1$
 
     /**
      * Construct a new CorePreferenceInitializer.
@@ -75,7 +75,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         IEclipsePreferences node = new DefaultScope().getNode(CorePlugin.getDefault().getBundle().getSymbolicName());
 
         // Building temporary files directory path
-        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); // NON-NLS-1$// NON-NLS-2$
+        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); // NON-NLS-1$// NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-2$
         File tempFile = tempPath.toFile();
         if (!tempFile.exists()) {
             tempFile.mkdirs();
@@ -84,7 +84,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         // TODO CCA : Change this default value
         String os = Platform.getOS();
-        String javaPath = System.getProperty("sun.boot.library.path"); // NON-NLS-1$
+        String javaPath = System.getProperty("sun.boot.library.path"); // NON-NLS-1$ //$NON-NLS-1$
         if (os.equals(Platform.OS_WIN32)) {
             node.put(ITalendCorePrefConstants.PERL_INTERPRETER, Platform.getInstallLocation().getURL().getFile()
                     .substring(1)
@@ -101,15 +101,15 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         //Sets default language
         node.put(ITalendCorePrefConstants.LANGUAGE_SELECTOR, Locale.getDefault().getLanguage());
 
-        node.put(ITalendCorePrefConstants.PREVIEW_LIMIT, "50");
+        node.put(ITalendCorePrefConstants.PREVIEW_LIMIT, "50"); //$NON-NLS-1$
 
         initializeUpdatePreference();
 
         // Initialize editors properties : line number shown
-        final String perlEditorBundleName = "org.epic.perleditor"; // NON-NLS-1$
-        final String editorsBundleName = "org.eclipse.ui.editors"; // NON-NLS-1$
+        final String perlEditorBundleName = "org.epic.perleditor"; // NON-NLS-1$ //$NON-NLS-1$
+        final String editorsBundleName = "org.eclipse.ui.editors"; // NON-NLS-1$ //$NON-NLS-1$
         // AbstractDecoratedTextEditorPreferenceConstants.EDITOR_LINE_NUMBER_RULER = "lineNumberRuler"
-        final String editorLineNumberRuler = "lineNumberRuler";
+        final String editorLineNumberRuler = "lineNumberRuler"; //$NON-NLS-1$
         IPreferenceStore store = new ScopedPreferenceStore(new InstanceScope(), perlEditorBundleName);
         store.setValue(editorLineNumberRuler, true);
         store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
@@ -120,7 +120,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
     }
 
     public void initializeUpdatePreference() {
-        IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$
+        IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$ //$NON-NLS-1$
         nodeScheduler.putBoolean(SchedulerStartup.P_ENABLED, true);
         nodeScheduler.put(SchedulerStartup.P_SCHEDULE, SchedulerStartup.VALUE_ON_STARTUP);
         nodeScheduler.putBoolean(SchedulerStartup.P_DOWNLOAD, true);

@@ -46,17 +46,17 @@ public class PathExtractor {
         ECodeLanguage currentLanguage = LanguageManager.getCurrentLanguage();
         String extractedFilePath;
         if (currentLanguage == ECodeLanguage.PERL) {
-            String extractedFilePathWithQuote = StringUtils.extractFirstDelimitedString(filePathExpression, "'");
-            String extractedFilePathWithDoubleQuote = StringUtils.extractFirstDelimitedString(filePathExpression, "\"");
+            String extractedFilePathWithQuote = StringUtils.extractFirstDelimitedString(filePathExpression, "'"); //$NON-NLS-1$
+            String extractedFilePathWithDoubleQuote = StringUtils.extractFirstDelimitedString(filePathExpression, "\""); //$NON-NLS-1$
             if (extractedFilePathWithDoubleQuote.length() > extractedFilePathWithQuote.length()) {
                 extractedFilePath = extractedFilePathWithDoubleQuote;
             } else {
                 extractedFilePath = extractedFilePathWithQuote;
             }
         } else if (currentLanguage == ECodeLanguage.JAVA) {
-            extractedFilePath = StringUtils.extractFirstDelimitedString(filePathExpression, "\"");
+            extractedFilePath = StringUtils.extractFirstDelimitedString(filePathExpression, "\""); //$NON-NLS-1$
         } else {
-            throw new IllegalStateException("Case not found");
+            throw new IllegalStateException("Case not found"); //$NON-NLS-1$
         }
 
         return extractedFilePath;

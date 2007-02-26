@@ -58,7 +58,7 @@ import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
  */
 public class MetadataDialog extends Dialog {
 
-    private static final Object DATABASE_LABEL = "Database";
+    private static final Object DATABASE_LABEL = Messages.getString("MetadataDialog.DatabaseLabel"); //$NON-NLS-1$
 
     @Override
     protected void setShellStyle(int newShellStyle) {

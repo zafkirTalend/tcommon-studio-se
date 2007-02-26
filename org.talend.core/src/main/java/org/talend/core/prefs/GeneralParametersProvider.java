@@ -61,7 +61,7 @@ public class GeneralParametersProvider extends MessagesCore {
      */
     public static String[] getStrings(GeneralParameters key) {
         String value = getString(key);
-        String[] toReturn = value.split(",");
+        String[] toReturn = value.split(","); //$NON-NLS-1$
         Arrays.sort(toReturn);
         return toReturn;
     }
@@ -72,7 +72,7 @@ public class GeneralParametersProvider extends MessagesCore {
      * $Id$
      */
     public enum GeneralParameters {
-        AUTHORIZED_LANGUAGE("param.authorizedlanguage");
+        AUTHORIZED_LANGUAGE("param.authorizedlanguage"); //$NON-NLS-1$
 
         private String paramName;
 

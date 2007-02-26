@@ -48,7 +48,7 @@ public final class JavaType {
         super();
         this.nullableClass = nullableClass;
         this.primitiveClass = primitiveClass;
-        this.label = primitiveClass.getSimpleName() + " | " + nullableClass.getSimpleName();
+        this.label = primitiveClass.getSimpleName() + " | " + nullableClass.getSimpleName(); //$NON-NLS-1$
         this.id = createId(nullableClass.getSimpleName());
     }
 
@@ -59,7 +59,7 @@ public final class JavaType {
      * @return
      */
     private String createId(String value) {
-        return "id_" + value;
+        return "id_" + value; //$NON-NLS-1$
     }
 
     /**
@@ -179,11 +179,11 @@ public final class JavaType {
      */
     public String toString() {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("JavaType[");
-        buffer.append("label = ").append(label);
-        buffer.append(" nullableClass = ").append(nullableClass);
-        buffer.append(" primitiveClass = ").append(primitiveClass);
-        buffer.append("]");
+        buffer.append("JavaType["); //$NON-NLS-1$
+        buffer.append("label = ").append(label); //$NON-NLS-1$
+        buffer.append(" nullableClass = ").append(nullableClass); //$NON-NLS-1$
+        buffer.append(" primitiveClass = ").append(primitiveClass); //$NON-NLS-1$
+        buffer.append("]"); //$NON-NLS-1$
         return buffer.toString();
     }
 

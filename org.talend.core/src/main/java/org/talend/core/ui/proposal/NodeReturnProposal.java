@@ -24,6 +24,7 @@ package org.talend.core.ui.proposal;
 import java.text.MessageFormat;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
+import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeReturn;
@@ -74,11 +75,11 @@ public class NodeReturnProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getDescription()
      */
     public String getDescription() {
-        String message = "Description: {0}";
-        message += "\n\nGlobal variable, property of component {1} [{2}].";
-        message += "\nType: {3}";
-        message += "\nAvailability: {4}";
-        message += "\n\nVariable Name: {5}";
+        String message = Messages.getString("NodeReturnProposal.Description"); //$NON-NLS-1$
+        message += Messages.getString("NodeReturnProposal.GlobalVariable"); //$NON-NLS-1$
+        message += Messages.getString("NodeReturnProposal.Type"); //$NON-NLS-1$
+        message += Messages.getString("NodeReturnProposal.Availability"); //$NON-NLS-1$
+        message += Messages.getString("NodeReturnProposal.VariableName"); //$NON-NLS-1$
 
         MessageFormat format = new MessageFormat(message);
         Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponent().getTranslatedName(), node.getUniqueName(),
@@ -92,7 +93,7 @@ public class NodeReturnProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getLabel()
      */
     public String getLabel() {
-        return node.getUniqueName() + "." + nodeReturn.getName();
+        return node.getUniqueName() + "." + nodeReturn.getName(); //$NON-NLS-1$
     }
 
 }

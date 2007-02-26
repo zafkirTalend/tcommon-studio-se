@@ -254,7 +254,7 @@ public class ExtractMetaDataFromDataBase {
                 } else {
                     metadataColumn.setKey(false);
                 }
-                String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase();
+                String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
                 metadataColumn.setSourceType(dbType); //$NON-NLS-1$
                 boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
                 metadataColumn.setNullable(isNullable);
@@ -263,14 +263,14 @@ public class ExtractMetaDataFromDataBase {
 
                 String talendType = null;
                 if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                    MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever("Mysql5.1");
+                    MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever("Mysql5.1"); //$NON-NLS-1$
                     String idJavaType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, isNullable);
                     JavaType javaTypeFromName = JavaTypesManager.getJavaTypeFromId(idJavaType);
                     if (javaTypeFromName != null) {
                         talendType = javaTypeFromName.getId();
                     } else {
                         talendType = JavaTypesManager.getDefaultJavaType().getId();
-                        log.warn("dbType '" + dbType + "' not found  "); //$NON-NLS-1$
+                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound",dbType)); //$NON-NLS-1$
                     }
                 } else {
                     talendType = MetadataTalendType.loadTalendType(metadataColumn.getSourceType(), dbms, false);

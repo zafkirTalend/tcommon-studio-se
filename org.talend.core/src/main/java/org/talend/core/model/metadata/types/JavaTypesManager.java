@@ -39,13 +39,13 @@ import org.apache.commons.lang.ArrayUtils;
  */
 public final class JavaTypesManager {
 
-    public static final String DEFAULT_CHAR = "' '";
+    public static final String DEFAULT_CHAR = "' '"; //$NON-NLS-1$
 
-    public static final String DEFAULT_NUMBER = "0";
+    public static final String DEFAULT_NUMBER = "0"; //$NON-NLS-1$
 
-    public static final String NULL = "null";
+    public static final String NULL = "null"; //$NON-NLS-1$
 
-    public static final String JAVA_PRIMITIVE_CHAR = "char";
+    public static final String JAVA_PRIMITIVE_CHAR = "char"; //$NON-NLS-1$
 
     public static final JavaType BOOLEAN = new JavaType(Boolean.class, boolean.class);
 
@@ -166,7 +166,7 @@ public final class JavaTypesManager {
     public static JavaType getJavaTypeFromId(String id) {
         JavaType javaTypeFromId = idToJavaType.get(id);
         if (javaTypeFromId == null) {
-            throw new IllegalArgumentException("Unknown java id type : '" + id + "'");
+            throw new IllegalArgumentException("Unknown java id type : '" + id + "'"); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return javaTypeFromId;
     }
@@ -351,11 +351,11 @@ public final class JavaTypesManager {
 
     public static void main(String[] args) {
 
-        System.out.println(JavaTypesManager.getJavaTypeFromName("String"));
-        System.out.println(JavaTypesManager.getJavaTypeFromName("int"));
-        System.out.println(JavaTypesManager.getJavaTypeFromName("Integer"));
-        System.out.println(JavaTypesManager.getJavaTypeFromName("integer"));
-        System.out.println(JavaTypesManager.getJavaTypeFromName("Object"));
+        System.out.println(JavaTypesManager.getJavaTypeFromName("String")); //$NON-NLS-1$
+        System.out.println(JavaTypesManager.getJavaTypeFromName("int")); //$NON-NLS-1$
+        System.out.println(JavaTypesManager.getJavaTypeFromName("Integer")); //$NON-NLS-1$
+        System.out.println(JavaTypesManager.getJavaTypeFromName("integer")); //$NON-NLS-1$
+        System.out.println(JavaTypesManager.getJavaTypeFromName("Object")); //$NON-NLS-1$
     }
 
 }

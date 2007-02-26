@@ -89,7 +89,7 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
                 { Locale.FRENCH.getDisplayLanguage(), Locale.FRENCH.getLanguage() },
                 { Locale.CHINESE.getDisplayLanguage(), Locale.CHINESE.getLanguage() } };
         ComboFieldEditor languageSelectionEditor = new OneLineComboFieldEditor(
-                ITalendCorePrefConstants.LANGUAGE_SELECTOR, Messages.getString("CorePreferencePage.LocalLanguage"), entryNamesAndValues,
+                ITalendCorePrefConstants.LANGUAGE_SELECTOR, Messages.getString("CorePreferencePage.LocalLanguage"), entryNamesAndValues, //$NON-NLS-1$
                 getFieldEditorParent());
         addField(languageSelectionEditor);
         // ends
