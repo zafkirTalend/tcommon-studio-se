@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.talend.designer.business.model.business.ActionBusinessItem;
+import org.talend.designer.business.model.business.ActorBusinessItem;
 import org.talend.designer.business.model.business.BusinessAssignment;
 import org.talend.designer.business.model.business.BusinessFactory;
 import org.talend.designer.business.model.business.BusinessItem;
@@ -24,11 +25,13 @@ import org.talend.designer.business.model.business.DatabaseMetadata;
 import org.talend.designer.business.model.business.DecisionBusinessItem;
 import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
+import org.talend.designer.business.model.business.EllipseBusinessItem;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
 import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
 import org.talend.designer.business.model.business.FileXmlMetadata;
+import org.talend.designer.business.model.business.GearBusinessItem;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Repository;
@@ -186,6 +189,27 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * @generated
      */
     private EClass fileRegexpMetadataEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass actorBusinessItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass ellipseBusinessItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass gearBusinessItemEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -615,6 +639,33 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getActorBusinessItem() {
+        return actorBusinessItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getEllipseBusinessItem() {
+        return ellipseBusinessItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getGearBusinessItem() {
+        return gearBusinessItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getFileXmlMetadata() {
         return fileXmlMetadataEClass;
     }
@@ -719,6 +770,12 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
 
         fileRegexpMetadataEClass = createEClass(FILE_REGEXP_METADATA);
 
+        actorBusinessItemEClass = createEClass(ACTOR_BUSINESS_ITEM);
+
+        ellipseBusinessItemEClass = createEClass(ELLIPSE_BUSINESS_ITEM);
+
+        gearBusinessItemEClass = createEClass(GEAR_BUSINESS_ITEM);
+
         fileXmlMetadataEClass = createEClass(FILE_XML_METADATA);
 
         fileLdifMetadataEClass = createEClass(FILE_LDIF_METADATA);
@@ -765,6 +822,9 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         listBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         databaseBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         fileRegexpMetadataEClass.getESuperTypes().add(this.getTalendItem());
+        actorBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
+        ellipseBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
+        gearBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         fileXmlMetadataEClass.getESuperTypes().add(this.getTalendItem());
         fileLdifMetadataEClass.getESuperTypes().add(this.getTalendItem());
 
@@ -834,6 +894,12 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEClass(databaseBusinessItemEClass, DatabaseBusinessItem.class, "DatabaseBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
         initEClass(fileRegexpMetadataEClass, FileRegexpMetadata.class, "FileRegexpMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+        initEClass(actorBusinessItemEClass, ActorBusinessItem.class, "ActorBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+        initEClass(ellipseBusinessItemEClass, EllipseBusinessItem.class, "EllipseBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+        initEClass(gearBusinessItemEClass, GearBusinessItem.class, "GearBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
         initEClass(fileXmlMetadataEClass, FileXmlMetadata.class, "FileXmlMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 

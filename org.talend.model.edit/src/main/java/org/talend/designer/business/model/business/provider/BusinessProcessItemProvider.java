@@ -177,6 +177,21 @@ public class BusinessProcessItemProvider extends TalendItemItemProvider implemen
 
         newChildDescriptors.add
             (createChildParameter
+                (BusinessPackage.Literals.BUSINESS_PROCESS__BUSINESS_ITEMS,
+                 BusinessFactory.eINSTANCE.createActorBusinessItem()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (BusinessPackage.Literals.BUSINESS_PROCESS__BUSINESS_ITEMS,
+                 BusinessFactory.eINSTANCE.createEllipseBusinessItem()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (BusinessPackage.Literals.BUSINESS_PROCESS__BUSINESS_ITEMS,
+                 BusinessFactory.eINSTANCE.createGearBusinessItem()));
+
+        newChildDescriptors.add
+            (createChildParameter
                 (BusinessPackage.Literals.BUSINESS_PROCESS__LOCAL_REPOSITORY_COPY,
                  BusinessFactory.eINSTANCE.createRepository()));
     }

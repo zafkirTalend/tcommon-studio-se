@@ -10,6 +10,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.designer.business.model.business.ActionBusinessItem;
+import org.talend.designer.business.model.business.ActorBusinessItem;
 import org.talend.designer.business.model.business.BusinessAssignment;
 import org.talend.designer.business.model.business.BusinessItem;
 import org.talend.designer.business.model.business.BusinessItemRelationship;
@@ -22,11 +23,13 @@ import org.talend.designer.business.model.business.DatabaseMetadata;
 import org.talend.designer.business.model.business.DecisionBusinessItem;
 import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
+import org.talend.designer.business.model.business.EllipseBusinessItem;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
 import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
 import org.talend.designer.business.model.business.FileXmlMetadata;
+import org.talend.designer.business.model.business.GearBusinessItem;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Repository;
@@ -268,6 +271,30 @@ public class BusinessSwitch {
                 FileRegexpMetadata fileRegexpMetadata = (FileRegexpMetadata)theEObject;
                 Object result = caseFileRegexpMetadata(fileRegexpMetadata);
                 if (result == null) result = caseTalendItem(fileRegexpMetadata);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.ACTOR_BUSINESS_ITEM: {
+                ActorBusinessItem actorBusinessItem = (ActorBusinessItem)theEObject;
+                Object result = caseActorBusinessItem(actorBusinessItem);
+                if (result == null) result = caseBusinessItemShape(actorBusinessItem);
+                if (result == null) result = caseBusinessItem(actorBusinessItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.ELLIPSE_BUSINESS_ITEM: {
+                EllipseBusinessItem ellipseBusinessItem = (EllipseBusinessItem)theEObject;
+                Object result = caseEllipseBusinessItem(ellipseBusinessItem);
+                if (result == null) result = caseBusinessItemShape(ellipseBusinessItem);
+                if (result == null) result = caseBusinessItem(ellipseBusinessItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.GEAR_BUSINESS_ITEM: {
+                GearBusinessItem gearBusinessItem = (GearBusinessItem)theEObject;
+                Object result = caseGearBusinessItem(gearBusinessItem);
+                if (result == null) result = caseBusinessItemShape(gearBusinessItem);
+                if (result == null) result = caseBusinessItem(gearBusinessItem);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -607,6 +634,51 @@ public class BusinessSwitch {
      * @generated
      */
     public Object caseFileRegexpMetadata(FileRegexpMetadata object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Actor Business Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Actor Business Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseActorBusinessItem(ActorBusinessItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Ellipse Business Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Ellipse Business Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseEllipseBusinessItem(EllipseBusinessItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Gear Business Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Gear Business Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseGearBusinessItem(GearBusinessItem object) {
         return null;
     }
 

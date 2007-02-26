@@ -516,6 +516,72 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.ActorBusinessItem} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected ActorBusinessItemItemProvider actorBusinessItemItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.ActorBusinessItem}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createActorBusinessItemAdapter() {
+        if (actorBusinessItemItemProvider == null) {
+            actorBusinessItemItemProvider = new ActorBusinessItemItemProvider(this);
+        }
+
+        return actorBusinessItemItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.EllipseBusinessItem} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected EllipseBusinessItemItemProvider ellipseBusinessItemItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.EllipseBusinessItem}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createEllipseBusinessItemAdapter() {
+        if (ellipseBusinessItemItemProvider == null) {
+            ellipseBusinessItemItemProvider = new EllipseBusinessItemItemProvider(this);
+        }
+
+        return ellipseBusinessItemItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.GearBusinessItem} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected GearBusinessItemItemProvider gearBusinessItemItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.GearBusinessItem}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createGearBusinessItemAdapter() {
+        if (gearBusinessItemItemProvider == null) {
+            gearBusinessItemItemProvider = new GearBusinessItemItemProvider(this);
+        }
+
+        return gearBusinessItemItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.FileXmlMetadata} instances.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -668,6 +734,9 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (listBusinessItemItemProvider != null) listBusinessItemItemProvider.dispose();
         if (databaseBusinessItemItemProvider != null) databaseBusinessItemItemProvider.dispose();
         if (fileRegexpMetadataItemProvider != null) fileRegexpMetadataItemProvider.dispose();
+        if (actorBusinessItemItemProvider != null) actorBusinessItemItemProvider.dispose();
+        if (ellipseBusinessItemItemProvider != null) ellipseBusinessItemItemProvider.dispose();
+        if (gearBusinessItemItemProvider != null) gearBusinessItemItemProvider.dispose();
         if (fileXmlMetadataItemProvider != null) fileXmlMetadataItemProvider.dispose();
         if (fileLdifMetadataItemProvider != null) fileLdifMetadataItemProvider.dispose();
     }

@@ -10,6 +10,7 @@ import org.eclipse.emf.common.notify.Notifier;
 import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.designer.business.model.business.ActionBusinessItem;
+import org.talend.designer.business.model.business.ActorBusinessItem;
 import org.talend.designer.business.model.business.BusinessAssignment;
 import org.talend.designer.business.model.business.BusinessItem;
 import org.talend.designer.business.model.business.BusinessItemRelationship;
@@ -22,11 +23,13 @@ import org.talend.designer.business.model.business.DatabaseMetadata;
 import org.talend.designer.business.model.business.DecisionBusinessItem;
 import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
+import org.talend.designer.business.model.business.EllipseBusinessItem;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
 import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
 import org.talend.designer.business.model.business.FileXmlMetadata;
+import org.talend.designer.business.model.business.GearBusinessItem;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Repository;
@@ -160,6 +163,15 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseFileRegexpMetadata(FileRegexpMetadata object) {
                 return createFileRegexpMetadataAdapter();
+            }
+            public Object caseActorBusinessItem(ActorBusinessItem object) {
+                return createActorBusinessItemAdapter();
+            }
+            public Object caseEllipseBusinessItem(EllipseBusinessItem object) {
+                return createEllipseBusinessItemAdapter();
+            }
+            public Object caseGearBusinessItem(GearBusinessItem object) {
+                return createGearBusinessItemAdapter();
             }
             public Object caseFileXmlMetadata(FileXmlMetadata object) {
                 return createFileXmlMetadataAdapter();
@@ -463,6 +475,48 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createFileRegexpMetadataAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.ActorBusinessItem <em>Actor Business Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.ActorBusinessItem
+     * @generated
+     */
+    public Adapter createActorBusinessItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.EllipseBusinessItem <em>Ellipse Business Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.EllipseBusinessItem
+     * @generated
+     */
+    public Adapter createEllipseBusinessItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.GearBusinessItem <em>Gear Business Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.GearBusinessItem
+     * @generated
+     */
+    public Adapter createGearBusinessItemAdapter() {
         return null;
     }
 

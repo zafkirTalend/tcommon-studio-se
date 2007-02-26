@@ -68,6 +68,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="InputBusinessItem" eSuperTypes="#//BusinessItemShape"/>
   <eClassifiers xsi:type="ecore:EClass" name="ListBusinessItem" eSuperTypes="#//BusinessItemShape"/>
   <eClassifiers xsi:type="ecore:EClass" name="DatabaseBusinessItem" eSuperTypes="#//BusinessItemShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ActorBusinessItem" eSuperTypes="#//BusinessItemShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EllipseBusinessItem" eSuperTypes="#//BusinessItemShape"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GearBusinessItem" eSuperTypes="#//BusinessItemShape"/>
   <eClassifiers xsi:type="ecore:EClass" name="FileRegexpMetadata" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="FileXmlMetadata" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="FileLdifMetadata" eSuperTypes="#//TalendItem"/>

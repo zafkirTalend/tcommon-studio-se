@@ -196,6 +196,33 @@ public interface BusinessFactory extends EFactory {
     FileRegexpMetadata createFileRegexpMetadata();
 
     /**
+     * Returns a new object of class '<em>Actor Business Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Actor Business Item</em>'.
+     * @generated
+     */
+    ActorBusinessItem createActorBusinessItem();
+
+    /**
+     * Returns a new object of class '<em>Ellipse Business Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Ellipse Business Item</em>'.
+     * @generated
+     */
+    EllipseBusinessItem createEllipseBusinessItem();
+
+    /**
+     * Returns a new object of class '<em>Gear Business Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Gear Business Item</em>'.
+     * @generated
+     */
+    GearBusinessItem createGearBusinessItem();
+
+    /**
      * Returns a new object of class '<em>File Xml Metadata</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

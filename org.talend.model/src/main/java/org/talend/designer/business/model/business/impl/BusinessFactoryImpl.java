@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.talend.designer.business.model.business.ActionBusinessItem;
+import org.talend.designer.business.model.business.ActorBusinessItem;
 import org.talend.designer.business.model.business.BusinessAssignment;
 import org.talend.designer.business.model.business.BusinessFactory;
 import org.talend.designer.business.model.business.BusinessItemRelationship;
@@ -22,11 +23,13 @@ import org.talend.designer.business.model.business.DatabaseMetadata;
 import org.talend.designer.business.model.business.DecisionBusinessItem;
 import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
+import org.talend.designer.business.model.business.EllipseBusinessItem;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
 import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
 import org.talend.designer.business.model.business.FileXmlMetadata;
+import org.talend.designer.business.model.business.GearBusinessItem;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Repository;
@@ -99,6 +102,9 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.LIST_BUSINESS_ITEM: return createListBusinessItem();
             case BusinessPackage.DATABASE_BUSINESS_ITEM: return createDatabaseBusinessItem();
             case BusinessPackage.FILE_REGEXP_METADATA: return createFileRegexpMetadata();
+            case BusinessPackage.ACTOR_BUSINESS_ITEM: return createActorBusinessItem();
+            case BusinessPackage.ELLIPSE_BUSINESS_ITEM: return createEllipseBusinessItem();
+            case BusinessPackage.GEAR_BUSINESS_ITEM: return createGearBusinessItem();
             case BusinessPackage.FILE_XML_METADATA: return createFileXmlMetadata();
             case BusinessPackage.FILE_LDIF_METADATA: return createFileLdifMetadata();
             default:
@@ -287,6 +293,36 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
     public FileRegexpMetadata createFileRegexpMetadata() {
         FileRegexpMetadataImpl fileRegexpMetadata = new FileRegexpMetadataImpl();
         return fileRegexpMetadata;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ActorBusinessItem createActorBusinessItem() {
+        ActorBusinessItemImpl actorBusinessItem = new ActorBusinessItemImpl();
+        return actorBusinessItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EllipseBusinessItem createEllipseBusinessItem() {
+        EllipseBusinessItemImpl ellipseBusinessItem = new EllipseBusinessItemImpl();
+        return ellipseBusinessItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public GearBusinessItem createGearBusinessItem() {
+        GearBusinessItemImpl gearBusinessItem = new GearBusinessItemImpl();
+        return gearBusinessItem;
     }
 
     /**
