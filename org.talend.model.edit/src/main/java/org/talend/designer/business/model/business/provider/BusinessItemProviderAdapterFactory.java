@@ -318,6 +318,50 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.DirectionalBusinessItemRelationship} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected DirectionalBusinessItemRelationshipItemProvider directionalBusinessItemRelationshipItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.DirectionalBusinessItemRelationship}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createDirectionalBusinessItemRelationshipAdapter() {
+        if (directionalBusinessItemRelationshipItemProvider == null) {
+            directionalBusinessItemRelationshipItemProvider = new DirectionalBusinessItemRelationshipItemProvider(this);
+        }
+
+        return directionalBusinessItemRelationshipItemProvider;
+    }
+
+    /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.BidirectionalBusinessItemRelationship} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected BidirectionalBusinessItemRelationshipItemProvider bidirectionalBusinessItemRelationshipItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.BidirectionalBusinessItemRelationship}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createBidirectionalBusinessItemRelationshipAdapter() {
+        if (bidirectionalBusinessItemRelationshipItemProvider == null) {
+            bidirectionalBusinessItemRelationshipItemProvider = new BidirectionalBusinessItemRelationshipItemProvider(this);
+        }
+
+        return bidirectionalBusinessItemRelationshipItemProvider;
+    }
+
+    /**
      * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.DecisionBusinessItem} instances.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -728,6 +772,8 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (fileLdifMetadataItemProvider != null) fileLdifMetadataItemProvider.dispose();
         if (businessAssignmentItemProvider != null) businessAssignmentItemProvider.dispose();
         if (businessItemRelationshipItemProvider != null) businessItemRelationshipItemProvider.dispose();
+        if (directionalBusinessItemRelationshipItemProvider != null) directionalBusinessItemRelationshipItemProvider.dispose();
+        if (bidirectionalBusinessItemRelationshipItemProvider != null) bidirectionalBusinessItemRelationshipItemProvider.dispose();
         if (decisionBusinessItemItemProvider != null) decisionBusinessItemItemProvider.dispose();
         if (actionBusinessItemItemProvider != null) actionBusinessItemItemProvider.dispose();
         if (terminalBusinessItemItemProvider != null) terminalBusinessItemItemProvider.dispose();

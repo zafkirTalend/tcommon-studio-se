@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.designer.business.model.business.ActionBusinessItem;
 import org.talend.designer.business.model.business.ActorBusinessItem;
 import org.talend.designer.business.model.business.BaseBusinessItemRelationship;
+import org.talend.designer.business.model.business.BidirectionalBusinessItemRelationship;
 import org.talend.designer.business.model.business.BusinessAssignment;
 import org.talend.designer.business.model.business.BusinessItem;
 import org.talend.designer.business.model.business.BusinessItemRelationship;
@@ -22,6 +23,7 @@ import org.talend.designer.business.model.business.DataBusinessItem;
 import org.talend.designer.business.model.business.DatabaseBusinessItem;
 import org.talend.designer.business.model.business.DatabaseMetadata;
 import org.talend.designer.business.model.business.DecisionBusinessItem;
+import org.talend.designer.business.model.business.DirectionalBusinessItemRelationship;
 import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.EllipseBusinessItem;
@@ -146,6 +148,12 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseBusinessItemRelationship(BusinessItemRelationship object) {
                 return createBusinessItemRelationshipAdapter();
+            }
+            public Object caseDirectionalBusinessItemRelationship(DirectionalBusinessItemRelationship object) {
+                return createDirectionalBusinessItemRelationshipAdapter();
+            }
+            public Object caseBidirectionalBusinessItemRelationship(BidirectionalBusinessItemRelationship object) {
+                return createBidirectionalBusinessItemRelationshipAdapter();
             }
             public Object caseBusinessItemShape(BusinessItemShape object) {
                 return createBusinessItemShapeAdapter();
@@ -371,6 +379,34 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createBusinessItemRelationshipAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.DirectionalBusinessItemRelationship <em>Directional Business Item Relationship</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.DirectionalBusinessItemRelationship
+     * @generated
+     */
+    public Adapter createDirectionalBusinessItemRelationshipAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.BidirectionalBusinessItemRelationship <em>Bidirectional Business Item Relationship</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.BidirectionalBusinessItemRelationship
+     * @generated
+     */
+    public Adapter createBidirectionalBusinessItemRelationshipAdapter() {
         return null;
     }
 

@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.designer.business.model.business.ActionBusinessItem;
 import org.talend.designer.business.model.business.ActorBusinessItem;
 import org.talend.designer.business.model.business.BaseBusinessItemRelationship;
+import org.talend.designer.business.model.business.BidirectionalBusinessItemRelationship;
 import org.talend.designer.business.model.business.BusinessAssignment;
 import org.talend.designer.business.model.business.BusinessItem;
 import org.talend.designer.business.model.business.BusinessItemRelationship;
@@ -22,6 +23,7 @@ import org.talend.designer.business.model.business.DataBusinessItem;
 import org.talend.designer.business.model.business.DatabaseBusinessItem;
 import org.talend.designer.business.model.business.DatabaseMetadata;
 import org.talend.designer.business.model.business.DecisionBusinessItem;
+import org.talend.designer.business.model.business.DirectionalBusinessItemRelationship;
 import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.EllipseBusinessItem;
@@ -223,6 +225,22 @@ public class BusinessSwitch {
                 Object result = caseBusinessItemRelationship(businessItemRelationship);
                 if (result == null) result = caseBaseBusinessItemRelationship(businessItemRelationship);
                 if (result == null) result = caseBusinessItem(businessItemRelationship);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.DIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP: {
+                DirectionalBusinessItemRelationship directionalBusinessItemRelationship = (DirectionalBusinessItemRelationship)theEObject;
+                Object result = caseDirectionalBusinessItemRelationship(directionalBusinessItemRelationship);
+                if (result == null) result = caseBaseBusinessItemRelationship(directionalBusinessItemRelationship);
+                if (result == null) result = caseBusinessItem(directionalBusinessItemRelationship);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.BIDIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP: {
+                BidirectionalBusinessItemRelationship bidirectionalBusinessItemRelationship = (BidirectionalBusinessItemRelationship)theEObject;
+                Object result = caseBidirectionalBusinessItemRelationship(bidirectionalBusinessItemRelationship);
+                if (result == null) result = caseBaseBusinessItemRelationship(bidirectionalBusinessItemRelationship);
+                if (result == null) result = caseBusinessItem(bidirectionalBusinessItemRelationship);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -517,6 +535,36 @@ public class BusinessSwitch {
      * @generated
      */
     public Object caseBusinessItemRelationship(BusinessItemRelationship object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Directional Business Item Relationship</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Directional Business Item Relationship</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseDirectionalBusinessItemRelationship(DirectionalBusinessItemRelationship object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Bidirectional Business Item Relationship</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Bidirectional Business Item Relationship</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseBidirectionalBusinessItemRelationship(BidirectionalBusinessItemRelationship object) {
         return null;
     }
 

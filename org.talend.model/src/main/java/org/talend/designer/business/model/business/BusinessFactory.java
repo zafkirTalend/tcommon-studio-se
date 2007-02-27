@@ -119,6 +119,24 @@ public interface BusinessFactory extends EFactory {
     BusinessItemRelationship createBusinessItemRelationship();
 
     /**
+     * Returns a new object of class '<em>Directional Business Item Relationship</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Directional Business Item Relationship</em>'.
+     * @generated
+     */
+    DirectionalBusinessItemRelationship createDirectionalBusinessItemRelationship();
+
+    /**
+     * Returns a new object of class '<em>Bidirectional Business Item Relationship</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Bidirectional Business Item Relationship</em>'.
+     * @generated
+     */
+    BidirectionalBusinessItemRelationship createBidirectionalBusinessItemRelationship();
+
+    /**
      * Returns a new object of class '<em>Decision Business Item</em>'. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 

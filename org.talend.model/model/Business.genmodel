@@ -49,6 +49,8 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Business.ecore#//BaseBusinessItemRelationship/target"/>
     </genClasses>
     <genClasses ecoreClass="Business.ecore#//BusinessItemRelationship"/>
+    <genClasses ecoreClass="Business.ecore#//DirectionalBusinessItemRelationship"/>
+    <genClasses ecoreClass="Business.ecore#//BidirectionalBusinessItemRelationship"/>
     <genClasses image="false" ecoreClass="Business.ecore#//BusinessItemShape">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Business.ecore#//BusinessItemShape/incomingRelationships"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Business.ecore#//BusinessItemShape/outgoingRelationships"/>

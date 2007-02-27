@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.talend.designer.business.model.business.ActionBusinessItem;
 import org.talend.designer.business.model.business.ActorBusinessItem;
+import org.talend.designer.business.model.business.BidirectionalBusinessItemRelationship;
 import org.talend.designer.business.model.business.BusinessAssignment;
 import org.talend.designer.business.model.business.BusinessFactory;
 import org.talend.designer.business.model.business.BusinessItemRelationship;
@@ -21,6 +22,7 @@ import org.talend.designer.business.model.business.DataBusinessItem;
 import org.talend.designer.business.model.business.DatabaseBusinessItem;
 import org.talend.designer.business.model.business.DatabaseMetadata;
 import org.talend.designer.business.model.business.DecisionBusinessItem;
+import org.talend.designer.business.model.business.DirectionalBusinessItemRelationship;
 import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.EllipseBusinessItem;
@@ -96,6 +98,8 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.FILE_LDIF_METADATA: return createFileLdifMetadata();
             case BusinessPackage.BUSINESS_ASSIGNMENT: return createBusinessAssignment();
             case BusinessPackage.BUSINESS_ITEM_RELATIONSHIP: return createBusinessItemRelationship();
+            case BusinessPackage.DIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP: return createDirectionalBusinessItemRelationship();
+            case BusinessPackage.BIDIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP: return createBidirectionalBusinessItemRelationship();
             case BusinessPackage.DECISION_BUSINESS_ITEM: return createDecisionBusinessItem();
             case BusinessPackage.ACTION_BUSINESS_ITEM: return createActionBusinessItem();
             case BusinessPackage.TERMINAL_BUSINESS_ITEM: return createTerminalBusinessItem();
@@ -211,6 +215,26 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
     public BusinessItemRelationship createBusinessItemRelationship() {
         BusinessItemRelationshipImpl businessItemRelationship = new BusinessItemRelationshipImpl();
         return businessItemRelationship;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DirectionalBusinessItemRelationship createDirectionalBusinessItemRelationship() {
+        DirectionalBusinessItemRelationshipImpl directionalBusinessItemRelationship = new DirectionalBusinessItemRelationshipImpl();
+        return directionalBusinessItemRelationship;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public BidirectionalBusinessItemRelationship createBidirectionalBusinessItemRelationship() {
+        BidirectionalBusinessItemRelationshipImpl bidirectionalBusinessItemRelationship = new BidirectionalBusinessItemRelationshipImpl();
+        return bidirectionalBusinessItemRelationship;
     }
 
     /**

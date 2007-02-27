@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.talend.designer.business.model.business.ActionBusinessItem;
 import org.talend.designer.business.model.business.ActorBusinessItem;
 import org.talend.designer.business.model.business.BaseBusinessItemRelationship;
+import org.talend.designer.business.model.business.BidirectionalBusinessItemRelationship;
 import org.talend.designer.business.model.business.BusinessAssignment;
 import org.talend.designer.business.model.business.BusinessFactory;
 import org.talend.designer.business.model.business.BusinessItem;
@@ -24,6 +25,7 @@ import org.talend.designer.business.model.business.DataBusinessItem;
 import org.talend.designer.business.model.business.DatabaseBusinessItem;
 import org.talend.designer.business.model.business.DatabaseMetadata;
 import org.talend.designer.business.model.business.DecisionBusinessItem;
+import org.talend.designer.business.model.business.DirectionalBusinessItemRelationship;
 import org.talend.designer.business.model.business.DocumentBusinessItem;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.EllipseBusinessItem;
@@ -137,6 +139,20 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * @generated
      */
     private EClass businessItemRelationshipEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass directionalBusinessItemRelationshipEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass bidirectionalBusinessItemRelationshipEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -558,6 +574,24 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getDirectionalBusinessItemRelationship() {
+        return directionalBusinessItemRelationshipEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getBidirectionalBusinessItemRelationship() {
+        return bidirectionalBusinessItemRelationshipEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -775,6 +809,10 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
 
         businessItemRelationshipEClass = createEClass(BUSINESS_ITEM_RELATIONSHIP);
 
+        directionalBusinessItemRelationshipEClass = createEClass(DIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP);
+
+        bidirectionalBusinessItemRelationshipEClass = createEClass(BIDIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP);
+
         businessItemShapeEClass = createEClass(BUSINESS_ITEM_SHAPE);
         createEReference(businessItemShapeEClass, BUSINESS_ITEM_SHAPE__INCOMING_RELATIONSHIPS);
         createEReference(businessItemShapeEClass, BUSINESS_ITEM_SHAPE__OUTGOING_RELATIONSHIPS);
@@ -837,6 +875,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         fileLdifMetadataEClass.getESuperTypes().add(this.getTalendItem());
         baseBusinessItemRelationshipEClass.getESuperTypes().add(this.getBusinessItem());
         businessItemRelationshipEClass.getESuperTypes().add(this.getBaseBusinessItemRelationship());
+        directionalBusinessItemRelationshipEClass.getESuperTypes().add(this.getBaseBusinessItemRelationship());
+        bidirectionalBusinessItemRelationshipEClass.getESuperTypes().add(this.getBaseBusinessItemRelationship());
         businessItemShapeEClass.getESuperTypes().add(this.getBusinessItem());
         decisionBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         actionBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
@@ -902,6 +942,10 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEReference(getBaseBusinessItemRelationship_Target(), this.getBusinessItemShape(), this.getBusinessItemShape_IncomingRelationships(), "target", null, 1, 1, BaseBusinessItemRelationship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
         initEClass(businessItemRelationshipEClass, BusinessItemRelationship.class, "BusinessItemRelationship", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+        initEClass(directionalBusinessItemRelationshipEClass, DirectionalBusinessItemRelationship.class, "DirectionalBusinessItemRelationship", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+        initEClass(bidirectionalBusinessItemRelationshipEClass, BidirectionalBusinessItemRelationship.class, "BidirectionalBusinessItemRelationship", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
         initEClass(businessItemShapeEClass, BusinessItemShape.class, "BusinessItemShape", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
         initEReference(getBusinessItemShape_IncomingRelationships(), this.getBaseBusinessItemRelationship(), this.getBaseBusinessItemRelationship_Target(), "incomingRelationships", null, 0, -1, BusinessItemShape.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
