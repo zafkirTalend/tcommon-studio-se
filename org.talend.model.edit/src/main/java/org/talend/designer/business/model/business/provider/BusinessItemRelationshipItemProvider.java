@@ -25,7 +25,7 @@ import org.talend.designer.business.model.business.BusinessPackage;
  * <!-- begin-user-doc --> <!-- end-user-doc -->
  * @generated
  */
-public class BusinessItemRelationshipItemProvider extends BusinessItemItemProvider implements IEditingDomainItemProvider,
+public class BusinessItemRelationshipItemProvider extends BaseBusinessItemRelationshipItemProvider implements IEditingDomainItemProvider,
         IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 
     /**
@@ -52,52 +52,8 @@ public class BusinessItemRelationshipItemProvider extends BusinessItemItemProvid
         if (itemPropertyDescriptors == null) {
             super.getPropertyDescriptors(object);
 
-            addSourcePropertyDescriptor(object);
-            addTargetPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
-    }
-
-    /**
-     * This adds a property descriptor for the Source feature.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated NOT
-     */
-    protected void addSourcePropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_BusinessItemRelationship_source_feature"), //$NON-NLS-1$
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItemRelationship_source_feature", "_UI_BusinessItemRelationship_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                 BusinessPackage.Literals.BUSINESS_ITEM_RELATIONSHIP__SOURCE,
-                 true,
-                 false,
-                 true,
-                 null,
-                 null,
-                 null));
-    }
-
-    /**
-     * This adds a property descriptor for the Target feature.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated NOT
-     */
-    protected void addTargetPropertyDescriptor(Object object) {
-        itemPropertyDescriptors.add
-            (createItemPropertyDescriptor
-                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-                 getResourceLocator(),
-                 getString("_UI_BusinessItemRelationship_target_feature"), //$NON-NLS-1$
-                 getString("_UI_PropertyDescriptor_description", "_UI_BusinessItemRelationship_target_feature", "_UI_BusinessItemRelationship_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-                 BusinessPackage.Literals.BUSINESS_ITEM_RELATIONSHIP__TARGET,
-                 true,
-                 false,
-                 true,
-                 null,
-                 null,
-                 null));
     }
 
     /**
