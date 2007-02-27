@@ -177,6 +177,27 @@ public class BusinessSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case BusinessPackage.FILE_REGEXP_METADATA: {
+                FileRegexpMetadata fileRegexpMetadata = (FileRegexpMetadata)theEObject;
+                Object result = caseFileRegexpMetadata(fileRegexpMetadata);
+                if (result == null) result = caseTalendItem(fileRegexpMetadata);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.FILE_XML_METADATA: {
+                FileXmlMetadata fileXmlMetadata = (FileXmlMetadata)theEObject;
+                Object result = caseFileXmlMetadata(fileXmlMetadata);
+                if (result == null) result = caseTalendItem(fileXmlMetadata);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.FILE_LDIF_METADATA: {
+                FileLdifMetadata fileLdifMetadata = (FileLdifMetadata)theEObject;
+                Object result = caseFileLdifMetadata(fileLdifMetadata);
+                if (result == null) result = caseTalendItem(fileLdifMetadata);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case BusinessPackage.BUSINESS_ASSIGNMENT: {
                 BusinessAssignment businessAssignment = (BusinessAssignment)theEObject;
                 Object result = caseBusinessAssignment(businessAssignment);
@@ -288,27 +309,6 @@ public class BusinessSwitch {
                 Object result = caseGearBusinessItem(gearBusinessItem);
                 if (result == null) result = caseBusinessItemShape(gearBusinessItem);
                 if (result == null) result = caseBusinessItem(gearBusinessItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case BusinessPackage.FILE_REGEXP_METADATA: {
-                FileRegexpMetadata fileRegexpMetadata = (FileRegexpMetadata)theEObject;
-                Object result = caseFileRegexpMetadata(fileRegexpMetadata);
-                if (result == null) result = caseTalendItem(fileRegexpMetadata);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case BusinessPackage.FILE_XML_METADATA: {
-                FileXmlMetadata fileXmlMetadata = (FileXmlMetadata)theEObject;
-                Object result = caseFileXmlMetadata(fileXmlMetadata);
-                if (result == null) result = caseTalendItem(fileXmlMetadata);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case BusinessPackage.FILE_LDIF_METADATA: {
-                FileLdifMetadata fileLdifMetadata = (FileLdifMetadata)theEObject;
-                Object result = caseFileLdifMetadata(fileLdifMetadata);
-                if (result == null) result = caseTalendItem(fileLdifMetadata);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }

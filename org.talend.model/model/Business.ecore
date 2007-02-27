@@ -34,6 +34,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="TableMetadata" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="FileDelimitedMetadata" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="FilePositionalMetadata" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FileRegexpMetadata" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FileXmlMetadata" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FileLdifMetadata" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="BusinessAssignment">
     <eStructuralFeatures xsi:type="ecore:EReference" name="businessItem" lowerBound="1"
         eType="#//BusinessItem" eOpposite="#//BusinessItem/assignments"/>
@@ -71,7 +74,4 @@
   <eClassifiers xsi:type="ecore:EClass" name="ActorBusinessItem" eSuperTypes="#//BusinessItemShape"/>
   <eClassifiers xsi:type="ecore:EClass" name="EllipseBusinessItem" eSuperTypes="#//BusinessItemShape"/>
   <eClassifiers xsi:type="ecore:EClass" name="GearBusinessItem" eSuperTypes="#//BusinessItemShape"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FileRegexpMetadata" eSuperTypes="#//TalendItem"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FileXmlMetadata" eSuperTypes="#//TalendItem"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FileLdifMetadata" eSuperTypes="#//TalendItem"/>
 </ecore:EPackage>

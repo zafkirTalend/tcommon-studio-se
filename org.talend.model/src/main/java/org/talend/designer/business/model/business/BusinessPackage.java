@@ -807,7 +807,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getBusinessAssignment()
      * @generated
      */
-    int BUSINESS_ASSIGNMENT = 10;
+    int BUSINESS_ASSIGNMENT = 13;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.BusinessItemImpl <em>Item</em>}' class.
@@ -816,7 +816,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getBusinessItem()
      * @generated
      */
-    int BUSINESS_ITEM = 11;
+    int BUSINESS_ITEM = 14;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.BusinessItemRelationshipImpl <em>Item Relationship</em>}' class.
@@ -825,7 +825,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getBusinessItemRelationship()
      * @generated
      */
-    int BUSINESS_ITEM_RELATIONSHIP = 12;
+    int BUSINESS_ITEM_RELATIONSHIP = 15;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.BusinessItemShapeImpl <em>Item Shape</em>}' class.
@@ -834,7 +834,357 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getBusinessItemShape()
      * @generated
      */
-    int BUSINESS_ITEM_SHAPE = 13;
+    int BUSINESS_ITEM_SHAPE = 16;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DecisionBusinessItemImpl <em>Decision Business Item</em>}' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.DecisionBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDecisionBusinessItem()
+     * @generated
+     */
+    int DECISION_BUSINESS_ITEM = 17;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ActionBusinessItemImpl <em>Action Business Item</em>}' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.ActionBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getActionBusinessItem()
+     * @generated
+     */
+    int ACTION_BUSINESS_ITEM = 18;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.TerminalBusinessItemImpl <em>Terminal Business Item</em>}' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.TerminalBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getTerminalBusinessItem()
+     * @generated
+     */
+    int TERMINAL_BUSINESS_ITEM = 19;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DataBusinessItemImpl <em>Data Business Item</em>}' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.DataBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDataBusinessItem()
+     * @generated
+     */
+    int DATA_BUSINESS_ITEM = 20;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DocumentBusinessItemImpl <em>Document Business Item</em>}' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.DocumentBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDocumentBusinessItem()
+     * @generated
+     */
+    int DOCUMENT_BUSINESS_ITEM = 21;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.InputBusinessItemImpl <em>Input Business Item</em>}' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.InputBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getInputBusinessItem()
+     * @generated
+     */
+    int INPUT_BUSINESS_ITEM = 22;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ListBusinessItemImpl <em>List Business Item</em>}' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.ListBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getListBusinessItem()
+     * @generated
+     */
+    int LIST_BUSINESS_ITEM = 23;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DatabaseBusinessItemImpl <em>Database Business Item</em>}' class.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.DatabaseBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDatabaseBusinessItem()
+     * @generated
+     */
+    int DATABASE_BUSINESS_ITEM = 24;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.FileRegexpMetadataImpl <em>File Regexp Metadata</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.FileRegexpMetadataImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getFileRegexpMetadata()
+     * @generated
+     */
+    int FILE_REGEXP_METADATA = 10;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ActorBusinessItemImpl <em>Actor Business Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.ActorBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getActorBusinessItem()
+     * @generated
+     */
+    int ACTOR_BUSINESS_ITEM = 25;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.EllipseBusinessItemImpl <em>Ellipse Business Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.EllipseBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getEllipseBusinessItem()
+     * @generated
+     */
+    int ELLIPSE_BUSINESS_ITEM = 26;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.GearBusinessItemImpl <em>Gear Business Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.GearBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getGearBusinessItem()
+     * @generated
+     */
+    int GEAR_BUSINESS_ITEM = 27;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_REGEXP_METADATA__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_REGEXP_METADATA__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_REGEXP_METADATA__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_REGEXP_METADATA__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_REGEXP_METADATA__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_REGEXP_METADATA__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_REGEXP_METADATA__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>File Regexp Metadata</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_REGEXP_METADATA_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.FileXmlMetadataImpl <em>File Xml Metadata</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.FileXmlMetadataImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getFileXmlMetadata()
+     * @generated
+     */
+    int FILE_XML_METADATA = 11;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>File Xml Metadata</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_XML_METADATA_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.FileLdifMetadataImpl <em>File Ldif Metadata</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.FileLdifMetadataImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getFileLdifMetadata()
+     * @generated
+     */
+    int FILE_LDIF_METADATA = 12;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>File Ldif Metadata</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_LDIF_METADATA_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
 
     /**
      * The feature id for the '<em><b>Business Item</b></em>' container reference.
@@ -1010,15 +1360,6 @@ public interface BusinessPackage extends EPackage {
     int BUSINESS_ITEM_SHAPE_FEATURE_COUNT = BUSINESS_ITEM_FEATURE_COUNT + 2;
 
     /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DecisionBusinessItemImpl <em>Decision Business Item</em>}' class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.DecisionBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDecisionBusinessItem()
-     * @generated
-     */
-    int DECISION_BUSINESS_ITEM = 14;
-
-    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1070,15 +1411,6 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int DECISION_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ActionBusinessItemImpl <em>Action Business Item</em>}' class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.ActionBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getActionBusinessItem()
-     * @generated
-     */
-    int ACTION_BUSINESS_ITEM = 15;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1134,15 +1466,6 @@ public interface BusinessPackage extends EPackage {
     int ACTION_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.TerminalBusinessItemImpl <em>Terminal Business Item</em>}' class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.TerminalBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getTerminalBusinessItem()
-     * @generated
-     */
-    int TERMINAL_BUSINESS_ITEM = 16;
-
-    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1194,15 +1517,6 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int TERMINAL_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DataBusinessItemImpl <em>Data Business Item</em>}' class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.DataBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDataBusinessItem()
-     * @generated
-     */
-    int DATA_BUSINESS_ITEM = 17;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1258,15 +1572,6 @@ public interface BusinessPackage extends EPackage {
     int DATA_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DocumentBusinessItemImpl <em>Document Business Item</em>}' class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.DocumentBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDocumentBusinessItem()
-     * @generated
-     */
-    int DOCUMENT_BUSINESS_ITEM = 18;
-
-    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1318,15 +1623,6 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int DOCUMENT_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.InputBusinessItemImpl <em>Input Business Item</em>}' class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.InputBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getInputBusinessItem()
-     * @generated
-     */
-    int INPUT_BUSINESS_ITEM = 19;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1382,15 +1678,6 @@ public interface BusinessPackage extends EPackage {
     int INPUT_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ListBusinessItemImpl <em>List Business Item</em>}' class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.ListBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getListBusinessItem()
-     * @generated
-     */
-    int LIST_BUSINESS_ITEM = 20;
-
-    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1444,15 +1731,6 @@ public interface BusinessPackage extends EPackage {
     int LIST_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DatabaseBusinessItemImpl <em>Database Business Item</em>}' class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.DatabaseBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDatabaseBusinessItem()
-     * @generated
-     */
-    int DATABASE_BUSINESS_ITEM = 21;
-
-    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1504,26 +1782,6 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int DATABASE_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.FileRegexpMetadataImpl <em>File Regexp Metadata</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.FileRegexpMetadataImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getFileRegexpMetadata()
-     * @generated
-     */
-    int FILE_REGEXP_METADATA = 25;
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ActorBusinessItemImpl <em>Actor Business Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.ActorBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getActorBusinessItem()
-     * @generated
-     */
-    int ACTOR_BUSINESS_ITEM = 22;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1580,16 +1838,6 @@ public interface BusinessPackage extends EPackage {
     int ACTOR_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.EllipseBusinessItemImpl <em>Ellipse Business Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.EllipseBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getEllipseBusinessItem()
-     * @generated
-     */
-    int ELLIPSE_BUSINESS_ITEM = 23;
-
-    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1644,16 +1892,6 @@ public interface BusinessPackage extends EPackage {
     int ELLIPSE_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.GearBusinessItemImpl <em>Gear Business Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.GearBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getGearBusinessItem()
-     * @generated
-     */
-    int GEAR_BUSINESS_ITEM = 24;
-
-    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1706,244 +1944,6 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int GEAR_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_REGEXP_METADATA__ID = TALEND_ITEM__ID;
-
-    /**
-     * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_REGEXP_METADATA__LABEL = TALEND_ITEM__LABEL;
-
-    /**
-     * The feature id for the '<em><b>Author</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_REGEXP_METADATA__AUTHOR = TALEND_ITEM__AUTHOR;
-
-    /**
-     * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_REGEXP_METADATA__VERSION = TALEND_ITEM__VERSION;
-
-    /**
-     * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_REGEXP_METADATA__COMMENT = TALEND_ITEM__COMMENT;
-
-    /**
-     * The feature id for the '<em><b>Assignments</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_REGEXP_METADATA__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
-
-    /**
-     * The feature id for the '<em><b>Repository</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_REGEXP_METADATA__REPOSITORY = TALEND_ITEM__REPOSITORY;
-
-    /**
-     * The number of structural features of the '<em>File Regexp Metadata</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_REGEXP_METADATA_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
-
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.FileXmlMetadataImpl <em>File Xml Metadata</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.FileXmlMetadataImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getFileXmlMetadata()
-     * @generated
-     */
-    int FILE_XML_METADATA = 26;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_XML_METADATA__ID = TALEND_ITEM__ID;
-
-    /**
-     * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_XML_METADATA__LABEL = TALEND_ITEM__LABEL;
-
-    /**
-     * The feature id for the '<em><b>Author</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_XML_METADATA__AUTHOR = TALEND_ITEM__AUTHOR;
-
-    /**
-     * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_XML_METADATA__VERSION = TALEND_ITEM__VERSION;
-
-    /**
-     * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_XML_METADATA__COMMENT = TALEND_ITEM__COMMENT;
-
-    /**
-     * The feature id for the '<em><b>Assignments</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_XML_METADATA__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
-
-    /**
-     * The feature id for the '<em><b>Repository</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_XML_METADATA__REPOSITORY = TALEND_ITEM__REPOSITORY;
-
-    /**
-     * The number of structural features of the '<em>File Xml Metadata</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_XML_METADATA_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.FileLdifMetadataImpl <em>File Ldif Metadata</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.FileLdifMetadataImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getFileLdifMetadata()
-     * @generated
-     */
-    int FILE_LDIF_METADATA = 27;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_LDIF_METADATA__ID = TALEND_ITEM__ID;
-
-    /**
-     * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_LDIF_METADATA__LABEL = TALEND_ITEM__LABEL;
-
-    /**
-     * The feature id for the '<em><b>Author</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_LDIF_METADATA__AUTHOR = TALEND_ITEM__AUTHOR;
-
-    /**
-     * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_LDIF_METADATA__VERSION = TALEND_ITEM__VERSION;
-
-    /**
-     * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_LDIF_METADATA__COMMENT = TALEND_ITEM__COMMENT;
-
-    /**
-     * The feature id for the '<em><b>Assignments</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_LDIF_METADATA__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
-
-    /**
-     * The feature id for the '<em><b>Repository</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_LDIF_METADATA__REPOSITORY = TALEND_ITEM__REPOSITORY;
-
-    /**
-     * The number of structural features of the '<em>File Ldif Metadata</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int FILE_LDIF_METADATA_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
-
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.business.model.business.Repository <em>Repository</em>}'.

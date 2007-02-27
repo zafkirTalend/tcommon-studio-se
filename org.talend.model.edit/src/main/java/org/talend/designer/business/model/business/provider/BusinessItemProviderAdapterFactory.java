@@ -723,6 +723,9 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (tableMetadataItemProvider != null) tableMetadataItemProvider.dispose();
         if (fileDelimitedMetadataItemProvider != null) fileDelimitedMetadataItemProvider.dispose();
         if (filePositionalMetadataItemProvider != null) filePositionalMetadataItemProvider.dispose();
+        if (fileRegexpMetadataItemProvider != null) fileRegexpMetadataItemProvider.dispose();
+        if (fileXmlMetadataItemProvider != null) fileXmlMetadataItemProvider.dispose();
+        if (fileLdifMetadataItemProvider != null) fileLdifMetadataItemProvider.dispose();
         if (businessAssignmentItemProvider != null) businessAssignmentItemProvider.dispose();
         if (businessItemRelationshipItemProvider != null) businessItemRelationshipItemProvider.dispose();
         if (decisionBusinessItemItemProvider != null) decisionBusinessItemItemProvider.dispose();
@@ -736,9 +739,6 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (actorBusinessItemItemProvider != null) actorBusinessItemItemProvider.dispose();
         if (ellipseBusinessItemItemProvider != null) ellipseBusinessItemItemProvider.dispose();
         if (gearBusinessItemItemProvider != null) gearBusinessItemItemProvider.dispose();
-        if (fileRegexpMetadataItemProvider != null) fileRegexpMetadataItemProvider.dispose();
-        if (fileXmlMetadataItemProvider != null) fileXmlMetadataItemProvider.dispose();
-        if (fileLdifMetadataItemProvider != null) fileLdifMetadataItemProvider.dispose();
     }
 
 }

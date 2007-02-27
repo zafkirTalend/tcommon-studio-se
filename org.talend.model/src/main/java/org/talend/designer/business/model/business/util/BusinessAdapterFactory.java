@@ -125,6 +125,15 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             public Object caseFilePositionalMetadata(FilePositionalMetadata object) {
                 return createFilePositionalMetadataAdapter();
             }
+            public Object caseFileRegexpMetadata(FileRegexpMetadata object) {
+                return createFileRegexpMetadataAdapter();
+            }
+            public Object caseFileXmlMetadata(FileXmlMetadata object) {
+                return createFileXmlMetadataAdapter();
+            }
+            public Object caseFileLdifMetadata(FileLdifMetadata object) {
+                return createFileLdifMetadataAdapter();
+            }
             public Object caseBusinessAssignment(BusinessAssignment object) {
                 return createBusinessAssignmentAdapter();
             }
@@ -169,15 +178,6 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseGearBusinessItem(GearBusinessItem object) {
                 return createGearBusinessItemAdapter();
-            }
-            public Object caseFileRegexpMetadata(FileRegexpMetadata object) {
-                return createFileRegexpMetadataAdapter();
-            }
-            public Object caseFileXmlMetadata(FileXmlMetadata object) {
-                return createFileXmlMetadataAdapter();
-            }
-            public Object caseFileLdifMetadata(FileLdifMetadata object) {
-                return createFileLdifMetadataAdapter();
             }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();

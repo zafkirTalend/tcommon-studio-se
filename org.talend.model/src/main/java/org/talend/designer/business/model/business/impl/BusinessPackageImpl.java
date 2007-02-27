@@ -734,6 +734,12 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
 
         filePositionalMetadataEClass = createEClass(FILE_POSITIONAL_METADATA);
 
+        fileRegexpMetadataEClass = createEClass(FILE_REGEXP_METADATA);
+
+        fileXmlMetadataEClass = createEClass(FILE_XML_METADATA);
+
+        fileLdifMetadataEClass = createEClass(FILE_LDIF_METADATA);
+
         businessAssignmentEClass = createEClass(BUSINESS_ASSIGNMENT);
         createEReference(businessAssignmentEClass, BUSINESS_ASSIGNMENT__BUSINESS_ITEM);
         createEReference(businessAssignmentEClass, BUSINESS_ASSIGNMENT__TALEND_ITEM);
@@ -773,12 +779,6 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         ellipseBusinessItemEClass = createEClass(ELLIPSE_BUSINESS_ITEM);
 
         gearBusinessItemEClass = createEClass(GEAR_BUSINESS_ITEM);
-
-        fileRegexpMetadataEClass = createEClass(FILE_REGEXP_METADATA);
-
-        fileXmlMetadataEClass = createEClass(FILE_XML_METADATA);
-
-        fileLdifMetadataEClass = createEClass(FILE_LDIF_METADATA);
     }
 
     /**
@@ -811,6 +811,9 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         tableMetadataEClass.getESuperTypes().add(this.getTalendItem());
         fileDelimitedMetadataEClass.getESuperTypes().add(this.getTalendItem());
         filePositionalMetadataEClass.getESuperTypes().add(this.getTalendItem());
+        fileRegexpMetadataEClass.getESuperTypes().add(this.getTalendItem());
+        fileXmlMetadataEClass.getESuperTypes().add(this.getTalendItem());
+        fileLdifMetadataEClass.getESuperTypes().add(this.getTalendItem());
         businessItemRelationshipEClass.getESuperTypes().add(this.getBusinessItem());
         businessItemShapeEClass.getESuperTypes().add(this.getBusinessItem());
         decisionBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
@@ -824,9 +827,6 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         actorBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         ellipseBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         gearBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
-        fileRegexpMetadataEClass.getESuperTypes().add(this.getTalendItem());
-        fileXmlMetadataEClass.getESuperTypes().add(this.getTalendItem());
-        fileLdifMetadataEClass.getESuperTypes().add(this.getTalendItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(repositoryEClass, Repository.class, "Repository", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -858,6 +858,12 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEClass(fileDelimitedMetadataEClass, FileDelimitedMetadata.class, "FileDelimitedMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
         initEClass(filePositionalMetadataEClass, FilePositionalMetadata.class, "FilePositionalMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+        initEClass(fileRegexpMetadataEClass, FileRegexpMetadata.class, "FileRegexpMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+        initEClass(fileXmlMetadataEClass, FileXmlMetadata.class, "FileXmlMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+        initEClass(fileLdifMetadataEClass, FileLdifMetadata.class, "FileLdifMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
         initEClass(businessAssignmentEClass, BusinessAssignment.class, "BusinessAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
         initEReference(getBusinessAssignment_BusinessItem(), this.getBusinessItem(), this.getBusinessItem_Assignments(), "businessItem", null, 1, 1, BusinessAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
@@ -898,12 +904,6 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEClass(ellipseBusinessItemEClass, EllipseBusinessItem.class, "EllipseBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
         initEClass(gearBusinessItemEClass, GearBusinessItem.class, "GearBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-        initEClass(fileRegexpMetadataEClass, FileRegexpMetadata.class, "FileRegexpMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-        initEClass(fileXmlMetadataEClass, FileXmlMetadata.class, "FileXmlMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
-        initEClass(fileLdifMetadataEClass, FileLdifMetadata.class, "FileLdifMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
         // Create resource
         createResource(eNS_URI);

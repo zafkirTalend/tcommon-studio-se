@@ -91,6 +91,9 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.TABLE_METADATA: return createTableMetadata();
             case BusinessPackage.FILE_DELIMITED_METADATA: return createFileDelimitedMetadata();
             case BusinessPackage.FILE_POSITIONAL_METADATA: return createFilePositionalMetadata();
+            case BusinessPackage.FILE_REGEXP_METADATA: return createFileRegexpMetadata();
+            case BusinessPackage.FILE_XML_METADATA: return createFileXmlMetadata();
+            case BusinessPackage.FILE_LDIF_METADATA: return createFileLdifMetadata();
             case BusinessPackage.BUSINESS_ASSIGNMENT: return createBusinessAssignment();
             case BusinessPackage.BUSINESS_ITEM_RELATIONSHIP: return createBusinessItemRelationship();
             case BusinessPackage.DECISION_BUSINESS_ITEM: return createDecisionBusinessItem();
@@ -104,9 +107,6 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.ACTOR_BUSINESS_ITEM: return createActorBusinessItem();
             case BusinessPackage.ELLIPSE_BUSINESS_ITEM: return createEllipseBusinessItem();
             case BusinessPackage.GEAR_BUSINESS_ITEM: return createGearBusinessItem();
-            case BusinessPackage.FILE_REGEXP_METADATA: return createFileRegexpMetadata();
-            case BusinessPackage.FILE_XML_METADATA: return createFileXmlMetadata();
-            case BusinessPackage.FILE_LDIF_METADATA: return createFileLdifMetadata();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
         }
