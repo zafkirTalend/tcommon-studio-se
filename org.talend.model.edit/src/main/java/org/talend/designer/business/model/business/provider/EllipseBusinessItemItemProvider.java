@@ -40,9 +40,9 @@ public class EllipseBusinessItemItemProvider
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * This constructs an instance from a factory and a notifier.
@@ -72,23 +72,23 @@ public class EllipseBusinessItemItemProvider
      * This returns EllipseBusinessItem.gif.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public Object getImage(Object object) {
-        return overlayImage(object, getResourceLocator().getImage("full/obj16/EllipseBusinessItem"));
+        return overlayImage(object, getResourceLocator().getImage("full/obj16/EllipseBusinessItem")); //$NON-NLS-1$
     }
 
     /**
      * This returns the label text for the adapted class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public String getText(Object object) {
         String label = ((EllipseBusinessItem)object).getName();
         return label == null || label.length() == 0 ?
-            getString("_UI_EllipseBusinessItem_type") :
-            getString("_UI_EllipseBusinessItem_type") + " " + label;
+            getString("_UI_EllipseBusinessItem_type") : //$NON-NLS-1$
+            getString("_UI_EllipseBusinessItem_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
     }
 
     /**

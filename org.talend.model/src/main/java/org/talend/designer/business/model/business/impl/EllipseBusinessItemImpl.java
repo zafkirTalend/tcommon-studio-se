@@ -24,9 +24,9 @@ public class EllipseBusinessItemImpl extends BusinessItemShapeImpl implements El
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * <!-- begin-user-doc -->

@@ -21,8 +21,8 @@ public interface GearBusinessItem extends BusinessItemShape {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
-    String copyright = "";
+    String copyright = ""; //$NON-NLS-1$
 
 } // GearBusinessItem

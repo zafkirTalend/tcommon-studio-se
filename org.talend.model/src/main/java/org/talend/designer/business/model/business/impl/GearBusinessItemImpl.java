@@ -24,9 +24,9 @@ public class GearBusinessItemImpl extends BusinessItemShapeImpl implements GearB
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
-    public static final String copyright = "";
+    public static final String copyright = ""; //$NON-NLS-1$
 
     /**
      * <!-- begin-user-doc -->
