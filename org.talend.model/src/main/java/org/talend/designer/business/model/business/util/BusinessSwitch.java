@@ -267,13 +267,6 @@ public class BusinessSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case BusinessPackage.FILE_REGEXP_METADATA: {
-                FileRegexpMetadata fileRegexpMetadata = (FileRegexpMetadata)theEObject;
-                Object result = caseFileRegexpMetadata(fileRegexpMetadata);
-                if (result == null) result = caseTalendItem(fileRegexpMetadata);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
             case BusinessPackage.ACTOR_BUSINESS_ITEM: {
                 ActorBusinessItem actorBusinessItem = (ActorBusinessItem)theEObject;
                 Object result = caseActorBusinessItem(actorBusinessItem);
@@ -295,6 +288,13 @@ public class BusinessSwitch {
                 Object result = caseGearBusinessItem(gearBusinessItem);
                 if (result == null) result = caseBusinessItemShape(gearBusinessItem);
                 if (result == null) result = caseBusinessItem(gearBusinessItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.FILE_REGEXP_METADATA: {
+                FileRegexpMetadata fileRegexpMetadata = (FileRegexpMetadata)theEObject;
+                Object result = caseFileRegexpMetadata(fileRegexpMetadata);
+                if (result == null) result = caseTalendItem(fileRegexpMetadata);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }

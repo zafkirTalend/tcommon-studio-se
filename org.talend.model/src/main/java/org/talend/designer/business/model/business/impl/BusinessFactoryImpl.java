@@ -101,10 +101,10 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.INPUT_BUSINESS_ITEM: return createInputBusinessItem();
             case BusinessPackage.LIST_BUSINESS_ITEM: return createListBusinessItem();
             case BusinessPackage.DATABASE_BUSINESS_ITEM: return createDatabaseBusinessItem();
-            case BusinessPackage.FILE_REGEXP_METADATA: return createFileRegexpMetadata();
             case BusinessPackage.ACTOR_BUSINESS_ITEM: return createActorBusinessItem();
             case BusinessPackage.ELLIPSE_BUSINESS_ITEM: return createEllipseBusinessItem();
             case BusinessPackage.GEAR_BUSINESS_ITEM: return createGearBusinessItem();
+            case BusinessPackage.FILE_REGEXP_METADATA: return createFileRegexpMetadata();
             case BusinessPackage.FILE_XML_METADATA: return createFileXmlMetadata();
             case BusinessPackage.FILE_LDIF_METADATA: return createFileLdifMetadata();
             default:

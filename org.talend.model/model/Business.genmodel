@@ -57,6 +57,11 @@
     <genClasses ecoreClass="Business.ecore#//InputBusinessItem"/>
     <genClasses ecoreClass="Business.ecore#//ListBusinessItem"/>
     <genClasses ecoreClass="Business.ecore#//DatabaseBusinessItem"/>
+    <genClasses ecoreClass="Business.ecore#//ActorBusinessItem"/>
+    <genClasses ecoreClass="Business.ecore#//EllipseBusinessItem"/>
+    <genClasses ecoreClass="Business.ecore#//GearBusinessItem"/>
     <genClasses ecoreClass="Business.ecore#//FileRegexpMetadata"/>
+    <genClasses ecoreClass="Business.ecore#//FileXmlMetadata"/>
+    <genClasses ecoreClass="Business.ecore#//FileLdifMetadata"/>
   </genPackages>
 </genmodel:GenModel>

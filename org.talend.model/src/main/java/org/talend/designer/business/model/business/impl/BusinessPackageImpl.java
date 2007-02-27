@@ -768,13 +768,13 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
 
         databaseBusinessItemEClass = createEClass(DATABASE_BUSINESS_ITEM);
 
-        fileRegexpMetadataEClass = createEClass(FILE_REGEXP_METADATA);
-
         actorBusinessItemEClass = createEClass(ACTOR_BUSINESS_ITEM);
 
         ellipseBusinessItemEClass = createEClass(ELLIPSE_BUSINESS_ITEM);
 
         gearBusinessItemEClass = createEClass(GEAR_BUSINESS_ITEM);
+
+        fileRegexpMetadataEClass = createEClass(FILE_REGEXP_METADATA);
 
         fileXmlMetadataEClass = createEClass(FILE_XML_METADATA);
 
@@ -821,10 +821,10 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         inputBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         listBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         databaseBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
-        fileRegexpMetadataEClass.getESuperTypes().add(this.getTalendItem());
         actorBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         ellipseBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         gearBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
+        fileRegexpMetadataEClass.getESuperTypes().add(this.getTalendItem());
         fileXmlMetadataEClass.getESuperTypes().add(this.getTalendItem());
         fileLdifMetadataEClass.getESuperTypes().add(this.getTalendItem());
 
@@ -893,13 +893,13 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
 
         initEClass(databaseBusinessItemEClass, DatabaseBusinessItem.class, "DatabaseBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
-        initEClass(fileRegexpMetadataEClass, FileRegexpMetadata.class, "FileRegexpMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-
         initEClass(actorBusinessItemEClass, ActorBusinessItem.class, "ActorBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
         initEClass(ellipseBusinessItemEClass, EllipseBusinessItem.class, "EllipseBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
         initEClass(gearBusinessItemEClass, GearBusinessItem.class, "GearBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
+
+        initEClass(fileRegexpMetadataEClass, FileRegexpMetadata.class, "FileRegexpMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
         initEClass(fileXmlMetadataEClass, FileXmlMetadata.class, "FileXmlMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 

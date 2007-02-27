@@ -1513,7 +1513,199 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getFileRegexpMetadata()
      * @generated
      */
-    int FILE_REGEXP_METADATA = 22;
+    int FILE_REGEXP_METADATA = 25;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ActorBusinessItemImpl <em>Actor Business Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.ActorBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getActorBusinessItem()
+     * @generated
+     */
+    int ACTOR_BUSINESS_ITEM = 22;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ACTOR_BUSINESS_ITEM__NAME = BUSINESS_ITEM_SHAPE__NAME;
+
+    /**
+     * The feature id for the '<em><b>Business Process</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ACTOR_BUSINESS_ITEM__BUSINESS_PROCESS = BUSINESS_ITEM_SHAPE__BUSINESS_PROCESS;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ACTOR_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ACTOR_BUSINESS_ITEM__INCOMING_RELATIONSHIPS = BUSINESS_ITEM_SHAPE__INCOMING_RELATIONSHIPS;
+
+    /**
+     * The feature id for the '<em><b>Outgoing Relationships</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ACTOR_BUSINESS_ITEM__OUTGOING_RELATIONSHIPS = BUSINESS_ITEM_SHAPE__OUTGOING_RELATIONSHIPS;
+
+    /**
+     * The number of structural features of the '<em>Actor Business Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ACTOR_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.EllipseBusinessItemImpl <em>Ellipse Business Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.EllipseBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getEllipseBusinessItem()
+     * @generated
+     */
+    int ELLIPSE_BUSINESS_ITEM = 23;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ELLIPSE_BUSINESS_ITEM__NAME = BUSINESS_ITEM_SHAPE__NAME;
+
+    /**
+     * The feature id for the '<em><b>Business Process</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ELLIPSE_BUSINESS_ITEM__BUSINESS_PROCESS = BUSINESS_ITEM_SHAPE__BUSINESS_PROCESS;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ELLIPSE_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ELLIPSE_BUSINESS_ITEM__INCOMING_RELATIONSHIPS = BUSINESS_ITEM_SHAPE__INCOMING_RELATIONSHIPS;
+
+    /**
+     * The feature id for the '<em><b>Outgoing Relationships</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ELLIPSE_BUSINESS_ITEM__OUTGOING_RELATIONSHIPS = BUSINESS_ITEM_SHAPE__OUTGOING_RELATIONSHIPS;
+
+    /**
+     * The number of structural features of the '<em>Ellipse Business Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ELLIPSE_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.GearBusinessItemImpl <em>Gear Business Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.GearBusinessItemImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getGearBusinessItem()
+     * @generated
+     */
+    int GEAR_BUSINESS_ITEM = 24;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GEAR_BUSINESS_ITEM__NAME = BUSINESS_ITEM_SHAPE__NAME;
+
+    /**
+     * The feature id for the '<em><b>Business Process</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GEAR_BUSINESS_ITEM__BUSINESS_PROCESS = BUSINESS_ITEM_SHAPE__BUSINESS_PROCESS;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GEAR_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GEAR_BUSINESS_ITEM__INCOMING_RELATIONSHIPS = BUSINESS_ITEM_SHAPE__INCOMING_RELATIONSHIPS;
+
+    /**
+     * The feature id for the '<em><b>Outgoing Relationships</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GEAR_BUSINESS_ITEM__OUTGOING_RELATIONSHIPS = BUSINESS_ITEM_SHAPE__OUTGOING_RELATIONSHIPS;
+
+    /**
+     * The number of structural features of the '<em>Gear Business Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GEAR_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1587,198 +1779,6 @@ public interface BusinessPackage extends EPackage {
      */
     int FILE_REGEXP_METADATA_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
 
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ActorBusinessItemImpl <em>Actor Business Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.ActorBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getActorBusinessItem()
-     * @generated
-     */
-    int ACTOR_BUSINESS_ITEM = 23;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ACTOR_BUSINESS_ITEM__NAME = BUSINESS_ITEM_SHAPE__NAME;
-
-    /**
-     * The feature id for the '<em><b>Business Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ACTOR_BUSINESS_ITEM__BUSINESS_PROCESS = BUSINESS_ITEM_SHAPE__BUSINESS_PROCESS;
-
-    /**
-     * The feature id for the '<em><b>Assignments</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ACTOR_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
-
-    /**
-     * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ACTOR_BUSINESS_ITEM__INCOMING_RELATIONSHIPS = BUSINESS_ITEM_SHAPE__INCOMING_RELATIONSHIPS;
-
-    /**
-     * The feature id for the '<em><b>Outgoing Relationships</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ACTOR_BUSINESS_ITEM__OUTGOING_RELATIONSHIPS = BUSINESS_ITEM_SHAPE__OUTGOING_RELATIONSHIPS;
-
-    /**
-     * The number of structural features of the '<em>Actor Business Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ACTOR_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.EllipseBusinessItemImpl <em>Ellipse Business Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.EllipseBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getEllipseBusinessItem()
-     * @generated
-     */
-    int ELLIPSE_BUSINESS_ITEM = 24;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ELLIPSE_BUSINESS_ITEM__NAME = BUSINESS_ITEM_SHAPE__NAME;
-
-    /**
-     * The feature id for the '<em><b>Business Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ELLIPSE_BUSINESS_ITEM__BUSINESS_PROCESS = BUSINESS_ITEM_SHAPE__BUSINESS_PROCESS;
-
-    /**
-     * The feature id for the '<em><b>Assignments</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ELLIPSE_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
-
-    /**
-     * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ELLIPSE_BUSINESS_ITEM__INCOMING_RELATIONSHIPS = BUSINESS_ITEM_SHAPE__INCOMING_RELATIONSHIPS;
-
-    /**
-     * The feature id for the '<em><b>Outgoing Relationships</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ELLIPSE_BUSINESS_ITEM__OUTGOING_RELATIONSHIPS = BUSINESS_ITEM_SHAPE__OUTGOING_RELATIONSHIPS;
-
-    /**
-     * The number of structural features of the '<em>Ellipse Business Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ELLIPSE_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.GearBusinessItemImpl <em>Gear Business Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.GearBusinessItemImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getGearBusinessItem()
-     * @generated
-     */
-    int GEAR_BUSINESS_ITEM = 25;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int GEAR_BUSINESS_ITEM__NAME = BUSINESS_ITEM_SHAPE__NAME;
-
-    /**
-     * The feature id for the '<em><b>Business Process</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int GEAR_BUSINESS_ITEM__BUSINESS_PROCESS = BUSINESS_ITEM_SHAPE__BUSINESS_PROCESS;
-
-    /**
-     * The feature id for the '<em><b>Assignments</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int GEAR_BUSINESS_ITEM__ASSIGNMENTS = BUSINESS_ITEM_SHAPE__ASSIGNMENTS;
-
-    /**
-     * The feature id for the '<em><b>Incoming Relationships</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int GEAR_BUSINESS_ITEM__INCOMING_RELATIONSHIPS = BUSINESS_ITEM_SHAPE__INCOMING_RELATIONSHIPS;
-
-    /**
-     * The feature id for the '<em><b>Outgoing Relationships</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int GEAR_BUSINESS_ITEM__OUTGOING_RELATIONSHIPS = BUSINESS_ITEM_SHAPE__OUTGOING_RELATIONSHIPS;
-
-    /**
-     * The number of structural features of the '<em>Gear Business Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int GEAR_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.FileXmlMetadataImpl <em>File Xml Metadata</em>}' class.

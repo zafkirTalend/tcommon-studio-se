@@ -161,9 +161,6 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             public Object caseDatabaseBusinessItem(DatabaseBusinessItem object) {
                 return createDatabaseBusinessItemAdapter();
             }
-            public Object caseFileRegexpMetadata(FileRegexpMetadata object) {
-                return createFileRegexpMetadataAdapter();
-            }
             public Object caseActorBusinessItem(ActorBusinessItem object) {
                 return createActorBusinessItemAdapter();
             }
@@ -172,6 +169,9 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseGearBusinessItem(GearBusinessItem object) {
                 return createGearBusinessItemAdapter();
+            }
+            public Object caseFileRegexpMetadata(FileRegexpMetadata object) {
+                return createFileRegexpMetadataAdapter();
             }
             public Object caseFileXmlMetadata(FileXmlMetadata object) {
                 return createFileXmlMetadataAdapter();

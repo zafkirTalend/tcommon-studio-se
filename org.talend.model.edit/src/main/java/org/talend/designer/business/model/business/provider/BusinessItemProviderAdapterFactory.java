@@ -733,10 +733,10 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (inputBusinessItemItemProvider != null) inputBusinessItemItemProvider.dispose();
         if (listBusinessItemItemProvider != null) listBusinessItemItemProvider.dispose();
         if (databaseBusinessItemItemProvider != null) databaseBusinessItemItemProvider.dispose();
-        if (fileRegexpMetadataItemProvider != null) fileRegexpMetadataItemProvider.dispose();
         if (actorBusinessItemItemProvider != null) actorBusinessItemItemProvider.dispose();
         if (ellipseBusinessItemItemProvider != null) ellipseBusinessItemItemProvider.dispose();
         if (gearBusinessItemItemProvider != null) gearBusinessItemItemProvider.dispose();
+        if (fileRegexpMetadataItemProvider != null) fileRegexpMetadataItemProvider.dispose();
         if (fileXmlMetadataItemProvider != null) fileXmlMetadataItemProvider.dispose();
         if (fileLdifMetadataItemProvider != null) fileLdifMetadataItemProvider.dispose();
     }
