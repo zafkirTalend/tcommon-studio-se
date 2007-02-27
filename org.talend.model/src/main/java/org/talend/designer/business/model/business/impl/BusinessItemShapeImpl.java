@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.talend.designer.business.model.business.BaseBusinessItemRelationship;
 import org.talend.designer.business.model.business.BusinessItemRelationship;
 import org.talend.designer.business.model.business.BusinessItemShape;
 import org.talend.designer.business.model.business.BusinessPackage;
@@ -78,7 +79,7 @@ public abstract class BusinessItemShapeImpl extends BusinessItemImpl implements 
      */
     public EList getIncomingRelationships() {
         if (incomingRelationships == null) {
-            incomingRelationships = new EObjectWithInverseResolvingEList(BusinessItemRelationship.class, this, BusinessPackage.BUSINESS_ITEM_SHAPE__INCOMING_RELATIONSHIPS, BusinessPackage.BASE_BUSINESS_ITEM_RELATIONSHIP__TARGET);
+            incomingRelationships = new EObjectWithInverseResolvingEList(BaseBusinessItemRelationship.class, this, BusinessPackage.BUSINESS_ITEM_SHAPE__INCOMING_RELATIONSHIPS, BusinessPackage.BASE_BUSINESS_ITEM_RELATIONSHIP__TARGET);
         }
         return incomingRelationships;
     }
@@ -89,7 +90,7 @@ public abstract class BusinessItemShapeImpl extends BusinessItemImpl implements 
      */
     public EList getOutgoingRelationships() {
         if (outgoingRelationships == null) {
-            outgoingRelationships = new EObjectWithInverseResolvingEList(BusinessItemRelationship.class, this, BusinessPackage.BUSINESS_ITEM_SHAPE__OUTGOING_RELATIONSHIPS, BusinessPackage.BASE_BUSINESS_ITEM_RELATIONSHIP__SOURCE);
+            outgoingRelationships = new EObjectWithInverseResolvingEList(BaseBusinessItemRelationship.class, this, BusinessPackage.BUSINESS_ITEM_SHAPE__OUTGOING_RELATIONSHIPS, BusinessPackage.BASE_BUSINESS_ITEM_RELATIONSHIP__SOURCE);
         }
         return outgoingRelationships;
     }

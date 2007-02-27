@@ -904,8 +904,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEClass(businessItemRelationshipEClass, BusinessItemRelationship.class, "BusinessItemRelationship", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
         initEClass(businessItemShapeEClass, BusinessItemShape.class, "BusinessItemShape", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
-        initEReference(getBusinessItemShape_IncomingRelationships(), this.getBusinessItemRelationship(), this.getBaseBusinessItemRelationship_Target(), "incomingRelationships", null, 0, -1, BusinessItemShape.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
-        initEReference(getBusinessItemShape_OutgoingRelationships(), this.getBusinessItemRelationship(), this.getBaseBusinessItemRelationship_Source(), "outgoingRelationships", null, 0, -1, BusinessItemShape.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+        initEReference(getBusinessItemShape_IncomingRelationships(), this.getBaseBusinessItemRelationship(), this.getBaseBusinessItemRelationship_Target(), "incomingRelationships", null, 0, -1, BusinessItemShape.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
+        initEReference(getBusinessItemShape_OutgoingRelationships(), this.getBaseBusinessItemRelationship(), this.getBaseBusinessItemRelationship_Source(), "outgoingRelationships", null, 0, -1, BusinessItemShape.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
         initEClass(decisionBusinessItemEClass, DecisionBusinessItem.class, "DecisionBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
