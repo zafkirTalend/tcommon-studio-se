@@ -321,17 +321,16 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         return clonedMetacolumn;
     }
 
-    public boolean sameMetacolumnAs(IMetadataColumn metaColumn) {
-        if (this == metaColumn) {
+    public boolean sameMetacolumnAs(IMetadataColumn other) {
+        if (this == other) {
             return true;
         }
-        if (metaColumn == null) {
+        if (other == null) {
             return false;
         }
-        if (getClass() != metaColumn.getClass()) {
+        if (!(other instanceof IMetadataColumn)) {
             return false;
         }
-        final MetadataColumn other = (MetadataColumn) metaColumn;
         // Default value is not saved in the talend file, so no need to check. 
 //        if (this.defaut == null) {
 //            if (other.defaut != null) {
@@ -341,58 +340,58 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 //            return false;
 //        }
         if (this.comment == null) {
-            if (other.comment != null) {
+            if (other.getComment() != null) {
                 return false;
             }
-        } else if (!this.comment.equals(other.comment)) {
+        } else if (!this.comment.equals(other.getComment())) {
             return false;
         }
-        if (this.key != other.key) {
+        if (this.key != other.isKey()) {
             return false;
         }
         if (this.label == null) {
-            if (other.label != null) {
+            if (other.getLabel() != null) {
                 return false;
             }
-        } else if (!this.label.equals(other.label)) {
+        } else if (!this.label.equals(other.getLabel())) {
             return false;
         }
         if (this.pattern == null) {
-            if (other.pattern != null) {
+            if (other.getPattern() != null) {
                 return false;
             }
-        } else if (!this.pattern.equals(other.pattern)) {
+        } else if (!this.pattern.equals(other.getPattern())) {
             return false;
         }
         if (this.length == null) {
-            if (other.length != null) {
+            if (other.getLength() != null) {
                 return false;
             }
-        } else if (!this.length.equals(other.length)) {
+        } else if (!this.length.equals(other.getLength())) {
             return false;
         }
-        if (this.nullable != other.nullable) {
+        if (this.nullable != other.isNullable()) {
             return false;
         }
         if (this.precision == null) {
-            if (other.precision != null) {
+            if (other.getPrecision() != null) {
                 return false;
             }
-        } else if (!this.precision.equals(other.precision)) {
+        } else if (!this.precision.equals(other.getPrecision())) {
             return false;
         }
         if (this.talendType == null) {
-            if (other.talendType != null) {
+            if (other.getTalendType() != null) {
                 return false;
             }
-        } else if (!this.talendType.equals(other.talendType)) {
+        } else if (!this.talendType.equals(other.getTalendType())) {
             return false;
         }
         if (this.type == null) {
-            if (other.type != null) {
+            if (other.getType() != null) {
                 return false;
             }
-        } else if (!this.type.equals(other.type)) {
+        } else if (!this.type.equals(other.getType())) {
             return false;
         }        
         return true;

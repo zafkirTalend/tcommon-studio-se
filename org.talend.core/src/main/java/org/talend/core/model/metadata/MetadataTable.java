@@ -102,26 +102,25 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
         return clonedMetadata;
     }
 
-    public boolean sameMetadataAs(IMetadataTable meta) {
-        if (this == meta) {
+    public boolean sameMetadataAs(IMetadataTable other) {
+        if (this == other) {
             return true;
         }
-        if (meta == null) {
+        if (other == null) {
             return false;
         }
-        if (getClass() != meta.getClass()) {
+        if (!(other instanceof IMetadataTable)) {
             return false;
         }
-        final MetadataTable other = (MetadataTable) meta;
         if (this.listColumns == null) {
-            if (other.listColumns != null) {
+            if (other.getListColumns() != null) {
                 return false;
             }
-        } else if (this.listColumns.size() != other.listColumns.size()) {
+        } else if (this.listColumns.size() != other.getListColumns().size()) {
             return false;
         } else {
-            for (int i = 0; i < other.listColumns.size(); i++) {
-                IMetadataColumn otherColumn = other.listColumns.get(i);
+            for (int i = 0; i < other.getListColumns().size(); i++) {
+                IMetadataColumn otherColumn = other.getListColumns().get(i);
                 IMetadataColumn myColumn = this.listColumns.get(i);
                 if (!otherColumn.sameMetacolumnAs(myColumn)) {
                     return false;
@@ -130,10 +129,10 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
         }
 
         if (this.tableName == null) {
-            if (other.tableName != null) {
+            if (other.getTableName() != null) {
                 return false;
             }
-        } else if (!this.tableName.equals(other.tableName)) {
+        } else if (!this.tableName.equals(other.getTableName())) {
             return false;
         }
         return true;
