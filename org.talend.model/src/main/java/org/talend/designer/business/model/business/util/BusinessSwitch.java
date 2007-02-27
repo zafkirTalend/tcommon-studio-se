@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.designer.business.model.business.ActionBusinessItem;
 import org.talend.designer.business.model.business.ActorBusinessItem;
+import org.talend.designer.business.model.business.BaseBusinessItemRelationship;
 import org.talend.designer.business.model.business.BusinessAssignment;
 import org.talend.designer.business.model.business.BusinessItem;
 import org.talend.designer.business.model.business.BusinessItemRelationship;
@@ -210,9 +211,17 @@ public class BusinessSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case BusinessPackage.BASE_BUSINESS_ITEM_RELATIONSHIP: {
+                BaseBusinessItemRelationship baseBusinessItemRelationship = (BaseBusinessItemRelationship)theEObject;
+                Object result = caseBaseBusinessItemRelationship(baseBusinessItemRelationship);
+                if (result == null) result = caseBusinessItem(baseBusinessItemRelationship);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case BusinessPackage.BUSINESS_ITEM_RELATIONSHIP: {
                 BusinessItemRelationship businessItemRelationship = (BusinessItemRelationship)theEObject;
                 Object result = caseBusinessItemRelationship(businessItemRelationship);
+                if (result == null) result = caseBaseBusinessItemRelationship(businessItemRelationship);
                 if (result == null) result = caseBusinessItem(businessItemRelationship);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
@@ -479,6 +488,21 @@ public class BusinessSwitch {
      * @generated
      */
     public Object caseBusinessItem(BusinessItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Base Business Item Relationship</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Base Business Item Relationship</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseBaseBusinessItemRelationship(BaseBusinessItemRelationship object) {
         return null;
     }
 

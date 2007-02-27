@@ -11,6 +11,7 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.designer.business.model.business.ActionBusinessItem;
 import org.talend.designer.business.model.business.ActorBusinessItem;
+import org.talend.designer.business.model.business.BaseBusinessItemRelationship;
 import org.talend.designer.business.model.business.BusinessAssignment;
 import org.talend.designer.business.model.business.BusinessItem;
 import org.talend.designer.business.model.business.BusinessItemRelationship;
@@ -139,6 +140,9 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseBusinessItem(BusinessItem object) {
                 return createBusinessItemAdapter();
+            }
+            public Object caseBaseBusinessItemRelationship(BaseBusinessItemRelationship object) {
+                return createBaseBusinessItemRelationshipAdapter();
             }
             public Object caseBusinessItemRelationship(BusinessItemRelationship object) {
                 return createBusinessItemRelationshipAdapter();
@@ -341,6 +345,20 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createBusinessItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.BaseBusinessItemRelationship <em>Base Business Item Relationship</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.BaseBusinessItemRelationship
+     * @generated
+     */
+    public Adapter createBaseBusinessItemRelationshipAdapter() {
         return null;
     }
 

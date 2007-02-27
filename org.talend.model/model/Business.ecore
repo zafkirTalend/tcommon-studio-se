@@ -51,17 +51,19 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="assignments" upperBound="-1"
         eType="#//BusinessAssignment" containment="true" eOpposite="#//BusinessAssignment/businessItem"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BusinessItemRelationship" eSuperTypes="#//BusinessItem">
+  <eClassifiers xsi:type="ecore:EClass" name="BaseBusinessItemRelationship" abstract="true"
+      eSuperTypes="#//BusinessItem">
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
         eType="#//BusinessItemShape" eOpposite="#//BusinessItemShape/outgoingRelationships"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
         eType="#//BusinessItemShape" eOpposite="#//BusinessItemShape/incomingRelationships"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BusinessItemRelationship" eSuperTypes="#//BaseBusinessItemRelationship"/>
   <eClassifiers xsi:type="ecore:EClass" name="BusinessItemShape" abstract="true" eSuperTypes="#//BusinessItem">
     <eStructuralFeatures xsi:type="ecore:EReference" name="incomingRelationships"
-        upperBound="-1" eType="#//BusinessItemRelationship" eOpposite="#//BusinessItemRelationship/target"/>
+        upperBound="-1" eType="#//BusinessItemRelationship" eOpposite="#//BaseBusinessItemRelationship/target"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingRelationships"
-        upperBound="-1" eType="#//BusinessItemRelationship" eOpposite="#//BusinessItemRelationship/source"/>
+        upperBound="-1" eType="#//BusinessItemRelationship" eOpposite="#//BaseBusinessItemRelationship/source"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DecisionBusinessItem" eSuperTypes="#//BusinessItemShape"/>
   <eClassifiers xsi:type="ecore:EClass" name="ActionBusinessItem" eSuperTypes="#//BusinessItemShape"/>

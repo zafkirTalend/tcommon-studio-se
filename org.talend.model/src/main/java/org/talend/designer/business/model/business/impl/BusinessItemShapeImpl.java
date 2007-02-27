@@ -78,7 +78,7 @@ public abstract class BusinessItemShapeImpl extends BusinessItemImpl implements 
      */
     public EList getIncomingRelationships() {
         if (incomingRelationships == null) {
-            incomingRelationships = new EObjectWithInverseResolvingEList(BusinessItemRelationship.class, this, BusinessPackage.BUSINESS_ITEM_SHAPE__INCOMING_RELATIONSHIPS, BusinessPackage.BUSINESS_ITEM_RELATIONSHIP__TARGET);
+            incomingRelationships = new EObjectWithInverseResolvingEList(BusinessItemRelationship.class, this, BusinessPackage.BUSINESS_ITEM_SHAPE__INCOMING_RELATIONSHIPS, BusinessPackage.BASE_BUSINESS_ITEM_RELATIONSHIP__TARGET);
         }
         return incomingRelationships;
     }
@@ -89,7 +89,7 @@ public abstract class BusinessItemShapeImpl extends BusinessItemImpl implements 
      */
     public EList getOutgoingRelationships() {
         if (outgoingRelationships == null) {
-            outgoingRelationships = new EObjectWithInverseResolvingEList(BusinessItemRelationship.class, this, BusinessPackage.BUSINESS_ITEM_SHAPE__OUTGOING_RELATIONSHIPS, BusinessPackage.BUSINESS_ITEM_RELATIONSHIP__SOURCE);
+            outgoingRelationships = new EObjectWithInverseResolvingEList(BusinessItemRelationship.class, this, BusinessPackage.BUSINESS_ITEM_SHAPE__OUTGOING_RELATIONSHIPS, BusinessPackage.BASE_BUSINESS_ITEM_RELATIONSHIP__SOURCE);
         }
         return outgoingRelationships;
     }

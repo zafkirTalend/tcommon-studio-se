@@ -33,7 +33,7 @@ public interface BusinessItemShape extends BusinessItem {
     /**
      * Returns the value of the '<em><b>Incoming Relationships</b></em>' reference list.
      * The list contents are of type {@link org.talend.designer.business.model.business.BusinessItemRelationship}.
-     * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BusinessItemRelationship#getTarget <em>Target</em>}'.
+     * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BaseBusinessItemRelationship#getTarget <em>Target</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Incoming Relationships</em>' reference list isn't clear, there really should be
@@ -42,7 +42,7 @@ public interface BusinessItemShape extends BusinessItem {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Incoming Relationships</em>' reference list.
      * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItemShape_IncomingRelationships()
-     * @see org.talend.designer.business.model.business.BusinessItemRelationship#getTarget
+     * @see org.talend.designer.business.model.business.BaseBusinessItemRelationship#getTarget
      * @model type="org.talend.designer.business.model.business.BusinessItemRelationship" opposite="target"
      * @generated
      */
@@ -51,7 +51,7 @@ public interface BusinessItemShape extends BusinessItem {
     /**
      * Returns the value of the '<em><b>Outgoing Relationships</b></em>' reference list.
      * The list contents are of type {@link org.talend.designer.business.model.business.BusinessItemRelationship}.
-     * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BusinessItemRelationship#getSource <em>Source</em>}'.
+     * It is bidirectional and its opposite is '{@link org.talend.designer.business.model.business.BaseBusinessItemRelationship#getSource <em>Source</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Outgoing Relationships</em>' reference list isn't clear, there really should be
@@ -60,7 +60,7 @@ public interface BusinessItemShape extends BusinessItem {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Outgoing Relationships</em>' reference list.
      * @see org.talend.designer.business.model.business.BusinessPackage#getBusinessItemShape_OutgoingRelationships()
-     * @see org.talend.designer.business.model.business.BusinessItemRelationship#getSource
+     * @see org.talend.designer.business.model.business.BaseBusinessItemRelationship#getSource
      * @model type="org.talend.designer.business.model.business.BusinessItemRelationship" opposite="source"
      * @generated
      */
