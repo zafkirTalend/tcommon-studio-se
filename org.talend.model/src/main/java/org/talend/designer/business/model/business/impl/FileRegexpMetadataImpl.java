@@ -23,7 +23,7 @@ public class FileRegexpMetadataImpl extends TalendItemImpl implements FileRegexp
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public static final String copyright = ""; //$NON-NLS-1$
 

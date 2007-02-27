@@ -18,7 +18,7 @@ public interface DocumentBusinessItem extends BusinessItemShape {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     String copyright = ""; //$NON-NLS-1$
 

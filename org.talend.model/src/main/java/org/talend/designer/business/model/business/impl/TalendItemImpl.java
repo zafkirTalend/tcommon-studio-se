@@ -39,7 +39,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public static final String copyright = ""; //$NON-NLS-1$
 
@@ -67,7 +67,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @see #getLabel()
-     * @generated
+     * @generated NOT
      * @ordered
      */
     protected static final String LABEL_EDEFAULT = ""; //$NON-NLS-1$
@@ -87,7 +87,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @see #getAuthor()
-     * @generated
+     * @generated NOT
      * @ordered
      */
     protected static final String AUTHOR_EDEFAULT = ""; //$NON-NLS-1$
@@ -127,7 +127,7 @@ public abstract class TalendItemImpl extends EObjectImpl implements TalendItem {
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @see #getComment()
-     * @generated
+     * @generated NOT
      * @ordered
      */
     protected static final String COMMENT_EDEFAULT = ""; //$NON-NLS-1$

@@ -21,7 +21,7 @@ public class DatabaseMetadataImpl extends TalendItemImpl implements DatabaseMeta
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public static final String copyright = ""; //$NON-NLS-1$
 

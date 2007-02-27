@@ -26,7 +26,7 @@ public interface BusinessProcess extends TalendItem {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     String copyright = ""; //$NON-NLS-1$
 

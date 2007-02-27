@@ -27,7 +27,7 @@ public interface BusinessAssignment extends EObject {
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     String copyright = ""; //$NON-NLS-1$
 

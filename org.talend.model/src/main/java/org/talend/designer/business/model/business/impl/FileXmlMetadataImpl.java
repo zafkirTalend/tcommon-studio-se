@@ -24,7 +24,7 @@ public class FileXmlMetadataImpl extends TalendItemImpl implements FileXmlMetada
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @generated
+     * @generated NOT
      */
     public static final String copyright = ""; //$NON-NLS-1$
 
