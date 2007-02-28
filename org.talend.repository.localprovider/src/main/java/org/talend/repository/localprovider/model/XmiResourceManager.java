@@ -66,8 +66,8 @@ public class XmiResourceManager {
     private static final String OLD_PROJECT_FILENAME = "talendProject";//$NON-NLS-1$
     private static final String PROJECT_FILENAME = "talend.project";//$NON-NLS-1$
 
-    // PTODO MHE should use a custom ResourceFactory
-    // PTODO MHE test duplicate resourcesUri in resourceSet !
+    // PTODO mhelleboid should use a custom ResourceFactory
+    // PTODO mhelleboid test duplicate resourcesUri in resourceSet !
     private static ResourceSet resourceSet = new ResourceSetImpl();
 
     private boolean useOldProjectFile;
@@ -149,7 +149,7 @@ public class XmiResourceManager {
         URI itemResourceURI = getItemResourceURI(item.eResource().getURI());
         Resource itemResource = resourceSet.getResource(itemResourceURI, true);
 
-        // PTODO MHE usefull ?
+        // PTODO mhelleboid usefull ?
         if (itemResource == null) {
             itemResource = new ByteArrayResource(itemResourceURI);
             resourceSet.getResources().add(itemResource);

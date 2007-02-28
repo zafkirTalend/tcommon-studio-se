@@ -43,7 +43,7 @@ public class RepositoryEditorInput extends FileEditorInput {
     }
 
     public String getName() {
-        // PTODO MHE use RepositoryLabelProvider when ready
+        // PTODO mhelleboid use RepositoryLabelProvider when ready
         return "Model " + item.getProperty().getLabel(); //$NON-NLS-1$
     }
 
