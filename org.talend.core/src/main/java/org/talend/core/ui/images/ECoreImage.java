@@ -45,6 +45,8 @@ public enum ECoreImage implements IImage {
     BUSINESS_PROCESS_WIZ("/icons/business_wiz.png"), //$NON-NLS-1$
     PROCESS_ICON("/icons/process_icon.gif"), //$NON-NLS-1$
     PROCESS_WIZ("/icons/process_wiz.png"), //$NON-NLS-1$
+    CONTEXT_ICON("/icons/context_icon.gif"), //$NON-NLS-1$
+    CONTEXT_WIZ("/icons/context_wiz.png"), //$NON-NLS-1$
     CODE_ICON("/icons/code.png"), //$NON-NLS-1$
     ROUTINE_ICON("/icons/routine.gif"), //$NON-NLS-1$
     SNIPPETS_ICON("/icons/snippet.png"), //$NON-NLS-1$

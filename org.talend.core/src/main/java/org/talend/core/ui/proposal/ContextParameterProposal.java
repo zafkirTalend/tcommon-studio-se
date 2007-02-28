@@ -85,14 +85,14 @@ public class ContextParameterProposal implements IContentProposal {
         } else {
             desc = Messages.getString("ContextParameterProposal.NoCommentAvaiable"); //$NON-NLS-1$
         }
-        
+
         String message = Messages.getString("ContextParameterProposal.Description"); //$NON-NLS-1$
         message += Messages.getString("ContextParameterProposal.ContextVariable"); //$NON-NLS-1$
         message += Messages.getString("ContextParameterProposal.Type"); //$NON-NLS-1$
         message += Messages.getString("ContextParameterProposal.VariableName"); //$NON-NLS-1$
 
         MessageFormat format = new MessageFormat(message);
-        Object[] args = new Object[] { desc, contextParameter.getType().getDisplayName(), getContent() };
+        Object[] args = new Object[] { desc, contextParameter.getType(), getContent() };
         return format.format(args);
     }
 

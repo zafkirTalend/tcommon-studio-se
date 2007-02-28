@@ -23,8 +23,6 @@ package org.talend.core.model.process;
 
 import java.util.List;
 
-import org.talend.core.i18n.Messages;
-
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -46,6 +44,10 @@ public interface IContext {
     public List<IContextParameter> getContextParameterList();
 
     public void setContextParameterList(List<IContextParameter> contextParameterList);
+    
+    public IContextParameter getContextParameter(String parameterName);
 
     public IContext clone();
+    
+    public boolean sameAs(IContext context);
 }

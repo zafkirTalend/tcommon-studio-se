@@ -102,6 +102,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.PROJECT_REFERENCE: return createProjectReference();
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: return createLdifFileConnectionItem();
             case PropertiesPackage.USER_PROJECT_AUTHORIZATION: return createUserProjectAuthorization();
+            case PropertiesPackage.CONTEXT_ITEM: return createContextItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -357,6 +358,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public UserProjectAuthorization createUserProjectAuthorization() {
         UserProjectAuthorizationImpl userProjectAuthorization = new UserProjectAuthorizationImpl();
         return userProjectAuthorization;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ContextItem createContextItem() {
+        ContextItemImpl contextItem = new ContextItemImpl();
+        return contextItem;
     }
 
     /**

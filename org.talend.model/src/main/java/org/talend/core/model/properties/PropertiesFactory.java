@@ -225,6 +225,15 @@ public interface PropertiesFactory extends EFactory {
     UserProjectAuthorization createUserProjectAuthorization();
 
     /**
+     * Returns a new object of class '<em>Context Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Context Item</em>'.
+     * @generated
+     */
+    ContextItem createContextItem();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

@@ -21,8 +21,6 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-import org.talend.core.model.metadata.EMetadataType;
-
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -39,9 +37,9 @@ public interface IContextParameter {
 
     public void setPrompt(final String prompt);
 
-    public EMetadataType getType();
+    public String getType();
 
-    public void setType(final EMetadataType type);
+    public void setType(final String type);
 
     public String getValue();
 
@@ -56,4 +54,6 @@ public interface IContextParameter {
     public void setPromptNeeded(boolean promptNeeded);
 
     public IContextParameter clone();
+
+    public boolean sameAs(IContextParameter contextParam);
 }

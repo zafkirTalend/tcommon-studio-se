@@ -739,22 +739,13 @@ public interface PropertiesPackage extends EPackage {
     int ROUTINE_ITEM__BUILT_IN = FILE_ITEM_FEATURE_COUNT + 0;
 
     /**
-     * The feature id for the '<em><b>Imports</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ROUTINE_ITEM__IMPORTS = FILE_ITEM_FEATURE_COUNT + 1;
-
-    /**
      * The number of structural features of the '<em>Routine Item</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int ROUTINE_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 2;
+    int ROUTINE_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ConnectionItemImpl <em>Connection Item</em>}' class.
@@ -1603,13 +1594,68 @@ public interface PropertiesPackage extends EPackage {
     int USER_PROJECT_AUTHORIZATION_FEATURE_COUNT = 3;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ContextItemImpl <em>Context Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ContextItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getContextItem()
+     * @generated
+     */
+    int CONTEXT_ITEM = 27;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM__PROPERTY = ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Context</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM__CONTEXT = ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Default Context</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM__DEFAULT_CONTEXT = ITEM_FEATURE_COUNT + 1;
+
+    /**
+     * The number of structural features of the '<em>Context Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 27;
+    int FOLDER_TYPE = 28;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -1619,7 +1665,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 28;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 29;
 
 
     /**
@@ -2181,17 +2227,6 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getRoutineItem_BuiltIn();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.RoutineItem#getImports <em>Imports</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Imports</em>'.
-     * @see org.talend.core.model.properties.RoutineItem#getImports()
-     * @see #getRoutineItem()
-     * @generated
-     */
-    EReference getRoutineItem_Imports();
-
-    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ByteArray <em>Byte Array</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Byte Array</em>'.
@@ -2709,6 +2744,38 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getUserProjectAuthorization_Type();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ContextItem <em>Context Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Context Item</em>'.
+     * @see org.talend.core.model.properties.ContextItem
+     * @generated
+     */
+    EClass getContextItem();
+
+    /**
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.ContextItem#getContext <em>Context</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Context</em>'.
+     * @see org.talend.core.model.properties.ContextItem#getContext()
+     * @see #getContextItem()
+     * @generated
+     */
+    EReference getContextItem_Context();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ContextItem#getDefaultContext <em>Default Context</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Default Context</em>'.
+     * @see org.talend.core.model.properties.ContextItem#getDefaultContext()
+     * @see #getContextItem()
+     * @generated
+     */
+    EAttribute getContextItem_DefaultContext();
 
     /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
@@ -3239,14 +3306,6 @@ public interface PropertiesPackage extends EPackage {
         EAttribute ROUTINE_ITEM__BUILT_IN = eINSTANCE.getRoutineItem_BuiltIn();
 
         /**
-         * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference ROUTINE_ITEM__IMPORTS = eINSTANCE.getRoutineItem_Imports();
-
-        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ByteArrayImpl <em>Byte Array</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.properties.impl.ByteArrayImpl
@@ -3682,6 +3741,32 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute USER_PROJECT_AUTHORIZATION__TYPE = eINSTANCE.getUserProjectAuthorization_Type();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ContextItemImpl <em>Context Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ContextItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getContextItem()
+         * @generated
+         */
+        EClass CONTEXT_ITEM = eINSTANCE.getContextItem();
+
+        /**
+         * The meta object literal for the '<em><b>Context</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CONTEXT_ITEM__CONTEXT = eINSTANCE.getContextItem_Context();
+
+        /**
+         * The meta object literal for the '<em><b>Default Context</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONTEXT_ITEM__DEFAULT_CONTEXT = eINSTANCE.getContextItem_DefaultContext();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

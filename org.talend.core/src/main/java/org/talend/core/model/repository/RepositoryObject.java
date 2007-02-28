@@ -29,6 +29,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
@@ -148,6 +149,10 @@ public class RepositoryObject implements IRepositoryObject {
 
             public Object caseRoutineItem(RoutineItem object) {
                 return ERepositoryObjectType.ROUTINES;
+            }
+
+            public Object caseContextItem(ContextItem object) {
+                return ERepositoryObjectType.CONTEXT;
             }
 
             public Object caseProcessItem(ProcessItem object) {

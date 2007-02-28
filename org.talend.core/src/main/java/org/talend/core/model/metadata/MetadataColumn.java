@@ -40,7 +40,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     private String type = ""; //$NON-NLS-1$
 
     private String talendType = ""; //$NON-NLS-1$
-    
+
     private String dbms = ""; //$NON-NLS-1$
 
     private boolean nullable = false;
@@ -52,7 +52,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     private String defaut = ""; //$NON-NLS-1$
 
     private String comment = ""; //$NON-NLS-1$
-    
+
     private String pattern = ""; //$NON-NLS-1$
 
     public MetadataColumn() {
@@ -294,16 +294,18 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         this.comment = comment;
     }
 
-    
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.model.metadata.IMetadataColumn#getPattern()
      */
     public String getPattern() {
         return this.pattern;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.model.metadata.IMetadataColumn#setPattern(java.lang.String)
      */
     public void setPattern(String pattern) {
@@ -331,14 +333,14 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         if (!(other instanceof IMetadataColumn)) {
             return false;
         }
-        // Default value is not saved in the talend file, so no need to check. 
-//        if (this.defaut == null) {
-//            if (other.defaut != null) {
-//                return false;
-//            }
-//        } else if (!this.defaut.equals(other.defaut)) {
-//            return false;
-//        }
+        // Default value is not saved in the talend file, so no need to check.
+        // if (this.defaut == null) {
+        // if (other.defaut != null) {
+        // return false;
+        // }
+        // } else if (!this.defaut.equals(other.defaut)) {
+        // return false;
+        // }
         if (this.comment == null) {
             if (other.getComment() != null) {
                 return false;
@@ -393,7 +395,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
             }
         } else if (!this.type.equals(other.getType())) {
             return false;
-        }        
+        }
         return true;
     }
 }

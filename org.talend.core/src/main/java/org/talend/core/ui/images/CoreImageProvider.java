@@ -50,6 +50,8 @@ public class CoreImageProvider {
             return ECoreImage.BUSINESS_PROCESS_ICON;
         case PROCESS:
             return ECoreImage.PROCESS_ICON;
+        case CONTEXT:
+            return ECoreImage.CONTEXT_ICON;
         case ROUTINES:
             return ECoreImage.ROUTINE_ICON;
         case SNIPPETS:

@@ -22,7 +22,6 @@
 package org.talend.core.model.process;
 
 import org.talend.core.language.ECodeLanguage;
-import org.talend.core.model.metadata.EMetadataType;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -48,8 +47,8 @@ public interface INodeReturn {
 
     public abstract void setName(final String name);
 
-    public abstract EMetadataType getType();
+    public abstract String getType();
 
-    public abstract void setType(final EMetadataType type);
+    public abstract void setType(final String type);
 
 }

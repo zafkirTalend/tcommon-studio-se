@@ -23,6 +23,8 @@ package org.talend.core.model.process;
 
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
+
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -48,4 +50,10 @@ public interface IContextManager {
     public void fireContextsChangedEvent();
 
     public boolean checkValidParameterName(String parameterName);
+    
+    public void saveToEmf(EList contextTypeList);
+    
+    public void loadFromEmf(EList contextTypeList, String defaultContextName);
+    
+    public boolean sameAs(IContextManager contextManager);
 }

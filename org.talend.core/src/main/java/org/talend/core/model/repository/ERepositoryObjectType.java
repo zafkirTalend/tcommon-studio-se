@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
@@ -47,6 +48,7 @@ import org.talend.core.model.properties.util.PropertiesSwitch;
 public enum ERepositoryObjectType {
     BUSINESS_PROCESS("repository.businessProcess"), //$NON-NLS-1$
     PROCESS("repository.process"), //$NON-NLS-1$
+    CONTEXT("repository.context"), //$NON-NLS-1$
     ROUTINES("repository.routines"), //$NON-NLS-1$
     SNIPPETS("repository.snippets"), //$NON-NLS-1$
     DOCUMENTATION("repository.documentation"), //$NON-NLS-1$
@@ -107,6 +109,8 @@ public enum ERepositoryObjectType {
             return "businessProcess"; //$NON-NLS-1$
         case PROCESS:
             return "process"; //$NON-NLS-1$
+        case CONTEXT:
+            return "context"; //$NON-NLS-1$
         case ROUTINES:
             return "code/routines"; //$NON-NLS-1$
         case DOCUMENTATION:
@@ -143,6 +147,10 @@ public enum ERepositoryObjectType {
 
             public Object caseProcessItem(ProcessItem object) {
                 return PROCESS;
+            }
+
+            public Object caseContextItem(ContextItem object) {
+                return CONTEXT;
             }
 
             public Object caseBusinessProcessItem(BusinessProcessItem object) {
