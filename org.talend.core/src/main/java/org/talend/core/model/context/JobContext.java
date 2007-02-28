@@ -112,17 +112,17 @@ public class JobContext implements IContext, Cloneable {
 
     @Override
     public String toString() {
-        StringBuffer buff = new StringBuffer(name + ":");
-        buff.append("(");
+        StringBuffer buff = new StringBuffer(name + ":"); //$NON-NLS-1$
+        buff.append("("); //$NON-NLS-1$
         for (int i = 0; i < contextParameterList.size(); i++) {
             IContextParameter param = contextParameterList.get(i);
-            buff.append(param.getName() + "=");
+            buff.append(param.getName() + "="); //$NON-NLS-1$
             buff.append(param.getValue());
             if (i < (contextParameterList.size() - 1)) {
-                buff.append(",");
+                buff.append(","); //$NON-NLS-1$
             }
         }
-        buff.append(")");
+        buff.append(")"); //$NON-NLS-1$
         return buff.toString();
     }
 }

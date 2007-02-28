@@ -237,7 +237,7 @@ public abstract class JobContextComposite extends Composite {
         public Object getOriginalTypedValue(final CellEditor cellEditor, final Object cellEditorTypedValue) {
             newCellEditorValue = cellEditorTypedValue;
             Integer intValue = (Integer) cellEditorTypedValue;
-            String value = "";
+            String value = ""; //$NON-NLS-1$
             if (intValue > 0) {
                 value = MetadataTalendType.getTalendTypesLabels()[(Integer) cellEditorTypedValue];
             }
