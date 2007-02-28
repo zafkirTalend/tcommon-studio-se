@@ -264,8 +264,8 @@ public class ExtractMetaDataFromDataBase {
                 String talendType = null;
                 if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
                     MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever("Mysql5.1"); //$NON-NLS-1$
-                    String idJavaType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, isNullable);
-                    JavaType javaTypeFromName = JavaTypesManager.getJavaTypeFromId(idJavaType);
+                    String javaTypeName = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, isNullable);
+                    JavaType javaTypeFromName = JavaTypesManager.getJavaTypeFromName(javaTypeName);
                     if (javaTypeFromName != null) {
                         talendType = javaTypeFromName.getId();
                     } else {
