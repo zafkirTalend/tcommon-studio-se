@@ -65,6 +65,7 @@
 									<xs:attribute name="nullable" type="xs:boolean"/>
 									<xs:attribute name="length" type="xs:int"/>
 									<xs:attribute name="precision" type="xs:int"/>
+									<xs:attribute name="pattern" type="xs:string"/>
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="Comment" type="xs:string" minOccurs="0"/>

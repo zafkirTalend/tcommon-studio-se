@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getLENGTH <em>LENGTH</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#isNULLABLE <em>NULLABLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getPATTERN <em>PATTERN</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getPRECISION <em>PRECISION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getTYPE <em>TYPE</em>}</li>
  * </ul>
@@ -248,6 +249,33 @@ public interface COLUMNType extends EObject {
      * @generated
      */
     boolean isSetNULLABLE();
+
+    /**
+     * Returns the value of the '<em><b>PATTERN</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>PATTERN</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>PATTERN</em>' attribute.
+     * @see #setPATTERN(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_PATTERN()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='PATTERN' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getPATTERN();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getPATTERN <em>PATTERN</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>PATTERN</em>' attribute.
+     * @see #getPATTERN()
+     * @generated
+     */
+    void setPATTERN(String value);
 
     /**
      * Returns the value of the '<em><b>PRECISION</b></em>' attribute.

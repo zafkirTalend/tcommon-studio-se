@@ -355,7 +355,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_PRECISION() {
+    public EAttribute getCOLUMNType_PATTERN() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -364,8 +364,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_TYPE() {
+    public EAttribute getCOLUMNType_PRECISION() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCOLUMNType_TYPE() {
+        return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -1396,6 +1405,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(columnTypeEClass, COLUMN_TYPE__LENGTH);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__NAME);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__NULLABLE);
+        createEAttribute(columnTypeEClass, COLUMN_TYPE__PATTERN);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__PRECISION);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__TYPE);
 
@@ -1569,6 +1579,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getCOLUMNType_LENGTH(), theXMLTypePackage.getInt(), "lENGTH", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_NULLABLE(), theXMLTypePackage.getBoolean(), "nULLABLE", "true", 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCOLUMNType_PATTERN(), theXMLTypePackage.getString(), "pATTERN", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_PRECISION(), theXMLTypePackage.getInt(), "pRECISION", "0", 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_TYPE(), theXMLTypePackage.getString(), "tYPE", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1792,6 +1803,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "NULLABLE",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getCOLUMNType_PATTERN(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "PATTERN",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

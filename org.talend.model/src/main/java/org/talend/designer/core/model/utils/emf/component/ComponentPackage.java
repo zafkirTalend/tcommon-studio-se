@@ -50,7 +50,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "Component"; //$NON-NLS-1$
+    String eNS_PREFIX = "component"; //$NON-NLS-1$
 
     /**
      * The singleton instance of the package.
@@ -153,13 +153,22 @@ public interface ComponentPackage extends EPackage {
     int COLUMN_TYPE__NULLABLE = 4;
 
     /**
+     * The feature id for the '<em><b>PATTERN</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__PATTERN = 5;
+
+    /**
      * The feature id for the '<em><b>PRECISION</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__PRECISION = 5;
+    int COLUMN_TYPE__PRECISION = 6;
 
     /**
      * The feature id for the '<em><b>TYPE</b></em>' attribute.
@@ -168,7 +177,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__TYPE = 6;
+    int COLUMN_TYPE__TYPE = 7;
 
     /**
      * The number of structural features of the '<em>COLUMN Type</em>' class.
@@ -177,7 +186,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 7;
+    int COLUMN_TYPE_FEATURE_COUNT = 8;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl <em>COMPONENT Type</em>}' class.
@@ -1466,6 +1475,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getCOLUMNType_NULLABLE();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getPATTERN <em>PATTERN</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>PATTERN</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COLUMNType#getPATTERN()
+     * @see #getCOLUMNType()
+     * @generated
+     */
+    EAttribute getCOLUMNType_PATTERN();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getPRECISION <em>PRECISION</em>}'.
@@ -2776,6 +2796,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute COLUMN_TYPE__NULLABLE = eINSTANCE.getCOLUMNType_NULLABLE();
+
+        /**
+         * The meta object literal for the '<em><b>PATTERN</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__PATTERN = eINSTANCE.getCOLUMNType_PATTERN();
 
         /**
          * The meta object literal for the '<em><b>PRECISION</b></em>' attribute feature.

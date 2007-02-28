@@ -28,6 +28,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getLENGTH <em>LENGTH</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#isNULLABLE <em>NULLABLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getPATTERN <em>PATTERN</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getPRECISION <em>PRECISION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getTYPE <em>TYPE</em>}</li>
  * </ul>
@@ -162,6 +163,26 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @ordered
      */
     protected boolean nULLABLEESet = false;
+
+    /**
+     * The default value of the '{@link #getPATTERN() <em>PATTERN</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPATTERN()
+     * @generated
+     * @ordered
+     */
+    protected static final String PATTERN_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getPATTERN() <em>PATTERN</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPATTERN()
+     * @generated
+     * @ordered
+     */
+    protected String pATTERN = PATTERN_EDEFAULT;
 
     /**
      * The default value of the '{@link #getPRECISION() <em>PRECISION</em>}' attribute.
@@ -415,6 +436,27 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getPATTERN() {
+        return pATTERN;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPATTERN(String newPATTERN) {
+        String oldPATTERN = pATTERN;
+        pATTERN = newPATTERN;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__PATTERN, oldPATTERN, pATTERN));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public int getPRECISION() {
         return pRECISION;
     }
@@ -494,6 +536,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return getNAME();
             case ComponentPackage.COLUMN_TYPE__NULLABLE:
                 return isNULLABLE() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.COLUMN_TYPE__PATTERN:
+                return getPATTERN();
             case ComponentPackage.COLUMN_TYPE__PRECISION:
                 return new Integer(getPRECISION());
             case ComponentPackage.COLUMN_TYPE__TYPE:
@@ -523,6 +567,9 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return;
             case ComponentPackage.COLUMN_TYPE__NULLABLE:
                 setNULLABLE(((Boolean)newValue).booleanValue());
+                return;
+            case ComponentPackage.COLUMN_TYPE__PATTERN:
+                setPATTERN((String)newValue);
                 return;
             case ComponentPackage.COLUMN_TYPE__PRECISION:
                 setPRECISION(((Integer)newValue).intValue());
@@ -556,6 +603,9 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
             case ComponentPackage.COLUMN_TYPE__NULLABLE:
                 unsetNULLABLE();
                 return;
+            case ComponentPackage.COLUMN_TYPE__PATTERN:
+                setPATTERN(PATTERN_EDEFAULT);
+                return;
             case ComponentPackage.COLUMN_TYPE__PRECISION:
                 unsetPRECISION();
                 return;
@@ -583,6 +633,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
             case ComponentPackage.COLUMN_TYPE__NULLABLE:
                 return isSetNULLABLE();
+            case ComponentPackage.COLUMN_TYPE__PATTERN:
+                return PATTERN_EDEFAULT == null ? pATTERN != null : !PATTERN_EDEFAULT.equals(pATTERN);
             case ComponentPackage.COLUMN_TYPE__PRECISION:
                 return isSetPRECISION();
             case ComponentPackage.COLUMN_TYPE__TYPE:
@@ -610,6 +662,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
         result.append(nAME);
         result.append(", nULLABLE: ");
         if (nULLABLEESet) result.append(nULLABLE); else result.append("<unset>");
+        result.append(", pATTERN: ");
+        result.append(pATTERN);
         result.append(", pRECISION: ");
         if (pRECISIONESet) result.append(pRECISION); else result.append("<unset>");
         result.append(", tYPE: ");

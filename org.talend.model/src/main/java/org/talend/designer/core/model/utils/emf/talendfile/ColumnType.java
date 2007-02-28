@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getLength <em>Length</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isNullable <em>Nullable</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getPattern <em>Pattern</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getPrecision <em>Precision</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getSourceType <em>Source Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getType <em>Type</em>}</li>
@@ -247,6 +248,33 @@ public interface ColumnType extends EObject {
      * @generated
      */
     boolean isSetNullable();
+
+    /**
+     * Returns the value of the '<em><b>Pattern</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Pattern</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Pattern</em>' attribute.
+     * @see #setPattern(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_Pattern()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='pattern' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getPattern();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getPattern <em>Pattern</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Pattern</em>' attribute.
+     * @see #getPattern()
+     * @generated
+     */
+    void setPattern(String value);
 
     /**
      * Returns the value of the '<em><b>Precision</b></em>' attribute.

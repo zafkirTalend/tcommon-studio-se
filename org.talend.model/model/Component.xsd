@@ -26,9 +26,6 @@
 			<xs:attribute name="SERIAL" type="xs:string" use="required"/>
 			<xs:attribute name="VERSION" type="xs:decimal" use="required"/>
 			<xs:attribute name="STATUS" type="xs:string" use="required"/>
-
-
-
 			<xs:attribute name="COMPATIBILITY" type="xs:string" use="required"/>
 			<xs:attribute name="AUTHOR" type="xs:string" use="required"/>
 			<xs:attribute name="RELEASE_DATE" type="xs:string" use="required"/>
@@ -106,6 +103,7 @@
 												<xs:attribute name="KEY" type="xs:boolean" use="optional" default="false"/>
 												<xs:attribute name="NULLABLE" type="xs:boolean" use="optional" default="true"/>
 												<xs:attribute name="DEFAULT" type="xs:string" use="optional"/>
+												<xs:attribute name="PATTERN" type="xs:string" use="optional"/>
 											</xs:complexType>
 										</xs:element>
 									</xs:sequence>

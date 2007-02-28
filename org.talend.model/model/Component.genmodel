@@ -16,6 +16,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/lENGTH"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/nAME"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/nULLABLE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/pATTERN"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/pRECISION"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/tYPE"/>
     </genClasses>

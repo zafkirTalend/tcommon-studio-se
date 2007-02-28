@@ -280,7 +280,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getColumnType_Precision() {
+    public EAttribute getColumnType_Pattern() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -289,7 +289,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getColumnType_SourceType() {
+    public EAttribute getColumnType_Precision() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -298,8 +298,17 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getColumnType_Type() {
+    public EAttribute getColumnType_SourceType() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getColumnType_Type() {
+        return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -1137,6 +1146,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(columnTypeEClass, COLUMN_TYPE__LENGTH);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__NAME);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__NULLABLE);
+        createEAttribute(columnTypeEClass, COLUMN_TYPE__PATTERN);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__PRECISION);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__SOURCE_TYPE);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__TYPE);
@@ -1281,6 +1291,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getColumnType_Length(), theXMLTypePackage.getInt(), "length", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_Nullable(), theXMLTypePackage.getBoolean(), "nullable", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getColumnType_Pattern(), theXMLTypePackage.getString(), "pattern", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_Precision(), theXMLTypePackage.getInt(), "precision", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_SourceType(), theXMLTypePackage.getString(), "sourceType", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_Type(), theXMLTypePackage.getString(), "type", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1456,6 +1467,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
            new String[] {
              "kind", "attribute",
              "name", "nullable",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getColumnType_Pattern(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "pattern",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
