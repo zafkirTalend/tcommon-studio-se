@@ -61,6 +61,7 @@ public interface IExternalNode extends INode {
     /**
      * 
      * ExternalData to Xml.
+     * 
      * @param out
      * @param writer
      * @throws IOException
@@ -70,6 +71,7 @@ public interface IExternalNode extends INode {
     /**
      * 
      * Xml to ExternalData.
+     * 
      * @param inputStream
      * @param reader
      * @throws IOException
@@ -99,8 +101,6 @@ public interface IExternalNode extends INode {
 
     public void setSubProcessStart(boolean subProcessStart);
 
-    public void setMultipleMethods(Boolean multipleMethods);
-
     public abstract void renameInputConnection(String oldName, String newName);
 
     public abstract void renameOutputConnection(String oldName, String newName);
@@ -108,5 +108,4 @@ public interface IExternalNode extends INode {
     public void setIODataComponents(IODataComponentContainer components);
 
     public IODataComponentContainer getIODataComponents();
-
 }

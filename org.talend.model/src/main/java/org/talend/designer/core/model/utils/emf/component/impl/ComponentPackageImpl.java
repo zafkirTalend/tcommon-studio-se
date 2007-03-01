@@ -1354,17 +1354,8 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getTEMPLATEType_MULTIPLEMETHODS() {
-        return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EAttribute getTEMPLATEType_NAME() {
-        return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(3);
+        return (EAttribute)templateTypeEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -1536,7 +1527,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         templateTypeEClass = createEClass(TEMPLATE_TYPE);
         createEReference(templateTypeEClass, TEMPLATE_TYPE__LINKTO);
         createEAttribute(templateTypeEClass, TEMPLATE_TYPE__COMPONENT);
-        createEAttribute(templateTypeEClass, TEMPLATE_TYPE__MULTIPLEMETHODS);
         createEAttribute(templateTypeEClass, TEMPLATE_TYPE__NAME);
     }
 
@@ -1570,7 +1560,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
         // Initialize classes and features; add operations and parameters
         initEClass(codegenerationTypeEClass, CODEGENERATIONType.class, "CODEGENERATIONType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getCODEGENERATIONType_TEMPLATES(), this.getTEMPLATESType(), null, "tEMPLATES", null, 1, 1, CODEGENERATIONType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCODEGENERATIONType_TEMPLATES(), this.getTEMPLATESType(), null, "tEMPLATES", null, 0, 1, CODEGENERATIONType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCODEGENERATIONType_IMPORTS(), this.getIMPORTSType(), null, "iMPORTS", null, 0, 1, CODEGENERATIONType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(columnTypeEClass, COLUMNType.class, "COLUMNType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1710,7 +1700,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEClass(templateTypeEClass, TEMPLATEType.class, "TEMPLATEType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getTEMPLATEType_LINKTO(), this.getLINKTOType(), null, "lINKTO", null, 0, -1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTEMPLATEType_COMPONENT(), theXMLTypePackage.getString(), "cOMPONENT", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getTEMPLATEType_MULTIPLEMETHODS(), theXMLTypePackage.getBoolean(), "mULTIPLEMETHODS", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getTEMPLATEType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, TEMPLATEType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
@@ -1741,7 +1730,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "name", "CODEGENERATION_._type",
              "kind", "elementOnly"
-           });		
+           });			
         addAnnotation
           (getCODEGENERATIONType_TEMPLATES(), 
            source, 
@@ -2667,14 +2656,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "COMPONENT",
-             "namespace", "##targetNamespace"
-           });		
-        addAnnotation
-          (getTEMPLATEType_MULTIPLEMETHODS(), 
-           source, 
-           new String[] {
-             "kind", "attribute",
-             "name", "MULTIPLE_METHODS",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

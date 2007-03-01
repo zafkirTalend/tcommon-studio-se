@@ -128,7 +128,10 @@
 	<xs:element name="CODEGENERATION">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="TEMPLATES">
+				<xs:element name="TEMPLATES" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Used only for virtual components</xs:documentation>
+					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="TEMPLATE" maxOccurs="unbounded">
@@ -143,7 +146,6 @@
 									</xs:sequence>
 									<xs:attribute name="NAME" type="xs:string" use="optional"/>
 									<xs:attribute name="COMPONENT" type="xs:string" use="optional"/>
-									<xs:attribute name="MULTIPLE_METHODS" type="xs:boolean" use="optional"/>
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="TEMPLATE_PARAM" minOccurs="0" maxOccurs="unbounded">

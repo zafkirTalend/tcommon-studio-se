@@ -78,8 +78,6 @@ public interface INode extends IElement {
 
     public String getPluginFullName();
 
-    public Boolean isMultipleMethods();
-
     public Boolean hasConditionalOutputs();
     
     /**

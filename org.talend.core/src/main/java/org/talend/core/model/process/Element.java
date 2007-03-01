@@ -28,6 +28,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.runtime.Platform;
 import org.talend.core.i18n.Messages;
 
 /**

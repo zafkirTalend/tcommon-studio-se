@@ -28,6 +28,7 @@ import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
 import org.talend.core.model.process.INodeReturn;
+import org.talend.core.model.temp.ECodePart;
 import org.talend.designer.codegen.perlmodule.ModuleNeeded;
 
 /**
@@ -75,8 +76,6 @@ public interface IComponent {
 
     public List<? extends INodeConnector> createConnectors();
 
-    public Boolean isMultipleMethods();
-
     public Boolean hasConditionalOutputs();
 
     public String getPluginFullName();
@@ -96,4 +95,6 @@ public interface IComponent {
     public List<ModuleNeeded> getModulesNeeded();
 
     public String getPathSource();
+
+    public List<ECodePart> getAvailableCodeParts();
 }

@@ -66,4 +66,13 @@ public enum ECodePart {
     public String toString() {
         return getName();
     }
+
+    public static ECodePart getCodePartByName(String name) {
+        for (ECodePart part : values()) {
+            if (part.getName().equals(name)) {
+                return part;
+            }
+        }
+        return null;
+    }
 }

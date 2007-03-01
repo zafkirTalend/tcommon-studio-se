@@ -147,7 +147,6 @@
     <genClasses ecoreClass="Component.ecore#//TEMPLATEType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//TEMPLATEType/lINKTO"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEType/cOMPONENT"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEType/mULTIPLEMETHODS"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEType/nAME"/>
     </genClasses>
   </genPackages>

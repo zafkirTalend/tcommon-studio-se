@@ -30,7 +30,6 @@ import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#getLINKTO <em>LINKTO</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#getCOMPONENT <em>COMPONENT</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#isMULTIPLEMETHODS <em>MULTIPLEMETHODS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATETypeImpl#getNAME <em>NAME</em>}</li>
  * </ul>
  * </p>
@@ -67,35 +66,6 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      * @ordered
      */
     protected String cOMPONENT = COMPONENT_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #isMULTIPLEMETHODS() <em>MULTIPLEMETHODS</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isMULTIPLEMETHODS()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean MULTIPLEMETHODS_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isMULTIPLEMETHODS() <em>MULTIPLEMETHODS</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isMULTIPLEMETHODS()
-     * @generated
-     * @ordered
-     */
-    protected boolean mULTIPLEMETHODS = MULTIPLEMETHODS_EDEFAULT;
-
-    /**
-     * This is true if the MULTIPLEMETHODS attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    protected boolean mULTIPLEMETHODSESet = false;
 
     /**
      * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
@@ -173,52 +143,6 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isMULTIPLEMETHODS() {
-        return mULTIPLEMETHODS;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setMULTIPLEMETHODS(boolean newMULTIPLEMETHODS) {
-        boolean oldMULTIPLEMETHODS = mULTIPLEMETHODS;
-        mULTIPLEMETHODS = newMULTIPLEMETHODS;
-        boolean oldMULTIPLEMETHODSESet = mULTIPLEMETHODSESet;
-        mULTIPLEMETHODSESet = true;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS, oldMULTIPLEMETHODS, mULTIPLEMETHODS, !oldMULTIPLEMETHODSESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void unsetMULTIPLEMETHODS() {
-        boolean oldMULTIPLEMETHODS = mULTIPLEMETHODS;
-        boolean oldMULTIPLEMETHODSESet = mULTIPLEMETHODSESet;
-        mULTIPLEMETHODS = MULTIPLEMETHODS_EDEFAULT;
-        mULTIPLEMETHODSESet = false;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS, oldMULTIPLEMETHODS, MULTIPLEMETHODS_EDEFAULT, oldMULTIPLEMETHODSESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isSetMULTIPLEMETHODS() {
-        return mULTIPLEMETHODSESet;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public String getNAME() {
         return nAME;
     }
@@ -259,8 +183,6 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
                 return getLINKTO();
             case ComponentPackage.TEMPLATE_TYPE__COMPONENT:
                 return getCOMPONENT();
-            case ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS:
-                return isMULTIPLEMETHODS() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.TEMPLATE_TYPE__NAME:
                 return getNAME();
         }
@@ -280,9 +202,6 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
                 return;
             case ComponentPackage.TEMPLATE_TYPE__COMPONENT:
                 setCOMPONENT((String)newValue);
-                return;
-            case ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS:
-                setMULTIPLEMETHODS(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.TEMPLATE_TYPE__NAME:
                 setNAME((String)newValue);
@@ -304,9 +223,6 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
             case ComponentPackage.TEMPLATE_TYPE__COMPONENT:
                 setCOMPONENT(COMPONENT_EDEFAULT);
                 return;
-            case ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS:
-                unsetMULTIPLEMETHODS();
-                return;
             case ComponentPackage.TEMPLATE_TYPE__NAME:
                 setNAME(NAME_EDEFAULT);
                 return;
@@ -325,8 +241,6 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
                 return lINKTO != null && !lINKTO.isEmpty();
             case ComponentPackage.TEMPLATE_TYPE__COMPONENT:
                 return COMPONENT_EDEFAULT == null ? cOMPONENT != null : !COMPONENT_EDEFAULT.equals(cOMPONENT);
-            case ComponentPackage.TEMPLATE_TYPE__MULTIPLEMETHODS:
-                return isSetMULTIPLEMETHODS();
             case ComponentPackage.TEMPLATE_TYPE__NAME:
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
         }
@@ -344,8 +258,6 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (cOMPONENT: ");
         result.append(cOMPONENT);
-        result.append(", mULTIPLEMETHODS: ");
-        if (mULTIPLEMETHODSESet) result.append(mULTIPLEMETHODS); else result.append("<unset>");
         result.append(", nAME: ");
         result.append(nAME);
         result.append(')');

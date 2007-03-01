@@ -1352,22 +1352,13 @@ public interface ComponentPackage extends EPackage {
     int TEMPLATE_TYPE__COMPONENT = 1;
 
     /**
-     * The feature id for the '<em><b>MULTIPLEMETHODS</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int TEMPLATE_TYPE__MULTIPLEMETHODS = 2;
-
-    /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TEMPLATE_TYPE__NAME = 3;
+    int TEMPLATE_TYPE__NAME = 2;
 
     /**
      * The number of structural features of the '<em>TEMPLATE Type</em>' class.
@@ -1376,7 +1367,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TEMPLATE_TYPE_FEATURE_COUNT = 4;
+    int TEMPLATE_TYPE_FEATURE_COUNT = 3;
 
 
     /**
@@ -2678,17 +2669,6 @@ public interface ComponentPackage extends EPackage {
     EAttribute getTEMPLATEType_COMPONENT();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#isMULTIPLEMETHODS <em>MULTIPLEMETHODS</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>MULTIPLEMETHODS</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.TEMPLATEType#isMULTIPLEMETHODS()
-     * @see #getTEMPLATEType()
-     * @generated
-     */
-    EAttribute getTEMPLATEType_MULTIPLEMETHODS();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEType#getNAME <em>NAME</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3724,14 +3704,6 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute TEMPLATE_TYPE__COMPONENT = eINSTANCE.getTEMPLATEType_COMPONENT();
-
-        /**
-         * The meta object literal for the '<em><b>MULTIPLEMETHODS</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute TEMPLATE_TYPE__MULTIPLEMETHODS = eINSTANCE.getTEMPLATEType_MULTIPLEMETHODS();
 
         /**
          * The meta object literal for the '<em><b>NAME</b></em>' attribute feature.

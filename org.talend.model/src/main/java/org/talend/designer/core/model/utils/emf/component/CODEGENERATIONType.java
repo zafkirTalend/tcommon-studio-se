@@ -34,10 +34,13 @@ public interface CODEGENERATIONType extends EObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
+     * <!-- begin-model-doc -->
+     * Used only for virtual components
+     * <!-- end-model-doc -->
      * @return the value of the '<em>TEMPLATES</em>' containment reference.
      * @see #setTEMPLATES(TEMPLATESType)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCODEGENERATIONType_TEMPLATES()
-     * @model containment="true" required="true"
+     * @model containment="true"
      *        extendedMetaData="kind='element' name='TEMPLATES' namespace='##targetNamespace'"
      * @generated
      */
