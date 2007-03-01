@@ -27,11 +27,13 @@ import java.util.Locale;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.adaptor.EclipseStarter;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.osgi.framework.internal.core.FrameworkProperties;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.update.core.SiteManager;
 import org.eclipse.update.internal.scheduler.SchedulerStartup;
@@ -75,7 +77,8 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         IEclipsePreferences node = new DefaultScope().getNode(CorePlugin.getDefault().getBundle().getSymbolicName());
 
         // Building temporary files directory path
-        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); // NON-NLS-1$// NON-NLS-2$ //$NON-NLS-1$ //$NON-NLS-2$
+        IPath tempPath = new Path(System.getProperty("user.dir")).append("temp"); // NON-NLS-1$// NON-NLS-2$
+        // //$NON-NLS-1$ //$NON-NLS-2$
         File tempFile = tempPath.toFile();
         if (!tempFile.exists()) {
             tempFile.mkdirs();
@@ -86,8 +89,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         String os = Platform.getOS();
         String javaPath = System.getProperty("sun.boot.library.path"); // NON-NLS-1$ //$NON-NLS-1$
         if (os.equals(Platform.OS_WIN32)) {
-            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, Platform.getInstallLocation().getURL().getFile()
-                    .substring(1)
+            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, Platform.getInstallLocation().getURL().getFile().substring(1)
                     + PERL_EMBEDDED_INTERPRETER_DIRECTORY);
             node.put(ITalendCorePrefConstants.PERL_SECONDARY_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_WIN32_INTERPRETER);
@@ -98,7 +100,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         }
 
-        //Sets default language
+        // Sets default language
         node.put(ITalendCorePrefConstants.LANGUAGE_SELECTOR, Locale.getDefault().getLanguage());
 
         node.put(ITalendCorePrefConstants.PREVIEW_LIMIT, "50"); //$NON-NLS-1$
@@ -117,10 +119,14 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         // default colors for the ColorStyledText.
         ColorManager.initDefaultColors(CorePlugin.getDefault().getPreferenceStore());
+
+        CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.LANGUAGE_SELECTOR,
+                System.getProperty(EclipseStarter.PROP_NL));
     }
 
     public void initializeUpdatePreference() {
-        IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$ //$NON-NLS-1$
+        IEclipsePreferences nodeScheduler = new DefaultScope().getNode("org.eclipse.update.scheduler"); // NON-NLS-1$
+        // //$NON-NLS-1$
         nodeScheduler.putBoolean(SchedulerStartup.P_ENABLED, true);
         nodeScheduler.put(SchedulerStartup.P_SCHEDULE, SchedulerStartup.VALUE_ON_STARTUP);
         nodeScheduler.putBoolean(SchedulerStartup.P_DOWNLOAD, true);
