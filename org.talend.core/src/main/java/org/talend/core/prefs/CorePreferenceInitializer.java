@@ -119,9 +119,8 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         // default colors for the ColorStyledText.
         ColorManager.initDefaultColors(CorePlugin.getDefault().getPreferenceStore());
-
-        CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.LANGUAGE_SELECTOR,
-                System.getProperty(EclipseStarter.PROP_NL));
+        String languageType = Locale.getDefault().getLanguage();
+        CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.LANGUAGE_SELECTOR, languageType);
     }
 
     public void initializeUpdatePreference() {
