@@ -22,6 +22,7 @@
 package org.talend.designer.runprocess;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.talend.core.model.process.IContext;
 import org.talend.designer.core.ISyntaxCheckableEditor;
@@ -117,5 +118,19 @@ public interface IProcessor {
      * yzhang Comment method "getTypeName".
      */
     public String getTypeName();
+    
+    /**
+     * Save lauch configuration.
+     * @return
+     * @throws CoreException
+     */
+    public Object saveLaunchConfiguration() throws CoreException;
+    
+    /**
+     * Get the execute language commandline.
+     * @return
+     */
+    public String[] getCommandLine() throws ProcessorException;
 
 }
+
