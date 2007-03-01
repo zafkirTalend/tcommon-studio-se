@@ -21,8 +21,10 @@
 // ============================================================================
 package org.talend.core.prefs.ui;
 
+import java.net.URL;
 import java.util.Locale;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
@@ -95,6 +97,18 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         // ends
     }
 
+    
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.preference.FieldEditorPreferencePage#performOk()
+     */
+    @Override
+    public boolean performOk() {
+        URL url=Platform.getConfigurationLocation().getURL();
+        System.out.println(url);
+        
+        
+        return super.performOk();
+    }
     /**
      * @see org.eclipse.ui.IWorkbenchPreferencePage#init(org.eclipse.ui.IWorkbench)
      */

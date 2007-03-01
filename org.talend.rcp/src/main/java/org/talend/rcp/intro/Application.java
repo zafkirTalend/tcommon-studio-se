@@ -48,7 +48,7 @@ public class Application implements IPlatformRunnable {
      */
     public Object run(Object args) throws Exception {
         Display display = PlatformUI.createDisplay();      
-        Locale.setDefault(LocalLanguageFactory.getLocalLanguage());
+        //Locale.setDefault(LocalLanguageFactory.getLocalLanguage());
         try {
             shell = new Shell(display, SWT.ON_TOP);
 
