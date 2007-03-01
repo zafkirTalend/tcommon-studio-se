@@ -47,7 +47,8 @@ public enum EParameterFieldType {
     IMAGE,
     COLUMN_LIST,
     PREV_COLUMN_LIST,
-    TECHNICAL; // means field not displayed directly
+    TECHNICAL, // means field not displayed directly
+    ENCODING_TYPE;
 
     public String getName() {
         return toString();
