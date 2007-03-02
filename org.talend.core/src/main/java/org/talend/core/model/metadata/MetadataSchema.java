@@ -168,7 +168,9 @@ public final class MetadataSchema {
                 metadataColumn.setLabel(label.getNodeValue());
                 metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
                 metadataColumn.setTalendType(type.getNodeValue());
-                metadataColumn.setType(sourceType.getNodeValue());
+                if(sourceType != null) {
+                    metadataColumn.setType(sourceType.getNodeValue());
+                }
                 if (length.getNodeValue() != null) {
                     try {
                         metadataColumn.setLength(Integer.parseInt(length.getNodeValue()));
