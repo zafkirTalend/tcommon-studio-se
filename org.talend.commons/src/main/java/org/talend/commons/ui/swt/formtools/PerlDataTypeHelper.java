@@ -27,18 +27,18 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 
 /**
- * DataTypeManager is used to determine the Java Type or the Talend Type of a string. TODO : This class don't determine
+ * PerlDataTypeHelper is used to determine the Perl Type or the Talend Type of a string. TODO : This class don't determine
  * the type DATE.
  * 
  * $Id$
  * 
  */
-public final class DataTypeHelper {
+public final class PerlDataTypeHelper {
 
     /**
      * Default Constructor. Must not be used.
      */
-    private DataTypeHelper() {
+    private PerlDataTypeHelper() {
     }
 
     /**
@@ -63,17 +63,17 @@ public final class DataTypeHelper {
      * @return string or null if the value.equals("")
      */
     public static String getTalendTypeOfValue(final String value) {
-        String javaType = getJavaTypeOfValue(value);
-        if (javaType != null) {
-            if (javaType.equals("Integer")) {
+        String perlType = getPerlTypeOfValue(value);
+        if (perlType != null) {
+            if (perlType.equals("Integer")) {
                 return "NUMBER";
-            } else if (javaType.equals("Character")) {
+            } else if (perlType.equals("Character")) {
                 return "CHAR";
             }
         } else {
             return "String";
         }
-        return javaType.toUpperCase();
+        return perlType.toUpperCase();
     }
 
     /**
@@ -82,7 +82,7 @@ public final class DataTypeHelper {
      * @param value
      * @return string or null if the value.equals("")
      */
-    public static String getJavaTypeOfValue(final String value) {
+    public static String getPerlTypeOfValue(final String value) {
 
         // empty value => type is undef
         if (value.equals("")) {
