@@ -330,6 +330,17 @@ public class ExtractMetaDataFromDataBase {
                     return connectionStatus;
                 }
             }
+            //Test if tables exist to determine if Database is good specified.
+            try {
+                String sql = "SHOW TABLES"; //$NON-NLS-1$
+                Statement sta;
+                sta = connection.createStatement();
+                ResultSet resultSet = sta.executeQuery(sql);
+            } catch (SQLException e) {
+                log.error(e.toString());
+                throw new RuntimeException(e);
+            }
+            
             connection.close();
             connectionStatus.setResult(true);
             connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful")); //$NON-NLS-1$
