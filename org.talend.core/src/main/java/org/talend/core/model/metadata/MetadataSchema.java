@@ -259,7 +259,9 @@ public final class MetadataSchema {
                 metadataColumn.setLabel(label.getNodeValue());
                 metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
                 metadataColumn.setTalendType(type.getNodeValue());
-                metadataColumn.setSourceType(sourceType.getNodeValue());
+                if(sourceType != null) {
+                    metadataColumn.setSourceType(sourceType.getNodeValue());
+                }
                 if (length.getNodeValue() != null) {
                     try {
                         metadataColumn.setLength(Integer.parseInt(length.getNodeValue()));
@@ -407,6 +409,12 @@ public final class MetadataSchema {
                 talendType.setNodeValue(metadataColumn.getTalendType());
                 column.setAttributeNode(talendType);
 
+                if (metadataColumn.getSourceType() != null){
+                    Attr sourceType = document.createAttribute("type"); //$NON-NLS-1$
+                    sourceType.setNodeValue(metadataColumn.getSourceType());
+                    column.setAttributeNode(sourceType);
+                }
+                
                 Attr length = document.createAttribute("length"); //$NON-NLS-1$
                 length.setNodeValue(String.valueOf(metadataColumn.getLength()));
                 column.setAttributeNode(length);
@@ -566,6 +574,12 @@ public final class MetadataSchema {
                 talendType.setNodeValue(metadataColumn.getTalendType());
                 column.setAttributeNode(talendType);
 
+                if (metadataColumn.getType() != null) {
+                    Attr sourceType = document.createAttribute("type"); //$NON-NLS-1$
+                    sourceType.setNodeValue(metadataColumn.getType());
+                    column.setAttributeNode(sourceType);
+                }
+                
                 Attr length = document.createAttribute("length"); //$NON-NLS-1$
                 if (metadataColumn.getLength() == null) {
                     length.setNodeValue("-1"); //$NON-NLS-1$
