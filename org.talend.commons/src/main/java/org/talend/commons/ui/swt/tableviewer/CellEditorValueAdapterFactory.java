@@ -45,7 +45,7 @@ public class CellEditorValueAdapterFactory {
                     }
                     return integer;
                 } catch (Exception ex) {
-                    return null;
+                    return -1;
                 }
             }
 
