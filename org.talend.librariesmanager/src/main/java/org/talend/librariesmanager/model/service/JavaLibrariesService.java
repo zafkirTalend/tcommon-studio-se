@@ -28,13 +28,27 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.jdt.core.IClasspathEntry;
+import org.eclipse.jdt.core.IJavaProject;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.JavaModelException;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.components.IComponentsService;
+import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.librariesmanager.Activator;
+import org.talend.librariesmanager.model.ModulesNeededProvider;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -84,22 +98,44 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     }
 
     public void checkLibraries() {
-        // TODO MHI/SML implements to check if java libs are installed
+        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+        IProject prj = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
+        IJavaProject project = JavaCore.create(prj);
+
+        List<String> projectLibraries = new ArrayList<String>();
+        try {
+            IClasspathEntry[] resolvedClasspath = project.getResolvedClasspath(true);
+            for (IClasspathEntry entry : resolvedClasspath) {
+                IPath path = entry.getPath();
+                projectLibraries.add(path.lastSegment());
+            }
+        } catch (JavaModelException e) {
+            ExceptionHandler.process(e);
+            return;
+        }
+
+        List<ModuleNeeded> toCheck = ModulesNeededProvider.getModulesNeeded();
+        for (ModuleNeeded current : toCheck) {
+            if (projectLibraries.contains(current.getModuleName())) {
+                current.setStatus(ELibraryInstallStatus.INSTALLED);
+            } else {
+                current.setStatus(ELibraryInstallStatus.NOT_INSTALLED);
+            }
+        }
     }
 
     public void syncLibraries() {
         File target = new File(getLibrariesPath());
         try {
-            // 1. libs livrées dans le plugin
-            File source = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile());
+            // 1. Talend libraries:
+            File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile());
+            FilesUtils.copyFolder(talendLibraries, target, false, FilesUtils.getExcludeSVNFilesFilter(), null, true);
 
-            FilesUtils.copyFolder(source, target, false, FilesUtils.getExcludeSVNFilesFilter(), null, true);
-
-            // 2. libs livrées dans les composants
+            // 2. Components libraries
             IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                     IComponentsService.class);
-            File source2 = new File(service.getComponentsFactory().getComponentPath().getFile());
-            FilesUtils.copyFolder(source2, target, false, FilesUtils.getExcludeSVNFilesFilter(), FilesUtils
+            File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
+            FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSVNFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), false);
         } catch (IOException e) {
             ExceptionHandler.process(e);

@@ -174,4 +174,15 @@ public class FilesUtils {
         };
         return filter;
     }
+
+    public static FileFilter getAcceptPMFilesFilter() {
+        FileFilter filter = new FileFilter() {
+
+            public boolean accept(File pathname) {
+                return pathname.toString().endsWith(".pm");
+            }
+
+        };
+        return filter;
+    }
 }

@@ -38,6 +38,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.designer.runprocess.IRunProcessService;
@@ -88,11 +89,18 @@ public class PerlLibrariesService extends AbstractLibrariesService {
      * @see org.talend.core.model.general.ILibrariesService#syncLibraries()
      */
     public void syncLibraries() {
+        File target = new File(getLibrariesPath());
         try {
+            // 1. Talend libraries:
             File source = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/perl/talend/")).getFile());
-            File target = new File(getLibrariesPath());
-
             FilesUtils.copyFolder(source, target, false, FilesUtils.getExcludeSVNFilesFilter(), null, true);
+
+            // 2. Components libraries
+            IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                    IComponentsService.class);
+            File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
+            SpecificFilesUtils.copySpecificSubFolder(componentsLibraries, target, FilesUtils.getExcludeSVNFilesFilter(),
+                    FilesUtils.getAcceptPMFilesFilter(), "modules");
         } catch (IOException e) {
             ExceptionHandler.process(e);
         }
