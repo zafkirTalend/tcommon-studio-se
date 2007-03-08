@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.core.model.components;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 
@@ -48,4 +49,5 @@ public interface IComponentsFactory {
 
     public List<URL> getComponentModel(String componentName, String modelFileSuffix);
 
+    public URL getComponentPath() throws IOException;
 }

@@ -32,6 +32,8 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.components.IComponentsService;
 import org.talend.librariesmanager.Activator;
 
 /**
@@ -94,8 +96,9 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             FilesUtils.copyFolder(source, target, false, FilesUtils.getExcludeSVNFilesFilter(), null, true);
 
             // 2. libs livrées dans les composants
-            File source2 = new File(
-                    "D:\\Mes Documents\\Developpement\\workspace-talend-smallDev\\org.talend.designer.components.localprovider\\components");
+            IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
+                    IComponentsService.class);
+            File source2 = new File(service.getComponentsFactory().getComponentPath().getFile());
             FilesUtils.copyFolder(source2, target, false, FilesUtils.getExcludeSVNFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), false);
         } catch (IOException e) {
