@@ -378,6 +378,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         // 2. Img folder :
         createFolder(prj, folderHelper, RepositoryConstants.IMG_DIRECTORY);
+        createFolder(prj, folderHelper, RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE);
 
         // 3. Bin folders :
         for (ERepositoryObjectType type : needsBinFolder) {
