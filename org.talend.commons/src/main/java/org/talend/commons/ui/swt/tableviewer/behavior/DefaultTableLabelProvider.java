@@ -107,7 +107,7 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
         if (column.getColorProvider() != null) {
             return column.getColorProvider().getBackgroundColor(element);
         }
-        return tableViewerCreator.getTable().getDisplay().getSystemColor(SWT.COLOR_WHITE);
+        return null;
     }
 
     /*
@@ -120,6 +120,6 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
         if (column.getColorProvider() != null) {
             return column.getColorProvider().getForegroundColor(element);
         }
-        return tableViewerCreator.getTable().getDisplay().getSystemColor(SWT.COLOR_BLACK);
+        return null;
     }
 }

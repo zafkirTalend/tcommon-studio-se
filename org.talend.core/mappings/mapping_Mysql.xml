@@ -176,7 +176,7 @@
 			<type talendType="double" dbType="REAL" />
 			<type talendType="double" dbType="DOUBLE" />
 			<type talendType="double" dbType="DECIMAL" />
-			<type talendType="char" dbType="CHAR" defaultSelected="true" />
+			<type talendType="String" dbType="CHAR" defaultSelected="true" />
 			<type talendType="boolean" dbType="BOOLEAN" defaultSelected="true" />
 			
 			<type talendType="String" dbType="VARCHAR" nullable="true" defaultSelected="true" />

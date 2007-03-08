@@ -23,7 +23,9 @@ package org.talend.commons.ui.swt.tableviewer;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
+import org.talend.commons.ui.swt.celleditor.ComboxCellEditorImproved;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.behavior.ComboEditorValueAdapter;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -77,48 +79,14 @@ public class CellEditorValueAdapterFactory {
      * 
      * @return
      */
-    public static CellEditorValueAdapter getComboAdapter(final String defaultItem) {
-        return new CellEditorValueAdapter() {
+    public static CellEditorValueAdapter getComboAdapterForComboCellEditor(final String defaultItem) {
+        return new ComboEditorValueAdapter(defaultItem) {
 
-            public Object getOriginalTypedValue(final CellEditor cellEditor, Object value) {
-                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
-                int i = new Integer(value.toString());
-                if (i >= 0) {
-                    return items[i];
-                } else {
-                    return "";
-                }
-            }
-
-            public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
-                String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
-
-                if (value == null && defaultItem != null) {
-                    value = defaultItem;
-                }
-
-                for (int i = 0; i < items.length; i++) {
-                    if (items[i].equals(value)) {
-                        return i;
-                    }
-                }
-                return -1;
-            }
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter#getColumnText(org.eclipse.jface.viewers.CellEditor,
-             * java.lang.Object)
-             */
             @Override
-            public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {
-                String displayedValue = super.getColumnText(cellEditor, bean, originalTypedValue);
-                if (displayedValue == null && defaultItem != null) {
-                    displayedValue = defaultItem;
-                }
-                return displayedValue;
+            public String[] getItems(CellEditor cellEditor) {
+                return ((ComboBoxCellEditor) cellEditor).getItems();
             }
+
 
         };
 
@@ -129,8 +97,35 @@ public class CellEditorValueAdapterFactory {
      * 
      * @return
      */
-    public static CellEditorValueAdapter getComboAdapter() {
-        return getComboAdapter(null);
+    public static CellEditorValueAdapter getComboAdapterForComboCellEditor() {
+        return getComboAdapterForComboCellEditor(null);
     }
 
+    /**
+     * DOC amaumont Comment method "getComboAdapter".
+     * 
+     * @return
+     */
+    public static CellEditorValueAdapter getComboAdapterForComboCellEditorImproved(final String defaultItem) {
+        return new ComboEditorValueAdapter(defaultItem) {
+            
+            @Override
+            public String[] getItems(CellEditor cellEditor) {
+                return ((ComboxCellEditorImproved) cellEditor).getItems();
+            }
+            
+            
+        };
+        
+    }
+    
+    /**
+     * DOC amaumont Comment method "getComboAdapter".
+     * 
+     * @return
+     */
+    public static CellEditorValueAdapter getComboAdapterForComboCellEditorImproved() {
+        return getComboAdapterForComboCellEditorImproved(null);
+    }
+    
 }

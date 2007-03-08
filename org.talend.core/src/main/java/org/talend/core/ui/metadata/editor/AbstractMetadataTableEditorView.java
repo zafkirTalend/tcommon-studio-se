@@ -530,7 +530,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         if (codeLanguage == ECodeLanguage.JAVA) {
             comboValueAdapter = new JavaTypeComboValueAdapter<B>(JavaTypesManager.getDefaultJavaType(), getNullableAccessor());
         } else if (codeLanguage == ECodeLanguage.PERL) {
-            comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter();
+            comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapterForComboCellEditor();
         }
 
         String[] arrayTalendTypes = new String[0];
@@ -583,7 +583,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
         if (dbTypeColumnWritable) {
 
-            CellEditorValueAdapter comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapter();
+            CellEditorValueAdapter comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapterForComboCellEditor();
             ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
             String[] arrayDbTypes = new String[0];
 

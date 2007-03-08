@@ -64,6 +64,8 @@ public class ColorStyledText extends StyledText {
 
     private String languageMode;
 
+    private MenuItem pasteItem;
+
     public ColorStyledText(Composite parent, int style, ColorManager colorManager, String languageMode) {
         super(parent, style);
         this.languageMode = languageMode;
@@ -81,6 +83,18 @@ public class ColorStyledText extends StyledText {
                 copy();
             }
         });
+        
+        image = sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_PASTE).createImage();
+        pasteItem = new MenuItem(popupMenu, SWT.PUSH);
+        pasteItem.setText(Messages.getString("ColorStyledText.PasteItem.Text")); //$NON-NLS-1$
+        pasteItem.setImage(image);
+        pasteItem.addListener(SWT.Selection, new Listener() {
+            
+            public void handleEvent(Event event) {
+                paste();
+            }
+        });
+        
         this.setMenu(popupMenu);
         MenuItem selectAllItem = new MenuItem(popupMenu, SWT.PUSH);
         selectAllItem.setText(Messages.getString("ColorStyledText.SelectAllItem.Text")); //$NON-NLS-1$
@@ -190,4 +204,15 @@ public class ColorStyledText extends StyledText {
         return this.scanner;
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.swt.custom.StyledText#setEditable(boolean)
+     */
+    @Override
+    public void setEditable(boolean editable) {
+        super.setEditable(editable);
+        pasteItem.setEnabled(editable);
+    }
+
+    
+    
 }

@@ -19,13 +19,11 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.designer.dbmap.ui.tabs;
+package org.talend.commons.ui.swt.colorstyledtext;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
 import org.eclipse.swt.widgets.Composite;
-import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
-import org.talend.commons.ui.swt.colorstyledtext.ColorStyledText;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
