@@ -80,7 +80,7 @@ public enum ECoreImage implements IImage {
     MODULE_REQUIRED_ICON("/icons/checked.gif"), //$NON-NLS-1$
     MODULE_NOTREQUIRED_ICON("/icons/empty.gif"), //$NON-NLS-1$
 
-    LOCKED_USER_OVERLAY("/icons/locked_red_overlay.gif"), //$NON-NLS-1$
+    LOCKED_USER_OVERLAY("/icons/locked_green_overlay.gif"), //$NON-NLS-1$
     LOCKED_OTHER_OVERLAY("/icons/locked_red_overlay.gif"), //$NON-NLS-1$
     NEW_OVERLAY("/icons/new_overlay.gif"), //$NON-NLS-1$
     MASTER_OVERLAY("/icons/etoile-master-job1.gif"), //$NON-NLS-1$
