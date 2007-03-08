@@ -88,24 +88,25 @@ public interface IRunProcessService extends IService {
      */
     public String getRoutineFilenameExt();
 
-    /**
-     * Gets perl project.
-     * 
-     * qian Comment method "getPerlProject".
-     * 
-     * @return IProject
-     * @throws CoreException
-     */
-    public IProject getPerlProject() throws CoreException;
+//    /**
+//     * Gets perl project.
+//     * 
+//     * qian Comment method "getPerlProject".
+//     * 
+//     * @return IProject
+//     * @throws CoreException
+//     */
+//    public IProject getPerlProject() throws CoreException;
+//
+//    /**
+//     * Gets java project
+//     * 
+//     * yzhang Comment method "getJavaProject".
+//     * 
+//     * @return
+//     * @throws CoreException
+//     */
+//    public IProject getJavaProject() throws CoreException;
 
-    /**
-     * Gets java project
-     * 
-     * yzhang Comment method "getJavaProject".
-     * 
-     * @return
-     * @throws CoreException
-     */
-    public IProject getJavaProject() throws CoreException;
-
+    public IProject getProject(ECodeLanguage language) throws CoreException;
 }

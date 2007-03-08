@@ -24,6 +24,7 @@ package org.talend.designer.runprocess;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.debug.core.ILaunchConfiguration;
 import org.talend.core.model.process.IContext;
 import org.talend.designer.core.ISyntaxCheckableEditor;
 
@@ -35,7 +36,17 @@ import org.talend.designer.core.ISyntaxCheckableEditor;
  */
 public interface IProcessor {
 
-    public void initPaths(IContext context) throws ProcessorException;
+    public static final int NO_STATISTICS = -1;
+
+    public static final int NO_TRACES = -1;
+
+    public static final int WATCH_LIMITED = -1;
+
+    public static final int WATCH_ALLOWED = 1;
+    
+    public static final int STATES_EDIT = 0;
+    
+    public static final int STATES_RUNTIME = 1;
 
     public void generateCode(IContext context, boolean statistics, boolean trace, boolean perlProperties)
             throws ProcessorException;
@@ -101,7 +112,7 @@ public interface IProcessor {
      * 
      * @return
      */
-    public void setProcessorStates(String states);
+    public void setProcessorStates(int states);
 
     /**
      * Add the Syntax Checkable Editor for refresh format of the code wihtin the editor, and also for error check.
@@ -118,19 +129,20 @@ public interface IProcessor {
      * yzhang Comment method "getTypeName".
      */
     public String getTypeName();
-    
+
     /**
      * Save lauch configuration.
+     * 
      * @return
      * @throws CoreException
      */
     public Object saveLaunchConfiguration() throws CoreException;
-    
-    /**
-     * Get the execute language commandline.
-     * @return
-     */
-    public String[] getCommandLine() throws ProcessorException;
 
+    public String[] getCommandLine(int statOption, int traceOption, String... codeOptions);
+
+    public void setContext(IContext context);
+
+    public Process run(int statisticsPort, int tracePort, String watchParam) throws ProcessorException;
+
+    public ILaunchConfiguration debug() throws ProcessorException;
 }
-

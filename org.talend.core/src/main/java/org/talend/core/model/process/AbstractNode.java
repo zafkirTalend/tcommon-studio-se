@@ -254,4 +254,31 @@ public abstract class AbstractNode implements INode {
         this.hasConditionalOutputs = hasConditionalOutputs;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuffer buff = new StringBuffer();
+        buff.append(uniqueName + " - ");
+        buff.append("inputs:(");
+        for (int i = 0; i < incomingConnections.size(); i++) {
+            buff.append(incomingConnections.get(i).getName());
+            if (i < (incomingConnections.size() - 1)) {
+                buff.append(",");
+            }
+        }
+        buff.append(") ");
+        buff.append("outputs:(");
+        for (int i = 0; i < outgoingConnections.size(); i++) {
+            buff.append(outgoingConnections.get(i).getName());
+            if (i < (outgoingConnections.size() - 1)) {
+                buff.append(",");
+            }
+        }
+        buff.append(")");
+        return buff.toString();
+    }
 }

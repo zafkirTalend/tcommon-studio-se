@@ -90,13 +90,23 @@ public class ProcessorUtilities {
      */
     public static IProcessor getProcessor(IProcess process, IContext context) {
         IRunProcessService service = CorePlugin.getDefault().getRunProcessService();
-        IProcessor processor = service.createCodeProcessor(process, ((RepositoryContext) CorePlugin.getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage(), true);
-        try {
-            processor.initPaths(context);
-        } catch (ProcessorException pe) {
-            MessageBoxExceptionHandler.process(pe);
-        }
+        IProcessor processor = service.createCodeProcessor(process, ((RepositoryContext) CorePlugin.getContext()
+                .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage(), true);
+        processor.setContext(context);
+        return processor;
+    }
+
+    /**
+     * Process need to be loaded first to use this function.
+     * 
+     * @param process
+     * @param context
+     * @return
+     */
+    public static IProcessor getProcessor(IProcess process) {
+        IRunProcessService service = CorePlugin.getDefault().getRunProcessService();
+        IProcessor processor = service.createCodeProcessor(process, ((RepositoryContext) CorePlugin.getContext()
+                .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage(), true);
         return processor;
     }
 
@@ -144,6 +154,22 @@ public class ProcessorUtilities {
         JobInfo jobInfo = new JobInfo(processName, contextName);
         generateCode(jobInfo);
 
+    }
+
+    public static String[] getCommandLine(String processName, String contextName, String... codeOptions)
+            throws ProcessorException {
+        IProcess currentProcess = null;
+        ProcessItem selectedProcessItem = getProcessItem(processName);
+        if (selectedProcessItem != null) {
+            IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
+            currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
+        }
+        if (currentProcess == null) {
+            return new String[] {};
+        }
+        IContext currentContext = getContext(currentProcess, contextName);
+        IProcessor processor = getProcessor(currentProcess, currentContext);
+        return processor.getCommandLine(IProcessor.NO_STATISTICS, IProcessor.NO_TRACES, codeOptions);
     }
 
     /**
