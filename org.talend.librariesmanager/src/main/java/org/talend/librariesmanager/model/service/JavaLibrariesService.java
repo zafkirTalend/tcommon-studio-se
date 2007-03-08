@@ -44,7 +44,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public String getLibrariesPath() {
-        return Platform.getInstallLocation().getURL().getFile() + "/libs/java";
+        return Platform.getInstallLocation().getURL().getFile() + "/lib/java";
     }
 
     @Override
@@ -89,7 +89,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         File target = new File(getLibrariesPath());
         try {
             // 1. libs livrées dans le plugin
-            File source = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/libs/")).getFile());
+            File source = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile());
 
             FilesUtils.copyFolder(source, target, false, FilesUtils.getExcludeSVNFilesFilter(), null, true);
 

@@ -55,7 +55,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
 
     @Override
     public String getLibrariesPath() {
-        return Platform.getInstallLocation().getURL().getFile() + "/libs/perl";
+        return Platform.getInstallLocation().getURL().getFile() + "/lib/perl";
     }
 
     @Override
