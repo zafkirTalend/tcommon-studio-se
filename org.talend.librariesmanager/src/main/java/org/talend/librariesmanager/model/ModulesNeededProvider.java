@@ -1,0 +1,119 @@
+// ============================================================================
+//
+// Talend Community Edition
+//
+// Copyright (C) 2006 Talend - www.talend.com
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License, or (at your option) any later version.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// ============================================================================
+package org.talend.librariesmanager.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.core.runtime.IConfigurationElement;
+import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
+import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
+import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
+import org.talend.core.CorePlugin;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.components.IComponent;
+import org.talend.core.model.components.IComponentsFactory;
+import org.talend.designer.codegen.perlmodule.ModuleNeeded;
+import org.talend.repository.model.ComponentsFactoryProvider;
+
+/**
+ * DOC smallet class global comment. Detailled comment <br/>
+ * 
+ * $Id: ModulesNeededProvider.java 1893 2007-02-07 11:33:35Z mhirt $
+ * 
+ */
+public class ModulesNeededProvider {
+
+    private static List<ModuleNeeded> componentImportNeedsList;
+
+    public static List<ModuleNeeded> getModulesNeeded() {
+        if (componentImportNeedsList == null) {
+            componentImportNeedsList = new ArrayList<ModuleNeeded>();
+            componentImportNeedsList.addAll(getModulesNeededForRoutines());
+            componentImportNeedsList.addAll(getModulesNeededForComponents());
+            componentImportNeedsList.addAll(getModulesNeededForApplication());
+        }
+        return componentImportNeedsList;
+    }
+
+    private static List<ModuleNeeded> getModulesNeededForComponents() {
+        List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+        IComponentsFactory compFac = ComponentsFactoryProvider.getInstance();
+        List<IComponent> componentList = compFac.getComponents();
+        for (IComponent component : componentList) {
+            importNeedsList.addAll(component.getModulesNeeded());
+        }
+        return importNeedsList;
+    }
+
+    private static List<ModuleNeeded> getModulesNeededForRoutines() {
+        List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+        // FIXME SML To do when model is updated
+        // IProxyRepositoryFactory repositoryFactory =
+        // CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        // List<IRepositoryObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
+        // for (IRepositoryObject current:routines){
+        // Item item = current.getProperty().getItem();
+        // RoutineItem routine=(RoutineItem)item;
+        // }
+
+        return importNeedsList;
+    }
+
+    private static List<ModuleNeeded> getModulesNeededForApplication() {
+        List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+
+        ISimpleExtensionPoint actionExtensionPoint = new ExtensionPointImpl(
+                "org.talend.core.librariesNeeded", "libraryNeeded", -1, //$NON-NLS-1$ //$NON-NLS-2$
+                -1);
+        List<IConfigurationElement> extension = ExtensionImplementationProviders.getInstanceV2(actionExtensionPoint);
+
+        ECodeLanguage projectLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                .getProject().getLanguage();
+        for (IConfigurationElement current : extension) {
+            ECodeLanguage lang = ECodeLanguage.getCodeLanguage(current.getAttribute("language")); //$NON-NLS-1$
+            if (lang == projectLanguage) {
+                String context = current.getAttribute("context"); //$NON-NLS-1$
+                String name = current.getAttribute("name"); //$NON-NLS-1$
+                String message = current.getAttribute("message"); //$NON-NLS-1$
+                boolean required = new Boolean(current.getAttribute("required")); //$NON-NLS-1$
+                importNeedsList.add(new ModuleNeeded(context, name, message, required));
+            }
+        }
+
+        return importNeedsList;
+    }
+
+    public static List<ModuleNeeded> getModulesNeeded(String componentName) {
+        List<ModuleNeeded> toReturn = new ArrayList<ModuleNeeded>();
+        for (ModuleNeeded current : getModulesNeeded()) {
+            if (current.getContext().equals(componentName)) {
+                toReturn.add(current);
+            }
+        }
+
+        return toReturn;
+    }
+
+}
