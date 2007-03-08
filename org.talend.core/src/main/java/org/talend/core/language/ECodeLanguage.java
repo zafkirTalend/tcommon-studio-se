@@ -32,7 +32,7 @@ import org.talend.core.i18n.Messages;
 public enum ECodeLanguage {
     PERL("perl", "perl"), //$NON-NLS-1$ //$NON-NLS-2$
     JAVA("java", "java"); //$NON-NLS-1$ //$NON-NLS-2$
-    
+
     private ECodeLanguage(String name, String extension) {
         this.name = name;
         this.extension = extension;
@@ -44,7 +44,7 @@ public enum ECodeLanguage {
                 return codeLanguage;
             }
         }
-        return PERL;
+        throw new UnsupportedOperationException("Unknown language");
     }
 
     private String name;

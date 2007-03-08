@@ -34,7 +34,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
-import org.talend.designer.codegen.perlmodule.ModuleNeeded;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**

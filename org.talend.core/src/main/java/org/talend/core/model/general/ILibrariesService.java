@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.designer.codegen;
+package org.talend.core.model.general;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,32 +27,34 @@ import java.util.List;
 
 import org.talend.commons.exception.BusinessException;
 import org.talend.core.IService;
-import org.talend.designer.codegen.perlmodule.ModuleNeeded;
-import org.talend.designer.codegen.perlmodule.ModuleNeeded.ModuleStatus;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.process.Element;
+import org.talend.core.model.process.INode;
+import org.talend.core.model.process.Problem;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
- * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
+ * $Id$
  * 
  */
-public interface IModuleService extends IService {
+public interface ILibrariesService extends IService {
 
-    public List<URL> getBuiltInRoutines();
+    public List<URL> getSystemRoutines();
+
+    public URL getTalendRoutinesFolder() throws IOException;
+
+    public String getLibrariesPath();
+
+    public void deployLibrary(URL source) throws IOException;
 
     public URL getRoutineTemplate();
 
-    /**
-     * DOC qian Gets the full path of the perl model files. The location of the files is
-     * org.talend.designer.codegen.perlmodule/perl/talend The result of URL is like
-     * "file:/F:/eclipse_all/eclipse/talend_SVN_Workspace/org.talend.designer.codegen.perlmodule/perl/"
-     * 
-     * @return List< URL > The URL here displays full path.
-     * @throws IOException
-     */
-    public List<URL> getModule() throws IOException;
+    public ELibraryInstallStatus getLibraryStatus(String libName) throws BusinessException;
 
-    public List<ModuleNeeded> getModulesNeeded(String componentName);
+    public List<Problem> getProblems(INode node, Element element);
 
-    public ModuleStatus getModuleStatus(String moduleName) throws BusinessException;
+    public void syncLibraries();
+
+    public void checkLibraries();
 }

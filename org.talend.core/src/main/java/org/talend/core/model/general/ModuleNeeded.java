@@ -19,21 +19,17 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.designer.codegen.perlmodule;
-
-import org.talend.core.model.components.IComponent;
+package org.talend.core.model.general;
 
 /**
- * DOC nrousseau class global comment. Detailled comment <br/>
+ * This bean is use to manage needed moduless (perl) and libraries (java).<br/>
  * 
  * $Id$
  * 
  */
 public class ModuleNeeded {
 
-    private static final String GLOBAL_MODULE_NAME = "--"; //$NON-NLS-1$
-
-    private IComponent component;
+    private String context;
 
     private String moduleName;
 
@@ -41,7 +37,7 @@ public class ModuleNeeded {
 
     private boolean required;
 
-    private ModuleStatus status = ModuleStatus.UNKNOWN;
+    private ELibraryInstallStatus status = ELibraryInstallStatus.UNKNOWN;
 
     /**
      * DOC smallet ModuleNeeded class global comment. Detailled comment <br/>
@@ -49,7 +45,7 @@ public class ModuleNeeded {
      * $Id$
      * 
      */
-    public enum ModuleStatus {
+    public enum ELibraryInstallStatus {
         UNKNOWN,
         INSTALLED,
         NOT_INSTALLED;
@@ -58,15 +54,15 @@ public class ModuleNeeded {
     /**
      * DOC smallet ModuleNeeded constructor comment.
      * 
-     * @param component
+     * @param context
      * @param moduleName
      * @param informationMsg
      * @param required
      * @param status
      */
-    public ModuleNeeded(IComponent component, String moduleName, String informationMsg, boolean required) {
+    public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required) {
         super();
-        this.component = component;
+        this.context = context;
         this.moduleName = moduleName;
         this.informationMsg = informationMsg;
         this.required = required;
@@ -77,12 +73,8 @@ public class ModuleNeeded {
      * 
      * @return the component
      */
-    public String getComponentName() {
-        if (component == null) {
-            return GLOBAL_MODULE_NAME;
-        } else {
-            return this.component.getName();
-        }
+    public String getContext() {
+        return this.context;
     }
 
     /**
@@ -90,8 +82,8 @@ public class ModuleNeeded {
      * 
      * @param component the component to set
      */
-    public void setComponent(IComponent component) {
-        this.component = component;
+    public void setContext(String component) {
+        this.context = component;
     }
 
     public String getInformationMsg() {
@@ -118,11 +110,11 @@ public class ModuleNeeded {
         this.required = required;
     }
 
-    public ModuleStatus getStatus() {
+    public ELibraryInstallStatus getStatus() {
         return this.status;
     }
 
-    public void setStatus(ModuleStatus status) {
+    public void setStatus(ELibraryInstallStatus status) {
         this.status = status;
     }
 }

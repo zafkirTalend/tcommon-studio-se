@@ -24,12 +24,12 @@ package org.talend.core.model.components;
 import java.util.List;
 
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
 import org.talend.core.model.process.INodeReturn;
 import org.talend.core.model.temp.ECodePart;
-import org.talend.designer.codegen.perlmodule.ModuleNeeded;
 
 /**
  * Interface that describes the functions that a must implements a component manager. <br/>

@@ -30,12 +30,12 @@ import java.util.List;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.model.general.ILibrariesService;
+import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.process.Element;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.Problem;
 import org.talend.core.model.process.Problem.ProblemStatus;
-import org.talend.designer.codegen.perlmodule.ModuleNeeded;
-import org.talend.designer.codegen.perlmodule.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
 

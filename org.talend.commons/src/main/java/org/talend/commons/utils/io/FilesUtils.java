@@ -30,6 +30,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
+import org.eclipse.core.runtime.FileLocator;
+import org.osgi.framework.Bundle;
+import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -39,7 +47,12 @@ import java.io.OutputStream;
  */
 public class FilesUtils {
 
-    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy) throws IOException {
+    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy, final FileFilter sourceFolderFilter,
+            final FileFilter sourceFileFilter, boolean copyFolder) throws IOException {
+        if (!target.exists()) {
+            target.mkdirs();
+        }
+
         if (emptyTargetBeforeCopy) {
             emptyFolder(target);
         }
@@ -47,22 +60,26 @@ public class FilesUtils {
         FileFilter folderFilter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return pathname.isDirectory();
+                return pathname.isDirectory() && (sourceFolderFilter == null || sourceFolderFilter.accept(pathname));
             }
 
         };
         FileFilter fileFilter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return !pathname.isDirectory();
+                return !pathname.isDirectory() && (sourceFileFilter == null || sourceFileFilter.accept(pathname));
             }
 
         };
 
         for (File current : source.listFiles(folderFilter)) {
-            File newFolder = new File(target, current.getName());
-            newFolder.mkdir();
-            copyFolder(current, newFolder, emptyTargetBeforeCopy);
+            if (copyFolder) {
+                File newFolder = new File(target, current.getName());
+                newFolder.mkdir();
+                copyFolder(current, newFolder, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter, copyFolder);
+            } else {
+                copyFolder(current, target, emptyTargetBeforeCopy, sourceFolderFilter, sourceFileFilter, copyFolder);
+            }
         }
 
         for (File current : source.listFiles(fileFilter)) {
@@ -81,15 +98,22 @@ public class FilesUtils {
     }
 
     public static void copyFile(File source, File target) throws IOException {
-        FileInputStream fis = new FileInputStream(source);
-        FileOutputStream fos = new FileOutputStream(target);
-        byte[] buf = new byte[1024];
-        int i = 0;
-        while ((i = fis.read(buf)) != -1) {
-            fos.write(buf, 0, i);
+        // Need to recopy the file in one of these cases:
+        // 1. target doesn't exists (never copied)
+        // 2. target exists but source has been modified recently
+        // 3. target exists but source and target have different sizes
+
+        if (!target.exists() || source.lastModified() > target.lastModified() || source.length() != target.length()) {
+            FileInputStream fis = new FileInputStream(source);
+            FileOutputStream fos = new FileOutputStream(target);
+            byte[] buf = new byte[1024];
+            int i = 0;
+            while ((i = fis.read(buf)) != -1) {
+                fos.write(buf, 0, i);
+            }
+            fis.close();
+            fos.close();
         }
-        fis.close();
-        fos.close();
     }
 
     public static void replaceInFile(String regex, String fileName, String replacement) throws IOException {
@@ -111,4 +135,43 @@ public class FilesUtils {
         os.close();
     }
 
+    public static List<URL> getFilesFromFolder(Bundle bundle, String path, String extension) {
+        List<URL> toReturn = new ArrayList<URL>();
+
+        Enumeration entryPaths = bundle.getEntryPaths(path);
+        for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
+            String fileName = (String) enumer.nextElement();
+            if (fileName.endsWith(extension)) {
+                URL url = bundle.getEntry(fileName);
+                try {
+                    toReturn.add(FileLocator.toFileURL(url));
+                } catch (IOException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        }
+        return toReturn;
+    }
+
+    public static FileFilter getExcludeSVNFilesFilter() {
+        FileFilter filter = new FileFilter() {
+
+            public boolean accept(File pathname) {
+                return !pathname.toString().endsWith(".svn");
+            }
+
+        };
+        return filter;
+    }
+
+    public static FileFilter getAcceptJARFilesFilter() {
+        FileFilter filter = new FileFilter() {
+
+            public boolean accept(File pathname) {
+                return pathname.toString().endsWith(".jar");
+            }
+
+        };
+        return filter;
+    }
 }

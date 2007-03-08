@@ -30,10 +30,10 @@ import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.ILibrariesService;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.process.Element;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.Problem;
-import org.talend.designer.codegen.perlmodule.ModuleNeeded.ELibraryInstallStatus;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>

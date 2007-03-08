@@ -25,6 +25,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.core.context.Context;
+import org.talend.core.model.general.ILibrariesService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -94,7 +95,7 @@ public class CorePlugin extends AbstractUIPlugin {
     public static ImageDescriptor getImageDescriptor(String path) {
         return imageDescriptorFromPlugin(PLUGIN_ID, path);
     }
-    
+
     public IRepositoryService getRepositoryService() {
         IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         return (IRepositoryService) service;
@@ -104,7 +105,7 @@ public class CorePlugin extends AbstractUIPlugin {
         IRepositoryService service = getRepositoryService();
         return service.getProxyRepositoryFactory();
     }
-    
+
     /**
      * DOC get a implement of RunProcessService.
      * 
@@ -114,9 +115,13 @@ public class CorePlugin extends AbstractUIPlugin {
         IService service = GlobalServiceRegister.getDefault().getService(IRunProcessService.class);
         return (IRunProcessService) service;
     }
-    
+
     public IDesignerCoreService getDesignerCoreService() {
         IService service = GlobalServiceRegister.getDefault().getService(IDesignerCoreService.class);
         return (IDesignerCoreService) service;
+    }
+
+    public ILibrariesService getLibrariesService() {
+        return (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
     }
 }
