@@ -81,7 +81,7 @@ public class ExtractMetaDataFromDataBase {
 
         try {
 
-            String[] tableTypes = { TABLETYPE_TABLE, TABLETYPE_VIEW, TABLETYPE_SYNONYM };
+            String[] tableTypes = { TABLETYPE_TABLE , TABLETYPE_VIEW, TABLETYPE_SYNONYM };
             ResultSet rsTables = null;
             rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, null, tableTypes);
 
@@ -91,7 +91,11 @@ public class ExtractMetaDataFromDataBase {
                 medataTable.setLabel(rsTables.getString("TABLE_NAME")); //$NON-NLS-1$
                 medataTable.setTableName(medataTable.getLabel());
                 medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS")); //$NON-NLS-1$
-                tableTypeMap.put(medataTable.getLabel(), rsTables.getString("TABLE_TYPE")); //$NON-NLS-1$
+                try{
+                    tableTypeMap.put(medataTable.getLabel(), rsTables.getString("TABLE_TYPE")); //$NON-NLS-1$    
+                } catch (Exception e) {
+                    tableTypeMap.put(medataTable.getLabel(), "TABLE"); //$NON-NLS-1$
+                }
                 medataTables.add(medataTable);
             }
             rsTables.close();
@@ -106,42 +110,6 @@ public class ExtractMetaDataFromDataBase {
         return medataTables;
     }
 
-    /**
-     * DOC cantoine. Method to return a Collection with One Table for a DB connection.
-     * 
-     * @param DatabaseMetaData dbMetaData
-     * @param String tableLabel
-     * @return Collection of MetadataTable Object, Normally 1 Element in Collection except when tableLabel is Null
-     */
-    // public static List<IMetadataTable> returnMetadataTable(DatabaseMetaData dbMetaData, String tableLabel) {
-    //    
-    // List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
-    //    
-    // try {
-    //    
-    // String[] tableTypes = { "TABLE", "VIEW", "SYNONYM" };
-    // ResultSet rsTables = null;
-    // rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, tableLabel, tableTypes);
-    // while (rsTables.next()) {
-    // MetadataTable medataTable = new MetadataTable();
-    // medataTable.setId(medataTables.size() + 1 + "");
-    // medataTable.setLabel(rsTables.getString("TABLE_NAME"));
-    // medataTable.setTableType(rsTables.getString("TABLE_TYPE"));
-    // medataTable.setTableName(medataTable.getLabel());
-    // medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS"));
-    // medataTables.add(medataTable);
-    // }
-    // rsTables.close();
-    //    
-    // } catch (SQLException e) {
-    // log.error(e.toString());
-    // throw new RuntimeException(e);
-    // } catch (Exception e) {
-    // log.error(e.toString());
-    // throw new RuntimeException(e);
-    // }
-    // return medataTables;
-    // }
     /**
      * DOC cantoine. Method to return a Collection of Column about a Table for a DB connection.
      * 
@@ -277,12 +245,9 @@ public class ExtractMetaDataFromDataBase {
                 }
 
                 metadataColumn.setTalendType(talendType);
-                // System.out.println("COMMENT :
-                // "+ExtractMetaDataUtils.getStringMetaDataInfo(columns,
-                // "TABLE_REMARKS"));
                 metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
 
-                // PTODO cantoine : patch to fix 0x0 pb cause by Bad Schema description
+                // cantoine : patch to fix 0x0 pb cause by Bad Schema description
                 String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
                 if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
                     stringMetaDataInfo = "\\0"; //$NON-NLS-1$
@@ -330,17 +295,10 @@ public class ExtractMetaDataFromDataBase {
                     return connectionStatus;
                 }
             }
-            //Test if tables exist to determine if Database is good specified.
-            try {
-                String sql = "SHOW TABLES"; //$NON-NLS-1$
-                Statement sta;
-                sta = connection.createStatement();
-                ResultSet resultSet = sta.executeQuery(sql);
-            } catch (SQLException e) {
-                log.error(e.toString());
-                throw new RuntimeException(e);
-            }
-            
+            //testConnection to alert if you have filled a Wrong Database field.
+            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection);
+            List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
+
             connection.close();
             connectionStatus.setResult(true);
             connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful")); //$NON-NLS-1$
@@ -375,71 +333,6 @@ public class ExtractMetaDataFromDataBase {
         return false;
     }
 
-    /**
-     * DOC cantoine. Method to save a DataBaseConnection with the EMF Shema.
-     * 
-     * @param version2
-     * 
-     * @param String allParameters to Save (String Version)
-     * @return IMetadataConnection : this object was returned to the factory who Save in a XML representation
-     */
-    // public static IMetadataConnection saveDbConnection(String id, String
-    // name, String comment, String dbType, String url,
-    // String port, String username, String pwd, String sidOrDatabase, String
-    // schemaOracle, String sqlSyntax,
-    // String stringQuote, String nullChar, String serverName, String
-    // dataSourceName, String fileFieldName, String version) {
-    //
-    // int i = version.indexOf(".");
-    // int minor = new Integer(version.substring(0, i));
-    // int major = new Integer(version.substring(i + 1, version.length()));
-    //
-    // return saveDbConnection(id, name, comment, dbType, url, port, username,
-    // pwd, sidOrDatabase, schemaOracle, sqlSyntax,
-    // stringQuote, nullChar, serverName, dataSourceName, fileFieldName, new
-    // Version(minor, major));
-    // }
-    /**
-     * DOC cantoine. Method to save a DataBaseConnection with the EMF Shema.
-     * 
-     * @param String allParameters to Save (org.talend.core.model.version.Version Version)
-     * @return IMetadataConnection : this object was returned to the factory who Save in a XML representation
-     */
-    // public static IMetadataConnection saveDbConnection(String id, String
-    // name, String comment, String dbType, String url,
-    // String port, String username, String pwd, String sidOrDatabase, String
-    // schemaOracle, String sqlSyntax,
-    // String stringQuote, String nullChar, String serverName, String
-    // dataSourceName, String fileFieldName, Version version) {
-    //
-    // IMetadataConnection metadataConnection = new MetadataConnection();
-    //
-    // try {
-    // metadataConnection.setId(id);
-    // metadataConnection.setLabel(name);
-    // metadataConnection.setVersion(version);
-    // metadataConnection.setDescription(comment);
-    // metadataConnection.setDbType(dbType);
-    // metadataConnection.setDriverClass(ExtractMetaDataUtils.getDriverClassByDbType(dbType));
-    // metadataConnection.setUrl(url);
-    // metadataConnection.setPort(port);
-    // metadataConnection.setUsername(username);
-    // metadataConnection.setPassword(pwd);
-    // metadataConnection.setServerName(serverName);
-    // metadataConnection.setDataSourceName(dataSourceName);
-    // metadataConnection.setDatabase(sidOrDatabase);
-    // metadataConnection.setSchema(schemaOracle);
-    // metadataConnection.setSqlSyntax(sqlSyntax);
-    // metadataConnection.setStringQuote(stringQuote);
-    // metadataConnection.setNullChar(nullChar);
-    // metadataConnection.setFileFieldName(fileFieldName);
-    //
-    // } catch (Exception e) {
-    // log.error(e.toString());
-    // throw new RuntimeException(e);
-    // }
-    // return metadataConnection;
-    // }
     /**
      * DOC cantoine.
      * 
