@@ -37,7 +37,7 @@ public enum EConnectionType {
     RUN_IF(6, "RUN_IF", EConnectionCategory.OTHER), //$NON-NLS-1$
     ITERATE(7, "ITERATE", EConnectionCategory.MAIN), //$NON-NLS-1$
     FLOW_REF(8, "FLOW", EConnectionCategory.OTHER), //$NON-NLS-1$
-    TABLE(9, "TABLE", EConnectionCategory.OTHER); //$NON-NLS-1$
+    TABLE(9, "TABLE", EConnectionCategory.MAIN); //$NON-NLS-1$
 
     private String name;
 
