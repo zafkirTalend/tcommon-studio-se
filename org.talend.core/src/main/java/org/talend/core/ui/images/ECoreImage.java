@@ -60,6 +60,7 @@ public enum ECoreImage implements IImage {
     METADATA_CONNECTION_ICON("/icons/connection.gif"), //$NON-NLS-1$
     METADATA_CONNECTION_WIZ("/icons/connection_wiz.png"), //$NON-NLS-1$
     METADATA_TABLE_ICON("/icons/table.gif"), //$NON-NLS-1$
+    METADATA_TABLE_WIZ("/icons/table_wiz.png"), //$NON-NLS-1$
     METADATA_VIEW_ICON("/icons/view.gif"), //$NON-NLS-1$
     METADATA_SYNONYM_ICON("/icons/synonym.gif"), //$NON-NLS-1$
     METADATA_QUERY_ICON("/icons/query.gif"), //$NON-NLS-1$
