@@ -49,6 +49,7 @@ public enum ECoreImage implements IImage {
     CONTEXT_WIZ("/icons/context_wiz.png"), //$NON-NLS-1$
     CODE_ICON("/icons/code.png"), //$NON-NLS-1$
     ROUTINE_ICON("/icons/routine.gif"), //$NON-NLS-1$
+    ROUTINE_WIZ("/icons/routine_wiz.png"), //$NON-NLS-1$
     SNIPPETS_ICON("/icons/snippet.png"), //$NON-NLS-1$
     // SUBROUTINE_ICON("/icons/subroutine.gif"),
     DOCUMENTATION_ICON("/icons/documentation.gif"), //$NON-NLS-1$
@@ -71,7 +72,7 @@ public enum ECoreImage implements IImage {
     METADATA_FILE_XML_ICON("/icons/filexml.gif"), //$NON-NLS-1$
     METADATA_FILE_XML_WIZ("/icons/xml_wiz.png"), //$NON-NLS-1$
     METADATA_FILE_LDIF_ICON("/icons/fileldif.gif"), //$NON-NLS-1$
-    METADATA_FILE_LDIF_WIZ("/icons/empty.gif"), //$NON-NLS-1$
+    METADATA_FILE_LDIF_WIZ("/icons/ldif_wiz.png"), //$NON-NLS-1$
 
     MODULE_INSTALLED_ICON("/icons/checked.gif"), //$NON-NLS-1$
     MODULE_ERROR_ICON("/icons/error.gif"), //$NON-NLS-1$
