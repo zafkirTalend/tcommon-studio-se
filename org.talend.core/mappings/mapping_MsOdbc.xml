@@ -45,16 +45,20 @@
 		</db_types>
 
 		<language name="java">
+			<type talendType="int" dbType="BIT" />
 			<type talendType="int" dbType="TINYINT" />
 			<type talendType="int" dbType="SMALLINT" />
-			<type talendType="int" dbType="MEDIUMINT" />
-			<type talendType="int" dbType="INT" defaultSelected="true" />
 			<type talendType="int" dbType="INTEGER" />
-			<type talendType="int" dbType="INT UNSIGNED" />
-			<type talendType="int" dbType="BIGINT" />
-			<type talendType="long" dbType="LONG" defaultSelected="true" />
-			<type talendType="float" dbType="FLOAT" defaultSelected="true" />
+			<type talendType="int" dbType="NUMERIC" defaultSelected="true" />
+			
+			<type talendType="long" dbType="BIGINT" defaultSelected="true" />
+			
+			<type talendType="float" dbType="REAL" />
+			<type talendType="float" dbType="FLOAT" defaultSelected="true"/>
+			<type talendType="float" dbType="NUMERIC"/>
+			
 			<type talendType="double" dbType="DOUBLE" defaultSelected="true" />
+			<type talendType="double" dbType="REAL" />
 			<type talendType="double" dbType="REAL" />
 			<type talendType="double" dbType="NUMBER" />
 			<type talendType="double" dbType="NUMBER-2" />
@@ -65,13 +69,13 @@
 			<type talendType="int" dbType="TINYINT UNSIGNED" />
 			<type talendType="int" dbType="SMALLINT UNSIGNED" />
 			<type talendType="int" dbType="MEDIUMINT UNSIGNED" />
-			<type talendType="int" dbType="INT UNSIGNED" defaultSelected="true" />
+			<type talendType="int" dbType="INT UNSIGNED" />
 			<type talendType="int" dbType="INTEGER UNSIGNED" />
 			<type talendType="int" dbType="INT UNSIGNED UNSIGNED" />
 			<type talendType="int" dbType="BIGINT UNSIGNED" />
-			<type talendType="long" dbType="LONG UNSIGNED" defaultSelected="true" />
-			<type talendType="float" dbType="FLOAT UNSIGNED" defaultSelected="true" />
-			<type talendType="double" dbType="DOUBLE UNSIGNED" defaultSelected="true" />
+			<type talendType="long" dbType="LONG UNSIGNED"  />
+			<type talendType="float" dbType="FLOAT UNSIGNED" />
+			<type talendType="double" dbType="DOUBLE UNSIGNED"  />
 			<type talendType="double" dbType="REAL UNSIGNED" />
 			<type talendType="double" dbType="NUMBER UNSIGNED" />
 			<type talendType="double" dbType="NUMBER-2 UNSIGNED" />
@@ -127,102 +131,5 @@
 		</language>
 	</dbms>
 	
-	<dbms product="MYSQL" id="Mysql4" label="Mapping Mysql 4">
-
-		<db_types>
-			<type dbType="BOOLEAN"/>
-			<type dbType="TINYINT"/>
-			<type dbType="SMALLINT"/>
-			<type dbType="MEDIUMINT"/>
-			<type dbType="INT"/>
-			<type dbType="INTEGER"/>
-			<type dbType="INT UNSIGNED"/>
-			<type dbType="BIGINT"/>
-			<type dbType="REAL"/>
-			<type dbType="LONG"/>
-			<type dbType="FLOAT"/>
-			<type dbType="DOUBLE"/>
-			<type dbType="NUMBER"/>
-			<type dbType="NUMBER-2"/>
-			<type dbType="REAL"/>
-			<type dbType="DOUBLE"/>
-			<type dbType="DECIMAL"/>
-			<type dbType="CHAR"/>
-			<type dbType="VARCHAR" default="true"/>
-			<type dbType="CLOB"/>
-			<type dbType="TINYTEXT"/>
-			<type dbType="TEXT"/>
-			<type dbType="MEDIUMTEXT"/>
-			<type dbType="LONGTEXT"/>
-			<type dbType="ENUM"/>
-			<type dbType="DATE"/>
-			<type dbType="DATETIME"/>
-			<!-- Not managed : TINYBLOB BLOB MEDIUMBLOB LONGBLOB             -->
-		</db_types>
-
-		<language name="java">
-			<type talendType="int" dbType="TINYINT" />
-			<type talendType="int" dbType="SMALLINT" />
-			<type talendType="int" dbType="MEDIUMINT" />
-			<type talendType="int" dbType="INT" defaultSelected="true" />
-			<type talendType="int" dbType="INTEGER" />
-			<type talendType="int" dbType="INT UNSIGNED" />
-			<type talendType="int" dbType="BIGINT" />
-			<type talendType="long" dbType="LONG" defaultSelected="true" />
-			<type talendType="float" dbType="FLOAT" defaultSelected="true" />
-			<type talendType="double" dbType="DOUBLE" defaultSelected="true" />
-			<type talendType="double" dbType="REAL" />
-			<type talendType="double" dbType="NUMBER" />
-			<type talendType="double" dbType="NUMBER-2" />
-			<type talendType="double" dbType="REAL" />
-			<type talendType="double" dbType="DOUBLE" />
-			<type talendType="double" dbType="DECIMAL" />
-			<type talendType="String" dbType="CHAR" defaultSelected="true" />
-			<type talendType="boolean" dbType="BOOLEAN" defaultSelected="true" />
-			
-			<type talendType="String" dbType="VARCHAR" nullable="true" defaultSelected="true" />
-			<type talendType="String" dbType="CLOB" nullable="true"/>
-			<type talendType="String" dbType="TINYTEXT" nullable="true"/>
-			<type talendType="String" dbType="TEXT" nullable="true"/>
-			<type talendType="String" dbType="MEDIUMTEXT" nullable="true"/>
-			<type talendType="String" dbType="LONGTEXT" nullable="true"/>
-			<type talendType="String" dbType="ENUM" nullable="true"/>
-			<type talendType="Date" dbType="DATE" nullable="true"/>
-			<type talendType="Date" dbType="DATETIME" defaultSelected="true" />
-			<!-- Not managed : TINYBLOB BLOB MEDIUMBLOB LONGBLOB             -->
-		</language>
-		
-		<language name="perl">
-			<type talendType="number" dbType="TINYINT" />
-			<type talendType="number" dbType="SMALLINT" />
-			<type talendType="number" dbType="MEDIUMINT" />
-			<type talendType="number" dbType="INT" defaultSelected="true" />
-			<type talendType="number" dbType="INTEGER" />
-			<type talendType="number" dbType="INT UNSIGNED" />
-			<type talendType="number" dbType="BIGINT" />
-			<type talendType="number" dbType="BIGINT" />
-			<type talendType="number" dbType="LONG"/>
-
-			<type talendType="boolean" dbType="BOOLEAN" defaultSelected="true"/>
-			
-			<type talendType="decimal" dbType="FLOAT"/>
-			<type talendType="decimal" dbType="REAL" />
-			<type talendType="decimal" dbType="DOUBLE" />
-			<type talendType="decimal" dbType="DECIMAL" />
-			<type talendType="decimal" dbType="NUMBER" />
-			<type talendType="decimal" dbType="NUMBER-2" />
-			
-			<type talendType="string" dbType="CHAR"/>
-			<type talendType="string" dbType="VARCHAR" defaultSelected="true" />
-			<type talendType="string" dbType="CLOB"/>
-			<type talendType="string" dbType="TINYTEXT"/>
-			<type talendType="string" dbType="TEXT"/>
-			<type talendType="string" dbType="MEDIUMTEXT"/>
-			<type talendType="string" dbType="LONGTEXT"/>
-			<type talendType="string" dbType="ENUM"/>
-			<type talendType="date" dbType="DATE"/>
-			<type talendType="date" dbType="DATETIME" defaultSelected="true" />
-			<!-- Not managed : TINYBLOB BLOB MEDIUMBLOB LONGBLOB             -->
-		</language>
-	</dbms>
+	
 </mapping>
