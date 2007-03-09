@@ -47,6 +47,8 @@ import org.talend.librariesmanager.model.ModulesNeededProvider;
  */
 public abstract class AbstractLibrariesService implements ILibrariesService {
 
+    private List<IChangedLibrariesListener> listeners = new ArrayList<IChangedLibrariesListener>();
+
     public abstract String getLibrariesPath();
 
     public abstract URL getRoutineTemplate();
@@ -61,7 +63,9 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     }
 
     public void deployLibrary(URL source) throws IOException {
+        // TODO SML Allow perl module to be deploy in a folder structure in "lib/perl/..."
         FilesUtils.copyFile(new File(source.getFile()), new File(getLibrariesPath()));
+        fireLibrariesChanges();
     }
 
     public List<Problem> getProblems(INode node, Element element) {
@@ -74,5 +78,22 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
             }
         }
         return toReturn;
+    }
+
+    public void checkLibraries() {
+        this.checkInstalledLibraries();
+        fireLibrariesChanges();
+    }
+
+    public abstract void checkInstalledLibraries();
+
+    public void addChangeLibrariesListener(IChangedLibrariesListener listener) {
+        listeners.add(listener);
+    }
+
+    private void fireLibrariesChanges() {
+        for (IChangedLibrariesListener current : listeners) {
+            current.afterChangingLibraries();
+        }
     }
 }

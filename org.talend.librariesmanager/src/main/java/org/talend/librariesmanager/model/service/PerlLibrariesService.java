@@ -106,7 +106,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
         }
     }
 
-    public void checkLibraries() {
+    public void checkInstalledLibraries() {
         List<ModuleNeeded> toCheck = ModulesNeededProvider.getModulesNeeded();
 
         if (toCheck.isEmpty()) {

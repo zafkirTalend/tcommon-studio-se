@@ -38,7 +38,6 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SORT;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
-import org.talend.core.CorePlugin;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
@@ -49,11 +48,11 @@ import org.talend.librariesmanager.model.ModulesNeededProvider;
  * 
  * yzhang class global comment. Detailled comment <br/>
  * 
- * $Id: PerlModulesViewComposite.java PerlModulesViewComposite 2007-1-26 ä¸‹å?ˆ02:53:04 +0000 (ä¸‹å?ˆ02:53:04, 2007-1-26 2007)
- * yzhang $
+ * $Id: PerlModulesViewComposite.java PerlModulesViewComposite 2007-1-26 ä¸‹å?ˆ02:53:04 +0000 (ä¸‹å?ˆ02:53:04, 2007-1-26
+ * 2007) yzhang $
  * 
  */
-public class ModulesViewComposite extends Composite  {
+public class ModulesViewComposite extends Composite {
 
     protected static final String ID_STATUS = "status";
 
@@ -135,7 +134,7 @@ public class ModulesViewComposite extends Composite  {
         });
 
         column.setModifiable(false);
-        column.setWeight(3);
+        column.setWeight(4);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("PerlModulesViewComposite.Module.TitleText")); //$NON-NLS-1$
@@ -152,7 +151,7 @@ public class ModulesViewComposite extends Composite  {
         });
 
         column.setModifiable(false);
-        column.setWeight(3);
+        column.setWeight(6);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("PerlModulesViewComposite.Required.TitleText")); //$NON-NLS-1$
@@ -168,7 +167,7 @@ public class ModulesViewComposite extends Composite  {
         });
 
         column.setModifiable(true);
-        column.setWeight(12);
+        column.setWeight(10);
 
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("PerlModulesViewComposite.Required.Title")); //$NON-NLS-1$
@@ -211,8 +210,6 @@ public class ModulesViewComposite extends Composite  {
         parent.addFocusListener(fl);
         rightPartComposite.addFocusListener(fl);
         tableViewerCreator.getTableViewer().getTable().addFocusListener(fl);
-        
-        refresh();
     }
 
     /*
@@ -230,7 +227,6 @@ public class ModulesViewComposite extends Composite  {
      * @see org.talend.designer.codegen.perlmodule.ui.views.IModulesViewComposite#refresh()
      */
     public void refresh() {
-        CorePlugin.getDefault().getLibrariesService().checkLibraries();
         tableViewerCreator.getTableViewer().refresh();
     }
 

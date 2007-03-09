@@ -93,4 +93,8 @@ public class LibrariesService implements ILibrariesService {
         this.singleton.checkLibraries();
     }
 
+    public void addChangeLibrariesListener(IChangedLibrariesListener listener) {
+        this.singleton.addChangeLibrariesListener(listener);
+    }
+
 }

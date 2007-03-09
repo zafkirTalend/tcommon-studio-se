@@ -24,8 +24,8 @@ package org.talend.librariesmanager.ui.actions;
 import org.eclipse.jface.action.Action;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.core.CorePlugin;
 import org.talend.librariesmanager.i18n.Messages;
-import org.talend.librariesmanager.ui.views.ModulesView;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -35,14 +35,11 @@ import org.talend.librariesmanager.ui.views.ModulesView;
  */
 public class CheckModulesAction extends Action {
 
-    private ModulesView view;
-
-    public CheckModulesAction(ModulesView view) {
+    public CheckModulesAction() {
         super();
         setText(Messages.getString("CheckModulesAction.CheckRefrshBtn.Text")); //$NON-NLS-1$
         setToolTipText(Messages.getString("CheckModulesAction.CheckRefrshBtn.Text")); //$NON-NLS-1$
         setImageDescriptor(ImageProvider.getImageDesc(EImage.REFRESH_ICON));
-        this.view = view;
         this.setActionDefinitionId("refreshModules");
     }
 
@@ -53,7 +50,7 @@ public class CheckModulesAction extends Action {
      */
     @Override
     public void run() {
-        view.refresh();
+        CorePlugin.getDefault().getLibrariesService().checkLibraries();
     }
 
 }

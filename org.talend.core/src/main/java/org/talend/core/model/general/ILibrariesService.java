@@ -57,4 +57,17 @@ public interface ILibrariesService extends IService {
     public void syncLibraries();
 
     public void checkLibraries();
+
+    public void addChangeLibrariesListener(IChangedLibrariesListener listener);
+
+    /**
+     * Listener used to fire that libraries status has been changed (new lib or new check install).
+     * 
+     * $Id$
+     * 
+     */
+    public interface IChangedLibrariesListener {
+
+        public void afterChangingLibraries();
+    }
 }

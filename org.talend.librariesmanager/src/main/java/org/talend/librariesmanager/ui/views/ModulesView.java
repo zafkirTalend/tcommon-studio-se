@@ -28,6 +28,8 @@ import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.commands.ActionHandler;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.ViewPart;
+import org.talend.core.CorePlugin;
+import org.talend.core.model.general.ILibrariesService.IChangedLibrariesListener;
 import org.talend.librariesmanager.ui.actions.CheckModulesAction;
 
 /**
@@ -64,6 +66,15 @@ public class ModulesView extends ViewPart {
         modulesViewComposite = new ModulesViewComposite(parent);
         makeActions();
         contributeToActionBars();
+
+        CorePlugin.getDefault().getLibrariesService().addChangeLibrariesListener(new IChangedLibrariesListener() {
+
+            public void afterChangingLibraries() {
+                modulesViewComposite.refresh();
+            }
+        });
+
+        CorePlugin.getDefault().getLibrariesService().checkLibraries();
     }
 
     /*
@@ -80,7 +91,7 @@ public class ModulesView extends ViewPart {
     }
 
     private void makeActions() {
-        checkAction = new CheckModulesAction(this);
+        checkAction = new CheckModulesAction();
 
         IHandlerService handlerService = (IHandlerService) getSite().getService(IHandlerService.class);
 
