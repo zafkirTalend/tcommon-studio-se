@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.core.language;
 
-import org.talend.core.i18n.Messages;
 
 /**
  * Enum for available Code Languages in the application.
@@ -30,12 +29,13 @@ import org.talend.core.i18n.Messages;
  * 
  */
 public enum ECodeLanguage {
-    PERL("perl", "perl"), //$NON-NLS-1$ //$NON-NLS-2$
-    JAVA("java", "java"); //$NON-NLS-1$ //$NON-NLS-2$
+    PERL("perl", "perl", "Perl"), //$NON-NLS-1$ //$NON-NLS-2$
+    JAVA("java", "java", "Java"); //$NON-NLS-1$ //$NON-NLS-2$
 
-    private ECodeLanguage(String name, String extension) {
+    private ECodeLanguage(String name, String extension, String caseName) {
         this.name = name;
         this.extension = extension;
+        this.caseName = caseName;
     }
 
     public static ECodeLanguage getCodeLanguage(String name) {
@@ -50,6 +50,8 @@ public enum ECodeLanguage {
     private String name;
 
     private String extension;
+    
+    private String caseName;
 
     /**
      * Getter for extension.
@@ -86,5 +88,12 @@ public enum ECodeLanguage {
     public void setName(String name) {
         this.name = name;
     }
-
+    
+    public String getCaseName() {
+        return this.caseName;
+    }
+    
+    public void setCaseName(String caseName) {
+        this.caseName = caseName;
+    }
 }
