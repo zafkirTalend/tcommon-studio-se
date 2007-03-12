@@ -156,7 +156,17 @@ public class ProcessorUtilities {
 
     }
 
-    public static String[] getCommandLine(String processName, String contextName, String... codeOptions)
+    /**
+     * 
+     * Get the command line to launch the job.
+     * @param externalUse if true, will add "" around path and change \ to /
+     * @param processName
+     * @param contextName
+     * @param codeOptions
+     * @return
+     * @throws ProcessorException
+     */
+    public static String[] getCommandLine(boolean externalUse, String processName, String contextName, String... codeOptions)
             throws ProcessorException {
         IProcess currentProcess = null;
         ProcessItem selectedProcessItem = getProcessItem(processName);
@@ -169,7 +179,7 @@ public class ProcessorUtilities {
         }
         IContext currentContext = getContext(currentProcess, contextName);
         IProcessor processor = getProcessor(currentProcess, currentContext);
-        return processor.getCommandLine(IProcessor.NO_STATISTICS, IProcessor.NO_TRACES, codeOptions);
+        return processor.getCommandLine(externalUse, IProcessor.NO_STATISTICS, IProcessor.NO_TRACES, codeOptions);
     }
 
     /**
