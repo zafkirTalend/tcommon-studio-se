@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -55,6 +56,8 @@ import org.talend.librariesmanager.model.ModulesNeededProvider;
  * 
  */
 public class JavaLibrariesService extends AbstractLibrariesService {
+
+    private static Logger log = Logger.getLogger(JavaLibrariesService.class);
 
     @Override
     public String getLibrariesPath() {
@@ -135,10 +138,11 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
             FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSVNFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), false);
+
+            log.debug("Java libraries synchronization done");
         } catch (IOException e) {
             ExceptionHandler.process(e);
         }
-
     }
 
 }

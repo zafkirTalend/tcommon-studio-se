@@ -31,6 +31,7 @@ import java.util.Map;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
@@ -53,6 +54,8 @@ import org.talend.librariesmanager.model.ModulesNeededProvider;
  * 
  */
 public class PerlLibrariesService extends AbstractLibrariesService {
+
+    private static Logger log = Logger.getLogger(PerlLibrariesService.class);
 
     @Override
     public String getLibrariesPath() {
@@ -92,7 +95,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
         File target = new File(getLibrariesPath());
         try {
             // 1. Talend libraries:
-            File source = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/perl/talend/")).getFile());
+            File source = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/perl/")).getFile());
             FilesUtils.copyFolder(source, target, false, FilesUtils.getExcludeSVNFilesFilter(), null, true);
 
             // 2. Components libraries
@@ -101,6 +104,8 @@ public class PerlLibrariesService extends AbstractLibrariesService {
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
             SpecificFilesUtils.copySpecificSubFolder(componentsLibraries, target, FilesUtils.getExcludeSVNFilesFilter(),
                     FilesUtils.getAcceptPMFilesFilter(), "modules");
+
+            log.debug("Perl libraries synchronization done");
         } catch (IOException e) {
             ExceptionHandler.process(e);
         }
@@ -136,8 +141,10 @@ public class PerlLibrariesService extends AbstractLibrariesService {
         }
 
         try {
-            String checkPerlModuleAbsolutePath = FileLocator
-                    .toFileURL(Activator.BUNDLE.getEntry(CHECK_PERL_MODULE_RELATIVE_PATH)).getPath();
+            // String checkPerlModuleAbsolutePathOLD = FileLocator
+            // .toFileURL(Activator.BUNDLE.getEntry(CHECK_PERL_MODULE_RELATIVE_PATH)).getPath();
+            //            
+            String checkPerlModuleAbsolutePath = getLibrariesPath() + CHECK_PERL_MODULE_RELATIVE_PATH;
 
             StringBuffer out = new StringBuffer();
             StringBuffer err = new StringBuffer();
@@ -152,15 +159,17 @@ public class PerlLibrariesService extends AbstractLibrariesService {
                 throw new ProcessorException(err.toString());
             }
 
-        } catch (IOException e) {
-            ExceptionHandler.process(e);
+            // } catch (IOException e) {
+            // ExceptionHandler.process(e);
         } catch (ProcessorException e) {
             MessageBoxExceptionHandler.process(e);
         }
 
     }
 
-    private static final String CHECK_PERL_MODULE_RELATIVE_PATH = "resources/perl/check_modules.pl";
+    private static final String CHECK_PERL_MODULE_RELATIVE_PATHOLD = "resources/perl/check_modules.pl";
+
+    private static final String CHECK_PERL_MODULE_RELATIVE_PATH = "/check_modules.pl";
 
     private static final String MODULE_PARAM_KEY = "--module=";
 
