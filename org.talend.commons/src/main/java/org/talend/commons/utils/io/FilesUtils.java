@@ -101,9 +101,8 @@ public class FilesUtils {
         // Need to recopy the file in one of these cases:
         // 1. target doesn't exists (never copied)
         // 2. target exists but source has been modified recently
-        // 3. target exists but source and target have different sizes
 
-        if (!target.exists() || source.lastModified() > target.lastModified() || source.length() != target.length()) {
+        if (!target.exists() || source.lastModified() > target.lastModified()) {
             FileInputStream fis = new FileInputStream(source);
             FileOutputStream fos = new FileOutputStream(target);
             byte[] buf = new byte[1024];
