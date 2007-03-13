@@ -52,7 +52,8 @@ public class CellEditorValueAdapterFactory {
             }
 
             public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
-                if (value != null && value instanceof Integer && ((Integer) value).intValue() != -1 && ((Integer) value).intValue() != 0) {
+                if (value != null && value instanceof Integer && ((Integer) value).intValue() != -1
+                        && ((Integer) value).intValue() != 0) {
                     return String.valueOf(value);
                 }
                 return "";
@@ -87,7 +88,6 @@ public class CellEditorValueAdapterFactory {
                 return ((ComboBoxCellEditor) cellEditor).getItems();
             }
 
-
         };
 
     }
@@ -108,17 +108,16 @@ public class CellEditorValueAdapterFactory {
      */
     public static CellEditorValueAdapter getComboAdapterForComboCellEditorImproved(final String defaultItem) {
         return new ComboEditorValueAdapter(defaultItem) {
-            
+
             @Override
             public String[] getItems(CellEditor cellEditor) {
                 return ((ComboxCellEditorImproved) cellEditor).getItems();
             }
-            
-            
+
         };
-        
+
     }
-    
+
     /**
      * DOC amaumont Comment method "getComboAdapter".
      * 
@@ -127,5 +126,27 @@ public class CellEditorValueAdapterFactory {
     public static CellEditorValueAdapter getComboAdapterForComboCellEditorImproved() {
         return getComboAdapterForComboCellEditorImproved(null);
     }
-    
+
+    /**
+     * DOC amaumont Comment method "getNullToEmptyStringTextAdapater".
+     */
+    public static CellEditorValueAdapter getNullToEmptyStringTextAdapater() {
+        CellEditorValueAdapter nullToEmptyStringAdapter = new CellEditorValueAdapter() {
+
+            public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
+                if (value != null) {
+                    if (!(value instanceof String)) {
+                        throw new IllegalArgumentException("Bean value should be a claas of String type !");
+                    }
+                    return value;
+                }
+
+                return "";
+            }
+
+        };
+
+        return nullToEmptyStringAdapter;
+    }
+
 }

@@ -368,7 +368,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             });
 
             TextCellEditor patternCellEditor = new TextCellEditor(tableViewerCreator.getTable());
-            column.setCellEditor(patternCellEditor);
+            column.setCellEditor(patternCellEditor, CellEditorValueAdapterFactory.getNullToEmptyStringTextAdapater());
         }
     }
 
@@ -589,7 +589,6 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
             try {
                 if (codeLanguage == ECodeLanguage.JAVA) {
-                    comboValueAdapter = new JavaTypeComboValueAdapter<B>(JavaTypesManager.getDefaultJavaType(), getNullableAccessor());
                     arrayDbTypes = MetadataTalendType.getDbTypes("Mysql5.1"); //$NON-NLS-1$
                     log.error(Messages.getString("AbstractMetadataTableEditorView.badDbTypeLoaded")); //$NON-NLS-1$
                 } else if (codeLanguage == ECodeLanguage.PERL) {
