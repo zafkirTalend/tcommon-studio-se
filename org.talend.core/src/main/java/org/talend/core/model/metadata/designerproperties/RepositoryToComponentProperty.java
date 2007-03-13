@@ -163,7 +163,7 @@ public class RepositoryToComponentProperty {
     private static Object getFileValue(FileConnection connection, String value) {
         if (value.equals("FILE_PATH")) { //$NON-NLS-1$
             Path p = new Path(connection.getFilePath());
-            return  TalendTextUtils.addQuotes(p.toOSString());
+            return  TalendTextUtils.addQuotes(p.toPortableString());
         }
         if (value.equals("ROW_SEPARATOR")) { //$NON-NLS-1$
             return  TalendTextUtils.addQuotes(connection.getRowSeparatorValue(), TalendTextUtils.QUOTATION_MARK);
@@ -261,7 +261,7 @@ public class RepositoryToComponentProperty {
         XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) list.get(0);
         if (value.equals("FILE_PATH")) { //$NON-NLS-1$
             Path p = new Path(connection.getXmlFilePath());
-            return TalendTextUtils.addQuotes(p.toOSString());
+            return TalendTextUtils.addQuotes(p.toPortableString());
         }
         if (value.equals("LIMIT")) { //$NON-NLS-1$
             if ((xmlDesc == null) || (xmlDesc.getLimitBoucle() == null)) {
