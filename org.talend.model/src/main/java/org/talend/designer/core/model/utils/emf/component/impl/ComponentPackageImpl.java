@@ -868,7 +868,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getIMPORTType_MODULE() {
+    public EAttribute getIMPORTType_MESSAGE() {
         return (EAttribute)importTypeEClass.getEStructuralFeatures().get(1);
     }
 
@@ -877,7 +877,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getIMPORTType_NAME() {
+    public EAttribute getIMPORTType_MODULE() {
         return (EAttribute)importTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -886,8 +886,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getIMPORTType_REQUIRED() {
+    public EAttribute getIMPORTType_NAME() {
         return (EAttribute)importTypeEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getIMPORTType_REQUIRED() {
+        return (EAttribute)importTypeEClass.getEStructuralFeatures().get(4);
     }
 
     /**
@@ -1462,6 +1471,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
         importTypeEClass = createEClass(IMPORT_TYPE);
         createEAttribute(importTypeEClass, IMPORT_TYPE__ENTRYPOINT);
+        createEAttribute(importTypeEClass, IMPORT_TYPE__MESSAGE);
         createEAttribute(importTypeEClass, IMPORT_TYPE__MODULE);
         createEAttribute(importTypeEClass, IMPORT_TYPE__NAME);
         createEAttribute(importTypeEClass, IMPORT_TYPE__REQUIRED);
@@ -1635,6 +1645,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
         initEClass(importTypeEClass, IMPORTType.class, "IMPORTType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getIMPORTType_ENTRYPOINT(), theXMLTypePackage.getString(), "eNTRYPOINT", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIMPORTType_MESSAGE(), theXMLTypePackage.getString(), "mESSAGE", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_MODULE(), theXMLTypePackage.getString(), "mODULE", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_REQUIRED(), theXMLTypePackage.getBoolean(), "rEQUIRED", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2235,6 +2246,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "ENTRYPOINT",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getIMPORTType_MESSAGE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "MESSAGE",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

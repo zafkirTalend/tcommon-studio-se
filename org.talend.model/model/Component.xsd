@@ -168,6 +168,7 @@
 									<xs:attribute name="NAME" type="xs:string"/>
 									<xs:attribute name="MODULE" type="xs:string"/>
 									<xs:attribute name="ENTRYPOINT" type="xs:string"/>
+									<xs:attribute name="MESSAGE" type="xs:string"/>
 									<xs:attribute name="REQUIRED" type="xs:boolean"/>
 								</xs:complexType>
 							</xs:element>

@@ -756,13 +756,22 @@ public interface ComponentPackage extends EPackage {
     int IMPORT_TYPE__ENTRYPOINT = 0;
 
     /**
+     * The feature id for the '<em><b>MESSAGE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IMPORT_TYPE__MESSAGE = 1;
+
+    /**
      * The feature id for the '<em><b>MODULE</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE__MODULE = 1;
+    int IMPORT_TYPE__MODULE = 2;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -771,7 +780,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE__NAME = 2;
+    int IMPORT_TYPE__NAME = 3;
 
     /**
      * The feature id for the '<em><b>REQUIRED</b></em>' attribute.
@@ -780,7 +789,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE__REQUIRED = 3;
+    int IMPORT_TYPE__REQUIRED = 4;
 
     /**
      * The number of structural features of the '<em>IMPORT Type</em>' class.
@@ -789,7 +798,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE_FEATURE_COUNT = 4;
+    int IMPORT_TYPE_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl <em>ITEMS Type</em>}' class.
@@ -2086,6 +2095,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getIMPORTType_ENTRYPOINT();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMESSAGE <em>MESSAGE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>MESSAGE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.IMPORTType#getMESSAGE()
+     * @see #getIMPORTType()
+     * @generated
+     */
+    EAttribute getIMPORTType_MESSAGE();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMODULE <em>MODULE</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3250,6 +3270,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute IMPORT_TYPE__ENTRYPOINT = eINSTANCE.getIMPORTType_ENTRYPOINT();
+
+        /**
+         * The meta object literal for the '<em><b>MESSAGE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute IMPORT_TYPE__MESSAGE = eINSTANCE.getIMPORTType_MESSAGE();
 
         /**
          * The meta object literal for the '<em><b>MODULE</b></em>' attribute feature.

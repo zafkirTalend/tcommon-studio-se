@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getENTRYPOINT <em>ENTRYPOINT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMESSAGE <em>MESSAGE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMODULE <em>MODULE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isREQUIRED <em>REQUIRED</em>}</li>
@@ -54,6 +55,33 @@ public interface IMPORTType extends EObject {
      * @generated
      */
     void setENTRYPOINT(String value);
+
+    /**
+     * Returns the value of the '<em><b>MESSAGE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>MESSAGE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>MESSAGE</em>' attribute.
+     * @see #setMESSAGE(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_MESSAGE()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='MESSAGE' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getMESSAGE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMESSAGE <em>MESSAGE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>MESSAGE</em>' attribute.
+     * @see #getMESSAGE()
+     * @generated
+     */
+    void setMESSAGE(String value);
 
     /**
      * Returns the value of the '<em><b>MODULE</b></em>' attribute.
