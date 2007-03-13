@@ -739,13 +739,22 @@ public interface PropertiesPackage extends EPackage {
     int ROUTINE_ITEM__BUILT_IN = FILE_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The feature id for the '<em><b>Imports</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ROUTINE_ITEM__IMPORTS = FILE_ITEM_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Routine Item</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int ROUTINE_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 1;
+    int ROUTINE_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ConnectionItemImpl <em>Connection Item</em>}' class.
@@ -2227,6 +2236,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getRoutineItem_BuiltIn();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.RoutineItem#getImports <em>Imports</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Imports</em>'.
+     * @see org.talend.core.model.properties.RoutineItem#getImports()
+     * @see #getRoutineItem()
+     * @generated
+     */
+    EReference getRoutineItem_Imports();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ByteArray <em>Byte Array</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Byte Array</em>'.
@@ -3304,6 +3324,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute ROUTINE_ITEM__BUILT_IN = eINSTANCE.getRoutineItem_BuiltIn();
+
+        /**
+         * The meta object literal for the '<em><b>Imports</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ROUTINE_ITEM__IMPORTS = eINSTANCE.getRoutineItem_Imports();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ByteArrayImpl <em>Byte Array</em>}' class.
