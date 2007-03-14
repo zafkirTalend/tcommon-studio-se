@@ -463,13 +463,22 @@ public interface ConnectionPackage extends EPackage {
 	int METADATA_COLUMN__ORIGINAL_FIELD = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 8;
 
     /**
+     * The feature id for the '<em><b>Pattern</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_COLUMN__PATTERN = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 9;
+
+    /**
      * The number of structural features of the '<em>Metadata Column</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int METADATA_COLUMN_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 9;
+    int METADATA_COLUMN_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 10;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2852,6 +2861,17 @@ public interface ConnectionPackage extends EPackage {
 	EAttribute getMetadataColumn_OriginalField();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPattern <em>Pattern</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Pattern</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getPattern()
+     * @see #getMetadataColumn()
+     * @generated
+     */
+    EAttribute getMetadataColumn_Pattern();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject <em>Abstract Metadata Object</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Abstract Metadata Object</em>'.
@@ -3914,6 +3934,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
 		EAttribute METADATA_COLUMN__ORIGINAL_FIELD = eINSTANCE.getMetadataColumn_OriginalField();
+
+        /**
+         * The meta object literal for the '<em><b>Pattern</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute METADATA_COLUMN__PATTERN = eINSTANCE.getMetadataColumn_Pattern();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl <em>Abstract Metadata Object</em>}' class.

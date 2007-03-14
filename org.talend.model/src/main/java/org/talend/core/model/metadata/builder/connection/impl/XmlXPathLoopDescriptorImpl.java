@@ -183,7 +183,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
     public void setConnection(XmlFileConnection newConnection) {
         if (newConnection != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR__CONNECTION && newConnection != null)) {
             if (EcoreUtil.isAncestor(this, newConnection))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
@@ -347,9 +347,9 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (LimitBoucle: "); //$NON-NLS-1$
+        result.append(" (LimitBoucle: ");
         result.append(limitBoucle);
-        result.append(", AbsoluteXPathQuery: "); //$NON-NLS-1$
+        result.append(", AbsoluteXPathQuery: ");
         result.append(absoluteXPathQuery);
         result.append(')');
         return result.toString();

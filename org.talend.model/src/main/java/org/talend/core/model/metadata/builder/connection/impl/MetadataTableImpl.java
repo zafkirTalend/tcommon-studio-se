@@ -174,7 +174,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
     public void setConnection(Connection newConnection) {
         if (newConnection != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.METADATA_TABLE__CONNECTION && newConnection != null)) {
             if (EcoreUtil.isAncestor(this, newConnection))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
@@ -347,9 +347,9 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (sourceName: "); //$NON-NLS-1$
+        result.append(" (sourceName: ");
         result.append(sourceName);
-        result.append(", tableType: "); //$NON-NLS-1$
+        result.append(", tableType: ");
         result.append(tableType);
         result.append(')');
         return result.toString();

@@ -893,33 +893,33 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (DatabaseType: "); //$NON-NLS-1$
+        result.append(" (DatabaseType: ");
         result.append(databaseType);
-        result.append(", DriverClass: "); //$NON-NLS-1$
+        result.append(", DriverClass: ");
         result.append(driverClass);
-        result.append(", URL: "); //$NON-NLS-1$
+        result.append(", URL: ");
         result.append(url);
-        result.append(", Port: "); //$NON-NLS-1$
+        result.append(", Port: ");
         result.append(port);
-        result.append(", Username: "); //$NON-NLS-1$
+        result.append(", Username: ");
         result.append(username);
-        result.append(", Password: "); //$NON-NLS-1$
+        result.append(", Password: ");
         result.append(password);
-        result.append(", ServerName: "); //$NON-NLS-1$
+        result.append(", ServerName: ");
         result.append(serverName);
-        result.append(", DatasourceName: "); //$NON-NLS-1$
+        result.append(", DatasourceName: ");
         result.append(datasourceName);
-        result.append(", FileFieldName: "); //$NON-NLS-1$
+        result.append(", FileFieldName: ");
         result.append(fileFieldName);
-        result.append(", Schema: "); //$NON-NLS-1$
+        result.append(", Schema: ");
         result.append(schema);
-        result.append(", SID: "); //$NON-NLS-1$
+        result.append(", SID: ");
         result.append(sid);
-        result.append(", SqlSynthax: "); //$NON-NLS-1$
+        result.append(", SqlSynthax: ");
         result.append(sqlSynthax);
-        result.append(", StringQuote: "); //$NON-NLS-1$
+        result.append(", StringQuote: ");
         result.append(stringQuote);
-        result.append(", NullChar: "); //$NON-NLS-1$
+        result.append(", NullChar: ");
         result.append(nullChar);
         result.append(')');
         return result.toString();

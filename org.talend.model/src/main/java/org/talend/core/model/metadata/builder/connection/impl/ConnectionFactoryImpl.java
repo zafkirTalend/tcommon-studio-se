@@ -54,7 +54,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      */
     public static ConnectionFactory init() {
         try {
-            ConnectionFactory theConnectionFactory = (ConnectionFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.talend.org");  //$NON-NLS-1$
+            ConnectionFactory theConnectionFactory = (ConnectionFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.talend.org"); 
             if (theConnectionFactory != null) {
                 return theConnectionFactory;
             }
@@ -96,7 +96,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.LDIF_FILE_CONNECTION: return createLdifFileConnection();
             case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR: return createXmlXPathLoopDescriptor();
             default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
@@ -119,7 +119,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.MAP:
                 return createMapFromString(eDataType, initialValue);
             default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
@@ -142,7 +142,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.MAP:
                 return convertMapToString(eDataType, instanceValue);
             default:
-                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+                throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
     }
 
@@ -291,7 +291,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      */
     public DatabaseProperties createDatabasePropertiesFromString(EDataType eDataType, String initialValue) {
         DatabaseProperties result = DatabaseProperties.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
         return result;
     }
 
@@ -309,7 +309,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      */
     public FileFormat createFileFormatFromString(EDataType eDataType, String initialValue) {
         FileFormat result = FileFormat.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
         return result;
     }
 
@@ -327,7 +327,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      */
     public FieldSeparator createFieldSeparatorFromString(EDataType eDataType, String initialValue) {
         FieldSeparator result = FieldSeparator.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
         return result;
     }
 
@@ -345,7 +345,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      */
     public Escape createEscapeFromString(EDataType eDataType, String initialValue) {
         Escape result = Escape.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
         return result;
     }
 
@@ -363,7 +363,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
      */
     public RowSeparator createRowSeparatorFromString(EDataType eDataType, String initialValue) {
         RowSeparator result = RowSeparator.get(initialValue);
-        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
         return result;
     }
 

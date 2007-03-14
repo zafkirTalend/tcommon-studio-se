@@ -245,7 +245,7 @@ public class QueryImpl extends EObjectImpl implements Query {
     public void setQueries(QueriesConnection newQueries) {
         if (newQueries != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.QUERY__QUERIES && newQueries != null)) {
             if (EcoreUtil.isAncestor(this, newQueries))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
@@ -402,13 +402,13 @@ public class QueryImpl extends EObjectImpl implements Query {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: "); //$NON-NLS-1$
+        result.append(" (id: ");
         result.append(id);
-        result.append(", label: "); //$NON-NLS-1$
+        result.append(", label: ");
         result.append(label);
-        result.append(", comment: "); //$NON-NLS-1$
+        result.append(", comment: ");
         result.append(comment);
-        result.append(", value: "); //$NON-NLS-1$
+        result.append(", value: ");
         result.append(value);
         result.append(')');
         return result.toString();

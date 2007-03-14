@@ -32,6 +32,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl#getPrecision <em>Precision</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl#getTable <em>Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl#getOriginalField <em>Original Field</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl#getPattern <em>Pattern</em>}</li>
  * </ul>
  * </p>
  *
@@ -198,6 +199,26 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * @ordered
      */
 	protected String originalField = ORIGINAL_FIELD_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getPattern() <em>Pattern</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPattern()
+     * @generated
+     * @ordered
+     */
+    protected static final String PATTERN_EDEFAULT = "";
+
+    /**
+     * The cached value of the '{@link #getPattern() <em>Pattern</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPattern()
+     * @generated
+     * @ordered
+     */
+    protected String pattern = PATTERN_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -397,7 +418,7 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
     public void setTable(MetadataTable newTable) {
         if (newTable != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.METADATA_COLUMN__TABLE && newTable != null)) {
             if (EcoreUtil.isAncestor(this, newTable))
-                throw new IllegalArgumentException("Recursive containment not allowed for " + toString()); //$NON-NLS-1$
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
             NotificationChain msgs = null;
             if (eInternalContainer() != null)
                 msgs = eBasicRemoveFromContainer(msgs);
@@ -429,6 +450,27 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
         originalField = newOriginalField;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_COLUMN__ORIGINAL_FIELD, oldOriginalField, originalField));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getPattern() {
+        return pattern;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPattern(String newPattern) {
+        String oldPattern = pattern;
+        pattern = newPattern;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_COLUMN__PATTERN, oldPattern, pattern));
     }
 
     /**
@@ -497,6 +539,8 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
                 return getTable();
             case ConnectionPackage.METADATA_COLUMN__ORIGINAL_FIELD:
                 return getOriginalField();
+            case ConnectionPackage.METADATA_COLUMN__PATTERN:
+                return getPattern();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -534,6 +578,9 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
                 return;
             case ConnectionPackage.METADATA_COLUMN__ORIGINAL_FIELD:
                 setOriginalField((String)newValue);
+                return;
+            case ConnectionPackage.METADATA_COLUMN__PATTERN:
+                setPattern((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -573,6 +620,9 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
             case ConnectionPackage.METADATA_COLUMN__ORIGINAL_FIELD:
                 setOriginalField(ORIGINAL_FIELD_EDEFAULT);
                 return;
+            case ConnectionPackage.METADATA_COLUMN__PATTERN:
+                setPattern(PATTERN_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -602,6 +652,8 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
                 return getTable() != null;
             case ConnectionPackage.METADATA_COLUMN__ORIGINAL_FIELD:
                 return ORIGINAL_FIELD_EDEFAULT == null ? originalField != null : !ORIGINAL_FIELD_EDEFAULT.equals(originalField);
+            case ConnectionPackage.METADATA_COLUMN__PATTERN:
+                return PATTERN_EDEFAULT == null ? pattern != null : !PATTERN_EDEFAULT.equals(pattern);
         }
         return super.eIsSet(featureID);
     }
@@ -615,22 +667,24 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (sourceType: "); //$NON-NLS-1$
+        result.append(" (sourceType: ");
         result.append(sourceType);
-        result.append(", defaultValue: "); //$NON-NLS-1$
+        result.append(", defaultValue: ");
         result.append(defaultValue);
-        result.append(", talendType: "); //$NON-NLS-1$
+        result.append(", talendType: ");
         result.append(talendType);
-        result.append(", key: "); //$NON-NLS-1$
+        result.append(", key: ");
         result.append(key);
-        result.append(", nullable: "); //$NON-NLS-1$
+        result.append(", nullable: ");
         result.append(nullable);
-        result.append(", length: "); //$NON-NLS-1$
+        result.append(", length: ");
         result.append(length);
-        result.append(", precision: "); //$NON-NLS-1$
+        result.append(", precision: ");
         result.append(precision);
-        result.append(", originalField: "); //$NON-NLS-1$
+        result.append(", originalField: ");
         result.append(originalField);
+        result.append(", pattern: ");
+        result.append(pattern);
         result.append(')');
         return result.toString();
     }

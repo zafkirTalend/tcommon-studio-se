@@ -24,6 +24,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPrecision <em>Precision</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable <em>Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalField <em>Original Field</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPattern <em>Pattern</em>}</li>
  * </ul>
  * </p>
  *
@@ -274,5 +275,32 @@ public interface MetadataColumn extends AbstractMetadataObject {
      * @generated
      */
 	void setOriginalField(String value);
+
+    /**
+     * Returns the value of the '<em><b>Pattern</b></em>' attribute.
+     * The default value is <code>""</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Pattern</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Pattern</em>' attribute.
+     * @see #setPattern(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Pattern()
+     * @model default=""
+     * @generated
+     */
+    String getPattern();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPattern <em>Pattern</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Pattern</em>' attribute.
+     * @see #getPattern()
+     * @generated
+     */
+    void setPattern(String value);
 
 } // MetadataColumn

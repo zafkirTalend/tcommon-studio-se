@@ -1086,43 +1086,43 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (Server: "); //$NON-NLS-1$
+        result.append(" (Server: ");
         result.append(server);
-        result.append(", FilePath: "); //$NON-NLS-1$
+        result.append(", FilePath: ");
         result.append(filePath);
-        result.append(", Format: "); //$NON-NLS-1$
+        result.append(", Format: ");
         result.append(format);
-        result.append(", Encoding: "); //$NON-NLS-1$
+        result.append(", Encoding: ");
         result.append(encoding);
-        result.append(", FieldSeparatorValue: "); //$NON-NLS-1$
+        result.append(", FieldSeparatorValue: ");
         result.append(fieldSeparatorValue);
-        result.append(", RowSeparatorType: "); //$NON-NLS-1$
+        result.append(", RowSeparatorType: ");
         result.append(rowSeparatorType);
-        result.append(", RowSeparatorValue: "); //$NON-NLS-1$
+        result.append(", RowSeparatorValue: ");
         result.append(rowSeparatorValue);
-        result.append(", TextIdentifier: "); //$NON-NLS-1$
+        result.append(", TextIdentifier: ");
         result.append(textIdentifier);
-        result.append(", UseHeader: "); //$NON-NLS-1$
+        result.append(", UseHeader: ");
         result.append(useHeader);
-        result.append(", HeaderValue: "); //$NON-NLS-1$
+        result.append(", HeaderValue: ");
         result.append(headerValue);
-        result.append(", UseFooter: "); //$NON-NLS-1$
+        result.append(", UseFooter: ");
         result.append(useFooter);
-        result.append(", FooterValue: "); //$NON-NLS-1$
+        result.append(", FooterValue: ");
         result.append(footerValue);
-        result.append(", UseLimit: "); //$NON-NLS-1$
+        result.append(", UseLimit: ");
         result.append(useLimit);
-        result.append(", LimitValue: "); //$NON-NLS-1$
+        result.append(", LimitValue: ");
         result.append(limitValue);
-        result.append(", FirstLineCaption: "); //$NON-NLS-1$
+        result.append(", FirstLineCaption: ");
         result.append(firstLineCaption);
-        result.append(", RemoveEmptyRow: "); //$NON-NLS-1$
+        result.append(", RemoveEmptyRow: ");
         result.append(removeEmptyRow);
-        result.append(", EscapeType: "); //$NON-NLS-1$
+        result.append(", EscapeType: ");
         result.append(escapeType);
-        result.append(", EscapeChar: "); //$NON-NLS-1$
+        result.append(", EscapeChar: ");
         result.append(escapeChar);
-        result.append(", TextEnclosure: "); //$NON-NLS-1$
+        result.append(", TextEnclosure: ");
         result.append(textEnclosure);
         result.append(')');
         return result.toString();

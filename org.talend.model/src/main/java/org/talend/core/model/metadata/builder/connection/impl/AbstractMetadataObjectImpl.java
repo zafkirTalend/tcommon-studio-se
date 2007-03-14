@@ -435,17 +435,17 @@ public abstract class AbstractMetadataObjectImpl extends EObjectImpl implements 
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (properties: "); //$NON-NLS-1$
+        result.append(" (properties: ");
         result.append(properties);
-        result.append(", id: "); //$NON-NLS-1$
+        result.append(", id: ");
         result.append(id);
-        result.append(", comment: "); //$NON-NLS-1$
+        result.append(", comment: ");
         result.append(comment);
-        result.append(", label: "); //$NON-NLS-1$
+        result.append(", label: ");
         result.append(label);
-        result.append(", synchronised: "); //$NON-NLS-1$
+        result.append(", synchronised: ");
         result.append(synchronised);
-        result.append(", divergency: "); //$NON-NLS-1$
+        result.append(", divergency: ");
         result.append(divergency);
         result.append(')');
         return result.toString();

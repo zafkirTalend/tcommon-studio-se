@@ -150,7 +150,7 @@ public class RegexpFileConnectionImpl extends FileConnectionImpl implements Rege
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (FieldSeparatorType: "); //$NON-NLS-1$
+        result.append(" (FieldSeparatorType: ");
         result.append(fieldSeparatorType);
         result.append(')');
         return result.toString();
