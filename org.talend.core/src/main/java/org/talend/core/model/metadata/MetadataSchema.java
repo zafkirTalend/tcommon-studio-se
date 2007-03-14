@@ -427,6 +427,10 @@ public final class MetadataSchema {
                 nullable.setNodeValue(String.valueOf(metadataColumn.isNullable()));
                 column.setAttributeNode(nullable);
 
+                Attr pattern = document.createAttribute("pattern"); //$NON-NLS-1$
+                pattern.setNodeValue(String.valueOf(metadataColumn.getPattern()));
+                column.setAttributeNode(pattern);
+                
                 Attr defaultValue = document.createAttribute("default"); //$NON-NLS-1$
                 defaultValue.setNodeValue(metadataColumn.getDefaultValue());
                 column.setAttributeNode(defaultValue);

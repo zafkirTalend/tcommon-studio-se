@@ -88,6 +88,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     private boolean dbTypeColumnWritable;
 
+    private boolean showPatternColumn;
+    
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
      */
@@ -302,7 +304,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setToolTipHeader(Messages.getString("MetadataTableEditorView.PrecisionTitle")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(getPrecisionAccessor());
         column.setModifiable(!isReadOnly());
-        column.setWidth(60);
+        column.setWeight(10);
+        column.setMinimumWidth(10);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), CellEditorValueAdapterFactory.getPositiveIntAdapter());
     }
 
@@ -326,7 +329,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setToolTipHeader(Messages.getString("MetadataTableEditorView.LengthTitle")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(getLengthAccessor());
         column.setModifiable(!isReadOnly());
-        column.setWidth(55);
+        column.setWeight(10);
+        column.setMinimumWidth(10);
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), CellEditorValueAdapterFactory.getPositiveIntAdapter());
     }
 
@@ -721,6 +725,24 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         gridData.minimumHeight = minimumHeight;
         getMainComposite().setLayoutData(gridData);
 
+    }
+
+    
+    /**
+     * Getter for showPatternColumn.
+     * @return the showPatternColumn
+     */
+    public boolean isShowPatternColumn() {
+        return this.showPatternColumn;
+    }
+
+    
+    /**
+     * Sets the showPatternColumn.
+     * @param showPatternColumn the showPatternColumn to set
+     */
+    public void setShowPatternColumn(boolean showPatternColumn) {
+        this.showPatternColumn = showPatternColumn;
     }
 
 }

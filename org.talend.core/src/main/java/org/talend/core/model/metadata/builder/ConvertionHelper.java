@@ -83,6 +83,7 @@ public final class ConvertionHelper {
             newColumn.setDefault(column.getDefaultValue());
             newColumn.setKey(column.isKey());
             newColumn.setLabel(column.getLabel());
+            newColumn.setPattern(column.getPattern());
             newColumn.setLength(column.getLength());
             newColumn.setNullable(column.isNullable());
             newColumn.setPrecision(column.getPrecision());

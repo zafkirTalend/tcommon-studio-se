@@ -64,13 +64,13 @@
 			<type talendType="int" dbType="TINYINT UNSIGNED" />
 			<type talendType="int" dbType="SMALLINT UNSIGNED" />
 			<type talendType="int" dbType="MEDIUMINT UNSIGNED" />
-			<type talendType="int" dbType="INT UNSIGNED" defaultSelected="true" />
+			<type talendType="int" dbType="INT UNSIGNED"/>
 			<type talendType="int" dbType="INTEGER UNSIGNED" />
 			<type talendType="int" dbType="INT UNSIGNED UNSIGNED" />
 			<type talendType="int" dbType="BIGINT UNSIGNED" />
-			<type talendType="long" dbType="LONG UNSIGNED" defaultSelected="true" />
-			<type talendType="float" dbType="FLOAT UNSIGNED" defaultSelected="true" />
-			<type talendType="double" dbType="DOUBLE UNSIGNED" defaultSelected="true" />
+			<type talendType="long" dbType="LONG UNSIGNED"/>
+			<type talendType="float" dbType="FLOAT UNSIGNED"/>
+			<type talendType="double" dbType="DOUBLE UNSIGNED"/>
 			<type talendType="double" dbType="REAL UNSIGNED" />
 			<type talendType="double" dbType="NUMBER UNSIGNED" />
 			<type talendType="double" dbType="NUMBER-2 UNSIGNED" />

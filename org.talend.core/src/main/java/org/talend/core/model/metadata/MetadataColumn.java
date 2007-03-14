@@ -382,6 +382,13 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         } else if (!this.precision.equals(other.getPrecision())) {
             return false;
         }
+        if (this.defaut == null) {
+            if (other.getDefault() != null) {
+                return false;
+            }
+        } else if (!this.defaut.equals(other.getDefault())) {
+            return false;
+        }
         if (this.talendType == null) {
             if (other.getTalendType() != null) {
                 return false;

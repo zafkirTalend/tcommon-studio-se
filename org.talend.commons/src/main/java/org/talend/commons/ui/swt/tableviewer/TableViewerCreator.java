@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.util.Assert;
@@ -146,6 +147,8 @@ import org.talend.commons.utils.threading.AsynchronousThreading;
  * @param <B> type of objects in the input list of <code>TableViewer</code>
  */
 public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
+
+    private static Logger log = Logger.getLogger(TableViewerCreator.class);
 
     private static final String ID_MASKED_COLUMN = "__MASKED_COLUMN__";
 
@@ -872,6 +875,12 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             TableViewerCreatorColumn column = columns.get(i);
             properties[i] = column.getId();
             cellEditors[i] = column.getCellEditor();
+
+            if (column.getCellEditor() != null && column.getBeanPropertyAccessors() == null) {
+                log.warn("The column '" + column.getId() + "' ('" + column.getTitle()
+                        + "') has a CellEditor set but does'nt have a IBeanPropertyAccessors !");
+            }
+
         }
         tableViewer.setColumnProperties(properties);
         tableViewer.setCellEditors(cellEditors);

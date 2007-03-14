@@ -28,6 +28,7 @@ import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
+import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -188,7 +189,17 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
 
     @Override
     protected IBeanPropertyAccessors<MetadataColumn, String> getPatternAccessor() {
-        return null;
+        return new IBeanPropertyAccessors<MetadataColumn, String>() {
+
+            public String get(MetadataColumn bean) {
+                return bean.getPattern();
+            }
+
+            public void set(MetadataColumn bean, String value) {
+                bean.setPattern(value);
+            }
+
+        };
     }
 
     @Override

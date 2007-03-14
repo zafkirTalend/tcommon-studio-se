@@ -22,6 +22,7 @@
 package org.talend.core.ui.metadata.dialog;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.gef.commands.CommandStack;
@@ -175,7 +176,12 @@ public class MetadataDialog extends Dialog {
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
                         outputMetaView.getMetadataTableEditor().removeAll();
-                        outputMetaView.getMetadataTableEditor().addAll(inputMetaView.getMetadataTableEditor().getMetadataColumnList());
+                        IMetadataTable metadataTable = inputMetaView.getMetadataTableEditor().getMetadataTable().clone();
+                        List<IMetadataColumn> listColumns = metadataTable.getListColumns();
+                        for (IMetadataColumn column : listColumns) {
+                            column.setPattern(null);
+                        }
+                        outputMetaView.getMetadataTableEditor().setMetadataTable(metadataTable);
                     }
                 }
             });
@@ -192,7 +198,12 @@ public class MetadataDialog extends Dialog {
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
                         inputMetaView.getMetadataTableEditor().removeAll();
-                        inputMetaView.getMetadataTableEditor().addAll(outputMetaView.getMetadataTableEditor().getMetadataColumnList());
+                        IMetadataTable metadataTable = outputMetaView.getMetadataTableEditor().getMetadataTable().clone();
+                        List<IMetadataColumn> listColumns = metadataTable.getListColumns();
+                        for (IMetadataColumn column : listColumns) {
+                            column.setPattern(null);
+                        }
+                        inputMetaView.getMetadataTableEditor().setMetadataTable(metadataTable);
                     }
                 }
             });

@@ -136,7 +136,7 @@ public class CellEditorValueAdapterFactory {
             public Object getCellEditorTypedValue(final CellEditor cellEditor, Object value) {
                 if (value != null) {
                     if (!(value instanceof String)) {
-                        throw new IllegalArgumentException("Bean value should be a claas of String type !");
+                        throw new IllegalArgumentException("Bean value should be a class of String type !");
                     }
                     return value;
                 }
