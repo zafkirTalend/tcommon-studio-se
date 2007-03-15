@@ -29,6 +29,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
@@ -136,6 +137,11 @@ public enum ERepositoryObjectType {
     
     public static ERepositoryObjectType getItemType(Item item) {
         return (ERepositoryObjectType) new PropertiesSwitch() {
+
+            @Override
+            public Object caseFolderItem(FolderItem object) {
+                return FOLDER;
+            }
 
             public Object caseDocumentationItem(DocumentationItem object) {
                 return DOCUMENTATION;

@@ -25,6 +25,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.emf.common.util.EList;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
 import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
@@ -35,7 +38,13 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.repository.model.ComponentsFactoryProvider;
+import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -69,15 +78,24 @@ public class ModulesNeededProvider {
 
     private static List<ModuleNeeded> getModulesNeededForRoutines() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
-        // FIXME SML To do when model is updated
-        // IProxyRepositoryFactory repositoryFactory =
-        // CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-        // List<IRepositoryObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
-        // for (IRepositoryObject current:routines){
-        // Item item = current.getProperty().getItem();
-        // RoutineItem routine=(RoutineItem)item;
-        // }
-
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        try {
+            List<IRepositoryObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
+            for (IRepositoryObject current : routines) {
+                Item item = current.getProperty().getItem();
+                RoutineItem routine = (RoutineItem) item;
+                EList imports = routine.getImports();
+                for (Object o : imports) {
+                    IMPORTType currentImport = (IMPORTType) o;
+                    // FIXME SML i18n
+                    ModuleNeeded toAdd = new ModuleNeeded("Routine " + routine.getName(), currentImport.getMODULE(), "",
+                            currentImport.isREQUIRED());
+                    importNeedsList.add(toAdd);
+                }
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+        }
         return importNeedsList;
     }
 

@@ -24,7 +24,6 @@ package org.talend.repository.editor;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.ui.part.FileEditorInput;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.properties.Item;
 
 /**
@@ -36,6 +35,8 @@ import org.talend.core.model.properties.Item;
 public class RepositoryEditorInput extends FileEditorInput {
 
     private Item item;
+
+    private boolean readOnly;
 
     public RepositoryEditorInput(IFile file, Item item) {
         super(file);
@@ -50,9 +51,17 @@ public class RepositoryEditorInput extends FileEditorInput {
     public Item getItem() {
         return this.item;
     }
-    
+
     public void setItem(Item item) {
         this.item = item;
+    }
+
+    public boolean isReadOnly() {
+        return this.readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
     }
 
     public boolean equals(Object obj) {

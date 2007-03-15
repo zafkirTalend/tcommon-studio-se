@@ -707,10 +707,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         xmiResourceManager.saveResource(project.eResource());
     }
 
-    public String getOldPath(IRepositoryObject obj) throws PersistenceException {
-        return obj.getProperty().getItem().getState().getPath();
-    }
-
     /*
      * (non-Javadoc)
      * 

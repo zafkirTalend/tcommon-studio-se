@@ -220,8 +220,6 @@ public interface IProxyRepositoryFactory {
 
     public abstract void restoreObject(IRepositoryObject objToRestore, IPath path) throws PersistenceException;
 
-    public abstract String getOldPath(IRepositoryObject obj) throws PersistenceException;
-
     /*
      * (non-Javadoc)
      * 

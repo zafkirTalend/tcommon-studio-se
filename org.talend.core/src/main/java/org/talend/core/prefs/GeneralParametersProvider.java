@@ -72,7 +72,8 @@ public class GeneralParametersProvider extends MessagesCore {
      * $Id$
      */
     public enum GeneralParameters {
-        AUTHORIZED_LANGUAGE("param.authorizedlanguage"); //$NON-NLS-1$
+        AUTHORIZED_LANGUAGE("param.authorizedlanguage"), //$NON-NLS-1$
+        PROJECTS_EXCLUDED_FROM_EXPORT("param.projectsExcludedFromExport"); //$NON-NLS-1$
 
         private String paramName;
 
