@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getColumn <em>Column</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getComment <em>Comment</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getSource <em>Source</em>}</li>
  * </ul>
@@ -72,6 +73,33 @@ public interface MetadataType extends EObject {
      * @generated
      */
     void setComment(String value);
+
+    /**
+     * Returns the value of the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Label</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Label</em>' attribute.
+     * @see #setLabel(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getMetadataType_Label()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='label' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getLabel();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getLabel <em>Label</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Label</em>' attribute.
+     * @see #getLabel()
+     * @generated
+     */
+    void setLabel(String value);
 
     /**
      * Returns the value of the '<em><b>Name</b></em>' attribute.

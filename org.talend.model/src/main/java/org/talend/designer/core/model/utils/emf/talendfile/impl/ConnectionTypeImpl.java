@@ -34,6 +34,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getMetaname <em>Metaname</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getOffsetLabelX <em>Offset Label X</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getOffsetLabelY <em>Offset Label Y</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getOutputId <em>Output Id</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getTarget <em>Target</em>}</li>
  * </ul>
@@ -178,6 +179,35 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
      * @ordered
      */
     protected boolean offsetLabelYESet = false;
+
+    /**
+     * The default value of the '{@link #getOutputId() <em>Output Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOutputId()
+     * @generated
+     * @ordered
+     */
+    protected static final int OUTPUT_ID_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getOutputId() <em>Output Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOutputId()
+     * @generated
+     * @ordered
+     */
+    protected int outputId = OUTPUT_ID_EDEFAULT;
+
+    /**
+     * This is true if the Output Id attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean outputIdESet = false;
 
     /**
      * The default value of the '{@link #getSource() <em>Source</em>}' attribute.
@@ -434,6 +464,52 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public int getOutputId() {
+        return outputId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOutputId(int newOutputId) {
+        int oldOutputId = outputId;
+        outputId = newOutputId;
+        boolean oldOutputIdESet = outputIdESet;
+        outputIdESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONNECTION_TYPE__OUTPUT_ID, oldOutputId, outputId, !oldOutputIdESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetOutputId() {
+        int oldOutputId = outputId;
+        boolean oldOutputIdESet = outputIdESet;
+        outputId = OUTPUT_ID_EDEFAULT;
+        outputIdESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.CONNECTION_TYPE__OUTPUT_ID, oldOutputId, OUTPUT_ID_EDEFAULT, oldOutputIdESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetOutputId() {
+        return outputIdESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getSource() {
         return source;
     }
@@ -503,6 +579,8 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
                 return new Integer(getOffsetLabelX());
             case TalendFilePackage.CONNECTION_TYPE__OFFSET_LABEL_Y:
                 return new Integer(getOffsetLabelY());
+            case TalendFilePackage.CONNECTION_TYPE__OUTPUT_ID:
+                return new Integer(getOutputId());
             case TalendFilePackage.CONNECTION_TYPE__SOURCE:
                 return getSource();
             case TalendFilePackage.CONNECTION_TYPE__TARGET:
@@ -536,6 +614,9 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
                 return;
             case TalendFilePackage.CONNECTION_TYPE__OFFSET_LABEL_Y:
                 setOffsetLabelY(((Integer)newValue).intValue());
+                return;
+            case TalendFilePackage.CONNECTION_TYPE__OUTPUT_ID:
+                setOutputId(((Integer)newValue).intValue());
                 return;
             case TalendFilePackage.CONNECTION_TYPE__SOURCE:
                 setSource((String)newValue);
@@ -572,6 +653,9 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
             case TalendFilePackage.CONNECTION_TYPE__OFFSET_LABEL_Y:
                 unsetOffsetLabelY();
                 return;
+            case TalendFilePackage.CONNECTION_TYPE__OUTPUT_ID:
+                unsetOutputId();
+                return;
             case TalendFilePackage.CONNECTION_TYPE__SOURCE:
                 setSource(SOURCE_EDEFAULT);
                 return;
@@ -601,6 +685,8 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
                 return isSetOffsetLabelX();
             case TalendFilePackage.CONNECTION_TYPE__OFFSET_LABEL_Y:
                 return isSetOffsetLabelY();
+            case TalendFilePackage.CONNECTION_TYPE__OUTPUT_ID:
+                return isSetOutputId();
             case TalendFilePackage.CONNECTION_TYPE__SOURCE:
                 return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
             case TalendFilePackage.CONNECTION_TYPE__TARGET:
@@ -628,6 +714,8 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
         if (offsetLabelXESet) result.append(offsetLabelX); else result.append("<unset>");
         result.append(", offsetLabelY: ");
         if (offsetLabelYESet) result.append(offsetLabelY); else result.append("<unset>");
+        result.append(", outputId: ");
+        if (outputIdESet) result.append(outputId); else result.append("<unset>");
         result.append(", source: ");
         result.append(source);
         result.append(", target: ");

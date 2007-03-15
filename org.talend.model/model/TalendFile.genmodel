@@ -8,6 +8,7 @@
       resource="XML" disposableProviderFactory="true" ecorePackage="TalendFile.ecore#/">
     <genClasses ecoreClass="TalendFile.ecore#//ColumnType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/comment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/defaultValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/key"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/length"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ColumnType/name"/>
@@ -24,6 +25,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ConnectionType/metaname"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ConnectionType/offsetLabelX"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ConnectionType/offsetLabelY"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ConnectionType/outputId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ConnectionType/source"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ConnectionType/target"/>
     </genClasses>
@@ -87,6 +89,7 @@
     <genClasses ecoreClass="TalendFile.ecore#//MetadataType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//MetadataType/column"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//MetadataType/comment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//MetadataType/label"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//MetadataType/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//MetadataType/source"/>
     </genClasses>

@@ -21,6 +21,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getComment <em>Comment</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getDefaultValue <em>Default Value</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#isKey <em>Key</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getLength <em>Length</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getName <em>Name</em>}</li>
@@ -54,6 +55,26 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @ordered
      */
     protected String comment = COMMENT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDefaultValue()
+     * @generated
+     * @ordered
+     */
+    protected static final String DEFAULT_VALUE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDefaultValue() <em>Default Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDefaultValue()
+     * @generated
+     * @ordered
+     */
+    protected String defaultValue = DEFAULT_VALUE_EDEFAULT;
 
     /**
      * The default value of the '{@link #isKey() <em>Key</em>}' attribute.
@@ -288,6 +309,27 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         comment = newComment;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__COMMENT, oldComment, comment));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getDefaultValue() {
+        return defaultValue;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDefaultValue(String newDefaultValue) {
+        String oldDefaultValue = defaultValue;
+        defaultValue = newDefaultValue;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE, oldDefaultValue, defaultValue));
     }
 
     /**
@@ -567,6 +609,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         switch (featureID) {
             case TalendFilePackage.COLUMN_TYPE__COMMENT:
                 return getComment();
+            case TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE:
+                return getDefaultValue();
             case TalendFilePackage.COLUMN_TYPE__KEY:
                 return isKey() ? Boolean.TRUE : Boolean.FALSE;
             case TalendFilePackage.COLUMN_TYPE__LENGTH:
@@ -596,6 +640,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         switch (featureID) {
             case TalendFilePackage.COLUMN_TYPE__COMMENT:
                 setComment((String)newValue);
+                return;
+            case TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE:
+                setDefaultValue((String)newValue);
                 return;
             case TalendFilePackage.COLUMN_TYPE__KEY:
                 setKey(((Boolean)newValue).booleanValue());
@@ -635,6 +682,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
             case TalendFilePackage.COLUMN_TYPE__COMMENT:
                 setComment(COMMENT_EDEFAULT);
                 return;
+            case TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE:
+                setDefaultValue(DEFAULT_VALUE_EDEFAULT);
+                return;
             case TalendFilePackage.COLUMN_TYPE__KEY:
                 unsetKey();
                 return;
@@ -672,6 +722,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         switch (featureID) {
             case TalendFilePackage.COLUMN_TYPE__COMMENT:
                 return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
+            case TalendFilePackage.COLUMN_TYPE__DEFAULT_VALUE:
+                return DEFAULT_VALUE_EDEFAULT == null ? defaultValue != null : !DEFAULT_VALUE_EDEFAULT.equals(defaultValue);
             case TalendFilePackage.COLUMN_TYPE__KEY:
                 return isSetKey();
             case TalendFilePackage.COLUMN_TYPE__LENGTH:
@@ -703,6 +755,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (comment: ");
         result.append(comment);
+        result.append(", defaultValue: ");
+        result.append(defaultValue);
         result.append(", key: ");
         if (keyESet) result.append(key); else result.append("<unset>");
         result.append(", length: ");

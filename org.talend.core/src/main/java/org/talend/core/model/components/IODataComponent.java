@@ -70,6 +70,10 @@ public class IODataComponent {
         return connection.getName();
     }
     
+    public String getUniqueName() {
+        return connection.getUniqueName();
+    }
+    
     /**
      * Getter for connection.
      * @return the connection

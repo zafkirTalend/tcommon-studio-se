@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getMetaname <em>Metaname</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getOffsetLabelX <em>Offset Label X</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getOffsetLabelY <em>Offset Label Y</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getOutputId <em>Output Id</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getSource <em>Source</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getTarget <em>Target</em>}</li>
  * </ul>
@@ -265,6 +266,60 @@ public interface ConnectionType extends EObject {
      * @generated
      */
     boolean isSetOffsetLabelY();
+
+    /**
+     * Returns the value of the '<em><b>Output Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Output Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Output Id</em>' attribute.
+     * @see #isSetOutputId()
+     * @see #unsetOutputId()
+     * @see #setOutputId(int)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_OutputId()
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     *        extendedMetaData="kind='attribute' name='outputId' namespace='##targetNamespace'"
+     * @generated
+     */
+    int getOutputId();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getOutputId <em>Output Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Output Id</em>' attribute.
+     * @see #isSetOutputId()
+     * @see #unsetOutputId()
+     * @see #getOutputId()
+     * @generated
+     */
+    void setOutputId(int value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getOutputId <em>Output Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetOutputId()
+     * @see #getOutputId()
+     * @see #setOutputId(int)
+     * @generated
+     */
+    void unsetOutputId();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getOutputId <em>Output Id</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Output Id</em>' attribute is set.
+     * @see #unsetOutputId()
+     * @see #getOutputId()
+     * @see #setOutputId(int)
+     * @generated
+     */
+    boolean isSetOutputId();
 
     /**
      * Returns the value of the '<em><b>Source</b></em>' attribute.

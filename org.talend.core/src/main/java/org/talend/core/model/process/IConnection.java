@@ -53,6 +53,8 @@ public interface IConnection extends IElement {
      * @return
      */
     public String getName();
+    
+    public String getUniqueName();
 
     /**
      * Return the given style of the connection.

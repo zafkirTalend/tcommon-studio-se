@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getComment <em>Comment</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getDefaultValue <em>Default Value</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isKey <em>Key</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getLength <em>Length</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getName <em>Name</em>}</li>
@@ -59,6 +60,33 @@ public interface ColumnType extends EObject {
      * @generated
      */
     void setComment(String value);
+
+    /**
+     * Returns the value of the '<em><b>Default Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Default Value</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Default Value</em>' attribute.
+     * @see #setDefaultValue(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getColumnType_DefaultValue()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='defaultValue' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getDefaultValue();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getDefaultValue <em>Default Value</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Default Value</em>' attribute.
+     * @see #getDefaultValue()
+     * @generated
+     */
+    void setDefaultValue(String value);
 
     /**
      * Returns the value of the '<em><b>Key</b></em>' attribute.

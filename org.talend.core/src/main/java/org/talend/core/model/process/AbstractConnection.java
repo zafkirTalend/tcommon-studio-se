@@ -48,6 +48,8 @@ public abstract class AbstractConnection implements IConnection {
     private String condition;
     
     private boolean readOnly;
+    
+    private String uniqueName;
 
     private List<? extends IElementParameter> elementParameters;
 
@@ -81,6 +83,9 @@ public abstract class AbstractConnection implements IConnection {
 
     public void setName(String name) {
         this.name = name;
+        if (uniqueName == null) {
+            uniqueName = name;
+        }
     }
 
     public INode getSource() {
@@ -116,8 +121,6 @@ public abstract class AbstractConnection implements IConnection {
     }
 
     public void setTraceData(String traceData) {
-        // TODO Auto-generated method stub
-
     }
     
     public boolean isReadOnly() {
@@ -126,5 +129,23 @@ public abstract class AbstractConnection implements IConnection {
     
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
+    }
+
+    
+    /**
+     * Getter for uniqueName.
+     * @return the uniqueName
+     */
+    public String getUniqueName() {
+        return uniqueName;
+    }
+
+    
+    /**
+     * Sets the uniqueName.
+     * @param uniqueName the uniqueName to set
+     */
+    public void setUniqueName(String uniqueName) {
+        this.uniqueName = uniqueName;
     }
 }

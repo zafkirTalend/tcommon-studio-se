@@ -66,12 +66,14 @@
 									<xs:attribute name="length" type="xs:int"/>
 									<xs:attribute name="precision" type="xs:int"/>
 									<xs:attribute name="pattern" type="xs:string"/>
+									<xs:attribute name="defaultValue" type="xs:string" use="optional"/>
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="Comment" type="xs:string" minOccurs="0"/>
 						</xs:sequence>
 						<xs:attribute name="name" type="xs:string"/>
 						<xs:attribute name="source" type="xs:string"/>
+						<xs:attribute name="label" type="xs:string" use="optional"/>
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="BinaryData" type="xs:base64Binary" minOccurs="0"/>
@@ -94,6 +96,7 @@
 			<xs:attribute name="target" type="xs:string"/>
 			<xs:attribute name="label" type="xs:string"/>
 			<xs:attribute name="metaname" type="xs:string"/>
+			<xs:attribute name="outputId" type="xs:int" use="optional"/>
 			<xs:attribute name="lineStyle" type="xs:int"/>
 			<xs:attribute name="offsetLabelX" type="xs:int"/>
 			<xs:attribute name="offsetLabelY" type="xs:int"/>

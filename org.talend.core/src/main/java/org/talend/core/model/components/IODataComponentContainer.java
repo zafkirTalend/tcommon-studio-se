@@ -64,12 +64,12 @@ public class IODataComponentContainer {
 
     public IODataComponent getDataComponent(IConnection connection) {
         for (IODataComponent current : inputs) {
-            if (current.getName().equals(connection.getName())) {
+            if (current.getUniqueName().equals(connection.getUniqueName())) {
                 return current;
             }
         }
         for (IODataComponent current : ouputs) {
-            if (current.getName().equals(connection.getName())) {
+            if (current.getUniqueName().equals(connection.getUniqueName())) {
                 return current;
             }
         }

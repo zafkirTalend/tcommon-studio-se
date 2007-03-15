@@ -80,13 +80,22 @@ public interface TalendFilePackage extends EPackage {
     int COLUMN_TYPE__COMMENT = 0;
 
     /**
+     * The feature id for the '<em><b>Default Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__DEFAULT_VALUE = 1;
+
+    /**
      * The feature id for the '<em><b>Key</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__KEY = 1;
+    int COLUMN_TYPE__KEY = 2;
 
     /**
      * The feature id for the '<em><b>Length</b></em>' attribute.
@@ -95,7 +104,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__LENGTH = 2;
+    int COLUMN_TYPE__LENGTH = 3;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -104,7 +113,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__NAME = 3;
+    int COLUMN_TYPE__NAME = 4;
 
     /**
      * The feature id for the '<em><b>Nullable</b></em>' attribute.
@@ -113,7 +122,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__NULLABLE = 4;
+    int COLUMN_TYPE__NULLABLE = 5;
 
     /**
      * The feature id for the '<em><b>Pattern</b></em>' attribute.
@@ -122,7 +131,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__PATTERN = 5;
+    int COLUMN_TYPE__PATTERN = 6;
 
     /**
      * The feature id for the '<em><b>Precision</b></em>' attribute.
@@ -131,7 +140,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__PRECISION = 6;
+    int COLUMN_TYPE__PRECISION = 7;
 
     /**
      * The feature id for the '<em><b>Source Type</b></em>' attribute.
@@ -140,7 +149,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__SOURCE_TYPE = 7;
+    int COLUMN_TYPE__SOURCE_TYPE = 8;
 
     /**
      * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -149,7 +158,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__TYPE = 8;
+    int COLUMN_TYPE__TYPE = 9;
 
     /**
      * The number of structural features of the '<em>Column Type</em>' class.
@@ -158,7 +167,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 9;
+    int COLUMN_TYPE_FEATURE_COUNT = 10;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl <em>Connection Type</em>}' class.
@@ -225,13 +234,22 @@ public interface TalendFilePackage extends EPackage {
     int CONNECTION_TYPE__OFFSET_LABEL_Y = 5;
 
     /**
+     * The feature id for the '<em><b>Output Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_TYPE__OUTPUT_ID = 6;
+
+    /**
      * The feature id for the '<em><b>Source</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__SOURCE = 6;
+    int CONNECTION_TYPE__SOURCE = 7;
 
     /**
      * The feature id for the '<em><b>Target</b></em>' attribute.
@@ -240,7 +258,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__TARGET = 7;
+    int CONNECTION_TYPE__TARGET = 8;
 
     /**
      * The number of structural features of the '<em>Connection Type</em>' class.
@@ -249,7 +267,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE_FEATURE_COUNT = 8;
+    int CONNECTION_TYPE_FEATURE_COUNT = 9;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl <em>Context Parameter Type</em>}' class.
@@ -803,13 +821,22 @@ public interface TalendFilePackage extends EPackage {
     int METADATA_TYPE__COMMENT = 1;
 
     /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_TYPE__LABEL = 2;
+
+    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int METADATA_TYPE__NAME = 2;
+    int METADATA_TYPE__NAME = 3;
 
     /**
      * The feature id for the '<em><b>Source</b></em>' attribute.
@@ -818,7 +845,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int METADATA_TYPE__SOURCE = 3;
+    int METADATA_TYPE__SOURCE = 4;
 
     /**
      * The number of structural features of the '<em>Metadata Type</em>' class.
@@ -827,7 +854,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int METADATA_TYPE_FEATURE_COUNT = 4;
+    int METADATA_TYPE_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl <em>Node Type</em>}' class.
@@ -1135,6 +1162,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getColumnType_Comment();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getDefaultValue <em>Default Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Default Value</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getDefaultValue()
+     * @see #getColumnType()
+     * @generated
+     */
+    EAttribute getColumnType_DefaultValue();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#isKey <em>Key</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1297,6 +1335,17 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EAttribute getConnectionType_OffsetLabelY();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getOutputId <em>Output Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Output Id</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getOutputId()
+     * @see #getConnectionType()
+     * @generated
+     */
+    EAttribute getConnectionType_OutputId();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getSource <em>Source</em>}'.
@@ -1860,6 +1909,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getMetadataType_Comment();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getLabel <em>Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Label</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getLabel()
+     * @see #getMetadataType()
+     * @generated
+     */
+    EAttribute getMetadataType_Label();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getName <em>Name</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2227,6 +2287,14 @@ public interface TalendFilePackage extends EPackage {
         EAttribute COLUMN_TYPE__COMMENT = eINSTANCE.getColumnType_Comment();
 
         /**
+         * The meta object literal for the '<em><b>Default Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__DEFAULT_VALUE = eINSTANCE.getColumnType_DefaultValue();
+
+        /**
          * The meta object literal for the '<em><b>Key</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2347,6 +2415,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute CONNECTION_TYPE__OFFSET_LABEL_Y = eINSTANCE.getConnectionType_OffsetLabelY();
+
+        /**
+         * The meta object literal for the '<em><b>Output Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTION_TYPE__OUTPUT_ID = eINSTANCE.getConnectionType_OutputId();
 
         /**
          * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
@@ -2785,6 +2861,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute METADATA_TYPE__COMMENT = eINSTANCE.getMetadataType_Comment();
+
+        /**
+         * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute METADATA_TYPE__LABEL = eINSTANCE.getMetadataType_Label();
 
         /**
          * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
