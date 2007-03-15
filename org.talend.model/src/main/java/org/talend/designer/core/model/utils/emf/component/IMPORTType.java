@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getENTRYPOINT <em>ENTRYPOINT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMESSAGE <em>MESSAGE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMODULE <em>MODULE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getNAME <em>NAME</em>}</li>
@@ -29,33 +28,6 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface IMPORTType extends EObject {
-    /**
-     * Returns the value of the '<em><b>ENTRYPOINT</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>ENTRYPOINT</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>ENTRYPOINT</em>' attribute.
-     * @see #setENTRYPOINT(String)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_ENTRYPOINT()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='ENTRYPOINT' namespace='##targetNamespace'"
-     * @generated
-     */
-    String getENTRYPOINT();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getENTRYPOINT <em>ENTRYPOINT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>ENTRYPOINT</em>' attribute.
-     * @see #getENTRYPOINT()
-     * @generated
-     */
-    void setENTRYPOINT(String value);
-
     /**
      * Returns the value of the '<em><b>MESSAGE</b></em>' attribute.
      * <!-- begin-user-doc -->

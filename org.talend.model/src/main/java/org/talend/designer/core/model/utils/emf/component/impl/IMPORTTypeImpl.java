@@ -20,7 +20,6 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getENTRYPOINT <em>ENTRYPOINT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getMESSAGE <em>MESSAGE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getMODULE <em>MODULE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getNAME <em>NAME</em>}</li>
@@ -31,26 +30,6 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  * @generated
  */
 public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
-    /**
-     * The default value of the '{@link #getENTRYPOINT() <em>ENTRYPOINT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getENTRYPOINT()
-     * @generated
-     * @ordered
-     */
-    protected static final String ENTRYPOINT_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getENTRYPOINT() <em>ENTRYPOINT</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getENTRYPOINT()
-     * @generated
-     * @ordered
-     */
-    protected String eNTRYPOINT = ENTRYPOINT_EDEFAULT;
-
     /**
      * The default value of the '{@link #getMESSAGE() <em>MESSAGE</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -156,27 +135,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      */
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.IMPORT_TYPE;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String getENTRYPOINT() {
-        return eNTRYPOINT;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setENTRYPOINT(String newENTRYPOINT) {
-        String oldENTRYPOINT = eNTRYPOINT;
-        eNTRYPOINT = newENTRYPOINT;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.IMPORT_TYPE__ENTRYPOINT, oldENTRYPOINT, eNTRYPOINT));
     }
 
     /**
@@ -295,8 +253,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ComponentPackage.IMPORT_TYPE__ENTRYPOINT:
-                return getENTRYPOINT();
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 return getMESSAGE();
             case ComponentPackage.IMPORT_TYPE__MODULE:
@@ -316,9 +272,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ComponentPackage.IMPORT_TYPE__ENTRYPOINT:
-                setENTRYPOINT((String)newValue);
-                return;
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 setMESSAGE((String)newValue);
                 return;
@@ -342,9 +295,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ComponentPackage.IMPORT_TYPE__ENTRYPOINT:
-                setENTRYPOINT(ENTRYPOINT_EDEFAULT);
-                return;
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 setMESSAGE(MESSAGE_EDEFAULT);
                 return;
@@ -368,8 +318,6 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ComponentPackage.IMPORT_TYPE__ENTRYPOINT:
-                return ENTRYPOINT_EDEFAULT == null ? eNTRYPOINT != null : !ENTRYPOINT_EDEFAULT.equals(eNTRYPOINT);
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 return MESSAGE_EDEFAULT == null ? mESSAGE != null : !MESSAGE_EDEFAULT.equals(mESSAGE);
             case ComponentPackage.IMPORT_TYPE__MODULE:
@@ -391,9 +339,7 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (eNTRYPOINT: ");
-        result.append(eNTRYPOINT);
-        result.append(", mESSAGE: ");
+        result.append(" (mESSAGE: ");
         result.append(mESSAGE);
         result.append(", mODULE: ");
         result.append(mODULE);
