@@ -45,7 +45,7 @@ public class LibrariesService implements ILibrariesService {
 
     private static ILibrariesService singleton = getLibrariesService();
 
-    public static ILibrariesService getLibrariesService() {
+    private static ILibrariesService getLibrariesService() {
         switch (((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
                 .getLanguage()) {
         case JAVA:
