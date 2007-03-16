@@ -399,7 +399,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setModifiable(!isReadOnly());
         column.setWidth(56);
         column.setDisplayedValue(""); //$NON-NLS-1$
-        CheckboxTableEditorContent nullableCheckbox = new CheckboxTableEditorContent(isReadOnly());
+        CheckboxTableEditorContent nullableCheckbox = new CheckboxTableEditorContent();
         nullableCheckbox.setToolTipText(nullableTitle);
         column.setTableEditorContent(nullableCheckbox);
     }
@@ -446,7 +446,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setBeanPropertyAccessors(getKeyAccesor());
         column.setWidth(35);
         column.setDisplayedValue(""); //$NON-NLS-1$
-        CheckboxTableEditorContent keyCheckbox = new CheckboxTableEditorContent(isReadOnly());
+        CheckboxTableEditorContent keyCheckbox = new CheckboxTableEditorContent();
         column.setTableEditorContent(keyCheckbox);
         keyCheckbox.setToolTipText(Messages.getString("MetadataTableEditorView.KeyTitle")); //$NON-NLS-1$
     }

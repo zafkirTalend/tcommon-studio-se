@@ -144,23 +144,6 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
     }
 
     /**
-     * DOC ocarbone Comment method "setReadOnly". setReadOnly(boolean) is equivalent to setEnabled(boolean) all the
-     * buttons.
-     * 
-     * @param b
-     */
-    public void setReadOnly(boolean b) {
-        // addButton.setEnabled(!b);
-        // removeButton.setEnabled(!b);
-        // copyButton.setEnabled(!b);
-        // pasteButton.setEnabled(!b);
-        // moveUpButton.setEnabled(!b);
-        // moveDownButton.setEnabled(!b);
-        // loadButton.setEnabled(!b);
-        // exportButton.setEnabled(!b);
-    }
-
-    /**
      * Getter for addButton.
      * 
      * @return the addButton

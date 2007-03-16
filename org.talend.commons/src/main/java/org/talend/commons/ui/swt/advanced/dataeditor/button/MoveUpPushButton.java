@@ -62,4 +62,12 @@ public abstract class MoveUpPushButton extends ExtendedPushButton {
                 .getSelectionIndices());
     }
 
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#getEnabledState()
+     */
+    @Override
+    public boolean getEnabledState() {
+        return super.getEnabledState() && !getExtendedControlViewer().isReadOnly();
+    }
+
 }

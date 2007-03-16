@@ -52,7 +52,8 @@ public abstract class ExtendedPushButton implements IExtendedPushButton {
      * 
      * @param extendedViewer
      */
-    public ExtendedPushButton(Composite parent, AbstractExtendedControlViewer extendedViewer, String tooltip, Image image) {
+    public ExtendedPushButton(Composite parent, AbstractExtendedControlViewer extendedViewer, String tooltip,
+            Image image) {
         super();
         this.extendedControlViewer = extendedViewer;
         init(parent, tooltip, image);

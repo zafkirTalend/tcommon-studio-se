@@ -49,6 +49,7 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 /**
@@ -442,6 +443,9 @@ public final class MetadataSchema {
 
             // use specific Xerces class to write DOM-data to a file:
             XMLSerializer serializer = new XMLSerializer();
+            OutputFormat outputFormat = new OutputFormat();
+            outputFormat.setIndenting(true);
+            serializer.setOutputFormat(outputFormat);
             serializer.setOutputCharStream(new java.io.FileWriter(file));
             serializer.serialize(document);
             return true;
@@ -605,6 +609,10 @@ public final class MetadataSchema {
                 nullable.setNodeValue(String.valueOf(metadataColumn.isNullable()));
                 column.setAttributeNode(nullable);
 
+                Attr pattern = document.createAttribute("pattern"); //$NON-NLS-1$
+                pattern.setNodeValue(String.valueOf(metadataColumn.getPattern()));
+                column.setAttributeNode(pattern);
+                
                 Attr defaultValue = document.createAttribute("default"); //$NON-NLS-1$
                 defaultValue.setNodeValue(metadataColumn.getDefault());
                 column.setAttributeNode(defaultValue);
@@ -616,6 +624,9 @@ public final class MetadataSchema {
 
             // use specific Xerces class to write DOM-data to a file:
             XMLSerializer serializer = new XMLSerializer();
+            OutputFormat outputFormat = new OutputFormat();
+            outputFormat.setIndenting(true);
+            serializer.setOutputFormat(outputFormat);
             serializer.setOutputCharStream(new java.io.FileWriter(file));
             serializer.serialize(document);
             return true;

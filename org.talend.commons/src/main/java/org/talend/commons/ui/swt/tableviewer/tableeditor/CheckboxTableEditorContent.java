@@ -58,16 +58,6 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         super();
     }
 
-    /**
-     * DOC amaumont CheckboxTableEditorContent constructor comment.
-     * 
-     * @param readOnly applied for ALL checbox of column
-     */
-    public CheckboxTableEditorContent(boolean readOnly) {
-        super();
-        this.readOnly = readOnly;
-    }
-
     /*
      * 
      * (non-Javadoc)
@@ -89,7 +79,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         final TableViewerCreator<Object> tableViewerCreator = currentColumn.getTableViewerCreator();
 
         final Button check = new Button(table, SWT.CHECK);
-        check.setEnabled(!this.readOnly);
+        check.setEnabled(currentColumn.isModifiable());
         check.setText("");
         check.setToolTipText(toolTipText);
         check.setBackground(table.getBackground());
@@ -140,6 +130,5 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         this.toolTipText = toolTipText;
     }
 
-    
     
 }

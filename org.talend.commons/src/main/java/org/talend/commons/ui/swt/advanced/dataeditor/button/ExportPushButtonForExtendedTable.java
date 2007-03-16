@@ -92,12 +92,6 @@ public abstract class ExportPushButtonForExtendedTable extends ExportPushButton 
         }
     }
 
-    protected Command getCommandToExecute() {
-        AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
-        Table table = extendedTableViewer.getTableViewerCreator().getTable();
-        return getCommandToExecute(extendedTableViewer.getExtendedTableModel(), file);
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -115,6 +109,12 @@ public abstract class ExportPushButtonForExtendedTable extends ExportPushButton 
 
     }
 
+    protected Command getCommandToExecute() {
+        AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
+        Table table = extendedTableViewer.getTableViewerCreator().getTable();
+        return getCommandToExecute(extendedTableViewer.getExtendedTableModel(), file);
+    }
+    
     protected abstract Command getCommandToExecute(ExtendedTableModel model, File file);
 
     private void openMessageError(String errorText) {

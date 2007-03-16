@@ -144,7 +144,7 @@ public class MetadataDialog extends Dialog {
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, !outputReadOnly, true,
+            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true, true,
                     false);
             outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), true, false);
             outputMetaView.initGraphicComponents();
@@ -153,7 +153,7 @@ public class MetadataDialog extends Dialog {
             GridLayout gridLayout = new GridLayout(3, false);
             composite.setLayout(gridLayout);
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
-            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, inputReadOnly, !inputReadOnly, true,
+            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, inputReadOnly, true, true,
                     false);
             inputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(inputFamily), true, false);
             inputMetaView.initGraphicComponents();
@@ -213,7 +213,7 @@ public class MetadataDialog extends Dialog {
             }
 
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, new MetadataTableEditor(outputMetaTable, titleOutput
-                    + " (Output)"), outputReadOnly, !outputReadOnly, true, //$NON-NLS-1$
+                    + " (Output)"), outputReadOnly, true, true, //$NON-NLS-1$
                     false);
             outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), false, true);
             outputMetaView.initGraphicComponents();

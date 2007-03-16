@@ -21,15 +21,10 @@
 // ============================================================================
 package org.talend.commons.ui.swt.advanced.dataeditor;
 
-import java.util.List;
-
-import javax.swing.plaf.FontUIResource;
-
 import org.eclipse.jface.viewers.IElementComparer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -39,7 +34,6 @@ import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableRemov
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 
 /**
@@ -94,8 +88,8 @@ public abstract class AbstractDataTableEditorView<B> {
      * @param extendedTableModel
      * @param labelVisible TODO
      */
-    public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<B> extendedTableModel,
-            boolean readOnly, boolean toolbarVisible, boolean labelVisible) {
+    public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<B> extendedTableModel, boolean readOnly, boolean toolbarVisible, boolean labelVisible) {
         this(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible, true);
     }
 
@@ -108,8 +102,9 @@ public abstract class AbstractDataTableEditorView<B> {
      * @param extendedTableModel
      * @param labelVisible TODO
      */
-    public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<B> extendedTableModel,
-            boolean readOnly, boolean toolbarVisible, boolean labelVisible, boolean initGraphicsComponents) {
+    public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<B> extendedTableModel, boolean readOnly, boolean toolbarVisible, boolean labelVisible,
+            boolean initGraphicsComponents) {
         super();
         this.parentComposite = parentComposite;
         this.mainCompositeStyle = mainCompositeStyle;
@@ -132,7 +127,8 @@ public abstract class AbstractDataTableEditorView<B> {
      * @param mainCompositeStyle
      * @param extendedTableModel
      */
-    public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<B> extendedTableModel) {
+    public AbstractDataTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<B> extendedTableModel) {
         this(parentComposite, mainCompositeStyle, extendedTableModel, false, true, true);
     }
 
@@ -170,7 +166,8 @@ public abstract class AbstractDataTableEditorView<B> {
     public void initGraphicComponents() {
 
         mainComposite = new Composite(parentComposite, mainCompositeStyle);
-        if (parentComposite.getBackground() != null && !parentComposite.getBackground().equals(mainComposite.getBackground())) {
+        if (parentComposite.getBackground() != null
+                && !parentComposite.getBackground().equals(mainComposite.getBackground())) {
             mainComposite.setBackground(parentComposite.getBackground());
         }
         GridLayout layout = new GridLayout();
@@ -179,7 +176,8 @@ public abstract class AbstractDataTableEditorView<B> {
         if (this.labelVisible) {
             titleLabel = new Label(mainComposite, SWT.NONE);
             titleLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-            if (parentComposite.getBackground() != null && !parentComposite.getBackground().equals(titleLabel.getBackground())) {
+            if (parentComposite.getBackground() != null
+                    && !parentComposite.getBackground().equals(titleLabel.getBackground())) {
                 titleLabel.setBackground(parentComposite.getBackground());
             }
             titleLabel.setVisible(this.labelVisible);
@@ -195,12 +193,10 @@ public abstract class AbstractDataTableEditorView<B> {
             this.extendedToolbar = initToolBar();
         }
 
-        setReadOnly(this.readOnly);
-
         addListeners();
-        
+
         setExtendedTableModel(this.extendedTableModel);
-        
+
     }
 
     /**
@@ -231,7 +227,8 @@ public abstract class AbstractDataTableEditorView<B> {
      * DOC amaumont Comment method "initTable".
      */
     protected void initTable() {
-        this.extendedTableViewer = new AbstractExtendedTableViewer<B>(this.extendedTableModel, mainComposite) {
+        this.extendedTableViewer = new AbstractExtendedTableViewer<B>(this.extendedTableModel, mainComposite,
+                this.readOnly) {
 
             @Override
             protected void createColumns(TableViewerCreator<B> tableViewerCreator, Table table) {
@@ -318,11 +315,12 @@ public abstract class AbstractDataTableEditorView<B> {
 
                 public void keyReleased(KeyEvent e) {
                     if (e.character == SWT.DEL
-                            && (toolbarVisible && getExtendedToolbar().getRemoveButton() != null && getExtendedToolbar().getRemoveButton()
-                                    .getEnabledState())) {
+                            && (toolbarVisible && getExtendedToolbar().getRemoveButton() != null && getExtendedToolbar()
+                                    .getRemoveButton().getEnabledState())) {
                         ExtendedTableModel model = extendedTableViewer.getExtendedTableModel();
                         if (model != null && model.isDataRegistered()) {
-                            ExtendedTableRemoveCommand command = new ExtendedTableRemoveCommand(model, table.getSelectionIndices());
+                            ExtendedTableRemoveCommand command = new ExtendedTableRemoveCommand(model, table
+                                    .getSelectionIndices());
                             extendedTableViewer.executeCommand(command);
                         }
                     }
@@ -351,19 +349,21 @@ public abstract class AbstractDataTableEditorView<B> {
     }
 
     public void setReadOnly(boolean readOnly) {
-        this.readOnly = readOnly;
-        if (extendedToolbar != null) {
-            extendedToolbar.setReadOnly(readOnly);
-        }
-
         if (extendedTableViewer != null) {
+            extendedTableViewer.setReadOnly(readOnly);
+        }
+    }
 
-            TableViewerCreator<B> tableViewerCreator = extendedTableViewer.getTableViewerCreator();
-
-            List<TableViewerCreatorColumn> columns = tableViewerCreator.getColumns();
-            for (TableViewerCreatorColumn column : columns) {
-                column.setModifiable(!readOnly);
-            }
+    /**
+     * Getter for readOnly.
+     * 
+     * @return the readOnly
+     */
+    public boolean isReadOnly() {
+        if (extendedTableViewer != null) {
+            return extendedTableViewer.isReadOnly();
+        } else {
+            return this.readOnly;
         }
     }
 
@@ -444,15 +444,6 @@ public abstract class AbstractDataTableEditorView<B> {
      */
     public ExtendedToolbarView getExtendedToolbar() {
         return this.extendedToolbar;
-    }
-
-    /**
-     * Getter for readOnly.
-     * 
-     * @return the readOnly
-     */
-    public boolean isReadOnly() {
-        return this.readOnly;
     }
 
     /**

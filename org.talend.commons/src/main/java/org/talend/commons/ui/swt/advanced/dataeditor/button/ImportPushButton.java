@@ -47,4 +47,12 @@ public abstract class ImportPushButton extends ExtendedPushButton {
         super(parent, extendedControlViewer, Messages.getString("ImportPushButton.ImportButton.Tip"), ImageProvider.getImage(EImage.IMPORT_ICON)); //$NON-NLS-1$
     }
 
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#getEnabledState()
+     */
+    @Override
+    public boolean getEnabledState() {
+        return super.getEnabledState() && !getExtendedControlViewer().isReadOnly();
+    }
+
 }

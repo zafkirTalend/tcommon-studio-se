@@ -40,6 +40,8 @@ public abstract class AbstractExtendedControlViewer {
 
     private CommandStack commandStack;
 
+    private boolean readOnly;
+
     /**
      * 
      * Event type. <br/>
@@ -49,6 +51,7 @@ public abstract class AbstractExtendedControlViewer {
      */
     public enum EVENT_TYPE implements IExtendedControlEventType {
         MODEL_CHANGED,
+        READ_ONLY_CHANGED,
     };
 
     /*
@@ -67,13 +70,28 @@ public abstract class AbstractExtendedControlViewer {
     /**
      * DOC amaumont AbstractExtendedControlViewer constructor comment.
      * 
-     * @param extendedControl
+     * @param extendedControl, can be null
      * @param parentComposite
      */
     public AbstractExtendedControlViewer(AbstractExtendedControlModel extendedControl, Composite parentComposite) {
         super();
         this.extendedControlModel = extendedControl;
         this.parentComposite = parentComposite;
+    }
+
+    /**
+     * DOC amaumont AbstractExtendedControlViewer constructor comment.
+     * 
+     * @param extendedControl, can be null
+     * @param parentComposite
+     * @param readOnly
+     */
+    public AbstractExtendedControlViewer(AbstractExtendedControlModel extendedControl, Composite parentComposite,
+            boolean readOnly) {
+        super();
+        this.extendedControlModel = extendedControl;
+        this.parentComposite = parentComposite;
+        this.readOnly = readOnly;
     }
 
     /**
@@ -116,7 +134,8 @@ public abstract class AbstractExtendedControlViewer {
     /**
      * DOC amaumont Comment method "modelChanged".
      */
-    protected abstract void modelChanged(AbstractExtendedControlModel previousModel, AbstractExtendedControlModel newModel);
+    protected abstract void modelChanged(AbstractExtendedControlModel previousModel,
+            AbstractExtendedControlModel newModel);
 
     /**
      * Getter for parentComposite.
@@ -164,6 +183,27 @@ public abstract class AbstractExtendedControlViewer {
             ((IExtendedControlListener) listenerArray[i]).handleEvent(event);
         }
 
+    }
+
+    /**
+     * Getter for readOnly.
+     * 
+     * @return the readOnly
+     */
+    public boolean isReadOnly() {
+        return this.readOnly;
+    }
+
+    /**
+     * Sets the readOnly.
+     * 
+     * @param readOnly the readOnly to set
+     */
+    public void setReadOnly(boolean readOnly) {
+        if (readOnly != this.readOnly) {
+            this.readOnly = readOnly;
+            fireEvent(new ExtendedControlEvent(EVENT_TYPE.READ_ONLY_CHANGED));
+        }
     }
 
 }

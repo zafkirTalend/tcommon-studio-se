@@ -66,8 +66,8 @@ public class MetadataEmfExportXmlCommand extends Command {
     @Override
     public void execute() {
         try {
-            file.createNewFile();
             if (file != null) {
+                file.createNewFile();
                 if (extendedTableModel != null) {
                     MetadataTable currentTable = extendedTableModel.getMetadataTable();
                     // get all the columns from the table

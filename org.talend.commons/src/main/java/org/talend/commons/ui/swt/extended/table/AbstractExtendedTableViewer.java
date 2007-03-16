@@ -35,6 +35,7 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.selection.ILineSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.selection.LineSelectionEvent;
@@ -63,18 +64,30 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
      * DOC amaumont AbstractMacroTableView constructor comment.
      */
     public AbstractExtendedTableViewer(ExtendedTableModel<B> extendedTableModel, Composite parent) {
-        super(extendedTableModel, parent);
+        this(extendedTableModel, parent, false);
+    }
+
+    /**
+     * DOC amaumont AbstractMacroTableView constructor comment.
+     */
+    public AbstractExtendedTableViewer(ExtendedTableModel<B> extendedTableModel, Composite parent, boolean readOnly) {
+        super(extendedTableModel, parent, readOnly);
         initTable();
         if (getExtendedControlModel() != null) {
             initModelListeners();
         }
     }
-
+    
     public AbstractExtendedTableViewer(Composite parent) {
-        super(null, parent);
+        super(null, parent, false);
         initTable();
     }
 
+    public AbstractExtendedTableViewer(Composite parent, boolean readOnly) {
+        super(null, parent, readOnly);
+        initTable();
+    }
+    
     /**
      * DOC amaumont Comment method "init".
      * 
@@ -111,7 +124,6 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
             extendedTableModel.setModifiedBeanListenable(this.tableViewerCreator);
         } else {
             this.tableViewerCreator.init(null);
-            // this.tableViewerCreator.
         }
     }
 
@@ -408,4 +420,19 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         getTableViewerCreator().getSelectionHelper().setActiveFireSelectionChanged(executeSelectionEvent);
     }
 
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer#setReadOnly(boolean)
+     */
+    @Override
+    public void setReadOnly(boolean readOnly) {
+        super.setReadOnly(readOnly);
+        List<TableViewerCreatorColumn> columns = getTableViewerCreator().getColumns();
+        for (TableViewerCreatorColumn column : columns) {
+            column.setModifiable(!readOnly);
+        }
+        getTableViewerCreator().refreshTableEditorControls();
+    }
+
+    
+    
 }

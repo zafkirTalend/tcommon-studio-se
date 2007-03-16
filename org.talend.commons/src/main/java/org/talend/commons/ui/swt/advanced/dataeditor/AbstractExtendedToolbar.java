@@ -73,8 +73,6 @@ public abstract class AbstractExtendedToolbar {
      */
     protected abstract void createComponents(Composite parent);
 
-    public abstract void setReadOnly(boolean b);
-
     /**
      * Getter for parentComposite.
      * 

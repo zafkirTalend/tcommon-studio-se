@@ -52,4 +52,14 @@ public abstract class AddPushButton extends ExtendedPushButton {
 
     protected abstract Object getObjectToAdd();
 
+    /* (non-Javadoc)
+     * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#getEnabledState()
+     */
+    @Override
+    public boolean getEnabledState() {
+        return super.getEnabledState() && !getExtendedControlViewer().isReadOnly();
+    }
+
+    
+    
 }
