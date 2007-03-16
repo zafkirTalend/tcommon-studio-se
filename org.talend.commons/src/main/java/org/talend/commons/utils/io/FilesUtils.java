@@ -103,16 +103,23 @@ public class FilesUtils {
         // 2. target exists but source has been modified recently
 
         if (!target.exists() || source.lastModified() > target.lastModified()) {
-            FileInputStream fis = new FileInputStream(source);
-            FileOutputStream fos = new FileOutputStream(target);
-            byte[] buf = new byte[1024];
-            int i = 0;
-            while ((i = fis.read(buf)) != -1) {
-                fos.write(buf, 0, i);
-            }
-            fis.close();
-            fos.close();
+            copyFile(new FileInputStream(source), target);
         }
+    }
+
+    public static void copyFile(InputStream source, File target) throws IOException {
+        if (!target.getParentFile().exists()) {
+            target.getParentFile().mkdirs();
+        }
+
+        FileOutputStream fos = new FileOutputStream(target);
+        byte[] buf = new byte[1024];
+        int i = 0;
+        while ((i = source.read(buf)) != -1) {
+            fos.write(buf, 0, i);
+        }
+        source.close();
+        fos.close();
     }
 
     public static void replaceInFile(String regex, String fileName, String replacement) throws IOException {

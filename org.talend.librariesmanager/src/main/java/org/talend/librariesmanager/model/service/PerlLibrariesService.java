@@ -64,7 +64,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
 
     @Override
     public URL getRoutineTemplate() {
-        return Activator.BUNDLE.getEntry("resources/perl/routines/Template.pm");
+        return Activator.BUNDLE.getEntry("resources/perl/" + SOURCE_PERL_ROUTINES_FOLDER + "/Template.pm");
     }
 
     /*
@@ -73,7 +73,8 @@ public class PerlLibrariesService extends AbstractLibrariesService {
      * @see org.talend.core.model.general.ILibrariesService#getSystemRoutines()
      */
     public List<URL> getSystemRoutines() {
-        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/routines/system/", ".pm");
+        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/" + SOURCE_PERL_ROUTINES_FOLDER + "/system/",
+                ".pm");
     }
 
     /*
@@ -166,8 +167,6 @@ public class PerlLibrariesService extends AbstractLibrariesService {
         }
 
     }
-
-    private static final String CHECK_PERL_MODULE_RELATIVE_PATHOLD = "resources/perl/check_modules.pl";
 
     private static final String CHECK_PERL_MODULE_RELATIVE_PATH = "/check_modules.pl";
 

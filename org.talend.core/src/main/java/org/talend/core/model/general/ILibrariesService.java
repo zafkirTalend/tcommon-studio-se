@@ -40,6 +40,8 @@ import org.talend.core.model.process.Problem;
  */
 public interface ILibrariesService extends IService {
 
+    public static final String SOURCE_PERL_ROUTINES_FOLDER = "routines";
+
     public List<URL> getSystemRoutines();
 
     public URL getTalendRoutinesFolder() throws IOException;

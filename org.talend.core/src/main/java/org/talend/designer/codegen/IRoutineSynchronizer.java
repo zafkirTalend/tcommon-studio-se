@@ -35,5 +35,5 @@ public interface IRoutineSynchronizer {
 
     public void syncAllRoutines() throws SystemException;
 
-    public IFile syncRoutine(RoutineItem routineItem) throws SystemException;
+    public IFile syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
 }

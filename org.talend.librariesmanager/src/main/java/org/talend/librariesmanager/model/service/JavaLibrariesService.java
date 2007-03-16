@@ -59,6 +59,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     private static Logger log = Logger.getLogger(JavaLibrariesService.class);
 
+    private static final String SOURCE_JAVA_ROUTINES_FOLDER = "routines";
+
     @Override
     public String getLibrariesPath() {
         return Platform.getInstallLocation().getURL().getFile() + "/lib/java";
@@ -66,7 +68,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public URL getRoutineTemplate() {
-        return Activator.BUNDLE.getEntry("resources/java/routines/Template.java");
+        return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER + "/Template.java");
     }
 
     /*
@@ -77,7 +79,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     public List<URL> getSystemRoutines() {
         List<URL> toReturn = new ArrayList<URL>();
 
-        Enumeration entryPaths = Activator.BUNDLE.getEntryPaths("resources/java/routines/system/");
+        Enumeration entryPaths = Activator.BUNDLE.getEntryPaths("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER + "/system/");
         for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
             String routine = (String) enumer.nextElement();
             if (routine.endsWith(".java")) {
