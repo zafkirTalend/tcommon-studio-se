@@ -443,6 +443,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setTitle(Messages.getString("MetadataTableEditorView.KeyTitle")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("MetadataTableEditorView.KeyTitle")); //$NON-NLS-1$
         column.setId(ID_COLUMN_KEY);
+        column.setModifiable(!isReadOnly());
         column.setBeanPropertyAccessors(getKeyAccesor());
         column.setWidth(35);
         column.setDisplayedValue(""); //$NON-NLS-1$
