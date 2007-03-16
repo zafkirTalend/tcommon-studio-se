@@ -65,7 +65,8 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     public void deployLibrary(URL source) throws IOException {
         // TODO SML Allow perl module to be deploy in a folder structure in "lib/perl/..."
-        FilesUtils.copyFile(new File(source.getFile()), new File(getLibrariesPath()));
+        File sourceFile = new File(source.getFile());
+        FilesUtils.copyFile(sourceFile, new File(getLibrariesPath() + File.separatorChar + sourceFile.getName()));
         fireLibrariesChanges();
     }
 
