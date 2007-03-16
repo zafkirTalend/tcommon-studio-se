@@ -29,6 +29,7 @@ import org.eclipse.ui.commands.ActionHandler;
 import org.eclipse.ui.handlers.IHandlerService;
 import org.eclipse.ui.part.ViewPart;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.action.ImportExternalJarAction;
 import org.talend.core.model.general.ILibrariesService.IChangedLibrariesListener;
 import org.talend.librariesmanager.ui.actions.CheckModulesAction;
 
@@ -106,6 +107,8 @@ public class ModulesView extends ViewPart {
 
     private void fillLocalToolBar(IToolBarManager manager) {
         manager.add(checkAction);
+        ImportExternalJarAction importAction = new ImportExternalJarAction();
+        manager.add(importAction);
     }
 
 }

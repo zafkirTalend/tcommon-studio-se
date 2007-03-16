@@ -91,7 +91,8 @@ public enum ECoreImage implements IImage {
     DOC_EXCEL_OVERLAY("/icons/docs/doc_excel_overlay.gif"), //$NON-NLS-1$
     DOC_WORD_OVERLAY("/icons/docs/doc_word_overlay.gif"), //$NON-NLS-1$
     RECYCLE_BIN_OVERLAY("/icons/recycle_bin_overlay.gif"), //$NON-NLS-1$
-    DELETED_OVERLAY("/icons/deleted_overlay.gif"); //$NON-NLS-1$
+    DELETED_OVERLAY("/icons/deleted_overlay.gif"), //$NON-NLS-1$
+    IMPORT_JAR("/icons/importjar.gif"); //$NON-NLS-1$
     
     private String path;
 
