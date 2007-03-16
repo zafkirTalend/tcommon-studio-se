@@ -43,9 +43,7 @@ import org.talend.core.model.process.Problem;
  */
 public class LibrariesService implements ILibrariesService {
 
-    private static ILibrariesService singleton = getLibrariesService();
-
-    private static ILibrariesService getLibrariesService() {
+    private ILibrariesService getLibrariesService() {
         switch (((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
                 .getLanguage()) {
         case JAVA:
@@ -58,43 +56,43 @@ public class LibrariesService implements ILibrariesService {
     }
 
     public void deployLibrary(URL source) throws IOException {
-        this.singleton.deployLibrary(source);
+        this.getLibrariesService().deployLibrary(source);
     }
 
     public String getLibrariesPath() {
-        return this.singleton.getLibrariesPath();
+        return this.getLibrariesService().getLibrariesPath();
     }
 
     public ELibraryInstallStatus getLibraryStatus(String libName) throws BusinessException {
-        return this.singleton.getLibraryStatus(libName);
+        return this.getLibrariesService().getLibraryStatus(libName);
     }
 
     public List<Problem> getProblems(INode node, Element element) {
-        return this.singleton.getProblems(node, element);
+        return this.getLibrariesService().getProblems(node, element);
     }
 
     public URL getRoutineTemplate() {
-        return this.singleton.getRoutineTemplate();
+        return this.getLibrariesService().getRoutineTemplate();
     }
 
     public List<URL> getSystemRoutines() {
-        return this.singleton.getSystemRoutines();
+        return this.getLibrariesService().getSystemRoutines();
     }
 
     public URL getTalendRoutinesFolder() throws IOException {
-        return this.singleton.getTalendRoutinesFolder();
+        return this.getLibrariesService().getTalendRoutinesFolder();
     }
 
     public void syncLibraries() {
-        this.singleton.syncLibraries();
+        this.getLibrariesService().syncLibraries();
     }
 
     public void checkLibraries() {
-        this.singleton.checkLibraries();
+        this.getLibrariesService().checkLibraries();
     }
 
     public void addChangeLibrariesListener(IChangedLibrariesListener listener) {
-        this.singleton.addChangeLibrariesListener(listener);
+        this.getLibrariesService().addChangeLibrariesListener(listener);
     }
 
 }
