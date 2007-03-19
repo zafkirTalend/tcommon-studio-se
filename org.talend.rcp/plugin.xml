@@ -88,4 +88,13 @@
          name="Default"
          parentId="org.eclipse.ui.contexts.window"/>
 </extension>
+<extension
+      point="org.talend.core.talendperspectives">
+   <TalendPerspective
+         refPerspectiveId="org.talend.rcp.perspective"
+         talendPerspectiveId="org.talend.rcp.DesignPerspective"/>
+   <TalendPerspective
+         refPerspectiveId="org.eclipse.debug.ui.DebugPerspective"
+         talendPerspectiveId="org.talend.rcp.DebugPerspective"/>
+</extension>
 </plugin>

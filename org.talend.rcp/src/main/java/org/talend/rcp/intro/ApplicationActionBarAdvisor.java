@@ -40,8 +40,8 @@ import org.eclipse.ui.internal.registry.ActionSetRegistry;
 import org.eclipse.ui.internal.registry.IActionSetDescriptor;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
 import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
+import org.talend.core.ui.perspective.PerspectiveMenuManager;
 import org.talend.rcp.i18n.Messages;
-import org.talend.rcp.perspective.PerspectiveMenuManager;
 
 /**
  * DOC ccarbone class global comment. Detailled comment <br/>
