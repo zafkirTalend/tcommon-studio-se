@@ -45,7 +45,7 @@ public class LibrariesService implements ILibrariesService {
 
     private static ILibrariesService javaService = new JavaLibrariesService();
 
-    private static ILibrariesService perlService = new JavaLibrariesService();
+    private static ILibrariesService perlService = new PerlLibrariesService();
 
     private ILibrariesService getLibrariesService() {
         switch (((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
