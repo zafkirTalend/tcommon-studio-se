@@ -43,13 +43,17 @@ import org.talend.core.model.process.Problem;
  */
 public class LibrariesService implements ILibrariesService {
 
+    private static ILibrariesService javaService = new JavaLibrariesService();
+
+    private static ILibrariesService perlService = new JavaLibrariesService();
+
     private ILibrariesService getLibrariesService() {
         switch (((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
                 .getLanguage()) {
         case JAVA:
-            return new JavaLibrariesService();
+            return javaService;
         case PERL:
-            return new PerlLibrariesService();
+            return perlService;
         default:
             throw new UnsupportedOperationException("Unknow language");
         }
@@ -93,6 +97,10 @@ public class LibrariesService implements ILibrariesService {
 
     public void addChangeLibrariesListener(IChangedLibrariesListener listener) {
         this.getLibrariesService().addChangeLibrariesListener(listener);
+    }
+
+    public void resetModulesNeeded() {
+        this.getLibrariesService().resetModulesNeeded();
     }
 
 }

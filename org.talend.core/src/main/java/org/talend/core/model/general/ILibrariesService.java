@@ -62,6 +62,8 @@ public interface ILibrariesService extends IService {
 
     public void addChangeLibrariesListener(IChangedLibrariesListener listener);
 
+    public void resetModulesNeeded();
+
     /**
      * Listener used to fire that libraries status has been changed (new lib or new check install).
      * 

@@ -63,7 +63,12 @@ public class ModulesNeededProvider {
             componentImportNeedsList.addAll(getModulesNeededForComponents());
             componentImportNeedsList.addAll(getModulesNeededForApplication());
         }
+
         return componentImportNeedsList;
+    }
+
+    public static void reset() {
+        componentImportNeedsList = null;
     }
 
     private static List<ModuleNeeded> getModulesNeededForComponents() {
