@@ -50,6 +50,10 @@ public class BrandingService {
         return BrandingMessages.getString("productshortname"); //$NON-NLS-1$
     }
 
+    public String getCorporationName() {
+        return BrandingMessages.getString("corporationname"); //$NON-NLS-1$
+    }
+
     public ImageDescriptor getLoginVImage() {
         return CorePlugin.imageDescriptorFromPlugin(CorePlugin.PLUGIN_ID, BrandingMessages.getString("loginimageleft")); //$NON-NLS-1$
     }
