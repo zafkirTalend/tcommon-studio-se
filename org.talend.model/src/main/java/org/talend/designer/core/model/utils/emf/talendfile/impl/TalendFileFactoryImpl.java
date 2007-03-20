@@ -87,6 +87,7 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
             case TalendFilePackage.LOG_TO_STD_OUT_TYPE: return createLogToStdOutType();
             case TalendFilePackage.METADATA_TYPE: return createMetadataType();
             case TalendFilePackage.NODE_TYPE: return createNodeType();
+            case TalendFilePackage.NOTE_TYPE: return createNoteType();
             case TalendFilePackage.PROCESS_TYPE: return createProcessType();
             case TalendFilePackage.REQUIRED_TYPE: return createRequiredType();
             default:
@@ -232,6 +233,16 @@ public class TalendFileFactoryImpl extends EFactoryImpl implements TalendFileFac
     public NodeType createNodeType() {
         NodeTypeImpl nodeType = new NodeTypeImpl();
         return nodeType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NoteType createNoteType() {
+        NoteTypeImpl noteType = new NoteTypeImpl();
+        return noteType;
     }
 
     /**

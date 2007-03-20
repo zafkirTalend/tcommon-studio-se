@@ -186,6 +186,12 @@ public class TalendFileSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case TalendFilePackage.NOTE_TYPE: {
+                NoteType noteType = (NoteType)theEObject;
+                Object result = caseNoteType(noteType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case TalendFilePackage.PROCESS_TYPE: {
                 ProcessType processType = (ProcessType)theEObject;
                 Object result = caseProcessType(processType);
@@ -409,6 +415,21 @@ public class TalendFileSwitch {
      * @generated
      */
     public Object caseNodeType(NodeType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Note Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Note Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseNoteType(NoteType object) {
         return null;
     }
 

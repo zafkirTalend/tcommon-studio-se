@@ -21,6 +21,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ConnectionType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.LogsType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.core.model.utils.emf.talendfile.NoteType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.RequiredType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
@@ -37,6 +38,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getNode <em>Node</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getConnection <em>Connection</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getNote <em>Note</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getLogs <em>Logs</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getComment <em>Comment</em>}</li>
@@ -111,6 +113,16 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * @ordered
      */
     protected EList connection = null;
+
+    /**
+     * The cached value of the '{@link #getNote() <em>Note</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getNote()
+     * @generated
+     * @ordered
+     */
+    protected EList note = null;
 
     /**
      * The cached value of the '{@link #getLogs() <em>Logs</em>}' containment reference.
@@ -405,6 +417,18 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList getNote() {
+        if (note == null) {
+            note = new EObjectContainmentEList(NoteType.class, this, TalendFilePackage.PROCESS_TYPE__NOTE);
+        }
+        return note;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public LogsType getLogs() {
         return logs;
     }
@@ -626,6 +650,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return ((InternalEList)getNode()).basicRemove(otherEnd, msgs);
             case TalendFilePackage.PROCESS_TYPE__CONNECTION:
                 return ((InternalEList)getConnection()).basicRemove(otherEnd, msgs);
+            case TalendFilePackage.PROCESS_TYPE__NOTE:
+                return ((InternalEList)getNote()).basicRemove(otherEnd, msgs);
             case TalendFilePackage.PROCESS_TYPE__LOGS:
                 return basicSetLogs(null, msgs);
         }
@@ -649,6 +675,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return getNode();
             case TalendFilePackage.PROCESS_TYPE__CONNECTION:
                 return getConnection();
+            case TalendFilePackage.PROCESS_TYPE__NOTE:
+                return getNote();
             case TalendFilePackage.PROCESS_TYPE__LOGS:
                 return getLogs();
             case TalendFilePackage.PROCESS_TYPE__AUTHOR:
@@ -695,6 +723,10 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__CONNECTION:
                 getConnection().clear();
                 getConnection().addAll((Collection)newValue);
+                return;
+            case TalendFilePackage.PROCESS_TYPE__NOTE:
+                getNote().clear();
+                getNote().addAll((Collection)newValue);
                 return;
             case TalendFilePackage.PROCESS_TYPE__LOGS:
                 setLogs((LogsType)newValue);
@@ -749,6 +781,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__CONNECTION:
                 getConnection().clear();
                 return;
+            case TalendFilePackage.PROCESS_TYPE__NOTE:
+                getNote().clear();
+                return;
             case TalendFilePackage.PROCESS_TYPE__LOGS:
                 setLogs((LogsType)null);
                 return;
@@ -797,6 +832,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return node != null && !node.isEmpty();
             case TalendFilePackage.PROCESS_TYPE__CONNECTION:
                 return connection != null && !connection.isEmpty();
+            case TalendFilePackage.PROCESS_TYPE__NOTE:
+                return note != null && !note.isEmpty();
             case TalendFilePackage.PROCESS_TYPE__LOGS:
                 return logs != null;
             case TalendFilePackage.PROCESS_TYPE__AUTHOR:

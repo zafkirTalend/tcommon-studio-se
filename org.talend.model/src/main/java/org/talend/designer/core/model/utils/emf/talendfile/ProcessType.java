@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getNode <em>Node</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getConnection <em>Connection</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getNote <em>Note</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getLogs <em>Logs</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getAuthor <em>Author</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getComment <em>Comment</em>}</li>
@@ -143,6 +144,23 @@ public interface ProcessType extends EObject {
      * @generated
      */
     EList getConnection();
+
+    /**
+     * Returns the value of the '<em><b>Note</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.talendfile.NoteType}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Note</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Note</em>' containment reference list.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Note()
+     * @model type="org.talend.designer.core.model.utils.emf.talendfile.NoteType" containment="true"
+     *        extendedMetaData="kind='element' name='Note' namespace='##targetNamespace'"
+     * @generated
+     */
+    EList getNote();
 
     /**
      * Returns the value of the '<em><b>Logs</b></em>' containment reference.

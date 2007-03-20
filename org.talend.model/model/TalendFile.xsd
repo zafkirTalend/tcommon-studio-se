@@ -9,6 +9,7 @@
 				<xs:element ref="Context" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="Node" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="Connection" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Note" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element name="Logs" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
@@ -145,6 +146,16 @@
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Note">
+		<xs:complexType>
+			<xs:attribute name="posX" type="xs:int"/>
+			<xs:attribute name="posY" type="xs:int"/>
+			<xs:attribute name="sizeWidth" type="xs:int"/>
+			<xs:attribute name="sizeHeight" type="xs:int"/>
+			<xs:attribute name="opaque" type="xs:boolean"/>
+			<xs:attribute name="text" type="xs:string"/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

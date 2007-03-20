@@ -152,6 +152,15 @@ public interface TalendFileFactory extends EFactory {
     NodeType createNodeType();
 
     /**
+     * Returns a new object of class '<em>Note Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Note Type</em>'.
+     * @generated
+     */
+    NoteType createNoteType();
+
+    /**
      * Returns a new object of class '<em>Process Type</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

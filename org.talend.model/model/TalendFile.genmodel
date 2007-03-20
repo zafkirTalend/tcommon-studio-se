@@ -50,6 +50,7 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference TalendFile.ecore#//DocumentRoot/context"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference TalendFile.ecore#//DocumentRoot/elementParameter"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference TalendFile.ecore#//DocumentRoot/node"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference TalendFile.ecore#//DocumentRoot/note"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference TalendFile.ecore#//DocumentRoot/process"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference TalendFile.ecore#//DocumentRoot/required"/>
     </genClasses>
@@ -105,12 +106,21 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NodeType/posX"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NodeType/posY"/>
     </genClasses>
+    <genClasses ecoreClass="TalendFile.ecore#//NoteType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NoteType/opaque"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NoteType/posX"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NoteType/posY"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NoteType/sizeHeight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NoteType/sizeWidth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NoteType/text"/>
+    </genClasses>
     <genClasses ecoreClass="TalendFile.ecore#//ProcessType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ProcessType/description"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ProcessType/required"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ProcessType/context"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ProcessType/node"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ProcessType/connection"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ProcessType/note"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//ProcessType/logs"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ProcessType/author"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//ProcessType/comment"/>

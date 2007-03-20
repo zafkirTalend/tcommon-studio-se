@@ -125,6 +125,9 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
             public Object caseNodeType(NodeType object) {
                 return createNodeTypeAdapter();
             }
+            public Object caseNoteType(NoteType object) {
+                return createNoteTypeAdapter();
+            }
             public Object caseProcessType(ProcessType object) {
                 return createProcessTypeAdapter();
             }
@@ -342,6 +345,20 @@ public class TalendFileAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createNodeTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType <em>Note Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NoteType
+     * @generated
+     */
+    public Adapter createNoteTypeAdapter() {
         return null;
     }
 

@@ -25,6 +25,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getElementParameter <em>Element Parameter</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getNode <em>Node</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getNote <em>Note</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getProcess <em>Process</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getRequired <em>Required</em>}</li>
  * </ul>
@@ -195,6 +196,33 @@ public interface DocumentRoot extends EObject {
      * @generated
      */
     void setNode(NodeType value);
+
+    /**
+     * Returns the value of the '<em><b>Note</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Note</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Note</em>' containment reference.
+     * @see #setNote(NoteType)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getDocumentRoot_Note()
+     * @model containment="true" upper="-2" transient="true" volatile="true" derived="true"
+     *        extendedMetaData="kind='element' name='Note' namespace='##targetNamespace'"
+     * @generated
+     */
+    NoteType getNote();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getNote <em>Note</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Note</em>' containment reference.
+     * @see #getNote()
+     * @generated
+     */
+    void setNote(NoteType value);
 
     /**
      * Returns the value of the '<em><b>Process</b></em>' containment reference.

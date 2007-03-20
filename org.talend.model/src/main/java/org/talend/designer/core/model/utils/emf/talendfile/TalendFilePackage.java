@@ -462,13 +462,22 @@ public interface TalendFilePackage extends EPackage {
     int DOCUMENT_ROOT__NODE = 6;
 
     /**
+     * The feature id for the '<em><b>Note</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENT_ROOT__NOTE = 7;
+
+    /**
      * The feature id for the '<em><b>Process</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__PROCESS = 7;
+    int DOCUMENT_ROOT__PROCESS = 8;
 
     /**
      * The feature id for the '<em><b>Required</b></em>' containment reference.
@@ -477,7 +486,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__REQUIRED = 8;
+    int DOCUMENT_ROOT__REQUIRED = 9;
 
     /**
      * The number of structural features of the '<em>Document Root</em>' class.
@@ -486,7 +495,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT_FEATURE_COUNT = 9;
+    int DOCUMENT_ROOT_FEATURE_COUNT = 10;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl <em>Element Parameter Type</em>}' class.
@@ -966,6 +975,79 @@ public interface TalendFilePackage extends EPackage {
     int NODE_TYPE_FEATURE_COUNT = 10;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl <em>Note Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getNoteType()
+     * @generated
+     */
+    int NOTE_TYPE = 14;
+
+    /**
+     * The feature id for the '<em><b>Opaque</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTE_TYPE__OPAQUE = 0;
+
+    /**
+     * The feature id for the '<em><b>Pos X</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTE_TYPE__POS_X = 1;
+
+    /**
+     * The feature id for the '<em><b>Pos Y</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTE_TYPE__POS_Y = 2;
+
+    /**
+     * The feature id for the '<em><b>Size Height</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTE_TYPE__SIZE_HEIGHT = 3;
+
+    /**
+     * The feature id for the '<em><b>Size Width</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTE_TYPE__SIZE_WIDTH = 4;
+
+    /**
+     * The feature id for the '<em><b>Text</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTE_TYPE__TEXT = 5;
+
+    /**
+     * The number of structural features of the '<em>Note Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NOTE_TYPE_FEATURE_COUNT = 6;
+
+    /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl <em>Process Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -973,7 +1055,7 @@ public interface TalendFilePackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getProcessType()
      * @generated
      */
-    int PROCESS_TYPE = 14;
+    int PROCESS_TYPE = 15;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -1021,13 +1103,22 @@ public interface TalendFilePackage extends EPackage {
     int PROCESS_TYPE__CONNECTION = 4;
 
     /**
+     * The feature id for the '<em><b>Note</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_TYPE__NOTE = 5;
+
+    /**
      * The feature id for the '<em><b>Logs</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__LOGS = 5;
+    int PROCESS_TYPE__LOGS = 6;
 
     /**
      * The feature id for the '<em><b>Author</b></em>' attribute.
@@ -1036,7 +1127,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__AUTHOR = 6;
+    int PROCESS_TYPE__AUTHOR = 7;
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
@@ -1045,7 +1136,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__COMMENT = 7;
+    int PROCESS_TYPE__COMMENT = 8;
 
     /**
      * The feature id for the '<em><b>Default Context</b></em>' attribute.
@@ -1054,7 +1145,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__DEFAULT_CONTEXT = 8;
+    int PROCESS_TYPE__DEFAULT_CONTEXT = 9;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1063,7 +1154,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__NAME = 9;
+    int PROCESS_TYPE__NAME = 10;
 
     /**
      * The feature id for the '<em><b>Purpose</b></em>' attribute.
@@ -1072,7 +1163,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__PURPOSE = 10;
+    int PROCESS_TYPE__PURPOSE = 11;
 
     /**
      * The feature id for the '<em><b>Repository Context Id</b></em>' attribute.
@@ -1081,7 +1172,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__REPOSITORY_CONTEXT_ID = 11;
+    int PROCESS_TYPE__REPOSITORY_CONTEXT_ID = 12;
 
     /**
      * The feature id for the '<em><b>Status</b></em>' attribute.
@@ -1090,7 +1181,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__STATUS = 12;
+    int PROCESS_TYPE__STATUS = 13;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1099,7 +1190,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__VERSION = 13;
+    int PROCESS_TYPE__VERSION = 14;
 
     /**
      * The number of structural features of the '<em>Process Type</em>' class.
@@ -1108,7 +1199,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE_FEATURE_COUNT = 14;
+    int PROCESS_TYPE_FEATURE_COUNT = 15;
 
 
     /**
@@ -1119,7 +1210,7 @@ public interface TalendFilePackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getRequiredType()
      * @generated
      */
-    int REQUIRED_TYPE = 15;
+    int REQUIRED_TYPE = 16;
 
     /**
      * The feature id for the '<em><b>Job</b></em>' containment reference list.
@@ -1574,6 +1665,17 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EReference getDocumentRoot_Node();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getNote <em>Note</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Note</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getNote()
+     * @see #getDocumentRoot()
+     * @generated
+     */
+    EReference getDocumentRoot_Note();
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getProcess <em>Process</em>}'.
@@ -2062,6 +2164,82 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getNodeType_PosY();
 
     /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType <em>Note Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Note Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NoteType
+     * @generated
+     */
+    EClass getNoteType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType#isOpaque <em>Opaque</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Opaque</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NoteType#isOpaque()
+     * @see #getNoteType()
+     * @generated
+     */
+    EAttribute getNoteType_Opaque();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType#getPosX <em>Pos X</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Pos X</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NoteType#getPosX()
+     * @see #getNoteType()
+     * @generated
+     */
+    EAttribute getNoteType_PosX();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType#getPosY <em>Pos Y</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Pos Y</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NoteType#getPosY()
+     * @see #getNoteType()
+     * @generated
+     */
+    EAttribute getNoteType_PosY();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType#getSizeHeight <em>Size Height</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Size Height</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NoteType#getSizeHeight()
+     * @see #getNoteType()
+     * @generated
+     */
+    EAttribute getNoteType_SizeHeight();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType#getSizeWidth <em>Size Width</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Size Width</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NoteType#getSizeWidth()
+     * @see #getNoteType()
+     * @generated
+     */
+    EAttribute getNoteType_SizeWidth();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType#getText <em>Text</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Text</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NoteType#getText()
+     * @see #getNoteType()
+     * @generated
+     */
+    EAttribute getNoteType_Text();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType <em>Process Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2125,6 +2303,17 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EReference getProcessType_Connection();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getNote <em>Note</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Note</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getNote()
+     * @see #getProcessType()
+     * @generated
+     */
+    EReference getProcessType_Note();
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getLogs <em>Logs</em>}'.
@@ -2599,6 +2788,14 @@ public interface TalendFilePackage extends EPackage {
         EReference DOCUMENT_ROOT__NODE = eINSTANCE.getDocumentRoot_Node();
 
         /**
+         * The meta object literal for the '<em><b>Note</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DOCUMENT_ROOT__NOTE = eINSTANCE.getDocumentRoot_Note();
+
+        /**
          * The meta object literal for the '<em><b>Process</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -2977,6 +3174,64 @@ public interface TalendFilePackage extends EPackage {
         EAttribute NODE_TYPE__POS_Y = eINSTANCE.getNodeType_PosY();
 
         /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl <em>Note Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getNoteType()
+         * @generated
+         */
+        EClass NOTE_TYPE = eINSTANCE.getNoteType();
+
+        /**
+         * The meta object literal for the '<em><b>Opaque</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NOTE_TYPE__OPAQUE = eINSTANCE.getNoteType_Opaque();
+
+        /**
+         * The meta object literal for the '<em><b>Pos X</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NOTE_TYPE__POS_X = eINSTANCE.getNoteType_PosX();
+
+        /**
+         * The meta object literal for the '<em><b>Pos Y</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NOTE_TYPE__POS_Y = eINSTANCE.getNoteType_PosY();
+
+        /**
+         * The meta object literal for the '<em><b>Size Height</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NOTE_TYPE__SIZE_HEIGHT = eINSTANCE.getNoteType_SizeHeight();
+
+        /**
+         * The meta object literal for the '<em><b>Size Width</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NOTE_TYPE__SIZE_WIDTH = eINSTANCE.getNoteType_SizeWidth();
+
+        /**
+         * The meta object literal for the '<em><b>Text</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NOTE_TYPE__TEXT = eINSTANCE.getNoteType_Text();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl <em>Process Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3025,6 +3280,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EReference PROCESS_TYPE__CONNECTION = eINSTANCE.getProcessType_Connection();
+
+        /**
+         * The meta object literal for the '<em><b>Note</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROCESS_TYPE__NOTE = eINSTANCE.getProcessType_Note();
 
         /**
          * The meta object literal for the '<em><b>Logs</b></em>' containment reference feature.
