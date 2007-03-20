@@ -169,7 +169,7 @@ public class RepositoryToComponentProperty {
             return  TalendTextUtils.addQuotes(connection.getRowSeparatorValue(), TalendTextUtils.QUOTATION_MARK);
         }
         if (value.equals("FIELD_SEPARATOR")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getFieldSeparatorValue(), TalendTextUtils.QUOTATION_MARK);
+            return TalendTextUtils.addQuotes(connection.getFieldSeparatorValue());
         }
         if (value.equals("HEADER")) { //$NON-NLS-1$
             if (connection.isUseHeader()) {
