@@ -54,9 +54,9 @@ public interface IExternalNode extends INode {
 
     public int open(Composite parent);
 
-    public void setExternalData(Object persistentData);
+    public void setExternalData(IExternalData persistentData);
 
-    public Object getExternalData();
+    public IExternalData getExternalData();
 
     /**
      * 
