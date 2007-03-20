@@ -10,7 +10,7 @@
 				<xs:element ref="PARAMETERS"/>
 				<xs:element ref="CODEGENERATION"/>
 				<xs:element ref="RETURNS"/>
-				<xs:element ref="PLUGINDEPENDENCIES"/>
+				<xs:element ref="PLUGINDEPENDENCIES" minOccurs="0" maxOccurs="1"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

@@ -206,7 +206,7 @@ public interface COMPONENTType extends EObject {
      * @return the value of the '<em>PLUGINDEPENDENCIES</em>' containment reference.
      * @see #setPLUGINDEPENDENCIES(PLUGINDEPENDENCIESType)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOMPONENTType_PLUGINDEPENDENCIES()
-     * @model containment="true" required="true"
+     * @model containment="true"
      *        extendedMetaData="kind='element' name='PLUGINDEPENDENCIES' namespace='##targetNamespace'"
      * @generated
      */

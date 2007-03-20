@@ -154,8 +154,8 @@
         <details key="namespace" value="##targetNamespace"/>
       </eAnnotations>
     </eStructuralFeatures>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="pLUGINDEPENDENCIES" lowerBound="1"
-        eType="#//PLUGINDEPENDENCIESType" containment="true" resolveProxies="false">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pLUGINDEPENDENCIES" eType="#//PLUGINDEPENDENCIESType"
+        containment="true" resolveProxies="false">
       <eAnnotations source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
         <details key="kind" value="element"/>
         <details key="name" value="PLUGINDEPENDENCIES"/>
