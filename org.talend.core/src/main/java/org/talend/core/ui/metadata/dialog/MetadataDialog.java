@@ -28,20 +28,26 @@ import java.util.Map;
 import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.ControlAdapter;
+import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.ui.command.CommandStackForComposite;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
+import org.talend.commons.ui.swt.advanced.composite.ThreeCompositesSashForm;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.core.i18n.Messages;
@@ -95,6 +101,8 @@ public class MetadataDialog extends Dialog {
 
     private String inputFamily;
 
+    private ThreeCompositesSashForm compositesSachForm;
+
     public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, String titleInput, String inputFamily,
             IMetadataTable outputMetaTable, String titleOutput, String outputFamily, CommandStack commandStack) {
         super(parent);
@@ -113,7 +121,8 @@ public class MetadataDialog extends Dialog {
         }
     }
 
-    public MetadataDialog(Shell parent, IMetadataTable outputMetaTable, String titleOutput, String outputFamily, CommandStack commandStack) {
+    public MetadataDialog(Shell parent, IMetadataTable outputMetaTable, String titleOutput, String outputFamily,
+            CommandStack commandStack) {
         this(parent, null, null, null, outputMetaTable, titleOutput, outputFamily, commandStack);
     }
 
@@ -150,24 +159,67 @@ public class MetadataDialog extends Dialog {
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
         } else {
-            GridLayout gridLayout = new GridLayout(3, false);
+
+            compositesSachForm = new ThreeCompositesSashForm(composite, SWT.NONE);
+
+            GridLayout gridLayout = new GridLayout(1, false);
+            gridLayout.marginBottom = 0;
+            gridLayout.marginHeight = 0;
+            gridLayout.marginLeft = 0;
+            gridLayout.marginRight = 0;
+            gridLayout.marginTop = 0;
+            gridLayout.marginWidth = 0;
+            gridLayout.horizontalSpacing = 0;
             composite.setLayout(gridLayout);
+            GridData gridData = new GridData(GridData.FILL_BOTH);
+            composite.setLayoutData(gridData);
+
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
-            inputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, inputReadOnly, true, true,
-                    false);
+            inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE, metadataTableEditor,
+                    inputReadOnly, true, true, false);
             inputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(inputFamily), true, false);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
 
             inputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
 
-            Composite buttonComposite = new Composite(composite, SWT.NONE);
-            buttonComposite.setLayout(new GridLayout(1, true));
+            Label label1 = new Label(compositesSachForm.getMidComposite(), SWT.NONE);
+            GridDataFactory.swtDefaults().hint(42, 18).applyTo(label1);
+            Composite buttonComposite = new Composite(compositesSachForm.getMidComposite(), SWT.BORDER);
+            Label label2 = new Label(compositesSachForm.getMidComposite(), SWT.NONE);
+            GridDataFactory.swtDefaults().hint(42, 36).applyTo(label2);
+
+            gridLayout = new GridLayout(1, true);
+            // gridLayout.marginBottom = 0;
+            // gridLayout.marginHeight = 0;
+            // gridLayout.marginLeft = 0;
+            // gridLayout.marginRight = 0;
+            // gridLayout.marginTop = 0;
+            // gridLayout.marginWidth = 0;
+            buttonComposite.setLayout(gridLayout);
+            gridData = new GridData(GridData.FILL_BOTH);
+            // gridData.verticalAlignment = GridData.CENTER;
+            buttonComposite.setLayoutData(gridData);
+
+            Composite buttonComposite2 = new Composite(buttonComposite, SWT.NONE);
+
+            gridLayout = new GridLayout(1, true);
+            gridLayout.marginBottom = 0;
+            gridLayout.marginHeight = 0;
+            gridLayout.marginLeft = 0;
+            gridLayout.marginRight = 0;
+            gridLayout.marginTop = 0;
+            gridLayout.marginWidth = 0;
+            buttonComposite2.setLayout(gridLayout);
+            gridData = new GridData(GridData.FILL_BOTH);
+            gridData.verticalAlignment = GridData.CENTER;
+            buttonComposite2.setLayoutData(gridData);
 
             // Input => Output
-            Button copyToOutput = new Button(buttonComposite, SWT.NONE);
+            Button copyToOutput = new Button(buttonComposite2, SWT.NONE);
             copyToOutput.setImage(ImageProvider.getImage(EImage.RIGHT_ICON));
             copyToOutput.setToolTipText(Messages.getString("MetadataDialog.CopyToOutput.ToolTopText")); //$NON-NLS-1$
+            GridDataFactory.swtDefaults().align(SWT.CENTER, SWT.CENTER).applyTo(copyToOutput);
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
@@ -187,9 +239,12 @@ public class MetadataDialog extends Dialog {
             });
 
             // Output => Input
-            Button copyToInput = new Button(buttonComposite, SWT.NONE);
+            Button copyToInput = new Button(buttonComposite2, SWT.NONE);
             copyToInput.setImage(ImageProvider.getImage(EImage.LEFT_ICON));
             copyToInput.setToolTipText(Messages.getString("MetadataDialog.CopyToInput")); //$NON-NLS-1$
+            gridData = new GridData();
+            gridData.verticalAlignment = GridData.CENTER;
+            copyToInput.setLayoutData(gridData);
             copyToInput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
@@ -212,8 +267,8 @@ public class MetadataDialog extends Dialog {
                 copyToInput.setEnabled(false);
             }
 
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, new MetadataTableEditor(outputMetaTable, titleOutput
-                    + " (Output)"), outputReadOnly, true, true, //$NON-NLS-1$
+            outputMetaView = new MetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
+                    new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)"), outputReadOnly, true, true, //$NON-NLS-1$
                     false);
             outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), false, true);
             outputMetaView.initGraphicComponents();
@@ -222,6 +277,7 @@ public class MetadataDialog extends Dialog {
             if (outputReadOnly) {
                 copyToOutput.setEnabled(false);
             }
+            compositesSachForm.setGridDatas();
         }
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
 
@@ -239,7 +295,6 @@ public class MetadataDialog extends Dialog {
             }
 
         });
-
         return composite;
     }
 
@@ -288,6 +343,14 @@ public class MetadataDialog extends Dialog {
      */
     public boolean isOutputReadOnly() {
         return this.outputReadOnly;
+    }
+
+    public ThreeCompositesSashForm getCompositesSachForm() {
+        return this.compositesSachForm;
+    }
+
+    public MetadataTableEditorView getInputMetaView() {
+        return this.inputMetaView;
     }
 
 }
