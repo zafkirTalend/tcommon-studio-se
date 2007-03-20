@@ -39,6 +39,8 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
+import org.talend.commons.ui.swt.proposal.ContentProposalAdapterExtended;
+import org.talend.commons.ui.swt.proposal.TextCellEditorWithProposal;
 import org.talend.commons.ui.swt.tableviewer.CellEditorValueAdapterFactory;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
@@ -47,6 +49,7 @@ import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnColorProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
+import org.talend.commons.ui.swt.tableviewer.behavior.IColumnLabelProvider;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DialogErrorForCellEditorListener;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
@@ -55,6 +58,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
 import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
 
 /**
@@ -370,9 +374,28 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
                 }
 
             });
+            column.setLabelProvider(new IColumnLabelProvider() {
 
-            TextCellEditor patternCellEditor = new TextCellEditor(tableViewerCreator.getTable());
+                /* (non-Javadoc)
+                 * @see org.talend.commons.ui.swt.tableviewer.behavior.IColumnLabelProvider#getLabel(java.lang.Object)
+                 */
+                public String getLabel(Object bean) {
+                    if (!currentBeanHasJavaDateType(bean)) {
+                        return "";
+                    }
+                    return null;
+                }
+                
+            });
+            
+            JavaSimpleDateFormatProposalProvider proposalProvider = new JavaSimpleDateFormatProposalProvider();
+            TextCellEditorWithProposal patternCellEditor = new TextCellEditorWithProposal(tableViewerCreator.getTable(), column);
+            ContentProposalAdapterExtended contentProposalAdapter = patternCellEditor.getContentProposalAdapter();
+            contentProposalAdapter.setFilterStyle(ContentProposalAdapterExtended.FILTER_NONE);
+            contentProposalAdapter.setProposalAcceptanceStyle(ContentProposalAdapterExtended.PROPOSAL_INSERT);
+            patternCellEditor.setContentProposalProvider(proposalProvider);
             column.setCellEditor(patternCellEditor, CellEditorValueAdapterFactory.getNullToEmptyStringTextAdapater());
+            
         }
     }
 
@@ -698,8 +721,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
          */
         @Override
         public boolean canModify(Object element, String property) {
-            String talendType = getTalendTypeAccessor().get((B) element);
-            boolean typeIsDate = JavaTypesManager.DATE.getId().equals(talendType);
+            boolean typeIsDate = currentBeanHasJavaDateType(element);
             boolean columnIsPattern = AbstractMetadataTableEditorView.ID_COLUMN_PATTERN.equals(property);
             return super.canModify(element, property) && (columnIsPattern && typeIsDate || !columnIsPattern);
         }
@@ -744,6 +766,17 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      */
     public void setShowPatternColumn(boolean showPatternColumn) {
         this.showPatternColumn = showPatternColumn;
+    }
+
+    /**
+     * DOC amaumont Comment method "currentBeanHasJavaDateType".
+     * @param element
+     * @return
+     */
+    private boolean currentBeanHasJavaDateType(Object element) {
+        String talendType = getTalendTypeAccessor().get((B) element);
+        boolean typeIsDate = JavaTypesManager.DATE.getId().equals(talendType);
+        return typeIsDate;
     }
 
 }

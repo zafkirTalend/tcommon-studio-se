@@ -49,7 +49,8 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
     }
 
     public Image getColumnImage(Object element, int columnIndex) {
-        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns().get(columnIndex);
+        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns().get(
+                columnIndex);
         if (column.getImageProvider() != null) {
             return column.getImageProvider().getImage(element);
         }
@@ -58,27 +59,36 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
 
     public String getColumnText(Object element, int columnIndex) {
         String returnValue = null;
-        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns().get(columnIndex);
-        if (column.getDisplayedValue() != null || column.getDefaultDisplayedValue() != null || column.getBeanPropertyAccessors() == null) {
-            String defaultValue = column.getDefaultDisplayedValue();
-            String imposedDisplayedValue = column.getDisplayedValue();
-            if (imposedDisplayedValue != null) {
-                returnValue = imposedDisplayedValue;
-            } else if (defaultValue == null) {
-                returnValue = "";
+        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns().get(
+                columnIndex);
+
+        if (column.getLabelProvider() != null) {
+            returnValue = column.getLabelProvider().getLabel(element);
+        }
+
+        if (returnValue == null) {
+            if (column.getDisplayedValue() != null || column.getDefaultDisplayedValue() != null
+                    || column.getBeanPropertyAccessors() == null) {
+                String defaultValue = column.getDefaultDisplayedValue();
+                String imposedDisplayedValue = column.getDisplayedValue();
+                if (imposedDisplayedValue != null) {
+                    returnValue = imposedDisplayedValue;
+                } else if (defaultValue == null) {
+                    returnValue = "";
+                } else {
+                    returnValue = defaultValue;
+                }
             } else {
-                returnValue = defaultValue;
-            }
-        } else {
-            Object value = AccessorUtils.get(element, column);
-            CellEditor cellEditor = column.getCellEditor();
-            CellEditorValueAdapter retrieverValue = column.getRetrieverValue();
-            if (cellEditor != null && retrieverValue != null && value != null) {
-                returnValue = retrieverValue.getColumnText(cellEditor, element, value);
-            } else if (value != null) {
-                returnValue = String.valueOf(value);
-            } else {
-                returnValue = "";
+                Object value = AccessorUtils.get(element, column);
+                CellEditor cellEditor = column.getCellEditor();
+                CellEditorValueAdapter retrieverValue = column.getRetrieverValue();
+                if (cellEditor != null && retrieverValue != null && value != null) {
+                    returnValue = retrieverValue.getColumnText(cellEditor, element, value);
+                } else if (value != null) {
+                    returnValue = String.valueOf(value);
+                } else {
+                    returnValue = "";
+                }
             }
         }
         return returnValue;
@@ -103,7 +113,8 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
      * @see org.eclipse.jface.viewers.ITableColorProvider#getBackground(java.lang.Object, int)
      */
     public Color getBackground(Object element, int columnIndex) {
-        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns().get(columnIndex);
+        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns().get(
+                columnIndex);
         if (column.getColorProvider() != null) {
             return column.getColorProvider().getBackgroundColor(element);
         }
@@ -116,7 +127,8 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
      * @see org.eclipse.jface.viewers.ITableColorProvider#getForeground(java.lang.Object, int)
      */
     public Color getForeground(Object element, int columnIndex) {
-        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns().get(columnIndex);
+        TableViewerCreatorColumn column = (TableViewerCreatorColumn) this.tableViewerCreator.getColumns().get(
+                columnIndex);
         if (column.getColorProvider() != null) {
             return column.getColorProvider().getForegroundColor(element);
         }

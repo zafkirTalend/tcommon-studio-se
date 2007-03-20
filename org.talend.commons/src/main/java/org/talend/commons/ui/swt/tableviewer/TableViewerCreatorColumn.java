@@ -31,6 +31,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnColorProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
+import org.talend.commons.ui.swt.tableviewer.behavior.IColumnLabelProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.ITableCellValueModifiedListener;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
@@ -55,6 +56,8 @@ public class TableViewerCreatorColumn implements Cloneable {
     private IBeanPropertyAccessors beanPropertyAccessors;
 
     private IColumnImageProvider imageProvider;
+    
+    private IColumnLabelProvider labelProvider;
 
     private int index = -1;
 
@@ -457,17 +460,37 @@ public class TableViewerCreatorColumn implements Cloneable {
      * <code>IColumnImageProvider</code> allow to set an Image provider for the current column.
      * 
      * <p>
-     * <b>Warning</b>: this Image provider won't work if you set your custom LabelProvider to
+     * <b>Warning</b>: this Image provider won't work if you set a custom LabelProvider to
      * <code>TableViewerCreator</code>. So you can inherit <code>DefaultTableLabelProvider</code> and call super
      * methods into.
      * 
      * @param columnImageProvider
-     * @see ITableLabelProvider#getColumnImage(Object, int) is used
+     * @see IColumnImageProvider#getImage(Object, int) is used
      */
     public void setImageProvider(IColumnImageProvider columnImageProvider) {
         this.imageProvider = columnImageProvider;
     }
 
+    public IColumnLabelProvider getLabelProvider() {
+        return this.labelProvider;
+    }
+    
+    /**
+     * 
+     * <code>IColumnImageProvider</code> allow to set an Image provider for the current column.
+     * 
+     * <p>
+     * <b>Warning</b>: this Image provider won't work if you set a custom LabelProvider to
+     * <code>TableViewerCreator</code>. So you can inherit <code>DefaultTableLabelProvider</code> and call super
+     * methods into.
+     * 
+     * @param columnImageProvider
+     * @see IColumnLabelProvider#getLabel(Object, int) is used
+     */
+    public void setLabelProvider(IColumnLabelProvider columnLabelProvider) {
+        this.labelProvider = columnLabelProvider;
+    }
+    
     /**
      * "getIndex" method.
      * 
