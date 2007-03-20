@@ -97,4 +97,6 @@ public interface IComponent {
     public String getPathSource();
 
     public List<ECodePart> getAvailableCodeParts();
+    
+    public List<String> getPluginDependencies();
 }
