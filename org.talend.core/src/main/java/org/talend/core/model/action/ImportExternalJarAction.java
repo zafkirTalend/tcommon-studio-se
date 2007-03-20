@@ -77,7 +77,6 @@ public class ImportExternalJarAction extends Action {
                     try {
                         CorePlugin.getDefault().getLibrariesService().deployLibrary(file.toURL());
                     } catch (Exception e) {
-                        e.printStackTrace();
                         ExceptionHandler.process(e);
                     }
                 }

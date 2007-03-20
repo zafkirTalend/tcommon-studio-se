@@ -54,11 +54,10 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 public class ModulesNeededProvider {
 
-    private static List<ModuleNeeded> componentImportNeedsList;
+    private static List<ModuleNeeded> componentImportNeedsList = new ArrayList<ModuleNeeded>();;
 
     public static List<ModuleNeeded> getModulesNeeded() {
-        if (componentImportNeedsList == null) {
-            componentImportNeedsList = new ArrayList<ModuleNeeded>();
+        if (componentImportNeedsList.isEmpty()) {
             componentImportNeedsList.addAll(getModulesNeededForRoutines());
             componentImportNeedsList.addAll(getModulesNeededForComponents());
             componentImportNeedsList.addAll(getModulesNeededForApplication());
@@ -68,7 +67,7 @@ public class ModulesNeededProvider {
     }
 
     public static void reset() {
-        componentImportNeedsList = null;
+        componentImportNeedsList.clear();
     }
 
     private static List<ModuleNeeded> getModulesNeededForComponents() {
@@ -93,8 +92,8 @@ public class ModulesNeededProvider {
                 for (Object o : imports) {
                     IMPORTType currentImport = (IMPORTType) o;
                     // FIXME SML i18n
-                    ModuleNeeded toAdd = new ModuleNeeded("Routine " + routine.getName(), currentImport.getMODULE(), "",
-                            currentImport.isREQUIRED());
+                    ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport.getMODULE(),
+                            currentImport.getMESSAGE(), currentImport.isREQUIRED());
                     importNeedsList.add(toAdd);
                 }
             }

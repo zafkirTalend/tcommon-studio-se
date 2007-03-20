@@ -84,6 +84,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
 
     public void resetModulesNeeded() {
         ModulesNeededProvider.reset();
+        checkLibraries();
     }
 
     public void checkLibraries() {

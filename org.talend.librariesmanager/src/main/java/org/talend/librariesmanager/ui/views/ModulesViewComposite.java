@@ -48,13 +48,13 @@ import org.talend.librariesmanager.model.ModulesNeededProvider;
  * 
  * yzhang class global comment. Detailled comment <br/>
  * 
- * $Id: PerlModulesViewComposite.java PerlModulesViewComposite 2007-1-26 ä¸‹å?ˆ02:53:04 +0000 (ä¸‹å?ˆ02:53:04, 2007-1-26
+ * $Id: PerlModulesViewComposite.java PerlModulesViewComposite 2007-1-26 ä¸‹å?„1¤7:53:04 +0000 (ä¸‹å?„1¤7:53:04, 2007-1-26
  * 2007) yzhang $
  * 
  */
 public class ModulesViewComposite extends Composite {
 
-    protected static final String ID_STATUS = "status";
+    protected static final String ID_STATUS = "status"; //$NON-NLS-1$
 
     private static TableViewerCreator tableViewerCreator;
 
@@ -102,13 +102,13 @@ public class ModulesViewComposite extends Composite {
                 String str = null;
                 switch (bean.getStatus()) {
                 case INSTALLED:
-                    str = "Installed";
+                    str = Messages.getString("ModulesViewComposite.hint.installed"); //$NON-NLS-1$
                     break;
                 case NOT_INSTALLED:
-                    str = "Not installed";
+                    str = Messages.getString("ModulesViewComposite.hint.notInstalled"); //$NON-NLS-1$
                     break;
                 default:
-                    str = "Unknown";
+                    str = Messages.getString("ModulesViewComposite.hint.unknown"); //$NON-NLS-1$
                 }
                 return str;
             }
@@ -173,7 +173,7 @@ public class ModulesViewComposite extends Composite {
         column.setTitle(Messages.getString("PerlModulesViewComposite.Required.Title")); //$NON-NLS-1$
         column.setImageProvider(new RequiredImageProvider());
         column.setSortable(true);
-        column.setDisplayedValue("");
+        column.setDisplayedValue(""); //$NON-NLS-1$
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<ModuleNeeded, String>() {
 
             public String get(ModuleNeeded bean) {
@@ -192,13 +192,13 @@ public class ModulesViewComposite extends Composite {
         FocusListener fl = new FocusListener() {
 
             public void focusGained(FocusEvent e) {
-                log.trace("Modules gain focus");
+                log.trace("Modules gain focus"); //$NON-NLS-1$
                 IContextService contextService = (IContextService) PlatformUI.getWorkbench().getAdapter(IContextService.class);
-                ca = contextService.activateContext("talend.modules");
+                ca = contextService.activateContext("talend.modules"); //$NON-NLS-1$
             }
 
             public void focusLost(FocusEvent e) {
-                log.trace("Modules lost focus");
+                log.trace("Modules lost focus"); //$NON-NLS-1$
                 if (ca != null) {
                     IContextService contextService = (IContextService) PlatformUI.getWorkbench()
                             .getAdapter(IContextService.class);
