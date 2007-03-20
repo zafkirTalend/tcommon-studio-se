@@ -204,6 +204,12 @@ public class ComponentSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ComponentPackage.PLUGINDEPENDENCIES_TYPE: {
+                PLUGINDEPENDENCIESType plugindependenciesType = (PLUGINDEPENDENCIESType)theEObject;
+                Object result = casePLUGINDEPENDENCIESType(plugindependenciesType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case ComponentPackage.PLUGINDEPENDENCY_TYPE: {
                 PLUGINDEPENDENCYType plugindependencyType = (PLUGINDEPENDENCYType)theEObject;
                 Object result = casePLUGINDEPENDENCYType(plugindependencyType);
@@ -487,6 +493,21 @@ public class ComponentSwitch {
      * @generated
      */
     public Object casePARAMETERType(PARAMETERType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>PLUGINDEPENDENCIES Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>PLUGINDEPENDENCIES Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object casePLUGINDEPENDENCIESType(PLUGINDEPENDENCIESType object) {
         return null;
     }
 

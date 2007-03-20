@@ -27,6 +27,7 @@ import org.talend.designer.core.model.utils.emf.component.DocumentRoot;
 import org.talend.designer.core.model.utils.emf.component.HEADERType;
 import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
+import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType;
 import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
 
@@ -47,7 +48,7 @@ import org.talend.designer.core.model.utils.emf.component.RETURNSType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getHEADER <em>HEADER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getPARAMETERS <em>PARAMETERS</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getPLUGINDEPENDENCY <em>PLUGINDEPENDENCY</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getRETURNS <em>RETURNS</em>}</li>
  * </ul>
  * </p>
@@ -333,8 +334,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    public PLUGINDEPENDENCYType getPLUGINDEPENDENCY() {
-        return (PLUGINDEPENDENCYType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__PLUGINDEPENDENCY, true);
+    public PLUGINDEPENDENCIESType getPLUGINDEPENDENCIES() {
+        return (PLUGINDEPENDENCIESType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__PLUGINDEPENDENCIES, true);
     }
 
     /**
@@ -342,8 +343,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    public NotificationChain basicSetPLUGINDEPENDENCY(PLUGINDEPENDENCYType newPLUGINDEPENDENCY, NotificationChain msgs) {
-        return ((FeatureMap.Internal)getMixed()).basicAdd(ComponentPackage.Literals.DOCUMENT_ROOT__PLUGINDEPENDENCY, newPLUGINDEPENDENCY, msgs);
+    public NotificationChain basicSetPLUGINDEPENDENCIES(PLUGINDEPENDENCIESType newPLUGINDEPENDENCIES, NotificationChain msgs) {
+        return ((FeatureMap.Internal)getMixed()).basicAdd(ComponentPackage.Literals.DOCUMENT_ROOT__PLUGINDEPENDENCIES, newPLUGINDEPENDENCIES, msgs);
     }
 
     /**
@@ -351,8 +352,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setPLUGINDEPENDENCY(PLUGINDEPENDENCYType newPLUGINDEPENDENCY) {
-        ((FeatureMap.Internal)getMixed()).set(ComponentPackage.Literals.DOCUMENT_ROOT__PLUGINDEPENDENCY, newPLUGINDEPENDENCY);
+    public void setPLUGINDEPENDENCIES(PLUGINDEPENDENCIESType newPLUGINDEPENDENCIES) {
+        ((FeatureMap.Internal)getMixed()).set(ComponentPackage.Literals.DOCUMENT_ROOT__PLUGINDEPENDENCIES, newPLUGINDEPENDENCIES);
     }
 
     /**
@@ -409,8 +410,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return basicSetITEMS(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 return basicSetPARAMETERS(null, msgs);
-            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCY:
-                return basicSetPLUGINDEPENDENCY(null, msgs);
+            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCIES:
+                return basicSetPLUGINDEPENDENCIES(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 return basicSetRETURNS(null, msgs);
         }
@@ -447,8 +448,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getITEMS();
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 return getPARAMETERS();
-            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCY:
-                return getPLUGINDEPENDENCY();
+            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCIES:
+                return getPLUGINDEPENDENCIES();
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 return getRETURNS();
         }
@@ -492,8 +493,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 setPARAMETERS((PARAMETERSType)newValue);
                 return;
-            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCY:
-                setPLUGINDEPENDENCY((PLUGINDEPENDENCYType)newValue);
+            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCIES:
+                setPLUGINDEPENDENCIES((PLUGINDEPENDENCIESType)newValue);
                 return;
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 setRETURNS((RETURNSType)newValue);
@@ -539,8 +540,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 setPARAMETERS((PARAMETERSType)null);
                 return;
-            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCY:
-                setPLUGINDEPENDENCY((PLUGINDEPENDENCYType)null);
+            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCIES:
+                setPLUGINDEPENDENCIES((PLUGINDEPENDENCIESType)null);
                 return;
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 setRETURNS((RETURNSType)null);
@@ -576,8 +577,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getITEMS() != null;
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 return getPARAMETERS() != null;
-            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCY:
-                return getPLUGINDEPENDENCY() != null;
+            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCIES:
+                return getPLUGINDEPENDENCIES() != null;
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 return getRETURNS() != null;
         }

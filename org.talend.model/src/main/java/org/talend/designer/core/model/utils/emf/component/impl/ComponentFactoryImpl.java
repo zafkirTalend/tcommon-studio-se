@@ -95,6 +95,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
             case ComponentPackage.LINKTO_TYPE: return createLINKTOType();
             case ComponentPackage.PARAMETERS_TYPE: return createPARAMETERSType();
             case ComponentPackage.PARAMETER_TYPE: return createPARAMETERType();
+            case ComponentPackage.PLUGINDEPENDENCIES_TYPE: return createPLUGINDEPENDENCIESType();
             case ComponentPackage.PLUGINDEPENDENCY_TYPE: return createPLUGINDEPENDENCYType();
             case ComponentPackage.RETURNS_TYPE: return createRETURNSType();
             case ComponentPackage.RETURN_TYPE: return createRETURNType();
@@ -265,6 +266,16 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
     public PARAMETERType createPARAMETERType() {
         PARAMETERTypeImpl parameterType = new PARAMETERTypeImpl();
         return parameterType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public PLUGINDEPENDENCIESType createPLUGINDEPENDENCIESType() {
+        PLUGINDEPENDENCIESTypeImpl plugindependenciesType = new PLUGINDEPENDENCIESTypeImpl();
+        return plugindependenciesType;
     }
 
     /**

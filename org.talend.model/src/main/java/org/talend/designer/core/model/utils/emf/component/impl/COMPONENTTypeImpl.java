@@ -26,6 +26,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.DOCUMENTATIONType;
 import org.talend.designer.core.model.utils.emf.component.HEADERType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
+import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType;
 import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
 
@@ -42,7 +43,7 @@ import org.talend.designer.core.model.utils.emf.component.RETURNSType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getPARAMETERS <em>PARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getCODEGENERATION <em>CODEGENERATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getRETURNS <em>RETURNS</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getPLUGINDEPENDENCY <em>PLUGINDEPENDENCY</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}</li>
  * </ul>
  * </p>
  *
@@ -110,14 +111,14 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
     protected RETURNSType rETURNS = null;
 
     /**
-     * The cached value of the '{@link #getPLUGINDEPENDENCY() <em>PLUGINDEPENDENCY</em>}' containment reference list.
+     * The cached value of the '{@link #getPLUGINDEPENDENCIES() <em>PLUGINDEPENDENCIES</em>}' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getPLUGINDEPENDENCY()
+     * @see #getPLUGINDEPENDENCIES()
      * @generated
      * @ordered
      */
-    protected EList pLUGINDEPENDENCY = null;
+    protected PLUGINDEPENDENCIESType pLUGINDEPENDENCIES = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -400,11 +401,42 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getPLUGINDEPENDENCY() {
-        if (pLUGINDEPENDENCY == null) {
-            pLUGINDEPENDENCY = new EObjectContainmentEList(PLUGINDEPENDENCYType.class, this, ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCY);
+    public PLUGINDEPENDENCIESType getPLUGINDEPENDENCIES() {
+        return pLUGINDEPENDENCIES;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetPLUGINDEPENDENCIES(PLUGINDEPENDENCIESType newPLUGINDEPENDENCIES, NotificationChain msgs) {
+        PLUGINDEPENDENCIESType oldPLUGINDEPENDENCIES = pLUGINDEPENDENCIES;
+        pLUGINDEPENDENCIES = newPLUGINDEPENDENCIES;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES, oldPLUGINDEPENDENCIES, newPLUGINDEPENDENCIES);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
         }
-        return pLUGINDEPENDENCY;
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPLUGINDEPENDENCIES(PLUGINDEPENDENCIESType newPLUGINDEPENDENCIES) {
+        if (newPLUGINDEPENDENCIES != pLUGINDEPENDENCIES) {
+            NotificationChain msgs = null;
+            if (pLUGINDEPENDENCIES != null)
+                msgs = ((InternalEObject)pLUGINDEPENDENCIES).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES, null, msgs);
+            if (newPLUGINDEPENDENCIES != null)
+                msgs = ((InternalEObject)newPLUGINDEPENDENCIES).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES, null, msgs);
+            msgs = basicSetPLUGINDEPENDENCIES(newPLUGINDEPENDENCIES, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES, newPLUGINDEPENDENCIES, newPLUGINDEPENDENCIES));
     }
 
     /**
@@ -426,8 +458,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return basicSetCODEGENERATION(null, msgs);
             case ComponentPackage.COMPONENT_TYPE__RETURNS:
                 return basicSetRETURNS(null, msgs);
-            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCY:
-                return ((InternalEList)getPLUGINDEPENDENCY()).basicRemove(otherEnd, msgs);
+            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES:
+                return basicSetPLUGINDEPENDENCIES(null, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -451,8 +483,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return getCODEGENERATION();
             case ComponentPackage.COMPONENT_TYPE__RETURNS:
                 return getRETURNS();
-            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCY:
-                return getPLUGINDEPENDENCY();
+            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES:
+                return getPLUGINDEPENDENCIES();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -482,9 +514,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
             case ComponentPackage.COMPONENT_TYPE__RETURNS:
                 setRETURNS((RETURNSType)newValue);
                 return;
-            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCY:
-                getPLUGINDEPENDENCY().clear();
-                getPLUGINDEPENDENCY().addAll((Collection)newValue);
+            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES:
+                setPLUGINDEPENDENCIES((PLUGINDEPENDENCIESType)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -515,8 +546,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
             case ComponentPackage.COMPONENT_TYPE__RETURNS:
                 setRETURNS((RETURNSType)null);
                 return;
-            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCY:
-                getPLUGINDEPENDENCY().clear();
+            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES:
+                setPLUGINDEPENDENCIES((PLUGINDEPENDENCIESType)null);
                 return;
         }
         super.eUnset(featureID);
@@ -541,8 +572,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return cODEGENERATION != null;
             case ComponentPackage.COMPONENT_TYPE__RETURNS:
                 return rETURNS != null;
-            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCY:
-                return pLUGINDEPENDENCY != null && !pLUGINDEPENDENCY.isEmpty();
+            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCIES:
+                return pLUGINDEPENDENCIES != null;
         }
         return super.eIsSet(featureID);
     }

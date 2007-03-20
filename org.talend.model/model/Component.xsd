@@ -10,7 +10,7 @@
 				<xs:element ref="PARAMETERS"/>
 				<xs:element ref="CODEGENERATION"/>
 				<xs:element ref="RETURNS"/>
-				<xs:element ref="PLUGINDEPENDENCY" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="PLUGINDEPENDENCIES"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -224,9 +224,15 @@ On CLOSED_LIST mode:
 			<xs:attribute name="BASED_ON_SCHEMA" type="xs:boolean" use="optional" default="false"/>
 		</xs:complexType>
 	</xs:element>
-	<xs:element name="PLUGINDEPENDENCY">
+	<xs:element name="PLUGINDEPENDENCIES">
 		<xs:complexType>
-			<xs:attribute name="ID" type="xs:string" use="required"/>
+			<xs:sequence>
+				<xs:element name="PLUGINDEPENDENCY" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute name="ID" type="xs:string" use="required"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

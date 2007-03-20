@@ -24,7 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPARAMETERS <em>PARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getCODEGENERATION <em>CODEGENERATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getRETURNS <em>RETURNS</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPLUGINDEPENDENCY <em>PLUGINDEPENDENCY</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}</li>
  * </ul>
  * </p>
  *
@@ -196,20 +196,30 @@ public interface COMPONENTType extends EObject {
     void setRETURNS(RETURNSType value);
 
     /**
-     * Returns the value of the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType}.
+     * Returns the value of the '<em><b>PLUGINDEPENDENCIES</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>PLUGINDEPENDENCY</em>' containment reference list isn't clear,
+     * If the meaning of the '<em>PLUGINDEPENDENCIES</em>' containment reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>PLUGINDEPENDENCY</em>' containment reference list.
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOMPONENTType_PLUGINDEPENDENCY()
-     * @model type="org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType" containment="true"
-     *        extendedMetaData="kind='element' name='PLUGINDEPENDENCY' namespace='##targetNamespace'"
+     * @return the value of the '<em>PLUGINDEPENDENCIES</em>' containment reference.
+     * @see #setPLUGINDEPENDENCIES(PLUGINDEPENDENCIESType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOMPONENTType_PLUGINDEPENDENCIES()
+     * @model containment="true" required="true"
+     *        extendedMetaData="kind='element' name='PLUGINDEPENDENCIES' namespace='##targetNamespace'"
      * @generated
      */
-    EList getPLUGINDEPENDENCY();
+    PLUGINDEPENDENCIESType getPLUGINDEPENDENCIES();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>PLUGINDEPENDENCIES</em>' containment reference.
+     * @see #getPLUGINDEPENDENCIES()
+     * @generated
+     */
+    void setPLUGINDEPENDENCIES(PLUGINDEPENDENCIESType value);
 
 } // COMPONENTType

@@ -27,7 +27,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/pARAMETERS"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/cODEGENERATION"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/rETURNS"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/pLUGINDEPENDENCY"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/pLUGINDEPENDENCIES"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//CONNECTORSType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//CONNECTORSType/cONNECTOR"/>
@@ -59,7 +59,7 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/hEADER"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/iTEMS"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/pARAMETERS"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/pLUGINDEPENDENCY"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/pLUGINDEPENDENCIES"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/rETURNS"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//HEADERType">
@@ -123,6 +123,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/rEQUIRED"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/sHOW"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/sHOWIF"/>
+    </genClasses>
+    <genClasses ecoreClass="Component.ecore#//PLUGINDEPENDENCIESType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//PLUGINDEPENDENCIESType/pLUGINDEPENDENCY"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//PLUGINDEPENDENCYType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PLUGINDEPENDENCYType/iD"/>

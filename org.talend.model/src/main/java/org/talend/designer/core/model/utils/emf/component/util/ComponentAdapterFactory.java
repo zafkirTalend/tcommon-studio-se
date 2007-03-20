@@ -137,6 +137,9 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
             public Object casePARAMETERType(PARAMETERType object) {
                 return createPARAMETERTypeAdapter();
             }
+            public Object casePLUGINDEPENDENCIESType(PLUGINDEPENDENCIESType object) {
+                return createPLUGINDEPENDENCIESTypeAdapter();
+            }
             public Object casePLUGINDEPENDENCYType(PLUGINDEPENDENCYType object) {
                 return createPLUGINDEPENDENCYTypeAdapter();
             }
@@ -397,6 +400,20 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createPARAMETERTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType <em>PLUGINDEPENDENCIES Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType
+     * @generated
+     */
+    public Adapter createPLUGINDEPENDENCIESTypeAdapter() {
         return null;
     }
 

@@ -253,13 +253,13 @@ public interface ComponentPackage extends EPackage {
     int COMPONENT_TYPE__RETURNS = 5;
 
     /**
-     * The feature id for the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference list.
+     * The feature id for the '<em><b>PLUGINDEPENDENCIES</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE__PLUGINDEPENDENCY = 6;
+    int COMPONENT_TYPE__PLUGINDEPENDENCIES = 6;
 
     /**
      * The number of structural features of the '<em>COMPONENT Type</em>' class.
@@ -546,13 +546,13 @@ public interface ComponentPackage extends EPackage {
     int DOCUMENT_ROOT__PARAMETERS = 9;
 
     /**
-     * The feature id for the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference.
+     * The feature id for the '<em><b>PLUGINDEPENDENCIES</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__PLUGINDEPENDENCY = 10;
+    int DOCUMENT_ROOT__PLUGINDEPENDENCIES = 10;
 
     /**
      * The feature id for the '<em><b>RETURNS</b></em>' containment reference.
@@ -1139,6 +1139,34 @@ public interface ComponentPackage extends EPackage {
     int PARAMETER_TYPE_FEATURE_COUNT = 13;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPLUGINDEPENDENCIESType()
+     * @generated
+     */
+    int PLUGINDEPENDENCIES_TYPE = 16;
+
+    /**
+     * The feature id for the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY = 0;
+
+    /**
+     * The number of structural features of the '<em>PLUGINDEPENDENCIES Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PLUGINDEPENDENCIES_TYPE_FEATURE_COUNT = 1;
+
+    /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCYTypeImpl <em>PLUGINDEPENDENCY Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1146,7 +1174,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPLUGINDEPENDENCYType()
      * @generated
      */
-    int PLUGINDEPENDENCY_TYPE = 16;
+    int PLUGINDEPENDENCY_TYPE = 17;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1174,7 +1202,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getRETURNSType()
      * @generated
      */
-    int RETURNS_TYPE = 17;
+    int RETURNS_TYPE = 18;
 
     /**
      * The feature id for the '<em><b>RETURN</b></em>' containment reference list.
@@ -1202,7 +1230,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getRETURNType()
      * @generated
      */
-    int RETURN_TYPE = 18;
+    int RETURN_TYPE = 19;
 
     /**
      * The feature id for the '<em><b>AVAILABILITY</b></em>' attribute.
@@ -1248,7 +1276,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTABLEType()
      * @generated
      */
-    int TABLE_TYPE = 19;
+    int TABLE_TYPE = 20;
 
     /**
      * The feature id for the '<em><b>COLUMN</b></em>' containment reference list.
@@ -1276,7 +1304,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEPARAMType()
      * @generated
      */
-    int TEMPLATEPARAM_TYPE = 20;
+    int TEMPLATEPARAM_TYPE = 21;
 
     /**
      * The feature id for the '<em><b>SOURCE</b></em>' attribute.
@@ -1322,7 +1350,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATESType()
      * @generated
      */
-    int TEMPLATES_TYPE = 21;
+    int TEMPLATES_TYPE = 22;
 
     /**
      * The feature id for the '<em><b>TEMPLATE</b></em>' containment reference list.
@@ -1377,7 +1405,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEType()
      * @generated
      */
-    int TEMPLATE_TYPE = 22;
+    int TEMPLATE_TYPE = 23;
 
     /**
      * The feature id for the '<em><b>LINKTO</b></em>' containment reference list.
@@ -1623,15 +1651,15 @@ public interface ComponentPackage extends EPackage {
     EReference getCOMPONENTType_RETURNS();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPLUGINDEPENDENCY <em>PLUGINDEPENDENCY</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>PLUGINDEPENDENCY</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPLUGINDEPENDENCY()
+     * @return the meta object for the containment reference '<em>PLUGINDEPENDENCIES</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPLUGINDEPENDENCIES()
      * @see #getCOMPONENTType()
      * @generated
      */
-    EReference getCOMPONENTType_PLUGINDEPENDENCY();
+    EReference getCOMPONENTType_PLUGINDEPENDENCIES();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORSType <em>CONNECTORS Type</em>}'.
@@ -1915,15 +1943,15 @@ public interface ComponentPackage extends EPackage {
     EReference getDocumentRoot_PARAMETERS();
 
     /**
-     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPLUGINDEPENDENCY <em>PLUGINDEPENDENCY</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>PLUGINDEPENDENCY</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPLUGINDEPENDENCY()
+     * @return the meta object for the containment reference '<em>PLUGINDEPENDENCIES</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPLUGINDEPENDENCIES()
      * @see #getDocumentRoot()
      * @generated
      */
-    EReference getDocumentRoot_PLUGINDEPENDENCY();
+    EReference getDocumentRoot_PLUGINDEPENDENCIES();
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getRETURNS <em>RETURNS</em>}'.
@@ -2523,6 +2551,27 @@ public interface ComponentPackage extends EPackage {
     EAttribute getPARAMETERType_SHOWIF();
 
     /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType <em>PLUGINDEPENDENCIES Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>PLUGINDEPENDENCIES Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType
+     * @generated
+     */
+    EClass getPLUGINDEPENDENCIESType();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType#getPLUGINDEPENDENCY <em>PLUGINDEPENDENCY</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>PLUGINDEPENDENCY</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType#getPLUGINDEPENDENCY()
+     * @see #getPLUGINDEPENDENCIESType()
+     * @generated
+     */
+    EReference getPLUGINDEPENDENCIESType_PLUGINDEPENDENCY();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType <em>PLUGINDEPENDENCY Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2949,12 +2998,12 @@ public interface ComponentPackage extends EPackage {
         EReference COMPONENT_TYPE__RETURNS = eINSTANCE.getCOMPONENTType_RETURNS();
 
         /**
-         * The meta object literal for the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference list feature.
+         * The meta object literal for the '<em><b>PLUGINDEPENDENCIES</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference COMPONENT_TYPE__PLUGINDEPENDENCY = eINSTANCE.getCOMPONENTType_PLUGINDEPENDENCY();
+        EReference COMPONENT_TYPE__PLUGINDEPENDENCIES = eINSTANCE.getCOMPONENTType_PLUGINDEPENDENCIES();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORSTypeImpl <em>CONNECTORS Type</em>}' class.
@@ -3175,12 +3224,12 @@ public interface ComponentPackage extends EPackage {
         EReference DOCUMENT_ROOT__PARAMETERS = eINSTANCE.getDocumentRoot_PARAMETERS();
 
         /**
-         * The meta object literal for the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference feature.
+         * The meta object literal for the '<em><b>PLUGINDEPENDENCIES</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference DOCUMENT_ROOT__PLUGINDEPENDENCY = eINSTANCE.getDocumentRoot_PLUGINDEPENDENCY();
+        EReference DOCUMENT_ROOT__PLUGINDEPENDENCIES = eINSTANCE.getDocumentRoot_PLUGINDEPENDENCIES();
 
         /**
          * The meta object literal for the '<em><b>RETURNS</b></em>' containment reference feature.
@@ -3637,6 +3686,24 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute PARAMETER_TYPE__SHOWIF = eINSTANCE.getPARAMETERType_SHOWIF();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPLUGINDEPENDENCIESType()
+         * @generated
+         */
+        EClass PLUGINDEPENDENCIES_TYPE = eINSTANCE.getPLUGINDEPENDENCIESType();
+
+        /**
+         * The meta object literal for the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PLUGINDEPENDENCIES_TYPE__PLUGINDEPENDENCY = eINSTANCE.getPLUGINDEPENDENCIESType_PLUGINDEPENDENCY();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCYTypeImpl <em>PLUGINDEPENDENCY Type</em>}' class.
