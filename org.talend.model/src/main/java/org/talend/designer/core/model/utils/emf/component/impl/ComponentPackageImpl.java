@@ -30,6 +30,7 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
 import org.talend.designer.core.model.utils.emf.component.LINKTOType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
+import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
 import org.talend.designer.core.model.utils.emf.component.RETURNType;
 import org.talend.designer.core.model.utils.emf.component.TABLEType;
@@ -155,6 +156,13 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
     private EClass parameterTypeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass plugindependencyTypeEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -445,6 +453,15 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getCOMPONENTType_PLUGINDEPENDENCY() {
+        return (EReference)componentTypeEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getCONNECTORSType() {
         return connectorsTypeEClass;
     }
@@ -679,8 +696,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_RETURNS() {
+    public EReference getDocumentRoot_PLUGINDEPENDENCY() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getDocumentRoot_RETURNS() {
+        return (EReference)documentRootEClass.getEStructuralFeatures().get(11);
     }
 
     /**
@@ -1174,6 +1200,24 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getPLUGINDEPENDENCYType() {
+        return plugindependencyTypeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPLUGINDEPENDENCYType_ID() {
+        return (EAttribute)plugindependencyTypeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getRETURNSType() {
         return returnsTypeEClass;
     }
@@ -1407,6 +1451,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEReference(componentTypeEClass, COMPONENT_TYPE__PARAMETERS);
         createEReference(componentTypeEClass, COMPONENT_TYPE__CODEGENERATION);
         createEReference(componentTypeEClass, COMPONENT_TYPE__RETURNS);
+        createEReference(componentTypeEClass, COMPONENT_TYPE__PLUGINDEPENDENCY);
 
         connectorsTypeEClass = createEClass(CONNECTORS_TYPE);
         createEReference(connectorsTypeEClass, CONNECTORS_TYPE__CONNECTOR);
@@ -1438,6 +1483,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEReference(documentRootEClass, DOCUMENT_ROOT__HEADER);
         createEReference(documentRootEClass, DOCUMENT_ROOT__ITEMS);
         createEReference(documentRootEClass, DOCUMENT_ROOT__PARAMETERS);
+        createEReference(documentRootEClass, DOCUMENT_ROOT__PLUGINDEPENDENCY);
         createEReference(documentRootEClass, DOCUMENT_ROOT__RETURNS);
 
         headerTypeEClass = createEClass(HEADER_TYPE);
@@ -1501,6 +1547,9 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__REQUIRED);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__SHOW);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__SHOWIF);
+
+        plugindependencyTypeEClass = createEClass(PLUGINDEPENDENCY_TYPE);
+        createEAttribute(plugindependencyTypeEClass, PLUGINDEPENDENCY_TYPE__ID);
 
         returnsTypeEClass = createEClass(RETURNS_TYPE);
         createEReference(returnsTypeEClass, RETURNS_TYPE__RETURN);
@@ -1580,6 +1629,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getCOMPONENTType_PARAMETERS(), this.getPARAMETERSType(), null, "pARAMETERS", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_CODEGENERATION(), this.getCODEGENERATIONType(), null, "cODEGENERATION", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_RETURNS(), this.getRETURNSType(), null, "rETURNS", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCOMPONENTType_PLUGINDEPENDENCY(), this.getPLUGINDEPENDENCYType(), null, "pLUGINDEPENDENCY", null, 0, -1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectorsTypeEClass, CONNECTORSType.class, "CONNECTORSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getCONNECTORSType_CONNECTOR(), this.getCONNECTORType(), null, "cONNECTOR", null, 1, -1, CONNECTORSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1611,6 +1661,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getDocumentRoot_HEADER(), this.getHEADERType(), null, "hEADER", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_ITEMS(), this.getITEMSType(), null, "iTEMS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_PARAMETERS(), this.getPARAMETERSType(), null, "pARAMETERS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEReference(getDocumentRoot_PLUGINDEPENDENCY(), this.getPLUGINDEPENDENCYType(), null, "pLUGINDEPENDENCY", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_RETURNS(), this.getRETURNSType(), null, "rETURNS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
         initEClass(headerTypeEClass, HEADERType.class, "HEADERType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1674,6 +1725,9 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getPARAMETERType_REQUIRED(), theXMLTypePackage.getBoolean(), "rEQUIRED", "false", 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_SHOW(), theXMLTypePackage.getBoolean(), "sHOW", "true", 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_SHOWIF(), theXMLTypePackage.getString(), "sHOWIF", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(plugindependencyTypeEClass, PLUGINDEPENDENCYType.class, "PLUGINDEPENDENCYType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getPLUGINDEPENDENCYType_ID(), theXMLTypePackage.getString(), "iD", null, 1, 1, PLUGINDEPENDENCYType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(returnsTypeEClass, RETURNSType.class, "RETURNSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getRETURNSType_RETURN(), this.getRETURNType(), null, "rETURN", null, 0, -1, RETURNSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1874,6 +1928,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (getCOMPONENTType_PLUGINDEPENDENCY(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "PLUGINDEPENDENCY",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (connectorsTypeEClass, 
            source, 
            new String[] {
@@ -2070,6 +2132,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "element",
              "name", "PARAMETERS",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getDocumentRoot_PLUGINDEPENDENCY(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "PLUGINDEPENDENCY",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
@@ -2502,6 +2572,21 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "SHOW_IF",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (plugindependencyTypeEClass, 
+           source, 
+           new String[] {
+             "name", "PLUGINDEPENDENCY_._type",
+             "kind", "empty"
+           });		
+        addAnnotation
+          (getPLUGINDEPENDENCYType_ID(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "ID",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

@@ -28,6 +28,7 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getHEADER <em>HEADER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPARAMETERS <em>PARAMETERS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPLUGINDEPENDENCY <em>PLUGINDEPENDENCY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getRETURNS <em>RETURNS</em>}</li>
  * </ul>
  * </p>
@@ -278,6 +279,33 @@ public interface DocumentRoot extends EObject {
      * @generated
      */
     void setPARAMETERS(PARAMETERSType value);
+
+    /**
+     * Returns the value of the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>PLUGINDEPENDENCY</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>PLUGINDEPENDENCY</em>' containment reference.
+     * @see #setPLUGINDEPENDENCY(PLUGINDEPENDENCYType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getDocumentRoot_PLUGINDEPENDENCY()
+     * @model containment="true" upper="-2" transient="true" volatile="true" derived="true"
+     *        extendedMetaData="kind='element' name='PLUGINDEPENDENCY' namespace='##targetNamespace'"
+     * @generated
+     */
+    PLUGINDEPENDENCYType getPLUGINDEPENDENCY();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPLUGINDEPENDENCY <em>PLUGINDEPENDENCY</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>PLUGINDEPENDENCY</em>' containment reference.
+     * @see #getPLUGINDEPENDENCY()
+     * @generated
+     */
+    void setPLUGINDEPENDENCY(PLUGINDEPENDENCYType value);
 
     /**
      * Returns the value of the '<em><b>RETURNS</b></em>' containment reference.

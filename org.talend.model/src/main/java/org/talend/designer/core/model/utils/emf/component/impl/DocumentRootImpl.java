@@ -27,6 +27,7 @@ import org.talend.designer.core.model.utils.emf.component.DocumentRoot;
 import org.talend.designer.core.model.utils.emf.component.HEADERType;
 import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
+import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
 
 /**
@@ -46,6 +47,7 @@ import org.talend.designer.core.model.utils.emf.component.RETURNSType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getHEADER <em>HEADER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getPARAMETERS <em>PARAMETERS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getPLUGINDEPENDENCY <em>PLUGINDEPENDENCY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getRETURNS <em>RETURNS</em>}</li>
  * </ul>
  * </p>
@@ -331,6 +333,33 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
+    public PLUGINDEPENDENCYType getPLUGINDEPENDENCY() {
+        return (PLUGINDEPENDENCYType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__PLUGINDEPENDENCY, true);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetPLUGINDEPENDENCY(PLUGINDEPENDENCYType newPLUGINDEPENDENCY, NotificationChain msgs) {
+        return ((FeatureMap.Internal)getMixed()).basicAdd(ComponentPackage.Literals.DOCUMENT_ROOT__PLUGINDEPENDENCY, newPLUGINDEPENDENCY, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPLUGINDEPENDENCY(PLUGINDEPENDENCYType newPLUGINDEPENDENCY) {
+        ((FeatureMap.Internal)getMixed()).set(ComponentPackage.Literals.DOCUMENT_ROOT__PLUGINDEPENDENCY, newPLUGINDEPENDENCY);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public RETURNSType getRETURNS() {
         return (RETURNSType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__RETURNS, true);
     }
@@ -380,6 +409,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return basicSetITEMS(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 return basicSetPARAMETERS(null, msgs);
+            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCY:
+                return basicSetPLUGINDEPENDENCY(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 return basicSetRETURNS(null, msgs);
         }
@@ -416,6 +447,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getITEMS();
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 return getPARAMETERS();
+            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCY:
+                return getPLUGINDEPENDENCY();
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 return getRETURNS();
         }
@@ -458,6 +491,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return;
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 setPARAMETERS((PARAMETERSType)newValue);
+                return;
+            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCY:
+                setPLUGINDEPENDENCY((PLUGINDEPENDENCYType)newValue);
                 return;
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 setRETURNS((RETURNSType)newValue);
@@ -503,6 +539,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 setPARAMETERS((PARAMETERSType)null);
                 return;
+            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCY:
+                setPLUGINDEPENDENCY((PLUGINDEPENDENCYType)null);
+                return;
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 setRETURNS((RETURNSType)null);
                 return;
@@ -537,6 +576,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getITEMS() != null;
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 return getPARAMETERS() != null;
+            case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCY:
+                return getPLUGINDEPENDENCY() != null;
             case ComponentPackage.DOCUMENT_ROOT__RETURNS:
                 return getRETURNS() != null;
         }

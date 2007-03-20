@@ -170,6 +170,15 @@ public interface ComponentFactory extends EFactory {
     PARAMETERType createPARAMETERType();
 
     /**
+     * Returns a new object of class '<em>PLUGINDEPENDENCY Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>PLUGINDEPENDENCY Type</em>'.
+     * @generated
+     */
+    PLUGINDEPENDENCYType createPLUGINDEPENDENCYType();
+
+    /**
      * Returns a new object of class '<em>RETURNS Type</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

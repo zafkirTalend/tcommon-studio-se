@@ -6,12 +6,19 @@
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType;
 import org.talend.designer.core.model.utils.emf.component.COMPONENTType;
 import org.talend.designer.core.model.utils.emf.component.CONNECTORSType;
@@ -19,6 +26,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.DOCUMENTATIONType;
 import org.talend.designer.core.model.utils.emf.component.HEADERType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
+import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
 
 /**
@@ -34,6 +42,7 @@ import org.talend.designer.core.model.utils.emf.component.RETURNSType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getPARAMETERS <em>PARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getCODEGENERATION <em>CODEGENERATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getRETURNS <em>RETURNS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getPLUGINDEPENDENCY <em>PLUGINDEPENDENCY</em>}</li>
  * </ul>
  * </p>
  *
@@ -99,6 +108,16 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * @ordered
      */
     protected RETURNSType rETURNS = null;
+
+    /**
+     * The cached value of the '{@link #getPLUGINDEPENDENCY() <em>PLUGINDEPENDENCY</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPLUGINDEPENDENCY()
+     * @generated
+     * @ordered
+     */
+    protected EList pLUGINDEPENDENCY = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -381,6 +400,18 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList getPLUGINDEPENDENCY() {
+        if (pLUGINDEPENDENCY == null) {
+            pLUGINDEPENDENCY = new EObjectContainmentEList(PLUGINDEPENDENCYType.class, this, ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCY);
+        }
+        return pLUGINDEPENDENCY;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.COMPONENT_TYPE__HEADER:
@@ -395,6 +426,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return basicSetCODEGENERATION(null, msgs);
             case ComponentPackage.COMPONENT_TYPE__RETURNS:
                 return basicSetRETURNS(null, msgs);
+            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCY:
+                return ((InternalEList)getPLUGINDEPENDENCY()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -418,6 +451,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return getCODEGENERATION();
             case ComponentPackage.COMPONENT_TYPE__RETURNS:
                 return getRETURNS();
+            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCY:
+                return getPLUGINDEPENDENCY();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -446,6 +481,10 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return;
             case ComponentPackage.COMPONENT_TYPE__RETURNS:
                 setRETURNS((RETURNSType)newValue);
+                return;
+            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCY:
+                getPLUGINDEPENDENCY().clear();
+                getPLUGINDEPENDENCY().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -476,6 +515,9 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
             case ComponentPackage.COMPONENT_TYPE__RETURNS:
                 setRETURNS((RETURNSType)null);
                 return;
+            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCY:
+                getPLUGINDEPENDENCY().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -499,6 +541,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return cODEGENERATION != null;
             case ComponentPackage.COMPONENT_TYPE__RETURNS:
                 return rETURNS != null;
+            case ComponentPackage.COMPONENT_TYPE__PLUGINDEPENDENCY:
+                return pLUGINDEPENDENCY != null && !pLUGINDEPENDENCY.isEmpty();
         }
         return super.eIsSet(featureID);
     }
