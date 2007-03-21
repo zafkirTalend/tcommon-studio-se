@@ -63,4 +63,3 @@ package routines;
 public class TalendString {
     
 }
-}
