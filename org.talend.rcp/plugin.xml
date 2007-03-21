@@ -51,7 +51,7 @@
       point="org.eclipse.core.runtime.products">
    <product
          application="org.talend.rcp.application"
-         name="Talend">
+         name="Talend Open Studio">
       <property
             name="startupForegroundColor"
             value="ffffff"/>
