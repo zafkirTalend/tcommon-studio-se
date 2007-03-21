@@ -214,11 +214,11 @@ public interface IProxyRepositoryFactory {
      * @see org.talend.repository.model.IRepositoryFactory#deleteObject(org.talend.core.model.general.Project,
      * org.talend.core.model.repository.IRepositoryObject)
      */
-    public abstract void deleteObjectLogical(IRepositoryObject objToDelete) throws PersistenceException;
+    public abstract void deleteObjectLogical(IRepositoryObject objToDelete) throws PersistenceException, BusinessException;
 
     public abstract void deleteObjectPhysical(IRepositoryObject objToDelete) throws PersistenceException;
 
-    public abstract void restoreObject(IRepositoryObject objToRestore, IPath path) throws PersistenceException;
+    public abstract void restoreObject(IRepositoryObject objToRestore, IPath path) throws PersistenceException, BusinessException;
 
     /*
      * (non-Javadoc)
@@ -386,4 +386,5 @@ public interface IProxyRepositoryFactory {
     @Deprecated
     public boolean isDeleted(MetadataTable table);
 
+    public boolean isUserReadOnlyOnCurrentProject();
 }
