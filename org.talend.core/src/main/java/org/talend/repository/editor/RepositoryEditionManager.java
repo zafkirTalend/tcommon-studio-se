@@ -102,10 +102,11 @@ public class RepositoryEditionManager {
         return iFolder.getFullPath();
     }
 
-    public void openEditor(IWorkbenchPage page, IFile file, Item item) {
+    public void openEditor(IWorkbenchPage page, IFile file, Item item, boolean forceReadOnly) {
         try {
             IEditorDescriptor editorDesc = IDE.getEditorDescriptor(file);
             RepositoryEditorInput repositoryEditorInput = new RepositoryEditorInput(file, item);
+            repositoryEditorInput.setReadOnly(forceReadOnly);
             IEditorPart editorPart = IDE.openEditor(page, repositoryEditorInput, editorDesc.getId());
             editors.put(editorPart, repositoryEditorInput);
         } catch (PartInitException e) {
