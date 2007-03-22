@@ -95,6 +95,41 @@ public interface IProcessor {
      * @throws ProcessorException
      */
     public String getInterpreter() throws ProcessorException;
+    
+    /**
+     * Used to set a specific interpreter.
+     * 
+     * @return
+     */
+    public void setInterpreter(String interpreter);
+        
+    /**
+     * Used to get the routine path.
+     * 
+     * @return
+     */
+    public String getLibraryPath() throws ProcessorException;
+
+    /**
+     * Used to set a specific routine path.
+     * 
+     * @return
+     */
+    public void setLibraryPath(String libraryPath);
+    
+    /**
+     * Used to get the routine path.
+     * 
+     * @return
+     */
+    public String getCodeLocation() throws ProcessorException;
+
+    /**
+     * Used to set a specific routine path.
+     * 
+     * @return
+     */
+    public void setCodeLocation(String codeLocation);
 
     /**
      * Get the processor type, e.g. java processor, perl processor.

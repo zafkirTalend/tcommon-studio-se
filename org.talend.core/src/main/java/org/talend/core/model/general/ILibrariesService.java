@@ -45,6 +45,8 @@ public interface ILibrariesService extends IService {
     public List<URL> getSystemRoutines();
 
     public URL getTalendRoutinesFolder() throws IOException;
+    
+    public List<URL> getTalendRoutines();
 
     public String getLibrariesPath();
 

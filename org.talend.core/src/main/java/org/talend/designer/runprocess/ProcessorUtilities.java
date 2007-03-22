@@ -31,7 +31,6 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ProcessItem;
@@ -48,6 +47,9 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  * 
  */
 public class ProcessorUtilities {
+
+    private static String interpreter, codeLocation, libraryPath;
+    private static boolean exportConfig = false;
 
     public static ProcessItem getProcessItem(String processName) {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
@@ -79,6 +81,36 @@ public class ProcessorUtilities {
      */
     public static IContext getContext(IProcess process, String selectedContext) {
         return process.getContextManager().getContext(selectedContext);
+    }
+
+    public static void setExportConfig(String exportInterpreter, String exportCodeLocation, String exportLibraryPath) {
+        interpreter = exportInterpreter;
+        codeLocation = exportCodeLocation;
+        libraryPath = exportLibraryPath;
+        exportConfig = true;
+    }
+    
+    public static boolean isExportConfig() {
+        return exportConfig;
+    }
+
+    public static void resetExportConfig() {
+        interpreter = null;
+        codeLocation = null;
+        libraryPath = null;
+        exportConfig = false;
+    }
+    
+    public static String getInterpreter() {
+        return interpreter;
+    }
+    
+    public static String getLibraryPath() {
+        return libraryPath;
+    }
+    
+    public static String getCodeLocation() {
+        return codeLocation;
     }
 
     /**
@@ -159,6 +191,7 @@ public class ProcessorUtilities {
     /**
      * 
      * Get the command line to launch the job.
+     * 
      * @param externalUse if true, will add "" around path and change \ to /
      * @param processName
      * @param contextName
@@ -166,8 +199,8 @@ public class ProcessorUtilities {
      * @return
      * @throws ProcessorException
      */
-    public static String[] getCommandLine(boolean externalUse, String processName, String contextName, String... codeOptions)
-            throws ProcessorException {
+    public static String[] getCommandLine(boolean externalUse, String processName, String contextName,
+            String... codeOptions) throws ProcessorException {
         IProcess currentProcess = null;
         ProcessItem selectedProcessItem = getProcessItem(processName);
         if (selectedProcessItem != null) {

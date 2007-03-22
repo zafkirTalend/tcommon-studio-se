@@ -35,11 +35,7 @@ public interface ITalendCorePrefConstants {
 
     /** Perl interpreter. */
     String PERL_INTERPRETER = "perlInterpreter"; //$NON-NLS-1$
-
-    
-    /** Perl secondary interpreter. */
-    String PERL_SECONDARY_INTERPRETER = "perlSecondaryInterpreter"; //$NON-NLS-1$
-    
+  
     /** Java interpreter. */
     String JAVA_INTERPRETER = "javaInterpreter"; //$NON-NLS-1$
     

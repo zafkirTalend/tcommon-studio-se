@@ -86,6 +86,10 @@ public class PerlLibrariesService extends AbstractLibrariesService {
         URL url = Activator.BUNDLE.getEntry("resources/perl/talend");
         return FileLocator.toFileURL(url);
     }
+    
+    public List<URL> getTalendRoutines() {
+        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/talend", "");
+    }
 
     /*
      * (non-Javadoc)
@@ -152,7 +156,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
 
             IRunProcessService service = (IRunProcessService) GlobalServiceRegister.getDefault().getService(
                     IRunProcessService.class);
-            service.perlExec(out, err, new Path(checkPerlModuleAbsolutePath), null, Level.DEBUG, "", "", -1, -1, params);
+            service.perlExec(out, err, new Path(checkPerlModuleAbsolutePath), null, Level.DEBUG, "", null, -1, -1, params);
 
             analyzeResponse(out, componentsByModules);
 

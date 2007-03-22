@@ -86,6 +86,10 @@ public class LibrariesService implements ILibrariesService {
     public URL getTalendRoutinesFolder() throws IOException {
         return this.getLibrariesService().getTalendRoutinesFolder();
     }
+    
+    public List<URL> getTalendRoutines() {
+        return this.getLibrariesService().getTalendRoutines();
+    }
 
     public void syncLibraries() {
         this.getLibrariesService().syncLibraries();

@@ -91,11 +91,9 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         if (os.equals(Platform.OS_WIN32)) {
             node.put(ITalendCorePrefConstants.PERL_INTERPRETER, Platform.getInstallLocation().getURL().getFile().substring(1)
                     + PERL_EMBEDDED_INTERPRETER_DIRECTORY);
-            node.put(ITalendCorePrefConstants.PERL_SECONDARY_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_WIN32_INTERPRETER);
         } else if (os.equals(Platform.OS_LINUX)) {
             node.put(ITalendCorePrefConstants.PERL_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);
-            node.put(ITalendCorePrefConstants.PERL_SECONDARY_INTERPRETER, PERL_WIN32_INTERPRETER_PATH);
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_LINUX_INTERPRETER_PATH);
 
         }

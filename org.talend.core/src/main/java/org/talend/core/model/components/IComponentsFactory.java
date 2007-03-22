@@ -47,7 +47,5 @@ public interface IComponentsFactory {
 
     public IComponent get(String name);
 
-    public List<URL> getComponentModel(String componentName, String modelFileSuffix);
-
     public URL getComponentPath() throws IOException;
 }

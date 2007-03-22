@@ -80,11 +80,6 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
                 .getString("CorePreferencePage.perlInterpreter"), true, getFieldEditorParent()); //$NON-NLS-1$
         addField(perlInterpreter);
 
-        StringFieldEditor secondaryPerlInterpreter = new StringFieldEditor(ITalendCorePrefConstants.PERL_SECONDARY_INTERPRETER,
-                Messages.getString("CorePreferencePage.secondaryPerlInterpreter"), //$NON-NLS-1$
-                getFieldEditorParent());
-        addField(secondaryPerlInterpreter);
-
         FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER, Messages
                 .getString("CorePreferencePage.javaInterpreter"), true, getFieldEditorParent()); //$NON-NLS-1$
         addField(javaInterpreter);

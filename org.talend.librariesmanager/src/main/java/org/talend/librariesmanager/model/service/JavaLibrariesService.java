@@ -99,6 +99,11 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         URL url = Activator.BUNDLE.getEntry("resources/java/talend"); //$NON-NLS-1$
         return FileLocator.resolve(url);
     }
+    
+
+    public List<URL> getTalendRoutines() {
+        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/talend", "");
+    }
 
     public void checkInstalledLibraries() {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
@@ -146,5 +151,4 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             ExceptionHandler.process(e);
         }
     }
-
 }
