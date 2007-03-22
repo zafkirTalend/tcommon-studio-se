@@ -170,16 +170,6 @@ public class RepositoryNode {
      * @return the object
      */
     public IRepositoryObject getObject() {
-        if (this.object == null) {
-            IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                    IRepositoryService.class);
-            IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-            try {
-                return factory.getLastVersion(this.id);
-            } catch (PersistenceException e) {
-                e.printStackTrace();
-            }
-        }
         return this.object;
     }
 
