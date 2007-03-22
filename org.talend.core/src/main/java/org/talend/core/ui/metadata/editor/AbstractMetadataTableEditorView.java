@@ -23,8 +23,6 @@ package org.talend.core.ui.metadata.editor;
 
 import org.apache.log4j.Logger;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.ICellModifier;
-import org.eclipse.jface.viewers.IColorProvider;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -84,6 +82,14 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public static final String ID_COLUMN_PATTERN = "ID_COLUMN_PATTERN"; //$NON-NLS-1$
 
+    public static final String ID_COLUMN_DEFAULT = "ID_COLUMN_DEFAULT";
+    
+    public static final String ID_COLUMN_COMMENT = "ID_COLUMN_COMMENT";
+    
+    public static final String ID_COLUMN_LENGHT = "ID_COLUMN_LENGHT";
+    
+    public static final String ID_COLUMN_PRECISION = "ID_COLUMN_PRECISION";
+    
     protected boolean showDbTypeColumn;
 
     protected boolean showDbTypeColumnAtLeftPosition;
@@ -258,6 +264,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("MetadataTableEditorView.CommentTitle")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("MetadataTableEditorView.CommentTitle")); //$NON-NLS-1$
+        column.setId(ID_COLUMN_COMMENT);
         column.setBeanPropertyAccessors(getCommentAccessor());
         column.setWeight(10);
         column.setModifiable(!isReadOnly());
@@ -282,6 +289,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("MetadataTableEditorView.DefaultTitle")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("MetadataTableEditorView.DefaultTitle")); //$NON-NLS-1$
+        column.setId(ID_COLUMN_DEFAULT);
         column.setBeanPropertyAccessors(getDefaultValueAccessor());
         column.setWeight(8);
         column.setModifiable(!isReadOnly());
@@ -306,6 +314,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("MetadataTableEditorView.PrecisionTitle")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("MetadataTableEditorView.PrecisionTitle")); //$NON-NLS-1$
+        column.setId(ID_COLUMN_PRECISION);
         column.setBeanPropertyAccessors(getPrecisionAccessor());
         column.setModifiable(!isReadOnly());
         column.setWeight(10);
@@ -331,6 +340,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("MetadataTableEditorView.LengthTitle")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("MetadataTableEditorView.LengthTitle")); //$NON-NLS-1$
+        column.setId(ID_COLUMN_LENGHT);
         column.setBeanPropertyAccessors(getLengthAccessor());
         column.setModifiable(!isReadOnly());
         column.setWeight(10);
