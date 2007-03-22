@@ -352,6 +352,9 @@ public abstract class AbstractDataTableEditorView<B> {
         if (extendedTableViewer != null) {
             extendedTableViewer.setReadOnly(readOnly);
         }
+        if (extendedToolbar != null) {
+            extendedToolbar.updateEnabledStateOfButtons();
+        }
     }
 
     /**
