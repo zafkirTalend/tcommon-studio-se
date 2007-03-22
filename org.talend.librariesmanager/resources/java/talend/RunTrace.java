@@ -50,7 +50,7 @@ public class RunTrace implements Runnable {
         }
     }
 
-    private static java.util.HashMap<String, TraceBean> processTraces = new java.util.HashMap<String, TraceBean>();
+    private static java.util.concurrent.ConcurrentHashMap<String, TraceBean> processTraces = new jjava.util.concurrent.ConcurrentHashMap<String, TraceBean>();
 
     private java.net.Socket s;
 

@@ -60,7 +60,7 @@ public class RunStat implements Runnable {
         }
     }
 
-    private static java.util.HashMap<String, StatBean> processStats = new java.util.HashMap<String, StatBean>();
+    private java.util.concurrent.ConcurrentHashMap<String, StatBean> processStats = new java.util.concurrent.ConcurrentHashMap<String, StatBean>();
 
     private java.net.Socket s;
 
@@ -88,16 +88,16 @@ public class RunStat implements Runnable {
 
     public void run() {
         while (!jobIsFinished) {
-            for (StatBean sb : processStats.values()) {
-                currentTime = java.util.Calendar.getInstance().getTimeInMillis();
-                str = sb.getComponentId() + "|" + sb.getNbLine() + "|" + (currentTime - startTime);
-                if (sb.getState() != 1) {
-                    str += "|" + ((sb.getState() == 0) ? "start" : "stop");
-                    processStats.remove(sb.getComponentId());
-                }
-                pred.println(str); // envoi d'un message
-            }
             try {
+                for (StatBean sb : processStats.values()) {
+                    currentTime = java.util.Calendar.getInstance().getTimeInMillis();
+                    str = sb.getComponentId() + "|" + sb.getNbLine() + "|" + (currentTime - startTime);
+                    if (sb.getState() != 1) {
+                        str += "|" + ((sb.getState() == 0) ? "start" : "stop");
+                        processStats.remove(sb.getComponentId());
+                    }
+                    pred.println(str); // envoi d'un message
+                }
                 Thread.sleep(1000);
             } catch (InterruptedException ie) {
 
