@@ -23,8 +23,6 @@ package org.talend.repository.localprovider.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -41,11 +39,11 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.model.ResourceFilenameHelper.FileName;
@@ -147,12 +145,14 @@ public class XmiResourceManager {
 
     public Resource getItemResource(Item item) {
         URI itemResourceURI = getItemResourceURI(item.eResource().getURI());
-        Resource itemResource = resourceSet.getResource(itemResourceURI, true);
+        Resource itemResource = resourceSet.getResource(itemResourceURI, false);
 
-        // PTODO mhelleboid usefull ?
         if (itemResource == null) {
-            itemResource = new ByteArrayResource(itemResourceURI);
-            resourceSet.getResources().add(itemResource);
+            if (item instanceof FileItem) {
+                itemResource = new ByteArrayResource(itemResourceURI);
+                resourceSet.getResources().add(itemResource);
+            }
+            itemResource = resourceSet.getResource(itemResourceURI, true);
         }
 
         return itemResource;
