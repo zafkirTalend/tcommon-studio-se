@@ -28,9 +28,9 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
-import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
-import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
+import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
+import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
+import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -106,10 +106,9 @@ public class ModulesNeededProvider {
     private static List<ModuleNeeded> getModulesNeededForApplication() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
 
-        ISimpleExtensionPoint actionExtensionPoint = new ExtensionPointImpl(
-                "org.talend.core.librariesNeeded", "libraryNeeded", -1, //$NON-NLS-1$ //$NON-NLS-2$
-                -1);
-        List<IConfigurationElement> extension = ExtensionImplementationProviders.getInstanceV2(actionExtensionPoint);
+        IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
+                "org.talend.core.librariesNeeded", "libraryNeeded"); //$NON-NLS-1$ //$NON-NLS-2$
+        List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
 
         ECodeLanguage projectLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
                 .getProject().getLanguage();

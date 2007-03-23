@@ -38,8 +38,8 @@ import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.internal.WorkbenchPlugin;
 import org.eclipse.ui.internal.registry.ActionSetRegistry;
 import org.eclipse.ui.internal.registry.IActionSetDescriptor;
-import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
-import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
+import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
+import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.ui.perspective.PerspectiveMenuManager;
 import org.talend.rcp.i18n.Messages;
 
@@ -70,8 +70,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     // private List<IAction> actions = new ArrayList<IAction>();
 
-    public static final ISimpleExtensionPoint GLOBAL_ACTIONS = new ExtensionPointImpl("org.talend.core.global_actions", //$NON-NLS-1$
-            "GlobalAction", -1, -1); //$NON-NLS-1$
+    public static final IExtensionPointLimiter GLOBAL_ACTIONS = new ExtensionPointLimiterImpl("org.talend.core.global_actions", //$NON-NLS-1$
+            "GlobalAction"); //$NON-NLS-1$
 
     protected void makeActions(final IWorkbenchWindow myWindow) {
         this.window = myWindow;

@@ -27,25 +27,75 @@ package org.talend.commons.utils.workbench.extensions;
  * $Id$
  * 
  */
-public class ExtensionPointImpl implements ISimpleExtensionPoint {
+public class ExtensionPointLimiterImpl implements IExtensionPointLimiter {
 
     String extPointId;
 
     String elementName;
+    
+    int minOcc = -1;
 
-    int minOcc;
+    int maxOcc = -1;
 
-    int maxOcc;
 
+
+    
+    
     /**
-     * Default constructor.
+     * DOC amaumont ExtensionPointLimiterImpl constructor comment.
+     * @param extPointId
+     * @param elementName can be null
+     * @param namespaceIdentifier can be null
+     * @param minOcc
+     * @param maxOcc
      */
-    public ExtensionPointImpl(String extPointId, String elementName, int minOcc, int maxOcc) {
+    public ExtensionPointLimiterImpl(String extPointId, String elementName, int minOcc, int maxOcc) {
+        super();
         this.extPointId = extPointId;
         this.elementName = elementName;
         this.minOcc = minOcc;
         this.maxOcc = maxOcc;
     }
+
+
+    /**
+     * DOC amaumont ExtensionPointLimiterImpl constructor comment.
+     * @param extPointId
+     * @param minOcc
+     * @param maxOcc
+     */
+    public ExtensionPointLimiterImpl(String extPointId, int minOcc, int maxOcc) {
+        super();
+        this.extPointId = extPointId;
+        this.minOcc = minOcc;
+        this.maxOcc = maxOcc;
+    }
+
+
+
+    /**
+     * DOC amaumont ExtensionPointLimiterImpl constructor comment.
+     * @param extPointId
+     */
+    public ExtensionPointLimiterImpl(String extPointId) {
+        super();
+        this.extPointId = extPointId;
+    }
+
+
+
+    /**
+     * DOC amaumont ExtensionPointLimiterImpl constructor comment.
+     * @param extPointId
+     * @param elementName
+     */
+    public ExtensionPointLimiterImpl(String extPointId, String elementName) {
+        super();
+        this.extPointId = extPointId;
+        this.elementName = elementName;
+    }
+
+
 
     /**
      * Sets the extPointId.
@@ -106,7 +156,7 @@ public class ExtensionPointImpl implements ISimpleExtensionPoint {
      * 
      * @return the elementNAme
      */
-    public String getElementName() {
+    public String getConfigurationElementName() {
         return this.elementName;
     }
 

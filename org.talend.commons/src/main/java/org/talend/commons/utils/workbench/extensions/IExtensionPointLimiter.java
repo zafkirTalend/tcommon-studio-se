@@ -27,7 +27,7 @@ package org.talend.commons.utils.workbench.extensions;
  * $Id$
  * 
  */
-public interface ISimpleExtensionPoint {
+public interface IExtensionPointLimiter {
 
     /**
      * Getter for extension point id.
@@ -36,7 +36,12 @@ public interface ISimpleExtensionPoint {
      */
     public String getExtPointId();
 
-    public String getElementName();
+    /**
+     * Name of a Configuration element 
+     * Can be null.
+     * @return
+     */
+    public String getConfigurationElementName();
 
     /**
      * Getter for extension point maximum authorized implementation. Specify -1 for no max occurence

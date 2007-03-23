@@ -88,25 +88,13 @@ public interface IRunProcessService extends IService {
      */
     public String getRoutineFilenameExt();
 
-//    /**
-//     * Gets perl project.
-//     * 
-//     * qian Comment method "getPerlProject".
-//     * 
-//     * @return IProject
-//     * @throws CoreException
-//     */
-//    public IProject getPerlProject() throws CoreException;
-//
-//    /**
-//     * Gets java project
-//     * 
-//     * yzhang Comment method "getJavaProject".
-//     * 
-//     * @return
-//     * @throws CoreException
-//     */
-//    public IProject getJavaProject() throws CoreException;
-
     public IProject getProject(ECodeLanguage language) throws CoreException;
+    
+    /**
+     * Setter for a custom delegate service.
+     * This method should'nt be called from a delegate class, only in the RunProcessService class.
+     * @param delegateService
+     */
+    public void setDelegateService(IRunProcessService delegateService);
+    
 }

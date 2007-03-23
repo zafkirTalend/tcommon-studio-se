@@ -24,7 +24,7 @@ package org.talend.repository.model;
 import java.util.List;
 
 import org.talend.commons.exception.IllegalPluginConfigurationException;
-import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
+import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.core.model.process.IExternalNode;
 import org.talend.repository.model.extensions.ExtensionPointFactory;
 
@@ -42,7 +42,7 @@ public class ExternalNodesFactory {
     public static IExternalNode getInstance(final String extensionId) {
         List<IExternalNode> listComponents;
         try {
-            listComponents = ExtensionImplementationProviders.getInstance(ExtensionPointFactory.EXTERNAL_COMPONENT,
+            listComponents = ExtensionImplementationProvider.getInstance(ExtensionPointFactory.EXTERNAL_COMPONENT,
                     extensionId);
         } catch (IllegalPluginConfigurationException e) {
             throw new RuntimeException("plugin:" + extensionId + " not found"); //$NON-NLS-1$ //$NON-NLS-2$

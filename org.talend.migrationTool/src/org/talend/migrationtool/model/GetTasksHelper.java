@@ -21,15 +21,15 @@
 // ============================================================================
 package org.talend.migrationtool.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
+import org.eclipse.core.runtime.IExtension;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
-import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
-import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
+import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
+import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
+import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.model.migration.IProjectMigrationTask;
 import org.talend.core.model.migration.IWorkspaceMigrationTask;
 
@@ -41,45 +41,70 @@ import org.talend.core.model.migration.IWorkspaceMigrationTask;
  */
 public class GetTasksHelper {
 
-    public static List<IProjectMigrationTask> getProjectTasks(boolean beforeLogon) {
-        List<IProjectMigrationTask> toReturn = new ArrayList<IProjectMigrationTask>();
-        ISimpleExtensionPoint actionExtensionPoint = new ExtensionPointImpl("org.talend.core.migrationTask", "projecttask", -1, //$NON-NLS-1$ //$NON-NLS-2$
-                -1);
-        List<IConfigurationElement> extension = ExtensionImplementationProviders.getInstanceV2(actionExtensionPoint);
+    public static List<IProjectMigrationTask> getProjectTasks(final boolean beforeLogon) {
+        IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
+                "org.talend.core.migrationTask", "projecttask"); //$NON-NLS-1$ //$NON-NLS-2$
 
-        for (IConfigurationElement current : extension) {
-            try {
-                if (new Boolean(current.getAttribute("beforeLogon")) == beforeLogon) {
-                    IProjectMigrationTask currentAction = (IProjectMigrationTask) current.createExecutableExtension("class"); //$NON-NLS-1$
-                    currentAction.setId(current.getAttribute("id")); //$NON-NLS-1$
-                    currentAction.setName(current.getAttribute("name")); //$NON-NLS-1$
-                    toReturn.add(currentAction);
+        ExtensionImplementationProvider<IProjectMigrationTask> provider = new ExtensionImplementationProvider<IProjectMigrationTask>(
+                actionExtensionPoint) {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider#createImplementation(org.eclipse.core.runtime.IExtension,
+             * org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter)
+             */
+            @Override
+            protected IProjectMigrationTask createImplementation(IExtension extension,
+                    IExtensionPointLimiter extensionPointLimiter, IConfigurationElement configurationElement) {
+                try {
+                    if (new Boolean(configurationElement.getAttribute("beforeLogon")) == beforeLogon) {
+                        IProjectMigrationTask currentAction = (IProjectMigrationTask) configurationElement
+                                .createExecutableExtension("class"); //$NON-NLS-1$
+                        currentAction.setId(configurationElement.getAttribute("id")); //$NON-NLS-1$
+                        currentAction.setName(configurationElement.getAttribute("name")); //$NON-NLS-1$
+                        return currentAction;
+                    }
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
                 }
-            } catch (CoreException e) {
-                ExceptionHandler.process(e);
+                return null;
             }
-        }
 
-        return toReturn;
+        };
+
+        return provider.createInstances();
     }
 
     public static List<IWorkspaceMigrationTask> getWorkspaceTasks() {
-        List<IWorkspaceMigrationTask> toReturn = new ArrayList<IWorkspaceMigrationTask>();
-        ISimpleExtensionPoint actionExtensionPoint = new ExtensionPointImpl("org.talend.core.migrationTask", "workspacetask", -1, //$NON-NLS-1$ //$NON-NLS-2$
-                -1);
-        List<IConfigurationElement> extension = ExtensionImplementationProviders.getInstanceV2(actionExtensionPoint);
+        IExtensionPointLimiter actionExtensionPoint = new ExtensionPointLimiterImpl(
+                "org.talend.core.migrationTask", "workspacetask"); //$NON-NLS-1$ //$NON-NLS-2$
 
-        for (IConfigurationElement current : extension) {
-            try {
-                IWorkspaceMigrationTask currentAction = (IWorkspaceMigrationTask) current.createExecutableExtension("class"); //$NON-NLS-1$
-                currentAction.setId(current.getAttribute("id")); //$NON-NLS-1$
-                currentAction.setName(current.getAttribute("name")); //$NON-NLS-1$
-                toReturn.add(currentAction);
-            } catch (CoreException e) {
-                e.printStackTrace();
+        ExtensionImplementationProvider<IWorkspaceMigrationTask> provider = new ExtensionImplementationProvider<IWorkspaceMigrationTask>(
+                actionExtensionPoint) {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider#createImplementation(org.eclipse.core.runtime.IExtension,
+             * org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter)
+             */
+            @Override
+            protected IWorkspaceMigrationTask createImplementation(IExtension extension,
+                    IExtensionPointLimiter extensionPointLimiter, IConfigurationElement configurationElement) {
+                try {
+                    IWorkspaceMigrationTask currentAction = (IWorkspaceMigrationTask) configurationElement
+                            .createExecutableExtension("class"); //$NON-NLS-1$
+                    currentAction.setId(configurationElement.getAttribute("id")); //$NON-NLS-1$
+                    currentAction.setName(configurationElement.getAttribute("name")); //$NON-NLS-1$
+                    return currentAction;
+                } catch (CoreException e) {
+                    ExceptionHandler.process(e);
+                }
+                return null;
             }
-        }
 
-        return toReturn;
+        };
+        return provider.createInstances();
     }
 }

@@ -38,9 +38,9 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.handlers.IHandlerService;
-import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProviders;
-import org.talend.commons.utils.workbench.extensions.ExtensionPointImpl;
-import org.talend.commons.utils.workbench.extensions.ISimpleExtensionPoint;
+import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
+import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
+import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -60,8 +60,9 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
     private List<IAction> actions = new ArrayList<IAction>();
 
-    public static final ISimpleExtensionPoint GLOBAL_ACTIONS = new ExtensionPointImpl("org.talend.core.global_actions", //$NON-NLS-1$
-            "GlobalAction", -1, -1); //$NON-NLS-1$
+    public static final IExtensionPointLimiter GLOBAL_ACTIONS = new ExtensionPointLimiterImpl(
+            "org.talend.core.global_actions", //$NON-NLS-1$
+            "GlobalAction"); //$NON-NLS-1$
 
     public ApplicationWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
         super(configurer);
@@ -82,10 +83,12 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
                 Context.REPOSITORY_CONTEXT_KEY);
         Project project = repositoryContext.getProject();
 
-        Object buildId = Activator.getDefault().getBundle().getHeaders().get(org.osgi.framework.Constants.BUNDLE_VERSION);
+        Object buildId = Activator.getDefault().getBundle().getHeaders().get(
+                org.osgi.framework.Constants.BUNDLE_VERSION);
 
         String appName = BrandingService.getInstance().getFullProductName();
-        configurer.setTitle(appName + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+        configurer.setTitle(appName
+                + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
     }
 
     /*
@@ -103,7 +106,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
      * DOC smallet Comment method "createActions".
      */
     private void createActions() {
-        List<IAction> list = ExtensionImplementationProviders.getInstance(GLOBAL_ACTIONS);
+        
+        List<IAction> list = ExtensionImplementationProvider.getInstance(GLOBAL_ACTIONS);
         actions.addAll(list);
     }
 
@@ -111,8 +115,8 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
      * DOC smallet Comment method "registerActions".
      */
     private void registerActions() {
-        IContextService contextService = (IContextService) Activator.getDefault().getWorkbench()
-                .getAdapter(IContextService.class);
+        IContextService contextService = (IContextService) Activator.getDefault().getWorkbench().getAdapter(
+                IContextService.class);
         contextService.activateContext("talend.global"); //$NON-NLS-1$
 
         IWorkbench workbench = PlatformUI.getWorkbench();
