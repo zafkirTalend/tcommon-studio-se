@@ -63,4 +63,12 @@ public interface ITreeContextualAction extends IAction {
     public int getLevel();
 
     public void setLevel(int level);
+    
+    public boolean isEditAction();
+    
+    public void setEditAction(boolean editAction);
+    
+    public boolean isReadAction();
+    
+    public void setReadAction(boolean readAction);
 }

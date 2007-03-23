@@ -25,6 +25,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.repository.ui.views.IRepositoryView;
@@ -38,6 +39,29 @@ import org.talend.repository.ui.views.IRepositoryView;
 public abstract class AContextualAction extends Action implements ITreeContextualAction {
 
     private int level; // Used to manage order of actions in contextual menu
+
+    private boolean readAction = false;;
+    private boolean editAction = false;
+    
+    
+    public boolean isEditAction() {
+        return editAction;
+    }
+
+    
+    public void setEditAction(boolean editAction) {
+        this.editAction = editAction;
+    }
+
+    
+    public boolean isReadAction() {
+        return readAction;
+    }
+
+    
+    public void setReadAction(boolean readAction) {
+        this.readAction = readAction;
+    }
 
     /**
      * Getter for level.
@@ -107,7 +131,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * @return the selection
      */
     protected final ISelection getSelection() {
-        return getViewPart().getViewer().getSelection();
+        IWorkbenchPartSite site = getActivePage().getActivePart().getSite();
+        return site.getSelectionProvider().getSelection();
     }
 
     /**
