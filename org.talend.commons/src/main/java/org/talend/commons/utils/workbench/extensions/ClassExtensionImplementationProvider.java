@@ -38,9 +38,10 @@ public class ClassExtensionImplementationProvider<T> extends ExtensionImplementa
 
     /**
      * DOC amaumont DefaultExtensionImplementationProvider constructor comment.
+     * @param plugInId 
      */
-    public ClassExtensionImplementationProvider(IExtensionPointLimiter extensionPointLimiter) {
-        super(extensionPointLimiter);
+    public ClassExtensionImplementationProvider(IExtensionPointLimiter extensionPointLimiter, String plugInId) {
+        super(extensionPointLimiter, plugInId);
     }
 
     /*

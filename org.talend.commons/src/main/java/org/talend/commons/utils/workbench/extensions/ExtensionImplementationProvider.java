@@ -89,7 +89,7 @@ public abstract class ExtensionImplementationProvider<I> {
         Assert.isTrue(extensionPointLimiter.getMaxOcc() == 1, Messages
                 .getString("ExtensionImplementationProviders.ExtensionPointError")); //$NON-NLS-1$
 
-        List<T> list = new ClassExtensionImplementationProvider<T>(extensionPointLimiter).createInstances();
+        List<T> list = new ClassExtensionImplementationProvider<T>(extensionPointLimiter, null).createInstances();
 
         return (list.isEmpty() ? null : list.get(0));
     }
@@ -149,7 +149,7 @@ public abstract class ExtensionImplementationProvider<I> {
      */
     @SuppressWarnings("unchecked")
     public static <T> List<T> getInstance(IExtensionPointLimiter extensionPointLimiter, String plugInId) {
-        return new ClassExtensionImplementationProvider<T>(extensionPointLimiter).createInstances();
+        return new ClassExtensionImplementationProvider<T>(extensionPointLimiter, plugInId).createInstances();
     }
 
     /**
