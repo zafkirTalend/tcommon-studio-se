@@ -55,6 +55,9 @@ public final class ContextParameterUtils {
         case PERL:
             code = "$_context{" + parameter.getName() + "}"; //$NON-NLS-1$ //$NON-NLS-2$
             break;
+        case JAVA:
+            code = "context.get(\""+parameter.getName()+"\")";
+            break;
         default:
             code = parameter.getName();
         }
