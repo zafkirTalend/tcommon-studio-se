@@ -121,7 +121,7 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
 
         if (!match) {
-            return Messages.getString("MetadataTableEditor.ColumnNameIsInvalid") + columnName + "' is invalid."; //$NON-NLS-1$ //$NON-NLS-2$
+            return Messages.getString("MetadataTableEditor.ColumnNameIsInvalid", new Object[] {columnName}); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         int lstSize = getBeansList().size();
