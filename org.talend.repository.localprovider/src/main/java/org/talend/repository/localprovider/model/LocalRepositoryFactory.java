@@ -26,6 +26,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -1139,6 +1140,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     protected Object getFolder(Project project, ERepositoryObjectType repositoryObjectType) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(project);
         return ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(repositoryObjectType), true);
+    }
+
+    public List<org.talend.core.model.properties.Project> getReferencedProjects() {
+        return Collections.EMPTY_LIST;
     }
 
 }

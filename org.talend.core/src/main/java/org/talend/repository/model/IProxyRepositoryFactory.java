@@ -387,4 +387,6 @@ public interface IProxyRepositoryFactory {
     public boolean isDeleted(MetadataTable table);
 
     public boolean isUserReadOnlyOnCurrentProject();
+
+    public abstract List<org.talend.core.model.properties.Project> getReferencedProjects();
 }

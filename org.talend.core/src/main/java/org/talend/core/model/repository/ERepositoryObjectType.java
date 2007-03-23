@@ -64,7 +64,8 @@ public enum ERepositoryObjectType {
     METADATA_FILE_REGEXP("repository.metadataFileRegexp", "repository.metadataFileRegexp.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_XML("repository.metadataFileXml", "repository.metadataFileXml.alias"),  //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_LDIF("repository.metadataFileLdif", "repository.metadataFileLdif.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    FOLDER("repository.folder"); //$NON-NLS-1$
+    FOLDER("repository.folder"), //$NON-NLS-1$
+    REFERENCED_PROJECTS("repository.referencedProjects", "repository.referencedProjects.alias"); //$NON-NLS-1$ //$NON-NLS-2$
 
     private String key;
 

@@ -80,6 +80,8 @@ public class CoreImageProvider {
             return ECoreImage.METADATA_FILE_LDIF_ICON;
         case FOLDER:
             return ECoreImage.FOLDER_OPEN_ICON;
+        case REFERENCED_PROJECTS:
+            return ECoreImage.REFERENCED_ICON;
         default:
             return EImage.DEFAULT_IMAGE;
         }

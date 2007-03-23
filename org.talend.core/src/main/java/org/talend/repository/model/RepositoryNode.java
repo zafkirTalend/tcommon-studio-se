@@ -26,10 +26,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
-import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.image.IImage;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -58,8 +56,10 @@ public class RepositoryNode {
         // Same as SYSTEM_FOLDER, but users cannot create sub-folders.
         SIMPLE_FOLDER,
         // Represents a folder created by a user. Those folders can be rename, moved or removed.
-        REPOSITORY_ELEMENT;
+        REPOSITORY_ELEMENT,
         // Represents an object such as a process or a table.
+        REFERENCED_PROJECT;
+        // Represents a referenced project;
     }
 
     /**
@@ -232,6 +232,8 @@ public class RepositoryNode {
 
     public String getLabel() {
         switch (getType()) {
+        case REFERENCED_PROJECT:
+            return properties.get(EProperties.LABEL).toString();
         case REPOSITORY_ELEMENT:
         case SIMPLE_FOLDER:
             return getObjectType().toString();
