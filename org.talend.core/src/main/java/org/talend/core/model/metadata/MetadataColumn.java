@@ -67,21 +67,25 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      */
     public MetadataColumn(IMetadataColumn metadataColumn) {
         this();
-        this.label = metadataColumn.getLabel();
+
+        this.setLabel(metadataColumn.getLabel());
         this.key = metadataColumn.isKey();
         try {
-            this.talendType = metadataColumn.getTalendType();
+            this.setTalendType(metadataColumn.getTalendType());
         } catch (NoClassDefFoundError e) {
             // should never happend when product run
             e.printStackTrace();
         }
-        this.type = metadataColumn.getType();
-        this.dbms = metadataColumn.getDbms();
+
+        this.setType(metadataColumn.getType());
+        setDbms(metadataColumn.getDbms());
+
         this.nullable = metadataColumn.isNullable();
         this.length = metadataColumn.getLength();
         this.precision = metadataColumn.getPrecision();
-        this.defaut = metadataColumn.getDefault();
-        this.comment = metadataColumn.getComment();
+
+        setDefault(metadataColumn.getDefault());
+        setComment(metadataColumn.getComment());
     }
 
     private static synchronized int getNewId() {
@@ -120,13 +124,27 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         return this.label;
     }
 
+    /**
+     * Check the input String is empty or not.
+     * 
+     * @param input
+     * @return
+     */
+    private boolean isNull(String input) {
+        return input==null;
+    }
+
     /*
      * (non-Javadoc)
      * 
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setLabel(java.lang.String)
      */
     public void setLabel(String label) {
-        this.label = label;
+        if (isNull(label)) {
+            this.label = "";
+        } else {
+            this.label = label;
+        }
     }
 
     /*
@@ -162,7 +180,12 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setType(java.lang.String)
      */
     public void setType(String type) {
-        this.type = type;
+        if (isNull(type)) {
+            this.type = "";
+        } else {
+            this.type = type;
+        }
+
     }
 
     /*
@@ -183,7 +206,11 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.core.model.metadata.IMetadataColumn#setTalendType(java.lang.String)
      */
     public void setTalendType(String talendType) {
-        this.talendType = talendType;
+        if (isNull(talendType)) {
+            this.talendType = "";
+        } else {
+            this.talendType = talendType;
+        }
     }
 
     /*
@@ -201,7 +228,11 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.core.model.metadata.IMetadataColumn#setDbms(java.lang.String)
      */
     public void setDbms(String dbms) {
-        this.dbms = dbms;
+        if (isNull(dbms)) {
+            this.dbms = "";
+        } else {
+            this.dbms = dbms;
+        }
     }
 
     /*
@@ -273,7 +304,11 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setDefault(java.lang.String)
      */
     public void setDefault(String defaut) {
-        this.defaut = defaut;
+        if (isNull(defaut)) {
+            this.defaut = "";
+        } else {
+            this.defaut = defaut;
+        }
     }
 
     /*
@@ -291,7 +326,12 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setComment(java.lang.String)
      */
     public void setComment(String comment) {
-        this.comment = comment;
+        if (isNull(comment)) {
+            this.comment = "";
+        } else {
+            this.comment = comment;
+        }
+
     }
 
     /*
@@ -309,7 +349,11 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.core.model.metadata.IMetadataColumn#setPattern(java.lang.String)
      */
     public void setPattern(String pattern) {
-        this.pattern = pattern;
+        if (isNull(pattern)) {
+            this.pattern = "";
+        } else {
+            this.pattern = pattern;
+        }
     }
 
     @Override
