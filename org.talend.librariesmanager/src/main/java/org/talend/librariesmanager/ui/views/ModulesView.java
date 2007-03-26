@@ -31,9 +31,9 @@ import org.eclipse.ui.part.ViewPart;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
-import org.talend.core.model.action.ImportExternalJarAction;
 import org.talend.core.model.general.ILibrariesService.IChangedLibrariesListener;
 import org.talend.librariesmanager.ui.actions.CheckModulesAction;
+import org.talend.librariesmanager.ui.actions.ImportExternalJarAction;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
