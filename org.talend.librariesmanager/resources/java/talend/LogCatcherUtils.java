@@ -26,42 +26,31 @@ public class LogCatcherUtils {
         private String type;
         private String origin;
         private int priority;
-        private String errorMessage;
-        private String javaErrorMessage;
-        private int javaErrorCode;
+        private String message;
+        private int code;
 
-        public LogCatcherMessage(String type, String origin, int priority, String error_message,
-                String java_error_message, int java_error_code) {
+        public LogCatcherMessage(String type, String origin, int priority, String message, int code) {
             this.type = type;
             this.origin = origin;
             this.priority = priority;
-            this.errorMessage = error_message;
-            this.javaErrorMessage = java_error_message;
-            this.javaErrorCode = java_error_code;
+            this.message = message;
+            this.code = code;
         }
 
-        public String getErrorMessage() {
-            return errorMessage;
+        public String getMessage() {
+            return message;
         }
 
-        public void setErrorMessage(String error_message) {
-            this.errorMessage = error_message;
+        public void setMessage(String message) {
+            this.message = message;
         }
 
-        public int getJavaErrorCode() {
-            return javaErrorCode;
+        public int getCode() {
+            return code;
         }
 
-        public void setJavaErrorCode(int java_error_code) {
-            this.javaErrorCode = java_error_code;
-        }
-
-        public String getJavaErrorMessage() {
-            return javaErrorMessage;
-        }
-
-        public void setJavaErrorMessage(String java_error_message) {
-            this.javaErrorMessage = java_error_message;
+        public void setCode(int code) {
+            this.code = code;
         }
 
         public String getOrigin() {
@@ -91,10 +80,8 @@ public class LogCatcherUtils {
 
     java.util.List<LogCatcherMessage> messages = new java.util.ArrayList<LogCatcherMessage>();
 
-    public void addMessage(String type, String origin, int priority, String error_message,
-            String java_error_message, int java_error_code) {
-        LogCatcherMessage lcm = new LogCatcherMessage(type, origin, priority, error_message, java_error_message,
-                java_error_code);
+    public void addMessage(String type, String origin, int priority, String message, int code) {
+        LogCatcherMessage lcm = new LogCatcherMessage(type, origin, priority, message, code);
         messages.add(lcm);
     }
 
