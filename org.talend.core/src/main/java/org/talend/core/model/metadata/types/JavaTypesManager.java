@@ -41,11 +41,15 @@ public final class JavaTypesManager {
 
     public static final String DEFAULT_CHAR = "' '"; //$NON-NLS-1$
 
+    public static final String DEFAULT_BOOLEAN = "false"; //$NON-NLS-1$
+    
     public static final String DEFAULT_NUMBER = "0"; //$NON-NLS-1$
 
     public static final String NULL = "null"; //$NON-NLS-1$
 
     public static final String JAVA_PRIMITIVE_CHAR = "char"; //$NON-NLS-1$
+    
+    public static final String JAVA_PRIMITIVE_BOOLEAN = "boolean"; //$NON-NLS-1$
 
     public static final JavaType BOOLEAN = new JavaType(Boolean.class, boolean.class);
 
@@ -294,6 +298,8 @@ public final class JavaTypesManager {
         if (isJavaPrimitiveType(type)) {
             if (type.equals(JAVA_PRIMITIVE_CHAR)) {
                 return DEFAULT_CHAR;
+            } else if (type.equals(JAVA_PRIMITIVE_BOOLEAN)) {
+                return DEFAULT_BOOLEAN;
             } else {
                 return DEFAULT_NUMBER;
             }
@@ -356,6 +362,12 @@ public final class JavaTypesManager {
         System.out.println(JavaTypesManager.getJavaTypeFromName("Integer")); //$NON-NLS-1$
         System.out.println(JavaTypesManager.getJavaTypeFromName("integer")); //$NON-NLS-1$
         System.out.println(JavaTypesManager.getJavaTypeFromName("Object")); //$NON-NLS-1$
+        
+        System.out.println(JavaTypesManager.getDefaultValueFromJavaType("boolean")); //$NON-NLS-1$
+        System.out.println(JavaTypesManager.getDefaultValueFromJavaIdType("id_Boolean", false)); //$NON-NLS-1$
+        
+        System.out.println(JavaTypesManager.getDefaultValueFromJavaType("char")); //$NON-NLS-1$
+        
     }
 
 }
