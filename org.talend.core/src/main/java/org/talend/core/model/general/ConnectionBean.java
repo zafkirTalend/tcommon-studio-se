@@ -24,8 +24,6 @@ package org.talend.core.model.general;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.talend.core.i18n.Messages;
-
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
@@ -65,7 +63,7 @@ public class ConnectionBean implements Cloneable {
         newConnection.setDescription("Default connection"); //$NON-NLS-1$
         newConnection.setRepositoryId("local"); //$NON-NLS-1$
         newConnection.setPassword(""); //$NON-NLS-1$
-        newConnection.setUser("your@userName.here"); //$NON-NLS-1$
+        // newConnection.setUser("your@userName.here"); //$NON-NLS-1$
         return newConnection;
     }
 
