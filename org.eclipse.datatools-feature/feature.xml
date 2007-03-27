@@ -18,7 +18,7 @@
    </license>
 
    <url>
-      <update label="Talend update site (Datatools)" url="http://www.talend.com/tos/updatesite/testing/"/>
+      <update label="Talend update site (Datatools)" url="http://talendforge.org/tos/updatesite/testing/"/>
    </url>
 
    <requires>
