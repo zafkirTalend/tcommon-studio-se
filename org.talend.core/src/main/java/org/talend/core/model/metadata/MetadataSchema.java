@@ -58,7 +58,7 @@ import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
  * $Id$
  * 
  */
-public final class MetadataSchema {
+public class MetadataSchema {
 
     /**
      * 
@@ -71,10 +71,11 @@ public final class MetadataSchema {
 
     private static final String SCHEMA_VALIDATOR = "http://java.sun.com/xml/jaxp/properties/schemaSource"; //$NON-NLS-1$
 
+    protected static MetadataSchema instance = new MetadataSchema();
     /**
      * default constructor. Must not be used
      */
-    private MetadataSchema() {
+    protected MetadataSchema() {
 
     }
 
@@ -144,6 +145,18 @@ public final class MetadataSchema {
     @Deprecated
     public static List<IMetadataColumn> initializeColumns(final File file) throws ParserConfigurationException, SAXException,
             IOException {
+        return instance.initializeAllColumns(file);
+    }
+
+    /**
+     * qzhang Comment method "initializeAllColumns".
+     * @param file
+     * @return
+     * @throws IOException
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     */
+    public List<IMetadataColumn> initializeAllColumns(final File file) throws IOException, ParserConfigurationException, SAXException {
         final List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
         if (file != null) {
             final Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
@@ -153,51 +166,62 @@ public final class MetadataSchema {
             final Document document = XSDValidator.checkXSD(file, schema);
             final NodeList nodes = document.getElementsByTagName("column"); //$NON-NLS-1$
             for (int i = 0; i < nodes.getLength(); i++) {
-                final IMetadataColumn metadataColumn = new MetadataColumn();
+                IMetadataColumn metadataColumn = new MetadataColumn();
                 final Node nodetoParse = nodes.item(i);
                 final NamedNodeMap nodeMap = nodetoParse.getAttributes();
-                final Node label = nodeMap.getNamedItem("label"); //$NON-NLS-1$
-                final Node key = nodeMap.getNamedItem("key"); //$NON-NLS-1$
-                final Node type = nodeMap.getNamedItem("talendType"); //$NON-NLS-1$
-                final Node sourceType = nodeMap.getNamedItem("type"); //$NON-NLS-1$
-                final Node length = nodeMap.getNamedItem("length"); //$NON-NLS-1$
-                final Node nullable = nodeMap.getNamedItem("nullable"); //$NON-NLS-1$
-                final Node precision = nodeMap.getNamedItem("precision"); //$NON-NLS-1$
-                final Node defaultValue = nodeMap.getNamedItem("default"); //$NON-NLS-1$
-                final Node comment = nodeMap.getNamedItem("comment"); //$NON-NLS-1$
-
-                metadataColumn.setLabel(label.getNodeValue());
-                metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
-                metadataColumn.setTalendType(type.getNodeValue());
-                if(sourceType != null) {
-                    metadataColumn.setType(sourceType.getNodeValue());
-                }
-                if (length.getNodeValue() != null) {
-                    try {
-                        metadataColumn.setLength(Integer.parseInt(length.getNodeValue()));
-                    } catch (final NumberFormatException e) {
-                        metadataColumn.setLength(null);
-                    }
-                } else {
-                    metadataColumn.setLength(null);
-                }
-                if (precision.getNodeValue() != null) {
-                    try {
-                        metadataColumn.setPrecision(Integer.parseInt(precision.getNodeValue()));
-                    } catch (final NumberFormatException e) {
-                        metadataColumn.setPrecision(null);
-                    }
-                } else {
-                    metadataColumn.setPrecision(null);
-                }
-                
-                metadataColumn.setNullable(Boolean.parseBoolean(nullable.getNodeValue()));
-                metadataColumn.setDefault(defaultValue.getNodeValue());
-                metadataColumn.setComment(comment.getNodeValue());
+                metadataColumn = initializeOneColumn(metadataColumn, nodeMap);
                 listColumns.add(metadataColumn);
             }
         }
         return listColumns;
+    }
+
+    /**
+     * qzhang Comment method "initializeColumn".
+     * @param metadataColumn
+     * @param nodeMap
+     * @return
+     */
+    protected IMetadataColumn initializeOneColumn(final IMetadataColumn metadataColumn, final NamedNodeMap nodeMap) {
+        final Node label = nodeMap.getNamedItem("label"); //$NON-NLS-1$
+        final Node key = nodeMap.getNamedItem("key"); //$NON-NLS-1$
+        final Node type = nodeMap.getNamedItem("talendType"); //$NON-NLS-1$
+        final Node sourceType = nodeMap.getNamedItem("type"); //$NON-NLS-1$
+        final Node length = nodeMap.getNamedItem("length"); //$NON-NLS-1$
+        final Node nullable = nodeMap.getNamedItem("nullable"); //$NON-NLS-1$
+        final Node precision = nodeMap.getNamedItem("precision"); //$NON-NLS-1$
+        final Node defaultValue = nodeMap.getNamedItem("default"); //$NON-NLS-1$
+        final Node comment = nodeMap.getNamedItem("comment"); //$NON-NLS-1$
+
+        metadataColumn.setLabel(label.getNodeValue());
+        metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
+        metadataColumn.setTalendType(type.getNodeValue());
+        if (sourceType != null) {
+            metadataColumn.setType(sourceType.getNodeValue());
+        }
+        if (length.getNodeValue() != null) {
+            try {
+                metadataColumn.setLength(Integer.parseInt(length.getNodeValue()));
+            } catch (final NumberFormatException e) {
+                metadataColumn.setLength(null);
+            }
+        } else {
+            metadataColumn.setLength(null);
+        }
+        if (precision.getNodeValue() != null) {
+            try {
+                metadataColumn.setPrecision(Integer.parseInt(precision.getNodeValue()));
+            } catch (final NumberFormatException e) {
+                metadataColumn.setPrecision(null);
+            }
+        } else {
+            metadataColumn.setPrecision(null);
+        }
+
+        metadataColumn.setNullable(Boolean.parseBoolean(nullable.getNodeValue()));
+        metadataColumn.setDefault(defaultValue.getNodeValue());
+        metadataColumn.setComment(comment.getNodeValue());
+        return metadataColumn;
     }
 
     /**
@@ -260,7 +284,7 @@ public final class MetadataSchema {
                 metadataColumn.setLabel(label.getNodeValue());
                 metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
                 metadataColumn.setTalendType(type.getNodeValue());
-                if(sourceType != null) {
+                if (sourceType != null) {
                     metadataColumn.setSourceType(sourceType.getNodeValue());
                 }
                 if (length.getNodeValue() != null) {
@@ -410,12 +434,12 @@ public final class MetadataSchema {
                 talendType.setNodeValue(metadataColumn.getTalendType());
                 column.setAttributeNode(talendType);
 
-                if (metadataColumn.getSourceType() != null){
+                if (metadataColumn.getSourceType() != null) {
                     Attr sourceType = document.createAttribute("type"); //$NON-NLS-1$
                     sourceType.setNodeValue(metadataColumn.getSourceType());
                     column.setAttributeNode(sourceType);
                 }
-                
+
                 Attr length = document.createAttribute("length"); //$NON-NLS-1$
                 length.setNodeValue(String.valueOf(metadataColumn.getLength()));
                 column.setAttributeNode(length);
@@ -431,7 +455,7 @@ public final class MetadataSchema {
                 Attr pattern = document.createAttribute("pattern"); //$NON-NLS-1$
                 pattern.setNodeValue(String.valueOf(metadataColumn.getPattern()));
                 column.setAttributeNode(pattern);
-                
+
                 Attr defaultValue = document.createAttribute("default"); //$NON-NLS-1$
                 defaultValue.setNodeValue(metadataColumn.getDefaultValue());
                 column.setAttributeNode(defaultValue);
@@ -533,7 +557,18 @@ public final class MetadataSchema {
     @Deprecated
     public static boolean saveMetadataColumnToFile(File file, IMetadataTable table) throws IOException,
             ParserConfigurationException {
+        return instance.saveColumnsToFile(file, table);
+    }
 
+    /**
+     * qzhang Comment method "saveColumnsToFile".
+     * @param file
+     * @param table
+     * @return
+     * @throws IOException
+     * @throws ParserConfigurationException
+     */
+    public boolean saveColumnsToFile(File file, IMetadataTable table) throws IOException, ParserConfigurationException {
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
@@ -569,57 +604,7 @@ public final class MetadataSchema {
             for (IMetadataColumn metadataColumn : table.getListColumns()) {
                 Element column = document.createElement("column"); //$NON-NLS-1$
                 racine.appendChild(column);
-
-                Attr label = document.createAttribute("label"); //$NON-NLS-1$
-                label.setNodeValue(metadataColumn.getLabel());
-                column.setAttributeNode(label);
-
-                Attr key = document.createAttribute("key"); //$NON-NLS-1$
-                key.setNodeValue(String.valueOf(metadataColumn.isKey()));
-                column.setAttributeNode(key);
-
-                Attr talendType = document.createAttribute("talendType"); //$NON-NLS-1$
-                talendType.setNodeValue(metadataColumn.getTalendType());
-                column.setAttributeNode(talendType);
-
-                if (metadataColumn.getType() != null) {
-                    Attr sourceType = document.createAttribute("type"); //$NON-NLS-1$
-                    sourceType.setNodeValue(metadataColumn.getType());
-                    column.setAttributeNode(sourceType);
-                }
-                
-                Attr length = document.createAttribute("length"); //$NON-NLS-1$
-                if (metadataColumn.getLength() == null) {
-                    length.setNodeValue("-1"); //$NON-NLS-1$
-                } else {
-                    length.setNodeValue(String.valueOf(metadataColumn.getLength()));
-                }
-                column.setAttributeNode(length);
-
-                Attr precision = document.createAttribute("precision"); //$NON-NLS-1$
-                if (metadataColumn.getPrecision() == null) {
-                    precision.setNodeValue("-1"); //$NON-NLS-1$
-                } else {
-                    precision.setNodeValue(String.valueOf(metadataColumn.getPrecision()));
-                }
-
-                column.setAttributeNode(precision);
-
-                Attr nullable = document.createAttribute("nullable"); //$NON-NLS-1$
-                nullable.setNodeValue(String.valueOf(metadataColumn.isNullable()));
-                column.setAttributeNode(nullable);
-
-                Attr pattern = document.createAttribute("pattern"); //$NON-NLS-1$
-                pattern.setNodeValue(String.valueOf(metadataColumn.getPattern()));
-                column.setAttributeNode(pattern);
-                
-                Attr defaultValue = document.createAttribute("default"); //$NON-NLS-1$
-                defaultValue.setNodeValue(metadataColumn.getDefault());
-                column.setAttributeNode(defaultValue);
-
-                Attr comment = document.createAttribute("comment"); //$NON-NLS-1$
-                comment.setNodeValue(metadataColumn.getComment());
-                column.setAttributeNode(comment);
+                saveOneColumn(document, metadataColumn, column);
             }
 
             // use specific Xerces class to write DOM-data to a file:
@@ -632,5 +617,64 @@ public final class MetadataSchema {
             return true;
         }
         return false;
+    }
+
+    /**
+     *  qzhang Comment method "saveOneColumn".
+     * @param document
+     * @param metadataColumn
+     * @param column
+     */
+    protected void saveOneColumn(Document document, IMetadataColumn metadataColumn, Element column) {
+        Attr label = document.createAttribute("label"); //$NON-NLS-1$
+        label.setNodeValue(metadataColumn.getLabel());
+        column.setAttributeNode(label);
+
+        Attr key = document.createAttribute("key"); //$NON-NLS-1$
+        key.setNodeValue(String.valueOf(metadataColumn.isKey()));
+        column.setAttributeNode(key);
+
+        Attr talendType = document.createAttribute("talendType"); //$NON-NLS-1$
+        talendType.setNodeValue(metadataColumn.getTalendType());
+        column.setAttributeNode(talendType);
+
+        if (metadataColumn.getType() != null) {
+            Attr sourceType = document.createAttribute("type"); //$NON-NLS-1$
+            sourceType.setNodeValue(metadataColumn.getType());
+            column.setAttributeNode(sourceType);
+        }
+
+        Attr length = document.createAttribute("length"); //$NON-NLS-1$
+        if (metadataColumn.getLength() == null) {
+            length.setNodeValue("-1"); //$NON-NLS-1$
+        } else {
+            length.setNodeValue(String.valueOf(metadataColumn.getLength()));
+        }
+        column.setAttributeNode(length);
+
+        Attr precision = document.createAttribute("precision"); //$NON-NLS-1$
+        if (metadataColumn.getPrecision() == null) {
+            precision.setNodeValue("-1"); //$NON-NLS-1$
+        } else {
+            precision.setNodeValue(String.valueOf(metadataColumn.getPrecision()));
+        }
+
+        column.setAttributeNode(precision);
+
+        Attr nullable = document.createAttribute("nullable"); //$NON-NLS-1$
+        nullable.setNodeValue(String.valueOf(metadataColumn.isNullable()));
+        column.setAttributeNode(nullable);
+
+        Attr pattern = document.createAttribute("pattern"); //$NON-NLS-1$
+        pattern.setNodeValue(String.valueOf(metadataColumn.getPattern()));
+        column.setAttributeNode(pattern);
+
+        Attr defaultValue = document.createAttribute("default"); //$NON-NLS-1$
+        defaultValue.setNodeValue(metadataColumn.getDefault());
+        column.setAttributeNode(defaultValue);
+
+        Attr comment = document.createAttribute("comment"); //$NON-NLS-1$
+        comment.setNodeValue(metadataColumn.getComment());
+        column.setAttributeNode(comment);
     }
 }
