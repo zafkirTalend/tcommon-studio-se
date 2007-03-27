@@ -53,9 +53,9 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
      */
     private static final String PERL_EMBEDDED_INTERPRETER_DIRECTORY = "perl/bin/perl.exe"; //$NON-NLS-1$
 
-    private static final String JAVA_LINUX_INTERPRETER_PATH = "/java"; // NON-NLS-1$ //$NON-NLS-1$
+    private static final String JAVA_LINUX_INTERPRETER_PATH = "/bin/java"; // NON-NLS-1$ //$NON-NLS-1$
 
-    private static final String JAVA_WIN32_INTERPRETER = "\\java.exe"; // NON-NLS-1$ //$NON-NLS-1$
+    private static final String JAVA_WIN32_INTERPRETER = "\\bin\\java.exe"; // NON-NLS-1$ //$NON-NLS-1$
 
     private static final String PERL_LINUX_INTERPRETER_PATH = "/usr/bin/perl"; // NON-NLS-1$ //$NON-NLS-1$
 
@@ -87,7 +87,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
         // TODO CCA : Change this default value
         String os = Platform.getOS();
-        String javaPath = System.getProperty("sun.boot.library.path"); // NON-NLS-1$ //$NON-NLS-1$
+        String javaPath = System.getProperty("java.home"); // NON-NLS-1$
         if (os.equals(Platform.OS_WIN32)) {
             node.put(ITalendCorePrefConstants.PERL_INTERPRETER, Platform.getInstallLocation().getURL().getFile().substring(1)
                     + PERL_EMBEDDED_INTERPRETER_DIRECTORY);
