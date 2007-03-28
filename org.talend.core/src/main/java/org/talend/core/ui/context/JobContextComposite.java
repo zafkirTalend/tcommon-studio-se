@@ -379,13 +379,13 @@ public abstract class JobContextComposite extends Composite {
     private Listener renameContextListener = new Listener() {
 
         public void handleEvent(final Event event) {
+            String contextName = tabFolder.getSelection().getText();
             InputDialog inputDial = new InputDialog(getShell(), Messages.getString("ContextProcessSection.12"), //$NON-NLS-1$
-                    Messages.getString("ContextProcessSection.13"), "", null); //$NON-NLS-1$ //$NON-NLS-2$
+                    Messages.getString("ContextProcessSection.13", contextName), "", null); //$NON-NLS-1$ //$NON-NLS-2$
             inputDial.open();
             String newName = inputDial.getValue();
             if (newName != null) {
                 if (!newName.equals("") && Pattern.matches(RepositoryConstants.CODE_ITEM_PATTERN, newName)) { //$NON-NLS-1$
-                    String contextName = tabFolder.getSelection().getText();
                     renameContext(contextName, newName);
                 } else {
                     MessageDialog.openWarning(new Shell(), Messages.getString(Messages
