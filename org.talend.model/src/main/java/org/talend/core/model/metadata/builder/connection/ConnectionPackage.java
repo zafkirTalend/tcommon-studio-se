@@ -301,13 +301,22 @@ public interface ConnectionPackage extends EPackage {
     int CONNECTION__TABLES = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 1;
 
     /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION__QUERIES = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
+
+    /**
      * The number of structural features of the '<em>Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONNECTION_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
+    int CONNECTION_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 3;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl <em>Metadata Table</em>}' class.
@@ -668,6 +677,15 @@ public interface ConnectionPackage extends EPackage {
     int FILE_CONNECTION__TABLES = CONNECTION__TABLES;
 
     /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -923,6 +941,15 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__TABLES = FILE_CONNECTION__TABLES;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION__QUERIES = FILE_CONNECTION__QUERIES;
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
@@ -1191,6 +1218,15 @@ public interface ConnectionPackage extends EPackage {
     int POSITIONAL_FILE_CONNECTION__TABLES = FILE_CONNECTION__TABLES;
 
     /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION__QUERIES = FILE_CONNECTION__QUERIES;
+
+    /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -1448,6 +1484,15 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__TABLES = CONNECTION__TABLES;
 
     /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
      * The feature id for the '<em><b>Database Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
@@ -1567,22 +1612,13 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__NULL_CHAR = CONNECTION_FEATURE_COUNT + 13;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int DATABASE_CONNECTION__QUERIES = CONNECTION_FEATURE_COUNT + 14;
-
-    /**
      * The number of structural features of the '<em>Database Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 15;
+    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 14;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CSVFileConnectionImpl <em>CSV File Connection</em>}' class.
@@ -1667,6 +1703,15 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int CSV_FILE_CONNECTION__TABLES = DELIMITED_FILE_CONNECTION__TABLES;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CSV_FILE_CONNECTION__QUERIES = DELIMITED_FILE_CONNECTION__QUERIES;
 
     /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
@@ -1935,6 +1980,15 @@ public interface ConnectionPackage extends EPackage {
     int REGEXP_FILE_CONNECTION__TABLES = FILE_CONNECTION__TABLES;
 
     /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REGEXP_FILE_CONNECTION__QUERIES = FILE_CONNECTION__QUERIES;
+
+    /**
      * The feature id for the '<em><b>Server</b></em>' attribute.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -2201,6 +2255,15 @@ public interface ConnectionPackage extends EPackage {
     int XML_FILE_CONNECTION__TABLES = CONNECTION__TABLES;
 
     /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int XML_FILE_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
      * The feature id for the '<em><b>Xsd File Path</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
@@ -2318,7 +2381,7 @@ public interface ConnectionPackage extends EPackage {
     int QUERIES_CONNECTION = 13;
 
     /**
-     * The feature id for the '<em><b>Connection</b></em>' container reference.
+     * The feature id for the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2498,6 +2561,15 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int LDIF_FILE_CONNECTION__TABLES = CONNECTION__TABLES;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDIF_FILE_CONNECTION__QUERIES = CONNECTION__QUERIES;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute list.
@@ -2709,6 +2781,17 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EReference getConnection_Tables();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Queries</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.Connection#getQueries()
+     * @see #getConnection()
+     * @generated
+     */
+    EReference getConnection_Queries();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.MetadataTable <em>Metadata Table</em>}'.
@@ -3329,17 +3412,6 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_NullChar();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getQueries <em>Queries</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Queries</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getQueries()
-     * @see #getDatabaseConnection()
-     * @generated
-     */
-    EReference getDatabaseConnection_Queries();
-
-    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CSVFileConnection <em>CSV File Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>CSV File Connection</em>'.
@@ -3489,10 +3561,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getQueriesConnection();
 
     /**
-     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}'.
+     * Returns the meta object for the reference '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the container reference '<em>Connection</em>'.
+     * @return the meta object for the reference '<em>Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection()
      * @see #getQueriesConnection()
      * @generated
@@ -3812,6 +3884,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EReference CONNECTION__TABLES = eINSTANCE.getConnection_Tables();
+
+        /**
+         * The meta object literal for the '<em><b>Queries</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CONNECTION__QUERIES = eINSTANCE.getConnection_Queries();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.MetadataTableImpl <em>Metadata Table</em>}' class.
@@ -4317,14 +4397,6 @@ public interface ConnectionPackage extends EPackage {
         EAttribute DATABASE_CONNECTION__NULL_CHAR = eINSTANCE.getDatabaseConnection_NullChar();
 
         /**
-         * The meta object literal for the '<em><b>Queries</b></em>' containment reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference DATABASE_CONNECTION__QUERIES = eINSTANCE.getDatabaseConnection_Queries();
-
-        /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CSVFileConnectionImpl <em>CSV File Connection</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.impl.CSVFileConnectionImpl
@@ -4451,7 +4523,7 @@ public interface ConnectionPackage extends EPackage {
         EClass QUERIES_CONNECTION = eINSTANCE.getQueriesConnection();
 
         /**
-         * The meta object literal for the '<em><b>Connection</b></em>' container reference feature.
+         * The meta object literal for the '<em><b>Connection</b></em>' reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

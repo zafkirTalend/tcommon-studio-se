@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getTables <em>Tables</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}</li>
  * </ul>
  * </p>
  *
@@ -69,5 +70,21 @@ public interface Connection extends AbstractMetadataObject {
      * @generated
      */
     EList getTables();
+
+    /**
+     * Returns the value of the '<em><b>Queries</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.QueriesConnection}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Queries</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Queries</em>' containment reference list.
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_Queries()
+     * @model type="org.talend.core.model.metadata.builder.connection.QueriesConnection" containment="true"
+     * @generated
+     */
+    EList getQueries();
 
 } // Connection

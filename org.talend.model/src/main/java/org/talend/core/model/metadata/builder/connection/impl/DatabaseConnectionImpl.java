@@ -41,7 +41,6 @@ import org.talend.core.model.metadata.builder.connection.QueriesConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getSqlSynthax <em>Sql Synthax</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getStringQuote <em>String Quote</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getNullChar <em>Null Char</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getQueries <em>Queries</em>}</li>
  * </ul>
  * </p>
  *
@@ -328,16 +327,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @ordered
      */
     protected String nullChar = NULL_CHAR_EDEFAULT;
-
-    /**
-     * The cached value of the '{@link #getQueries() <em>Queries</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getQueries()
-     * @generated
-     * @ordered
-     */
-    protected EList queries = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -656,44 +645,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getQueries() {
-        if (queries == null) {
-            queries = new EObjectContainmentWithInverseEList(QueriesConnection.class, this, ConnectionPackage.DATABASE_CONNECTION__QUERIES, ConnectionPackage.QUERIES_CONNECTION__CONNECTION);
-        }
-        return queries;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case ConnectionPackage.DATABASE_CONNECTION__QUERIES:
-                return ((InternalEList)getQueries()).basicAdd(otherEnd, msgs);
-        }
-        return super.eInverseAdd(otherEnd, featureID, msgs);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case ConnectionPackage.DATABASE_CONNECTION__QUERIES:
-                return ((InternalEList)getQueries()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
@@ -724,8 +675,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return getStringQuote();
             case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
                 return getNullChar();
-            case ConnectionPackage.DATABASE_CONNECTION__QUERIES:
-                return getQueries();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -778,10 +727,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return;
             case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
                 setNullChar((String)newValue);
-                return;
-            case ConnectionPackage.DATABASE_CONNECTION__QUERIES:
-                getQueries().clear();
-                getQueries().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -836,9 +781,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
                 setNullChar(NULL_CHAR_EDEFAULT);
                 return;
-            case ConnectionPackage.DATABASE_CONNECTION__QUERIES:
-                getQueries().clear();
-                return;
         }
         super.eUnset(featureID);
     }
@@ -878,8 +820,6 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return STRING_QUOTE_EDEFAULT == null ? stringQuote != null : !STRING_QUOTE_EDEFAULT.equals(stringQuote);
             case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
                 return NULL_CHAR_EDEFAULT == null ? nullChar != null : !NULL_CHAR_EDEFAULT.equals(nullChar);
-            case ConnectionPackage.DATABASE_CONNECTION__QUERIES:
-                return queries != null && !queries.isEmpty();
         }
         return super.eIsSet(featureID);
     }

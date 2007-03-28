@@ -14,11 +14,14 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+
+import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,6 +32,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
  * <ul>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getVersion <em>Version</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getTables <em>Tables</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.ConnectionImpl#getQueries <em>Queries</em>}</li>
  * </ul>
  * </p>
  *
@@ -65,6 +69,16 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * @ordered
      */
     protected EList tables = null;
+
+    /**
+     * The cached value of the '{@link #getQueries() <em>Queries</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getQueries()
+     * @generated
+     * @ordered
+     */
+    protected EList queries = null;
 
     protected boolean readOnly = false;
 
@@ -132,6 +146,18 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList getQueries() {
+        if (queries == null) {
+            queries = new EObjectContainmentEList(QueriesConnection.class, this, ConnectionPackage.CONNECTION__QUERIES);
+        }
+        return queries;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ConnectionPackage.CONNECTION__TABLES:
@@ -149,6 +175,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         switch (featureID) {
             case ConnectionPackage.CONNECTION__TABLES:
                 return ((InternalEList)getTables()).basicRemove(otherEnd, msgs);
+            case ConnectionPackage.CONNECTION__QUERIES:
+                return ((InternalEList)getQueries()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -164,6 +192,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
                 return getVersion();
             case ConnectionPackage.CONNECTION__TABLES:
                 return getTables();
+            case ConnectionPackage.CONNECTION__QUERIES:
+                return getQueries();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -182,6 +212,10 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
                 getTables().clear();
                 getTables().addAll((Collection)newValue);
                 return;
+            case ConnectionPackage.CONNECTION__QUERIES:
+                getQueries().clear();
+                getQueries().addAll((Collection)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -199,6 +233,9 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
             case ConnectionPackage.CONNECTION__TABLES:
                 getTables().clear();
                 return;
+            case ConnectionPackage.CONNECTION__QUERIES:
+                getQueries().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -214,6 +251,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
                 return VERSION_EDEFAULT == null ? version != null : !VERSION_EDEFAULT.equals(version);
             case ConnectionPackage.CONNECTION__TABLES:
                 return tables != null && !tables.isEmpty();
+            case ConnectionPackage.CONNECTION__QUERIES:
+                return queries != null && !queries.isEmpty();
         }
         return super.eIsSet(featureID);
     }

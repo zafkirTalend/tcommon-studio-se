@@ -298,6 +298,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getConnection_Queries() {
+        return (EReference)connectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -799,15 +808,6 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getDatabaseConnection_Queries() {
-        return (EReference)databaseConnectionEClass.getEStructuralFeatures().get(14);
-    }
-
-    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1181,6 +1181,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         connectionEClass = createEClass(CONNECTION);
         createEAttribute(connectionEClass, CONNECTION__VERSION);
         createEReference(connectionEClass, CONNECTION__TABLES);
+        createEReference(connectionEClass, CONNECTION__QUERIES);
 
         metadataColumnEClass = createEClass(METADATA_COLUMN);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__SOURCE_TYPE);
@@ -1250,7 +1251,6 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__SQL_SYNTHAX);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__STRING_QUOTE);
         createEAttribute(databaseConnectionEClass, DATABASE_CONNECTION__NULL_CHAR);
-        createEReference(databaseConnectionEClass, DATABASE_CONNECTION__QUERIES);
 
         csvFileConnectionEClass = createEClass(CSV_FILE_CONNECTION);
 
@@ -1347,6 +1347,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEClass(connectionEClass, Connection.class, "Connection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getConnection_Version(), ecorePackage.getEString(), "version", null, 0, 1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getConnection_Tables(), this.getMetadataTable(), this.getMetadataTable_Connection(), "tables", null, 0, -1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getConnection_Queries(), this.getQueriesConnection(), null, "queries", null, 0, -1, Connection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(metadataColumnEClass, MetadataColumn.class, "MetadataColumn", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getMetadataColumn_SourceType(), ecorePackage.getEString(), "sourceType", null, 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1416,7 +1417,6 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getDatabaseConnection_SqlSynthax(), ecorePackage.getEString(), "SqlSynthax", null, 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDatabaseConnection_StringQuote(), ecorePackage.getEString(), "StringQuote", "\"", 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDatabaseConnection_NullChar(), ecorePackage.getEString(), "NullChar", "000", 0, 1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getDatabaseConnection_Queries(), this.getQueriesConnection(), this.getQueriesConnection_Connection(), "queries", null, 0, -1, DatabaseConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(csvFileConnectionEClass, CSVFileConnection.class, "CSVFileConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1437,7 +1437,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getSchemaTarget_Schema(), this.getXmlXPathLoopDescriptor(), this.getXmlXPathLoopDescriptor_SchemaTargets(), "schema", null, 0, 1, SchemaTarget.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(queriesConnectionEClass, QueriesConnection.class, "QueriesConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getQueriesConnection_Connection(), this.getDatabaseConnection(), this.getDatabaseConnection_Queries(), "connection", null, 0, 1, QueriesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getQueriesConnection_Connection(), this.getDatabaseConnection(), null, "connection", null, 0, 1, QueriesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getQueriesConnection_Query(), this.getQuery(), this.getQuery_Queries(), "query", null, 0, -1, QueriesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(queryEClass, Query.class, "Query", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

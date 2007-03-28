@@ -31,7 +31,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getSqlSynthax <em>Sql Synthax</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getStringQuote <em>String Quote</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getNullChar <em>Null Char</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getQueries <em>Queries</em>}</li>
  * </ul>
  * </p>
  *
@@ -405,23 +404,5 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     void setNullChar(String value);
-
-    /**
-     * Returns the value of the '<em><b>Queries</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.QueriesConnection}.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}'.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Queries</em>' containment reference list isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Queries</em>' containment reference list.
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_Queries()
-     * @see org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection
-     * @model type="org.talend.core.model.metadata.builder.connection.QueriesConnection" opposite="connection" containment="true"
-     * @generated
-     */
-    EList getQueries();
 
 } // DatabaseConnection

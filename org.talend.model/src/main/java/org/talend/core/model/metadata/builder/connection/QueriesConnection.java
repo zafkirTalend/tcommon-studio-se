@@ -28,28 +28,26 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface QueriesConnection extends EObject {
     /**
-     * Returns the value of the '<em><b>Connection</b></em>' container reference.
-     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getQueries <em>Queries</em>}'.
+     * Returns the value of the '<em><b>Connection</b></em>' reference.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Connection</em>' container reference isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Connection</em>' container reference.
+     * @return the value of the '<em>Connection</em>' reference.
      * @see #setConnection(DatabaseConnection)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getQueriesConnection_Connection()
-     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getQueries
-     * @model opposite="queries" resolveProxies="false"
+     * @model resolveProxies="false"
      * @generated
      */
     DatabaseConnection getConnection();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}' container reference.
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}' reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Connection</em>' container reference.
+     * @param value the new value of the '<em>Connection</em>' reference.
      * @see #getConnection()
      * @generated
      */
