@@ -56,7 +56,7 @@ public class TableViewerCreatorColumn implements Cloneable {
     private IBeanPropertyAccessors beanPropertyAccessors;
 
     private IColumnImageProvider imageProvider;
-    
+
     private IColumnLabelProvider labelProvider;
 
     private int index = -1;
@@ -237,7 +237,11 @@ public class TableViewerCreatorColumn implements Cloneable {
     }
 
     public boolean isModifiable() {
-        return modifiable;
+        if (tableViewerCreator != null) {
+            return modifiable && !tableViewerCreator.isReadOnly();
+        } else {
+            return modifiable;
+        }
     }
 
     public void setModifiable(boolean modifiable) {
@@ -474,7 +478,7 @@ public class TableViewerCreatorColumn implements Cloneable {
     public IColumnLabelProvider getLabelProvider() {
         return this.labelProvider;
     }
-    
+
     /**
      * 
      * <code>IColumnImageProvider</code> allow to set an Image provider for the current column.
@@ -490,7 +494,7 @@ public class TableViewerCreatorColumn implements Cloneable {
     public void setLabelProvider(IColumnLabelProvider columnLabelProvider) {
         this.labelProvider = columnLabelProvider;
     }
-    
+
     /**
      * "getIndex" method.
      * 
@@ -515,21 +519,20 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     /**
      * Gets the colorProvider.
+     * 
      * @return
      */
     public IColumnColorProvider getColorProvider() {
         return colorProvider;
     }
 
-    
     /**
      * Sets the colorProvider.
+     * 
      * @param colorProvider the colorProvider to set
      */
     public void setColorProvider(IColumnColorProvider colorProvider) {
         this.colorProvider = colorProvider;
     }
 
-    
-    
 }

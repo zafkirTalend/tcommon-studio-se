@@ -426,10 +426,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
     @Override
     public void setReadOnly(boolean readOnly) {
         super.setReadOnly(readOnly);
-        List<TableViewerCreatorColumn> columns = getTableViewerCreator().getColumns();
-        for (TableViewerCreatorColumn column : columns) {
-            column.setModifiable(!readOnly);
-        }
+        getTableViewerCreator().setReadOnly(readOnly);
         getTableViewerCreator().refreshTableEditorControls();
     }
 

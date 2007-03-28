@@ -273,6 +273,8 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     private List list;
 
+    private boolean readOnly;
+    
     /**
      * Constructor.
      * 
@@ -1696,4 +1698,24 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         this.commandStack = commandStack;
     }
 
+    
+    /**
+     * Getter for readOnly.
+     * @return the readOnly
+     */
+    public boolean isReadOnly() {
+        return this.readOnly;
+    }
+
+    
+    /**
+     * Sets the readOnly.
+     * @param readOnly the readOnly to set
+     */
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
+
+    
+    
 }
