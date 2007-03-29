@@ -43,17 +43,36 @@ public class TalendDate {
     /**
      *  return an ISO formatted random date
      *
-     *  {talendTypes} Day
+     *  {talendTypes} Date
      *
-     *  {param} string('2007-01-01') min : minimum date
-     *  {param} string('2008-12-31') max : maximum date (superior to min)
+     *  {param} string("2007-01-01") min : minimum date
+     *  {param} string("2008-12-31") max : maximum date (superior to min)
      *
-     *  {example} getRandomDate('1981-01-18', '2005-07-24')
-     *  {example} getRandomDate('1980-12-08', '2007-02-26')
+     *  {example} getRandomDate("1981-01-18", "2005-07-24")
+     *  {example} getRandomDate("1980-12-08", "2007-02-26")
      */
      public static Date getRandomDate(String minDate, String maxDate) {
-         // PTODO MHIRT
-         return Calendar.getInstance().getTime();
+         int minYear = Integer.parseInt(minDate.substring(0,4));
+         int minMonth = Integer.parseInt(minDate.substring(5,7));
+         int minDay = Integer.parseInt(minDate.substring(8,10));
          
+         int maxYear = Integer.parseInt(maxDate.substring(0,4));
+         int maxMonth = Integer.parseInt(maxDate.substring(5,7));
+         int maxDay = Integer.parseInt(maxDate.substring(8,10));
+         
+         double rand = Math.random();
+         int yy = minYear + (int) ( (maxYear - minYear) * rand);
+    
+         rand = Math.random();
+         int mm = minMonth + (int) ( (maxMonth - minMonth) * rand);
+    
+         rand = Math.random();
+         int dd = minDay + (int) ( (maxDay - minDay) * rand);
+    
+         Calendar cal = Calendar.getInstance();
+         cal.set(Calendar.YEAR, yy);
+         cal.set(Calendar.MONTH, mm);
+         cal.set(Calendar.DAY_OF_MONTH, dd);
+         return cal.getTime();
      }
 }
