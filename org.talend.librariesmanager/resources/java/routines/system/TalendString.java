@@ -61,5 +61,12 @@ package routines;
 //# {example} firstName('uppercase') # MIKE, ANDREW, HUGH
 
 public class TalendString {
-    
+    public static String replaceSpecialCharForXML(String input){
+        input = input.replaceAll("&","&amp;");
+        input = input.replaceAll("<","&lt;");
+        input = input.replaceAll(">","&gt;");
+        input = input.replaceAll("'","&apos;");
+        input = input.replaceAll("\"","&quot;");
+        return input;
+    }
 }
