@@ -592,7 +592,6 @@ public abstract class JobContextComposite extends Composite {
         addParameter.setEnabled(!isReadOnly());
         final Button removeParameter = new Button(buttonParameterComposite, SWT.None);
         removeParameter.setText(Messages.getString("ContextProcessSection.removeParameterLabel")); //$NON-NLS-1$
-        removeButtons.put(context, removeParameter);
         removeParameter.setEnabled(false);
 
         Composite buttonContextComposite = new Composite(buttonComposite, SWT.NONE);
@@ -613,6 +612,7 @@ public abstract class JobContextComposite extends Composite {
         removeContext.setText(Messages.getString("ContextProcessSection.removeLabel")); //$NON-NLS-1$
         removeContext.addListener(SWT.Selection, removeContextListener);
         removeContext.setEnabled(!isReadOnly());
+        removeButtons.put(context, removeContext);
 
         tabFolder.addSelectionListener(new SelectionListener() {
 
