@@ -79,7 +79,10 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         final TableViewerCreator<Object> tableViewerCreator = currentColumn.getTableViewerCreator();
 
         final Button check = new Button(table, SWT.CHECK);
-        check.setEnabled(currentColumn.isModifiable());
+        boolean enabled = currentColumn.isModifiable()
+                && (tableViewerCreator.getCellModifier() == null || tableViewerCreator.getCellModifier().canModify(
+                        currentRowObject, currentColumn.getId()));
+        check.setEnabled(enabled);
         check.setText("");
         check.setToolTipText(toolTipText);
         check.setBackground(table.getBackground());
@@ -91,8 +94,8 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
             @SuppressWarnings("unchecked")
             public void widgetSelected(SelectionEvent e) {
-                tableViewerCreator.setBeanValue(currentColumn, currentRowObject, ((Button) e.getSource()).getSelection() ? CHECKED
-                        : UNCHECKED, true);
+                tableViewerCreator.setBeanValue(currentColumn, currentRowObject, ((Button) e.getSource())
+                        .getSelection() ? CHECKED : UNCHECKED, true);
                 tableViewerCreator.getTableViewer().setSelection(new StructuredSelection(currentRowObject));
             }
 
@@ -121,14 +124,13 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         return check;
     }
 
-    
     /**
      * Sets the toolTipText.
+     * 
      * @param toolTipText the toolTipText to set
      */
     public void setToolTipText(String toolTipText) {
         this.toolTipText = toolTipText;
     }
 
-    
 }
