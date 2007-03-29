@@ -18,6 +18,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/nULLABLE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/pATTERN"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/pRECISION"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/rEADONLY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/tYPE"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//COMPONENTType">
@@ -140,6 +141,7 @@
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//TABLEType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//TABLEType/cOLUMN"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TABLEType/rEADONLY"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//TEMPLATEPARAMType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//TEMPLATEPARAMType/sOURCE"/>

@@ -80,4 +80,16 @@ public interface IMetadataColumn {
     public IMetadataColumn clone();
 
     public boolean sameMetacolumnAs(IMetadataColumn metaColumn);
+    
+    public boolean isReadOnly();
+    
+    public void setReadOnly(boolean readOnly);
+    
+    public boolean isCustom();
+    
+    public void setCustom(boolean custom);
+    
+    public void setCustomId(int customId); // only for custom columns to sort them
+    
+    public int getCustomId(); // only for custom columns to sort them
 }

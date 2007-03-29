@@ -55,6 +55,12 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 
     private String pattern = ""; //$NON-NLS-1$
 
+    private boolean custom = false;
+
+    private boolean readOnly = false;
+
+    private int customId = 0;
+
     public MetadataColumn() {
         super();
         this.id = getNewId();
@@ -124,15 +130,15 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         return this.label;
     }
 
-    /**
-     * Check the input String is empty or not.
-     * 
-     * @param input
-     * @return
-     */
-    private boolean isNull(String input) {
-        return input==null;
-    }
+    // /**
+    // * Check the input String is empty or not.
+    // *
+    // * @param input
+    // * @return
+    // */
+    // private boolean isNull(String input) {
+    // return input == null;
+    // }
 
     /*
      * (non-Javadoc)
@@ -140,11 +146,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setLabel(java.lang.String)
      */
     public void setLabel(String label) {
-        if (isNull(label)) {
-            this.label = "";
-        } else {
-            this.label = label;
-        }
+        this.label = label;
     }
 
     /*
@@ -180,12 +182,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setType(java.lang.String)
      */
     public void setType(String type) {
-        if (isNull(type)) {
-            this.type = "";
-        } else {
-            this.type = type;
-        }
-
+        this.type = type;
     }
 
     /*
@@ -206,11 +203,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.core.model.metadata.IMetadataColumn#setTalendType(java.lang.String)
      */
     public void setTalendType(String talendType) {
-        if (isNull(talendType)) {
-            this.talendType = "";
-        } else {
-            this.talendType = talendType;
-        }
+        this.talendType = talendType;
     }
 
     /*
@@ -228,11 +221,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.core.model.metadata.IMetadataColumn#setDbms(java.lang.String)
      */
     public void setDbms(String dbms) {
-        if (isNull(dbms)) {
-            this.dbms = "";
-        } else {
-            this.dbms = dbms;
-        }
+        this.dbms = dbms;
     }
 
     /*
@@ -304,11 +293,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setDefault(java.lang.String)
      */
     public void setDefault(String defaut) {
-        if (isNull(defaut)) {
-            this.defaut = "";
-        } else {
-            this.defaut = defaut;
-        }
+        this.defaut = defaut;
     }
 
     /*
@@ -326,12 +311,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.designer.core.model.metadata.IMetadataColumn#setComment(java.lang.String)
      */
     public void setComment(String comment) {
-        if (isNull(comment)) {
-            this.comment = "";
-        } else {
-            this.comment = comment;
-        }
-
+        this.comment = comment;
     }
 
     /*
@@ -349,11 +329,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.core.model.metadata.IMetadataColumn#setPattern(java.lang.String)
      */
     public void setPattern(String pattern) {
-        if (isNull(pattern)) {
-            this.pattern = "";
-        } else {
-            this.pattern = pattern;
-        }
+        this.pattern = pattern;
     }
 
     @Override
@@ -361,6 +337,8 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         IMetadataColumn clonedMetacolumn = null;
         try {
             clonedMetacolumn = (IMetadataColumn) super.clone();
+            clonedMetacolumn.setCustom(false);
+            clonedMetacolumn.setReadOnly(false);
         } catch (CloneNotSupportedException e) {
             // nothing
         }
@@ -377,36 +355,16 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         if (!(other instanceof IMetadataColumn)) {
             return false;
         }
-        // Default value is not saved in the talend file, so no need to check.
-        // if (this.defaut == null) {
-        // if (other.defaut != null) {
-        // return false;
-        // }
-        // } else if (!this.defaut.equals(other.defaut)) {
-        // return false;
-        // }
-        if (this.comment == null) {
-            if (other.getComment() != null) {
-                return false;
-            }
-        } else if (!this.comment.equals(other.getComment())) {
+        if (!sameStringValue(this.comment, other.getComment())) {
             return false;
         }
         if (this.key != other.isKey()) {
             return false;
         }
-        if (this.label == null) {
-            if (other.getLabel() != null) {
-                return false;
-            }
-        } else if (!this.label.equals(other.getLabel())) {
+        if (!sameStringValue(this.label, other.getLabel())) {
             return false;
         }
-        if (this.pattern == null) {
-            if (other.getPattern() != null) {
-                return false;
-            }
-        } else if (!this.pattern.equals(other.getPattern())) {
+        if (!sameStringValue(this.pattern, other.getPattern())) {
             return false;
         }
         if (this.length == null) {
@@ -426,27 +384,75 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         } else if (!this.precision.equals(other.getPrecision())) {
             return false;
         }
-        if (this.defaut == null) {
-            if (other.getDefault() != null) {
-                return false;
-            }
-        } else if (!this.defaut.equals(other.getDefault())) {
+        if (!sameStringValue(this.defaut, other.getDefault())) {
             return false;
         }
-        if (this.talendType == null) {
-            if (other.getTalendType() != null) {
-                return false;
-            }
-        } else if (!this.talendType.equals(other.getTalendType())) {
+        if (!sameStringValue(this.talendType, other.getTalendType())) {
             return false;
         }
-        if (this.type == null) {
-            if (other.getType() != null) {
-                return false;
-            }
-        } else if (!this.type.equals(other.getType())) {
+        if (!sameStringValue(this.type, other.getType())) {
             return false;
         }
         return true;
+    }
+
+    private boolean sameStringValue(String value1, String value2) {
+        if (value1 == null) {
+            if (value2 == null) {
+                return true;
+            } else {
+                return value2.equals("");
+            }
+        } else {
+            if (value1.equals("") && value2 == null) {
+                return true;
+            } else {
+                return value1.equals(value2);
+            }
+        }
+    }
+
+    /**
+     * Getter for custom.
+     * 
+     * @return the custom
+     */
+    public boolean isCustom() {
+        return custom;
+    }
+
+    /**
+     * Sets the custom.
+     * 
+     * @param custom the custom to set
+     */
+    public void setCustom(boolean custom) {
+        this.custom = custom;
+    }
+
+    /**
+     * Getter for readOnly.
+     * 
+     * @return the readOnly
+     */
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    /**
+     * Sets the readOnly.
+     * 
+     * @param readOnly the readOnly to set
+     */
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
+
+    public int getCustomId() {
+        return customId;
+    }
+
+    public void setCustomId(int customId) {
+        this.customId = customId;
     }
 }

@@ -37,6 +37,8 @@ public interface IMetadataTable extends IRepositoryObject {
 
     public void setTableName(String tableName);
 
+    public IMetadataColumn getColumn(String columnName);
+
     public List<IMetadataColumn> getListColumns();
 
     public void setListColumns(List<IMetadataColumn> listColumns);
@@ -49,4 +51,9 @@ public interface IMetadataTable extends IRepositoryObject {
 
     public boolean sameMetadataAs(IMetadataTable meta);
 
+    public void sortCustomColumns();
+    
+    public boolean isReadOnly();
+    
+    public void setReadOnly(boolean readOnly);
 }

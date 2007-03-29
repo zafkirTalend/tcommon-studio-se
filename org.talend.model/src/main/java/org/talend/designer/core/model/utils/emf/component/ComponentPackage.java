@@ -171,13 +171,22 @@ public interface ComponentPackage extends EPackage {
     int COLUMN_TYPE__PRECISION = 6;
 
     /**
+     * The feature id for the '<em><b>READONLY</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__READONLY = 7;
+
+    /**
      * The feature id for the '<em><b>TYPE</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__TYPE = 7;
+    int COLUMN_TYPE__TYPE = 8;
 
     /**
      * The number of structural features of the '<em>COLUMN Type</em>' class.
@@ -186,7 +195,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 8;
+    int COLUMN_TYPE_FEATURE_COUNT = 9;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl <em>COMPONENT Type</em>}' class.
@@ -1288,13 +1297,22 @@ public interface ComponentPackage extends EPackage {
     int TABLE_TYPE__COLUMN = 0;
 
     /**
+     * The feature id for the '<em><b>READONLY</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_TYPE__READONLY = 1;
+
+    /**
      * The number of structural features of the '<em>TABLE Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TABLE_TYPE_FEATURE_COUNT = 1;
+    int TABLE_TYPE_FEATURE_COUNT = 2;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATEPARAMTypeImpl <em>TEMPLATEPARAM Type</em>}' class.
@@ -1562,6 +1580,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getCOLUMNType_PRECISION();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#isREADONLY <em>READONLY</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>READONLY</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COLUMNType#isREADONLY()
+     * @see #getCOLUMNType()
+     * @generated
+     */
+    EAttribute getCOLUMNType_READONLY();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getTYPE <em>TYPE</em>}'.
@@ -2678,6 +2707,17 @@ public interface ComponentPackage extends EPackage {
     EReference getTABLEType_COLUMN();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TABLEType#isREADONLY <em>READONLY</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>READONLY</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TABLEType#isREADONLY()
+     * @see #getTABLEType()
+     * @generated
+     */
+    EAttribute getTABLEType_READONLY();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType <em>TEMPLATEPARAM Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2930,6 +2970,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute COLUMN_TYPE__PRECISION = eINSTANCE.getCOLUMNType_PRECISION();
+
+        /**
+         * The meta object literal for the '<em><b>READONLY</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__READONLY = eINSTANCE.getCOLUMNType_READONLY();
 
         /**
          * The meta object literal for the '<em><b>TYPE</b></em>' attribute feature.
@@ -3792,6 +3840,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EReference TABLE_TYPE__COLUMN = eINSTANCE.getTABLEType_COLUMN();
+
+        /**
+         * The meta object literal for the '<em><b>READONLY</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TABLE_TYPE__READONLY = eINSTANCE.getTABLEType_READONLY();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATEPARAMTypeImpl <em>TEMPLATEPARAM Type</em>}' class.

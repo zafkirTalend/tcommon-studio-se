@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#isNULLABLE <em>NULLABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getPATTERN <em>PATTERN</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getPRECISION <em>PRECISION</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#isREADONLY <em>READONLY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getTYPE <em>TYPE</em>}</li>
  * </ul>
  * </p>
@@ -331,6 +332,60 @@ public interface COLUMNType extends EObject {
      * @generated
      */
     boolean isSetPRECISION();
+
+    /**
+     * Returns the value of the '<em><b>READONLY</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>READONLY</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>READONLY</em>' attribute.
+     * @see #isSetREADONLY()
+     * @see #unsetREADONLY()
+     * @see #setREADONLY(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_READONLY()
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='READONLY' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isREADONLY();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#isREADONLY <em>READONLY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>READONLY</em>' attribute.
+     * @see #isSetREADONLY()
+     * @see #unsetREADONLY()
+     * @see #isREADONLY()
+     * @generated
+     */
+    void setREADONLY(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#isREADONLY <em>READONLY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetREADONLY()
+     * @see #isREADONLY()
+     * @see #setREADONLY(boolean)
+     * @generated
+     */
+    void unsetREADONLY();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#isREADONLY <em>READONLY</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>READONLY</em>' attribute is set.
+     * @see #unsetREADONLY()
+     * @see #isREADONLY()
+     * @see #setREADONLY(boolean)
+     * @generated
+     */
+    boolean isSetREADONLY();
 
     /**
      * Returns the value of the '<em><b>TYPE</b></em>' attribute.

@@ -30,6 +30,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#isNULLABLE <em>NULLABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getPATTERN <em>PATTERN</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getPRECISION <em>PRECISION</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#isREADONLY <em>READONLY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getTYPE <em>TYPE</em>}</li>
  * </ul>
  * </p>
@@ -212,6 +213,35 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @ordered
      */
     protected boolean pRECISIONESet = false;
+
+    /**
+     * The default value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isREADONLY()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean READONLY_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isREADONLY()
+     * @generated
+     * @ordered
+     */
+    protected boolean rEADONLY = READONLY_EDEFAULT;
+
+    /**
+     * This is true if the READONLY attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean rEADONLYESet = false;
 
     /**
      * The default value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
@@ -503,6 +533,52 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isREADONLY() {
+        return rEADONLY;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setREADONLY(boolean newREADONLY) {
+        boolean oldREADONLY = rEADONLY;
+        rEADONLY = newREADONLY;
+        boolean oldREADONLYESet = rEADONLYESet;
+        rEADONLYESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__READONLY, oldREADONLY, rEADONLY, !oldREADONLYESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetREADONLY() {
+        boolean oldREADONLY = rEADONLY;
+        boolean oldREADONLYESet = rEADONLYESet;
+        rEADONLY = READONLY_EDEFAULT;
+        rEADONLYESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.COLUMN_TYPE__READONLY, oldREADONLY, READONLY_EDEFAULT, oldREADONLYESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetREADONLY() {
+        return rEADONLYESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getTYPE() {
         return tYPE;
     }
@@ -540,6 +616,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return getPATTERN();
             case ComponentPackage.COLUMN_TYPE__PRECISION:
                 return new Integer(getPRECISION());
+            case ComponentPackage.COLUMN_TYPE__READONLY:
+                return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.COLUMN_TYPE__TYPE:
                 return getTYPE();
         }
@@ -573,6 +651,9 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return;
             case ComponentPackage.COLUMN_TYPE__PRECISION:
                 setPRECISION(((Integer)newValue).intValue());
+                return;
+            case ComponentPackage.COLUMN_TYPE__READONLY:
+                setREADONLY(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.COLUMN_TYPE__TYPE:
                 setTYPE((String)newValue);
@@ -609,6 +690,9 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
             case ComponentPackage.COLUMN_TYPE__PRECISION:
                 unsetPRECISION();
                 return;
+            case ComponentPackage.COLUMN_TYPE__READONLY:
+                unsetREADONLY();
+                return;
             case ComponentPackage.COLUMN_TYPE__TYPE:
                 setTYPE(TYPE_EDEFAULT);
                 return;
@@ -637,6 +721,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
                 return PATTERN_EDEFAULT == null ? pATTERN != null : !PATTERN_EDEFAULT.equals(pATTERN);
             case ComponentPackage.COLUMN_TYPE__PRECISION:
                 return isSetPRECISION();
+            case ComponentPackage.COLUMN_TYPE__READONLY:
+                return isSetREADONLY();
             case ComponentPackage.COLUMN_TYPE__TYPE:
                 return TYPE_EDEFAULT == null ? tYPE != null : !TYPE_EDEFAULT.equals(tYPE);
         }
@@ -666,6 +752,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
         result.append(pATTERN);
         result.append(", pRECISION: ");
         if (pRECISIONESet) result.append(pRECISION); else result.append("<unset>");
+        result.append(", rEADONLY: ");
+        if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
         result.append(", tYPE: ");
         result.append(tYPE);
         result.append(')');

@@ -8,6 +8,7 @@ package org.talend.designer.core.model.utils.emf.component.impl;
 
 import java.util.Collection;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -15,6 +16,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
+import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -32,6 +34,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TABLETypeImpl#getCOLUMN <em>COLUMN</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TABLETypeImpl#isREADONLY <em>READONLY</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,6 +50,35 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * @ordered
      */
     protected EList cOLUMN = null;
+
+    /**
+     * The default value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isREADONLY()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean READONLY_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isREADONLY()
+     * @generated
+     * @ordered
+     */
+    protected boolean rEADONLY = READONLY_EDEFAULT;
+
+    /**
+     * This is true if the READONLY attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean rEADONLYESet = false;
 
     /**
      * <!-- begin-user-doc -->
@@ -83,6 +115,52 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isREADONLY() {
+        return rEADONLY;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setREADONLY(boolean newREADONLY) {
+        boolean oldREADONLY = rEADONLY;
+        rEADONLY = newREADONLY;
+        boolean oldREADONLYESet = rEADONLYESet;
+        rEADONLYESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TABLE_TYPE__READONLY, oldREADONLY, rEADONLY, !oldREADONLYESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetREADONLY() {
+        boolean oldREADONLY = rEADONLY;
+        boolean oldREADONLYESet = rEADONLYESet;
+        rEADONLY = READONLY_EDEFAULT;
+        rEADONLYESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.TABLE_TYPE__READONLY, oldREADONLY, READONLY_EDEFAULT, oldREADONLYESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetREADONLY() {
+        return rEADONLYESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.TABLE_TYPE__COLUMN:
@@ -100,6 +178,8 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
         switch (featureID) {
             case ComponentPackage.TABLE_TYPE__COLUMN:
                 return getCOLUMN();
+            case ComponentPackage.TABLE_TYPE__READONLY:
+                return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -115,6 +195,9 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
                 getCOLUMN().clear();
                 getCOLUMN().addAll((Collection)newValue);
                 return;
+            case ComponentPackage.TABLE_TYPE__READONLY:
+                setREADONLY(((Boolean)newValue).booleanValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -129,6 +212,9 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
             case ComponentPackage.TABLE_TYPE__COLUMN:
                 getCOLUMN().clear();
                 return;
+            case ComponentPackage.TABLE_TYPE__READONLY:
+                unsetREADONLY();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -142,8 +228,25 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
         switch (featureID) {
             case ComponentPackage.TABLE_TYPE__COLUMN:
                 return cOLUMN != null && !cOLUMN.isEmpty();
+            case ComponentPackage.TABLE_TYPE__READONLY:
+                return isSetREADONLY();
         }
         return super.eIsSet(featureID);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String toString() {
+        if (eIsProxy()) return super.toString();
+
+        StringBuffer result = new StringBuffer(super.toString());
+        result.append(" (rEADONLY: ");
+        if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
+        result.append(')');
+        return result.toString();
     }
 
 } //TABLETypeImpl

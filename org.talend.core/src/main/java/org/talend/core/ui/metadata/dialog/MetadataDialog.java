@@ -30,8 +30,6 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ControlAdapter;
-import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -153,9 +151,10 @@ public class MetadataDialog extends Dialog {
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true, true,
-                    false);
+            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly,
+                    true, true, false);
             outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), true, false);
+
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
         } else {
@@ -175,8 +174,8 @@ public class MetadataDialog extends Dialog {
             composite.setLayoutData(gridData);
 
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
-            inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE, metadataTableEditor,
-                    inputReadOnly, true, true, false);
+            inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE,
+                    metadataTableEditor, inputReadOnly, true, true, false);
             inputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(inputFamily), true, false);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -223,12 +222,14 @@ public class MetadataDialog extends Dialog {
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
+                            | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
                         outputMetaView.getMetadataTableEditor().removeAll();
-                        IMetadataTable metadataTable = inputMetaView.getMetadataTableEditor().getMetadataTable().clone();
+                        IMetadataTable metadataTable = inputMetaView.getMetadataTableEditor().getMetadataTable()
+                                .clone();
                         List<IMetadataColumn> listColumns = metadataTable.getListColumns();
                         for (IMetadataColumn column : listColumns) {
                             column.setPattern(null);
@@ -248,12 +249,14 @@ public class MetadataDialog extends Dialog {
             copyToInput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
+                            | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
                         inputMetaView.getMetadataTableEditor().removeAll();
-                        IMetadataTable metadataTable = outputMetaView.getMetadataTableEditor().getMetadataTable().clone();
+                        IMetadataTable metadataTable = outputMetaView.getMetadataTableEditor().getMetadataTable()
+                                .clone();
                         List<IMetadataColumn> listColumns = metadataTable.getListColumns();
                         for (IMetadataColumn column : listColumns) {
                             column.setPattern(null);
@@ -263,7 +266,7 @@ public class MetadataDialog extends Dialog {
                 }
             });
 
-            if (inputReadOnly) {
+            if (inputReadOnly || inputMetaTable.isReadOnly()) {
                 copyToInput.setEnabled(false);
             }
 
@@ -274,11 +277,16 @@ public class MetadataDialog extends Dialog {
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
             outputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
-            if (outputReadOnly) {
+
+            if (outputReadOnly || outputMetaTable.isReadOnly()) {
                 copyToOutput.setEnabled(false);
             }
             compositesSachForm.setGridDatas();
+            CustomTableManager.addCustomManagementToTable(inputMetaView.getTableViewerCreator(), inputReadOnly);
+            CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly);
         }
+        CustomTableManager.addCustomManagementToTable(outputMetaView.getTableViewerCreator(), outputReadOnly);
+        CustomTableManager.addCustomManagementToToolBar(outputMetaView, outputMetaTable, outputReadOnly);
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
 
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {

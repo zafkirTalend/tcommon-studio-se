@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.RepositoryObject;
+import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 
 /**
  * Meta Data Table. Contains all the columns. <br/> $Id: MetadataTable.java,v 1.24.4.1 2006/09/05 13:38:25 mhelleboid
@@ -38,6 +39,10 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     private List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
 
     private IMetadataConnection parent;
+
+    DefaultTableLabelProvider a;
+
+    private boolean readOnly = false;
 
     @Override
     public String toString() {
@@ -112,28 +117,48 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
         if (!(other instanceof IMetadataTable)) {
             return false;
         }
+
         if (this.listColumns == null) {
             if (other.getListColumns() != null) {
                 return false;
             }
-        } else if (this.listColumns.size() != other.getListColumns().size()) {
-            return false;
         } else {
-            for (int i = 0; i < other.getListColumns().size(); i++) {
-                IMetadataColumn otherColumn = other.getListColumns().get(i);
-                IMetadataColumn myColumn = this.listColumns.get(i);
-                if (!otherColumn.sameMetacolumnAs(myColumn)) {
+            if (listColumns.size() == other.getListColumns().size()) { // test if standard columns (no custom, or same
+                                                                        // input / output)
+                for (int i = 0; i < other.getListColumns().size(); i++) {
+                    IMetadataColumn otherColumn = other.getListColumns().get(i);
+                    IMetadataColumn myColumn = this.listColumns.get(i);
+                    if (!otherColumn.sameMetacolumnAs(myColumn)) {
+                        return false;
+                    }
+                }
+            } else { // test for custom input / output
+                int nbNotCustomOrigin = 0;
+                int nbNotCustomOther = 0;
+                for (IMetadataColumn column : listColumns) {
+                    if (!column.isCustom()) {
+                        nbNotCustomOrigin++;
+                    }
+                }
+                for (IMetadataColumn column : other.getListColumns()) {
+                    if (!column.isCustom()) {
+                        nbNotCustomOther++;
+                    }
+                }
+                if (nbNotCustomOrigin != nbNotCustomOther) {
                     return false;
+                } else {
+                    for (int i = 0; i < other.getListColumns().size(); i++) {
+                        IMetadataColumn otherColumn = other.getListColumns().get(i);
+                        if (!otherColumn.isCustom()) {
+                            IMetadataColumn myColumn = this.listColumns.get(i);
+                            if (!otherColumn.sameMetacolumnAs(myColumn)) {
+                                return false;
+                            }
+                        }
+                    }
                 }
             }
-        }
-
-        if (this.tableName == null) {
-            if (other.getTableName() != null) {
-                return false;
-            }
-        } else if (!this.tableName.equals(other.getTableName())) {
-            return false;
         }
         return true;
     }
@@ -172,5 +197,46 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
      */
     public String getVersion() {
         return getParent().getVersion();
+    }
+
+    public IMetadataColumn getColumn(String columnName) {
+        for (int i = 0; i < listColumns.size(); i++) {
+            IMetadataColumn column = listColumns.get(i);
+            if (column.getLabel().equals(columnName)) {
+                return column;
+            }
+        }
+        return null;
+    }
+
+    public void sortCustomColumns() {
+        List<IMetadataColumn> customColumns = new ArrayList<IMetadataColumn>();
+        for (int i = 0; i < listColumns.size(); i++) {
+            IMetadataColumn column = listColumns.get(i);
+            if (column.isCustom()) {
+                customColumns.add(column);
+            }
+        }
+        listColumns.removeAll(customColumns);
+        int nbDone = 0;
+        while (nbDone < customColumns.size()) {
+            boolean found = false;
+            for (int i = 0; i < customColumns.size() && !found; i++) {
+                IMetadataColumn column = customColumns.get(i);
+                if (column.getCustomId() == nbDone) {
+                    listColumns.add(column);
+                    found = true;
+                }
+            }
+            nbDone++;
+        }
+    }
+
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
     }
 }
