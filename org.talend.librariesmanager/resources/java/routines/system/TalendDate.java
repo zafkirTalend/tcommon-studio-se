@@ -4,7 +4,7 @@ import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import routines.system.FormatterUtils;
+import java.util.Random;
 
 public class TalendDate {
     
@@ -15,9 +15,9 @@ public class TalendDate {
      *  to the date. By default, the format string is DD/MM/CCYY. Here
      *  is the list of date variables:
      *  
-     *  {talendTypes} Date
+     *  {talendTypes} String
      *  
-     *  {param} string("CCYY-MM-DD'T'hh:mm:ss") pattern : date pattern
+     *  {param} string("CCYY-MM-DD hh:mm:ss") pattern : date pattern
      *  
      *  + CC for century
      *  + YY for year
@@ -44,6 +44,17 @@ public class TalendDate {
          sdf.format(Calendar.getInstance().getTime(), result, new FieldPosition(0));
          return result.toString();
      }
+    
+    /**
+     *  getDate : return the current date
+     *
+     *  {talendTypes} Date
+     *
+     *  {example} getCurrentDate()
+     */
+    public static Date getCurrentDate() {
+        return Calendar.getInstance().getTime();
+    }
      
     /**
      *  return an ISO formatted random date
@@ -65,18 +76,13 @@ public class TalendDate {
          int maxMonth = Integer.parseInt(maxDate.substring(5,7));
          int maxDay = Integer.parseInt(maxDate.substring(8,10));
          
-         double rand = Math.random();
-         int yy = minYear + (int) ( (maxYear - minYear) * rand);
-    
-         rand = Math.random();
-         int mm = minMonth + (int) ( (maxMonth - minMonth) * rand);
-    
-         rand = Math.random();
-         int dd = minDay + (int) ( (maxDay - minDay) * rand);
+         int yy = minYear + (int) ( (maxYear - minYear + 1) * Math.random());
+         int mm = minMonth + (int) ( (maxMonth - minMonth + 1) * Math.random());
+         int dd = minDay + (int) ( (maxDay - minDay + 1) * Math.random());
     
          Calendar cal = Calendar.getInstance();
          cal.set(Calendar.YEAR, yy);
-         cal.set(Calendar.MONTH, mm);
+         cal.set(Calendar.MONTH, mm-1);
          cal.set(Calendar.DAY_OF_MONTH, dd);
          return cal.getTime();
      }
