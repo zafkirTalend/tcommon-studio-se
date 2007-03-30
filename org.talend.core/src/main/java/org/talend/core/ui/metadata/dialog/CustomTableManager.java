@@ -33,6 +33,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Display;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -166,8 +167,11 @@ public class CustomTableManager {
                 return null;
             }
             IMetadataColumn column = (IMetadataColumn) element;
+            TableViewerCreatorColumn tableColumn = (TableViewerCreatorColumn) tableViewerCreator.getColumns().get(
+                    columnIndex);
             if (column.isCustom()) {
-                if (column.isReadOnly() || readOnly) {
+                if (column.isReadOnly() || readOnly
+                        || tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_NAME)) {
                     return READONLY_CUSTOM_CELL_BG_COLOR;
                 } else {
                     return CUSTOM_CELL_BG_COLOR;
