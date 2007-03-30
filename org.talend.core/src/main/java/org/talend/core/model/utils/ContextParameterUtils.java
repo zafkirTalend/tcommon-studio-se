@@ -24,7 +24,6 @@ package org.talend.core.model.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.process.IContextParameter;
 
@@ -56,7 +55,7 @@ public final class ContextParameterUtils {
             code = "$_context{" + parameter.getName() + "}"; //$NON-NLS-1$ //$NON-NLS-2$
             break;
         case JAVA:
-            code = "context.get(\""+parameter.getName()+"\")";
+            code = "context.getProperty(\"" + parameter.getName() + "\")";
             break;
         default:
             code = parameter.getName();
