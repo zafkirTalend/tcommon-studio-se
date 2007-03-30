@@ -26,6 +26,7 @@ import java.util.Date;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
+import org.talend.core.model.utils.TalendTextUtils;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -136,7 +137,7 @@ public class JavaSimpleDateFormatProposalProvider implements IContentProposalPro
         }
 
         public String getContent() {
-            return content;
+            return TalendTextUtils.addQuotes(content);
         }
 
         public int getCursorPosition() {
