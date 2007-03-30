@@ -107,4 +107,17 @@ public class ParserUtils {
         }
         return date;
     }
+    
+    public static java.util.Date parseTo_Date(java.util.Date date, String pattern){
+        // java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat(pattern);
+        // java.util.Date date = null;
+        // try {
+        // date = simpleDateFormat.parse(date);
+        // } catch (java.text.ParseException e) {
+        // e.printStackTrace();
+        // System.err.println("Current string to parse '" + s + "'");
+        //        }
+        return date;
+    }
+            
 }

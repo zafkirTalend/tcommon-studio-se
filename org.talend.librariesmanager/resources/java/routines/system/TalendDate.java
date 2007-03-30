@@ -4,6 +4,7 @@ import java.text.FieldPosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import routines.system.FormatterUtils;
 
 public class TalendDate {
     
@@ -13,6 +14,10 @@ public class TalendDate {
      *  date. This string contains fixed strings and variables related
      *  to the date. By default, the format string is DD/MM/CCYY. Here
      *  is the list of date variables:
+     *  
+     *  {talendTypes} Date
+     *  
+     *  {param} string("CCYY-MM-DD'T'hh:mm:ss") pattern : date pattern
      *  
      *  + CC for century
      *  + YY for year
@@ -25,11 +30,11 @@ public class TalendDate {
      public static String getDate(String pattern) {
          StringBuffer result = new StringBuffer(); 
       
-         pattern.replace("CC", "yy");
-         pattern.replace("YY", "yy");
-         pattern.replace("MM", "MM");
-         pattern.replace("DD", "dd");
-         pattern.replace("hh", "HH");
+         pattern = pattern.replace("CC", "yy");
+         pattern = pattern.replace("YY", "yy");
+         pattern = pattern.replace("MM", "MM");
+         pattern = pattern.replace("DD", "dd");
+         pattern = pattern.replace("hh", "HH");
 
          // not needed
          // pattern.replace("mm", "mm");
