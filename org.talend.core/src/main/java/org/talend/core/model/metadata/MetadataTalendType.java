@@ -614,7 +614,7 @@ public final class MetadataTalendType {
             e.printStackTrace();
         }
 
-        String dbmsId = "Mysql5.1"; //$NON-NLS-1$
+        String dbmsId = "mysql_id"; //$NON-NLS-1$
         Dbms dbms = getDbms(dbmsId);
         System.out.println("Oracle10g dbms:" + dbms);
         System.out.println("Oracle10g types:" + Arrays.asList(getDbTypes(dbmsId)));

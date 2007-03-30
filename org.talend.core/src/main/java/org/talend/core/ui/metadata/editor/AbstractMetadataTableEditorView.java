@@ -627,7 +627,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
             try {
                 if (codeLanguage == ECodeLanguage.JAVA) {
-                    arrayDbTypes = MetadataTalendType.getDbTypes("Mysql5.1"); //$NON-NLS-1$
+                    arrayDbTypes = MetadataTalendType.getDbTypes("mysql_id"); //$NON-NLS-1$
                     log.error(Messages.getString("AbstractMetadataTableEditorView.badDbTypeLoaded")); //$NON-NLS-1$
                 } else if (codeLanguage == ECodeLanguage.PERL) {
                     String currentDbms = getCurrentDbms();
@@ -635,7 +635,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
                         arrayDbTypes = MetadataTalendType.loadDatabaseTypes(currentDbms, false);
                     }
                     // log.error("Bad Db types are loaded");
-                    // arrayDbTypes = MetadataTalendType.getDbTypes("Mysql5.1");
+                    // arrayDbTypes = MetadataTalendType.getDbTypes("mysql_id");
                 }
 
             } catch (NoClassDefFoundError e) {

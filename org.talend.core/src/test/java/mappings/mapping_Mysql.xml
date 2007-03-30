@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <mapping>
-	<dbms product="MYSQL" id="Mysql5.1" label="Mapping Mysql 5.1">
+	<dbms product="MYSQL" id="mysql_id" label="Mapping Mysql 5.1">
 
 		<db_types>
 			<type dbType="BOOLEAN"/>
