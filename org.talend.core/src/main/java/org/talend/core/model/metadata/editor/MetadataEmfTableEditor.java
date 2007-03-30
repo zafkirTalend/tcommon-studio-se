@@ -31,9 +31,12 @@ import org.apache.oro.text.regex.Perl5Matcher;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.utils.data.list.UniqueStringGenerator;
 import org.talend.core.i18n.Messages;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.metadata.types.JavaTypesManager;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -189,6 +192,10 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
     public MetadataColumn createNewMetadataColumn() {
         MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
         metadataColumn.setLabel(getNextGeneratedColumnName(defaultLabel));
+        ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+        if (codeLanguage == ECodeLanguage.JAVA) {
+            metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
+        }
         return metadataColumn;
     }
 

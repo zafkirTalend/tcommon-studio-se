@@ -35,6 +35,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
@@ -161,9 +162,7 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         MetadataColumn metadataColumn = new MetadataColumn();
         metadataColumn.setLabel(getNextGeneratedColumnName());
 
-        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY);
-        ECodeLanguage codeLanguage = repositoryContext.getProject().getLanguage();
+        ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
             metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
         }
