@@ -99,6 +99,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/fIELD"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/nAME"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/nOTSHOWIF"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/rEADONLY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/rEPOSITORYITEM"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/sHOWIF"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//ITEMType/vALUE"/>

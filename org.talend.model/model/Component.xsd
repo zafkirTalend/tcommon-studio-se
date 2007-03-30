@@ -203,7 +203,8 @@
    - VALUE is used for TEXT, CHECK
 
 On CLOSED_LIST mode:
-   - FIELD is not used</xs:documentation>
+   - FIELD is not used
+   - READONLY is not used</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
@@ -219,6 +220,7 @@ On CLOSED_LIST mode:
 						<xs:attribute name="SHOW_IF" type="xs:string" use="optional"/>
 						<xs:attribute name="NOT_SHOW_IF" type="xs:string" use="optional"/>
 						<xs:attribute name="FIELD" type="xs:string" use="optional" default="TEXT"/>
+						<xs:attribute name="READONLY" type="xs:boolean" use="optional"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>

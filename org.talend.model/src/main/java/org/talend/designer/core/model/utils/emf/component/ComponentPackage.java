@@ -911,13 +911,22 @@ public interface ComponentPackage extends EPackage {
     int ITEM_TYPE__NOTSHOWIF = 3;
 
     /**
+     * The feature id for the '<em><b>READONLY</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_TYPE__READONLY = 4;
+
+    /**
      * The feature id for the '<em><b>REPOSITORYITEM</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__REPOSITORYITEM = 4;
+    int ITEM_TYPE__REPOSITORYITEM = 5;
 
     /**
      * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
@@ -926,7 +935,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__SHOWIF = 5;
+    int ITEM_TYPE__SHOWIF = 6;
 
     /**
      * The feature id for the '<em><b>VALUE</b></em>' attribute.
@@ -935,7 +944,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__VALUE = 6;
+    int ITEM_TYPE__VALUE = 7;
 
     /**
      * The number of structural features of the '<em>ITEM Type</em>' class.
@@ -944,7 +953,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE_FEATURE_COUNT = 7;
+    int ITEM_TYPE_FEATURE_COUNT = 8;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.LINKTOTypeImpl <em>LINKTO Type</em>}' class.
@@ -2341,6 +2350,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getITEMType_NOTSHOWIF();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isREADONLY <em>READONLY</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>READONLY</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#isREADONLY()
+     * @see #getITEMType()
+     * @generated
+     */
+    EAttribute getITEMType_READONLY();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getREPOSITORYITEM <em>REPOSITORYITEM</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3552,6 +3572,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute ITEM_TYPE__NOTSHOWIF = eINSTANCE.getITEMType_NOTSHOWIF();
+
+        /**
+         * The meta object literal for the '<em><b>READONLY</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_TYPE__READONLY = eINSTANCE.getITEMType_READONLY();
 
         /**
          * The meta object literal for the '<em><b>REPOSITORYITEM</b></em>' attribute feature.

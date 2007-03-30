@@ -29,6 +29,7 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isREADONLY <em>READONLY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getREPOSITORYITEM <em>REPOSITORYITEM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getSHOWIF <em>SHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getVALUE <em>VALUE</em>}</li>
@@ -116,6 +117,35 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @ordered
      */
     protected String nOTSHOWIF = NOTSHOWIF_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isREADONLY()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean READONLY_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isREADONLY()
+     * @generated
+     * @ordered
+     */
+    protected boolean rEADONLY = READONLY_EDEFAULT;
+
+    /**
+     * This is true if the READONLY attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean rEADONLYESet = false;
 
     /**
      * The default value of the '{@link #getREPOSITORYITEM() <em>REPOSITORYITEM</em>}' attribute.
@@ -331,6 +361,52 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isREADONLY() {
+        return rEADONLY;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setREADONLY(boolean newREADONLY) {
+        boolean oldREADONLY = rEADONLY;
+        rEADONLY = newREADONLY;
+        boolean oldREADONLYESet = rEADONLYESet;
+        rEADONLYESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__READONLY, oldREADONLY, rEADONLY, !oldREADONLYESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetREADONLY() {
+        boolean oldREADONLY = rEADONLY;
+        boolean oldREADONLYESet = rEADONLYESet;
+        rEADONLY = READONLY_EDEFAULT;
+        rEADONLYESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.ITEM_TYPE__READONLY, oldREADONLY, READONLY_EDEFAULT, oldREADONLYESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetREADONLY() {
+        return rEADONLYESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getREPOSITORYITEM() {
         return rEPOSITORYITEM;
     }
@@ -417,6 +493,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return getNAME();
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
                 return getNOTSHOWIF();
+            case ComponentPackage.ITEM_TYPE__READONLY:
+                return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.ITEM_TYPE__REPOSITORYITEM:
                 return getREPOSITORYITEM();
             case ComponentPackage.ITEM_TYPE__SHOWIF:
@@ -445,6 +523,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return;
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
                 setNOTSHOWIF((String)newValue);
+                return;
+            case ComponentPackage.ITEM_TYPE__READONLY:
+                setREADONLY(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.ITEM_TYPE__REPOSITORYITEM:
                 setREPOSITORYITEM((String)newValue);
@@ -478,6 +559,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
                 setNOTSHOWIF(NOTSHOWIF_EDEFAULT);
                 return;
+            case ComponentPackage.ITEM_TYPE__READONLY:
+                unsetREADONLY();
+                return;
             case ComponentPackage.ITEM_TYPE__REPOSITORYITEM:
                 setREPOSITORYITEM(REPOSITORYITEM_EDEFAULT);
                 return;
@@ -506,6 +590,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
                 return NOTSHOWIF_EDEFAULT == null ? nOTSHOWIF != null : !NOTSHOWIF_EDEFAULT.equals(nOTSHOWIF);
+            case ComponentPackage.ITEM_TYPE__READONLY:
+                return isSetREADONLY();
             case ComponentPackage.ITEM_TYPE__REPOSITORYITEM:
                 return REPOSITORYITEM_EDEFAULT == null ? rEPOSITORYITEM != null : !REPOSITORYITEM_EDEFAULT.equals(rEPOSITORYITEM);
             case ComponentPackage.ITEM_TYPE__SHOWIF:
@@ -531,6 +617,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         result.append(nAME);
         result.append(", nOTSHOWIF: ");
         result.append(nOTSHOWIF);
+        result.append(", rEADONLY: ");
+        if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
         result.append(", rEPOSITORYITEM: ");
         result.append(rEPOSITORYITEM);
         result.append(", sHOWIF: ");

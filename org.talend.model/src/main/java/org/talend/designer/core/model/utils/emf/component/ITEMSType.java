@@ -44,6 +44,7 @@ public interface ITEMSType extends EObject {
      * 
      * On CLOSED_LIST mode:
      *    - FIELD is not used
+     *    - READONLY is not used
      * <!-- end-model-doc -->
      * @return the value of the '<em>ITEM</em>' containment reference list.
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMSType_ITEM()
