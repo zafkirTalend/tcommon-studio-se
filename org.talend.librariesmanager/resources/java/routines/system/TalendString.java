@@ -1,5 +1,7 @@
 package routines;
 
+import java.util.Random;
+
 // # formatString return the input string formatted as requested. This function
 // # takes a hash as input. We have 4 different cases:
 // #
@@ -32,18 +34,10 @@ package routines;
 // return $string;
 // }
 
-// sub getAsciiRandomString {
-// my ($length) = @_;
-//
-// return getRandomString(
-// $length,
-// ['a'..'z', 'A'..'Z', 0..9]
-// );
-// }
-
 // sub getHexRandomString {
 // my ($length) = @_;
 //
+
 // return getRandomString(
 // $length,
 // ['a'..'f', 0..9]
@@ -77,5 +71,31 @@ public class TalendString {
         input = input.replaceAll("'", "&apos;");
         input = input.replaceAll("\"", "&quot;");
         return input;
+    }
+    
+    /**
+     * getAsciiRandomString : Return a randomly generated String
+     * 
+     * {talendTypes} String
+     * 
+     * {param} length of the String tio return
+     * 
+     * {example} getAsciiRandomString(6) # Art34Z
+     */
+    public static String getAsciiRandomString(int length) {
+        Random random = new Random();
+        int cnt=0;
+        StringBuffer buffer = new StringBuffer();
+        char ch;
+        int end = 'z' + 1;
+        int start = ' ';
+        while (cnt<length) {
+            ch = (char) (random.nextInt(end-start) + start);
+            if (Character.isLetterOrDigit(ch)) {
+                buffer.append(ch);
+                cnt++;
+            }
+        }
+        return buffer.toString();
     }
 }
