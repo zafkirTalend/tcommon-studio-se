@@ -49,6 +49,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 public class ProcessorUtilities {
 
     private static String interpreter, codeLocation, libraryPath;
+
     private static boolean exportConfig = false;
 
     public static ProcessItem getProcessItem(String processName) {
@@ -89,7 +90,7 @@ public class ProcessorUtilities {
         libraryPath = exportLibraryPath;
         exportConfig = true;
     }
-    
+
     public static boolean isExportConfig() {
         return exportConfig;
     }
@@ -100,15 +101,15 @@ public class ProcessorUtilities {
         libraryPath = null;
         exportConfig = false;
     }
-    
+
     public static String getInterpreter() {
         return interpreter;
     }
-    
+
     public static String getLibraryPath() {
         return libraryPath;
     }
-    
+
     public static String getCodeLocation() {
         return codeLocation;
     }
@@ -142,16 +143,20 @@ public class ProcessorUtilities {
         return processor;
     }
 
-    private static void generateCode(JobInfo jobInfo) {
+    private static void generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties) {
         IProcess currentProcess = null;
         jobList.add(jobInfo);
         ProcessItem selectedProcessItem = getProcessItem(jobInfo.getJobName());
-        if (selectedProcessItem != null) {
-            IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
-            currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
-        }
-        if (currentProcess == null) {
-            return;
+        if (jobInfo.getProcess() == null) {
+            if (selectedProcessItem != null) {
+                IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
+                currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
+            }
+            if (currentProcess == null) {
+                return;
+            }
+        } else {
+            currentProcess = jobInfo.getProcess();
         }
         IContext currentContext = getContext(currentProcess, jobInfo.getContextName());
         IProcessor processor = getProcessor(currentProcess, currentContext);
@@ -167,7 +172,7 @@ public class ProcessorUtilities {
                 JobType jType = (JobType) emfJobList.get(j);
                 JobInfo subJobInfo = new JobInfo(jType);
                 if (!jobList.contains(subJobInfo)) {
-                    generateCode(subJobInfo);
+                    generateCode(subJobInfo, statistics, trace, properties);
                 }
             }
         }
@@ -184,7 +189,16 @@ public class ProcessorUtilities {
     public static void generateCode(String processName, String contextName) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName);
-        generateCode(jobInfo);
+        generateCode(jobInfo, false, false, true);
+
+    }
+
+    public static void generateCode(IProcess process, String contextName, boolean statistics, boolean trace,
+            boolean properties) {
+        jobList.clear();
+        JobInfo jobInfo = new JobInfo(process.getName(), contextName);
+        jobInfo.setProcess(process);
+        generateCode(jobInfo, statistics, trace, properties);
 
     }
 
@@ -259,6 +273,8 @@ public class ProcessorUtilities {
 
         String jobName, contextName;
 
+        IProcess process;
+
         JobInfo(String jobName, String contextName) {
             this.jobName = jobName;
             this.contextName = contextName;
@@ -283,6 +299,14 @@ public class ProcessorUtilities {
 
         public void setJobName(String processName) {
             this.jobName = processName;
+        }
+
+        public IProcess getProcess() {
+            return process;
+        }
+
+        public void setProcess(IProcess process) {
+            this.process = process;
         }
     }
 }
