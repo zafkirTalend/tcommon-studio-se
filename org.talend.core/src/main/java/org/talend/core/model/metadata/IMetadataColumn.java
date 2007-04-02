@@ -37,6 +37,8 @@ public interface IMetadataColumn {
     
     public static final int OPTIONS_IGNORE_COMMENT = 4;
 
+    public static final int OPTIONS_IGNORE_PATTERN = 8;
+
     public int getId();
 
     public void setId(int i);

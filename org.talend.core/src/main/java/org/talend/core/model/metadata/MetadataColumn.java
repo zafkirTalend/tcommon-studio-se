@@ -368,8 +368,10 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         if (!sameStringValue(this.label, other.getLabel())) {
             return false;
         }
-        if (!sameStringValue(this.pattern, other.getPattern())) {
-            return false;
+        if ((options & OPTIONS_IGNORE_PATTERN) == 0) {
+            if (!sameStringValue(this.pattern, other.getPattern())) {
+                return false;
+            }
         }
         if (!sameIntegerValue(this.length, other.getLength())) {
             return false;
