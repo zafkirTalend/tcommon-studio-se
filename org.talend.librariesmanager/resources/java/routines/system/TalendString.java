@@ -60,7 +60,7 @@ public class TalendString {
      * 
      * {talendTypes} String
      * 
-     * {param} input: The string with the special character(s) need to be replaced.
+     * {param} string("") input: The string with the special character(s) need to be replaced.
      * 
      * {example} replaceSpecialCharForXML("<title>Empire <>Burlesque</title>") # <title>Empire &lt;&gt;Burlesque</title>
      */
@@ -78,7 +78,7 @@ public class TalendString {
      * 
      * {talendTypes} String
      * 
-     * {param} length of the String tio return
+     * {param} int(6) length: length of the String tio return
      * 
      * {example} getAsciiRandomString(6) # Art34Z
      */
