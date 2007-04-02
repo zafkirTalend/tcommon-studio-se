@@ -50,6 +50,8 @@ public interface IMetadataTable extends IRepositoryObject {
     public void setParent(IMetadataConnection metadataConnection);
 
     public boolean sameMetadataAs(IMetadataTable meta);
+    
+    public boolean sameMetadataAs(IMetadataTable other, int options);
 
     public void sortCustomColumns();
     

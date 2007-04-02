@@ -106,8 +106,8 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
         }
         return clonedMetadata;
     }
-
-    public boolean sameMetadataAs(IMetadataTable other) {
+    
+    public boolean sameMetadataAs(IMetadataTable other, int options) {
         if (this == other) {
             return true;
         }
@@ -128,7 +128,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
                 for (int i = 0; i < other.getListColumns().size(); i++) {
                     IMetadataColumn otherColumn = other.getListColumns().get(i);
                     IMetadataColumn myColumn = this.listColumns.get(i);
-                    if (!otherColumn.sameMetacolumnAs(myColumn)) {
+                    if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
                         return false;
                     }
                 }
@@ -152,7 +152,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
                         IMetadataColumn otherColumn = other.getListColumns().get(i);
                         if (!otherColumn.isCustom()) {
                             IMetadataColumn myColumn = this.listColumns.get(i);
-                            if (!otherColumn.sameMetacolumnAs(myColumn)) {
+                            if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
                                 return false;
                             }
                         }
@@ -160,7 +160,11 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
                 }
             }
         }
-        return true;
+        return true;   
+    }
+
+    public boolean sameMetadataAs(IMetadataTable other) {
+        return sameMetadataAs(other, IMetadataColumn.OPTIONS_NONE);
     }
 
     /**

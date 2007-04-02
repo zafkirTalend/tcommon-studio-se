@@ -28,6 +28,12 @@ package org.talend.core.model.metadata;
  * 
  */
 public interface IMetadataColumn {
+    
+    public static final int OPTIONS_NONE = 0;
+
+    public static final int OPTIONS_IGNORE_KEY = 1;
+
+    public static final int OPTIONS_IGNORE_NULLABLE = 2;
 
     public int getId();
 
@@ -80,6 +86,8 @@ public interface IMetadataColumn {
     public IMetadataColumn clone();
 
     public boolean sameMetacolumnAs(IMetadataColumn metaColumn);
+    
+    public boolean sameMetacolumnAs(IMetadataColumn other, int options);
     
     public boolean isReadOnly();
     

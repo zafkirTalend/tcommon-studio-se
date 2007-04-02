@@ -60,7 +60,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     private boolean readOnly = false;
 
     private int customId = 0;
-
+    
     public MetadataColumn() {
         super();
         this.id = getNewId();
@@ -345,7 +345,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         return clonedMetacolumn;
     }
 
-    public boolean sameMetacolumnAs(IMetadataColumn other) {
+    public boolean sameMetacolumnAs(IMetadataColumn other, int options) {
         if (this == other) {
             return true;
         }
@@ -358,8 +358,10 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         if (!sameStringValue(this.comment, other.getComment())) {
             return false;
         }
-        if (this.key != other.isKey()) {
-            return false;
+        if ((options & OPTIONS_IGNORE_KEY) == 0) {
+            if (this.key != other.isKey()) {
+                return false;
+            }
         }
         if (!sameStringValue(this.label, other.getLabel())) {
             return false;
@@ -367,21 +369,15 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         if (!sameStringValue(this.pattern, other.getPattern())) {
             return false;
         }
-        if (this.length == null) {
-            if (other.getLength() != null) {
-                return false;
-            }
-        } else if (!this.length.equals(other.getLength())) {
+        if (!sameIntegerValue(this.length, other.getLength())) {
             return false;
         }
-        if (this.nullable != other.isNullable()) {
-            return false;
-        }
-        if (this.precision == null) {
-            if (other.getPrecision() != null) {
+        if ((options & OPTIONS_IGNORE_NULLABLE) == 0) {
+            if (this.nullable != other.isNullable()) {
                 return false;
             }
-        } else if (!this.precision.equals(other.getPrecision())) {
+        }
+        if (!sameIntegerValue(this.precision, other.getPrecision())) {
             return false;
         }
         if (!sameStringValue(this.defaut, other.getDefault())) {
@@ -396,6 +392,10 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         return true;
     }
 
+    public boolean sameMetacolumnAs(IMetadataColumn other) {
+        return sameMetacolumnAs(other, OPTIONS_NONE);
+    }
+
     private boolean sameStringValue(String value1, String value2) {
         if (value1 == null) {
             if (value2 == null) {
@@ -405,6 +405,22 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
             }
         } else {
             if (value1.equals("") && value2 == null) {
+                return true;
+            } else {
+                return value1.equals(value2);
+            }
+        }
+    }
+
+    private boolean sameIntegerValue(Integer value1, Integer value2) {
+        if (value1 == null) {
+            if (value2 == null) {
+                return true;
+            } else {
+                return value2 == -1;
+            }
+        } else {
+            if ((value1 == -1) && value2 == null) {
                 return true;
             } else {
                 return value1.equals(value2);
