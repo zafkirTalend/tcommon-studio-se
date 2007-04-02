@@ -34,6 +34,8 @@ public interface IMetadataColumn {
     public static final int OPTIONS_IGNORE_KEY = 1;
 
     public static final int OPTIONS_IGNORE_NULLABLE = 2;
+    
+    public static final int OPTIONS_IGNORE_COMMENT = 4;
 
     public int getId();
 

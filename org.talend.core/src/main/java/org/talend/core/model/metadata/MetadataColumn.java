@@ -60,7 +60,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     private boolean readOnly = false;
 
     private int customId = 0;
-    
+
     public MetadataColumn() {
         super();
         this.id = getNewId();
@@ -355,8 +355,10 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         if (!(other instanceof IMetadataColumn)) {
             return false;
         }
-        if (!sameStringValue(this.comment, other.getComment())) {
-            return false;
+        if ((options & OPTIONS_IGNORE_COMMENT) == 0) {
+            if (!sameStringValue(this.comment, other.getComment())) {
+                return false;
+            }
         }
         if ((options & OPTIONS_IGNORE_KEY) == 0) {
             if (this.key != other.isKey()) {
