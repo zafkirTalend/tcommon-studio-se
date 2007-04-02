@@ -419,13 +419,13 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
             if (value2 == null) {
                 return true;
             } else {
-                return value2 == -1;
+                return value2 <= 0;
             }
         } else {
-            if ((value1 == -1) && value2 == null) {
+            if (value1 <= 0 && value2 == null) {
                 return true;
             } else {
-                return value1.equals(value2);
+                return (value1 <= 0 && value2 <= 0) || value1.equals(value2);
             }
         }
     }
