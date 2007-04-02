@@ -143,17 +143,20 @@ public class ProcessorUtilities {
         return processor;
     }
 
-    private static void generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties) {
+    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties) {
         IProcess currentProcess = null;
         jobList.add(jobInfo);
         ProcessItem selectedProcessItem = getProcessItem(jobInfo.getJobName());
+        if (selectedProcessItem == null) {
+            return false;
+        }
         if (jobInfo.getProcess() == null) {
             if (selectedProcessItem != null) {
                 IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
                 currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
             }
             if (currentProcess == null) {
-                return;
+                return false;
             }
         } else {
             currentProcess = jobInfo.getProcess();
@@ -165,17 +168,18 @@ public class ProcessorUtilities {
         } catch (ProcessorException pe) {
             MessageBoxExceptionHandler.process(pe);
         }
-
+        boolean toReturn = true;
         if (selectedProcessItem.getProcess().getRequired() != null) {
             EList emfJobList = selectedProcessItem.getProcess().getRequired().getJob();
-            for (int j = 0; j < emfJobList.size(); j++) {
+            for (int j = 0; j < emfJobList.size() && toReturn; j++) {
                 JobType jType = (JobType) emfJobList.get(j);
                 JobInfo subJobInfo = new JobInfo(jType);
                 if (!jobList.contains(subJobInfo)) {
-                    generateCode(subJobInfo, statistics, trace, properties);
+                    toReturn = generateCode(subJobInfo, statistics, trace, properties);
                 }
             }
         }
+        return toReturn;
     }
 
     static List<JobInfo> jobList = new ArrayList<JobInfo>();
@@ -186,20 +190,18 @@ public class ProcessorUtilities {
      * @param processName
      * @param contextName
      */
-    public static void generateCode(String processName, String contextName) {
+    public static boolean generateCode(String processName, String contextName) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName);
-        generateCode(jobInfo, false, false, true);
-
+        return generateCode(jobInfo, false, false, true);
     }
 
-    public static void generateCode(IProcess process, String contextName, boolean statistics, boolean trace,
+    public static boolean generateCode(IProcess process, String contextName, boolean statistics, boolean trace,
             boolean properties) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process.getName(), contextName);
         jobInfo.setProcess(process);
-        generateCode(jobInfo, statistics, trace, properties);
-
+        return generateCode(jobInfo, statistics, trace, properties);
     }
 
     /**
