@@ -28,16 +28,32 @@ package org.talend.core.model.metadata;
  * 
  */
 public interface IMetadataColumn {
-    
+
     public static final int OPTIONS_NONE = 0;
 
     public static final int OPTIONS_IGNORE_KEY = 1;
 
     public static final int OPTIONS_IGNORE_NULLABLE = 2;
-    
+
     public static final int OPTIONS_IGNORE_COMMENT = 4;
 
     public static final int OPTIONS_IGNORE_PATTERN = 8;
+
+    public static final int OPTIONS_IGNORE_TYPE = 16;
+
+    public static final int OPTIONS_IGNORE_LENGTH = 32;
+
+    public static final int OPTIONS_IGNORE_PRECISION = 64;
+
+    public static final int OPTIONS_IGNORE_DEFAULT = 128;
+
+    public static final int OPTIONS_IGNORE_TALENDTYPE = 256;
+
+    public static final int OPTIONS_IGNORE_LABEL = 256;
+
+    public static final int OPTIONS_IGNORE_ALL = OPTIONS_IGNORE_LABEL | OPTIONS_IGNORE_TALENDTYPE
+            | OPTIONS_IGNORE_DEFAULT | OPTIONS_IGNORE_PRECISION | OPTIONS_IGNORE_LENGTH | OPTIONS_IGNORE_TYPE
+            | OPTIONS_IGNORE_PATTERN | OPTIONS_IGNORE_COMMENT | OPTIONS_IGNORE_NULLABLE | OPTIONS_IGNORE_KEY;
 
     public int getId();
 
@@ -60,9 +76,9 @@ public interface IMetadataColumn {
     public void setTalendType(String talendType);
 
     public String getPattern();
-    
+
     public void setPattern(String pattern);
-    
+
     public String getDbms();
 
     public void setDbms(String dbms);
@@ -90,18 +106,18 @@ public interface IMetadataColumn {
     public IMetadataColumn clone();
 
     public boolean sameMetacolumnAs(IMetadataColumn metaColumn);
-    
+
     public boolean sameMetacolumnAs(IMetadataColumn other, int options);
-    
+
     public boolean isReadOnly();
-    
+
     public void setReadOnly(boolean readOnly);
-    
+
     public boolean isCustom();
-    
+
     public void setCustom(boolean custom);
-    
+
     public void setCustomId(int customId); // only for custom columns to sort them
-    
+
     public int getCustomId(); // only for custom columns to sort them
 }

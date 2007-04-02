@@ -365,33 +365,45 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
                 return false;
             }
         }
-        if (!sameStringValue(this.label, other.getLabel())) {
-            return false;
+        if ((options & OPTIONS_IGNORE_LABEL) == 0) {
+            if (!sameStringValue(this.label, other.getLabel())) {
+                return false;
+            }
         }
         if ((options & OPTIONS_IGNORE_PATTERN) == 0) {
             if (!sameStringValue(this.pattern, other.getPattern())) {
                 return false;
             }
         }
-        if (!sameIntegerValue(this.length, other.getLength())) {
-            return false;
+        if ((options & OPTIONS_IGNORE_LENGTH) == 0) {
+            if (!sameIntegerValue(this.length, other.getLength())) {
+                return false;
+            }
         }
         if ((options & OPTIONS_IGNORE_NULLABLE) == 0) {
             if (this.nullable != other.isNullable()) {
                 return false;
             }
         }
-        if (!sameIntegerValue(this.precision, other.getPrecision())) {
-            return false;
+        if ((options & OPTIONS_IGNORE_PRECISION) == 0) {
+            if (!sameIntegerValue(this.precision, other.getPrecision())) {
+                return false;
+            }
         }
-        if (!sameStringValue(this.defaut, other.getDefault())) {
-            return false;
+        if ((options & OPTIONS_IGNORE_DEFAULT) == 0) {
+            if (!sameStringValue(this.defaut, other.getDefault())) {
+                return false;
+            }
         }
-        if (!sameStringValue(this.talendType, other.getTalendType())) {
-            return false;
+        if ((options & OPTIONS_IGNORE_TALENDTYPE) == 0) {
+            if (!sameStringValue(this.talendType, other.getTalendType())) {
+                return false;
+            }
         }
-        if (!sameStringValue(this.type, other.getType())) {
-            return false;
+        if ((options & OPTIONS_IGNORE_TYPE) == 0) {
+            if (!sameStringValue(this.type, other.getType())) {
+                return false;
+            }
         }
         return true;
     }
