@@ -85,15 +85,24 @@ public class ThreeCompositesSashForm extends Composite {
      */
     private void setCompositesBounds(int shift) {
         // Set Left Composite Width.
-        leftComposite.setSize(leftComposite.getBounds().width + shift, leftComposite.getBounds().height);
-        // Set Sashes Location and middle Composite Bounds.
-        leftSash.setLocation(leftSash.getBounds().x + shift, leftSash.getBounds().y);
+        int leftSashPreLocation = leftSash.getBounds().x;
+        leftSash.setLocation(leftSashPreLocation + shift, leftSash.getBounds().y);
+        if (leftSash.getBounds().x > 0) {
+            if (leftSashPreLocation < 0) {
+                leftComposite.setSize(leftComposite.getBounds().width + shift + leftSashPreLocation,
+                        leftComposite.getBounds().height);
+            } else {
+                leftComposite.setSize(leftComposite.getBounds().width + shift, leftComposite.getBounds().height);
+            }
+        } else {
+            leftComposite.setSize(0, leftComposite.getBounds().height);
+        }
+        // Set middle composite.
         midComposite.setLocation(midComposite.getBounds().x + shift, midComposite.getBounds().y);
         rightSash.setLocation(rightSash.getBounds().x + shift, rightSash.getBounds().y);
         // Set Right Composte Width.
         rightComposite.setLocation(rightComposite.getBounds().x + shift, rightComposite.getBounds().y);
         rightComposite.setSize(rightComposite.getBounds().width - shift, rightComposite.getBounds().height);
-        // attachSizes();
     }
 
     public Composite getLeftComposite() {
