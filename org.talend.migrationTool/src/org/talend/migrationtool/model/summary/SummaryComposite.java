@@ -1,0 +1,127 @@
+// ============================================================================
+//
+// Talend Community Edition
+//
+// Copyright (C) 2006-2007 Talend - www.talend.com
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// ============================================================================
+package org.talend.migrationtool.model.summary;
+
+import java.util.List;
+
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
+import org.talend.commons.ui.image.ImageProvider;
+import org.talend.core.model.migration.IProjectMigrationTask;
+import org.talend.core.ui.images.ECoreImage;
+
+/**
+ * DOC smallet class global comment. Detailled comment <br/>
+ * 
+ * $Id$
+ * 
+ */
+public class SummaryComposite extends Composite {
+
+    private static final Color BCK_COLOR = new Color(null, 255, 255, 255);
+
+    private static final int HORIZONTAL_MERGE = 5;
+
+    private static final int VERTICAL_MERGE = 5;
+
+    private static final int HORIZONTAL_SPACE = 5;
+
+    private static final int VERTICAL_SPACE = 5;
+
+    public SummaryComposite(Composite parent, int style, List<IProjectMigrationTask> tasks) {
+        super(parent, style);
+        this.setLayout(new FillLayout());
+        this.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+        FormData data;
+
+        ScrolledComposite scrolled = new ScrolledComposite(this, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+        scrolled.setLayout(new GridLayout());
+        scrolled.setExpandHorizontal(true);
+
+        Composite container = new Composite(scrolled, SWT.NONE);
+        scrolled.setContent(container);
+        FormLayout layout2 = new FormLayout();
+        container.setLayout(layout2);
+        container.setBackground(BCK_COLOR);
+
+        Control lastControl = null;
+
+        int i = 0;
+        for (IProjectMigrationTask task : tasks) {
+            Label imageLabel = new Label(container, SWT.NONE);
+            imageLabel.setImage(ImageProvider.getImage(ECoreImage.TALEND_PICTO));
+            imageLabel.setBackground(BCK_COLOR);
+            data = new FormData();
+            data.left = new FormAttachment(HORIZONTAL_MERGE);
+            if (lastControl == null) {
+                data.top = new FormAttachment(VERTICAL_MERGE);
+            } else {
+                data.top = new FormAttachment(lastControl, VERTICAL_SPACE, SWT.BOTTOM);
+            }
+            imageLabel.setLayoutData(data);
+
+            Label taskNameLabel = new Label(container, SWT.NONE);
+            taskNameLabel.setText(task.getName());
+            taskNameLabel.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
+            taskNameLabel.setBackground(BCK_COLOR);
+            data = new FormData();
+            data.left = new FormAttachment(imageLabel, HORIZONTAL_SPACE);
+            data.top = new FormAttachment(imageLabel, 0, SWT.CENTER);
+            taskNameLabel.setLayoutData(data);
+
+            Label taskDescLabel = new Label(container, SWT.NONE);
+            taskDescLabel.setText(task.getDescription());
+            taskDescLabel.setBackground(BCK_COLOR);
+            data = new FormData();
+            data.left = new FormAttachment(HORIZONTAL_MERGE);
+            data.top = new FormAttachment(taskNameLabel, VERTICAL_SPACE, SWT.BOTTOM);
+            taskDescLabel.setLayoutData(data);
+            lastControl = taskDescLabel;
+
+            if (i + 1 < tasks.size()) {
+                Label separator = new Label(container, SWT.SEPARATOR | SWT.HORIZONTAL);
+                data = new FormData();
+                data.left = new FormAttachment(HORIZONTAL_SPACE);
+                data.right = new FormAttachment(100, -HORIZONTAL_SPACE);
+                data.top = new FormAttachment(taskDescLabel, HORIZONTAL_SPACE);
+                separator.setLayoutData(data);
+                lastControl = separator;
+            }
+
+            i++;
+        }
+
+        container.setSize(container.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+    }
+}

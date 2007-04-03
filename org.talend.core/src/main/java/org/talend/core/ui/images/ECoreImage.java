@@ -33,6 +33,8 @@ import org.talend.core.CorePlugin;
  */
 public enum ECoreImage implements IImage {
 
+    TALEND_PICTO("/icons/talend-picto-small.gif"), //$NON-NLS-1$
+    
     PROJECT_WIZ("/icons/project_wiz.png"), //$NON-NLS-1$
 
     RECYCLE_BIN_EMPTY_ICON("/icons/recyclebinempty.png"), //$NON-NLS-1$

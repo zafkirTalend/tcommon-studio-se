@@ -33,6 +33,8 @@ public abstract class AbstractMigrationTask {
 
     private String name;
 
+    private String description;
+
     /**
      * DOC smallet AbstractMigrationTask constructor comment.
      */
@@ -66,5 +68,13 @@ public abstract class AbstractMigrationTask {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

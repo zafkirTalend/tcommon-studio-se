@@ -40,5 +40,9 @@ public interface IProjectMigrationTask {
 
     public void setName(String name);
 
+    public String getDescription();
+
+    public void setDescription(String desc);
+
     public boolean execute(Project project);
 }

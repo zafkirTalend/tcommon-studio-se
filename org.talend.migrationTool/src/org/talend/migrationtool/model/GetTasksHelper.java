@@ -63,6 +63,7 @@ public class GetTasksHelper {
                                 .createExecutableExtension("class"); //$NON-NLS-1$
                         currentAction.setId(configurationElement.getAttribute("id")); //$NON-NLS-1$
                         currentAction.setName(configurationElement.getAttribute("name")); //$NON-NLS-1$
+                        currentAction.setDescription(configurationElement.getAttribute("description")); //$NON-NLS-1$
                         return currentAction;
                     }
                 } catch (CoreException e) {

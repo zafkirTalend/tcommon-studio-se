@@ -49,6 +49,13 @@ public class MigrationToolService implements IMigrationToolService {
 
     private static Logger log = Logger.getLogger(MigrationToolService.class);
 
+    // FIXME SML Change that
+    public List<IProjectMigrationTask> doneThisSession;
+
+    public MigrationToolService() {
+        doneThisSession = new ArrayList<IProjectMigrationTask>();
+    }
+
     public void executeProjectTasks(Project project, boolean beforeLogon) {
         log.trace("Migration tool: project [" + project.getLabel() + "] tasks"); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -62,6 +69,7 @@ public class MigrationToolService implements IMigrationToolService {
                         done.add(task.getId());
                         log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
                     } else {
+                        doneThisSession.add(task);// FIXME SML Move up
                         log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                     }
                 } catch (Exception e) {
