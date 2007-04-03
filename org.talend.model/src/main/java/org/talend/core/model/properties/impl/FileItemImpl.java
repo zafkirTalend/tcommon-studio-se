@@ -270,14 +270,15 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
         
         URI proxyUri = proxy.eProxyURI();
         URI resourceUri = proxyUri.trimFragment();
-
+        ResourceSet resourceSet = eResource().getResourceSet();
+        ByteArrayResource byteArrayResource = null;
+        
         if ("platform".equals(proxyUri.scheme()) && proxyUri.segmentCount() > 1 && "resource".equals(proxyUri.segment(0))) { //$NON-NLS-1$ //$NON-NLS-2$
 
-            ResourceSet resourceSet = eResource().getResourceSet();
             URIConverter theURIConverter = resourceSet.getURIConverter();
             URI normalizedURI = theURIConverter.normalize(resourceUri);
 
-            ByteArrayResource byteArrayResource = null;
+            
             for (Iterator i = resourceSet.getResources().iterator(); i.hasNext();) {
                 Resource resource = (Resource) i.next();
                 if (theURIConverter.normalize(resource.getURI()).equals(normalizedURI)) {
@@ -294,14 +295,22 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
                 byteArrayResource.load(null);
             } catch (IOException e) {
             }
-            
-            EObject object = byteArrayResource.getEObject(proxyUri.fragment().toString());
+        } else {
+            for (Iterator i = resourceSet.getResources().iterator(); i.hasNext();) {
+                Resource resource = (Resource) i.next();
+                if (resource.getURI().equals(resourceUri)) {
+                    byteArrayResource = (ByteArrayResource) resource;
+                }
+            }
+        }
 
+        if (byteArrayResource != null && byteArrayResource.isLoaded()) {
+            EObject object = byteArrayResource.getEObject(proxyUri.fragment().toString());
             if (object != null) {
                 return object;
             }
         }
-
+        
         throw new UnsupportedOperationException();
     }
 

@@ -35,5 +35,13 @@
             class="org.talend.repository.localprovider.model.PropertiesProjectResourcesFactory"
             type="project"/>
    </extension>
+   <extension
+         point="org.talend.core.repositoryContextualsActions">
+      <Action
+            class="org.talend.repository.localprovider.ui.actions.ImportItemAction"
+            id="org.talend.repository.localprovider.ui.actions.ImportItemAction"
+            isEditAction="false"
+            isReadAction="false"/>
+   </extension>
 
 </plugin>

@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.repository.localprovider.model;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +58,9 @@ import org.talend.repository.model.URIHelper;
  */
 public class XmiResourceManager {
 
-    private static final String PROPERTIES_EXTENSION = "properties"; //$NON-NLS-1$
+    public static final String PROPERTIES_EXTENSION = "properties"; //$NON-NLS-1$
 
-    private static final String ITEM_EXTENSION = "item"; //$NON-NLS-1$
+    public static final String ITEM_EXTENSION = "item"; //$NON-NLS-1$
 
     private static final String OLD_PROJECT_FILENAME = "talendProject";//$NON-NLS-1$
     private static final String PROJECT_FILENAME = "talend.project";//$NON-NLS-1$
@@ -206,6 +207,14 @@ public class XmiResourceManager {
         return PROPERTIES_EXTENSION.equals(file.getFileExtension());
     }
 
+    public boolean isPropertyFile(File file) {
+        return file.getAbsolutePath().endsWith(PROPERTIES_EXTENSION);
+    }
+
+    public boolean isPropertyFile(String filename) {
+        return filename.endsWith(PROPERTIES_EXTENSION);
+    }
+    
     public boolean isProjectFile(IFile file) {
         return getProjectFilename().equals(file.getName());
     }
