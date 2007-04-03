@@ -72,6 +72,7 @@ public class MetadataSchema {
     private static final String SCHEMA_VALIDATOR = "http://java.sun.com/xml/jaxp/properties/schemaSource"; //$NON-NLS-1$
 
     protected static MetadataSchema instance = new MetadataSchema();
+
     /**
      * default constructor. Must not be used
      */
@@ -143,20 +144,22 @@ public class MetadataSchema {
      * @throws IOException if file cannot be read
      */
     @Deprecated
-    public static List<IMetadataColumn> initializeColumns(final File file) throws ParserConfigurationException, SAXException,
-            IOException {
+    public static List<IMetadataColumn> initializeColumns(final File file) throws ParserConfigurationException,
+            SAXException, IOException {
         return instance.initializeAllColumns(file);
     }
 
     /**
      * qzhang Comment method "initializeAllColumns".
+     * 
      * @param file
      * @return
      * @throws IOException
      * @throws ParserConfigurationException
      * @throws SAXException
      */
-    public List<IMetadataColumn> initializeAllColumns(final File file) throws IOException, ParserConfigurationException, SAXException {
+    public List<IMetadataColumn> initializeAllColumns(final File file) throws IOException,
+            ParserConfigurationException, SAXException {
         final List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
         if (file != null) {
             final Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
@@ -178,6 +181,7 @@ public class MetadataSchema {
 
     /**
      * qzhang Comment method "initializeColumn".
+     * 
      * @param metadataColumn
      * @param nodeMap
      * @return
@@ -192,6 +196,7 @@ public class MetadataSchema {
         final Node precision = nodeMap.getNamedItem("precision"); //$NON-NLS-1$
         final Node defaultValue = nodeMap.getNamedItem("default"); //$NON-NLS-1$
         final Node comment = nodeMap.getNamedItem("comment"); //$NON-NLS-1$
+        final Node pattern = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
 
         metadataColumn.setLabel(label.getNodeValue());
         metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
@@ -221,6 +226,9 @@ public class MetadataSchema {
         metadataColumn.setNullable(Boolean.parseBoolean(nullable.getNodeValue()));
         metadataColumn.setDefault(defaultValue.getNodeValue());
         metadataColumn.setComment(comment.getNodeValue());
+        if (pattern.getNodeValue() != null) {
+            metadataColumn.setPattern(pattern.getNodeValue());
+        }
         return metadataColumn;
     }
 
@@ -233,9 +241,10 @@ public class MetadataSchema {
      * @throws SAXException if sax exception occured
      * @throws IOException if file cannot be read
      */
-    private static List<org.talend.core.model.metadata.builder.connection.MetadataColumn> initializeColumns2(final File file)
-            throws ParserConfigurationException, SAXException, IOException {
-        final List<org.talend.core.model.metadata.builder.connection.MetadataColumn> listColumns = new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataColumn>();
+    private static List<org.talend.core.model.metadata.builder.connection.MetadataColumn> initializeColumns2(
+            final File file) throws ParserConfigurationException, SAXException, IOException {
+        final List<org.talend.core.model.metadata.builder.connection.MetadataColumn> listColumns = 
+            new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataColumn>();
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
@@ -280,6 +289,10 @@ public class MetadataSchema {
                 final Node nullable = nodeMap.getNamedItem("nullable"); //$NON-NLS-1$
                 final Node defaultValue = nodeMap.getNamedItem("default"); //$NON-NLS-1$
                 final Node comment = nodeMap.getNamedItem("comment"); //$NON-NLS-1$
+                final Node pattern = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
+                // final Node function = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
+                // final Node parameter = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
+                // final Node preview = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
 
                 metadataColumn.setLabel(label.getNodeValue());
                 metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
@@ -308,6 +321,18 @@ public class MetadataSchema {
                 metadataColumn.setNullable(Boolean.parseBoolean(nullable.getNodeValue()));
                 metadataColumn.setDefaultValue(defaultValue.getNodeValue());
                 metadataColumn.setComment(comment.getNodeValue());
+                if (pattern.getNodeValue() != null) {
+                    metadataColumn.setPattern(pattern.getNodeValue());
+                }
+                // if (function.getNodeValue()!=null) {
+                // metadataColumn.setPattern(function.getNodeValue());
+                // }
+                // if (parameter.getNodeValue()!=null) {
+                // metadataColumn.setPattern(parameter.getNodeValue());
+                // }
+                // if (preview.getNodeValue()!=null) {
+                // metadataColumn.setPattern(preview.getNodeValue());
+                // }
                 listColumns.add(metadataColumn);
             }
         }
@@ -323,9 +348,10 @@ public class MetadataSchema {
      * @throws SAXException if sax exception occured
      * @throws IOException if file cannot be read
      */
-    private static List<org.talend.core.model.metadata.builder.connection.SchemaTarget> initializeSchemaTarget2(final File file)
-            throws ParserConfigurationException, SAXException, IOException {
-        final List<org.talend.core.model.metadata.builder.connection.SchemaTarget> listSchemaTargets = new ArrayList<org.talend.core.model.metadata.builder.connection.SchemaTarget>();
+    private static List<org.talend.core.model.metadata.builder.connection.SchemaTarget> initializeSchemaTarget2(
+            final File file) throws ParserConfigurationException, SAXException, IOException {
+        final List<org.talend.core.model.metadata.builder.connection.SchemaTarget> listSchemaTargets = 
+            new ArrayList<org.talend.core.model.metadata.builder.connection.SchemaTarget>();
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
@@ -418,7 +444,8 @@ public class MetadataSchema {
             document.appendChild(racine);
 
             for (Object list : table.getColumns()) {
-                org.talend.core.model.metadata.builder.connection.MetadataColumn metadataColumn = (org.talend.core.model.metadata.builder.connection.MetadataColumn) list;
+                org.talend.core.model.metadata.builder.connection.MetadataColumn metadataColumn = 
+                    (org.talend.core.model.metadata.builder.connection.MetadataColumn) list;
                 Element column = document.createElement("column"); //$NON-NLS-1$
                 racine.appendChild(column);
 
@@ -486,8 +513,9 @@ public class MetadataSchema {
      * @throws IOException if file cannot be saved
      * @throws ParserConfigurationException if dom is not fully respected
      */
-    public static boolean saveSchemaTargetToFile(File file, org.talend.core.model.metadata.builder.connection.MetadataSchema table)
-            throws IOException, ParserConfigurationException {
+    public static boolean saveSchemaTargetToFile(File file,
+            org.talend.core.model.metadata.builder.connection.MetadataSchema table) throws IOException,
+            ParserConfigurationException {
 
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
@@ -562,6 +590,7 @@ public class MetadataSchema {
 
     /**
      * qzhang Comment method "saveColumnsToFile".
+     * 
      * @param file
      * @param table
      * @return
@@ -620,7 +649,8 @@ public class MetadataSchema {
     }
 
     /**
-     *  qzhang Comment method "saveOneColumn".
+     * qzhang Comment method "saveOneColumn".
+     * 
      * @param document
      * @param metadataColumn
      * @param column
