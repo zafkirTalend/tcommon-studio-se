@@ -235,14 +235,14 @@ public interface IProcessDescription {
      * 
      * @return the loopLimit
      */
-    public String getLoopLimit();
+    public Integer getLoopLimit();
 
     /**
      * Sets the loopLimit.
      * 
      * @param loopLimit the loopLimit to set
      */
-    public void setLoopLimit(String loopLimit);
+    public void setLoopLimit(Integer loopLimit);
     
     /**
      * Getter for mapping.
