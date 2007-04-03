@@ -67,9 +67,9 @@ public class MigrationToolService implements IMigrationToolService {
                 try {
                     if (task.execute(project)) {
                         done.add(task.getId());
+                        doneThisSession.add(task);
                         log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
                     } else {
-                        doneThisSession.add(task);// FIXME SML Move up
                         log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                     }
                 } catch (Exception e) {

@@ -38,6 +38,11 @@ import org.talend.migrationtool.i18n.Messages;
  */
 public class SummaryDialog extends TitleAreaDialog {
 
+    /**
+     * 
+     */
+    private static final int DIALOG_HEIGHT = 350;
+
     private List<IProjectMigrationTask> tasks;
 
     public SummaryDialog(Shell parentShell, List<IProjectMigrationTask> tasks) {
@@ -55,14 +60,15 @@ public class SummaryDialog extends TitleAreaDialog {
 
     @Override
     protected Control createDialogArea(final Composite parent) {
-        return new SummaryComposite(parent, SWT.NONE, tasks);
+        int height = DIALOG_HEIGHT - getTitleImageLabel().getSize().y;
+        return new SummaryComposite(parent, SWT.NONE, tasks, height);
     }
 
     @Override
     protected void configureShell(final Shell newShell) {
         super.configureShell(newShell);
         newShell.setText(Messages.getString("migrationTasksRecapDialog.title")); //$NON-NLS-1$
-        newShell.setSize(600, 350);
+        newShell.setSize(600, DIALOG_HEIGHT);
     }
 
     protected void createButtonsForButtonBar(Composite parent) {

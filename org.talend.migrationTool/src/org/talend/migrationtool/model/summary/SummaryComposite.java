@@ -58,16 +58,19 @@ public class SummaryComposite extends Composite {
 
     private static final int VERTICAL_SPACE = 5;
 
-    public SummaryComposite(Composite parent, int style, List<IProjectMigrationTask> tasks) {
+    public SummaryComposite(Composite parent, int style, List<IProjectMigrationTask> tasks, int size) {
         super(parent, style);
+        parent.setBackground(BCK_COLOR);
         this.setLayout(new FillLayout());
         this.setLayoutData(new GridData(GridData.FILL_BOTH));
+        this.setBackground(BCK_COLOR);
 
         FormData data;
 
         ScrolledComposite scrolled = new ScrolledComposite(this, SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
         scrolled.setLayout(new GridLayout());
         scrolled.setExpandHorizontal(true);
+        scrolled.setBackground(BCK_COLOR);
 
         Composite container = new Composite(scrolled, SWT.NONE);
         scrolled.setContent(container);
@@ -100,11 +103,12 @@ public class SummaryComposite extends Composite {
             data.top = new FormAttachment(imageLabel, 0, SWT.CENTER);
             taskNameLabel.setLayoutData(data);
 
-            Label taskDescLabel = new Label(container, SWT.NONE);
+            Label taskDescLabel = new Label(container, SWT.WRAP);
             taskDescLabel.setText(task.getDescription());
             taskDescLabel.setBackground(BCK_COLOR);
             data = new FormData();
             data.left = new FormAttachment(HORIZONTAL_MERGE);
+            data.right = new FormAttachment(100, -HORIZONTAL_MERGE);
             data.top = new FormAttachment(taskNameLabel, VERTICAL_SPACE, SWT.BOTTOM);
             taskDescLabel.setLayoutData(data);
             lastControl = taskDescLabel;
@@ -122,6 +126,6 @@ public class SummaryComposite extends Composite {
             i++;
         }
 
-        container.setSize(container.computeSize(SWT.DEFAULT, SWT.DEFAULT));
+        container.setSize(container.computeSize(size, SWT.DEFAULT));
     }
 }
