@@ -25,7 +25,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -161,6 +163,7 @@ public class MetadataSchema {
     public List<IMetadataColumn> initializeAllColumns(final File file) throws IOException,
             ParserConfigurationException, SAXException {
         final List<IMetadataColumn> listColumns = new ArrayList<IMetadataColumn>();
+        Set<String> columnsAlreadyAdded = new HashSet<String>();
         if (file != null) {
             final Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
             final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path(SCHEMA_XSD), null));
@@ -173,7 +176,11 @@ public class MetadataSchema {
                 final Node nodetoParse = nodes.item(i);
                 final NamedNodeMap nodeMap = nodetoParse.getAttributes();
                 metadataColumn = initializeOneColumn(metadataColumn, nodeMap);
-                listColumns.add(metadataColumn);
+                
+                if (!columnsAlreadyAdded.contains(metadataColumn.getLabel())) {
+                    listColumns.add(metadataColumn);
+                    columnsAlreadyAdded.add(metadataColumn.getLabel());
+                }
             }
         }
         return listColumns;
@@ -275,6 +282,7 @@ public class MetadataSchema {
 
             final Document document = analyseur.parse(file);
             final NodeList nodes = document.getElementsByTagName("column"); //$NON-NLS-1$
+            Set<String> columnsAlreadyAdded = new HashSet<String>();
             for (int i = 0; i < nodes.getLength(); i++) {
                 final org.talend.core.model.metadata.builder.connection.MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE
                         .createMetadataColumn();
@@ -333,7 +341,11 @@ public class MetadataSchema {
                 // if (preview.getNodeValue()!=null) {
                 // metadataColumn.setPattern(preview.getNodeValue());
                 // }
-                listColumns.add(metadataColumn);
+                
+                if (!columnsAlreadyAdded.contains(metadataColumn.getLabel())) {
+                    listColumns.add(metadataColumn);
+                    columnsAlreadyAdded.add(metadataColumn.getLabel());
+                }
             }
         }
         return listColumns;
