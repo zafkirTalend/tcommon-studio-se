@@ -131,8 +131,10 @@ public abstract class ExtendedPushButton implements IExtendedPushButton {
     protected void handleSelectionEvent(Event event) {
         beforeCommandExecution();
         this.commandToExecute = getCommandToExecute();
-        executeCommand(this.commandToExecute);
-        afterCommandExecution(this.commandToExecute);
+        if (this.commandToExecute != null) {
+            executeCommand(this.commandToExecute);
+            afterCommandExecution(this.commandToExecute);
+        }
     }
 
     /**
@@ -144,9 +146,9 @@ public abstract class ExtendedPushButton implements IExtendedPushButton {
     }
 
     /**
-     * DOC amaumont Comment method "getCommandToExecute".
+     * Return the <code>Command</code> to execute.
      * 
-     * @return
+     * @return the command to execute, null if no command to execute
      */
     protected abstract Command getCommandToExecute();
 

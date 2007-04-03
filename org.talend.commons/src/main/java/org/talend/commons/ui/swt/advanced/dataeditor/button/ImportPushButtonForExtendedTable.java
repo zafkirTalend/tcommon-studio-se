@@ -54,12 +54,6 @@ public abstract class ImportPushButtonForExtendedTable extends ImportPushButton 
         super(parent, extendedTableViewer);
     }
 
-    protected Command getCommandToExecute() {
-        AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
-        Table table = extendedTableViewer.getTableViewerCreator().getTable();
-        return getCommandToExecute(extendedTableViewer.getExtendedTableModel(), file);
-    }
-    
     /*
      * (non-Javadoc)
      * 
@@ -74,9 +68,21 @@ public abstract class ImportPushButtonForExtendedTable extends ImportPushButton 
             file = new File(fileName);
             AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
             extendedTableViewer.getExtendedTableModel().removeAll();
+        } else {
+            file = null;
         }
     }
-
+    
+    protected Command getCommandToExecute() {
+        AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
+        Table table = extendedTableViewer.getTableViewerCreator().getTable();
+        if(file != null) {
+            return getCommandToExecute(extendedTableViewer.getExtendedTableModel(), file);
+        } else {
+            return null;
+        }
+    }
+    
     protected abstract Command getCommandToExecute(ExtendedTableModel model, File file);
     
     
