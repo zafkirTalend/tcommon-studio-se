@@ -49,6 +49,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 public class ProcessorUtilities {
 
     private static String interpreter, codeLocation, libraryPath;
+
     private static boolean exportConfig = false;
 
     public static ProcessItem getProcessItem(String processName) {
@@ -89,7 +90,7 @@ public class ProcessorUtilities {
         libraryPath = exportLibraryPath;
         exportConfig = true;
     }
-    
+
     public static boolean isExportConfig() {
         return exportConfig;
     }
@@ -100,15 +101,15 @@ public class ProcessorUtilities {
         libraryPath = null;
         exportConfig = false;
     }
-    
+
     public static String getInterpreter() {
         return interpreter;
     }
-    
+
     public static String getLibraryPath() {
         return libraryPath;
     }
-    
+
     public static String getCodeLocation() {
         return codeLocation;
     }
@@ -142,35 +143,43 @@ public class ProcessorUtilities {
         return processor;
     }
 
-    private static void generateCode(JobInfo jobInfo) {
+    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties) {
         IProcess currentProcess = null;
         jobList.add(jobInfo);
         ProcessItem selectedProcessItem = getProcessItem(jobInfo.getJobName());
-        if (selectedProcessItem != null) {
-            IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
-            currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
+        if (selectedProcessItem == null) {
+            return false;
         }
-        if (currentProcess == null) {
-            return;
+        if (jobInfo.getProcess() == null) {
+            if (selectedProcessItem != null) {
+                IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
+                currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
+            }
+            if (currentProcess == null) {
+                return false;
+            }
+        } else {
+            currentProcess = jobInfo.getProcess();
         }
         IContext currentContext = getContext(currentProcess, jobInfo.getContextName());
         IProcessor processor = getProcessor(currentProcess, currentContext);
         try {
-            processor.generateCode(currentContext, false, false, true);
+            processor.generateCode(currentContext, statistics, trace, properties); // main job will use stats / traces
         } catch (ProcessorException pe) {
             MessageBoxExceptionHandler.process(pe);
         }
-
+        boolean toReturn = true;
         if (selectedProcessItem.getProcess().getRequired() != null) {
             EList emfJobList = selectedProcessItem.getProcess().getRequired().getJob();
-            for (int j = 0; j < emfJobList.size(); j++) {
+            for (int j = 0; j < emfJobList.size() && toReturn; j++) {
                 JobType jType = (JobType) emfJobList.get(j);
                 JobInfo subJobInfo = new JobInfo(jType);
                 if (!jobList.contains(subJobInfo)) {
-                    generateCode(subJobInfo);
+                    toReturn = generateCode(subJobInfo, false, false, true); // children won't have stats / traces
                 }
             }
         }
+        return toReturn;
     }
 
     static List<JobInfo> jobList = new ArrayList<JobInfo>();
@@ -181,11 +190,18 @@ public class ProcessorUtilities {
      * @param processName
      * @param contextName
      */
-    public static void generateCode(String processName, String contextName) {
+    public static boolean generateCode(String processName, String contextName) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName);
-        generateCode(jobInfo);
+        return generateCode(jobInfo, false, false, true);
+    }
 
+    public static boolean generateCode(IProcess process, String contextName, boolean statistics, boolean trace,
+            boolean properties) {
+        jobList.clear();
+        JobInfo jobInfo = new JobInfo(process.getName(), contextName);
+        jobInfo.setProcess(process);
+        return generateCode(jobInfo, statistics, trace, properties);
     }
 
     /**
@@ -259,6 +275,8 @@ public class ProcessorUtilities {
 
         String jobName, contextName;
 
+        IProcess process;
+
         JobInfo(String jobName, String contextName) {
             this.jobName = jobName;
             this.contextName = contextName;
@@ -283,6 +301,14 @@ public class ProcessorUtilities {
 
         public void setJobName(String processName) {
             this.jobName = processName;
+        }
+
+        public IProcess getProcess() {
+            return process;
+        }
+
+        public void setProcess(IProcess process) {
+            this.process = process;
         }
     }
 }
