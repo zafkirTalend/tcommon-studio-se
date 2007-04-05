@@ -29,6 +29,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeReturn;
@@ -71,7 +72,16 @@ public class NodeReturnProposal implements IContentProposal {
             code = ElementParameterParser.parse(node, nodeReturn.getVarName());
             break;
         case JAVA:
-            code = "globalMap.get(\"" + node.getUniqueName() + "_" + nodeReturn.getName() + "\")";
+            String type = nodeReturn.getType();
+            if ((type.compareTo("String") == 0) || (type.compareTo("Integer") == 0)) {
+                type = "id_" + type;
+            }
+            try {
+                type = JavaTypesManager.getTypeToGenerate(type, true);
+            } catch (Exception e) {
+                type = "String";
+            }
+            code = "((" + type + ")globalMap.get(\"" + node.getUniqueName() + "_" + nodeReturn.getName() + "\"))";
             break;
         default:
             code = ElementParameterParser.parse(node, nodeReturn.getVarName());
