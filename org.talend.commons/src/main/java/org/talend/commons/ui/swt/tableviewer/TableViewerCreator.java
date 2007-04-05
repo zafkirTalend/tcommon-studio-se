@@ -259,6 +259,10 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     private SORT defaultOrderBy;
 
+    private Color backgroundColor;
+
+    private Color foregroundColor;
+
     private Color bgColorSelectedLine;
 
     private Color fgColorSelectedLine;
@@ -274,7 +278,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     private List list;
 
     private boolean readOnly;
-    
+
     /**
      * Constructor.
      * 
@@ -546,6 +550,11 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             };
             table.addListener(SWT.Paint, paintListener);
         }
+
+        setBackgroundColor(backgroundColor != null ? backgroundColor : table.getDisplay().getSystemColor(
+              SWT.COLOR_WHITE));
+        setForegroundColor(foregroundColor != null ? foregroundColor : table.getDisplay().getSystemColor(
+                SWT.COLOR_BLACK));
 
         if (useCustomItemColoring) {
             setUseCustomItemColoring(true);
@@ -1698,24 +1707,44 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         this.commandStack = commandStack;
     }
 
-    
     /**
      * Getter for readOnly.
+     * 
      * @return the readOnly
      */
     public boolean isReadOnly() {
         return this.readOnly;
     }
 
-    
     /**
      * Sets the readOnly.
+     * 
      * @param readOnly the readOnly to set
      */
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
 
-    
-    
+    public Color getBackgroundColor() {
+        return this.backgroundColor;
+    }
+
+    public void setBackgroundColor(Color bgColor) {
+        this.backgroundColor = bgColor;
+        if (table != null) {
+            table.setBackground(bgColor);
+        }
+    }
+
+    public Color getForegroundColor() {
+        return this.foregroundColor;
+    }
+
+    public void setForegroundColor(Color fgColor) {
+        this.foregroundColor = fgColor;
+        if (table != null) {
+            table.setForeground(fgColor);
+        }
+    }
+
 }
