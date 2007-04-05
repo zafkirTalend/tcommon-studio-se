@@ -27,18 +27,17 @@ import java.util.Locale;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
-import org.eclipse.core.runtime.adaptor.EclipseStarter;
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.osgi.framework.internal.core.FrameworkProperties;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.update.core.SiteManager;
 import org.eclipse.update.internal.scheduler.SchedulerStartup;
 import org.talend.commons.ui.swt.colorstyledtext.ColorManager;
 import org.talend.core.CorePlugin;
+import org.talend.core.prefs.GeneralParametersProvider.GeneralParameters;
 
 /**
  * Intializer of core preferences. <br/>
@@ -48,18 +47,20 @@ import org.talend.core.CorePlugin;
  */
 public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
 
-    /**
-     * 
-     */
-    private static final String PERL_EMBEDDED_INTERPRETER_DIRECTORY = "perl/bin/perl.exe"; //$NON-NLS-1$
+    private static final String PERL_EMBEDDED_INTERPRETER_DIRECTORY = GeneralParametersProvider
+            .getString(GeneralParameters.DEFAULT_PERL_INTERPRETER_EMBEDDED_SUFFIX_WIN32);
 
-    private static final String JAVA_LINUX_INTERPRETER_PATH = "/bin/java"; // NON-NLS-1$ //$NON-NLS-1$
+    private static final String JAVA_LINUX_INTERPRETER_PATH = GeneralParametersProvider
+            .getString(GeneralParameters.DEFAULT_JAVA_INTERPRETER_SUFFIX_LINUX);
 
-    private static final String JAVA_WIN32_INTERPRETER = "\\bin\\java.exe"; // NON-NLS-1$ //$NON-NLS-1$
+    private static final String JAVA_WIN32_INTERPRETER = GeneralParametersProvider
+            .getString(GeneralParameters.DEFAULT_JAVA_INTERPRETER_SUFFIX_WIN32);
 
-    private static final String PERL_LINUX_INTERPRETER_PATH = "/usr/bin/perl"; // NON-NLS-1$ //$NON-NLS-1$
+    private static final String PERL_LINUX_INTERPRETER_PATH = GeneralParametersProvider
+            .getString(GeneralParameters.DEFAULT_PERL_INTERPRETER_LINUX);
 
-    private static final String PERL_WIN32_INTERPRETER_PATH = "C:\\Perl\\bin\\perl.exe"; // NON-NLS-1$ //$NON-NLS-1$
+    private static final String PERL_WIN32_INTERPRETER_PATH = GeneralParametersProvider
+            .getString(GeneralParameters.DEFAULT_PERL_INTERPRETER_WIN32);
 
     /**
      * Construct a new CorePreferenceInitializer.
@@ -89,13 +90,17 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         String os = Platform.getOS();
         String javaPath = System.getProperty("java.home"); // NON-NLS-1$
         if (os.equals(Platform.OS_WIN32)) {
-            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, Platform.getInstallLocation().getURL().getFile().substring(1)
-                    + PERL_EMBEDDED_INTERPRETER_DIRECTORY);
+            String perlPath;
+            if (PERL_WIN32_INTERPRETER_PATH.length() != 0) {
+                perlPath = PERL_WIN32_INTERPRETER_PATH;
+            } else {
+                perlPath = Platform.getInstallLocation().getURL().getFile().substring(1) + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
+            }
+            node.put(ITalendCorePrefConstants.PERL_INTERPRETER, perlPath);
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_WIN32_INTERPRETER);
         } else if (os.equals(Platform.OS_LINUX)) {
             node.put(ITalendCorePrefConstants.PERL_INTERPRETER, PERL_LINUX_INTERPRETER_PATH);
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_LINUX_INTERPRETER_PATH);
-
         }
 
         // Sets default language

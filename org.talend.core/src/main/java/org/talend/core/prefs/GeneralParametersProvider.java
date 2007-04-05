@@ -73,6 +73,11 @@ public class GeneralParametersProvider extends MessagesCore {
      */
     public enum GeneralParameters {
         AUTHORIZED_LANGUAGE("param.authorizedlanguage"), //$NON-NLS-1$
+        DEFAULT_PERL_INTERPRETER_WIN32("param.defaultPerlInterpreterPath.win32"), //$NON-NLS-1$
+        DEFAULT_PERL_INTERPRETER_LINUX("param.defaultPerlInterpreterPath.linux"), //$NON-NLS-1$
+        DEFAULT_PERL_INTERPRETER_EMBEDDED_SUFFIX_WIN32("param.defaultPerlInterpreterEmbeddedSuffix.win32"), //$NON-NLS-1$
+        DEFAULT_JAVA_INTERPRETER_SUFFIX_WIN32("param.defaultJavaInterpreterSuffix.win32"), //$NON-NLS-1$
+        DEFAULT_JAVA_INTERPRETER_SUFFIX_LINUX("param.defaultJavaInterpreterSuffix.linux"), //$NON-NLS-1$
         PROJECTS_EXCLUDED_FROM_EXPORT("param.projectsExcludedFromExport"); //$NON-NLS-1$
 
         private String paramName;

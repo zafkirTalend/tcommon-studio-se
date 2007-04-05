@@ -101,13 +101,13 @@ public class PerlLibrariesService extends AbstractLibrariesService {
         try {
             // 1. Talend libraries:
             File source = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/perl/")).getFile());
-            FilesUtils.copyFolder(source, target, false, FilesUtils.getExcludeSVNFilesFilter(), null, true);
+            FilesUtils.copyFolder(source, target, false, FilesUtils.getExcludeSystemFilesFilter(), null, true);
 
             // 2. Components libraries
             IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                     IComponentsService.class);
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
-            SpecificFilesUtils.copySpecificSubFolder(componentsLibraries, target, FilesUtils.getExcludeSVNFilesFilter(),
+            SpecificFilesUtils.copySpecificSubFolder(componentsLibraries, target, FilesUtils.getExcludeSystemFilesFilter(),
                     FilesUtils.getAcceptPMFilesFilter(), "modules");
 
             log.debug("Perl libraries synchronization done");

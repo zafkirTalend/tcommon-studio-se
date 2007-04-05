@@ -159,7 +159,7 @@ public class FilesUtils {
         return toReturn;
     }
 
-    public static FileFilter getExcludeSVNFilesFilter() {
+    public static FileFilter getExcludeSystemFilesFilter() {
         FileFilter filter = new FileFilter() {
 
             public boolean accept(File pathname) {

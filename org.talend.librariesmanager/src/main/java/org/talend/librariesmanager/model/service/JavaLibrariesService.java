@@ -99,7 +99,6 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         URL url = Activator.BUNDLE.getEntry("resources/java/talend"); //$NON-NLS-1$
         return FileLocator.resolve(url);
     }
-    
 
     public List<URL> getTalendRoutines() {
         return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/talend", "");
@@ -137,13 +136,14 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         try {
             // 1. Talend libraries:
             File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile());
-            FilesUtils.copyFolder(talendLibraries, target, false, FilesUtils.getExcludeSVNFilesFilter(), null, true);
+            FilesUtils.copyFolder(talendLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
+                    .getAcceptJARFilesFilter(), true);
 
             // 2. Components libraries
             IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                     IComponentsService.class);
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
-            FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSVNFilesFilter(), FilesUtils
+            FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), false);
 
             log.debug("Java libraries synchronization done");
