@@ -133,7 +133,7 @@ public class ColoringEditorTools {
                 || property.equals(ColorManager.FUNCTION_COLOR) || property.equals(ColorManager.MARKUP_COLOR)
                 || property.equals(ColorManager.OPERATOR_COLOR) || property.equals(ColorManager.DIGIT_COLOR)
                 || property.equals(ColorManager.INVALID_COLOR) || property.equals(ColorManager.NULL_COLOR);
-        System.out.println(affects);
+//        System.out.println(affects);
         return affects;
     }
 

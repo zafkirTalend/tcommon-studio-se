@@ -175,10 +175,10 @@ public final class ProposalUtils {
             e.printStackTrace();
         }
         
-        System.out.println();
+//        System.out.println();
 //        CompletionEngine name = new CompletionEngine();
         
-        System.out.println();
+//        System.out.println();
     }
 
 }

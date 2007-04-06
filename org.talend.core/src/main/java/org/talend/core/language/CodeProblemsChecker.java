@@ -47,24 +47,25 @@ public abstract class CodeProblemsChecker implements ICodeProblemsChecker {
      * @see org.talend.core.language.ICodeProblemsChecker#checkProblemsFromKey(java.lang.String)
      */
     public List<Problem> checkProblemsFromKey(String key, IAloneProcessNodeConfigurer nodeConfigurer) {
-        List<Problem> problems = checkProblems(nodeConfigurer);
-        setProblems(new ArrayList<Problem>(problems));
-        if (problems == null) {
-            problems = null;
+        List<Problem> nodeProblems = checkProblems(nodeConfigurer);
+        if (nodeProblems == null) {
+            nodeProblems = null;
+            setProblems(null);
         } else {
-            for (Iterator iter = problems.iterator(); iter.hasNext();) {
+            setProblems(new ArrayList<Problem>(nodeProblems));
+            for (Iterator iter = nodeProblems.iterator(); iter.hasNext();) {
                 Problem problem = (Problem) iter.next();
                 if (key == null && problem.getKey() != null || !key.equals(problem.getKey())) {
                     iter.remove();
                 }
             }
-            if (problems.size() == 0) {
-                problems = null;
+            if (nodeProblems.size() == 0) {
+                nodeProblems = null;
             } else {
-                problems = new ArrayList<Problem>(problems);
+                nodeProblems = new ArrayList<Problem>(nodeProblems);
             }
         }
-        return problems;
+        return nodeProblems;
     }
 
     /*

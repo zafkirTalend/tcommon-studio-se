@@ -21,8 +21,6 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-import org.talend.core.language.ECodeLanguage;
-
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
@@ -37,7 +35,7 @@ public interface INodeReturn {
 
     public abstract String getVarName();
 
-    public abstract void setVarName(final String varName, ECodeLanguage language);
+    public abstract void setVarName(final String varName);
 
     public abstract String getDisplayName();
 

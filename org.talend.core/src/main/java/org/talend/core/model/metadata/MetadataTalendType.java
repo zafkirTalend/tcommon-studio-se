@@ -469,7 +469,7 @@ public final class MetadataTalendType {
                 for (int i = 0; i < languageNodes.size(); i++) {
                     Node languageNode = languageNodes.get(i);
 
-                    System.out.println();
+//                    System.out.println();
                     
                     String languageValue = languageNode.getAttributes().getNamedItem("name").getNodeValue(); //$NON-NLS-1$
 
