@@ -38,9 +38,6 @@ import org.talend.migrationtool.i18n.Messages;
  */
 public class SummaryDialog extends TitleAreaDialog {
 
-    /**
-     * 
-     */
     private static final int DIALOG_HEIGHT = 350;
 
     private List<IProjectMigrationTask> tasks;

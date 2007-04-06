@@ -51,5 +51,9 @@
             id="org.talend.core.InitConnectionsMigrationTask"
             name="Init connections preferences"/>
    </extension>
+   <extension
+         point="org.eclipse.ui.startup">
+      <startup class="org.talend.core.ui.DisableLanguageActions"/>
+   </extension>
 
 </plugin>
