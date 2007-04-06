@@ -45,7 +45,9 @@ public class TypedTextCommandExecutor {
     private static final int KEY_CODE_UNDO = 122; // 'z'
 
     private static final int KEY_CODE_PROPOSAL = 27; // ' '
-
+    
+    public static final String PROPERTY = "PROPERTY";
+    
     private Key previousKey;
 
     private String previousText;
@@ -116,8 +118,9 @@ public class TypedTextCommandExecutor {
 
         String currentText = ControlUtils.getText(control);
         previousText2 = previousText;
+        activeControl = control.getData(PROPERTY);
         // System.out.println(e);
-        
+
         boolean alphaNumMatched = matcher.matches(String.valueOf(e.character), patternAlphaNum);
         boolean ctrlKey = (e.stateMask & (SWT.CTRL)) != 0;
         boolean combinedKeys = (e.stateMask & (SWT.CTRL | SWT.ALT | SWT.SHIFT)) != 0;
@@ -224,9 +227,15 @@ public class TypedTextCommandExecutor {
     }
 
     private static String previousText2 = "";
-    
+
     public String getPreviousText2() {
         return previousText2;
+    }
+
+    private static Object activeControl;
+
+    public Object getActiveControl() {
+        return activeControl;
     }
 
 }
