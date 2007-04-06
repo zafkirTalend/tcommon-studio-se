@@ -147,7 +147,7 @@ public class ImportItemWizardPage extends WizardPage {
         layout.marginWidth = 0;
         layout.makeColumnsEqualWidth = false;
         labelComposite.setLayout(layout);
-        
+
         Label title = new Label(labelComposite, SWT.NONE);
         title.setText(Messages.getString("ImportItemWizardPage.ItemsList")); //$NON-NLS-1$
 
@@ -155,7 +155,7 @@ public class ImportItemWizardPage extends WizardPage {
         itemListInfo.setForeground(new Color(null, 255, 0, 0)); // red
         itemListInfo.setText(Messages.getString("ImportItemWizardPage.NoValidItems")); //$NON-NLS-1$
         itemListInfo.setVisible(false);
-        
+
         Composite listComposite = new Composite(workArea, SWT.NONE);
         GridLayout layout2 = new GridLayout();
         layout2.numColumns = 2;
@@ -592,8 +592,11 @@ public class ImportItemWizardPage extends WizardPage {
         for (int i = 0; i < selectedItems.length; i++) {
             ItemRecord itemRecord = selectedItems[i];
             try {
-                if (ProxyRepositoryFactory.getInstance().isNameAvailable(itemRecord.getItem(),
-                        itemRecord.getItem().getProperty().getLabel())) {
+                boolean nameAvailable = ProxyRepositoryFactory.getInstance().isNameAvailable(itemRecord.getItem(),
+                        itemRecord.getItem().getProperty().getLabel());
+                boolean idAvailable = ProxyRepositoryFactory.getInstance().getLastVersion(
+                        itemRecord.getItem().getProperty().getId()) == null;
+                if (nameAvailable && idAvailable) {
                     validItems.add(itemRecord);
                 }
             } catch (PersistenceException e) {
