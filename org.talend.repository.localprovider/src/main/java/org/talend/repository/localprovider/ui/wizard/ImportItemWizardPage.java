@@ -58,6 +58,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
@@ -122,6 +123,8 @@ public class ImportItemWizardPage extends WizardPage {
 
     private Collection<ItemRecord> items = new ArrayList<ItemRecord>();
 
+    private Label itemListInfo;
+
     protected ImportItemWizardPage(String pageName) {
         super(pageName);
     }
@@ -138,15 +141,27 @@ public class ImportItemWizardPage extends WizardPage {
     }
 
     private void createItemList(Composite workArea) {
-        Label title = new Label(workArea, SWT.NONE);
-        title.setText(Messages.getString("ImportItemWizardPage.ItemsList")); //$NON-NLS-1$
-
-        Composite listComposite = new Composite(workArea, SWT.NONE);
+        Composite labelComposite = new Composite(workArea, SWT.NONE);
         GridLayout layout = new GridLayout();
         layout.numColumns = 2;
         layout.marginWidth = 0;
         layout.makeColumnsEqualWidth = false;
-        listComposite.setLayout(layout);
+        labelComposite.setLayout(layout);
+        
+        Label title = new Label(labelComposite, SWT.NONE);
+        title.setText(Messages.getString("ImportItemWizardPage.ItemsList")); //$NON-NLS-1$
+
+        itemListInfo = new Label(labelComposite, SWT.NONE);
+        itemListInfo.setForeground(new Color(null, 255, 0, 0)); // red
+        itemListInfo.setText(Messages.getString("ImportItemWizardPage.NoValidItems")); //$NON-NLS-1$
+        itemListInfo.setVisible(false);
+        
+        Composite listComposite = new Composite(workArea, SWT.NONE);
+        GridLayout layout2 = new GridLayout();
+        layout2.numColumns = 2;
+        layout2.marginWidth = 0;
+        layout2.makeColumnsEqualWidth = false;
+        listComposite.setLayout(layout2);
 
         listComposite
                 .setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL | GridData.FILL_BOTH));
@@ -438,7 +453,7 @@ public class ImportItemWizardPage extends WizardPage {
             selectedItems = new ItemRecord[0];
             itemsList.refresh(true);
             itemsList.setCheckedElements(selectedItems);
-            setPageComplete(getValidItems().length > 0);
+            hasValidItems();
             return;
         }
 
@@ -512,7 +527,14 @@ public class ImportItemWizardPage extends WizardPage {
 
         itemsList.refresh(true);
         itemsList.setCheckedElements(getValidItems());
-        setPageComplete(getValidItems().length > 0);
+        hasValidItems();
+    }
+
+    private void hasValidItems() {
+        boolean hasValidItems = getValidItems().length > 0;
+
+        setPageComplete(hasValidItems);
+        itemListInfo.setVisible(!hasValidItems);
     }
 
     protected ZipFile getSpecifiedZipSourceFile() {
