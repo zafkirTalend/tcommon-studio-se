@@ -115,9 +115,9 @@ public class TypedTextCommandExecutor {
         Control control = (Control) e.getSource();
 
         String currentText = ControlUtils.getText(control);
-
+        previousText2 = previousText;
         // System.out.println(e);
-
+        
         boolean alphaNumMatched = matcher.matches(String.valueOf(e.character), patternAlphaNum);
         boolean ctrlKey = (e.stateMask & (SWT.CTRL)) != 0;
         boolean combinedKeys = (e.stateMask & (SWT.CTRL | SWT.ALT | SWT.SHIFT)) != 0;
@@ -221,6 +221,12 @@ public class TypedTextCommandExecutor {
         if (!currentText.equals(previousText)) {
             updateCommand((Control) e.getSource());
         }
+    }
+
+    private static String previousText2 = "";
+    
+    public String getPreviousText2() {
+        return previousText2;
     }
 
 }

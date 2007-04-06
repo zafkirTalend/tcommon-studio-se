@@ -23,6 +23,7 @@ package org.talend.commons.ui.utils;
 
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.i18n.internal.Messages;
@@ -106,4 +107,27 @@ public class ControlUtils {
         }
     }
 
+    public static int getCursorPosition(Control control) {
+        int position = -1;
+        if (control instanceof Text) {
+            position = ((Text) control).getCaretPosition();
+        } else if (control instanceof StyledText) {
+            position = ((StyledText) control).getCaretOffset();
+        } else {
+            throw new UnsupportedOperationException(Messages.getString("ControlUtils.Unsupported1", control.getClass())); //$NON-NLS-1$
+        }
+        return position;
+    }
+    
+    public static void setCursorPosition(Control control, int position) {
+        if (control instanceof Text) {
+            ((Text) control).setSelection(position);
+        } else if (control instanceof StyledText) {
+            ((StyledText) control).setCaretOffset(position);
+        } else {
+            throw new UnsupportedOperationException(Messages.getString("ControlUtils.Unsupported1", control.getClass())); //$NON-NLS-1$
+        }
+    }
+    
+    
 }
