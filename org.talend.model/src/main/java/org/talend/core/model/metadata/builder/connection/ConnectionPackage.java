@@ -2381,7 +2381,7 @@ public interface ConnectionPackage extends EPackage {
     int QUERIES_CONNECTION = 13;
 
     /**
-     * The feature id for the '<em><b>Connection</b></em>' reference.
+     * The feature id for the '<em><b>Connection</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -3561,10 +3561,10 @@ public interface ConnectionPackage extends EPackage {
     EClass getQueriesConnection();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}'.
+     * Returns the meta object for the container reference '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Connection</em>'.
+     * @return the meta object for the container reference '<em>Connection</em>'.
      * @see org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection()
      * @see #getQueriesConnection()
      * @generated
@@ -4523,7 +4523,7 @@ public interface ConnectionPackage extends EPackage {
         EClass QUERIES_CONNECTION = eINSTANCE.getQueriesConnection();
 
         /**
-         * The meta object literal for the '<em><b>Connection</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Connection</b></em>' container reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

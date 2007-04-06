@@ -74,6 +74,7 @@ public interface Connection extends AbstractMetadataObject {
     /**
      * Returns the value of the '<em><b>Queries</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.QueriesConnection}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}'.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Queries</em>' containment reference list isn't clear,
@@ -82,7 +83,8 @@ public interface Connection extends AbstractMetadataObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Queries</em>' containment reference list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_Queries()
-     * @model type="org.talend.core.model.metadata.builder.connection.QueriesConnection" containment="true"
+     * @see org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection
+     * @model type="org.talend.core.model.metadata.builder.connection.QueriesConnection" opposite="connection" containment="true"
      * @generated
      */
     EList getQueries();

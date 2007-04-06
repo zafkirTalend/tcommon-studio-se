@@ -148,7 +148,7 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      */
     public EList getQueries() {
         if (queries == null) {
-            queries = new EObjectContainmentEList(QueriesConnection.class, this, ConnectionPackage.CONNECTION__QUERIES);
+            queries = new EObjectContainmentWithInverseEList(QueriesConnection.class, this, ConnectionPackage.CONNECTION__QUERIES, ConnectionPackage.QUERIES_CONNECTION__CONNECTION);
         }
         return queries;
     }
@@ -162,6 +162,8 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
         switch (featureID) {
             case ConnectionPackage.CONNECTION__TABLES:
                 return ((InternalEList)getTables()).basicAdd(otherEnd, msgs);
+            case ConnectionPackage.CONNECTION__QUERIES:
+                return ((InternalEList)getQueries()).basicAdd(otherEnd, msgs);
         }
         return super.eInverseAdd(otherEnd, featureID, msgs);
     }

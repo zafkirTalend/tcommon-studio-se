@@ -12,7 +12,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
         eType="#//MetadataTable" containment="true" eOpposite="#//MetadataTable/connection"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="queries" upperBound="-1"
-        eType="#//QueriesConnection" containment="true"/>
+        eType="#//QueriesConnection" containment="true" eOpposite="#//QueriesConnection/connection"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetadataColumn" eSuperTypes="#//AbstractMetadataObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -167,8 +167,8 @@
         eOpposite="#//XmlXPathLoopDescriptor/schemaTargets"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="QueriesConnection">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//DatabaseConnection"
-        resolveProxies="false"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connection" eType="#//Connection"
+        resolveProxies="false" eOpposite="#//Connection/queries"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="query" upperBound="-1"
         eType="#//Query" containment="true" eOpposite="#//Query/queries"/>
   </eClassifiers>

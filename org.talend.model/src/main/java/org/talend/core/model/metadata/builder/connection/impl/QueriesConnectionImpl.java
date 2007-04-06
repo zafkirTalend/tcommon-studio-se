@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
@@ -38,16 +39,6 @@ import org.talend.core.model.metadata.builder.connection.Query;
  * @generated
  */
 public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnection {
-    /**
-     * The cached value of the '{@link #getConnection() <em>Connection</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getConnection()
-     * @generated
-     * @ordered
-     */
-    protected DatabaseConnection connection = null;
-
     /**
      * The cached value of the '{@link #getQuery() <em>Query</em>}' containment reference list.
      * <!-- begin-user-doc -->
@@ -81,8 +72,9 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
      * <!-- end-user-doc -->
      * @generated
      */
-    public DatabaseConnection getConnection() {
-        return connection;
+    public Connection getConnection() {
+        if (eContainerFeatureID != ConnectionPackage.QUERIES_CONNECTION__CONNECTION) return null;
+        return (Connection)eContainer();
     }
 
     /**
@@ -90,11 +82,30 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setConnection(DatabaseConnection newConnection) {
-        DatabaseConnection oldConnection = connection;
-        connection = newConnection;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.QUERIES_CONNECTION__CONNECTION, oldConnection, connection));
+    public NotificationChain basicSetConnection(Connection newConnection, NotificationChain msgs) {
+        msgs = eBasicSetContainer((InternalEObject)newConnection, ConnectionPackage.QUERIES_CONNECTION__CONNECTION, msgs);
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setConnection(Connection newConnection) {
+        if (newConnection != eInternalContainer() || (eContainerFeatureID != ConnectionPackage.QUERIES_CONNECTION__CONNECTION && newConnection != null)) {
+            if (EcoreUtil.isAncestor(this, newConnection))
+                throw new IllegalArgumentException("Recursive containment not allowed for " + toString());
+            NotificationChain msgs = null;
+            if (eInternalContainer() != null)
+                msgs = eBasicRemoveFromContainer(msgs);
+            if (newConnection != null)
+                msgs = ((InternalEObject)newConnection).eInverseAdd(this, ConnectionPackage.CONNECTION__QUERIES, Connection.class, msgs);
+            msgs = basicSetConnection(newConnection, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.QUERIES_CONNECTION__CONNECTION, newConnection, newConnection));
     }
 
     /**
@@ -116,6 +127,10 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
      */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
+            case ConnectionPackage.QUERIES_CONNECTION__CONNECTION:
+                if (eInternalContainer() != null)
+                    msgs = eBasicRemoveFromContainer(msgs);
+                return basicSetConnection((Connection)otherEnd, msgs);
             case ConnectionPackage.QUERIES_CONNECTION__QUERY:
                 return ((InternalEList)getQuery()).basicAdd(otherEnd, msgs);
         }
@@ -129,10 +144,25 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
+            case ConnectionPackage.QUERIES_CONNECTION__CONNECTION:
+                return basicSetConnection(null, msgs);
             case ConnectionPackage.QUERIES_CONNECTION__QUERY:
                 return ((InternalEList)getQuery()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eBasicRemoveFromContainerFeature(NotificationChain msgs) {
+        switch (eContainerFeatureID) {
+            case ConnectionPackage.QUERIES_CONNECTION__CONNECTION:
+                return eInternalContainer().eInverseRemove(this, ConnectionPackage.CONNECTION__QUERIES, Connection.class, msgs);
+        }
+        return super.eBasicRemoveFromContainerFeature(msgs);
     }
 
     /**
@@ -158,7 +188,7 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
             case ConnectionPackage.QUERIES_CONNECTION__CONNECTION:
-                setConnection((DatabaseConnection)newValue);
+                setConnection((Connection)newValue);
                 return;
             case ConnectionPackage.QUERIES_CONNECTION__QUERY:
                 getQuery().clear();
@@ -176,7 +206,7 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
     public void eUnset(int featureID) {
         switch (featureID) {
             case ConnectionPackage.QUERIES_CONNECTION__CONNECTION:
-                setConnection((DatabaseConnection)null);
+                setConnection((Connection)null);
                 return;
             case ConnectionPackage.QUERIES_CONNECTION__QUERY:
                 getQuery().clear();
@@ -193,7 +223,7 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
     public boolean eIsSet(int featureID) {
         switch (featureID) {
             case ConnectionPackage.QUERIES_CONNECTION__CONNECTION:
-                return connection != null;
+                return getConnection() != null;
             case ConnectionPackage.QUERIES_CONNECTION__QUERY:
                 return query != null && !query.isEmpty();
         }
