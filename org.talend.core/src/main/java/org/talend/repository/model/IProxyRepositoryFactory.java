@@ -31,6 +31,8 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
@@ -389,4 +391,6 @@ public interface IProxyRepositoryFactory {
     public boolean isUserReadOnlyOnCurrentProject();
 
     public abstract List<org.talend.core.model.properties.Project> getReferencedProjects();
+
+    public void removeContextFiles(IProcess process, IContext context) throws Exception;
 }

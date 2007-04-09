@@ -479,7 +479,7 @@ public abstract class JobContextComposite extends Composite {
         IContext context = this.getSelectedContext();
 
         for (int i = 0; i < jobContextManager.getListContext().size(); i++) {
-            if (jobContextManager.getListContext().get(i).getName().equals(name)) {
+            if (jobContextManager.getListContext().get(i).getName().equalsIgnoreCase(name)) {
                 MessageBox mBox = new MessageBox(this.getShell(), SWT.ICON_ERROR);
                 mBox.setText(Messages.getString("ContextProcessSection.29")); //$NON-NLS-1$
                 mBox.setMessage(Messages.getString("ContextProcessSection.30")); //$NON-NLS-1$
@@ -526,7 +526,7 @@ public abstract class JobContextComposite extends Composite {
         boolean found = false;
 
         for (int i = 0; i < jobContextManager.getListContext().size() && !found; i++) {
-            if (jobContextManager.getListContext().get(i).getName().equals(newName)) {
+            if (jobContextManager.getListContext().get(i).getName().equalsIgnoreCase(newName)) {
                 MessageBox mBox = new MessageBox(this.getShell(), SWT.ICON_ERROR);
                 mBox.setText(Messages.getString("ContextProcessSection.33")); //$NON-NLS-1$
                 mBox.setMessage(Messages.getString("ContextProcessSection.34")); //$NON-NLS-1$
