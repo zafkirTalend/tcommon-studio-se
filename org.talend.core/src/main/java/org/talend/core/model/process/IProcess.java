@@ -24,6 +24,7 @@ package org.talend.core.model.process;
 import java.util.List;
 
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.designer.runprocess.IProcessor;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -55,4 +56,8 @@ public interface IProcess extends IRepositoryObject, IElement {
     public IContextManager getContextManager();
     
     public List<? extends INode> getNodesOfType(String componentName);
+    
+    public void setProcessor(IProcessor processor);
+    
+    public IProcessor getProcessor();
 }

@@ -122,9 +122,7 @@ public class ProcessorUtilities {
      * @return
      */
     public static IProcessor getProcessor(IProcess process, IContext context) {
-        IRunProcessService service = CorePlugin.getDefault().getRunProcessService();
-        IProcessor processor = service.createCodeProcessor(process, ((RepositoryContext) CorePlugin.getContext()
-                .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage(), true);
+        IProcessor processor = getProcessor(process);
         processor.setContext(context);
         return processor;
     }
@@ -137,10 +135,13 @@ public class ProcessorUtilities {
      * @return
      */
     public static IProcessor getProcessor(IProcess process) {
-        IRunProcessService service = CorePlugin.getDefault().getRunProcessService();
-        IProcessor processor = service.createCodeProcessor(process, ((RepositoryContext) CorePlugin.getContext()
-                .getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage(), true);
-        return processor;
+        if (process.getProcessor() == null) {
+            IRunProcessService service = CorePlugin.getDefault().getRunProcessService();
+            return service.createCodeProcessor(process, ((RepositoryContext) CorePlugin.getContext().getProperty(
+                    Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage(), true);
+        } else {
+            return process.getProcessor();
+        }
     }
 
     private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties) {
@@ -161,7 +162,12 @@ public class ProcessorUtilities {
         } else {
             currentProcess = jobInfo.getProcess();
         }
-        IContext currentContext = getContext(currentProcess, jobInfo.getContextName());
+        IContext currentContext;
+        if (jobInfo.getContext() == null) {
+            currentContext = getContext(currentProcess, jobInfo.getContextName());
+        } else {
+            currentContext = jobInfo.getContext();
+        }
         IProcessor processor = getProcessor(currentProcess, currentContext);
         try {
             processor.generateCode(currentContext, statistics, trace, properties); // main job will use stats / traces
@@ -196,11 +202,12 @@ public class ProcessorUtilities {
         return generateCode(jobInfo, false, false, true);
     }
 
-    public static boolean generateCode(IProcess process, String contextName, boolean statistics, boolean trace,
+    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace,
             boolean properties) {
         jobList.clear();
-        JobInfo jobInfo = new JobInfo(process.getName(), contextName);
+        JobInfo jobInfo = new JobInfo(process.getName(), context.getName());
         jobInfo.setProcess(process);
+        jobInfo.setContext(context);
         return generateCode(jobInfo, statistics, trace, properties);
     }
 
@@ -265,6 +272,20 @@ public class ProcessorUtilities {
             } else if (!jobName.equals(other.jobName)) {
                 return false;
             }
+            if (context == null) {
+                if (other.context != null) {
+                    return false;
+                }
+            } else if (!context.equals(other.context)) {
+                return false;
+            }
+            if (process == null) {
+                if (other.process != null) {
+                    return false;
+                }
+            } else if (!process.equals(other.process)) {
+                return false;
+            }
             return true;
         }
 
@@ -276,6 +297,8 @@ public class ProcessorUtilities {
         String jobName, contextName;
 
         IProcess process;
+
+        IContext context;
 
         JobInfo(String jobName, String contextName) {
             this.jobName = jobName;
@@ -309,6 +332,14 @@ public class ProcessorUtilities {
 
         public void setProcess(IProcess process) {
             this.process = process;
+        }
+
+        public IContext getContext() {
+            return context;
+        }
+
+        public void setContext(IContext context) {
+            this.context = context;
         }
     }
 }

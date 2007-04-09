@@ -43,9 +43,9 @@ public interface IProcessor {
     public static final int WATCH_LIMITED = -1;
 
     public static final int WATCH_ALLOWED = 1;
-    
+
     public static final int STATES_EDIT = 0;
-    
+
     public static final int STATES_RUNTIME = 1;
 
     public void generateCode(IContext context, boolean statistics, boolean trace, boolean perlProperties)
@@ -95,14 +95,14 @@ public interface IProcessor {
      * @throws ProcessorException
      */
     public String getInterpreter() throws ProcessorException;
-    
+
     /**
      * Used to set a specific interpreter.
      * 
      * @return
      */
     public void setInterpreter(String interpreter);
-        
+
     /**
      * Used to get the routine path.
      * 
@@ -116,7 +116,7 @@ public interface IProcessor {
      * @return
      */
     public void setLibraryPath(String libraryPath);
-    
+
     /**
      * Used to get the routine path.
      * 
@@ -156,7 +156,7 @@ public interface IProcessor {
      * 
      * @param editor
      */
-    public void addSyntaxCheckableEditor(ISyntaxCheckableEditor editor);
+    public void setSyntaxCheckableEditor(ISyntaxCheckableEditor editor);
 
     /**
      * Get Current type name for launching.
