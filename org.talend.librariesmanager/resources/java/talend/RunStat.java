@@ -89,15 +89,7 @@ public class RunStat implements Runnable {
     public void run() {
         while (!jobIsFinished) {
             try {
-                for (StatBean sb : processStats.values()) {
-                    currentTime = java.util.Calendar.getInstance().getTimeInMillis();
-                    str = sb.getComponentId() + "|" + sb.getNbLine() + "|" + (currentTime - startTime);
-                    if (sb.getState() != 1) {
-                        str += "|" + ((sb.getState() == 0) ? "start" : "stop");
-                        processStats.remove(sb.getComponentId());
-                    }
-                    pred.println(str); // envoi d'un message
-                }
+                sendMessages();
                 Thread.sleep(1000);
             } catch (InterruptedException ie) {
 
@@ -108,9 +100,22 @@ public class RunStat implements Runnable {
     public void stopThreadStat() {
         jobIsFinished = true;
         try {
+            sendMessages();
             pred.close();
             s.close();
         } catch (java.io.IOException ie) {
+        }
+    }
+    
+    public void sendMessages() {
+        for (StatBean sb : processStats.values()) {
+            currentTime = java.util.Calendar.getInstance().getTimeInMillis();
+            str = sb.getComponentId() + "|" + sb.getNbLine() + "|" + (currentTime - startTime);
+            if (sb.getState() != 1) {
+                str += "|" + ((sb.getState() == 0) ? "start" : "stop");
+                processStats.remove(sb.getComponentId());
+            }
+            pred.println(str); // envoi d'un message
         }
     }
 
