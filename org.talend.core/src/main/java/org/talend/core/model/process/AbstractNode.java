@@ -24,6 +24,7 @@ package org.talend.core.model.process;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
 
@@ -281,4 +282,12 @@ public abstract class AbstractNode implements INode {
         buff.append(")");
         return buff.toString();
     }
+    
+    /* (non-Javadoc)
+     * @see org.talend.core.model.process.INode#getLocation()
+     */
+    public Point getLocation(){
+        return null;
+    }
+    
 }

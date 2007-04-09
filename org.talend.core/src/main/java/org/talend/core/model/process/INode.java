@@ -23,6 +23,7 @@ package org.talend.core.model.process;
 
 import java.util.List;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IODataComponent;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -120,6 +121,9 @@ public interface INode extends IElement {
      */
     public INode getSubProcessStartNode(boolean withConditions);
     
-    
-    
+    /**
+     * Gets current node's position.
+     * @return
+     */
+    public Point getLocation();
 }
