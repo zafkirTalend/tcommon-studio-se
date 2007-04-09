@@ -31,6 +31,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
@@ -49,9 +50,9 @@ import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
  */
 public class CustomTableManager {
 
-    public static final Color CUSTOM_CELL_BG_COLOR = Display.getCurrent().getSystemColor(SWT.COLOR_GREEN);
+    public static final Color CUSTOM_CELL_BG_COLOR = new Color(null, new RGB(0, 0xF0, 0));
 
-    public static final Color READONLY_CUSTOM_CELL_BG_COLOR = Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GREEN);
+    public static final Color READONLY_CUSTOM_CELL_BG_COLOR = new Color(null, new RGB(0, 0xB0, 0));
 
     public static final Color STANDARD_CELL_BG_COLOR = Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
 
