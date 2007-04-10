@@ -91,10 +91,10 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         String javaPath = System.getProperty("java.home"); // NON-NLS-1$
         if (os.equals(Platform.OS_WIN32)) {
             String perlPath;
-            if (PERL_WIN32_INTERPRETER_PATH.length() != 0) {
+            perlPath = Platform.getInstallLocation().getURL().getFile().substring(1) + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
+            File perlEmbeddedExecFile = new File(perlPath);
+            if (!perlEmbeddedExecFile.exists()) {
                 perlPath = PERL_WIN32_INTERPRETER_PATH;
-            } else {
-                perlPath = Platform.getInstallLocation().getURL().getFile().substring(1) + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
             }
             node.put(ITalendCorePrefConstants.PERL_INTERPRETER, perlPath);
             node.put(ITalendCorePrefConstants.JAVA_INTERPRETER, javaPath + JAVA_WIN32_INTERPRETER);
