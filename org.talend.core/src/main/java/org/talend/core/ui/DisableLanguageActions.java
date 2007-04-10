@@ -69,26 +69,40 @@ public class DisableLanguageActions implements IStartup {
                         MenuItem[] mItems = menubar.getItems();
 
                         for (MenuItem item : mItems) {
-                            SubContributionItem cItem = null;
                             Object menuItemData = item.getData();
                             if (menuItemData == null) {
                                 continue;
                             }
 
-                            MenuManager menumanager = (MenuManager) menuItemData;
-                            IContributionItem[] items2 = menumanager.getItems();
-                            for (IContributionItem contributionItem : items2) {
-                                if (contributionItem instanceof SubContributionItem) {
-                                    cItem = (SubContributionItem) contributionItem;
-                                    IContributionItem conItems = cItem.getInnerItem();
-                                    if (conItems instanceof ActionContributionItem) {
-                                        ActionContributionItem items = (ActionContributionItem) conItems;
-                                        String id = cItem.getId();
-                                        if ((id != null) && (Arrays.binarySearch(toolsID, id) >= 0)) {
-                                            items.getAction().setEnabled(false);
-                                        }
-                                    }
+                            if (menuItemData instanceof MenuManager) {
+                                MenuManager menumanager = (MenuManager) menuItemData;
+                                IContributionItem[] items2 = menumanager.getItems();
+                                for (IContributionItem contributionItem : items2) {
+                                    disableActionFRomIContributionItem(toolsID, contributionItem);
                                 }
+                            } else if (menuItemData instanceof IContributionItem) {
+                                disableActionFRomIContributionItem(toolsID, (IContributionItem) menuItemData);
+                            }
+                        }
+                    }
+                }
+
+                /**
+                 * DOC smallet Comment method "disableActionFRomIContributionItem".
+                 * 
+                 * @param toolsID
+                 * @param contributionItem
+                 */
+                private void disableActionFRomIContributionItem(final String[] toolsID, IContributionItem contributionItem) {
+                    SubContributionItem cItem;
+                    if (contributionItem instanceof SubContributionItem) {
+                        cItem = (SubContributionItem) contributionItem;
+                        IContributionItem conItems = cItem.getInnerItem();
+                        if (conItems instanceof ActionContributionItem) {
+                            ActionContributionItem items = (ActionContributionItem) conItems;
+                            String id = cItem.getId();
+                            if ((id != null) && (Arrays.binarySearch(toolsID, id) >= 0)) {
+                                items.getAction().setEnabled(false);
                             }
                         }
                     }
