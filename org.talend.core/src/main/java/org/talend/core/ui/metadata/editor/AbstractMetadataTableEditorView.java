@@ -92,7 +92,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     protected boolean showDbTypeColumn;
 
-    protected boolean showTalenTypeColumn;
+    protected boolean showTalendTypeColumn;
 
     protected boolean showDbTypeColumnAtLeftPosition;
 
@@ -466,11 +466,11 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         if (showDbTypeColumn) {
             if (showDbTypeColumnAtLeftPosition) {
                 configureDbTypeColumn(tableViewerCreator);
-                if (showTalenTypeColumn) {
+                if (showTalendTypeColumn) {
                     configureTalendTypeColumn(tableViewerCreator);
                 }
             } else {
-                if (showTalenTypeColumn) {
+                if (showTalendTypeColumn) {
                     configureTalendTypeColumn(tableViewerCreator);
                 }
                 configureDbTypeColumn(tableViewerCreator);
@@ -757,7 +757,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     }
 
-    public void setDbTypeColumnsState(boolean showDbTypeColumn, boolean showDbTypeColumnAtLeftPosition, boolean writable) {
+    public void setShowDbTypeColumn(boolean showDbTypeColumn, boolean showDbTypeColumnAtLeftPosition, boolean writable) {
         this.showDbTypeColumn = showDbTypeColumn;
         this.showDbTypeColumnAtLeftPosition = showDbTypeColumnAtLeftPosition;
         this.dbTypeColumnWritable = writable;
@@ -809,12 +809,12 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         return typeIsDate;
     }
 
-    public boolean isShowTalenTypeColumn() {
-        return this.showTalenTypeColumn;
+    public boolean isShowTalendTypeColumn() {
+        return this.showTalendTypeColumn;
     }
 
-    public void setShowTalenTypeColumn(boolean showTalenTypeColumn) {
-        this.showTalenTypeColumn = showTalenTypeColumn;
+    public void setShowTalendTypeColumn(boolean showTalenTypeColumn) {
+        this.showTalendTypeColumn = showTalenTypeColumn;
     }
 
 }

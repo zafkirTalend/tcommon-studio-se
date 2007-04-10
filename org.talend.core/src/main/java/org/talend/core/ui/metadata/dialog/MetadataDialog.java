@@ -63,7 +63,9 @@ import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
  */
 public class MetadataDialog extends Dialog {
 
-    private static final Object DATABASE_LABEL = Messages.getString("MetadataDialog.DatabaseLabel"); //$NON-NLS-1$
+    private static final String DATABASE_LABEL = Messages.getString("MetadataDialog.DatabaseLabel"); //$NON-NLS-1$
+
+    private static final String ELT_LABEL = Messages.getString("MetadataDialog.ELTLabel"); //$NON-NLS-1$
 
     @Override
     protected void setShellStyle(int newShellStyle) {
@@ -148,12 +150,22 @@ public class MetadataDialog extends Dialog {
 
         MetadataTableEditor metadataTableEditor;
 
+        boolean showDbTypeColumnForInput = inputFamily != null
+                && (inputFamily.startsWith(DATABASE_LABEL) || inputFamily.startsWith(ELT_LABEL));
+        boolean showDbTypeColumnForOutput = outputFamily.startsWith(DATABASE_LABEL)
+                || outputFamily.startsWith(ELT_LABEL);
+
+        boolean showTalendTypeColumnForInput = !(inputFamily != null
+        && inputFamily.startsWith(ELT_LABEL));
+        boolean showTalendTypeColumnForOutput = !outputFamily.startsWith(ELT_LABEL);
+
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true, true,
-                    false);
-            outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), true, false);
+            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly,
+                    true, true, false);
+            outputMetaView.setShowDbTypeColumn(showDbTypeColumnForOutput, true, false);
+            outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
 
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -174,9 +186,10 @@ public class MetadataDialog extends Dialog {
             composite.setLayoutData(gridData);
 
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
-            inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE, metadataTableEditor,
-                    inputReadOnly, true, true, false);
-            inputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(inputFamily), true, false);
+            inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE,
+                    metadataTableEditor, inputReadOnly, true, true, false);
+            inputMetaView.setShowDbTypeColumn(showDbTypeColumnForInput, true, false);
+            inputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForInput);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
 
@@ -222,13 +235,16 @@ public class MetadataDialog extends Dialog {
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
+                            | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        IMetadataTable metadataTable = inputMetaView.getMetadataTableEditor().getMetadataTable().clone();
+                        IMetadataTable metadataTable = inputMetaView.getMetadataTableEditor().getMetadataTable()
+                                .clone();
                         // add by qzhang. keep the output metadatatable name. only modify its cloumns
-                        metadataTable.setTableName(outputMetaView.getMetadataTableEditor().getMetadataTable().getTableName());
+                        metadataTable.setTableName(outputMetaView.getMetadataTableEditor().getMetadataTable()
+                                .getTableName());
                         outputMetaView.getMetadataTableEditor().removeAll();
                         List<IMetadataColumn> listColumns = metadataTable.getListColumns();
                         for (IMetadataColumn column : listColumns) {
@@ -249,13 +265,16 @@ public class MetadataDialog extends Dialog {
             copyToInput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
+                            | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        IMetadataTable metadataTable = outputMetaView.getMetadataTableEditor().getMetadataTable().clone();
+                        IMetadataTable metadataTable = outputMetaView.getMetadataTableEditor().getMetadataTable()
+                                .clone();
                         // add by qzhang. keep the input metadatatable name. only modify its cloumns
-                        metadataTable.setTableName(inputMetaView.getMetadataTableEditor().getMetadataTable().getTableName());
+                        metadataTable.setTableName(inputMetaView.getMetadataTableEditor().getMetadataTable()
+                                .getTableName());
                         inputMetaView.getMetadataTableEditor().removeAll();
                         List<IMetadataColumn> listColumns = metadataTable.getListColumns();
                         for (IMetadataColumn column : listColumns) {
@@ -273,7 +292,8 @@ public class MetadataDialog extends Dialog {
             outputMetaView = new MetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
                     new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)"), outputReadOnly, true, true, //$NON-NLS-1$
                     false);
-            outputMetaView.setDbTypeColumnsState(DATABASE_LABEL.equals(outputFamily), false, true);
+            outputMetaView.setShowDbTypeColumn(showDbTypeColumnForOutput, false, true);
+            outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
             outputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
