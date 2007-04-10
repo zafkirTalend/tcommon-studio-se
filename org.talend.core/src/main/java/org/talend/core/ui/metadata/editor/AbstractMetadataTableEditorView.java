@@ -83,14 +83,16 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     public static final String ID_COLUMN_PATTERN = "ID_COLUMN_PATTERN"; //$NON-NLS-1$
 
     public static final String ID_COLUMN_DEFAULT = "ID_COLUMN_DEFAULT";
-    
+
     public static final String ID_COLUMN_COMMENT = "ID_COLUMN_COMMENT";
-    
+
     public static final String ID_COLUMN_LENGHT = "ID_COLUMN_LENGHT";
-    
+
     public static final String ID_COLUMN_PRECISION = "ID_COLUMN_PRECISION";
-    
+
     protected boolean showDbTypeColumn;
+
+    protected boolean showTalenTypeColumn;
 
     protected boolean showDbTypeColumnAtLeftPosition;
 
@@ -99,7 +101,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     private boolean dbTypeColumnWritable;
 
     private boolean showPatternColumn;
-    
+
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
      */
@@ -114,7 +116,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @param mainCompositeStyle
      * @param initGraphicsComponents
      */
-    public AbstractMetadataTableEditorView(Composite parentComposite, int mainCompositeStyle, boolean initGraphicsComponents) {
+    public AbstractMetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            boolean initGraphicsComponents) {
         super(parentComposite, mainCompositeStyle, initGraphicsComponents);
     }
 
@@ -129,9 +132,11 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @param labelVisible
      * @param initGraphicsComponents
      */
-    public AbstractMetadataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<B> extendedTableModel,
-            boolean readOnly, boolean toolbarVisible, boolean labelVisible, boolean initGraphicsComponents) {
-        super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible, initGraphicsComponents);
+    public AbstractMetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<B> extendedTableModel, boolean readOnly, boolean toolbarVisible, boolean labelVisible,
+            boolean initGraphicsComponents) {
+        super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible,
+                initGraphicsComponents);
     }
 
     /**
@@ -144,8 +149,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @param toolbarVisible
      * @param labelVisible
      */
-    public AbstractMetadataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<B> extendedTableModel,
-            boolean readOnly, boolean toolbarVisible, boolean labelVisible) {
+    public AbstractMetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<B> extendedTableModel, boolean readOnly, boolean toolbarVisible, boolean labelVisible) {
         super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible);
     }
 
@@ -156,7 +161,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @param mainCompositeStyle
      * @param extendedTableModel
      */
-    public AbstractMetadataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<B> extendedTableModel) {
+    public AbstractMetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<B> extendedTableModel) {
         super(parentComposite, mainCompositeStyle, extendedTableModel);
     }
 
@@ -319,7 +325,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setModifiable(!isReadOnly());
         column.setWeight(10);
         column.setMinimumWidth(10);
-        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), CellEditorValueAdapterFactory.getPositiveIntAdapter());
+        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), CellEditorValueAdapterFactory
+                .getPositiveIntAdapter());
     }
 
     /**
@@ -345,7 +352,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setModifiable(!isReadOnly());
         column.setWeight(10);
         column.setMinimumWidth(10);
-        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), CellEditorValueAdapterFactory.getPositiveIntAdapter());
+        column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()), CellEditorValueAdapterFactory
+                .getPositiveIntAdapter());
     }
 
     /**
@@ -361,7 +369,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @param tableViewerCreator
      */
     protected void configurePatternColumn(TableViewerCreator<B> tableViewerCreator) {
-        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA && showPatternColumn) {
             final TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
             String patternTitle = Messages.getString("MetadataTableEditorView.PatternTitle"); //$NON-NLS-1$
             column.setTitle(patternTitle);
@@ -386,7 +394,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             });
             column.setLabelProvider(new IColumnLabelProvider() {
 
-                /* (non-Javadoc)
+                /*
+                 * (non-Javadoc)
+                 * 
                  * @see org.talend.commons.ui.swt.tableviewer.behavior.IColumnLabelProvider#getLabel(java.lang.Object)
                  */
                 public String getLabel(Object bean) {
@@ -395,17 +405,18 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
                     }
                     return null;
                 }
-                
+
             });
-            
+
             JavaSimpleDateFormatProposalProvider proposalProvider = new JavaSimpleDateFormatProposalProvider();
-            TextCellEditorWithProposal patternCellEditor = new TextCellEditorWithProposal(tableViewerCreator.getTable(), column);
+            TextCellEditorWithProposal patternCellEditor = new TextCellEditorWithProposal(
+                    tableViewerCreator.getTable(), column);
             ContentProposalAdapterExtended contentProposalAdapter = patternCellEditor.getContentProposalAdapter();
             contentProposalAdapter.setFilterStyle(ContentProposalAdapterExtended.FILTER_NONE);
             contentProposalAdapter.setProposalAcceptanceStyle(ContentProposalAdapterExtended.PROPOSAL_INSERT);
             patternCellEditor.setContentProposalProvider(proposalProvider);
             column.setCellEditor(patternCellEditor, CellEditorValueAdapterFactory.getNullToEmptyStringTextAdapater());
-            
+
         }
     }
 
@@ -455,9 +466,13 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         if (showDbTypeColumn) {
             if (showDbTypeColumnAtLeftPosition) {
                 configureDbTypeColumn(tableViewerCreator);
-                configureTalendTypeColumn(tableViewerCreator);
+                if (showTalenTypeColumn) {
+                    configureTalendTypeColumn(tableViewerCreator);
+                }
             } else {
-                configureTalendTypeColumn(tableViewerCreator);
+                if (showTalenTypeColumn) {
+                    configureTalendTypeColumn(tableViewerCreator);
+                }
                 configureDbTypeColumn(tableViewerCreator);
             }
         } else {
@@ -566,7 +581,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
 
         if (codeLanguage == ECodeLanguage.JAVA) {
-            comboValueAdapter = new JavaTypeComboValueAdapter<B>(JavaTypesManager.getDefaultJavaType(), getNullableAccessor());
+            comboValueAdapter = new JavaTypeComboValueAdapter<B>(JavaTypesManager.getDefaultJavaType(),
+                    getNullableAccessor());
         } else if (codeLanguage == ECodeLanguage.PERL) {
             comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapterForComboCellEditor();
         }
@@ -590,7 +606,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setModifiable(!isReadOnly());
         column.setWeight(10);
         column.setMinimumWidth(30);
-        ComboBoxCellEditor typeComboEditor = new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes, SWT.READ_ONLY);
+        ComboBoxCellEditor typeComboEditor = new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayTalendTypes,
+                SWT.READ_ONLY);
         CCombo typeCombo = (CCombo) typeComboEditor.getControl();
         typeCombo.setEditable(false);
         column.setCellEditor(typeComboEditor, comboValueAdapter);
@@ -621,7 +638,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
         if (dbTypeColumnWritable) {
 
-            CellEditorValueAdapter comboValueAdapter = CellEditorValueAdapterFactory.getComboAdapterForComboCellEditor();
+            CellEditorValueAdapter comboValueAdapter = CellEditorValueAdapterFactory
+                    .getComboAdapterForComboCellEditor();
             ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
             String[] arrayDbTypes = new String[0];
 
@@ -645,7 +663,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
                 // shouln't be happend
                 e.printStackTrace();
             }
-            ComboBoxCellEditor typeComboEditor = new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayDbTypes, SWT.READ_ONLY);
+            ComboBoxCellEditor typeComboEditor = new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayDbTypes,
+                    SWT.READ_ONLY);
             CCombo typeCombo = (CCombo) typeComboEditor.getControl();
             typeCombo.setEditable(false);
             column.setCellEditor(typeComboEditor, comboValueAdapter);
@@ -760,18 +779,18 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     }
 
-    
     /**
      * Getter for showPatternColumn.
+     * 
      * @return the showPatternColumn
      */
     public boolean isShowPatternColumn() {
         return this.showPatternColumn;
     }
 
-    
     /**
      * Sets the showPatternColumn.
+     * 
      * @param showPatternColumn the showPatternColumn to set
      */
     public void setShowPatternColumn(boolean showPatternColumn) {
@@ -780,6 +799,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     /**
      * DOC amaumont Comment method "currentBeanHasJavaDateType".
+     * 
      * @param element
      * @return
      */
@@ -787,6 +807,14 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         String talendType = getTalendTypeAccessor().get((B) element);
         boolean typeIsDate = JavaTypesManager.DATE.getId().equals(talendType);
         return typeIsDate;
+    }
+
+    public boolean isShowTalenTypeColumn() {
+        return this.showTalenTypeColumn;
+    }
+
+    public void setShowTalenTypeColumn(boolean showTalenTypeColumn) {
+        this.showTalenTypeColumn = showTalenTypeColumn;
     }
 
 }
