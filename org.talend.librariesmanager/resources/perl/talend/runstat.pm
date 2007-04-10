@@ -61,7 +61,7 @@ sub StopThreadStat {
 sub ConnectStat {
     $| = 1;
 
-    print "Connecting to statistics socket on port $__RunStatPort ...";
+    print '[statistics] connecting to socket on port '.$__RunStatPort." ...\n";
 
     $__InternalStatSocket = IO::Socket::INET->new(
         PeerAddr => '127.0.0.1',
@@ -70,16 +70,15 @@ sub ConnectStat {
     );
 
     while (!$__InternalStatSocket) {
-        print '.';
         $__InternalStatSocket = IO::Socket::INET->new(
             PeerAddr => '127.0.0.1',
             PeerPort => $__RunStatPort,
             Proto => 'tcp',
         );
         sleep 1;
-  }
+    }
 
-  print " connected.\n\n";
+    print '[statistics] connected', "\n";
 }
 
 
@@ -140,7 +139,7 @@ sub ThreadStat {
     }
 
     if ($_rsUpdate{'__MAIN'} == 3) {
-      print "ThreadStat stoped.\n";
+      print '[statistics] disconnected', "\n";
       last;
     }
     sleep $__RefreshTime;

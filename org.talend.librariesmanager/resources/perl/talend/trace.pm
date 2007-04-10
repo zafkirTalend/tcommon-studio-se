@@ -20,21 +20,18 @@ sub StartTrace {
 
     $| = 1;
 
-    print "Connecting to trace socket on port ", $port, " ...";
+    print '[trace] connecting to socket on port ', $port, " ...\n";
 
     while (not $__InternalTraceSocket) {
         $__InternalTraceSocket = IO::Socket::INET->new(
             PeerAddr => $host,
             PeerPort => $port,
             Proto => 'tcp',
-        )
-            or print "\nconnection to port ", $port, "  failed - try again...";
-
-	print '.';
+        );
         sleep 1;
     }
 
-    print " connected.\n\n";
+    print '[trace] connected', "\n";
 }
 
 
@@ -44,7 +41,7 @@ sub SendTrace {
     our $__InternalStatSocket;
 
     if (not $__InternalTraceSocket) {
-        print '[SendTrace] Trace socket not define yet', "\n";
+        print '[trace] Trace socket not define yet', "\n";
         return;
     }
 
