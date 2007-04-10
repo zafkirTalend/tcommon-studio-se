@@ -75,12 +75,12 @@ public class RunStat implements Runnable {
     private long currentTime = 0;
 
     public void startThreadStat(int portStats) throws java.io.IOException, java.net.UnknownHostException {
-        System.out.println("Connecting to Stat Socket on port " + portStats + "...");
+        System.out.println("[statistics] connecting to socket on port " + portStats);
         s = new java.net.Socket("localhost", portStats);
         startTime = java.util.Calendar.getInstance().getTimeInMillis();
         pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())),
                 true);
-        System.out.println("Connected to Stat Socket.");
+        System.out.println("[statistics] connected");
         Thread t = new Thread(this);
         t.start();
 
@@ -103,6 +103,7 @@ public class RunStat implements Runnable {
             sendMessages();
             pred.close();
             s.close();
+            System.out.println("[statistics] disconnected");
         } catch (java.io.IOException ie) {
         }
     }

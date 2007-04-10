@@ -61,11 +61,11 @@ public class RunTrace implements Runnable {
     private String str = "";
 
     public void startThreadTrace(int portTraces) throws java.io.IOException, java.net.UnknownHostException {
-        System.out.println("Connecting to Trace Socket on port " + portTraces + "...");
+        System.out.println("[trace] connecting to socket on port " + portTraces);
         s = new java.net.Socket("localhost", portTraces);
         pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())),
                 true);
-        System.out.println("Connected to Trace Socket.");
+        System.out.println("[trace] connected");
         Thread t = new Thread(this);
         t.start();
 
@@ -81,6 +81,7 @@ public class RunTrace implements Runnable {
         try {
             pred.close();
             s.close();
+            System.out.println("[trace] disconnected");
         } catch (java.io.IOException ie) {
         }
     }
