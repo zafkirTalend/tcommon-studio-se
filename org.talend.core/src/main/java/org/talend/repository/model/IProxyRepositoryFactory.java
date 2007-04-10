@@ -330,7 +330,7 @@ public interface IProxyRepositoryFactory {
 
     public abstract void save(Property property) throws PersistenceException;
 
-    public abstract Item copy(Item item, IPath path) throws PersistenceException;
+    public abstract Item copy(Item item, IPath path) throws PersistenceException, BusinessException;
 
     public abstract Property reload(Property property) throws PersistenceException;
 

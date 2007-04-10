@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.commons.exception;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Priority;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.talend.commons.i18n.internal.Messages;
@@ -51,7 +53,7 @@ public final class MessageBoxExceptionHandler {
     public static void process(Throwable ex, Shell shell) {
         ExceptionHandler.process(ex);
 
-        showError(ex, shell);
+        showMessage(ex, shell);
     }
 
     /**
@@ -59,10 +61,19 @@ public final class MessageBoxExceptionHandler {
      * 
      * @param ex - exception to show
      */
-    protected static void showError(Throwable ex, Shell shell) {
+    protected static void showMessage(Throwable ex, Shell shell) {
         String title = Messages.getString("commons.error"); //$NON-NLS-1$
         String msg = Messages.getString("exception.errorOccured", ex.getMessage()); //$NON-NLS-1$
+        Priority priority = ExceptionHandler.getPriority(ex);
 
-        MessageDialog.openError(shell, title, msg);
+        if (priority == Level.FATAL || priority == Level.ERROR) {
+            MessageDialog.openError(shell, title, msg);
+        } else if (priority == Level.WARN) {
+            MessageDialog.openWarning(shell, title, msg);
+        } else if (priority == Level.INFO) {
+            MessageDialog.openInformation(shell, title, msg);
+        } else {
+            MessageDialog.openInformation(shell, title, msg);
+        }
     }
 }

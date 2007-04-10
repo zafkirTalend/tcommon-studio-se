@@ -59,7 +59,7 @@ public final class ExceptionHandler {
         log.log(priority, message, ex);
 
         if (priority == Level.FATAL) {
-            MessageBoxExceptionHandler.showError(ex, new Shell());
+            MessageBoxExceptionHandler.showMessage(ex, new Shell());
         }
     }
 
@@ -69,7 +69,7 @@ public final class ExceptionHandler {
      * @param ex - the exception to evaluate priority
      * @return the priority corresponding to the exception implementation
      */
-    private static Priority getPriority(Throwable ex) {
+    protected static Priority getPriority(Throwable ex) {
         if (ex == null) {
             throw new IllegalArgumentException(Messages.getString("ExceptionHandler.Parameter.BeNull")); //$NON-NLS-1$
         }
