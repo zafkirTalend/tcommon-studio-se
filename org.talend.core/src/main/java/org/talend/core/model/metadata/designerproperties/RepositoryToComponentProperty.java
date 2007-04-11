@@ -54,17 +54,13 @@ public class RepositoryToComponentProperty {
 
     public static final String POSTGRESQL = "POSTGRESQL"; //$NON-NLS-1$
 
-    public static final String ODBC_JDBC = "ODBC_JDBC"; //$NON-NLS-1$
-
     public static final String ODBC = "ODBC"; //$NON-NLS-1$
 
     public static final String ORACLE = "ORACLE"; //$NON-NLS-1$
 
     public static final String IBM_DB2 = "IBM_DB2"; //$NON-NLS-1$
 
-    public static final String SYBASE_ASE = "SYBASE_ASE"; //$NON-NLS-1$
-    
-    public static final String SYBASE_IQ = "SYBASE_IQ"; //$NON-NLS-1$
+    public static final String SYBASE = "SYBASE"; //$NON-NLS-1$
 
     public static final String SQL_SERVER = "SQL_SERVER"; //$NON-NLS-1$
 
@@ -100,16 +96,19 @@ public class RepositoryToComponentProperty {
             return ODBC;
         }
         if (dbType.equals("Microsoft SQL Server (Odbc driver)")) { //$NON-NLS-1$
-            return ODBC_JDBC;
+            return ODBC;
+        }
+        if (dbType.equals("Microsoft SQL Server")) { //$NON-NLS-1$
+            return SQL_SERVER;
         }
         if (dbType.equals("IBM DB2")) { //$NON-NLS-1$
             return IBM_DB2;
         }
         if (dbType.equals("Sybase ASE")) { //$NON-NLS-1$
-            return SYBASE_ASE;
+            return SYBASE;
         }
         if (dbType.equals("Sybase IQ")) { //$NON-NLS-1$
-            return SYBASE_IQ;
+            return SYBASE;
         }
         return ""; //$NON-NLS-1$
     }
