@@ -92,7 +92,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     protected boolean showDbTypeColumn;
 
-    protected boolean showTalendTypeColumn;
+    protected boolean showTalendTypeColumn = true;
 
     protected boolean showDbTypeColumnAtLeftPosition;
 
@@ -100,7 +100,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     private boolean dbTypeColumnWritable;
 
-    private boolean showPatternColumn;
+    private boolean showPatternColumn = true;
 
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
