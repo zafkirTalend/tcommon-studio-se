@@ -81,9 +81,10 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
      * @param initGraphicsComponents
      */
     public MetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
-            ExtendedTableModel<IMetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible, boolean labelVisible,
-            boolean initGraphicsComponents) {
-        super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible, initGraphicsComponents);
+            ExtendedTableModel<IMetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible,
+            boolean labelVisible, boolean initGraphicsComponents) {
+        super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible,
+                initGraphicsComponents);
     }
 
     /**
@@ -115,7 +116,8 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
      * @param labelVisible
      */
     public MetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
-            ExtendedTableModel<IMetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible, boolean labelVisible) {
+            ExtendedTableModel<IMetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible,
+            boolean labelVisible) {
         super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible);
     }
 
@@ -126,7 +128,8 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
      * @param mainCompositeStyle
      * @param extendedTableModel
      */
-    public MetadataTableEditorView(Composite parentComposite, int mainCompositeStyle, ExtendedTableModel<IMetadataColumn> extendedTableModel) {
+    public MetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
+            ExtendedTableModel<IMetadataColumn> extendedTableModel) {
         super(parentComposite, mainCompositeStyle, extendedTableModel);
     }
 
@@ -348,7 +351,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
     @Override
     protected String getCurrentDbms() {
         IMetadataConnection connection = getMetadataTableEditor().getMetadataTable().getParent();
-        if(connection != null) {
+        if (connection != null) {
             return connection.getDatabase();
         }
         return null;
