@@ -19,30 +19,32 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.designer.core;
-
-import java.util.List;
-import java.util.Map;
-
-import org.talend.core.IService;
-import org.talend.core.model.process.IProcess;
-import org.talend.core.model.properties.ConnectionItem;
-import org.talend.core.model.properties.ProcessItem;
+package org.talend.core.model.process;
 
 /**
- * Provides Designer core services for other components <br/>.
+ * Enumeration that describes all the standard name used in the properties.
  * 
- * $Id: IDesignerCore.java 1 2006-12-19 上午10:16:43 bqian
+ * $Id: EParameterName.java 2738 2007-03-28 13:12:27 +0000 (星期三, 28 三月 2007) plegall $
  * 
  */
-public interface IDesignerCoreService extends IService {
+public enum EParameterName {
 
-    // ¨Process will be loaded from XML File with this method, so it can be slow
-    // This won't load the graphics of the job, only the datas
-    public IProcess getProcessFromProcessItem(ProcessItem processItem);
+    REPOSITORY_SCHEMA_TYPE("Repository"), //$NON-NLS-1$  Hidden parameter so no translation needed
+    REPOSITORY_QUERYSTORE_TYPE("Repository"), //$NON-NLS-1$  Hidden parameter so no translation needed
+    REPOSITORY_ENCODING_TYPE("Repository"), //$NON-NLS-1$  Hidden parameter so no translation needed
+    REPOSITORY_PROPERTY_TYPE("Repository");  //$NON-NLS-1$  Hidden parameter so no translation needed
 
-    // Used for generating HTML only
-    public List<Map> getMaps();
-    // Ends
-    public String getRepositoryAliasName(ConnectionItem connectionItem);
+    private String displayName;
+
+    EParameterName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getName() {
+        return this.toString();
+    }
+
+    private String getDisplayName() {
+        return this.displayName;
+    }
 }

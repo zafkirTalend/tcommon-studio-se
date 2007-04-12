@@ -66,7 +66,8 @@ public class GlobalServiceRegister {
         if (service == null) {
             service = findService(klass);
             if (service == null) {
-                throw new RuntimeException(Messages.getString("GlobalServiceRegister.ServiceNotRegistered",klass.getName())); //$NON-NLS-1$ //$NON-NLS-2$
+                throw new RuntimeException(Messages.getString(
+                        "GlobalServiceRegister.ServiceNotRegistered", klass.getName())); //$NON-NLS-1$ //$NON-NLS-2$
             }
             services.put(klass, service);
         }
@@ -84,7 +85,7 @@ public class GlobalServiceRegister {
         for (int i = 0; i < configurationElements.length; i++) {
             IConfigurationElement element = configurationElements[i];
             String id = element.getAttribute("serviceId"); //$NON-NLS-1$
-            
+
             if (!key.endsWith(id)) {
                 continue;
             }
