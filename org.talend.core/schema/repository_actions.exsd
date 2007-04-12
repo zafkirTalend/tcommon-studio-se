@@ -89,6 +89,13 @@
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="isPropertiesAction" type="boolean" use="default" value="false">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 

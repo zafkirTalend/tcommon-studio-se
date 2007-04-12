@@ -41,26 +41,33 @@ public abstract class AContextualAction extends Action implements ITreeContextua
     private int level; // Used to manage order of actions in contextual menu
 
     private boolean readAction = false;;
+
     private boolean editAction = false;
-    
-    
+
+    private boolean propertiesAction = false;
+
     public boolean isEditAction() {
         return editAction;
     }
 
-    
     public void setEditAction(boolean editAction) {
         this.editAction = editAction;
     }
 
-    
     public boolean isReadAction() {
         return readAction;
     }
 
-    
     public void setReadAction(boolean readAction) {
         this.readAction = readAction;
+    }
+
+    public boolean isPropertiesAction() {
+        return propertiesAction;
+    }
+
+    public void setPropertiesAction(boolean propertiesAction) {
+        this.propertiesAction = propertiesAction;
     }
 
     /**

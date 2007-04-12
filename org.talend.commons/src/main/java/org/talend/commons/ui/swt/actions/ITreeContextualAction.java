@@ -71,4 +71,8 @@ public interface ITreeContextualAction extends IAction {
     public boolean isReadAction();
     
     public void setReadAction(boolean readAction);
+
+    public boolean isPropertiesAction();
+
+    public void setPropertiesAction(boolean propertiesAction);
 }
