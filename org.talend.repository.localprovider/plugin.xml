@@ -43,5 +43,21 @@
             isEditAction="false"
             isReadAction="false"/>
    </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.talend.repository.localprovider.actionSet"
+            label="Local Action set"
+            visible="true">
+         <action
+               class="org.talend.repository.localprovider.ui.actions.ImportItemAction"
+               icon="icons/import.gif"
+               id="org.talend.repository.localprovider.ui.actions.ImportItemAction"
+               label="%ImportItemAction.title"
+               style="push"
+               toolbarPath="Default"
+               tooltip="%ImportItemAction.tooltip"/>
+      </actionSet>
+   </extension>
 
 </plugin>

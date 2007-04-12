@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.repository.localprovider.ui.actions;
 
+import org.eclipse.jface.action.IAction;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.window.Window;
@@ -28,6 +30,8 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.repository.localprovider.i18n.Messages;
@@ -38,7 +42,7 @@ import org.talend.repository.ui.actions.AContextualAction;
 
 /**
  */
-public final class ImportItemAction extends AContextualAction {
+public final class ImportItemAction extends AContextualAction implements IWorkbenchWindowActionDelegate {
 
     private static final String IMPORT_ITEM = Messages.getString("ImportItemAction.Label"); //$NON-NLS-1$
 
@@ -78,5 +82,18 @@ public final class ImportItemAction extends AContextualAction {
         if (dialog.open() == Window.OK) {
             refresh();
         }
+    }
+
+    public void dispose() {
+    }
+
+    public void init(IWorkbenchWindow window) {
+    }
+
+    public void run(IAction action) {
+        run();
+    }
+
+    public void selectionChanged(IAction action, ISelection selection) {
     }
 }
