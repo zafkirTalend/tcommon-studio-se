@@ -108,13 +108,22 @@ public interface ComponentPackage extends EPackage {
     int COLUMN_TYPE = 1;
 
     /**
+     * The feature id for the '<em><b>CUSTOM</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__CUSTOM = 0;
+
+    /**
      * The feature id for the '<em><b>DEFAULT</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__DEFAULT = 0;
+    int COLUMN_TYPE__DEFAULT = 1;
 
     /**
      * The feature id for the '<em><b>KEY</b></em>' attribute.
@@ -123,7 +132,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__KEY = 1;
+    int COLUMN_TYPE__KEY = 2;
 
     /**
      * The feature id for the '<em><b>LENGTH</b></em>' attribute.
@@ -132,7 +141,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__LENGTH = 2;
+    int COLUMN_TYPE__LENGTH = 3;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -141,7 +150,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__NAME = 3;
+    int COLUMN_TYPE__NAME = 4;
 
     /**
      * The feature id for the '<em><b>NULLABLE</b></em>' attribute.
@@ -150,7 +159,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__NULLABLE = 4;
+    int COLUMN_TYPE__NULLABLE = 5;
 
     /**
      * The feature id for the '<em><b>PATTERN</b></em>' attribute.
@@ -159,7 +168,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__PATTERN = 5;
+    int COLUMN_TYPE__PATTERN = 6;
 
     /**
      * The feature id for the '<em><b>PRECISION</b></em>' attribute.
@@ -168,7 +177,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__PRECISION = 6;
+    int COLUMN_TYPE__PRECISION = 7;
 
     /**
      * The feature id for the '<em><b>READONLY</b></em>' attribute.
@@ -177,7 +186,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__READONLY = 7;
+    int COLUMN_TYPE__READONLY = 8;
 
     /**
      * The feature id for the '<em><b>TYPE</b></em>' attribute.
@@ -186,7 +195,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__TYPE = 8;
+    int COLUMN_TYPE__TYPE = 9;
 
     /**
      * The number of structural features of the '<em>COLUMN Type</em>' class.
@@ -195,7 +204,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 9;
+    int COLUMN_TYPE_FEATURE_COUNT = 10;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl <em>COMPONENT Type</em>}' class.
@@ -1512,6 +1521,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EClass getCOLUMNType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#isCUSTOM <em>CUSTOM</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>CUSTOM</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COLUMNType#isCUSTOM()
+     * @see #getCOLUMNType()
+     * @generated
+     */
+    EAttribute getCOLUMNType_CUSTOM();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.COLUMNType#getDEFAULT <em>DEFAULT</em>}'.
@@ -2934,6 +2954,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EClass COLUMN_TYPE = eINSTANCE.getCOLUMNType();
+
+        /**
+         * The meta object literal for the '<em><b>CUSTOM</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__CUSTOM = eINSTANCE.getCOLUMNType_CUSTOM();
 
         /**
          * The meta object literal for the '<em><b>DEFAULT</b></em>' attribute feature.

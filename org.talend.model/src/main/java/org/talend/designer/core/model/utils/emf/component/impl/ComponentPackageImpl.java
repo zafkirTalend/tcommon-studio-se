@@ -326,7 +326,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_DEFAULT() {
+    public EAttribute getCOLUMNType_CUSTOM() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(0);
     }
 
@@ -335,7 +335,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_KEY() {
+    public EAttribute getCOLUMNType_DEFAULT() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(1);
     }
 
@@ -344,7 +344,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_LENGTH() {
+    public EAttribute getCOLUMNType_KEY() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -353,7 +353,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_NAME() {
+    public EAttribute getCOLUMNType_LENGTH() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -362,7 +362,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_NULLABLE() {
+    public EAttribute getCOLUMNType_NAME() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -371,7 +371,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_PATTERN() {
+    public EAttribute getCOLUMNType_NULLABLE() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -380,7 +380,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_PRECISION() {
+    public EAttribute getCOLUMNType_PATTERN() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -389,7 +389,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_READONLY() {
+    public EAttribute getCOLUMNType_PRECISION() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -398,8 +398,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCOLUMNType_TYPE() {
+    public EAttribute getCOLUMNType_READONLY() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCOLUMNType_TYPE() {
+        return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -1488,6 +1497,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEReference(codegenerationTypeEClass, CODEGENERATION_TYPE__IMPORTS);
 
         columnTypeEClass = createEClass(COLUMN_TYPE);
+        createEAttribute(columnTypeEClass, COLUMN_TYPE__CUSTOM);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__DEFAULT);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__KEY);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__LENGTH);
@@ -1672,6 +1682,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getCODEGENERATIONType_IMPORTS(), this.getIMPORTSType(), null, "iMPORTS", null, 0, 1, CODEGENERATIONType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(columnTypeEClass, COLUMNType.class, "COLUMNType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getCOLUMNType_CUSTOM(), theXMLTypePackage.getBoolean(), "cUSTOM", "false", 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_DEFAULT(), theXMLTypePackage.getString(), "dEFAULT", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_KEY(), theXMLTypePackage.getBoolean(), "kEY", "false", 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCOLUMNType_LENGTH(), theXMLTypePackage.getInt(), "lENGTH", null, 0, 1, COLUMNType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1872,6 +1883,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "name", "COLUMN_._type",
              "kind", "empty"
+           });		
+        addAnnotation
+          (getCOLUMNType_CUSTOM(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "CUSTOM",
+             "namespace", "##targetNamespace"
            });		
         addAnnotation
           (getCOLUMNType_DEFAULT(), 
