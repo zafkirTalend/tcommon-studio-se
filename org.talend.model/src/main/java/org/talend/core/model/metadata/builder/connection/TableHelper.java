@@ -34,22 +34,7 @@ import org.eclipse.emf.common.util.EList;
  * $Id$
  *
  */
-public class TableHelper {
-    public static final String DELETED = "deleted"; //$NON-NLS-1$
-    
-    public static boolean isDeleted(MetadataTable table)
-    {
-        return table.getProperties().containsKey(DELETED);
-    }
-    
-    public static void setDeleted(MetadataTable table, boolean deleted)
-    {
-        if (deleted)
-            table.getProperties().put(DELETED, Boolean.TRUE.toString());
-        else
-            table.getProperties().remove(DELETED);
-    }
-    
+public class TableHelper extends SubItemHelper {
     public static String[] getTableNames(Connection connection)
     {
         List<String> result = doGetTableNames(connection);

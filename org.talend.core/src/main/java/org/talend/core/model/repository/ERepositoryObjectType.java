@@ -54,10 +54,10 @@ public enum ERepositoryObjectType {
     SNIPPETS("repository.snippets"), //$NON-NLS-1$
     DOCUMENTATION("repository.documentation"), //$NON-NLS-1$
     METADATA("repository.metadata"), //$NON-NLS-1$
-    METADATA_CON_TABLE("repository.metadataTable"), //$NON-NLS-1$
-    METADATA_CON_VIEW("repository.metadataView"), //$NON-NLS-1$
-    METADATA_CON_SYNONYM("repository.synonym"), //$NON-NLS-1$
-    METADATA_CON_QUERY("repository.query"), //$NON-NLS-1$
+    METADATA_CON_TABLE("repository.metadataTable", true), //$NON-NLS-1$
+    METADATA_CON_VIEW("repository.metadataView", true), //$NON-NLS-1$
+    METADATA_CON_SYNONYM("repository.synonym", true), //$NON-NLS-1$
+    METADATA_CON_QUERY("repository.query", true), //$NON-NLS-1$
     METADATA_CONNECTIONS("repository.metadataConnections", "repository.metadataConnections.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_DELIMITED("repository.metadataFileDelimited", "repository.metadataFileDelimited.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_POSITIONAL("repository.metadataFilePositional", "repository.metadataFilePositional.alias"), //$NON-NLS-1$ //$NON-NLS-2$
@@ -70,6 +70,8 @@ public enum ERepositoryObjectType {
     private String key;
 
     private String alias;
+    
+    private boolean subItem;
 
     /**
      * Constructor with the i18n key used to display the folder wich contains this object type.
@@ -77,7 +79,12 @@ public enum ERepositoryObjectType {
      * @param key
      */
     ERepositoryObjectType(String key) {
+        this(key, false);
+    }
+
+    ERepositoryObjectType(String key, boolean subItem) {
         this.key = key;
+        this.subItem = subItem;
     }
 
     ERepositoryObjectType(String key, String alias) {
@@ -196,6 +203,11 @@ public enum ERepositoryObjectType {
                 throw new IllegalStateException();
             }
         }.doSwitch(item);
+    }
+
+    
+    public boolean isSubItem() {
+        return subItem;
     }
 
 }
