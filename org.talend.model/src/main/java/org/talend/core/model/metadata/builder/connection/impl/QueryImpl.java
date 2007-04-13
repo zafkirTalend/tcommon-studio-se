@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
 import org.talend.core.model.metadata.builder.connection.Query;
@@ -24,9 +25,6 @@ import org.talend.core.model.metadata.builder.connection.Query;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.QueryImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.QueryImpl#getLabel <em>Label</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.QueryImpl#getComment <em>Comment</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.QueryImpl#getValue <em>Value</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.QueryImpl#getQueries <em>Queries</em>}</li>
  * </ul>
@@ -34,67 +32,7 @@ import org.talend.core.model.metadata.builder.connection.Query;
  *
  * @generated
  */
-public class QueryImpl extends EObjectImpl implements Query {
-    /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
-    protected static final String ID_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getId()
-     * @generated
-     * @ordered
-     */
-    protected String id = ID_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getLabel()
-     * @generated
-     * @ordered
-     */
-    protected static final String LABEL_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getLabel()
-     * @generated
-     * @ordered
-     */
-    protected String label = LABEL_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getComment()
-     * @generated
-     * @ordered
-     */
-    protected static final String COMMENT_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getComment() <em>Comment</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getComment()
-     * @generated
-     * @ordered
-     */
-    protected String comment = COMMENT_EDEFAULT;
-
+public class QueryImpl extends AbstractMetadataObjectImpl implements Query {
     /**
      * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -131,69 +69,6 @@ public class QueryImpl extends EObjectImpl implements Query {
      */
     protected EClass eStaticClass() {
         return ConnectionPackage.Literals.QUERY;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setId(String newId) {
-        String oldId = id;
-        id = newId;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.QUERY__ID, oldId, id));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String getLabel() {
-        return label;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setLabel(String newLabel) {
-        String oldLabel = label;
-        label = newLabel;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.QUERY__LABEL, oldLabel, label));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public String getComment() {
-        return comment;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setComment(String newComment) {
-        String oldComment = comment;
-        comment = newComment;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.QUERY__COMMENT, oldComment, comment));
     }
 
     /**
@@ -306,12 +181,6 @@ public class QueryImpl extends EObjectImpl implements Query {
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case ConnectionPackage.QUERY__ID:
-                return getId();
-            case ConnectionPackage.QUERY__LABEL:
-                return getLabel();
-            case ConnectionPackage.QUERY__COMMENT:
-                return getComment();
             case ConnectionPackage.QUERY__VALUE:
                 return getValue();
             case ConnectionPackage.QUERY__QUERIES:
@@ -327,15 +196,6 @@ public class QueryImpl extends EObjectImpl implements Query {
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case ConnectionPackage.QUERY__ID:
-                setId((String)newValue);
-                return;
-            case ConnectionPackage.QUERY__LABEL:
-                setLabel((String)newValue);
-                return;
-            case ConnectionPackage.QUERY__COMMENT:
-                setComment((String)newValue);
-                return;
             case ConnectionPackage.QUERY__VALUE:
                 setValue((String)newValue);
                 return;
@@ -353,15 +213,6 @@ public class QueryImpl extends EObjectImpl implements Query {
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.QUERY__ID:
-                setId(ID_EDEFAULT);
-                return;
-            case ConnectionPackage.QUERY__LABEL:
-                setLabel(LABEL_EDEFAULT);
-                return;
-            case ConnectionPackage.QUERY__COMMENT:
-                setComment(COMMENT_EDEFAULT);
-                return;
             case ConnectionPackage.QUERY__VALUE:
                 setValue(VALUE_EDEFAULT);
                 return;
@@ -379,12 +230,6 @@ public class QueryImpl extends EObjectImpl implements Query {
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case ConnectionPackage.QUERY__ID:
-                return ID_EDEFAULT == null ? id != null : !ID_EDEFAULT.equals(id);
-            case ConnectionPackage.QUERY__LABEL:
-                return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-            case ConnectionPackage.QUERY__COMMENT:
-                return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
             case ConnectionPackage.QUERY__VALUE:
                 return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
             case ConnectionPackage.QUERY__QUERIES:
@@ -402,16 +247,15 @@ public class QueryImpl extends EObjectImpl implements Query {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (id: ");
-        result.append(id);
-        result.append(", label: ");
-        result.append(label);
-        result.append(", comment: ");
-        result.append(comment);
-        result.append(", value: ");
+        result.append(" (value: ");
         result.append(value);
         result.append(')');
         return result.toString();
+    }
+
+    public boolean isReadOnly() {
+        Connection connection = getQueries().getConnection();
+        return connection == null ? false: connection.isReadOnly();
     }
 
 } //QueryImpl

@@ -2418,22 +2418,22 @@ public interface ConnectionPackage extends EPackage {
     int QUERY = 14;
 
     /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int QUERY__PROPERTIES = ABSTRACT_METADATA_OBJECT__PROPERTIES;
+
+    /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int QUERY__ID = 0;
-
-    /**
-     * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int QUERY__LABEL = 1;
+    int QUERY__ID = ABSTRACT_METADATA_OBJECT__ID;
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
@@ -2442,7 +2442,43 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int QUERY__COMMENT = 2;
+    int QUERY__COMMENT = ABSTRACT_METADATA_OBJECT__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int QUERY__LABEL = ABSTRACT_METADATA_OBJECT__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int QUERY__READ_ONLY = ABSTRACT_METADATA_OBJECT__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int QUERY__SYNCHRONISED = ABSTRACT_METADATA_OBJECT__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int QUERY__DIVERGENCY = ABSTRACT_METADATA_OBJECT__DIVERGENCY;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -2451,7 +2487,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int QUERY__VALUE = 3;
+    int QUERY__VALUE = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Queries</b></em>' container reference.
@@ -2460,7 +2496,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int QUERY__QUERIES = 4;
+    int QUERY__QUERIES = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 1;
 
     /**
      * The number of structural features of the '<em>Query</em>' class.
@@ -2469,7 +2505,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int QUERY_FEATURE_COUNT = 5;
+    int QUERY_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.LdifFileConnectionImpl <em>Ldif File Connection</em>}' class.
@@ -3593,39 +3629,6 @@ public interface ConnectionPackage extends EPackage {
     EClass getQuery();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Query#getId <em>Id</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Id</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.Query#getId()
-     * @see #getQuery()
-     * @generated
-     */
-    EAttribute getQuery_Id();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Query#getLabel <em>Label</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Label</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.Query#getLabel()
-     * @see #getQuery()
-     * @generated
-     */
-    EAttribute getQuery_Label();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Query#getComment <em>Comment</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Comment</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.Query#getComment()
-     * @see #getQuery()
-     * @generated
-     */
-    EAttribute getQuery_Comment();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.Query#getValue <em>Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4547,30 +4550,6 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EClass QUERY = eINSTANCE.getQuery();
-
-        /**
-         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute QUERY__ID = eINSTANCE.getQuery_Id();
-
-        /**
-         * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute QUERY__LABEL = eINSTANCE.getQuery_Label();
-
-        /**
-         * The meta object literal for the '<em><b>Comment</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute QUERY__COMMENT = eINSTANCE.getQuery_Comment();
 
         /**
          * The meta object literal for the '<em><b>Value</b></em>' attribute feature.

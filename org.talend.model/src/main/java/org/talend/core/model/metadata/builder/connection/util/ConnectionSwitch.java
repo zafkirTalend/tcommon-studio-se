@@ -214,6 +214,7 @@ public class ConnectionSwitch {
             case ConnectionPackage.QUERY: {
                 Query query = (Query)theEObject;
                 Object result = caseQuery(query);
+                if (result == null) result = caseAbstractMetadataObject(query);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }

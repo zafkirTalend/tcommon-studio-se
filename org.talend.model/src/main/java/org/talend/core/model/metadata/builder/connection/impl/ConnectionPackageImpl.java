@@ -963,7 +963,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getQuery_Id() {
+    public EAttribute getQuery_Value() {
         return (EAttribute)queryEClass.getEStructuralFeatures().get(0);
     }
 
@@ -972,35 +972,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getQuery_Label() {
-        return (EAttribute)queryEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getQuery_Comment() {
-        return (EAttribute)queryEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getQuery_Value() {
-        return (EAttribute)queryEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EReference getQuery_Queries() {
-        return (EReference)queryEClass.getEStructuralFeatures().get(4);
+        return (EReference)queryEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -1275,9 +1248,6 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(queriesConnectionEClass, QUERIES_CONNECTION__QUERY);
 
         queryEClass = createEClass(QUERY);
-        createEAttribute(queryEClass, QUERY__ID);
-        createEAttribute(queryEClass, QUERY__LABEL);
-        createEAttribute(queryEClass, QUERY__COMMENT);
         createEAttribute(queryEClass, QUERY__VALUE);
         createEReference(queryEClass, QUERY__QUERIES);
 
@@ -1338,6 +1308,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         csvFileConnectionEClass.getESuperTypes().add(this.getDelimitedFileConnection());
         regexpFileConnectionEClass.getESuperTypes().add(this.getFileConnection());
         xmlFileConnectionEClass.getESuperTypes().add(this.getConnection());
+        queryEClass.getESuperTypes().add(this.getAbstractMetadataObject());
         ldifFileConnectionEClass.getESuperTypes().add(this.getConnection());
 
         // Initialize classes and features; add operations and parameters
@@ -1441,9 +1412,6 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getQueriesConnection_Query(), this.getQuery(), this.getQuery_Queries(), "query", null, 0, -1, QueriesConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(queryEClass, Query.class, "Query", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getQuery_Id(), ecorePackage.getEString(), "id", null, 1, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getQuery_Label(), ecorePackage.getEString(), "label", null, 1, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getQuery_Comment(), ecorePackage.getEString(), "comment", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getQuery_Value(), ecorePackage.getEString(), "value", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getQuery_Queries(), this.getQueriesConnection(), this.getQueriesConnection_Query(), "queries", null, 0, 1, Query.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
