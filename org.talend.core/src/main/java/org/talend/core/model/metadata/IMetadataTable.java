@@ -43,6 +43,8 @@ public interface IMetadataTable extends IRepositoryObject {
 
     public void setListColumns(List<IMetadataColumn> listColumns);
 
+    public IMetadataTable clone(boolean withCustoms);
+
     public IMetadataTable clone();
 
     public IMetadataConnection getParent();

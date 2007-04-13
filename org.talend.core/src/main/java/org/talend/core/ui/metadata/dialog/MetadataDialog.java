@@ -21,9 +21,7 @@
 // ============================================================================
 package org.talend.core.ui.metadata.dialog;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.eclipse.gef.commands.CommandStack;
@@ -52,6 +50,7 @@ import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
@@ -240,7 +239,7 @@ public class MetadataDialog extends Dialog {
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        copyTable(getInputMetaData(), getOutputMetaData());
+                        MetadataTool.copyTable(getInputMetaData(), getOutputMetaData());
                         outputMetaView.getTableViewerCreator().getTableViewer().refresh();
                     }
                 }
@@ -261,7 +260,7 @@ public class MetadataDialog extends Dialog {
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        copyTable(getOutputMetaData(), getInputMetaData());
+                        MetadataTool.copyTable(getOutputMetaData(), getInputMetaData());
                         inputMetaView.getTableViewerCreator().getTableViewer().refresh();
                     }
                 }
@@ -363,37 +362,4 @@ public class MetadataDialog extends Dialog {
         return this.inputMetaView;
     }
 
-    private void copyTable(IMetadataTable source, IMetadataTable target) {
-        List<IMetadataColumn> columnsToRemove = new ArrayList<IMetadataColumn>();
-        for (IMetadataColumn column : target.getListColumns()) {
-            if (!column.isCustom()) {
-                columnsToRemove.add(column);
-            }
-        }
-        target.getListColumns().removeAll(columnsToRemove);
-
-        List<IMetadataColumn> columnsTAdd = new ArrayList<IMetadataColumn>();
-        for (IMetadataColumn column : source.getListColumns()) {
-            IMetadataColumn targetColumn = target.getColumn(column.getLabel());
-            if (targetColumn == null) {
-                columnsTAdd.add(column.clone());
-            } else {
-                if (!targetColumn.isReadOnly()) {
-                    target.getListColumns().remove(targetColumn);
-                    IMetadataColumn newTargetColumn = column.clone();
-                    newTargetColumn.setCustom(targetColumn.isCustom());
-                    newTargetColumn.setCustomId(targetColumn.getCustomId());
-                    columnsTAdd.add(newTargetColumn);
-                }
-            }
-        }
-        target.getListColumns().addAll(columnsTAdd);
-        target.sortCustomColumns();
-
-//        List<IMetadataColumn> listColumns = target.getListColumns();
-//        for (IMetadataColumn column : listColumns) {
-//            column.setPattern(null);
-//        }
-
-    }
 }

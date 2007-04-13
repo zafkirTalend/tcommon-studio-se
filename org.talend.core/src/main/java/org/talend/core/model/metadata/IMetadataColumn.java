@@ -105,6 +105,8 @@ public interface IMetadataColumn {
 
     public IMetadataColumn clone();
 
+    public IMetadataColumn clone(boolean withCustoms);
+
     public boolean sameMetacolumnAs(IMetadataColumn metaColumn);
 
     public boolean sameMetacolumnAs(IMetadataColumn other, int options);

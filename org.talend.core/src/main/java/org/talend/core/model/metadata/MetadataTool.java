@@ -55,5 +55,38 @@ public class MetadataTool {
         return null;
     }
 
-    
+
+    public static void copyTable(IMetadataTable source, IMetadataTable target) {
+        List<IMetadataColumn> columnsToRemove = new ArrayList<IMetadataColumn>();
+        for (IMetadataColumn column : target.getListColumns()) {
+            if (!column.isCustom()) {
+                columnsToRemove.add(column);
+            }
+        }
+        target.getListColumns().removeAll(columnsToRemove);
+
+        List<IMetadataColumn> columnsTAdd = new ArrayList<IMetadataColumn>();
+        for (IMetadataColumn column : source.getListColumns()) {
+            IMetadataColumn targetColumn = target.getColumn(column.getLabel());
+            if (targetColumn == null) {
+                columnsTAdd.add(column.clone());
+            } else {
+                if (!targetColumn.isReadOnly()) {
+                    target.getListColumns().remove(targetColumn);
+                    IMetadataColumn newTargetColumn = column.clone();
+                    newTargetColumn.setCustom(targetColumn.isCustom());
+                    newTargetColumn.setCustomId(targetColumn.getCustomId());
+                    columnsTAdd.add(newTargetColumn);
+                }
+            }
+        }
+        target.getListColumns().addAll(columnsTAdd);
+        target.sortCustomColumns();
+
+//        List<IMetadataColumn> listColumns = target.getListColumns();
+//        for (IMetadataColumn column : listColumns) {
+//            column.setPattern(null);
+//        }
+
+    }
 }

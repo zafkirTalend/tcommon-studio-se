@@ -334,11 +334,17 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 
     @Override
     public IMetadataColumn clone() {
+        return clone(false);
+    }
+
+    public IMetadataColumn clone(boolean withCustoms) {
         IMetadataColumn clonedMetacolumn = null;
         try {
             clonedMetacolumn = (IMetadataColumn) super.clone();
-            clonedMetacolumn.setCustom(false);
-            clonedMetacolumn.setReadOnly(false);
+            if (!withCustoms) {
+                clonedMetacolumn.setCustom(false);
+                clonedMetacolumn.setReadOnly(false);
+            }
         } catch (CloneNotSupportedException e) {
             // nothing
         }

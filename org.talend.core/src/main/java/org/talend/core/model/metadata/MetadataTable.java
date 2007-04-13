@@ -88,8 +88,9 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     public void setListColumns(List<IMetadataColumn> listColumns) {
         this.listColumns = listColumns;
     }
+    
 
-    public IMetadataTable clone() {
+    public IMetadataTable clone(boolean withCustoms) {
         IMetadataTable clonedMetadata = null;
         try {
             clonedMetadata = (IMetadataTable) super.clone();
@@ -97,7 +98,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
             List<IMetadataColumn> clonedMetaColumns = new ArrayList<IMetadataColumn>();
             clonedMetadata.setListColumns(clonedMetaColumns);
             for (int i = 0; i < listColumns.size(); i++) {
-                clonedMetaColumns.add(listColumns.get(i).clone());
+                clonedMetaColumns.add(listColumns.get(i).clone(withCustoms));
             }
         } catch (CloneNotSupportedException e) {
             // nothing
@@ -106,7 +107,17 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
         }
         return clonedMetadata;
     }
-    
+
+    /**
+     * cloned without custom columns by default.
+     */
+    public IMetadataTable clone() {
+        return clone(false);
+    }
+    /**
+     * Note: for a table with custom columns, the order for the test is really important.
+     * It should be currentComponentMetadata.sameMetadataAs (other).
+     */
     public boolean sameMetadataAs(IMetadataTable other, int options) {
         if (this == other) {
             return true;
@@ -148,10 +159,21 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
                 if (nbNotCustomOrigin != nbNotCustomOther) {
                     return false;
                 } else {
+                    // test non custom columns
                     for (int i = 0; i < other.getListColumns().size(); i++) {
                         IMetadataColumn otherColumn = other.getListColumns().get(i);
                         if (!otherColumn.isCustom()) {
                             IMetadataColumn myColumn = this.listColumns.get(i);
+                            if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
+                                return false;
+                            }
+                        }
+                    }
+                    // test custom columns
+                    for (int i = 0; i < other.getListColumns().size(); i++) {
+                        IMetadataColumn otherColumn = other.getListColumns().get(i);
+                        if (otherColumn.isCustom()) {
+                            IMetadataColumn myColumn = this.getColumn(otherColumn.getLabel());
                             if (!otherColumn.sameMetacolumnAs(myColumn, options)) {
                                 return false;
                             }
