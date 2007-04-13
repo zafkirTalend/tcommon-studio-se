@@ -72,8 +72,7 @@ public interface Connection extends AbstractMetadataObject {
     EList getTables();
 
     /**
-     * Returns the value of the '<em><b>Queries</b></em>' containment reference list.
-     * The list contents are of type {@link org.talend.core.model.metadata.builder.connection.QueriesConnection}.
+     * Returns the value of the '<em><b>Queries</b></em>' containment reference.
      * It is bidirectional and its opposite is '{@link org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection <em>Connection</em>}'.
      * <!-- begin-user-doc -->
      * <p>
@@ -81,12 +80,23 @@ public interface Connection extends AbstractMetadataObject {
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Queries</em>' containment reference list.
+     * @return the value of the '<em>Queries</em>' containment reference.
+     * @see #setQueries(QueriesConnection)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getConnection_Queries()
      * @see org.talend.core.model.metadata.builder.connection.QueriesConnection#getConnection
-     * @model type="org.talend.core.model.metadata.builder.connection.QueriesConnection" opposite="connection" containment="true"
+     * @model opposite="connection" containment="true"
      * @generated
      */
-    EList getQueries();
+    QueriesConnection getQueries();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Queries</em>' containment reference.
+     * @see #getQueries()
+     * @generated
+     */
+    void setQueries(QueriesConnection value);
 
 } // Connection

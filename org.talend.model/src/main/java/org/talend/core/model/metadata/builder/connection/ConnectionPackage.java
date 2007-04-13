@@ -301,7 +301,7 @@ public interface ConnectionPackage extends EPackage {
     int CONNECTION__TABLES = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 1;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -677,7 +677,7 @@ public interface ConnectionPackage extends EPackage {
     int FILE_CONNECTION__TABLES = CONNECTION__TABLES;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -943,7 +943,7 @@ public interface ConnectionPackage extends EPackage {
     int DELIMITED_FILE_CONNECTION__TABLES = FILE_CONNECTION__TABLES;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1218,7 +1218,7 @@ public interface ConnectionPackage extends EPackage {
     int POSITIONAL_FILE_CONNECTION__TABLES = FILE_CONNECTION__TABLES;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1484,7 +1484,7 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__TABLES = CONNECTION__TABLES;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1705,7 +1705,7 @@ public interface ConnectionPackage extends EPackage {
     int CSV_FILE_CONNECTION__TABLES = DELIMITED_FILE_CONNECTION__TABLES;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -1980,7 +1980,7 @@ public interface ConnectionPackage extends EPackage {
     int REGEXP_FILE_CONNECTION__TABLES = FILE_CONNECTION__TABLES;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2255,7 +2255,7 @@ public interface ConnectionPackage extends EPackage {
     int XML_FILE_CONNECTION__TABLES = CONNECTION__TABLES;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2563,7 +2563,7 @@ public interface ConnectionPackage extends EPackage {
     int LDIF_FILE_CONNECTION__TABLES = CONNECTION__TABLES;
 
     /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference list.
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2783,10 +2783,10 @@ public interface ConnectionPackage extends EPackage {
     EReference getConnection_Tables();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}'.
+     * Returns the meta object for the containment reference '{@link org.talend.core.model.metadata.builder.connection.Connection#getQueries <em>Queries</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Queries</em>'.
+     * @return the meta object for the containment reference '<em>Queries</em>'.
      * @see org.talend.core.model.metadata.builder.connection.Connection#getQueries()
      * @see #getConnection()
      * @generated
@@ -3886,7 +3886,7 @@ public interface ConnectionPackage extends EPackage {
         EReference CONNECTION__TABLES = eINSTANCE.getConnection_Tables();
 
         /**
-         * The meta object literal for the '<em><b>Queries</b></em>' containment reference list feature.
+         * The meta object literal for the '<em><b>Queries</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

@@ -11,8 +11,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
         eType="#//MetadataTable" containment="true" eOpposite="#//MetadataTable/connection"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="queries" upperBound="-1"
-        eType="#//QueriesConnection" containment="true" eOpposite="#//QueriesConnection/connection"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="queries" eType="#//QueriesConnection"
+        containment="true" eOpposite="#//QueriesConnection/connection"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MetadataColumn" eSuperTypes="#//AbstractMetadataObject">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
