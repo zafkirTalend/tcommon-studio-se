@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.core.ui.metadata.dialog;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -155,8 +156,7 @@ public class MetadataDialog extends Dialog {
         boolean showDbTypeColumnForOutput = outputFamily.startsWith(DATABASE_LABEL)
                 || outputFamily.startsWith(ELT_LABEL);
 
-        boolean showTalendTypeColumnForInput = !(inputFamily != null
-        && inputFamily.startsWith(ELT_LABEL));
+        boolean showTalendTypeColumnForInput = !(inputFamily != null && inputFamily.startsWith(ELT_LABEL));
         boolean showTalendTypeColumnForOutput = !outputFamily.startsWith(ELT_LABEL);
 
         if (inputMetaTable == null) {
@@ -240,17 +240,8 @@ public class MetadataDialog extends Dialog {
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        IMetadataTable metadataTable = inputMetaView.getMetadataTableEditor().getMetadataTable()
-                                .clone();
-                        // add by qzhang. keep the output metadatatable name. only modify its cloumns
-                        metadataTable.setTableName(outputMetaView.getMetadataTableEditor().getMetadataTable()
-                                .getTableName());
-                        outputMetaView.getMetadataTableEditor().removeAll();
-                        List<IMetadataColumn> listColumns = metadataTable.getListColumns();
-                        for (IMetadataColumn column : listColumns) {
-                            column.setPattern(null);
-                        }
-                        outputMetaView.getMetadataTableEditor().setMetadataTable(metadataTable);
+                        copyTable(getInputMetaData(), getOutputMetaData());
+                        outputMetaView.getTableViewerCreator().getTableViewer().refresh();
                     }
                 }
             });
@@ -270,17 +261,8 @@ public class MetadataDialog extends Dialog {
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
-                        IMetadataTable metadataTable = outputMetaView.getMetadataTableEditor().getMetadataTable()
-                                .clone();
-                        // add by qzhang. keep the input metadatatable name. only modify its cloumns
-                        metadataTable.setTableName(inputMetaView.getMetadataTableEditor().getMetadataTable()
-                                .getTableName());
-                        inputMetaView.getMetadataTableEditor().removeAll();
-                        List<IMetadataColumn> listColumns = metadataTable.getListColumns();
-                        for (IMetadataColumn column : listColumns) {
-                            column.setPattern(null);
-                        }
-                        inputMetaView.getMetadataTableEditor().setMetadataTable(metadataTable);
+                        copyTable(getOutputMetaData(), getInputMetaData());
+                        inputMetaView.getTableViewerCreator().getTableViewer().refresh();
                     }
                 }
             });
@@ -381,4 +363,37 @@ public class MetadataDialog extends Dialog {
         return this.inputMetaView;
     }
 
+    private void copyTable(IMetadataTable source, IMetadataTable target) {
+        List<IMetadataColumn> columnsToRemove = new ArrayList<IMetadataColumn>();
+        for (IMetadataColumn column : target.getListColumns()) {
+            if (!column.isCustom()) {
+                columnsToRemove.add(column);
+            }
+        }
+        target.getListColumns().removeAll(columnsToRemove);
+
+        List<IMetadataColumn> columnsTAdd = new ArrayList<IMetadataColumn>();
+        for (IMetadataColumn column : source.getListColumns()) {
+            IMetadataColumn targetColumn = target.getColumn(column.getLabel());
+            if (targetColumn == null) {
+                columnsTAdd.add(column.clone());
+            } else {
+                if (!targetColumn.isReadOnly()) {
+                    target.getListColumns().remove(targetColumn);
+                    IMetadataColumn newTargetColumn = column.clone();
+                    newTargetColumn.setCustom(targetColumn.isCustom());
+                    newTargetColumn.setCustomId(targetColumn.getCustomId());
+                    columnsTAdd.add(newTargetColumn);
+                }
+            }
+        }
+        target.getListColumns().addAll(columnsTAdd);
+        target.sortCustomColumns();
+
+//        List<IMetadataColumn> listColumns = target.getListColumns();
+//        for (IMetadataColumn column : listColumns) {
+//            column.setPattern(null);
+//        }
+
+    }
 }
