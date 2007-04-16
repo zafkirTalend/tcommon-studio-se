@@ -55,7 +55,6 @@ public class MetadataTool {
         return null;
     }
 
-
     public static void copyTable(IMetadataTable source, IMetadataTable target) {
         List<IMetadataColumn> columnsToRemove = new ArrayList<IMetadataColumn>();
         for (IMetadataColumn column : target.getListColumns()) {
@@ -68,12 +67,13 @@ public class MetadataTool {
         List<IMetadataColumn> columnsTAdd = new ArrayList<IMetadataColumn>();
         for (IMetadataColumn column : source.getListColumns()) {
             IMetadataColumn targetColumn = target.getColumn(column.getLabel());
+            IMetadataColumn newTargetColumn = column.clone();
             if (targetColumn == null) {
-                columnsTAdd.add(column.clone());
+                columnsTAdd.add(newTargetColumn);
+                newTargetColumn.setReadOnly(target.isReadOnly());
             } else {
                 if (!targetColumn.isReadOnly()) {
                     target.getListColumns().remove(targetColumn);
-                    IMetadataColumn newTargetColumn = column.clone();
                     newTargetColumn.setCustom(targetColumn.isCustom());
                     newTargetColumn.setCustomId(targetColumn.getCustomId());
                     columnsTAdd.add(newTargetColumn);
@@ -83,10 +83,10 @@ public class MetadataTool {
         target.getListColumns().addAll(columnsTAdd);
         target.sortCustomColumns();
 
-//        List<IMetadataColumn> listColumns = target.getListColumns();
-//        for (IMetadataColumn column : listColumns) {
-//            column.setPattern(null);
-//        }
+        // List<IMetadataColumn> listColumns = target.getListColumns();
+        // for (IMetadataColumn column : listColumns) {
+        // column.setPattern(null);
+        // }
 
     }
 }

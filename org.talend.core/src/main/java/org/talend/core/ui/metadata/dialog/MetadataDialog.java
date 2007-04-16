@@ -52,6 +52,7 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.model.process.INode;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
 
@@ -97,22 +98,32 @@ public class MetadataDialog extends Dialog {
 
     private CommandStack commandStack;
 
-    private String outputFamily;
+    private INode inputNode;
+
+    private INode outputNode;
 
     private String inputFamily;
 
+    private String outputFamily;
+
     private ThreeCompositesSashForm compositesSachForm;
 
-    public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, String titleInput, String inputFamily,
-            IMetadataTable outputMetaTable, String titleOutput, String outputFamily, CommandStack commandStack) {
+    public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, INode inputNode, IMetadataTable outputMetaTable,
+            INode outputNode, CommandStack commandStack) {
         super(parent);
         this.inputMetaTable = inputMetaTable;
-        this.titleInput = titleInput;
+        this.inputNode = inputNode;
+        if (inputNode != null) {
+            this.titleInput = inputMetaTable.getTableName();
+            this.inputFamily = inputNode.getComponent().getFamily();
+        }
+        this.outputNode = outputNode;
+        if (outputNode != null) {
+            this.titleOutput = outputNode.getUniqueName();
+            this.outputFamily = outputNode.getComponent().getFamily();
+        }
         this.outputMetaTable = outputMetaTable;
-        this.titleOutput = titleOutput;
         this.commandStack = commandStack;
-        this.inputFamily = inputFamily;
-        this.outputFamily = outputFamily;
 
         if (inputMetaTable == null) {
             size = new Point(550, 400);
@@ -121,9 +132,8 @@ public class MetadataDialog extends Dialog {
         }
     }
 
-    public MetadataDialog(Shell parent, IMetadataTable outputMetaTable, String titleOutput, String outputFamily,
-            CommandStack commandStack) {
-        this(parent, null, null, null, outputMetaTable, titleOutput, outputFamily, commandStack);
+    public MetadataDialog(Shell parent, IMetadataTable outputMetaTable, INode outputNode, CommandStack commandStack) {
+        this(parent, null, null, outputMetaTable, outputNode, commandStack);
     }
 
     public void setText(String text) {
@@ -284,13 +294,19 @@ public class MetadataDialog extends Dialog {
             }
             compositesSachForm.setGridDatas();
             CustomTableManager.addCustomManagementToTable(inputMetaView.getTableViewerCreator(), inputReadOnly);
-            CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly);
+            CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly,
+                    outputMetaView, outputMetaTable, outputNode.getComponent().isSchemaAutoPropagated());
         }
         CustomTableManager.addCustomManagementToTable(outputMetaView.getTableViewerCreator(), outputReadOnly);
-        CustomTableManager.addCustomManagementToToolBar(outputMetaView, outputMetaTable, outputReadOnly);
+        CustomTableManager.addCustomManagementToToolBar(outputMetaView, outputMetaTable, outputReadOnly, inputMetaView,
+                inputMetaTable, false);
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
 
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {
+                if (outputMetaTable.isReadOnly() && outputNode.getComponent().isSchemaAutoPropagated()) {
+                    MetadataTool.copyTable(inputMetaTable, outputMetaTable);
+                    outputMetaView.getTableViewerCreator().getTableViewer().refresh();
+                }
                 if (AbstractMetadataTableEditorView.ID_COLUMN_NAME.equals(event.column.getId())) {
                     IMetadataColumn modifiedObject = (IMetadataColumn) event.bean;
                     if (modifiedObject != null) {

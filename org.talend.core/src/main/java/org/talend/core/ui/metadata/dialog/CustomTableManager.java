@@ -33,12 +33,14 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
+import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
 
@@ -64,12 +66,14 @@ public class CustomTableManager {
     }
 
     public static void addCustomManagementToToolBar(final MetadataTableEditorView tableEditorView,
-            final IMetadataTable table, final boolean readOnly) {
+            final IMetadataTable table, final boolean readOnly, final MetadataTableEditorView linkedTableEditorView,
+            final IMetadataTable linkedTable, final boolean toPropagate) {
         tableEditorView.getTableViewerCreator().getTableViewer().addPostSelectionChangedListener(
                 new ISelectionChangedListener() {
 
                     public void selectionChanged(SelectionChangedEvent event) {
-                        updateToolBarButtonsOnSelection(event.getSelection(), tableEditorView, table, readOnly);
+                        updateToolBarButtonsOnSelection(event.getSelection(), tableEditorView, table,
+                                linkedTableEditorView, linkedTable, readOnly);
                     }
 
                 });
@@ -109,16 +113,38 @@ public class CustomTableManager {
             public void widgetSelected(SelectionEvent e) {
                 updateToolBarButtonsOnSelection(
                         tableEditorView.getTableViewerCreator().getTableViewer().getSelection(), tableEditorView,
-                        table, readOnly);
+                        table, linkedTableEditorView, linkedTable, readOnly);
             }
 
         };
         tableEditorView.getToolBar().getRemoveButton().getButton().addSelectionListener(customListener);
         tableEditorView.getToolBar().getCopyButton().getButton().addSelectionListener(customListener);
+
+        if (toPropagate) {
+            if (linkedTable.isReadOnly()) {
+                SelectionListener updateLinkedTableListener = new SelectionListener() {
+
+                    public void widgetDefaultSelected(SelectionEvent e) {
+                    }
+
+                    public void widgetSelected(SelectionEvent e) {
+                        MetadataTool.copyTable(table, linkedTable);
+                        linkedTableEditorView.getTableViewerCreator().getTableViewer().refresh();
+                    }
+
+                };
+                tableEditorView.getToolBar().getButtons();
+                for (Iterator iter = tableEditorView.getToolBar().getButtons().iterator(); iter.hasNext();) {
+                    ExtendedPushButton element = (ExtendedPushButton) iter.next();
+                    element.getButton().addSelectionListener(updateLinkedTableListener);
+                }
+            }
+        }
     }
 
     private static void updateToolBarButtonsOnSelection(ISelection currentSelection,
-            MetadataTableEditorView tableEditorView, IMetadataTable table, boolean readOnly) {
+            MetadataTableEditorView tableEditorView, IMetadataTable table,
+            final MetadataTableEditorView linkedTableEditorView, final IMetadataTable linkedTable, boolean readOnly) {
         IStructuredSelection selection = (IStructuredSelection) currentSelection;
         boolean isThereCustom = false;
         for (Iterator iter = selection.iterator(); iter.hasNext();) {
@@ -132,11 +158,11 @@ public class CustomTableManager {
             tableEditorView.getToolBar().getMoveUpButton().getButton().setEnabled(false);
             tableEditorView.getToolBar().getRemoveButton().getButton().setEnabled(false);
             tableEditorView.getToolBar().getPasteButton().getButton().setEnabled(false);
-        } else if (!readOnly) {
-            tableEditorView.getToolBar().getMoveDownButton().getButton().setEnabled(true);
-            tableEditorView.getToolBar().getMoveUpButton().getButton().setEnabled(true);
-            tableEditorView.getToolBar().getRemoveButton().getButton().setEnabled(true);
-            tableEditorView.getToolBar().getPasteButton().getButton().setEnabled(false);
+        }
+        if (linkedTable != null) {
+            if (linkedTable.isReadOnly()) {
+                linkedTableEditorView.getToolBar().getPasteButton().getButton().setEnabled(false);
+            }
         }
 
     }
