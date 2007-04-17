@@ -24,8 +24,12 @@ package org.talend.core.model.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.talend.core.CorePlugin;
+import org.talend.core.context.Context;
+import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
-import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 
 /**
@@ -35,6 +39,14 @@ import org.talend.core.model.process.IContextParameter;
  * 
  */
 public final class ContextParameterUtils {
+
+    private static final String PERL_STARTWITH = "$_context{";
+
+    private static final String PERL_ENDWITH = "}";
+
+    private static final String JAVA_STARTWITH = "((String)context.getProperty(" + "\\" + "\"";
+
+    private static final String JAVA_ENDWITH = "\\" + "\"))";
 
     /**
      * Constructs a new ContextParameterUtils.
@@ -51,18 +63,82 @@ public final class ContextParameterUtils {
      */
     public static String getScriptCode(IContextParameter parameter, ECodeLanguage language) {
         String code;
+
         switch (language) {
         case PERL:
-            code = "$_context{" + parameter.getName() + "}"; //$NON-NLS-1$ //$NON-NLS-2$
+            code = PERL_STARTWITH + parameter.getName() + PERL_ENDWITH; //$NON-NLS-1$ //$NON-NLS-2$
             break;
         case JAVA:
-            code = "((String)context.getProperty(\""
-                    + parameter.getName() + "\"))";
+            code = JAVA_STARTWITH + parameter.getName() + JAVA_ENDWITH;
             break;
         default:
             code = parameter.getName();
         }
         return code;
+    }
+
+    public static String parseScriptContextCode(String code, IContextManager contextManager) {
+        // final ECodeLanguage language = ((RepositoryContext)
+        // CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+        // .getProject().getLanguage();
+        // if (!isContainContextParam(code)) {
+        // return code;
+        // } else {
+        // String paraName = getContextString(code, language);
+        for (IContext context : contextManager.getListContext()) {
+            code = parseScriptContextCode(code, context);
+        }
+        // for (IContextParameter param : context.getContextParameterList()) {
+        // if (param.getName().equals(paraName)) {
+        // // return code.replace(getScriptCode(param, language), param.getValue());
+        // return parseScriptContextCode(code.replace(getScriptCode(param, language), param.getValue()),
+        // contextManager);
+        // }
+        // }
+        // }
+        // }
+        return code;
+    }
+
+    public static String parseScriptContextCode(String code, IContext context) {
+        final ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                .getProject().getLanguage();
+        if (!isContainContextParam(code)) {
+            return code;
+        } else {
+            String paraName = getContextString(code, language);
+            for (IContextParameter param : context.getContextParameterList()) {
+                if (param.getName().equals(paraName)) {
+                    // return code.replace(getScriptCode(param, language), param.getValue());
+                    return parseScriptContextCode(code.replace(getScriptCode(param, language), param.getValue()), context);
+                }
+            }
+        }
+        return code;
+    }
+
+    private static String getContextString(String code, ECodeLanguage language) {
+        switch (language) {
+        case PERL:
+            return code.substring(code.indexOf(PERL_STARTWITH) + PERL_STARTWITH.length(), code.indexOf(PERL_ENDWITH));
+        case JAVA:
+            return code.substring(code.indexOf(JAVA_STARTWITH) + JAVA_STARTWITH.length(), code.indexOf(JAVA_ENDWITH));
+        default:
+            return code;
+        }
+    }
+
+    public static boolean isContainContextParam(String code) {
+        final ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                .getProject().getLanguage();
+        switch (language) {
+        case PERL:
+            return code.contains(PERL_STARTWITH) && code.contains(PERL_ENDWITH);
+        case JAVA:
+            return code.contains(JAVA_STARTWITH) && code.contains(JAVA_ENDWITH);
+        default:
+            return false;
+        }
     }
 
     /**
