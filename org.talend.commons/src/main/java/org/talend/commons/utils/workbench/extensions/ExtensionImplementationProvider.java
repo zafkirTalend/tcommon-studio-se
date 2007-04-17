@@ -85,11 +85,13 @@ public abstract class ExtensionImplementationProvider<I> {
      * @throws IllegalPluginConfigurationException - if number of found plug-in doesn't match the specified max and min
      * value of the ext. point
      */
-    public static <T> T getSingleInstance(IExtensionPointLimiter extensionPointLimiter) {
-        Assert.isTrue(extensionPointLimiter.getMaxOcc() == 1, Messages
-                .getString("ExtensionImplementationProviders.ExtensionPointError")); //$NON-NLS-1$
+    public static <T> T getSingleInstance(IExtensionPointLimiter extensionPointLimiter, String pluginId) {
+//        Assert.isTrue(extensionPointLimiter.getMaxOcc() == 1, Messages
+//                .getString("ExtensionImplementationProviders.ExtensionPointError")); //$NON-NLS-1$
 
-        List<T> list = new ClassExtensionImplementationProvider<T>(extensionPointLimiter, null).createInstances();
+        extensionPointLimiter.setMaxOcc(1);
+        
+        List<T> list = new ClassExtensionImplementationProvider<T>(extensionPointLimiter, pluginId).createInstances();
 
         return (list.isEmpty() ? null : list.get(0));
     }

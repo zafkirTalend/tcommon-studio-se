@@ -49,6 +49,8 @@ public interface IExtensionPointLimiter {
      * @return the maxOcc
      */
     public int getMaxOcc();
+    
+    public void setMaxOcc(int maxOcc);
 
     /**
      * Getter for extension point minimum authorized implementation. Specify -1 for no min occurence
