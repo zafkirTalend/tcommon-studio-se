@@ -51,7 +51,22 @@ public interface IConnectionCategory {
     public static final int EXECUTION_ORDER = 1 << 3;
     /**
      * For RUN_AFTER, RUN_BEFORE, RUN_IF, RUN_IF_OK, RUN_IF_ERROR.
-     * Links that that will add a dependency to run a sub process.
+     * Links that will add a dependency to run a sub process.
      */
     public static final int DEPENDENCY = 1 << 4;
+    /**
+     * For FLOW_MAIN, FLOW_REF, FLOW_MERGE, TABLE.
+     * Links that can have a specific name.
+     */
+    public static final int CUSTOM_NAME = 1 << 5;
+    /**
+     * For FLOW_MAIN, FLOW_REF, FLOW_MERGE.
+     * Flow links (or main links), so in the menu Row > Main.
+     */
+    public static final int FLOW = 1 << 6;
+    /**
+     * For FLOW_REF.
+     * Links that will create a hidden hash file (tHash component).
+     */
+    public static final int USE_HASH = 1 << 7;
 }

@@ -83,6 +83,8 @@ public interface IComponent {
     public boolean isSchemaAutoPropagated();
 
     public boolean isDataAutoPropagated();
+    
+    public boolean useMerge();
 
     public String getVersion();
 

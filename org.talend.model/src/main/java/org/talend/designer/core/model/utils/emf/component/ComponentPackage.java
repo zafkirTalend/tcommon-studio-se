@@ -718,13 +718,22 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__TSTATCATCHERSTATS = 12;
 
     /**
+     * The feature id for the '<em><b>USEMERGE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__USEMERGE = 13;
+
+    /**
      * The feature id for the '<em><b>VERSION</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VERSION = 13;
+    int HEADER_TYPE__VERSION = 14;
 
     /**
      * The feature id for the '<em><b>VISIBLE</b></em>' attribute.
@@ -733,7 +742,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VISIBLE = 14;
+    int HEADER_TYPE__VISIBLE = 15;
 
     /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
@@ -742,7 +751,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 15;
+    int HEADER_TYPE_FEATURE_COUNT = 16;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -2176,6 +2185,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_TSTATCATCHERSTATS();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isUSEMERGE <em>USEMERGE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>USEMERGE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#isUSEMERGE()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_USEMERGE();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getVERSION <em>VERSION</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3448,6 +3468,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__TSTATCATCHERSTATS = eINSTANCE.getHEADERType_TSTATCATCHERSTATS();
+
+        /**
+         * The meta object literal for the '<em><b>USEMERGE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__USEMERGE = eINSTANCE.getHEADERType_USEMERGE();
 
         /**
          * The meta object literal for the '<em><b>VERSION</b></em>' attribute feature.

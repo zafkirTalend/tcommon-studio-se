@@ -37,6 +37,7 @@
 			<xs:attribute name="HAS_CONDITIONAL_OUTPUTS" type="xs:boolean" use="optional"/>
 			<xs:attribute name="VISIBLE" type="xs:boolean" use="optional" default="true"/>
 			<xs:attribute name="TSTATCATCHER_STATS" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="USE_MERGE" type="xs:boolean" use="optional" default="false"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="DOCUMENTATION">
