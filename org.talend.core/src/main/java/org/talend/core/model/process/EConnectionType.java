@@ -28,17 +28,17 @@ package org.talend.core.model.process;
  * 
  */
 public enum EConnectionType implements IConnectionCategory {
-    FLOW_MAIN(0, "FLOW", EConnectionCategory.MAIN, MAIN | DATA | FLOW | CUSTOM_NAME), //$NON-NLS-1$
+    FLOW_MAIN(0, "FLOW", EConnectionCategory.MAIN, MAIN | DATA | FLOW | CUSTOM_NAME | UNIQUE_NAME), //$NON-NLS-1$
     RUN_BEFORE(1, "BEFORE", EConnectionCategory.OTHER, EXECUTION_ORDER | DEPENDENCY), //$NON-NLS-1$
     RUN_AFTER(2, "AFTER", EConnectionCategory.OTHER, EXECUTION_ORDER | DEPENDENCY), //$NON-NLS-1$
-    REFERENCE(3, "REFERENCE", EConnectionCategory.OTHER, 0), //$NON-NLS-1$
+    LOOKUP(3, "LOOKUP", EConnectionCategory.OTHER, USE_HASH | CUSTOM_NAME | UNIQUE_NAME), //$NON-NLS-1$
     RUN_IF_OK(4, "RUN_OK", EConnectionCategory.OTHER, CONDITION | DEPENDENCY), //$NON-NLS-1$
     RUN_IF_ERROR(5, "RUN_ERROR", EConnectionCategory.OTHER, CONDITION | DEPENDENCY), //$NON-NLS-1$
     RUN_IF(6, "RUN_IF", EConnectionCategory.OTHER, CONDITION | DEPENDENCY), //$NON-NLS-1$
     ITERATE(7, "ITERATE", EConnectionCategory.MAIN, MAIN), //$NON-NLS-1$
-    FLOW_REF(8, "FLOW", EConnectionCategory.OTHER, DATA | FLOW | CUSTOM_NAME | USE_HASH), //$NON-NLS-1$
+    FLOW_REF(8, "FLOW", EConnectionCategory.OTHER, DATA | FLOW | CUSTOM_NAME | USE_HASH | UNIQUE_NAME), //$NON-NLS-1$
     TABLE(9, "TABLE", EConnectionCategory.MAIN, MAIN | DATA | CUSTOM_NAME), //$NON-NLS-1$
-    FLOW_MERGE(10, "FLOW", EConnectionCategory.MAIN, DATA | FLOW | CUSTOM_NAME); //$NON-NLS-1$
+    FLOW_MERGE(10, "FLOW", EConnectionCategory.MAIN, DATA | FLOW | CUSTOM_NAME | UNIQUE_NAME); //$NON-NLS-1$
 
     private String name;
 

@@ -53,10 +53,6 @@ public interface INodeConnector {
 
     public abstract void setBuiltIn(final boolean builtIn);
 
-    public abstract boolean isCustomName();
-
-    public abstract void setCustomName(final boolean customName);
-
     public abstract int getCurLinkNbInput();
 
     public abstract void setCurLinkNbInput(final int curLinkNb);
