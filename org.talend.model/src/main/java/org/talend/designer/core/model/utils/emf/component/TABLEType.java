@@ -19,6 +19,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getCOLUMN <em>COLUMN</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getIF <em>IF</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getNOTIF <em>NOTIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.TABLEType#isREADONLY <em>READONLY</em>}</li>
  * </ul>
  * </p>
@@ -99,5 +101,59 @@ public interface TABLEType extends EObject {
      * @generated
      */
     boolean isSetREADONLY();
+
+    /**
+     * Returns the value of the '<em><b>IF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>IF</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>IF</em>' attribute.
+     * @see #setIF(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTABLEType_IF()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='IF' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getIF();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getIF <em>IF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>IF</em>' attribute.
+     * @see #getIF()
+     * @generated
+     */
+    void setIF(String value);
+
+    /**
+     * Returns the value of the '<em><b>NOTIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>NOTIF</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>NOTIF</em>' attribute.
+     * @see #setNOTIF(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTABLEType_NOTIF()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='NOT_IF' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getNOTIF();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getNOTIF <em>NOTIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>NOTIF</em>' attribute.
+     * @see #getNOTIF()
+     * @generated
+     */
+    void setNOTIF(String value);
 
 } // TABLEType

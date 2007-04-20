@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2006 rel. 3 U (http://www.altova.com) by Rousseau Nicolas (*) -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified">
 	<xs:element name="COMPONENT">
 		<xs:complexType>
 			<xs:sequence>
@@ -10,7 +10,7 @@
 				<xs:element ref="PARAMETERS"/>
 				<xs:element ref="CODEGENERATION"/>
 				<xs:element ref="RETURNS"/>
-				<xs:element ref="PLUGINDEPENDENCIES" minOccurs="0"/>
+				<xs:element minOccurs="0" ref="PLUGINDEPENDENCIES"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
@@ -32,11 +32,11 @@
 			<xs:attribute name="RELEASE_DATE" type="xs:string" use="required"/>
 			<xs:attribute name="STARTABLE" type="xs:boolean" use="required"/>
 			<xs:attribute name="EXTENSION" type="xs:string" use="optional"/>
-			<xs:attribute name="SCHEMA_AUTO_PROPAGATE" type="xs:boolean" use="optional" default="true"/>
-			<xs:attribute name="DATA_AUTO_PROPAGATE" type="xs:boolean" use="optional" default="true"/>
+			<xs:attribute default="true" name="SCHEMA_AUTO_PROPAGATE" type="xs:boolean" use="optional"/>
+			<xs:attribute default="true" name="DATA_AUTO_PROPAGATE" type="xs:boolean" use="optional"/>
 			<xs:attribute name="HAS_CONDITIONAL_OUTPUTS" type="xs:boolean" use="optional"/>
-			<xs:attribute name="VISIBLE" type="xs:boolean" use="optional" default="true"/>
-			<xs:attribute name="TSTATCATCHER_STATS" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute default="true" name="VISIBLE" type="xs:boolean" use="optional"/>
+			<xs:attribute default="false" name="TSTATCATCHER_STATS" type="xs:boolean" use="optional"/>
 			<xs:attribute name="USE_MERGE" type="xs:boolean" use="optional" default="false"/>
 		</xs:complexType>
 	</xs:element>
@@ -50,7 +50,7 @@
 	<xs:element name="CONNECTORS">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="CONNECTOR" maxOccurs="unbounded">
+				<xs:element maxOccurs="unbounded" name="CONNECTOR">
 					<xs:annotation>
 						<xs:documentation>BUILTIN can only be used when CTYPE = 'FLOW'</xs:documentation>
 					</xs:annotation>
@@ -69,10 +69,10 @@
 	<xs:element name="PARAMETERS">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="PARAMETER" maxOccurs="unbounded">
+				<xs:element maxOccurs="unbounded" name="PARAMETER">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="DEFAULT" minOccurs="0" maxOccurs="unbounded">
+							<xs:element maxOccurs="unbounded" minOccurs="0" name="DEFAULT">
 								<xs:annotation>
 									<xs:documentation>Used for TEXT or CHECK field</xs:documentation>
 								</xs:annotation>
@@ -85,43 +85,45 @@
 									</xs:simpleContent>
 								</xs:complexType>
 							</xs:element>
-							<xs:element ref="ITEMS" minOccurs="0">
+							<xs:element minOccurs="0" ref="ITEMS">
 								<xs:annotation>
 									<xs:documentation>Used for CLOSED_LIST or TABLE field</xs:documentation>
 								</xs:annotation>
 							</xs:element>
-							<xs:element name="TABLE" minOccurs="0">
+							<xs:element minOccurs="0" name="TABLE">
 								<xs:annotation>
 									<xs:documentation>Used only for SCHEMA_TYPE field </xs:documentation>
 								</xs:annotation>
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="COLUMN" minOccurs="0" maxOccurs="unbounded">
+										<xs:element maxOccurs="unbounded" minOccurs="0" name="COLUMN">
 											<xs:complexType>
 												<xs:attribute name="NAME" type="xs:string"/>
 												<xs:attribute name="TYPE" type="xs:string"/>
 												<xs:attribute name="LENGTH" type="xs:int"/>
-												<xs:attribute name="PRECISION" type="xs:int" use="optional" default="0"/>
-												<xs:attribute name="KEY" type="xs:boolean" use="optional" default="false"/>
-												<xs:attribute name="NULLABLE" type="xs:boolean" use="optional" default="true"/>
+												<xs:attribute default="0" name="PRECISION" type="xs:int" use="optional"/>
+												<xs:attribute default="false" name="KEY" type="xs:boolean" use="optional"/>
+												<xs:attribute default="true" name="NULLABLE" type="xs:boolean" use="optional"/>
 												<xs:attribute name="DEFAULT" type="xs:string" use="optional"/>
 												<xs:attribute name="PATTERN" type="xs:string" use="optional"/>
 												<xs:attribute name="READONLY" type="xs:boolean" use="optional"/>
-												<xs:attribute name="CUSTOM" type="xs:boolean" use="optional" default="false"/>
+												<xs:attribute default="false" name="CUSTOM" type="xs:boolean" use="optional"/>
 											</xs:complexType>
 										</xs:element>
 									</xs:sequence>
-									<xs:attribute name="READONLY" type="xs:boolean" use="optional" default="false"/>
-								</xs:complexType>
+									<xs:attribute default="false" name="READONLY" type="xs:boolean" use="optional"/>
+                                    <xs:attribute name="IF" type="xs:string" use="optional"/>
+                                    <xs:attribute name="NOT_IF" type="xs:string" use="optional"/>
+                                </xs:complexType>
 							</xs:element>
 						</xs:sequence>
 						<xs:attribute name="NAME" type="xs:string" use="required"/>
 						<xs:attribute name="FIELD" type="xs:string" use="required"/>
-						<xs:attribute name="NB_LINES" type="xs:int" use="optional" default="3"/>
+						<xs:attribute default="3" name="NB_LINES" type="xs:int" use="optional"/>
 						<xs:attribute name="NUM_ROW" type="xs:int" use="required"/>
-						<xs:attribute name="SHOW" type="xs:boolean" use="optional" default="true"/>
-						<xs:attribute name="REQUIRED" type="xs:boolean" use="optional" default="false"/>
-						<xs:attribute name="READONLY" type="xs:boolean" use="optional" default="false"/>
+						<xs:attribute default="true" name="SHOW" type="xs:boolean" use="optional"/>
+						<xs:attribute default="false" name="REQUIRED" type="xs:boolean" use="optional"/>
+						<xs:attribute default="false" name="READONLY" type="xs:boolean" use="optional"/>
 						<xs:attribute name="REPOSITORY_VALUE" type="xs:string" use="optional"/>
 						<xs:attribute name="SHOW_IF" type="xs:string" use="optional"/>
 						<xs:attribute name="NOT_SHOW_IF" type="xs:string" use="optional"/>
@@ -133,16 +135,16 @@
 	<xs:element name="CODEGENERATION">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="TEMPLATES" minOccurs="0">
+				<xs:element minOccurs="0" name="TEMPLATES">
 					<xs:annotation>
 						<xs:documentation>Used only for virtual components</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="TEMPLATE" maxOccurs="unbounded">
+							<xs:element maxOccurs="unbounded" name="TEMPLATE">
 								<xs:complexType>
 									<xs:sequence>
-										<xs:element name="LINK_TO" minOccurs="0" maxOccurs="unbounded">
+										<xs:element maxOccurs="unbounded" minOccurs="0" name="LINK_TO">
 											<xs:complexType>
 												<xs:attribute name="NAME" type="xs:string"/>
 												<xs:attribute name="CTYPE" type="xs:string"/>
@@ -153,7 +155,7 @@
 									<xs:attribute name="COMPONENT" type="xs:string" use="optional"/>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="TEMPLATE_PARAM" minOccurs="0" maxOccurs="unbounded">
+							<xs:element maxOccurs="unbounded" minOccurs="0" name="TEMPLATE_PARAM">
 								<xs:complexType>
 									<xs:attribute name="SOURCE" type="xs:string" use="optional"/>
 									<xs:attribute name="TARGET" type="xs:string"/>
@@ -165,10 +167,10 @@
 						<xs:attribute name="OUTPUT" type="xs:string" use="optional"/>
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="IMPORTS" minOccurs="0">
+				<xs:element minOccurs="0" name="IMPORTS">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="IMPORT" maxOccurs="unbounded">
+							<xs:element maxOccurs="unbounded" name="IMPORT">
 								<xs:complexType>
 									<xs:attribute name="NAME" type="xs:string"/>
 									<xs:attribute name="MODULE" type="xs:string"/>
@@ -185,7 +187,7 @@
 	<xs:element name="RETURNS">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="RETURN" minOccurs="0" maxOccurs="unbounded">
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="RETURN">
 					<xs:complexType>
 						<xs:attribute name="NAME" type="xs:string" use="required"/>
 						<xs:attribute name="TYPE" type="xs:string" use="required"/>
@@ -198,7 +200,7 @@
 	<xs:element name="ITEMS">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="ITEM" maxOccurs="unbounded">
+				<xs:element maxOccurs="unbounded" name="ITEM">
 					<xs:annotation>
 						<xs:documentation>On TABLE mode:
    - FIELD can be either TEXT, CHECK, CLOSED_LIST, COLUMN_LIST or PREV_COLUMN_LIST
@@ -210,7 +212,7 @@ On CLOSED_LIST mode:
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element ref="ITEMS" minOccurs="0">
+							<xs:element minOccurs="0" ref="ITEMS">
 								<xs:annotation>
 									<xs:documentation>Used for combo box in TABLE field</xs:documentation>
 								</xs:annotation>
@@ -221,19 +223,19 @@ On CLOSED_LIST mode:
 						<xs:attribute name="REPOSITORY_ITEM" type="xs:string" use="optional"/>
 						<xs:attribute name="SHOW_IF" type="xs:string" use="optional"/>
 						<xs:attribute name="NOT_SHOW_IF" type="xs:string" use="optional"/>
-						<xs:attribute name="FIELD" type="xs:string" use="optional" default="TEXT"/>
+						<xs:attribute default="TEXT" name="FIELD" type="xs:string" use="optional"/>
 						<xs:attribute name="READONLY" type="xs:boolean" use="optional"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>
 			<xs:attribute name="DEFAULT" type="xs:string" use="optional"/>
-			<xs:attribute name="BASED_ON_SCHEMA" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute default="false" name="BASED_ON_SCHEMA" type="xs:boolean" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="PLUGINDEPENDENCIES">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="PLUGINDEPENDENCY" minOccurs="0" maxOccurs="unbounded">
+				<xs:element maxOccurs="unbounded" minOccurs="0" name="PLUGINDEPENDENCY">
 					<xs:complexType>
 						<xs:attribute name="ID" type="xs:string" use="required"/>
 					</xs:complexType>

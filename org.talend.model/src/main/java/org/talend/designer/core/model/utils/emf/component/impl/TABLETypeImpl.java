@@ -34,6 +34,8 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TABLETypeImpl#getCOLUMN <em>COLUMN</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TABLETypeImpl#getIF <em>IF</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TABLETypeImpl#getNOTIF <em>NOTIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.TABLETypeImpl#isREADONLY <em>READONLY</em>}</li>
  * </ul>
  * </p>
@@ -50,6 +52,46 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * @ordered
      */
     protected EList cOLUMN = null;
+
+    /**
+     * The default value of the '{@link #getIF() <em>IF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getIF()
+     * @generated
+     * @ordered
+     */
+    protected static final String IF_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getIF() <em>IF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getIF()
+     * @generated
+     * @ordered
+     */
+    protected String iF = IF_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getNOTIF() <em>NOTIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getNOTIF()
+     * @generated
+     * @ordered
+     */
+    protected static final String NOTIF_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getNOTIF() <em>NOTIF</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getNOTIF()
+     * @generated
+     * @ordered
+     */
+    protected String nOTIF = NOTIF_EDEFAULT;
 
     /**
      * The default value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
@@ -161,6 +203,48 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getIF() {
+        return iF;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setIF(String newIF) {
+        String oldIF = iF;
+        iF = newIF;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TABLE_TYPE__IF, oldIF, iF));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getNOTIF() {
+        return nOTIF;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNOTIF(String newNOTIF) {
+        String oldNOTIF = nOTIF;
+        nOTIF = newNOTIF;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.TABLE_TYPE__NOTIF, oldNOTIF, nOTIF));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ComponentPackage.TABLE_TYPE__COLUMN:
@@ -178,6 +262,10 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
         switch (featureID) {
             case ComponentPackage.TABLE_TYPE__COLUMN:
                 return getCOLUMN();
+            case ComponentPackage.TABLE_TYPE__IF:
+                return getIF();
+            case ComponentPackage.TABLE_TYPE__NOTIF:
+                return getNOTIF();
             case ComponentPackage.TABLE_TYPE__READONLY:
                 return isREADONLY() ? Boolean.TRUE : Boolean.FALSE;
         }
@@ -194,6 +282,12 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
             case ComponentPackage.TABLE_TYPE__COLUMN:
                 getCOLUMN().clear();
                 getCOLUMN().addAll((Collection)newValue);
+                return;
+            case ComponentPackage.TABLE_TYPE__IF:
+                setIF((String)newValue);
+                return;
+            case ComponentPackage.TABLE_TYPE__NOTIF:
+                setNOTIF((String)newValue);
                 return;
             case ComponentPackage.TABLE_TYPE__READONLY:
                 setREADONLY(((Boolean)newValue).booleanValue());
@@ -212,6 +306,12 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
             case ComponentPackage.TABLE_TYPE__COLUMN:
                 getCOLUMN().clear();
                 return;
+            case ComponentPackage.TABLE_TYPE__IF:
+                setIF(IF_EDEFAULT);
+                return;
+            case ComponentPackage.TABLE_TYPE__NOTIF:
+                setNOTIF(NOTIF_EDEFAULT);
+                return;
             case ComponentPackage.TABLE_TYPE__READONLY:
                 unsetREADONLY();
                 return;
@@ -228,6 +328,10 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
         switch (featureID) {
             case ComponentPackage.TABLE_TYPE__COLUMN:
                 return cOLUMN != null && !cOLUMN.isEmpty();
+            case ComponentPackage.TABLE_TYPE__IF:
+                return IF_EDEFAULT == null ? iF != null : !IF_EDEFAULT.equals(iF);
+            case ComponentPackage.TABLE_TYPE__NOTIF:
+                return NOTIF_EDEFAULT == null ? nOTIF != null : !NOTIF_EDEFAULT.equals(nOTIF);
             case ComponentPackage.TABLE_TYPE__READONLY:
                 return isSetREADONLY();
         }
@@ -243,7 +347,11 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (rEADONLY: ");
+        result.append(" (iF: ");
+        result.append(iF);
+        result.append(", nOTIF: ");
+        result.append(nOTIF);
+        result.append(", rEADONLY: ");
         if (rEADONLYESet) result.append(rEADONLY); else result.append("<unset>");
         result.append(')');
         return result.toString();

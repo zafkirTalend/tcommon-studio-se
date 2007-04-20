@@ -1324,13 +1324,31 @@ public interface ComponentPackage extends EPackage {
     int TABLE_TYPE__COLUMN = 0;
 
     /**
+     * The feature id for the '<em><b>IF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_TYPE__IF = 1;
+
+    /**
+     * The feature id for the '<em><b>NOTIF</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TABLE_TYPE__NOTIF = 2;
+
+    /**
      * The feature id for the '<em><b>READONLY</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int TABLE_TYPE__READONLY = 1;
+    int TABLE_TYPE__READONLY = 3;
 
     /**
      * The number of structural features of the '<em>TABLE Type</em>' class.
@@ -1339,7 +1357,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int TABLE_TYPE_FEATURE_COUNT = 2;
+    int TABLE_TYPE_FEATURE_COUNT = 4;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATEPARAMTypeImpl <em>TEMPLATEPARAM Type</em>}' class.
@@ -2778,6 +2796,28 @@ public interface ComponentPackage extends EPackage {
     EAttribute getTABLEType_READONLY();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getIF <em>IF</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>IF</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TABLEType#getIF()
+     * @see #getTABLEType()
+     * @generated
+     */
+    EAttribute getTABLEType_IF();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.TABLEType#getNOTIF <em>NOTIF</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>NOTIF</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.TABLEType#getNOTIF()
+     * @see #getTABLEType()
+     * @generated
+     */
+    EAttribute getTABLEType_NOTIF();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.TEMPLATEPARAMType <em>TEMPLATEPARAM Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3932,6 +3972,22 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute TABLE_TYPE__READONLY = eINSTANCE.getTABLEType_READONLY();
+
+        /**
+         * The meta object literal for the '<em><b>IF</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TABLE_TYPE__IF = eINSTANCE.getTABLEType_IF();
+
+        /**
+         * The meta object literal for the '<em><b>NOTIF</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TABLE_TYPE__NOTIF = eINSTANCE.getTABLEType_NOTIF();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.TEMPLATEPARAMTypeImpl <em>TEMPLATEPARAM Type</em>}' class.
