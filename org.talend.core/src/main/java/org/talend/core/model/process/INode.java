@@ -126,4 +126,6 @@ public interface INode extends IElement {
      * @return
      */
     public Point getLocation();
+    
+    public boolean isThereLinkWithHash();
 }

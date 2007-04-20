@@ -61,6 +61,8 @@ public abstract class AbstractNode implements INode {
     private boolean readOnly;
 
     private Boolean hasConditionalOutputs = Boolean.FALSE;
+    
+    private boolean isThereLinkWithHash;
 
     public String getComponentName() {
         return componentName;
@@ -288,6 +290,24 @@ public abstract class AbstractNode implements INode {
      */
     public Point getLocation(){
         return null;
+    }
+
+    
+    /**
+     * Getter for isThereLinkWithHash.
+     * @return the isThereLinkWithHash
+     */
+    public boolean isThereLinkWithHash() {
+        return isThereLinkWithHash;
+    }
+
+    
+    /**
+     * Sets the isThereLinkWithHash.
+     * @param isThereLinkWithHash the isThereLinkWithHash to set
+     */
+    public void setThereLinkWithHash(boolean isThereLinkWithHash) {
+        this.isThereLinkWithHash = isThereLinkWithHash;
     }
     
 }
