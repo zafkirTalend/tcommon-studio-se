@@ -47,6 +47,7 @@ public enum EParameterFieldType {
     IMAGE,
     COLUMN_LIST,
     PREV_COLUMN_LIST,
+    LOOKUP_COLUMN_LIST,
     TECHNICAL, // means field not displayed directly
     ENCODING_TYPE;
 
