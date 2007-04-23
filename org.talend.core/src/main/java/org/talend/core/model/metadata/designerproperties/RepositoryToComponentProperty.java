@@ -65,6 +65,8 @@ public class RepositoryToComponentProperty {
     public static final String SQL_SERVER = "SQL_SERVER"; //$NON-NLS-1$
 
     public static final String MS_ACCESS = "MS_ACCESS"; //$NON-NLS-1$
+    
+    public static final String INGRES = "INGRES"; //$NON-NLS-1$
 
     public static Object getValue(Connection connection, String value) {
         if (connection instanceof FileConnection) {
@@ -109,6 +111,9 @@ public class RepositoryToComponentProperty {
         }
         if (dbType.equals("Sybase IQ")) { //$NON-NLS-1$
             return SYBASE;
+        }
+        if (dbType.equals("Ingres")) { //$NON-NLS-1$
+            return INGRES;
         }
         return ""; //$NON-NLS-1$
     }
