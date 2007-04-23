@@ -27,11 +27,13 @@ public class StatCatcherUtils {
     public class StatCatcherMessage {
         private String origin;
         private String message;
+        private Long duration = null;
         private Date moment;
         
-        public StatCatcherMessage(String message, String origin) {
+        public StatCatcherMessage(String message, String origin, Long duration) {
             this.origin = origin;
             this.message = message;
+            this.duration = duration;
             this.moment = java.util.Calendar.getInstance().getTime(); 
         }
 
@@ -58,17 +60,34 @@ public class StatCatcherUtils {
         public void setMoment(Date d) {
             this.moment = d;
         }
+        
+        public Long getDuration() {
+            return duration;
+        }
+
+        public void setDuration(Long duration) {
+            this.duration = duration;
+        }
+        
     }
 
     java.util.List<StatCatcherMessage> messages = new java.util.ArrayList<StatCatcherMessage>();
 
-    public void addMessage(String message, String origin) {
-        StatCatcherMessage scm = new StatCatcherMessage(message, origin);
+    public void addMessage(String message, String origin, Long duration) {
+        StatCatcherMessage scm = new StatCatcherMessage(message, origin, duration);
         messages.add(scm);
     }
     
+    public void addMessage(String message, String origin) {
+        addMessage(message, origin, null);
+    }
+    
+    public void addMessage(String message, Long duration) {
+        addMessage(message, "", duration);
+    }
+    
     public void addMessage(String message) {
-        addMessage(message, "");
+        addMessage(message, "", null);
     }
 
     public java.util.List<StatCatcherMessage> getMessages() {
