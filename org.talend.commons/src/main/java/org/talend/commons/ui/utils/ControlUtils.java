@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.commons.ui.utils;
 
+import java.util.Arrays;
+
+import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Cursor;
@@ -129,5 +132,10 @@ public class ControlUtils {
         }
     }
     
+    
+    public static void setSortedValuesForCombo(CCombo combo, String[] values){
+		Arrays.sort(values);
+		combo.setItems(values);
+    }
     
 }
