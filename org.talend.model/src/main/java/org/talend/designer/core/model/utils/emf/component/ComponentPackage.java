@@ -1067,7 +1067,7 @@ public interface ComponentPackage extends EPackage {
     int PARAMETER_TYPE__ITEMS = 1;
 
     /**
-     * The feature id for the '<em><b>TABLE</b></em>' containment reference.
+     * The feature id for the '<em><b>TABLE</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2537,10 +2537,10 @@ public interface ComponentPackage extends EPackage {
     EReference getPARAMETERType_ITEMS();
 
     /**
-     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getTABLE <em>TABLE</em>}'.
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getTABLE <em>TABLE</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference '<em>TABLE</em>'.
+     * @return the meta object for the containment reference list '<em>TABLE</em>'.
      * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#getTABLE()
      * @see #getPARAMETERType()
      * @generated
@@ -3772,7 +3772,7 @@ public interface ComponentPackage extends EPackage {
         EReference PARAMETER_TYPE__ITEMS = eINSTANCE.getPARAMETERType_ITEMS();
 
         /**
-         * The meta object literal for the '<em><b>TABLE</b></em>' containment reference feature.
+         * The meta object literal for the '<em><b>TABLE</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

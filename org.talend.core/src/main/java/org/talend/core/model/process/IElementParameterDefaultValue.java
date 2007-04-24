@@ -29,9 +29,9 @@ package org.talend.core.model.process;
  */
 public interface IElementParameterDefaultValue {
 
-    public String getDefaultValue();
+    public Object getDefaultValue();
 
-    public void setDefaultValue(String defaultValue);
+    public void setDefaultValue(Object defaultValue);
 
     public String getIfCondition();
 

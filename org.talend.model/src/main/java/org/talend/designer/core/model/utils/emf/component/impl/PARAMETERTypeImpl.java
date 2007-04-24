@@ -71,14 +71,14 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
     protected ITEMSType iTEMS = null;
 
     /**
-     * The cached value of the '{@link #getTABLE() <em>TABLE</em>}' containment reference.
+     * The cached value of the '{@link #getTABLE() <em>TABLE</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @see #getTABLE()
      * @generated
      * @ordered
      */
-    protected TABLEType tABLE = null;
+    protected EList tABLE = null;
 
     /**
      * The default value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
@@ -403,42 +403,11 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public TABLEType getTABLE() {
+    public EList getTABLE() {
+        if (tABLE == null) {
+            tABLE = new EObjectContainmentEList(TABLEType.class, this, ComponentPackage.PARAMETER_TYPE__TABLE);
+        }
         return tABLE;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain basicSetTABLE(TABLEType newTABLE, NotificationChain msgs) {
-        TABLEType oldTABLE = tABLE;
-        tABLE = newTABLE;
-        if (eNotificationRequired()) {
-            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__TABLE, oldTABLE, newTABLE);
-            if (msgs == null) msgs = notification; else msgs.add(notification);
-        }
-        return msgs;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setTABLE(TABLEType newTABLE) {
-        if (newTABLE != tABLE) {
-            NotificationChain msgs = null;
-            if (tABLE != null)
-                msgs = ((InternalEObject)tABLE).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.PARAMETER_TYPE__TABLE, null, msgs);
-            if (newTABLE != null)
-                msgs = ((InternalEObject)newTABLE).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.PARAMETER_TYPE__TABLE, null, msgs);
-            msgs = basicSetTABLE(newTABLE, msgs);
-            if (msgs != null) msgs.dispatch();
-        }
-        else if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__TABLE, newTABLE, newTABLE));
     }
 
     /**
@@ -788,7 +757,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__ITEMS:
                 return basicSetITEMS(null, msgs);
             case ComponentPackage.PARAMETER_TYPE__TABLE:
-                return basicSetTABLE(null, msgs);
+                return ((InternalEList)getTABLE()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -846,7 +815,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 setITEMS((ITEMSType)newValue);
                 return;
             case ComponentPackage.PARAMETER_TYPE__TABLE:
-                setTABLE((TABLEType)newValue);
+                getTABLE().clear();
+                getTABLE().addAll((Collection)newValue);
                 return;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 setFIELD((String)newValue);
@@ -896,7 +866,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 setITEMS((ITEMSType)null);
                 return;
             case ComponentPackage.PARAMETER_TYPE__TABLE:
-                setTABLE((TABLEType)null);
+                getTABLE().clear();
                 return;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 setFIELD(FIELD_EDEFAULT);
@@ -944,7 +914,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__ITEMS:
                 return iTEMS != null;
             case ComponentPackage.PARAMETER_TYPE__TABLE:
-                return tABLE != null;
+                return tABLE != null && !tABLE.isEmpty();
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 return FIELD_EDEFAULT == null ? fIELD != null : !FIELD_EDEFAULT.equals(fIELD);
             case ComponentPackage.PARAMETER_TYPE__NAME:

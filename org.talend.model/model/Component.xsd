@@ -37,7 +37,7 @@
 			<xs:attribute name="HAS_CONDITIONAL_OUTPUTS" type="xs:boolean" use="optional"/>
 			<xs:attribute default="true" name="VISIBLE" type="xs:boolean" use="optional"/>
 			<xs:attribute default="false" name="TSTATCATCHER_STATS" type="xs:boolean" use="optional"/>
-			<xs:attribute name="USE_MERGE" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute default="false" name="USE_MERGE" type="xs:boolean" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="DOCUMENTATION">
@@ -90,7 +90,7 @@
 									<xs:documentation>Used for CLOSED_LIST or TABLE field</xs:documentation>
 								</xs:annotation>
 							</xs:element>
-							<xs:element minOccurs="0" name="TABLE">
+							<xs:element maxOccurs="unbounded" minOccurs="0" name="TABLE">
 								<xs:annotation>
 									<xs:documentation>Used only for SCHEMA_TYPE field </xs:documentation>
 								</xs:annotation>
