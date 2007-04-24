@@ -107,6 +107,13 @@
                </documentation>
             </annotation>
          </attribute>
+         <attribute name="password" type="boolean" use="default" value="false">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+            </annotation>
+         </attribute>
       </complexType>
    </element>
 
