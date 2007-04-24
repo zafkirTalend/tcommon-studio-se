@@ -24,6 +24,7 @@ package org.talend.repository.localprovider.model;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -38,6 +39,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.properties.FileItem;
@@ -63,6 +65,7 @@ public class XmiResourceManager {
     public static final String ITEM_EXTENSION = "item"; //$NON-NLS-1$
 
     private static final String OLD_PROJECT_FILENAME = "talendProject";//$NON-NLS-1$
+
     private static final String PROJECT_FILENAME = "talend.project";//$NON-NLS-1$
 
     // PTODO mhelleboid should use a custom ResourceFactory
@@ -74,7 +77,7 @@ public class XmiResourceManager {
     public XmiResourceManager() {
         setUseOldProjectFile(false);
     }
-    
+
     public Project loadProject(IProject project) throws PersistenceException {
         URI uri = getProjectResourceUri(project);
 
@@ -180,7 +183,10 @@ public class XmiResourceManager {
 
     public void saveResource(Resource resource) throws PersistenceException {
         try {
-            resource.save(null);
+            HashMap options = new HashMap(2);
+            options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+            options.put(XMLResource.OPTION_XML_VERSION, "1.1");
+            resource.save(options);
         } catch (IOException e) {
             throw new PersistenceException(e);
         }
@@ -214,7 +220,7 @@ public class XmiResourceManager {
     public boolean isPropertyFile(String filename) {
         return filename.endsWith(PROPERTIES_EXTENSION);
     }
-    
+
     public boolean isProjectFile(IFile file) {
         return getProjectFilename().equals(file.getName());
     }
@@ -291,7 +297,6 @@ public class XmiResourceManager {
         }
     }
 
-    
     public void setUseOldProjectFile(boolean useOldProjectFile) {
         this.useOldProjectFile = useOldProjectFile;
     }
