@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
+import java.net.URL;
 import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
@@ -108,4 +109,6 @@ public interface IExternalNode extends INode {
     public void setIODataComponents(IODataComponentContainer components);
 
     public IODataComponentContainer getIODataComponents();
+
+    public IComponentDocumentation getComponentDocumentation(String componentName, String tempFolderPath);
 }

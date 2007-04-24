@@ -60,6 +60,8 @@ public abstract class AbstractNode implements INode {
 
     private boolean readOnly;
 
+    private IExternalNode externalNode;
+
     private Boolean hasConditionalOutputs = Boolean.FALSE;
     
     private boolean isThereLinkWithHash;
@@ -293,15 +295,23 @@ public abstract class AbstractNode implements INode {
     }
 
     
-    /**
+    public IExternalNode getExternalNode() {
+        return externalNode;
+    }
+
+    
+    public void setExternalNode(IExternalNode externalNode) {
+        this.externalNode = externalNode;
+    }
+    
+      /**
      * Getter for isThereLinkWithHash.
      * @return the isThereLinkWithHash
      */
     public boolean isThereLinkWithHash() {
         return isThereLinkWithHash;
     }
-
-    
+        
     /**
      * Sets the isThereLinkWithHash.
      * @param isThereLinkWithHash the isThereLinkWithHash to set
@@ -309,5 +319,6 @@ public abstract class AbstractNode implements INode {
     public void setThereLinkWithHash(boolean isThereLinkWithHash) {
         this.isThereLinkWithHash = isThereLinkWithHash;
     }
+    
     
 }
