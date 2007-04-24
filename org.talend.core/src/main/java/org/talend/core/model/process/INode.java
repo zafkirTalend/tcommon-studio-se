@@ -128,4 +128,8 @@ public interface INode extends IElement {
     public Point getLocation();
     
     public boolean isThereLinkWithHash();
+    
+    public List<? extends IConnection> getOutgoingSortedConnections();
+    
+    public List<? extends IConnection> getMainOutgoingConnections();
 }
