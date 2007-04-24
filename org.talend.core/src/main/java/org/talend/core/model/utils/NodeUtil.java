@@ -22,13 +22,13 @@
 package org.talend.core.model.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.INode;
-
-
 
 /**
  * DOC xtan class global comment. Detailled comment <br/>
@@ -37,44 +37,41 @@ import org.talend.core.model.process.INode;
 public class NodeUtil {
 
     /**
-     * DOC sort the outgoingconnections to make sure the first connection is EConnectionType.FLOW_MAIN or EConnectionType.FLOW_REF<br/>
+     * DOC sort the outgoingconnections to make sure the first connection is EConnectionType.FLOW_MAIN or
+     * EConnectionType.FLOW_REF<br/>
+     * 
      * @param node
      * @return List<? extends IConnection>
      */
     public static List<? extends IConnection> getOutgoingSortedConnections(INode node) {
-        
+
         List<? extends IConnection> conns = null;
 
         List<? extends IConnection> outgoingConnections = node.getOutgoingConnections();
         if (outgoingConnections != null) {
-            IConnection[] sortArr = new IConnection[outgoingConnections.size()];
 
-            int index = 0;
-            for (int work = 0; work < outgoingConnections.size(); work++) {
+            conns = new ArrayList<IConnection>(outgoingConnections);
 
-                IConnection connection = outgoingConnections.get(work);
-                if (connection.getLineStyle() == EConnectionType.FLOW_MAIN
-                        || connection.getLineStyle() == EConnectionType.FLOW_REF) {
+            Collections.sort(conns, new Comparator<IConnection>() {
 
-                    sortArr[index++] = connection;
+                public int compare(IConnection connection1, IConnection connection2) {
 
-                } else {
-
-                    sortArr[sortArr.length - work + index - 1] = connection;
-
+                    EConnectionType lineStyle = connection1.getLineStyle();
+                    if (lineStyle == EConnectionType.FLOW_MAIN || lineStyle == EConnectionType.FLOW_REF) {
+                        return -1;
+                    } else {
+                        return 1;
+                    }
                 }
-
-            }
-            
-            conns = java.util.Arrays.asList(sortArr);
+            });
         }
 
         return conns;
     }
-    
-    
+
     /**
      * DOC get the EConnectionType.FLOW_MAIN or EConnectionType.FLOW_REF out goning Connections<br/>
+     * 
      * @param node
      * @return List<? extends IConnection>
      */
@@ -85,15 +82,15 @@ public class NodeUtil {
         if (outgoingConnections != null) {
             conns = new ArrayList<IConnection>();
 
-            for (int work = 0; work < outgoingConnections.size(); work++) {
+            for (int i = 0; i < outgoingConnections.size(); i++) {
 
-                IConnection connection = outgoingConnections.get(work);
+                IConnection connection = outgoingConnections.get(i);
                 if (connection.getLineStyle() == EConnectionType.FLOW_MAIN
                         || connection.getLineStyle() == EConnectionType.FLOW_REF) {
 
                     conns.add(connection);
 
-                } 
+                }
             }
         }
 
