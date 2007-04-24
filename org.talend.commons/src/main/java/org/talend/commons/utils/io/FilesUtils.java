@@ -36,6 +36,8 @@ import java.util.Enumeration;
 import java.util.List;
 
 import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
 
@@ -47,8 +49,9 @@ import org.talend.commons.exception.ExceptionHandler;
  */
 public class FilesUtils {
 
-    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy, final FileFilter sourceFolderFilter,
-            final FileFilter sourceFileFilter, boolean copyFolder) throws IOException {
+    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy,
+            final FileFilter sourceFolderFilter, final FileFilter sourceFileFilter, boolean copyFolder)
+            throws IOException {
         if (!target.exists()) {
             target.mkdirs();
         }
@@ -191,4 +194,100 @@ public class FilesUtils {
         };
         return filter;
     }
+
+    /**
+     * Load in a list all lines of the given file.
+     * 
+     * @throws IOException
+     */
+    public static List<String> getContentLines(String filePath) throws IOException {
+        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(filePath)));
+        List<String> lines = new ArrayList<String>();
+        try {
+            String line;
+            while ((line = in.readLine()) != null) {
+                lines.add(line);
+            }
+        } finally {
+            in.close();
+        }
+        return lines;
+    }
+
+    /**
+     * .
+     * 
+     * @param path
+     * @param pathIsFilePath if true the given path has a filename at last segment so this segment is not processed
+     * @throws IOException
+     */
+    public static void createFoldersIfNotExists(String path, boolean pathIsFilePath) throws IOException {
+        Path completePath = new Path(path);
+        IPath pathFolder = null;
+        if (pathIsFilePath) {
+            pathFolder = completePath.removeLastSegments(1);
+        } else {
+            pathFolder = completePath;
+        }
+
+        File folder = new File(pathFolder.toOSString());
+        if (!folder.exists()) {
+
+            int size = pathFolder.segmentCount();
+            for (int i = 0; i < size; i++) {
+                folder = new File(pathFolder.uptoSegment(i + 1).toOSString());
+                if (!folder.exists()) {
+                    folder.mkdir();
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            createFoldersIfNotExists("c:\\test\\test1/test2", false);
+            createFoldersIfNotExists("c:\\test10\\test11/test20/test.pl", true);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * DOC amaumont Comment method "removeDirectory".
+     * 
+     * @param b
+     */
+    public static boolean removeFolder(String pathFolder, boolean recursiveRemove) {
+        File folder = new File(pathFolder);
+        if (folder.isDirectory()) {
+            return removeFolder(folder, recursiveRemove);
+        }
+        return false;
+    }
+
+    /**
+     * DOC amaumont Comment method "removeFolder".
+     * 
+     * @param current
+     * @param removeRecursivly
+     */
+    public static boolean removeFolder(File folder, boolean removeRecursivly) {
+        if (removeRecursivly) {
+            for (File current : folder.listFiles()) {
+                if (current.isDirectory()) {
+                    removeFolder(current, true);
+                } else {
+                    current.delete();
+                }
+            }
+        }
+        return folder.delete();
+    }
+
+    public static String extractPathFolderFromFilePath(String filePath) {
+        Path completePath = new Path(filePath);
+        return completePath.removeLastSegments(1).toOSString();
+    }
+    
 }

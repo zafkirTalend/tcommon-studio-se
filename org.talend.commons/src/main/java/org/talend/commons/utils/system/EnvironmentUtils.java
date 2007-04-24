@@ -19,35 +19,37 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.language;
+package org.talend.commons.utils.system;
 
-import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
- * 
- * $Id$
- * 
+ * DOC amaumont  class global comment. Detailled comment
+ * <br/>
+ *
  */
-public class LanguageManager {
+public class EnvironmentUtils {
 
-    private static ECodeLanguage currentLanguage;
-
-    public static ECodeLanguage getCurrentLanguage() {
-        if (currentLanguage == null) {
-            try {
-                currentLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(
-                        Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
-            } catch (RuntimeException e) {
-                // should be run only when testing
-                e.printStackTrace();
-                currentLanguage = ECodeLanguage.PERL;
-            }
-        }
-
-        return currentLanguage;
+    public static boolean isWindowsSystem() {
+        return getEnvOs().startsWith("Windows"); //$NON-NLS-N$
     }
 
+    public static boolean isLinuxUnixSystem() {
+        return !isWindowsSystem() && !isMacOsSytem();
+    }
+    
+    /**
+     * DOC amaumont Comment method "isMacOsSytem".
+     * @return
+     */
+    public static boolean isMacOsSytem() {
+        return getEnvOs().startsWith("Mac"); //$NON-NLS-N$
+    }
+
+    /**
+     * DOC amaumont Comment method "getEnv".
+     */
+    private static String getEnvOs() {
+        return System.getenv("OS"); //$NON-NLS-N$
+    }
+    
 }

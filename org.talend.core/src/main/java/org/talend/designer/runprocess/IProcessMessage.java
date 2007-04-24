@@ -19,35 +19,29 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.language;
+package org.talend.designer.runprocess;
 
-import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
+
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
- * 
- * $Id$
- * 
+ * DOC amaumont  class global comment. Detailled comment
+ * <br/>
+ *
  */
-public class LanguageManager {
+public interface IProcessMessage {
 
-    private static ECodeLanguage currentLanguage;
+    /**
+     * Getter for content.
+     * 
+     * @return the content
+     */
+    public String getContent();
 
-    public static ECodeLanguage getCurrentLanguage() {
-        if (currentLanguage == null) {
-            try {
-                currentLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(
-                        Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
-            } catch (RuntimeException e) {
-                // should be run only when testing
-                e.printStackTrace();
-                currentLanguage = ECodeLanguage.PERL;
-            }
-        }
-
-        return currentLanguage;
-    }
+    /**
+     * Getter for type.
+     * 
+     * @return the type
+     */
+    public IMsgType getType();
 
 }

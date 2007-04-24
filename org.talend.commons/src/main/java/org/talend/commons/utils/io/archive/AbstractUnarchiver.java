@@ -19,35 +19,17 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.language;
+package org.talend.commons.utils.io.archive;
 
-import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
+import java.io.IOException;
+
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
- * 
- * $Id$
- * 
+ * DOC amaumont  class global comment. Detailled comment
+ * <br/>
+ *
  */
-public class LanguageManager {
+public abstract class AbstractUnarchiver {
 
-    private static ECodeLanguage currentLanguage;
-
-    public static ECodeLanguage getCurrentLanguage() {
-        if (currentLanguage == null) {
-            try {
-                currentLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(
-                        Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
-            } catch (RuntimeException e) {
-                // should be run only when testing
-                e.printStackTrace();
-                currentLanguage = ECodeLanguage.PERL;
-            }
-        }
-
-        return currentLanguage;
-    }
-
+    public abstract void unarchive(String archiveFilePath) throws IOException;
 }

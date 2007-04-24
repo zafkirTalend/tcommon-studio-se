@@ -24,6 +24,7 @@ package org.talend.designer.runprocess;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.ITargetExecutionConfig;
@@ -179,8 +180,9 @@ public interface IProcessor {
     public void setContext(IContext context);
 
     public void setTargetExecutionConfig(ITargetExecutionConfig serverConfiguration);
-    
-    public Process run(int statisticsPort, int tracePort, String watchParam) throws ProcessorException;
+
+    public Process run(int statisticsPort, int tracePort, String watchParam, IProgressMonitor monitor,
+            IProcessMessageManager processMessageManager) throws ProcessorException;
 
     public ILaunchConfiguration debug() throws ProcessorException;
 }

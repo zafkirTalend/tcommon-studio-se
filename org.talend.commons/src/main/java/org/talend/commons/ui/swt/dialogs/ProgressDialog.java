@@ -103,15 +103,19 @@ public abstract class ProgressDialog {
 
                 public void run() {
                     final ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(parentShell);
-                    progressMonitorDialog.setOpenOnRun(false);
-                    AsynchronousThreading asynchronousThreading = new AsynchronousThreading(timeBeforeShowDialog, true, display,
-                            new Runnable() {
-
-                                public void run() {
-                                    progressMonitorDialog.open();
-                                }
-                            });
-                    asynchronousThreading.start();
+                    if (timeBeforeShowDialog > 0) {
+                        progressMonitorDialog.setOpenOnRun(false);
+                        progressMonitorDialog.setBlockOnOpen(true);
+                        AsynchronousThreading asynchronousThreading = new AsynchronousThreading(timeBeforeShowDialog, true, display,
+                                new Runnable() {
+                            
+                            public void run() {
+                                progressMonitorDialog.open();
+                            }
+                        });
+                        asynchronousThreading.start();
+                    }
+                        
                     try {
                         progressMonitorDialog.run(false, true, op);
                     } catch (InvocationTargetException e) {

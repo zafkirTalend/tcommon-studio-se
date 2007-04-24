@@ -19,35 +19,30 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.language;
+package org.talend.designer.runprocess;
 
-import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
+import java.beans.PropertyChangeListener;
+import java.util.List;
+
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
- * 
- * $Id$
- * 
+ * DOC amaumont  class global comment. Detailled comment
+ * <br/>
+ *
  */
-public class LanguageManager {
+public interface IProcessMessageManager {
 
-    private static ECodeLanguage currentLanguage;
+    public void addPropertyChangeListener(PropertyChangeListener l);
 
-    public static ECodeLanguage getCurrentLanguage() {
-        if (currentLanguage == null) {
-            try {
-                currentLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(
-                        Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
-            } catch (RuntimeException e) {
-                // should be run only when testing
-                e.printStackTrace();
-                currentLanguage = ECodeLanguage.PERL;
-            }
-        }
+    public void firePropertyChange(String property, Object oldValue, Object newValue);
 
-        return currentLanguage;
-    }
+    public void removePropertyChangeListener(PropertyChangeListener l);
+
+    public void addMessage(IProcessMessage message);
+
+    public void clearMessages();
+
+    public List<IProcessMessage> getMessages();
+
 
 }

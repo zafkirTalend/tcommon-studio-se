@@ -19,35 +19,49 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.language;
+package org.talend.commons.utils.io;
 
-import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
- * DOC amaumont class global comment. Detailled comment <br/>
  * 
- * $Id$
- * 
+ * DOC amaumont  class global comment. Detailled comment
+ * <br/>
+ *
  */
-public class LanguageManager {
+public class StreamCopier {
 
-    private static ECodeLanguage currentLanguage;
+  public static void main(String[] args) {
 
-    public static ECodeLanguage getCurrentLanguage() {
-        if (currentLanguage == null) {
-            try {
-                currentLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(
-                        Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
-            } catch (RuntimeException e) {
-                // should be run only when testing
-                e.printStackTrace();
-                currentLanguage = ECodeLanguage.PERL;
-            }
-        }
-
-        return currentLanguage;
+    try {
+      copy(System.in, System.out);
     }
+    catch (IOException e) {
+      System.err.println(e);
+    }
+    
+  }
+
+  public static void copy(InputStream in, OutputStream out) 
+   throws IOException {
+
+    // do not allow other threads to read from the
+    // input or write to the output while copying is
+    // taking place
+    
+    synchronized (in) {
+      synchronized (out) {
+
+        byte[] buffer = new byte[256];
+        while (true) {
+          int bytesRead = in.read(buffer);
+          if (bytesRead == -1) break;
+          out.write(buffer, 0, bytesRead);
+        }
+      }
+    }
+  }
 
 }
