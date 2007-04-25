@@ -353,7 +353,7 @@ public interface IProxyRepositoryFactory {
 
     // public abstract void createUser() throws PersistenceException;
 
-    public abstract void initialize();
+    public abstract void initialize() throws PersistenceException;
 
     /*
      * (non-Javadoc)
