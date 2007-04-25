@@ -2138,6 +2138,89 @@ public interface BusinessPackage extends EPackage {
     int GEAR_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ContextImpl <em>Context</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.ContextImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getContext()
+     * @generated
+     */
+    int CONTEXT = 31;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>Context</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.business.model.business.Repository <em>Repository</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Repository</em>'.
@@ -2610,6 +2693,16 @@ public interface BusinessPackage extends EPackage {
     EClass getGearBusinessItem();
 
     /**
+     * Returns the meta object for class '{@link org.talend.designer.business.model.business.Context <em>Context</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Context</em>'.
+     * @see org.talend.designer.business.model.business.Context
+     * @generated
+     */
+    EClass getContext();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.business.model.business.FileXmlMetadata <em>File Xml Metadata</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3079,6 +3172,16 @@ public interface BusinessPackage extends EPackage {
         EClass GEAR_BUSINESS_ITEM = eINSTANCE.getGearBusinessItem();
 
         /**
+         * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.ContextImpl <em>Context</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.business.model.business.impl.ContextImpl
+         * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getContext()
+         * @generated
+         */
+        EClass CONTEXT = eINSTANCE.getContext();
+
+            /**
          * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.FileXmlMetadataImpl <em>File Xml Metadata</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->

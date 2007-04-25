@@ -18,6 +18,7 @@ import org.talend.designer.business.model.business.BusinessFactory;
 import org.talend.designer.business.model.business.BusinessItemRelationship;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
+import org.talend.designer.business.model.business.Context;
 import org.talend.designer.business.model.business.DataBusinessItem;
 import org.talend.designer.business.model.business.DatabaseBusinessItem;
 import org.talend.designer.business.model.business.DatabaseMetadata;
@@ -111,8 +112,9 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.ACTOR_BUSINESS_ITEM: return createActorBusinessItem();
             case BusinessPackage.ELLIPSE_BUSINESS_ITEM: return createEllipseBusinessItem();
             case BusinessPackage.GEAR_BUSINESS_ITEM: return createGearBusinessItem();
+            case BusinessPackage.CONTEXT: return createContext();
             default:
-                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier"); //$NON-NLS-1$ //$NON-NLS-2$
+                throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
     }
 
@@ -347,6 +349,16 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
     public GearBusinessItem createGearBusinessItem() {
         GearBusinessItemImpl gearBusinessItem = new GearBusinessItemImpl();
         return gearBusinessItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Context createContext() {
+        ContextImpl context = new ContextImpl();
+        return context;
     }
 
     /**

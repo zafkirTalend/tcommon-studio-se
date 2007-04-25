@@ -37,6 +37,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="FileRegexpMetadata" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="FileXmlMetadata" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="FileLdifMetadata" eSuperTypes="#//TalendItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Context" eSuperTypes="#//TalendItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="BusinessAssignment">
     <eStructuralFeatures xsi:type="ecore:EReference" name="businessItem" lowerBound="1"
         eType="#//BusinessItem" eOpposite="#//BusinessItem/assignments"/>

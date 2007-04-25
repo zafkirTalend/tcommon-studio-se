@@ -19,6 +19,7 @@ import org.talend.designer.business.model.business.BusinessItemRelationship;
 import org.talend.designer.business.model.business.BusinessItemShape;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
+import org.talend.designer.business.model.business.Context;
 import org.talend.designer.business.model.business.DataBusinessItem;
 import org.talend.designer.business.model.business.DatabaseBusinessItem;
 import org.talend.designer.business.model.business.DatabaseMetadata;
@@ -190,6 +191,9 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseGearBusinessItem(GearBusinessItem object) {
                 return createGearBusinessItemAdapter();
+            }
+            public Object caseContext(Context object) {
+                return createContextAdapter();
             }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
@@ -571,6 +575,20 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createGearBusinessItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.Context <em>Context</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.Context
+     * @generated
+     */
+    public Adapter createContextAdapter() {
         return null;
     }
 

@@ -241,6 +241,15 @@ public interface BusinessFactory extends EFactory {
     GearBusinessItem createGearBusinessItem();
 
     /**
+     * Returns a new object of class '<em>Context</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Context</em>'.
+     * @generated
+     */
+    Context createContext();
+
+    /**
      * Returns a new object of class '<em>File Xml Metadata</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

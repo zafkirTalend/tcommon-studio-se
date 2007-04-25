@@ -24,6 +24,7 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.talend.designer.business.model.business.BusinessAssignment;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
+import org.talend.designer.business.model.business.Context;
 import org.talend.designer.business.model.business.DatabaseMetadata;
 import org.talend.designer.business.model.business.Documentation;
 import org.talend.designer.business.model.business.FileDelimitedMetadata;
@@ -306,6 +307,12 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                 public Object caseFileLdifMetadata(FileLdifMetadata object) {
                     return getString("_UI_FileLdifMetadata_type"); //$NON-NLS-1$
                 }
+                
+                @Override
+                public Object caseContext(Context object) {
+                    return getString("_UI_Context_type"); //$NON-NLS-1$
+                }
+                
             }.doSwitch(businessAssignment.getTalendItem());
 
             return (String) type;

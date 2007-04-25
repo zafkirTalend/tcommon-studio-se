@@ -19,6 +19,7 @@ import org.talend.designer.business.model.business.BusinessItemRelationship;
 import org.talend.designer.business.model.business.BusinessItemShape;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.business.model.business.BusinessProcess;
+import org.talend.designer.business.model.business.Context;
 import org.talend.designer.business.model.business.DataBusinessItem;
 import org.talend.designer.business.model.business.DatabaseBusinessItem;
 import org.talend.designer.business.model.business.DatabaseMetadata;
@@ -336,6 +337,13 @@ public class BusinessSwitch {
                 Object result = caseGearBusinessItem(gearBusinessItem);
                 if (result == null) result = caseBusinessItemShape(gearBusinessItem);
                 if (result == null) result = caseBusinessItem(gearBusinessItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.CONTEXT: {
+                Context context = (Context)theEObject;
+                Object result = caseContext(context);
+                if (result == null) result = caseTalendItem(context);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -751,6 +759,21 @@ public class BusinessSwitch {
      * @generated
      */
     public Object caseGearBusinessItem(GearBusinessItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Context</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Context</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseContext(Context object) {
         return null;
     }
 
