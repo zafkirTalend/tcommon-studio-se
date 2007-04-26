@@ -40,7 +40,9 @@ public abstract class AbstractNode implements INode {
 
     List<? extends IElementParameter> elementParameters;
 
-    private List<? extends IConnection> outgoingConnections, incomingConnections;
+    private List<? extends IConnection> outgoingConnections = new ArrayList<IConnection>();
+
+    private List<? extends IConnection> incomingConnections = new ArrayList<IConnection>();
 
     private List<IMetadataTable> metadataList;
 
@@ -63,7 +65,7 @@ public abstract class AbstractNode implements INode {
     private IExternalNode externalNode;
 
     private Boolean hasConditionalOutputs = Boolean.FALSE;
-    
+
     private boolean isThereLinkWithHash;
 
     public String getComponentName() {
@@ -286,15 +288,16 @@ public abstract class AbstractNode implements INode {
         buff.append(")");
         return buff.toString();
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.model.process.INode#getLocation()
      */
-    public Point getLocation(){
+    public Point getLocation() {
         return null;
     }
 
-    
     public IExternalNode getExternalNode() {
         return externalNode;
     }
@@ -304,20 +307,31 @@ public abstract class AbstractNode implements INode {
         this.externalNode = externalNode;
     }
     
-      /**
+    /**
      * Getter for isThereLinkWithHash.
+     * 
      * @return the isThereLinkWithHash
      */
     public boolean isThereLinkWithHash() {
         return isThereLinkWithHash;
     }
-        
+
     /**
      * Sets the isThereLinkWithHash.
+     * 
      * @param isThereLinkWithHash the isThereLinkWithHash to set
      */
     public void setThereLinkWithHash(boolean isThereLinkWithHash) {
         this.isThereLinkWithHash = isThereLinkWithHash;
+    }
+
+    public IElementParameter getElementParameter(String name) {
+        for (IElementParameter elementParam : elementParameters) {
+            if (elementParam.getName().equals(name)) {
+                return elementParam;
+            }
+        }
+        return null;
     }
     
     public List<? extends IConnection> getOutgoingSortedConnections() {
