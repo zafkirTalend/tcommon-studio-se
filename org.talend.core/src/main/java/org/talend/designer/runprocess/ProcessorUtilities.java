@@ -196,10 +196,10 @@ public class ProcessorUtilities {
      * @param processName
      * @param contextName
      */
-    public static boolean generateCode(String processName, String contextName) {
+    public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName);
-        return generateCode(jobInfo, false, false, true);
+        return generateCode(jobInfo, statistics, trace, true);
     }
 
     public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace,
@@ -223,7 +223,7 @@ public class ProcessorUtilities {
      * @throws ProcessorException
      */
     public static String[] getCommandLine(boolean externalUse, String processName, String contextName,
-            String... codeOptions) throws ProcessorException {
+             int statisticPort, int tracePort, String ... codeOptions) throws ProcessorException {
         IProcess currentProcess = null;
         ProcessItem selectedProcessItem = getProcessItem(processName);
         if (selectedProcessItem != null) {
@@ -235,7 +235,7 @@ public class ProcessorUtilities {
         }
         IContext currentContext = getContext(currentProcess, contextName);
         IProcessor processor = getProcessor(currentProcess, currentContext);
-        return processor.getCommandLine(externalUse, IProcessor.NO_STATISTICS, IProcessor.NO_TRACES, codeOptions);
+        return processor.getCommandLine(externalUse, statisticPort, tracePort, codeOptions);
     }
 
     /**

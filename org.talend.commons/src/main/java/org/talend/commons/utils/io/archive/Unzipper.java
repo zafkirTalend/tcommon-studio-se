@@ -41,6 +41,47 @@ import org.talend.commons.utils.io.FilesUtils;
  */
 public class Unzipper {
 
+    private String archiveFilePath;
+    private ZipInputStream zin;
+    private String parentAbsolutePath;
+
+    /**
+     * DOC amaumont Unzipper constructor comment.
+     * @throws FileNotFoundException 
+     */
+    public Unzipper(String archiveFilePath) throws FileNotFoundException {
+        super();
+        this.archiveFilePath = archiveFilePath;
+        File file = new File(archiveFilePath);
+        parentAbsolutePath = file.getParentFile().getAbsolutePath();
+        FileInputStream fin = new FileInputStream(archiveFilePath);
+        zin = new ZipInputStream(fin);
+    }
+
+    public long countEntries() throws IOException {
+        long nbEntries = 0;
+        zin.reset();
+        while (zin.getNextEntry() != null) {
+            nbEntries++;
+        }
+        return nbEntries;
+    }
+    
+    public void unarchive() throws IOException {
+//        zin.reset();
+        ZipEntry ze = null;
+        while ((ze = zin.getNextEntry()) != null) {
+            String filePath = parentAbsolutePath + "/" + ze.getName();
+            FilesUtils.createFoldersIfNotExists(filePath, true);
+            System.out.println("Unzipping " + ze.getName());
+            FileOutputStream fout = new FileOutputStream(filePath);
+            org.talend.commons.utils.io.StreamCopier.copy(zin, fout);
+            zin.closeEntry();
+            fout.close();
+        }
+        
+    }
+    
     /**
      * DOC amaumont Comment method "unarchive".
      * 
@@ -49,20 +90,16 @@ public class Unzipper {
      * @throws FileNotFoundException 
      */
     public static void unarchive(String archiveFilePath) throws IOException {
-        File file = new File(archiveFilePath);
-        File parent = file.getParentFile();
-        FileInputStream fin = new FileInputStream(archiveFilePath);
-        ZipInputStream zin = new ZipInputStream(fin);
-        ZipEntry ze = null;
-        while ((ze = zin.getNextEntry()) != null) {
-            String filePath = parent.getAbsolutePath() + "/" + ze.getName();
-            FilesUtils.createFoldersIfNotExists(filePath, true);
-            System.out.println("Unzipping " + ze.getName());
-            FileOutputStream fout = new FileOutputStream(filePath);
-            org.talend.commons.utils.io.StreamCopier.copy(zin, fout);
-            zin.closeEntry();
-            fout.close();
-        }
+        Unzipper unzipper = new Unzipper(archiveFilePath);
+        unzipper.unarchive();
+        unzipper.close();
+    }
+
+    /**
+     * DOC amaumont Comment method "close".
+     * @throws IOException 
+     */
+    public void close() throws IOException {
         zin.close();
     }
 
