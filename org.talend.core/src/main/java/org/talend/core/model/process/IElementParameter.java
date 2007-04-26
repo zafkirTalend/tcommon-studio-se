@@ -135,4 +135,8 @@ public interface IElementParameter {
     public boolean isBasedOnSchema();
     
     public void setBasedOnSchema(boolean basedOnSchema); 
+    
+    public String getFilter();
+
+    public void setFilter(String filter);
 }
