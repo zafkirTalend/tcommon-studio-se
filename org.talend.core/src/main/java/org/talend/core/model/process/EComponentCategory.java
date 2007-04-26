@@ -34,5 +34,6 @@ public enum EComponentCategory {
     DOC,
     CONTEXT,
     VERSIONS,
-    LOGS;
+    LOGS,
+    STATSANDLOGS;
 }
