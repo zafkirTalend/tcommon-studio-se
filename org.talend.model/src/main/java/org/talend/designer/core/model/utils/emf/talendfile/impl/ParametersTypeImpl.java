@@ -20,40 +20,40 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.talend.designer.core.model.utils.emf.talendfile.JobType;
-import org.talend.designer.core.model.utils.emf.talendfile.RequiredType;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Required Type</b></em>'.
+ * An implementation of the model object '<em><b>Parameters Type</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.RequiredTypeImpl#getJob <em>Job</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ParametersTypeImpl#getElementParameter <em>Element Parameter</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class RequiredTypeImpl extends EObjectImpl implements RequiredType {
+public class ParametersTypeImpl extends EObjectImpl implements ParametersType {
     /**
-     * The cached value of the '{@link #getJob() <em>Job</em>}' containment reference list.
+     * The cached value of the '{@link #getElementParameter() <em>Element Parameter</em>}' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getJob()
+     * @see #getElementParameter()
      * @generated
      * @ordered
      */
-    protected EList job = null;
+    protected EList elementParameter = null;
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected RequiredTypeImpl() {
+    protected ParametersTypeImpl() {
         super();
     }
 
@@ -63,7 +63,7 @@ public class RequiredTypeImpl extends EObjectImpl implements RequiredType {
      * @generated
      */
     protected EClass eStaticClass() {
-        return TalendFilePackage.Literals.REQUIRED_TYPE;
+        return TalendFilePackage.Literals.PARAMETERS_TYPE;
     }
 
     /**
@@ -71,11 +71,11 @@ public class RequiredTypeImpl extends EObjectImpl implements RequiredType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public EList getJob() {
-        if (job == null) {
-            job = new EObjectContainmentEList(JobType.class, this, TalendFilePackage.REQUIRED_TYPE__JOB);
+    public EList getElementParameter() {
+        if (elementParameter == null) {
+            elementParameter = new EObjectContainmentEList(ElementParameterType.class, this, TalendFilePackage.PARAMETERS_TYPE__ELEMENT_PARAMETER);
         }
-        return job;
+        return elementParameter;
     }
 
     /**
@@ -85,8 +85,8 @@ public class RequiredTypeImpl extends EObjectImpl implements RequiredType {
      */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
-            case TalendFilePackage.REQUIRED_TYPE__JOB:
-                return ((InternalEList)getJob()).basicRemove(otherEnd, msgs);
+            case TalendFilePackage.PARAMETERS_TYPE__ELEMENT_PARAMETER:
+                return ((InternalEList)getElementParameter()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -98,8 +98,8 @@ public class RequiredTypeImpl extends EObjectImpl implements RequiredType {
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case TalendFilePackage.REQUIRED_TYPE__JOB:
-                return getJob();
+            case TalendFilePackage.PARAMETERS_TYPE__ELEMENT_PARAMETER:
+                return getElementParameter();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -111,9 +111,9 @@ public class RequiredTypeImpl extends EObjectImpl implements RequiredType {
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case TalendFilePackage.REQUIRED_TYPE__JOB:
-                getJob().clear();
-                getJob().addAll((Collection)newValue);
+            case TalendFilePackage.PARAMETERS_TYPE__ELEMENT_PARAMETER:
+                getElementParameter().clear();
+                getElementParameter().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -126,8 +126,8 @@ public class RequiredTypeImpl extends EObjectImpl implements RequiredType {
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-            case TalendFilePackage.REQUIRED_TYPE__JOB:
-                getJob().clear();
+            case TalendFilePackage.PARAMETERS_TYPE__ELEMENT_PARAMETER:
+                getElementParameter().clear();
                 return;
         }
         super.eUnset(featureID);
@@ -140,10 +140,10 @@ public class RequiredTypeImpl extends EObjectImpl implements RequiredType {
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case TalendFilePackage.REQUIRED_TYPE__JOB:
-                return job != null && !job.isEmpty();
+            case TalendFilePackage.PARAMETERS_TYPE__ELEMENT_PARAMETER:
+                return elementParameter != null && !elementParameter.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
-} //RequiredTypeImpl
+} //ParametersTypeImpl

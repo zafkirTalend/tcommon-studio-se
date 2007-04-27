@@ -22,6 +22,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.LogsType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.NoteType;
+import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.RequiredType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
@@ -36,6 +37,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getRequired <em>Required</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getContext <em>Context</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getParameters <em>Parameters</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getNode <em>Node</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getNote <em>Note</em>}</li>
@@ -93,6 +95,16 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * @ordered
      */
     protected EList context = null;
+
+    /**
+     * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getParameters()
+     * @generated
+     * @ordered
+     */
+    protected ParametersType parameters = null;
 
     /**
      * The cached value of the '{@link #getNode() <em>Node</em>}' containment reference list.
@@ -393,6 +405,49 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public ParametersType getParameters() {
+        return parameters;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetParameters(ParametersType newParameters, NotificationChain msgs) {
+        ParametersType oldParameters = parameters;
+        parameters = newParameters;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__PARAMETERS, oldParameters, newParameters);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setParameters(ParametersType newParameters) {
+        if (newParameters != parameters) {
+            NotificationChain msgs = null;
+            if (parameters != null)
+                msgs = ((InternalEObject)parameters).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.PROCESS_TYPE__PARAMETERS, null, msgs);
+            if (newParameters != null)
+                msgs = ((InternalEObject)newParameters).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TalendFilePackage.PROCESS_TYPE__PARAMETERS, null, msgs);
+            msgs = basicSetParameters(newParameters, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__PARAMETERS, newParameters, newParameters));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EList getNode() {
         if (node == null) {
             node = new EObjectContainmentEList(NodeType.class, this, TalendFilePackage.PROCESS_TYPE__NODE);
@@ -646,6 +701,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return basicSetRequired(null, msgs);
             case TalendFilePackage.PROCESS_TYPE__CONTEXT:
                 return ((InternalEList)getContext()).basicRemove(otherEnd, msgs);
+            case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
+                return basicSetParameters(null, msgs);
             case TalendFilePackage.PROCESS_TYPE__NODE:
                 return ((InternalEList)getNode()).basicRemove(otherEnd, msgs);
             case TalendFilePackage.PROCESS_TYPE__CONNECTION:
@@ -671,6 +728,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return getRequired();
             case TalendFilePackage.PROCESS_TYPE__CONTEXT:
                 return getContext();
+            case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
+                return getParameters();
             case TalendFilePackage.PROCESS_TYPE__NODE:
                 return getNode();
             case TalendFilePackage.PROCESS_TYPE__CONNECTION:
@@ -715,6 +774,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__CONTEXT:
                 getContext().clear();
                 getContext().addAll((Collection)newValue);
+                return;
+            case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
+                setParameters((ParametersType)newValue);
                 return;
             case TalendFilePackage.PROCESS_TYPE__NODE:
                 getNode().clear();
@@ -775,6 +837,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__CONTEXT:
                 getContext().clear();
                 return;
+            case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
+                setParameters((ParametersType)null);
+                return;
             case TalendFilePackage.PROCESS_TYPE__NODE:
                 getNode().clear();
                 return;
@@ -828,6 +893,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return required != null;
             case TalendFilePackage.PROCESS_TYPE__CONTEXT:
                 return context != null && !context.isEmpty();
+            case TalendFilePackage.PROCESS_TYPE__PARAMETERS:
+                return parameters != null;
             case TalendFilePackage.PROCESS_TYPE__NODE:
                 return node != null && !node.isEmpty();
             case TalendFilePackage.PROCESS_TYPE__CONNECTION:

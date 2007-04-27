@@ -7,6 +7,7 @@
 				<xs:element name="Description" type="xs:string" minOccurs="0"/>
 				<xs:element ref="Required" minOccurs="0"/>
 				<xs:element ref="Context" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="Parameters" minOccurs="0"/>
 				<xs:element ref="Node" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="Connection" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="Note" minOccurs="0" maxOccurs="unbounded"/>
@@ -156,6 +157,13 @@
 			<xs:attribute name="sizeHeight" type="xs:int"/>
 			<xs:attribute name="opaque" type="xs:boolean"/>
 			<xs:attribute name="text" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="Parameters">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ElementParameter" maxOccurs="unbounded"/>
+			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

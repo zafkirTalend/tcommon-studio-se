@@ -471,13 +471,22 @@ public interface TalendFilePackage extends EPackage {
     int DOCUMENT_ROOT__NOTE = 7;
 
     /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENT_ROOT__PARAMETERS = 8;
+
+    /**
      * The feature id for the '<em><b>Process</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__PROCESS = 8;
+    int DOCUMENT_ROOT__PROCESS = 9;
 
     /**
      * The feature id for the '<em><b>Required</b></em>' containment reference.
@@ -486,7 +495,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__REQUIRED = 9;
+    int DOCUMENT_ROOT__REQUIRED = 10;
 
     /**
      * The number of structural features of the '<em>Document Root</em>' class.
@@ -495,7 +504,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT_FEATURE_COUNT = 10;
+    int DOCUMENT_ROOT_FEATURE_COUNT = 11;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ElementParameterTypeImpl <em>Element Parameter Type</em>}' class.
@@ -1048,6 +1057,34 @@ public interface TalendFilePackage extends EPackage {
     int NOTE_TYPE_FEATURE_COUNT = 6;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ParametersTypeImpl <em>Parameters Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.ParametersTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getParametersType()
+     * @generated
+     */
+    int PARAMETERS_TYPE = 15;
+
+    /**
+     * The feature id for the '<em><b>Element Parameter</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETERS_TYPE__ELEMENT_PARAMETER = 0;
+
+    /**
+     * The number of structural features of the '<em>Parameters Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETERS_TYPE_FEATURE_COUNT = 1;
+
+    /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl <em>Process Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1055,7 +1092,7 @@ public interface TalendFilePackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getProcessType()
      * @generated
      */
-    int PROCESS_TYPE = 15;
+    int PROCESS_TYPE = 16;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -1085,13 +1122,22 @@ public interface TalendFilePackage extends EPackage {
     int PROCESS_TYPE__CONTEXT = 2;
 
     /**
+     * The feature id for the '<em><b>Parameters</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_TYPE__PARAMETERS = 3;
+
+    /**
      * The feature id for the '<em><b>Node</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__NODE = 3;
+    int PROCESS_TYPE__NODE = 4;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' containment reference list.
@@ -1100,7 +1146,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__CONNECTION = 4;
+    int PROCESS_TYPE__CONNECTION = 5;
 
     /**
      * The feature id for the '<em><b>Note</b></em>' containment reference list.
@@ -1109,7 +1155,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__NOTE = 5;
+    int PROCESS_TYPE__NOTE = 6;
 
     /**
      * The feature id for the '<em><b>Logs</b></em>' containment reference.
@@ -1118,7 +1164,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__LOGS = 6;
+    int PROCESS_TYPE__LOGS = 7;
 
     /**
      * The feature id for the '<em><b>Author</b></em>' attribute.
@@ -1127,7 +1173,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__AUTHOR = 7;
+    int PROCESS_TYPE__AUTHOR = 8;
 
     /**
      * The feature id for the '<em><b>Comment</b></em>' attribute.
@@ -1136,7 +1182,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__COMMENT = 8;
+    int PROCESS_TYPE__COMMENT = 9;
 
     /**
      * The feature id for the '<em><b>Default Context</b></em>' attribute.
@@ -1145,7 +1191,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__DEFAULT_CONTEXT = 9;
+    int PROCESS_TYPE__DEFAULT_CONTEXT = 10;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1154,7 +1200,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__NAME = 10;
+    int PROCESS_TYPE__NAME = 11;
 
     /**
      * The feature id for the '<em><b>Purpose</b></em>' attribute.
@@ -1163,7 +1209,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__PURPOSE = 11;
+    int PROCESS_TYPE__PURPOSE = 12;
 
     /**
      * The feature id for the '<em><b>Repository Context Id</b></em>' attribute.
@@ -1172,7 +1218,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__REPOSITORY_CONTEXT_ID = 12;
+    int PROCESS_TYPE__REPOSITORY_CONTEXT_ID = 13;
 
     /**
      * The feature id for the '<em><b>Status</b></em>' attribute.
@@ -1181,7 +1227,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__STATUS = 13;
+    int PROCESS_TYPE__STATUS = 14;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1190,7 +1236,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__VERSION = 14;
+    int PROCESS_TYPE__VERSION = 15;
 
     /**
      * The number of structural features of the '<em>Process Type</em>' class.
@@ -1199,7 +1245,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE_FEATURE_COUNT = 15;
+    int PROCESS_TYPE_FEATURE_COUNT = 16;
 
 
     /**
@@ -1210,7 +1256,7 @@ public interface TalendFilePackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getRequiredType()
      * @generated
      */
-    int REQUIRED_TYPE = 16;
+    int REQUIRED_TYPE = 17;
 
     /**
      * The feature id for the '<em><b>Job</b></em>' containment reference list.
@@ -1676,6 +1722,17 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EReference getDocumentRoot_Note();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getParameters <em>Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Parameters</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getParameters()
+     * @see #getDocumentRoot()
+     * @generated
+     */
+    EReference getDocumentRoot_Parameters();
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.DocumentRoot#getProcess <em>Process</em>}'.
@@ -2240,6 +2297,27 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getNoteType_Text();
 
     /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ParametersType <em>Parameters Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Parameters Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ParametersType
+     * @generated
+     */
+    EClass getParametersType();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.talendfile.ParametersType#getElementParameter <em>Element Parameter</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Element Parameter</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ParametersType#getElementParameter()
+     * @see #getParametersType()
+     * @generated
+     */
+    EReference getParametersType_ElementParameter();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType <em>Process Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2281,6 +2359,17 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EReference getProcessType_Context();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getParameters <em>Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>Parameters</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getParameters()
+     * @see #getProcessType()
+     * @generated
+     */
+    EReference getProcessType_Parameters();
 
     /**
      * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getNode <em>Node</em>}'.
@@ -2796,6 +2885,14 @@ public interface TalendFilePackage extends EPackage {
         EReference DOCUMENT_ROOT__NOTE = eINSTANCE.getDocumentRoot_Note();
 
         /**
+         * The meta object literal for the '<em><b>Parameters</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DOCUMENT_ROOT__PARAMETERS = eINSTANCE.getDocumentRoot_Parameters();
+
+        /**
          * The meta object literal for the '<em><b>Process</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3232,6 +3329,24 @@ public interface TalendFilePackage extends EPackage {
         EAttribute NOTE_TYPE__TEXT = eINSTANCE.getNoteType_Text();
 
         /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ParametersTypeImpl <em>Parameters Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.ParametersTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl#getParametersType()
+         * @generated
+         */
+        EClass PARAMETERS_TYPE = eINSTANCE.getParametersType();
+
+        /**
+         * The meta object literal for the '<em><b>Element Parameter</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PARAMETERS_TYPE__ELEMENT_PARAMETER = eINSTANCE.getParametersType_ElementParameter();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl <em>Process Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3264,6 +3379,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EReference PROCESS_TYPE__CONTEXT = eINSTANCE.getProcessType_Context();
+
+        /**
+         * The meta object literal for the '<em><b>Parameters</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROCESS_TYPE__PARAMETERS = eINSTANCE.getProcessType_Parameters();
 
         /**
          * The meta object literal for the '<em><b>Node</b></em>' containment reference list feature.

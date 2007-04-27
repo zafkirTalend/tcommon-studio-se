@@ -27,6 +27,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.LogsType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.NoteType;
+import org.talend.designer.core.model.utils.emf.talendfile.ParametersType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.RequiredType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
@@ -143,6 +144,13 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * @generated
      */
     private EClass noteTypeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass parametersTypeEClass = null;
 
     /**
      * <!-- begin-user-doc -->
@@ -603,7 +611,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_Process() {
+    public EReference getDocumentRoot_Parameters() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(8);
     }
 
@@ -612,8 +620,17 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_Required() {
+    public EReference getDocumentRoot_Process() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getDocumentRoot_Required() {
+        return (EReference)documentRootEClass.getEStructuralFeatures().get(10);
     }
 
     /**
@@ -1071,6 +1088,24 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getParametersType() {
+        return parametersTypeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getParametersType_ElementParameter() {
+        return (EReference)parametersTypeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getProcessType() {
         return processTypeEClass;
     }
@@ -1107,7 +1142,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProcessType_Node() {
+    public EReference getProcessType_Parameters() {
         return (EReference)processTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -1116,7 +1151,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProcessType_Connection() {
+    public EReference getProcessType_Node() {
         return (EReference)processTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -1125,7 +1160,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProcessType_Note() {
+    public EReference getProcessType_Connection() {
         return (EReference)processTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -1134,7 +1169,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getProcessType_Logs() {
+    public EReference getProcessType_Note() {
         return (EReference)processTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -1143,8 +1178,8 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_Author() {
-        return (EAttribute)processTypeEClass.getEStructuralFeatures().get(7);
+    public EReference getProcessType_Logs() {
+        return (EReference)processTypeEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -1152,7 +1187,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_Comment() {
+    public EAttribute getProcessType_Author() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(8);
     }
 
@@ -1161,7 +1196,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_DefaultContext() {
+    public EAttribute getProcessType_Comment() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(9);
     }
 
@@ -1170,7 +1205,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_Name() {
+    public EAttribute getProcessType_DefaultContext() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(10);
     }
 
@@ -1179,7 +1214,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_Purpose() {
+    public EAttribute getProcessType_Name() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(11);
     }
 
@@ -1188,7 +1223,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_RepositoryContextId() {
+    public EAttribute getProcessType_Purpose() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(12);
     }
 
@@ -1197,7 +1232,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_Status() {
+    public EAttribute getProcessType_RepositoryContextId() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(13);
     }
 
@@ -1206,8 +1241,17 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getProcessType_Version() {
+    public EAttribute getProcessType_Status() {
         return (EAttribute)processTypeEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getProcessType_Version() {
+        return (EAttribute)processTypeEClass.getEStructuralFeatures().get(15);
     }
 
     /**
@@ -1301,6 +1345,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEReference(documentRootEClass, DOCUMENT_ROOT__ELEMENT_PARAMETER);
         createEReference(documentRootEClass, DOCUMENT_ROOT__NODE);
         createEReference(documentRootEClass, DOCUMENT_ROOT__NOTE);
+        createEReference(documentRootEClass, DOCUMENT_ROOT__PARAMETERS);
         createEReference(documentRootEClass, DOCUMENT_ROOT__PROCESS);
         createEReference(documentRootEClass, DOCUMENT_ROOT__REQUIRED);
 
@@ -1364,10 +1409,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(noteTypeEClass, NOTE_TYPE__SIZE_WIDTH);
         createEAttribute(noteTypeEClass, NOTE_TYPE__TEXT);
 
+        parametersTypeEClass = createEClass(PARAMETERS_TYPE);
+        createEReference(parametersTypeEClass, PARAMETERS_TYPE__ELEMENT_PARAMETER);
+
         processTypeEClass = createEClass(PROCESS_TYPE);
         createEAttribute(processTypeEClass, PROCESS_TYPE__DESCRIPTION);
         createEReference(processTypeEClass, PROCESS_TYPE__REQUIRED);
         createEReference(processTypeEClass, PROCESS_TYPE__CONTEXT);
+        createEReference(processTypeEClass, PROCESS_TYPE__PARAMETERS);
         createEReference(processTypeEClass, PROCESS_TYPE__NODE);
         createEReference(processTypeEClass, PROCESS_TYPE__CONNECTION);
         createEReference(processTypeEClass, PROCESS_TYPE__NOTE);
@@ -1459,6 +1508,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEReference(getDocumentRoot_ElementParameter(), this.getElementParameterType(), null, "elementParameter", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_Node(), this.getNodeType(), null, "node", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_Note(), this.getNoteType(), null, "note", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEReference(getDocumentRoot_Parameters(), this.getParametersType(), null, "parameters", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_Process(), this.getProcessType(), null, "process", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_Required(), this.getRequiredType(), null, "required", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
@@ -1522,10 +1572,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getNoteType_SizeWidth(), theXMLTypePackage.getInt(), "sizeWidth", null, 0, 1, NoteType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getNoteType_Text(), theXMLTypePackage.getString(), "text", null, 0, 1, NoteType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(parametersTypeEClass, ParametersType.class, "ParametersType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getParametersType_ElementParameter(), this.getElementParameterType(), null, "elementParameter", null, 1, -1, ParametersType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         initEClass(processTypeEClass, ProcessType.class, "ProcessType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getProcessType_Description(), theXMLTypePackage.getString(), "description", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProcessType_Required(), this.getRequiredType(), null, "required", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProcessType_Context(), this.getContextType(), null, "context", null, 0, -1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProcessType_Parameters(), this.getParametersType(), null, "parameters", null, 0, 1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProcessType_Node(), this.getNodeType(), null, "node", null, 0, -1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProcessType_Connection(), this.getConnectionType(), null, "connection", null, 0, -1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getProcessType_Note(), this.getNoteType(), null, "note", null, 0, -1, ProcessType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1882,6 +1936,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
            new String[] {
              "kind", "element",
              "name", "Note",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getDocumentRoot_Parameters(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "Parameters",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
@@ -2291,6 +2353,21 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (parametersTypeEClass, 
+           source, 
+           new String[] {
+             "name", "Parameters_._type",
+             "kind", "elementOnly"
+           });		
+        addAnnotation
+          (getParametersType_ElementParameter(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "ElementParameter",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (processTypeEClass, 
            source, 
            new String[] {
@@ -2319,6 +2396,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
            new String[] {
              "kind", "element",
              "name", "Context",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getProcessType_Parameters(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "Parameters",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
