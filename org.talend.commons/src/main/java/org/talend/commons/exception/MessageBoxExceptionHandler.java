@@ -62,6 +62,7 @@ public final class MessageBoxExceptionHandler {
      * @param ex - exception to show
      */
     protected static void showMessage(Throwable ex, Shell shell) {
+        // TODO smallet use ErrorDialogWidthDetailArea ?
         String title = Messages.getString("commons.error"); //$NON-NLS-1$
         String msg = Messages.getString("exception.errorOccured", ex.getMessage()); //$NON-NLS-1$
         Priority priority = ExceptionHandler.getPriority(ex);
