@@ -44,9 +44,9 @@ public final class ContextParameterUtils {
 
     private static final String PERL_ENDWITH = "}";
 
-    private static final String JAVA_STARTWITH = "((String)context.getProperty(" + "\\" + "\"";
+    private static final String JAVA_STARTWITH = "((String)context.getProperty(" + "\"";
 
-    private static final String JAVA_ENDWITH = "\\" + "\"))";
+    private static final String JAVA_ENDWITH = "\"))";
 
     /**
      * Constructs a new ContextParameterUtils.
@@ -135,7 +135,7 @@ public final class ContextParameterUtils {
         case PERL:
             return code.contains(PERL_STARTWITH) && code.contains(PERL_ENDWITH);
         case JAVA:
-            return code.contains(JAVA_STARTWITH) && code.contains(JAVA_ENDWITH);
+            return code.contains(JAVA_STARTWITH.substring(0, JAVA_STARTWITH.length() - 1)) && code.contains(JAVA_ENDWITH);
         default:
             return false;
         }
