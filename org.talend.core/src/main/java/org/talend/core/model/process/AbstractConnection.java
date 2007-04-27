@@ -115,6 +115,15 @@ public abstract class AbstractConnection implements IConnection {
     public List<? extends IElementParameter> getElementParameters() {
         return elementParameters;
     }
+    
+    public IElementParameter getElementParameter(String name) {
+        for (IElementParameter elementParam : elementParameters) {
+            if (elementParam.getName().equals(name)) {
+                return elementParam;
+            }
+        }
+        return null;
+    }
 
     public void setElementParameters(List<? extends IElementParameter> elementParameters) {
         this.elementParameters = elementParameters;

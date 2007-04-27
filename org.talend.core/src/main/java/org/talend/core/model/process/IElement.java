@@ -30,6 +30,8 @@ import java.util.List;
  * 
  */
 public interface IElement {
+    
+    public IElementParameter getElementParameter(String name);
 
     public List<? extends IElementParameter> getElementParameters();
 
