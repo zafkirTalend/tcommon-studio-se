@@ -139,4 +139,8 @@ public interface IElementParameter {
     public String getFilter();
 
     public void setFilter(String filter);
+    
+    public boolean isNoCheck();
+    
+    public void setNoCheck(boolean noCheck);
 }
