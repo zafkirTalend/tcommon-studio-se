@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -81,7 +82,7 @@ public class ExtractMetaDataFromDataBase {
 
         try {
 
-            String[] tableTypes = { TABLETYPE_TABLE , TABLETYPE_VIEW, TABLETYPE_SYNONYM };
+            String[] tableTypes = { TABLETYPE_TABLE, TABLETYPE_VIEW, TABLETYPE_SYNONYM };
             ResultSet rsTables = null;
             rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, null, tableTypes);
 
@@ -91,7 +92,7 @@ public class ExtractMetaDataFromDataBase {
                 medataTable.setLabel(rsTables.getString("TABLE_NAME")); //$NON-NLS-1$
                 medataTable.setTableName(medataTable.getLabel());
                 medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS")); //$NON-NLS-1$
-                try{
+                try {
                     tableTypeMap.put(medataTable.getLabel(), rsTables.getString("TABLE_TYPE")); //$NON-NLS-1$    
                 } catch (Exception e) {
                     tableTypeMap.put(medataTable.getLabel(), "TABLE"); //$NON-NLS-1$
@@ -124,7 +125,8 @@ public class ExtractMetaDataFromDataBase {
         try {
             // WARNING Schema equals sid or database
             ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
-                    .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection.getSchema());
+                    .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
+                    .getSchema());
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
             List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
@@ -145,8 +147,8 @@ public class ExtractMetaDataFromDataBase {
                 metaTable1.setTableName(tableName);
             }
 
-            metadataColumns = ExtractMetaDataFromDataBase.extractMetadataColumnsFormTable(dbMetaData, metaTable1, iMetadataConnection
-                    .getDbType());
+            metadataColumns = ExtractMetaDataFromDataBase.extractMetadataColumnsFormTable(dbMetaData, metaTable1,
+                    iMetadataConnection.getDbType());
 
             ExtractMetaDataUtils.closeConnection();
 
@@ -192,7 +194,8 @@ public class ExtractMetaDataFromDataBase {
      * @param MetadataTable medataTable
      * @return Collection of MetadataColumn Object
      */
-    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable, String dbms) {
+    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
+            String dbms) {
 
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
 
@@ -231,14 +234,15 @@ public class ExtractMetaDataFromDataBase {
 
                 String talendType = null;
                 if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                    MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever("mysql_id"); //$NON-NLS-1$
+                    MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(EDatabaseTypeName
+                            .getDBMSMappingId(dbms)); //$NON-NLS-1$
                     String javaTypeName = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, isNullable);
                     JavaType javaTypeFromName = JavaTypesManager.getJavaTypeFromName(javaTypeName);
                     if (javaTypeFromName != null) {
                         talendType = javaTypeFromName.getId();
                     } else {
                         talendType = JavaTypesManager.getDefaultJavaType().getId();
-                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound",dbType)); //$NON-NLS-1$
+                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
                     }
                 } else {
                     talendType = MetadataTalendType.loadTalendType(metadataColumn.getSourceType(), dbms, false);
@@ -295,7 +299,7 @@ public class ExtractMetaDataFromDataBase {
                     return connectionStatus;
                 }
             }
-            //testConnection to alert if you have filled a Wrong Database field.
+            // testConnection to alert if you have filled a Wrong Database field.
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection);
             List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
 
@@ -342,9 +346,9 @@ public class ExtractMetaDataFromDataBase {
     public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection) {
         List<String> itemTablesName = new ArrayList<String>();
 
-        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
-                iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(),
-                iMetadataConnection.getSchema());
+        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
+                .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
+                .getSchema());
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
