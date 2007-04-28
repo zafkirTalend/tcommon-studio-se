@@ -28,6 +28,7 @@ import java.util.Map;
 
 import org.talend.commons.ui.image.IImage;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -85,6 +86,28 @@ public class RepositoryNode {
     protected ENodeType type;
 
     private Map<EProperties, Object> properties = new Hashtable<EProperties, Object>();
+
+    // This field is only used to retreive the process back from repositryNode. (StatsAndLogsTabPropertySection.java)
+    // See issue 973.
+//    IProcess process = null;
+//
+//    /**
+//     * Getter for process.
+//     * 
+//     * @return the process
+//     */
+//    public IProcess getProcess() {
+//        return this.process;
+//    }
+//
+//    /**
+//     * Sets the process.
+//     * 
+//     * @param process the process to set
+//     */
+//    public void setProcess(IProcess process) {
+//        this.process = process;
+//    }
 
     /**
      * Constructor with an object.
