@@ -146,13 +146,23 @@ public class CustomTableManager {
             MetadataTableEditorView tableEditorView, IMetadataTable table,
             final MetadataTableEditorView linkedTableEditorView, final IMetadataTable linkedTable, boolean readOnly) {
         IStructuredSelection selection = (IStructuredSelection) currentSelection;
+        
         boolean isThereCustom = false;
+        boolean isThereReadOnly = false;
         for (Iterator iter = selection.iterator(); iter.hasNext();) {
             IMetadataColumn column = (IMetadataColumn) iter.next();
             if (column.isCustom()) {
                 isThereCustom = true;
             }
+            if (column.isReadOnly()) {
+                isThereReadOnly = true;
+            }
         }
+        
+        if (isThereReadOnly) {
+            tableEditorView.getToolBar().getRemoveButton().getButton().setEnabled(false);
+        }
+        
         if (isThereCustom || table.isReadOnly()) {
             tableEditorView.getToolBar().getMoveDownButton().getButton().setEnabled(false);
             tableEditorView.getToolBar().getMoveUpButton().getButton().setEnabled(false);

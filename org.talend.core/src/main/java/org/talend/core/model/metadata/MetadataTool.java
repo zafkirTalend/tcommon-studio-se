@@ -57,9 +57,13 @@ public class MetadataTool {
 
     public static void copyTable(IMetadataTable source, IMetadataTable target) {
         List<IMetadataColumn> columnsToRemove = new ArrayList<IMetadataColumn>();
+        List<String> readOnlycolumns = new ArrayList<String>();
         for (IMetadataColumn column : target.getListColumns()) {
             if (!column.isCustom()) {
                 columnsToRemove.add(column);
+            }
+            if (column.isReadOnly()) {
+                readOnlycolumns.add(column.getLabel());
             }
         }
         target.getListColumns().removeAll(columnsToRemove);
@@ -70,7 +74,7 @@ public class MetadataTool {
             IMetadataColumn newTargetColumn = column.clone();
             if (targetColumn == null) {
                 columnsTAdd.add(newTargetColumn);
-                newTargetColumn.setReadOnly(target.isReadOnly());
+                newTargetColumn.setReadOnly(target.isReadOnly() || readOnlycolumns.contains(newTargetColumn.getLabel()));
             } else {
                 if (!targetColumn.isReadOnly()) {
                     target.getListColumns().remove(targetColumn);
