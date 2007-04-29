@@ -37,6 +37,7 @@ public enum EDatabaseTypeName {
     // this Sybase IQ not used.
     SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "mysql_id"),
     MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(false), "MSODBC"),
+    // this don't use in Branch 2.0
     INGRES("Ingres", "Ingres", new Boolean(false), "mysql_id");
 
     //displayName is used in Java code.
