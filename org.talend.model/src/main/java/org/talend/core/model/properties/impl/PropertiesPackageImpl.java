@@ -42,6 +42,7 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserProjectAuthorization;
@@ -225,6 +226,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass contextItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass spagoBiServerEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -460,6 +468,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EAttribute getProject_MasterJobId() {
         return (EAttribute)projectEClass.getEStructuralFeatures().get(18);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getProject_SpagoBiServer() {
+        return (EReference)projectEClass.getEStructuralFeatures().get(19);
     }
 
     /**
@@ -1238,6 +1255,78 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSpagoBiServer() {
+        return spagoBiServerEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSpagoBiServer_EngineName() {
+        return (EAttribute)spagoBiServerEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSpagoBiServer_ShortDescription() {
+        return (EAttribute)spagoBiServerEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSpagoBiServer_Host() {
+        return (EAttribute)spagoBiServerEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSpagoBiServer_Port() {
+        return (EAttribute)spagoBiServerEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSpagoBiServer_Login() {
+        return (EAttribute)spagoBiServerEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSpagoBiServer_Password() {
+        return (EAttribute)spagoBiServerEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSpagoBiServer_ApplicationContext() {
+        return (EAttribute)spagoBiServerEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1332,6 +1421,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(projectEClass, PROJECT__AVAILABLE_REF_PROJECT);
         createEAttribute(projectEClass, PROJECT__MIGRATION_TASKS);
         createEAttribute(projectEClass, PROJECT__MASTER_JOB_ID);
+        createEReference(projectEClass, PROJECT__SPAGO_BI_SERVER);
 
         statusEClass = createEClass(STATUS);
         createEAttribute(statusEClass, STATUS__LABEL);
@@ -1455,6 +1545,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(contextItemEClass, CONTEXT_ITEM__CONTEXT);
         createEAttribute(contextItemEClass, CONTEXT_ITEM__DEFAULT_CONTEXT);
 
+        spagoBiServerEClass = createEClass(SPAGO_BI_SERVER);
+        createEAttribute(spagoBiServerEClass, SPAGO_BI_SERVER__ENGINE_NAME);
+        createEAttribute(spagoBiServerEClass, SPAGO_BI_SERVER__SHORT_DESCRIPTION);
+        createEAttribute(spagoBiServerEClass, SPAGO_BI_SERVER__HOST);
+        createEAttribute(spagoBiServerEClass, SPAGO_BI_SERVER__PORT);
+        createEAttribute(spagoBiServerEClass, SPAGO_BI_SERVER__LOGIN);
+        createEAttribute(spagoBiServerEClass, SPAGO_BI_SERVER__PASSWORD);
+        createEAttribute(spagoBiServerEClass, SPAGO_BI_SERVER__APPLICATION_CONTEXT);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -1528,6 +1627,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getProject_AvailableRefProject(), this.getProjectReference(), this.getProjectReference_ReferencedProject(), "availableRefProject", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_MigrationTasks(), theEcorePackage.getEString(), "migrationTasks", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getProject_MasterJobId(), theXMLTypePackage.getString(), "masterJobId", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getProject_SpagoBiServer(), this.getSpagoBiServer(), null, "spagoBiServer", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(statusEClass, Status.class, "Status", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getStatus_Label(), ecorePackage.getEString(), "label", null, 0, 1, Status.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1650,6 +1750,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(contextItemEClass, ContextItem.class, "ContextItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getContextItem_Context(), theTalendFilePackage.getContextType(), null, "context", "", 0, -1, ContextItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getContextItem_DefaultContext(), theXMLTypePackage.getString(), "defaultContext", null, 0, 1, ContextItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(spagoBiServerEClass, SpagoBiServer.class, "SpagoBiServer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSpagoBiServer_EngineName(), ecorePackage.getEString(), "engineName", null, 1, 1, SpagoBiServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSpagoBiServer_ShortDescription(), ecorePackage.getEString(), "shortDescription", null, 0, 1, SpagoBiServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSpagoBiServer_Host(), ecorePackage.getEString(), "host", null, 0, 1, SpagoBiServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSpagoBiServer_Port(), ecorePackage.getEString(), "port", null, 0, 1, SpagoBiServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSpagoBiServer_Login(), theEcorePackage.getEString(), "login", null, 0, 1, SpagoBiServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSpagoBiServer_Password(), ecorePackage.getEString(), "password", null, 0, 1, SpagoBiServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSpagoBiServer_ApplicationContext(), theEcorePackage.getEString(), "applicationContext", null, 0, 1, SpagoBiServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

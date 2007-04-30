@@ -39,6 +39,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="migrationTasks" upperBound="-1"
         eType="ecore:EDataType ../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="masterJobId" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="spagoBiServer" upperBound="-1"
+        eType="#//SpagoBiServer" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProjectComponentAuthorisation">
     <eStructuralFeatures xsi:type="ecore:EReference" name="project" lowerBound="1"
@@ -202,5 +204,15 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" unique="false"
         upperBound="-1" eType="ecore:EClass TalendFile.ecore#//ContextType" defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultContext" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SpagoBiServer">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="engineName" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="host" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="port" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="login" eType="ecore:EDataType ../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="applicationContext" eType="ecore:EDataType ../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

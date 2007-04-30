@@ -24,6 +24,7 @@ import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.ProjectComponentAuthorisation;
 import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesPackage;
+import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserProjectAuthorization;
@@ -54,6 +55,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getAvailableRefProject <em>Available Ref Project</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getMigrationTasks <em>Migration Tasks</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getMasterJobId <em>Master Job Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ProjectImpl#getSpagoBiServer <em>Spago Bi Server</em>}</li>
  * </ul>
  * </p>
  *
@@ -350,6 +352,16 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected String masterJobId = MASTER_JOB_ID_EDEFAULT;
 
     /**
+     * The cached value of the '{@link #getSpagoBiServer() <em>Spago Bi Server</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSpagoBiServer()
+     * @generated
+     * @ordered
+     */
+    protected EList spagoBiServer = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -582,6 +594,18 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getSpagoBiServer() {
+        if (spagoBiServer == null) {
+            spagoBiServer = new EObjectContainmentEList(SpagoBiServer.class, this, PropertiesPackage.PROJECT__SPAGO_BI_SERVER);
+        }
+        return spagoBiServer;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -725,6 +749,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return ((InternalEList)getReferencedProjects()).basicRemove(otherEnd, msgs);
             case PropertiesPackage.PROJECT__AVAILABLE_REF_PROJECT:
                 return ((InternalEList)getAvailableRefProject()).basicRemove(otherEnd, msgs);
+            case PropertiesPackage.PROJECT__SPAGO_BI_SERVER:
+                return ((InternalEList)getSpagoBiServer()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -774,6 +800,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return getMigrationTasks();
             case PropertiesPackage.PROJECT__MASTER_JOB_ID:
                 return getMasterJobId();
+            case PropertiesPackage.PROJECT__SPAGO_BI_SERVER:
+                return getSpagoBiServer();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -849,6 +877,10 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__MASTER_JOB_ID:
                 setMasterJobId((String)newValue);
                 return;
+            case PropertiesPackage.PROJECT__SPAGO_BI_SERVER:
+                getSpagoBiServer().clear();
+                getSpagoBiServer().addAll((Collection)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -916,6 +948,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
             case PropertiesPackage.PROJECT__MASTER_JOB_ID:
                 setMasterJobId(MASTER_JOB_ID_EDEFAULT);
                 return;
+            case PropertiesPackage.PROJECT__SPAGO_BI_SERVER:
+                getSpagoBiServer().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -964,6 +999,8 @@ public class ProjectImpl extends EObjectImpl implements Project {
                 return migrationTasks != null && !migrationTasks.isEmpty();
             case PropertiesPackage.PROJECT__MASTER_JOB_ID:
                 return MASTER_JOB_ID_EDEFAULT == null ? masterJobId != null : !MASTER_JOB_ID_EDEFAULT.equals(masterJobId);
+            case PropertiesPackage.PROJECT__SPAGO_BI_SERVER:
+                return spagoBiServer != null && !spagoBiServer.isEmpty();
         }
         return super.eIsSet(featureID);
     }

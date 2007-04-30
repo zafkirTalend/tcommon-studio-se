@@ -239,13 +239,22 @@ public interface PropertiesPackage extends EPackage {
     int PROJECT__MASTER_JOB_ID = 18;
 
     /**
+     * The feature id for the '<em><b>Spago Bi Server</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROJECT__SPAGO_BI_SERVER = 19;
+
+    /**
      * The number of structural features of the '<em>Project</em>' class. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 
      * @generated
      * @ordered
      */
-    int PROJECT_FEATURE_COUNT = 19;
+    int PROJECT_FEATURE_COUNT = 20;
 
     /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
@@ -1658,13 +1667,95 @@ public interface PropertiesPackage extends EPackage {
     int CONTEXT_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 2;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.SpagoBiServerImpl <em>Spago Bi Server</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.SpagoBiServerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSpagoBiServer()
+     * @generated
+     */
+    int SPAGO_BI_SERVER = 28;
+
+    /**
+     * The feature id for the '<em><b>Engine Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__ENGINE_NAME = 0;
+
+    /**
+     * The feature id for the '<em><b>Short Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__SHORT_DESCRIPTION = 1;
+
+    /**
+     * The feature id for the '<em><b>Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__HOST = 2;
+
+    /**
+     * The feature id for the '<em><b>Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__PORT = 3;
+
+    /**
+     * The feature id for the '<em><b>Login</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__LOGIN = 4;
+
+    /**
+     * The feature id for the '<em><b>Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__PASSWORD = 5;
+
+    /**
+     * The feature id for the '<em><b>Application Context</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER__APPLICATION_CONTEXT = 6;
+
+    /**
+     * The number of structural features of the '<em>Spago Bi Server</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SPAGO_BI_SERVER_FEATURE_COUNT = 7;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 28;
+    int FOLDER_TYPE = 29;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -1674,7 +1765,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 29;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 30;
 
 
     /**
@@ -1853,6 +1944,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getProject_MasterJobId();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.Project#getSpagoBiServer <em>Spago Bi Server</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Spago Bi Server</em>'.
+     * @see org.talend.core.model.properties.Project#getSpagoBiServer()
+     * @see #getProject()
+     * @generated
+     */
+    EReference getProject_SpagoBiServer();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.Project#getTechnicalLabel <em>Technical Label</em>}'.
@@ -2798,6 +2900,93 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getContextItem_DefaultContext();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.SpagoBiServer <em>Spago Bi Server</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Spago Bi Server</em>'.
+     * @see org.talend.core.model.properties.SpagoBiServer
+     * @generated
+     */
+    EClass getSpagoBiServer();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SpagoBiServer#getEngineName <em>Engine Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Engine Name</em>'.
+     * @see org.talend.core.model.properties.SpagoBiServer#getEngineName()
+     * @see #getSpagoBiServer()
+     * @generated
+     */
+    EAttribute getSpagoBiServer_EngineName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SpagoBiServer#getShortDescription <em>Short Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Short Description</em>'.
+     * @see org.talend.core.model.properties.SpagoBiServer#getShortDescription()
+     * @see #getSpagoBiServer()
+     * @generated
+     */
+    EAttribute getSpagoBiServer_ShortDescription();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SpagoBiServer#getHost <em>Host</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Host</em>'.
+     * @see org.talend.core.model.properties.SpagoBiServer#getHost()
+     * @see #getSpagoBiServer()
+     * @generated
+     */
+    EAttribute getSpagoBiServer_Host();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SpagoBiServer#getPort <em>Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Port</em>'.
+     * @see org.talend.core.model.properties.SpagoBiServer#getPort()
+     * @see #getSpagoBiServer()
+     * @generated
+     */
+    EAttribute getSpagoBiServer_Port();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SpagoBiServer#getLogin <em>Login</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Login</em>'.
+     * @see org.talend.core.model.properties.SpagoBiServer#getLogin()
+     * @see #getSpagoBiServer()
+     * @generated
+     */
+    EAttribute getSpagoBiServer_Login();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SpagoBiServer#getPassword <em>Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Password</em>'.
+     * @see org.talend.core.model.properties.SpagoBiServer#getPassword()
+     * @see #getSpagoBiServer()
+     * @generated
+     */
+    EAttribute getSpagoBiServer_Password();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SpagoBiServer#getApplicationContext <em>Application Context</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Application Context</em>'.
+     * @see org.talend.core.model.properties.SpagoBiServer#getApplicationContext()
+     * @see #getSpagoBiServer()
+     * @generated
+     */
+    EAttribute getSpagoBiServer_ApplicationContext();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -3013,6 +3202,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute PROJECT__MASTER_JOB_ID = eINSTANCE.getProject_MasterJobId();
+
+        /**
+         * The meta object literal for the '<em><b>Spago Bi Server</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference PROJECT__SPAGO_BI_SERVER = eINSTANCE.getProject_SpagoBiServer();
 
         /**
          * The meta object literal for the '<em><b>Technical Label</b></em>' attribute feature.
@@ -3795,6 +3992,72 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute CONTEXT_ITEM__DEFAULT_CONTEXT = eINSTANCE.getContextItem_DefaultContext();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.SpagoBiServerImpl <em>Spago Bi Server</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.SpagoBiServerImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSpagoBiServer()
+         * @generated
+         */
+        EClass SPAGO_BI_SERVER = eINSTANCE.getSpagoBiServer();
+
+        /**
+         * The meta object literal for the '<em><b>Engine Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SPAGO_BI_SERVER__ENGINE_NAME = eINSTANCE.getSpagoBiServer_EngineName();
+
+        /**
+         * The meta object literal for the '<em><b>Short Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SPAGO_BI_SERVER__SHORT_DESCRIPTION = eINSTANCE.getSpagoBiServer_ShortDescription();
+
+        /**
+         * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SPAGO_BI_SERVER__HOST = eINSTANCE.getSpagoBiServer_Host();
+
+        /**
+         * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SPAGO_BI_SERVER__PORT = eINSTANCE.getSpagoBiServer_Port();
+
+        /**
+         * The meta object literal for the '<em><b>Login</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SPAGO_BI_SERVER__LOGIN = eINSTANCE.getSpagoBiServer_Login();
+
+        /**
+         * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SPAGO_BI_SERVER__PASSWORD = eINSTANCE.getSpagoBiServer_Password();
+
+        /**
+         * The meta object literal for the '<em><b>Application Context</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SPAGO_BI_SERVER__APPLICATION_CONTEXT = eINSTANCE.getSpagoBiServer_ApplicationContext();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

@@ -37,6 +37,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
  *   <li>{@link org.talend.core.model.properties.Project#getAvailableRefProject <em>Available Ref Project</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getMigrationTasks <em>Migration Tasks</em>}</li>
  *   <li>{@link org.talend.core.model.properties.Project#getMasterJobId <em>Master Job Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.Project#getSpagoBiServer <em>Spago Bi Server</em>}</li>
  * </ul>
  * </p>
  *
@@ -317,6 +318,22 @@ public interface Project extends EObject {
      * @generated
      */
     void setMasterJobId(String value);
+
+    /**
+     * Returns the value of the '<em><b>Spago Bi Server</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.SpagoBiServer}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Spago Bi Server</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Spago Bi Server</em>' containment reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getProject_SpagoBiServer()
+     * @model type="org.talend.core.model.properties.SpagoBiServer" containment="true"
+     * @generated
+     */
+    EList getSpagoBiServer();
 
     /**
      * Returns the value of the '<em><b>Technical Label</b></em>' attribute.

@@ -234,6 +234,15 @@ public interface PropertiesFactory extends EFactory {
     ContextItem createContextItem();
 
     /**
+     * Returns a new object of class '<em>Spago Bi Server</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Spago Bi Server</em>'.
+     * @generated
+     */
+    SpagoBiServer createSpagoBiServer();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

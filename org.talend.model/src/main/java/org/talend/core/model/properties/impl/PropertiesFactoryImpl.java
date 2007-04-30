@@ -103,6 +103,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: return createLdifFileConnectionItem();
             case PropertiesPackage.USER_PROJECT_AUTHORIZATION: return createUserProjectAuthorization();
             case PropertiesPackage.CONTEXT_ITEM: return createContextItem();
+            case PropertiesPackage.SPAGO_BI_SERVER: return createSpagoBiServer();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -368,6 +369,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public ContextItem createContextItem() {
         ContextItemImpl contextItem = new ContextItemImpl();
         return contextItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SpagoBiServer createSpagoBiServer() {
+        SpagoBiServerImpl spagoBiServer = new SpagoBiServerImpl();
+        return spagoBiServer;
     }
 
     /**
