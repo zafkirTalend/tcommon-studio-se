@@ -74,6 +74,7 @@ import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -765,6 +766,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return copyList(loadProject.getTechnicalStatus());
     }
 
+    public List<SpagoBiServer> getSpagoBiServer() throws PersistenceException {
+        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
+        return copyListOfSpagoBiServer(loadProject.getSpagoBiServer());
+    }
+
     private List<Status> copyList(List listOfStatus) {
         List<Status> result = new ArrayList<Status>();
         for (Object obj : listOfStatus) {
@@ -773,6 +779,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return result;
     }
 
+    private List<SpagoBiServer> copyListOfSpagoBiServer(List listOfSpagoBiServer) {
+        List<SpagoBiServer> result = new ArrayList<SpagoBiServer>();
+        for (Object obj : listOfSpagoBiServer) {
+            result.add((SpagoBiServer) obj);
+        }
+        return result;
+    }
+    
     public void setDocumentationStatus(List<Status> list) throws PersistenceException {
         org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
         loadProject.getDocumentationStatus().clear();
@@ -787,6 +801,13 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         xmiResourceManager.saveResource(loadProject.eResource());
     }
 
+    public void setSpagoBiServer(List<SpagoBiServer> list) throws PersistenceException {
+        org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(getProject());
+        loadProject.getSpagoBiServer().clear();
+        loadProject.getSpagoBiServer().addAll(list);
+        xmiResourceManager.saveResource(loadProject.eResource());
+    }
+    
     public void setMigrationTasksDone(Project project, List<String> list) throws PersistenceException {
         IProject iproject = ResourceModelUtils.getProject(project);
         org.talend.core.model.properties.Project loadProject = xmiResourceManager.loadProject(iproject);
