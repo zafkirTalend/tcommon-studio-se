@@ -37,6 +37,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -305,6 +306,13 @@ public interface IProxyRepositoryFactory {
     public abstract List<Status> getTechnicalStatus() throws PersistenceException;
 
     /**
+     * @return
+     * @see org.talend.repository.model.IRepositoryFactory#getSpagoBiServer()
+     */
+    public abstract List<SpagoBiServer> getSpagoBiServer() throws PersistenceException;
+
+    
+    /**
      * @param list
      * @see org.talend.repository.model.IRepositoryFactory#setDocumentationStatus(java.util.List)
      */
@@ -316,6 +324,13 @@ public interface IProxyRepositoryFactory {
      */
     public abstract void setTechnicalStatus(List<Status> list) throws PersistenceException;
 
+    /**
+     * @param list
+     * @see org.talend.repository.model.IRepositoryFactory#setSpagoBiServer(java.util.List)
+     */
+    public abstract void setSpagoBiServer(List<SpagoBiServer> list) throws PersistenceException;
+
+    
     public abstract void setMigrationTasksDone(Project project, List<String> list) throws PersistenceException;
 
     /*
