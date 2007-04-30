@@ -25,6 +25,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.ITargetExecutionConfig;
@@ -185,4 +186,8 @@ public interface IProcessor {
             IProcessMessageManager processMessageManager) throws ProcessorException;
 
     public ILaunchConfiguration debug() throws ProcessorException;
+    
+    public String getTargetPlatform();
+    
+    public void setTargetPlatform(String targetPlatform);
 }

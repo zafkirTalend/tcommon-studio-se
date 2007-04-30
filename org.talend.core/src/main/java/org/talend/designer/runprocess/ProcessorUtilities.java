@@ -52,6 +52,10 @@ public class ProcessorUtilities {
 
     private static boolean exportConfig = false;
 
+    // this character is used only when exporting a job in java, this will be replaced by the correct separator
+    // corresponding to the selected platform.
+    public static final String TEMP_JAVA_CLASSPATH_SEPARATOR = "@";
+
     public static ProcessItem getProcessItem(String processName) {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         ProcessItem selectedProcessItem = null;
@@ -223,7 +227,25 @@ public class ProcessorUtilities {
      * @throws ProcessorException
      */
     public static String[] getCommandLine(boolean externalUse, String processName, String contextName,
-             int statisticPort, int tracePort, String ... codeOptions) throws ProcessorException {
+            int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
+        return getCommandLine(null, externalUse, processName, contextName, statisticPort, tracePort, codeOptions);
+    }
+
+    /**
+     * Get the command line to launch the job.
+     * 
+     * @param targetPlatform for example Platform.OS_WIN32 / Platform.OS_LINUX
+     * @param externalUse
+     * @param processName
+     * @param contextName
+     * @param statisticPort
+     * @param tracePort
+     * @param codeOptions
+     * @return
+     * @throws ProcessorException
+     */
+    public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processName,
+            String contextName, int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
         IProcess currentProcess = null;
         ProcessItem selectedProcessItem = getProcessItem(processName);
         if (selectedProcessItem != null) {
@@ -235,6 +257,7 @@ public class ProcessorUtilities {
         }
         IContext currentContext = getContext(currentProcess, contextName);
         IProcessor processor = getProcessor(currentProcess, currentContext);
+        processor.setTargetPlatform(targetPlatform);
         return processor.getCommandLine(externalUse, statisticPort, tracePort, codeOptions);
     }
 
