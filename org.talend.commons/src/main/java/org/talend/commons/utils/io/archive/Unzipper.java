@@ -39,12 +39,12 @@ import org.talend.commons.utils.io.FilesUtils;
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
  */
-public class Unzipper {
+public class Unzipper extends AbstractUnarchiver {
 
     private String archiveFilePath;
-    private ZipInputStream zin;
     private String parentAbsolutePath;
-
+    
+    
     /**
      * DOC amaumont Unzipper constructor comment.
      * @throws FileNotFoundException 
@@ -54,23 +54,34 @@ public class Unzipper {
         this.archiveFilePath = archiveFilePath;
         File file = new File(archiveFilePath);
         parentAbsolutePath = file.getParentFile().getAbsolutePath();
+    }
+
+    /**
+     * DOC amaumont Comment method "createInputStream".
+     * @param archiveFilePath
+     * @throws FileNotFoundException
+     */
+    private ZipInputStream createInputStream(String archiveFilePath) throws FileNotFoundException {
         FileInputStream fin = new FileInputStream(archiveFilePath);
-        zin = new ZipInputStream(fin);
+        return new ZipInputStream(fin);
     }
 
     public long countEntries() throws IOException {
         long nbEntries = 0;
-        zin.reset();
+        ZipInputStream zin = createInputStream(archiveFilePath);
         while (zin.getNextEntry() != null) {
             nbEntries++;
         }
+        zin.close();
         return nbEntries;
     }
     
     public void unarchive() throws IOException {
-//        zin.reset();
+        ZipInputStream zin = createInputStream(archiveFilePath);
         ZipEntry ze = null;
+        long i = 0;
         while ((ze = zin.getNextEntry()) != null) {
+            setCurrentEntryIndex(i++);
             String filePath = parentAbsolutePath + "/" + ze.getName();
             FilesUtils.createFoldersIfNotExists(filePath, true);
             System.out.println("Unzipping " + ze.getName());
@@ -78,8 +89,15 @@ public class Unzipper {
             org.talend.commons.utils.io.StreamCopier.copy(zin, fout);
             zin.closeEntry();
             fout.close();
+            try {
+                System.out.println("slepping");
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
-        
+        zin.close();
     }
     
     /**
@@ -92,15 +110,8 @@ public class Unzipper {
     public static void unarchive(String archiveFilePath) throws IOException {
         Unzipper unzipper = new Unzipper(archiveFilePath);
         unzipper.unarchive();
-        unzipper.close();
+//        unzipper.close();
     }
 
-    /**
-     * DOC amaumont Comment method "close".
-     * @throws IOException 
-     */
-    public void close() throws IOException {
-        zin.close();
-    }
 
 }

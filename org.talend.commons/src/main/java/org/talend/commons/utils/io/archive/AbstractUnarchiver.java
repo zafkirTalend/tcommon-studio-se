@@ -23,13 +23,36 @@ package org.talend.commons.utils.io.archive;
 
 import java.io.IOException;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  */
 public abstract class AbstractUnarchiver {
 
-    public abstract void unarchive(String archiveFilePath) throws IOException;
+    private long totalEntries = -1;
+
+    private long currentEntryIndex = -1;
+
+    public abstract void unarchive() throws IOException;
+
+    public abstract long countEntries() throws IOException;
+
+    public int getPercentUnarchived() throws IOException {
+        if (totalEntries == -1) {
+            totalEntries = countEntries();
+        }
+        if (this.currentEntryIndex == -1) {
+            return 0;
+        } else if (totalEntries < 0) {
+            return 100;
+        } else {
+            int p = (int) ((this.currentEntryIndex + 1) * 100 / totalEntries);
+            return p;
+        }
+    }
+
+    protected void setCurrentEntryIndex(long currentEntryIndex) {
+        this.currentEntryIndex = currentEntryIndex;
+    }
+
 }
