@@ -84,18 +84,18 @@ public class Unzipper extends AbstractUnarchiver {
             setCurrentEntryIndex(i++);
             String filePath = parentAbsolutePath + "/" + ze.getName();
             FilesUtils.createFoldersIfNotExists(filePath, true);
-            System.out.println("Unzipping " + ze.getName());
+//            System.out.println("Unzipping " + ze.getName());
             FileOutputStream fout = new FileOutputStream(filePath);
             org.talend.commons.utils.io.StreamCopier.copy(zin, fout);
             zin.closeEntry();
             fout.close();
-            try {
-                System.out.println("slepping");
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+//            try {
+//                System.out.println("slepping");
+//                Thread.sleep(100);
+//            } catch (InterruptedException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
         }
         zin.close();
     }

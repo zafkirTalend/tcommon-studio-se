@@ -34,7 +34,7 @@ public abstract class ExecutionLimiter {
 
     private boolean inExecution;
 
-    private int timeBeforeNewExecution;
+    private long timeBeforeNewExecution;
 
     private long startTime;
 
@@ -46,11 +46,11 @@ public abstract class ExecutionLimiter {
         super();
     }
 
-    public ExecutionLimiter(int timeBeforeNewExecute) {
+    public ExecutionLimiter(long timeBeforeNewExecute) {
         this.timeBeforeNewExecution = timeBeforeNewExecute;
     }
 
-    public ExecutionLimiter(int timeBeforeNewExecute, boolean finalExecute) {
+    public ExecutionLimiter(long timeBeforeNewExecute, boolean finalExecute) {
         this.timeBeforeNewExecution = timeBeforeNewExecute;
         this.finalExecute = finalExecute;
     }
@@ -163,7 +163,7 @@ public abstract class ExecutionLimiter {
         return returnValue;
     }
 
-    public int getTimeBeforeNewExecution() {
+    public long getTimeBeforeNewExecution() {
         return timeBeforeNewExecution;
     }
 
