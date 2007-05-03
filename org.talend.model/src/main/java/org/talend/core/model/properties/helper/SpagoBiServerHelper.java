@@ -39,9 +39,7 @@ import org.talend.core.model.properties.SpagoBiServer;
 public final class SpagoBiServerHelper {
 
     private static final String SPAGOBISERVER_DELIMITER = ";"; //$NON-NLS-1$
-//    private static final char CODE_LABEL_DELIMITER = ' ';
-
-    private static final String ENGINE_DESCRIPTION_DELIMITER = "#o#";
+    private static final String ENGINE_DESCRIPTION_DELIMITER = "#o#"; //$NON-NLS-1$
     
     public static String writeString(List<String> items) {
         int size = items.size();
@@ -96,46 +94,42 @@ public final class SpagoBiServerHelper {
         check(value);
         String[] index = value.split(ENGINE_DESCRIPTION_DELIMITER);
         return index[0];
-//        int index = value.indexOf(CODE_LABEL_DELIMITER);
-//        return index < 0 ? "PB" : value.substring(0, index); //$NON-NLS-1$
     }
     
     public static final String getShortDescription(String value) {
         check(value);
         String[] index = value.split(ENGINE_DESCRIPTION_DELIMITER);
         return index[1];
-//        int index = value.indexOf(CODE_LABEL_DELIMITER);
-//        return index < 0 ? "PB" : value.substring(index + 1); //$NON-NLS-1$
     }
 
     public static final String getHost(String value) {
         check(value);
         String[] index = value.split(ENGINE_DESCRIPTION_DELIMITER);
-        return index[1];
+        return index[2];
     }
 
     public static final String getPort(String value) {
         check(value);
         String[] index = value.split(ENGINE_DESCRIPTION_DELIMITER);
-        return index[2];
+        return index[3];
     }
 
     public static final String getLogin(String value) {
         check(value);
         String[] index = value.split(ENGINE_DESCRIPTION_DELIMITER);
-        return index[3];
+        return index[4];
     }
 
     public static final String getPassword(String value) {
         check(value);
         String[] index = value.split(ENGINE_DESCRIPTION_DELIMITER);
-        return index[4];
+        return index[5];
     }
 
     public static final String getApplicationContext(String value) {
         check(value);
         String[] index = value.split(ENGINE_DESCRIPTION_DELIMITER);
-        return index[5];
+        return index[6];
     }
     
     public static final String getString(String engineName, String shortDescription, String host, String port, String login, String password, String applicationContext) {
