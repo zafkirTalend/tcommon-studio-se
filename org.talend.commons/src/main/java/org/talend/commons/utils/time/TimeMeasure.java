@@ -38,8 +38,6 @@ public class TimeMeasure {
     // PTODO create junit test class
     private static HashMap<String, List<Long>> timers;
 
-    private static List<Long> times;
-
     private static int indent = 0;
 
     /**
@@ -70,7 +68,7 @@ public class TimeMeasure {
         if (display) {
             System.out.println(indent(indent) + Messages.getString("TimeMeasure.StartTime", idTimer)); //$NON-NLS-1$
         }
-        times = new ArrayList<Long>();
+        List<Long> times = new ArrayList<Long>();
         times.add(System.currentTimeMillis());
         timers.put(idTimer, times);
     }
@@ -90,7 +88,7 @@ public class TimeMeasure {
         if (!timers.containsKey(idTimer) && display) {
             System.out.println(indent(indent) + Messages.getString("TimeMeasure.Warning.EndTimer", idTimer)); //$NON-NLS-1$
         } else {
-            times = timers.get(idTimer);
+            List<Long> times = timers.get(idTimer);
             timers.remove(idTimer);
             if (times.size() > 1) {
                 long elapsedTimeSinceLastRequest = System.currentTimeMillis() - times.get(times.size() - 1);
@@ -151,7 +149,7 @@ public class TimeMeasure {
                 System.out.println(indent(indent) + Messages.getString("TimeMeasure.EndTime.NotExist", idTimer)); //$NON-NLS-1$
             }
         } else {
-            times = timers.get(idTimer);
+            List<Long> times = timers.get(idTimer);
             long lastTime = times.get(times.size() - 1);
             long currentTime = System.currentTimeMillis();
             times.add(currentTime);
