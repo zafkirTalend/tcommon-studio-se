@@ -12,6 +12,7 @@ use vars qw(@EXPORT @ISA);
     tFileRowCount
     getFileList
     getFirstAndLastRowNumber
+    getSplittedFilename
 );
 
 sub tFileRowCount {
@@ -74,6 +75,28 @@ sub getFirstAndLastRowNumber {
     }
 
     return ($first, $last);
+}
+
+sub getSplittedFilename {
+    my ($filename, $num) = @_;
+
+    if ($filename =~ m{^(.*)\.([a-zA-Z0-9_-]+)$}) {
+        my ($filepath_wo_ext, $ext) = ($1, $2);
+
+        return sprintf(
+            '%s-%03u.%s',
+            $filepath_wo_ext,
+            $num,
+            $ext,
+        );
+    }
+    else {
+        return sprintf(
+            '%s-%03u',
+            $filename,
+            $num,
+        );
+    }
 }
 
 1;
