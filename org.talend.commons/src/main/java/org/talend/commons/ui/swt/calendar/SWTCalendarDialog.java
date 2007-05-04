@@ -27,6 +27,7 @@ import java.util.Date;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
@@ -38,6 +39,8 @@ import org.vafada.swtcalendar.SWTCalendarListener;
  * 
  */
 public class SWTCalendarDialog extends Dialog {
+
+    public static final int RESET_ID = 666;
 
     private SWTCalendar swtcal;
 
@@ -61,25 +64,45 @@ public class SWTCalendarDialog extends Dialog {
     protected Control createDialogArea(Composite parent) {
         Composite container = new Composite(parent, SWT.NONE);
         container.setLayout(new FillLayout());
-        swtcal = new SWTCalendar(container);
-        if (date != null) {
-            setDate(date);
-        }
+        GridData gridData = new GridData();
+        gridData.horizontalAlignment = SWT.CENTER;
+        container.setLayoutData(gridData);
+
+        swtcal = new SWTCalendarWithTime(container);
+        setDate(date);
         return container;
+    }
+
+    @Override
+    protected void buttonPressed(int buttonId) {
+        if (buttonId == RESET_ID) {
+            resetPressed();
+        } else {
+            super.buttonPressed(buttonId);
+        }
+    }
+
+    protected void resetPressed() {
+        setReturnCode(RESET_ID);
+        close();
+    }
+
+    @Override
+    protected void createButtonsForButtonBar(Composite parent) {
+        super.createButtonsForButtonBar(parent);
+        this.createButton(parent, RESET_ID, "Reset", false);
     }
 
     public Calendar getCalendar() {
         Calendar calendar = swtcal.getCalendar();
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
         return calendar;
     }
 
     private void setDate(Date date) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
+        if (date != null) {
+            calendar.setTime(date);
+        }
         swtcal.setCalendar(calendar);
     }
 
