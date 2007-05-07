@@ -22,10 +22,12 @@
 package org.talend.core.model.genhtml;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import org.dom4j.Document;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
 import org.talend.commons.exception.ExceptionHandler;
 
@@ -51,16 +53,62 @@ public class XMLHandler {
             // OutputFormat format = OutputFormat.createPrettyPrint();
             out = new java.io.FileOutputStream(filePath);
             writer = new OutputStreamWriter(out, "UTF-8");
-            document.write(writer);
-            writer.close();
-            out.close();
+
+            OutputFormat format = OutputFormat.createPrettyPrint();
+            output = new XMLWriter(writer, format) {
+
+                /*
+                 * (non-Javadoc)
+                 * 
+                 * @see org.dom4j.io.XMLWriter#writeDeclaration()
+                 */
+                protected void writeDeclaration() throws IOException {
+                    OutputFormat formatTmp = this.getOutputFormat();
+                    String encoding = formatTmp.getEncoding();
+
+                    // Only print of declaration is not suppressed
+                    if (!formatTmp.isSuppressDeclaration()) {
+                        // Assume 1.0 version
+                        if (encoding.equals("UTF8")) {
+                            writer.write("<?xml version=\"1.1\"");
+
+                            if (!formatTmp.isOmitEncoding()) {
+                                writer.write(" encoding=\"UTF-8\"");
+                            }
+
+                            writer.write("?>");
+                        } else {
+                            writer.write("<?xml version=\"1.1\"");
+
+                            if (!formatTmp.isOmitEncoding()) {
+                                writer.write(" encoding=\"" + encoding + "\"");
+                            }
+
+                            writer.write("?>");
+                        }
+
+                        if (formatTmp.isNewLineAfterDeclaration()) {
+                            println();
+                        }
+                    }
+                }
+            };
+
+            output.write(document);
+            output.flush();
         } catch (Exception e) {
             ExceptionHandler.process(e);
         } finally {
-
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
+                }
+            }
             if (writer != null) {
                 try {
-
+                    writer.close();
                 } catch (Exception e) {
                     ExceptionHandler.process(e);
                 }
@@ -72,12 +120,7 @@ public class XMLHandler {
                     ExceptionHandler.process(e);
                 }
             }
-            if (output != null)
-                try {
-                    output.close();
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
-                }
+
         }
     }
 
