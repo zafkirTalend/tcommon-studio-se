@@ -309,7 +309,8 @@ public interface IProxyRepositoryFactory {
      * @return
      * @see org.talend.repository.model.IRepositoryFactory#getSpagoBiServer()
      */
-    public abstract List<SpagoBiServer> getSpagoBiServer() throws PersistenceException;
+    // TODO SML Remove
+//    public abstract List<SpagoBiServer> getSpagoBiServer() throws PersistenceException;
 
     
     /**
