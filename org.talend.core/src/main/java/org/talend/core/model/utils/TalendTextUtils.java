@@ -22,26 +22,25 @@
 package org.talend.core.model.utils;
 
 import org.talend.core.context.RepositoryContext;
-import org.talend.core.i18n.Messages;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 
-
 /**
- * DOC nrousseau  class global comment. Detailled comment
- * <br/>
- *
+ * DOC nrousseau class global comment. Detailled comment <br/>
+ * 
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
- *
+ * 
  */
 public class TalendTextUtils {
+
     public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
-    
+
     public static final String QUOTATION_MARK = "\""; //$NON-NLS-1$
-    
+
     public static String addQuotes(String text) {
         ECodeLanguage language = ((RepositoryContext) org.talend.core.CorePlugin.getContext().getProperty(
                 org.talend.core.context.Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
-        
+
         switch (language) {
         case JAVA:
             return addQuotes(text, QUOTATION_MARK);
@@ -49,10 +48,10 @@ public class TalendTextUtils {
             return addQuotes(text, SINGLE_QUOTE);
         }
     }
-    
+
     public static String addQuotes(String text, String quoteStyle) {
         String newString;
-        
+
         if (quoteStyle.equals(SINGLE_QUOTE)) {
             newString = SINGLE_QUOTE + checkStringQuotes(text) + SINGLE_QUOTE;
         } else {
@@ -60,7 +59,7 @@ public class TalendTextUtils {
         }
         return newString;
     }
-    
+
     private static String checkStringQuotes(String str) {
         if (str == null) {
             return ""; //$NON-NLS-1$
@@ -73,5 +72,50 @@ public class TalendTextUtils {
             return ""; //$NON-NLS-1$
         }
         return str.replace("\"", "\\\""); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+
+    public static String addQuotesWithSpaceField(String fieldName, String dbType) {
+        if (!fieldName.contains(" ")) {
+            return fieldName;
+        }
+        String newFieldName = fieldName;
+        newFieldName = addQuotes(newFieldName, getQuoteByDBType(dbType));
+        return newFieldName;
+    }
+
+    public static String getQuoteByDBType(String dbType) {
+        EDatabaseTypeName name = EDatabaseTypeName.IBMDB2;
+        for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
+            if (typename.getDisplayName().equals(dbType)) {
+                name = typename;
+                break;
+            }
+        }
+        switch (name) {
+        case GODBC:
+            return QUOTATION_MARK;
+        case IBMDB2:
+            return QUOTATION_MARK;
+        case INGRES:
+            return QUOTATION_MARK;
+        case MSODBC:
+            return QUOTATION_MARK;
+        case MSSQL:
+            return QUOTATION_MARK;
+        case MYSQL:
+            return SINGLE_QUOTE;
+        case ORACLEFORSID:
+            return QUOTATION_MARK;
+        case ORACLESN:
+            return QUOTATION_MARK;
+        case PSQL:
+            return QUOTATION_MARK;
+        case SYBASEASE:
+            return QUOTATION_MARK;
+        case SYBASEIQ:
+            return QUOTATION_MARK;
+        default:
+            return QUOTATION_MARK;
+        }
     }
 }
