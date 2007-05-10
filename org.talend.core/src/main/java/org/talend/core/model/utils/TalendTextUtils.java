@@ -35,7 +35,13 @@ public class TalendTextUtils {
 
     public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
 
+    public static final String ANTI_QUOTE = "`";
+
     public static final String QUOTATION_MARK = "\""; //$NON-NLS-1$
+
+    public static final String LBRACKET = "[";
+
+    public static final String RBRACKET = "]";
 
     public static String addQuotes(String text) {
         ECodeLanguage language = ((RepositoryContext) org.talend.core.CorePlugin.getContext().getProperty(
@@ -54,6 +60,10 @@ public class TalendTextUtils {
 
         if (quoteStyle.equals(SINGLE_QUOTE)) {
             newString = SINGLE_QUOTE + checkStringQuotes(text) + SINGLE_QUOTE;
+        } else if (quoteStyle.equals(ANTI_QUOTE)) {
+            newString = ANTI_QUOTE + checkStringQuotationMarks(text) + ANTI_QUOTE;
+        } else if (quoteStyle.equals(LBRACKET) || quoteStyle.equals(RBRACKET)) {
+            newString = LBRACKET + checkStringQuotationMarks(text) + RBRACKET;
         } else {
             newString = QUOTATION_MARK + checkStringQuotationMarks(text) + QUOTATION_MARK;
         }
@@ -83,6 +93,8 @@ public class TalendTextUtils {
         return newFieldName;
     }
 
+    private static boolean isLeft = true;
+
     public static String getQuoteByDBType(String dbType) {
         EDatabaseTypeName name = EDatabaseTypeName.IBMDB2;
         for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
@@ -93,7 +105,7 @@ public class TalendTextUtils {
         }
         switch (name) {
         case GODBC:
-            return QUOTATION_MARK;
+            return getBracket();
         case IBMDB2:
             return QUOTATION_MARK;
         case INGRES:
@@ -103,7 +115,7 @@ public class TalendTextUtils {
         case MSSQL:
             return QUOTATION_MARK;
         case MYSQL:
-            return SINGLE_QUOTE;
+            return ANTI_QUOTE;
         case ORACLEFORSID:
             return QUOTATION_MARK;
         case ORACLESN:
@@ -117,5 +129,54 @@ public class TalendTextUtils {
         default:
             return QUOTATION_MARK;
         }
+    }
+
+    /**
+     * qzhang Comment method "getBracket".
+     * 
+     * @return
+     */
+    private static String getBracket() {
+        if (isLeft) {
+            isLeft = false;
+            return LBRACKET;
+        } else {
+            isLeft = true;
+            return RBRACKET;
+        }
+    }
+
+    public static String removeQuotesForField(String text, String dbType) {
+        String newText;
+        isLeft = true;
+        final String quoteByDBType = getQuoteByDBType(dbType);
+        if (quoteByDBType.equals(LBRACKET)) {
+            if (text.length() > 2) {
+                newText = text.substring(1, text.length() - 1);
+                if (text.contains(RBRACKET)) {
+                    newText = newText.replaceAll(RBRACKET, "");
+                } else {
+                    newText = text;
+                }
+            } else {
+                newText = text;
+            }
+
+        } else {
+            newText = text.replaceAll(quoteByDBType, "");
+        }
+        return newText;
+    }
+
+    /**
+     * qzhang Comment method "getQuoteByDBType".
+     * 
+     * @param dbType
+     * @param b
+     * @return
+     */
+    public static String getQuoteByDBType(String dbType, boolean b) {
+        isLeft = b;
+        return getQuoteByDBType(dbType);
     }
 }
