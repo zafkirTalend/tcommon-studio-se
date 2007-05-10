@@ -70,4 +70,15 @@ public class StringUtils {
         return returned;
     }
 
+    public static String removeSpecialCharsForPackage(String input) {
+        input = input.replaceAll(" ", "");
+        input = input.replaceAll("/", ".");
+        input = input.replaceAll("&", "and");
+        input = input.replaceAll("<", "lt");
+        input = input.replaceAll(">", "gt");
+        input = input.replaceAll("'", "apos");
+        input = input.replaceAll("\"", "quot");
+        return input;
+    }
+
 }
