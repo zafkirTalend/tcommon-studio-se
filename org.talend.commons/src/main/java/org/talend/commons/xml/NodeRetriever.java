@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.commons.xml;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -124,7 +125,7 @@ public class NodeRetriever {
         try {
 //            dbf.setNamespaceAware(true);
             DocumentBuilder db = dbf.newDocumentBuilder();
-            document = db.parse(filePath);
+            document = db.parse(new File(filePath));
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         } catch (SAXException e) {
