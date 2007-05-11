@@ -41,7 +41,7 @@ public abstract class ProgressDialog {
 
     private Shell parentShell;
 
-    private int timeBeforeShowDialog;
+    private long timeBeforeShowDialog;
 
     /**
      * 
@@ -105,7 +105,6 @@ public abstract class ProgressDialog {
                     final ProgressMonitorDialog progressMonitorDialog = new ProgressMonitorDialog(parentShell);
                     if (timeBeforeShowDialog > 0) {
                         progressMonitorDialog.setOpenOnRun(false);
-                        progressMonitorDialog.setBlockOnOpen(true);
                         AsynchronousThreading asynchronousThreading = new AsynchronousThreading(timeBeforeShowDialog, true, display,
                                 new Runnable() {
                             
