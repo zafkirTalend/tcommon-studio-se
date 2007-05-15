@@ -183,10 +183,7 @@ public class XmiResourceManager {
 
     public void saveResource(Resource resource) throws PersistenceException {
         try {
-            HashMap options = new HashMap(2);
-            options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-            options.put(XMLResource.OPTION_XML_VERSION, "1.1");
-            resource.save(options);
+            resource.save(null);
         } catch (IOException e) {
             throw new PersistenceException(e);
         }
