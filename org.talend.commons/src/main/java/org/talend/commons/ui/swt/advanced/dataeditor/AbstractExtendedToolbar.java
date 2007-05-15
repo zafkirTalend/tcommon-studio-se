@@ -98,4 +98,10 @@ public abstract class AbstractExtendedToolbar {
 
     public abstract List<ExtendedPushButton> getButtons();
 
+    public Composite getToolbar() {
+        return this.toolbar;
+    }
+
+    
+    
 }

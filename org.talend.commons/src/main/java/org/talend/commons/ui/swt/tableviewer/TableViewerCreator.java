@@ -552,7 +552,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
 
         setBackgroundColor(backgroundColor != null ? backgroundColor : table.getDisplay().getSystemColor(
-              SWT.COLOR_WHITE));
+                SWT.COLOR_WHITE));
         setForegroundColor(foregroundColor != null ? foregroundColor : table.getDisplay().getSystemColor(
                 SWT.COLOR_BLACK));
 
@@ -926,8 +926,29 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         }
     }
 
+    /**
+     * 
+     * DOC amaumont Comment method "addColumn".
+     * 
+     * @param tableEditorColumn
+     */
     public void addColumn(TableViewerCreatorColumn tableEditorColumn) {
-        columns.add(tableEditorColumn);
+        String id = tableEditorColumn.getId();
+        if (id == null) {
+            throw new IllegalArgumentException("Column '" + tableEditorColumn.getTitle() + "' has null id !");
+        }
+        int columnsListSize = columns.size();
+        boolean columnWithSameId = false;
+        for (int i = 0; i < columnsListSize; i++) {
+            TableViewerCreatorColumn column = columns.get(i);
+            if (id.equals(column.getId())) {
+                columnWithSameId = true;
+                break;
+            }
+        }
+        if (!columnWithSameId) {
+            columns.add(tableEditorColumn);
+        }
     }
 
     /**

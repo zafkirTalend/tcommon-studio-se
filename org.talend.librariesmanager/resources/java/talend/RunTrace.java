@@ -60,9 +60,9 @@ public class RunTrace implements Runnable {
 
     private String str = "";
 
-    public void startThreadTrace(int portTraces) throws java.io.IOException, java.net.UnknownHostException {
+    public void startThreadTrace(String clientHost, int portTraces) throws java.io.IOException, java.net.UnknownHostException {
         System.out.println("[trace] connecting to socket on port " + portTraces);
-        s = new java.net.Socket("localhost", portTraces);
+        s = new java.net.Socket(clientHost, portTraces);
         pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())),
                 true);
         System.out.println("[trace] connected");

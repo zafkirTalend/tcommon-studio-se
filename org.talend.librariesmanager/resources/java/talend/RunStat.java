@@ -74,9 +74,9 @@ public class RunStat implements Runnable {
 
     private long currentTime = 0;
 
-    public void startThreadStat(int portStats) throws java.io.IOException, java.net.UnknownHostException {
+    public void startThreadStat(String clientHost, int portStats) throws java.io.IOException, java.net.UnknownHostException {
         System.out.println("[statistics] connecting to socket on port " + portStats);
-        s = new java.net.Socket("localhost", portStats);
+        s = new java.net.Socket(clientHost, portStats);
         startTime = java.util.Calendar.getInstance().getTimeInMillis();
         pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())),
                 true);

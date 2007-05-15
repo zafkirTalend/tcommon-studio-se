@@ -140,6 +140,7 @@ public class TableViewerCreatorColumn implements Cloneable {
      */
     public TableViewerCreatorColumn() {
         super();
+        this.id = TableViewerCreatorColumn.getNewId();
     }
 
     /**
@@ -149,11 +150,11 @@ public class TableViewerCreatorColumn implements Cloneable {
     public TableViewerCreatorColumn(TableViewerCreator tableViewerCreator) {
         super();
         this.tableViewerCreator = tableViewerCreator;
-        tableViewerCreator.addColumn(this);
         this.moveable = this.tableViewerCreator.isColumnsMoveableByDefault();
         this.resizable = this.tableViewerCreator.isColumnsResizableByDefault();
         this.sortable = this.tableViewerCreator.isColumnsSortableByDefault();
         this.id = TableViewerCreatorColumn.getNewId();
+        tableViewerCreator.addColumn(this);
     }
 
     public ALIGNMENT getAlignment() {

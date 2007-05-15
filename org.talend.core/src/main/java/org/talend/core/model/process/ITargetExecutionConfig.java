@@ -31,4 +31,8 @@ public interface ITargetExecutionConfig extends IServerConfiguration {
 
     public boolean isRemote();    
 
+    public int getFileTransferPort();
+    
+    public void setFileTransferPort(int transferFilePort);
+
 }

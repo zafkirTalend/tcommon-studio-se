@@ -285,4 +285,11 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         return 0;
     }
 
+    /**
+     * DOC amaumont Comment method "createBeanInstance".
+     */
+    public B createBeanInstance() {
+        return null;
+    }
+
 }

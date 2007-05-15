@@ -36,11 +36,14 @@ share(%_rsLine);
 my $__InternalStatSocket;
 my $__RunStatPort = 3334;
 my $__RefreshTime = 1; # en seconde
+my $__ClientHost;
+
 
 our $thread_stat;
 
 sub StartThreadStat {
-    my ($port) = @_;
+    my ($port, $clientHost) = @_;
+    $__ClientHost = $clientHost;
     $__RunStatPort = $port if defined $port;
 
     $| = 1;
@@ -64,14 +67,14 @@ sub ConnectStat {
     print '[statistics] connecting to socket on port '.$__RunStatPort." ...\n";
 
     $__InternalStatSocket = IO::Socket::INET->new(
-        PeerAddr => '127.0.0.1',
+        PeerAddr => $__ClientHost,
         PeerPort => $__RunStatPort,
         Proto => 'tcp',
     );
 
     while (!$__InternalStatSocket) {
         $__InternalStatSocket = IO::Socket::INET->new(
-            PeerAddr => '127.0.0.1',
+            PeerAddr => $__ClientHost,
             PeerPort => $__RunStatPort,
             Proto => 'tcp',
         );
