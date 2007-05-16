@@ -38,18 +38,15 @@ import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.IntegerFieldEditor;
 import org.eclipse.jface.preference.StringFieldEditor;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-import org.epic.perleditor.IEpicService;
+import org.epic.core.preferences.PerlMainPreferencePage;
+import org.epic.perleditor.PerlEditorPlugin;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.preferences.ComboFieldEditor;
 import org.talend.core.CorePlugin;
-import org.talend.core.GlobalServiceRegister;
 import org.talend.core.i18n.Messages;
 import org.talend.core.prefs.ITalendCorePrefConstants;
-import org.talend.designer.codegen.ICodeGeneratorService;
 
 /**
  * DOC chuger class global comment. Detailled comment <br/>
@@ -60,47 +57,6 @@ import org.talend.designer.codegen.ICodeGeneratorService;
 public class CorePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
     private OneLineComboFieldEditor languageSelectionEditor;
-
-    private FileFieldEditorWithListeners perlInterpreter;
-
-    /**
-     * DOC yzhang CorePreferencePage class global comment. Detailled comment <br/>
-     * 
-     * $Id$
-     * 
-     */
-    public class FileFieldEditorWithListeners extends FileFieldEditor {
-
-        IEpicService service = (IEpicService) GlobalServiceRegister.getDefault().getService(IEpicService.class);;
-
-        /**
-         * DOC yzhang CorePreferencePage.FileFieldEditorWithListeners constructor comment.
-         */
-        public FileFieldEditorWithListeners() {
-        }
-
-        /**
-         * DOC yzhang FileFieldEditorWithListeners constructor comment.
-         * 
-         * @param name
-         * @param labelText
-         * @param enforceAbsolute
-         * @param parent
-         */
-        public FileFieldEditorWithListeners(String name, String labelText, boolean enforceAbsolute, Composite parent) {
-            super(name, labelText, enforceAbsolute, parent);
-        }
-
-        /**
-         * DOC yzhang Comment method "addModifyListener".
-         * 
-         * @param listener
-         */
-        public void notifyModificationToEpic() {
-            service.setEpicPerlExecutableText(getTextControl().getText());
-        }
-
-    }
 
     /**
      * Construct a new CorePreferencePage.
@@ -122,7 +78,7 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
                 .getString("CorePreferencePage.temporaryFiles"), getFieldEditorParent()); //$NON-NLS-1$
         addField(filePathTemp);
 
-        this.perlInterpreter = new FileFieldEditorWithListeners(ITalendCorePrefConstants.PERL_INTERPRETER, Messages
+        FileFieldEditor perlInterpreter = new FileFieldEditor(ITalendCorePrefConstants.PERL_INTERPRETER, Messages
                 .getString("CorePreferencePage.perlInterpreter"), true, getFieldEditorParent()); //$NON-NLS-1$
         addField(perlInterpreter);
 
@@ -158,7 +114,9 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         boolean ok = super.performOk();
         saveLanguageType();
         if (ok) {
-            this.perlInterpreter.notifyModificationToEpic();
+            String perlInterpreter = getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
+            PerlEditorPlugin.getDefault().setExecutablePreference("\""+perlInterpreter+"\"");
+            PerlMainPreferencePage.refreshExecutableTextValue("\""+perlInterpreter+"\"");
         }
         return ok;
     }
@@ -220,5 +178,4 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
     public void init(IWorkbench workbench) {
         // Do nothing
     }
-
 }
