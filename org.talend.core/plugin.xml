@@ -25,6 +25,12 @@
             class="org.talend.core.prefs.ui.ColorsCodeViewerPreferencePage"
             id="org.talend.core.pref.colorcodeviewer"
             name="%prefColors"/>
+            
+       <page
+            category="org.talend.core.prefs"
+            class="org.talend.core.prefs.ui.MetadataTalendTypePreferencePage"
+            id="org.talend.core.prefs.ui.MetadataTalendTypePreferencePage"
+            name="Metadata of TalendType"/>
    </extension> 
    <extension
          point="org.eclipse.core.runtime.preferences">

@@ -71,6 +71,11 @@ import org.xml.sax.SAXException;
  */
 public final class MetadataTalendType {
 
+    /**
+     * 
+     */
+    public static final String INTERNAL_MAPPINGS_FOLDER = "mappings";
+
     private static Logger log = Logger.getLogger(MetadataTalendType.class);
 
     private static ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
@@ -118,6 +123,7 @@ public final class MetadataTalendType {
 
     };
 
+    private static List<File> metadataMappingFiles = null;
     static {
         try {
             MetadataTalendType.loadCommonMappings();
@@ -192,7 +198,7 @@ public final class MetadataTalendType {
      * @param dbms
      * @param reload
      * @return
-     * @deprecated 
+     * @deprecated
      */
     public static String[] loadDatabaseTypes(String dbms, boolean reload) {
         dbms = dbms.toUpperCase();
@@ -245,8 +251,10 @@ public final class MetadataTalendType {
 
                         Node defaultNamedItem = typeNodeAttributes.getNamedItem("default"); //$NON-NLS-1$
                         if (defaultNamedItem != null && "true".equals(defaultNamedItem.getNodeValue())) { //$NON-NLS-1$
-                            dv.put(typeNodeAttributes.getNamedItem("talend").getNodeValue(), typeNodeAttributes.getNamedItem("dbms") //$NON-NLS-1$ //$NON-NLS-2$
-                                    .getNodeValue());
+                            dv
+                                    .put(
+                                            typeNodeAttributes.getNamedItem("talend").getNodeValue(), typeNodeAttributes.getNamedItem("dbms") //$NON-NLS-1$ //$NON-NLS-2$
+                                                    .getNodeValue());
                         }
                     }
                     brotherNode = brotherNode.getNextSibling();
@@ -385,7 +393,7 @@ public final class MetadataTalendType {
      */
     public static void loadCommonMappings() throws SystemException {
 
-        String dirName = "mappings"; //$NON-NLS-1$
+        String dirName = INTERNAL_MAPPINGS_FOLDER; //$NON-NLS-1$
 
         String dirPath = "/" + dirName; //$NON-NLS-1$
 
@@ -404,16 +412,20 @@ public final class MetadataTalendType {
             throw new SystemException(e);
         }
         File dir = new File(url.getPath());
-
+        metadataMappingFiles = new ArrayList<File>();
         if (dir.isDirectory()) {
             File[] files = dir.listFiles();
             for (File file : files) {
                 if (file.getName().matches("^mapping_.*\\.xml$")) { //$NON-NLS-1$
                     loadMapping(file);
+                    metadataMappingFiles.add(file);
                 }
             }
         }
+    }
 
+    public static List<File> getMetadataMappingFiles() {
+        return metadataMappingFiles;
     }
 
     private static void loadMapping(File file) throws SystemException {
@@ -469,8 +481,8 @@ public final class MetadataTalendType {
                 for (int i = 0; i < languageNodes.size(); i++) {
                     Node languageNode = languageNodes.get(i);
 
-//                    System.out.println();
-                    
+                    // System.out.println();
+
                     String languageValue = languageNode.getAttributes().getNamedItem("name").getNodeValue(); //$NON-NLS-1$
 
                     if (codeLanguage.getName().equalsIgnoreCase(languageValue)) {
@@ -522,9 +534,9 @@ public final class MetadataTalendType {
                                     mappingTypes.add(objectMappingType);
 
                                 } else {
-                                    
+
                                     log.warn("'" + talendType + "' is not a valid Java Talend type.");
-                                    
+
                                 }
 
                             } else if (LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
@@ -532,19 +544,16 @@ public final class MetadataTalendType {
                                 MappingType mappingType = new MappingType();
                                 mappingType.setTalendTypeName(talendTypeItem.getNodeValue());
                                 mappingType.setDbType(dbTypeItem.getNodeValue());
-                                mappingType.setDefaultSelected(defaultSelectedItem != null
-                                        && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE); //$NON-NLS-1$
+                                mappingType
+                                        .setDefaultSelected(defaultSelectedItem != null
+                                                && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE); //$NON-NLS-1$
                                 mappingType.setNullable(Boolean.FALSE);
                                 mappingTypes.add(mappingType);
-
                             }
-
                         }
                     }
                 }
-
             }
-
         } catch (IOException e) {
             throw new SystemException(e);
         } catch (ParserConfigurationException e) {

@@ -59,7 +59,7 @@ import org.eclipse.swt.widgets.Widget;
  */
 public abstract class TableEditor extends FieldEditor {
 
-    private TableViewer viewer;
+    protected TableViewer viewer;
 
     private List<String> list;
 

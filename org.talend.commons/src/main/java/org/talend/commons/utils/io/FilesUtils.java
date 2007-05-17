@@ -49,9 +49,8 @@ import org.talend.commons.exception.ExceptionHandler;
  */
 public class FilesUtils {
 
-    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy,
-            final FileFilter sourceFolderFilter, final FileFilter sourceFileFilter, boolean copyFolder)
-            throws IOException {
+    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy, final FileFilter sourceFolderFilter,
+            final FileFilter sourceFileFilter, boolean copyFolder) throws IOException {
         if (!target.exists()) {
             target.mkdirs();
         }
@@ -111,18 +110,29 @@ public class FilesUtils {
     }
 
     public static void copyFile(InputStream source, File target) throws IOException {
-        if (!target.getParentFile().exists()) {
-            target.getParentFile().mkdirs();
+        FileOutputStream fos = null;
+        try {
+            if (!target.getParentFile().exists()) {
+                target.getParentFile().mkdirs();
+            }
+
+            fos = new FileOutputStream(target);
+            byte[] buf = new byte[1024];
+            int i = 0;
+            while ((i = source.read(buf)) != -1) {
+                fos.write(buf, 0, i);
+            }
+        } finally {
+            try {
+                source.close();
+            } catch (Exception e) {
+            }
+            try {
+                fos.close();
+            } catch (Exception e) {
+            }
         }
 
-        FileOutputStream fos = new FileOutputStream(target);
-        byte[] buf = new byte[1024];
-        int i = 0;
-        while ((i = source.read(buf)) != -1) {
-            fos.write(buf, 0, i);
-        }
-        source.close();
-        fos.close();
     }
 
     public static void replaceInFile(String regex, String fileName, String replacement) throws IOException {
@@ -289,5 +299,5 @@ public class FilesUtils {
         Path completePath = new Path(filePath);
         return completePath.removeLastSegments(1).toOSString();
     }
-    
+
 }
