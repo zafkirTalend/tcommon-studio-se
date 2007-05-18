@@ -35,13 +35,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
+import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
-import org.talend.core.i18n.Messages;
-import org.talend.core.model.metadata.MetadataTalendType;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.helpers.DefaultHandler;
@@ -77,8 +77,8 @@ public class XSDValidater {
         // associated schema
         DocumentBuilder builder = factory.newDocumentBuilder();
         Document doc = builder.parse(new InputSource(xml));
+        schema.newValidator().validate(new DOMSource(doc));
     }
-
     /**
      * Validate xml with xsd by sax.
      * 
@@ -100,4 +100,5 @@ public class XSDValidater {
     public void validateWithDom(File xsd, File xml) throws Exception {
         this.validateWithDom(new FileReader(xsd), new FileReader(xml));
     }
+
 }
