@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <mapping>
-	<dbms product="ibmdb2_product" id="ibmdb2_id" label="Mapping IBM DB2">
+	<dbms product="IBMDB2" id="ibmdb2_id" label="Mapping IBM DB2">
 
 		<db_types>
 			<type dbType="BOOLEAN"/>

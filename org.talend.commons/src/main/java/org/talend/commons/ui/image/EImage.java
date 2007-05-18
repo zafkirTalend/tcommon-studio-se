@@ -46,6 +46,8 @@ public enum EImage implements IImage {
     REFRESH_ICON("/icons/refresh.gif"),
     EDIT_ICON("/icons/write_obj.gif"),
     READ_ICON("/icons/read_obj.gif"),
+    
+    RESET_DBTYPES_ICON("/icons/reset_dbtypes.jpg"),
 
     IMPORT_ICON("/icons/import.gif"),
     EXPORT_ICON("/icons/export.gif"),

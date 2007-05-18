@@ -52,6 +52,8 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
+import org.talend.core.model.process.EParameterFieldType;
+import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
@@ -160,10 +162,10 @@ public class MetadataDialog extends Dialog {
 
         MetadataTableEditor metadataTableEditor;
 
-        boolean showDbTypeColumnForInput = inputFamily != null
-                && (inputFamily.startsWith(DATABASE_LABEL) || inputFamily.startsWith(ELT_LABEL));
-        boolean showDbTypeColumnForOutput = outputFamily.startsWith(DATABASE_LABEL)
-                || outputFamily.startsWith(ELT_LABEL);
+//        boolean showDbTypeColumnForInput = inputFamily != null
+//                && (inputFamily.startsWith(DATABASE_LABEL) || inputFamily.startsWith(ELT_LABEL));
+//        boolean showDbTypeColumnForOutput = outputFamily.startsWith(DATABASE_LABEL)
+//                || outputFamily.startsWith(ELT_LABEL);
 
         boolean showTalendTypeColumnForInput = !(inputFamily != null && inputFamily.startsWith(ELT_LABEL));
         boolean showTalendTypeColumnForOutput = !outputFamily.startsWith(ELT_LABEL);
@@ -173,13 +175,19 @@ public class MetadataDialog extends Dialog {
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly,
                     true, true, false);
-            outputMetaView.setShowDbTypeColumn(showDbTypeColumnForOutput, true, false);
+            boolean hasMappingType = false;
+            for (IElementParameter currentParam : outputNode.getElementParameters()) {
+                if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)
+                        && currentParam.isShow(outputNode.getElementParameters())) {
+                    outputMetaView.setCurrentDbms((String) currentParam.getValue());
+                    hasMappingType = true;
+                }
+            }
+            outputMetaView.setShowDbTypeColumn(hasMappingType, true, hasMappingType);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
-
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
         } else {
-
             compositesSachForm = new ThreeCompositesSashForm(composite, SWT.NONE);
 
             GridLayout gridLayout = new GridLayout(1, false);
@@ -197,7 +205,15 @@ public class MetadataDialog extends Dialog {
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
             inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE,
                     metadataTableEditor, inputReadOnly, true, true, false);
-            inputMetaView.setShowDbTypeColumn(showDbTypeColumnForInput, true, false);
+            boolean hasMappingType = false;
+            for (IElementParameter currentParam : inputNode.getElementParameters()) {
+                if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)
+                        && currentParam.isShow(inputNode.getElementParameters())) {
+                    inputMetaView.setCurrentDbms((String) currentParam.getValue());
+                    hasMappingType = true;
+                }
+            }
+            inputMetaView.setShowDbTypeColumn(hasMappingType, true, hasMappingType);
             inputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForInput);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -283,7 +299,15 @@ public class MetadataDialog extends Dialog {
             outputMetaView = new MetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
                     new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)"), outputReadOnly, true, true, //$NON-NLS-1$
                     false);
-            outputMetaView.setShowDbTypeColumn(showDbTypeColumnForOutput, false, true);
+            hasMappingType = false;
+            for (IElementParameter currentParam : outputNode.getElementParameters()) {
+                if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)
+                        && currentParam.isShow(outputNode.getElementParameters())) {
+                    outputMetaView.setCurrentDbms((String) currentParam.getValue());
+                    hasMappingType = true;
+                }
+            }
+            outputMetaView.setShowDbTypeColumn(hasMappingType, false, hasMappingType);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -293,11 +317,13 @@ public class MetadataDialog extends Dialog {
                 copyToOutput.setEnabled(false);
             }
             compositesSachForm.setGridDatas();
-            CustomTableManager.addCustomManagementToTable(inputMetaView.getTableViewerCreator(), inputReadOnly);
+            CustomTableManager.addCustomManagementToTable(inputMetaView.getTableViewerCreator(), inputReadOnly,
+                    inputMetaView.getCurrentDbms());
             CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly,
                     outputMetaView, outputMetaTable, outputNode.getComponent().isSchemaAutoPropagated());
         }
-        CustomTableManager.addCustomManagementToTable(outputMetaView.getTableViewerCreator(), outputReadOnly);
+        CustomTableManager.addCustomManagementToTable(outputMetaView.getTableViewerCreator(), outputReadOnly,
+                outputMetaView.getCurrentDbms());
         CustomTableManager.addCustomManagementToToolBar(outputMetaView, outputMetaTable, outputReadOnly, inputMetaView,
                 inputMetaTable, false);
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {

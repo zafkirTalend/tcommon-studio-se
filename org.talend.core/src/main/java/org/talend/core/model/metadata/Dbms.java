@@ -23,7 +23,6 @@ package org.talend.core.model.metadata;
 
 import java.util.List;
 
-
 /**
  * 
  * DOC amaumont TypesManager class global comment. Detailled comment <br/>
@@ -34,12 +33,14 @@ import java.util.List;
 public class Dbms {
 
     private String id;
-    
+
     private String product;
 
     private String label;
-    
+
     private String defaultDbType;
+
+    private boolean defaultDbms;
 
     private List<String> dbmsTypes;
 
@@ -53,12 +54,13 @@ public class Dbms {
      * @param dbmsTypes
      * @param mappingTypes
      */
-    public Dbms(String id, String label, List<String> dbmsTypes, List<MappingType> mappingTypes) {
+    public Dbms(String id, String label, boolean defaultDbms, List<String> dbmsTypes, List<MappingType> mappingTypes) {
         super();
         this.id = id;
         this.label = label;
         this.dbmsTypes = dbmsTypes;
         this.mappingTypes = mappingTypes;
+        this.defaultDbms = defaultDbms;
     }
 
     /**
@@ -142,40 +144,36 @@ public class Dbms {
         this.mappingTypes = mappingTypes;
     }
 
-    
-    
-    
     /**
      * Getter for product.
+     * 
      * @return the product
      */
     public String getProduct() {
         return this.product;
     }
 
-    
     /**
      * Sets the product.
+     * 
      * @param product the product to set
      */
     protected void setProduct(String product) {
         this.product = product;
     }
 
-    
-    
-    
     /**
      * Getter for defaultDbType.
+     * 
      * @return the defaultDbType
      */
     public String getDefaultDbType() {
         return this.defaultDbType;
     }
 
-    
     /**
      * Sets the defaultDbType.
+     * 
      * @param defaultDbType the defaultDbType to set
      */
     protected void setDefaultDbType(String defaultDbType) {
@@ -218,23 +216,40 @@ public class Dbms {
     }
 
     /**
-         * toString method: creates a String representation of the object
-         * @return the String representation
-         * @author 
-         */
-        public String toString() {
-            StringBuffer buffer = new StringBuffer();
-            buffer.append("Dbms["); //$NON-NLS-1$
-            buffer.append("product = ").append(product); //$NON-NLS-1$
-            buffer.append(", id = ").append(id); //$NON-NLS-1$
-            buffer.append(", label = ").append(label); //$NON-NLS-1$
-            buffer.append(", defaultDbType = ").append(defaultDbType); //$NON-NLS-1$
-            buffer.append(", dbmsTypes = ").append(dbmsTypes); //$NON-NLS-1$
-            buffer.append(", mappingTypes = ").append(mappingTypes); //$NON-NLS-1$
-            buffer.append("]"); //$NON-NLS-1$
-            return buffer.toString();
-        }
+     * toString method: creates a String representation of the object
+     * 
+     * @return the String representation
+     * @author
+     */
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("Dbms["); //$NON-NLS-1$
+        buffer.append("product = ").append(product); //$NON-NLS-1$
+        buffer.append(", id = ").append(id); //$NON-NLS-1$
+        buffer.append(", label = ").append(label); //$NON-NLS-1$
+        buffer.append(", defaultDbType = ").append(defaultDbType); //$NON-NLS-1$
+        buffer.append(", dbmsTypes = ").append(dbmsTypes); //$NON-NLS-1$
+        buffer.append(", mappingTypes = ").append(mappingTypes); //$NON-NLS-1$
+        buffer.append("]"); //$NON-NLS-1$
+        return buffer.toString();
+    }
 
-    
-    
+    /**
+     * Getter for defaultDbms.
+     * 
+     * @return the defaultDbms
+     */
+    protected boolean isDefaultDbms() {
+        return defaultDbms;
+    }
+
+    /**
+     * Sets the defaultDbms.
+     * 
+     * @param defaultDbms the defaultDbms to set
+     */
+    protected void setDefaultDbms(boolean defaultDbms) {
+        this.defaultDbms = defaultDbms;
+    }
+
 }

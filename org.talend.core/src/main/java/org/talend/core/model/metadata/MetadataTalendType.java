@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -42,7 +41,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
@@ -346,6 +344,24 @@ public final class MetadataTalendType {
         }
         return list.toArray(new Dbms[0]);
     }
+    
+    public static Dbms getDefaultDbmsFromProduct(String product) {
+        if (product == null) {
+            throw new IllegalArgumentException();
+        }
+        Dbms[] allDbmsArray = getAllDbmsArray();
+        Dbms defaultDbms = null;
+        for (int i = 0; i < allDbmsArray.length; i++) {
+            Dbms dbms = allDbmsArray[i];
+            if (product.equals(dbms.getProduct())) {
+                if (dbms.isDefaultDbms()) {
+                    return dbms;
+                }
+                defaultDbms = dbms; // set this value, so even if no dbms is set by default there will still be a dbms used.
+            }
+        }
+        return defaultDbms;
+    }
 
     /**
      * 
@@ -443,10 +459,16 @@ public final class MetadataTalendType {
                 String dbmsProductValue = dbmsAttributes.getNamedItem("product").getNodeValue(); //$NON-NLS-1$
                 String dbmsIdValue = dbmsAttributes.getNamedItem("id").getNodeValue(); //$NON-NLS-1$
                 String dbmsLabelValue = dbmsAttributes.getNamedItem("label").getNodeValue(); //$NON-NLS-1$
+                Node defaultDbmsItem = dbmsAttributes.getNamedItem("default");
+                boolean defaultDbms = false;
+                if (defaultDbmsItem != null && "true".equals(defaultDbmsItem.getNodeValue())) {
+                    defaultDbms = true;
+                }
 
                 Dbms dbms = new Dbms(dbmsIdValue);
                 dbms.setLabel(dbmsLabelValue);
                 dbms.setProduct(dbmsProductValue);
+                dbms.setDefaultDbms(defaultDbms);
                 boolean dbmsOverwriteExisting = !dbmsSet.add(dbms);
                 if (dbmsOverwriteExisting) {
                     log.warn("Dbms with id '" + dbmsIdValue + "' already exists !");

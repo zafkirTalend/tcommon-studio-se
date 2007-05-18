@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <mapping>
-	<dbms product="oracle_product" id="oracle_id" label="Mapping Oracle">
-
-		
+	<dbms product="ORACLE" id="oracle_id" label="Mapping Oracle" default="true">
 		<db_types>
 			<type dbType="BOOLEAN"/>
 			<type dbType="TINYINT"/>
@@ -71,13 +69,13 @@
 			<type talendType="int" dbType="TINYINT UNSIGNED" />
 			<type talendType="int" dbType="SMALLINT UNSIGNED" />
 			<type talendType="int" dbType="MEDIUMINT UNSIGNED" />
-			<type talendType="int" dbType="INT UNSIGNED" defaultSelected="true" />
+			<type talendType="int" dbType="INT UNSIGNED"/>
 			<type talendType="int" dbType="INTEGER UNSIGNED" />
 			<type talendType="int" dbType="INT UNSIGNED UNSIGNED" />
 			<type talendType="int" dbType="BIGINT UNSIGNED" />
-			<type talendType="long" dbType="LONG UNSIGNED" defaultSelected="true" />
-			<type talendType="float" dbType="FLOAT UNSIGNED" defaultSelected="true" />
-			<type talendType="double" dbType="DOUBLE UNSIGNED" defaultSelected="true" />
+			<type talendType="long" dbType="LONG UNSIGNED"/>
+			<type talendType="float" dbType="FLOAT UNSIGNED"/>
+			<type talendType="double" dbType="DOUBLE UNSIGNED"/>
 			<type talendType="double" dbType="REAL UNSIGNED" />
 			<type talendType="double" dbType="NUMBER UNSIGNED" />
 			<type talendType="double" dbType="NUMBER-2 UNSIGNED" />
@@ -88,11 +86,11 @@
 			<type talendType="char" dbType="CHAR" defaultSelected="true" />
 			<type talendType="boolean" dbType="BOOLEAN" defaultSelected="true" />
 			
-			<type talendType="String" dbType="VARCHAR" nullable="true" defaultSelected="true" />
+			<type talendType="String" dbType="VARCHAR" nullable="true"/>
 			
 			<type talendType="String" dbType="VARCHAR2" nullable="true" defaultSelected="true" />
-			<type talendType="String" dbType="NCHAR" nullable="true" defaultSelected="true" />
-			<type talendType="String" dbType="NVARCHAR2" nullable="true" defaultSelected="true" />
+			<type talendType="String" dbType="NCHAR" nullable="true"/>
+			<type talendType="String" dbType="NVARCHAR2" nullable="true"/>
 			
 			<type talendType="String" dbType="CLOB" nullable="true"/>
 			<type talendType="String" dbType="TINYTEXT" nullable="true"/>
@@ -101,7 +99,7 @@
 			<type talendType="String" dbType="LONGTEXT" nullable="true"/>
 			<type talendType="String" dbType="ENUM" nullable="true"/>
 			<type talendType="Date" dbType="DATE" nullable="true"/>
-			<type talendType="Date" dbType="DATETIME" defaultSelected="true" />
+			<type talendType="Date" dbType="DATETIME"/>
 			<type talendType="Date" dbType="TIMESTAMP" defaultSelected="true" />
 			<!-- Not managed : TINYBLOB BLOB MEDIUMBLOB LONGBLOB             -->
 		</language>
@@ -118,7 +116,7 @@
 			
 			<type talendType="decimal" dbType="NUMBER" />
 			<type talendType="decimal" dbType="NUMBER-2" />
-			<type talendType="decimal" dbType="FLOAT"/>
+			<type talendType="decimal" dbType="FLOAT" defaultSelected="true"/>
 			<type talendType="decimal" dbType="REAL" />
 			<type talendType="decimal" dbType="DOUBLE" />
 			<type talendType="decimal" dbType="DECIMAL" />

@@ -26,36 +26,36 @@ package org.talend.core.database;
  * 
  */
 public enum EDatabaseTypeName {
-    MYSQL("MySQL", "MySQL", new Boolean(false), "mysql_id"),
-    PSQL("PostgreSQL", "PostgreSQL", new Boolean(true), "postgres_id"),
-    ORACLEFORSID("Oracle", "Oracle with SID", new Boolean(true), "oracle_id"),
-    ORACLESN("Oracle with service name", "Oracle with service name", new Boolean(true), "oracle_id"),
+    MYSQL("MySQL", "MySQL", new Boolean(false), "MYSQL"),
+    PSQL("PostgreSQL", "PostgreSQL", new Boolean(true), "POSTGRESQL"),
+    ORACLEFORSID("Oracle", "Oracle with SID", new Boolean(true), "ORACLE"),
+    ORACLESN("Oracle with service name", "Oracle with service name", new Boolean(true), "ORACLE"),
     GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "MSODBC"),
     MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "MSODBC"),
-    IBMDB2("IBM DB2", "IBM DB2", new Boolean(false), "ibmdb2_id"),
-    SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(false), "mysql_id"),
+    IBMDB2("IBM DB2", "IBM DB2", new Boolean(false), "IBMDB2"),
+    SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(false), "MYSQL"),
     // this Sybase IQ not used.
-    SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "mysql_id"),
-    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(false), "MSODBC"),
+    SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "MYSQL"),
+    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(false), "MYSQL"),
     // this don't use in Branch 2.0
-    INGRES("Ingres", "Ingres", new Boolean(false), "mysql_id");
+    INGRES("Ingres", "Ingres", new Boolean(false), "MYSQL");
 
-    //displayName is used in Java code.
+    // displayName is used in Java code.
     private String displayName;
 
     private Boolean isNeedSchema;
 
-    //dbType is used in compnonent XML file.
+    // dbType is used in compnonent XML file.
     private String dbType;
 
-    //use TalendType mapping id.
-    private String dbmsId;
+    // product used for the mappings.
+    private String product;
 
     public String getDisplayName() {
         return this.displayName;
     }
 
-    public Boolean getIsNeedSchema() {
+    public Boolean isNeedSchema() {
         return this.isNeedSchema;
     }
 
@@ -63,51 +63,68 @@ public enum EDatabaseTypeName {
         return this.dbType;
     }
 
-    public String getDbmsId() {
-        return this.dbmsId;
+    public String getProduct() {
+        return this.product;
     }
-    
-    EDatabaseTypeName(String dbType, String displayName, Boolean isNeedSchema, String dbmsid) {
+
+    EDatabaseTypeName(String dbType, String displayName, Boolean isNeedSchema, String product) {
         this.displayName = displayName;
         this.isNeedSchema = isNeedSchema;
         this.dbType = dbType;
-        this.dbmsId = dbmsid;
+        this.product = product;
     }
 
-    public static String getDisplayNameFromDbType(String dbType) {
+    // public static String getDisplayNameFromDbType(String dbType) {
+    // for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
+    // if (typename.getXmlName().equals(dbType)) {
+    // return typename.getDisplayName();
+    // }
+    // }
+    // return dbType;
+    // }
+    //
+    // public static Boolean isNeedSchemaFromDbType(String dbType) {
+    // for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
+    // if (typename.getDisplayName().equals(dbType)) {
+    // return typename.getIsNeedSchema();
+    // }
+    // }
+    // return new Boolean(false);
+    // }
+    //
+    // public static Boolean isNeedSchema(String dbType) {
+    // for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
+    // if (typename.getXmlName().equals(dbType)) {
+    // return typename.getIsNeedSchema();
+    // }
+    // }
+    // return new Boolean(false);
+    // }
+    //
+    // public static String getProductMappingId(String dbms) {
+    // for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
+    // if (typename.getDisplayName().equals(dbms)) {
+    // return typename.getProduct();
+    // }
+    // }
+    // return MYSQL.product;
+    // }
+
+    public static EDatabaseTypeName getTypeFromDbType(String dbType) {
         for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
             if (typename.getXmlName().equals(dbType)) {
-                return typename.getDisplayName();
+                return typename;
             }
         }
-        return dbType;
+        return MYSQL;
     }
-
-    public static Boolean isNeedSchemaFromDbType(String dbType) {
+    
+    public static EDatabaseTypeName getTypeFromDisplayName(String displayName) {
         for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
-            if (typename.getDisplayName().equals(dbType)) {
-                return typename.getIsNeedSchema();
+            if (typename.getDisplayName().equals(displayName)) {
+                return typename;
             }
         }
-        return new Boolean(false);
+        return MYSQL;
     }
-
-    public static Boolean isNeedSchema(String dbType) {
-        for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
-            if (typename.getXmlName().equals(dbType)) {
-                return typename.getIsNeedSchema();
-            }
-        }
-        return new Boolean(false);
-    }
-
-    public static String getDBMSMappingId(String dbms) {
-        for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
-            if (typename.getDisplayName().equals(dbms)) {
-                return typename.getDbmsId();
-            }
-        }
-        return MYSQL.dbmsId;
-    }
-
 }

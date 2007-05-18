@@ -30,11 +30,8 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataColumn;
-import org.talend.core.model.metadata.IMetadataConnection;
-import org.talend.core.model.metadata.builder.connection.Connection;
-import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
-import org.talend.core.model.process.IConnection;
+import org.talend.core.model.metadata.types.TypesManager;
 
 /**
  * MetadataTableEditorView2 must be used.
@@ -296,7 +293,30 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
             }
 
             public void set(IMetadataColumn bean, String value) {
+                String oldTalendType = bean.getTalendType();
                 bean.setTalendType(value);
+                String dbms = getCurrentDbms();
+                if (showDbTypeColumn && (dbms != null)) {
+                    String oldDbType = bean.getType();
+                    String oldDefaultDbType = null;
+                    if (!oldDbType.equals("")) {
+
+                        // String javaTypeName = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, isNullable);
+                        // JavaType javaTypeFromName = JavaTypesManager.getJavaTypeFromName(javaTypeName);
+//                        JavaType javaType = JavaTypesManager.getJavaTypeFromId(oldTalendType);
+//                        String typeName = JavaTypesManager.getShortNameFromJavaType(javaType);
+//                        oldDefaultDbType = MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedDbType(
+//                                typeName, bean.isNullable());
+                        oldDefaultDbType = TypesManager.getDBTypeFromTalendType(dbms, oldTalendType, bean.isNullable());
+                    }
+                    if (oldDbType.equals(oldDefaultDbType) || oldDbType.equals("")) {
+                        bean.setType(TypesManager.getDBTypeFromTalendType(dbms, value, bean.isNullable()));
+//                        JavaType javaType = JavaTypesManager.getJavaTypeFromId(value);
+//                        String typeName = JavaTypesManager.getShortNameFromJavaType(javaType);
+//                        bean.setType(MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedDbType(
+//                                typeName, bean.isNullable()));
+                    }
+                }
             }
 
         };
@@ -324,7 +344,8 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
      */
     @Override
     protected ExtendedToolbarView initToolBar() {
-        return new MetadataToolbarEditorView(getMainComposite(), SWT.NONE, this.getExtendedTableViewer());
+        return new MetadataToolbarEditorView(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(), this
+                .getCurrentDbms());
     }
 
     public MetadataToolbarEditorView getToolBar() {
@@ -343,18 +364,11 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#getCurrentDbms()
-     */
-    @Override
-    protected String getCurrentDbms() {
-        IMetadataConnection connection = getMetadataTableEditor().getMetadataTable().getParent();
-        if (connection != null) {
-            return connection.getDatabase();
-        }
-        return null;
-    }
-
+    // public String getCurrentDbms() {
+    // IMetadataConnection connection = getMetadataTableEditor().getMetadataTable().getParent();
+    // if (connection != null) {
+    // return connection.getDatabase();
+    // }
+    // return null;
+    // }
 }

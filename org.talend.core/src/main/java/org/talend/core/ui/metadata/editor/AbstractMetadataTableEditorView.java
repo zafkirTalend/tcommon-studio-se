@@ -56,6 +56,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
 import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
 
@@ -78,17 +79,19 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public static final String ID_COLUMN_TYPE = "ID_COLUMN_TYPE"; //$NON-NLS-1$
 
+    public static final String ID_COLUMN_DBTYPE = "ID_COLUMN_DBTYPE"; //$NON-NLS-1$
+
     public static final String ID_COLUMN_NULLABLE = "ID_COLUMN_NULLABLE"; //$NON-NLS-1$
 
     public static final String ID_COLUMN_PATTERN = "ID_COLUMN_PATTERN"; //$NON-NLS-1$
 
-    public static final String ID_COLUMN_DEFAULT = "ID_COLUMN_DEFAULT";
+    public static final String ID_COLUMN_DEFAULT = "ID_COLUMN_DEFAULT"; //$NON-NLS-1$
 
-    public static final String ID_COLUMN_COMMENT = "ID_COLUMN_COMMENT";
+    public static final String ID_COLUMN_COMMENT = "ID_COLUMN_COMMENT"; //$NON-NLS-1$
 
-    public static final String ID_COLUMN_LENGHT = "ID_COLUMN_LENGHT";
+    public static final String ID_COLUMN_LENGHT = "ID_COLUMN_LENGHT"; //$NON-NLS-1$
 
-    public static final String ID_COLUMN_PRECISION = "ID_COLUMN_PRECISION";
+    public static final String ID_COLUMN_PRECISION = "ID_COLUMN_PRECISION"; //$NON-NLS-1$
 
     protected boolean showDbTypeColumn;
 
@@ -101,6 +104,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     private boolean dbTypeColumnWritable;
 
     private boolean showPatternColumn = true;
+
+    protected String dbmsId;
 
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
@@ -631,8 +636,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("MetadataTableEditorView.DBTypeTitle")); //$NON-NLS-1$
         column.setToolTipHeader(Messages.getString("MetadataTableEditorView.DBTypeTitle")); //$NON-NLS-1$
+        column.setId(ID_COLUMN_DBTYPE);
         column.setBeanPropertyAccessors(getDbTypeAccessor());
-        column.setModifiable(false);
+        column.setModifiable(dbTypeColumnWritable);
         column.setWeight(10);
         column.setMinimumWidth(60);
 
@@ -643,32 +649,33 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
             String[] arrayDbTypes = new String[0];
 
-            try {
-                if (codeLanguage == ECodeLanguage.JAVA) {
-                    arrayDbTypes = MetadataTalendType.getDbTypes("mysql_id"); //$NON-NLS-1$
-                    log.error(Messages.getString("AbstractMetadataTableEditorView.badDbTypeLoaded")); //$NON-NLS-1$
-                } else if (codeLanguage == ECodeLanguage.PERL) {
-                    String currentDbms = getCurrentDbms();
-                    if (currentDbms != null) {
-                        arrayDbTypes = MetadataTalendType.loadDatabaseTypes(currentDbms, false);
-                    }
-                    // log.error("Bad Db types are loaded");
-                    // arrayDbTypes = MetadataTalendType.getDbTypes("mysql_id");
-                }
-
-            } catch (NoClassDefFoundError e) {
-                // shouln't be happend
-                e.printStackTrace();
-            } catch (ExceptionInInitializerError e) {
-                // shouln't be happend
-                e.printStackTrace();
-            }
+            // try {
+            // if (codeLanguage == ECodeLanguage.JAVA) {
+            // arrayDbTypes = MetadataTalendType.getDbTypes(getCurrentDbms()); //$NON-NLS-1$
+            // log.error(Messages.getString("AbstractMetadataTableEditorView.badDbTypeLoaded")); //$NON-NLS-1$
+            // } else if (codeLanguage == ECodeLanguage.PERL) {
+            // String currentDbms = getCurrentDbms();
+            // if (currentDbms != null) {
+            // arrayDbTypes = MetadataTalendType.loadDatabaseTypes(currentDbms, false);
+            // }
+            // // log.error("Bad Db types are loaded");
+            // // arrayDbTypes = MetadataTalendType.getDbTypes("mysql_id");
+            // }
+            //
+            // } catch (NoClassDefFoundError e) {
+            // // shouln't be happend
+            // e.printStackTrace();
+            // } catch (ExceptionInInitializerError e) {
+            // // shouln't be happend
+            // e.printStackTrace();
+            // }
+            arrayDbTypes = MetadataTalendType.getDbTypes(getCurrentDbms()); //$NON-NLS-1$
+            // System.out.println("currentDbms:" + getCurrentDbms() + " dbTypes:" + arrayDbTypes);
             ComboBoxCellEditor typeComboEditor = new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayDbTypes,
                     SWT.READ_ONLY);
             CCombo typeCombo = (CCombo) typeComboEditor.getControl();
             typeCombo.setEditable(false);
             column.setCellEditor(typeComboEditor, comboValueAdapter);
-
         } else {
             column.setColorProvider(new IColumnColorProvider() {
 
@@ -686,13 +693,6 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         return column;
 
     }
-
-    /**
-     * Return the current dbms if exists.
-     * 
-     * @return the current dbms if exists, null else.
-     */
-    protected abstract String getCurrentDbms();
 
     /**
      * DOC amaumont Comment method "getDbTypeAccessor".
@@ -817,4 +817,21 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         this.showTalendTypeColumn = showTalenTypeColumn;
     }
 
+    public String getCurrentDbms() {
+        // IMetadataConnection connection = getMetadataTableEditor().getMetadataTable().getParent();
+        // if (connection != null) {
+        // return connection.getDatabase();
+        // }
+        if (!this.showDbTypeColumn) {
+            return null;
+        }
+        if (dbmsId == null) {
+            return "mysql_id";
+        }
+        return dbmsId;
+    }
+
+    public void setCurrentDbms(String dbmsId) {
+        this.dbmsId = dbmsId;
+    }
 }

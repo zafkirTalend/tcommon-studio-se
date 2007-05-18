@@ -27,6 +27,7 @@ import java.util.Map;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.EMetadataEncoding;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -82,37 +83,37 @@ public class RepositoryToComponentProperty {
     }
 
     private static String getStandardDbTypeFromConnection(String dbType) {
-        if (dbType.equals("MySQL")) { //$NON-NLS-1$
+        if (dbType.equals(EDatabaseTypeName.MYSQL.getDisplayName())) {
             return MYSQL;
         }
-        if (dbType.equals("PostgreSQL")) { //$NON-NLS-1$
+        if (dbType.equals(EDatabaseTypeName.PSQL.getDisplayName())) {
             return POSTGRESQL;
         }
-        if (dbType.equals("Oracle with SID")) { //$NON-NLS-1$
+        if (dbType.equals(EDatabaseTypeName.ORACLEFORSID.getDisplayName())) {
             return ORACLE;
         }
-        if (dbType.equals("Oracle with service name")) { //$NON-NLS-1$
+        if (dbType.equals(EDatabaseTypeName.ORACLESN.getDisplayName())) {
             return ORACLE;
         }
-        if (dbType.equals("Generic ODBC")) { //$NON-NLS-1$
+        if (dbType.equals(EDatabaseTypeName.GODBC.getDisplayName())) {
             return ODBC;
         }
-        if (dbType.equals("Microsoft SQL Server (Odbc driver)")) { //$NON-NLS-1$
+        if (dbType.equals(EDatabaseTypeName.MSODBC.getDisplayName())) {
             return ODBC;
         }
-        if (dbType.equals("Microsoft SQL Server")) { //$NON-NLS-1$
+        if (dbType.equals(EDatabaseTypeName.MSSQL.getDisplayName())) {
             return SQL_SERVER;
         }
-        if (dbType.equals("IBM DB2")) { //$NON-NLS-1$
+        if (dbType.equals(EDatabaseTypeName.IBMDB2.getDisplayName())) {
             return IBM_DB2;
         }
-        if (dbType.equals("Sybase ASE")) { //$NON-NLS-1$
+        if (dbType.equals(EDatabaseTypeName.SYBASEASE.getDisplayName())) {
             return SYBASE;
         }
-        if (dbType.equals("Sybase IQ")) { //$NON-NLS-1$
+        if (dbType.equals(EDatabaseTypeName.SYBASEIQ.getDisplayName())) {
             return SYBASE;
         }
-        if (dbType.equals("Ingres")) { //$NON-NLS-1$
+        if (dbType.equals(EDatabaseTypeName.INGRES.getDisplayName())) {
             return INGRES;
         }
         return ""; //$NON-NLS-1$

@@ -40,6 +40,7 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataColumn;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.metadata.types.TypesManager;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -122,13 +123,13 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
 
         if (!match) {
-            return Messages.getString("MetadataTableEditor.ColumnNameIsInvalid", new Object[] {columnName}); //$NON-NLS-1$ //$NON-NLS-2$
+            return Messages.getString("MetadataTableEditor.ColumnNameIsInvalid", new Object[] { columnName }); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         int lstSize = getBeansList().size();
         for (int i = 0; i < lstSize; i++) {
             if (columnName.equals(getBeansList().get(i).getLabel()) && i != beanPosition) {
-                return Messages.getString("MetadataTableEditor.ColumnNameExists",columnName); //$NON-NLS-1$
+                return Messages.getString("MetadataTableEditor.ColumnNameExists", columnName); //$NON-NLS-1$
             }
 
         }
@@ -165,8 +166,11 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
             metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
+            if (metadataTable.getDbms() != null) {
+                metadataColumn.setType(TypesManager.getDBTypeFromTalendType(metadataTable.getDbms(), JavaTypesManager
+                        .getDefaultJavaType().getId(), false));
+            }
         }
-
         return metadataColumn;
     }
 

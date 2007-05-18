@@ -293,16 +293,12 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
     /* (non-Javadoc)
      * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#getCurrentDbms()
      */
-    @Override
-    protected String getCurrentDbms() {
-        Connection connection = getMetadataEditor().getMetadataTable().getConnection();
-        if(connection instanceof DatabaseConnection) {
-            return ((DatabaseConnection) connection).getDatabaseType();
-        }
-        return null;
-    }
-
-    
-    
-    
+//    @Override
+//    protected String getCurrentDbms() {
+//        Connection connection = getMetadataEditor().getMetadataTable().getConnection();
+//        if(connection instanceof DatabaseConnection) {
+//            return ((DatabaseConnection) connection).getDatabaseType();
+//        }
+//        return null;
+//    } 
 }

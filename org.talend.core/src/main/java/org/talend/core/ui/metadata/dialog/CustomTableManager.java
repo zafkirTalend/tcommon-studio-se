@@ -33,6 +33,7 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.widgets.Display;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.ResetDBTypesPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
@@ -41,6 +42,7 @@ import org.talend.commons.ui.swt.tableviewer.behavior.DefaultTableLabelProvider;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
 import org.talend.core.ui.metadata.editor.MetadataTableEditorView;
 
@@ -58,8 +60,10 @@ public class CustomTableManager {
 
     public static final Color STANDARD_CELL_BG_COLOR = Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
 
-    public static void addCustomManagementToTable(TableViewerCreator tableViewerCreator, boolean readOnly) {
-        CustomTableLabelProvider tableProvider = new CustomTableLabelProvider(tableViewerCreator, readOnly);
+    public static final Color CELL_WRONG_DB_TYPE_COLOR = new Color(null, new RGB(0xFF, 0x80, 0));
+
+    public static void addCustomManagementToTable(TableViewerCreator tableViewerCreator, boolean readOnly, String dbmsId) {
+        CustomTableLabelProvider tableProvider = new CustomTableLabelProvider(tableViewerCreator, readOnly, dbmsId);
         tableViewerCreator.setLabelProvider(tableProvider);
         tableViewerCreator.init(tableViewerCreator.getInputList());
         tableViewerCreator.setCellModifier(new CustomTableCellModifier(tableViewerCreator));
@@ -92,6 +96,10 @@ public class CustomTableManager {
             tableEditorView.getToolBar().getMoveUpButton().getButton().setEnabled(false);
             tableEditorView.getToolBar().getRemoveButton().getButton().setEnabled(false);
             tableEditorView.getToolBar().getPasteButton().getButton().setEnabled(false);
+            ResetDBTypesPushButton resetDBTypesButton = tableEditorView.getToolBar().getResetDBTypesButton();
+            if (resetDBTypesButton != null) {
+                resetDBTypesButton.getButton().setEnabled(false);
+            }
         } else {
             tableEditorView.getToolBar().getAddButton().getButton().addSelectionListener(new SelectionListener() {
 
@@ -146,7 +154,7 @@ public class CustomTableManager {
             MetadataTableEditorView tableEditorView, IMetadataTable table,
             final MetadataTableEditorView linkedTableEditorView, final IMetadataTable linkedTable, boolean readOnly) {
         IStructuredSelection selection = (IStructuredSelection) currentSelection;
-        
+
         boolean isThereCustom = false;
         boolean isThereReadOnly = false;
         for (Iterator iter = selection.iterator(); iter.hasNext();) {
@@ -158,16 +166,20 @@ public class CustomTableManager {
                 isThereReadOnly = true;
             }
         }
-        
+
         if (isThereReadOnly) {
             tableEditorView.getToolBar().getRemoveButton().getButton().setEnabled(false);
         }
-        
+
         if (isThereCustom || table.isReadOnly()) {
             tableEditorView.getToolBar().getMoveDownButton().getButton().setEnabled(false);
             tableEditorView.getToolBar().getMoveUpButton().getButton().setEnabled(false);
             tableEditorView.getToolBar().getRemoveButton().getButton().setEnabled(false);
             tableEditorView.getToolBar().getPasteButton().getButton().setEnabled(false);
+            ResetDBTypesPushButton resetDBTypesButton = tableEditorView.getToolBar().getResetDBTypesButton();
+            if (resetDBTypesButton != null) {
+                resetDBTypesButton.getButton().setEnabled(false);
+            }
         }
         if (linkedTable != null) {
             if (linkedTable.isReadOnly()) {
@@ -187,9 +199,12 @@ public class CustomTableManager {
 
         private boolean readOnly = false;
 
-        public CustomTableLabelProvider(TableViewerCreator tableViewerCreator, boolean readOnly) {
+        private String dbmsId;
+
+        public CustomTableLabelProvider(TableViewerCreator tableViewerCreator, boolean readOnly, String dbmsId) {
             super(tableViewerCreator);
             this.readOnly = readOnly;
+            this.dbmsId = dbmsId;
         }
 
         /*
@@ -216,6 +231,11 @@ public class CustomTableManager {
             }
             if (column.isReadOnly()) {
                 return STANDARD_CELL_BG_COLOR;
+            }
+            if (tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_DBTYPE)
+                    && !column.getType().equals("")
+                    && !TypesManager.checkDBType(dbmsId, column.getTalendType(), column.getType(), column.isNullable())) {
+                return CELL_WRONG_DB_TYPE_COLOR;
             }
             return super.getBackground(element, columnIndex);
         }

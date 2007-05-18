@@ -37,6 +37,7 @@ import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveUpPushButtonForE
 import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButtonForExtendedTable;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.ResetDBTypesPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
@@ -64,6 +65,8 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
     private ExportPushButton exportButton;
 
     private ImportPushButton importButton;
+    
+    protected ResetDBTypesPushButton resetDBTypesButton;
 
     /**
      * DOC amaumont MatadataToolbarEditor constructor comment.
@@ -214,8 +217,15 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
     public ImportPushButton getImportButton() {
         return this.importButton;
     }
-
     
+    /**
+     * Getter for resetDBTypesButton.
+     * @return the resetDBTypesButton
+     */
+    public ResetDBTypesPushButton getResetDBTypesButton() {
+        return resetDBTypesButton;
+    }
+
     /* (non-Javadoc)
      * @see org.talend.commons.ui.swt.advanced.dataeditor.AbstractExtendedToolbar#updateEnabledStateOfButtons()
      */
@@ -268,12 +278,13 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
         if (getImportButton() != null) {
             list.add(getImportButton());
         }
+        
+        if (getResetDBTypesButton() != null) {
+            list.add(getResetDBTypesButton());
+        }
 
         return list;
     }
-
-    
-    
 }
 
 // 

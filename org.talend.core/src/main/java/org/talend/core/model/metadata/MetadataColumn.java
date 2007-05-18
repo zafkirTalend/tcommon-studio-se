@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
+import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.metadata.types.TypesManager;
+
 /**
  * Definition of a column in the Meta Data. <br/>
  * 
@@ -41,8 +44,6 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
 
     private String talendType = ""; //$NON-NLS-1$
 
-    private String dbms = ""; //$NON-NLS-1$
-
     private boolean nullable = false;
 
     private Integer length;
@@ -60,6 +61,8 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     private boolean readOnly = false;
 
     private int customId = 0;
+
+    private IMetadataTable metadataTable;
 
     public MetadataColumn() {
         super();
@@ -84,7 +87,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         }
 
         this.setType(metadataColumn.getType());
-        setDbms(metadataColumn.getDbms());
+        // setDbms(metadataColumn.getDbms());
 
         this.nullable = metadataColumn.isNullable();
         this.length = metadataColumn.getLength();
@@ -191,9 +194,9 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
      * @see org.talend.core.model.metadata.IMetadataColumn#getTalendType()
      */
     public String getTalendType() {
-        if ((talendType == null) || (talendType.compareTo("") == 0)) { //$NON-NLS-1$
-            this.talendType = MetadataTalendType.loadTalendType(this.type, this.dbms, false);
-        }
+        // if ((talendType == null) || (talendType.compareTo("") == 0)) { //$NON-NLS-1$
+        // this.talendType = MetadataTalendType.loadTalendType(this.type, this.dbms, false);
+        // }
         return talendType;
     }
 
@@ -206,23 +209,23 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         this.talendType = talendType;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.metadata.IMetadataColumn#getDbms()
-     */
-    public String getDbms() {
-        return this.dbms;
-    }
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.core.model.metadata.IMetadataColumn#getDbms()
+    // */
+    // public String getDbms() {
+    // return this.dbms;
+    // }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.metadata.IMetadataColumn#setDbms(java.lang.String)
-     */
-    public void setDbms(String dbms) {
-        this.dbms = dbms;
-    }
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.core.model.metadata.IMetadataColumn#setDbms(java.lang.String)
+    // */
+    // public void setDbms(String dbms) {
+    // this.dbms = dbms;
+    // }
 
     /*
      * (non-Javadoc)

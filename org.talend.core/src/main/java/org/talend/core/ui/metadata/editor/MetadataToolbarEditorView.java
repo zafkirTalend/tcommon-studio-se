@@ -34,12 +34,15 @@ import org.talend.commons.ui.swt.advanced.dataeditor.button.ImportPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.ImportPushButtonForExtendedTable;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButtonForExtendedTable;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.ResetDBTypesPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.ResetDBTypesPushButtonForExtendedTable;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.ui.extended.command.MetadataExportXmlCommand;
 import org.talend.core.ui.extended.command.MetadataImportXmlCommand;
 import org.talend.core.ui.extended.command.MetadataPasteCommand;
+import org.talend.core.ui.metadata.dialog.ExtendedTableResetDBTypesCommand;
 
 /**
  * $Id$
@@ -49,6 +52,7 @@ public class MetadataToolbarEditorView extends ExtendedToolbarView {
 
     /**
      * DOC amaumont MetadataToolbarEditorView constructor comment.
+     * 
      * @param parent
      * @param style
      * @param extendedTableViewer
@@ -57,7 +61,18 @@ public class MetadataToolbarEditorView extends ExtendedToolbarView {
         super(parent, style, extendedTableViewer);
     }
 
-    /* (non-Javadoc)
+    public MetadataToolbarEditorView(Composite parent, int style, AbstractExtendedTableViewer extendedTableViewer,
+            String dbmsId) {
+        super(parent, style, extendedTableViewer);
+        if (dbmsId != null) {
+            resetDBTypesButton = createResetDBTypesPushButton(dbmsId);
+            updateEnabledStateOfButtons();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.ExtendedToolbarView#createAddPushButton()
      */
     @Override
@@ -66,14 +81,17 @@ public class MetadataToolbarEditorView extends ExtendedToolbarView {
 
             @Override
             protected Object getObjectToAdd() {
-                MetadataTableEditor tableEditorModel = (MetadataTableEditor) getExtendedTableViewer().getExtendedControlModel();
+                MetadataTableEditor tableEditorModel = (MetadataTableEditor) getExtendedTableViewer()
+                        .getExtendedControlModel();
                 return tableEditorModel.createNewMetadataColumn();
             }
 
         };
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.ExtendedToolbarView#createPastButton()
      */
     @Override
@@ -84,43 +102,52 @@ public class MetadataToolbarEditorView extends ExtendedToolbarView {
             protected Command getCommandToExecute(ExtendedTableModel extendedTableModel, Integer indexWhereInsert) {
                 return new MetadataPasteCommand(extendedTableModel, indexWhereInsert);
             }
-            
+
         };
     }
 
-    
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.ExtendedToolbarView#createExportPushButton()
      */
     @Override
     protected ExportPushButton createExportPushButton() {
         return new ExportPushButtonForExtendedTable(toolbar, extendedTableViewer) {
-            
+
             @Override
             protected Command getCommandToExecute(ExtendedTableModel extendedTableModel, File file) {
                 return new MetadataExportXmlCommand((MetadataTableEditor) extendedTableModel, file);
             }
-            
+
         };
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.ExtendedToolbarView#createPastButton()
      */
     @Override
     public ImportPushButton createImportPushButton() {
         return new ImportPushButtonForExtendedTable(toolbar, extendedTableViewer) {
-            
+
             @Override
             protected Command getCommandToExecute(ExtendedTableModel extendedTableModel, File file) {
                 return new MetadataImportXmlCommand(extendedTableModel, file);
             }
-            
+
         };
     }
-    
-    
-    
-}
 
+    protected ResetDBTypesPushButton createResetDBTypesPushButton(final String dbmsId) {
+        return new ResetDBTypesPushButtonForExtendedTable(toolbar, extendedTableViewer, dbmsId) {
+
+            @Override
+            protected Command getCommandToExecute(ExtendedTableModel extendedTableModel) {
+                return new ExtendedTableResetDBTypesCommand(extendedTableModel, dbmsId, extendedTableViewer);
+            }
+
+        };
+    }
+}

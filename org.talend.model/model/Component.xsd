@@ -61,6 +61,8 @@
 						<xs:attribute name="MAX_OUTPUT" type="xs:int" use="optional"/>
 						<xs:attribute name="MIN_OUTPUT" type="xs:int" use="optional"/>
 						<xs:attribute name="BUILTIN" type="xs:boolean" use="optional"/>
+						<xs:attribute name="MENU_NAME" type="xs:string" use="optional"/>
+						<xs:attribute name="LINK_NAME" type="xs:string" use="optional"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>

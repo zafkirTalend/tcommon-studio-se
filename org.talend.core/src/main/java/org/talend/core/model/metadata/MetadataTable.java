@@ -43,6 +43,8 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     DefaultTableLabelProvider a;
 
     private boolean readOnly = false;
+    
+    private String dbms;
 
     @Override
     public String toString() {
@@ -264,5 +266,13 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
 
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
+    }
+
+    public String getDbms() {
+        return dbms;
+    }
+
+    public void setDbms(String dbms) {
+        this.dbms = dbms;
     }
 }

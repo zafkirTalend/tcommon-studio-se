@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <mapping>
-	<dbms product="MICROSOFT SQL SERVER (ODBC DRIVER)" id="MSODBC" label="Mapping MSODBC">
-
-		
+	<dbms product="MSODBC" id="MSODBC" label="Mapping MSODBC" default="true">
 		<db_types>
 			<type dbType="BOOLEAN"/>
 			<type dbType="TINYINT"/>
@@ -110,7 +108,7 @@
 			
 			<type talendType="decimal" dbType="NUMBER" />
 			<type talendType="decimal" dbType="NUMBER-2" />
-			<type talendType="decimal" dbType="FLOAT"/>
+			<type talendType="decimal" dbType="FLOAT" defaultSelected="true"/>
 			<type talendType="decimal" dbType="REAL" />
 			<type talendType="decimal" dbType="DOUBLE" />
 			<type talendType="decimal" dbType="DECIMAL" />
@@ -130,6 +128,4 @@
 			<!-- Not managed : TINYBLOB BLOB MEDIUMBLOB LONGBLOB             -->
 		</language>
 	</dbms>
-	
-	
 </mapping>

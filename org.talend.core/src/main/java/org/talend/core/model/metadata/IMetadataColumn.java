@@ -79,10 +79,6 @@ public interface IMetadataColumn {
 
     public void setPattern(String pattern);
 
-    public String getDbms();
-
-    public void setDbms(String dbms);
-
     public Integer getLength();
 
     public void setLength(Integer length);

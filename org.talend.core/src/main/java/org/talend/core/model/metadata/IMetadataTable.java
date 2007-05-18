@@ -33,6 +33,10 @@ import org.talend.core.model.repository.IRepositoryObject;
  */
 public interface IMetadataTable extends IRepositoryObject {
 
+    public String getDbms();
+
+    public void setDbms(String dbms);
+
     public String getTableName();
 
     public void setTableName(String tableName);
@@ -52,12 +56,12 @@ public interface IMetadataTable extends IRepositoryObject {
     public void setParent(IMetadataConnection metadataConnection);
 
     public boolean sameMetadataAs(IMetadataTable meta);
-    
+
     public boolean sameMetadataAs(IMetadataTable other, int options);
 
     public void sortCustomColumns();
-    
+
     public boolean isReadOnly();
-    
+
     public void setReadOnly(boolean readOnly);
 }

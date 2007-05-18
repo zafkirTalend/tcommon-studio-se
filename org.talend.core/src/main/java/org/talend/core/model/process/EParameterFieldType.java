@@ -51,7 +51,8 @@ public enum EParameterFieldType {
     LOOKUP_COLUMN_LIST,
     TECHNICAL, // means field not displayed directly
     ENCODING_TYPE,
-    COMPONENT_LIST;
+    COMPONENT_LIST,
+    MAPPING_TYPE;
 
     public String getName() {
         return toString();

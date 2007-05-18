@@ -54,8 +54,12 @@ public class MetadataTool {
         }
         return null;
     }
-
+    
     public static void copyTable(IMetadataTable source, IMetadataTable target) {
+        copyTable(source, target, null);
+    }
+
+    public static void copyTable(IMetadataTable source, IMetadataTable target, String targetDbms) {
         List<IMetadataColumn> columnsToRemove = new ArrayList<IMetadataColumn>();
         List<String> readOnlycolumns = new ArrayList<String>();
         for (IMetadataColumn column : target.getListColumns()) {

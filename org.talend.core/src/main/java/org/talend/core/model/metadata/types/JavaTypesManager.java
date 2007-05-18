@@ -148,6 +148,14 @@ public final class JavaTypesManager {
     public static JavaType getJavaTypeFromName(String typeName) {
         return shortNameToJavaType.get(typeName);
     }
+    
+    public static String getShortNameFromJavaType(JavaType javaType) {
+        Class primitiveClass = javaType.getPrimitiveClass();
+        if (primitiveClass != null) {
+            return primitiveClass.getSimpleName();
+        }
+        return javaType.getNullableClass().getSimpleName();
+    }
 
     /**
      * 
