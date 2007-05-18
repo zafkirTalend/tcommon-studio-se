@@ -21,8 +21,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ItemState#getLocker <em>Locker</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ItemState#getLockDate <em>Lock Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ItemState#getCommitDate <em>Commit Date</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ItemState#isWarning <em>Warning</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ItemState#isCheckNeeded <em>Check Needed</em>}</li>
  * </ul>
  * </p>
  *
@@ -185,57 +183,5 @@ public interface ItemState extends EObject {
      * @generated
      */
     void setCommitDate(Date value);
-
-    /**
-     * Returns the value of the '<em><b>Warning</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Warning</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Warning</em>' attribute.
-     * @see #setWarning(boolean)
-     * @see org.talend.core.model.properties.PropertiesPackage#getItemState_Warning()
-     * @model
-     * @generated
-     */
-    boolean isWarning();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ItemState#isWarning <em>Warning</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Warning</em>' attribute.
-     * @see #isWarning()
-     * @generated
-     */
-    void setWarning(boolean value);
-
-    /**
-     * Returns the value of the '<em><b>Check Needed</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Check Needed</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Check Needed</em>' attribute.
-     * @see #setCheckNeeded(boolean)
-     * @see org.talend.core.model.properties.PropertiesPackage#getItemState_CheckNeeded()
-     * @model
-     * @generated
-     */
-    boolean isCheckNeeded();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ItemState#isCheckNeeded <em>Check Needed</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Check Needed</em>' attribute.
-     * @see #isCheckNeeded()
-     * @generated
-     */
-    void setCheckNeeded(boolean value);
 
 } // ItemState

@@ -371,31 +371,13 @@ public interface PropertiesPackage extends EPackage {
     int ITEM_STATE__COMMIT_DATE = 5;
 
     /**
-     * The feature id for the '<em><b>Warning</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ITEM_STATE__WARNING = 6;
-
-    /**
-     * The feature id for the '<em><b>Check Needed</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int ITEM_STATE__CHECK_NEEDED = 7;
-
-    /**
      * The number of structural features of the '<em>Item State</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int ITEM_STATE_FEATURE_COUNT = 8;
+    int ITEM_STATE_FEATURE_COUNT = 6;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -2287,28 +2269,6 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getItemState_CommitDate();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ItemState#isWarning <em>Warning</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Warning</em>'.
-     * @see org.talend.core.model.properties.ItemState#isWarning()
-     * @see #getItemState()
-     * @generated
-     */
-    EAttribute getItemState_Warning();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ItemState#isCheckNeeded <em>Check Needed</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Check Needed</em>'.
-     * @see org.talend.core.model.properties.ItemState#isCheckNeeded()
-     * @see #getItemState()
-     * @generated
-     */
-    EAttribute getItemState_CheckNeeded();
-
-    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.FileItem <em>File Item</em>}'. <!--
      * begin-user-doc --> <!-- end-user-doc -->
      * 
@@ -3502,22 +3462,6 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute ITEM_STATE__COMMIT_DATE = eINSTANCE.getItemState_CommitDate();
-
-        /**
-         * The meta object literal for the '<em><b>Warning</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ITEM_STATE__WARNING = eINSTANCE.getItemState_Warning();
-
-        /**
-         * The meta object literal for the '<em><b>Check Needed</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ITEM_STATE__CHECK_NEEDED = eINSTANCE.getItemState_CheckNeeded();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.FileItemImpl <em>File Item</em>}' class.

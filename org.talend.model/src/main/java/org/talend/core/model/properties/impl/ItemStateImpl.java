@@ -145,46 +145,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     protected Date commitDate = COMMIT_DATE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isWarning() <em>Warning</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isWarning()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean WARNING_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isWarning() <em>Warning</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isWarning()
-     * @generated
-     * @ordered
-     */
-    protected boolean warning = WARNING_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #isCheckNeeded() <em>Check Needed</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isCheckNeeded()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean CHECK_NEEDED_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isCheckNeeded() <em>Check Needed</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isCheckNeeded()
-     * @generated
-     * @ordered
-     */
-    protected boolean checkNeeded = CHECK_NEEDED_EDEFAULT;
-
-    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -340,48 +300,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isWarning() {
-        return warning;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setWarning(boolean newWarning) {
-        boolean oldWarning = warning;
-        warning = newWarning;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM_STATE__WARNING, oldWarning, warning));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isCheckNeeded() {
-        return checkNeeded;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setCheckNeeded(boolean newCheckNeeded) {
-        boolean oldCheckNeeded = checkNeeded;
-        checkNeeded = newCheckNeeded;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.ITEM_STATE__CHECK_NEEDED, oldCheckNeeded, checkNeeded));
-    }
-
-    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -400,10 +318,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
                 return getLockDate();
             case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
                 return getCommitDate();
-            case PropertiesPackage.ITEM_STATE__WARNING:
-                return isWarning() ? Boolean.TRUE : Boolean.FALSE;
-            case PropertiesPackage.ITEM_STATE__CHECK_NEEDED:
-                return isCheckNeeded() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -431,12 +345,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
                 return;
             case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
                 setCommitDate((Date)newValue);
-                return;
-            case PropertiesPackage.ITEM_STATE__WARNING:
-                setWarning(((Boolean)newValue).booleanValue());
-                return;
-            case PropertiesPackage.ITEM_STATE__CHECK_NEEDED:
-                setCheckNeeded(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -466,12 +374,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
             case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
                 setCommitDate(COMMIT_DATE_EDEFAULT);
                 return;
-            case PropertiesPackage.ITEM_STATE__WARNING:
-                setWarning(WARNING_EDEFAULT);
-                return;
-            case PropertiesPackage.ITEM_STATE__CHECK_NEEDED:
-                setCheckNeeded(CHECK_NEEDED_EDEFAULT);
-                return;
         }
         super.eUnset(featureID);
     }
@@ -494,10 +396,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
                 return LOCK_DATE_EDEFAULT == null ? lockDate != null : !LOCK_DATE_EDEFAULT.equals(lockDate);
             case PropertiesPackage.ITEM_STATE__COMMIT_DATE:
                 return COMMIT_DATE_EDEFAULT == null ? commitDate != null : !COMMIT_DATE_EDEFAULT.equals(commitDate);
-            case PropertiesPackage.ITEM_STATE__WARNING:
-                return warning != WARNING_EDEFAULT;
-            case PropertiesPackage.ITEM_STATE__CHECK_NEEDED:
-                return checkNeeded != CHECK_NEEDED_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -520,10 +418,6 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
         result.append(lockDate);
         result.append(", commitDate: ");
         result.append(commitDate);
-        result.append(", warning: ");
-        result.append(warning);
-        result.append(", checkNeeded: ");
-        result.append(checkNeeded);
         result.append(')');
         return result.toString();
     }
