@@ -32,7 +32,7 @@ public enum EDatabaseTypeName {
     ORACLESN("Oracle with service name", "Oracle with service name", new Boolean(true), "oracle_id"),
     GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "MSODBC"),
     MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "MSODBC"),
-    IBMDB2("IBM DB2", "IBM DB2", new Boolean(false), "mysql_id"),
+    IBMDB2("IBM DB2", "IBM DB2", new Boolean(false), "ibmdb2_id"),
     SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(false), "mysql_id"),
     // this Sybase IQ not used.
     SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "mysql_id"),

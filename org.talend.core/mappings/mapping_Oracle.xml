@@ -33,6 +33,12 @@
 			<type dbType="DECIMAL UNSIGNED"/>
 			<type dbType="CHAR"/>
 			<type dbType="VARCHAR" default="true"/>
+			<!-- add by qzhang -->
+			<type dbType="VARCHAR2"/>
+			<type dbType="NCHAR"/>
+			<type dbType="NVARCHAR2"/>
+			<type dbType="TIMESTAMP"/>
+			
 			<type dbType="CLOB"/>
 			<type dbType="TINYTEXT"/>
 			<type dbType="TEXT"/>
@@ -83,6 +89,11 @@
 			<type talendType="boolean" dbType="BOOLEAN" defaultSelected="true" />
 			
 			<type talendType="String" dbType="VARCHAR" nullable="true" defaultSelected="true" />
+			
+			<type talendType="String" dbType="VARCHAR2" nullable="true" defaultSelected="true" />
+			<type talendType="String" dbType="NCHAR" nullable="true" defaultSelected="true" />
+			<type talendType="String" dbType="NVARCHAR2" nullable="true" defaultSelected="true" />
+			
 			<type talendType="String" dbType="CLOB" nullable="true"/>
 			<type talendType="String" dbType="TINYTEXT" nullable="true"/>
 			<type talendType="String" dbType="TEXT" nullable="true"/>
@@ -91,6 +102,7 @@
 			<type talendType="String" dbType="ENUM" nullable="true"/>
 			<type talendType="Date" dbType="DATE" nullable="true"/>
 			<type talendType="Date" dbType="DATETIME" defaultSelected="true" />
+			<type talendType="Date" dbType="TIMESTAMP" defaultSelected="true" />
 			<!-- Not managed : TINYBLOB BLOB MEDIUMBLOB LONGBLOB             -->
 		</language>
 		
