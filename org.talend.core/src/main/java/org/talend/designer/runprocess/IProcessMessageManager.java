@@ -22,6 +22,7 @@
 package org.talend.designer.runprocess;
 
 import java.beans.PropertyChangeListener;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -42,7 +43,9 @@ public interface IProcessMessageManager {
 
     public void clearMessages();
 
-    public List<IProcessMessage> getMessages();
+    public Collection<IProcessMessage> getMessages();
+
+    public boolean isLastMessageEndWithCR();
 
 
 }
