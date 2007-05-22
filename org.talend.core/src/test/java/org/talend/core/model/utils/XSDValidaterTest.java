@@ -80,8 +80,11 @@ public class XSDValidaterTest {
     @Test
     public final void testValidateWithDomFileFileOK() throws Exception {
         XSDValidater validator = new XSDValidater();
-        File validatingFile = new File(this.getClass().getResource("mapping_IBMDB2.xml").toURI());
+        File validatingFile = new File("mappings/mapping_MsOdbc.xml");
         File validatorFile = new File("mappings/mapping_validate.xsd");
+        validator.validateWithDom(validatorFile, validatingFile);
+
+        validatingFile = new File("mappings/mapping_IBMDB2.xml");
         validator.validateWithDom(validatorFile, validatingFile);
     }
 
@@ -97,7 +100,6 @@ public class XSDValidaterTest {
             validator.validateWithDom(validatorFile, validatingFile);
             Assert.fail();
         } catch (Exception e) {
-           e.printStackTrace();
             Assert.assertTrue(true);
         }
     }

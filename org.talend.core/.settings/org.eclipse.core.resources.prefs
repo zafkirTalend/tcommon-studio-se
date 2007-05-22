@@ -1,5 +1,6 @@
-#Tue Jan 23 20:06:31 CST 2007
+#Tue May 22 13:07:34 CST 2007
 eclipse.preferences.version=1
+encoding//mappings/mapping_validate.xsd=UTF8
 encoding//src/main/java/org/talend/core/model/components/IComponent.java=UTF-8
 encoding/<project>=UTF-8
 encoding/talend_metadata_columns_schema.xsd=UTF8

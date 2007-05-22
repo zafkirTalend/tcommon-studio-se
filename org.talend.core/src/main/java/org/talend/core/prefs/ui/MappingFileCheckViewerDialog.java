@@ -1,0 +1,84 @@
+// ============================================================================
+//
+// Talend Community Edition
+//
+// Copyright (C) 2006-2007 Talend - www.talend.com
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// ============================================================================
+package org.talend.core.prefs.ui;
+
+import java.io.StringReader;
+
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.ui.swt.dialogs.SourceViewerDialog;
+import org.talend.core.CorePlugin;
+import org.talend.core.i18n.Messages;
+import org.talend.core.model.utils.XSDValidater;
+
+/**
+ * DOC bqian class global comment. Detailled comment <br/>
+ * 
+ * $Id: MappingFileCheckViewerDialog.java 1 May 22, 2007 10:44:43 AM +0000 $
+ * 
+ */
+public class MappingFileCheckViewerDialog extends SourceViewerDialog {
+
+    private XSDValidater validater;
+
+    /**
+     * Sets the validater.
+     * 
+     * @param validater the validater to set
+     */
+    public void setValidater(XSDValidater validater) {
+        this.validater = validater;
+    }
+
+    /**
+     * bqian MappingFileCheckViewerDialog constructor comment.
+     * 
+     * @param parentShell
+     * @param title
+     */
+    public MappingFileCheckViewerDialog(Shell parentShell, String title) {
+        super(parentShell, title);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.dialogs.Dialog#okPressed()
+     */
+    @Override
+    protected void okPressed() {
+        if (validater != null) {
+            try {
+                validater.validateWithDom(new StringReader(this.getDocument().get()));
+            } catch (Exception e) {
+                IStatus status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID, IStatus.ERROR, Messages
+                        .getString("MetadataTalendTypeEditor.fileIsInvalid"), e); //$NON-NLS-1$
+                ErrorDialog
+                        .openError(this.getShell(), Messages.getString("MetadataTalendTypeEditor.error.message"), null, status); //$NON-NLS-1$
+                return;
+            }
+        }
+        super.okPressed();
+    }
+}

@@ -30,6 +30,7 @@ import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -72,22 +73,22 @@ public abstract class TableEditor extends FieldEditor {
     /**
      * The Add button.
      */
-    private Button addButton;
+    protected Button addButton;
 
     /**
      * The Remove button.
      */
-    private Button removeButton;
+    protected Button removeButton;
 
     /**
      * The Up button.
      */
-    private Button upButton;
+    protected Button upButton;
 
     /**
      * The Down button.
      */
-    private Button downButton;
+    protected Button downButton;
 
     /**
      * The selection listener.
@@ -132,7 +133,7 @@ public abstract class TableEditor extends FieldEditor {
      * 
      * @param box the box for the buttons
      */
-    private void createButtons(Composite box) {
+    protected void createButtons(Composite box) {
         addButton = createPushButton(box, "ListEditor.add"); //$NON-NLS-1$
         removeButton = createPushButton(box, "ListEditor.remove"); //$NON-NLS-1$
         upButton = createPushButton(box, "ListEditor.up"); //$NON-NLS-1$
@@ -146,7 +147,7 @@ public abstract class TableEditor extends FieldEditor {
      * @param key the resource name used to supply the button's label text
      * @return Button
      */
-    private Button createPushButton(Composite parent, String key) {
+    protected Button createPushButton(Composite parent, String key) {
         Button button = new Button(parent, SWT.PUSH);
         button.setText(JFaceResources.getString(key));
         button.setFont(parent.getFont());
@@ -306,20 +307,23 @@ public abstract class TableEditor extends FieldEditor {
             viewer.addDoubleClickListener(new IDoubleClickListener() {
 
                 public void doubleClick(DoubleClickEvent event) {
-                    IStructuredSelection selection = ((IStructuredSelection) event.getSelection());
-                    String existing = (String) selection.getFirstElement();
-                    String value = getExistingInputObject(existing);
-                    if (value != null) {
-                        int indexOf = list.indexOf(existing);
-                        list.remove(existing);
-                        list.add(indexOf, value);
-                        viewer.refresh();
-                    }
-
+                    editItem(event.getSelection());
                 }
             });
         }
         return viewer;
+    }
+
+    protected void editItem(ISelection sel) {
+        IStructuredSelection selection = (IStructuredSelection) sel;
+        String existing = (String) selection.getFirstElement();
+        String value = getExistingInputObject(existing);
+        if (value != null) {
+            int indexOf = list.indexOf(existing);
+            list.remove(existing);
+            list.add(indexOf, value);
+            viewer.refresh();
+        }
     }
 
     protected abstract IStructuredContentProvider createContentProvider();
@@ -417,14 +421,12 @@ public abstract class TableEditor extends FieldEditor {
     /**
      * Notifies that the list selection has changed.
      */
-    private void selectionChanged() {
-
+    protected void selectionChanged() {
         int index = viewer.getTable().getSelectionIndex();
         int size = viewer.getTable().getItemCount();
-
-        removeButton.setEnabled(index >= 0);
-        upButton.setEnabled(size > 1 && index > 0);
-        downButton.setEnabled(size > 1 && index >= 0 && index < size - 1);
+        setControlEnable(removeButton, index >= 0);
+        setControlEnable(upButton, size > 1 && index > 0);
+        setControlEnable(downButton, size > 1 && index >= 0 && index < size - 1);
     }
 
     /*
@@ -466,11 +468,17 @@ public abstract class TableEditor extends FieldEditor {
      */
     public void setEnabled(boolean enabled, Composite parent) {
         super.setEnabled(enabled, parent);
-        getTableControl(parent).getTable().setEnabled(enabled);
-        addButton.setEnabled(enabled);
-        removeButton.setEnabled(enabled);
-        upButton.setEnabled(enabled);
-        downButton.setEnabled(enabled);
+        setControlEnable(getTableControl(parent).getTable(), enabled);
+        setControlEnable(addButton, enabled);
+        setControlEnable(removeButton, enabled);
+        setControlEnable(upButton, enabled);
+        setControlEnable(downButton, enabled);
+    }
+
+    protected void setControlEnable(Control control, boolean enable) {
+        if (control != null && !control.isDisposed()) {
+            control.setEnabled(enable);
+        }
     }
 
     /**

@@ -35,7 +35,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Source;
-import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.transform.stream.StreamSource;
@@ -53,6 +52,25 @@ import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
  * 
  */
 public class XSDValidater {
+
+    File xsdFile = null;
+
+    /**
+     * Sets the xsdFile.
+     * 
+     * @param xsdFile the xsdFile to set
+     */
+    public void setXsdFile(File xsdFile) {
+        this.xsdFile = xsdFile;
+    }
+
+    public void setXsdFile(String xsdFile) {
+        File file = new File(xsdFile);
+        if (!file.exists()) {
+            throw new IllegalArgumentException("the input xsd file is not existing.");
+        }
+        this.xsdFile = file;
+    }
 
     /**
      * Validate xml with xsd by dom.
@@ -79,6 +97,7 @@ public class XSDValidater {
         Document doc = builder.parse(new InputSource(xml));
         schema.newValidator().validate(new DOMSource(doc));
     }
+
     /**
      * Validate xml with xsd by sax.
      * 
@@ -99,6 +118,17 @@ public class XSDValidater {
 
     public void validateWithDom(File xsd, File xml) throws Exception {
         this.validateWithDom(new FileReader(xsd), new FileReader(xml));
+    }
+
+    public void validateWithDom(File xml) throws Exception {
+        validateWithDom(new FileReader(xml));
+    }
+
+    public void validateWithDom(Reader xml) throws Exception {
+        if (this.xsdFile == null || !xsdFile.exists()) {
+            throw new IllegalArgumentException("the input xsd file is not existing.");
+        }
+        validateWithDom(new FileReader(xsdFile), xml);
     }
 
 }

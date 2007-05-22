@@ -429,6 +429,7 @@ public final class MetadataTalendType {
         }
         File dir = new File(url.getPath());
         metadataMappingFiles = new ArrayList<File>();
+        dbmsSet.clear();
         if (dir.isDirectory()) {
             File[] files = dir.listFiles();
             for (File file : files) {

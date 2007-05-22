@@ -68,12 +68,20 @@
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
+			<xs:attribute name="default" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="true"/>
+						<xs:enumeration value="false"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="db_types">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="type" maxOccurs="unbounded"/>
+				<xs:element maxOccurs="unbounded" ref="type"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>

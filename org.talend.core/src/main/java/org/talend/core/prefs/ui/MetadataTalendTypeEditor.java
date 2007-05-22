@@ -22,6 +22,7 @@
 package org.talend.core.prefs.ui;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -34,21 +35,37 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.ErrorDialog;
+import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.FieldEditor;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ILabelProviderListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITableLabelProvider;
-import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.osgi.framework.Bundle;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.ui.swt.preferences.TableEditor;
+import org.talend.commons.ui.swt.dialogs.SourceViewerDialog;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
@@ -56,16 +73,118 @@ import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.utils.XSDValidater;
 
 /**
- * bqian. <br/>
+ * bqian. MetadataTalendType Editor<br/>
  * 
  * $Id: MetadataTalendTypeEditor.java 2738 2007-05-11 13:12:27Z bqian $
  * 
  */
-public class MetadataTalendTypeEditor extends TableEditor {
+public class MetadataTalendTypeEditor extends FieldEditor {
 
     public static final String ID = "org.talend.core.prefs.ui.MetadataTalendTypeEditor"; //$NON-NLS-1$
 
     public static final String INTERAL_XSD_FILE = MetadataTalendType.INTERNAL_MAPPINGS_FOLDER + "/mapping_validate.xsd"; //$NON-NLS-1$
+
+    private XSDValidater validater;
+
+    /**
+     * The Add button.
+     */
+    protected Button addButton;
+
+    /**
+     * The Remove button.
+     */
+    protected Button removeButton;
+
+    private Button exportButton;
+
+    private Button editButton;
+
+    TmpFilesManager tmpFileManager = new TmpFilesManager();
+
+    protected TableViewer viewer;
+
+    /**
+     * Store file infomation <br/>
+     * 
+     * $Id: MetadataTalendTypeEditor.java 1 May 21, 2007 3:47:57 PM +0000 $
+     * 
+     */
+    class FileInfo {
+
+        String fileName;
+
+        File file;
+
+        IDocument fileContent;
+    }
+
+    /**
+     * FileInfo manager. <br/>
+     * 
+     * $Id: MetadataTalendTypeEditor.java 1 May 21, 2007 3:48:13 PM +0000 $
+     * 
+     */
+    class TmpFilesManager {
+
+        // store the editing tempertory files
+        private List<FileInfo> tmpFiles = new ArrayList<FileInfo>();
+
+        TmpFilesManager() {
+            init();
+        }
+
+        private void init() {
+            List<File> files = MetadataTalendType.getMetadataMappingFiles();
+            tmpFiles.clear();
+            for (File file : files) {
+                FileInfo info = new FileInfo();
+                info.file = file;
+                info.fileName = file.getName();
+                this.addFile(info);
+            }
+        }
+
+        public void addFile(FileInfo file) {
+            tmpFiles.add(file);
+        }
+
+        List<FileInfo> getTempFiles() {
+            return tmpFiles;
+        }
+
+        boolean contains(String fileName) {
+            for (FileInfo info : tmpFiles) {
+                if (info.fileName.equals(fileName)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        boolean contains(File file) {
+            for (FileInfo info : tmpFiles) {
+                if (info.file.equals(file)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        void remove(FileInfo file) {
+            tmpFiles.remove(file);
+        }
+
+        void reload() {
+            try {
+                MetadataTalendType.loadCommonMappings();
+                init();
+            } catch (Exception e) {
+                ExceptionHandler.process(e);
+            }
+        }
+
+    }
 
     /**
      * MetadataTalendTypeEditor constructor.
@@ -75,40 +194,225 @@ public class MetadataTalendTypeEditor extends TableEditor {
      * @param parent
      */
     public MetadataTalendTypeEditor(String name, String labelText, Composite parent) {
-        super(name, labelText, parent);
+        init(name, labelText);
+        createControl(parent);
+        initialValidator();
     }
 
-    @Override
+    private void initialValidator() {
+        try {
+            Path filePath = new Path(INTERAL_XSD_FILE);
+            Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
+            URL url = FileLocator.toFileURL(FileLocator.find(b, filePath, null));
+            File xsdFile = new File(url.getFile());
+
+            validater = new XSDValidater();
+            validater.setXsdFile(xsdFile);
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+    }
+
+    /*
+     * (non-Javadoc) Method declared on FieldEditor.
+     */
+    protected void doFillIntoGrid(Composite parent, int numColumns) {
+        Control control = getLabelControl(parent);
+        GridData gd = new GridData();
+        gd.horizontalSpan = numColumns;
+        control.setLayoutData(gd);
+
+        viewer = getTableControl(parent);
+        gd = new GridData(GridData.FILL_HORIZONTAL);
+        gd.verticalAlignment = GridData.FILL;
+        gd.horizontalSpan = numColumns - 1;
+        gd.grabExcessHorizontalSpace = true;
+        viewer.getTable().setLayoutData(gd);
+
+        Composite buttonBox = getButtonBoxControl(parent);
+        gd = new GridData();
+        gd.verticalAlignment = GridData.BEGINNING;
+        buttonBox.setLayoutData(gd);
+    }
+
+    /**
+     * Returns this field editor's list control.
+     * 
+     * @param parent the parent control
+     * @return the list control
+     */
+    protected TableViewer getTableControl(Composite parent) {
+        Table table = createTable(parent);
+        viewer = new TableViewer(table);
+        viewer.setContentProvider(createContentProvider());
+        viewer.setLabelProvider(createLabelProvider());
+        table.setFont(parent.getFont());
+        viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+
+            public void selectionChanged(SelectionChangedEvent event) {
+                MetadataTalendTypeEditor.this.selectionChanged();
+            }
+        });
+        viewer.addDoubleClickListener(new IDoubleClickListener() {
+
+            public void doubleClick(DoubleClickEvent event) {
+                editItem();
+            }
+        });
+        return viewer;
+    }
+
+    /**
+     * Edit the selected item.
+     */
+    protected void editItem() {
+        FileInfo fileSelected = getSelection();
+
+        MappingFileCheckViewerDialog sourceViewerDialog = new MappingFileCheckViewerDialog(this.getShell(), Messages.getString("MetadataTalendTypeEditor.editMappingDialog.title")); //$NON-NLS-1$
+        sourceViewerDialog.setValidater(validater);
+        if (fileSelected.fileContent != null) {
+            // This indicates that the FileInfo has been edited.
+            sourceViewerDialog.setDocument(fileSelected.fileContent);
+        } else {
+            // The first time to edit this FileInfo
+            sourceViewerDialog.setDocument(fileSelected.file);
+        }
+        if (sourceViewerDialog.open() == IDialogConstants.OK_ID) {
+            System.out.println(sourceViewerDialog.getDocument().get());
+            fileSelected.fileContent = sourceViewerDialog.getDocument();
+        }
+    }
+
+    /**
+     * Returns this field editor's button box containing the Add, Remove, Up, and Down button.
+     * 
+     * @param parent the parent control
+     * @return the button box
+     */
+    public Composite getButtonBoxControl(Composite parent) {
+        Composite buttonBox = new Composite(parent, SWT.NULL);
+        GridLayout layout = new GridLayout();
+        layout.marginWidth = 0;
+        buttonBox.setLayout(layout);
+        createButtons(buttonBox);
+        selectionChanged();
+        return buttonBox;
+    }
+
     protected Table createTable(Composite parent) {
         Table contextTable = new Table(parent, SWT.BORDER | SWT.SINGLE);
         contextTable.setLinesVisible(true);
         contextTable.setHeaderVisible(true);
 
-        TableColumn engineName = new TableColumn(contextTable, SWT.NONE);
-        engineName.setText(Messages.getString("MetadataTalendTypeEditor.column1.Name"));  //$NON-NLS-1$
-        engineName.setWidth(300);
+        TableColumn fileNameColumn = new TableColumn(contextTable, SWT.NONE);
+        fileNameColumn.setText(Messages.getString("MetadataTalendTypeEditor.column1.Name")); //$NON-NLS-1$
+        fileNameColumn.setWidth(300);
 
         return contextTable;
     }
 
-    @Override
-    protected IStructuredContentProvider createContentProvider() {
-        return new IStructuredContentProvider() {
-
-            public Object[] getElements(Object inputElement) {
-                return ((List) inputElement).toArray();
-            }
-
-            public void dispose() {
-            }
-
-            public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-            }
-
-        };
+    /*
+     * (non-Javadoc) Method declared on FieldEditor.
+     */
+    protected void adjustForNumColumns(int numColumns) {
+        Control control = getLabelControl();
+        ((GridData) control.getLayoutData()).horizontalSpan = numColumns;
+        ((GridData) viewer.getTable().getLayoutData()).horizontalSpan = numColumns - 1;
     }
 
-    @Override
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.preferences.TableEditor#createButtons(org.eclipse.swt.widgets.Composite)
+     */
+    protected void createButtons(Composite box) {
+        addButton = createPushButton(box, Messages.getString("MetadataTalendTypeEditor.button.import"));  //$NON-NLS-1$
+        addButton.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                importItem();
+            }
+        });
+
+        exportButton = createPushButton(box, Messages.getString("MetadataTalendTypeEditor.button.export"));  //$NON-NLS-1$
+        exportButton.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                exportItem();
+            }
+        });
+        editButton = createPushButton(box, Messages.getString("MetadataTalendTypeEditor.button.edit")); //$NON-NLS-1$
+        editButton.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                editItem();
+            }
+        });
+        removeButton = createPushButton(box, JFaceResources.getString("ListEditor.remove")); //$NON-NLS-1$
+        removeButton.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                removeItem();
+            }
+        });
+
+    }
+
+    /**
+     * bqian Comment method "removeItem".
+     */
+    protected void removeItem() {
+        FileInfo info = getSelection();
+        tmpFileManager.remove(info);
+        refreshViewer();
+    }
+
+    /**
+     * Helper method to create a push button.
+     * 
+     * @param parent the parent control
+     * @param key the resource name used to supply the button's label text
+     * @return Button
+     */
+    protected Button createPushButton(Composite parent, String text) {
+        Button button = new Button(parent, SWT.PUSH);
+        button.setText(text);
+        button.setFont(parent.getFont());
+        GridData data = new GridData(GridData.FILL_HORIZONTAL);
+        int widthHint = convertHorizontalDLUsToPixels(button, IDialogConstants.BUTTON_WIDTH);
+        data.widthHint = Math.max(widthHint, button.computeSize(SWT.DEFAULT, SWT.DEFAULT, true).x);
+        button.setLayoutData(data);
+        return button;
+    }
+
+    private Shell getShell() {
+        return this.getPage().getShell();
+    }
+
+    private FileInfo getSelection() {
+        return (FileInfo) ((IStructuredSelection) viewer.getSelection()).getFirstElement();
+    }
+
+    private void exportItem() {
+        File existing = getSelection().file;
+        FileDialog dia = new FileDialog(getShell(), SWT.SAVE);
+        dia.setFileName(existing.getName());
+        dia.setFilterExtensions(new String[] { "*.xml" }); //$NON-NLS-1$
+        String destination = dia.open();
+        if (destination == null) {
+            return;
+        }
+        try {
+            FilesUtils.copyFile(existing, new File(destination));
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+    }
+
+    protected IStructuredContentProvider createContentProvider() {
+        return new ArrayContentProvider();
+    }
+
     protected ITableLabelProvider createLabelProvider() {
         return new ITableLabelProvider() {
 
@@ -117,9 +421,13 @@ public class MetadataTalendTypeEditor extends TableEditor {
             }
 
             public String getColumnText(Object element, int columnIndex) {
-                if (element instanceof String) {
-                    String file = (String) element;
-                    return file;
+                if (columnIndex == 0) {
+                    if (element instanceof String) {
+                        return (String) element;
+                    }
+                    if (element instanceof FileInfo) {
+                        return ((FileInfo) element).file.getName();
+                    }
                 }
                 throw new IllegalStateException();
             }
@@ -139,48 +447,28 @@ public class MetadataTalendTypeEditor extends TableEditor {
         };
     }
 
-    @Override
-    protected String writeString(List<String> items) {
-        boolean needReload = false;
+    /**
+     * Notifies that the Add button has been pressed.
+     */
+    private void importItem() {
+        setPresentsDefaultValue(false);
+        File input = getNewInputObject();
 
-        List<String> allFileNames = this.getList();
-        // add the new files;
-        for (File newFile : newFiles) {
-            if (allFileNames.contains(newFile.getName())) {
-                try {
-                    importFileIntoTalend(newFile);
-                    needReload = true;
-                } catch (Exception e) {
-                    ExceptionHandler.process(e);
-                }
-            }
+        if (input != null) {
+            FileInfo fileInfo = new FileInfo();
+            fileInfo.file = input;
+            fileInfo.fileName = input.getName();
+            tmpFileManager.addFile(fileInfo);
+            refreshViewer();
         }
-
-        // delete the removed files
-        List<File> files = MetadataTalendType.getMetadataMappingFiles();
-        for (File file : files) {
-            if (!allFileNames.contains(file.getName())) {
-                file.delete();
-                needReload = true;
-            }
-        }
-
-        if (needReload) {
-            try {
-                MetadataTalendType.loadCommonMappings();
-            } catch (Exception e) {
-                ExceptionHandler.process(e);
-            }
-        }
-
-        return "no need to store the data"; //$NON-NLS-1$
     }
 
-    // store the new imported files.
-    public List<File> newFiles = new ArrayList<File>();
+    private void refreshViewer() {
+        viewer.refresh();
+        selectionChanged();
+    }
 
-    @Override
-    protected String getNewInputObject() {
+    protected File getNewInputObject() {
         Shell shell = this.getShell();
         FileDialog dialog = new FileDialog(shell);
         dialog.setFilterExtensions(new String[] { "*.xml" }); //$NON-NLS-1$
@@ -189,7 +477,7 @@ public class MetadataTalendTypeEditor extends TableEditor {
             return null;
         }
         File xmlFile = new File(fileName);
-        if (super.getList().contains(xmlFile.getName())) {
+        if (tmpFileManager.contains(xmlFile.getName())) {
             MessageDialog
                     .openWarning(
                             shell,
@@ -206,9 +494,9 @@ public class MetadataTalendTypeEditor extends TableEditor {
         }
 
         try {
-            validateMetadata(xmlFile);
-            newFiles.add(xmlFile);
-            return xmlFile.getName();
+            validater.validateWithDom(xmlFile);
+
+            return xmlFile;
         } catch (Exception e) {
             IStatus status = new Status(IStatus.ERROR, CorePlugin.PLUGIN_ID, IStatus.ERROR, Messages
                     .getString("MetadataTalendTypeEditor.fileIsInvalid"), e); //$NON-NLS-1$
@@ -216,6 +504,114 @@ public class MetadataTalendTypeEditor extends TableEditor {
         }
 
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.preferences.TableEditor#selectionChanged()
+     */
+    protected void selectionChanged() {
+        boolean selected = !viewer.getSelection().isEmpty();
+        setControlEnable(exportButton, selected);
+        setControlEnable(editButton, selected);
+        setControlEnable(removeButton, selected);
+    }
+
+    protected void setControlEnable(Control control, boolean enable) {
+        if (control != null && !control.isDisposed()) {
+            control.setEnabled(enable);
+        }
+    }
+
+    /*
+     * (non-Javadoc) Method declared on FieldEditor.
+     */
+    protected void doLoadDefault() {
+        tmpFileManager.reload();
+        doLoad();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.preferences.TableEditor#doLoad()
+     */
+    @Override
+    protected void doLoad() {
+        viewer.setInput(tmpFileManager.getTempFiles());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.preference.FieldEditor#doStore()
+     */
+    @Override
+    protected void doStore() {
+        boolean needReload = false;
+
+        List<FileInfo> tempFiles = tmpFileManager.getTempFiles();
+        List<File> realFiles = MetadataTalendType.getMetadataMappingFiles();
+
+        // delete the removed files
+        for (File file : realFiles) {
+            if (!tmpFileManager.contains(file)) {
+                file.delete();
+                needReload = true;
+            }
+        }
+
+        // add the new files;
+        for (FileInfo newFile : tempFiles) {
+            if (!realFiles.contains(newFile.file)) {
+                try {
+                    importFileIntoTalend(newFile.file);
+                    needReload = true;
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+        }
+
+        // for editing files
+        for (FileInfo tempFile : tempFiles) {
+            for (File realFile : realFiles) {
+                if (realFile.equals(tempFile.file)) {
+                    if (tempFile.fileContent != null) {
+                        try {
+                            updateFileContent(realFile, tempFile.fileContent.get());
+                            needReload = true;
+                            break;
+                        } catch (Exception e) {
+                            ExceptionHandler.process(e);
+                        }
+
+                    }
+                }
+            }
+        }
+
+        if (needReload) {
+            tmpFileManager.reload();
+        }
+    }
+
+    /**
+     * bqian Comment method "updateFileContent".
+     * 
+     * @param realFile
+     * @param string
+     */
+    private void updateFileContent(File realFile, String string) throws Exception {
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(realFile);
+            fw.write(string);
+            fw.flush();
+        } finally {
+            fw.close();
+        }
     }
 
     /**
@@ -237,62 +633,10 @@ public class MetadataTalendTypeEditor extends TableEditor {
         return targetFile;
     }
 
-    /**
-     * Use the internal xsd to validate the matadata mapping file.
-     * 
-     * @param xmlFile
-     */
-    private void validateMetadata(File xmlFile) throws Exception {
-        Path filePath = new Path(INTERAL_XSD_FILE);
-
-        Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
-        URL url = FileLocator.toFileURL(FileLocator.find(b, filePath, null));
-        File xsdFile = new File(url.getFile());
-
-        new XSDValidater().validateWithDom(xsdFile, xmlFile);
-    }
-
-    @Override
-    protected String getExistingInputObject(String obj) {
-        // prevent editing the existing item.
-        return null;
-    }
-
-    @Override
-    protected List<String> readString(String stringList) {
-        // no need to pasrse data here.
-        return null;
-    }
-
     /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.commons.ui.swt.preferences.TableEditor#doLoad()
+     * (non-Javadoc) Method declared on FieldEditor.
      */
-    @Override
-    protected void doLoad() {
-        List<String> fileNames = super.getList();
-        fileNames.clear();
-        try {
-            List<File> files = MetadataTalendType.getMetadataMappingFiles();
-            for (File file : files) {
-                fileNames.add(file.getName());
-            }
-            viewer.setInput(fileNames);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-
+    public int getNumberOfControls() {
+        return 2;
     }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.commons.ui.swt.preferences.TableEditor#doLoadDefault()
-     */
-    @Override
-    protected void doLoadDefault() {
-        doLoad();
-    }
-
 }
