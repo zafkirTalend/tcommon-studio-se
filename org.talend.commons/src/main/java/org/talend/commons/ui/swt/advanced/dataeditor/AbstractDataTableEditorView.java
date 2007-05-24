@@ -21,19 +21,41 @@
 // ============================================================================
 package org.talend.commons.ui.swt.advanced.dataeditor;
 
+import java.util.List;
+
+import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.IElementComparer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.advanced.dataeditor.commands.ExtendedTableRemoveCommand;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SHOW_ROW_SELECTION;
+import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
+import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManagerEvent;
+import org.talend.commons.ui.swt.tableviewer.tableeditor.ITableEditorManagerListener;
+import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
+import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager.EVENT_TYPE;
 import org.talend.commons.utils.data.list.ListenableListEvent;
 
 /**
@@ -297,6 +319,7 @@ public abstract class AbstractDataTableEditorView<B> {
     protected void setTableViewerCreatorOptions(TableViewerCreator<B> newTableViewerCreator) {
         // newTableViewerCreator.setUseCustomItemColoring(true);
         // newTableViewerCreator.setFirstVisibleColumnIsSelection(true);
+        newTableViewerCreator.setShowLineSelection(SHOW_ROW_SELECTION.FULL);
     }
 
     /**
@@ -328,6 +351,7 @@ public abstract class AbstractDataTableEditorView<B> {
 
             };
             table.addKeyListener(this.tableKeyListener);
+
 
         }
     }

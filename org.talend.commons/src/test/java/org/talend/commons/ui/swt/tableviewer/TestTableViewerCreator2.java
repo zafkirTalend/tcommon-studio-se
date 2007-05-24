@@ -239,6 +239,7 @@ public final class TestTableViewerCreator2 {
         });
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle("Id");
+        column.setModifiable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
 
             public Integer get(DataObject bean) {

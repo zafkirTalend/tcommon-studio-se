@@ -63,6 +63,8 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     private static int generatedId;
 
+    private int unactiveKeysForEditor;
+    
     /**
      * . <br/>
      * 
@@ -535,5 +537,5 @@ public class TableViewerCreatorColumn implements Cloneable {
     public void setColorProvider(IColumnColorProvider colorProvider) {
         this.colorProvider = colorProvider;
     }
-
+    
 }

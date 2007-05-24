@@ -96,8 +96,8 @@ public class DefaultCellModifier implements ICellModifier {
      * @see org.eclipse.jface.viewers.ICellModifier#modify(java.lang.Object, java.lang.String, java.lang.Object)
      */
     @SuppressWarnings("unchecked")
-    public void modify(Object element, String idColumn, Object value) {
-        Object bean = ((TableItem) element).getData();
+    public void modify(Object tableItem, String idColumn, Object value) {
+        Object bean = ((TableItem) tableItem).getData();
         TableViewerCreatorColumn column = tableViewerCreator.getColumn(idColumn);
         if (column.getBeanPropertyAccessors() != null) {
             Object typedValue = null;
@@ -111,10 +111,10 @@ public class DefaultCellModifier implements ICellModifier {
             }
             Object previousValue = AccessorUtils.get(bean, column);
             tableViewerCreator.setBeanValue(column, bean, typedValue, true);
-            fireCellEditorApplied((TableItem) element, bean, column, value, previousValue, typedValue);
+            fireCellEditorApplied((TableItem) tableItem, bean, column, value, previousValue, typedValue);
         }
         ModifiedObjectInfo modifiedObjectInfo = this.tableViewerCreator.getModifiedObjectInfo();
-        modifiedObjectInfo.setPreviousModifiedBean(((TableItem) element).getData());
+        modifiedObjectInfo.setPreviousModifiedBean(((TableItem) tableItem).getData());
         modifiedObjectInfo.setPreviousModifiedIndex(modifiedObjectInfo.getCurrentModifiedIndex());
         modifiedObjectInfo.setCurrentModifiedBean(null);
         modifiedObjectInfo.setPreviousModifiedColumn(modifiedObjectInfo.getCurrentModifiedColumn());

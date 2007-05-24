@@ -67,7 +67,7 @@ public class CheckboxTableEditorContent extends TableEditorContent {
      * java.lang.Object, java.lang.Object)
      */
     @SuppressWarnings("unchecked")
-    public Control initialize(Table table, TableEditor tableEditor, final TableViewerCreatorColumn currentColumn,
+    public Control initialize(Table table, final TableEditor tableEditor, final TableViewerCreatorColumn currentColumn,
             final Object currentRowObject, final Object currentCellValue) {
 
         /*
@@ -94,8 +94,8 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
             @SuppressWarnings("unchecked")
             public void widgetSelected(SelectionEvent e) {
-                tableViewerCreator.setBeanValue(currentColumn, currentRowObject, ((Button) e.getSource())
-                        .getSelection() ? CHECKED : UNCHECKED, true);
+                tableViewerCreator.getCellModifier().modify(tableEditor.getItem(), currentColumn.getId(), ((Button) e.getSource())
+                        .getSelection() ? CHECKED : UNCHECKED);
                 tableViewerCreator.getTableViewer().setSelection(new StructuredSelection(currentRowObject));
             }
 

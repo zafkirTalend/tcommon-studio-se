@@ -22,14 +22,18 @@
 package org.talend.commons.ui.swt.tableviewer.tableeditor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import org.talend.commons.ui.swt.extended.table.IExtendedControlEventType;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
@@ -41,10 +45,43 @@ import org.talend.commons.ui.swt.tableviewer.sort.IColumnSortedListener;
  */
 public class TableEditorManager {
 
+    /**
+     * 
+     * Event type. <br/>
+     * 
+     * $Id$
+     * 
+     */
+    public enum EVENT_TYPE implements ITableEditorManagerEventType {
+        CONTROL_CREATED,
+        CONTROL_DISPOSED,
+    };
+
+
     private TableViewerCreator tableViewerCreator;
 
     private List<TableEditor> tableEditorList = new ArrayList<TableEditor>();
 
+    List<ITableEditorManagerListener> listeners = new ArrayList<ITableEditorManagerListener>();
+
+    public void addListener(ITableEditorManagerListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeListener(ITableEditorManagerListener listener) {
+        listeners.remove(listener);
+    }
+
+    protected void fireEvent(TableEditorManagerEvent event) {
+        int listenersListSize = listeners.size();
+        for (int i = 0; i < listenersListSize; i++) {
+            ITableEditorManagerListener listener = listeners.get(i);
+            listener.notifyEvent(event);
+        }
+    }
+
+
+    
     /**
      * DOC amaumont TableEditorManager constructor comment.
      * 
@@ -77,6 +114,7 @@ public class TableEditorManager {
         // System.out.println("table editor refreshed");
         for (TableEditor tableEditor : tableEditorList) {
             tableEditor.getEditor().dispose();
+            fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_DISPOSED, tableEditor));
         }
         tableEditorList.clear();
 
@@ -124,9 +162,11 @@ public class TableEditorManager {
                     tableEditorList.add(tableEditor);
                     Object currentRowObject = tableItem.getData();
                     Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-                    Control control = tableEditorContent.initialize(table, tableEditor, column, currentRowObject, value);
+                    Control control = tableEditorContent
+                            .initialize(table, tableEditor, column, currentRowObject, value);
                     if (tableItem != null && !tableItem.isDisposed()) {
                         tableEditor.setEditor(control, tableItem, iCol);
+                        fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_CREATED, tableEditor));
                     }
 
                 }
@@ -148,4 +188,11 @@ public class TableEditorManager {
 
     }
 
+    
+    public List<TableEditor> getTableEditorList() {
+        return Collections.unmodifiableList(this.tableEditorList);
+    }
+
+    
+    
 }
