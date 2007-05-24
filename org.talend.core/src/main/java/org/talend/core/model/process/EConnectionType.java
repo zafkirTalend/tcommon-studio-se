@@ -42,10 +42,7 @@ public enum EConnectionType implements IConnectionCategory {
     /*
      * RUN_BEFORE(1, "BEFORE", //$NON-NLS-1$ EConnectionCategory.OTHER, EXECUTION_ORDER | DEPENDENCY, "RunBefore",
      * Messages.getString("EConnectionType.runBeforeMenu"), //$NON-NLS-1$ //$NON-NLS-2$ new
-     * Integer(Graphics.LINE_SOLID), new Color(null, new RGB(100, 100, 100))), RUN_AFTER(2, "AFTER", //$NON-NLS-1$
-     * EConnectionCategory.OTHER, EXECUTION_ORDER | DEPENDENCY, "RunAfter",
-     * Messages.getString("EConnectionType.runAfterMenu"), //$NON-NLS-1$ //$NON-NLS-2$ new Integer(Graphics.LINE_SOLID),
-     * new Color(null, new RGB(100, 100, 100))),
+     * Integer(Graphics.LINE_SOLID), new Color(null, new RGB(100, 100, 100))),
      */
     // LOOKUP(3, "LOOKUP", //$NON-NLS-1$
     // EConnectionCategory.OTHER,
@@ -100,7 +97,14 @@ public enum EConnectionType implements IConnectionCategory {
              EXECUTION_ORDER | DEPENDENCY,
              "ThenRun", Messages.getString("EConnectionType.thenRunMenu"), //$NON-NLS-1$ //$NON-NLS-2$
              new Integer(Graphics.LINE_SOLID),
-             new Color(null, new RGB(100, 100, 100)));
+             new Color(null, new RGB(100, 100, 100))),
+
+    RUN_AFTER(2, "AFTER", //$NON-NLS-1$
+              EConnectionCategory.OTHER,
+              EXECUTION_ORDER | DEPENDENCY,
+              "RunAfter", Messages.getString("EConnectionType.runAfterMenu"), //$NON-NLS-1$ //$NON-NLS-2$ 
+              new Integer(Graphics.LINE_SOLID),
+              new Color(null, new RGB(100, 100, 100)));
 
     private String name;
 
