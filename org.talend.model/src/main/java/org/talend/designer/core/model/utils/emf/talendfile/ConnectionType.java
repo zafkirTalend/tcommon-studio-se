@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getElementParameter <em>Element Parameter</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getConnectorName <em>Connector Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getLineStyle <em>Line Style</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getMetaname <em>Metaname</em>}</li>
@@ -50,6 +51,33 @@ public interface ConnectionType extends EObject {
      * @generated
      */
     EList getElementParameter();
+
+    /**
+     * Returns the value of the '<em><b>Connector Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Connector Name</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Connector Name</em>' attribute.
+     * @see #setConnectorName(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_ConnectorName()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='connectorName' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getConnectorName();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getConnectorName <em>Connector Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Connector Name</em>' attribute.
+     * @see #getConnectorName()
+     * @generated
+     */
+    void setConnectorName(String value);
 
     /**
      * Returns the value of the '<em><b>Label</b></em>' attribute.

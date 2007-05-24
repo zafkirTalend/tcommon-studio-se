@@ -302,11 +302,10 @@ public abstract class AbstractNode implements INode {
         return externalNode;
     }
 
-    
     public void setExternalNode(IExternalNode externalNode) {
         this.externalNode = externalNode;
     }
-    
+
     /**
      * Getter for isThereLinkWithHash.
      * 
@@ -333,12 +332,30 @@ public abstract class AbstractNode implements INode {
         }
         return null;
     }
-    
+
     public List<? extends IConnection> getOutgoingSortedConnections() {
         return org.talend.core.model.utils.NodeUtil.getOutgoingSortedConnections(this);
     }
-    
+
     public List<? extends IConnection> getMainOutgoingConnections() {
         return org.talend.core.model.utils.NodeUtil.getMainOutgoingConnections(this);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.INode#getOutgoingConnections(org.talend.core.model.process.EConnectionType)
+     */
+    public List<? extends IConnection> getOutgoingConnections(EConnectionType connectionType) {
+        return org.talend.core.model.utils.NodeUtil.getOutgoingConnections(this, connectionType);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.INode#getOutgoingConnections(java.lang.String)
+     */
+    public List<? extends IConnection> getOutgoingConnections(String connectorName) {
+        return org.talend.core.model.utils.NodeUtil.getOutgoingConnections(this, connectorName);
     }
 }

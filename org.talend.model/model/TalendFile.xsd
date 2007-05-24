@@ -100,6 +100,7 @@
 			<xs:attribute name="metaname" type="xs:string"/>
 			<xs:attribute name="outputId" type="xs:int" use="optional"/>
 			<xs:attribute name="lineStyle" type="xs:int"/>
+			<xs:attribute name="connectorName" type="xs:string" use="optional"/>
 			<xs:attribute name="offsetLabelX" type="xs:int"/>
 			<xs:attribute name="offsetLabelY" type="xs:int"/>
 		</xs:complexType>

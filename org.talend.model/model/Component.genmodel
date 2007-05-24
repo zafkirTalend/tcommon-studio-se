@@ -36,11 +36,14 @@
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//CONNECTORType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/bUILTIN"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/cOLOR"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/cTYPE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/lINESTYLE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mAXINPUT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mAXOUTPUT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mININPUT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mINOUTPUT"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/nAME"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//DEFAULTType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//DEFAULTType/value"/>

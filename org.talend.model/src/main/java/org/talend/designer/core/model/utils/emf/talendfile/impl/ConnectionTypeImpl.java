@@ -29,6 +29,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getElementParameter <em>Element Parameter</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getConnectorName <em>Connector Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getLineStyle <em>Line Style</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getMetaname <em>Metaname</em>}</li>
@@ -52,6 +53,26 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
      * @ordered
      */
     protected EList elementParameter = null;
+
+    /**
+     * The default value of the '{@link #getConnectorName() <em>Connector Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConnectorName()
+     * @generated
+     * @ordered
+     */
+    protected static final String CONNECTOR_NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getConnectorName() <em>Connector Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConnectorName()
+     * @generated
+     * @ordered
+     */
+    protected String connectorName = CONNECTOR_NAME_EDEFAULT;
 
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
@@ -277,6 +298,27 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
             elementParameter = new EObjectContainmentEList(ElementParameterType.class, this, TalendFilePackage.CONNECTION_TYPE__ELEMENT_PARAMETER);
         }
         return elementParameter;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getConnectorName() {
+        return connectorName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setConnectorName(String newConnectorName) {
+        String oldConnectorName = connectorName;
+        connectorName = newConnectorName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONNECTION_TYPE__CONNECTOR_NAME, oldConnectorName, connectorName));
     }
 
     /**
@@ -569,6 +611,8 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
         switch (featureID) {
             case TalendFilePackage.CONNECTION_TYPE__ELEMENT_PARAMETER:
                 return getElementParameter();
+            case TalendFilePackage.CONNECTION_TYPE__CONNECTOR_NAME:
+                return getConnectorName();
             case TalendFilePackage.CONNECTION_TYPE__LABEL:
                 return getLabel();
             case TalendFilePackage.CONNECTION_TYPE__LINE_STYLE:
@@ -599,6 +643,9 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
             case TalendFilePackage.CONNECTION_TYPE__ELEMENT_PARAMETER:
                 getElementParameter().clear();
                 getElementParameter().addAll((Collection)newValue);
+                return;
+            case TalendFilePackage.CONNECTION_TYPE__CONNECTOR_NAME:
+                setConnectorName((String)newValue);
                 return;
             case TalendFilePackage.CONNECTION_TYPE__LABEL:
                 setLabel((String)newValue);
@@ -638,6 +685,9 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
             case TalendFilePackage.CONNECTION_TYPE__ELEMENT_PARAMETER:
                 getElementParameter().clear();
                 return;
+            case TalendFilePackage.CONNECTION_TYPE__CONNECTOR_NAME:
+                setConnectorName(CONNECTOR_NAME_EDEFAULT);
+                return;
             case TalendFilePackage.CONNECTION_TYPE__LABEL:
                 setLabel(LABEL_EDEFAULT);
                 return;
@@ -675,6 +725,8 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
         switch (featureID) {
             case TalendFilePackage.CONNECTION_TYPE__ELEMENT_PARAMETER:
                 return elementParameter != null && !elementParameter.isEmpty();
+            case TalendFilePackage.CONNECTION_TYPE__CONNECTOR_NAME:
+                return CONNECTOR_NAME_EDEFAULT == null ? connectorName != null : !CONNECTOR_NAME_EDEFAULT.equals(connectorName);
             case TalendFilePackage.CONNECTION_TYPE__LABEL:
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
             case TalendFilePackage.CONNECTION_TYPE__LINE_STYLE:
@@ -704,7 +756,9 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (label: ");
+        result.append(" (connectorName: ");
+        result.append(connectorName);
+        result.append(", label: ");
         result.append(label);
         result.append(", lineStyle: ");
         if (lineStyleESet) result.append(lineStyle); else result.append("<unset>");

@@ -55,14 +55,15 @@
 						<xs:documentation>BUILTIN can only be used when CTYPE = 'FLOW'</xs:documentation>
 					</xs:annotation>
 					<xs:complexType>
+						<xs:attribute name="NAME" type="xs:string" use="optional"/>
 						<xs:attribute name="CTYPE" type="xs:string" use="required"/>
 						<xs:attribute name="MAX_INPUT" type="xs:int" use="optional"/>
 						<xs:attribute name="MIN_INPUT" type="xs:int" use="optional"/>
 						<xs:attribute name="MAX_OUTPUT" type="xs:int" use="optional"/>
 						<xs:attribute name="MIN_OUTPUT" type="xs:int" use="optional"/>
 						<xs:attribute name="BUILTIN" type="xs:boolean" use="optional"/>
-						<xs:attribute name="MENU_NAME" type="xs:string" use="optional"/>
-						<xs:attribute name="LINK_NAME" type="xs:string" use="optional"/>
+						<xs:attribute name="LINE_STYLE" type="xs:int" use="optional"/>
+						<xs:attribute name="COLOR" type="xs:string" use="optional"/>
 					</xs:complexType>
 				</xs:element>
 			</xs:sequence>

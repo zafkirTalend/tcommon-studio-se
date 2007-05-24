@@ -336,13 +336,31 @@ public interface ComponentPackage extends EPackage {
     int CONNECTOR_TYPE__BUILTIN = 0;
 
     /**
+     * The feature id for the '<em><b>COLOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTOR_TYPE__COLOR = 1;
+
+    /**
      * The feature id for the '<em><b>CTYPE</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__CTYPE = 1;
+    int CONNECTOR_TYPE__CTYPE = 2;
+
+    /**
+     * The feature id for the '<em><b>LINESTYLE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTOR_TYPE__LINESTYLE = 3;
 
     /**
      * The feature id for the '<em><b>MAXINPUT</b></em>' attribute.
@@ -351,7 +369,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MAXINPUT = 2;
+    int CONNECTOR_TYPE__MAXINPUT = 4;
 
     /**
      * The feature id for the '<em><b>MAXOUTPUT</b></em>' attribute.
@@ -360,7 +378,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MAXOUTPUT = 3;
+    int CONNECTOR_TYPE__MAXOUTPUT = 5;
 
     /**
      * The feature id for the '<em><b>MININPUT</b></em>' attribute.
@@ -369,7 +387,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MININPUT = 4;
+    int CONNECTOR_TYPE__MININPUT = 6;
 
     /**
      * The feature id for the '<em><b>MINOUTPUT</b></em>' attribute.
@@ -378,7 +396,16 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MINOUTPUT = 5;
+    int CONNECTOR_TYPE__MINOUTPUT = 7;
+
+    /**
+     * The feature id for the '<em><b>NAME</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTOR_TYPE__NAME = 8;
 
     /**
      * The number of structural features of the '<em>CONNECTOR Type</em>' class.
@@ -387,7 +414,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE_FEATURE_COUNT = 6;
+    int CONNECTOR_TYPE_FEATURE_COUNT = 9;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.DEFAULTTypeImpl <em>DEFAULT Type</em>}' class.
@@ -1798,6 +1825,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getCONNECTORType_BUILTIN();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCOLOR <em>COLOR</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>COLOR</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCOLOR()
+     * @see #getCONNECTORType()
+     * @generated
+     */
+    EAttribute getCONNECTORType_COLOR();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCTYPE <em>CTYPE</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1807,6 +1845,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getCONNECTORType_CTYPE();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getLINESTYLE <em>LINESTYLE</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>LINESTYLE</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.CONNECTORType#getLINESTYLE()
+     * @see #getCONNECTORType()
+     * @generated
+     */
+    EAttribute getCONNECTORType_LINESTYLE();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMAXINPUT <em>MAXINPUT</em>}'.
@@ -1851,6 +1900,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getCONNECTORType_MINOUTPUT();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getNAME <em>NAME</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>NAME</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.CONNECTORType#getNAME()
+     * @see #getCONNECTORType()
+     * @generated
+     */
+    EAttribute getCONNECTORType_NAME();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.DEFAULTType <em>DEFAULT Type</em>}'.
@@ -3218,12 +3278,28 @@ public interface ComponentPackage extends EPackage {
         EAttribute CONNECTOR_TYPE__BUILTIN = eINSTANCE.getCONNECTORType_BUILTIN();
 
         /**
+         * The meta object literal for the '<em><b>COLOR</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTOR_TYPE__COLOR = eINSTANCE.getCONNECTORType_COLOR();
+
+        /**
          * The meta object literal for the '<em><b>CTYPE</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
         EAttribute CONNECTOR_TYPE__CTYPE = eINSTANCE.getCONNECTORType_CTYPE();
+
+        /**
+         * The meta object literal for the '<em><b>LINESTYLE</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTOR_TYPE__LINESTYLE = eINSTANCE.getCONNECTORType_LINESTYLE();
 
         /**
          * The meta object literal for the '<em><b>MAXINPUT</b></em>' attribute feature.
@@ -3256,6 +3332,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute CONNECTOR_TYPE__MINOUTPUT = eINSTANCE.getCONNECTORType_MINOUTPUT();
+
+        /**
+         * The meta object literal for the '<em><b>NAME</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTOR_TYPE__NAME = eINSTANCE.getCONNECTORType_NAME();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.DEFAULTTypeImpl <em>DEFAULT Type</em>}' class.

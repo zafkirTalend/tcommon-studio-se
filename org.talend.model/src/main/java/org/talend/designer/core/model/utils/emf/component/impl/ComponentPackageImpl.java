@@ -524,7 +524,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_CTYPE() {
+    public EAttribute getCONNECTORType_COLOR() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(1);
     }
 
@@ -533,7 +533,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_MAXINPUT() {
+    public EAttribute getCONNECTORType_CTYPE() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -542,7 +542,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_MAXOUTPUT() {
+    public EAttribute getCONNECTORType_LINESTYLE() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -551,7 +551,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_MININPUT() {
+    public EAttribute getCONNECTORType_MAXINPUT() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -560,8 +560,35 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_MINOUTPUT() {
+    public EAttribute getCONNECTORType_MAXOUTPUT() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCONNECTORType_MININPUT() {
+        return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCONNECTORType_MINOUTPUT() {
+        return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCONNECTORType_NAME() {
+        return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -1558,11 +1585,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
         connectorTypeEClass = createEClass(CONNECTOR_TYPE);
         createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__BUILTIN);
+        createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__COLOR);
         createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__CTYPE);
+        createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__LINESTYLE);
         createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__MAXINPUT);
         createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__MAXOUTPUT);
         createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__MININPUT);
         createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__MINOUTPUT);
+        createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__NAME);
 
         defaultTypeEClass = createEClass(DEFAULT_TYPE);
         createEAttribute(defaultTypeEClass, DEFAULT_TYPE__VALUE);
@@ -1747,11 +1777,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
         initEClass(connectorTypeEClass, CONNECTORType.class, "CONNECTORType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getCONNECTORType_BUILTIN(), theXMLTypePackage.getBoolean(), "bUILTIN", null, 0, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCONNECTORType_COLOR(), theXMLTypePackage.getString(), "cOLOR", null, 0, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCONNECTORType_CTYPE(), theXMLTypePackage.getString(), "cTYPE", null, 1, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCONNECTORType_LINESTYLE(), theXMLTypePackage.getInt(), "lINESTYLE", null, 0, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCONNECTORType_MAXINPUT(), theXMLTypePackage.getInt(), "mAXINPUT", null, 0, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCONNECTORType_MAXOUTPUT(), theXMLTypePackage.getInt(), "mAXOUTPUT", null, 0, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCONNECTORType_MININPUT(), theXMLTypePackage.getInt(), "mININPUT", null, 0, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCONNECTORType_MINOUTPUT(), theXMLTypePackage.getInt(), "mINOUTPUT", null, 0, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCONNECTORType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(defaultTypeEClass, DEFAULTType.class, "DEFAULTType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getDEFAULTType_Value(), theXMLTypePackage.getString(), "value", null, 0, 1, DEFAULTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2102,11 +2135,27 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "namespace", "##targetNamespace"
            });		
         addAnnotation
+          (getCONNECTORType_COLOR(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "COLOR",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (getCONNECTORType_CTYPE(), 
            source, 
            new String[] {
              "kind", "attribute",
              "name", "CTYPE",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getCONNECTORType_LINESTYLE(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "LINE_STYLE",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
@@ -2139,6 +2188,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "MIN_OUTPUT",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getCONNECTORType_NAME(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "NAME",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

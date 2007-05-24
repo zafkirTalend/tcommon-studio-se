@@ -21,11 +21,14 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#isBUILTIN <em>BUILTIN</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getCOLOR <em>COLOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getCTYPE <em>CTYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getLINESTYLE <em>LINESTYLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getMAXINPUT <em>MAXINPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getMAXOUTPUT <em>MAXOUTPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getMININPUT <em>MININPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getMINOUTPUT <em>MINOUTPUT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getNAME <em>NAME</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,6 +65,26 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     protected boolean bUILTINESet = false;
 
     /**
+     * The default value of the '{@link #getCOLOR() <em>COLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOLOR()
+     * @generated
+     * @ordered
+     */
+    protected static final String COLOR_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCOLOR() <em>COLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOLOR()
+     * @generated
+     * @ordered
+     */
+    protected String cOLOR = COLOR_EDEFAULT;
+
+    /**
      * The default value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -80,6 +103,35 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @ordered
      */
     protected String cTYPE = CTYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLINESTYLE() <em>LINESTYLE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLINESTYLE()
+     * @generated
+     * @ordered
+     */
+    protected static final int LINESTYLE_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getLINESTYLE() <em>LINESTYLE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLINESTYLE()
+     * @generated
+     * @ordered
+     */
+    protected int lINESTYLE = LINESTYLE_EDEFAULT;
+
+    /**
+     * This is true if the LINESTYLE attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean lINESTYLEESet = false;
 
     /**
      * The default value of the '{@link #getMAXINPUT() <em>MAXINPUT</em>}' attribute.
@@ -198,6 +250,26 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
     protected boolean mINOUTPUTESet = false;
 
     /**
+     * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getNAME()
+     * @generated
+     * @ordered
+     */
+    protected static final String NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getNAME() <em>NAME</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getNAME()
+     * @generated
+     * @ordered
+     */
+    protected String nAME = NAME_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -266,6 +338,27 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getCOLOR() {
+        return cOLOR;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCOLOR(String newCOLOR) {
+        String oldCOLOR = cOLOR;
+        cOLOR = newCOLOR;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CONNECTOR_TYPE__COLOR, oldCOLOR, cOLOR));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getCTYPE() {
         return cTYPE;
     }
@@ -280,6 +373,52 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
         cTYPE = newCTYPE;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CONNECTOR_TYPE__CTYPE, oldCTYPE, cTYPE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getLINESTYLE() {
+        return lINESTYLE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLINESTYLE(int newLINESTYLE) {
+        int oldLINESTYLE = lINESTYLE;
+        lINESTYLE = newLINESTYLE;
+        boolean oldLINESTYLEESet = lINESTYLEESet;
+        lINESTYLEESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CONNECTOR_TYPE__LINESTYLE, oldLINESTYLE, lINESTYLE, !oldLINESTYLEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetLINESTYLE() {
+        int oldLINESTYLE = lINESTYLE;
+        boolean oldLINESTYLEESet = lINESTYLEESet;
+        lINESTYLE = LINESTYLE_EDEFAULT;
+        lINESTYLEESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.CONNECTOR_TYPE__LINESTYLE, oldLINESTYLE, LINESTYLE_EDEFAULT, oldLINESTYLEESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetLINESTYLE() {
+        return lINESTYLEESet;
     }
 
     /**
@@ -471,12 +610,37 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getNAME() {
+        return nAME;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setNAME(String newNAME) {
+        String oldNAME = nAME;
+        nAME = newNAME;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CONNECTOR_TYPE__NAME, oldNAME, nAME));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.CONNECTOR_TYPE__BUILTIN:
                 return isBUILTIN() ? Boolean.TRUE : Boolean.FALSE;
+            case ComponentPackage.CONNECTOR_TYPE__COLOR:
+                return getCOLOR();
             case ComponentPackage.CONNECTOR_TYPE__CTYPE:
                 return getCTYPE();
+            case ComponentPackage.CONNECTOR_TYPE__LINESTYLE:
+                return new Integer(getLINESTYLE());
             case ComponentPackage.CONNECTOR_TYPE__MAXINPUT:
                 return new Integer(getMAXINPUT());
             case ComponentPackage.CONNECTOR_TYPE__MAXOUTPUT:
@@ -485,6 +649,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return new Integer(getMININPUT());
             case ComponentPackage.CONNECTOR_TYPE__MINOUTPUT:
                 return new Integer(getMINOUTPUT());
+            case ComponentPackage.CONNECTOR_TYPE__NAME:
+                return getNAME();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -499,8 +665,14 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
             case ComponentPackage.CONNECTOR_TYPE__BUILTIN:
                 setBUILTIN(((Boolean)newValue).booleanValue());
                 return;
+            case ComponentPackage.CONNECTOR_TYPE__COLOR:
+                setCOLOR((String)newValue);
+                return;
             case ComponentPackage.CONNECTOR_TYPE__CTYPE:
                 setCTYPE((String)newValue);
+                return;
+            case ComponentPackage.CONNECTOR_TYPE__LINESTYLE:
+                setLINESTYLE(((Integer)newValue).intValue());
                 return;
             case ComponentPackage.CONNECTOR_TYPE__MAXINPUT:
                 setMAXINPUT(((Integer)newValue).intValue());
@@ -513,6 +685,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return;
             case ComponentPackage.CONNECTOR_TYPE__MINOUTPUT:
                 setMINOUTPUT(((Integer)newValue).intValue());
+                return;
+            case ComponentPackage.CONNECTOR_TYPE__NAME:
+                setNAME((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -528,8 +703,14 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
             case ComponentPackage.CONNECTOR_TYPE__BUILTIN:
                 unsetBUILTIN();
                 return;
+            case ComponentPackage.CONNECTOR_TYPE__COLOR:
+                setCOLOR(COLOR_EDEFAULT);
+                return;
             case ComponentPackage.CONNECTOR_TYPE__CTYPE:
                 setCTYPE(CTYPE_EDEFAULT);
+                return;
+            case ComponentPackage.CONNECTOR_TYPE__LINESTYLE:
+                unsetLINESTYLE();
                 return;
             case ComponentPackage.CONNECTOR_TYPE__MAXINPUT:
                 unsetMAXINPUT();
@@ -542,6 +723,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return;
             case ComponentPackage.CONNECTOR_TYPE__MINOUTPUT:
                 unsetMINOUTPUT();
+                return;
+            case ComponentPackage.CONNECTOR_TYPE__NAME:
+                setNAME(NAME_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -556,8 +740,12 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
         switch (featureID) {
             case ComponentPackage.CONNECTOR_TYPE__BUILTIN:
                 return isSetBUILTIN();
+            case ComponentPackage.CONNECTOR_TYPE__COLOR:
+                return COLOR_EDEFAULT == null ? cOLOR != null : !COLOR_EDEFAULT.equals(cOLOR);
             case ComponentPackage.CONNECTOR_TYPE__CTYPE:
                 return CTYPE_EDEFAULT == null ? cTYPE != null : !CTYPE_EDEFAULT.equals(cTYPE);
+            case ComponentPackage.CONNECTOR_TYPE__LINESTYLE:
+                return isSetLINESTYLE();
             case ComponentPackage.CONNECTOR_TYPE__MAXINPUT:
                 return isSetMAXINPUT();
             case ComponentPackage.CONNECTOR_TYPE__MAXOUTPUT:
@@ -566,6 +754,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return isSetMININPUT();
             case ComponentPackage.CONNECTOR_TYPE__MINOUTPUT:
                 return isSetMINOUTPUT();
+            case ComponentPackage.CONNECTOR_TYPE__NAME:
+                return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
         }
         return super.eIsSet(featureID);
     }
@@ -581,8 +771,12 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (bUILTIN: ");
         if (bUILTINESet) result.append(bUILTIN); else result.append("<unset>");
+        result.append(", cOLOR: ");
+        result.append(cOLOR);
         result.append(", cTYPE: ");
         result.append(cTYPE);
+        result.append(", lINESTYLE: ");
+        if (lINESTYLEESet) result.append(lINESTYLE); else result.append("<unset>");
         result.append(", mAXINPUT: ");
         if (mAXINPUTESet) result.append(mAXINPUT); else result.append("<unset>");
         result.append(", mAXOUTPUT: ");
@@ -591,6 +785,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
         if (mININPUTESet) result.append(mININPUT); else result.append("<unset>");
         result.append(", mINOUTPUT: ");
         if (mINOUTPUTESet) result.append(mINOUTPUT); else result.append("<unset>");
+        result.append(", nAME: ");
+        result.append(nAME);
         result.append(')');
         return result.toString();
     }

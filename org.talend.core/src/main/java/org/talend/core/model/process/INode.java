@@ -132,4 +132,9 @@ public interface INode extends IElement {
     public List<? extends IConnection> getOutgoingSortedConnections();
     
     public List<? extends IConnection> getMainOutgoingConnections();
+    
+    // note that FLOW_MAIN will also return all kind of "FLOW".
+    public List<? extends IConnection> getOutgoingConnections(EConnectionType connectionType);
+    
+    public List<? extends IConnection> getOutgoingConnections(String connectorName);
 }

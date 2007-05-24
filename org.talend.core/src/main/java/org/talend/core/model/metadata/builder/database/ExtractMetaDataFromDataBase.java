@@ -236,7 +236,6 @@ public class ExtractMetaDataFromDataBase {
 
                 String talendType = null;
                 if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                    System.out.println("current dbms:" + dbms);
                     String product = EDatabaseTypeName.getTypeFromDisplayName(dbms).getProduct();
                     MappingTypeRetriever mappingTypeRetriever = MetadataTalendType
                             .getMappingTypeRetriever(MetadataTalendType.getDefaultDbmsFromProduct(product).getId());

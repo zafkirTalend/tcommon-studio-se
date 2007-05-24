@@ -52,6 +52,8 @@ public abstract class AbstractConnection implements IConnection {
     private String uniqueName;
 
     private List<? extends IElementParameter> elementParameters;
+    
+    private String connectorName;
 
     public boolean isActivate() {
         return this.activate;
@@ -156,5 +158,23 @@ public abstract class AbstractConnection implements IConnection {
      */
     public void setUniqueName(String uniqueName) {
         this.uniqueName = uniqueName;
+    }
+
+    
+    /**
+     * Getter for connectorName.
+     * @return the connectorName
+     */
+    public String getConnectorName() {
+        return connectorName;
+    }
+
+    
+    /**
+     * Sets the connectorName.
+     * @param connectorName the connectorName to set
+     */
+    public void setConnectorName(String connectorName) {
+        this.connectorName = connectorName;
     }
 }

@@ -189,13 +189,22 @@ public interface TalendFilePackage extends EPackage {
     int CONNECTION_TYPE__ELEMENT_PARAMETER = 0;
 
     /**
+     * The feature id for the '<em><b>Connector Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_TYPE__CONNECTOR_NAME = 1;
+
+    /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__LABEL = 1;
+    int CONNECTION_TYPE__LABEL = 2;
 
     /**
      * The feature id for the '<em><b>Line Style</b></em>' attribute.
@@ -204,7 +213,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__LINE_STYLE = 2;
+    int CONNECTION_TYPE__LINE_STYLE = 3;
 
     /**
      * The feature id for the '<em><b>Metaname</b></em>' attribute.
@@ -213,7 +222,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__METANAME = 3;
+    int CONNECTION_TYPE__METANAME = 4;
 
     /**
      * The feature id for the '<em><b>Offset Label X</b></em>' attribute.
@@ -222,7 +231,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__OFFSET_LABEL_X = 4;
+    int CONNECTION_TYPE__OFFSET_LABEL_X = 5;
 
     /**
      * The feature id for the '<em><b>Offset Label Y</b></em>' attribute.
@@ -231,7 +240,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__OFFSET_LABEL_Y = 5;
+    int CONNECTION_TYPE__OFFSET_LABEL_Y = 6;
 
     /**
      * The feature id for the '<em><b>Output Id</b></em>' attribute.
@@ -240,7 +249,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__OUTPUT_ID = 6;
+    int CONNECTION_TYPE__OUTPUT_ID = 7;
 
     /**
      * The feature id for the '<em><b>Source</b></em>' attribute.
@@ -249,7 +258,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__SOURCE = 7;
+    int CONNECTION_TYPE__SOURCE = 8;
 
     /**
      * The feature id for the '<em><b>Target</b></em>' attribute.
@@ -258,7 +267,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__TARGET = 8;
+    int CONNECTION_TYPE__TARGET = 9;
 
     /**
      * The number of structural features of the '<em>Connection Type</em>' class.
@@ -267,7 +276,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE_FEATURE_COUNT = 9;
+    int CONNECTION_TYPE_FEATURE_COUNT = 10;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl <em>Context Parameter Type</em>}' class.
@@ -1417,6 +1426,17 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EReference getConnectionType_ElementParameter();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getConnectorName <em>Connector Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Connector Name</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getConnectorName()
+     * @see #getConnectionType()
+     * @generated
+     */
+    EAttribute getConnectionType_ConnectorName();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getLabel <em>Label</em>}'.
@@ -2653,6 +2673,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EReference CONNECTION_TYPE__ELEMENT_PARAMETER = eINSTANCE.getConnectionType_ElementParameter();
+
+        /**
+         * The meta object literal for the '<em><b>Connector Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTION_TYPE__CONNECTOR_NAME = eINSTANCE.getConnectionType_ConnectorName();
 
         /**
          * The meta object literal for the '<em><b>Label</b></em>' attribute feature.

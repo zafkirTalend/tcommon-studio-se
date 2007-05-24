@@ -19,33 +19,23 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.core.model.components;
+package org.talend.core.model.process;
 
-import org.talend.core.model.process.EConnectionType;
+import org.eclipse.swt.graphics.Color;
+
 
 /**
  * DOC nrousseau  class global comment. Detailled comment
  * <br/>
  *
- * $Id$
- *
  */
-public interface IMultipleComponentConnection {
+public interface IConnectionProperty {
+    
+    public Color getColor();
 
-    public String getConnectionType();
+    public void setColor(Color color);
 
-    public void setConnectionType(String connectionType);
+    public Integer getLineStyle();
 
-    public String getNameTarget();
-
-    public void setNameTarget(String nameTarget);
-
-    public IMultipleComponentItem getSource();
-
-    public void setSource(IMultipleComponentItem source);
-
-    public IMultipleComponentItem getTarget();
-
-    public void setTarget(IMultipleComponentItem target);
-
+    public void setLineStyle(Integer lineStyle);
 }

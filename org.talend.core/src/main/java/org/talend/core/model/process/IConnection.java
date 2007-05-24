@@ -69,4 +69,6 @@ public interface IConnection extends IElement {
     public boolean isActivate();
 
     public void setTraceData(String traceData);
+    
+    public String getConnectorName();
 }

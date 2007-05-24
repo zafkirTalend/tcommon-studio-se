@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import org.eclipse.swt.graphics.Color;
+
 /**
  * Interface for Links between Nodes in a Process. <br/>
  * 
@@ -29,35 +31,49 @@ package org.talend.core.model.process;
  */
 public interface INodeConnector {
 
-    public abstract EConnectionType getConnectionType();
+    public EConnectionType getDefaultConnectionType();
 
-    public abstract void setConnectionType(final EConnectionType connectionType);
+    public void setDefaultConnectionType(final EConnectionType defaultConnectionType);
+    
+    public IConnectionProperty getConnectionProperty(EConnectionType type);
 
-    public abstract int getMaxLinkOutput();
+    public int getMaxLinkOutput();
 
-    public abstract void setMaxLinkOutput(final int maxLinkOutput);
+    public void setMaxLinkOutput(final int maxLinkOutput);
 
-    public abstract int getMaxLinkInput();
+    public int getMaxLinkInput();
 
-    public abstract void setMaxLinkInput(final int maxLinkInput);
+    public void setMaxLinkInput(final int maxLinkInput);
 
-    public abstract int getMinLinkInput();
+    public int getMinLinkInput();
 
-    public abstract void setMinLinkInput(int minLinkInput);
+    public void setMinLinkInput(int minLinkInput);
 
-    public abstract int getMinLinkOutput();
+    public int getMinLinkOutput();
 
-    public abstract void setMinLinkOutput(int minLinkOutput);
+    public void setMinLinkOutput(int minLinkOutput);
 
-    public abstract boolean isBuiltIn();
+    public boolean isBuiltIn();
 
-    public abstract void setBuiltIn(final boolean builtIn);
+    public void setBuiltIn(final boolean builtIn);
 
-    public abstract int getCurLinkNbInput();
+    public int getCurLinkNbInput();
 
-    public abstract void setCurLinkNbInput(final int curLinkNb);
+    public void setCurLinkNbInput(final int curLinkNb);
 
-    public abstract int getCurLinkNbOutput();
+    public int getCurLinkNbOutput();
 
-    public abstract void setCurLinkNbOutput(final int curLinkNb);
+    public void setCurLinkNbOutput(final int curLinkNb);
+    
+    public String getName();
+
+    public void setName(String name);
+    
+    public String getLinkName();
+
+    public void setLinkName(String linkName);
+    
+    public String getMenuName();
+
+    public void setMenuName(String menuName);
 }

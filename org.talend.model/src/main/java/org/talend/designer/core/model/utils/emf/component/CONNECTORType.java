@@ -17,11 +17,14 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isBUILTIN <em>BUILTIN</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCOLOR <em>COLOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCTYPE <em>CTYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getLINESTYLE <em>LINESTYLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMAXINPUT <em>MAXINPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMAXOUTPUT <em>MAXOUTPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMININPUT <em>MININPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMINOUTPUT <em>MINOUTPUT</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getNAME <em>NAME</em>}</li>
  * </ul>
  * </p>
  *
@@ -85,6 +88,33 @@ public interface CONNECTORType extends EObject {
     boolean isSetBUILTIN();
 
     /**
+     * Returns the value of the '<em><b>COLOR</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>COLOR</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>COLOR</em>' attribute.
+     * @see #setCOLOR(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_COLOR()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='COLOR' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getCOLOR();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCOLOR <em>COLOR</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>COLOR</em>' attribute.
+     * @see #getCOLOR()
+     * @generated
+     */
+    void setCOLOR(String value);
+
+    /**
      * Returns the value of the '<em><b>CTYPE</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -110,6 +140,60 @@ public interface CONNECTORType extends EObject {
      * @generated
      */
     void setCTYPE(String value);
+
+    /**
+     * Returns the value of the '<em><b>LINESTYLE</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>LINESTYLE</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>LINESTYLE</em>' attribute.
+     * @see #isSetLINESTYLE()
+     * @see #unsetLINESTYLE()
+     * @see #setLINESTYLE(int)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_LINESTYLE()
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     *        extendedMetaData="kind='attribute' name='LINE_STYLE' namespace='##targetNamespace'"
+     * @generated
+     */
+    int getLINESTYLE();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getLINESTYLE <em>LINESTYLE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>LINESTYLE</em>' attribute.
+     * @see #isSetLINESTYLE()
+     * @see #unsetLINESTYLE()
+     * @see #getLINESTYLE()
+     * @generated
+     */
+    void setLINESTYLE(int value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getLINESTYLE <em>LINESTYLE</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetLINESTYLE()
+     * @see #getLINESTYLE()
+     * @see #setLINESTYLE(int)
+     * @generated
+     */
+    void unsetLINESTYLE();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getLINESTYLE <em>LINESTYLE</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>LINESTYLE</em>' attribute is set.
+     * @see #unsetLINESTYLE()
+     * @see #getLINESTYLE()
+     * @see #setLINESTYLE(int)
+     * @generated
+     */
+    boolean isSetLINESTYLE();
 
     /**
      * Returns the value of the '<em><b>MAXINPUT</b></em>' attribute.
@@ -326,5 +410,32 @@ public interface CONNECTORType extends EObject {
      * @generated
      */
     boolean isSetMINOUTPUT();
+
+    /**
+     * Returns the value of the '<em><b>NAME</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>NAME</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>NAME</em>' attribute.
+     * @see #setNAME(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_NAME()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='NAME' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getNAME();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getNAME <em>NAME</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>NAME</em>' attribute.
+     * @see #getNAME()
+     * @generated
+     */
+    void setNAME(String value);
 
 } // CONNECTORType
