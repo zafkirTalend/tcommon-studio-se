@@ -80,7 +80,7 @@ public class DefaultTableLabelProvider implements ITableLabelProvider, ITableCol
             } else {
                 Object value = AccessorUtils.get(element, column);
                 CellEditor cellEditor = column.getCellEditor();
-                CellEditorValueAdapter retrieverValue = column.getRetrieverValue();
+                CellEditorValueAdapter retrieverValue = column.getCellEditorValueAdapter();
                 if (cellEditor != null && retrieverValue != null && value != null) {
                     returnValue = retrieverValue.getColumnText(cellEditor, element, value);
                 } else if (value != null) {

@@ -88,7 +88,7 @@ public final class TestTableViewerCreator2 {
         tableViewerCreator.setColumnsMoveableByDefault(true);
         tableViewerCreator.setColumnsResizableByDefault(true);
         tableViewerCreator.setColumnsSortableByDefault(true);
-        tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
+        tableViewerCreator.setLayoutMode(LAYOUT_MODE.DEFAULT);
         // tableViewerCreator.setAdjustWidthValue(-50);
 
         Table table = tableViewerCreator.createTable();

@@ -645,7 +645,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                     return;
                 }
                 int key = e.detail;
-                System.out.println("detail=" + key);
                 if (key == SWT.TRAVERSE_TAB_NEXT || key == SWT.TRAVERSE_TAB_PREVIOUS) {
                     keyPressed = key;
                     e.doit = false;
@@ -684,7 +683,6 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                     return;
                 }
                 int key = e.detail;
-                System.out.println("detail=" + key);
                 if (key == SWT.TRAVERSE_TAB_NEXT || key == SWT.TRAVERSE_TAB_PREVIOUS) {
                     keyPressed = key;
                     e.doit = false;
@@ -814,7 +812,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
                 boolean firstLoop = true;
 
-                while (!found) {
+                while (true) {
 
                     if (keyPressed == SWT.TRAVERSE_TAB_NEXT || !firstLoop
                             && (keyPressed == SWT.F2 || keyPressed == SWT.TRAVERSE_RETURN)) {
@@ -856,14 +854,23 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                         found = true;
                     }
                     firstLoop = false;
-                }
 
-                if (controlToFocusIn != null) {
-                    getTable().setSelection(currentItemIndex);
-                    controlToFocusIn.setFocus();
-                } else if (cellEditorToActivate != null) {
-                    TableViewerCreator.this.getTableViewer().editElement(inputList.get(currentItemIndex),
-                            currentIndexColumn);
+                    if (found) {
+
+                        if (controlToFocusIn != null) {
+                            getTable().setSelection(currentItemIndex);
+                            controlToFocusIn.setFocus();
+                            break;
+                        } else if (getCellModifier() != null
+                                && getCellModifier().canModify(inputList.get(currentItemIndex),
+                                        getColumns().get(currentIndexColumn).getId()) && cellEditorToActivate != null) {
+                            TableViewerCreator.this.getTableViewer().editElement(inputList.get(currentItemIndex),
+                                    currentIndexColumn);
+                            break;
+                        } else {
+                            found = false;
+                        }
+                    }
                 }
                 keyPressed = 0;
             }
@@ -2025,11 +2032,11 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         return this.tableEditorManager;
     }
 
-    protected boolean isEnableKeysForCellsEdition() {
+    public boolean isEnableKeysForCellsEdition() {
         return this.enableKeysForCellsEdition;
     }
 
-    protected void setEnableKeysForCellsEdition(boolean enableKeysForCellsEdition) {
+    public void setEnableKeysForCellsEdition(boolean enableKeysForCellsEdition) {
         this.enableKeysForCellsEdition = enableKeysForCellsEdition;
     }
 

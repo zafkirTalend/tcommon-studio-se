@@ -305,6 +305,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setWeight(8);
         column.setModifiable(!isReadOnly());
         column.setMinimumWidth(30);
+        column.setDefaultInternalValue("");
         column.setCellEditor(new TextCellEditor(tableViewerCreator.getTable()));
     }
 

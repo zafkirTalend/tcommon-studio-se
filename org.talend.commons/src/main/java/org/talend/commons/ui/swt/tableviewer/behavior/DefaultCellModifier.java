@@ -76,8 +76,8 @@ public class DefaultCellModifier implements ICellModifier {
         Object returnValue = null;
         Object value = AccessorUtils.get(bean, column);
 
-        if (column.getRetrieverValue() != null) {
-            returnValue = column.getRetrieverValue().getCellEditorTypedValue(column.getCellEditor(), value);
+        if (column.getCellEditorValueAdapter() != null) {
+            returnValue = column.getCellEditorValueAdapter().getCellEditorTypedValue(column.getCellEditor(), value);
         } else {
             returnValue = value;
         }
@@ -86,7 +86,7 @@ public class DefaultCellModifier implements ICellModifier {
         }
         modifiedObjectInfo.setOriginalPropertyBeanValue(returnValue);
         modifiedObjectInfo.setPreviousPropertyBeanValue(returnValue);
-        // System.out.println("getValue : value=" + returnValue);
+//         System.out.println("getValue : value=" + returnValue);
         return returnValue;
     }
 
@@ -101,8 +101,8 @@ public class DefaultCellModifier implements ICellModifier {
         TableViewerCreatorColumn column = tableViewerCreator.getColumn(idColumn);
         if (column.getBeanPropertyAccessors() != null) {
             Object typedValue = null;
-            if (column.getRetrieverValue() != null) {
-                typedValue = column.getRetrieverValue().getOriginalTypedValue(column.getCellEditor(), value);
+            if (column.getCellEditorValueAdapter() != null) {
+                typedValue = column.getCellEditorValueAdapter().getOriginalTypedValue(column.getCellEditor(), value);
             } else {
                 typedValue = value;
             }

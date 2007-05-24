@@ -24,8 +24,11 @@ package org.talend.commons.ui.swt.tableviewer.tableeditor;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.FocusEvent;
+import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Control;
@@ -34,6 +37,7 @@ import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
+import org.talend.commons.utils.threading.AsynchronousThreading;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -51,6 +55,12 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
     private String toolTipText;
 
+    private static boolean highlightingCheck;
+
+    private Color color;
+
+    private static Color bgColorCheck;
+
     /**
      * DOC amaumont CheckboxTableEditorContent constructor comment.
      */
@@ -67,8 +77,8 @@ public class CheckboxTableEditorContent extends TableEditorContent {
      * java.lang.Object, java.lang.Object)
      */
     @SuppressWarnings("unchecked")
-    public Control initialize(Table table, final TableEditor tableEditor, final TableViewerCreatorColumn currentColumn,
-            final Object currentRowObject, final Object currentCellValue) {
+    public Control initialize(final Table table, final TableEditor tableEditor,
+            final TableViewerCreatorColumn currentColumn, final Object currentRowObject, final Object currentCellValue) {
 
         /*
          * Do not set check control as field because one instance of CheckboxTableEditorContent is shared by all checks
@@ -87,6 +97,9 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         check.setToolTipText(toolTipText);
         check.setBackground(table.getBackground());
         check.setSelection(currentCellValue.equals(true));
+        if (bgColorCheck == null) {
+            bgColorCheck = new Color(check.getDisplay(), 28, 81, 128);
+        }
         check.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
@@ -94,8 +107,8 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
             @SuppressWarnings("unchecked")
             public void widgetSelected(SelectionEvent e) {
-                tableViewerCreator.getCellModifier().modify(tableEditor.getItem(), currentColumn.getId(), ((Button) e.getSource())
-                        .getSelection() ? CHECKED : UNCHECKED);
+                tableViewerCreator.getCellModifier().modify(tableEditor.getItem(), currentColumn.getId(),
+                        ((Button) e.getSource()).getSelection() ? CHECKED : UNCHECKED);
                 tableViewerCreator.getTableViewer().setSelection(new StructuredSelection(currentRowObject));
             }
 
@@ -113,6 +126,18 @@ public class CheckboxTableEditorContent extends TableEditorContent {
                 if (beanValue instanceof Boolean) {
                     check.setSelection(((Boolean) beanValue).booleanValue());
                 }
+            }
+
+        });
+
+        check.addFocusListener(new FocusListener() {
+
+            public synchronized void focusGained(final FocusEvent e) {
+                check.setBackground(bgColorCheck);
+            }
+
+            public void focusLost(FocusEvent e) {
+                check.setBackground(table.getBackground());
             }
 
         });

@@ -25,6 +25,7 @@ import java.util.Comparator;
 
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TableColumn;
@@ -64,7 +65,7 @@ public class TableViewerCreatorColumn implements Cloneable {
     private static int generatedId;
 
     private int unactiveKeysForEditor;
-    
+
     /**
      * . <br/>
      * 
@@ -118,7 +119,7 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     private CellEditor cellEditor;
 
-    private CellEditorValueAdapter retrieverValue;
+    private CellEditorValueAdapter cellEditorValueAdapter;
 
     private TableEditorContent tableEditorContent;
 
@@ -308,11 +309,11 @@ public class TableViewerCreatorColumn implements Cloneable {
      */
     public void setCellEditor(CellEditor newCellEditor, CellEditorValueAdapter typeValueAdapter) {
         setCellEditor(newCellEditor);
-        this.retrieverValue = typeValueAdapter;
+        this.cellEditorValueAdapter = typeValueAdapter;
     }
 
-    public CellEditorValueAdapter getRetrieverValue() {
-        return retrieverValue;
+    public CellEditorValueAdapter getCellEditorValueAdapter() {
+        return cellEditorValueAdapter;
     }
 
     /**
@@ -332,8 +333,8 @@ public class TableViewerCreatorColumn implements Cloneable {
     /**
      * @param retrieverValue the retrieverValue to set
      */
-    public void setRetrieverValue(CellEditorValueAdapter retrieverValue) {
-        this.retrieverValue = retrieverValue;
+    public void setCellEditorValueAdapter(CellEditorValueAdapter retrieverValue) {
+        this.cellEditorValueAdapter = retrieverValue;
     }
 
     /**
@@ -537,5 +538,5 @@ public class TableViewerCreatorColumn implements Cloneable {
     public void setColorProvider(IColumnColorProvider colorProvider) {
         this.colorProvider = colorProvider;
     }
-    
+
 }
