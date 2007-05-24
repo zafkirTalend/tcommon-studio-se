@@ -136,11 +136,29 @@ public final class ResourceUtils {
         }
     }
 
-    public static void deleteFolder(IFolder folder) throws PersistenceException {
+    public static void deleteResource(IResource resource) throws PersistenceException {
         try {
-            folder.delete(true, null);
+            resource.delete(true, null);
         } catch (CoreException e) {
-            String msg = Messages.getString("resources.folder.notDeleted", folder.getName());
+            String msg = Messages.getString("resources.folder.notDeleted", resource.getName());
+            throw new PersistenceException(msg, e);
+        }
+    }
+
+    public static int emptyFolder(IFolder folder) throws PersistenceException {
+        int nbResourcesDeleted = 0;
+        try {
+            for (IResource res : folder.members()) {
+                try {
+                    deleteResource(res);
+                    nbResourcesDeleted++;
+                } catch (PersistenceException e) {
+                    ExceptionHandler.process(e);
+                }
+            }
+            return nbResourcesDeleted;
+        } catch (CoreException e) {
+            String msg = Messages.getString("resources.folder.notEmptied", folder.getName());
             throw new PersistenceException(msg, e);
         }
     }
