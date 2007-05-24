@@ -34,7 +34,6 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -43,11 +42,13 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.librariesmanager.Activator;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.librariesmanager.prefs.PreferencesUtilities;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -63,7 +64,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public String getLibrariesPath() {
-        return Platform.getInstallLocation().getURL().getFile() + "/lib/java";
+        return PreferencesUtilities.getLibrariesPath(ECodeLanguage.JAVA);
     }
 
     @Override

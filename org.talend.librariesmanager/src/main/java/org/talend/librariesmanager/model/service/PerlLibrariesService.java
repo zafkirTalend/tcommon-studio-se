@@ -34,11 +34,11 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.GlobalServiceRegister;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
@@ -46,6 +46,7 @@ import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.designer.runprocess.ProcessorException;
 import org.talend.librariesmanager.Activator;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.librariesmanager.prefs.PreferencesUtilities;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -59,7 +60,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
 
     @Override
     public String getLibrariesPath() {
-        return Platform.getInstallLocation().getURL().getFile() + "/lib/perl";
+        return PreferencesUtilities.getLibrariesPath(ECodeLanguage.PERL);
     }
 
     @Override
@@ -86,7 +87,7 @@ public class PerlLibrariesService extends AbstractLibrariesService {
         URL url = Activator.BUNDLE.getEntry("resources/perl/talend");
         return FileLocator.toFileURL(url);
     }
-    
+
     public List<URL> getTalendRoutines() {
         return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/perl/talend", "");
     }

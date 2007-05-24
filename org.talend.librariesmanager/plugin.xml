@@ -51,4 +51,16 @@
          point="org.talend.core.global_actions">
       <GlobalAction class="org.talend.librariesmanager.ui.actions.ShowModulesViewAction"/>
    </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            category="org.talend.core.prefs"
+            class="org.talend.librariesmanager.prefs.LibrariesMainPreferencesPage"
+            id="org.talend.librariesmanager.mainpage"
+            name="%preferencespage.main"/>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer class="org.talend.librariesmanager.prefs.PreferenceInitializer"/>
+   </extension>
 </plugin>
