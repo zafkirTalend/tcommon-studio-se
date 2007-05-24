@@ -40,6 +40,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.tableeditor.CheckboxTableEditorContent;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorContent;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.utils.DataObject;
@@ -130,6 +131,7 @@ public final class TestTableViewerCreator2 {
             listObject2.setIntegerValue1(random.nextInt(ONE_HUNDRED));
             listObject2.setLibelle("libelle " + random.nextInt(ONE_HUNDRED));
             listObject2.setIntegerValue2(random.nextInt(ONE_HUNDRED));
+            listObject2.setBool(random.nextBoolean());
             list.add(listObject2);
         }
         tableViewerCreator.init(list);
@@ -178,6 +180,28 @@ public final class TestTableViewerCreator2 {
         column.setDefaultDisplayedValue(String.valueOf(Integer.MAX_VALUE));
         column.setId("uid2");
         column.setCellEditor(new TextCellEditor(table), intValueAdapter);
+        
+        
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setTitle("check");
+        column.setId("check");
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Boolean>() {
+
+            public Boolean get(DataObject bean) {
+                return bean.isBool();
+            }
+
+            public void set(DataObject bean, Boolean value) {
+                bean.setBool(value);
+            }
+        });
+        column.setModifiable(true);
+        column.setWidth(56);
+        column.setDisplayedValue(""); //$NON-NLS-1$
+        CheckboxTableEditorContent nullableCheckbox = new CheckboxTableEditorContent();
+        column.setTableEditorContent(nullableCheckbox);
+
+        
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setModifiable(true);
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<DataObject, Integer>() {
