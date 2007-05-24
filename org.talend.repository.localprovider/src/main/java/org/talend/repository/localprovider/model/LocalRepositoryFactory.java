@@ -347,7 +347,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // 1. old built-in:
         IFolder f1 = ResourceUtils.getFolder(prj, ERepositoryObjectType.getFolderName(ERepositoryObjectType.ROUTINES)
                 + IPath.SEPARATOR + RepositoryConstants.SYSTEM_DIRECTORY, false);
-        ResourceUtils.deleteFolder(f1);
+        ResourceUtils.deleteResource(f1);
 
         createSystemRoutines();
     }
@@ -551,7 +551,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         getFolderHelper(getRepositoryContext().getProject().getEmfProject()).deleteFolder(completePath);
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
 
-        ResourceUtils.deleteFolder(folder);
+        ResourceUtils.deleteResource(folder);
     }
 
     public void moveFolder(ERepositoryObjectType type, IPath sourcePath, IPath targetPath) throws PersistenceException {
