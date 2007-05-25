@@ -28,6 +28,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -41,6 +42,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.Path;
@@ -78,7 +80,8 @@ public final class MetadataTalendType {
 
     private static ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
 
-    private static final String[] PERL_TYPES = new String[] { "boolean", "date", "datetime", "integer", "float", "time", "string" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+    private static final String[] PERL_TYPES = new String[] {
+            "boolean", "date", "datetime", "integer", "float", "time", "string" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 
     private static Set<Dbms> dbmsSet = new HashSet<Dbms>();
 
@@ -344,7 +347,7 @@ public final class MetadataTalendType {
         }
         return list.toArray(new Dbms[0]);
     }
-    
+
     public static Dbms getDefaultDbmsFromProduct(String product) {
         if (product == null) {
             throw new IllegalArgumentException();
@@ -357,7 +360,8 @@ public final class MetadataTalendType {
                 if (dbms.isDefaultDbms()) {
                     return dbms;
                 }
-                defaultDbms = dbms; // set this value, so even if no dbms is set by default there will still be a dbms used.
+                defaultDbms = dbms; // set this value, so even if no dbms is set by default there will still be a dbms
+                // used.
             }
         }
         return defaultDbms;
@@ -398,12 +402,14 @@ public final class MetadataTalendType {
         if (dbms == null) {
             throw new IllegalArgumentException("Unknown dbmsId: '" + dbmsId + "'"); //$NON-NLS-1$ //$NON-NLS-2$
         }
-        return dbms.getDbTypes().toArray(new String[0]);
+        String [] list = dbms.getDbTypes().toArray(new String[0]);
+        Arrays.sort(list);
+        return list;
     }
 
     /**
      * 
-     * Load db types and mapping with the current activated language (Java, Perl, ...)
+     * Load db types and mapping with the current activated language (Java, Perl, ...).
      * 
      * @throws SystemException
      */
@@ -542,7 +548,8 @@ public final class MetadataTalendType {
 
                                     if (javaType.isPrimitive()) {
                                         MappingType primitiveMappingType = new MappingType();
-                                        primitiveMappingType.setTalendTypeName(javaType.getPrimitiveClass().getSimpleName());
+                                        primitiveMappingType.setTalendTypeName(javaType.getPrimitiveClass()
+                                                .getSimpleName());
                                         primitiveMappingType.setDbType(dbTypeItem.getNodeValue());
                                         primitiveMappingType.setDefaultSelected(defaultSelected);
                                         primitiveMappingType.setNullable(Boolean.FALSE);
@@ -659,10 +666,12 @@ public final class MetadataTalendType {
         System.out.println("Db INT nullable => " + mappingTypeRetriever.getDefaultSelectedTalendType("INT", true));
 
         System.out.println("java UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedDbType("UNKNOWN", false));
-        System.out.println("java UNKNOWN TYPE nullable => " + mappingTypeRetriever.getDefaultSelectedDbType("UNKNOWN", false));
+        System.out.println("java UNKNOWN TYPE nullable => "
+                + mappingTypeRetriever.getDefaultSelectedDbType("UNKNOWN", false));
 
         System.out.println("Db UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN", false));
-        System.out.println("Db UNKNOWN TYPE nullable => " + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN", false));
+        System.out.println("Db UNKNOWN TYPE nullable => "
+                + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN", false));
 
         System.out.println();
     }
