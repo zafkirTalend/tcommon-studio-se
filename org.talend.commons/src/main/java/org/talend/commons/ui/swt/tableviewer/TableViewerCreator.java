@@ -184,7 +184,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     private CommandStack commandStack;
 
-    private boolean enableKeysForCellsEdition = true;
+    private boolean keyboardManagementForCellEdition = true;
 
     /**
      * 
@@ -641,7 +641,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         final TraverseListener traverseListenerForControls = new TraverseListener() {
 
             public void keyTraversed(TraverseEvent e) {
-                if (!enableKeysForCellsEdition) {
+                if (!keyboardManagementForCellEdition) {
                     return;
                 }
                 int key = e.detail;
@@ -679,7 +679,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         final TraverseListener traverseListenerForTable = new TraverseListener() {
 
             public void keyTraversed(TraverseEvent e) {
-                if (!enableKeysForCellsEdition) {
+                if (!keyboardManagementForCellEdition) {
                     return;
                 }
                 int key = e.detail;
@@ -699,7 +699,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         final KeyListener keyListenerForTable = new KeyListener() {
 
             public void keyPressed(KeyEvent e) {
-                if (!enableKeysForCellsEdition) {
+                if (!keyboardManagementForCellEdition) {
                     return;
                 }
                 int key = e.keyCode;
@@ -2032,12 +2032,12 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         return this.tableEditorManager;
     }
 
-    public boolean isEnableKeysForCellsEdition() {
-        return this.enableKeysForCellsEdition;
+    public boolean isKeyboardManagementForCellEdition() {
+        return this.keyboardManagementForCellEdition;
     }
 
-    public void setEnableKeysForCellsEdition(boolean enableKeysForCellsEdition) {
-        this.enableKeysForCellsEdition = enableKeysForCellsEdition;
+    public void setKeyboardManagementForCellEdition(boolean enableKeysForCellsEdition) {
+        this.keyboardManagementForCellEdition = enableKeysForCellsEdition;
     }
 
 }
