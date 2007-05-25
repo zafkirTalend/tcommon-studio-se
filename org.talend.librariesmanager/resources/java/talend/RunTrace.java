@@ -60,7 +60,8 @@ public class RunTrace implements Runnable {
 
     private String str = "";
 
-    public void startThreadTrace(String clientHost, int portTraces) throws java.io.IOException, java.net.UnknownHostException {
+    public void startThreadTrace(String clientHost, int portTraces) throws java.io.IOException,
+            java.net.UnknownHostException {
         System.out.println("[trace] connecting to socket on port " + portTraces);
         s = new java.net.Socket(clientHost, portTraces);
         pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())),
@@ -72,7 +73,14 @@ public class RunTrace implements Runnable {
     }
 
     public void run() {
-        while (!jobIsFinished) {
+        synchronized (this) {
+            try {
+                while (!jobIsFinished) {
+                    wait(100);
+                }
+            } catch (InterruptedException e) {
+                System.out.println("[trace] interrupted");
+            }
         }
     }
 

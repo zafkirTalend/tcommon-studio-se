@@ -74,7 +74,8 @@ public class RunStat implements Runnable {
 
     private long currentTime = 0;
 
-    public void startThreadStat(String clientHost, int portStats) throws java.io.IOException, java.net.UnknownHostException {
+    public void startThreadStat(String clientHost, int portStats) throws java.io.IOException,
+            java.net.UnknownHostException {
         System.out.println("[statistics] connecting to socket on port " + portStats);
         s = new java.net.Socket(clientHost, portStats);
         startTime = java.util.Calendar.getInstance().getTimeInMillis();
@@ -87,12 +88,14 @@ public class RunStat implements Runnable {
     }
 
     public void run() {
-        while (!jobIsFinished) {
+        synchronized (this) {
             try {
-                sendMessages();
-                Thread.sleep(1000);
-            } catch (InterruptedException ie) {
-
+                while (!jobIsFinished) {
+                    sendMessages();
+                    wait(1000);
+                }
+            } catch (InterruptedException e) {
+                System.out.println("[statistics] interrupted");
             }
         }
     }
@@ -107,7 +110,7 @@ public class RunStat implements Runnable {
         } catch (java.io.IOException ie) {
         }
     }
-    
+
     public void sendMessages() {
         for (StatBean sb : processStats.values()) {
             currentTime = java.util.Calendar.getInstance().getTimeInMillis();
