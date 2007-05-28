@@ -174,7 +174,7 @@ public class ProcessorUtilities {
         }
         IProcessor processor = getProcessor(currentProcess, currentContext);
         try {
-            processor.generateCode(currentContext, statistics, trace, properties); // main job will use stats / traces
+            processor.generateCode(statistics, trace, properties); // main job will use stats / traces
         } catch (ProcessorException pe) {
             MessageBoxExceptionHandler.process(pe);
         }

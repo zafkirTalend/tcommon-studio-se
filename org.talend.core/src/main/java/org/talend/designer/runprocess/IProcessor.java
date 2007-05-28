@@ -24,8 +24,6 @@ package org.talend.designer.runprocess;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.ITargetExecutionConfig;
@@ -51,8 +49,24 @@ public interface IProcessor {
 
     public static final int STATES_RUNTIME = 1;
 
-    public void generateCode(IContext context, boolean statistics, boolean trace, boolean perlProperties)
+    /**
+     * generate the code of the current Process.
+     * @param statistics generate with statistics option ?
+     * @param trace generate with trace option ?
+     * @param context generate also the context file ?
+     * @throws ProcessorException
+     */
+    public void generateCode(boolean statistics, boolean trace, boolean context)
             throws ProcessorException;
+
+    // to use "run", the code must be generated first.
+    // (for compatibility, if the code has never been generated, it will generated once)
+    public Process run(int statisticsPort, int tracePort, String watchParam) throws ProcessorException;
+    
+    // to use "debug", the code must be generated first.
+    // (for compatibility, if the code has never been generated, it will generated once)
+    public ILaunchConfiguration debug() throws ProcessorException;
+
 
     /**
      * getter the code context.
@@ -182,12 +196,7 @@ public interface IProcessor {
 
     public void setTargetExecutionConfig(ITargetExecutionConfig serverConfiguration);
 
-    public Process run(int statisticsPort, int tracePort, String watchParam, IProgressMonitor monitor,
-            IProcessMessageManager processMessageManager) throws ProcessorException;
-
-    public ILaunchConfiguration debug() throws ProcessorException;
-    
     public String getTargetPlatform();
-    
+
     public void setTargetPlatform(String targetPlatform);
 }

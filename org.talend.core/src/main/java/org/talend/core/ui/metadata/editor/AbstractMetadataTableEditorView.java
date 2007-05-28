@@ -647,29 +647,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
             CellEditorValueAdapter comboValueAdapter = CellEditorValueAdapterFactory
                     .getComboAdapterForComboCellEditor();
-            ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
             String[] arrayDbTypes = new String[0];
-
-            // try {
-            // if (codeLanguage == ECodeLanguage.JAVA) {
-            // arrayDbTypes = MetadataTalendType.getDbTypes(getCurrentDbms()); //$NON-NLS-1$
-            // log.error(Messages.getString("AbstractMetadataTableEditorView.badDbTypeLoaded")); //$NON-NLS-1$
-            // } else if (codeLanguage == ECodeLanguage.PERL) {
-            // String currentDbms = getCurrentDbms();
-            // if (currentDbms != null) {
-            // arrayDbTypes = MetadataTalendType.loadDatabaseTypes(currentDbms, false);
-            // }
-            // // log.error("Bad Db types are loaded");
-            // // arrayDbTypes = MetadataTalendType.getDbTypes("mysql_id");
-            // }
-            //
-            // } catch (NoClassDefFoundError e) {
-            // // shouln't be happend
-            // e.printStackTrace();
-            // } catch (ExceptionInInitializerError e) {
-            // // shouln't be happend
-            // e.printStackTrace();
-            // }
             arrayDbTypes = MetadataTalendType.getDbTypes(getCurrentDbms()); //$NON-NLS-1$
             // System.out.println("currentDbms:" + getCurrentDbms() + " dbTypes:" + arrayDbTypes);
             ComboBoxCellEditor typeComboEditor = new ComboBoxCellEditor(tableViewerCreator.getTable(), arrayDbTypes,
