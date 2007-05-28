@@ -30,12 +30,12 @@ package org.talend.core.model.process;
 public interface IConnectionCategory {
 
     /**
-     * For FLOW_MAIN / ITERATE / TABLE.
+     * For FLOW_MAIN / ITERATE / TABLE / FLOW_MERGE.
      * Links considered as the Main links.
      */
     public static final int MAIN = 1;
     /**
-     * For FLOW_MAIN / FLOW_REF / TABLE
+     * For FLOW_MAIN / FLOW_REF / TABLE / FLOW_MERGE
      * Links which contains metadata.
      */
     public static final int DATA = 1 << 1;
@@ -74,4 +74,9 @@ public interface IConnectionCategory {
      * Links that can have a specific name.
      */
     public static final int UNIQUE_NAME = 1 << 8;
+    /**
+     * For FLOW_MERGE.
+     * Links that are only MERGE
+     */
+    public static final int MERGE = 1 << 9;
 }

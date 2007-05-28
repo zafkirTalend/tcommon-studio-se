@@ -65,6 +65,8 @@ public abstract class AbstractNode implements INode {
     private IExternalNode externalNode;
 
     private Boolean hasConditionalOutputs = Boolean.FALSE;
+    
+    private Boolean isMultiplyingOutputs = Boolean.FALSE;
 
     private boolean isThereLinkWithHash;
 
@@ -259,6 +261,23 @@ public abstract class AbstractNode implements INode {
      */
     public void setHasConditionalOutputs(boolean hasConditionalOutputs) {
         this.hasConditionalOutputs = hasConditionalOutputs;
+    }
+    
+    /**
+     * Getter for isMultiplyingOutputs.
+     * @return the isMultiplyingOutputs
+     */
+    public Boolean isMultiplyingOutputs() {
+        return isMultiplyingOutputs;
+    }
+
+    
+    /**
+     * Sets the isMultiplyingOutputs.
+     * @param isMultiplyingOutputs the isMultiplyingOutputs to set
+     */
+    public void setIsMultiplyingOutputs(Boolean isMultiplyingOutputs) {
+        this.isMultiplyingOutputs = isMultiplyingOutputs;
     }
 
     /*

@@ -88,7 +88,7 @@ public enum EConnectionType implements IConnectionCategory {
           new Color(null, new RGB(0, 150, 100))),
     FLOW_MERGE(10, "MERGE", //$NON-NLS-1$
                EConnectionCategory.MAIN,
-               DATA | FLOW | CUSTOM_NAME | UNIQUE_NAME,
+               DATA | FLOW | CUSTOM_NAME | UNIQUE_NAME | MERGE,
                "Merge", Messages.getString("EConnectionType.mergeMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                new Integer(Graphics.LINE_DASHDOT),
                new Color(null, new RGB(230, 100, 0))),

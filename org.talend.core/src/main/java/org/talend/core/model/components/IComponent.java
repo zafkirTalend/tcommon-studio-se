@@ -77,6 +77,8 @@ public interface IComponent {
     public List<? extends INodeConnector> createConnectors();
 
     public Boolean hasConditionalOutputs();
+    
+    public Boolean isMultiplyingOutputs();
 
     public String getPluginFullName();
 

@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getEXTENSION <em>EXTENSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isHASCONDITIONALOUTPUTS <em>HASCONDITIONALOUTPUTS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getRELEASEDATE <em>RELEASEDATE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSCHEMAAUTOPROPAGATE <em>SCHEMAAUTOPROPAGATE</em>}</li>
@@ -261,6 +262,60 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetHASCONDITIONALOUTPUTS();
+
+    /**
+     * Returns the value of the '<em><b>ISMULTIPLYINGOUTPUTS</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>ISMULTIPLYINGOUTPUTS</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>ISMULTIPLYINGOUTPUTS</em>' attribute.
+     * @see #isSetISMULTIPLYINGOUTPUTS()
+     * @see #unsetISMULTIPLYINGOUTPUTS()
+     * @see #setISMULTIPLYINGOUTPUTS(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_ISMULTIPLYINGOUTPUTS()
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='IS_MULTIPLYING_OUTPUTS' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isISMULTIPLYINGOUTPUTS();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>ISMULTIPLYINGOUTPUTS</em>' attribute.
+     * @see #isSetISMULTIPLYINGOUTPUTS()
+     * @see #unsetISMULTIPLYINGOUTPUTS()
+     * @see #isISMULTIPLYINGOUTPUTS()
+     * @generated
+     */
+    void setISMULTIPLYINGOUTPUTS(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetISMULTIPLYINGOUTPUTS()
+     * @see #isISMULTIPLYINGOUTPUTS()
+     * @see #setISMULTIPLYINGOUTPUTS(boolean)
+     * @generated
+     */
+    void unsetISMULTIPLYINGOUTPUTS();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>ISMULTIPLYINGOUTPUTS</em>' attribute is set.
+     * @see #unsetISMULTIPLYINGOUTPUTS()
+     * @see #isISMULTIPLYINGOUTPUTS()
+     * @see #setISMULTIPLYINGOUTPUTS(boolean)
+     * @generated
+     */
+    boolean isSetISMULTIPLYINGOUTPUTS();
 
     /**
      * Returns the value of the '<em><b>PLATEFORM</b></em>' attribute.

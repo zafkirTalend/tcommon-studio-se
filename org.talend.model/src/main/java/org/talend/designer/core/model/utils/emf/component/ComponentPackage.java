@@ -682,13 +682,22 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__HASCONDITIONALOUTPUTS = 5;
 
     /**
+     * The feature id for the '<em><b>ISMULTIPLYINGOUTPUTS</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__ISMULTIPLYINGOUTPUTS = 6;
+
+    /**
      * The feature id for the '<em><b>PLATEFORM</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__PLATEFORM = 6;
+    int HEADER_TYPE__PLATEFORM = 7;
 
     /**
      * The feature id for the '<em><b>RELEASEDATE</b></em>' attribute.
@@ -697,7 +706,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__RELEASEDATE = 7;
+    int HEADER_TYPE__RELEASEDATE = 8;
 
     /**
      * The feature id for the '<em><b>SCHEMAAUTOPROPAGATE</b></em>' attribute.
@@ -706,7 +715,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SCHEMAAUTOPROPAGATE = 8;
+    int HEADER_TYPE__SCHEMAAUTOPROPAGATE = 9;
 
     /**
      * The feature id for the '<em><b>SERIAL</b></em>' attribute.
@@ -715,7 +724,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SERIAL = 9;
+    int HEADER_TYPE__SERIAL = 10;
 
     /**
      * The feature id for the '<em><b>STARTABLE</b></em>' attribute.
@@ -724,7 +733,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STARTABLE = 10;
+    int HEADER_TYPE__STARTABLE = 11;
 
     /**
      * The feature id for the '<em><b>STATUS</b></em>' attribute.
@@ -733,7 +742,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STATUS = 11;
+    int HEADER_TYPE__STATUS = 12;
 
     /**
      * The feature id for the '<em><b>TSTATCATCHERSTATS</b></em>' attribute.
@@ -742,7 +751,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__TSTATCATCHERSTATS = 12;
+    int HEADER_TYPE__TSTATCATCHERSTATS = 13;
 
     /**
      * The feature id for the '<em><b>USEMERGE</b></em>' attribute.
@@ -751,7 +760,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__USEMERGE = 13;
+    int HEADER_TYPE__USEMERGE = 14;
 
     /**
      * The feature id for the '<em><b>VERSION</b></em>' attribute.
@@ -760,7 +769,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VERSION = 14;
+    int HEADER_TYPE__VERSION = 15;
 
     /**
      * The feature id for the '<em><b>VISIBLE</b></em>' attribute.
@@ -769,7 +778,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VISIBLE = 15;
+    int HEADER_TYPE__VISIBLE = 16;
 
     /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
@@ -778,7 +787,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 16;
+    int HEADER_TYPE_FEATURE_COUNT = 17;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -2195,6 +2204,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getHEADERType_HASCONDITIONALOUTPUTS();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isISMULTIPLYINGOUTPUTS <em>ISMULTIPLYINGOUTPUTS</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>ISMULTIPLYINGOUTPUTS</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#isISMULTIPLYINGOUTPUTS()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EAttribute getHEADERType_ISMULTIPLYINGOUTPUTS();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getPLATEFORM <em>PLATEFORM</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3556,6 +3576,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__HASCONDITIONALOUTPUTS = eINSTANCE.getHEADERType_HASCONDITIONALOUTPUTS();
+
+        /**
+         * The meta object literal for the '<em><b>ISMULTIPLYINGOUTPUTS</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute HEADER_TYPE__ISMULTIPLYINGOUTPUTS = eINSTANCE.getHEADERType_ISMULTIPLYINGOUTPUTS();
 
         /**
          * The meta object literal for the '<em><b>PLATEFORM</b></em>' attribute feature.

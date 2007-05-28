@@ -81,6 +81,8 @@ public interface INode extends IElement {
 
     public Boolean hasConditionalOutputs();
     
+    public Boolean isMultiplyingOutputs();
+    
     /**
      * Set performance data on this node.
      * 
