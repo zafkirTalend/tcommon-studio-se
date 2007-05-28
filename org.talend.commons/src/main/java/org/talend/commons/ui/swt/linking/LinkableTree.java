@@ -53,6 +53,7 @@ public class LinkableTree implements ILinkableControl {
 
     private BgDrawableComposite bgDrawableComposite;
 
+    private SelectionListener selectionListener;
     /**
      * DOC amaumont LinkableTable constructor comment.
      * 
@@ -128,8 +129,7 @@ public class LinkableTree implements ILinkableControl {
             }
 
         });
-
-        tree.addSelectionListener(new SelectionListener() {
+        selectionListener=new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
             }
@@ -138,7 +138,8 @@ public class LinkableTree implements ILinkableControl {
                 controlsLinker.updateLinksStyleAndControlsSelection(tree);
             }
 
-        });
+        };
+        tree.addSelectionListener(selectionListener);
 
         ScrollBar vBarTree = tree.getVerticalBar();
         ScrollBar hBarTree = tree.getHorizontalBar();
@@ -160,6 +161,15 @@ public class LinkableTree implements ILinkableControl {
         vBarTree.addSelectionListener(scrollListener);
         hBarTree.addSelectionListener(scrollListener);
 
+    }
+
+    
+    /**
+     * Getter for selectionListener.
+     * @return the selectionListener
+     */
+    public SelectionListener getSelectionListener() {
+        return this.selectionListener;
     }
 
     protected void paintEvent(Event event) {
