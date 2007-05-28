@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.commons.ui.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeItem;
 
@@ -234,6 +237,28 @@ public class TreeUtils {
         } else {
             return findFirstVisibleItemAscFrom(parentItem);
         }
+    }
+
+    public static List<TreeItem> collectAllItems(Tree tree) {
+        List<TreeItem> list = new ArrayList<TreeItem>();
+
+        TreeItem[] items = tree.getItems();
+        for (TreeItem item : items) {
+            list.add(item);
+            list.addAll(collectAllItems(item));
+        }
+        return list;
+    }
+
+    private static List<TreeItem> collectAllItems(TreeItem treeItem) {
+        List<TreeItem> list = new ArrayList<TreeItem>();
+
+        TreeItem[] items = treeItem.getItems();
+        for (TreeItem item : items) {
+            list.add(item);
+            list.addAll(collectAllItems(item));
+        }
+        return list;
     }
 
     // /**

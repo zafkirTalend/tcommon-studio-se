@@ -31,6 +31,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.ScrollBar;
 import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Tree;
 import org.talend.commons.ui.ws.WindowSystem;
 import org.talend.commons.utils.performance.IPerformanceEvaluatorListener;
 import org.talend.commons.utils.performance.PerformanceEvaluator;
@@ -285,6 +286,9 @@ public class BackgroundRefresher implements IBackgroundRefresher {
             Rectangle bounds = child.getBounds();
             if (WindowSystem.isGTK() && child instanceof Table) {
                 returnedPoint.y += ((Table) child).getHeaderHeight();
+            }
+            if (WindowSystem.isGTK() && child instanceof Tree) {
+                returnedPoint.y += ((Tree) child).getHeaderHeight();
             }
             child = child.getParent();
             ScrollBar vScrollBar = child.getVerticalBar();
