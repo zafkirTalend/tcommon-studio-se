@@ -127,7 +127,7 @@ public class NodeUtil {
             for (int i = 0; i < outgoingConnections.size(); i++) {
 
                 IConnection connection = outgoingConnections.get(i);
-                if (connection.getConnectorName().equals(connectorName)) {
+                if (connectorName.equals(connection.getConnectorName())) {
                     conns.add(connection);
                 }
             }

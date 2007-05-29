@@ -24,6 +24,7 @@ package org.talend.core.model.utils;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -44,8 +45,7 @@ public class TalendTextUtils {
     public static final String RBRACKET = "]";
 
     public static String addQuotes(String text) {
-        ECodeLanguage language = ((RepositoryContext) org.talend.core.CorePlugin.getContext().getProperty(
-                org.talend.core.context.Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
+        ECodeLanguage language = LanguageManager.getCurrentLanguage();
 
         switch (language) {
         case JAVA:

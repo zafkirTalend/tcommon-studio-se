@@ -35,5 +35,6 @@ public enum EComponentCategory {
     CONTEXT,
     VERSIONS,
     LOGS,
-    STATSANDLOGS;
+    STATSANDLOGS,
+    TECHNICAL; // for non displayed parameters
 }
