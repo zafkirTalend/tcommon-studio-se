@@ -46,6 +46,7 @@ public interface IProcessMessageManager {
     public Collection<IProcessMessage> getMessages();
 
     public boolean isLastMessageEndWithCR();
-
+    
+    public void addDebugResultToConsole(IProcessMessage message);
 
 }
