@@ -64,7 +64,7 @@ public enum EConnectionType implements IConnectionCategory {
                  new Color(null, new RGB(200, 0, 0))),
     RUN_IF(6, "RUN_IF", //$NON-NLS-1$
            EConnectionCategory.OTHER,
-           CONDITION | DEPENDENCY,
+           CONDITION | DEPENDENCY | CUSTOM_NAME,
            "If", Messages.getString("EConnectionType.runIfMenu"), //$NON-NLS-1$ //$NON-NLS-2$
            new Integer(Graphics.LINE_DASHDOTDOT),
            new Color(null, new RGB(180, 100, 30))),
