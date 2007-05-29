@@ -24,6 +24,7 @@ package org.talend.designer.runprocess;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.ITargetExecutionConfig;
@@ -51,22 +52,55 @@ public interface IProcessor {
 
     /**
      * generate the code of the current Process.
+     * 
      * @param statistics generate with statistics option ?
      * @param trace generate with trace option ?
      * @param context generate also the context file ?
      * @throws ProcessorException
      */
-    public void generateCode(boolean statistics, boolean trace, boolean context)
-            throws ProcessorException;
+    public void generateCode(boolean statistics, boolean trace, boolean context) throws ProcessorException;
 
-    // to use "run", the code must be generated first.
-    // (for compatibility, if the code has never been generated, it will generated once)
+    /**
+     * Run the process.
+     * 
+     * To use this method, the code must be generated first. (for compatibility, if the code has never been generated,
+     * it will generated once)
+     * 
+     * This method does not allow to cancel initialization of process launching by user (IProgressMonitor) and can't
+     * send messages to console (IProcessMessageManager).
+     * 
+     * @param statisticsPort TCP port used to get statistics from the process, <code>NO_STATISTICS</code> if none.
+     * @param tracePort TCP port used to get trace from the process, <code>NO_TRACE</code> if none.
+     * @param context The context to be used.
+     * @param watchPort
+     * @return The running process.
+     * @throws ProcessorException Process failed.
+     */
     public Process run(int statisticsPort, int tracePort, String watchParam) throws ProcessorException;
-    
+
+    /**
+     * 
+     * Run the process.
+     * 
+     * To use this method, the code must be generated first. (for compatibility, if the code has never been generated,
+     * it will generated once)
+     * 
+     * This method allows to cancel initialization of process launching by user, by specifying an IProgressMonitor.
+     * 
+     * @param statisticsPort
+     * @param tracePort
+     * @param watchParam
+     * @param monitor progress monitor to cancel initialization of process
+     * @param processMessageManager manager to add messages into console
+     * @return
+     * @throws ProcessorException
+     */
+    public Process run(int statisticsPort, int tracePort, String watchParam, IProgressMonitor monitor,
+            IProcessMessageManager processMessageManager) throws ProcessorException;
+
     // to use "debug", the code must be generated first.
     // (for compatibility, if the code has never been generated, it will generated once)
     public ILaunchConfiguration debug() throws ProcessorException;
-
 
     /**
      * getter the code context.
