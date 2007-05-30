@@ -51,16 +51,16 @@
       point="org.eclipse.core.runtime.products">
    <product
          application="org.talend.rcp.application"
-         name="Talend">
+         name="%productName">
       <property
             name="startupForegroundColor"
-            value="000000"/>
+            value="ffffff"/>
       <property
             name="startupMessageRect"
-            value="7,220,441,20"/>
+            value="7,168,441,20"/>
       <property
             name="startupProgressRect"
-            value="0,280,455,15"/>
+            value="7,188,441,15"/>
       <property
             name="windowImages"
             value="icons/appli_16x16.gif,icons/appli_32x32.gif,icons/appli_48x48.gif"/>
