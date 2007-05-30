@@ -73,4 +73,6 @@ public interface ICodeGeneratorService extends IService {
      * @return
      */
     public IRoutineSynchronizer createJavaRoutineSynchronizer();
+    
+    public IRoutineSynchronizer createRoutineSynchronizer();
 }
