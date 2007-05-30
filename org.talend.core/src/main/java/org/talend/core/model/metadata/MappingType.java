@@ -34,9 +34,7 @@ public class MappingType {
 
     private String dbType;
 
-    private String talendTypeName;
-
-    private Boolean nullable;
+    private String talendType;
 
     private Boolean defaultSelected;
 
@@ -51,8 +49,7 @@ public class MappingType {
         int result = 1;
         result = prime * result + ((this.dbType == null) ? 0 : this.dbType.hashCode());
         result = prime * result + ((this.defaultSelected == null) ? 0 : this.defaultSelected.hashCode());
-        result = prime * result + ((this.talendTypeName == null) ? 0 : this.talendTypeName.hashCode());
-        result = prime * result + ((this.nullable == null) ? 0 : this.nullable.hashCode());
+        result = prime * result + ((this.talendType == null) ? 0 : this.talendType.hashCode());
         return result;
     }
 
@@ -77,10 +74,7 @@ public class MappingType {
         if (this.defaultSelected != null && !this.defaultSelected.equals(other.defaultSelected))
             return false;
 
-        if (this.talendTypeName != null && !this.talendTypeName.equals(other.talendTypeName))
-            return false;
-
-        if (this.nullable != null && !this.nullable.equals(other.nullable))
+        if (this.talendType != null && !this.talendType.equals(other.talendType))
             return false;
         return true;
     }
@@ -126,8 +120,8 @@ public class MappingType {
      * 
      * @return the languageType
      */
-    public String getTalendTypeName() {
-        return this.talendTypeName;
+    public String getTalendType() {
+        return this.talendType;
     }
 
     /**
@@ -135,26 +129,8 @@ public class MappingType {
      * 
      * @param talendTypeName the languageType to set
      */
-    public void setTalendTypeName(String talendTypeName) {
-        this.talendTypeName = talendTypeName;
-    }
-
-    /**
-     * Getter for nullable.
-     * 
-     * @return the nullable
-     */
-    public Boolean getNullable() {
-        return this.nullable;
-    }
-
-    /**
-     * Sets the nullable.
-     * 
-     * @param nullable the nullable to set
-     */
-    public void setNullable(Boolean nullable) {
-        this.nullable = nullable;
+    public void setTalendType(String talendTypeName) {
+        this.talendType = talendTypeName;
     }
 
     /**
@@ -166,9 +142,8 @@ public class MappingType {
             StringBuffer buffer = new StringBuffer();
             buffer.append("MappingType["); //$NON-NLS-1$
             buffer.append("dbmsType = ").append(dbType); //$NON-NLS-1$
-            buffer.append(", talendType = ").append(talendTypeName); //$NON-NLS-1$
+            buffer.append(", talendType = ").append(talendType); //$NON-NLS-1$
             buffer.append(", defaultSelected = ").append(defaultSelected); //$NON-NLS-1$
-            buffer.append(", nullable = ").append(nullable); //$NON-NLS-1$
             buffer.append("]"); //$NON-NLS-1$
             return buffer.toString();
         }

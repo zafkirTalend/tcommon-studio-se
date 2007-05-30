@@ -239,7 +239,7 @@ public class ExtractMetaDataFromDataBase {
                     String product = EDatabaseTypeName.getTypeFromDisplayName(dbms).getProduct();
                     MappingTypeRetriever mappingTypeRetriever = MetadataTalendType
                             .getMappingTypeRetriever(MetadataTalendType.getDefaultDbmsFromProduct(product).getId());
-                    String javaTypeName = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, isNullable);
+                    String javaTypeName = mappingTypeRetriever.getDefaultSelectedTalendType(dbType);
                     JavaType javaTypeFromName = JavaTypesManager.getJavaTypeFromName(javaTypeName);
                     if (javaTypeFromName != null) {
                         talendType = javaTypeFromName.getId();

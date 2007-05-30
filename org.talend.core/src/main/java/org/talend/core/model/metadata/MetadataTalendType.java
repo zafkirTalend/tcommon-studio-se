@@ -534,50 +534,36 @@ public final class MetadataTalendType {
                                 continue;
                             }
 
-                            Node defaultSelectedItem = dbTypeAttributes.getNamedItem("defaultSelected"); //$NON-NLS-1$
+                            Node defaultSelectedItem = dbTypeAttributes.getNamedItem("default"); //$NON-NLS-1$
 
                             if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
 
                                 String talendType = talendTypeItem.getNodeValue();
-                                JavaType javaType = JavaTypesManager.getJavaTypeFromName(talendType);
+                                JavaType javaType = JavaTypesManager.getJavaTypeFromId(talendType);
 
                                 boolean defaultSelected = defaultSelectedItem != null
                                         && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE; //$NON-NLS-1$
 
-                                if (javaType != null) {
-
-                                    if (javaType.isPrimitive()) {
-                                        MappingType primitiveMappingType = new MappingType();
-                                        primitiveMappingType.setTalendTypeName(javaType.getPrimitiveClass()
-                                                .getSimpleName());
-                                        primitiveMappingType.setDbType(dbTypeItem.getNodeValue());
-                                        primitiveMappingType.setDefaultSelected(defaultSelected);
-                                        primitiveMappingType.setNullable(Boolean.FALSE);
-                                        mappingTypes.add(primitiveMappingType);
-                                    }
+                                if (javaType != null) { // test if the type exists
 
                                     MappingType objectMappingType = new MappingType();
-                                    objectMappingType.setTalendTypeName(javaType.getNullableClass().getSimpleName());
+                                    objectMappingType.setTalendType(talendType);
                                     objectMappingType.setDbType(dbTypeItem.getNodeValue());
                                     objectMappingType.setDefaultSelected(defaultSelected);
-                                    objectMappingType.setNullable(Boolean.TRUE);
                                     mappingTypes.add(objectMappingType);
 
                                 } else {
-
                                     log.warn("'" + talendType + "' is not a valid Java Talend type.");
-
                                 }
 
                             } else if (LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
 
                                 MappingType mappingType = new MappingType();
-                                mappingType.setTalendTypeName(talendTypeItem.getNodeValue());
+                                mappingType.setTalendType(talendTypeItem.getNodeValue());
                                 mappingType.setDbType(dbTypeItem.getNodeValue());
                                 mappingType
                                         .setDefaultSelected(defaultSelectedItem != null
                                                 && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE); //$NON-NLS-1$
-                                mappingType.setNullable(Boolean.FALSE);
                                 mappingTypes.add(mappingType);
                             }
                         }
@@ -653,25 +639,19 @@ public final class MetadataTalendType {
             e.printStackTrace();
         }
 
-        String dbmsId = "mysql_id"; //$NON-NLS-1$
+        String dbmsId = "oracle_id"; //$NON-NLS-1$
         Dbms dbms = getDbms(dbmsId);
         System.out.println("Oracle10g dbms:" + dbms);
         System.out.println("Oracle10g types:" + Arrays.asList(getDbTypes(dbmsId)));
 
         MappingTypeRetriever mappingTypeRetriever = getMappingTypeRetriever(dbmsId);
-        System.out.println("java int => " + mappingTypeRetriever.getDefaultSelectedDbType("int", false));
-        System.out.println("java int nullable => " + mappingTypeRetriever.getDefaultSelectedDbType("int", true));
+        System.out.println("java int(id_Integer) => " + mappingTypeRetriever.getDefaultSelectedDbType("id_Integer"));
 
-        System.out.println("Db INT => " + mappingTypeRetriever.getDefaultSelectedTalendType("INT", false));
-        System.out.println("Db INT nullable => " + mappingTypeRetriever.getDefaultSelectedTalendType("INT", true));
+        System.out.println("Db INT => " + mappingTypeRetriever.getDefaultSelectedTalendType("INT"));
 
-        System.out.println("java UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedDbType("UNKNOWN", false));
-        System.out.println("java UNKNOWN TYPE nullable => "
-                + mappingTypeRetriever.getDefaultSelectedDbType("UNKNOWN", false));
+        System.out.println("java UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedDbType("UNKNOWN"));
 
-        System.out.println("Db UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN", false));
-        System.out.println("Db UNKNOWN TYPE nullable => "
-                + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN", false));
+        System.out.println("Db UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN"));
 
         System.out.println();
     }

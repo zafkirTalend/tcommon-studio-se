@@ -307,10 +307,10 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
 //                        String typeName = JavaTypesManager.getShortNameFromJavaType(javaType);
 //                        oldDefaultDbType = MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedDbType(
 //                                typeName, bean.isNullable());
-                        oldDefaultDbType = TypesManager.getDBTypeFromTalendType(dbms, oldTalendType, bean.isNullable());
+                        oldDefaultDbType = TypesManager.getDBTypeFromTalendType(dbms, oldTalendType);
                     }
                     if (oldDbType.equals(oldDefaultDbType) || oldDbType.equals("")) {
-                        bean.setType(TypesManager.getDBTypeFromTalendType(dbms, value, bean.isNullable()));
+                        bean.setType(TypesManager.getDBTypeFromTalendType(dbms, value));
 //                        JavaType javaType = JavaTypesManager.getJavaTypeFromId(value);
 //                        String typeName = JavaTypesManager.getShortNameFromJavaType(javaType);
 //                        bean.setType(MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedDbType(

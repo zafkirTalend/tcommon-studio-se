@@ -42,13 +42,13 @@ public final class JavaTypesManager {
     public static final String DEFAULT_CHAR = "' '"; //$NON-NLS-1$
 
     public static final String DEFAULT_BOOLEAN = "false"; //$NON-NLS-1$
-    
+
     public static final String DEFAULT_NUMBER = "0"; //$NON-NLS-1$
 
     public static final String NULL = "null"; //$NON-NLS-1$
 
     public static final String JAVA_PRIMITIVE_CHAR = "char"; //$NON-NLS-1$
-    
+
     public static final String JAVA_PRIMITIVE_BOOLEAN = "boolean"; //$NON-NLS-1$
 
     public static final JavaType BOOLEAN = new JavaType(Boolean.class, boolean.class);
@@ -75,8 +75,8 @@ public final class JavaTypesManager {
 
     public static final JavaType OBJECT = new JavaType(Object.class);
 
-    public static final JavaType[] JAVA_TYPES = new JavaType[] { BOOLEAN, BYTE, BYTE_ARRAY, CHARACTER, DATE, DOUBLE, FLOAT, INTEGER, LONG,
-            OBJECT, SHORT, STRING, };
+    public static final JavaType[] JAVA_TYPES = new JavaType[] { BOOLEAN, BYTE, BYTE_ARRAY, CHARACTER, DATE, DOUBLE,
+            FLOAT, INTEGER, LONG, OBJECT, SHORT, STRING, };
 
     private static Map<String, JavaType> shortNameToJavaType;
 
@@ -117,7 +117,7 @@ public final class JavaTypesManager {
     }
 
     /**
-     * Add a java type to the common list;
+     * Add a java type to the common list.
      * 
      * @param javaType
      */
@@ -148,7 +148,7 @@ public final class JavaTypesManager {
     public static JavaType getJavaTypeFromName(String typeName) {
         return shortNameToJavaType.get(typeName);
     }
-    
+
     public static String getShortNameFromJavaType(JavaType javaType) {
         Class primitiveClass = javaType.getPrimitiveClass();
         if (primitiveClass != null) {
@@ -370,12 +370,12 @@ public final class JavaTypesManager {
         System.out.println(JavaTypesManager.getJavaTypeFromName("Integer")); //$NON-NLS-1$
         System.out.println(JavaTypesManager.getJavaTypeFromName("integer")); //$NON-NLS-1$
         System.out.println(JavaTypesManager.getJavaTypeFromName("Object")); //$NON-NLS-1$
-        
+
         System.out.println(JavaTypesManager.getDefaultValueFromJavaType("boolean")); //$NON-NLS-1$
         System.out.println(JavaTypesManager.getDefaultValueFromJavaIdType("id_Boolean", false)); //$NON-NLS-1$
-        
+
         System.out.println(JavaTypesManager.getDefaultValueFromJavaType("char")); //$NON-NLS-1$
-        
+
     }
 
 }

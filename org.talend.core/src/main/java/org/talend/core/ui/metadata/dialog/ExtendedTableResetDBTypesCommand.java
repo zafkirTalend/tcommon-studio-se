@@ -78,11 +78,7 @@ public class ExtendedTableResetDBTypesCommand extends Command implements IExtend
         for (int i = 0; i < beansList.size(); i++) {
             if (beansList.get(i) instanceof IMetadataColumn) {
                 IMetadataColumn column = (IMetadataColumn) beansList.get(i);
-                column.setType(TypesManager.getDBTypeFromTalendType(dbmsId, column.getTalendType(), column.isNullable()));
-//                JavaType javaType = JavaTypesManager.getJavaTypeFromId(column.getTalendType());
-//                String typeName = JavaTypesManager.getShortNameFromJavaType(javaType);
-//                column.setType(MetadataTalendType.getMappingTypeRetriever(dbmsId).getDefaultSelectedDbType(typeName,
-//                        column.isNullable()));
+                column.setType(TypesManager.getDBTypeFromTalendType(dbmsId, column.getTalendType()));
             }
         }
         extendedTableViewer.getTableViewerCreator().getTableViewer().refresh();

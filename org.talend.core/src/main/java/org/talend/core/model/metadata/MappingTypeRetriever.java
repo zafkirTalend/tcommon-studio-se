@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
 public class MappingTypeRetriever {
 
     private static Logger log = Logger.getLogger(MappingTypeRetriever.class);
-    
+
     private Dbms dbms;
 
     private Map<MappingType, MappingType> mapDbToTalend = new HashMap<MappingType, MappingType>();
@@ -69,22 +69,19 @@ public class MappingTypeRetriever {
 
             MappingType mapDbToTalendKey = new MappingType();
             mapDbToTalendKey.setDbType(mappingType.getDbType().toUpperCase());
-            mapDbToTalendKey.setNullable(mappingType.getNullable());
             mapDbToTalendKey.setDefaultSelected(mappingType.getDefaultSelected());
             mapDbToTalend.put(mapDbToTalendKey, mappingType);
 
             MappingType mapTalendToDbKey = new MappingType();
-            mapTalendToDbKey.setTalendTypeName(mappingType.getTalendTypeName());
-            mapTalendToDbKey.setNullable(mappingType.getNullable());
+            mapTalendToDbKey.setTalendType(mappingType.getTalendType());
             mapTalendToDbKey.setDefaultSelected(mappingType.getDefaultSelected());
             mapTalendToDb.put(mapTalendToDbKey, mappingType);
         }
     }
 
-    public MappingType getMappingType(String dbmsType, String talendType, Boolean nullable, Boolean defaultSelected) {
+    public MappingType getMappingType(String dbmsType, String talendType, Boolean defaultSelected) {
         mappingTypeKey.setDbType(dbmsType.toUpperCase());
-        mappingTypeKey.setTalendTypeName(talendType);
-        mappingTypeKey.setNullable(nullable);
+        mappingTypeKey.setTalendType(talendType);
         mappingTypeKey.setDefaultSelected(defaultSelected);
         MappingType mappingType = mapDbToTalend.get(mappingTypeKey);
         return mappingType;
@@ -92,56 +89,44 @@ public class MappingTypeRetriever {
 
     /**
      * 
-     * Search and return the Db type which matches with the given parameters.
-     * If the Db type is not found, a new search is done with inverse of given <code>nullable</code>
+     * Search and return the Db type which matches with the given parameters. If the Db type is not found, a new search
+     * is done with inverse of given <code>nullable</code>
+     * 
      * @param dbmsType
      * @param nullable
      * @return
      */
-    public String getDefaultSelectedTalendType(String dbmsType, boolean nullable) {
+    public String getDefaultSelectedTalendType(String dbmsType) {
         mappingTypeKey.setDbType(dbmsType.toUpperCase());
-        mappingTypeKey.setTalendTypeName(null);
-        mappingTypeKey.setNullable(nullable);
+        mappingTypeKey.setTalendType(null);
         mappingTypeKey.setDefaultSelected(Boolean.TRUE);
         MappingType mappingType = mapDbToTalend.get(mappingTypeKey);
         if (mappingType == null) {
-            mappingTypeKey.setNullable(!nullable);
+            mappingTypeKey.setDefaultSelected(Boolean.FALSE);
             mappingType = mapDbToTalend.get(mappingTypeKey);
             if (mappingType == null) {
-                mappingTypeKey.setDefaultSelected(Boolean.FALSE);
-                mappingType = mapDbToTalend.get(mappingTypeKey);
-                if (mappingType == null) {
-                    mappingTypeKey.setNullable(nullable);
-                    mappingType = mapDbToTalend.get(mappingTypeKey);
-                    if (mappingType == null) {
-                        return MetadataTalendType.getDefaultTalendType();
-                    }
-                }
+                return MetadataTalendType.getDefaultTalendType();
             }
         }
-        return mappingType.getTalendTypeName();
+        return mappingType.getTalendType();
     }
 
     /**
      * 
-     * Search and return the Db type which matches with the given parameters.
-     * If the Db type is not found, a new search is done with inverse of given <code>nullable</code>
+     * Search and return the Db type which matches with the given parameters. If the Db type is not found, a new search
+     * is done with inverse of given <code>nullable</code>
+     * 
      * @param talendType
      * @param nullable
      * @return
      */
-    public String getDefaultSelectedDbType(String talendType, boolean nullable) {
+    public String getDefaultSelectedDbType(String talendType) {
         mappingTypeKey.setDbType(null);
-        mappingTypeKey.setTalendTypeName(talendType);
-        mappingTypeKey.setNullable(nullable);
+        mappingTypeKey.setTalendType(talendType);
         mappingTypeKey.setDefaultSelected(Boolean.TRUE);
         MappingType mappingType = mapTalendToDb.get(mappingTypeKey);
         if (mappingType == null) {
-            mappingTypeKey.setNullable(!nullable);
-            mappingType = mapTalendToDb.get(mappingTypeKey);
-            if (mappingType == null) {
-                return dbms.getDefaultDbType();
-            }
+            return dbms.getDefaultDbType();
         }
         return mappingType.getDbType();
 

@@ -63,28 +63,27 @@ public class TypesManager {
     public static String getNameFromInterfaceType(String type) {
         switch (LanguageManager.getCurrentLanguage()) {
         case JAVA:
-            JavaType javaType = JavaTypesManager.getJavaTypeFromId(type);
-            return JavaTypesManager.getShortNameFromJavaType(javaType);
+            return type;
         default:
             initializePerlTypes();
             return perlTempMappingTalendToXml.get(type);
         }
     }
 
-    public static String getDBTypeFromTalendType(String dbms, String talendType, boolean isNullable) {
+    public static String getDBTypeFromTalendType(String dbms, String talendType) {
         String typeName = getNameFromInterfaceType(talendType);
-        return MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedDbType(typeName, isNullable);
+        return MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedDbType(typeName);
     }
 
-    public static boolean checkDBType(String dbms, String talendType, String dbType, boolean isNullable) {
+    public static boolean checkDBType(String dbms, String talendType, String dbType) {
         String typeName = getNameFromInterfaceType(talendType);
 
-        String defaultDbType = MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedDbType(typeName, isNullable);
+        String defaultDbType = MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedDbType(typeName);
         if (defaultDbType.equals(dbType)) {
             return true;
         }
         
-        String defaultTalendType = MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedTalendType(dbType, isNullable);
+        String defaultTalendType = MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedTalendType(dbType);
         if (defaultTalendType.equals(typeName)) {
             return true;
         }

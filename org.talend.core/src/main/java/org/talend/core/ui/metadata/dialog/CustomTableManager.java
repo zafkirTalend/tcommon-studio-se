@@ -234,7 +234,7 @@ public class CustomTableManager {
             }
             if (tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_DBTYPE)
                     && !column.getType().equals("")
-                    && !TypesManager.checkDBType(dbmsId, column.getTalendType(), column.getType(), column.isNullable())) {
+                    && !TypesManager.checkDBType(dbmsId, column.getTalendType(), column.getType())) {
                 return CELL_WRONG_DB_TYPE_COLOR;
             }
             return super.getBackground(element, columnIndex);
