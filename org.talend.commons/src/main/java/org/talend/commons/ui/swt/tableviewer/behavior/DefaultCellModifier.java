@@ -56,8 +56,12 @@ public class DefaultCellModifier implements ICellModifier {
      * 
      * @see org.eclipse.jface.viewers.ICellModifier#canModify(java.lang.Object, java.lang.String)
      */
-    public boolean canModify(Object element, String property) {
-        return tableViewerCreator.getColumn(property).isModifiable();
+    public boolean canModify(Object bean, String idColumn) {
+        TableViewerCreatorColumn column = tableViewerCreator.getColumn(idColumn);
+        if (column.getColumnCellModifier() != null) {
+            return column.getColumnCellModifier().canModify(bean);
+        }
+        return tableViewerCreator.getColumn(idColumn).isModifiable();
     }
 
     /*
@@ -66,27 +70,32 @@ public class DefaultCellModifier implements ICellModifier {
      * @see org.eclipse.jface.viewers.ICellModifier#getValue(java.lang.Object, java.lang.String)
      */
     @SuppressWarnings("unchecked")
-    public Object getValue(Object bean, String idProperty) {
-        TableViewerCreatorColumn column = tableViewerCreator.getColumn(idProperty);
+    public Object getValue(Object bean, String idColumn) {
+        TableViewerCreatorColumn column = tableViewerCreator.getColumn(idColumn);
         ModifiedObjectInfo modifiedObjectInfo = this.tableViewerCreator.getModifiedObjectInfo();
         modifiedObjectInfo.setCurrentModifiedBean(bean);
         modifiedObjectInfo.setCurrentModifiedColumn(column);
         modifiedObjectInfo.setCurrentModifiedIndex(this.tableViewerCreator.getInputList().indexOf(bean));
 
         Object returnValue = null;
-        Object value = AccessorUtils.get(bean, column);
+        if (column.getColumnCellModifier() != null) {
+            returnValue = column.getColumnCellModifier().getValue(bean);
+        }
+        if (returnValue == null) {
+            Object value = AccessorUtils.get(bean, column);
 
-        if (column.getCellEditorValueAdapter() != null) {
-            returnValue = column.getCellEditorValueAdapter().getCellEditorTypedValue(column.getCellEditor(), value);
-        } else {
-            returnValue = value;
+            if (column.getCellEditorValueAdapter() != null) {
+                returnValue = column.getCellEditorValueAdapter().getCellEditorTypedValue(column.getCellEditor(), value);
+            } else {
+                returnValue = value;
+            }
+            if (returnValue == null && column.getDefaultInternalValue() != null) {
+                returnValue = column.getDefaultInternalValue();
+            }
+            modifiedObjectInfo.setOriginalPropertyBeanValue(returnValue);
+            modifiedObjectInfo.setPreviousPropertyBeanValue(returnValue);
+            // System.out.println("getValue : value=" + returnValue);
         }
-        if (returnValue == null && column.getDefaultInternalValue() != null) {
-            returnValue = column.getDefaultInternalValue();
-        }
-        modifiedObjectInfo.setOriginalPropertyBeanValue(returnValue);
-        modifiedObjectInfo.setPreviousPropertyBeanValue(returnValue);
-//         System.out.println("getValue : value=" + returnValue);
         return returnValue;
     }
 
@@ -99,7 +108,13 @@ public class DefaultCellModifier implements ICellModifier {
     public void modify(Object tableItem, String idColumn, Object value) {
         Object bean = ((TableItem) tableItem).getData();
         TableViewerCreatorColumn column = tableViewerCreator.getColumn(idColumn);
-        if (column.getBeanPropertyAccessors() != null) {
+        
+        boolean modifiedByColumnCellModifier = false;
+        if (column.getColumnCellModifier() != null) {
+            modifiedByColumnCellModifier = column.getColumnCellModifier().modify(bean, value);
+        }
+
+        if (!modifiedByColumnCellModifier && column.getBeanPropertyAccessors() != null) {
             Object typedValue = null;
             if (column.getCellEditorValueAdapter() != null) {
                 typedValue = column.getCellEditorValueAdapter().getOriginalTypedValue(column.getCellEditor(), value);
@@ -132,9 +147,10 @@ public class DefaultCellModifier implements ICellModifier {
      * @param cellEditorAppliedValue
      * @param newValue
      */
-    private void fireCellEditorApplied(TableItem tableItem, Object bean, TableViewerCreatorColumn column, Object cellEditorAppliedValue,
-            Object previousValue, Object newValue) {
-        TableCellValueModifiedEvent event = new TableCellValueModifiedEvent(tableItem, bean, column, cellEditorAppliedValue, newValue);
+    private void fireCellEditorApplied(TableItem tableItem, Object bean, TableViewerCreatorColumn column,
+            Object cellEditorAppliedValue, Object previousValue, Object newValue) {
+        TableCellValueModifiedEvent event = new TableCellValueModifiedEvent(tableItem, bean, column,
+                cellEditorAppliedValue, newValue);
         final Object[] listenerArray = cellEditorAppliedListeners.getListeners();
         for (int i = 0; i < listenerArray.length; i++) {
             ((ITableCellValueModifiedListener) listenerArray[i]).cellValueModified(event);
@@ -152,15 +168,13 @@ public class DefaultCellModifier implements ICellModifier {
         this.cellEditorAppliedListeners.remove(cellEditorAppliedListener);
     }
 
-    
     /**
      * Getter for tableViewerCreator.
+     * 
      * @return the tableViewerCreator
      */
     public TableViewerCreator getTableViewerCreator() {
         return this.tableViewerCreator;
     }
 
-    
-    
 }

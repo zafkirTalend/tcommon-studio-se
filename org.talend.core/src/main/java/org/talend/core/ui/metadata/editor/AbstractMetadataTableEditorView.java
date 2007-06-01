@@ -44,7 +44,9 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.behavior.ColumnCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
+import org.talend.commons.ui.swt.tableviewer.behavior.IColumnCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnColorProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnLabelProvider;
@@ -98,8 +100,6 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     protected boolean showTalendTypeColumn = true;
 
     protected boolean showDbTypeColumnAtLeftPosition;
-
-    private MetadataTableCellModifierForJava cellModifier;
 
     private boolean dbTypeColumnWritable;
 
@@ -259,10 +259,6 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
         configureCommentColumn(tableViewerCreator);
 
-        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-            configureCellModifierForJava(tableViewerCreator);
-        }
-
     }
 
     /**
@@ -384,10 +380,18 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             column.setBeanPropertyAccessors(getPatternAccessor());
             column.setModifiable(!isReadOnly());
             column.setWeight(16);
+            final ColumnCellModifier columnCellModifier = new ColumnCellModifier(column) {
+
+                public boolean canModify(Object bean) {
+                    boolean typeIsDate = currentBeanHasJavaDateType(bean);
+                    return typeIsDate;
+                }
+
+            };
             column.setColorProvider(new IColumnColorProvider() {
 
                 public Color getBackgroundColor(Object bean) {
-                    if (!cellModifier.canModify(bean, column.getId())) {
+                    if (!columnCellModifier.canModify(bean)) {
                         return READONLY_CELL_BG_COLOR;
                     }
                     return null;
@@ -413,6 +417,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
                 }
 
             });
+            column.setColumnCellModifier(columnCellModifier);
 
             JavaSimpleDateFormatProposalProvider proposalProvider = new JavaSimpleDateFormatProposalProvider();
             TextCellEditorWithProposal patternCellEditor = new TextCellEditorWithProposal(
@@ -698,43 +703,6 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      */
     @Override
     protected abstract ExtendedToolbarView initToolBar();
-
-    protected void configureCellModifierForJava(TableViewerCreator<B> tableViewerCreator) {
-        cellModifier = new MetadataTableCellModifierForJava(tableViewerCreator);
-        tableViewerCreator.setCellModifier(cellModifier);
-    }
-
-    /**
-     * . <br/>
-     * 
-     * $Id: MetadataTableEditorView.java 2016 2007-02-12 15:36:11Z amaumont $
-     * 
-     */
-    class MetadataTableCellModifierForJava extends DefaultCellModifier {
-
-        /**
-         * DOC amaumont MetadataTableCellModifier constructor comment.
-         * 
-         * @param tableViewerCreator
-         */
-        public MetadataTableCellModifierForJava(TableViewerCreator tableViewerCreator) {
-            super(tableViewerCreator);
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier#canModify(java.lang.Object,
-         * java.lang.String)
-         */
-        @Override
-        public boolean canModify(Object element, String property) {
-            boolean typeIsDate = currentBeanHasJavaDateType(element);
-            boolean columnIsPattern = AbstractMetadataTableEditorView.ID_COLUMN_PATTERN.equals(property);
-            return super.canModify(element, property) && (columnIsPattern && typeIsDate || !columnIsPattern);
-        }
-
-    }
 
     public void setShowDbTypeColumn(boolean showDbTypeColumn, boolean showDbTypeColumnAtLeftPosition, boolean writable) {
         this.showDbTypeColumn = showDbTypeColumn;

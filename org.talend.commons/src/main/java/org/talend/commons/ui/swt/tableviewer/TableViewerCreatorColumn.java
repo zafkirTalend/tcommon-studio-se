@@ -30,6 +30,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.TableColumn;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.behavior.ColumnCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnColorProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnLabelProvider;
@@ -134,6 +135,8 @@ public class TableViewerCreatorColumn implements Cloneable {
     private ITableCellValueModifiedListener cellEditorAppliedListener;
 
     private IColumnColorProvider colorProvider;
+
+    private ColumnCellModifier columnCellModifier;
 
     /**
      * 
@@ -539,4 +542,17 @@ public class TableViewerCreatorColumn implements Cloneable {
         this.colorProvider = colorProvider;
     }
 
+    /**
+     * DOC amaumont Comment method "setColumnCellModifier".
+     * @param columnCellModifier
+     */
+    public void setColumnCellModifier(ColumnCellModifier columnCellModifier) {
+        this.columnCellModifier = columnCellModifier;
+    }
+    
+    public ColumnCellModifier getColumnCellModifier() {
+        return this.columnCellModifier;
+    }
+
+    
 }
