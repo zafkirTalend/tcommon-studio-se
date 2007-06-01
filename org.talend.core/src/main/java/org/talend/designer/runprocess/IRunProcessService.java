@@ -97,4 +97,5 @@ public interface IRunProcessService extends IService {
      */
     public void setDelegateService(IRunProcessService delegateService);
     
+    public void updateLibraries() throws CoreException;    
 }
