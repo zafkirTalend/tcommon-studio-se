@@ -77,7 +77,7 @@
 			<type talendType="id_Double" dbType="DOUBLE UNSIGNED" />
 			<type talendType="id_Double" dbType="DECIMAL UNSIGNED" />
 			
-			<type talendType="id_Character" dbType="CHAR" default="true" />
+			<type talendType="id_String" dbType="CHAR" default="true" />
 			<type talendType="id_Boolean" dbType="BOOLEAN" default="true" />
 			
 			<type talendType="id_String" dbType="VARCHAR"  default="true" />
