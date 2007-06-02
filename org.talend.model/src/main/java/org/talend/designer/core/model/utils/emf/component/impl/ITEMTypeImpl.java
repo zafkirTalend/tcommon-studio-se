@@ -27,6 +27,7 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFIELD <em>FIELD</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#isREADONLY <em>READONLY</em>}</li>
@@ -77,6 +78,26 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @ordered
      */
     protected boolean fIELDESet = false;
+
+    /**
+     * The default value of the '{@link #getFILTER() <em>FILTER</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFILTER()
+     * @generated
+     * @ordered
+     */
+    protected static final String FILTER_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getFILTER() <em>FILTER</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFILTER()
+     * @generated
+     * @ordered
+     */
+    protected String fILTER = FILTER_EDEFAULT;
 
     /**
      * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
@@ -319,6 +340,27 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getFILTER() {
+        return fILTER;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFILTER(String newFILTER) {
+        String oldFILTER = fILTER;
+        fILTER = newFILTER;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__FILTER, oldFILTER, fILTER));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getNAME() {
         return nAME;
     }
@@ -489,6 +531,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return getITEMS();
             case ComponentPackage.ITEM_TYPE__FIELD:
                 return getFIELD();
+            case ComponentPackage.ITEM_TYPE__FILTER:
+                return getFILTER();
             case ComponentPackage.ITEM_TYPE__NAME:
                 return getNAME();
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
@@ -517,6 +561,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return;
             case ComponentPackage.ITEM_TYPE__FIELD:
                 setFIELD((String)newValue);
+                return;
+            case ComponentPackage.ITEM_TYPE__FILTER:
+                setFILTER((String)newValue);
                 return;
             case ComponentPackage.ITEM_TYPE__NAME:
                 setNAME((String)newValue);
@@ -553,6 +600,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__FIELD:
                 unsetFIELD();
                 return;
+            case ComponentPackage.ITEM_TYPE__FILTER:
+                setFILTER(FILTER_EDEFAULT);
+                return;
             case ComponentPackage.ITEM_TYPE__NAME:
                 setNAME(NAME_EDEFAULT);
                 return;
@@ -586,6 +636,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
                 return iTEMS != null;
             case ComponentPackage.ITEM_TYPE__FIELD:
                 return isSetFIELD();
+            case ComponentPackage.ITEM_TYPE__FILTER:
+                return FILTER_EDEFAULT == null ? fILTER != null : !FILTER_EDEFAULT.equals(fILTER);
             case ComponentPackage.ITEM_TYPE__NAME:
                 return NAME_EDEFAULT == null ? nAME != null : !NAME_EDEFAULT.equals(nAME);
             case ComponentPackage.ITEM_TYPE__NOTSHOWIF:
@@ -613,6 +665,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (fIELD: ");
         if (fIELDESet) result.append(fIELD); else result.append("<unset>");
+        result.append(", fILTER: ");
+        result.append(fILTER);
         result.append(", nAME: ");
         result.append(nAME);
         result.append(", nOTSHOWIF: ");

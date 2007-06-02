@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNOTSHOWIF <em>NOTSHOWIF</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#isREADONLY <em>READONLY</em>}</li>
@@ -116,6 +117,33 @@ public interface ITEMType extends EObject {
      * @generated
      */
     boolean isSetFIELD();
+
+    /**
+     * Returns the value of the '<em><b>FILTER</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>FILTER</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>FILTER</em>' attribute.
+     * @see #setFILTER(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_FILTER()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='FILTER' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getFILTER();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFILTER <em>FILTER</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>FILTER</em>' attribute.
+     * @see #getFILTER()
+     * @generated
+     */
+    void setFILTER(String value);
 
     /**
      * Returns the value of the '<em><b>NAME</b></em>' attribute.
