@@ -46,6 +46,7 @@ public enum EParameterFieldType {
     PROCESS_TYPE,
     IMAGE,
     COLUMN_LIST,
+    CONNECTION_LIST,
     PREV_COLUMN_LIST,
     CONTEXT_PARAM_NAME_LIST,
     LOOKUP_COLUMN_LIST,
