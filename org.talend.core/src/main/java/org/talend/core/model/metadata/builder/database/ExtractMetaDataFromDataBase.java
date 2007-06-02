@@ -48,6 +48,7 @@ import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.metadata.types.TypesManager;
 
 /**
  * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata about a DB Connection. <br/>
@@ -235,21 +236,25 @@ public class ExtractMetaDataFromDataBase {
                 // Convert dbmsType to TalendType
 
                 String talendType = null;
-                if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                    String product = EDatabaseTypeName.getTypeFromDisplayName(dbms).getProduct();
-                    MappingTypeRetriever mappingTypeRetriever = MetadataTalendType
-                            .getMappingTypeRetriever(MetadataTalendType.getDefaultDbmsFromProduct(product).getId());
-                    String javaTypeName = mappingTypeRetriever.getDefaultSelectedTalendType(dbType);
-                    JavaType javaTypeFromName = JavaTypesManager.getJavaTypeFromName(javaTypeName);
-                    if (javaTypeFromName != null) {
-                        talendType = javaTypeFromName.getId();
-                    } else {
+
+                String product = EDatabaseTypeName.getTypeFromDisplayName(dbms).getProduct();
+                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType
+                        .getMappingTypeRetriever(MetadataTalendType.getDefaultDbmsFromProduct(product).getId());
+                talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType);
+                if (talendType == null) {
+                    if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
                         talendType = JavaTypesManager.getDefaultJavaType().getId();
+                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
+                    } else {
+                        talendType = "";
                         log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
                     }
                 } else {
-                    talendType = MetadataTalendType.loadTalendType(metadataColumn.getSourceType(), dbms, false);
+                    //TODO to remove when the new perl type will be added in talend.
+                    talendType = TypesManager.getTalendTypeFromXmlType(talendType);
                 }
+                
+                
 
                 metadataColumn.setTalendType(talendType);
                 metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$

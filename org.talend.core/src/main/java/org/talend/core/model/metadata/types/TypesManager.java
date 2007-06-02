@@ -69,6 +69,16 @@ public class TypesManager {
             return perlTempMappingTalendToXml.get(type);
         }
     }
+    
+    public static String getTalendTypeFromXmlType(String type) {
+        switch (LanguageManager.getCurrentLanguage()) {
+        case JAVA:
+            return type;
+        default:
+            initializePerlTypes();
+            return perlTempMappingXmlToTalend.get(type);
+        }
+    }
 
     public static String getDBTypeFromTalendType(String dbms, String talendType) {
         String typeName = getNameFromInterfaceType(talendType);
