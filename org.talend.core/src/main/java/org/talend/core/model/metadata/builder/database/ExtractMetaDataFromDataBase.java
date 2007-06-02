@@ -328,12 +328,13 @@ public class ExtractMetaDataFromDataBase {
      * @return
      * @throws SQLException
      */
-    private static boolean checkSchemaConnection(String schema, Connection connection) throws SQLException {
+    public static boolean checkSchemaConnection(String schema, Connection connection) throws SQLException {
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection);
         if (dbMetaData != null) {
             ResultSet rs = dbMetaData.getSchemas();
             while (rs.next()) {
-                if (rs.getString(1).compareTo(schema) == 0) {
+                if (rs.getString(1).toLowerCase().compareTo(schema.toLowerCase()) == 0) {
+                    ExtractMetaDataUtils.schema = rs.getString(1);
                     rs.close();
                     return (true);
                 }

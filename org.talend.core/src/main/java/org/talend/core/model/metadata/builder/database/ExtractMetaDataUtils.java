@@ -185,7 +185,9 @@ public class ExtractMetaDataUtils {
             Class.forName(getDriverClassByDbType(dbType)).newInstance();
             conn = DriverManager.getConnection(url, username, pwd);
             if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
-                schema = schemaBase;
+                if (!ExtractMetaDataFromDataBase.checkSchemaConnection(schemaBase, conn)) {
+                    schema = null;
+                }
             } else {
                 schema = null;
                 // PTODO Verify for each Database type the Schema necessity
