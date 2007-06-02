@@ -52,7 +52,8 @@ public enum EParameterFieldType {
     TECHNICAL, // means field not displayed directly
     ENCODING_TYPE,
     COMPONENT_LIST,
-    MAPPING_TYPE;
+    MAPPING_TYPE,
+    COLOR;
 
     public String getName() {
         return toString();

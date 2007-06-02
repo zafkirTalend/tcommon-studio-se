@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.core.model.utils;
 
+import java.util.StringTokenizer;
+
+import org.eclipse.swt.graphics.RGB;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
@@ -178,5 +181,24 @@ public class TalendTextUtils {
     public static String getQuoteByDBType(String dbType, boolean b) {
         isLeft = b;
         return getQuoteByDBType(dbType);
+    }
+    
+    public static RGB stringToRGB(String string) {
+        RGB rgb;
+        int r = 0;
+        int g = 0;
+        int b = 0;
+        StringTokenizer token = new StringTokenizer(string, ";");
+        if (token.hasMoreTokens()) {
+            r = new Integer(token.nextToken());
+        }
+        if (token.hasMoreTokens()) {
+            g = new Integer(token.nextToken());
+        }
+        if (token.hasMoreTokens()) {
+            b = new Integer(token.nextToken());
+        }
+        rgb = new RGB(r, g, b);
+        return rgb;
     }
 }
