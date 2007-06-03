@@ -1163,4 +1163,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return Collections.EMPTY_LIST;
     }
 
+    public Boolean hasChildren(Object parent) {
+        return null;
+    }
+
 }
