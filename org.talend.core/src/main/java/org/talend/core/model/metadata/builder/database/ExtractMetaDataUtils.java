@@ -29,6 +29,7 @@ import java.sql.SQLException;
 import java.util.Hashtable;
 
 import org.apache.log4j.Logger;
+import org.talend.core.database.EDatabaseTypeName;
 
 /**
  * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata about a DB Connection. <br/>
@@ -185,7 +186,9 @@ public class ExtractMetaDataUtils {
             Class.forName(getDriverClassByDbType(dbType)).newInstance();
             conn = DriverManager.getConnection(url, username, pwd);
             if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
-                if (!ExtractMetaDataFromDataBase.checkSchemaConnection(schemaBase, conn)) {
+                final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
+                        EDatabaseTypeName.ORACLEFORSID.getProduct());
+                if (!ExtractMetaDataFromDataBase.checkSchemaConnection(schemaBase, conn, equals)) {
                     schema = null;
                 }
             } else {

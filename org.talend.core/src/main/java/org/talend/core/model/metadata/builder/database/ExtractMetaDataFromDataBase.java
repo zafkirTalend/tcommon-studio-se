@@ -119,16 +119,15 @@ public class ExtractMetaDataFromDataBase {
      * @param String tableLabel
      * @return Collection of MetadataColumn Object of a Table
      */
-    public static List<MetadataColumn> returnMetadataColumnsFormTable(IMetadataConnection iMetadataConnection,
-            String tableLabel) {
+    public static List<MetadataColumn> returnMetadataColumnsFormTable(IMetadataConnection iMetadataConnection, String tableLabel) {
 
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
 
         try {
             // WARNING Schema equals sid or database
-            ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
-                    iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection
-                            .getDatabase(), iMetadataConnection.getSchema());
+            ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
+                    .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
+                    .getSchema());
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
             List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
@@ -196,8 +195,8 @@ public class ExtractMetaDataFromDataBase {
      * @param MetadataTable medataTable
      * @return Collection of MetadataColumn Object
      */
-    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData,
-            IMetadataTable medataTable, String dbms) {
+    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
+            String dbms) {
 
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
 
@@ -216,8 +215,7 @@ public class ExtractMetaDataFromDataBase {
                 log.error(e.toString());
             }
 
-            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(),
-                    null);
+            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(), null);
             while (columns.next()) {
 
                 MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
@@ -238,8 +236,8 @@ public class ExtractMetaDataFromDataBase {
                 String talendType = null;
 
                 String product = EDatabaseTypeName.getTypeFromDisplayName(dbms).getProduct();
-                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType
-                        .getMappingTypeRetriever(MetadataTalendType.getDefaultDbmsFromProduct(product).getId());
+                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(MetadataTalendType
+                        .getDefaultDbmsFromProduct(product).getId());
                 talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType);
                 if (talendType == null) {
                     if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
@@ -250,19 +248,16 @@ public class ExtractMetaDataFromDataBase {
                         log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
                     }
                 } else {
-                    //TODO to remove when the new perl type will be added in talend.
+                    // TODO to remove when the new perl type will be added in talend.
                     talendType = TypesManager.getTalendTypeFromXmlType(talendType);
                 }
-                
-                
 
                 metadataColumn.setTalendType(talendType);
                 metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
 
                 // cantoine : patch to fix 0x0 pb cause by Bad Schema description
                 String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
-                if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0
-                        && stringMetaDataInfo.charAt(0) == 0x0) {
+                if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
                     stringMetaDataInfo = "\\0"; //$NON-NLS-1$
                 }
                 metadataColumn.setDefaultValue(stringMetaDataInfo);
@@ -302,10 +297,11 @@ public class ExtractMetaDataFromDataBase {
             Class.forName(ExtractMetaDataUtils.getDriverClassByDbType(dbType)).newInstance();
             connection = DriverManager.getConnection(url, username, pwd);
             if ((schema != null) && (schema.compareTo("") != 0)) { //$NON-NLS-1$
+                final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
+                        EDatabaseTypeName.ORACLEFORSID.getProduct());
                 // We have to check schema
-                if (!checkSchemaConnection(schema, connection)) {
-                    connectionStatus.setMessageException(Messages
-                            .getString("ExtractMetaDataFromDataBase.SchemaNoPresent")); //$NON-NLS-1$
+                if (!checkSchemaConnection(schema, connection, equals)) {
+                    connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.SchemaNoPresent")); //$NON-NLS-1$
                     return connectionStatus;
                 }
             }
@@ -315,8 +311,7 @@ public class ExtractMetaDataFromDataBase {
 
             connection.close();
             connectionStatus.setResult(true);
-            connectionStatus
-                    .setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful")); //$NON-NLS-1$
+            connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful")); //$NON-NLS-1$
         } catch (SQLException e) {
             connectionStatus.setMessageException(e.getMessage());
         } catch (Exception e) {
@@ -333,15 +328,24 @@ public class ExtractMetaDataFromDataBase {
      * @return
      * @throws SQLException
      */
-    public static boolean checkSchemaConnection(String schema, Connection connection) throws SQLException {
+    public static boolean checkSchemaConnection(String schema, Connection connection, boolean isCaseSensitive)
+            throws SQLException {
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection);
         if (dbMetaData != null) {
             ResultSet rs = dbMetaData.getSchemas();
             while (rs.next()) {
-                if (rs.getString(1).toLowerCase().compareTo(schema.toLowerCase()) == 0) {
-                    ExtractMetaDataUtils.schema = rs.getString(1);
-                    rs.close();
-                    return (true);
+                if (isCaseSensitive) {
+                    if (rs.getString(1).toLowerCase().compareTo(schema.toLowerCase()) == 0) {
+                        ExtractMetaDataUtils.schema = rs.getString(1);
+                        rs.close();
+                        return (true);
+                    }
+                } else {
+                    if (rs.getString(1).compareTo(schema) == 0) {
+                        ExtractMetaDataUtils.schema = schema;
+                        rs.close();
+                        return (true);
+                    }
                 }
             }
             rs.close();
@@ -358,9 +362,9 @@ public class ExtractMetaDataFromDataBase {
     public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection) {
         List<String> itemTablesName = new ArrayList<String>();
 
-        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
-                iMetadataConnection.getUsername(), iMetadataConnection.getPassword(),
-                iMetadataConnection.getDatabase(), iMetadataConnection.getSchema());
+        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
+                .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
+                .getSchema());
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
