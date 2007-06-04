@@ -62,12 +62,15 @@ public class MigrationToolService implements IMigrationToolService {
         List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(beforeLogon);
         List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
 
+        boolean needSave = false;
+        
         for (IProjectMigrationTask task : toExecute) {
             if (!done.contains(task.getId())) {
                 try {
                     if (task.execute(project)) {
                         done.add(task.getId());
                         doneThisSession.add(task);
+                        needSave = true;
                         log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
                     } else {
                         log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
@@ -79,7 +82,9 @@ public class MigrationToolService implements IMigrationToolService {
             }
         }
 
-        saveProjectMigrationTasksDone(project, done);
+        if (needSave) {
+            saveProjectMigrationTasksDone(project, done);
+        }
     }
 
     /*
