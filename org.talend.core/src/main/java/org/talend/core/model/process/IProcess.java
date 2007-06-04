@@ -21,7 +21,11 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.runprocess.IProcessor;
@@ -60,4 +64,12 @@ public interface IProcess extends IRepositoryObject, IElement {
     public void setProcessor(IProcessor processor);
     
     public IProcessor getProcessor();
+
+    /**
+     * Comment method "getAllConnections".
+     * 
+     * @param filter only return the filter matched connections
+     * @return
+     */
+    public IConnection[] getAllConnections(String filter);
 }
