@@ -87,6 +87,8 @@ public class RepositoryNode {
 
     private Map<EProperties, Object> properties = new Hashtable<EProperties, Object>();
 
+    private boolean initialized = false;
+    
     // This field is only used to retreive the process back from repositryNode. (StatsAndLogsTabPropertySection.java)
     // See issue 973.
 //    IProcess process = null;
@@ -108,6 +110,16 @@ public class RepositoryNode {
 //    public void setProcess(IProcess process) {
 //        this.process = process;
 //    }
+
+    
+    public boolean isInitialized() {
+        return initialized;
+    }
+
+    
+    public void setInitialized(boolean initialized) {
+        this.initialized = initialized;
+    }
 
     /**
      * Constructor with an object.
