@@ -47,6 +47,8 @@ public class TalendTextUtils {
 
     public static final String RBRACKET = "]";
 
+    private static final int LINE_MAX_NUM = 100;
+
     public static String addQuotes(String text) {
         ECodeLanguage language = LanguageManager.getCurrentLanguage();
 
@@ -70,7 +72,64 @@ public class TalendTextUtils {
         } else {
             newString = QUOTATION_MARK + checkStringQuotationMarks(text) + QUOTATION_MARK;
         }
-        return newString;
+        return widenRestrict(newString, quoteStyle);
+    }
+
+    /**
+     * DOC qiang.zhang Comment method "widenRestrict".
+     * 
+     * @param newString
+     * @param quoteStyle
+     * @return
+     */
+    private static String widenRestrict(String newString, String quoteStyle) {
+        String after = "";
+        final String[] split = newString.split("\n");
+        for (int i = 0; i < split.length; i++) {
+            String string = split[i];
+            if (i == 0) {
+                after += getAfterString(quoteStyle, string);
+            } else {
+                after += getAfterString(quoteStyle, "\n" + string);
+            }
+        }
+        return after;
+    }
+
+    /**
+     * DOC qiang.zhang Comment method "getAfterString".
+     * 
+     * @param quoteStyle
+     * @param string
+     * @return
+     */
+    private static String getAfterString(String quoteStyle, String string) {
+        String after = "";
+        if (string.length() > LINE_MAX_NUM) {
+            String substring = string.substring(0, LINE_MAX_NUM);
+            substring = substring.substring(0, getLastWord(substring, quoteStyle));
+            after += substring + "\n";
+            after += getAfterString(quoteStyle, string.substring(substring.length()));
+        } else {
+            after += string;
+        }
+        return after;
+    }
+
+    /**
+     * DOC qiang.zhang Comment method "getLastWord".
+     * 
+     * @param substring
+     * @param quoteStyle
+     * @return
+     */
+    private static int getLastWord(String substring, String quoteStyle) {
+        int lastIndexOf = substring.lastIndexOf(" ");
+        final int lastIndexOf2 = substring.lastIndexOf(quoteStyle);
+        final int lastIndexOf3 = substring.lastIndexOf(",");
+        lastIndexOf = lastIndexOf < lastIndexOf2 ? lastIndexOf2 : lastIndexOf;
+        lastIndexOf = lastIndexOf < lastIndexOf3 ? lastIndexOf3 : lastIndexOf;
+        return lastIndexOf;
     }
 
     private static String checkStringQuotes(String str) {
@@ -182,7 +241,7 @@ public class TalendTextUtils {
         isLeft = b;
         return getQuoteByDBType(dbType);
     }
-    
+
     public static RGB stringToRGB(String string) {
         RGB rgb;
         int r = 0;
