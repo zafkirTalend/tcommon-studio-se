@@ -103,4 +103,5 @@ public interface IComponent {
     public List<ECodePart> getAvailableCodeParts();
     
     public List<String> getPluginDependencies();
+
 }

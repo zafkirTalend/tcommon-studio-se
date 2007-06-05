@@ -62,11 +62,11 @@ public class TimeMeasure {
         }
         init();
         if (timers.containsKey(idTimer) && display) {
-            System.out.println(indent(indent) + Messages.getString("TimeMeasure.Warning.TimerExist", idTimer)); //$NON-NLS-1$
+            System.out.println(indent(indent) + "Warning (start): timer " + idTimer + " already exists"); //$NON-NLS-1$  //$NON-NLS-2$
         }
         indent++;
         if (display) {
-            System.out.println(indent(indent) + Messages.getString("TimeMeasure.StartTime", idTimer)); //$NON-NLS-1$
+            System.out.println(indent(indent) + "Start '" + idTimer + "' ..."); //$NON-NLS-1$  //$NON-NLS-2$
         }
         List<Long> times = new ArrayList<Long>();
         times.add(System.currentTimeMillis());
@@ -86,20 +86,21 @@ public class TimeMeasure {
         }
         init();
         if (!timers.containsKey(idTimer) && display) {
-            System.out.println(indent(indent) + Messages.getString("TimeMeasure.Warning.EndTimer", idTimer)); //$NON-NLS-1$
+            System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist"); //$NON-NLS-1$  //$NON-NLS-2$
         } else {
             List<Long> times = timers.get(idTimer);
             timers.remove(idTimer);
             if (times.size() > 1) {
                 long elapsedTimeSinceLastRequest = System.currentTimeMillis() - times.get(times.size() - 1);
                 if (display) {
-                    System.out.println(indent(indent)
-                            + Messages.getString("TimeMeasure.EndTimer", idTimer, elapsedTimeSinceLastRequest));
+                    System.out.println(indent(indent) + "End '" + idTimer + "', elapsed time since last request: " //$NON-NLS-1$  //$NON-NLS-2$
+                            + elapsedTimeSinceLastRequest + " ms "); //$NON-NLS-1$
                 }
             }
             long totalElapsedTime = System.currentTimeMillis() - times.get(0);
             if (display) {
-                System.out.println(indent(indent) + Messages.getString("TimeMeasure.TotalTimer", idTimer, totalElapsedTime)); //$NON-NLS-1$
+                System.out.println(indent(indent)
+                        + "End '" + idTimer + "', total elapsed time: " + totalElapsedTime + " ms "); //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
             }
             indent--;
             return totalElapsedTime;
@@ -120,12 +121,12 @@ public class TimeMeasure {
         }
         init();
         if (!timers.containsKey(idTimer)) {
-            System.out.println(indent(indent) + Messages.getString("TimeMeasure.EndTime.NotExist", idTimer)); //$NON-NLS-1$
+            System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist"); //$NON-NLS-1$  //$NON-NLS-2$
         } else {
             long time1 = timers.get(idTimer).get(0);
             long time = System.currentTimeMillis() - time1;
             if (display) {
-                System.out.println(indent(indent) + Messages.getString("TimeMeasure.ElapsedTime", idTimer, time)); //$NON-NLS-1$
+                System.out.println(indent(indent) + "-> '" + idTimer + "', elapsed time since start: " + time + " ms "); //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
             }
             return time;
         }
@@ -146,7 +147,7 @@ public class TimeMeasure {
         init();
         if (!timers.containsKey(idTimer)) {
             if (display) {
-                System.out.println(indent(indent) + Messages.getString("TimeMeasure.EndTime.NotExist", idTimer)); //$NON-NLS-1$
+                System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist");  //$NON-NLS-1$  //$NON-NLS-2$
             }
         } else {
             List<Long> times = timers.get(idTimer);
@@ -155,7 +156,8 @@ public class TimeMeasure {
             times.add(currentTime);
             long time = currentTime - lastTime;
             if (display) {
-                System.out.println(indent(indent) + Messages.getString("TimeMeasure.StepTime", idTimer, stepName, time));
+                System.out.println(indent(indent) + "-> '" + idTimer + "', step name '" + stepName  //$NON-NLS-1$  //$NON-NLS-2$
+                        + "', elapsed time since previous step: " + time + " ms ");  //$NON-NLS-1$  //$NON-NLS-2$
             }
             return time;
         }

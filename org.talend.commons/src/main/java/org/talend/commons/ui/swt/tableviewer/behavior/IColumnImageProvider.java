@@ -28,9 +28,9 @@ import org.eclipse.swt.graphics.Image;
  * and the current column. <br/>
  * 
  * $Id$
- * 
+ * @param <B> element bean of the <code>TableViewerCreator</code>
  */
-public interface IColumnImageProvider {
+public interface IColumnImageProvider<B> {
 
     /**
      * Get the image.
@@ -39,6 +39,6 @@ public interface IColumnImageProvider {
      * @return return the image for the current given bean of the <code>TableViewerCreator</code> and the current
      * column
      */
-    public Image getImage(Object bean);
+    public Image getImage(B bean);
 
 }

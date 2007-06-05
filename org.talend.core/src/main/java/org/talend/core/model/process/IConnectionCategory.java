@@ -79,4 +79,5 @@ public interface IConnectionCategory {
      * Links that are only MERGE
      */
     public static final int MERGE = 1 << 9;
+
 }

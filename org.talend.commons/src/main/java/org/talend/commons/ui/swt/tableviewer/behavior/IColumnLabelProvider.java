@@ -29,9 +29,9 @@ import org.eclipse.swt.graphics.Image;
  * <br/>
  *
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40Z nrousseau $
- *
+ * @param <B> element bean of the <code>TableViewerCreator</code>
  */
-public interface IColumnLabelProvider {
+public interface IColumnLabelProvider<B> {
 
     /**
      * Get the label to display function of current bean properties.
@@ -41,7 +41,7 @@ public interface IColumnLabelProvider {
      * column.
      * If the null value is returned, getColumnText() is used as normally.
      */
-    public String getLabel(Object bean);
+    public String getLabel(B bean);
 
 
 }

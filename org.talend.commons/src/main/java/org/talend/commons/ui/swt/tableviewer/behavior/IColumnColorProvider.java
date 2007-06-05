@@ -28,9 +28,9 @@ import org.eclipse.swt.graphics.Color;
  * given bean of the table (element) and the current column. <br/>
  * 
  * $Id: IColumnImageProvider.java 1155 2006-12-21 09:51:10Z amaumont $
- * 
+ * @param <B> element bean of the <code>TableViewerCreator</code>
  */
-public interface IColumnColorProvider {
+public interface IColumnColorProvider<B> {
 
     /**
      * Get the background color.
@@ -39,7 +39,7 @@ public interface IColumnColorProvider {
      * @return return the background color for the current given bean of the <code>TableViewerCreator</code> and the
      * current column
      */
-    public Color getBackgroundColor(Object bean);
+    public Color getBackgroundColor(B bean);
 
     /**
      * Get the foreground color.
@@ -48,6 +48,6 @@ public interface IColumnColorProvider {
      * @return return the foreground color for the current given bean of the <code>TableViewerCreator</code> and the
      * current column
      */
-    public Color getForegroundColor(Object bean);
+    public Color getForegroundColor(B bean);
 
 }

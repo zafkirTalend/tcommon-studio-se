@@ -68,6 +68,8 @@ public abstract class AbstractNode implements INode {
     
     private Boolean isMultiplyingOutputs = Boolean.FALSE;
 
+    private List<BlockCode> blocksCodeCountToClose;
+    
     private boolean isThereLinkWithHash;
 
     public String getComponentName() {
@@ -377,4 +379,15 @@ public abstract class AbstractNode implements INode {
     public List<? extends IConnection> getOutgoingConnections(String connectorName) {
         return org.talend.core.model.utils.NodeUtil.getOutgoingConnections(this, connectorName);
     }
+
+    
+    public List<BlockCode> getBlocksCodeToClose() {
+        return this.blocksCodeCountToClose;
+    }
+
+    
+    public void setBlocksCodeCountToClose(List<BlockCode> blockCodesToClose) {
+        this.blocksCodeCountToClose = blockCodesToClose;
+    }
+    
 }

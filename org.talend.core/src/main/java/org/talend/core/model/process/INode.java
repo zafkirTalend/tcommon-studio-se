@@ -81,6 +81,8 @@ public interface INode extends IElement {
 
     public Boolean hasConditionalOutputs();
     
+    public List<BlockCode> getBlocksCodeToClose();
+    
     public Boolean isMultiplyingOutputs();
     
     /**
