@@ -147,11 +147,22 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
         }
 
-        MenuManager fileMenu = new MenuManager(Messages.getString("ApplicationActionBarAdvisor.menuFileLabel"), IWorkbenchActionConstants.M_FILE); //$NON-NLS-1$
+        MenuManager fileMenu = new MenuManager(
+                Messages.getString("ApplicationActionBarAdvisor.menuFileLabel"), IWorkbenchActionConstants.M_FILE); //$NON-NLS-1$
         menuBar.add(fileMenu);
         // MenuManager subFile = new MenuManager("&New", IWorkbenchActionConstants.NEW_EXT);
         // subFile.add(ActionFactory.NEW.create(window));
         // fileMenu.add(subFile);
+
+        IWorkbenchAction closeAction = ActionFactory.CLOSE.create(window);
+        fileMenu.add(closeAction);
+        actionBarConfigurer.registerGlobalAction(closeAction);
+
+        IWorkbenchAction closeAllAction = ActionFactory.CLOSE_ALL.create(window);
+        fileMenu.add(closeAllAction);
+        actionBarConfigurer.registerGlobalAction(closeAllAction);
+        fileMenu.add(new Separator());
+
         fileMenu.add(ActionFactory.SAVE.create(window));
         // fileMenu.add(ActionFactory.SAVE_AS.create(window));
 
@@ -159,7 +170,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(new SwitchProjectAction());
         fileMenu.add(ActionFactory.PRINT.create(window));
         fileMenu.add(ActionFactory.QUIT.create(window));
-        MenuManager editMenu = new MenuManager(Messages.getString("ApplicationActionBarAdvisor.menuEditLabel"), IWorkbenchActionConstants.M_EDIT); //$NON-NLS-1$
+        MenuManager editMenu = new MenuManager(
+                Messages.getString("ApplicationActionBarAdvisor.menuEditLabel"), IWorkbenchActionConstants.M_EDIT); //$NON-NLS-1$
         menuBar.add(editMenu);
         editMenu.add(new Separator(GROUP_UNDO));
         editMenu.add(new Separator(GROUP_COPY));
@@ -174,7 +186,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
         MenuManager perspMenu = new PerspectiveMenuManager();
 
-        MenuManager windowMenu = new MenuManager(Messages.getString("ApplicationActionBarAdvisor.menuWindowLabel"), IWorkbenchActionConstants.M_WINDOW); //$NON-NLS-1$
+        MenuManager windowMenu = new MenuManager(
+                Messages.getString("ApplicationActionBarAdvisor.menuWindowLabel"), IWorkbenchActionConstants.M_WINDOW); //$NON-NLS-1$
         menuBar.add(windowMenu);
         windowMenu.add(perspMenu);
         windowMenu.add(new ShowViewAction());
@@ -188,7 +201,8 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         // windowMenu.add(ActionFactory.MAXIMIZE.create(window));
         windowMenu.add(ActionFactory.PREFERENCES.create(window));
 
-        MenuManager helpMenu = new MenuManager(Messages.getString("ApplicationActionBarAdvisor.menuHelpLabel"), IWorkbenchActionConstants.M_HELP); //$NON-NLS-1$
+        MenuManager helpMenu = new MenuManager(
+                Messages.getString("ApplicationActionBarAdvisor.menuHelpLabel"), IWorkbenchActionConstants.M_HELP); //$NON-NLS-1$
         menuBar.add(helpMenu);
 
         // Help
