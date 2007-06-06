@@ -23,6 +23,7 @@ package org.talend.core.ui.branding;
 
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.core.CorePlugin;
+import org.talend.core.GlobalServiceRegister;
 import org.talend.core.i18n.BrandingMessages;
 
 /**
@@ -31,13 +32,20 @@ import org.talend.core.i18n.BrandingMessages;
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public class BrandingService {
+public class BrandingService implements IBrandingService {
 
-    private static BrandingService singleton;
+    private static IBrandingService singleton;
 
-    public static BrandingService getInstance() {
+    public static IBrandingService getInstance() {
         if (singleton == null) {
-            singleton = new BrandingService();
+            try {
+                singleton = (IBrandingService) GlobalServiceRegister.getDefault().getService(IBrandingService.class);
+            } catch (ClassCastException e) {
+                e.printStackTrace();
+                singleton = new BrandingService();
+            } catch (RuntimeException ex) {
+                singleton = new BrandingService();
+            }
         }
         return singleton;
     }
