@@ -58,7 +58,7 @@ public class NodeUtil {
                 public int compare(IConnection connection1, IConnection connection2) {
 
                     EConnectionType lineStyle = connection1.getLineStyle();
-                    if (lineStyle == EConnectionType.FLOW_MAIN || lineStyle == EConnectionType.FLOW_REF) {
+                    if (lineStyle == EConnectionType.FLOW_MAIN) {
                         return -1;
                     } else {
                         return 1;
