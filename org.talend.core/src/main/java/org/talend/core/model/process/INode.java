@@ -22,6 +22,7 @@
 package org.talend.core.model.process;
 
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.talend.core.model.components.IComponent;
@@ -156,4 +157,12 @@ public interface INode extends IElement {
     public List<? extends IConnection> getOutgoingConnections(EConnectionType connectionType);
     
     public List<? extends IConnection> getOutgoingConnections(String connectorName);
+    
+    /**
+     * the key is the Merge node, and value is inputId.
+     * if don't link with merge, it will return null.
+     */
+    public Map<INode, Integer> getLinkedMergeInfo();
+    
+    public boolean isThereLinkWithMerge();
 }

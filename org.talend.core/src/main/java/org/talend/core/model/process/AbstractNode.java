@@ -72,6 +72,10 @@ public abstract class AbstractNode implements INode {
     private List<BlockCode> blocksCodeCountToClose;
     
     private boolean isThereLinkWithHash;
+    
+    private boolean isThereLinkWithMerge;
+    
+    private Map<INode, Integer> mergeInfo;
 
     public String getComponentName() {
         return componentName;
@@ -447,6 +451,22 @@ public abstract class AbstractNode implements INode {
             }
         }
         return false;
+    }
+    
+    public Map<INode, Integer> getLinkedMergeInfo() {
+        return mergeInfo;
+    }
+    
+    public void setLinkedMergeInfo(Map<INode, Integer> mergeInfo) {
+        this.mergeInfo = mergeInfo;
+    }
+
+    public boolean isThereLinkWithMerge() {
+        return isThereLinkWithMerge;
+    }
+    
+    public void setThereLinkWithMerge(boolean isThereLinkWithHash) {
+        this.isThereLinkWithMerge = isThereLinkWithHash;
     }
     
 }
