@@ -23,6 +23,7 @@ package org.talend.core.model.process;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.talend.core.model.components.IComponent;
@@ -394,12 +395,57 @@ public abstract class AbstractNode implements INode {
      * @see org.talend.core.model.process.INode#renameData(java.lang.String, java.lang.String)
      */
     public void renameData(String oldName, String newName) {
+        if (oldName.equals(newName)) {
+            return;
+        }
+
+        for (IElementParameter param : this.getElementParameters()) {
+            if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
+                String value = (String) param.getValue();
+                if (value.contains(oldName)) {
+                    param.setValue(value.replaceAll(oldName, newName));
+                }
+            } else if (param.getValue() instanceof List) { // for TABLE
+                List<Map<String, Object>> tableValues = (List<Map<String, Object>>) param.getValue();
+                for (Map<String, Object> line : tableValues) {
+                    for (String key : line.keySet()) {
+                        Object cellValue = line.get(key);
+                        if (cellValue instanceof String) { // cell is text so rename data if needed
+                            String value = (String) cellValue;
+                            if (value.contains(oldName)) {
+                                line.put(key, value.replaceAll(oldName, newName));
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     /* (non-Javadoc)
      * @see org.talend.core.model.process.INode#useData(java.lang.String)
      */
     public boolean useData(String name) {
+        for (IElementParameter param : this.getElementParameters()) {
+            if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
+                String value = (String) param.getValue();
+                if (value.contains(name)) {
+                    return true;
+                }
+            } else if (param.getValue() instanceof List) { // for TABLE
+                List<Map<String, Object>> tableValues = (List<Map<String, Object>>) param.getValue();
+                for (Map<String, Object> line : tableValues) {
+                    for (String key : line.keySet()) {
+                        Object cellValue = line.get(key);
+                        if (cellValue instanceof String) { // cell is text so test data
+                            if (((String) cellValue).contains(name)) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
     
