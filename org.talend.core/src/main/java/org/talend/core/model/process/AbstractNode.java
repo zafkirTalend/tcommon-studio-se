@@ -389,5 +389,18 @@ public abstract class AbstractNode implements INode {
     public void setBlocksCodeCountToClose(List<BlockCode> blockCodesToClose) {
         this.blocksCodeCountToClose = blockCodesToClose;
     }
+
+    /* (non-Javadoc)
+     * @see org.talend.core.model.process.INode#renameData(java.lang.String, java.lang.String)
+     */
+    public void renameData(String oldName, String newName) {
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.core.model.process.INode#useData(java.lang.String)
+     */
+    public boolean useData(String name) {
+        return false;
+    }
     
 }

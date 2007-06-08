@@ -126,6 +126,21 @@ public interface INode extends IElement {
     public INode getSubProcessStartNode(boolean withConditions);
     
     /**
+     * Test if the component use one data (in the property or other), this data for example a name of a context / component or other.
+     * @param name
+     * @return
+     */
+    public boolean useData(String name);
+    
+    /**
+     * Used for example when a component is renamed, or when a context is renamed.
+     * This function should look into each property of the component to modify the value.
+     * @param oldName
+     * @param newName
+     */
+    public void renameData(String oldName, String newName);
+    
+    /**
      * Gets current node's position.
      * @return
      */
