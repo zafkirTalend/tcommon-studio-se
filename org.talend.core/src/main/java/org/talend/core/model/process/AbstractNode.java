@@ -469,4 +469,10 @@ public abstract class AbstractNode implements INode {
         this.isThereLinkWithMerge = isThereLinkWithHash;
     }
     
+    /* (non-Javadoc)
+     * @see org.talend.core.model.process.INode#getIncomingConnections(org.talend.core.model.process.EConnectionType)
+     */
+    public List<? extends IConnection> getIncomingConnections(EConnectionType connectionType) {
+        return org.talend.core.model.utils.NodeUtil.getIncomingConnections(this, connectionType);
+    }
 }

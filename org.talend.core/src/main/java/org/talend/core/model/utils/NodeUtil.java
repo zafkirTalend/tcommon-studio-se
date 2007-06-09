@@ -105,11 +105,25 @@ public class NodeUtil {
             conns = new ArrayList<IConnection>();
 
             for (int i = 0; i < outgoingConnections.size(); i++) {
-
                 IConnection connection = outgoingConnections.get(i);
-                if ((connectionType.hasConnectionCategory(IConnectionCategory.FLOW) && connection.getLineStyle()
-                        .hasConnectionCategory(IConnectionCategory.FLOW))
-                        || (connection.getLineStyle() == connectionType)) {
+                if (connection.getLineStyle() == connectionType) {
+                    conns.add(connection);
+                }
+            }
+        }
+        return conns;
+    }
+
+    public static List<? extends IConnection> getIncomingConnections(INode node, EConnectionType connectionType) {
+        List<IConnection> conns = null;
+
+        List<? extends IConnection> incomingConnections = node.getIncomingConnections();
+        if (incomingConnections != null) {
+            conns = new ArrayList<IConnection>();
+
+            for (int i = 0; i < incomingConnections.size(); i++) {
+                IConnection connection = incomingConnections.get(i);
+                if (connection.getLineStyle() == connectionType) {
                     conns.add(connection);
                 }
             }
