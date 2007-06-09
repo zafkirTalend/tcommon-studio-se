@@ -33,6 +33,7 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
  * $Id$
+ * 
  * @param <B> type of bean
  */
 public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
@@ -98,6 +99,9 @@ public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
         String displayedValue = null;
         if (primitiveClass != null && !nullable.equals(Boolean.TRUE)) {
             displayedValue = primitiveClass.getSimpleName();
+        } else if (originalTypedValue.equals(JavaTypesManager.DIRECTORY.getId())
+                || originalTypedValue.equals(JavaTypesManager.FILE.getId())) {
+            displayedValue = javaType.getLabel();
         } else {
             displayedValue = javaType.getNullableClass().getSimpleName();
         }

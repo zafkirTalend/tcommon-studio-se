@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.core.model.metadata.types;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -53,13 +54,17 @@ public final class JavaTypesManager {
 
     public static final JavaType BOOLEAN = new JavaType(Boolean.class, boolean.class);
 
-    public static final JavaType BYTE = new JavaType(Byte.class, byte.class);
+    // public static final JavaType BYTE = new JavaType(Byte.class, byte.class);
 
-    public static final JavaType BYTE_ARRAY = new JavaType(byte[].class);
+    // public static final JavaType BYTE_ARRAY = new JavaType(byte[].class);
 
     public static final JavaType CHARACTER = new JavaType(Character.class, char.class);
 
     public static final JavaType DATE = new JavaType(Date.class, true);
+
+    public static final JavaType FILE = new JavaType(String.class, true, "File");
+
+    public static final JavaType DIRECTORY = new JavaType(String.class, true, "Directory");
 
     public static final JavaType DOUBLE = new JavaType(Double.class, double.class);
 
@@ -73,10 +78,10 @@ public final class JavaTypesManager {
 
     public static final JavaType STRING = new JavaType(String.class);
 
-    public static final JavaType OBJECT = new JavaType(Object.class);
+    // public static final JavaType OBJECT = new JavaType(Object.class);
 
-    public static final JavaType[] JAVA_TYPES = new JavaType[] { BOOLEAN, BYTE, BYTE_ARRAY, CHARACTER, DATE, DOUBLE,
-            FLOAT, INTEGER, LONG, OBJECT, SHORT, STRING, };
+    public static final JavaType[] JAVA_TYPES = new JavaType[] { BOOLEAN, CHARACTER, DATE, DOUBLE, FLOAT, INTEGER, LONG, SHORT,
+            STRING, FILE, DIRECTORY };
 
     private static Map<String, JavaType> shortNameToJavaType;
 

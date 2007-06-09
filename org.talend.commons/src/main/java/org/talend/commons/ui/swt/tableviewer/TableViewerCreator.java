@@ -1138,7 +1138,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         return tableColumn;
     }
 
-    protected void attachCellEditors() {
+    public void attachCellEditors() {
         String[] properties = new String[columns.size()];
         CellEditor[] cellEditors = new CellEditor[columns.size()];
         int size = columns.size();

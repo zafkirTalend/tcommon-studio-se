@@ -84,6 +84,15 @@ public final class JavaType {
         this.id = createId(nullableClass.getSimpleName());
         this.generateWithCanonicalName = generateWithCanonicalName;
     }
+    
+    public JavaType(Class nullableClass, boolean generateWithCanonicalName, String label) {
+        super();
+        this.nullableClass = nullableClass;
+        this.label = label;
+        this.id = createId(label);
+        this.generateWithCanonicalName = generateWithCanonicalName;
+    }
+    
 
     /**
      * @param label
