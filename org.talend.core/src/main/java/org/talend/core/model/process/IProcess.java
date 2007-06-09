@@ -72,4 +72,6 @@ public interface IProcess extends IRepositoryObject, IElement {
      * @return
      */
     public IConnection[] getAllConnections(String filter);
+    
+    public Set<String> getNeededLibraries(boolean withChildrens);
 }
