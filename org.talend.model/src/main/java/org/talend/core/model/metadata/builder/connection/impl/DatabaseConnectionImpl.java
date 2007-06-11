@@ -41,6 +41,8 @@ import org.talend.core.model.metadata.builder.connection.QueriesConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getSqlSynthax <em>Sql Synthax</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getStringQuote <em>String Quote</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getNullChar <em>Null Char</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDbmsId <em>Dbms Id</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getProductId <em>Product Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -327,6 +329,46 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @ordered
      */
     protected String nullChar = NULL_CHAR_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDbmsId() <em>Dbms Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDbmsId()
+     * @generated
+     * @ordered
+     */
+    protected static final String DBMS_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDbmsId() <em>Dbms Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDbmsId()
+     * @generated
+     * @ordered
+     */
+    protected String dbmsId = DBMS_ID_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getProductId() <em>Product Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProductId()
+     * @generated
+     * @ordered
+     */
+    protected static final String PRODUCT_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getProductId() <em>Product Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getProductId()
+     * @generated
+     * @ordered
+     */
+    protected String productId = PRODUCT_ID_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -645,6 +687,48 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getDbmsId() {
+        return dbmsId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDbmsId(String newDbmsId) {
+        String oldDbmsId = dbmsId;
+        dbmsId = newDbmsId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__DBMS_ID, oldDbmsId, dbmsId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getProductId() {
+        return productId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setProductId(String newProductId) {
+        String oldProductId = productId;
+        productId = newProductId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID, oldProductId, productId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
@@ -675,6 +759,10 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return getStringQuote();
             case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
                 return getNullChar();
+            case ConnectionPackage.DATABASE_CONNECTION__DBMS_ID:
+                return getDbmsId();
+            case ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID:
+                return getProductId();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -727,6 +815,12 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return;
             case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
                 setNullChar((String)newValue);
+                return;
+            case ConnectionPackage.DATABASE_CONNECTION__DBMS_ID:
+                setDbmsId((String)newValue);
+                return;
+            case ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID:
+                setProductId((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -781,6 +875,12 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
                 setNullChar(NULL_CHAR_EDEFAULT);
                 return;
+            case ConnectionPackage.DATABASE_CONNECTION__DBMS_ID:
+                setDbmsId(DBMS_ID_EDEFAULT);
+                return;
+            case ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID:
+                setProductId(PRODUCT_ID_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -820,6 +920,10 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return STRING_QUOTE_EDEFAULT == null ? stringQuote != null : !STRING_QUOTE_EDEFAULT.equals(stringQuote);
             case ConnectionPackage.DATABASE_CONNECTION__NULL_CHAR:
                 return NULL_CHAR_EDEFAULT == null ? nullChar != null : !NULL_CHAR_EDEFAULT.equals(nullChar);
+            case ConnectionPackage.DATABASE_CONNECTION__DBMS_ID:
+                return DBMS_ID_EDEFAULT == null ? dbmsId != null : !DBMS_ID_EDEFAULT.equals(dbmsId);
+            case ConnectionPackage.DATABASE_CONNECTION__PRODUCT_ID:
+                return PRODUCT_ID_EDEFAULT == null ? productId != null : !PRODUCT_ID_EDEFAULT.equals(productId);
         }
         return super.eIsSet(featureID);
     }
@@ -861,6 +965,10 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         result.append(stringQuote);
         result.append(", NullChar: ");
         result.append(nullChar);
+        result.append(", DbmsId: ");
+        result.append(dbmsId);
+        result.append(", ProductId: ");
+        result.append(productId);
         result.append(')');
         return result.toString();
     }

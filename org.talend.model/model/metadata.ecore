@@ -145,6 +145,8 @@
         defaultValueLiteral="&quot;"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="NullChar" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral="000"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="DbmsId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="ProductId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CSVFileConnection" eSuperTypes="#//DelimitedFileConnection"/>
   <eClassifiers xsi:type="ecore:EClass" name="RegexpFileConnection" eSuperTypes="#//FileConnection">

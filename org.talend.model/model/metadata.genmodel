@@ -53,6 +53,7 @@
     <genClasses ecoreClass="metadata.ecore#//Connection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Connection/version"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//Connection/tables"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//Connection/queries"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//MetadataColumn">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/sourceType"/>
@@ -64,6 +65,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/precision"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//MetadataColumn/table"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/originalField"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/pattern"/>
     </genClasses>
     <genClasses image="false" ecoreClass="metadata.ecore#//AbstractMetadataObject">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//AbstractMetadataObject/properties"/>
@@ -71,11 +73,14 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//AbstractMetadataObject/comment"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//AbstractMetadataObject/label"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//AbstractMetadataObject/readOnly"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//AbstractMetadataObject/synchronised"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//AbstractMetadataObject/divergency"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//MetadataTable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataTable/sourceName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//MetadataTable/columns"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//MetadataTable/connection"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataTable/tableType"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//FileConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/Server"/>
@@ -117,6 +122,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/SqlSynthax"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/StringQuote"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/NullChar"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/DbmsId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/ProductId"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//CSVFileConnection"/>
     <genClasses ecoreClass="metadata.ecore#//RegexpFileConnection">
@@ -125,20 +132,36 @@
     <genClasses ecoreClass="metadata.ecore#//XmlFileConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/XsdFilePath"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/XmlFilePath"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/IsGuess"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/Guess"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/MaskXPattern"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//XmlFileConnection/schema"/>
-    </genClasses>
-    <genClasses ecoreClass="metadata.ecore#//MetadataSchema">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//MetadataSchema/schemaTargets"/>
-      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//MetadataSchema/connection"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlFileConnection/Encoding"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//SchemaTarget">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SchemaTarget/XPathQuery"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SchemaTarget/RelativeXPathQuery"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SchemaTarget/TagName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SchemaTarget/IsBoucle"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//SchemaTarget/LimitBoucle"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//SchemaTarget/schema"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//QueriesConnection">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//QueriesConnection/connection"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//QueriesConnection/query"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//Query">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//Query/value"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//Query/queries"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//LdifFileConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LdifFileConnection/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LdifFileConnection/FilePath"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LdifFileConnection/LimitEntry"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LdifFileConnection/UseLimit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LdifFileConnection/Server"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//XmlXPathLoopDescriptor">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlXPathLoopDescriptor/LimitBoucle"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//XmlXPathLoopDescriptor/AbsoluteXPathQuery"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//XmlXPathLoopDescriptor/connection"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//XmlXPathLoopDescriptor/schemaTargets"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

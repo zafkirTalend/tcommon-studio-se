@@ -1612,13 +1612,31 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__NULL_CHAR = CONNECTION_FEATURE_COUNT + 13;
 
     /**
+     * The feature id for the '<em><b>Dbms Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__DBMS_ID = CONNECTION_FEATURE_COUNT + 14;
+
+    /**
+     * The feature id for the '<em><b>Product Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__PRODUCT_ID = CONNECTION_FEATURE_COUNT + 15;
+
+    /**
      * The number of structural features of the '<em>Database Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 14;
+    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 16;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CSVFileConnectionImpl <em>CSV File Connection</em>}' class.
@@ -3448,6 +3466,28 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_NullChar();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDbmsId <em>Dbms Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Dbms Id</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDbmsId()
+     * @see #getDatabaseConnection()
+     * @generated
+     */
+    EAttribute getDatabaseConnection_DbmsId();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getProductId <em>Product Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Product Id</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getProductId()
+     * @see #getDatabaseConnection()
+     * @generated
+     */
+    EAttribute getDatabaseConnection_ProductId();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CSVFileConnection <em>CSV File Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>CSV File Connection</em>'.
@@ -4398,6 +4438,22 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute DATABASE_CONNECTION__NULL_CHAR = eINSTANCE.getDatabaseConnection_NullChar();
+
+        /**
+         * The meta object literal for the '<em><b>Dbms Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DATABASE_CONNECTION__DBMS_ID = eINSTANCE.getDatabaseConnection_DbmsId();
+
+        /**
+         * The meta object literal for the '<em><b>Product Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DATABASE_CONNECTION__PRODUCT_ID = eINSTANCE.getDatabaseConnection_ProductId();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CSVFileConnectionImpl <em>CSV File Connection</em>}' class.

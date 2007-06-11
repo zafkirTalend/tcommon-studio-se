@@ -31,6 +31,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getSqlSynthax <em>Sql Synthax</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getStringQuote <em>String Quote</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getNullChar <em>Null Char</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDbmsId <em>Dbms Id</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getProductId <em>Product Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -404,5 +406,57 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     void setNullChar(String value);
+
+    /**
+     * Returns the value of the '<em><b>Dbms Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Dbms Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Dbms Id</em>' attribute.
+     * @see #setDbmsId(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_DbmsId()
+     * @model
+     * @generated
+     */
+    String getDbmsId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDbmsId <em>Dbms Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Dbms Id</em>' attribute.
+     * @see #getDbmsId()
+     * @generated
+     */
+    void setDbmsId(String value);
+
+    /**
+     * Returns the value of the '<em><b>Product Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Product Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Product Id</em>' attribute.
+     * @see #setProductId(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_ProductId()
+     * @model
+     * @generated
+     */
+    String getProductId();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getProductId <em>Product Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Product Id</em>' attribute.
+     * @see #getProductId()
+     * @generated
+     */
+    void setProductId(String value);
 
 } // DatabaseConnection
