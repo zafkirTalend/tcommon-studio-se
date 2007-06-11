@@ -25,22 +25,22 @@ public class RunStat implements Runnable {
 
     private class StatBean {
 
-        private String componentId;
+        private String connectionId;
 
         private int nbLine;
 
         private int state;
 
-        public StatBean(String componentId) {
-            this.componentId = componentId;
+        public StatBean(String connectionId) {
+            this.connectionId = connectionId;
         }
 
-        public String getComponentId() {
-            return this.componentId;
+        public String getConnectionId() {
+            return this.connectionId;
         }
 
-        public void setComponentId(String componentId) {
-            this.componentId = componentId;
+        public void setConnectionId(String connectionId) {
+            this.connectionId = connectionId;
         }
 
         public int getNbLine() {
@@ -114,24 +114,25 @@ public class RunStat implements Runnable {
     public void sendMessages() {
         for (StatBean sb : processStats.values()) {
             currentTime = java.util.Calendar.getInstance().getTimeInMillis();
-            str = sb.getComponentId() + "|" + sb.getNbLine() + "|" + (currentTime - startTime);
+            str = sb.getConnectionId() + "|" + sb.getNbLine() + "|" + (currentTime - startTime);
             if (sb.getState() != 1) {
                 str += "|" + ((sb.getState() == 0) ? "start" : "stop");
-                processStats.remove(sb.getComponentId());
+                processStats.remove(sb.getConnectionId());
             }
             pred.println(str); // envoi d'un message
         }
     }
 
-    public void updateStat(String componentId, int mode, int nbLine) {
+
+    public void updateStatOnConnection(String connectionId, int mode, int nbLine) {
         StatBean bean;
-        if (processStats.containsKey(componentId)) {
-            bean = processStats.get(componentId);
+        if (processStats.containsKey(connectionId)) {
+            bean = processStats.get(connectionId);
         } else {
-            bean = new StatBean(componentId);
+            bean = new StatBean(connectionId);
         }
         bean.setState(mode);
         bean.setNbLine(bean.getNbLine() + nbLine);
-        processStats.put(componentId, bean);
+        processStats.put(connectionId, bean);
     }
 }
