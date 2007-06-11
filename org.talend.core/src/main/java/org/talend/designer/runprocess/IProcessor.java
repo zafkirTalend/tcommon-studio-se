@@ -233,4 +233,6 @@ public interface IProcessor {
     public String getTargetPlatform();
 
     public void setTargetPlatform(String targetPlatform);
+    
+    public void initPath() throws ProcessorException;
 }
