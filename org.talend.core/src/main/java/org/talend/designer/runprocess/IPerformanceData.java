@@ -42,7 +42,7 @@ public interface IPerformanceData {
     /** Action : clear performance stats. */
     public static final String ACTION_CLEAR = "clear"; //$NON-NLS-1$
 
-    public String getNodeId();
+    public String getConnectionId();
 
     public long getLineCount();
 
