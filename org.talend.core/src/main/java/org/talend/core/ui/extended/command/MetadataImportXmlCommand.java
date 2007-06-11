@@ -23,6 +23,7 @@ package org.talend.core.ui.extended.command;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -44,6 +45,8 @@ public class MetadataImportXmlCommand extends Command {
 
     private File file;
     private ExtendedTableModel extendedTableModel;
+    private ArrayList<IMetadataColumn> removed;
+    private List<IMetadataColumn> added;
 
     /**
      * DOC amaumont MetadataPasteCommand constructor comment.
@@ -64,8 +67,10 @@ public class MetadataImportXmlCommand extends Command {
     @Override
     public void execute() {
         try {
-            List<IMetadataColumn> metadataColumns = MetadataSchema.initializeColumns(file);
-            extendedTableModel.addAll(metadataColumns);
+            removed =  new ArrayList<IMetadataColumn>(extendedTableModel.getBeansList());
+            extendedTableModel.removeAll(removed);
+            added = MetadataSchema.initializeColumns(file);
+            extendedTableModel.addAll(added);
 
         } catch (ParserConfigurationException e) {
             ExceptionHandler.process(e);
@@ -74,6 +79,15 @@ public class MetadataImportXmlCommand extends Command {
         } catch (IOException e) {
             ExceptionHandler.process(e);
         }
+    }
+
+    
+    /**
+     * Getter for extendedTableModel.
+     * @return the extendedTableModel
+     */
+    public ExtendedTableModel getExtendedTableModel() {
+        return this.extendedTableModel;
     }
 
     

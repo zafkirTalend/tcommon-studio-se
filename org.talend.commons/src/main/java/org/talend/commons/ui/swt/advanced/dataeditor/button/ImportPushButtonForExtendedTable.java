@@ -33,13 +33,11 @@ import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public abstract class ImportPushButtonForExtendedTable extends ImportPushButton implements IExtendedTablePushButton {
 
@@ -47,6 +45,7 @@ public abstract class ImportPushButtonForExtendedTable extends ImportPushButton 
 
     /**
      * DOC amaumont SchemaTargetAddPushButton constructor comment.
+     * 
      * @param parent
      * @param extendedControlViewer
      */
@@ -66,26 +65,23 @@ public abstract class ImportPushButtonForExtendedTable extends ImportPushButton 
         String fileName = dial.open();
         if ((fileName != null) && (!fileName.equals(""))) { //$NON-NLS-1$
             file = new File(fileName);
-            AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
-            extendedTableViewer.getExtendedTableModel().removeAll();
         } else {
             file = null;
         }
     }
-    
+
     protected Command getCommandToExecute() {
         AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
         Table table = extendedTableViewer.getTableViewerCreator().getTable();
-        if(file != null) {
+        if (file != null) {
             return getCommandToExecute(extendedTableViewer.getExtendedTableModel(), file);
         } else {
             return null;
         }
     }
-    
+
     protected abstract Command getCommandToExecute(ExtendedTableModel model, File file);
-    
-    
+
     private void openMessageError(String errorText) {
         MessageBox msgBox = new MessageBox(getButton().getShell());
         msgBox.setText(Messages.getString("ImportPushButtonForExtendedTable.ErrorMsg.Text")); //$NON-NLS-1$
@@ -93,12 +89,13 @@ public abstract class ImportPushButtonForExtendedTable extends ImportPushButton 
         msgBox.open();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.button.IExtendedTablePushButton#getExtendedTableViewer()
      */
     public AbstractExtendedTableViewer getExtendedTableViewer() {
         return (AbstractExtendedTableViewer) getExtendedControlViewer();
     }
-
 
 }
