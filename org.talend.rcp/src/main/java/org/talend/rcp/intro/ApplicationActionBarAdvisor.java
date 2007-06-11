@@ -132,7 +132,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     private static final String[] ACTIONSETID = new String[] { "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
             "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
             "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
-            "org.eclipse.search.searchActionSet" }; //$NON-NLS-1$
+            "org.eclipse.search.searchActionSet" ,"org.eclipse.ui.externaltools.ExternalToolsSet"}; //$NON-NLS-1$
 
     protected void fillMenuBar(final IMenuManager menuBar) {
 
