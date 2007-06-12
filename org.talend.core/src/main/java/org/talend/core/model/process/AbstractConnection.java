@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.talend.core.model.metadata.IMetadataTable;
@@ -188,5 +189,27 @@ public abstract class AbstractConnection implements IConnection {
     public void setInputId(int inputId)
     {
       this.inputId = inputId;
+    }
+    
+    public boolean isUseByMetter()
+    {
+        INode sourceNode = this.getSource();
+        List<INode> metterNodes = (List<INode>) sourceNode.getProcess().getNodesOfType("tMetter");
+        if (metterNodes.size() > 0) {
+            
+            Iterator<INode> it = (Iterator<INode>)metterNodes.iterator();
+            while(it.hasNext())
+            {
+                INode node = it.next();
+                Boolean absolute = (Boolean) node.getElementParameter("ABSOLUTE").getValue();
+                String reference = (String) node.getElementParameter("CONNECTIONS").getValue();
+                
+                if(absolute.equals(Boolean.FALSE) && reference.equals(this.getUniqueName()))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

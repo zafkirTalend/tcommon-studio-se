@@ -73,4 +73,6 @@ public interface IConnection extends IElement {
     public String getConnectorName();
     
     public int getInputId();
+    
+    public boolean isUseByMetter();
 }
