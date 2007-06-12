@@ -60,8 +60,8 @@ public interface IRunProcessService extends IService {
      * @throws ProcessorException
      */
     public int perlExec(StringBuffer out, StringBuffer err, IPath absCodePath, String contextName, Level level,
-            String perlInterpreterLibOption, String perlModuleDirectoryOption,
-            int statOption, int traceOption, String... codeOptions) throws ProcessorException;
+            String perlInterpreterLibOption, String perlModuleDirectoryOption, int statOption, int traceOption,
+            String... codeOptions) throws ProcessorException;
 
     /**
      * DOC xue Comment method "createCodeProcessor".
@@ -89,13 +89,16 @@ public interface IRunProcessService extends IService {
     public String getRoutineFilenameExt();
 
     public IProject getProject(ECodeLanguage language) throws CoreException;
-    
+
     /**
-     * Setter for a custom delegate service.
-     * This method should'nt be called from a delegate class, only in the RunProcessService class.
+     * Setter for a custom delegate service. This method should'nt be called from a delegate class, only in the
+     * RunProcessService class.
+     * 
      * @param delegateService
      */
     public void setDelegateService(IRunProcessService delegateService);
-    
-    public void updateLibraries() throws CoreException;    
+
+    public void updateLibraries() throws CoreException;
+
+    public void refreshView();
 }
