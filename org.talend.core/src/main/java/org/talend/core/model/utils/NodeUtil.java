@@ -28,7 +28,6 @@ import java.util.List;
 
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
-import org.talend.core.model.process.IConnectionCategory;
 import org.talend.core.model.process.INode;
 
 /**
@@ -58,7 +57,7 @@ public class NodeUtil {
                 public int compare(IConnection connection1, IConnection connection2) {
 
                     EConnectionType lineStyle = connection1.getLineStyle();
-                    if (lineStyle == EConnectionType.FLOW_MAIN) {
+                    if (lineStyle == EConnectionType.FLOW_MAIN || lineStyle == EConnectionType.FLOW_MERGE) {
                         return -1;
                     } else {
                         return 1;
