@@ -23,6 +23,7 @@ package org.talend.core.ui.extended.command;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -43,11 +44,17 @@ import org.xml.sax.SAXException;
 public class MetadataEmfImportXmlCommand extends Command {
 
     private File file;
+
     private ExtendedTableModel extendedTableModel;
+
+    private List<MetadataColumn> removed;
+
+    private List<MetadataColumn> added;
 
     /**
      * DOC amaumont MetadataPasteCommand constructor comment.
-     * @param extendedTableModel 
+     * 
+     * @param extendedTableModel
      * @param extendedTable
      * @param validAssignableType
      * @param indexStartAdd
@@ -58,15 +65,19 @@ public class MetadataEmfImportXmlCommand extends Command {
         this.extendedTableModel = extendedTableModel;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.command.CommonCommand#execute()
      */
     @Override
     public void execute() {
         try {
-//          // load the schema
-          List<MetadataColumn> metadataColumns = MetadataSchema.loadMetadataColumnFromFile(file);
-            extendedTableModel.addAll(metadataColumns);
+            // // load the schema
+            removed = new ArrayList<MetadataColumn>(extendedTableModel.getBeansList());
+            extendedTableModel.removeAll(removed);
+            added = MetadataSchema.loadMetadataColumnFromFile(file);
+            extendedTableModel.addAll(added);
 
         } catch (ParserConfigurationException e) {
             ExceptionHandler.process(e);
@@ -76,7 +87,5 @@ public class MetadataEmfImportXmlCommand extends Command {
             ExceptionHandler.process(e);
         }
     }
-
-    
 
 }

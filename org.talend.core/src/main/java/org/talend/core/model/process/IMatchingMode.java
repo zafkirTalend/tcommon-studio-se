@@ -21,16 +21,12 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-import java.util.List;
-
 
 /**
  * DOC amaumont  class global comment. Detailled comment
  * <br/>
  *
  */
-public interface IHashableInputConnections {
+public interface IMatchingMode {
 
-    public IHashConfiguration getHashConfiguration(String connectionName);
-    
 }

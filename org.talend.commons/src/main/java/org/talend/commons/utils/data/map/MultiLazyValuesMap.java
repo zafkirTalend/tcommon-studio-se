@@ -30,14 +30,14 @@ import java.util.Set;
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
  */
-public abstract class MapOfLazyCollections implements Map {
+public abstract class MultiLazyValuesMap implements Map {
 
     private Map map;
 
     /**
      * DOC amaumont CollectionsMap constructor comment.
      */
-    public MapOfLazyCollections(Map map) {
+    public MultiLazyValuesMap(Map map) {
         super();
         this.map = map;
     }

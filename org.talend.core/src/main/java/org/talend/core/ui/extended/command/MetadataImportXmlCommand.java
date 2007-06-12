@@ -45,7 +45,7 @@ public class MetadataImportXmlCommand extends Command {
 
     private File file;
     private ExtendedTableModel extendedTableModel;
-    private ArrayList<IMetadataColumn> removed;
+    private List<IMetadataColumn> removed;
     private List<IMetadataColumn> added;
 
     /**

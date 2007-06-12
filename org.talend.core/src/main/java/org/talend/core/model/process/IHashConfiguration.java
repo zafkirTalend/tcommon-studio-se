@@ -21,7 +21,7 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -29,8 +29,10 @@ import java.util.List;
  * <br/>
  *
  */
-public interface IHashableInputConnections {
+public interface IHashConfiguration {
 
-    public IHashConfiguration getHashConfiguration(String connectionName);
+    public Set<String> getHashableColumns();
+    
+    public IMatchingMode getMatchingMode();
     
 }
