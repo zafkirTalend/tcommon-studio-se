@@ -81,7 +81,7 @@ public class ModulesNeededProvider {
         return importNeedsList;
     }
 
-    private static List<ModuleNeeded> getModulesNeededForRoutines() {
+    public static List<ModuleNeeded> getModulesNeededForRoutines() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         try {
