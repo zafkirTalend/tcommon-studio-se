@@ -24,6 +24,7 @@ package routines.system;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
 import java.util.Date;
+import java.util.HashMap;
 
 public class MetterCatcherUtils {
     public class MetterCatcherMessage {
@@ -34,8 +35,8 @@ public class MetterCatcherUtils {
         private Long systemPid;
         
         private String label;
-        private int count;
-        private int referense;
+        private Integer count;
+        private Integer referense;
         private String thresholds;
         
         public MetterCatcherMessage(String label, Integer count, Integer referense, String thresholds,
@@ -43,7 +44,7 @@ public class MetterCatcherUtils {
             this.moment = java.util.Calendar.getInstance().getTime();
             this.jobVersion = jobVersion;
             this.jobId = jobId;
-            this.systemPid = StatCatcherUtils.getPid();
+            this.systemPid = MetterCatcherUtils.getPid();
             this.origin = origin;
             
             this.label = label;
@@ -126,7 +127,7 @@ public class MetterCatcherUtils {
     }
 
     java.util.List<MetterCatcherMessage> messages = new java.util.ArrayList<MetterCatcherMessage>();
-    
+
     String jobId = "";
     String jobVersion = "";
     public MetterCatcherUtils(String jobId, String jobVersion) {
@@ -134,7 +135,7 @@ public class MetterCatcherUtils {
         this.jobVersion = jobVersion;
     }
 
-    public void addMessage(String label, int count, int referense, String thresholds,String origin) {
+    public void addMessage(String label, Integer count, Integer referense, String thresholds,String origin) {
        
         MetterCatcherMessage scm = new MetterCatcherMessage(label, count, referense, thresholds, origin, this.jobVersion, this.jobId);
         messages.add(scm);
@@ -147,6 +148,25 @@ public class MetterCatcherUtils {
         }
         messages.clear();
         return messagesToSend;
+    }
+    
+    private static HashMap<String, Integer> connCountMap = new HashMap<String, Integer>();
+    public static void addLineToRow(String connName)
+    {
+        if(connCountMap.containsKey(connName))
+        {
+            Integer count = MetterCatcherUtils.connCountMap.get(connName);
+            MetterCatcherUtils.connCountMap.put(connName,new Integer(count.intValue()+1));
+        }
+        else
+        {
+            MetterCatcherUtils.connCountMap.put(connName,new Integer(1));
+        }
+    }
+    
+    public static Integer getConnLinesCount(String connName)
+    {
+        return MetterCatcherUtils.connCountMap.get(connName);
     }
     
     public static long getPid() {
