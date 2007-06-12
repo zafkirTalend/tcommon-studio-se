@@ -149,7 +149,7 @@ public class ExtractMetaDataFromDataBase {
             }
 
             metadataColumns = ExtractMetaDataFromDataBase.extractMetadataColumnsFormTable(dbMetaData, metaTable1,
-                    iMetadataConnection.getDbType());
+                    iMetadataConnection);
 
             ExtractMetaDataUtils.closeConnection();
 
@@ -196,7 +196,7 @@ public class ExtractMetaDataFromDataBase {
      * @return Collection of MetadataColumn Object
      */
     public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
-            String dbms) {
+            IMetadataConnection metadataConnection) {
 
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
 
@@ -235,9 +235,8 @@ public class ExtractMetaDataFromDataBase {
 
                 String talendType = null;
 
-                String product = EDatabaseTypeName.getTypeFromDisplayName(dbms).getProduct();
-                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(MetadataTalendType
-                        .getDefaultDbmsFromProduct(product).getId());
+                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection
+                        .getMapping());
                 talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType);
                 if (talendType == null) {
                     if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
@@ -297,8 +296,8 @@ public class ExtractMetaDataFromDataBase {
             Class.forName(ExtractMetaDataUtils.getDriverClassByDbType(dbType)).newInstance();
             connection = DriverManager.getConnection(url, username, pwd);
             if ((schema != null) && (schema.compareTo("") != 0)) { //$NON-NLS-1$
-                final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
-                        EDatabaseTypeName.ORACLEFORSID.getProduct());
+                final String product = EDatabaseTypeName.getTypeFromDisplayName(dbType).getProduct();
+                final boolean equals = product.equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
                 // We have to check schema
                 if (!checkSchemaConnection(schema, connection, equals)) {
                     connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.SchemaNoPresent")); //$NON-NLS-1$
@@ -328,13 +327,13 @@ public class ExtractMetaDataFromDataBase {
      * @return
      * @throws SQLException
      */
-    public static boolean checkSchemaConnection(String schema, Connection connection, boolean isCaseSensitive)
+    public static boolean checkSchemaConnection(String schema, Connection connection, boolean notCaseSensitive)
             throws SQLException {
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection);
         if (dbMetaData != null) {
             ResultSet rs = dbMetaData.getSchemas();
             while (rs.next()) {
-                if (isCaseSensitive) {
+                if (notCaseSensitive) {
                     if (rs.getString(1).toLowerCase().compareTo(schema.toLowerCase()) == 0) {
                         ExtractMetaDataUtils.schema = rs.getString(1);
                         rs.close();
