@@ -164,6 +164,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(new Separator());
 
         fileMenu.add(ActionFactory.SAVE.create(window));
+        
+        IWorkbenchAction saveAllAction = ActionFactory.SAVE_ALL.create(window);
+        fileMenu.add(saveAllAction);
+        actionBarConfigurer.registerGlobalAction(saveAllAction);
         // fileMenu.add(ActionFactory.SAVE_AS.create(window));
 
         // CAN. SwitchProject Action must be call the LoginDialog to Change of Project and Open this.
