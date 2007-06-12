@@ -46,7 +46,6 @@ import org.talend.core.model.metadata.MetadataTable;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
-import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.TypesManager;
 
@@ -149,7 +148,7 @@ public class ExtractMetaDataFromDataBase {
             }
 
             metadataColumns = ExtractMetaDataFromDataBase.extractMetadataColumnsFormTable(dbMetaData, metaTable1,
-                    iMetadataConnection);
+                    iMetadataConnection.getDbType());
 
             ExtractMetaDataUtils.closeConnection();
 
@@ -195,88 +194,88 @@ public class ExtractMetaDataFromDataBase {
      * @param MetadataTable medataTable
      * @return Collection of MetadataColumn Object
      */
-    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
-            IMetadataConnection metadataConnection) {
-
-        List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
-
-        HashMap<String, String> primaryKeys = new HashMap<String, String>();
-
-        try {
-
-            try {
-                ResultSet keys = dbMetaData.getPrimaryKeys(null, ExtractMetaDataUtils.schema, medataTable.getLabel());
-                primaryKeys.clear();
-                while (keys.next()) {
-                    primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
-                }
-                keys.close();
-            } catch (Exception e) {
-                log.error(e.toString());
-            }
-
-            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(), null);
-            while (columns.next()) {
-
-                MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
-                metadataColumn.setOriginalField(metadataColumn.getLabel());
-                if (primaryKeys != null && !primaryKeys.isEmpty() && primaryKeys.get(metadataColumn.getLabel()) != null) {
-                    metadataColumn.setKey(true);
-                } else {
-                    metadataColumn.setKey(false);
-                }
-                String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
-                metadataColumn.setSourceType(dbType); //$NON-NLS-1$
-                boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
-                metadataColumn.setNullable(isNullable);
-                metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
-                // Convert dbmsType to TalendType
-
-                String talendType = null;
-
-                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection
-                        .getMapping());
-                talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType);
-                if (talendType == null) {
-                    if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                        talendType = JavaTypesManager.getDefaultJavaType().getId();
-                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
-                    } else {
-                        talendType = "";
-                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
-                    }
-                } else {
-                    // TODO to remove when the new perl type will be added in talend.
-                    talendType = TypesManager.getTalendTypeFromXmlType(talendType);
-                }
-
-                metadataColumn.setTalendType(talendType);
-                metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
-
-                // cantoine : patch to fix 0x0 pb cause by Bad Schema description
-                String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
-                if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
-                    stringMetaDataInfo = "\\0"; //$NON-NLS-1$
-                }
-                metadataColumn.setDefaultValue(stringMetaDataInfo);
-
-                metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
-                metadataColumns.add(metadataColumn);
-
-            }
-            columns.close();
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        }
-
-        return metadataColumns;
-
-    }
+//    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
+//            IMetadataConnection metadataConnection) {
+//
+//        List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
+//
+//        HashMap<String, String> primaryKeys = new HashMap<String, String>();
+//
+//        try {
+//
+//            try {
+//                ResultSet keys = dbMetaData.getPrimaryKeys(null, ExtractMetaDataUtils.schema, medataTable.getLabel());
+//                primaryKeys.clear();
+//                while (keys.next()) {
+//                    primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
+//                }
+//                keys.close();
+//            } catch (Exception e) {
+//                log.error(e.toString());
+//            }
+//
+//            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(), null);
+//            while (columns.next()) {
+//
+//                MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+//                metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
+//                metadataColumn.setOriginalField(metadataColumn.getLabel());
+//                if (primaryKeys != null && !primaryKeys.isEmpty() && primaryKeys.get(metadataColumn.getLabel()) != null) {
+//                    metadataColumn.setKey(true);
+//                } else {
+//                    metadataColumn.setKey(false);
+//                }
+//                String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
+//                metadataColumn.setSourceType(dbType); //$NON-NLS-1$
+//                boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
+//                metadataColumn.setNullable(isNullable);
+//                metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
+//                // Convert dbmsType to TalendType
+//
+//                String talendType = null;
+//
+//                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection
+//                        .getMapping());
+//                talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType);
+//                if (talendType == null) {
+//                    if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+//                        talendType = JavaTypesManager.getDefaultJavaType().getId();
+//                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
+//                    } else {
+//                        talendType = "";
+//                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
+//                    }
+//                } else {
+//                    // TODO to remove when the new perl type will be added in talend.
+//                    talendType = TypesManager.getTalendTypeFromXmlType(talendType);
+//                }
+//
+//                metadataColumn.setTalendType(talendType);
+//                metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
+//
+//                // cantoine : patch to fix 0x0 pb cause by Bad Schema description
+//                String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
+//                if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
+//                    stringMetaDataInfo = "\\0"; //$NON-NLS-1$
+//                }
+//                metadataColumn.setDefaultValue(stringMetaDataInfo);
+//
+//                metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
+//                metadataColumns.add(metadataColumn);
+//
+//            }
+//            columns.close();
+//        } catch (SQLException e) {
+//            log.error(e.toString());
+//            throw new RuntimeException(e);
+//        } catch (Exception e) {
+//            log.error(e.toString());
+//            throw new RuntimeException(e);
+//        }
+//
+//        return metadataColumns;
+//
+//    }
 
     public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData,
             IMetadataTable medataTable, String dbms) {
