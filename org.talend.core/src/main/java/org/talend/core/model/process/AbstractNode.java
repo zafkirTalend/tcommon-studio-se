@@ -69,7 +69,7 @@ public abstract class AbstractNode implements INode {
     
     private Boolean isMultiplyingOutputs = Boolean.FALSE;
 
-    private List<BlockCode> blocksCodeCountToClose;
+    private List<BlockCode> blocksCodeToClose;
     
     private boolean isThereLinkWithHash;
     
@@ -387,12 +387,12 @@ public abstract class AbstractNode implements INode {
 
     
     public List<BlockCode> getBlocksCodeToClose() {
-        return this.blocksCodeCountToClose;
+        return this.blocksCodeToClose;
     }
 
     
-    public void setBlocksCodeCountToClose(List<BlockCode> blockCodesToClose) {
-        this.blocksCodeCountToClose = blockCodesToClose;
+    public void setBlocksCodeToClose(List<BlockCode> blockCodesToClose) {
+        this.blocksCodeToClose = blockCodesToClose;
     }
 
     /* (non-Javadoc)
