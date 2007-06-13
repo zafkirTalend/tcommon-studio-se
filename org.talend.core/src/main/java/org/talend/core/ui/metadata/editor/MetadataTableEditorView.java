@@ -296,25 +296,14 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
                 String oldTalendType = bean.getTalendType();
                 bean.setTalendType(value);
                 String dbms = getCurrentDbms();
-                if (showDbTypeColumn && (dbms != null)) {
+                if (showDbTypeColumn && dbTypeColumnWritable && (dbms != null)) {
                     String oldDbType = bean.getType();
                     String oldDefaultDbType = null;
                     if (!oldDbType.equals("")) {
-
-                        // String javaTypeName = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, isNullable);
-                        // JavaType javaTypeFromName = JavaTypesManager.getJavaTypeFromName(javaTypeName);
-//                        JavaType javaType = JavaTypesManager.getJavaTypeFromId(oldTalendType);
-//                        String typeName = JavaTypesManager.getShortNameFromJavaType(javaType);
-//                        oldDefaultDbType = MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedDbType(
-//                                typeName, bean.isNullable());
                         oldDefaultDbType = TypesManager.getDBTypeFromTalendType(dbms, oldTalendType);
                     }
                     if (oldDbType.equals(oldDefaultDbType) || oldDbType.equals("")) {
                         bean.setType(TypesManager.getDBTypeFromTalendType(dbms, value));
-//                        JavaType javaType = JavaTypesManager.getJavaTypeFromId(value);
-//                        String typeName = JavaTypesManager.getShortNameFromJavaType(javaType);
-//                        bean.setType(MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedDbType(
-//                                typeName, bean.isNullable()));
                     }
                 }
             }
@@ -363,12 +352,4 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
             super.configureDefaultColumn(tableViewerCreator);
         }
     }
-
-    // public String getCurrentDbms() {
-    // IMetadataConnection connection = getMetadataTableEditor().getMetadataTable().getParent();
-    // if (connection != null) {
-    // return connection.getDatabase();
-    // }
-    // return null;
-    // }
 }

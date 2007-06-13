@@ -26,11 +26,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.talend.commons.exception.PersistenceException;
+import org.talend.core.CorePlugin;
+import org.talend.core.model.metadata.builder.ConvertionHelper;
+import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IConnection;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
+import org.talend.core.model.properties.ConnectionItem;
+import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -287,4 +293,57 @@ public class MetadataTool {
         return refColumnLists;
     }
 
+    public static IMetadataTable getMetadataFromRepository(String metaRepositoryName) {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<ConnectionItem> metadataConnectionsItem = null;
+        List<String> repositoryList = new ArrayList<String>();
+        IMetadataTable metaToReturn = null;
+        try {
+            metadataConnectionsItem = factory.getMetadataConnectionsItem();
+        } catch (PersistenceException e) {
+            throw new RuntimeException(e);
+        }
+        if (metadataConnectionsItem != null) {
+            for (ConnectionItem connectionItem : metadataConnectionsItem) {
+                org.talend.core.model.metadata.builder.connection.Connection connection;
+                connection = (org.talend.core.model.metadata.builder.connection.Connection) connectionItem
+                        .getConnection();
+                for (Object tableObj : connection.getTables()) {
+                    MetadataTable table = (MetadataTable) tableObj;
+                    if (!factory.isDeleted(table)) {
+                        String name = connectionItem.getProperty().getId() + " - " + table.getLabel(); //$NON-NLS-1$
+                        if (name.equals(metaRepositoryName)) {
+                            metaToReturn = ConvertionHelper.convert(table);
+                        }
+                        repositoryList.add(name);
+                    }
+                }
+            }
+        }
+        return metaToReturn;
+    }
+
+
+    public static org.talend.core.model.metadata.builder.connection.Connection getConnectionFromRepository(String metaRepositoryName) {
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<ConnectionItem> metadataConnectionsItem = null;
+        List<String> repositoryList = new ArrayList<String>();
+        IMetadataTable metaToReturn = null;
+        try {
+            metadataConnectionsItem = factory.getMetadataConnectionsItem();
+        } catch (PersistenceException e) {
+            throw new RuntimeException(e);
+        }
+        if (metadataConnectionsItem != null) {
+            for (ConnectionItem connectionItem : metadataConnectionsItem) {
+                org.talend.core.model.metadata.builder.connection.Connection connection;
+                connection = (org.talend.core.model.metadata.builder.connection.Connection) connectionItem
+                        .getConnection();
+                if (metaRepositoryName.startsWith(connectionItem.getProperty().getId())) {
+                    return connection;
+                }
+            }
+        }
+        return null;
+    }
 }

@@ -101,7 +101,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     protected boolean showDbTypeColumnAtLeftPosition;
 
-    private boolean dbTypeColumnWritable;
+    protected boolean dbTypeColumnWritable;
 
     private boolean showPatternColumn = true;
 

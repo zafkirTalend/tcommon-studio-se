@@ -22,6 +22,7 @@
 package org.talend.core.ui.metadata.dialog;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.gef.commands.CommandStack;
@@ -47,10 +48,13 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.composite.ThreeCompositesSashForm;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
+import org.talend.core.model.metadata.builder.connection.Connection;
+import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
@@ -156,16 +160,57 @@ public class MetadataDialog extends Dialog {
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }
 
+    private boolean hasRepositoryDbSchema(INode node, IMetadataTable metadataTable) {
+        boolean hasRepositoryDbSchema = false;
+        if (node.getComponent().getFamily().startsWith(DATABASE_LABEL)
+                && node.getElementParameter("SCHEMA_TYPE") != null) {
+            String schemaType = (String) node.getElementParameter("SCHEMA_TYPE").getValue();
+            if (schemaType.equals("REPOSITORY")) {
+                String metaRepositoryName = (String) node.getElementParameter("REPOSITORY_SCHEMA_TYPE").getValue();
+                Connection connection = MetadataTool.getConnectionFromRepository(metaRepositoryName);
+                if (connection instanceof DatabaseConnection) {
+                    // if the origin connection comes from a db, and if the source type is defined, then show the source
+                    // type.
+                    hasRepositoryDbSchema = true;
+                    for (IMetadataColumn column : metadataTable.getListColumns()) {
+                        if ((column.getType() == "") || (column.getType() == null)) {
+                            hasRepositoryDbSchema = false;
+                        }
+                    }
+                    if (hasRepositoryDbSchema) {
+                        String componentDbType = "";
+                        for (IElementParameter param : (List<IElementParameter>) node.getElementParameters()) {
+                            if (param.getRepositoryValue() != null) {
+                                if (param.getRepositoryValue().equals("TYPE")) {
+                                    componentDbType = (String) param.getValue();
+                                }
+                            }
+                        }
+                        String componentProduct = EDatabaseTypeName.getTypeFromDbType(componentDbType).getProduct();
+                        String connectionDbType = ((DatabaseConnection) connection).getDatabaseType();
+                        String connectionProduct = EDatabaseTypeName.getTypeFromDisplayName(connectionDbType)
+                                .getProduct();
+                        if (!componentProduct.equals(connectionProduct)) {
+                            hasRepositoryDbSchema = false;
+                            // the component don't support this product so don't display.
+                        }
+                    }
+                }
+            }
+        }
+        return hasRepositoryDbSchema;
+    }
+
     @Override
     protected Control createDialogArea(final Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
 
         MetadataTableEditor metadataTableEditor;
 
-//        boolean showDbTypeColumnForInput = inputFamily != null
-//                && (inputFamily.startsWith(DATABASE_LABEL) || inputFamily.startsWith(ELT_LABEL));
-//        boolean showDbTypeColumnForOutput = outputFamily.startsWith(DATABASE_LABEL)
-//                || outputFamily.startsWith(ELT_LABEL);
+        // boolean showDbTypeColumnForInput = inputFamily != null
+        // && (inputFamily.startsWith(DATABASE_LABEL) || inputFamily.startsWith(ELT_LABEL));
+        // boolean showDbTypeColumnForOutput = outputFamily.startsWith(DATABASE_LABEL)
+        // || outputFamily.startsWith(ELT_LABEL);
 
         boolean showTalendTypeColumnForInput = !(inputFamily != null && inputFamily.startsWith(ELT_LABEL));
         boolean showTalendTypeColumnForOutput = !outputFamily.startsWith(ELT_LABEL);
@@ -183,7 +228,9 @@ public class MetadataDialog extends Dialog {
                     hasMappingType = true;
                 }
             }
-            outputMetaView.setShowDbTypeColumn(hasMappingType, true, hasMappingType);
+
+            outputMetaView.setShowDbTypeColumn(hasMappingType | hasRepositoryDbSchema(outputNode, outputMetaTable),
+                    true, hasMappingType);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -213,7 +260,8 @@ public class MetadataDialog extends Dialog {
                     hasMappingType = true;
                 }
             }
-            inputMetaView.setShowDbTypeColumn(hasMappingType, true, hasMappingType);
+            inputMetaView.setShowDbTypeColumn(hasMappingType | hasRepositoryDbSchema(inputNode, inputMetaTable), true,
+                    hasMappingType);
             inputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForInput);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -227,12 +275,6 @@ public class MetadataDialog extends Dialog {
             GridDataFactory.swtDefaults().hint(42, 36).applyTo(label2);
 
             gridLayout = new GridLayout(1, true);
-            // gridLayout.marginBottom = 0;
-            // gridLayout.marginHeight = 0;
-            // gridLayout.marginLeft = 0;
-            // gridLayout.marginRight = 0;
-            // gridLayout.marginTop = 0;
-            // gridLayout.marginWidth = 0;
             buttonComposite.setLayout(gridLayout);
             gridData = new GridData(GridData.FILL_BOTH);
             // gridData.verticalAlignment = GridData.CENTER;
@@ -307,7 +349,8 @@ public class MetadataDialog extends Dialog {
                     hasMappingType = true;
                 }
             }
-            outputMetaView.setShowDbTypeColumn(hasMappingType, false, hasMappingType);
+            outputMetaView.setShowDbTypeColumn(hasMappingType | hasRepositoryDbSchema(outputNode, outputMetaTable),
+                    false, hasMappingType);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
