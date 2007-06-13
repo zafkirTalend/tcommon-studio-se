@@ -174,26 +174,28 @@ public class MetadataDialog extends Dialog {
                     hasRepositoryDbSchema = true;
                     for (IMetadataColumn column : metadataTable.getListColumns()) {
                         if ((column.getType() == "") || (column.getType() == null)) {
-                            hasRepositoryDbSchema = false;
+                            return false;
                         }
                     }
-                    if (hasRepositoryDbSchema) {
-                        String componentDbType = "";
-                        for (IElementParameter param : (List<IElementParameter>) node.getElementParameters()) {
-                            if (param.getRepositoryValue() != null) {
-                                if (param.getRepositoryValue().equals("TYPE")) {
-                                    componentDbType = (String) param.getValue();
-                                }
+                    String componentDbType = "";
+                    for (IElementParameter param : (List<IElementParameter>) node.getElementParameters()) {
+                        if (param.getRepositoryValue() != null) {
+                            if (param.getRepositoryValue().equals("TYPE")) {
+                                componentDbType = (String) param.getValue();
                             }
                         }
-                        String componentProduct = EDatabaseTypeName.getTypeFromDbType(componentDbType).getProduct();
-                        String connectionDbType = ((DatabaseConnection) connection).getDatabaseType();
-                        String connectionProduct = EDatabaseTypeName.getTypeFromDisplayName(connectionDbType)
-                                .getProduct();
-                        if (!componentProduct.equals(connectionProduct)) {
-                            hasRepositoryDbSchema = false;
-                            // the component don't support this product so don't display.
-                        }
+                    }
+                    
+                    // if we don't support yet the db type for the mapping type, then don't display.
+                    if (!EDatabaseTypeName.supportDbType(componentDbType)) {
+                        return false;
+                    }
+                    String componentProduct = EDatabaseTypeName.getTypeFromDbType(componentDbType).getProduct();
+                    String connectionDbType = ((DatabaseConnection) connection).getDatabaseType();
+                    String connectionProduct = EDatabaseTypeName.getTypeFromDisplayName(connectionDbType).getProduct();
+                    if (!componentProduct.equals(connectionProduct)) {
+                        return false;
+                        // the component don't support this product so don't display.
                     }
                 }
             }

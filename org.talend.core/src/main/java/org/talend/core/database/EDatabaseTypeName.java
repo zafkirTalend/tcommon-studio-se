@@ -74,42 +74,6 @@ public enum EDatabaseTypeName {
         this.product = product;
     }
 
-    // public static String getDisplayNameFromDbType(String dbType) {
-    // for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
-    // if (typename.getXmlName().equals(dbType)) {
-    // return typename.getDisplayName();
-    // }
-    // }
-    // return dbType;
-    // }
-    //
-    // public static Boolean isNeedSchemaFromDbType(String dbType) {
-    // for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
-    // if (typename.getDisplayName().equals(dbType)) {
-    // return typename.getIsNeedSchema();
-    // }
-    // }
-    // return new Boolean(false);
-    // }
-    //
-    // public static Boolean isNeedSchema(String dbType) {
-    // for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
-    // if (typename.getXmlName().equals(dbType)) {
-    // return typename.getIsNeedSchema();
-    // }
-    // }
-    // return new Boolean(false);
-    // }
-    //
-    // public static String getProductMappingId(String dbms) {
-    // for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
-    // if (typename.getDisplayName().equals(dbms)) {
-    // return typename.getProduct();
-    // }
-    // }
-    // return MYSQL.product;
-    // }
-
     public static EDatabaseTypeName getTypeFromDbType(String dbType) {
         for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
             if (typename.getXmlName().equals(dbType)) {
@@ -126,5 +90,19 @@ public enum EDatabaseTypeName {
             }
         }
         return MYSQL;
+    }
+    
+    /**
+     * This is only for the component type, not for the repository.
+     * @param dbType
+     * @return
+     */
+    public static boolean supportDbType(String dbType) {
+        for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
+            if (typename.getXmlName().equals(dbType)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
