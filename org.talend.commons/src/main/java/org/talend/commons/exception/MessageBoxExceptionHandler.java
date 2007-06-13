@@ -35,6 +35,8 @@ import org.talend.commons.i18n.internal.Messages;
  */
 public final class MessageBoxExceptionHandler {
 
+    private static Throwable lastShowedAction;
+
     /**
      * Empty constructor.
      */
@@ -62,6 +64,11 @@ public final class MessageBoxExceptionHandler {
      * @param ex - exception to show
      */
     protected static void showMessage(Throwable ex, Shell shell) {
+        if (ex.equals(lastShowedAction)) {
+            return;
+        }
+        lastShowedAction = ex;
+        
         // TODO smallet use ErrorDialogWidthDetailArea ?
         String title = Messages.getString("commons.error"); //$NON-NLS-1$
         String msg = Messages.getString("exception.errorOccured", ex.getMessage()); //$NON-NLS-1$
