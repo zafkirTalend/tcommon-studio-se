@@ -50,7 +50,31 @@ public class XmlArray {
 
     private static final String TAG_FIELD = "field"; //$NON-NLS-1$
 
+    private static int rowLimit = 10;
+
     private List<XmlRow> rows;
+
+    /**
+     * Sets the rowLimit.
+     * 
+     * @param rowLimit the rowLimit to set
+     */
+    public static void setRowLimit(int rowLimit) {
+        if (rowLimit < 0) {
+            XmlArray.rowLimit = 10;
+        } else {
+            XmlArray.rowLimit = rowLimit;
+        }
+    }
+
+    /**
+     * Getter for rowLimit.
+     * 
+     * @return the rowLimit
+     */
+    public static int getRowLimit() {
+        return rowLimit;
+    }
 
     /**
      * Constructs a new XmlArray.
@@ -92,6 +116,7 @@ public class XmlArray {
 
         // Rows
         NodeList rows = root.getChildNodes();
+        int counter = 0;
         for (int r = 0; r < rows.getLength(); r++) {
             Node row = rows.item(r);
             if (TAG_ROW.equals(row.getNodeName())) {
@@ -107,6 +132,10 @@ public class XmlArray {
                 }
 
                 array.add(xRow);
+                counter++;
+                if (counter >= rowLimit) {
+                    break;
+                }
             }
         }
 
