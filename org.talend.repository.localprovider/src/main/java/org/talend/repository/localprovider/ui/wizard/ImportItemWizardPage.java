@@ -617,6 +617,8 @@ public class ImportItemWizardPage extends WizardPage {
 
         try {
             IRunnableWithProgress op = new IRunnableWithProgress() {
+                private boolean errors = false;
+
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     monitor.beginTask(
                             Messages.getString("ImportItemWizardPage.ImportSelectedItems"), checkedElements.length + 1); //$NON-NLS-1$
@@ -634,6 +636,10 @@ public class ImportItemWizardPage extends WizardPage {
                     }
                     
                     monitor.done();
+                    
+                    if (errors) {
+                        throw new InvocationTargetException(new PersistenceException("")); //$NON-NLS-N$
+                    }
                 }
 
                 private void importItemRecord(ItemRecord itemRecord) {
@@ -655,7 +661,7 @@ public class ImportItemWizardPage extends WizardPage {
                         try {
                             folders = ProxyRepositoryFactory.getInstance().getFolders(itemType);
                         } catch (Exception e) {
-                            //
+                            logError(e);
                         }
                         
                         boolean foldersCreated = true;
@@ -673,6 +679,7 @@ public class ImportItemWizardPage extends WizardPage {
                             }
                         } catch (Exception e) {
                             foldersCreated = false;
+                            logError(e);
                         }
                         
                         if (!foldersCreated) {
@@ -682,16 +689,27 @@ public class ImportItemWizardPage extends WizardPage {
                         try {
                             ProxyRepositoryFactory.getInstance().create(itemRecord.getItem(), path);
                         } catch (Exception e) {
-                            //
+                            logError(e);
                         }
                         
                     }
                 }
 
+                private void logError(Exception e) {
+                    errors = true;
+                    IStatus status;
+                    status = new Status(IStatus.ERROR, RepositoryLocalProviderPlugin.PLUGIN_ID, IStatus.OK, e.getMessage(), e);
+                    RepositoryLocalProviderPlugin.getDefault().getLog().log(status);
+                }
             };
             new ProgressMonitorDialog(getShell()).run(true, true, op);
          } catch (InvocationTargetException e) {
-             //
+             Throwable targetException = e.getTargetException();
+             if (targetException instanceof PersistenceException) {
+                 MessageDialog.openWarning(getShell(), Messages
+                         .getString("ImportItemWizardPage.ImportSelectedItems"), //$NON-NLS-1$
+                         Messages.getString("ImportItemWizardPage.ErrorsOccured")); //$NON-NLS-1$
+             }
          } catch (InterruptedException e) {
              //
          }
