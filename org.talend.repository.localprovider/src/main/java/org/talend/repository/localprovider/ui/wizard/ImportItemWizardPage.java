@@ -35,6 +35,7 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
@@ -44,6 +45,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -607,17 +609,46 @@ public class ImportItemWizardPage extends WizardPage {
     }
 
     public boolean performFinish() {
-        for (int i = 0; i < itemsList.getCheckedElements().length; i++) {
-            ItemRecord itemRecord = (ItemRecord) itemsList.getCheckedElements()[i];
-            itemRecord.resolveItem();
-            if (itemRecord.getItem() != null) {
-                try {
-                    ProxyRepositoryFactory.getInstance().create(itemRecord.getItem(), new Path("")); //$NON-NLS-1$
-                } catch (Exception e) {
-                    // ignore
+        final Object[] checkedElements = itemsList.getCheckedElements();
+
+        try {
+            IRunnableWithProgress op = new IRunnableWithProgress() {
+                public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
+                    monitor.beginTask(
+                            Messages.getString("ImportItemWizardPage.ImportSelectedItems"), checkedElements.length + 1); //$NON-NLS-1$
+                    
+                    for (int i = 0; i < checkedElements.length; i++) {
+                        if (!monitor.isCanceled()) {
+                            ItemRecord itemRecord = (ItemRecord) checkedElements[i];
+
+                            monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
+
+                            importItemRecord(itemRecord);
+                            
+                            monitor.worked(1);
+                        }
+                    }
+                    
+                    monitor.done();
                 }
-            }
-        }
+
+                private void importItemRecord(ItemRecord itemRecord) {
+                    itemRecord.resolveItem();
+                    if (itemRecord.getItem() != null) {
+                        try {
+                            ProxyRepositoryFactory.getInstance().create(itemRecord.getItem(), new Path("")); //$NON-NLS-1$
+                        } catch (Exception e) {
+                            // ignore   
+                        }
+                    }
+                }
+            };
+            new ProgressMonitorDialog(getShell()).run(true, true, op);
+         } catch (InvocationTargetException e) {
+             //
+         } catch (InterruptedException e) {
+             //
+         }
 
         ArchiveFileManipulations.clearProviderCache(getContainer().getShell());
         return true;
