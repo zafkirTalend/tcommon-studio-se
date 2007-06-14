@@ -37,7 +37,9 @@ import java.util.zip.ZipFile;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
@@ -84,8 +86,10 @@ import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
+import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.model.XmiResourceManager;
 import org.talend.repository.model.ProxyRepositoryFactory;
@@ -635,13 +639,46 @@ public class ImportItemWizardPage extends WizardPage {
                 private void importItemRecord(ItemRecord itemRecord) {
                     itemRecord.resolveItem();
                     if (itemRecord.getItem() != null) {
+                        ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
+                        IPath path = new Path(itemRecord.getItem().getState().getPath());
+
+                        List<String> folders = null;
                         try {
-                            ProxyRepositoryFactory.getInstance().create(itemRecord.getItem(), new Path("")); //$NON-NLS-1$
+                            folders = ProxyRepositoryFactory.getInstance().getFolders(itemType);
                         } catch (Exception e) {
-                            // ignore   
+                            //
                         }
+                        
+                        boolean foldersCreated = true;
+                        
+                        try {
+                            for (int i = 0; i < path.segmentCount(); i++) {
+                                IPath parentPath = path.removeLastSegments(path.segmentCount() - i);
+                                String folderLabel = path.segment(i);
+                                
+                                String folderName = parentPath.append(folderLabel).toString();
+                                if (!folders.contains(folderName)) {
+                                    ProxyRepositoryFactory.getInstance().createFolder(itemType,
+                                            parentPath, folderLabel);
+                                }
+                            }
+                        } catch (Exception e) {
+                            foldersCreated = false;
+                        }
+                        
+                        if (!foldersCreated) {
+                            path = new Path(""); //$NON-NLS-1$
+                        }
+                        
+                        try {
+                            ProxyRepositoryFactory.getInstance().create(itemRecord.getItem(), path);
+                        } catch (Exception e) {
+                            //
+                        }
+                        
                     }
                 }
+
             };
             new ProgressMonitorDialog(getShell()).run(true, true, op);
          } catch (InvocationTargetException e) {
