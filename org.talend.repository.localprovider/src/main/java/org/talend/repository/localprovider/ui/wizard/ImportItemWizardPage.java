@@ -639,6 +639,15 @@ public class ImportItemWizardPage extends WizardPage {
                 private void importItemRecord(ItemRecord itemRecord) {
                     itemRecord.resolveItem();
                     if (itemRecord.getItem() != null) {
+                        
+                        //we do not import built in routines
+                        if (itemRecord.getItem().eClass().equals(PropertiesPackage.eINSTANCE.getRoutineItem())) {
+                            RoutineItem routineItem = (RoutineItem) itemRecord.getItem();
+                            if (routineItem.isBuiltIn()) {
+                                return;
+                            }
+                        }
+                        
                         ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
                         IPath path = new Path(itemRecord.getItem().getState().getPath());
 
