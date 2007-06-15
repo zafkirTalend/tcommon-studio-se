@@ -32,6 +32,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getConnectorName <em>Connector Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getLineStyle <em>Line Style</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getMergeOrder <em>Merge Order</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getMetaname <em>Metaname</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getOffsetLabelX <em>Offset Label X</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl#getOffsetLabelY <em>Offset Label Y</em>}</li>
@@ -122,6 +123,35 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
      * @ordered
      */
     protected boolean lineStyleESet = false;
+
+    /**
+     * The default value of the '{@link #getMergeOrder() <em>Merge Order</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMergeOrder()
+     * @generated
+     * @ordered
+     */
+    protected static final int MERGE_ORDER_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getMergeOrder() <em>Merge Order</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMergeOrder()
+     * @generated
+     * @ordered
+     */
+    protected int mergeOrder = MERGE_ORDER_EDEFAULT;
+
+    /**
+     * This is true if the Merge Order attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean mergeOrderESet = false;
 
     /**
      * The default value of the '{@link #getMetaname() <em>Metaname</em>}' attribute.
@@ -393,6 +423,52 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public int getMergeOrder() {
+        return mergeOrder;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMergeOrder(int newMergeOrder) {
+        int oldMergeOrder = mergeOrder;
+        mergeOrder = newMergeOrder;
+        boolean oldMergeOrderESet = mergeOrderESet;
+        mergeOrderESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONNECTION_TYPE__MERGE_ORDER, oldMergeOrder, mergeOrder, !oldMergeOrderESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetMergeOrder() {
+        int oldMergeOrder = mergeOrder;
+        boolean oldMergeOrderESet = mergeOrderESet;
+        mergeOrder = MERGE_ORDER_EDEFAULT;
+        mergeOrderESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.CONNECTION_TYPE__MERGE_ORDER, oldMergeOrder, MERGE_ORDER_EDEFAULT, oldMergeOrderESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetMergeOrder() {
+        return mergeOrderESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getMetaname() {
         return metaname;
     }
@@ -617,6 +693,8 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
                 return getLabel();
             case TalendFilePackage.CONNECTION_TYPE__LINE_STYLE:
                 return new Integer(getLineStyle());
+            case TalendFilePackage.CONNECTION_TYPE__MERGE_ORDER:
+                return new Integer(getMergeOrder());
             case TalendFilePackage.CONNECTION_TYPE__METANAME:
                 return getMetaname();
             case TalendFilePackage.CONNECTION_TYPE__OFFSET_LABEL_X:
@@ -652,6 +730,9 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
                 return;
             case TalendFilePackage.CONNECTION_TYPE__LINE_STYLE:
                 setLineStyle(((Integer)newValue).intValue());
+                return;
+            case TalendFilePackage.CONNECTION_TYPE__MERGE_ORDER:
+                setMergeOrder(((Integer)newValue).intValue());
                 return;
             case TalendFilePackage.CONNECTION_TYPE__METANAME:
                 setMetaname((String)newValue);
@@ -694,6 +775,9 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
             case TalendFilePackage.CONNECTION_TYPE__LINE_STYLE:
                 unsetLineStyle();
                 return;
+            case TalendFilePackage.CONNECTION_TYPE__MERGE_ORDER:
+                unsetMergeOrder();
+                return;
             case TalendFilePackage.CONNECTION_TYPE__METANAME:
                 setMetaname(METANAME_EDEFAULT);
                 return;
@@ -731,6 +815,8 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
             case TalendFilePackage.CONNECTION_TYPE__LINE_STYLE:
                 return isSetLineStyle();
+            case TalendFilePackage.CONNECTION_TYPE__MERGE_ORDER:
+                return isSetMergeOrder();
             case TalendFilePackage.CONNECTION_TYPE__METANAME:
                 return METANAME_EDEFAULT == null ? metaname != null : !METANAME_EDEFAULT.equals(metaname);
             case TalendFilePackage.CONNECTION_TYPE__OFFSET_LABEL_X:
@@ -762,6 +848,8 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
         result.append(label);
         result.append(", lineStyle: ");
         if (lineStyleESet) result.append(lineStyle); else result.append("<unset>");
+        result.append(", mergeOrder: ");
+        if (mergeOrderESet) result.append(mergeOrder); else result.append("<unset>");
         result.append(", metaname: ");
         result.append(metaname);
         result.append(", offsetLabelX: ");

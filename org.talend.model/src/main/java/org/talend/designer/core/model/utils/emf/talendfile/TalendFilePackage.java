@@ -216,13 +216,22 @@ public interface TalendFilePackage extends EPackage {
     int CONNECTION_TYPE__LINE_STYLE = 3;
 
     /**
+     * The feature id for the '<em><b>Merge Order</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTION_TYPE__MERGE_ORDER = 4;
+
+    /**
      * The feature id for the '<em><b>Metaname</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__METANAME = 4;
+    int CONNECTION_TYPE__METANAME = 5;
 
     /**
      * The feature id for the '<em><b>Offset Label X</b></em>' attribute.
@@ -231,7 +240,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__OFFSET_LABEL_X = 5;
+    int CONNECTION_TYPE__OFFSET_LABEL_X = 6;
 
     /**
      * The feature id for the '<em><b>Offset Label Y</b></em>' attribute.
@@ -240,7 +249,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__OFFSET_LABEL_Y = 6;
+    int CONNECTION_TYPE__OFFSET_LABEL_Y = 7;
 
     /**
      * The feature id for the '<em><b>Output Id</b></em>' attribute.
@@ -249,7 +258,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__OUTPUT_ID = 7;
+    int CONNECTION_TYPE__OUTPUT_ID = 8;
 
     /**
      * The feature id for the '<em><b>Source</b></em>' attribute.
@@ -258,7 +267,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__SOURCE = 8;
+    int CONNECTION_TYPE__SOURCE = 9;
 
     /**
      * The feature id for the '<em><b>Target</b></em>' attribute.
@@ -267,7 +276,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE__TARGET = 9;
+    int CONNECTION_TYPE__TARGET = 10;
 
     /**
      * The number of structural features of the '<em>Connection Type</em>' class.
@@ -276,7 +285,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTION_TYPE_FEATURE_COUNT = 10;
+    int CONNECTION_TYPE_FEATURE_COUNT = 11;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl <em>Context Parameter Type</em>}' class.
@@ -1459,6 +1468,17 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EAttribute getConnectionType_LineStyle();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getMergeOrder <em>Merge Order</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Merge Order</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getMergeOrder()
+     * @see #getConnectionType()
+     * @generated
+     */
+    EAttribute getConnectionType_MergeOrder();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getMetaname <em>Metaname</em>}'.
@@ -2697,6 +2717,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute CONNECTION_TYPE__LINE_STYLE = eINSTANCE.getConnectionType_LineStyle();
+
+        /**
+         * The meta object literal for the '<em><b>Merge Order</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTION_TYPE__MERGE_ORDER = eINSTANCE.getConnectionType_MergeOrder();
 
         /**
          * The meta object literal for the '<em><b>Metaname</b></em>' attribute feature.

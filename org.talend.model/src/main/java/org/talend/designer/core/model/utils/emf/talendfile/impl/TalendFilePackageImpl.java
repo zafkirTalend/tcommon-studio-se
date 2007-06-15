@@ -386,7 +386,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getConnectionType_Metaname() {
+    public EAttribute getConnectionType_MergeOrder() {
         return (EAttribute)connectionTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -395,7 +395,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getConnectionType_OffsetLabelX() {
+    public EAttribute getConnectionType_Metaname() {
         return (EAttribute)connectionTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -404,7 +404,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getConnectionType_OffsetLabelY() {
+    public EAttribute getConnectionType_OffsetLabelX() {
         return (EAttribute)connectionTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -413,7 +413,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getConnectionType_OutputId() {
+    public EAttribute getConnectionType_OffsetLabelY() {
         return (EAttribute)connectionTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -422,7 +422,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getConnectionType_Source() {
+    public EAttribute getConnectionType_OutputId() {
         return (EAttribute)connectionTypeEClass.getEStructuralFeatures().get(8);
     }
 
@@ -431,8 +431,17 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getConnectionType_Target() {
+    public EAttribute getConnectionType_Source() {
         return (EAttribute)connectionTypeEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getConnectionType_Target() {
+        return (EAttribute)connectionTypeEClass.getEStructuralFeatures().get(10);
     }
 
     /**
@@ -1326,6 +1335,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(connectionTypeEClass, CONNECTION_TYPE__CONNECTOR_NAME);
         createEAttribute(connectionTypeEClass, CONNECTION_TYPE__LABEL);
         createEAttribute(connectionTypeEClass, CONNECTION_TYPE__LINE_STYLE);
+        createEAttribute(connectionTypeEClass, CONNECTION_TYPE__MERGE_ORDER);
         createEAttribute(connectionTypeEClass, CONNECTION_TYPE__METANAME);
         createEAttribute(connectionTypeEClass, CONNECTION_TYPE__OFFSET_LABEL_X);
         createEAttribute(connectionTypeEClass, CONNECTION_TYPE__OFFSET_LABEL_Y);
@@ -1490,6 +1500,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getConnectionType_ConnectorName(), theXMLTypePackage.getString(), "connectorName", null, 0, 1, ConnectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConnectionType_Label(), theXMLTypePackage.getString(), "label", null, 0, 1, ConnectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConnectionType_LineStyle(), theXMLTypePackage.getInt(), "lineStyle", null, 0, 1, ConnectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getConnectionType_MergeOrder(), theXMLTypePackage.getInt(), "mergeOrder", null, 0, 1, ConnectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConnectionType_Metaname(), theXMLTypePackage.getString(), "metaname", null, 0, 1, ConnectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConnectionType_OffsetLabelX(), theXMLTypePackage.getInt(), "offsetLabelX", null, 0, 1, ConnectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getConnectionType_OffsetLabelY(), theXMLTypePackage.getInt(), "offsetLabelY", null, 0, 1, ConnectionType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1753,6 +1764,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
            new String[] {
              "kind", "attribute",
              "name", "lineStyle",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getConnectionType_MergeOrder(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "mergeOrder",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

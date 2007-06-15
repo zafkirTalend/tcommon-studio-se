@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getConnectorName <em>Connector Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getLineStyle <em>Line Style</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getMergeOrder <em>Merge Order</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getMetaname <em>Metaname</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getOffsetLabelX <em>Offset Label X</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getOffsetLabelY <em>Offset Label Y</em>}</li>
@@ -159,6 +160,60 @@ public interface ConnectionType extends EObject {
      * @generated
      */
     boolean isSetLineStyle();
+
+    /**
+     * Returns the value of the '<em><b>Merge Order</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Merge Order</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Merge Order</em>' attribute.
+     * @see #isSetMergeOrder()
+     * @see #unsetMergeOrder()
+     * @see #setMergeOrder(int)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_MergeOrder()
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     *        extendedMetaData="kind='attribute' name='mergeOrder' namespace='##targetNamespace'"
+     * @generated
+     */
+    int getMergeOrder();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getMergeOrder <em>Merge Order</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Merge Order</em>' attribute.
+     * @see #isSetMergeOrder()
+     * @see #unsetMergeOrder()
+     * @see #getMergeOrder()
+     * @generated
+     */
+    void setMergeOrder(int value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getMergeOrder <em>Merge Order</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetMergeOrder()
+     * @see #getMergeOrder()
+     * @see #setMergeOrder(int)
+     * @generated
+     */
+    void unsetMergeOrder();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ConnectionType#getMergeOrder <em>Merge Order</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Merge Order</em>' attribute is set.
+     * @see #unsetMergeOrder()
+     * @see #getMergeOrder()
+     * @see #setMergeOrder(int)
+     * @generated
+     */
+    boolean isSetMergeOrder();
 
     /**
      * Returns the value of the '<em><b>Metaname</b></em>' attribute.
