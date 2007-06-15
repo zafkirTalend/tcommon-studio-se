@@ -602,7 +602,17 @@ public class ImportItemWizardPage extends WizardPage {
                         itemRecord.getItem().getProperty().getLabel());
                 boolean idAvailable = ProxyRepositoryFactory.getInstance().getLastVersion(
                         itemRecord.getItem().getProperty().getId()) == null;
-                if (nameAvailable && idAvailable) {
+                
+                boolean isSystemRoutine = false;
+                //we do not import built in routines
+                if (itemRecord.getItem().eClass().equals(PropertiesPackage.eINSTANCE.getRoutineItem())) {
+                    RoutineItem routineItem = (RoutineItem) itemRecord.getItem();
+                    if (routineItem.isBuiltIn()) {
+                        isSystemRoutine = true;
+                    }
+                }
+                
+                if (nameAvailable && idAvailable && !isSystemRoutine) {
                     validItems.add(itemRecord);
                 }
             } catch (PersistenceException e) {
@@ -645,15 +655,6 @@ public class ImportItemWizardPage extends WizardPage {
                 private void importItemRecord(ItemRecord itemRecord) {
                     itemRecord.resolveItem();
                     if (itemRecord.getItem() != null) {
-                        
-                        //we do not import built in routines
-                        if (itemRecord.getItem().eClass().equals(PropertiesPackage.eINSTANCE.getRoutineItem())) {
-                            RoutineItem routineItem = (RoutineItem) itemRecord.getItem();
-                            if (routineItem.isBuiltIn()) {
-                                return;
-                            }
-                        }
-                        
                         ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
                         IPath path = new Path(itemRecord.getItem().getState().getPath());
 
