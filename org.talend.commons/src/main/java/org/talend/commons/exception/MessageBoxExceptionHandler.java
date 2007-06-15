@@ -49,12 +49,16 @@ public final class MessageBoxExceptionHandler {
      * @param ex - exception to log
      */
     public static void process(Throwable ex) {
-        process(ex, new Shell());
+        process(ex, null);
     }
 
     public static void process(Throwable ex, Shell shell) {
         ExceptionHandler.process(ex);
 
+        if (shell == null) {
+            shell = new Shell();
+        }
+        
         showMessage(ex, shell);
     }
 
