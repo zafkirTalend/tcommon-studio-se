@@ -272,13 +272,11 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
         URI resourceUri = proxyUri.trimFragment();
         ResourceSet resourceSet = eResource().getResourceSet();
         ByteArrayResource byteArrayResource = null;
-        
+
+        URIConverter theURIConverter = resourceSet.getURIConverter();
+        URI normalizedURI = theURIConverter.normalize(resourceUri);
+
         if ("platform".equals(proxyUri.scheme()) && proxyUri.segmentCount() > 1 && "resource".equals(proxyUri.segment(0))) { //$NON-NLS-1$ //$NON-NLS-2$
-
-            URIConverter theURIConverter = resourceSet.getURIConverter();
-            URI normalizedURI = theURIConverter.normalize(resourceUri);
-
-            
             for (Iterator i = resourceSet.getResources().iterator(); i.hasNext();) {
                 Resource resource = (Resource) i.next();
                 if (theURIConverter.normalize(resource.getURI()).equals(normalizedURI)) {
@@ -298,7 +296,7 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
         } else {
             for (Iterator i = resourceSet.getResources().iterator(); i.hasNext();) {
                 Resource resource = (Resource) i.next();
-                if (resource.getURI().equals(resourceUri)) {
+                if (theURIConverter.normalize(resource.getURI()).equals(normalizedURI)) {
                     byteArrayResource = (ByteArrayResource) resource;
                 }
             }

@@ -873,7 +873,7 @@ public class ImportItemWizardPage extends WizardPage {
         }
 
         private URI getURI(String path) {
-            String filename = path.substring(path.lastIndexOf("/") + 1); //$NON-NLS-1$
+            String filename = path.substring(path.lastIndexOf(File.separator) + 1); //$NON-NLS-1$
             return URI.createURI(filename);
         }
 
