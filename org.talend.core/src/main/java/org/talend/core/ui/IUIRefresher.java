@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.repository.editor;
+package org.talend.core.ui;
 
 /**
  * bqian The instances of this class provide the functionality of refreshing UI. <br/>
