@@ -28,8 +28,8 @@ import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaType;
-import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -71,8 +71,8 @@ public final class ContextParameterUtils {
             code = PERL_STARTWITH + parameter.getName() + PERL_ENDWITH; //$NON-NLS-1$ //$NON-NLS-2$
             break;
         case JAVA:
-            JavaType javaType = JavaTypesManager.getJavaTypeFromId(parameter.getType());
-            String typeToGenerate = JavaTypesManager.getTypeToGenerate(parameter.getType(), true);
+            JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId(parameter.getType());
+            String typeToGenerate = ContextParameterJavaTypeManager.getTypeToGenerate(parameter.getType(), true);
             if (javaType.isPrimitive()) {
                 if (typeToGenerate.compareTo("String") == 0) {
                     code = JAVA_STARTWITH + parameter.getName() + JAVA_ENDWITH;

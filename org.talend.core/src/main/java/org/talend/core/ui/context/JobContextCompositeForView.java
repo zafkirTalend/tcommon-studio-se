@@ -31,15 +31,12 @@ import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.custom.TableEditor;
-import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -48,13 +45,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Scrollable;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
@@ -74,6 +69,8 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextParameter;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
+import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
@@ -274,21 +271,69 @@ public abstract class JobContextCompositeForView extends Composite {
     };
 
     JavaTypeComboValueAdapter<IContextParameter> javaComboCellEditorValueAdapter = new JavaTypeComboValueAdapter<IContextParameter>(
-            JavaTypesManager.getDefaultJavaType(), nullableAccessors) {
+            ContextParameterJavaTypeManager.getDefaultJavaType(), nullableAccessors) {
 
         @Override
         public Object getCellEditorTypedValue(CellEditor cellEditor, Object originalTypedValue) {
             oldCellEditorValue = originalTypedValue;
             oldContext = getSelectedContext().clone();
-            return super.getCellEditorTypedValue(cellEditor, originalTypedValue);
+            String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
+
+            JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId((String) originalTypedValue);
+
+            String label = javaType.getLabel();
+
+            if (originalTypedValue == null && ContextParameterJavaTypeManager.getDefaultJavaType() != null) {
+                label = ContextParameterJavaTypeManager.getDefaultJavaType().getLabel();
+            }
+
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(label)) {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         @Override
         public Object getOriginalTypedValue(CellEditor cellEditor, Object cellEditorTypedValue) {
             newCellEditorValue = cellEditorTypedValue;
-            return super.getOriginalTypedValue(cellEditor, cellEditorTypedValue);
+            JavaType[] javaTypes = ContextParameterJavaTypeManager.getJavaTypes();
+            int i = (Integer) cellEditorTypedValue;
+            if (i >= 0) {
+                return javaTypes[i].getId();
+            }
+            // else {
+            // return null;
+            // }
+            throw new IllegalStateException("No selection is invalid"); //$NON-NLS-1$
         }
 
+        /* (non-Javadoc)
+         * @see org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter#getColumnText(org.eclipse.jface.viewers.CellEditor, java.lang.Object, java.lang.Object)
+         */
+        @Override
+        public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {
+            JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId((String) originalTypedValue);
+
+            Class primitiveClass = javaType.getPrimitiveClass();
+            Boolean nullable = nullableAccessors.get((IContextParameter) bean);
+            String displayedValue = null;
+            if (primitiveClass != null && !nullable.equals(Boolean.TRUE)) {
+                displayedValue = primitiveClass.getSimpleName();
+            } else if (originalTypedValue.equals(JavaTypesManager.DIRECTORY.getId())
+                    || originalTypedValue.equals(JavaTypesManager.FILE.getId())) {
+                displayedValue = javaType.getLabel();
+            } else {
+                displayedValue = javaType.getNullableClass().getSimpleName();
+            }
+
+            if (displayedValue == null && ContextParameterJavaTypeManager.getDefaultJavaType() != null) {
+                displayedValue = ContextParameterJavaTypeManager.getDefaultJavaType().getLabel();
+            }
+            return displayedValue;
+        }
+        
     };
 
     CellEditorValueAdapter paramNameCellEditorValueAdapter = new CellEditorValueAdapter() {
@@ -450,14 +495,15 @@ public abstract class JobContextCompositeForView extends Composite {
         contextParam.setName(paramName);
         ECodeLanguage curLanguage = LanguageManager.getCurrentLanguage();
         if (curLanguage == ECodeLanguage.JAVA) {
-            contextParam.setType(JavaTypesManager.getDefaultJavaType().getId());
+            contextParam.setType(ContextParameterJavaTypeManager.getDefaultJavaType().getId());
         } else {
             contextParam.setType(MetadataTalendType.getDefaultTalendType());
         }
         contextParam.setPrompt(paramName + "?"); //$NON-NLS-1$
         String defaultValue;
         if (curLanguage == ECodeLanguage.JAVA) {
-            defaultValue = JavaTypesManager.getDefaultValueFromJavaIdType(JavaTypesManager.getDefaultJavaType().getId(), false);
+            defaultValue = ContextParameterJavaTypeManager.getDefaultValueFromJavaIdType(ContextParameterJavaTypeManager
+                    .getDefaultJavaType().getId(), false);
         } else {
             defaultValue = TalendTextUtils.addQuotes(""); //$NON-NLS-1$
         }
@@ -790,7 +836,8 @@ public abstract class JobContextCompositeForView extends Composite {
         column.setModifiable(true);
         column.setWidth(TYPE_COLUMN_WIDTH);
 
-        ComboBoxCellEditor comboBoxCellEditor = new ComboBoxCellEditor(table, MetadataTalendType.getTalendTypesLabels());
+        ComboBoxCellEditor comboBoxCellEditor = new ComboBoxCellEditor(table, MetadataTalendType
+                .getCxtParameterTalendTypesLabels());
         CellEditorValueAdapter comboValueAdapter = null;
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
