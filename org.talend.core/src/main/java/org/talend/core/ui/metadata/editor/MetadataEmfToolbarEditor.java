@@ -51,6 +51,8 @@ import org.talend.core.ui.extended.command.MetadataEmfPasteCommand;
  */
 public class MetadataEmfToolbarEditor extends ExtendedToolbarView {
 
+    private String dbmsId;
+
     /**
      * DOC amaumont MatadataToolbarEditor constructor comment.
      * 
@@ -62,7 +64,15 @@ public class MetadataEmfToolbarEditor extends ExtendedToolbarView {
         super(parent, style, extendedTableViewer);
     }
 
-    /* (non-Javadoc)
+    public MetadataEmfToolbarEditor(Composite parent, int style, AbstractExtendedTableViewer<MetadataColumn> extendedTableViewer,
+            String dbmsId) {
+        this(parent, style, extendedTableViewer);
+        this.dbmsId = dbmsId;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.ExtendedToolbarView#createAddPushButton()
      */
     @Override
@@ -71,14 +81,17 @@ public class MetadataEmfToolbarEditor extends ExtendedToolbarView {
 
             @Override
             protected Object getObjectToAdd() {
-                MetadataEmfTableEditor tableEditorModel = (MetadataEmfTableEditor) getExtendedTableViewer().getExtendedControlModel();
-                return tableEditorModel.createNewMetadataColumn();
+                MetadataEmfTableEditor tableEditorModel = (MetadataEmfTableEditor) getExtendedTableViewer()
+                        .getExtendedControlModel();
+                return tableEditorModel.createNewMetadataColumn(dbmsId);
             }
 
         };
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.ExtendedToolbarView#createPastButton()
      */
     @Override
@@ -89,40 +102,42 @@ public class MetadataEmfToolbarEditor extends ExtendedToolbarView {
             protected Command getCommandToExecute(ExtendedTableModel extendedTableModel, Integer indexWhereInsert) {
                 return new MetadataEmfPasteCommand(extendedTableModel, indexWhereInsert);
             }
-            
+
         };
     }
 
-    
-    
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.ExtendedToolbarView#createExportPushButton()
      */
     @Override
     protected ExportPushButton createExportPushButton() {
         return new ExportPushButtonForExtendedTable(toolbar, extendedTableViewer) {
-            
+
             @Override
             protected Command getCommandToExecute(ExtendedTableModel extendedTableModel, File file) {
                 return new MetadataEmfExportXmlCommand((MetadataEmfTableEditor) extendedTableModel, file);
             }
-            
+
         };
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.extended.ExtendedToolbarView#createPastButton()
      */
     @Override
     public ImportPushButton createImportPushButton() {
         return new ImportPushButtonForExtendedTable(toolbar, extendedTableViewer) {
-            
+
             @Override
             protected Command getCommandToExecute(ExtendedTableModel extendedTableModel, File file) {
                 return new MetadataEmfImportXmlCommand(extendedTableModel, file);
             }
-            
+
         };
     }
-    
+
 }

@@ -65,6 +65,10 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
 
     private List<IMetadataTable> listTables;
 
+    private String mapping;
+
+    private String product;
+
     private InputStream xmlStream;
 
     /*
@@ -363,6 +367,26 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
      */
     public ERepositoryObjectType getType() {
         return ERepositoryObjectType.METADATA_CONNECTIONS;
+    }
+
+    
+    public String getMapping() {
+        return this.mapping;
+    }
+
+    
+    public void setMapping(String mapping) {
+        this.mapping = mapping;
+    }
+
+    
+    public String getProduct() {
+        return this.product;
+    }
+
+    
+    public void setProduct(String product) {
+        this.product = product;
     }
 
 }

@@ -37,6 +37,7 @@ import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.metadata.types.TypesManager;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -189,12 +190,13 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
      * 
      * @return
      */
-    public MetadataColumn createNewMetadataColumn() {
+    public MetadataColumn createNewMetadataColumn(String dbmsId) {
         MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
         metadataColumn.setLabel(getNextGeneratedColumnName(defaultLabel));
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
             metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
+            metadataColumn.setSourceType(TypesManager.getDBTypeFromTalendType(dbmsId, metadataColumn.getTalendType()));
         }
         return metadataColumn;
     }

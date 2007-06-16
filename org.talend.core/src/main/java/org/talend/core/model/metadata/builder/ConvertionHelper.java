@@ -65,6 +65,8 @@ public final class ConvertionHelper {
         result.setStringQuote(connection.getStringQuote());
         result.setUrl(connection.getURL());
         result.setUsername(connection.getUsername());
+        result.setMapping(connection.getDbmsId());
+        result.setProduct(connection.getProductId());
         return result;
     }
 

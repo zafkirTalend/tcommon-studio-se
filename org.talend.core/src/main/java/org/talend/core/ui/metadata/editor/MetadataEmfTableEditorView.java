@@ -33,6 +33,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
+import org.talend.core.model.metadata.types.TypesManager;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/> TGU same purpose as MetadataTableEditorView but uses EMF
@@ -56,10 +57,9 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         initGraphicComponents();
     }
 
-    
-    
     /**
      * DOC amaumont MetadataEmfTableEditorView constructor comment.
+     * 
      * @param parentComposite
      * @param mainCompositeStyle
      * @param initGraphicsComponents
@@ -67,8 +67,6 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
     public MetadataEmfTableEditorView(Composite parentComposite, int mainCompositeStyle, boolean initGraphicsComponents) {
         super(parentComposite, mainCompositeStyle, initGraphicsComponents);
     }
-
-
 
     /**
      * Graphics components are automatically initialized.
@@ -96,7 +94,6 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         super(parentComposite, mainCompositeStyle, extendedTableModel);
     }
 
-
     public MetadataEmfTableEditor getMetadataEditor() {
         return (MetadataEmfTableEditor) getExtendedTableModel();
     }
@@ -109,7 +106,9 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         return getExtendedTableViewer().getTableViewerCreator();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#getNullableAccessor()
      */
     @Override
@@ -130,60 +129,60 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
     @Override
     protected IBeanPropertyAccessors<MetadataColumn, String> getCommentAccessor() {
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
-    
+
             public String get(MetadataColumn bean) {
                 return bean.getComment();
             }
-    
+
             public void set(MetadataColumn bean, String value) {
                 bean.setComment(value);
             }
-    
+
         };
     }
 
     @Override
     protected IBeanPropertyAccessors<MetadataColumn, String> getDefaultValueAccessor() {
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
-    
+
             public String get(MetadataColumn bean) {
                 return bean.getDefaultValue();
             }
-    
+
             public void set(MetadataColumn bean, String value) {
                 bean.setDefaultValue(value);
             }
-    
+
         };
     }
 
     @Override
     protected IBeanPropertyAccessors<MetadataColumn, Integer> getPrecisionAccessor() {
         return new IBeanPropertyAccessors<MetadataColumn, Integer>() {
-    
+
             public Integer get(MetadataColumn bean) {
                 return bean.getPrecision();
             }
-    
+
             public void set(MetadataColumn bean, Integer value) {
                 bean.setPrecision(value);
             }
-    
+
         };
     }
 
     @Override
     protected IBeanPropertyAccessors<MetadataColumn, Integer> getLengthAccessor() {
         return new IBeanPropertyAccessors<MetadataColumn, Integer>() {
-    
+
             public Integer get(MetadataColumn bean) {
                 return bean.getLength();
             }
-    
+
             public void set(MetadataColumn bean, Integer value) {
                 bean.setLength(value);
             }
-    
+
         };
     }
 
@@ -205,68 +204,82 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
     @Override
     protected IBeanPropertyAccessors<MetadataColumn, Boolean> getKeyAccesor() {
         return new IBeanPropertyAccessors<MetadataColumn, Boolean>() {
-    
+
             public Boolean get(MetadataColumn bean) {
                 return new Boolean(bean.isKey());
             }
-    
+
             public void set(MetadataColumn bean, Boolean value) {
                 bean.setKey(value);
             }
-    
+
         };
     }
 
     @Override
     protected IBeanPropertyAccessors<MetadataColumn, String> getLabelAccessor() {
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
-    
+
             public String get(MetadataColumn bean) {
                 return bean.getLabel();
             }
-    
+
             public void set(MetadataColumn bean, String value) {
                 bean.setLabel(value);
             }
-    
+
         };
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#validateColumnName(java.lang.String, int)
      */
     @Override
     protected String validateColumnName(String newValue, int beanPosition) {
-        return getMetadataEditor().validateColumnName(newValue, beanPosition);        
+        return getMetadataEditor().validateColumnName(newValue, beanPosition);
     }
 
     @Override
     protected IBeanPropertyAccessors<MetadataColumn, String> getTalendTypeAccessor() {
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
-    
+
             public String get(MetadataColumn bean) {
                 return bean.getTalendType();
             }
-    
+
             public void set(MetadataColumn bean, String value) {
+                String oldTalendType = bean.getTalendType();
                 bean.setTalendType(value);
+                String dbms = getCurrentDbms();
+                if (showDbTypeColumn && (dbms != null)) {
+                    String oldDbType = bean.getSourceType();
+                    String oldDefaultDbType = null;
+                    if (!"".equals(oldDbType)) {
+                        oldDefaultDbType = TypesManager.getDBTypeFromTalendType(dbms, oldTalendType);
+                    }
+                    if (oldDbType == null || oldDbType.equals(oldDefaultDbType) || "".equals(oldDbType)) {
+                        bean.setSourceType(TypesManager.getDBTypeFromTalendType(dbms, value));
+                    }
+                }
             }
-    
+
         };
     }
 
     @Override
     protected IBeanPropertyAccessors getDbTypeAccessor() {
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
-    
+
             public String get(MetadataColumn bean) {
                 return bean.getSourceType();
             }
-    
+
             public void set(MetadataColumn bean, String value) {
                 throw new UnsupportedOperationException();
             }
-    
+
         };
     }
 
@@ -277,12 +290,12 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
      */
     @Override
     protected ExtendedToolbarView initToolBar() {
-        return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer());
+        return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(), getCurrentDbms());
     }
 
-
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#configureDefaultColumn(org.talend.commons.ui.swt.tableviewer.TableViewerCreator)
      */
     @Override
@@ -290,15 +303,17 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         super.configureDefaultColumn(tableViewerCreator);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#getCurrentDbms()
      */
-//    @Override
-//    protected String getCurrentDbms() {
-//        Connection connection = getMetadataEditor().getMetadataTable().getConnection();
-//        if(connection instanceof DatabaseConnection) {
-//            return ((DatabaseConnection) connection).getDatabaseType();
-//        }
-//        return null;
-//    } 
+    // @Override
+    // protected String getCurrentDbms() {
+    // Connection connection = getMetadataEditor().getMetadataTable().getConnection();
+    // if(connection instanceof DatabaseConnection) {
+    // return ((DatabaseConnection) connection).getDatabaseType();
+    // }
+    // return null;
+    // }
 }

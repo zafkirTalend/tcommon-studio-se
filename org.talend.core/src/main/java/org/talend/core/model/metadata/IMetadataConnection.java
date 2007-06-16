@@ -91,4 +91,11 @@ public interface IMetadataConnection extends IMetadata {
 
     public void setListTables(List<IMetadataTable> listTables);
 
+    public void setProduct(String product);
+
+    public String getProduct();
+
+    public void setMapping(String mapping);
+
+    public String getMapping();
 }
