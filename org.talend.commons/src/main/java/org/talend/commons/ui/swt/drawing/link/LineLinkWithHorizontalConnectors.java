@@ -29,14 +29,14 @@ import org.eclipse.swt.graphics.GC;
  * $Id$
  * 
  */
-public class StraightLinkWithHorizontalConnectors extends AbstractDrawableLink {
+public class LineLinkWithHorizontalConnectors extends AbstractDrawableLink {
 
     private static final int CONNECTOR_WIDTH_DEFAULT = 20;
 
     /**
      * DOC amaumont BezierLink constructor comment.
      */
-    public StraightLinkWithHorizontalConnectors(StyleLink style) {
+    public LineLinkWithHorizontalConnectors(StyleLink style) {
         super(style);
         connectorWidth = CONNECTOR_WIDTH_DEFAULT;
     }
