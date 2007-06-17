@@ -699,7 +699,8 @@ public class ImportItemWizardPage extends WizardPage {
                 private void logError(Exception e) {
                     errors = true;
                     IStatus status;
-                    status = new Status(IStatus.ERROR, RepositoryLocalProviderPlugin.PLUGIN_ID, IStatus.OK, e.getMessage(), e);
+                    String messageStatus = e.getMessage() != null ? e.getMessage() : ""; //$NON-NLS-1$
+                    status = new Status(IStatus.ERROR, RepositoryLocalProviderPlugin.PLUGIN_ID, IStatus.OK, messageStatus, e); 
                     RepositoryLocalProviderPlugin.getDefault().getLog().log(status);
                 }
             };
