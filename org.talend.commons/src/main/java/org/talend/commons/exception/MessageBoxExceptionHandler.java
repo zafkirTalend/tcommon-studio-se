@@ -56,10 +56,16 @@ public final class MessageBoxExceptionHandler {
         ExceptionHandler.process(ex);
 
         if (shell == null) {
-            shell = new Shell();
+            try {
+                shell = new Shell();
+            } catch (Exception e) {
+                //ignore me
+            }
         }
         
-        showMessage(ex, shell);
+        if (shell != null) {
+            showMessage(ex, shell);
+        }
     }
 
     /**
