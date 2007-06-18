@@ -30,7 +30,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -50,20 +52,30 @@ public class XmlArray {
 
     private static final String TAG_FIELD = "field"; //$NON-NLS-1$
 
-    private static int rowLimit = 10;
+    private static int rowLimit = CorePlugin.getDefault().getPreferenceStore().getInt(
+            ITalendCorePrefConstants.PREVIEW_LIMIT);
 
     private List<XmlRow> rows;
+
+    /**
+     * Set the value of row limit back to default in preference.
+     * 
+     * yzhang Comment method "setLimitToDefault".
+     */
+    public static void setLimitToDefault() {
+        XmlArray.rowLimit = CorePlugin.getDefault().getPreferenceStore().getInt(ITalendCorePrefConstants.PREVIEW_LIMIT);
+    }
 
     /**
      * Sets the rowLimit.
      * 
      * @param rowLimit the rowLimit to set
      */
-    public static void setRowLimit(int rowLimit) {
-        if (rowLimit < 0) {
-            XmlArray.rowLimit = 10;
+    public static void setRowLimit(int limit) {
+        if (limit < 0) {
+            setLimitToDefault();
         } else {
-            XmlArray.rowLimit = rowLimit;
+            XmlArray.rowLimit = limit;
         }
     }
 
