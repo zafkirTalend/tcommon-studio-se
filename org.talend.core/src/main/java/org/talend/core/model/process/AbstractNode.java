@@ -66,15 +66,15 @@ public abstract class AbstractNode implements INode {
     private IExternalNode externalNode;
 
     private Boolean hasConditionalOutputs = Boolean.FALSE;
-    
+
     private Boolean isMultiplyingOutputs = Boolean.FALSE;
 
     private List<BlockCode> blocksCodeToClose;
-    
+
     private boolean isThereLinkWithHash;
-    
+
     private boolean isThereLinkWithMerge;
-    
+
     private Map<INode, Integer> mergeInfo;
 
     public String getComponentName() {
@@ -269,18 +269,19 @@ public abstract class AbstractNode implements INode {
     public void setHasConditionalOutputs(boolean hasConditionalOutputs) {
         this.hasConditionalOutputs = hasConditionalOutputs;
     }
-    
+
     /**
      * Getter for isMultiplyingOutputs.
+     * 
      * @return the isMultiplyingOutputs
      */
     public Boolean isMultiplyingOutputs() {
         return isMultiplyingOutputs;
     }
 
-    
     /**
      * Sets the isMultiplyingOutputs.
+     * 
      * @param isMultiplyingOutputs the isMultiplyingOutputs to set
      */
     public void setIsMultiplyingOutputs(Boolean isMultiplyingOutputs) {
@@ -385,17 +386,17 @@ public abstract class AbstractNode implements INode {
         return org.talend.core.model.utils.NodeUtil.getOutgoingConnections(this, connectorName);
     }
 
-    
     public List<BlockCode> getBlocksCodeToClose() {
         return this.blocksCodeToClose;
     }
 
-    
     public void setBlocksCodeToClose(List<BlockCode> blockCodesToClose) {
         this.blocksCodeToClose = blockCodesToClose;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.model.process.INode#renameData(java.lang.String, java.lang.String)
      */
     public void renameData(String oldName, String newName) {
@@ -426,7 +427,9 @@ public abstract class AbstractNode implements INode {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.model.process.INode#useData(java.lang.String)
      */
     public boolean useData(String name) {
@@ -452,11 +455,11 @@ public abstract class AbstractNode implements INode {
         }
         return false;
     }
-    
+
     public Map<INode, Integer> getLinkedMergeInfo() {
         return mergeInfo;
     }
-    
+
     public void setLinkedMergeInfo(Map<INode, Integer> mergeInfo) {
         this.mergeInfo = mergeInfo;
     }
@@ -464,12 +467,14 @@ public abstract class AbstractNode implements INode {
     public boolean isThereLinkWithMerge() {
         return isThereLinkWithMerge;
     }
-    
+
     public void setThereLinkWithMerge(boolean isThereLinkWithHash) {
         this.isThereLinkWithMerge = isThereLinkWithHash;
     }
-    
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.core.model.process.INode#getIncomingConnections(org.talend.core.model.process.EConnectionType)
      */
     public List<? extends IConnection> getIncomingConnections(EConnectionType connectionType) {
