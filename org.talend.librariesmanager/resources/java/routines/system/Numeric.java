@@ -5,6 +5,7 @@ public class Numeric {
     /**
      * return an incremented numeric id
      * 
+     * {Category} Numeric
      * {talendTypes} int | Integer
      * {param} string("s1") sequence identifier
      * {param} int(1) start value
