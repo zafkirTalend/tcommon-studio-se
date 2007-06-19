@@ -25,6 +25,7 @@ import org.apache.log4j.Level;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.IJavaProject;
 import org.talend.core.IService;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.ICodeProblemsChecker;
@@ -90,6 +91,9 @@ public interface IRunProcessService extends IService {
 
     public IProject getProject(ECodeLanguage language) throws CoreException;
 
+    //add this method for RowGenerator to get routines's Functions by qzhang.
+    public IJavaProject getJavaProject() throws CoreException;
+    
     /**
      * Setter for a custom delegate service. This method should'nt be called from a delegate class, only in the
      * RunProcessService class.
