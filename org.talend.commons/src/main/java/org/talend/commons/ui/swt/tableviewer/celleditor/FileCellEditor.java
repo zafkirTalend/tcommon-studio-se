@@ -26,16 +26,15 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.FileDialog;
 
-
 /**
- * DOC qiang.zhang  class global comment. Detailled comment
- * <br/>
- *
+ * DOC qiang.zhang class global comment. Detailled comment <br/>
+ * 
  */
 public class FileCellEditor extends DialogCellEditor {
 
     /**
      * DOC qiang.zhang FileCellEditor constructor comment.
+     * 
      * @param parent
      */
     public FileCellEditor(Composite parent) {
@@ -44,6 +43,7 @@ public class FileCellEditor extends DialogCellEditor {
 
     /**
      * DOC qiang.zhang FileCellEditor constructor comment.
+     * 
      * @param parent
      * @param style
      */
@@ -51,13 +51,18 @@ public class FileCellEditor extends DialogCellEditor {
         super(parent, style);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.viewers.DialogCellEditor#openDialogBox(org.eclipse.swt.widgets.Control)
      */
     @Override
     protected Object openDialogBox(Control cellEditorWindow) {
         FileDialog dialog = new FileDialog(cellEditorWindow.getShell());
         String path = dialog.open();
+        if (path != null) {
+            path = path.replaceAll("\\\\", "/");
+        }
         return path;
     }
 

@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.core.model.utils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -66,6 +68,7 @@ public final class ContextParameterUtils {
     public static String getScriptCode(IContextParameter parameter, ECodeLanguage language) {
         String code;
 
+        final String string = JAVA_STARTWITH + parameter.getName() + JAVA_ENDWITH;
         switch (language) {
         case PERL:
             code = PERL_STARTWITH + parameter.getName() + PERL_ENDWITH; //$NON-NLS-1$ //$NON-NLS-2$
@@ -75,15 +78,18 @@ public final class ContextParameterUtils {
             String typeToGenerate = ContextParameterJavaTypeManager.getTypeToGenerate(parameter.getType(), true);
             if (javaType.isPrimitive()) {
                 if (typeToGenerate.compareTo("String") == 0) {
-                    code = JAVA_STARTWITH + parameter.getName() + JAVA_ENDWITH;
+                    code = string;
                 } else if (typeToGenerate.compareTo("Integer") == 0) {
-                    code = "Integer.parseInt(" + JAVA_STARTWITH + parameter.getName() + JAVA_ENDWITH + ")";
+                    code = "Integer.parseInt(" + string + ")";
                 } else {
-                    code = typeToGenerate + ".parse" + typeToGenerate + "(" + JAVA_STARTWITH + parameter.getName()
-                            + JAVA_ENDWITH + ")";
+                    code = typeToGenerate + ".parse" + typeToGenerate + "(" + string + ")";
                 }
+            } else if (typeToGenerate.compareTo("java.util.Date") == 0) {
+
+                code = "(" + typeToGenerate + ")" + "(new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\")" + ".parse" + "(" + string
+                        + "))";
             } else {
-                code = "(" + typeToGenerate + ")" + JAVA_STARTWITH + parameter.getName() + JAVA_ENDWITH;
+                code = "(" + typeToGenerate + ")" + string;
             }
             break;
         default:
@@ -115,9 +121,18 @@ public final class ContextParameterUtils {
         return code;
     }
 
+    public static Date getDate(String s) {
+        try {
+            final Date parse = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(s);
+            return parse;
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
     public static String parseScriptContextCode(String code, IContext context) {
-        final ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
+        final ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                .getProject().getLanguage();
         if (!isContainContextParam(code)) {
             return code;
         } else {
@@ -125,8 +140,7 @@ public final class ContextParameterUtils {
             for (IContextParameter param : context.getContextParameterList()) {
                 if (param.getName().equals(paraName)) {
                     // return code.replace(getScriptCode(param, language), param.getValue());
-                    return parseScriptContextCode(code.replace(getScriptCode(param, language), param.getValue()),
-                            context);
+                    return parseScriptContextCode(code.replace(getScriptCode(param, language), param.getValue()), context);
                 }
             }
         }
@@ -145,14 +159,13 @@ public final class ContextParameterUtils {
     }
 
     public static boolean isContainContextParam(String code) {
-        final ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
+        final ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                .getProject().getLanguage();
         switch (language) {
         case PERL:
             return code.contains(PERL_STARTWITH) && code.contains(PERL_ENDWITH);
         case JAVA:
-            return code.contains(JAVA_STARTWITH.substring(0, JAVA_STARTWITH.length() - 1))
-                    && code.contains(JAVA_ENDWITH);
+            return code.contains(JAVA_STARTWITH.substring(0, JAVA_STARTWITH.length() - 1)) && code.contains(JAVA_ENDWITH);
         default:
             return false;
         }
