@@ -352,9 +352,11 @@ public abstract class AbstractNode implements INode {
     }
 
     public IElementParameter getElementParameter(String name) {
-        for (IElementParameter elementParam : elementParameters) {
-            if (elementParam.getName().equals(name)) {
-                return elementParam;
+        if (elementParameters != null) {
+            for (IElementParameter elementParam : elementParameters) {
+                if (elementParam.getName().equals(name)) {
+                    return elementParam;
+                }
             }
         }
         return null;
