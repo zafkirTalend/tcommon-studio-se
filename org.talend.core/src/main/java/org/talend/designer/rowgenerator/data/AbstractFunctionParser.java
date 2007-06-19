@@ -38,12 +38,14 @@ import org.talend.commons.exception.ExceptionHandler;
 public abstract class AbstractFunctionParser {
 
     protected List<TalendType> list = new ArrayList<TalendType>();
-    
+
     public static final String FUNCTION_PARAMETERS_REGEX = "\\{param\\}(\\s)*(.*)"; //$NON-NLS-1$
 
     public static final String FUNCTION_NAME_REGEX = "sub(\\s)*(.*)"; //$NON-NLS-1$
 
     public static final String FUNCTION_TYPE_REGEX = "\\{talendTypes\\}(\\s)*(.*)"; //$NON-NLS-1$
+
+    public static final String CATEGORYREGEX = "\\{Category\\}(\\s)*(.*)"; //$NON-NLS-1$
 
     public static final String EMPTY_STRING = ""; //$NON-NLS-1$
 
@@ -61,6 +63,7 @@ public abstract class AbstractFunctionParser {
     public List<TalendType> getList() {
         return this.list;
     }
+
     /**
      * qzhang Comment method "parse description of the function".
      * 
@@ -99,6 +102,27 @@ public abstract class AbstractFunctionParser {
         }
         return EMPTY_STRING;
     }
+
+    /**
+     * parse the input file for the category.
+     * 
+     * @param string
+     * @return
+     */
+    protected String parseCategoryType(String string) {
+        try {
+            Pattern regex = Pattern.compile(CATEGORYREGEX, Pattern.CANON_EQ);
+            Matcher matcher = regex.matcher(string);
+            if (matcher.find()) {
+                String s = matcher.group(2);
+                return s;
+            }
+        } catch (PatternSyntaxException ex) {
+            ExceptionHandler.process(ex);
+        }
+        return EMPTY_STRING;
+    }
+
     /**
      * qzhang Comment method "parseFunctionParameters".
      * 
@@ -120,6 +144,7 @@ public abstract class AbstractFunctionParser {
         }
         return list1.toArray(new String[list1.size()]);
     }
+
     /**
      * qzhang Comment method "convertToParameter".
      * 
@@ -134,6 +159,7 @@ public abstract class AbstractFunctionParser {
         }
         return parameters;
     }
+
     /**
      * Gets the TalendType that already created, if the wanted one is one existent ,create one.
      * 
@@ -152,5 +178,5 @@ public abstract class AbstractFunctionParser {
 
         return type;
     }
-    
+
 }

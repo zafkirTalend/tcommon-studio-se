@@ -90,6 +90,7 @@ public class PerlFunctionParser extends AbstractFunctionParser {
 
         this.files = filesList.toArray(new File[filesList.size()]);
     }
+
     public void parse() {
         for (int i = 0; i < files.length; i++) {
             File file = files[i];
@@ -116,6 +117,7 @@ public class PerlFunctionParser extends AbstractFunctionParser {
             String string = strGroups[i];
 
             String des = parseDescription(string);
+            String category = parseCategoryType(string);
             String functionType = parseFunctionType(string);
 
             String[] parameter = parseFunctionParameters(string);
@@ -129,13 +131,12 @@ public class PerlFunctionParser extends AbstractFunctionParser {
             function.setParameters(Arrays.asList(paras));
 
             TalendType talendType = getTalendType(functionType);
+            talendType.setCategory(category);
             talendType.addFunctions(function);
 
         }
 
     }
-
-    
 
     /**
      * qzhang Comment method "parseFunctionName".

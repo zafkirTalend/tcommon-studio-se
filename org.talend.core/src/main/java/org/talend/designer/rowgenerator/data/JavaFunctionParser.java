@@ -89,7 +89,8 @@ public class JavaFunctionParser extends AbstractFunctionParser {
                                         index = 0;
                                     }
                                     reader.close();
-                                    parseJavaCommentToFunctions(str.toString(), sourceType.getElementName(), method.getElementName());
+                                    parseJavaCommentToFunctions(str.toString(), sourceType.getElementName(), method
+                                            .getElementName());
                                 }
                             }
                         }
@@ -136,6 +137,7 @@ public class JavaFunctionParser extends AbstractFunctionParser {
      */
     private void parseJavaCommentToFunctions(String string, String className, String funcName) {
         String des = parseDescription(string);
+        String category = parseCategoryType(string);
         String functionType = parseFunctionType(string);
         String[] parameter = parseFunctionParameters(string);
         if (!functionType.equals(EMPTY_STRING)) {
@@ -145,6 +147,7 @@ public class JavaFunctionParser extends AbstractFunctionParser {
             function.setDescription(des);
             function.setParameters(Arrays.asList(paras));
             TalendType talendType = getTalendType(functionType);
+            talendType.setCategory(category);
             talendType.addFunctions(function);
             typeMethods.put(functionType + "." + funcName, className + "." + funcName);
         }

@@ -25,11 +25,12 @@ import java.util.List;
 
 import org.talend.core.i18n.Messages;
 
-
 /**
  * class global comment. Detailled comment <br/> $Id: TalendType.java,v 1.3 2007/01/31 05:20:52 pub Exp $
  */
 public class TalendType {
+
+    private String category;
 
     /**
      * @uml.property name="name"
@@ -85,9 +86,6 @@ public class TalendType {
         return (Function) this.functions.get(i);
     }
 
-
-
-
     /**
      * Returns an array containing all of the elements in this list in proper sequence.
      * 
@@ -95,12 +93,10 @@ public class TalendType {
      * @see java.util.List#toArray()
      * @uml.property name="functions"
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public Function[] functionsToArray() {
         return (Function[]) this.functions.toArray(new Function[this.functions.size()]);
     }
-
-
 
     /**
      * Appends the specified element to the end of this list (optional operation).
@@ -110,12 +106,14 @@ public class TalendType {
      * @see java.util.List#add(Object)
      * @uml.property name="functions"
      */
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public boolean addFunctions(Function function) {
         return this.functions.add(function);
     }
 
-
+    public boolean addFunctions(List<Function> list) {
+        return this.functions.addAll(list);
+    }
 
     /**
      * Setter of the property <tt>functions</tt>.
@@ -137,5 +135,23 @@ public class TalendType {
             sb.append(function).append("\n").append("    "); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return sb.toString();
+    }
+
+    /**
+     * Getter for category.
+     * 
+     * @return the category
+     */
+    public String getCategory() {
+        return this.category;
+    }
+
+    /**
+     * Sets the category.
+     * 
+     * @param category the category to set
+     */
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
