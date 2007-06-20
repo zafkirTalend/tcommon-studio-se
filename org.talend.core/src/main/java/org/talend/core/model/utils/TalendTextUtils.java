@@ -75,6 +75,32 @@ public class TalendTextUtils {
         return newString;
     }
 
+    public static String addSQLQuotes(String text) {
+        ECodeLanguage language = LanguageManager.getCurrentLanguage();
+
+        switch (language) {
+        case JAVA:
+            return addSQLQuotes(text, QUOTATION_MARK);
+        default: // PERL
+            return addSQLQuotes(text, SINGLE_QUOTE);
+        }
+    }
+    
+    private static String addSQLQuotes(String text, String quoteStyle) {
+        String newString;
+
+        if (quoteStyle.equals(SINGLE_QUOTE)) {
+            newString = SINGLE_QUOTE + checkStringQuotes(text) + SINGLE_QUOTE;
+        } else if (quoteStyle.equals(ANTI_QUOTE)) {
+            newString = ANTI_QUOTE + checkStringQuotationMarks(text) + ANTI_QUOTE;
+        } else if (quoteStyle.equals(LBRACKET) || quoteStyle.equals(RBRACKET)) {
+            newString = LBRACKET + checkStringQuotationMarks(text) + RBRACKET;
+        } else {
+            newString = QUOTATION_MARK + checkStringQuotationMarks(text) + QUOTATION_MARK;
+        }
+        return widenSQLRestrict(newString, quoteStyle);
+    }
+    
     /**
      * DOC qiang.zhang Comment method "widenRestrict".
      * 
@@ -82,7 +108,7 @@ public class TalendTextUtils {
      * @param quoteStyle
      * @return
      */
-    private static String widenRestrict(String newString, String quoteStyle) {
+    private static String widenSQLRestrict(String newString, String quoteStyle) {
         String after = "";
         final String[] split = newString.split("\n");
         for (int i = 0; i < split.length; i++) {
