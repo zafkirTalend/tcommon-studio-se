@@ -29,6 +29,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 
 /**
  * class global comment. Detailled comment <br/>
@@ -114,9 +115,7 @@ public class FunctionManager {
 
 
     public static boolean isJavaProject() {
-        RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
-                Context.REPOSITORY_CONTEXT_KEY);
-        ECodeLanguage codeLanguage = repositoryContext.getProject().getLanguage();
+        ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         return (codeLanguage == ECodeLanguage.JAVA);
     }
 
