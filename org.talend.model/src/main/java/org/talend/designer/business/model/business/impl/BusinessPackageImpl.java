@@ -958,8 +958,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEReference(getBusinessItem_Assignments(), this.getBusinessAssignment(), this.getBusinessAssignment_BusinessItem(), "assignments", null, 0, -1, BusinessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(baseBusinessItemRelationshipEClass, BaseBusinessItemRelationship.class, "BaseBusinessItemRelationship", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getBaseBusinessItemRelationship_Source(), this.getBusinessItemShape(), this.getBusinessItemShape_OutgoingRelationships(), "source", null, 1, 1, BaseBusinessItemRelationship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getBaseBusinessItemRelationship_Target(), this.getBusinessItemShape(), this.getBusinessItemShape_IncomingRelationships(), "target", null, 1, 1, BaseBusinessItemRelationship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getBaseBusinessItemRelationship_Source(), this.getBusinessItemShape(), this.getBusinessItemShape_OutgoingRelationships(), "source", null, 0, 1, BaseBusinessItemRelationship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getBaseBusinessItemRelationship_Target(), this.getBusinessItemShape(), this.getBusinessItemShape_IncomingRelationships(), "target", null, 0, 1, BaseBusinessItemRelationship.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(businessItemRelationshipEClass, BusinessItemRelationship.class, "BusinessItemRelationship", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

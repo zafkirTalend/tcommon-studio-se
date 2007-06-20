@@ -54,10 +54,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BaseBusinessItemRelationship" abstract="true"
       eSuperTypes="#//BusinessItem">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"
-        eType="#//BusinessItemShape" eOpposite="#//BusinessItemShape/outgoingRelationships"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
-        eType="#//BusinessItemShape" eOpposite="#//BusinessItemShape/incomingRelationships"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" eType="#//BusinessItemShape"
+        eOpposite="#//BusinessItemShape/outgoingRelationships"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="target" eType="#//BusinessItemShape"
+        eOpposite="#//BusinessItemShape/incomingRelationships"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusinessItemRelationship" eSuperTypes="#//BaseBusinessItemRelationship"/>
   <eClassifiers xsi:type="ecore:EClass" name="DirectionalBusinessItemRelationship"

@@ -45,7 +45,7 @@ public interface BaseBusinessItemRelationship extends BusinessItem {
      * @see #setSource(BusinessItemShape)
      * @see org.talend.designer.business.model.business.BusinessPackage#getBaseBusinessItemRelationship_Source()
      * @see org.talend.designer.business.model.business.BusinessItemShape#getOutgoingRelationships
-     * @model opposite="outgoingRelationships" required="true"
+     * @model opposite="outgoingRelationships"
      * @generated
      */
     BusinessItemShape getSource();
@@ -73,7 +73,7 @@ public interface BaseBusinessItemRelationship extends BusinessItem {
      * @see #setTarget(BusinessItemShape)
      * @see org.talend.designer.business.model.business.BusinessPackage#getBaseBusinessItemRelationship_Target()
      * @see org.talend.designer.business.model.business.BusinessItemShape#getIncomingRelationships
-     * @model opposite="incomingRelationships" required="true"
+     * @model opposite="incomingRelationships"
      * @generated
      */
     BusinessItemShape getTarget();

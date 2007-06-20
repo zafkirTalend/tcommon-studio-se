@@ -3181,7 +3181,7 @@ public interface BusinessPackage extends EPackage {
          */
         EClass CONTEXT = eINSTANCE.getContext();
 
-            /**
+        /**
          * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.FileXmlMetadataImpl <em>File Xml Metadata</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
