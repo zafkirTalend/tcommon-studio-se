@@ -29,7 +29,7 @@ import org.eclipse.emf.common.util.EList;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
-import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextListener;
 import org.talend.core.model.process.IContextManager;
@@ -217,7 +217,7 @@ public class JobContextManager implements IContextManager {
                 if (curLanguage == ECodeLanguage.JAVA) {
                     exists = true;
                     try {
-                        JavaTypesManager.getJavaTypeFromId(contextParamType.getType());
+                        ContextParameterJavaTypeManager.getJavaTypeFromId(contextParamType.getType());
                     } catch (IllegalArgumentException e) {
                         exists = false;
                     }
