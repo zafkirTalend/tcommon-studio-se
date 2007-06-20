@@ -72,7 +72,7 @@ public class TalendTextUtils {
         } else {
             newString = QUOTATION_MARK + checkStringQuotationMarks(text) + QUOTATION_MARK;
         }
-        return widenRestrict(newString, quoteStyle);
+        return newString;
     }
 
     /**
