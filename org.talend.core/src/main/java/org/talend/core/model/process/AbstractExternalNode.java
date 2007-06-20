@@ -67,14 +67,14 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
      */
     public void metadataInputChanged(IODataComponent dataComponent, String connectionToApply) {
         for (ColumnNameChanged col : dataComponent.getColumnNameChanged()) {
-            System.out.println("    -> " + col + " " + connectionToApply); //$NON-NLS-1$ //$NON-NLS-2$
+//            System.out.println("    -> " + col + " " + connectionToApply); //$NON-NLS-1$ //$NON-NLS-2$
             this.renameMetadataColumnName(connectionToApply, col.getOldName(), col.getNewName());
         }
     }
 
     public void metadataOutputChanged(IODataComponent dataComponent, String connectionToApply) {
         for (ColumnNameChanged col : dataComponent.getColumnNameChanged()) {
-            System.out.println("    -> " + col + " " + connectionToApply); //$NON-NLS-1$ //$NON-NLS-2$
+//            System.out.println("    -> " + col + " " + connectionToApply); //$NON-NLS-1$ //$NON-NLS-2$
             this.renameMetadataColumnName(connectionToApply, col.getOldName(), col.getNewName());
         }
     }
