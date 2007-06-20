@@ -27,16 +27,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.util.IPropertyChangeListener;
+import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
+import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -45,7 +52,9 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
@@ -53,10 +62,15 @@ import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.swt.widgets.Text;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
+import org.talend.commons.ui.swt.tableviewer.celleditor.DateCellEditor;
+import org.talend.commons.ui.swt.tableviewer.celleditor.DateDialog;
+import org.talend.commons.ui.swt.tableviewer.celleditor.DirectoryCellEditor;
+import org.talend.commons.ui.swt.tableviewer.celleditor.FileCellEditor;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.context.RepositoryContext;
@@ -66,6 +80,8 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.context.JobContext;
 import org.talend.core.model.context.JobContextParameter;
 import org.talend.core.model.metadata.MetadataTalendType;
+import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
+import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
@@ -76,7 +92,7 @@ import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
 import org.talend.repository.model.RepositoryConstants;
 
 /**
- * DOC nrousseau class global comment. Detailled comment <br/>
+ * nrousseau class global comment. Detailled comment <br/>
  * 
  * $Id: talend-code-templates.xml 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
@@ -97,6 +113,8 @@ public abstract class JobContextComposite extends Composite {
 
     private static final int PROMPT_COLUMN_WIDTH = 120;
 
+    private TableViewerCreatorColumn columnDefault;
+
     private static final int TYPE_COLUMN_WIDTH = 80;
 
     private static final int VALUE_COLUMN_WIDTH = 140;
@@ -108,6 +126,10 @@ public abstract class JobContextComposite extends Composite {
     private Map<String, Object> hashCurControls;
 
     private static final String NEW_PARAM_NAME = "new"; //$NON-NLS-1$
+
+    private static final String ID_DEFAULT = "id_columnDefault";
+
+    private static final int CNUM_DEFAULT = 4;
 
     private Map<IContext, TableViewerCreator> tableViewerCreatorMap;
 
@@ -262,19 +284,70 @@ public abstract class JobContextComposite extends Composite {
     };
 
     JavaTypeComboValueAdapter<IContextParameter> javaComboCellEditorValueAdapter = new JavaTypeComboValueAdapter<IContextParameter>(
-            JavaTypesManager.getDefaultJavaType(), nullableAccessors) {
+            ContextParameterJavaTypeManager.getDefaultJavaType(), nullableAccessors) {
 
         @Override
         public Object getCellEditorTypedValue(CellEditor cellEditor, Object originalTypedValue) {
             oldCellEditorValue = originalTypedValue;
             oldContext = getSelectedContext().clone();
-            return super.getCellEditorTypedValue(cellEditor, originalTypedValue);
+            String[] items = ((ComboBoxCellEditor) cellEditor).getItems();
+
+            JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId((String) originalTypedValue);
+
+            String label = javaType.getLabel();
+
+            if (originalTypedValue == null && ContextParameterJavaTypeManager.getDefaultJavaType() != null) {
+                label = ContextParameterJavaTypeManager.getDefaultJavaType().getLabel();
+            }
+
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(label)) {
+                    return i;
+                }
+            }
+            return -1;
         }
 
         @Override
         public Object getOriginalTypedValue(CellEditor cellEditor, Object cellEditorTypedValue) {
             newCellEditorValue = cellEditorTypedValue;
-            return super.getOriginalTypedValue(cellEditor, cellEditorTypedValue);
+            JavaType[] javaTypes = ContextParameterJavaTypeManager.getJavaTypes();
+            int i = (Integer) cellEditorTypedValue;
+            if (i >= 0) {
+                return javaTypes[i].getId();
+            }
+            // else {
+            // return null;
+            // }
+            throw new IllegalStateException("No selection is invalid"); //$NON-NLS-1$
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter#getColumnText(org.eclipse.jface.viewers.CellEditor,
+         * java.lang.Object, java.lang.Object)
+         */
+        @Override
+        public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {
+            JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId((String) originalTypedValue);
+
+            Class primitiveClass = javaType.getPrimitiveClass();
+            Boolean nullable = nullableAccessors.get((IContextParameter) bean);
+            String displayedValue = null;
+            if (primitiveClass != null && !nullable.equals(Boolean.TRUE)) {
+                displayedValue = primitiveClass.getSimpleName();
+            } else if (originalTypedValue.equals(JavaTypesManager.DIRECTORY.getId())
+                    || originalTypedValue.equals(JavaTypesManager.FILE.getId())) {
+                displayedValue = javaType.getLabel();
+            } else {
+                displayedValue = javaType.getNullableClass().getSimpleName();
+            }
+
+            if (displayedValue == null && ContextParameterJavaTypeManager.getDefaultJavaType() != null) {
+                displayedValue = ContextParameterJavaTypeManager.getDefaultJavaType().getLabel();
+            }
+            return displayedValue;
         }
 
     };
@@ -340,6 +413,7 @@ public abstract class JobContextComposite extends Composite {
                     }
                 }
             }
+
         }
     };
 
@@ -368,9 +442,9 @@ public abstract class JobContextComposite extends Composite {
                 if (!returnValue.equals("") && Pattern.matches(RepositoryConstants.CODE_ITEM_PATTERN, returnValue)) { //$NON-NLS-1$
                     createContext(returnValue);
                 } else {
-                    MessageDialog.openWarning(new Shell(), Messages.getString(Messages
-                            .getString("ContextProcessSection.50")), Messages //$NON-NLS-1$
-                            .getString(Messages.getString("ContextProcessSection.51"))); //$NON-NLS-1$
+                    MessageDialog.openWarning(new Shell(),
+                            Messages.getString(Messages.getString("ContextProcessSection.50")), Messages //$NON-NLS-1$
+                                    .getString(Messages.getString("ContextProcessSection.51"))); //$NON-NLS-1$
                 }
             }
         }
@@ -388,9 +462,9 @@ public abstract class JobContextComposite extends Composite {
                 if (!newName.equals("") && Pattern.matches(RepositoryConstants.CODE_ITEM_PATTERN, newName)) { //$NON-NLS-1$
                     renameContext(contextName, newName);
                 } else {
-                    MessageDialog.openWarning(new Shell(), Messages.getString(Messages
-                            .getString("ContextProcessSection.52")), Messages //$NON-NLS-1$
-                            .getString(Messages.getString("ContextProcessSection.53"))); //$NON-NLS-1$
+                    MessageDialog.openWarning(new Shell(),
+                            Messages.getString(Messages.getString("ContextProcessSection.52")), Messages //$NON-NLS-1$
+                                    .getString(Messages.getString("ContextProcessSection.53"))); //$NON-NLS-1$
                 }
             }
         }
@@ -403,10 +477,13 @@ public abstract class JobContextComposite extends Composite {
             TableViewerCreator tableViewerCreator = tableViewerCreatorMap.get(selectedContext);
             Table table = tableViewerCreator.getTable();
             final TableItem[] tableItems = table.getSelection();
+            if (tableItems.length < 1) {
+                return;
+            }
             TableItem tableItem = tableItems[0];
             String paramName = ((IContextParameter) tableItem.getData()).getName();
-            onContextRemoveParameter(jobContextManager, paramName);
             table.deselectAll();
+            onContextRemoveParameter(jobContextManager, paramName);
             removeButtons.get(selectedContext).setEnabled(false);
         }
     };
@@ -434,15 +511,15 @@ public abstract class JobContextComposite extends Composite {
         contextParam.setName(paramName);
         ECodeLanguage curLanguage = LanguageManager.getCurrentLanguage();
         if (curLanguage == ECodeLanguage.JAVA) {
-            contextParam.setType(JavaTypesManager.getDefaultJavaType().getId());
+            contextParam.setType(ContextParameterJavaTypeManager.getDefaultJavaType().getId());
         } else {
             contextParam.setType(MetadataTalendType.getDefaultTalendType());
         }
         contextParam.setPrompt(paramName + "?"); //$NON-NLS-1$
         String defaultValue;
         if (curLanguage == ECodeLanguage.JAVA) {
-            defaultValue = JavaTypesManager.getDefaultValueFromJavaIdType(
-                    JavaTypesManager.getDefaultJavaType().getId(), false);
+            defaultValue = ContextParameterJavaTypeManager.getDefaultValueFromJavaIdType(ContextParameterJavaTypeManager
+                    .getDefaultJavaType().getId(), false);
         } else {
             defaultValue = TalendTextUtils.addQuotes(""); //$NON-NLS-1$
         }
@@ -573,11 +650,11 @@ public abstract class JobContextComposite extends Composite {
         checkBtn.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_BEGINNING));
         checkBtn.addSelectionListener(listenerSelection);
         checkBtn.setEnabled(!isReadOnly());
+        checkBtn.setSelection(context.isConfirmationNeeded());
 
         Composite buttonParameterComposite = new Composite(buttonComposite, SWT.NONE);
         buttonParameterComposite.setLayout(new GridLayout(3, false));
-        buttonParameterComposite
-                .setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_CENTER | GridData.GRAB_HORIZONTAL));
+        buttonParameterComposite.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_CENTER | GridData.GRAB_HORIZONTAL));
         CLabel label = new CLabel(buttonParameterComposite, SWT.NONE);
         label.setText(Messages.getString("ContextProcessSection.parametersLabel")); //$NON-NLS-1$
         label.setAlignment(SWT.RIGHT);
@@ -643,18 +720,10 @@ public abstract class JobContextComposite extends Composite {
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
 
         final Table table = tableViewerCreator.createTable();
-        table.addSelectionListener(new SelectionListener() {
 
-            public void widgetDefaultSelected(SelectionEvent e) {
-            }
-
-            public void widgetSelected(SelectionEvent e) {
-                removeParameter.setEnabled(!isReadOnly());
-            }
-        });
         removeParameter.addListener(SWT.Selection, removeParameterListener);
-        table.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL | GridData.HORIZONTAL_ALIGN_FILL
-                | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL));
+        table.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL | GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL
+                | GridData.GRAB_VERTICAL));
 
         if (!isReadOnly()) {
             Menu menuTable;
@@ -668,7 +737,7 @@ public abstract class JobContextComposite extends Composite {
 
         addTableColumns(tableViewerCreator, table);
 
-        List<IContextParameter> listContextParam = context.getContextParameterList();
+        final List<IContextParameter> listContextParam = context.getContextParameterList();
         tableViewerCreator.init(listContextParam);
 
         TableItem tableItem;
@@ -685,16 +754,36 @@ public abstract class JobContextComposite extends Composite {
             }
         }
 
-        TableEditorManager tableEditorManager = new TableEditorManager(tableViewerCreator);
+        final TableEditorManager tableEditorManager = new TableEditorManager(tableViewerCreator);
         tableEditorManager.init();
         tabItem.setControl(contextComposite);
         if (context.getName().equals(jobContextManager.getDefaultContext().getName())) {
             tabFolder.setSelection(tabItem);
             removeContext.setEnabled(false);
         }
+
+        table.addSelectionListener(new SelectionListener() {
+
+            public void widgetDefaultSelected(SelectionEvent e) {
+            }
+
+            public void widgetSelected(SelectionEvent e) {
+                /*
+                 * TableItem item = (TableItem) e.item; if (item == null) { return; }
+                 * 
+                 * final IContextParameter object = (IContextParameter) item.getData(); final CellEditor cellEditor =
+                 * getCellEditor(table, object.getType()); final List<TableEditor> tableEditorList =
+                 * tableEditorManager.getTableEditorList(); final TableEditor tableEditor =
+                 * tableEditorList.get(table.getSelectionIndex()); tableEditor.setEditor(cellEditor.getControl(), item,
+                 * 5); tableViewerCreator.getTableViewer().refresh(); // columnDefault.setCellEditor(cellEditor); //
+                 * tableViewerCreator.attachCellEditors();
+                 */
+                removeParameter.setEnabled(!isReadOnly());
+                }
+        });
     }
 
-    private void addTableColumns(final TableViewerCreator tableViewerCreator, Table table) {
+    private void addTableColumns(final TableViewerCreator tableViewerCreator, final Table table) {
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("ContextProcessSection.prompt")); //$NON-NLS-1$
         column.setModifiable(true);
@@ -755,12 +844,16 @@ public abstract class JobContextComposite extends Composite {
                     IContext context = getSelectedContext();
                     onContextModify(jobContextManager, oldContext, context);
                 }
+                /*
+                 * columnDefault.setCellEditor(getCellEditor(table, value)); tableViewerCreator.attachCellEditors();
+                 */
             }
         });
         column.setModifiable(true);
         column.setWidth(TYPE_COLUMN_WIDTH);
 
-        ComboBoxCellEditor comboBoxCellEditor = new ComboBoxCellEditor(table, MetadataTalendType.getTalendTypesLabels());
+        ComboBoxCellEditor comboBoxCellEditor = new ComboBoxCellEditor(table, MetadataTalendType
+                .getCxtParameterTalendTypesLabels());
         CellEditorValueAdapter comboValueAdapter = null;
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
@@ -773,9 +866,10 @@ public abstract class JobContextComposite extends Composite {
         ((CCombo) comboBoxCellEditor.getControl()).setEditable(false);
         // //////////////////////////////////////////////////////////
 
-        column = new TableViewerCreatorColumn(tableViewerCreator);
-        column.setTitle(Messages.getString("ContextProcessSection.45")); //$NON-NLS-1$
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
+        columnDefault = new TableViewerCreatorColumn(tableViewerCreator);
+        columnDefault.setId(ID_DEFAULT);
+        columnDefault.setTitle(Messages.getString("ContextProcessSection.45")); //$NON-NLS-1$
+        columnDefault.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
 
             public String get(IContextParameter bean) {
                 return bean.getValue();
@@ -789,11 +883,57 @@ public abstract class JobContextComposite extends Composite {
                 }
             }
         });
-        column.setModifiable(true);
-        column.setWidth(VALUE_COLUMN_WIDTH);
-        textCellEditor = new TextCellEditor(table);
-        column.setCellEditor(textCellEditor, setDirtyValueAdapter);
+        columnDefault.setModifiable(true);
+        columnDefault.setWidth(VALUE_COLUMN_WIDTH);
+        TextCellEditor textCellEditor2 = new TextCellEditor(table);
+        columnDefault.setCellEditor(textCellEditor2, setDirtyValueAdapter);
+        textCellEditor2.getControl().addMouseListener(new MouseAdapter() {
 
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.swt.events.MouseAdapter#mouseDoubleClick(org.eclipse.swt.events.MouseEvent)
+             */
+            @Override
+            public void mouseDoubleClick(MouseEvent e) {
+                final TableItem[] selection = tableViewerCreator.getTable().getSelection();
+                if (selection.length > 0) {
+                    TableItem item = selection[0];
+                    if (item.getData() instanceof JobContextParameter) {
+                        JobContextParameter parameter = (JobContextParameter) item.getData();
+                        String id = parameter.getType();
+                        if (e.getSource() instanceof Text) {
+                            Text text = (Text) e.getSource();
+                            if (id.equals(JavaTypesManager.FILE.getId())) {
+                                FileDialog d = new FileDialog(text.getShell());
+                                String open = d.open();
+                                if (open != null) {
+                                    open = open.replaceAll("\\\\", "/");
+                                    parameter.setValue(open);
+                                }
+                            } else if (id.equals(JavaTypesManager.DIRECTORY.getId())) {
+                                DirectoryDialog d = new DirectoryDialog(text.getShell());
+                                String open = d.open();
+                                if (open != null) {
+                                    open = open.replaceAll("\\\\", "/");
+                                    parameter.setValue(open);
+                                }
+                            } else if (id.equals(JavaTypesManager.DATE.getId())) {
+                                DateDialog d = new DateDialog(text.getShell());
+                                int res = d.open();
+                                if (res == Dialog.OK) {
+                                    parameter.setValue(d.getTalendDateString());
+                                }
+                            }
+                            tableViewerCreator.refreshTableEditorControls();
+                            tableViewerCreator.getTableViewer().refresh();
+                        }
+                    }
+                }
+            }
+
+        });
+        // ///////////////////////////////////////////////////////////////
         column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("ContextProcessSection.47")); //$NON-NLS-1$
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
@@ -818,9 +958,8 @@ public abstract class JobContextComposite extends Composite {
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
 
             public String get(IContextParameter bean) {
-                return ContextParameterUtils.getScriptCode(bean, ((RepositoryContext) org.talend.core.CorePlugin
-                        .getContext().getProperty(org.talend.core.context.Context.REPOSITORY_CONTEXT_KEY)).getProject()
-                        .getLanguage());
+                return ContextParameterUtils.getScriptCode(bean, ((RepositoryContext) org.talend.core.CorePlugin.getContext()
+                        .getProperty(org.talend.core.context.Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage());
             }
 
             public void set(IContextParameter bean, String value) {
@@ -854,9 +993,15 @@ public abstract class JobContextComposite extends Composite {
         CCombo combo = new CCombo(composite, SWT.BORDER);
         combo.setEditable(false);
         hashCurControls.put(DEFAULT_CONTEXT, combo);
-        String[] stringList = new String[jobContextManager.getListContext().size()];
-        for (int i = 0; i < jobContextManager.getListContext().size(); i++) {
-            stringList[i] = jobContextManager.getListContext().get(i).getName();
+        String[] stringList = null;
+        if (jobContextManager != null) {
+            stringList = new String[jobContextManager.getListContext().size()];
+            for (int i = 0; i < jobContextManager.getListContext().size(); i++) {
+                stringList[i] = jobContextManager.getListContext().get(i).getName();
+            }
+        } else {
+            stringList = new String[0];
+            setReadOnly(true);
         }
         combo.setItems(stringList);
         combo.addSelectionListener(listenerSelection);
@@ -876,14 +1021,16 @@ public abstract class JobContextComposite extends Composite {
         tableViewerCreatorMap = new HashMap<IContext, TableViewerCreator>();
         removeButtons = new HashMap<IContext, Button>();
 
-        for (int i = 0; i < jobContextManager.getListContext().size(); i++) {
-            context = jobContextManager.getListContext().get(i);
-            addContext(context);
+        if (jobContextManager != null) {
+            for (int i = 0; i < jobContextManager.getListContext().size(); i++) {
+                context = jobContextManager.getListContext().get(i);
+                addContext(context);
+            }
         }
     }
 
     public void refresh() {
-        if (hashCurControls == null) {
+        if (hashCurControls == null || jobContextManager == null) {
             return;
         }
         CCombo combo = (CCombo) hashCurControls.get(DEFAULT_CONTEXT);
@@ -891,8 +1038,7 @@ public abstract class JobContextComposite extends Composite {
         combo.clearSelection();
 
         for (int i = 0; i < jobContextManager.getListContext().size(); i++) {
-            TableViewerCreator tableViewerCreator = tableViewerCreatorMap
-                    .get(jobContextManager.getListContext().get(i));
+            TableViewerCreator tableViewerCreator = tableViewerCreatorMap.get(jobContextManager.getListContext().get(i));
             tableViewerCreator.getTableViewer().refresh();
 
             Table table = tableViewerCreator.getTable();
@@ -900,8 +1046,7 @@ public abstract class JobContextComposite extends Composite {
             for (int j = 0; j < table.getItemCount(); j++) {
                 tableItem = table.getItem(j);
                 String paramName = ((IContextParameter) tableItem.getData()).getName();
-                List<IContextParameter> listParams = jobContextManager.getListContext().get(i)
-                        .getContextParameterList();
+                List<IContextParameter> listParams = jobContextManager.getListContext().get(i).getContextParameterList();
                 boolean paramNameFound = false;
                 for (int k = 0; k < listParams.size() && !paramNameFound; k++) {
                     if (paramName.equals(listParams.get(k).getName())) {
@@ -939,5 +1084,25 @@ public abstract class JobContextComposite extends Composite {
 
     public boolean isReadOnly() {
         return readOnly;
+    }
+
+    /**
+     * qiang.zhang Comment method "updateCellEditor".
+     * 
+     * @param table
+     * @param value
+     */
+    private CellEditor getCellEditor(final Table table, String value) {
+        if (value == null) {
+            return new TextCellEditor(table);
+        } else if (value.equals(JavaTypesManager.FILE.getId())) {
+            return new FileCellEditor(table);
+        } else if (value.equals(JavaTypesManager.DATE.getId())) {
+            return new DateCellEditor(table);
+        } else if (value.equals(JavaTypesManager.DIRECTORY.getId())) {
+            return new DirectoryCellEditor(table);
+        } else {
+            return new TextCellEditor(table);
+        }
     }
 }
