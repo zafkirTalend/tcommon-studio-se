@@ -1749,13 +1749,41 @@ public interface PropertiesPackage extends EPackage {
     int SPAGO_BI_SERVER_FEATURE_COUNT = 7;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.LicenseImpl <em>License</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.LicenseImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getLicense()
+     * @generated
+     */
+    int LICENSE = 29;
+
+    /**
+     * The feature id for the '<em><b>License</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LICENSE__LICENSE = 0;
+
+    /**
+     * The number of structural features of the '<em>License</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LICENSE_FEATURE_COUNT = 1;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 29;
+    int FOLDER_TYPE = 30;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -1765,7 +1793,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 30;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 31;
 
 
     /**
@@ -2987,6 +3015,27 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getSpagoBiServer_ApplicationContext();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.License <em>License</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>License</em>'.
+     * @see org.talend.core.model.properties.License
+     * @generated
+     */
+    EClass getLicense();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.License#getLicense <em>License</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>License</em>'.
+     * @see org.talend.core.model.properties.License#getLicense()
+     * @see #getLicense()
+     * @generated
+     */
+    EAttribute getLicense_License();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -4058,6 +4107,24 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute SPAGO_BI_SERVER__APPLICATION_CONTEXT = eINSTANCE.getSpagoBiServer_ApplicationContext();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.LicenseImpl <em>License</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.LicenseImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getLicense()
+         * @generated
+         */
+        EClass LICENSE = eINSTANCE.getLicense();
+
+        /**
+         * The meta object literal for the '<em><b>License</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LICENSE__LICENSE = eINSTANCE.getLicense_License();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

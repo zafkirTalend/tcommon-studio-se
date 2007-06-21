@@ -104,6 +104,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.USER_PROJECT_AUTHORIZATION: return createUserProjectAuthorization();
             case PropertiesPackage.CONTEXT_ITEM: return createContextItem();
             case PropertiesPackage.SPAGO_BI_SERVER: return createSpagoBiServer();
+            case PropertiesPackage.LICENSE: return createLicense();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -379,6 +380,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public SpagoBiServer createSpagoBiServer() {
         SpagoBiServerImpl spagoBiServer = new SpagoBiServerImpl();
         return spagoBiServer;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public License createLicense() {
+        LicenseImpl license = new LicenseImpl();
+        return license;
     }
 
     /**

@@ -243,6 +243,15 @@ public interface PropertiesFactory extends EFactory {
     SpagoBiServer createSpagoBiServer();
 
     /**
+     * Returns a new object of class '<em>License</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>License</em>'.
+     * @generated
+     */
+    License createLicense();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.
