@@ -49,6 +49,7 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.repository.constants.FileConstants;
 import org.talend.repository.localprovider.model.ResourceFilenameHelper.FileName;
 import org.talend.repository.model.URIHelper;
 
@@ -64,9 +65,9 @@ public class XmiResourceManager {
 
     public static final String ITEM_EXTENSION = "item"; //$NON-NLS-1$
 
-    private static final String OLD_PROJECT_FILENAME = "talendProject";//$NON-NLS-1$
+    private static final String OLD_PROJECT_FILENAME = "talendProject"; //$NON-NLS-1$
 
-    private static final String PROJECT_FILENAME = "talend.project";//$NON-NLS-1$
+    private static final String PROJECT_FILENAME = FileConstants.LOCAL_PROJECT_FILENAME;
 
     // PTODO mhelleboid should use a custom ResourceFactory
     // PTODO mhelleboid test duplicate resourcesUri in resourceSet !
