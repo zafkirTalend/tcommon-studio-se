@@ -21,11 +21,8 @@
 // ============================================================================
 package org.talend.repository.localprovider.ui.wizard;
 
-import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -40,11 +37,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -82,12 +74,8 @@ import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
 import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
 import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.core.model.properties.FileItem;
-import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
-import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
-import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
@@ -99,8 +87,8 @@ import org.talend.repository.model.ProxyRepositoryFactory;
  */
 public class ImportItemWizardPage extends WizardPage {
 
-    private XmiResourceManager xmiResourceManager = new XmiResourceManager();
-
+    private RepositoryUtil repositoryUtil = new RepositoryUtil();
+    
     private Button itemFromDirectoryRadio;
 
     private Text directoryPathField;
@@ -597,27 +585,7 @@ public class ImportItemWizardPage extends WizardPage {
         List validItems = new ArrayList();
         for (int i = 0; i < selectedItems.length; i++) {
             ItemRecord itemRecord = selectedItems[i];
-            try {
-                boolean nameAvailable = ProxyRepositoryFactory.getInstance().isNameAvailable(itemRecord.getItem(),
-                        itemRecord.getItem().getProperty().getLabel());
-                boolean idAvailable = ProxyRepositoryFactory.getInstance().getLastVersion(
-                        itemRecord.getItem().getProperty().getId()) == null;
-                
-                boolean isSystemRoutine = false;
-                //we do not import built in routines
-                if (itemRecord.getItem().eClass().equals(PropertiesPackage.eINSTANCE.getRoutineItem())) {
-                    RoutineItem routineItem = (RoutineItem) itemRecord.getItem();
-                    if (routineItem.isBuiltIn()) {
-                        isSystemRoutine = true;
-                    }
-                }
-                
-                if (nameAvailable && idAvailable && !isSystemRoutine) {
-                    validItems.add(itemRecord);
-                }
-            } catch (PersistenceException e) {
-                // ignore
-            }
+            repositoryUtil.populateValidItems(validItems, itemRecord);
         }
         return (ItemRecord[]) validItems.toArray(new ItemRecord[validItems.size()]);
     }
@@ -627,11 +595,11 @@ public class ImportItemWizardPage extends WizardPage {
 
         try {
             IRunnableWithProgress op = new IRunnableWithProgress() {
-                private boolean errors = false;
-
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
                     monitor.beginTask(
                             Messages.getString("ImportItemWizardPage.ImportSelectedItems"), checkedElements.length + 1); //$NON-NLS-1$
+                    
+                    repositoryUtil.setErrors(false);
                     
                     for (int i = 0; i < checkedElements.length; i++) {
                         if (!monitor.isCanceled()) {
@@ -639,7 +607,7 @@ public class ImportItemWizardPage extends WizardPage {
 
                             monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
 
-                            importItemRecord(itemRecord);
+                            repositoryUtil.importItemRecord(itemRecord);
                             
                             monitor.worked(1);
                         }
@@ -647,61 +615,9 @@ public class ImportItemWizardPage extends WizardPage {
                     
                     monitor.done();
                     
-                    if (errors) {
+                    if (repositoryUtil.hasErrors()) {
                         throw new InvocationTargetException(new PersistenceException("")); //$NON-NLS-N$
                     }
-                }
-
-                private void importItemRecord(ItemRecord itemRecord) {
-                    itemRecord.resolveItem();
-                    if (itemRecord.getItem() != null) {
-                        ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
-                        IPath path = new Path(itemRecord.getItem().getState().getPath());
-
-                        List<String> folders = null;
-                        try {
-                            folders = ProxyRepositoryFactory.getInstance().getFolders(itemType);
-                        } catch (Exception e) {
-                            logError(e);
-                        }
-                        
-                        boolean foldersCreated = true;
-                        
-                        try {
-                            for (int i = 0; i < path.segmentCount(); i++) {
-                                IPath parentPath = path.removeLastSegments(path.segmentCount() - i);
-                                String folderLabel = path.segment(i);
-                                
-                                String folderName = parentPath.append(folderLabel).toString();
-                                if (!folders.contains(folderName)) {
-                                    ProxyRepositoryFactory.getInstance().createFolder(itemType,
-                                            parentPath, folderLabel);
-                                }
-                            }
-                        } catch (Exception e) {
-                            foldersCreated = false;
-                            logError(e);
-                        }
-                        
-                        if (!foldersCreated) {
-                            path = new Path(""); //$NON-NLS-1$
-                        }
-                        
-                        try {
-                            ProxyRepositoryFactory.getInstance().create(itemRecord.getItem(), path);
-                        } catch (Exception e) {
-                            logError(e);
-                        }
-                        
-                    }
-                }
-
-                private void logError(Exception e) {
-                    errors = true;
-                    IStatus status;
-                    String messageStatus = e.getMessage() != null ? e.getMessage() : ""; //$NON-NLS-1$
-                    status = new Status(IStatus.ERROR, RepositoryLocalProviderPlugin.PLUGIN_ID, IStatus.OK, messageStatus, e); 
-                    RepositoryLocalProviderPlugin.getDefault().getLog().log(status);
                 }
             };
             new ProgressMonitorDialog(getShell()).run(true, true, op);
@@ -736,12 +652,15 @@ public class ImportItemWizardPage extends WizardPage {
         final String dotProject = IProjectDescription.DESCRIPTION_FILE_NAME;
         for (int i = 0; i < contents.length; i++) {
             File file = contents[i];
-            if (file.isFile() && xmiResourceManager.isPropertyFile(file)) {
+            String absolutePath = file.getAbsolutePath();
+
+            if (file.isFile() && repositoryUtil.isPropertyFile(file)) {
                 for (int j = 0; j < contents.length; j++) {
                     File file2 = contents[j];
-                    if (file.getAbsolutePath().replace(XmiResourceManager.PROPERTIES_EXTENSION,
-                            XmiResourceManager.ITEM_EXTENSION).equals(file2.getAbsolutePath())) {
-                        files.add(new ItemRecord(file, file2));
+                    String absolutePath2 = file2.getAbsolutePath();
+                    
+                    if (repositoryUtil.isItemAndPropertyFile(absolutePath, absolutePath2)) {
+                        files.add(new ItemRecord(this, file, file2));
                     }
                 }
             }
@@ -777,15 +696,13 @@ public class ImportItemWizardPage extends WizardPage {
             }
 
             String elementLabel = provider.getLabel(child);
-            if (xmiResourceManager.isPropertyFile(elementLabel)) {
+            if (repositoryUtil.isPropertyFile(elementLabel)) {
                 Iterator childrenEnum2 = children.iterator();
                 while (childrenEnum2.hasNext()) {
                     Object child2 = childrenEnum2.next();
                     String elementLabel2 = provider.getLabel(child2);
 
-                    if (elementLabel
-                            .replace(XmiResourceManager.PROPERTIES_EXTENSION, XmiResourceManager.ITEM_EXTENSION)
-                            .equals(elementLabel2)) {
+                    if (repositoryUtil.isItemAndPropertyFile(elementLabel, elementLabel2)) {
                         files.add(new ItemRecord(child, child2, entry, level, provider));
                     }
                 }
@@ -793,137 +710,4 @@ public class ImportItemWizardPage extends WizardPage {
         }
         return true;
     }
-
-    /**
-     */
-    public class ItemRecord {
-
-        File itemSystemFile;
-
-        File itemSystemFile2;
-
-        Object itemArchiveFile;
-
-        Object itemArchiveFile2;
-
-        String itemName;
-
-        Object parent;
-
-        int level;
-
-        IImportStructureProvider provider;
-
-        private boolean valid = false;
-
-        private Property property;
-
-        ItemRecord(File file, File file2) {
-            itemSystemFile = file;
-            itemSystemFile2 = file2;
-            computeProperty();
-        }
-
-        public boolean isValid() {
-            return valid;
-        }
-
-        ItemRecord(Object file, Object file2, Object parent, int level, IImportStructureProvider entryProvider) {
-            this.itemArchiveFile = file;
-            this.itemArchiveFile2 = file2;
-            this.parent = parent;
-            this.level = level;
-            this.provider = entryProvider;
-            computeProperty();
-        }
-
-        private void computeProperty() {
-            InputStream stream = null;
-            try {
-                ResourceSet resourceSet = new ResourceSetImpl();
-                Resource resource;
-                if (itemArchiveFile != null) {
-                    stream = provider.getContents(itemArchiveFile);
-                    resource = resourceSet.createResource(getURI(itemArchiveFile.toString()));
-                } else {
-                    stream = new BufferedInputStream(new FileInputStream(itemSystemFile));
-                    resource = resourceSet.createResource(getURI(itemSystemFile.toString()));
-                }
-                resource.load(stream, null);
-                Property property = (Property) EcoreUtil.getObjectByType(resource.getContents(),
-                        PropertiesPackage.eINSTANCE.getProperty());
-
-                itemName = ERepositoryObjectType.getItemType(property.getItem()).toString() + " " + property.getLabel() //$NON-NLS-1$
-                        + " " + property.getVersion(); //$NON-NLS-1$
-
-                property.setAuthor(null);
-                this.property = property;
-
-                valid = true;
-            } catch (IOException e) {
-                // ignore
-            } finally {
-                if (stream != null) {
-                    try {
-                        stream.close();
-                    } catch (IOException e) {
-                        // ignore
-                    }
-                }
-            }
-        }
-
-        private URI getURI(String path) {
-            String filename = path.substring(path.lastIndexOf(File.separator) + 1); //$NON-NLS-1$
-            return URI.createURI(filename);
-        }
-
-        public String getItemName() {
-            return itemName;
-        }
-
-        public Item getItem() {
-            return property.getItem();
-        }
-
-        public void resolveItem() {
-            InputStream stream2 = null;
-            Resource resource2;
-            ResourceSet resourceSet = property.eResource().getResourceSet();
-
-            try {
-                if (property.getItem() instanceof FileItem) {
-                    if (itemArchiveFile != null) {
-                        stream2 = provider.getContents(itemArchiveFile2);
-                        resource2 = new ByteArrayResource(getURI(itemArchiveFile2.toString()));
-                    } else {
-                        stream2 = new BufferedInputStream(new FileInputStream(itemSystemFile2));
-                        resource2 = new ByteArrayResource(getURI(itemSystemFile2.toString()));
-                    }
-                    resourceSet.getResources().add(resource2);
-                } else {
-                    if (itemArchiveFile != null) {
-                        stream2 = provider.getContents(itemArchiveFile2);
-                        resource2 = resourceSet.createResource(getURI(itemArchiveFile2.toString()));
-                    } else {
-                        stream2 = new BufferedInputStream(new FileInputStream(itemSystemFile2));
-                        resource2 = resourceSet.createResource(getURI(itemSystemFile2.toString()));
-                    }
-                }
-                resource2.load(stream2, null);
-                EcoreUtil.resolveAll(resourceSet);
-            } catch (IOException e) {
-                // ignore
-            } finally {
-                if (stream2 != null) {
-                    try {
-                        stream2.close();
-                    } catch (IOException e) {
-                        // ignore
-                    }
-                }
-            }
-        }
-    }
-
 }
