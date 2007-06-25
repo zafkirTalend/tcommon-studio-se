@@ -135,6 +135,10 @@ public class ComboFieldEditor extends FieldEditor {
         }
         return fCombo;
     }
+    
+    public String getFieldValue() {
+        return fValue;
+    }
 
     /**
      * Given the name (label) of an entry, return the corresponding value.
