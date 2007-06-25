@@ -23,6 +23,8 @@ package org.talend.commons.ui.swt.drawing.background;
 
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Image;
@@ -115,6 +117,14 @@ public class BackgroundRefresher implements IBackgroundRefresher {
                 // updateBackground(true, false);
             }
 
+        });
+        
+        drawableComposite.getBgDrawableComposite().addDisposeListener(new DisposeListener() {
+
+            public void widgetDisposed(DisposeEvent e) {
+                releaseBgImages();
+            }
+            
         });
 
     }
