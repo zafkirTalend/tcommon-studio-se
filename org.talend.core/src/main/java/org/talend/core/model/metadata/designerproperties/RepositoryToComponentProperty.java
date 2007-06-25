@@ -68,6 +68,14 @@ public class RepositoryToComponentProperty {
     public static final String MS_ACCESS = "MS_ACCESS"; //$NON-NLS-1$
     
     public static final String INGRES = "INGRES"; //$NON-NLS-1$
+    
+    public static final String INTERBASE = "INTERBASE"; //$NON-NLS-1$
+    
+    public static final String SQLITE = "SQLITE"; //$NON-NLS-1$
+    
+    public static final String FIREBIRD = "FIREBIRD"; //$NON-NLS-1$
+    
+    public static final String INFORMIX = "INFORMIX"; //$NON-NLS-1$
 
     public static Object getValue(Connection connection, String value) {
         if (connection instanceof FileConnection) {
@@ -115,6 +123,18 @@ public class RepositoryToComponentProperty {
         }
         if (dbType.equals(EDatabaseTypeName.INGRES.getDisplayName())) {
             return INGRES;
+        }
+        if (dbType.equals(EDatabaseTypeName.INTERBASE.getDisplayName())) {
+            return INTERBASE;
+        }
+        if (dbType.equals(EDatabaseTypeName.SQLITE.getDisplayName())) {
+            return SQLITE;
+        }
+        if (dbType.equals(EDatabaseTypeName.FIREBIRD.getDisplayName())) {
+            return FIREBIRD;
+        }
+        if (dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) {
+            return INFORMIX;
         }
         return ""; //$NON-NLS-1$
     }

@@ -214,6 +214,14 @@ public class TalendTextUtils {
             return QUOTATION_MARK;
         case SYBASEIQ:
             return QUOTATION_MARK;
+        case INTERBASE:
+            return QUOTATION_MARK;
+        case SQLITE:
+            return QUOTATION_MARK;
+        case FIREBIRD:
+            return QUOTATION_MARK;
+        case INFORMIX:
+            return QUOTATION_MARK;
         default:
             return QUOTATION_MARK;
         }
