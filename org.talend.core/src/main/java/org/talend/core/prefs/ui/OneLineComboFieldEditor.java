@@ -57,7 +57,7 @@ public class OneLineComboFieldEditor extends ComboFieldEditor {
         gd.horizontalSpan = numColumns;
         control.setLayoutData(gd);
         control = getComboBoxControl(parent);
-        gd = new GridData(GridData.FILL_BOTH);
+        gd = new GridData(GridData.FILL_HORIZONTAL);
         gd.horizontalSpan = numColumns;
       
         

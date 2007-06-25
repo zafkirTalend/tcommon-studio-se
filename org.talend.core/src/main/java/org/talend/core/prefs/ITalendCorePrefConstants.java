@@ -62,4 +62,6 @@ public interface ITalendCorePrefConstants {
     String PREVIEW_LIMIT = "previewLimit"; //$NON-NLS-1$
 
     String WORKSPACE_TASKS_DONE = "workspaceTasksDone"; //$NON-NLS-1$
+    
+    String RUN_IN_MULTI_THREAD = "runInMultiThread"; //$NON-NLS-1$
 }

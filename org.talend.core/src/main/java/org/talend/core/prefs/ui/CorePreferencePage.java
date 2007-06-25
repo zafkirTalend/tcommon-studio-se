@@ -32,6 +32,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.adaptor.EclipseStarter;
+import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
@@ -104,6 +105,11 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
                 getFieldEditorParent());
 
         addField(languageSelectionEditor);
+        
+        BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD, Messages
+                .getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
+                getFieldEditorParent());
+        addField(runInMultiThread);
         // ends
     }
 
