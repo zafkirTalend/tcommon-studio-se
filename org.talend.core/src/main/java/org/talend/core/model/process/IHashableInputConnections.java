@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-import java.util.List;
 
 
 /**
