@@ -47,6 +47,9 @@ import org.talend.commons.utils.workbench.preferences.ComboFieldEditor;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.utils.XmlArray;
+
+import com.sun.org.apache.xerces.internal.impl.dtd.XMLAttributeDecl;
 
 /**
  * DOC chuger class global comment. Detailled comment <br/>
@@ -115,8 +118,9 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         saveLanguageType();
         if (ok) {
             String perlInterpreter = getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
-            PerlEditorPlugin.getDefault().setExecutablePreference("\""+perlInterpreter+"\"");
-            PerlMainPreferencePage.refreshExecutableTextValue("\""+perlInterpreter+"\"");
+            PerlEditorPlugin.getDefault().setExecutablePreference("\"" + perlInterpreter + "\"");
+            PerlMainPreferencePage.refreshExecutableTextValue("\"" + perlInterpreter + "\"");
+            XmlArray.setLimitToDefault();
         }
         return ok;
     }
