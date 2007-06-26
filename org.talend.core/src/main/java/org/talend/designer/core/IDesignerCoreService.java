@@ -49,4 +49,6 @@ public interface IDesignerCoreService extends IService {
     public String getRepositoryAliasName(ConnectionItem connectionItem);
 
     public ILabelProvider getGEFEditorNodeLabelProvider();
+
+    public void switchToCurContextsView();
 }
