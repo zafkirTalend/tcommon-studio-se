@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.commons.utils.threading;
 
+import org.talend.commons.exception.ExceptionHandler;
+
 /**
  * 
  * Limit the execution of threads by verifying at call of <code>startIfExecutable</code> if the process can be
@@ -50,6 +52,14 @@ public abstract class ExecutionLimiter {
         this.timeBeforeNewExecution = timeBeforeNewExecute;
     }
 
+    /**
+     * 
+     * DOC amaumont ExecutionLimiter constructor comment.
+     * 
+     * @param timeBeforeNewExecute time max between executions
+     * @param finalExecute execute at end of time the treatment to ensure it is executed a least one time after last
+     * call of startIfExecutable()
+     */
     public ExecutionLimiter(long timeBeforeNewExecute, boolean finalExecute) {
         this.timeBeforeNewExecution = timeBeforeNewExecute;
         this.finalExecute = finalExecute;
@@ -78,12 +88,18 @@ public abstract class ExecutionLimiter {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(timeBeforeNewExecution);
-                        } catch (InterruptedException e) {
-                            // nothing to do
+                            try {
+                                Thread.sleep(timeBeforeNewExecution);
+                            } catch (InterruptedException e) {
+                                // nothing to do
+                            }
+                            // //System.out.println( "Call executed: executeAtEndOfTime");
+                            callExecute();
+                        } catch (Exception e) {
+                            ExceptionHandler.process(e);
+                        } finally {
+                            inExecution = false;
                         }
-                        // //System.out.println( "Call executed: executeAtEndOfTime");
-                        callExecute();
                     }
                 }).start();
             } else {
@@ -96,7 +112,7 @@ public abstract class ExecutionLimiter {
         if (finalExecute) {
             startThreadForFinalExecution();
         }
-        if (executable) {
+        if (executable && !executeAtEndOfTime) {
             inExecution = false;
         }
         return executable;
@@ -139,11 +155,11 @@ public abstract class ExecutionLimiter {
             try {
                 Thread.sleep(timeBeforeNewExecution);
             } catch (InterruptedException e) {
-                // System.out.println("Interrupted");
+//                System.out.println("Interrupted");
                 return;
             }
-            // System.out.println("Not Interrupted");
-            // System.out.println("Final thread executed");
+//            System.out.println("Not Interrupted");
+//            System.out.println("Final thread executed");
             execute(true);
         }
 
@@ -153,12 +169,16 @@ public abstract class ExecutionLimiter {
 
     private boolean isExecutable(boolean executeAtEndOfTime) {
         boolean returnValue = false;
-        if (timeBeforeNewExecution == 0) {
+        if (executeAtEndOfTime) {
             returnValue = !inExecution;
         } else {
-            returnValue = System.currentTimeMillis() - startTime >= timeBeforeNewExecution;
-            // System.out.println(System.currentTimeMillis() - startTime + " >= " + timeBeforeNewExecution + " " +
-            // returnValue);
+            if (timeBeforeNewExecution == 0) {
+                returnValue = !inExecution;
+            } else {
+                returnValue = System.currentTimeMillis() - startTime >= timeBeforeNewExecution;
+                // System.out.println(System.currentTimeMillis() - startTime + " >= " + timeBeforeNewExecution + " " +
+                // returnValue);
+            }
         }
         return returnValue;
     }
