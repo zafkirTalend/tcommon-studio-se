@@ -36,10 +36,10 @@ public class MetterCatcherUtils {
         
         private String label;
         private Integer count;
-        private Integer referense;
+        private String referense;
         private String thresholds;
         
-        public MetterCatcherMessage(String label, Integer count, Integer referense, String thresholds,
+        public MetterCatcherMessage(String label, Integer count, String referense, String thresholds,
                 String origin, String jobVersion, String jobId) {
             this.moment = java.util.Calendar.getInstance().getTime();
             this.jobVersion = jobVersion;
@@ -69,11 +69,11 @@ public class MetterCatcherUtils {
             this.label = label;
         }
         
-        public Integer getReferense() {
+        public String getReferense() {
             return this.referense;
         }
         
-        public void setReferense(Integer referense) {
+        public void setReferense(String referense) {
             this.referense = referense;
         }
         
@@ -135,7 +135,7 @@ public class MetterCatcherUtils {
         this.jobVersion = jobVersion;
     }
 
-    public void addMessage(String label, Integer count, Integer referense, String thresholds,String origin) {
+    public void addMessage(String label, Integer count, String referense, String thresholds,String origin) {
        
         MetterCatcherMessage scm = new MetterCatcherMessage(label, count, referense, thresholds, origin, this.jobVersion, this.jobId);
         messages.add(scm);
