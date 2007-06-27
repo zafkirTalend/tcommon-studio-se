@@ -30,12 +30,12 @@ public class PasswordHelper {
 
     private static final String ALGORITHM = "MD5";
 
-    public static boolean verifyPassword(byte[] encryptedPassword, byte[] encryptedPassword2) throws NoSuchAlgorithmException {
+    public static synchronized boolean verifyPassword(byte[] encryptedPassword, byte[] encryptedPassword2) throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
         return messageDigest.isEqual(encryptedPassword, encryptedPassword2);
     }
 
-    public static byte[] encryptPasswd(String password) throws NoSuchAlgorithmException {
+    public static synchronized byte[] encryptPasswd(String password) throws NoSuchAlgorithmException {
         MessageDigest messageDigest = MessageDigest.getInstance(ALGORITHM);
         return messageDigest.digest(password.getBytes());
     }
