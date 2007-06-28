@@ -163,6 +163,9 @@ public class RepositoryToComponentProperty {
                 return  TalendTextUtils.addQuotes(connection.getSID());
             }
         }
+        if (value.equals("DATASOURCE")) { //$NON-NLS-1$
+            return TalendTextUtils.addQuotes(connection.getDatasourceName());
+        }        
         if (value.equals("USERNAME")) { //$NON-NLS-1$
             return  TalendTextUtils.addQuotes(connection.getUsername());
         }
