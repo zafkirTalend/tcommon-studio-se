@@ -28,9 +28,6 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.Platform;
-import org.talend.core.i18n.Messages;
-
 /**
  * Abstract base class of elements in the model. All elements in the diagram must extends this class <br/>
  * 
@@ -119,6 +116,20 @@ public abstract class Element implements Cloneable, IElement {
     public IElementParameter getElementParameter(String name) {
         for (IElementParameter elementParam : listParam) {
             if (elementParam.getName().equals(name)) {
+                return elementParam;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Note that this will return only the first element parameter only.
+     * @param fieldType
+     * @return
+     */
+    public IElementParameter getElementParameterFromField(EParameterFieldType fieldType) {
+        for (IElementParameter elementParam : listParam) {
+            if (elementParam.getField().equals(fieldType)) {
                 return elementParam;
             }
         }

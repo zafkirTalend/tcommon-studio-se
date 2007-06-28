@@ -54,7 +54,8 @@ public enum EParameterFieldType {
     ENCODING_TYPE,
     COMPONENT_LIST,
     MAPPING_TYPE,
-    COLOR;
+    COLOR,
+    DBTABLE;
 
     public String getName() {
         return toString();

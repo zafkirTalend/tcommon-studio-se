@@ -32,6 +32,8 @@ import java.util.List;
 public interface IElement {
     
     public IElementParameter getElementParameter(String name);
+    
+//    public IElementParameter getElementParameterFromField(EParameterFieldType fieldType);
 
     public List<? extends IElementParameter> getElementParameters();
 
