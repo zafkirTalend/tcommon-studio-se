@@ -38,11 +38,11 @@ public enum EDatabaseTypeName {
     SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "MYSQL"),
     MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(false), "MYSQL"),
     // this don't use in Branch 2.0
-    INGRES("Ingres", "Ingres", new Boolean(false), "INGRES"),
-    INTERBASE("Interbase", "Interbase", new Boolean(false), "INTERBASE"),
-    SQLITE("SQLite", "SQLite", new Boolean(false), "SQLITE"),
-    FIREBIRD("FireBird", "FireBird", new Boolean(false), "FIREBIRD"),    
-    INFORMIX("Informix", "Informix", new Boolean(true), "INFORMIX");
+    INGRES("Ingres", "Ingres", new Boolean(false), "MYSQL"), // "INGRES"),
+    INTERBASE("Interbase", "Interbase", new Boolean(false), "MYSQL"), // "INTERBASE"),
+    SQLITE("SQLite", "SQLite", new Boolean(false), "MYSQL"), // "SQLITE"),
+    FIREBIRD("FireBird", "FireBird", new Boolean(false), "MYSQL"), // "FIREBIRD"),    
+    INFORMIX("Informix", "Informix", new Boolean(true), "MYSQL"); // "INFORMIX");
     
     // displayName is used in Java code.
     private String displayName;
