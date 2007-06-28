@@ -370,6 +370,11 @@ public final class JavaTypesManager {
 
     public static void main(String[] args) {
 
+        JavaType[] javaTypes2 = getJavaTypes();
+        for (JavaType javaType : javaTypes2) {
+            System.out.println("id = "+javaType.getId());
+        }
+        
         System.out.println(JavaTypesManager.getJavaTypeFromName("String")); //$NON-NLS-1$
         System.out.println(JavaTypesManager.getJavaTypeFromName("int")); //$NON-NLS-1$
         System.out.println(JavaTypesManager.getJavaTypeFromName("Integer")); //$NON-NLS-1$

@@ -494,7 +494,9 @@ public class MetadataTalendTypeEditor extends FieldEditor {
         }
 
         try {
-            validater.validateWithDom(xmlFile);
+            // TODO amaumont : temporary disabled to load new version of mapping files
+            // TODO amaumont : create a new xsd before enable it
+//            validater.validateWithDom(xmlFile);
 
             return xmlFile;
         } catch (Exception e) {

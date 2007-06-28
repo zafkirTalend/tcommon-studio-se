@@ -22,6 +22,7 @@
 package org.talend.core.model.metadata;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 
@@ -44,7 +45,9 @@ public class Dbms {
 
     private List<String> dbmsTypes;
 
-    private List<MappingType> mappingTypes;
+    private Set<MappingType> dbToTalendTypes;
+    
+    private Set<MappingType> talendToDbTypes;
 
     /**
      * DOC amaumont Dbms constructor comment.
@@ -54,12 +57,11 @@ public class Dbms {
      * @param dbmsTypes
      * @param mappingTypes
      */
-    public Dbms(String id, String label, boolean defaultDbms, List<String> dbmsTypes, List<MappingType> mappingTypes) {
+    public Dbms(String id, String label, boolean defaultDbms, List<String> dbmsTypes) {
         super();
         this.id = id;
         this.label = label;
         this.dbmsTypes = dbmsTypes;
-        this.mappingTypes = mappingTypes;
         this.defaultDbms = defaultDbms;
     }
 
@@ -131,8 +133,8 @@ public class Dbms {
      * 
      * @return the mappingTypes
      */
-    public List<MappingType> getMappingTypes() {
-        return this.mappingTypes;
+    public Set<MappingType> getDbToTalendTypes() {
+        return this.dbToTalendTypes;
     }
 
     /**
@@ -140,8 +142,24 @@ public class Dbms {
      * 
      * @param mappingTypes the mappingTypes to set
      */
-    protected void setMappingTypes(List<MappingType> mappingTypes) {
-        this.mappingTypes = mappingTypes;
+    protected void setDbToTalendTypes(Set<MappingType> mappingTypes) {
+        this.dbToTalendTypes = mappingTypes;
+    }
+
+    /**
+     * Getter for talendToDbTypes.
+     * @return the talendToDbTypes
+     */
+    public Set<MappingType> getTalendToDbTypes() {
+        return this.talendToDbTypes;
+    }
+
+    /**
+     * Sets the talendToDbTypes.
+     * @param talendToDbTypes the talendToDbTypes to set
+     */
+    protected void setTalendToDbTypes(Set<MappingType> talendToDbTypes) {
+        this.talendToDbTypes = talendToDbTypes;
     }
 
     /**
@@ -229,7 +247,7 @@ public class Dbms {
         buffer.append(", label = ").append(label); //$NON-NLS-1$
         buffer.append(", defaultDbType = ").append(defaultDbType); //$NON-NLS-1$
         buffer.append(", dbmsTypes = ").append(dbmsTypes); //$NON-NLS-1$
-        buffer.append(", mappingTypes = ").append(mappingTypes); //$NON-NLS-1$
+        buffer.append(", mappingTypes = ").append(dbToTalendTypes); //$NON-NLS-1$
         buffer.append("]"); //$NON-NLS-1$
         return buffer.toString();
     }

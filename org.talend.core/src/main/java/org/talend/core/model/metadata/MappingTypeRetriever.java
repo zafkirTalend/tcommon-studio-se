@@ -21,10 +21,14 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.collections.MultiMap;
+import org.apache.commons.collections.map.MultiValueMap;
 import org.apache.log4j.Logger;
 
 /**
@@ -39,9 +43,11 @@ public class MappingTypeRetriever {
 
     private Dbms dbms;
 
-    private Map<MappingType, MappingType> mapDbToTalend = new HashMap<MappingType, MappingType>();
+    private MultiMap mapDbToTalendTypes = new MultiValueMap();
 
-    private Map<MappingType, MappingType> mapTalendToDb = new HashMap<MappingType, MappingType>();
+    private MultiMap mapTalendToDbTypes = new MultiValueMap();
+
+    private Map<MappingType, MappingType> defaultMappings = new HashMap<MappingType, MappingType>();
 
     private MappingType mappingTypeKey = new MappingType();
 
@@ -60,33 +66,100 @@ public class MappingTypeRetriever {
      * DOC amaumont Comment method "init".
      */
     private void init(Dbms dbms) {
-        List<MappingType> mappingTypes = dbms.getMappingTypes();
-        int lstSize = mappingTypes.size();
-        mapDbToTalend.clear();
-        mapTalendToDb.clear();
-        for (int i = 0; i < lstSize; i++) {
-            MappingType mappingType = mappingTypes.get(i);
+        Set<MappingType> mappingTypes = dbms.getTalendToDbTypes();
+        defaultMappings.clear();
+        mapTalendToDbTypes.clear();
 
-            MappingType mapDbToTalendKey = new MappingType();
-            mapDbToTalendKey.setDbType(mappingType.getDbType().toUpperCase());
-            mapDbToTalendKey.setDefaultSelected(mappingType.getDefaultSelected());
-            mapDbToTalend.put(mapDbToTalendKey, mappingType);
+        for (MappingType mappingType : mappingTypes) {
 
             MappingType mapTalendToDbKey = new MappingType();
             mapTalendToDbKey.setTalendType(mappingType.getTalendType());
-            mapTalendToDbKey.setDefaultSelected(mappingType.getDefaultSelected());
-            mapTalendToDb.put(mapTalendToDbKey, mappingType);
+            mapTalendToDbTypes.put(mapTalendToDbKey, mappingType);
+
+            if (mappingType.getDefaultSelected()) {
+                mapTalendToDbKey = new MappingType();
+                mapTalendToDbKey.setTalendType(mappingType.getTalendType());
+                mapTalendToDbKey.setDefaultSelected(mappingType.getDefaultSelected());
+                defaultMappings.put(mapTalendToDbKey, mappingType);
+            }
+
+        }
+
+        mappingTypes = dbms.getDbToTalendTypes();
+        mapDbToTalendTypes.clear();
+        for (MappingType mappingType : mappingTypes) {
+
+            MappingType mapDbToTalendKey = new MappingType();
+            mapDbToTalendKey.setDbType(mappingType.getDbType());
+            mapDbToTalendTypes.put(mapDbToTalendKey, mappingType);
+
+            if (mappingType.getDefaultSelected()) {
+                mapDbToTalendKey = new MappingType();
+                mapDbToTalendKey.setDbType(mappingType.getDbType().toUpperCase());
+                mapDbToTalendKey.setDefaultSelected(mappingType.getDefaultSelected());
+                defaultMappings.put(mapDbToTalendKey, mappingType);
+            }
         }
     }
 
-    public MappingType getMappingType(String dbmsType, String talendType, Boolean defaultSelected) {
-        mappingTypeKey.setDbType(dbmsType.toUpperCase());
-        mappingTypeKey.setTalendType(talendType);
-        mappingTypeKey.setDefaultSelected(defaultSelected);
-        MappingType mappingType = mapDbToTalend.get(mappingTypeKey);
-        return mappingType;
+    /**
+     * Returns adviced mappings for a given db type.
+     * 
+     * @param dbType
+     * @return a list of MappingType or null if not found
+     */
+    public List<MappingType> getAdvicedDbToTalendTypes(String dbType) {
+        mappingTypeKey.setDbType(dbType.toUpperCase());
+        mappingTypeKey.setTalendType(null);
+        mappingTypeKey.setDefaultSelected(null);
+        mapDbToTalendTypes.get(mappingTypeKey);
+        return (List<MappingType>) mapDbToTalendTypes.get(mappingTypeKey);
     }
 
+    /**
+     * Returns adviced mappings for a given Talend type.
+     * 
+     * @param talendType
+     * @return a list of MappingType or null if not found
+     */
+    public List<MappingType> getAdvicedTalendToDbTypes(String talendType) {
+        mappingTypeKey.setDbType(null);
+        mappingTypeKey.setTalendType(talendType);
+        mappingTypeKey.setDefaultSelected(null);
+        mapTalendToDbTypes.get(mappingTypeKey);
+        return (List<MappingType>) mapTalendToDbTypes.get(mappingTypeKey);
+    }
+
+    public boolean isAdvicedTalendToDbType(String talendType, String dbType) {
+        List<MappingType> advicedTalendToDbTypes = getAdvicedTalendToDbTypes(talendType);
+        if(advicedTalendToDbTypes == null) {
+            return false;
+        }
+        int advicedTalendToDbTypesListSize = advicedTalendToDbTypes.size();
+        for (int i = 0; i < advicedTalendToDbTypesListSize; i++) {
+            MappingType type = advicedTalendToDbTypes.get(i);
+            if (type.getDbType().equals(dbType)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isAdvicedDBToTalendType(String dbType, String talendType) {
+        List<MappingType> advicedDbToTalendTypes = getAdvicedDbToTalendTypes(dbType);
+        if(advicedDbToTalendTypes == null) {
+            return false;
+        }
+        int advicedDbToTalendTypesListSize = advicedDbToTalendTypes.size();
+        for (int i = 0; i < advicedDbToTalendTypesListSize; i++) {
+            MappingType type = advicedDbToTalendTypes.get(i);
+            if (type.getDbType().equals(dbType)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     /**
      * 
      * Search and return the Db type which matches with the given parameters. If the Db type is not found, a new search
@@ -97,13 +170,16 @@ public class MappingTypeRetriever {
      * @return
      */
     public String getDefaultSelectedTalendType(String dbmsType) {
+        if (dbmsType == null) {
+            return MetadataTalendType.getDefaultTalendType();
+        }
         mappingTypeKey.setDbType(dbmsType.toUpperCase());
         mappingTypeKey.setTalendType(null);
         mappingTypeKey.setDefaultSelected(Boolean.TRUE);
-        MappingType mappingType = mapDbToTalend.get(mappingTypeKey);
+        MappingType mappingType = defaultMappings.get(mappingTypeKey);
         if (mappingType == null) {
             mappingTypeKey.setDefaultSelected(Boolean.FALSE);
-            mappingType = mapDbToTalend.get(mappingTypeKey);
+            mappingType = defaultMappings.get(mappingTypeKey);
             if (mappingType == null) {
                 return MetadataTalendType.getDefaultTalendType();
             }
@@ -124,7 +200,7 @@ public class MappingTypeRetriever {
         mappingTypeKey.setDbType(null);
         mappingTypeKey.setTalendType(talendType);
         mappingTypeKey.setDefaultSelected(Boolean.TRUE);
-        MappingType mappingType = mapTalendToDb.get(mappingTypeKey);
+        MappingType mappingType = defaultMappings.get(mappingTypeKey);
         if (mappingType == null) {
             return dbms.getDefaultDbType();
         }

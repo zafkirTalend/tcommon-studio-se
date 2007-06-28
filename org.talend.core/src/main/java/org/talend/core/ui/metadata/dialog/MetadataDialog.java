@@ -232,7 +232,7 @@ public class MetadataDialog extends Dialog {
             }
 
             outputMetaView.setShowDbTypeColumn(hasMappingType | hasRepositoryDbSchema(outputNode, outputMetaTable),
-                    true, hasMappingType);
+                    false, hasMappingType);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);

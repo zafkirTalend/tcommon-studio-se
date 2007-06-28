@@ -31,6 +31,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -80,7 +81,7 @@ public final class MetadataTalendType {
     private static ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
 
     private static final String[] PERL_TYPES = new String[] {
-            "boolean", "date", "datetime", "integer", "float", "time", "string" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+            "boolean", "date", "datetime", "int", "decimal", "string" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 
     private static Set<Dbms> dbmsSet = new HashSet<Dbms>();
 
@@ -330,7 +331,7 @@ public final class MetadataTalendType {
         }
         throw new IllegalStateException("Case not found."); //$NON-NLS-1$
     }
-    
+
     public static Dbms[] getAllDbmsArray() {
         return dbmsSet.toArray(new Dbms[0]);
     }
@@ -411,7 +412,7 @@ public final class MetadataTalendType {
         if (dbms == null) {
             throw new IllegalArgumentException("Unknown dbmsId: '" + dbmsId + "'"); //$NON-NLS-1$ //$NON-NLS-2$
         }
-        String [] list = dbms.getDbTypes().toArray(new String[0]);
+        String[] list = dbms.getDbTypes().toArray(new String[0]);
         Arrays.sort(list);
         return list;
     }
@@ -456,154 +457,30 @@ public final class MetadataTalendType {
         }
     }
 
+    private static void loadMapping(File file) throws SystemException {
+        MappingFileLoader mappingFileLoader = new MappingFileLoader();
+        mappingFileLoader.load(file);
+    }
+
     public static List<File> getMetadataMappingFiles() {
         return metadataMappingFiles;
     }
 
-    private static void loadMapping(File file) throws SystemException {
-        try {
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder analyser = documentBuilderFactory.newDocumentBuilder();
-            Document document = analyser.parse(file);
-
-            NodeList dbmsNodes = document.getElementsByTagName("dbms"); //$NON-NLS-1$
-
-            for (int iDbms = 0; iDbms < dbmsNodes.getLength(); iDbms++) {
-                Node dbmsNode = dbmsNodes.item(iDbms);
-
-                NamedNodeMap dbmsAttributes = dbmsNode.getAttributes();
-                String dbmsProductValue = dbmsAttributes.getNamedItem("product").getNodeValue(); //$NON-NLS-1$
-                String dbmsIdValue = dbmsAttributes.getNamedItem("id").getNodeValue(); //$NON-NLS-1$
-                String dbmsLabelValue = dbmsAttributes.getNamedItem("label").getNodeValue(); //$NON-NLS-1$
-                Node defaultDbmsItem = dbmsAttributes.getNamedItem("default");
-                boolean defaultDbms = false;
-                if (defaultDbmsItem != null && "true".equals(defaultDbmsItem.getNodeValue())) {
-                    defaultDbms = true;
-                }
-
-                Dbms dbms = new Dbms(dbmsIdValue);
-                dbms.setLabel(dbmsLabelValue);
-                dbms.setProduct(dbmsProductValue);
-                dbms.setDefaultDbms(defaultDbms);
-                boolean dbmsOverwriteExisting = !dbmsSet.add(dbms);
-                if (dbmsOverwriteExisting) {
-                    log.warn("Dbms with id '" + dbmsIdValue + "' already exists !");
-                }
-
-                // list all dbms children nodes
-                List<Node> childrenOfDbmsNode = getChildElementNodes(dbmsNode);
-
-                // TODO create a dtd
-
-                // search "db_types" node
-                Node dbTypesNode = childrenOfDbmsNode.get(0);
-
-                // search and load "db_types/type" nodes
-                ArrayList<String> dbTypes = new ArrayList<String>();
-                dbms.setDbmsTypes(dbTypes);
-                List<Node> typeNodes = getChildElementNodes(dbTypesNode);
-                for (Node typeNode : typeNodes) {
-                    NamedNodeMap typeNodeAtttributes = typeNode.getAttributes();
-                    String typeValue = typeNodeAtttributes.getNamedItem("dbType").getNodeValue(); //$NON-NLS-1$
-                    Node defaultTypeItem = typeNodeAtttributes.getNamedItem("default"); //$NON-NLS-1$
-                    dbTypes.add(typeValue);
-                    if (defaultTypeItem != null && "true".equals(defaultTypeItem.getNodeValue())) { //$NON-NLS-1$
-                        dbms.setDefaultDbType(typeValue);
-                    }
-                }
-
-                // search and load "language/type" nodes
-                List<Node> languageNodes = childrenOfDbmsNode.subList(1, childrenOfDbmsNode.size());
-                ArrayList<MappingType> mappingTypes = new ArrayList<MappingType>();
-                dbms.setMappingTypes(mappingTypes);
-                for (int i = 0; i < languageNodes.size(); i++) {
-                    Node languageNode = languageNodes.get(i);
-
-                    // System.out.println();
-
-                    String languageValue = languageNode.getAttributes().getNamedItem("name").getNodeValue(); //$NON-NLS-1$
-
-                    if (codeLanguage.getName().equalsIgnoreCase(languageValue)) {
-
-                        List<Node> languageTypesNodes = getChildElementNodes(languageNode);
-
-                        for (int j = 0; j < languageTypesNodes.size(); j++) {
-
-                            Node languageTypeNode = languageTypesNodes.get(j);
-
-                            NamedNodeMap dbTypeAttributes = languageTypeNode.getAttributes();
-
-                            Node talendTypeItem = dbTypeAttributes.getNamedItem("talendType"); //$NON-NLS-1$
-                            if (talendTypeItem == null) {
-                                continue;
-                            }
-
-                            Node dbTypeItem = dbTypeAttributes.getNamedItem("dbType"); //$NON-NLS-1$
-                            if (dbTypeItem == null) {
-                                continue;
-                            }
-
-                            Node defaultSelectedItem = dbTypeAttributes.getNamedItem("default"); //$NON-NLS-1$
-
-                            if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-
-                                String talendType = talendTypeItem.getNodeValue();
-                                JavaType javaType = JavaTypesManager.getJavaTypeFromId(talendType);
-
-                                boolean defaultSelected = defaultSelectedItem != null
-                                        && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE; //$NON-NLS-1$
-
-                                if (javaType != null) { // test if the type exists
-
-                                    MappingType objectMappingType = new MappingType();
-                                    objectMappingType.setTalendType(talendType);
-                                    objectMappingType.setDbType(dbTypeItem.getNodeValue());
-                                    objectMappingType.setDefaultSelected(defaultSelected);
-                                    mappingTypes.add(objectMappingType);
-
-                                } else {
-                                    log.warn("'" + talendType + "' is not a valid Java Talend type.");
-                                }
-
-                            } else if (LanguageManager.getCurrentLanguage() == ECodeLanguage.PERL) {
-
-                                MappingType mappingType = new MappingType();
-                                mappingType.setTalendType(talendTypeItem.getNodeValue());
-                                mappingType.setDbType(dbTypeItem.getNodeValue());
-                                mappingType
-                                        .setDefaultSelected(defaultSelectedItem != null
-                                                && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE); //$NON-NLS-1$
-                                mappingTypes.add(mappingType);
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (IOException e) {
-            throw new SystemException(e);
-        } catch (ParserConfigurationException e) {
-            throw new SystemException(e);
-        } catch (SAXException e) {
-            throw new SystemException(e);
-        }
+    
+    /**
+     * Getter for codeLanguage.
+     * @return the codeLanguage
+     */
+    static ECodeLanguage getCodeLanguage() {
+        return codeLanguage;
     }
 
     /**
-     * Get children of type ELEMENT_NODE from parent <code>parentNode</code>.
-     * 
-     * @param parentNode
-     * @return
+     * Getter for dbmsSet.
+     * @return the dbmsSet
      */
-    private static List<Node> getChildElementNodes(Node parentNode) {
-        Node childNode = parentNode.getFirstChild();
-        ArrayList<Node> list = new ArrayList<Node>();
-        while (childNode != null) {
-            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-                list.add(childNode);
-            }
-            childNode = childNode.getNextSibling();
-        }
-        return list;
+    static Set<Dbms> getDbmsSet() {
+        return dbmsSet;
     }
 
     /**
@@ -639,19 +516,31 @@ public final class MetadataTalendType {
         }
     }
 
+    
+    
+    
+    /**
+     * Getter for pERL_TYPES.
+     * @return the pERL_TYPES
+     */
+    static String[] getPerlTypes() {
+        return PERL_TYPES.clone();
+    }
+
     public static void main(String[] args) {
         codeLanguage = ECodeLanguage.JAVA;
+
         try {
             MetadataTalendType.loadCommonMappings();
         } catch (SystemException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            ExceptionHandler.process(e);
         }
-
-        String dbmsId = "oracle_id"; //$NON-NLS-1$
+       
+        
+        String dbmsId = "mysql_id"; //$NON-NLS-1$
         Dbms dbms = getDbms(dbmsId);
-        System.out.println("Oracle10g dbms:" + dbms);
-        System.out.println("Oracle10g types:" + Arrays.asList(getDbTypes(dbmsId)));
+        System.out.println("dbms:" + dbms);
+        System.out.println("types:" + Arrays.asList(getDbTypes(dbmsId)));
 
         MappingTypeRetriever mappingTypeRetriever = getMappingTypeRetriever(dbmsId);
         System.out.println("java int(id_Integer) => " + mappingTypeRetriever.getDefaultSelectedDbType("id_Integer"));
@@ -662,6 +551,15 @@ public final class MetadataTalendType {
 
         System.out.println("Db UNKNOWN TYPE => " + mappingTypeRetriever.getDefaultSelectedTalendType("UNKNOWN"));
 
+        System.out.println("java id_byte[] => " + mappingTypeRetriever.getDefaultSelectedDbType("id_byte[]"));
+
+        System.out.println("INt => " + mappingTypeRetriever.getAdvicedDbToTalendTypes("INt"));
+
+        System.out.println("int => " + mappingTypeRetriever.getAdvicedTalendToDbTypes("int"));
+
+        
+        System.out.println("id_Long => " + mappingTypeRetriever.getAdvicedTalendToDbTypes("id_Long"));
+        
         System.out.println();
     }
 

@@ -233,7 +233,7 @@ public class CustomTableManager {
                 return STANDARD_CELL_BG_COLOR;
             }
             if (tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_DBTYPE)
-                    && !column.getType().equals("")
+                    && !"".equals(column.getType())
                     && !TypesManager.checkDBType(dbmsId, column.getTalendType(), column.getType())) {
                 return CELL_WRONG_DB_TYPE_COLOR;
             }

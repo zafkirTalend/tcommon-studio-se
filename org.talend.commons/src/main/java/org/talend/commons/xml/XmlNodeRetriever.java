@@ -56,7 +56,7 @@ import org.xml.sax.SAXException;
  * $Id$
  * 
  */
-public class NodeRetriever {
+public class XmlNodeRetriever {
 
     public static final String STRING_EMPTY = "";
 
@@ -75,7 +75,7 @@ public class NodeRetriever {
      * 
      * @param string
      */
-    public NodeRetriever(String filePath, String loopXPath) {
+    public XmlNodeRetriever(String filePath, String loopXPath) {
         super();
         this.currentLoopXPath = loopXPath;
         initNamespaceContext();
@@ -285,7 +285,7 @@ public class NodeRetriever {
 
         String filePath = "C:/test_xml/test.xml";
 
-        NodeRetriever pathRetriever = new NodeRetriever(filePath, "");
+        XmlNodeRetriever pathRetriever = new XmlNodeRetriever(filePath, "");
 
         String currentExpr = "child::node()";
         // String currentExpr = "/doc/members";

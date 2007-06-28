@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.talend.core.language.LanguageManager;
+import org.talend.core.model.metadata.MappingTypeRetriever;
 import org.talend.core.model.metadata.MetadataTalendType;
 
 /**
@@ -48,6 +49,8 @@ public class TypesManager {
             perlTempMappingXmlToTalend.put("boolean", "String"); // ?
             perlTempMappingXmlToTalend.put("string", "String");
             perlTempMappingXmlToTalend.put("date", "Day");
+            perlTempMappingXmlToTalend.put("int", "int");
+            perlTempMappingXmlToTalend.put("datetime", "Day");
 
             perlTempMappingTalendToXml.put("char", "string");
             perlTempMappingTalendToXml.put("Day", "string");
@@ -86,17 +89,7 @@ public class TypesManager {
     }
 
     public static boolean checkDBType(String dbms, String talendType, String dbType) {
-        String typeName = getNameFromInterfaceType(talendType);
-
-        String defaultDbType = MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedDbType(typeName);
-        if (defaultDbType.equals(dbType)) {
-            return true;
-        }
-        
-        String defaultTalendType = MetadataTalendType.getMappingTypeRetriever(dbms).getDefaultSelectedTalendType(dbType);
-        if (defaultTalendType.equals(typeName)) {
-            return true;
-        }
-       return false;
+        MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(dbms);
+       return mappingTypeRetriever.isAdvicedTalendToDbType(talendType, dbType);
     }
 }

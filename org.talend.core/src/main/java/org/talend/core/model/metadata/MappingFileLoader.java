@@ -1,0 +1,339 @@
+// ============================================================================
+//
+// Talend Community Edition
+//
+// Copyright (C) 2006-2007 Talend - www.talend.com
+//
+// This library is free software; you can redistribute it and/or
+// modify it under the terms of the GNU Lesser General Public
+// License as published by the Free Software Foundation; either
+// version 2.1 of the License.
+//
+// This library is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+// Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+// ============================================================================
+package org.talend.core.model.metadata;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.apache.log4j.Logger;
+import org.talend.commons.exception.SystemException;
+import org.talend.commons.xml.XmlNodeRetriever;
+import org.talend.core.i18n.Messages;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.model.metadata.types.JavaType;
+import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+/**
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
+ */
+public class MappingFileLoader {
+
+    private static Logger log = Logger.getLogger(MappingFileLoader.class);
+
+    /**
+     * DOC amaumont Comment method "load".
+     * 
+     * @param file
+     * @throws SystemException
+     */
+    public void load(File file) throws SystemException {
+        ECodeLanguage codeLanguage = MetadataTalendType.getCodeLanguage();
+
+        Set<String> hAllTalendTypes = new HashSet<String>();
+        if (codeLanguage == ECodeLanguage.JAVA) {
+
+            JavaType[] javaTypes = JavaTypesManager.getJavaTypes();
+            for (JavaType javaType : javaTypes) {
+                hAllTalendTypes.add(javaType.getId());
+            }
+
+        } else if (codeLanguage == ECodeLanguage.PERL) {
+
+            String[] perlTypes = MetadataTalendType.getPerlTypes();
+            for (String perlType : perlTypes) {
+                hAllTalendTypes.add(perlType);
+            }
+
+        } else {
+            throw new IllegalStateException("Case language not found"); //$NON-NLS-1$
+        }
+
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder analyser = documentBuilderFactory.newDocumentBuilder();
+            Document document = analyser.parse(file);
+
+            NodeList dbmsNodes = document.getElementsByTagName("dbms"); //$NON-NLS-1$
+
+            for (int iDbms = 0; iDbms < dbmsNodes.getLength(); iDbms++) {
+                Node dbmsNode = dbmsNodes.item(iDbms);
+
+                Set<String> hTalendTypesProcessed = new HashSet<String>(hAllTalendTypes);
+
+                NamedNodeMap dbmsAttributes = dbmsNode.getAttributes();
+                String dbmsProductValue = dbmsAttributes.getNamedItem("product").getNodeValue(); //$NON-NLS-1$
+                String dbmsIdValue = dbmsAttributes.getNamedItem("id").getNodeValue(); //$NON-NLS-1$
+                String dbmsLabelValue = dbmsAttributes.getNamedItem("label").getNodeValue(); //$NON-NLS-1$
+                Node defaultDbmsItem = dbmsAttributes.getNamedItem("default"); //$NON-NLS-1$
+                boolean defaultDbms = false;
+                if (defaultDbmsItem != null && "true".equals(defaultDbmsItem.getNodeValue())) { //$NON-NLS-1$
+                    defaultDbms = true;
+                }
+
+                Dbms dbms = new Dbms(dbmsIdValue);
+                dbms.setLabel(dbmsLabelValue);
+                dbms.setProduct(dbmsProductValue);
+                dbms.setDefaultDbms(defaultDbms);
+                boolean dbmsOverwriteExisting = !MetadataTalendType.getDbmsSet().add(dbms);
+                if (dbmsOverwriteExisting) {
+                    log.warn(Messages.getString("MappingFileLoader.DbmsIdAlreadyExists", new Object[] { dbmsIdValue })); //$NON-NLS-1$
+                }
+
+                // list all dbms children nodes
+                List<Node> childrenOfDbmsNode = getChildElementNodes(dbmsNode);
+
+                // TODO create a dtd
+
+                // search "dbTypes" node
+                Node dbTypesNode = childrenOfDbmsNode.get(0);
+
+                Set<String> hAllDbTypes = new HashSet<String>();
+
+                // search and load "dbTypes/dbType" nodes
+                ArrayList<String> dbTypes = new ArrayList<String>();
+                dbms.setDbmsTypes(dbTypes);
+                List<Node> typeNodes = getChildElementNodes(dbTypesNode);
+                for (Node typeNode : typeNodes) {
+                    NamedNodeMap typeNodeAtttributes = typeNode.getAttributes();
+                    String typeValue = typeNodeAtttributes.getNamedItem("type").getNodeValue(); //$NON-NLS-1$
+                    Node defaultTypeItem = typeNodeAtttributes.getNamedItem("default"); //$NON-NLS-1$
+                    if (hAllDbTypes.contains(typeValue)) {
+                        String message = Messages
+                                .getString(
+                                        "MappingFileLoader.DbTypeAlreadyExists", new Object[] { dbmsIdValue, typeValue, file.getName(), XmlNodeRetriever.getAbsoluteXPathFromNode(typeNode) });//$NON-NLS-1$
+                        log.warn(message);
+                        System.out.println(message);
+                        continue;
+                    }
+                    dbTypes.add(typeValue);
+                    hAllDbTypes.add(typeValue);
+
+                    if (defaultTypeItem != null && "true".equals(defaultTypeItem.getNodeValue())) { //$NON-NLS-1$
+                        dbms.setDefaultDbType(typeValue);
+                    }
+                }
+                Set<String> hDbTypesProcessed = new HashSet<String>(hAllDbTypes);
+
+                // search and load "language/type" nodes
+                List<Node> languageNodes = childrenOfDbmsNode.subList(1, childrenOfDbmsNode.size());
+                for (int i = 0; i < languageNodes.size(); i++) {
+                    Node languageNode = languageNodes.get(i);
+
+                    // System.out.println();
+
+                    String languageValue = languageNode.getAttributes().getNamedItem("name").getNodeValue(); //$NON-NLS-1$
+
+                    if (codeLanguage.getName().equalsIgnoreCase(languageValue)) {
+
+                        List<Node> mappingDirections = getChildElementNodes(languageNode);
+                        Node talendTypesToDbTypesNode = mappingDirections.get(0);
+
+                        Set<MappingType> mappingTypes = new HashSet<MappingType>();
+                        dbms.setTalendToDbTypes(mappingTypes);
+
+                        List<Node> talendTypeSourcesList = getChildElementNodes(talendTypesToDbTypesNode);
+                        int talendTypeSourcesListListSize = talendTypeSourcesList.size();
+                        for (int iTalendTypeSource = 0; iTalendTypeSource < talendTypeSourcesListListSize; iTalendTypeSource++) {
+                            Node talendTypeSource = talendTypeSourcesList.get(iTalendTypeSource);
+
+                            NamedNodeMap talendTypeAttributes = talendTypeSource.getAttributes();
+                            Node talendTypeItem = talendTypeAttributes.getNamedItem("type"); //$NON-NLS-1$
+                            if (talendTypeItem == null) {
+                                continue;
+                            }
+                            String talendType = talendTypeItem.getNodeValue();
+
+                            if (!hAllTalendTypes.contains(talendType)) { // test if the type exists
+                                String message = Messages.getString("MappingFileLoader.InvalidTalendType",
+                                        new Object[] { talendType, codeLanguage.getName(), dbmsIdValue,
+                                                XmlNodeRetriever.getAbsoluteXPathFromNode(talendTypeItem) });
+                                System.out.println(message);
+                                log.warn(message);
+                                continue;
+                            }
+
+                            hTalendTypesProcessed.remove(talendType);
+
+                            List<Node> languageTypesNodes = getChildElementNodes(talendTypeSource);
+
+                            for (int j = 0; j < languageTypesNodes.size(); j++) {
+
+                                Node languageTypeNode = languageTypesNodes.get(j);
+
+                                NamedNodeMap dbTypeAttributes = languageTypeNode.getAttributes();
+
+                                Node dbTypeItem = dbTypeAttributes.getNamedItem("type"); //$NON-NLS-1$
+                                if (dbTypeItem == null) {
+                                    continue;
+                                }
+                                String dbType = dbTypeItem.getNodeValue();
+
+                                if (!hAllDbTypes.contains(dbType)) {
+                                    String message = Messages
+                                            .getString(
+                                                    "MappingFileLoader.UndeclaredDbType", new Object[] { dbType, dbmsIdValue, XmlNodeRetriever.getAbsoluteXPathFromNode(dbTypeItem) }); //$NON-NLS-1$
+                                    System.out.println(message);
+                                    log.warn(message);
+                                    continue;
+                                }
+
+                                Node defaultSelectedItem = dbTypeAttributes.getNamedItem("default"); //$NON-NLS-1$
+
+                                MappingType objectMappingType = new MappingType();
+                                objectMappingType.setTalendType(talendType);
+                                objectMappingType.setDbType(dbType);
+                                objectMappingType
+                                        .setDefaultSelected(defaultSelectedItem != null
+                                                && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? Boolean.TRUE : Boolean.FALSE); //$NON-NLS-1$
+                                mappingTypes.add(objectMappingType);
+
+                            }
+                        }
+
+                        Node dbToTalendTypes = mappingDirections.get(1);
+
+                        mappingTypes = new HashSet<MappingType>();
+                        dbms.setDbToTalendTypes(mappingTypes);
+
+                        List<Node> dbTypeSourcesList = getChildElementNodes(dbToTalendTypes);
+                        int dbTypeSourcesListListSize = dbTypeSourcesList.size();
+                        for (int iDbTypeSource = 0; iDbTypeSource < dbTypeSourcesListListSize; iDbTypeSource++) {
+                            Node dbTypeSource = dbTypeSourcesList.get(iDbTypeSource);
+
+                            NamedNodeMap dbTypeAttributes = dbTypeSource.getAttributes();
+                            Node dbTypeItem = dbTypeAttributes.getNamedItem("type"); //$NON-NLS-1$
+                            if (dbTypeItem == null) {
+                                continue;
+                            }
+                            String dbType = dbTypeItem.getNodeValue();
+
+                            if (!hAllDbTypes.contains(dbType)) {
+                                String message = Messages
+                                        .getString(
+                                                "MappingFileLoader.UndeclaredDbType", new Object[] { dbType, dbmsIdValue, XmlNodeRetriever.getAbsoluteXPathFromNode(dbTypeItem) }); //$NON-NLS-1$
+                                System.out.println(message);
+                                log.warn(message);
+                                continue;
+                            }
+
+                            hDbTypesProcessed.remove(dbType);
+                            // System.out.println("Removed :" + dbType);
+
+                            List<Node> languageTypesNodes = getChildElementNodes(dbTypeSource);
+
+                            for (int j = 0; j < languageTypesNodes.size(); j++) {
+
+                                Node languageTypeNode = languageTypesNodes.get(j);
+
+                                NamedNodeMap talendTypeAttributes = languageTypeNode.getAttributes();
+
+                                Node talendTypeItem = talendTypeAttributes.getNamedItem("type"); //$NON-NLS-1$
+                                if (talendTypeItem == null) {
+                                    continue;
+                                }
+                                String talendType = talendTypeItem.getNodeValue();
+
+                                if (!hAllTalendTypes.contains(talendType)) { // test if the type exists
+                                    String message = Messages.getString("MappingFileLoader.InvalidTalendType",
+                                            new Object[] { talendType, codeLanguage.getName(), dbmsIdValue,
+                                                    XmlNodeRetriever.getAbsoluteXPathFromNode(talendTypeItem) });
+                                    System.out.println(message);
+                                    log.warn(message);
+                                    continue;
+                                }
+
+                                Node defaultSelectedItem = talendTypeAttributes.getNamedItem("default"); //$NON-NLS-1$
+
+                                boolean defaultSelected = defaultSelectedItem != null
+                                        && defaultSelectedItem.getNodeValue().equalsIgnoreCase("true") ? true : false; //$NON-NLS-1$
+
+                                MappingType mappingType = new MappingType();
+                                mappingType.setDbType(dbType);
+                                mappingType.setTalendType(talendType);
+                                mappingType.setDefaultSelected(defaultSelected);
+                                mappingTypes.add(mappingType);
+                            }
+                        }
+
+                    }
+                }
+                if (hDbTypesProcessed.size() > 0) {
+                    String dbTypesStr = "";
+                    for (String dbType : hDbTypesProcessed) {
+                        dbTypesStr += "\n" + dbType; //$NON-NLS-1$
+                    }
+                    String message = Messages
+                            .getString(
+                                    "MappingFileLoader.UnbindedDbTypes", new Object[] { dbmsIdValue, codeLanguage.getName(), dbTypesStr }); //$NON-NLS-1$
+                    System.out.println(message);
+                    log.warn(message);
+                }
+
+                if (hTalendTypesProcessed.size() > 0) {
+                    String talendTypesStr = "";
+                    for (String talendType : hTalendTypesProcessed) {
+                        talendTypesStr += "\n" + talendType; //$NON-NLS-1$
+                    }
+                    String message = Messages
+                            .getString(
+                                    "MappingFileLoader.UnbindedTalendTypes", new Object[] { dbmsIdValue, codeLanguage.getName(), talendTypesStr }); //$NON-NLS-1$
+                    System.out.println(message);
+                    log.warn(message);
+                }
+
+            }
+        } catch (Exception e) {
+            throw new SystemException(e);
+        }
+
+    }
+
+    /**
+     * Get children of type ELEMENT_NODE from parent <code>parentNode</code>.
+     * 
+     * @param parentNode
+     * @return
+     */
+    private List<Node> getChildElementNodes(Node parentNode) {
+        Node childNode = parentNode.getFirstChild();
+        ArrayList<Node> list = new ArrayList<Node>();
+        while (childNode != null) {
+            if (childNode.getNodeType() == Node.ELEMENT_NODE) {
+                list.add(childNode);
+            }
+            childNode = childNode.getNextSibling();
+        }
+        return list;
+    }
+
+}
