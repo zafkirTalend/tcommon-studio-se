@@ -37,6 +37,12 @@ import org.talend.core.language.LanguageManager;
  */
 public class TalendTextUtils {
 
+    public static final String SQL_BUILDER_TITLE_COMP_PREFIX = "SQL Builder - Component Mode - Job:";
+
+    public static final String SQL_BUILDER_TITLE_COMP_NAME = " - Component:";
+
+    public static final String SQL_BUILDER_TITLE_REP = "SQL Builder - Repository Mode";
+
     public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
 
     public static final String ANTI_QUOTE = "`";
@@ -85,7 +91,7 @@ public class TalendTextUtils {
             return addSQLQuotes(text, SINGLE_QUOTE);
         }
     }
-    
+
     private static String addSQLQuotes(String text, String quoteStyle) {
         String newString;
 
@@ -100,7 +106,7 @@ public class TalendTextUtils {
         }
         return widenSQLRestrict(newString, quoteStyle);
     }
-    
+
     /**
      * DOC qiang.zhang Comment method "widenRestrict".
      * 
