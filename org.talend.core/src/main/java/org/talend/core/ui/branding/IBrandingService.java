@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.core.ui.branding;
 
+import java.io.IOException;
+import java.net.URL;
+
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.talend.core.IService;
 
@@ -39,4 +42,6 @@ public interface IBrandingService extends IService {
     public ImageDescriptor getLoginVImage();
 
     public ImageDescriptor getLoginHImage();
+
+    public URL getLicenseFile() throws IOException;
 }

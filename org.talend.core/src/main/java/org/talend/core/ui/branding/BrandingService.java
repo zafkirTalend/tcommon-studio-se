@@ -21,7 +21,14 @@
 // ============================================================================
 package org.talend.core.ui.branding;
 
+import java.io.IOException;
+import java.net.URL;
+
+import org.eclipse.core.runtime.FileLocator;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.osgi.framework.Bundle;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.i18n.BrandingMessages;
@@ -68,5 +75,11 @@ public class BrandingService implements IBrandingService {
 
     public ImageDescriptor getLoginHImage() {
         return CorePlugin.imageDescriptorFromPlugin(CorePlugin.PLUGIN_ID, BrandingMessages.getString("loginimagehigh")); //$NON-NLS-1$
+    }
+
+    public URL getLicenseFile() throws IOException {
+        final Bundle b = Platform.getBundle(CorePlugin.PLUGIN_ID);
+        final URL url = FileLocator.toFileURL(FileLocator.find(b, new Path("resources/license.txt"), null)); //$NON-NLS-1$
+        return url;
     }
 }
