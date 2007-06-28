@@ -66,7 +66,11 @@ public class TableViewerCreatorSorter extends ViewerSorter {
      */
     @Override
     public int compare(Viewer viewer, Object object1, Object object2) {
-        return this.columnsBeanComparator.compare(object1, object2);
+        if (lastIdColumnSorted != null && lastIdColumnSorted.getComparator() != null) {
+            return lastIdColumnSorted.getComparator().compare(object1, object2);
+        } else {
+            return this.columnsBeanComparator.compare(object1, object2);
+        }
     }
 
     public void prepareSort(TableViewerCreator tableViewerCreator, TableViewerCreatorColumn tableViewerCreatorColumn) {
@@ -84,7 +88,8 @@ public class TableViewerCreatorSorter extends ViewerSorter {
      * @param tableViewerCreatorColumn
      * @param newOrderDirection
      */
-    public void prepareSort(TableViewerCreator tableViewerCreator, TableViewerCreatorColumn tableViewerCreatorColumn, SORT newOrderDirection) {
+    public void prepareSort(TableViewerCreator tableViewerCreator, TableViewerCreatorColumn tableViewerCreatorColumn,
+            SORT newOrderDirection) {
         tableViewerCreator.getTable().setSortColumn(tableViewerCreatorColumn.getTableColumn());
         tableViewerCreator.getTable().setSortDirection(newOrderDirection == SORT.DESC ? SWT.DOWN : SWT.UP);
         this.columnsBeanComparator.setIgnoreCase(tableViewerCreatorColumn.isOrderWithIgnoreCase());

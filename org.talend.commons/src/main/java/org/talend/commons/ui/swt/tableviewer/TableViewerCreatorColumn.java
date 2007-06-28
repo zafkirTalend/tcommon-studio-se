@@ -47,15 +47,16 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
  * <br/>
  * 
  * $Id$
- * 
+ * @param <B> type of bean conatined in TableViewerCreator 
+ * @param <V> type of value contained in column
  */
-public class TableViewerCreatorColumn implements Cloneable {
+public class TableViewerCreatorColumn<B, V> implements Cloneable {
 
     private TableColumn tableColumn;
 
     private ITableColumnSelectionListener tableColumnSelectionListener;
 
-    private IBeanPropertyAccessors beanPropertyAccessors;
+    private IBeanPropertyAccessors<B, V> beanPropertyAccessors;
 
     private IColumnImageProvider imageProvider;
 
@@ -114,7 +115,7 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     private Image imageHeader;
 
-    private Comparator comparator;
+    private Comparator<B> comparator;
 
     private boolean orderWithIgnoreCase = true;
 
@@ -130,7 +131,7 @@ public class TableViewerCreatorColumn implements Cloneable {
 
     private String displayedValue;
 
-    private TableViewerCreator tableViewerCreator;
+    private TableViewerCreator<B> tableViewerCreator;
 
     private ITableCellValueModifiedListener cellEditorAppliedListener;
 
@@ -153,7 +154,7 @@ public class TableViewerCreatorColumn implements Cloneable {
      * 
      * @param tableViewerCreator
      */
-    public TableViewerCreatorColumn(TableViewerCreator tableViewerCreator) {
+    public TableViewerCreatorColumn(TableViewerCreator<B> tableViewerCreator) {
         super();
         this.tableViewerCreator = tableViewerCreator;
         this.moveable = this.tableViewerCreator.isColumnsMoveableByDefault();
@@ -176,11 +177,11 @@ public class TableViewerCreatorColumn implements Cloneable {
         this.alignment = alignment;
     }
 
-    public Comparator getComparator() {
+    public Comparator<B> getComparator() {
         return comparator;
     }
 
-    public void setComparator(Comparator comparator) {
+    public void setComparator(Comparator<B> comparator) {
         this.comparator = comparator;
     }
 
@@ -454,11 +455,11 @@ public class TableViewerCreatorColumn implements Cloneable {
         return this.tableViewerCreator;
     }
 
-    public IBeanPropertyAccessors getBeanPropertyAccessors() {
+    public IBeanPropertyAccessors<B, V> getBeanPropertyAccessors() {
         return this.beanPropertyAccessors;
     }
 
-    public void setBeanPropertyAccessors(IBeanPropertyAccessors beanPropertyAccessors) {
+    public void setBeanPropertyAccessors(IBeanPropertyAccessors<B, V> beanPropertyAccessors) {
         this.beanPropertyAccessors = beanPropertyAccessors;
     }
 

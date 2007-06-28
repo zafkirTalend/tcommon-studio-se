@@ -22,6 +22,7 @@
 package org.talend.commons.ui.swt.tableviewer;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 
 import org.eclipse.jface.resource.ImageDescriptor;
@@ -73,7 +74,7 @@ public final class TestTableViewerCreator {
         ImageDescriptor imageDescriptor = ImageDescriptor.createFromFile(TestTableViewerCreator.class, "error_tsk.gif");
         final Image image = imageDescriptor.createImage();
 
-        final TableViewerCreator tableViewerCreator = new TableViewerCreator(shell1);
+        final TableViewerCreator<DataObject> tableViewerCreator = new TableViewerCreator<DataObject>(shell1);
         tableViewerCreator.setBorderVisible(true);
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.CONTINUOUS);
 
@@ -122,7 +123,7 @@ public final class TestTableViewerCreator {
         gridData.heightHint = 200;
         table.setLayoutData(gridData);
 
-        TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
+        TableViewerCreatorColumn column = new TableViewerCreatorColumn<DataObject, String>(tableViewerCreator);
         column.setTitle("Selection");
         column.setResizable(true);
         column.setModifiable(true);
@@ -175,7 +176,7 @@ public final class TestTableViewerCreator {
 
         });
 
-        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column = new TableViewerCreatorColumn<DataObject, Integer>(tableViewerCreator);
         column.setTitle("Integer Null Value");
         column.setModifiable(true);
         column.setSortable(true);
@@ -225,7 +226,7 @@ public final class TestTableViewerCreator {
         column.setWidth(50);
         column.setTableEditorContent(new CheckboxTableEditorContent());
 
-        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column = new TableViewerCreatorColumn<DataObject, Integer>(tableViewerCreator);
         column.setTitle("Id");
         column.setModifiable(false);
         column.setResizable(true);
@@ -266,12 +267,22 @@ public final class TestTableViewerCreator {
 
         });
 
-        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column = new TableViewerCreatorColumn<DataObject, Integer>(tableViewerCreator);
         column.setTitle("Id2");
         column.setModifiable(false);
         column.setResizable(true);
         column.setSortable(true);
         column.setWidth(50);
+        column.setComparator(new Comparator<DataObject>() {
+
+            public int compare(DataObject o1, DataObject o2) {
+                System.out.println();
+                System.out.println("o1" + o1);
+                System.out.println("o2" + o2);
+                return 0;
+            }
+
+        });
         column.setImageProvider(new IColumnImageProvider() {
 
             public Image getImage(Object bean) {
