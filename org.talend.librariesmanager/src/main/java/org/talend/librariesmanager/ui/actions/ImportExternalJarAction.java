@@ -76,7 +76,7 @@ public class ImportExternalJarAction extends Action {
 
         FileDialog fileDialog = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), SWT.OPEN
                 | SWT.MULTI);
-        fileDialog.setFilterExtensions(new String[] { "*.jar" }); //$NON-NLS-1$
+        fileDialog.setFilterExtensions(new String[] { "*.jar;*.properties" }); //$NON-NLS-1$
         fileDialog.open();
         final String path = fileDialog.getFilterPath();
         final String[] fileNames = fileDialog.getFileNames();
