@@ -31,6 +31,9 @@ import org.talend.core.i18n.Messages;
  */
 public class Function implements Cloneable {
 
+    
+    private TalendType talendType;
+    
     /*
      * (non-Javadoc)
      * 
@@ -282,5 +285,23 @@ public class Function implements Cloneable {
             sb.append(para).append("\n").append("    "); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return sb.toString();
+    }
+
+    
+    /**
+     * Getter for talendType.
+     * @return the talendType
+     */
+    public TalendType getTalendType() {
+        return this.talendType;
+    }
+
+    
+    /**
+     * Sets the talendType.
+     * @param talendType the talendType to set
+     */
+    public void setTalendType(TalendType talendType) {
+        this.talendType = talendType;
     }
 }

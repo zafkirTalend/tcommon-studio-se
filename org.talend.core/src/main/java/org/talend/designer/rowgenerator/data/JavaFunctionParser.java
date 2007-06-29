@@ -53,6 +53,8 @@ public class JavaFunctionParser extends AbstractFunctionParser {
     // k: (Talend type Name).(method Name) v:(class Name).(method Name)
     private static Map<String, String> typeMethods = new HashMap<String, String>();
 
+    private static Map<String, String> typePackgeMethods = new HashMap<String, String>();
+
     /**
      * qzhang JavaFunctionParser constructor comment.
      */
@@ -89,8 +91,8 @@ public class JavaFunctionParser extends AbstractFunctionParser {
                                         index = 0;
                                     }
                                     reader.close();
-                                    parseJavaCommentToFunctions(str.toString(), sourceType.getElementName(), method
-                                            .getElementName());
+                                    parseJavaCommentToFunctions(str.toString(), sourceType.getElementName(), sourceType
+                                            .getFullyQualifiedName(), method.getElementName());
                                 }
                             }
                         }
@@ -135,7 +137,7 @@ public class JavaFunctionParser extends AbstractFunctionParser {
      * 
      * @param string
      */
-    private void parseJavaCommentToFunctions(String string, String className, String funcName) {
+    private void parseJavaCommentToFunctions(String string, String className, String fullName, String funcName) {
         String des = parseDescription(string);
         String category = parseCategoryType(string);
         String functionType = parseFunctionType(string);
@@ -150,10 +152,21 @@ public class JavaFunctionParser extends AbstractFunctionParser {
             talendType.setCategory(category);
             talendType.addFunctions(function);
             typeMethods.put(functionType + "." + funcName, className + "." + funcName);
+            typePackgeMethods.put(functionType + "." + funcName, fullName + "." + funcName);
+            function.setTalendType(talendType);
         }
     }
 
     public static Map<String, String> getTypeMethods() {
         return typeMethods;
+    }
+
+    /**
+     * Getter for typePackgeMethods.
+     * 
+     * @return the typePackgeMethods
+     */
+    public static Map<String, String> getTypePackgeMethods() {
+        return typePackgeMethods;
     }
 }
