@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<mapping>
+	<dbms product="ORACLE" id="oracle_id" label="Mapping Oracle" default="true">
+		<dbTypes>
+			<dbType type="VARCHAR2" />
+			<dbType type="NCHAR" />
+			<dbType type="NVARCHAR2" />
+			<dbType type="NUMBER" />
+			<dbType type="DATE" />
+			<dbType type="LONG" />
+			<dbType type="RAW" />
+			<dbType type="LONG RAW" />
+			<dbType type="ROWID" />
+			<dbType type="BLOB" />
+			<dbType type="CLOB" />
+			<dbType type="NCLOB" />
+			<dbType type="BFILE" />
+			<dbType type="UROWID" />
+			<dbType type="FLOAT" />
+			<dbType type="XMLTYPE" />
+		</dbTypes>
+
+		<language name="java">
+			<talendToDbTypes><!-- Adviced mappings  -->
+				<talendType type="id_Boolean">	
+					
+				</talendType>
+				<talendType type="id_Byte">
+					
+				</talendType>
+				<talendType type="id_Byte[]">
+				</talendType>
+				<talendType type="id_Char">
+					<dbType type="VARCHAR2" default="true" />
+					<dbType type="NCHAR"/>
+					<dbType type="NVARCHAR2"/>
+				</talendType>
+				<talendType type="id_Date">
+					<dbType type="DATE" default="true" />
+				</talendType>
+				<talendType type="id_Double">
+					<dbType type="NUMBER" default="true" />
+				</talendType>
+				<talendType type="id_Float">
+					<dbType type="FLOAT" default="true" />
+					<dbType type="NUMBER"/>
+				</talendType>
+				<talendType type="id_Integer">
+					<dbType type="NUMBER" default="true" />
+				</talendType>
+				<talendType type="id_Long">
+					<dbType type="NUMBER" default="true" />
+				</talendType>
+				<talendType type="id_Object">
+					<dbType type="BLOB" default="true"/>
+					<dbType type="CLOB"/>
+					<dbType type="NCLOB"/>
+					<dbType type="BFILE"/>
+					<dbType type="UROWID"/>
+					<dbType type="XMLTYPE"/>
+					<dbType type="RAW"/>
+					<dbType type="LONG RAW"/>
+					<dbType type="ROWID"/>
+				</talendType>
+				<talendType type="id_Short">
+					<dbType type="NUMBER" default="true" />
+				</talendType>
+				<talendType type="id_String">
+					<dbType type="VARCHAR2" default="true" />
+					<dbType type="NCHAR" />
+					<dbType type="NVARCHAR2"/>			
+				</talendType>
+			</talendToDbTypes>
+			<dbToTalendTypes><!-- Adviced mappings  -->
+				<dbType type="VARCHAR2">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="NCHAR">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="NVARCHAR2">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="NUMBER">
+					<talendType type="id_Float" default="true" />
+					<talendType type="id_Double"/>
+					<talendType type="id_Long"/>
+					<talendType type="id_Short"/>
+					<talendType type="id_Integer"/>
+				</dbType>
+				<dbType type="DATE">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="LONG">
+					<talendType type="id_Long" default="true" />
+					<talendType type="id_Integer"/>
+					<talendType type="id_Short"/>
+				</dbType>
+				<dbType type="RAW">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="LONG RAW">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="ROWID">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="BLOB">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="CLOB">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="NCLOB">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="BFILE">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="UROWID">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="FLOAT">
+					<talendType type="id_Float" default="true" />
+					<talendType type="id_Double"/>				
+				</dbType>
+				<dbType type="XMLTYPE">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+			</dbToTalendTypes>
+		</language>
+		<language name="perl">
+			<talendToDbTypes><!-- Adviced mappings  -->
+				<talendType type="id_Boolean">	
+					
+				</talendType>
+				<talendType type="id_Byte">
+					
+				</talendType>
+				<talendType type="id_Byte[]">
+				</talendType>
+				<talendType type="id_Char">
+					<dbType type="VARCHAR2" default="true" />
+					<dbType type="NCHAR"/>
+					<dbType type="NVARCHAR2"/>
+				</talendType>
+				<talendType type="id_Date">
+					<dbType type="DATE" default="true" />
+				</talendType>
+				<talendType type="id_Double">
+					<dbType type="NUMBER" default="true" />
+				</talendType>
+				<talendType type="id_Float">
+					<dbType type="FLOAT" default="true" />
+					<dbType type="NUMBER"/>
+				</talendType>
+				<talendType type="id_Integer">
+					<dbType type="NUMBER" default="true" />
+				</talendType>
+				<talendType type="id_Long">
+					<dbType type="NUMBER" default="true" />
+				</talendType>
+				<talendType type="id_Object">
+					<dbType type="BLOB" default="true"/>
+					<dbType type="CLOB"/>
+					<dbType type="NCLOB"/>
+					<dbType type="BFILE"/>
+					<dbType type="UROWID"/>
+					<dbType type="XMLTYPE"/>
+					<dbType type="RAW"/>
+					<dbType type="LONG RAW"/>
+					<dbType type="ROWID"/>
+				</talendType>
+				<talendType type="id_Short">
+					<dbType type="NUMBER" default="true" />
+				</talendType>
+				<talendType type="id_String">
+					<dbType type="VARCHAR2" default="true" />
+					<dbType type="NCHAR" />
+					<dbType type="NVARCHAR2"/>			
+				</talendType>
+			</talendToDbTypes>
+			<dbToTalendTypes><!-- Adviced mappings  -->
+				<dbType type="VARCHAR2">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="NCHAR">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="NVARCHAR2">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="NUMBER">
+					<talendType type="id_Float" default="true" />
+					<talendType type="id_Double"/>
+					<talendType type="id_Long"/>
+					<talendType type="id_Short"/>
+					<talendType type="id_Integer"/>
+				</dbType>
+				<dbType type="DATE">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="LONG">
+					<talendType type="id_Long" default="true" />
+					<talendType type="id_Integer"/>
+					<talendType type="id_Short"/>
+				</dbType>
+				<dbType type="RAW">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="LONG RAW">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="ROWID">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="BLOB">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="CLOB">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="NCLOB">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="BFILE">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="UROWID">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="FLOAT">
+					<talendType type="id_Float" default="true" />
+					<talendType type="id_Double"/>				
+				</dbType>
+				<dbType type="XMLTYPE">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+			</dbToTalendTypes>
+		</language>
+	</dbms>
+
+</mapping>
