@@ -66,15 +66,15 @@ public class RepositoryToComponentProperty {
     public static final String SQL_SERVER = "SQL_SERVER"; //$NON-NLS-1$
 
     public static final String MS_ACCESS = "MS_ACCESS"; //$NON-NLS-1$
-    
+
     public static final String INGRES = "INGRES"; //$NON-NLS-1$
-    
+
     public static final String INTERBASE = "INTERBASE"; //$NON-NLS-1$
-    
+
     public static final String SQLITE = "SQLITE"; //$NON-NLS-1$
-    
+
     public static final String FIREBIRD = "FIREBIRD"; //$NON-NLS-1$
-    
+
     public static final String INFORMIX = "INFORMIX"; //$NON-NLS-1$
 
     public static Object getValue(Connection connection, String value) {
@@ -158,25 +158,25 @@ public class RepositoryToComponentProperty {
         }
         if (value.equals("SID")) { //$NON-NLS-1$
             if (("").equals(connection.getSID())) { //$NON-NLS-1$
-                return  TalendTextUtils.addQuotes(connection.getDatasourceName());
+                return TalendTextUtils.addQuotes(connection.getDatasourceName());
             } else {
-                return  TalendTextUtils.addQuotes(connection.getSID());
+                return TalendTextUtils.addQuotes(connection.getSID());
             }
         }
         if (value.equals("DATASOURCE")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getDatasourceName());
-        }        
+        }
         if (value.equals("USERNAME")) { //$NON-NLS-1$
-            return  TalendTextUtils.addQuotes(connection.getUsername());
+            return TalendTextUtils.addQuotes(connection.getUsername());
         }
         if (value.equals("PASSWORD")) { //$NON-NLS-1$
-            return  TalendTextUtils.addQuotes(connection.getPassword());
+            return TalendTextUtils.addQuotes(connection.getPassword());
         }
         if (value.equals("NULL_CHAR")) { //$NON-NLS-1$
-            return  TalendTextUtils.addQuotes(connection.getNullChar());
+            return TalendTextUtils.addQuotes(connection.getNullChar());
         }
         if (value.equals("SCHEMA")) { //$NON-NLS-1$
-            return  TalendTextUtils.addQuotes(connection.getSchema());
+            return TalendTextUtils.addQuotes(connection.getSchema());
         }
         return null;
     }
@@ -191,13 +191,13 @@ public class RepositoryToComponentProperty {
     private static Object getFileValue(FileConnection connection, String value) {
         if (value.equals("FILE_PATH")) { //$NON-NLS-1$
             Path p = new Path(connection.getFilePath());
-            return  TalendTextUtils.addQuotes(p.toPortableString());
+            return TalendTextUtils.addQuotes(p.toPortableString());
         }
         if (value.equals("ROW_SEPARATOR")) { //$NON-NLS-1$
-            return  TalendTextUtils.addQuotes(connection.getRowSeparatorValue(), TalendTextUtils.QUOTATION_MARK);
+            return connection.getRowSeparatorValue();
         }
         if (value.equals("FIELD_SEPARATOR")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getFieldSeparatorValue(), TalendTextUtils.QUOTATION_MARK);
+            return connection.getFieldSeparatorValue();
         }
         if (value.equals("HEADER")) { //$NON-NLS-1$
             if (connection.isUseHeader()) {
@@ -256,30 +256,30 @@ public class RepositoryToComponentProperty {
      */
     private static Object getPositionalFileValue(PositionalFileConnection connection, String value) {
         if (value.equals("PATTERN")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getFieldSeparatorValue());
+            return connection.getFieldSeparatorValue();
         }
         return null;
     }
 
     private static Object getDelimitedFileValue(DelimitedFileConnection connection, String value) {
         if (value.equals("ESCAPE_CHAR")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getEscapeChar());
+            return connection.getEscapeChar();
         }
         if (value.equals("TEXT_ENCLOSURE")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getTextEnclosure());
+            return connection.getTextEnclosure();
         }
         return null;
     }
 
     private static Object getRegexpFileValue(RegexpFileConnection connection, String value) {
         if (value.equals("ESCAPE_CHAR")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getEscapeChar());
+            return connection.getEscapeChar();
         }
         if (value.equals("TEXT_ENCLOSURE")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getTextEnclosure());
+            return connection.getTextEnclosure();
         }
         if (value.equals("REGEXP")) { //$NON-NLS-1$
-            return TalendTextUtils.addQuotes(connection.getFieldSeparatorValue());
+            return connection.getFieldSeparatorValue();
         }
         return null;
     }
@@ -337,8 +337,7 @@ public class RepositoryToComponentProperty {
                             if (metaTable != null) {
                                 if (metaTable.getListColumns().size() > k) {
                                     SchemaTarget schemaTarget = (SchemaTarget) schemaList.get(k);
-                                    String strValue = TalendTextUtils.addQuotes(schemaTarget
-                                                    .getRelativeXPathQuery());
+                                    String strValue = TalendTextUtils.addQuotes(schemaTarget.getRelativeXPathQuery());
                                     line.put(names[column], strValue);
                                 }
                             }
