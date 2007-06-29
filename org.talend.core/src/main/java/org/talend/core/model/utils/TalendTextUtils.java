@@ -45,7 +45,6 @@ public class TalendTextUtils {
 
     public static final String SQL_BUILDER_TITLE_COMP_MODPREFIX = "SQL Builder - Component Mode - Job:";
 
-    
     public static final String SINGLE_QUOTE = "'"; //$NON-NLS-1$
 
     public static final String ANTI_QUOTE = "`";
@@ -160,7 +159,13 @@ public class TalendTextUtils {
      */
     private static int getLastWord(String substring, String quoteStyle) {
         int lastIndexOf = substring.lastIndexOf(" ");
-        final int lastIndexOf2 = substring.lastIndexOf(quoteStyle);
+        int lastIndexOf2 = substring.lastIndexOf(quoteStyle);
+        if (lastIndexOf2 > 1) {
+            String s = substring.substring(lastIndexOf2 - 1, lastIndexOf2);
+            if (s.equals("\\")) {
+                lastIndexOf2 = lastIndexOf2 - 1;
+            }
+        }
         final int lastIndexOf3 = substring.lastIndexOf(",");
         lastIndexOf = lastIndexOf < lastIndexOf2 ? lastIndexOf2 : lastIndexOf;
         lastIndexOf = lastIndexOf < lastIndexOf3 ? lastIndexOf3 : lastIndexOf;
