@@ -28,9 +28,9 @@
 				<talendType type="id_Byte">
 					
 				</talendType>
-				<talendType type="id_Byte[]">
+				<talendType type="id_byte[]">
 				</talendType>
-				<talendType type="id_Char">
+				<talendType type="id_Character">
 					<dbType type="VARCHAR2" default="true" />
 					<dbType type="NCHAR"/>
 					<dbType type="NVARCHAR2"/>
@@ -137,9 +137,9 @@
 				<talendType type="id_Byte">
 					
 				</talendType>
-				<talendType type="id_Byte[]">
+				<talendType type="id_byte[]">
 				</talendType>
-				<talendType type="id_Char">
+				<talendType type="id_Character">
 					<dbType type="VARCHAR2" default="true" />
 					<dbType type="NCHAR"/>
 					<dbType type="NVARCHAR2"/>

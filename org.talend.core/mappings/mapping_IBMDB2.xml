@@ -26,9 +26,9 @@
 				</talendType>		
 				<talendType type="id_Byte">
 				</talendType>				
-				<talendType type="id_Byte[]">
+				<talendType type="id_byte[]">
 				</talendType>			
-				<talendType type="id_Char">
+				<talendType type="id_Character">
 					<dbType type="CHARACTER" default="true"/>
 					<dbType type="VARCHAR"/>
 					<dbType type="LONG VARCHAR"/>
@@ -80,7 +80,7 @@
 					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="CHARACTER">
-					<talendType type="id_Char" default="true" />
+					<talendType type="id_Character" default="true" />
 				</dbType>
 				<dbType type="CLOB">
 					<talendType type="id_Object" default="true" />
@@ -131,9 +131,9 @@
 				</talendType>		
 				<talendType type="id_Byte">
 				</talendType>				
-				<talendType type="id_Byte[]">
+				<talendType type="id_byte[]">
 				</talendType>			
-				<talendType type="id_Char">
+				<talendType type="id_Character">
 					<dbType type="CHARACTER" default="true"/>
 					<dbType type="VARCHAR"/>
 					<dbType type="LONG VARCHAR"/>
@@ -185,7 +185,7 @@
 					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="CHARACTER">
-					<talendType type="id_Char" default="true" />
+					<talendType type="id_Character" default="true" />
 				</dbType>
 				<dbType type="CLOB">
 					<talendType type="id_Object" default="true" />

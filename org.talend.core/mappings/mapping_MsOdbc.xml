@@ -26,6 +26,7 @@
 			<dbType type="TINYINT" />
 			<dbType type="UNIQUEIDENTIFIER" />
 			<dbType type="VARBINARY" />
+			<dbType type="VARCHAR" />
 		</dbTypes>
 
 		<language name="java">
@@ -34,11 +35,11 @@
 					<dbType type="BIT" default="true"/>
 				</talendType>
 				<talendType type="id_Byte">
-					<dbType type="BIT" default="true"/>
+					<dbType type="TINYINT" default="true"/>
 				</talendType>
-				<talendType type="id_Byte[]">
+				<talendType type="id_byte[]">
 				</talendType>
-				<talendType type="id_Char">
+				<talendType type="id_Character">
 					<dbType type="CHAR" default="true" />
 					<dbType type="NCHAR"/>
 				</talendType>
@@ -66,12 +67,12 @@
 				<talendType type="id_Long">
 					<dbType type="BIGINT" default="true" />
 					<dbType type="INT" />
-					<dbType type="SMALLINT" />
+					<dbType type="SMALLINT" ></dbType>
 					<dbType type="TINYINT" />
 				</talendType>
 				<talendType type="id_Object">
 					<dbType type="VARBINARY" default="true"/>
-					<dbType type="IMAGE" />
+					<dbType type="IMAGE" ></dbType>
 					<dbType type="SQL_VARIANT" />
 					<dbType type="UNIQUEIDENTIFIER" />
 				</talendType>
@@ -82,7 +83,8 @@
 					<dbType type="INT" />
 				</talendType>
 				<talendType type="id_String">
-					<dbType type="NVARCHAR" default="true" />
+					<dbType type="VARCHAR" default="true" />
+					<dbType type="NVARCHAR" />
 					<dbType type="NCHAR" />
 					<dbType type="NTEXT" />
 					<dbType type="TEXT" />
@@ -98,11 +100,11 @@
 					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="BIT">
-					<talendType type="id_Byte" default="true" />
-					<talendType type="id_Boolean" />
+					<talendType type="id_Boolean" default="true" />
+					<talendType type="id_Byte" />
 				</dbType>
 				<dbType type="CHAR">
-					<talendType type="id_Char" default="true" />
+					<talendType type="id_Character" default="true" />
 				</dbType>
 				<dbType type="DATETIME">
 					<talendType type="id_Date" default="true" />
@@ -164,7 +166,7 @@
 					<talendType type="id_Date" default="true" />
 				</dbType>
 				<dbType type="TINYINT">
-					<talendType type="id_Short" default="true" />
+					<talendType type="id_Byte" default="true" />
 					<talendType type="id_Long" />
 					<talendType type="id_Integer" />
 				</dbType>
@@ -173,6 +175,9 @@
 				</dbType>
 				<dbType type="VARBINARY">
 					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="VARCHAR">
+					<talendType type="id_String" default="true" />
 				</dbType>
 			</dbToTalendTypes>
 		</language>
@@ -182,11 +187,11 @@
 					<dbType type="BIT" default="true"/>
 				</talendType>
 				<talendType type="id_Byte">
-					<dbType type="BIT" default="true"/>
+					<dbType type="TINYINT" default="true"/>
 				</talendType>
-				<talendType type="id_Byte[]">
+				<talendType type="id_byte[]">
 				</talendType>
-				<talendType type="id_Char">
+				<talendType type="id_Character">
 					<dbType type="CHAR" default="true" />
 					<dbType type="NCHAR"/>
 				</talendType>
@@ -214,12 +219,12 @@
 				<talendType type="id_Long">
 					<dbType type="BIGINT" default="true" />
 					<dbType type="INT" />
-					<dbType type="SMALLINT" />
+					<dbType type="SMALLINT" ></dbType>
 					<dbType type="TINYINT" />
 				</talendType>
 				<talendType type="id_Object">
 					<dbType type="VARBINARY" default="true"/>
-					<dbType type="IMAGE" />
+					<dbType type="IMAGE" ></dbType>
 					<dbType type="SQL_VARIANT" />
 					<dbType type="UNIQUEIDENTIFIER" />
 				</talendType>
@@ -230,7 +235,8 @@
 					<dbType type="INT" />
 				</talendType>
 				<talendType type="id_String">
-					<dbType type="NVARCHAR" default="true" />
+					<dbType type="VARCHAR" default="true" />
+					<dbType type="NVARCHAR" />
 					<dbType type="NCHAR" />
 					<dbType type="NTEXT" />
 					<dbType type="TEXT" />
@@ -246,11 +252,11 @@
 					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="BIT">
-					<talendType type="id_Byte" default="true" />
-					<talendType type="id_Boolean" />
+					<talendType type="id_Boolean" default="true" />
+					<talendType type="id_Byte" />
 				</dbType>
 				<dbType type="CHAR">
-					<talendType type="id_Char" default="true" />
+					<talendType type="id_Character" default="true" />
 				</dbType>
 				<dbType type="DATETIME">
 					<talendType type="id_Date" default="true" />
@@ -312,7 +318,7 @@
 					<talendType type="id_Date" default="true" />
 				</dbType>
 				<dbType type="TINYINT">
-					<talendType type="id_Short" default="true" />
+					<talendType type="id_Byte" default="true" />
 					<talendType type="id_Long" />
 					<talendType type="id_Integer" />
 				</dbType>
@@ -321,6 +327,9 @@
 				</dbType>
 				<dbType type="VARBINARY">
 					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="VARCHAR">
+					<talendType type="id_String" default="true" />
 				</dbType>
 			</dbToTalendTypes>
 		</language>
