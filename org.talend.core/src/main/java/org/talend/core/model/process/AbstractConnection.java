@@ -201,10 +201,10 @@ public abstract class AbstractConnection implements IConnection {
             while(it.hasNext())
             {
                 INode node = it.next();
-                Boolean absolute = (Boolean) node.getElementParameter("ABSOLUTE").getValue();
+                String absolute = (String) node.getElementParameter("ABSOLUTE").getValue();
                 String reference = (String) node.getElementParameter("CONNECTIONS").getValue();
                 
-                if(absolute.equals(Boolean.FALSE) && reference.equals(this.getUniqueName()))
+                if(absolute.equals("Relative") && reference.equals(this.getUniqueName()))
                 {
                     return true;
                 }
