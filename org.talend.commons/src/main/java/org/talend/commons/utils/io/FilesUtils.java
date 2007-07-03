@@ -91,7 +91,8 @@ public class FilesUtils {
     }
 
     private static void emptyFolder(File toEmpty) {
-        for (File current : toEmpty.listFiles()) {
+        final File[] listFiles = toEmpty.listFiles(getExcludeSystemFilesFilter());
+        for (File current : listFiles) {
             if (current.isDirectory()) {
                 emptyFolder(current);
             }
@@ -176,7 +177,7 @@ public class FilesUtils {
         FileFilter filter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return !pathname.toString().endsWith(".svn");
+                return !pathname.toString().endsWith(".svn") && !pathname.toString().endsWith(".dummy");
             }
 
         };
@@ -187,17 +188,17 @@ public class FilesUtils {
         FileFilter filter = new FileFilter() {
 
             public boolean accept(File pathname) {
-                return pathname.toString().toLowerCase().endsWith(".jar")||pathname.toString().toLowerCase().endsWith(".zip");//$NON-NLS-1$
+                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip");//$NON-NLS-1$
             }
 
         };
         return filter;
     }
 
-    public static String[] getAcceptJARFilesSuffix(){
+    public static String[] getAcceptJARFilesSuffix() {
         return new String[] { "*.jar;*.properties;*.zip" };//$NON-NLS-1$
     }
-    
+
     public static FileFilter getAcceptPMFilesFilter() {
         FileFilter filter = new FileFilter() {
 
