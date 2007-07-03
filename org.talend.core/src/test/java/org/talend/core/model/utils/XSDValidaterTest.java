@@ -80,12 +80,19 @@ public class XSDValidaterTest {
     @Test
     public final void testValidateWithDomFileFileOK() throws Exception {
         XSDValidater validator = new XSDValidater();
-        File validatingFile = new File("mappings/mapping_MsOdbc.xml");
+        File validatingFile = new File("mappings/mapping_IBMDB2.xml");
         File validatorFile = new File("mappings/mapping_validate.xsd");
         validator.validateWithDom(validatorFile, validatingFile);
 
-        validatingFile = new File("mappings/mapping_IBMDB2.xml");
+        validatingFile = new File("mappings/mapping_MsOdbc.xml");
         validator.validateWithDom(validatorFile, validatingFile);
+        
+        validatingFile = new File("mappings/mapping_Mysql.xml");
+        validator.validateWithDom(validatorFile, validatingFile);
+        
+        validatingFile = new File("mappings/mapping_Oracle.xml");
+        validator.validateWithDom(validatorFile, validatingFile);
+    
     }
 
     /**
