@@ -44,9 +44,9 @@ public class RemoveRoutineFolderTask extends AbstractMigrationTask implements IP
      * 
      * @see org.talend.core.model.migration.IMigrationTask#execute()
      */
-    public boolean execute(Project project) {
+    public ExecutionResult execute(Project project) {
         if (!project.isLocal()) {
-            return true;
+            return ExecutionResult.NOTHING_TO_DO;
         }
 
         try {
@@ -55,10 +55,10 @@ public class RemoveRoutineFolderTask extends AbstractMigrationTask implements IP
             // //$NON-NLS-1$
             IFolder f2 = ResourceUtils.getFolder(iproject, oldRoutinesPath, false);
             ResourceUtils.deleteResource(f2);
-            return true;
+            return ExecutionResult.SUCCESS_NO_ALERT;
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
-            return false;
+            return ExecutionResult.FAILURE;
         }
     }
 

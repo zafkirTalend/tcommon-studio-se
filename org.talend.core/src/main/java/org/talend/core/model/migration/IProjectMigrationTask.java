@@ -44,7 +44,7 @@ public interface IProjectMigrationTask {
 
     public void setDescription(String desc);
 
-    public boolean execute(Project project);
+    public ExecutionResult execute(Project project);
 
     /**
      * Represents the execution status of this task.
@@ -52,6 +52,7 @@ public interface IProjectMigrationTask {
     public enum ExecutionResult {
         SUCCESS_WITH_ALERT, // task successfully done, will be show to user in summary pop-up
         SUCCESS_NO_ALERT, // task successfully done, will NOT be show to user in summary pop-up (only in error log)
+        NOTHING_TO_DO, // nothing to do in the current context, will NOT be show to user in summary pop-up neither in error log
         FAILURE, // task failed (stacktrace in error log). will be retry on next login
         SKIPPED; // task not failed, not show to user in summary pop-up. will be retry on next login
     }

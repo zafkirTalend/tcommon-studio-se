@@ -22,17 +22,12 @@
 package org.talend.repository.localprovider.model.migration;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceVisitor;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -45,7 +40,6 @@ import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.repository.localprovider.model.XmiResourceManager;
 import org.talend.repository.model.ResourceModelUtils;
-import org.talend.repository.model.URIHelper;
 
 /**
  *
@@ -56,17 +50,17 @@ public class ChangeXmiSerialization extends AbstractMigrationTask implements IPr
     
     private Collection<Resource> modifiedResources = new ArrayList<Resource>();
     
-    public boolean execute(Project project) {
+    public ExecutionResult execute(Project project) {
         try {
             if (!project.isLocal()) {
-                return true;
+                return ExecutionResult.NOTHING_TO_DO;
             }
 
             IProject iProject = ResourceModelUtils.getProject(project);
             xmiResourceManager = new XmiResourceManager();
             xmiResourceManager.setUseOldProjectFile(true);
             if (!xmiResourceManager.hasTalendProjectFile(iProject)) {
-                return false;
+                return ExecutionResult.NOTHING_TO_DO;
             }
             
             PropertiesResourcesCollector propertiesResourcesCollector = new PropertiesResourcesCollector();
@@ -120,10 +114,10 @@ public class ChangeXmiSerialization extends AbstractMigrationTask implements IPr
             
             xmiResourceManager.deleteResource(projectResource);
             
-            return true;
+            return ExecutionResult.SUCCESS_NO_ALERT;
         } catch (Exception e) {
             ExceptionHandler.process(e);
-            return false;
+            return ExecutionResult.FAILURE;
         }
     }
 
