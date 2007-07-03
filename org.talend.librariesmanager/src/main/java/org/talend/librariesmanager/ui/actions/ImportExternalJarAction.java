@@ -44,6 +44,7 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.utils.generation.JavaUtils;
+import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.ui.images.ECoreImage;
@@ -76,7 +77,7 @@ public class ImportExternalJarAction extends Action {
 
         FileDialog fileDialog = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), SWT.OPEN
                 | SWT.MULTI);
-        fileDialog.setFilterExtensions(new String[] { "*.jar;*.properties" }); //$NON-NLS-1$
+        fileDialog.setFilterExtensions(FilesUtils.getAcceptJARFilesSuffix()); //$NON-NLS-1$
         fileDialog.open();
         final String path = fileDialog.getFilterPath();
         final String[] fileNames = fileDialog.getFileNames();
@@ -93,25 +94,25 @@ public class ImportExternalJarAction extends Action {
                         ExceptionHandler.process(e);
                     }
                 }
-                
-                //Adds the classpath to java project.
+
+                // Adds the classpath to java project.
                 IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
                 IProject prj = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
                 IJavaProject project = JavaCore.create(prj);
 
                 List<IClasspathEntry> projectLibraries = new ArrayList<IClasspathEntry>();
-               
+
                 try {
                     IClasspathEntry[] resolvedClasspath = project.getResolvedClasspath(true);
-                    
+
                     projectLibraries.addAll(Arrays.asList(resolvedClasspath));
-                    
+
                     for (int i = 0; i < fileNames.length; i++) {
                         final File file = new File(path + File.separatorChar + fileNames[i]);
                         projectLibraries.add(JavaCore.newLibraryEntry(new Path(file.getAbsolutePath()), null, null));
                     }
                     project.setRawClasspath(projectLibraries.toArray(new IClasspathEntry[projectLibraries.size()]), null);
-                  
+
                 } catch (JavaModelException e) {
                     ExceptionHandler.process(e);
                 }
