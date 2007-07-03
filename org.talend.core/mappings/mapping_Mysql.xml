@@ -113,7 +113,7 @@
 				<talendType type="id_String">
 					<dbType type="VARCHAR" default="true" />
 					<dbType type="LINESTRING" />
-					<dbType type="LONETEXT"/>
+					<dbType type="LONGTEXT"/>
 					<dbType type="MEDIUMTEXT" />
 					<dbType type="MULTILINESTRING" />		
 					<dbType type="TEXT" />
@@ -177,7 +177,6 @@
 				</dbType>
 				<dbType type="MEDIUMBLOB">
 					<talendType type="id_Object" default="true" />
-					<talendType type=""/>
 				</dbType>
 				<dbType type="MEDIUMINT">
 					<talendType type="id_Integer" default="true" />
@@ -329,7 +328,7 @@
 				<talendType type="id_String">
 					<dbType type="VARCHAR" default="true" />
 					<dbType type="LINESTRING" />
-					<dbType type="LONETEXT"/>
+					<dbType type="LONGTEXT"/>
 					<dbType type="MEDIUMTEXT" />
 					<dbType type="MULTILINESTRING" />		
 					<dbType type="TEXT" />
@@ -393,7 +392,6 @@
 				</dbType>
 				<dbType type="MEDIUMBLOB">
 					<talendType type="id_Object" default="true" />
-					<talendType type=""/>
 				</dbType>
 				<dbType type="MEDIUMINT">
 					<talendType type="id_Integer" default="true" />
