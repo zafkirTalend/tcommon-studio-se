@@ -129,9 +129,9 @@ public class PerlFunctionParser extends AbstractFunctionParser {
             function.setName(functionName);
             function.setDescription(des);
             function.setParameters(Arrays.asList(paras));
+            function.setCategory(category);
 
             TalendType talendType = getTalendType(functionType);
-            talendType.setCategory(category);
             talendType.addFunctions(function);
 
         }

@@ -30,8 +30,6 @@ import org.talend.core.i18n.Messages;
  */
 public class TalendType {
 
-    private String category;
-
     /**
      * @uml.property name="name"
      */
@@ -135,23 +133,5 @@ public class TalendType {
             sb.append(function).append("\n").append("    "); //$NON-NLS-1$ //$NON-NLS-2$
         }
         return sb.toString();
-    }
-
-    /**
-     * Getter for category.
-     * 
-     * @return the category
-     */
-    public String getCategory() {
-        return this.category;
-    }
-
-    /**
-     * Sets the category.
-     * 
-     * @param category the category to set
-     */
-    public void setCategory(String category) {
-        this.category = category;
     }
 }

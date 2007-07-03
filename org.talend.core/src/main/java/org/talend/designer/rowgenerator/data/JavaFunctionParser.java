@@ -148,8 +148,8 @@ public class JavaFunctionParser extends AbstractFunctionParser {
             function.setName(funcName);
             function.setDescription(des);
             function.setParameters(Arrays.asList(paras));
+            function.setCategory(category);
             TalendType talendType = getTalendType(functionType);
-            talendType.setCategory(category);
             talendType.addFunctions(function);
             typeMethods.put(functionType + "." + funcName, className + "." + funcName);
             typePackgeMethods.put(functionType + "." + funcName, fullName + "." + funcName);

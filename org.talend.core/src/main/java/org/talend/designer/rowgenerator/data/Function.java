@@ -31,9 +31,28 @@ import org.talend.core.i18n.Messages;
  */
 public class Function implements Cloneable {
 
-    
+    private String category;
+
     private TalendType talendType;
-    
+
+    /**
+     * Getter for category.
+     * 
+     * @return the category
+     */
+    public String getCategory() {
+        return this.category;
+    }
+
+    /**
+     * Sets the category.
+     * 
+     * @param category the category to set
+     */
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -277,7 +296,7 @@ public class Function implements Cloneable {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(Messages.getString("Function.FunctionName", name))
-        .append("   " + this.getDescription()).append("\n").append("    "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+                .append("   " + this.getDescription()).append("\n").append("    "); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
         Parameter[] p = this.parametersToArray();
 
         for (int i = 0; i < p.length; i++) {
@@ -287,18 +306,18 @@ public class Function implements Cloneable {
         return sb.toString();
     }
 
-    
     /**
      * Getter for talendType.
+     * 
      * @return the talendType
      */
     public TalendType getTalendType() {
         return this.talendType;
     }
 
-    
     /**
      * Sets the talendType.
+     * 
      * @param talendType the talendType to set
      */
     public void setTalendType(TalendType talendType) {
