@@ -24,4 +24,20 @@ public class Numeric {
             return startValue;
         }
     }
+    
+    /**
+     * return a random int between min and max
+     * 
+     * {Category} Numeric
+     * {talendTypes} int | Integer
+     * {param} int(0) min value
+     * {param} int(100) max value
+     * 
+     * {example} random(3, 10) # 7, 4, 8, ... 
+     * {example} random(0, 100) # 93, 12, 83, ...
+     * 
+     */
+    public static Integer random(Integer min, Integer max) {
+        return min + ((Long)Math.round(Math.random() * (max - min))).intValue();
+    }
 }
