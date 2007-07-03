@@ -47,15 +47,15 @@ public abstract class AbstractConnection implements IConnection {
     private boolean activate;
 
     private String condition;
-    
+
     private boolean readOnly;
-    
+
     private String uniqueName;
 
     private List<? extends IElementParameter> elementParameters;
-    
+
     private String connectorName;
-    
+
     private int inputId;
 
     public boolean isActivate() {
@@ -120,7 +120,7 @@ public abstract class AbstractConnection implements IConnection {
     public List<? extends IElementParameter> getElementParameters() {
         return elementParameters;
     }
-    
+
     public IElementParameter getElementParameter(String name) {
         for (IElementParameter elementParam : elementParameters) {
             if (elementParam.getName().equals(name)) {
@@ -136,76 +136,72 @@ public abstract class AbstractConnection implements IConnection {
 
     public void setTraceData(String traceData) {
     }
-    
+
     public boolean isReadOnly() {
         return readOnly;
     }
-    
+
     public void setReadOnly(boolean readOnly) {
         this.readOnly = readOnly;
     }
 
-    
     /**
      * Getter for uniqueName.
+     * 
      * @return the uniqueName
      */
     public String getUniqueName() {
         return uniqueName;
     }
 
-    
     /**
      * Sets the uniqueName.
+     * 
      * @param uniqueName the uniqueName to set
      */
     public void setUniqueName(String uniqueName) {
         this.uniqueName = uniqueName;
     }
 
-    
     /**
      * Getter for connectorName.
+     * 
      * @return the connectorName
      */
     public String getConnectorName() {
         return connectorName;
     }
 
-    
     /**
      * Sets the connectorName.
+     * 
      * @param connectorName the connectorName to set
      */
     public void setConnectorName(String connectorName) {
         this.connectorName = connectorName;
     }
-    
-    public int getInputId()
-    {
+
+    public int getInputId() {
         return inputId;
     }
-    
-    public void setInputId(int inputId)
-    {
-      this.inputId = inputId;
+
+    public void setInputId(int inputId) {
+        this.inputId = inputId;
     }
-    
-    public boolean isUseByMetter()
-    {
+
+    @SuppressWarnings("unchecked")
+    public boolean isUseByMetter() {
         INode sourceNode = this.getSource();
         List<INode> metterNodes = (List<INode>) sourceNode.getProcess().getNodesOfType("tMetter");
         if (metterNodes.size() > 0) {
-            
-            Iterator<INode> it = (Iterator<INode>)metterNodes.iterator();
-            while(it.hasNext())
-            {
+
+            Iterator<INode> it = (Iterator<INode>) metterNodes.iterator();
+            while (it.hasNext()) {
                 INode node = it.next();
                 String absolute = (String) node.getElementParameter("ABSOLUTE").getValue();
                 String reference = (String) node.getElementParameter("CONNECTIONS").getValue();
-                
-                if(absolute.equals("Relative") && reference.equals(this.getUniqueName()))
-                {
+
+                if (absolute.equals("Relative") && reference.equals(this.getUniqueName())) {
                     return true;
                 }
             }
