@@ -40,6 +40,7 @@ import org.eclipse.jdt.ui.JavadocContentAccess;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 
 /**
@@ -81,18 +82,23 @@ public class JavaFunctionParser extends AbstractFunctionParser {
                             SourceType sourceType = (SourceType) types[0];
                             IMethod[] methods = sourceType.getMethods();
                             for (IMethod method : methods) {
-                                Reader reader = JavadocContentAccess.getContentReader(method, true);
-                                if (reader != null) {
-                                    char[] charBuffer = new char[1024];
-                                    StringBuffer str = new StringBuffer();
-                                    int index = 0;
-                                    while ((index = reader.read(charBuffer)) != -1) {
-                                        str.append(charBuffer, 0, index);
-                                        index = 0;
+                                try {
+                                    Reader reader = JavadocContentAccess.getContentReader(method, true);
+                                    if (reader != null) {
+                                        char[] charBuffer = new char[1024];
+                                        StringBuffer str = new StringBuffer();
+                                        int index = 0;
+                                        while ((index = reader.read(charBuffer)) != -1) {
+                                            str.append(charBuffer, 0, index);
+                                            index = 0;
+                                        }
+                                        reader.close();
+                                        parseJavaCommentToFunctions(str.toString(), sourceType.getElementName(), sourceType
+                                                .getFullyQualifiedName(), method.getElementName());
                                     }
-                                    reader.close();
-                                    parseJavaCommentToFunctions(str.toString(), sourceType.getElementName(), sourceType
-                                            .getFullyQualifiedName(), method.getElementName());
+                                } catch (Exception e) {
+                                    ExceptionHandler.process(e);
+                                    continue;
                                 }
                             }
                         }
@@ -126,8 +132,11 @@ public class JavaFunctionParser extends AbstractFunctionParser {
     @Override
     protected String parseFunctionType(String string) {
         String string2 = super.parseFunctionType(string);
-        if (string != null && !string2.trim().equals("")) {
-            return JavaTypesManager.getJavaTypeFromLabel(string2).getId();
+        if (string2 != null && !string2.trim().equals("")) {
+            JavaType type = JavaTypesManager.getJavaTypeFromLabel(string2);
+            if (type != null) {
+                return type.getId();
+            }
         }
         return EMPTY_STRING;
     }
