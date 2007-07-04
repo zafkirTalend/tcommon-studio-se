@@ -3,8 +3,7 @@
       id="org.talend.rcp_feature"
       label="RCP Feature"
       version="2.1.0.qualifier"
-      provider-name=".Talend SA."
-      plugin="org.talend.rcp">
+      provider-name=".Talend SA.">
 
    <description url="http://www.talend.com/online/featuresdescription.html#rcp-feature">
       Complete description about this feature at http://www.talend.com/online/featuresdescription.html#rcp-feature
