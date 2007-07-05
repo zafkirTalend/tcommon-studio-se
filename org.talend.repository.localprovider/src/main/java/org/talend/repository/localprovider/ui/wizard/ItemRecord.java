@@ -64,17 +64,23 @@ public class ItemRecord {
 
     private Property property;
 
+    private int mode;
+    private static final int ZIP_MODE = 0;
+    private static final int FILE_MODE = 1;
+    
+    public boolean isValid() {
+        return valid;
+    }
+
     ItemRecord(ImportItemWizardPage page, File file, File file2) {
+        mode = FILE_MODE;
         itemSystemFile = file;
         itemSystemFile2 = file2;
         computeProperty();
     }
 
-    public boolean isValid() {
-        return valid;
-    }
-
     ItemRecord(Object file, Object file2, Object parent, int level, IImportStructureProvider entryProvider) {
+        mode = ZIP_MODE;
         this.itemArchiveFile = file;
         this.itemArchiveFile2 = file2;
         this.parent = parent;
@@ -88,7 +94,7 @@ public class ItemRecord {
         try {
             ResourceSet resourceSet = new ResourceSetImpl();
             Resource resource;
-            if (itemArchiveFile != null) {
+            if (mode == ZIP_MODE) {
                 stream = provider.getContents(itemArchiveFile);
                 resource = resourceSet.createResource(getURI(itemArchiveFile.toString()));
             } else {
@@ -120,7 +126,13 @@ public class ItemRecord {
     }
 
     private URI getURI(String path) {
-        String filename = path.substring(path.lastIndexOf(File.separator) + 1); //$NON-NLS-1$
+        String separator;
+        if (mode == ZIP_MODE) {
+            separator = "/";
+        } else {
+            separator = File.separator;
+        }
+        String filename =             path.substring(path.lastIndexOf(separator) + 1); //$NON-NLS-1$
         return URI.createURI(filename);
     }
 
@@ -139,7 +151,7 @@ public class ItemRecord {
 
         try {
             if (property.getItem() instanceof FileItem) {
-                if (itemArchiveFile != null) {
+                if (mode == ZIP_MODE) {
                     stream2 = provider.getContents(itemArchiveFile2);
                     resource2 = new ByteArrayResource(getURI(itemArchiveFile2.toString()));
                 } else {
@@ -148,7 +160,7 @@ public class ItemRecord {
                 }
                 resourceSet.getResources().add(resource2);
             } else {
-                if (itemArchiveFile != null) {
+                if (mode == ZIP_MODE) {
                     stream2 = provider.getContents(itemArchiveFile2);
                     resource2 = resourceSet.createResource(getURI(itemArchiveFile2.toString()));
                 } else {
