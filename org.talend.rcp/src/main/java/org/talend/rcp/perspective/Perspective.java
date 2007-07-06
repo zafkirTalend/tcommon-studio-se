@@ -64,6 +64,10 @@ public class Perspective implements IPerspectiveFactory {
         leftBottomLayout.addView(outlineId);
         leftBottomLayout.addView(codeId);
         
+        IFolderLayout rightTopLayout = layout.createFolder("paletteLayout", IPageLayout.RIGHT, new Float(0.8), //$NON-NLS-1$
+                IPageLayout.ID_EDITOR_AREA);
+        rightTopLayout.addView(gefPaletteViewId);
+        
         // bottomLayout
         IFolderLayout bottomLayout = layout.createFolder("bottomLayout", IPageLayout.BOTTOM, new Float(0.6), //$NON-NLS-1$
                 IPageLayout.ID_EDITOR_AREA);
@@ -80,10 +84,6 @@ public class Perspective implements IPerspectiveFactory {
         bottomLayout.addView(modulesViewId);
         bottomLayout.addView(schedulerViewId);
         
-
-        IFolderLayout rightTopLayout = layout.createFolder("paletteLayout", IPageLayout.RIGHT, new Float(0.7), //$NON-NLS-1$
-                IPageLayout.ID_EDITOR_AREA);
-        rightTopLayout.addView(gefPaletteViewId);
         
         // rightTopLayout
         // IFolderLayout rightTopLayout = layout.createFolder("rightLayout", IPageLayout.RIGHT, new Float(0.7),
