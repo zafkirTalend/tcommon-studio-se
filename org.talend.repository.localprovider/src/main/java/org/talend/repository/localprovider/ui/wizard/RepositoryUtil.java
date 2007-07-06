@@ -33,12 +33,13 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
+import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.model.XmiResourceManager;
 import org.talend.repository.model.ProxyRepositoryFactory;
 
 /**
  */
-public class RepositoryUtil {
+class RepositoryUtil {
 
     private XmiResourceManager xmiResourceManager = new XmiResourceManager();
 
@@ -65,7 +66,7 @@ public class RepositoryUtil {
                 elementLabel2);
     }
 
-    public void populateValidItems(List validItems, ItemRecord itemRecord) {
+    public String populateValidItems(List validItems, ItemRecord itemRecord) {
         try {
             boolean nameAvailable = ProxyRepositoryFactory.getInstance().isNameAvailable(itemRecord.getItem(),
                     itemRecord.getItem().getProperty().getLabel());
@@ -81,11 +82,23 @@ public class RepositoryUtil {
                 }
             }
 
-            if (nameAvailable && idAvailable && !isSystemRoutine) {
-                validItems.add(itemRecord);
+            if (nameAvailable) {
+                if (idAvailable) {
+                    if (!isSystemRoutine) {
+                        validItems.add(itemRecord);
+                        return null;
+                    } else {
+                        return "\"" + itemRecord.getItemName() + "\"" + Messages.getString("RepositoryUtil.isSystemRoutine"); //$NON-NLS-1$
+                    }
+                } else {
+                    return "\"" + itemRecord.getItemName() + "\"" + Messages.getString("RepositoryUtil.idUsed"); //$NON-NLS-1$
+                }
+            } else {
+                return "\"" + itemRecord.getItemName() + "\"" + Messages.getString("RepositoryUtil.nameUsed"); //$NON-NLS-1$
             }
         } catch (PersistenceException e) {
             // ignore
+            return null;
         }
     }
 

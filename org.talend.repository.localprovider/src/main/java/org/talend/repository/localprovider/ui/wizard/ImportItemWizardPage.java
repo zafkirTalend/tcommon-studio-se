@@ -32,18 +32,17 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.wizard.WizardPage;
@@ -57,6 +56,8 @@ import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.layout.RowData;
+import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
@@ -74,18 +75,12 @@ import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
 import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
 import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.core.model.properties.PropertiesPackage;
-import org.talend.core.model.properties.RoutineItem;
-import org.talend.core.model.repository.ERepositoryObjectType;
-import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
-import org.talend.repository.localprovider.model.XmiResourceManager;
-import org.talend.repository.model.ProxyRepositoryFactory;
 
 /**
  * Initialy copied from org.eclipse.ui.internal.wizards.datatransfer.WizardProjectsImportPage.
  */
-public class ImportItemWizardPage extends WizardPage {
+class ImportItemWizardPage extends WizardPage {
 
     private RepositoryUtil repositoryUtil = new RepositoryUtil();
     
@@ -119,6 +114,10 @@ public class ImportItemWizardPage extends WizardPage {
 
     private Label itemListInfo;
 
+    private TableViewer errorsList;
+    
+    private List<String> errors = new ArrayList<String>();
+
     protected ImportItemWizardPage(String pageName) {
         super(pageName);
     }
@@ -132,6 +131,42 @@ public class ImportItemWizardPage extends WizardPage {
 
         createItemRoot(workArea);
         createItemList(workArea);
+        createErrorsList(workArea);
+    }
+
+    private void createErrorsList(Composite workArea) {
+        Composite composite = new Composite(workArea, SWT.NONE);
+        RowLayout rowLayout = new RowLayout(SWT.VERTICAL);
+        composite.setLayout(rowLayout);
+
+        Label title = new Label(composite, SWT.NONE);
+        title.setText(Messages.getString("ImportItemWizardPage.ErrorsAndWarnings")); //$NON-NLS-1$
+        title.setLayoutData(new RowData(500, 20));
+
+        errorsList = new TableViewer(composite, SWT.BORDER);
+        errorsList.getControl().setLayoutData(new RowData(500, 100));
+
+        errorsList.setContentProvider(new IStructuredContentProvider() {
+            public void dispose() {
+            }
+
+            public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+            }
+
+            public Object[] getElements(Object inputElement) {
+                return errors.toArray();
+            }
+        });
+
+        errorsList.setLabelProvider(new LabelProvider() {
+
+            public String getText(Object element) {
+                return element.toString();
+            }
+        });
+
+        errorsList.setInput(this);
+        errorsList.setSorter(new ViewerSorter());
     }
 
     private void createItemList(Composite workArea) {
@@ -582,10 +617,17 @@ public class ImportItemWizardPage extends WizardPage {
     }
 
     public ItemRecord[] getValidItems() {
+        errors.clear();
         List validItems = new ArrayList();
         for (int i = 0; i < selectedItems.length; i++) {
             ItemRecord itemRecord = selectedItems[i];
-            repositoryUtil.populateValidItems(validItems, itemRecord);
+            String result = repositoryUtil.populateValidItems(validItems, itemRecord);
+            if (result != null) {
+                errors.add(result);
+            }
+        }
+        if (errorsList != null) {
+            errorsList.refresh();
         }
         return (ItemRecord[]) validItems.toArray(new ItemRecord[validItems.size()]);
     }
@@ -616,7 +658,7 @@ public class ImportItemWizardPage extends WizardPage {
                     monitor.done();
                     
                     if (repositoryUtil.hasErrors()) {
-                        throw new InvocationTargetException(new PersistenceException("")); //$NON-NLS-N$
+                        throw new InvocationTargetException(new PersistenceException("")); //$NON-NLS-1$
                     }
                 }
             };
