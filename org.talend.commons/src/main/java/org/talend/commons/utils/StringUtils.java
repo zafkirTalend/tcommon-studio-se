@@ -43,7 +43,9 @@ public class StringUtils {
         return org.apache.commons.lang.StringUtils.capitalize(str);
     }
 
-
+    public static String getMysqlProtectedColumnName(String colname) {
+    	return "`" + colname + "`";
+    }
 
     /**
      * Extract string between the first delimiter and the second delimiter.
