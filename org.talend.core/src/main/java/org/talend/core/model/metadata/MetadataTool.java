@@ -125,8 +125,7 @@ public class MetadataTool {
         if (metadataConnectionsItem != null) {
             for (ConnectionItem connectionItem : metadataConnectionsItem) {
                 org.talend.core.model.metadata.builder.connection.Connection connection;
-                connection = (org.talend.core.model.metadata.builder.connection.Connection) connectionItem
-                        .getConnection();
+                connection = (org.talend.core.model.metadata.builder.connection.Connection) connectionItem.getConnection();
                 for (Object tableObj : connection.getTables()) {
                     MetadataTable table = (MetadataTable) tableObj;
                     if (!factory.isDeleted(table)) {
@@ -142,8 +141,8 @@ public class MetadataTool {
         return metaToReturn;
     }
 
-
-    public static org.talend.core.model.metadata.builder.connection.Connection getConnectionFromRepository(String metaRepositoryName) {
+    public static org.talend.core.model.metadata.builder.connection.Connection getConnectionFromRepository(
+            String metaRepositoryName) {
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         List<ConnectionItem> metadataConnectionsItem = null;
         List<String> repositoryList = new ArrayList<String>();
@@ -156,13 +155,63 @@ public class MetadataTool {
         if (metadataConnectionsItem != null) {
             for (ConnectionItem connectionItem : metadataConnectionsItem) {
                 org.talend.core.model.metadata.builder.connection.Connection connection;
-                connection = (org.talend.core.model.metadata.builder.connection.Connection) connectionItem
-                        .getConnection();
+                connection = (org.talend.core.model.metadata.builder.connection.Connection) connectionItem.getConnection();
                 if (metaRepositoryName.startsWith(connectionItem.getProperty().getId())) {
                     return connection;
                 }
             }
         }
         return null;
+    }
+
+    /**
+     * qzhang Comment method "getNewMetadataColumns".
+     * 
+     * @param oldTable
+     * @param newTable
+     * @return
+     */
+    public static List<ColumnNameChanged> getNewMetadataColumns(IMetadataTable oldTable, IMetadataTable newTable) {
+        List<ColumnNameChanged> list = new ArrayList<ColumnNameChanged>();
+        List<IMetadataColumn> newColumns = newTable.getListColumns();
+        List<IMetadataColumn> oldColumns = oldTable.getListColumns();
+        for (IMetadataColumn column : newColumns) {
+            boolean isNew = true;
+            for (IMetadataColumn ocolumn : oldColumns) {
+                if (column.getLabel().equals(ocolumn.getLabel())) {
+                    isNew = false;
+                    break;
+                }
+            }
+            if (isNew) {
+                list.add(new ColumnNameChanged("", column.getLabel()));
+            }
+        }
+        return list;
+    }
+    /**
+     * qzhang Comment method "getRemoveMetadataColumns".
+     * 
+     * @param oldTable
+     * @param newTable
+     * @return
+     */
+    public static List<ColumnNameChanged> getRemoveMetadataColumns(IMetadataTable oldTable, IMetadataTable newTable) {
+        List<ColumnNameChanged> list = new ArrayList<ColumnNameChanged>();
+        List<IMetadataColumn> newColumns = newTable.getListColumns();
+        List<IMetadataColumn> oldColumns = oldTable.getListColumns();
+        for (IMetadataColumn column : oldColumns) {
+            boolean isNew = true;
+            for (IMetadataColumn ocolumn : newColumns) {
+                if (column.getLabel().equals(ocolumn.getLabel())) {
+                    isNew = false;
+                    break;
+                }
+            }
+            if (isNew) {
+                list.add(new ColumnNameChanged(column.getLabel(), ""));
+            }
+        }
+        return list;
     }
 }

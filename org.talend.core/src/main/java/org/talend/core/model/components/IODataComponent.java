@@ -24,6 +24,7 @@ package org.talend.core.model.components;
 import java.util.List;
 
 import org.talend.core.model.metadata.ColumnNameChanged;
+import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.MetadataTool;
 import org.talend.core.model.process.EConnectionType;
@@ -69,13 +70,14 @@ public class IODataComponent {
     public String getName() {
         return connection.getName();
     }
-    
+
     public String getUniqueName() {
         return connection.getUniqueName();
     }
-    
+
     /**
      * Getter for connection.
+     * 
      * @return the connection
      */
     public IConnection getConnection() {
@@ -113,6 +115,25 @@ public class IODataComponent {
         return columnNameChanged;
     }
 
+    private List<ColumnNameChanged> newMetadataColumns;
+
+    public List<ColumnNameChanged> getNewMetadataColumns() {
+        if (newMetadataColumns == null) {
+            newMetadataColumns = MetadataTool.getNewMetadataColumns(connection.getMetadataTable(), newMetadataTable);
+        }
+        return newMetadataColumns;
+    }
+
+    private List<ColumnNameChanged> removeMetadataColumns;
+
+    public List<ColumnNameChanged> getRemoveMetadataColumns() {
+        if (removeMetadataColumns == null) {
+            removeMetadataColumns = MetadataTool.getRemoveMetadataColumns(connection.getMetadataTable(), newMetadataTable);
+        }
+        return removeMetadataColumns;
+    }
+
+    
     public void setColumnNameChanged(List<ColumnNameChanged> columnNameChanged) {
         this.columnNameChanged = columnNameChanged;
     }
