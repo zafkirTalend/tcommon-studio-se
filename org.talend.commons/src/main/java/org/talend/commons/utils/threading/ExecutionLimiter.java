@@ -44,6 +44,10 @@ public abstract class ExecutionLimiter {
 
     private FinalExecution finalExecution;
 
+    private Thread executeAtEndOfTimeThread;
+
+    private FinalExecution finalExecutionThreadWait;
+
     public ExecutionLimiter() {
         super();
     }
@@ -88,13 +92,18 @@ public abstract class ExecutionLimiter {
                     @Override
                     public void run() {
                         try {
-                            try {
-                                Thread.sleep(timeBeforeNewExecution);
-                            } catch (InterruptedException e) {
-                                // nothing to do
+                            // System.out.println("1 HASHCODE = " + ExecutionLimiter.this.hashCode() + " " + this.hashCode());
+//                            Thread.sleep(timeBeforeNewExecution);
+                            synchronized (this) {
+                                // System.out.println("2 HASHCODE = " + ExecutionLimiter.this.hashCode() + " "  +  this.hashCode());
+                                executeAtEndOfTimeThread = this;
+                                this.wait(timeBeforeNewExecution);
                             }
-                            // //System.out.println( "Call executed: executeAtEndOfTime");
+                            // System.out.println("Call executed: executeAtEndOfTime" + ExecutionLimiter.this.hashCode() + " "  +  this.hashCode());
                             callExecute();
+                        } catch (InterruptedException e) {
+                            // System.out.println("=======>  executeAtEndOfTime interrupted" + ExecutionLimiter.this.hashCode() + " "  +  this.hashCode());
+                            return;
                         } catch (Exception e) {
                             ExceptionHandler.process(e);
                         } finally {
@@ -110,6 +119,7 @@ public abstract class ExecutionLimiter {
             // //System.out.println( "Call rejected");
         }
         if (finalExecute) {
+            // System.out.println("startThreadForFinalExecution();");
             startThreadForFinalExecution();
         }
         if (executable && !executeAtEndOfTime) {
@@ -132,10 +142,10 @@ public abstract class ExecutionLimiter {
             @Override
             public void run() {
                 FinalExecution finalThread = new FinalExecution();
-                if (finalExecution != null && !finalExecution.isInterrupted()) {
-                    finalExecution.interrupt();
+                if (finalExecutionThreadWait != null && !finalExecutionThreadWait.isInterrupted()) {
+                    finalExecutionThreadWait.interrupt();
                 }
-                finalExecution = finalThread;
+                finalExecutionThreadWait = finalThread;
                 finalThread.start();
             }
 
@@ -153,12 +163,16 @@ public abstract class ExecutionLimiter {
 
         public void run() {
             try {
-                Thread.sleep(timeBeforeNewExecution);
+                synchronized (this) {
+//                    finalExecutionThreadWait = this;
+                    this.wait(timeBeforeNewExecution);
+                }
+//                Thread.sleep(timeBeforeNewExecution);
             } catch (InterruptedException e) {
-//                System.out.println("Interrupted");
+//                System.out.println("FinalExecution Interrupted " + ExecutionLimiter.this.hashCode() + " "  + this.hashCode());
                 return;
             }
-//            System.out.println("Not Interrupted");
+//            System.out.println("FinalExecution Not Interrupted " + ExecutionLimiter.this.hashCode() + " " + this.hashCode());
 //            System.out.println("Final thread executed");
             execute(true);
         }
@@ -187,8 +201,18 @@ public abstract class ExecutionLimiter {
         return timeBeforeNewExecution;
     }
 
-    public void setTimeBeforeNewExecution(int timeBeforeNewExecute) {
+    public void setTimeBeforeNewExecution(long timeBeforeNewExecute) {
         this.timeBeforeNewExecution = timeBeforeNewExecute;
     }
 
+    public void resetTimer() {
+        // System.out.println("############### RESET timer");
+        startTime = System.currentTimeMillis();
+        if (executeAtEndOfTimeThread != null && !executeAtEndOfTimeThread.isInterrupted()) {
+            executeAtEndOfTimeThread.interrupt();
+        }
+        if (finalExecutionThreadWait != null && !finalExecutionThreadWait.isInterrupted()) {
+            finalExecutionThreadWait.interrupt();
+        }
+    }
 }
