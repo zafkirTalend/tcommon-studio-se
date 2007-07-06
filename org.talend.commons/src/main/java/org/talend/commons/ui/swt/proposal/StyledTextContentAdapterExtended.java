@@ -83,6 +83,7 @@ public class StyledTextContentAdapterExtended extends StyledTextContentAdapter i
         if (offsetCursor <= textLength) {
             styledText.setSelection(offsetCursor, offsetCursor);
         }
+        styledText.redraw();
     }
 
     /*

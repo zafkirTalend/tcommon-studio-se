@@ -107,7 +107,7 @@ public final class ProposalUtils {
             contentProposalAdapter = new ContentProposalAdapterExtended(control, controlContentAdapter,
                     proposalProvider, keyStroke, null);
             contentProposalAdapter.setPropagateKeys(true);
-            contentProposalAdapter.setFilterStyle(ContentProposalAdapterExtended.FILTER_CUMULATIVE);
+            contentProposalAdapter.setFilterStyle(ContentProposalAdapterExtended.FILTER_CUMULATIVE_ALL_START_WORDS);
             contentProposalAdapter.setProposalAcceptanceStyle(ContentProposalAdapterExtended.PROPOSAL_INSERT);
         } catch (ParseException pe) {
             throw new RuntimeException(pe);

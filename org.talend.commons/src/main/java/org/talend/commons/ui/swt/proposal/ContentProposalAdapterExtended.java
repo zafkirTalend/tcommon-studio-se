@@ -30,6 +30,12 @@ package org.talend.commons.ui.swt.proposal;
 
 import java.util.ArrayList;
 
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.PatternCompiler;
+import org.apache.oro.text.regex.PatternMatcher;
+import org.apache.oro.text.regex.Perl5Compiler;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.eclipse.core.runtime.ListenerList;
 import org.eclipse.jface.bindings.keys.KeyStroke;
 import org.eclipse.jface.dialogs.PopupDialog;
@@ -59,6 +65,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * <br>
@@ -429,7 +436,7 @@ public class ContentProposalAdapterExtended {
                             // If there are no contents, changes in cursor position
                             // have no effect. Note also that we do not affect the filter
                             // text on ARROW_LEFT as we would with BS.
-                            if (contents.length() > 0) {
+//                            if (contents.length() > 0) {
                                 updateIntialFilterText();
                                 // System.out.println("update proposal :" + filterText +" .equals(" +
                                 // previousFilterText);
@@ -438,11 +445,11 @@ public class ContentProposalAdapterExtended {
                                 // );
                                 if (cursorPosition == lastCursorPosition || !filterText.equals(previousFilterText)
                                         && previousFilterText != null) {
-                                    // System.out.println("update proposal!!!");
+//                                     System.out.println("update proposal!!!");
                                     asyncRecomputeProposals(filterText);
                                     previousFilterText = filterText;
                                 }
-                            }
+//                            }
                             lastCursorPosition = cursorPosition;
                         }
                         break;
@@ -521,7 +528,7 @@ public class ContentProposalAdapterExtended {
                         // the special cases processed above, update the filter text
                         // and filter the proposals.
                         if (Character.isDefined(key)) {
-                            if (filterStyle == FILTER_CUMULATIVE) {
+                            if (filterStyle == FILTER_CUMULATIVE || filterStyle == FILTER_CUMULATIVE_ALL_START_WORDS) {
                                 filterText = filterText + String.valueOf(key);
                             } else if (filterStyle == FILTER_CHARACTER) {
                                 filterText = String.valueOf(key);
@@ -693,7 +700,7 @@ public class ContentProposalAdapterExtended {
         }
 
         private void updateIntialFilterText() {
-            if (controlContentAdapter instanceof IControlContentAdapterExtended && filterStyle == FILTER_CUMULATIVE) {
+            if (controlContentAdapter instanceof IControlContentAdapterExtended && (filterStyle == FILTER_CUMULATIVE || filterStyle == FILTER_CUMULATIVE_ALL_START_WORDS)) {
                 filterText = ((IControlContentAdapterExtended) controlContentAdapter).getFilterValue(getControl());
                 // System.out.println("Update initialfilter: "+filterText);
             }
@@ -1123,6 +1130,9 @@ public class ContentProposalAdapterExtended {
             }
         }
 
+        private PatternCompiler compiler = new Perl5Compiler();
+        private PatternMatcher matcher = new Perl5Matcher();
+        
         /*
          * Filter the provided list of content proposals according to the filter text.
          */
@@ -1135,33 +1145,58 @@ public class ContentProposalAdapterExtended {
             // System.out.println("\nfilterString="+filterString);
             // Check each string for a match. Use the string displayed to the
             // user, not the proposal content.
-            ArrayList list = new ArrayList();
+            ArrayList listBegin = new ArrayList();
+            ArrayList listOthers = new ArrayList();
+            int results = 0;
             boolean continueSearching = true;
             String currentFilter = EMPTY;
-            for (int indexStartFilter = 0; list.size() == 0 && continueSearching && indexStartFilter < filterString.length(); indexStartFilter++) {
+            for (int indexStartFilter = 0; results == 0 && continueSearching && indexStartFilter < filterString.length(); indexStartFilter++) {
                 currentFilter = filterString.substring(indexStartFilter);
                 // System.out.println("currentFilter="+currentFilter);
+                
                 for (int i = 0; i < proposals.length; i++) {
                     String string = getString(proposals[i]);
-                    if (string.length() >= currentFilter.length()
-                            && string.substring(0, currentFilter.length()).equalsIgnoreCase(currentFilter)) {
-                        list.add(proposals[i]);
+                    if (string.length() >= currentFilter.length()) {
+
+                        boolean beginAdded = false;
+                        if ((filterStyle == FILTER_CUMULATIVE || filterStyle == FILTER_CUMULATIVE_ALL_START_WORDS)
+                                && string.substring(0, currentFilter.length()).equalsIgnoreCase(currentFilter)) {
+                            listBegin.add(proposals[i]);
+                            results++;
+                            beginAdded = true;
+                        }
+                        if (!beginAdded && filterStyle == FILTER_CUMULATIVE_ALL_START_WORDS) {
+                            
+                            Pattern pattern = null;
+                            try {
+                                pattern = compiler.compile(".*\\W" + Perl5Compiler.quotemeta(currentFilter) + ".*",
+                                        Perl5Compiler.CASE_INSENSITIVE_MASK | Perl5Compiler.MULTILINE_MASK);
+                            } catch (MalformedPatternException e) {
+                                ExceptionHandler.process(e);
+                            }
+                            if (matcher.matches(string, pattern)) {
+                                listOthers.add(proposals[i]);
+                                results++;
+                            }
+                        }
                     }
                 }
             }
-            if (list.size() == 0) {
-                list = new ArrayList();
+            ArrayList list = new ArrayList();
+            if (results == 0) {
                 for (int i = 0; i < proposals.length; i++) {
                     list.add(proposals[i]);
                 }
                 filterText = EMPTY;
             } else {
+                list.addAll(listBegin);
+                list.addAll(listOthers);
                 filterText = currentFilter;
             }
 
             // System.out.println("Final filterText="+filterText);
 
-            return (IContentProposal[]) list.toArray(new IContentProposal[list.size()]);
+            return (IContentProposal[]) list.toArray(new IContentProposal[listBegin.size()]);
         }
 
         Listener getTargetControlListener() {
@@ -1211,6 +1246,12 @@ public class ContentProposalAdapterExtended {
      */
     public static final int FILTER_CUMULATIVE = 3;
 
+    /**
+     * Indicates that a cumulative filter applies as keys are typed in the popup. That is, each character typed will be
+     * added to the filter.
+     */
+    public static final int FILTER_CUMULATIVE_ALL_START_WORDS = 4;
+    
     /*
      * Set to <code>true</code> to use a Table with SWT.VIRTUAL. This is a workaround for
      * https://bugs.eclipse.org/bugs/show_bug.cgi?id=98585#c40 The corresponding SWT bug is
@@ -1514,7 +1555,8 @@ public class ContentProposalAdapterExtended {
      * @param filterStyle a constant indicating how keystrokes in the proposal popup affect filtering of the proposals
      * shown. <code>FILTER_NONE</code> specifies that no filtering will occur in the content proposal list as keys are
      * typed. <code>FILTER_CUMULATIVE</code> specifies that the content of the popup will be filtered by a string
-     * containing all the characters typed since the popup has been open. <code>FILTER_CHARACTER</code> specifies the
+     * containing all the characters typed since the popup has been open. <code>FILTER_CUMULATIVE_ALL</code> specifies that the content of the popup will be filtered by a string
+     * containing all the characters typed since the popup has been open for all words of labels. <code>FILTER_CHARACTER</code> specifies the
      * content of the popup will be filtered by the most recently typed character.
      */
     public void setFilterStyle(int filterStyle) {
