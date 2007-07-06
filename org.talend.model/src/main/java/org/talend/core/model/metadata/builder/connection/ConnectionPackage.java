@@ -481,13 +481,22 @@ public interface ConnectionPackage extends EPackage {
     int METADATA_COLUMN__PATTERN = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 9;
 
     /**
+     * The feature id for the '<em><b>Display Field</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_COLUMN__DISPLAY_FIELD = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 10;
+
+    /**
      * The number of structural features of the '<em>Metadata Column</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int METADATA_COLUMN_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 10;
+    int METADATA_COLUMN_FEATURE_COUNT = ABSTRACT_METADATA_OBJECT_FEATURE_COUNT + 11;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3009,6 +3018,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getMetadataColumn_Pattern();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getDisplayField <em>Display Field</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Display Field</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.MetadataColumn#getDisplayField()
+     * @see #getMetadataColumn()
+     * @generated
+     */
+    EAttribute getMetadataColumn_DisplayField();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.AbstractMetadataObject <em>Abstract Metadata Object</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Abstract Metadata Object</em>'.
@@ -4065,6 +4085,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute METADATA_COLUMN__PATTERN = eINSTANCE.getMetadataColumn_Pattern();
+
+        /**
+         * The meta object literal for the '<em><b>Display Field</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute METADATA_COLUMN__DISPLAY_FIELD = eINSTANCE.getMetadataColumn_DisplayField();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.AbstractMetadataObjectImpl <em>Abstract Metadata Object</em>}' class.

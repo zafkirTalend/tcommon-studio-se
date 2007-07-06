@@ -33,6 +33,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl#getTable <em>Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl#getOriginalField <em>Original Field</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl#getPattern <em>Pattern</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.MetadataColumnImpl#getDisplayField <em>Display Field</em>}</li>
  * </ul>
  * </p>
  *
@@ -219,6 +220,26 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * @ordered
      */
     protected String pattern = PATTERN_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getDisplayField() <em>Display Field</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDisplayField()
+     * @generated
+     * @ordered
+     */
+    protected static final String DISPLAY_FIELD_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getDisplayField() <em>Display Field</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getDisplayField()
+     * @generated
+     * @ordered
+     */
+    protected String displayField = DISPLAY_FIELD_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -478,6 +499,27 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getDisplayField() {
+        return displayField;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setDisplayField(String newDisplayField) {
+        String oldDisplayField = displayField;
+        displayField = newDisplayField;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD, oldDisplayField, displayField));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case ConnectionPackage.METADATA_COLUMN__TABLE:
@@ -541,6 +583,8 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
                 return getOriginalField();
             case ConnectionPackage.METADATA_COLUMN__PATTERN:
                 return getPattern();
+            case ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD:
+                return getDisplayField();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -581,6 +625,9 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
                 return;
             case ConnectionPackage.METADATA_COLUMN__PATTERN:
                 setPattern((String)newValue);
+                return;
+            case ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD:
+                setDisplayField((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -623,6 +670,9 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
             case ConnectionPackage.METADATA_COLUMN__PATTERN:
                 setPattern(PATTERN_EDEFAULT);
                 return;
+            case ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD:
+                setDisplayField(DISPLAY_FIELD_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -654,6 +704,8 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
                 return ORIGINAL_FIELD_EDEFAULT == null ? originalField != null : !ORIGINAL_FIELD_EDEFAULT.equals(originalField);
             case ConnectionPackage.METADATA_COLUMN__PATTERN:
                 return PATTERN_EDEFAULT == null ? pattern != null : !PATTERN_EDEFAULT.equals(pattern);
+            case ConnectionPackage.METADATA_COLUMN__DISPLAY_FIELD:
+                return DISPLAY_FIELD_EDEFAULT == null ? displayField != null : !DISPLAY_FIELD_EDEFAULT.equals(displayField);
         }
         return super.eIsSet(featureID);
     }
@@ -685,6 +737,8 @@ public class MetadataColumnImpl extends AbstractMetadataObjectImpl implements Me
         result.append(originalField);
         result.append(", pattern: ");
         result.append(pattern);
+        result.append(", displayField: ");
+        result.append(displayField);
         result.append(')');
         return result.toString();
     }

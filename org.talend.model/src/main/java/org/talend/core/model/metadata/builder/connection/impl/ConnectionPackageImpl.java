@@ -438,6 +438,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataColumn_DisplayField() {
+        return (EAttribute)metadataColumnEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1185,6 +1194,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(metadataColumnEClass, METADATA_COLUMN__TABLE);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__ORIGINAL_FIELD);
         createEAttribute(metadataColumnEClass, METADATA_COLUMN__PATTERN);
+        createEAttribute(metadataColumnEClass, METADATA_COLUMN__DISPLAY_FIELD);
 
         abstractMetadataObjectEClass = createEClass(ABSTRACT_METADATA_OBJECT);
         createEAttribute(abstractMetadataObjectEClass, ABSTRACT_METADATA_OBJECT__PROPERTIES);
@@ -1351,6 +1361,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getMetadataColumn_Table(), this.getMetadataTable(), this.getMetadataTable_Columns(), "table", null, 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataColumn_OriginalField(), ecorePackage.getEString(), "originalField", "", 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataColumn_Pattern(), ecorePackage.getEString(), "pattern", "", 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataColumn_DisplayField(), ecorePackage.getEString(), "displayField", null, 0, 1, MetadataColumn.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(abstractMetadataObjectEClass, AbstractMetadataObject.class, "AbstractMetadataObject", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getAbstractMetadataObject_Properties(), this.getMap(), "properties", "", 1, 1, AbstractMetadataObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

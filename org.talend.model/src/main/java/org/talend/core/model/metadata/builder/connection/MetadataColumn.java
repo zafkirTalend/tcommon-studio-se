@@ -25,6 +25,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getTable <em>Table</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getOriginalField <em>Original Field</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getPattern <em>Pattern</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getDisplayField <em>Display Field</em>}</li>
  * </ul>
  * </p>
  *
@@ -302,5 +303,31 @@ public interface MetadataColumn extends AbstractMetadataObject {
      * @generated
      */
     void setPattern(String value);
+
+    /**
+     * Returns the value of the '<em><b>Display Field</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Display Field</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Display Field</em>' attribute.
+     * @see #setDisplayField(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_DisplayField()
+     * @model
+     * @generated
+     */
+    String getDisplayField();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.MetadataColumn#getDisplayField <em>Display Field</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Display Field</em>' attribute.
+     * @see #getDisplayField()
+     * @generated
+     */
+    void setDisplayField(String value);
 
 } // MetadataColumn

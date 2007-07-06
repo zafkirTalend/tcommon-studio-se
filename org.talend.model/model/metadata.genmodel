@@ -66,6 +66,7 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//MetadataColumn/table"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/originalField"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/pattern"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//MetadataColumn/displayField"/>
     </genClasses>
     <genClasses image="false" ecoreClass="metadata.ecore#//AbstractMetadataObject">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//AbstractMetadataObject/properties"/>
