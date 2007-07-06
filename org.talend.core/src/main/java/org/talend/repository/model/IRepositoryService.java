@@ -48,4 +48,6 @@ public interface IRepositoryService extends IService {
     public void removeRepositoryChangedListener(IRepositoryChangedListener listener);
 
     public void repositoryChanged(RepositoryElementDelta event);
+
+    public String validateColumnName(String columnName, int index);
 }

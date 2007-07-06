@@ -22,15 +22,11 @@
 package org.talend.core.ui.metadata.editor;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
-import org.talend.core.model.metadata.IMetadataColumn;
-import org.talend.core.model.metadata.builder.connection.Connection;
-import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.model.metadata.types.TypesManager;
@@ -221,6 +217,10 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
 
             public String get(MetadataColumn bean) {
+                if(bean.getDisplayField()!=null)
+                {
+                    return bean.getDisplayField();
+                }
                 return bean.getLabel();
             }
 

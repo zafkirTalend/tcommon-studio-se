@@ -124,4 +124,8 @@ public class CorePlugin extends AbstractUIPlugin {
     public ILibrariesService getLibrariesService() {
         return (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
     }
+
+    public IRepositoryService getRepositoryServie() {
+        return (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+    }
 }
