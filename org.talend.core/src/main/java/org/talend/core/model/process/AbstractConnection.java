@@ -192,7 +192,7 @@ public abstract class AbstractConnection implements IConnection {
     @SuppressWarnings("unchecked")
     public boolean isUseByMetter() {
         INode sourceNode = this.getSource();
-        List<INode> metterNodes = (List<INode>) sourceNode.getProcess().getNodesOfType("tMetter");
+        List<INode> metterNodes = (List<INode>) sourceNode.getProcess().getNodesOfType("tFlowMeter");
         if (metterNodes.size() > 0) {
 
             Iterator<INode> it = (Iterator<INode>) metterNodes.iterator();
