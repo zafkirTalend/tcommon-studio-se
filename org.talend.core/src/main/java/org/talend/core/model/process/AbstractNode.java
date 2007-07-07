@@ -436,6 +436,9 @@ public abstract class AbstractNode implements INode {
      */
     public boolean useData(String name) {
         for (IElementParameter param : this.getElementParameters()) {
+            if (param.getField() == EParameterFieldType.IMAGE) {
+                continue;
+            }
             if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
                 String value = (String) param.getValue();
                 if (value.contains(name)) {
