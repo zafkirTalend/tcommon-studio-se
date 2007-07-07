@@ -299,10 +299,10 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
                 if (showDbTypeColumn && dbTypeColumnWritable && (dbms != null)) {
                     String oldDbType = bean.getType();
                     String oldDefaultDbType = null;
-                    if (!oldDbType.equals("")) {
+                    if ((oldDbType != null) && !oldDbType.equals("")) {
                         oldDefaultDbType = TypesManager.getDBTypeFromTalendType(dbms, oldTalendType);
                     }
-                    if (oldDbType.equals(oldDefaultDbType) || oldDbType.equals("")) {
+                    if ((oldDbType == null) || oldDbType.equals(oldDefaultDbType) || oldDbType.equals("")) {
                         bean.setType(TypesManager.getDBTypeFromTalendType(dbms, value));
                     }
                 }
