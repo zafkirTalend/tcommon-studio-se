@@ -33,16 +33,20 @@ public enum EDatabaseTypeName {
     GODBC("Generic ODBC", "Generic ODBC", new Boolean(false), "MSODBC"),
     MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "MSODBC"),
     IBMDB2("IBM DB2", "IBM DB2", new Boolean(false), "IBMDB2"),
-    SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(false), "MYSQL"),
+    SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(false), "SYBASE"),
+   
     // this Sybase IQ not used.
-    SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "MYSQL"),
-    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(false), "MYSQL"),
+    SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "SYBASE"),
+    MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(false), "MSODBC"),
     // this don't use in Branch 2.0
-    INGRES("Ingres", "Ingres", new Boolean(false), "MYSQL"), // "INGRES"),
-    INTERBASE("Interbase", "Interbase", new Boolean(false), "MYSQL"), // "INTERBASE"),
+    HSQL("HSQL","HSQL",new Boolean(false),"HSQLDB"),
+    JAVADB("JavaDB", "JavaDB", new Boolean(false), "JAVADB"),
+    INGRES("Ingres", "Ingres", new Boolean(false), "INGRES"), // "INGRES"),
+    INTERBASE("Interbase", "Interbase", new Boolean(false), "Interbase"), // "INTERBASE"),
     SQLITE("SQLite", "SQLite", new Boolean(false), "MYSQL"), // "SQLITE"),
-    FIREBIRD("FireBird", "FireBird", new Boolean(false), "MYSQL"), // "FIREBIRD"),    
-    INFORMIX("Informix", "Informix", new Boolean(true), "MYSQL"); // "INFORMIX");
+    FIREBIRD("FireBird", "FireBird", new Boolean(false), "FIREBIRD"), // "FIREBIRD"),    
+    INFORMIX("Informix", "Informix", new Boolean(true), "INFORMIX"), // "INFORMIX");
+    ACCESS("Access", "Access", new Boolean(true), "ACCESS"); // "ACCESS");
     
     // displayName is used in Java code.
     private String displayName;

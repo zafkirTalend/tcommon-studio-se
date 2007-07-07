@@ -1,0 +1,327 @@
+<?xml version="1.0"?>
+<mapping>
+	<dbms product="INGRES" id="ingres_id" label="Mapping Ingres"
+		default="true">
+		<dbTypes>
+			<dbType type="ANSIDATE" />
+			<dbType type="BIGINT" />
+			<dbType type="BYTE" />
+			<dbType type="BYTE VARYING" />
+			<dbType type="C" />
+			<dbType type="CHAR" />
+			<dbType type="DECIMAL" />
+			<dbType type="DATE" />
+			<dbType type="FLOAT" />
+			<dbType type="FLOAT4" />
+			<dbType type="INTEGER" />
+			<dbType type="INGRESDATE" />
+			<dbType type="INTERVAL" />
+			<dbType type="LONG NVARCHAR" />
+			<dbType type="LONG VARCHAR" />
+			<dbType type="MONEY" />
+			<dbType type="NCHAR" />
+			<dbType type="NVARCHAR" />
+			<dbType type="OBJECT_KEY" />
+			<dbType type="SMALLINT" />
+			<dbType type="TEXT" />
+			<dbType type="TINYINT" />
+			<dbType type="TIME" />
+			<dbType type="TIMESTAMP"/>
+			<dbType type="TABLE_KEY" />
+			<dbType type="VARCHAR" />
+		</dbTypes>
+
+		<language name="java">
+			<talendToDbTypes><!-- Adviced mappings  -->
+				<talendType type="id_Boolean">	
+				</talendType>
+				<talendType type="id_Byte">
+					<dbType type="BYTE" default="true" />
+					<dbType type="BYTE VARYING" />
+					<dbType type="LONG BYTE" />
+				</talendType>
+				<talendType type="id_byte[]">
+				</talendType>
+				<talendType type="id_Character">
+					<dbType type="CHAR" default="true" />
+					<dbType type="VARCHAR"/>
+					<dbType type="C"/>
+					<dbType type="TEXT"/>
+					<dbType type="LONG VARCHAR"/>
+					<dbType type="NCHAR"/>
+					<dbType type="NVARCHAR"/>
+					<dbType type="LONG NVARCHAR"/>
+				</talendType>
+				<talendType type="id_Date">
+					<dbType type="DATE" default="true" />
+					<dbType type="ANSIDATE" />	
+					<dbType type="INGRESDATE" />
+					<dbType type="TIME" />
+					<dbType type="TIMESTAMP" />		
+					<dbType type="INTERVAL"/>		
+				</talendType>
+				<talendType type="id_Double">
+					<dbType type="FLOAT" default="true" />
+					<dbType type="FLOAT4" />
+					<dbType type="DECIMAL"/>
+				</talendType>
+				<talendType type="id_Float">
+					<dbType type="FLOAT4" default="true" />
+					<dbType type="FLOAT"/>
+					<dbType type="DECIMAL" />
+				</talendType>
+				<talendType type="id_Integer">
+					<dbType type="INTEGER" default="true" />
+					<dbType type="BIGINT" />
+					<dbType type="SMALLINT"/>
+					<dbType type="TINYINT"/>
+				</talendType>
+				<talendType type="id_Long">
+					<dbType type="BIGINT" default="true" />	
+					<dbType type="INTEGER"/>
+					<dbType type="SMALLINT"/>
+					<dbType type="TINYINT"/>	
+				</talendType>
+				<talendType type="id_Object">
+					<dbType type="MONEY" default="true"/>
+					<dbType type="OBJECT_KEY" />
+					<dbType type="TABLE_KEY" />
+				</talendType>
+				<talendType type="id_Short">
+					<dbType type="SMALLINT" default="true" />
+					<dbType type="INT" />
+					<dbType type="BIGINT"/>
+					<dbType type="TINYINT" />
+				</talendType>
+				<talendType type="id_String">
+					<dbType type="VARCHAR" default="true" />
+					<dbType type="LONG VARCHAR" />
+					<dbType type="NCHAR"/>
+					<dbType type="NVARCHAR" />
+					<dbType type="LONG NVARCHAR" />		
+					<dbType type="TEXT" />
+					<dbType type="C"/>
+					<dbType type="CHAR"/>
+				</talendType>
+			</talendToDbTypes>
+			<dbToTalendTypes>
+				<dbType type="ANSIDATE">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="BIGINT">
+					<talendType type="id_Long" default="true" />
+				</dbType>
+				<dbType type="BYTE">
+					<talendType type="id_Byte" default="true" />
+				</dbType>
+				<dbType type="BYTE VARYING">
+					<talendType type="id_Byte" default="true" />
+				</dbType>
+				<dbType type="C">
+					<talendType type="id_Character" default="true" />
+					<talendType type="id_String"/>
+				</dbType>
+				<dbType type="CHAR">
+					<talendType type="id_Character" default="true" />
+					<talendType type="id_String"/>
+				</dbType>
+				<dbType type="DECIMAL">
+					<talendType type="id_Float" default="true" />
+				</dbType>
+				<dbType type="DATE">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="FLOAT">
+					<talendType type="id_Double" default="true" />
+				</dbType>
+				<dbType type="FLOAT4">
+					<talendType type="id_Float" default="true" />
+				</dbType>
+				<dbType type="INTEGER">
+					<talendType type="id_Integer" default="true" />
+					<talendType type="id_Long"/>
+					<talendType type="id_Short"/>
+				</dbType>
+				<dbType type="INGRESDATE">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="INTERVAL">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="LONG NVARCHAR">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="LONG VARCHAR">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="MONEY">
+					<talendType type="id_Float" default="true" />
+				</dbType>
+				<dbType type="NCHAR">
+					<talendType type="id_Character" default="true" />
+				</dbType>
+				<dbType type="NVARCHAR">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="OBJECT_KEY">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="SMALLINT">
+					<talendType type="id_Short" default="true" />
+					<talendType type="id_Integer" />
+					<talendType type="id_Long"/>
+				</dbType>
+				<dbType type="TEXT">
+					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="TINYINT">
+					<talendType type="id_Byte" default="true" />
+					<talendType type="id_Integer" />
+					<talendType type="id_Short"/>
+					<talendType type="id_Long" />
+				</dbType>
+				<dbType type="TIME">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="TIMESTAMP">
+					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="TABLE_KEY">
+					<talendType type="id_Object" default="true" />
+				</dbType>
+				<dbType type="VARCHAR">
+					<talendType type="id_String" default="true" />
+				</dbType>
+			</dbToTalendTypes>
+		</language>
+		<language name="perl">
+			<talendToDbTypes>
+				<talendType type="int">	
+					<dbType type="INTEGER" default="true" />	
+					<dbType type="SMALLINT"/>
+					<dbType type="BIGINT"/>
+					<dbType type="TINYINT"/>
+				</talendType>
+				<talendType type="decimal">
+					<dbType type="FLOAT" default="true" />
+					<dbType type="FLOAT4" />	
+				</talendType>
+				<talendType type="boolean">
+				</talendType>
+				<talendType type="string">
+					<dbType type="VARCHAR" default="true" />
+					<dbType type="LONG VARCHAR" />		
+					<dbType type="C"/>
+					<dbType type="CHAR"/>
+					<dbType type="TEXT"/>
+					<dbType type="NCHAR"/>
+					<dbType type="NVARCHAR"/>	
+					<dbType type="LONG NVARCHAR"/>			
+				</talendType>
+				<talendType type="datetime">
+					<dbType type="DATE" default="true" />
+					<dbType type="TIME"/>
+					<dbType type="TIMESTAMP"/>
+					<dbType type="INTERVAL"/>
+					<dbType type="ANSIDATE"/>
+					<dbType type="INGRESDATE"/>	
+				</talendType>
+				<talendType type="date">
+					<dbType type="DATE" default="true" />
+					<dbType type="ANSIDATE"/>
+					<dbType type="INGRESDATE"/>
+					<dbType type="TIME"/>
+					<dbType type="INTERVAL"/>
+					<dbType type="TIMESTAMP"/>
+				</talendType>
+			</talendToDbTypes>
+			<dbToTalendTypes>
+				<dbType type="ANSIDATE">
+					<talendType type="date" default="true" />
+					<talendType type="datetime"/>
+				</dbType>
+				<dbType type="BIGINT">
+					<talendType type="int" default="true" />
+				</dbType>
+				<dbType type="BYTE">
+					<talendType type="int" default="true" />
+				</dbType>
+				<dbType type="BYTE VARYING">
+					<talendType type="int" default="true" />
+				</dbType>
+				<dbType type="C">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="CHAR">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="DECIMAL">
+					<talendType type="decimal" default="true" />
+					<talendType type="id_Double"/>
+				</dbType>
+				<dbType type="DATE">
+					<talendType type="date" default="true" />
+				</dbType>
+				<dbType type="FLOAT">
+					<talendType type="decimal" default="true" />
+				</dbType>
+				<dbType type="FLOAT4">
+					<talendType type="decimal" default="true" />
+				</dbType>
+				<dbType type="INTEGER">
+					<talendType type="int" default="true" />
+				</dbType>
+				<dbType type="INGRESDATE">
+					<talendType type="date" default="true" />
+					<talendType type="datetime"/>
+				</dbType>
+				<dbType type="INTERVAL">
+					<talendType type="id_Date" default="true" />
+					<talendType type="datetime"/>
+				</dbType>
+				<dbType type="LONG NVARCHAR">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="LONG VARCHAR">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="MONEY">
+					<talendType type="decimal" default="true" />
+				</dbType>
+				<dbType type="NCHAR">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="NVARCHAR">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="OBJECT_KEY">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="SMALLINT">
+					<talendType type="int" default="true" />
+				</dbType>
+				<dbType type="TEXT">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="TINYINT">
+					<talendType type="int" default="true" />
+				</dbType>
+				<dbType type="TIME">
+					<talendType type="datetime" default="true" />
+					<talendType type="date"/>
+				</dbType>
+				<dbType type="TIMESTAMP">
+					<talendType type="datetime" default="true" />
+					<talendType type="date"/>
+				</dbType>
+				<dbType type="TABLE_KEY">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="VARCHAR">
+					<talendType type="string" default="true" />
+				</dbType>
+			</dbToTalendTypes>
+		</language>
+	</dbms>
+
+</mapping>
