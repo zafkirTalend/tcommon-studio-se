@@ -33,6 +33,7 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.repository.IRepositoryChangedListener;
 import org.talend.repository.RepositoryElementDelta;
 import org.talend.repository.ui.views.IRepositoryView;
 
@@ -168,14 +169,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
     }
 
-    protected void notifySQLBuilder(IRepositoryObject o) {
-        CorePlugin.getDefault().getRepositoryService().repositoryChanged(new RepositoryElementDelta(o));
-    }
-
     protected void notifySQLBuilder(List<IRepositoryObject> list) {
-        for (Iterator<IRepositoryObject> iter = list.iterator(); iter.hasNext();) {
-            IRepositoryObject element = iter.next();
-            CorePlugin.getDefault().getRepositoryService().repositoryChanged(new RepositoryElementDelta(element));
-        }
+        CorePlugin.getDefault().getRepositoryService().notifySQLBuilder(list);
     }
 }

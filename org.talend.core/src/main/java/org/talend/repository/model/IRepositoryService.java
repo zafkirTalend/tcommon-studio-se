@@ -21,9 +21,12 @@
 // ============================================================================
 package org.talend.repository.model;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IPath;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.IRepositoryChangedListener;
 import org.talend.repository.RepositoryElementDelta;
 
@@ -48,6 +51,8 @@ public interface IRepositoryService extends IService {
     public void removeRepositoryChangedListener(IRepositoryChangedListener listener);
 
     public void repositoryChanged(RepositoryElementDelta event);
+
+    public void notifySQLBuilder(List<IRepositoryObject> list);
 
     public String validateColumnName(String columnName, int index);
 }
