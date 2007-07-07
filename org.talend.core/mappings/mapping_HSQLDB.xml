@@ -139,7 +139,7 @@
 				<dbType type="VARBINARY">
 					<talendType type="id_byte[]" default="true"/>	
 				</dbType>																								
-				<dbType type="LONGVARCHAR">
+				<dbType type="LONGVARBINARY">
 					<talendType type="id_byte[]" default="true"/>
 				</dbType>
 				<dbType type="BOOLEAN">
