@@ -1,29 +1,57 @@
 <?xml version="1.0"?>
 <mapping>
-	<dbms product="ACCESS" id="access_id" label="Mapping Access"
+	<dbms product="SQLITE" id="sqlite_id" label="Mapping Sqlite"
 		default="true">
 		<dbTypes>
-			<dbType type="BOOLEAN" />
+			<dbType type="BIGINT" />
+				<dbType type="BIGINT UNSIGNED" />
+			<dbType type="BINARY" />
+			<dbType type="BIT" />
 			<dbType type="BLOB" />
 			<dbType type="CHAR" />
-			<dbType type="CLOB" />
+			<dbType type="DATE" />
+			<dbType type="DATETIME" />
+			<dbType type="DECIMAL" />
+			<dbType type="DOUBLE" />
+				<dbType type="DOUBLE UNSIGNED" />
+			<dbType type="ENUM" />
 			<dbType type="FLOAT" />
-			<dbType type="INTEGER" />
-			<dbType type="NVARCHAR" />
-			<dbType type="NUMERIC" />
-			<dbType type="NATIONAL VARYING CHARACTER" />
-			<dbType type="REAL" />
-			<dbType type=""/>
-			<dbType type="TIMESTAMP" />
+				<dbType type="FLOAT UNSIGNED" />
+			<dbType type="GEOMETRY" />
+			<dbType type="GEOMETRYCOLLECTION" />
+			<dbType type="INT" />
+				<dbType type="INT UNSIGNED" />
+			<dbType type="LINESTRING" />
+			<dbType type="LONGTEXT" />
+			<dbType type="LONGBLOB"/>
+			<dbType type="MEDIUMBLOB" />
+			<dbType type="MEDIUMINT" />
+				<dbType type="MEDIUMINT UNSIGNED" />
+			<dbType type="MEDIUMTEXT" />
+			<dbType type="MULTILINESTRING" />
+			<dbType type="MULTIPOINT" />
+			<dbType type="MULTIPOLYGON" />
+			<dbType type="POINT" />
+			<dbType type="POLYGON" />
+			<dbType type="SMALLINT" />
+				<dbType type="SMALLINT UNSIGNED" />
+			<dbType type="SET" />
 			<dbType type="TEXT" />
+			<dbType type="TIME" />
+			<dbType type="TIMESTAMP" />
+			<dbType type="TINYBLOB" />
+			<dbType type="TINYINT" />
+				<dbType type="TINYINT UNSIGNED" />
+			<dbType type="TINYTEXT" />
+			<dbType type="VARBINARY" />
 			<dbType type="VARCHAR" />
-			<dbType type="VARYING CHARACTER" />
+			<dbType type="YEAR" />
 		</dbTypes>
 
 		<language name="java">
 			<talendToDbTypes><!-- Adviced mappings  -->
 				<talendType type="id_Boolean">	
-					<dbType type="BOOLEAN" default="true" />				
+					<dbType type="BIT" default="true" />				
 				</talendType>
 				<talendType type="id_Byte">
 					<dbType type="TINYINT" default="true" />

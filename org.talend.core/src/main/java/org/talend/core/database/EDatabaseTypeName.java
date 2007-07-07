@@ -43,7 +43,7 @@ public enum EDatabaseTypeName {
     JAVADB("JavaDB", "JavaDB", new Boolean(false), "JAVADB"),
     INGRES("Ingres", "Ingres", new Boolean(false), "INGRES"), // "INGRES"),
     INTERBASE("Interbase", "Interbase", new Boolean(false), "Interbase"), // "INTERBASE"),
-    SQLITE("SQLite", "SQLite", new Boolean(false), "MYSQL"), // "SQLITE"),
+    SQLITE("SQLite", "SQLite", new Boolean(false), "SQLITE"), // "SQLITE"),
     FIREBIRD("FireBird", "FireBird", new Boolean(false), "FIREBIRD"), // "FIREBIRD"),    
     INFORMIX("Informix", "Informix", new Boolean(true), "INFORMIX"), // "INFORMIX");
     ACCESS("Access", "Access", new Boolean(true), "ACCESS"); // "ACCESS");

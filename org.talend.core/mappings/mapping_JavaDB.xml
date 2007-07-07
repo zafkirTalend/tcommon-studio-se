@@ -256,6 +256,12 @@
 				<dbType type="VARCHAR">
 					<talendType type="int" default="true" />
 				</dbType>
+				<dbType type="VARCHAR FOR BIT DATA">
+					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="XML">
+					<talendType type="string" default="true" />
+				</dbType>
 			</dbToTalendTypes>
 		</language>
 	</dbms>

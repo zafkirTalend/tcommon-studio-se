@@ -38,7 +38,6 @@
 				<talendType type="id_Byte">
 					<dbType type="BYTE" default="true" />
 					<dbType type="BYTE VARYING" />
-					<dbType type="LONG BYTE" />
 				</talendType>
 				<talendType type="id_byte[]">
 				</talendType>
@@ -89,7 +88,7 @@
 				</talendType>
 				<talendType type="id_Short">
 					<dbType type="SMALLINT" default="true" />
-					<dbType type="INT" />
+					<dbType type="INTEGER" />
 					<dbType type="BIGINT"/>
 					<dbType type="TINYINT" />
 				</talendType>
@@ -257,7 +256,6 @@
 				</dbType>
 				<dbType type="DECIMAL">
 					<talendType type="decimal" default="true" />
-					<talendType type="id_Double"/>
 				</dbType>
 				<dbType type="DATE">
 					<talendType type="date" default="true" />
@@ -276,7 +274,7 @@
 					<talendType type="datetime"/>
 				</dbType>
 				<dbType type="INTERVAL">
-					<talendType type="id_Date" default="true" />
+					<talendType type="date" default="true" />
 					<talendType type="datetime"/>
 				</dbType>
 				<dbType type="LONG NVARCHAR">
