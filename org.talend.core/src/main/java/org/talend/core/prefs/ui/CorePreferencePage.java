@@ -47,6 +47,8 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.workbench.preferences.ComboFieldEditor;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.utils.XmlArray;
 
@@ -105,11 +107,15 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
                 getFieldEditorParent());
 
         addField(languageSelectionEditor);
-        
-        BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD, Messages
-                .getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
-                getFieldEditorParent());
-        addField(runInMultiThread);
+
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+            BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD, Messages
+                    .getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
+                    getFieldEditorParent());
+            
+            addField(runInMultiThread);
+            
+        }
         // ends
     }
 
