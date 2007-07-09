@@ -66,6 +66,8 @@ public class ColorStyledText extends StyledText {
 
     private MenuItem pasteItem;
 
+    private boolean coloring = true;
+
     public ColorStyledText(Composite parent, int style, ColorManager colorManager, String languageMode) {
         super(parent, style);
         this.languageMode = languageMode;
@@ -83,18 +85,18 @@ public class ColorStyledText extends StyledText {
                 copy();
             }
         });
-        
+
         image = sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_PASTE).createImage();
         pasteItem = new MenuItem(popupMenu, SWT.PUSH);
         pasteItem.setText(Messages.getString("ColorStyledText.PasteItem.Text")); //$NON-NLS-1$
         pasteItem.setImage(image);
         pasteItem.addListener(SWT.Selection, new Listener() {
-            
+
             public void handleEvent(Event event) {
                 paste();
             }
         });
-        
+
         this.setMenu(popupMenu);
         MenuItem selectAllItem = new MenuItem(popupMenu, SWT.PUSH);
         selectAllItem.setText(Messages.getString("ColorStyledText.SelectAllItem.Text")); //$NON-NLS-1$
@@ -132,30 +134,38 @@ public class ColorStyledText extends StyledText {
 
     protected void colorize(ColoringScanner scanner) {
         ArrayList<StyleRange> styles = new ArrayList<StyleRange>();
-        scanner.parse(this.getText());
-        IToken token;
+        if (this.coloring) {
+            scanner.parse(this.getText());
+            IToken token;
 
-        do {
-            token = scanner.nextToken();
-            if (!token.isEOF()) {
-                if (token instanceof CToken) {
-                    CToken ctoken = (CToken) token;
-                    StyleRange styleRange;
-                    styleRange = new StyleRange();
-                    styleRange.start = scanner.getTokenOffset();
-                    styleRange.length = scanner.getTokenLength();
-                    if (ctoken.getType() == null) {
-                        styleRange.fontStyle = colorManager.getStyleFor(ctoken.getColor());
-                        styleRange.foreground = colorManager.getColor(ctoken.getColor());
-                    } else {
-                        styleRange.fontStyle = colorManager.getStyleForType(ctoken.getColor());
-                        styleRange.foreground = colorManager.getColorForType(ctoken.getColor());
+            do {
+                token = scanner.nextToken();
+                if (!token.isEOF()) {
+                    if (token instanceof CToken) {
+                        CToken ctoken = (CToken) token;
+                        StyleRange styleRange;
+                        styleRange = new StyleRange();
+                        styleRange.start = scanner.getTokenOffset();
+                        styleRange.length = scanner.getTokenLength();
+                        if (ctoken.getType() == null) {
+                            styleRange.fontStyle = colorManager.getStyleFor(ctoken.getColor());
+                            styleRange.foreground = colorManager.getColor(ctoken.getColor());
+                        } else {
+                            styleRange.fontStyle = colorManager.getStyleForType(ctoken.getColor());
+                            styleRange.foreground = colorManager.getColorForType(ctoken.getColor());
+                        }
+                        styles.add(styleRange);
                     }
-                    styles.add(styleRange);
                 }
-            }
-        } while (!token.isEOF());
+            } while (!token.isEOF());
 
+        } else {
+            StyleRange styleRange = new StyleRange();
+            styles.add(styleRange);
+            styleRange.start = 0;
+            styleRange.length = this.getText().getBytes().length;
+            styleRange.foreground = null;
+        }
         setStyles(styles);
     }
 
@@ -204,7 +214,9 @@ public class ColorStyledText extends StyledText {
         return this.scanner;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.swt.custom.StyledText#setEditable(boolean)
      */
     @Override
@@ -213,6 +225,26 @@ public class ColorStyledText extends StyledText {
         pasteItem.setEnabled(editable);
     }
 
-    
-    
+    /**
+     * Getter for coloring.
+     * 
+     * @return the coloring
+     */
+    public boolean isColoring() {
+        return this.coloring;
+    }
+
+    /**
+     * Sets the coloring.
+     * 
+     * @param coloring the coloring to set
+     */
+    public void setColoring(boolean coloring) {
+        boolean wasDifferent = this.coloring != coloring;
+        this.coloring = coloring;
+        if (wasDifferent) {
+            colorize(getScanner());
+        }
+    }
+
 }
