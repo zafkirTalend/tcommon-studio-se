@@ -27,6 +27,7 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.graphics.Cursor;
+import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.i18n.internal.Messages;
@@ -77,6 +78,42 @@ public class ControlUtils {
 
     }
 
+    /**
+     * 
+     * DOC amaumont Comment method "getText".
+     * 
+     * @param control
+     * @return
+     */
+    public static Point getSelection(Control control) {
+        if (control instanceof Text) {
+            return ((Text) control).getSelection();
+        } else if (control instanceof StyledText) {
+            return ((StyledText) control).getSelection();
+        } else {
+            throw new UnsupportedOperationException(Messages.getString("ControlUtils.Unsupported1", control.getClass())); //$NON-NLS-1$
+        }
+        
+    }
+    
+    /**
+     * 
+     * DOC amaumont Comment method "getText".
+     * 
+     * @param control
+     * @return
+     */
+    public static String getLineDelimiter(Control control) {
+        if (control instanceof Text) {
+            return ((Text) control).getLineDelimiter();
+        } else if (control instanceof StyledText) {
+            return ((StyledText) control).getLineDelimiter();
+        } else {
+            throw new UnsupportedOperationException(Messages.getString("ControlUtils.Unsupported1", control.getClass())); //$NON-NLS-1$
+        }
+        
+    }
+    
     /**
      * 
      * DOC amaumont Comment method "getText".

@@ -31,9 +31,9 @@ import org.eclipse.swt.widgets.Composite;
  * $Id: MapperColorStyledText.java 898 2006-12-07 11:06:17Z amaumont $
  * 
  */
-public class MapperColorStyledText extends ColorStyledText {
+public class UnnotifiableColorStyledText extends ColorStyledText {
 
-    public MapperColorStyledText(Composite parent, int style, ColorManager colorManager, String languageMode) {
+    public UnnotifiableColorStyledText(Composite parent, int style, ColorManager colorManager, String languageMode) {
         super(parent, style, colorManager, languageMode);
     }
 
