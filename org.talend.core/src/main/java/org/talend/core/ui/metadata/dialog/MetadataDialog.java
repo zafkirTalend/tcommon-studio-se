@@ -160,47 +160,63 @@ public class MetadataDialog extends Dialog {
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }
 
-    private boolean hasRepositoryDbSchema(INode node, IMetadataTable metadataTable) {
+    private void initializeDbType(MetadataTableEditorView metaView, INode node, IMetadataTable metadataTable) {
+        boolean hasMappingType = false;
+
         boolean hasRepositoryDbSchema = false;
-        if (node.getComponent().getFamily().startsWith(DATABASE_LABEL)
-                && node.getElementParameter("SCHEMA_TYPE") != null) {
-            String schemaType = (String) node.getElementParameter("SCHEMA_TYPE").getValue();
-            if (schemaType.equals("REPOSITORY")) {
-                String metaRepositoryName = (String) node.getElementParameter("REPOSITORY_SCHEMA_TYPE").getValue();
-                Connection connection = MetadataTool.getConnectionFromRepository(metaRepositoryName);
-                if (connection instanceof DatabaseConnection) {
-                    // if the origin connection comes from a db, and if the source type is defined, then show the source
-                    // type.
-                    hasRepositoryDbSchema = true;
-                    for (IMetadataColumn column : metadataTable.getListColumns()) {
-                        if ((column.getType() == "") || (column.getType() == null)) {
-                            return false;
-                        }
-                    }
-                    String componentDbType = "";
-                    for (IElementParameter param : (List<IElementParameter>) node.getElementParameters()) {
-                        if (param.getRepositoryValue() != null) {
-                            if (param.getRepositoryValue().equals("TYPE")) {
-                                componentDbType = (String) param.getValue();
+        if (node.getComponent().getFamily().startsWith(DATABASE_LABEL)) {
+            for (IElementParameter currentParam : node.getElementParameters()) {
+                if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)
+                        && currentParam.isShow(node.getElementParameters())) {
+                    metaView.setCurrentDbms((String) currentParam.getValue());
+                    hasMappingType = true;
+                }
+            }
+
+            if (!hasMappingType) { // if there is no mapping type, then check if a db repository schema is used
+                String schemaType = (String) node.getElementParameter("SCHEMA_TYPE").getValue();
+                if (schemaType.equals("REPOSITORY")) {
+                    // repository mode
+                    String metaRepositoryName = (String) node.getElementParameter("REPOSITORY_SCHEMA_TYPE").getValue();
+                    Connection connection = MetadataTool.getConnectionFromRepository(metaRepositoryName);
+                    if (connection instanceof DatabaseConnection) {
+                        hasRepositoryDbSchema = true;
+
+                        for (IMetadataColumn column : metadataTable.getListColumns()) {
+                            if ((column.getType() == "") || (column.getType() == null)) {
+                                hasRepositoryDbSchema = false;
                             }
                         }
-                    }
-                    
-                    // if we don't support yet the db type for the mapping type, then don't display.
-                    if (!EDatabaseTypeName.supportDbType(componentDbType)) {
-                        return false;
-                    }
-                    String componentProduct = EDatabaseTypeName.getTypeFromDbType(componentDbType).getProduct();
-                    String connectionDbType = ((DatabaseConnection) connection).getDatabaseType();
-                    String connectionProduct = EDatabaseTypeName.getTypeFromDisplayName(connectionDbType).getProduct();
-                    if (!componentProduct.equals(connectionProduct)) {
-                        return false;
-                        // the component don't support this product so don't display.
+                        String componentDbType = "";
+                        for (IElementParameter param : (List<IElementParameter>) node.getElementParameters()) {
+                            if (param.getRepositoryValue() != null) {
+                                if (param.getRepositoryValue().equals("TYPE")) {
+                                    componentDbType = (String) param.getValue();
+                                }
+                            }
+                        }
+
+                        // if we don't support yet the db type for the mapping type, then don't display.
+                        if (!EDatabaseTypeName.supportDbType(componentDbType)) {
+                            hasRepositoryDbSchema = false;
+                        }
+                        String componentProduct = EDatabaseTypeName.getTypeFromDbType(componentDbType).getProduct();
+                        // String connectionDbType = ((DatabaseConnection) connection).getDatabaseType();
+                        // String connectionProduct =
+                        // EDatabaseTypeName.getTypeFromDisplayName(connectionDbType).getProduct();
+                        String connectionProduct = ((DatabaseConnection) connection).getProductId();
+                        if (!componentProduct.equals(connectionProduct)) {
+                            hasRepositoryDbSchema = false;
+                            // the component don't support this product so don't display.
+                        } else {
+                            metaView.setCurrentDbms(((DatabaseConnection) connection).getDbmsId());
+                        }
+
                     }
                 }
             }
         }
-        return hasRepositoryDbSchema;
+        metaView.setShowDbTypeColumn(hasMappingType | hasRepositoryDbSchema, false, hasMappingType);
     }
 
     @Override
@@ -208,12 +224,6 @@ public class MetadataDialog extends Dialog {
         Composite composite = (Composite) super.createDialogArea(parent);
 
         MetadataTableEditor metadataTableEditor;
-
-        // boolean showDbTypeColumnForInput = inputFamily != null
-        // && (inputFamily.startsWith(DATABASE_LABEL) || inputFamily.startsWith(ELT_LABEL));
-        // boolean showDbTypeColumnForOutput = outputFamily.startsWith(DATABASE_LABEL)
-        // || outputFamily.startsWith(ELT_LABEL);
-
         boolean showTalendTypeColumnForInput = !(inputFamily != null && inputFamily.startsWith(ELT_LABEL));
         boolean showTalendTypeColumnForOutput = !outputFamily.startsWith(ELT_LABEL);
 
@@ -222,17 +232,8 @@ public class MetadataDialog extends Dialog {
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly,
                     true, true, false);
-            boolean hasMappingType = false;
-            for (IElementParameter currentParam : outputNode.getElementParameters()) {
-                if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)
-                        && currentParam.isShow(outputNode.getElementParameters())) {
-                    outputMetaView.setCurrentDbms((String) currentParam.getValue());
-                    hasMappingType = true;
-                }
-            }
 
-            outputMetaView.setShowDbTypeColumn(hasMappingType | hasRepositoryDbSchema(outputNode, outputMetaTable),
-                    false, hasMappingType);
+            initializeDbType(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -254,16 +255,7 @@ public class MetadataDialog extends Dialog {
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
             inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE,
                     metadataTableEditor, inputReadOnly, true, true, false);
-            boolean hasMappingType = false;
-            for (IElementParameter currentParam : inputNode.getElementParameters()) {
-                if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)
-                        && currentParam.isShow(inputNode.getElementParameters())) {
-                    inputMetaView.setCurrentDbms((String) currentParam.getValue());
-                    hasMappingType = true;
-                }
-            }
-            inputMetaView.setShowDbTypeColumn(hasMappingType | hasRepositoryDbSchema(inputNode, inputMetaTable), true,
-                    hasMappingType);
+            initializeDbType(inputMetaView, inputNode, inputMetaTable);
             inputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForInput);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -343,16 +335,7 @@ public class MetadataDialog extends Dialog {
             outputMetaView = new MetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
                     new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)"), outputReadOnly, true, true, //$NON-NLS-1$
                     false);
-            hasMappingType = false;
-            for (IElementParameter currentParam : outputNode.getElementParameters()) {
-                if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)
-                        && currentParam.isShow(outputNode.getElementParameters())) {
-                    outputMetaView.setCurrentDbms((String) currentParam.getValue());
-                    hasMappingType = true;
-                }
-            }
-            outputMetaView.setShowDbTypeColumn(hasMappingType | hasRepositoryDbSchema(outputNode, outputMetaTable),
-                    false, hasMappingType);
+            initializeDbType(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
