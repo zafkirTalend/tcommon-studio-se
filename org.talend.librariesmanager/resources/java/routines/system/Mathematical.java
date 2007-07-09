@@ -35,7 +35,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      * {param} double (10) a:
      * 
@@ -50,7 +50,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      */
     public static double ACOS(double a) {
@@ -62,7 +62,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      */
     public static double ASIN(double a) {
@@ -74,7 +74,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      * 
      * 
@@ -88,7 +88,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} int | Integer
      * 
      * 
      * 
@@ -102,7 +102,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} int | Integer
      */
     public static int BITNOT(int a) {
         return ~a;
@@ -113,7 +113,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} int | Integer
      * 
      * 
      */
@@ -131,7 +131,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} int | Integer
      * 
      * 
      */
@@ -144,7 +144,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      * 
      * 
@@ -158,7 +158,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      * 
      */
@@ -171,7 +171,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      */
     public static double DIV(double a, double b) {
@@ -183,7 +183,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      */
     public static double EXP(double a) {
         return Math.exp(a);
@@ -194,7 +194,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} int | Integer
      */
     public static int INT(String e) {
         return Integer.valueOf(e);
@@ -241,9 +241,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
-     * 
-     * 
+     * {talendTypes} double | Double
      * 
      */
     public static double LN(double a) {
@@ -269,7 +267,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      */
     public static double NEG(double a) {
         return -1 * a;
@@ -280,7 +278,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} int | Integer
      * 
      */
     public static int NUM(String e) {
@@ -298,7 +296,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      */
     public static double REAL(String e) {
@@ -314,7 +312,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      * 
      * 
@@ -328,7 +326,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      */
     public static double SADD(String a, String b) {
@@ -340,7 +338,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} int | Integer
      * 
      */
     public static int SCMP(String a, String b) {
@@ -360,7 +358,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} int | Integer
      * 
      */
     public static int SDIV(int a, int b) {
@@ -372,7 +370,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      * 
      * 
@@ -386,9 +384,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
-     * 
-     * 
+     * {talendTypes} double | Double
      * 
      */
     public static double SINH(double a) {
@@ -400,9 +396,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
-     * 
-     * 
+     * {talendTypes} double | Double
      * 
      */
     public static double SMUL(String a, String b) {
@@ -414,7 +408,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      */
     public static double SQRT(double a) {
@@ -438,7 +432,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      * 
      */
@@ -451,14 +445,11 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {talendTypes} String
+     * {talendTypes} double | Double
      * 
      */
     public static double TANH(double a) {
         return Math.tanh(a);
     }
 
-    public static void main(String[] args) {
-        System.out.println(Mathematical.FFIX(3.1475926575859643, 14));
-    }
 }

@@ -34,7 +34,7 @@ public class StringHandling {
      * 
      * {Category} StringHandling
      * 
-     * {talendTypes} String
+     * {talendTypes} boolean | Boolean
      * 
      * {param} string("abcdefg") input: String need to be known whether is an alphabetic or nonalphabetic string.
      * 
@@ -78,7 +78,7 @@ public class StringHandling {
      * 
      * {Category} StringHandling
      * 
-     * {talendTypes} String
+     * {talendTypes} int | Integer
      * 
      * {param} string("hello world!") string: The whole string.
      * 
@@ -167,7 +167,7 @@ public class StringHandling {
      * 
      * {Category} StringHandling
      * 
-     * {talendTypes} String
+     * {talendTypes} int | Integer
      * 
      * {param} string("hello world!") string: string.
      * 
@@ -218,7 +218,7 @@ public class StringHandling {
      * 
      * {Category} StringHandling
      * 
-     * {talendTypes} String
+     * {talendTypes} int | Integer
      * 
      * {param} string("hello world!") string:
      * 

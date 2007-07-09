@@ -35,7 +35,7 @@ public class Relational {
      * 
      * {Category} Relational
      * 
-     * {talendTypes} String
+     * {talendTypes} boolean | Boolean
      * 
      */
     public static boolean ISNULL(Object variable) {
@@ -47,7 +47,7 @@ public class Relational {
      * 
      * {Category} Relational
      * 
-     * {talendTypes} String
+     * {talendTypes} boolean | Boolean
      * 
      */
     public static boolean NOT(boolean expression) {

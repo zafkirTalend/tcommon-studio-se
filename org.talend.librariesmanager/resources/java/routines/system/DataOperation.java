@@ -34,7 +34,7 @@ public class DataOperation {
      * 
      * {Category} DataOperation
      * 
-     * {talendTypes} Sting
+     * {talendTypes} int | Integer
      * 
      */
     public static int ASCII(char c) {
@@ -46,7 +46,7 @@ public class DataOperation {
      * 
      * {Category} DataOperation
      * 
-     * {talendTypes} Sting
+     * {talendTypes} char | Character
      * 
      */
     public static char CHAR(int i) {
@@ -74,16 +74,13 @@ public class DataOperation {
      * 
      * {Category} DataOperation
      * 
-     * {talendTypes} Sting
+     * {talendTypes} long | Long
      * 
      */
     public static long FIX(double d) {
         return Math.round(d);
     }
 
-    public static int FIX(float f) {
-        return Math.round(f);
-    }
 
     // FMT( ) Converts data from its internal representation to a specified
     // format for output.
@@ -97,7 +94,7 @@ public class DataOperation {
      * 
      * {Category} DataOperation
      * 
-     * {talendTypes} Sting
+     * {talendTypes} int | Integer
      * 
      */
     public static int XTD(String text) {
