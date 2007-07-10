@@ -55,4 +55,10 @@ public interface IRepositoryService extends IService {
     public void notifySQLBuilder(List<IRepositoryObject> list);
 
     public String validateColumnName(String columnName, int index);
+
+    /**
+     * qzhang Comment method "registerRepositoryChangedListenerAsFirst".
+     * @param view
+     */
+    public void registerRepositoryChangedListenerAsFirst(IRepositoryChangedListener listener);
 }
