@@ -2,6 +2,7 @@
 <mapping>
 	<dbms product="ORACLE" id="oracle_id" label="Mapping Oracle" default="true">
 		<dbTypes>
+			<dbType type="CHAR" />
 			<dbType type="VARCHAR2" />
 			<dbType type="NCHAR" />
 			<dbType type="NVARCHAR2" />
@@ -31,7 +32,8 @@
 				<talendType type="id_byte[]">
 				</talendType>
 				<talendType type="id_Character">
-					<dbType type="VARCHAR2" default="true" />
+					<dbType type="CHAR" default="true"/>
+					<dbType type="VARCHAR2"/>
 					<dbType type="NCHAR"/>
 					<dbType type="NVARCHAR2"/>
 				</talendType>
@@ -68,10 +70,14 @@
 				<talendType type="id_String">
 					<dbType type="VARCHAR2" default="true" />
 					<dbType type="NCHAR" />
-					<dbType type="NVARCHAR2"/>			
+					<dbType type="NVARCHAR2"/>	
+					<dbType type="CHAR" />		
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes><!-- Adviced mappings  -->
+				<dbType type="CHAR">
+					<talendType type="id_String" default="true" />
+				</dbType>
 				<dbType type="VARCHAR2">
 					<talendType type="id_String" default="true" />
 				</dbType>
@@ -143,7 +149,8 @@
 				<talendType type="string">
 					<dbType type="VARCHAR2" default="true" />
 					<dbType type="NCHAR" />		
-					<dbType type="NVARCHAR2" />		
+					<dbType type="NVARCHAR2" />	
+					<dbType type="CHAR" />		
 				</talendType>
 				<talendType type="date">
 					<dbType type="DATE" default="true" />	
@@ -153,6 +160,9 @@
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes><!-- Adviced mappings  -->
+				<dbType type="CHAR">
+					<talendType type="string" default="true" />
+				</dbType>
 				<dbType type="VARCHAR2">
 					<talendType type="string" default="true" />
 				</dbType>
