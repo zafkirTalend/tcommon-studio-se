@@ -78,6 +78,8 @@ public class RepositoryToComponentProperty {
     public static final String INFORMIX = "INFORMIX"; //$NON-NLS-1$
     
     public static final String ACCESS = "ACCESS"; //$NON-NLS-1$
+    
+//    public static final String JAVADB = "JAVADB"; //$NON-NLS-1$
 
     public static Object getValue(Connection connection, String value) {
         if (connection instanceof FileConnection) {
@@ -141,6 +143,15 @@ public class RepositoryToComponentProperty {
         if (dbType.equals(EDatabaseTypeName.ACCESS.getDisplayName())) {
             return ACCESS;
         }
+//        if (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())) {
+//            return JAVADB;
+//        }
+//        if (dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())) {
+//            return JAVADB;
+//        }
+//        if (dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())) {
+//            return JAVADB;
+//        }
         return ""; //$NON-NLS-1$
     }
 

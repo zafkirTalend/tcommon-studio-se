@@ -46,7 +46,11 @@ public enum EDatabaseTypeName {
     SQLITE("SQLite", "SQLite", new Boolean(false), "SQLITE"), // "SQLITE"),
     FIREBIRD("FireBird", "FireBird", new Boolean(false), "FIREBIRD"), // "FIREBIRD"),    
     INFORMIX("Informix", "Informix", new Boolean(true), "INFORMIX"), // "INFORMIX");
-    ACCESS("Access", "Access", new Boolean(true), "ACCESS"); // "ACCESS");
+
+    ACCESS("Access", "Access", new Boolean(false), "ACCESS"); // "ACCESS");
+//    JAVADB_EMBEDED("JavaDB Embeded", "JavaDB Embeded", new Boolean(false), "JAVADB"),
+//    JAVADB_JCCJDBC("JavaDB JCCJDBC", "JavaDB JCCJDBC", new Boolean(false), "JAVADB"),
+//    JAVADB_DERBYCLIENT("JavaDB DerbyClient", "JavaDB DerbyClient", new Boolean(false), "JAVADB");
     
     // displayName is used in Java code.
     private String displayName;

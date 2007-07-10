@@ -238,6 +238,12 @@ public class TalendTextUtils {
             return QUOTATION_MARK;
         case ACCESS:
             return QUOTATION_MARK;
+//        case JAVADB_DERBYCLIENT:
+//            return QUOTATION_MARK;
+//        case JAVADB_JCCJDBC:
+//            return QUOTATION_MARK;
+//        case JAVADB_EMBEDED:
+//            return QUOTATION_MARK;
         default:
             return QUOTATION_MARK;
         }
