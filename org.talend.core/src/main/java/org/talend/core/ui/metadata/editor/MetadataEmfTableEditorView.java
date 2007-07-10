@@ -217,10 +217,6 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
 
             public String get(MetadataColumn bean) {
-                if(bean.getDisplayField()!=null)
-                {
-                    return bean.getDisplayField();
-                }
                 return bean.getLabel();
             }
 
@@ -290,7 +286,8 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
      */
     @Override
     protected ExtendedToolbarView initToolBar() {
-        return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(), getCurrentDbms());
+        return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(),
+                getCurrentDbms());
     }
 
     /*

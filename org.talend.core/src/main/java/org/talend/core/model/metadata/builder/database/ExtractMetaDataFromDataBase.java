@@ -66,7 +66,7 @@ public class ExtractMetaDataFromDataBase {
     private static final String TABLETYPE_VIEW = "VIEW"; //$NON-NLS-1$
 
     private static final String TABLETYPE_SYNONYM = "SYNONYM"; //$NON-NLS-1$
-    
+
     private static int columnIndex;
 
     /**
@@ -192,8 +192,6 @@ public class ExtractMetaDataFromDataBase {
         return null;
     }
 
-    
-
     /**
      * DOC cantoine. Method to return a Collection of Column description(metadata) for a DB connection.
      * 
@@ -203,8 +201,8 @@ public class ExtractMetaDataFromDataBase {
      */
     public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData,
             IMetadataTable medataTable, IMetadataConnection metadataConnection) {
-        
-        columnIndex=0;
+
+        columnIndex = 0;
 
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
 
@@ -228,13 +226,15 @@ public class ExtractMetaDataFromDataBase {
             IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
             while (columns.next()) {
                 MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-               
+
                 metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
                 metadataColumn.setOriginalField(metadataColumn.getLabel());
 
-                //Validate the column if it contains space or illegal characters.
+                // Validate the column if it contains space or illegal characters.
                 if (repositoryService != null) {
-                    metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),columnIndex));
+                    // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),columnIndex));
+                    metadataColumn.setLabel(repositoryService
+                            .validateColumnName(metadataColumn.getLabel(), columnIndex));
                 }
                 columnIndex++;
 
