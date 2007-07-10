@@ -167,6 +167,9 @@ public class ExtractMetaDataUtils {
             hashTable.put("FireBird", "org.firebirdsql.jdbc.FBDriver"); //$NON-NLS-1$ //$NON-NLS-2$
             hashTable.put("Informix", "com.informix.jdbc.IfxDriver"); //$NON-NLS-1$ //$NON-NLS-2$
             
+            hashTable.put("Access", "sun.jdbc.odbc.JdbcOdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            
             driverClass = hashTable.get(dbType);
 
         } catch (Exception e) {

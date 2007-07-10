@@ -76,6 +76,8 @@ public class RepositoryToComponentProperty {
     public static final String FIREBIRD = "FIREBIRD"; //$NON-NLS-1$
 
     public static final String INFORMIX = "INFORMIX"; //$NON-NLS-1$
+    
+    public static final String ACCESS = "ACCESS"; //$NON-NLS-1$
 
     public static Object getValue(Connection connection, String value) {
         if (connection instanceof FileConnection) {
@@ -135,6 +137,9 @@ public class RepositoryToComponentProperty {
         }
         if (dbType.equals(EDatabaseTypeName.INFORMIX.getDisplayName())) {
             return INFORMIX;
+        }
+        if (dbType.equals(EDatabaseTypeName.ACCESS.getDisplayName())) {
+            return ACCESS;
         }
         return ""; //$NON-NLS-1$
     }

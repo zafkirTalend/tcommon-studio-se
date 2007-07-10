@@ -236,6 +236,8 @@ public class TalendTextUtils {
             return QUOTATION_MARK;
         case INFORMIX:
             return QUOTATION_MARK;
+        case ACCESS:
+            return QUOTATION_MARK;
         default:
             return QUOTATION_MARK;
         }
