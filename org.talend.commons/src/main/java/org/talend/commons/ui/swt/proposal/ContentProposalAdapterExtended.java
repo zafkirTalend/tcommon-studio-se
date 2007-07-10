@@ -66,6 +66,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.threading.AsynchronousThreading;
 
 /**
  * <br>
@@ -142,29 +143,25 @@ public class ContentProposalAdapterExtended {
 
                 if (e.type == SWT.FocusOut && e.widget == control) {
 
-                    (new Thread() {
+                    new AsynchronousThreading(5, false, control.getDisplay(), new Runnable() {
 
-                        @Override
+                        /*
+                         * (non-Javadoc)
+                         * 
+                         * @see java.lang.Runnable#run()
+                         */
                         public void run() {
-                            try {
-                                Thread.sleep(5);
-                            } catch (InterruptedException e1) {
-                                // nothing
-                            }
-                            control.getDisplay().asyncExec(new Runnable() {
-
-                                public void run() {
-                                    Control focusControl = control.getDisplay().getFocusControl();
-                                    if (focusControl != control && focusControl != proposalTable && focusControl != getShell()) {
-                                        authorizedClose();
-                                    }
-
+                            if (!control.isDisposed()) {
+                                Control focusControl = control.getDisplay().getFocusControl();
+                                if (focusControl != control && focusControl != proposalTable
+                                        && focusControl != getShell()) {
+                                    authorizedClose();
                                 }
-
-                            });
+                            }
                         }
 
                     }).start();
+
                 }
 
                 // System.out.println(e + " " +hasFocus() + " " + control.isFocusControl());
@@ -207,7 +204,8 @@ public class ContentProposalAdapterExtended {
                                 // the popup shell on the Mac.
                                 // Check the active shell.
                                 Shell activeShell = e.display.getActiveShell();
-                                if (activeShell == getShell() || (infoPopup != null && infoPopup.getShell() == activeShell)) {
+                                if (activeShell == getShell()
+                                        || (infoPopup != null && infoPopup.getShell() == activeShell)) {
                                     return;
                                 }
                                 // System.out.println("close focusout");
@@ -436,20 +434,20 @@ public class ContentProposalAdapterExtended {
                             // If there are no contents, changes in cursor position
                             // have no effect. Note also that we do not affect the filter
                             // text on ARROW_LEFT as we would with BS.
-//                            if (contents.length() > 0) {
-                                updateIntialFilterText();
-                                // System.out.println("update proposal :" + filterText +" .equals(" +
-                                // previousFilterText);
-                                // System.out.println("cursorPosition :" + cursorPosition +" .equals(" +
-                                // lastCursorPosition);
-                                // );
-                                if (cursorPosition == lastCursorPosition || !filterText.equals(previousFilterText)
-                                        && previousFilterText != null) {
-//                                     System.out.println("update proposal!!!");
-                                    asyncRecomputeProposals(filterText);
-                                    previousFilterText = filterText;
-                                }
-//                            }
+                            // if (contents.length() > 0) {
+                            updateIntialFilterText();
+                            // System.out.println("update proposal :" + filterText +" .equals(" +
+                            // previousFilterText);
+                            // System.out.println("cursorPosition :" + cursorPosition +" .equals(" +
+                            // lastCursorPosition);
+                            // );
+                            if (cursorPosition == lastCursorPosition || !filterText.equals(previousFilterText)
+                                    && previousFilterText != null) {
+                                // System.out.println("update proposal!!!");
+                                asyncRecomputeProposals(filterText);
+                                previousFilterText = filterText;
+                            }
+                            // }
                             lastCursorPosition = cursorPosition;
                         }
                         break;
@@ -458,8 +456,8 @@ public class ContentProposalAdapterExtended {
                     // Modifier keys are explicitly checked and ignored because
                     // they are not complete yet (no character).
                     default:
-                        if (e.type != SWT.KeyUp && e.keyCode != SWT.CAPS_LOCK && e.keyCode != SWT.MOD1 && e.keyCode != SWT.MOD2
-                                && e.keyCode != SWT.MOD3 && e.keyCode != SWT.MOD4) {
+                        if (e.type != SWT.KeyUp && e.keyCode != SWT.CAPS_LOCK && e.keyCode != SWT.MOD1
+                                && e.keyCode != SWT.MOD2 && e.keyCode != SWT.MOD3 && e.keyCode != SWT.MOD4) {
                             authorizedClose();
                         }
                         return;
@@ -595,19 +593,21 @@ public class ContentProposalAdapterExtended {
                 Rectangle parentBounds = getParentShell().getBounds();
                 Rectangle proposedBounds;
                 // Try placing the info popup to the right
-                Rectangle rightProposedBounds = new Rectangle(parentBounds.x + parentBounds.width + PopupDialog.POPUP_HORIZONTALSPACING,
-                        parentBounds.y + PopupDialog.POPUP_VERTICALSPACING, parentBounds.width, parentBounds.height);
+                Rectangle rightProposedBounds = new Rectangle(parentBounds.x + parentBounds.width
+                        + PopupDialog.POPUP_HORIZONTALSPACING, parentBounds.y + PopupDialog.POPUP_VERTICALSPACING,
+                        parentBounds.width, parentBounds.height);
                 rightProposedBounds = getConstrainedShellBounds(rightProposedBounds);
                 // If it won't fit on the right, try the left
                 if (rightProposedBounds.intersects(parentBounds)) {
-                    Rectangle leftProposedBounds = new Rectangle(parentBounds.x - parentBounds.width - POPUP_HORIZONTALSPACING - 1,
-                            parentBounds.y, parentBounds.width, parentBounds.height);
+                    Rectangle leftProposedBounds = new Rectangle(parentBounds.x - parentBounds.width
+                            - POPUP_HORIZONTALSPACING - 1, parentBounds.y, parentBounds.width, parentBounds.height);
                     leftProposedBounds = getConstrainedShellBounds(leftProposedBounds);
                     // If it won't fit on the left, choose the proposed bounds
                     // that fits the best
                     if (leftProposedBounds.intersects(parentBounds)) {
                         if (rightProposedBounds.x - parentBounds.x >= parentBounds.x - leftProposedBounds.x) {
-                            rightProposedBounds.x = parentBounds.x + parentBounds.width + PopupDialog.POPUP_HORIZONTALSPACING;
+                            rightProposedBounds.x = parentBounds.x + parentBounds.width
+                                    + PopupDialog.POPUP_HORIZONTALSPACING;
                             proposedBounds = rightProposedBounds;
                         } else {
                             leftProposedBounds.width = parentBounds.x - POPUP_HORIZONTALSPACING - leftProposedBounds.x;
@@ -700,7 +700,8 @@ public class ContentProposalAdapterExtended {
         }
 
         private void updateIntialFilterText() {
-            if (controlContentAdapter instanceof IControlContentAdapterExtended && (filterStyle == FILTER_CUMULATIVE || filterStyle == FILTER_CUMULATIVE_ALL_START_WORDS)) {
+            if (controlContentAdapter instanceof IControlContentAdapterExtended
+                    && (filterStyle == FILTER_CUMULATIVE || filterStyle == FILTER_CUMULATIVE_ALL_START_WORDS)) {
                 filterText = ((IControlContentAdapterExtended) controlContentAdapter).getFilterValue(getControl());
                 // System.out.println("Update initialfilter: "+filterText);
             }
@@ -1131,8 +1132,9 @@ public class ContentProposalAdapterExtended {
         }
 
         private PatternCompiler compiler = new Perl5Compiler();
+
         private PatternMatcher matcher = new Perl5Matcher();
-        
+
         /*
          * Filter the provided list of content proposals according to the filter text.
          */
@@ -1150,10 +1152,11 @@ public class ContentProposalAdapterExtended {
             int results = 0;
             boolean continueSearching = true;
             String currentFilter = EMPTY;
-            for (int indexStartFilter = 0; results == 0 && continueSearching && indexStartFilter < filterString.length(); indexStartFilter++) {
+            for (int indexStartFilter = 0; results == 0 && continueSearching
+                    && indexStartFilter < filterString.length(); indexStartFilter++) {
                 currentFilter = filterString.substring(indexStartFilter);
                 // System.out.println("currentFilter="+currentFilter);
-                
+
                 for (int i = 0; i < proposals.length; i++) {
                     String string = getString(proposals[i]);
                     if (string.length() >= currentFilter.length()) {
@@ -1166,7 +1169,7 @@ public class ContentProposalAdapterExtended {
                             beginAdded = true;
                         }
                         if (!beginAdded && filterStyle == FILTER_CUMULATIVE_ALL_START_WORDS) {
-                            
+
                             Pattern pattern = null;
                             try {
                                 pattern = compiler.compile(".*\\W" + Perl5Compiler.quotemeta(currentFilter) + ".*",
@@ -1251,7 +1254,7 @@ public class ContentProposalAdapterExtended {
      * added to the filter.
      */
     public static final int FILTER_CUMULATIVE_ALL_START_WORDS = 4;
-    
+
     /*
      * Set to <code>true</code> to use a Table with SWT.VIRTUAL. This is a workaround for
      * https://bugs.eclipse.org/bugs/show_bug.cgi?id=98585#c40 The corresponding SWT bug is
@@ -1555,9 +1558,10 @@ public class ContentProposalAdapterExtended {
      * @param filterStyle a constant indicating how keystrokes in the proposal popup affect filtering of the proposals
      * shown. <code>FILTER_NONE</code> specifies that no filtering will occur in the content proposal list as keys are
      * typed. <code>FILTER_CUMULATIVE</code> specifies that the content of the popup will be filtered by a string
-     * containing all the characters typed since the popup has been open. <code>FILTER_CUMULATIVE_ALL</code> specifies that the content of the popup will be filtered by a string
-     * containing all the characters typed since the popup has been open for all words of labels. <code>FILTER_CHARACTER</code> specifies the
-     * content of the popup will be filtered by the most recently typed character.
+     * containing all the characters typed since the popup has been open. <code>FILTER_CUMULATIVE_ALL</code> specifies
+     * that the content of the popup will be filtered by a string containing all the characters typed since the popup
+     * has been open for all words of labels. <code>FILTER_CHARACTER</code> specifies the content of the popup will be
+     * filtered by the most recently typed character.
      */
     public void setFilterStyle(int filterStyle) {
         this.filterStyle = filterStyle;
@@ -1713,12 +1717,13 @@ public class ContentProposalAdapterExtended {
                         if (triggerKeyStroke != null) {
                             // Either there are no modifiers for the trigger and we
                             // check the character field...
-                            if ((triggerKeyStroke.getModifierKeys() == KeyStroke.NO_KEY && triggerKeyStroke.getNaturalKey() == e.character)
+                            if ((triggerKeyStroke.getModifierKeys() == KeyStroke.NO_KEY && triggerKeyStroke
+                                    .getNaturalKey() == e.character)
                                     ||
                                     // ...or there are modifiers, in which case the
                                     // keycode and state must match
-                                    (triggerKeyStroke.getNaturalKey() == e.keyCode && ((triggerKeyStroke.getModifierKeys() & e.stateMask) == triggerKeyStroke
-                                            .getModifierKeys()))) {
+                                    (triggerKeyStroke.getNaturalKey() == e.keyCode && ((triggerKeyStroke
+                                            .getModifierKeys() & e.stateMask) == triggerKeyStroke.getModifierKeys()))) {
                                 // We never propagate the keystroke for an explicit
                                 // keystroke invocation of the popup
                                 e.doit = false;
