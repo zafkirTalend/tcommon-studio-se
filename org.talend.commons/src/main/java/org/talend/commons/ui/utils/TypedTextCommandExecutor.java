@@ -46,7 +46,7 @@ public class TypedTextCommandExecutor {
 
     private static final int KEY_CODE_PROPOSAL = 27; // ' '
     
-    public static final String PROPERTY = "PROPERTY";
+    public static final String PARAMETER_NAME = "PARAMETER_NAME";
     
     private Key previousKey;
 
@@ -118,7 +118,7 @@ public class TypedTextCommandExecutor {
 
         String currentText = ControlUtils.getText(control);
         previousText2 = previousText;
-        activeControl = control.getData(PROPERTY);
+        activeControl = control.getData(PARAMETER_NAME);
         // System.out.println(e);
 
         boolean alphaNumMatched = matcher.matches(String.valueOf(e.character), patternAlphaNum);
