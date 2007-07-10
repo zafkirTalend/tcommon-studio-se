@@ -183,6 +183,9 @@ public class RepositoryToComponentProperty {
         if (value.equals("SCHEMA")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getSchema());
         }
+        if (value.equals("FILE")) { //$NON-NLS-1$
+            return TalendTextUtils.addQuotes(connection.getFileFieldName());
+        }
         return null;
     }
 
