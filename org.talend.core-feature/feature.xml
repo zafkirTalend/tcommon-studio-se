@@ -45,6 +45,7 @@
       <import plugin="org.eclipse.ui" version="3.2.0" match="compatible"/>
       <import plugin="org.eclipse.update.configurator" version="3.1.100" match="compatible"/>
       <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.epic.perleditor"/>
    </requires>
 
    <plugin
@@ -124,13 +125,6 @@
          install-size="0"
          version="0.0.0"
          fragment="true"
-         unpack="false"/>
-
-   <plugin
-         id="org.epic.perleditor"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
          unpack="false"/>
 
 </feature>
