@@ -125,9 +125,9 @@
       <column comment="" key="false" length="5" name="flag" nullable="false" pattern="" precision="-1" sourceType="" type="id_Boolean"/>
     </metadata>
   </node>
-  <connection label="RunBefore" lineStyle="1" metaname="tMysqlRow_1" offsetLabelX="0" offsetLabelY="0" source="tMysqlRow_1" target="tRowGenerator_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tMysqlRow_1" offsetLabelX="0" offsetLabelY="0" source="tMysqlRow_1" target="tRowGenerator_1"/>
   <connection label="tRowGenerator_1" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tMysqlOutput_1"/>
-  <connection label="RunBefore" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tMysqlRow_2"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tMysqlRow_2"/>
   <note opaque="true" posX="32" posY="32" sizeHeight="64" sizeWidth="225" text="Drop the primary key"/>
   <note opaque="true" posX="32" posY="288" sizeHeight="64" sizeWidth="225" text="Set the primary key"/>
   <note opaque="true" posX="32" posY="160" sizeHeight="65" sizeWidth="225" text="Insert the data"/>

@@ -58,7 +58,7 @@
       <column comment="" defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="String"/>
     </metadata>
   </node>
-  <connection label="RunBefore" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tMsgBox_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tMsgBox_1"/>
   <connection label="row1" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tContextLoad_2"/>
   <note opaque="true" posX="64" posY="32" sizeHeight="64" sizeWidth="385" text="In this sample, we used a tRowGenerator to define a var.&#xD;&#xA;&#xD;&#xA;On your jobs, you will use a tFileDelimited or a database !"/>
 </talendfile:ProcessType>

@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default">
     <contextParameter comment="" name="var1" prompt="new1?" promptNeeded="false" type="id_String" value="toto"/>
@@ -61,7 +61,7 @@
       <column comment="" defaultValue="" key="false" length="255" name="value" nullable="true" precision="0" sourceType="" type="id_String"/>
     </metadata>
   </node>
-  <connection label="RunBefore" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tMsgBox_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tMsgBox_1"/>
   <connection label="row1" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tContextLoad_1"/>
   <note opaque="true" posX="192" posY="160" sizeHeight="65" sizeWidth="449" text="In this sample, we used a tRowGenerator to define a var.&#xD;&#xA;&#xD;&#xA;Off course, on your jobs, you will use a tFileDelimited or a database !"/>
 </talendfile:ProcessType>

@@ -33,5 +33,5 @@
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata name="tPerl_1"/>
   </node>
-  <connection label="RunBefore" lineStyle="1" metaname="tFileFetch_1" offsetLabelX="0" offsetLabelY="0" source="tFileFetch_1" target="tPerl_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tFileFetch_1" offsetLabelX="0" offsetLabelY="0" source="tFileFetch_1" target="tPerl_1"/>
 </talendfile:ProcessType>

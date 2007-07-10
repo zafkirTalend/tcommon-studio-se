@@ -87,7 +87,7 @@
     <metadata name="tSendMail_1"/>
   </node>
   <connection label="row1" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tFileOutputDelimited_1"/>
-  <connection label="RunAfter" lineStyle="2" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tSendMail_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tSendMail_1" target="tRowGenerator_1"/>
   <note opaque="true" posX="128" posY="256" sizeHeight="64" sizeWidth="417" text="                tSendMail send a mail with an attachement: the sample file"/>
   <note opaque="true" posX="96" posY="32" sizeHeight="33" sizeWidth="161" text="Create a sample file"/>
 </talendfile:ProcessType>

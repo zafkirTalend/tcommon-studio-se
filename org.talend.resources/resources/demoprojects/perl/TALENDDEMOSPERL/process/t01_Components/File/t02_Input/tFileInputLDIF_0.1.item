@@ -68,6 +68,6 @@
     <metadata name="tPerl_1"/>
   </node>
   <connection label="row1" lineStyle="0" metaname="tFileInputLDIF_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputLDIF_1" target="tLogRow_1"/>
-  <connection label="RunBefore" lineStyle="1" metaname="tPerl_1" offsetLabelX="0" offsetLabelY="0" source="tPerl_1" target="tFileInputLDIF_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tPerl_1" offsetLabelX="0" offsetLabelY="0" source="tPerl_1" target="tFileInputLDIF_1"/>
   <note opaque="false" posX="128" posY="32" sizeHeight="96" sizeWidth="417" text="tPerl generate a sample file"/>
 </talendfile:ProcessType>

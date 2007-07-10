@@ -56,5 +56,5 @@
     <metadata name="tPerl_1"/>
   </node>
   <connection label="row1" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tPerlRow_1"/>
-  <connection label="RunBefore" lineStyle="1" metaname="tPerl_1" offsetLabelX="0" offsetLabelY="0" source="tPerl_1" target="tRowGenerator_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tPerl_1" offsetLabelX="0" offsetLabelY="0" source="tPerl_1" target="tRowGenerator_1"/>
 </talendfile:ProcessType>

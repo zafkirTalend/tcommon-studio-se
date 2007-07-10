@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<TalendFile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendFile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
+<talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default"/>
   <node componentName="tMsgBox" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="64" posY="64">
     <elementParameter field="TEXT" name="UNIQUE_NAME" value="tMsgBox_1"/>
@@ -33,5 +33,5 @@
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata name="tMsgBox_2"/>
   </node>
-  <connection label="RunBefore" lineStyle="1" metaname="tMsgBox_1" offsetLabelX="0" offsetLabelY="0" source="tMsgBox_1" target="tMsgBox_2"/>
-</TalendFile:ProcessType>
+  <connection label="ThenRun" lineStyle="1" metaname="tMsgBox_1" offsetLabelX="0" offsetLabelY="0" source="tMsgBox_1" target="tMsgBox_2"/>
+</talendfile:ProcessType>

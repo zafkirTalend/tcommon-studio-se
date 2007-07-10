@@ -115,6 +115,6 @@
   <connection label="row1" lineStyle="0" metaname="tLogRow_1" offsetLabelX="6" offsetLabelY="3" source="tLogRow_1" target="tMysqlOutput_1"/>
   <connection label="row3" lineStyle="0" metaname="tPerlRow_1" offsetLabelX="0" offsetLabelY="0" source="tPerlRow_1" target="tLogRow_1"/>
   <connection label="row2" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tPerlRow_1"/>
-  <connection label="RunBefore" lineStyle="1" metaname="tPerl_1" offsetLabelX="0" offsetLabelY="0" source="tPerl_1" target="tRowGenerator_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tPerl_1" offsetLabelX="0" offsetLabelY="0" source="tPerl_1" target="tRowGenerator_1"/>
   <note opaque="true" posX="96" posY="32" sizeHeight="64" sizeWidth="417" text="This job created the table employees. this table is used on the job ELTalias"/>
 </talendfile:ProcessType>

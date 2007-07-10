@@ -35,5 +35,5 @@
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata name="tMsgBox_1"/>
   </node>
-  <connection label="RunBefore" lineStyle="1" metaname="tMsgBox_1" offsetLabelX="0" offsetLabelY="0" source="tMsgBox_1" target="tRunJob_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tMsgBox_1" offsetLabelX="0" offsetLabelY="0" source="tMsgBox_1" target="tRunJob_1"/>
 </talendfile:ProcessType>

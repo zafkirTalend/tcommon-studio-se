@@ -15,6 +15,7 @@ public class TalendDate {
      *  to the date. By default, the format string is DD/MM/CCYY. Here
      *  is the list of date variables:
      *  
+     *  {Category} Date
      *  {talendTypes} String
      *  
      *  {param} string("CCYY-MM-DD hh:mm:ss") pattern : date pattern
@@ -48,6 +49,7 @@ public class TalendDate {
     /**
      *  getDate : return the current date
      *
+     *  {Category} Date
      *  {talendTypes} Date
      *
      *  {example} getCurrentDate()
@@ -59,6 +61,7 @@ public class TalendDate {
     /**
      *  return an ISO formatted random date
      *
+     *  {Category} Date
      *  {talendTypes} Date
      *
      *  {param} string("2007-01-01") min : minimum date

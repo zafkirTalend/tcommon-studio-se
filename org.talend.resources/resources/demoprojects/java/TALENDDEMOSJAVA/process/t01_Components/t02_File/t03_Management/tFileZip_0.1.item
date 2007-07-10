@@ -1,4 +1,4 @@
-<?xml version="1.1" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <talendfile:ProcessType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" defaultContext="Default">
   <context confirmationNeeded="false" name="Default"/>
   <node componentName="tFileArchive" componentVersion="0.101" offsetLabelX="0" offsetLabelY="0" posX="96" posY="256">
@@ -81,7 +81,7 @@
     </metadata>
   </node>
   <connection label="row1" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tFileOutputXML_1"/>
-  <connection label="RunBefore" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tFileArchive_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tFileArchive_1"/>
   <note opaque="true" posX="160" posY="224" sizeHeight="97" sizeWidth="353" text=" Compress the 50 files of &quot;C:/tFileZipDemo&quot; on a zip."/>
   <note opaque="true" posX="160" posY="0" sizeHeight="65" sizeWidth="353" text="this subJob generate 50 files on of &quot;C:/tFileZipDemo&quot;"/>
 </talendfile:ProcessType>

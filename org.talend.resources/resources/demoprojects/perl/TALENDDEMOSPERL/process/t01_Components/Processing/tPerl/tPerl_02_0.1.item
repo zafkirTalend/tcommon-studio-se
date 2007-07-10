@@ -76,6 +76,6 @@
     </metadata>
   </node>
   <connection label="row1" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tMap_1"/>
-  <connection label="RunBefore" lineStyle="1" metaname="tPerl_1" offsetLabelX="0" offsetLabelY="0" source="tPerl_1" target="tRowGenerator_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tPerl_1" offsetLabelX="0" offsetLabelY="0" source="tPerl_1" target="tRowGenerator_1"/>
   <connection label="out1" lineStyle="0" metaname="out1" offsetLabelX="0" offsetLabelY="0" source="tMap_1" target="tLogRow_1"/>
 </talendfile:ProcessType>

@@ -149,6 +149,6 @@
       <column comment="" defaultValue="" key="false" length="10" name="duration" nullable="true" precision="0" sourceType="" type="int"/>
     </metadata>
   </node>
-  <connection label="RunBefore" lineStyle="1" metaname="tSleep_1" offsetLabelX="0" offsetLabelY="0" source="tSleep_1" target="tPerl_2"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tSleep_1" offsetLabelX="0" offsetLabelY="0" source="tSleep_1" target="tPerl_2"/>
   <connection label="row1" lineStyle="0" metaname="tStatCatcher_1" offsetLabelX="0" offsetLabelY="0" source="tStatCatcher_1" target="tLogRow_2"/>
 </talendfile:ProcessType>

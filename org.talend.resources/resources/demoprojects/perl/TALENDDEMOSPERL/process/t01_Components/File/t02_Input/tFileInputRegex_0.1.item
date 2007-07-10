@@ -64,7 +64,7 @@
       <column comment="" key="false" length="14" name="ip" nullable="false" precision="0" type="String"/>
     </metadata>
   </node>
-  <connection label="RunBefore" lineStyle="1" metaname="tPerl_1" offsetLabelX="0" offsetLabelY="0" source="tPerl_1" target="tFileInputRegex_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tPerl_1" offsetLabelX="0" offsetLabelY="0" source="tPerl_1" target="tFileInputRegex_1"/>
   <connection label="row1" lineStyle="0" metaname="tFileInputRegex_1" offsetLabelX="0" offsetLabelY="0" source="tFileInputRegex_1" target="tLogRow_1"/>
   <note opaque="false" posX="32" posY="32" sizeHeight="96" sizeWidth="321" text="tPerl generate a sample file"/>
 </talendfile:ProcessType>

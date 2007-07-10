@@ -106,5 +106,5 @@
     </metadata>
   </node>
   <connection label="row1" lineStyle="0" metaname="tRowGenerator_2" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_2" target="tFileOutputXML_1"/>
-  <connection label="RunBefore" lineStyle="1" metaname="tRowGenerator_2" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_2" target="tSendMail_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tRowGenerator_2" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_2" target="tSendMail_1"/>
 </talendfile:ProcessType>

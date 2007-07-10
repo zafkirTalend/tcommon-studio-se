@@ -105,7 +105,7 @@
     <elementParameter field="MEMO" name="COMMENT" value=""/>
     <metadata name="tMysqlRow_2"/>
   </node>
-  <connection label="RunBefore" lineStyle="1" metaname="tMysqlRow_1" offsetLabelX="0" offsetLabelY="0" source="tMysqlRow_1" target="tMysqlBulkExec_1"/>
-  <connection label="RunBefore" lineStyle="1" metaname="tMysqlRow_2" offsetLabelX="0" offsetLabelY="0" source="tMysqlRow_2" target="tMysqlRow_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tMysqlRow_1" offsetLabelX="0" offsetLabelY="0" source="tMysqlRow_1" target="tMysqlBulkExec_1"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tMysqlRow_2" offsetLabelX="0" offsetLabelY="0" source="tMysqlRow_2" target="tMysqlRow_1"/>
   <connection label="OnError" lineStyle="5" metaname="tMysqlRow_2" offsetLabelX="0" offsetLabelY="0" source="tMysqlRow_2" target="tMsgBox_1"/>
 </talendfile:ProcessType>

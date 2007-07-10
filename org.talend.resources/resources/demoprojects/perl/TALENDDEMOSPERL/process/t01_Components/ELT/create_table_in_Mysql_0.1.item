@@ -259,12 +259,12 @@
     </metadata>
   </node>
   <connection label="row1" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tLogRow_1"/>
-  <connection label="RunBefore" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tRowGenerator_3"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_1" target="tRowGenerator_3"/>
   <connection label="row2" lineStyle="0" metaname="tLogRow_1" offsetLabelX="0" offsetLabelY="0" source="tLogRow_1" target="tMysqlOutput_1"/>
   <connection label="row5" lineStyle="0" metaname="tRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_2" target="tLogRow_2"/>
   <connection label="row6" lineStyle="0" metaname="tLogRow_2" offsetLabelX="0" offsetLabelY="0" source="tLogRow_2" target="tMysqlOutput_2"/>
   <connection label="row3" lineStyle="0" metaname="copyOftRowGenerator_1" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_3" target="tLogRow_3"/>
-  <connection label="RunBefore" lineStyle="1" metaname="tRowGenerator_3" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_3" target="tRowGenerator_2"/>
+  <connection label="ThenRun" lineStyle="1" metaname="tRowGenerator_3" offsetLabelX="0" offsetLabelY="0" source="tRowGenerator_3" target="tRowGenerator_2"/>
   <connection label="row4" lineStyle="0" metaname="tLogRow_3" offsetLabelX="0" offsetLabelY="0" source="tLogRow_3" target="tMysqlOutput_3"/>
   <note opaque="true" posX="160" posY="32" sizeHeight="64" sizeWidth="353" text="This job created the tables Cars, Owners and Resellers."/>
 </talendfile:ProcessType>
