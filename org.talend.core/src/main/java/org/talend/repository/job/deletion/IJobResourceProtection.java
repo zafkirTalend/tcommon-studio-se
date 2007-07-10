@@ -19,20 +19,42 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.designer.core.ui.editor;
-
-import org.talend.core.IService;
+package org.talend.repository.job.deletion;
 
 /**
- * Service of Talend editor.
+ * Add protection on the resource for prescribed job.
  * 
  * yzhang class global comment. Detailled comment <br/>
  * 
- * $Id: ITalendEditorService.java 下午03:13:30 2007-6-19 +0000 (2007-6-19) yzhang $
+ * $Id: IResourceProtection.java 下午03:39:51 2007-7-6 +0000 (2007-7-6) yzhang $
  * 
  */
-public interface ITalendEditorService extends IService {
+public interface IJobResourceProtection {
 
-    public boolean isProcessAlive(String processName);
+    /**
+     * Calculate the id of the resources need to be protected. The id of resource need add protection.
+     * 
+     * yzhang Comment method "getProtectionIds".
+     * 
+     * @return
+     */
+    public String[] calculateProtectedIds();
 
+    /**
+     * Return the ids of protected resources. The protected id need to be removed from protection.
+     * 
+     * yzhang Comment method "getProjectedIds".
+     * 
+     * @return
+     */
+    public String[] getProjectedIds();
+
+    /**
+     * The the job resource under the specific id.
+     * 
+     * yzhang Comment method "getJobResource".
+     * 
+     * @return
+     */
+    public JobResource getJobResource(String id);
 }
