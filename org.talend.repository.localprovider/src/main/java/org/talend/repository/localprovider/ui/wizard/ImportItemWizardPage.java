@@ -138,15 +138,20 @@ class ImportItemWizardPage extends WizardPage {
 
     private void createErrorsList(Composite workArea) {
         Composite composite = new Composite(workArea, SWT.NONE);
-        RowLayout rowLayout = new RowLayout(SWT.VERTICAL);
-        composite.setLayout(rowLayout);
+        GridLayout layout = new GridLayout();
+        layout.makeColumnsEqualWidth = false;
+        layout.marginWidth = 0;
+        composite.setLayout(layout);
+        GridData gridData = new GridData(GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL | GridData.FILL_BOTH);
+        gridData.heightHint = 100;
+        composite.setLayoutData(gridData);
 
         Label title = new Label(composite, SWT.NONE);
         title.setText(Messages.getString("ImportItemWizardPage.ErrorsAndWarnings")); //$NON-NLS-1$
-        title.setLayoutData(new RowData(500, 20));
+        title.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
         errorsList = new TableViewer(composite, SWT.BORDER);
-        errorsList.getControl().setLayoutData(new RowData(500, 100));
+        errorsList.getControl().setLayoutData(gridData);
 
         errorsList.setContentProvider(new IStructuredContentProvider() {
 
@@ -195,11 +200,13 @@ class ImportItemWizardPage extends WizardPage {
         layout2.makeColumnsEqualWidth = false;
         listComposite.setLayout(layout2);
 
+        GridData gridData = new GridData(GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL | GridData.FILL_BOTH);
+        gridData.heightHint = 100;
         listComposite
-                .setLayoutData(new GridData(GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL | GridData.FILL_BOTH));
+                .setLayoutData(gridData);
 
         itemsList = new CheckboxTreeViewer(listComposite, SWT.BORDER);
-        GridData listData = new GridData(GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL | GridData.FILL_BOTH);
+        GridData listData = gridData;
         itemsList.getControl().setLayoutData(listData);
 
         itemsList.setContentProvider(new ITreeContentProvider() {
