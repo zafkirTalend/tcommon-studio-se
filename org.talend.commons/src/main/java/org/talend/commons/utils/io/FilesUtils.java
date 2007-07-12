@@ -300,6 +300,24 @@ public class FilesUtils {
         return folder.delete();
     }
 
+    public static void removeEmptyFolder(File folder) {
+        if (!folder.isDirectory()) {
+            return;
+        }
+        File[] children = folder.listFiles();
+        if (children == null) {
+            folder.delete();
+        } else {
+            for (File current : children) {
+                removeEmptyFolder(current);
+            }
+        }
+        children = folder.listFiles();
+        if (children == null || children.length == 0) {
+            folder.delete();
+        }
+    }
+
     public static String extractPathFolderFromFilePath(String filePath) {
         Path completePath = new Path(filePath);
         return completePath.removeLastSegments(1).toOSString();
