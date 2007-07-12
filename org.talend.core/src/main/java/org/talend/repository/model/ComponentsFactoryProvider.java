@@ -43,7 +43,7 @@ public class ComponentsFactoryProvider {
 
     private static IComponentFileNaming componentFileNaming = null;
 
-    public static IComponentsFactory getInstance() {
+    public static synchronized IComponentsFactory getInstance() {
         if (factorySingleton == null) {
             try {
                 // processSingleton =
