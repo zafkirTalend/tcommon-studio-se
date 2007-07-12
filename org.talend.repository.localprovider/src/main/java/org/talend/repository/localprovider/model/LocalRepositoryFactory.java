@@ -171,8 +171,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     IRepositoryObject currentObject = null;
 
                     if (xmiResourceManager.isPropertyFile((IFile) current)) {
-                        Property property = xmiResourceManager.loadProperty(current);
-                        currentObject = new RepositoryObject(property);
+                        try {
+                            Property property = xmiResourceManager.loadProperty(current);
+                            currentObject = new RepositoryObject(property);
+                        } catch (RuntimeException e) {
+                             log.error(Messages.getString("LocalRepositoryFactory.CannotLoadProperty") + current); //$NON-NLS-1$
+                        }
                     }
 
                     if (currentObject != null) {
