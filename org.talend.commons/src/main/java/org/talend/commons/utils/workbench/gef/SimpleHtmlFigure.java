@@ -49,19 +49,10 @@ import org.eclipse.swt.widgets.Shell;
  */
 public class SimpleHtmlFigure extends Figure {
 
-    /**
-     * 
-     */
-    private static final int A_6 = 6;
+    private static final int A_7 = 7;
 
-    /**
-     * 
-     */
-    private static final int A_4 = 4;
+    private static final int A_5 = 5;
 
-    /**
-     * 
-     */
     private static final int A_16 = 16;
 
     private static final String TAG_BOLD_BEG = "<b>";
@@ -72,7 +63,7 @@ public class SimpleHtmlFigure extends Figure {
 
     private static final String TAG_ITALIC_END = "</i>";
 
-    private static final String TAG_COLOR_BEG_1 = "<font color='#";
+    private static final String TAG_COLOR_BEG_1 = "<font color='";
 
     private static final String TAG_COLOR_BEG_2 = "'>";
 
@@ -290,17 +281,32 @@ public class SimpleHtmlFigure extends Figure {
     }
 
     private Color getColor(final String colorCode) {
-        Color color;
-        try {
-            int r = Integer.parseInt(colorCode.substring(0, 2), A_16);
-            int g = Integer.parseInt(colorCode.substring(2, A_4), A_16);
-            int b = Integer.parseInt(colorCode.substring(A_4, A_6), A_16);
-            RGB rgb = new RGB(r, g, b);
-            color = new Color(Display.getDefault(), rgb);
-        } catch (NumberFormatException nfe) {
-            color = ColorConstants.black;
+        if (colorCode.startsWith("#") && (colorCode.length() == 7)) { // hexa code.
+            Color color;
+            try {
+                int r = Integer.parseInt(colorCode.substring(1, 3), A_16);
+                int g = Integer.parseInt(colorCode.substring(3, A_5), A_16);
+                int b = Integer.parseInt(colorCode.substring(A_5, A_7), A_16);
+                RGB rgb = new RGB(r, g, b);
+                color = new Color(Display.getDefault(), rgb);
+            } catch (NumberFormatException nfe) {
+                color = ColorConstants.black;
+            }
+            return color;
+        } else { // color name
+            String[] colors = { "white", "black", "red", "dark_red", "green", "dark_green", "yellow", "dark_yellow",
+                    "blue", "dark_blue", "magenta", "dark_magenta", "cyan", "dark_cyan", "gray", "dark_gray" };
+            int choosedColor = 0;
+            for (int i = 0; i < colors.length; i++) {
+                if (colors[i].equalsIgnoreCase(colorCode)) {
+                    choosedColor = i + 1;
+                }
+            }
+            if (choosedColor == 0) {
+                choosedColor = SWT.COLOR_BLACK;
+            }
+            return Display.getDefault().getSystemColor(choosedColor);
         }
-        return color;
     }
 
     @SuppressWarnings("unchecked")
