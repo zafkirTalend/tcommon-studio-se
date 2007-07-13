@@ -25,6 +25,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.oro.text.regex.MalformedPatternException;
+import org.apache.oro.text.regex.Pattern;
+import org.apache.oro.text.regex.Perl5Compiler;
+import org.apache.oro.text.regex.Perl5Matcher;
 import org.eclipse.draw2d.geometry.Point;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.metadata.IMetadataTable;
@@ -429,6 +433,24 @@ public abstract class AbstractNode implements INode {
         }
     }
 
+    private boolean valueContains(String value, String toTest) {
+        if (value.contains(toTest)) {
+            Perl5Matcher matcher = new Perl5Matcher();
+            Perl5Compiler compiler = new Perl5Compiler();
+            Pattern pattern;
+
+            try {
+                pattern = compiler.compile("(.*" + toTest + "[^0-9]+.*)"); //$NON-NLS-1$
+                if (matcher.contains(value, pattern)) {
+                    return true;
+                }
+            } catch (MalformedPatternException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return false;
+    }
+    
     /*
      * (non-Javadoc)
      * 
@@ -441,7 +463,7 @@ public abstract class AbstractNode implements INode {
             }
             if (param.getValue() instanceof String) { // for TEXT / MEMO etc..
                 String value = (String) param.getValue();
-                if (value.contains(name)) {
+                if (valueContains(value,name)) {
                     return true;
                 }
             } else if (param.getValue() instanceof List) { // for TABLE
@@ -450,7 +472,7 @@ public abstract class AbstractNode implements INode {
                     for (String key : line.keySet()) {
                         Object cellValue = line.get(key);
                         if (cellValue instanceof String) { // cell is text so test data
-                            if (((String) cellValue).contains(name)) {
+                            if (valueContains((String) cellValue, name)) {
                                 return true;
                             }
                         }
