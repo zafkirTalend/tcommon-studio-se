@@ -72,6 +72,7 @@ import org.talend.commons.ui.swt.tableviewer.celleditor.DateDialog;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DirectoryCellEditor;
 import org.talend.commons.ui.swt.tableviewer.celleditor.FileCellEditor;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
+import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
@@ -779,7 +780,7 @@ public abstract class JobContextComposite extends Composite {
                  * tableViewerCreator.attachCellEditors();
                  */
                 removeParameter.setEnabled(!isReadOnly());
-                }
+            }
         });
     }
 
@@ -908,15 +909,15 @@ public abstract class JobContextComposite extends Composite {
                                 FileDialog d = new FileDialog(text.getShell());
                                 String open = d.open();
                                 if (open != null) {
-                                    open = open.replaceAll("\\\\", "/");
-                                    parameter.setValue(open);
+                                    // open = open.replaceAll("\\\\", "/");
+                                    parameter.setValue(PathUtils.getPortablePath(open));
                                 }
                             } else if (id.equals(JavaTypesManager.DIRECTORY.getId())) {
                                 DirectoryDialog d = new DirectoryDialog(text.getShell());
                                 String open = d.open();
                                 if (open != null) {
-                                    open = open.replaceAll("\\\\", "/");
-                                    parameter.setValue(open);
+                                    // open = open.replaceAll("\\\\", "/");
+                                    parameter.setValue(PathUtils.getPortablePath(open));
                                 }
                             } else if (id.equals(JavaTypesManager.DATE.getId())) {
                                 DateDialog d = new DateDialog(text.getShell());
