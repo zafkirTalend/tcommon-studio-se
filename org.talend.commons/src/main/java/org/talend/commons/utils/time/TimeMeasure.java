@@ -21,11 +21,7 @@
 // ============================================================================
 package org.talend.commons.utils.time;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import org.talend.commons.i18n.internal.Messages;
 
 /**
  * Timer to measure elapsed time of any process or between steps.
@@ -36,7 +32,7 @@ import org.talend.commons.i18n.internal.Messages;
 public class TimeMeasure {
 
     // PTODO create junit test class
-    private static HashMap<String, List<Long>> timers;
+    private static HashMap<String, TimeStack> timers;
 
     private static int indent = 0;
 
@@ -61,16 +57,18 @@ public class TimeMeasure {
             return;
         }
         init();
-        if (timers.containsKey(idTimer) && display) {
-            System.out.println(indent(indent) + "Warning (start): timer " + idTimer + " already exists"); //$NON-NLS-1$  //$NON-NLS-2$
+        if (timers.containsKey(idTimer)) {
+            if (display) {
+                System.out.println(indent(indent) + "Warning (start): timer " + idTimer + " already exists"); //$NON-NLS-1$  //$NON-NLS-2$
+            }
+        } else {
+            indent++;
+            TimeStack times = new TimeStack();
+            timers.put(idTimer, times);
+            if (display) {
+                System.out.println(indent(indent) + "Start '" + idTimer + "' ..."); //$NON-NLS-1$  //$NON-NLS-2$
+            }
         }
-        indent++;
-        if (display) {
-            System.out.println(indent(indent) + "Start '" + idTimer + "' ..."); //$NON-NLS-1$  //$NON-NLS-2$
-        }
-        List<Long> times = new ArrayList<Long>();
-        times.add(System.currentTimeMillis());
-        timers.put(idTimer, times);
     }
 
     /**
@@ -85,27 +83,28 @@ public class TimeMeasure {
             return 0;
         }
         init();
-        if (!timers.containsKey(idTimer) && display) {
-            System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist"); //$NON-NLS-1$  //$NON-NLS-2$
+        if (!timers.containsKey(idTimer)) {
+            if (display) {
+                System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " doesn't exist"); //$NON-NLS-1$  //$NON-NLS-2$
+            }
+            return -1;
         } else {
-            List<Long> times = timers.get(idTimer);
+            TimeStack times = timers.get(idTimer);
             timers.remove(idTimer);
-            if (times.size() > 1) {
-                long elapsedTimeSinceLastRequest = System.currentTimeMillis() - times.get(times.size() - 1);
+            if (times.hasManySteps()) {
+                long elapsedTimeSinceLastRequest = times.getElapsedTimeSinceLastRequest();
                 if (display) {
                     System.out.println(indent(indent) + "End '" + idTimer + "', elapsed time since last request: " //$NON-NLS-1$  //$NON-NLS-2$
                             + elapsedTimeSinceLastRequest + " ms "); //$NON-NLS-1$
                 }
             }
-            long totalElapsedTime = System.currentTimeMillis() - times.get(0);
+            long totalElapsedTime = times.getTotalElapsedTime();
             if (display) {
-                System.out.println(indent(indent)
-                        + "End '" + idTimer + "', total elapsed time: " + totalElapsedTime + " ms "); //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
+                System.out.println(indent(indent) + "End '" + idTimer + "', total elapsed time: " + totalElapsedTime + " ms "); //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
             }
             indent--;
             return totalElapsedTime;
         }
-        return 0;
     }
 
     /**
@@ -121,16 +120,17 @@ public class TimeMeasure {
         }
         init();
         if (!timers.containsKey(idTimer)) {
-            System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist"); //$NON-NLS-1$  //$NON-NLS-2$
+            if (display) {
+                System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist"); //$NON-NLS-1$  //$NON-NLS-2$
+            }
+            return -1;
         } else {
-            long time1 = timers.get(idTimer).get(0);
-            long time = System.currentTimeMillis() - time1;
+            long time = timers.get(idTimer).getTotalElapsedTime();
             if (display) {
                 System.out.println(indent(indent) + "-> '" + idTimer + "', elapsed time since start: " + time + " ms "); //$NON-NLS-1$  //$NON-NLS-2$  //$NON-NLS-3$
             }
             return time;
         }
-        return 0;
     }
 
     /**
@@ -147,21 +147,57 @@ public class TimeMeasure {
         init();
         if (!timers.containsKey(idTimer)) {
             if (display) {
-                System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist");  //$NON-NLS-1$  //$NON-NLS-2$
+                System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist"); //$NON-NLS-1$  //$NON-NLS-2$
             }
+            return -1;
         } else {
-            List<Long> times = timers.get(idTimer);
-            long lastTime = times.get(times.size() - 1);
-            long currentTime = System.currentTimeMillis();
-            times.add(currentTime);
-            long time = currentTime - lastTime;
+            TimeStack times = timers.get(idTimer);
+            long time = times.getElapsedTimeSinceLastRequest();
+            times.addStep(false);
             if (display) {
-                System.out.println(indent(indent) + "-> '" + idTimer + "', step name '" + stepName  //$NON-NLS-1$  //$NON-NLS-2$
-                        + "', elapsed time since previous step: " + time + " ms ");  //$NON-NLS-1$  //$NON-NLS-2$
+                System.out.println(indent(indent) + "-> '" + idTimer + "', step name '" + stepName //$NON-NLS-1$  //$NON-NLS-2$
+                        + "', elapsed time since previous step: " + time + " ms "); //$NON-NLS-1$  //$NON-NLS-2$
             }
             return time;
         }
-        return 0;
+    }
+
+    public static void pause(String idTimer) {
+        if (!measureActive) {
+            return;
+        }
+        init();
+        if (!timers.containsKey(idTimer)) {
+            if (display) {
+                System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist"); //$NON-NLS-1$  //$NON-NLS-2$
+            }
+            return;
+        } else {
+            TimeStack times = timers.get(idTimer);
+            // long time = times.getElapsedTimeSinceLastRequest();
+            times.addStep(true);
+            if (display) {
+            }
+        }
+    }
+
+    public static void resume(String idTimer) {
+        if (!measureActive) {
+            return;
+        }
+        init();
+        if (!timers.containsKey(idTimer)) {
+            if (display) {
+                System.out.println(indent(indent) + "Warning (end): timer " + idTimer + " does'nt exist"); //$NON-NLS-1$  //$NON-NLS-2$
+            }
+            return;
+        } else {
+            TimeStack times = timers.get(idTimer);
+            long time = times.getElapsedTimeSinceLastRequest();
+            times.addStep(false);
+            if (display) {
+            }
+        }
     }
 
     /**
@@ -169,7 +205,7 @@ public class TimeMeasure {
      */
     private static void init() {
         if (timers == null) {
-            timers = new HashMap<String, List<Long>>();
+            timers = new HashMap<String, TimeStack>();
         }
     }
 
@@ -181,4 +217,22 @@ public class TimeMeasure {
         return stringBuilder.toString();
     }
 
+    public static void main(String[] args) {
+        try {
+            TimeMeasure.begin("a");
+            // TimeMeasure.end("b");
+            Thread.sleep(500);
+            TimeMeasure.step("a", "1");
+            Thread.sleep(800);
+            TimeMeasure.pause("a");
+            Thread.sleep(600);
+            TimeMeasure.step("a", "2");
+            TimeMeasure.resume("a");
+            Thread.sleep(2000);
+            TimeMeasure.end("a");
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 }
