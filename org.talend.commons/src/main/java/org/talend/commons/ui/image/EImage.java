@@ -56,6 +56,7 @@ public enum EImage implements IImage {
     WARNING_ICON("/icons/warning.gif"),
     ERROR_SMALL("/icons/error_small.gif"),
     WARNING_SMALL("/icons/warning_small.gif"),
+    OK("/icons/ok.png"),
 
     UP_ICON("/icons/up.gif"),
     DOWN_ICON("/icons/down.gif"),
