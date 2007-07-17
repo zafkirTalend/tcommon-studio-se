@@ -132,7 +132,7 @@ public class MappingFileLoader {
                                 .getString(
                                         "MappingFileLoader.DbTypeAlreadyExists", new Object[] { dbmsIdValue, typeValue, file.getName(), XmlNodeRetriever.getAbsoluteXPathFromNode(typeNode) });//$NON-NLS-1$
                         log.warn(message);
-                        System.out.println(message);
+                        // System.out.println(message);
                         continue;
                     }
                     dbTypes.add(typeValue);
@@ -177,7 +177,7 @@ public class MappingFileLoader {
                                 String message = Messages.getString("MappingFileLoader.InvalidTalendType",
                                         new Object[] { talendType, codeLanguage.getName(), dbmsIdValue,
                                                 XmlNodeRetriever.getAbsoluteXPathFromNode(talendTypeItem) });
-                                System.out.println(message);
+                                // System.out.println(message);
                                 log.warn(message);
                                 continue;
                             }
@@ -202,7 +202,7 @@ public class MappingFileLoader {
                                     String message = Messages
                                             .getString(
                                                     "MappingFileLoader.UndeclaredDbType", new Object[] { dbType, dbmsIdValue, XmlNodeRetriever.getAbsoluteXPathFromNode(dbTypeItem) }); //$NON-NLS-1$
-                                    System.out.println(message);
+                                    // System.out.println(message);
                                     log.warn(message);
                                     continue;
                                 }
@@ -241,7 +241,7 @@ public class MappingFileLoader {
                                 String message = Messages
                                         .getString(
                                                 "MappingFileLoader.UndeclaredDbType", new Object[] { dbType, dbmsIdValue, XmlNodeRetriever.getAbsoluteXPathFromNode(dbTypeItem) }); //$NON-NLS-1$
-                                System.out.println(message);
+                                // System.out.println(message);
                                 log.warn(message);
                                 continue;
                             }
@@ -267,7 +267,7 @@ public class MappingFileLoader {
                                     String message = Messages.getString("MappingFileLoader.InvalidTalendType",
                                             new Object[] { talendType, codeLanguage.getName(), dbmsIdValue,
                                                     XmlNodeRetriever.getAbsoluteXPathFromNode(talendTypeItem) });
-                                    System.out.println(message);
+                                    // System.out.println(message);
                                     log.warn(message);
                                     continue;
                                 }
@@ -295,7 +295,7 @@ public class MappingFileLoader {
                     String message = Messages
                             .getString(
                                     "MappingFileLoader.UnbindedDbTypes", new Object[] { dbmsIdValue, codeLanguage.getName(), dbTypesStr }); //$NON-NLS-1$
-                    System.out.println(message);
+                    // System.out.println(message);
                     log.warn(message);
                 }
 
@@ -307,7 +307,7 @@ public class MappingFileLoader {
                     String message = Messages
                             .getString(
                                     "MappingFileLoader.UnbindedTalendTypes", new Object[] { dbmsIdValue, codeLanguage.getName(), talendTypesStr }); //$NON-NLS-1$
-                    System.out.println(message);
+                    // System.out.println(message);
                     log.warn(message);
                 }
 

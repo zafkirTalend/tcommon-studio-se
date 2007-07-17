@@ -383,6 +383,9 @@ public final class JavaTypesManager {
 
         System.out.println(JavaTypesManager.getDefaultValueFromJavaType("boolean")); //$NON-NLS-1$
         System.out.println(JavaTypesManager.getDefaultValueFromJavaIdType("id_Boolean", false)); //$NON-NLS-1$
+        System.out.println(JavaTypesManager.getDefaultValueFromJavaIdType("id_Double", true)); //$NON-NLS-1$
+        System.out.println(JavaTypesManager.getDefaultValueFromJavaIdType("id_Double", false)); //$NON-NLS-1$
+        System.out.println(JavaTypesManager.getDefaultValueFromJavaIdType("id_Integer", true)); //$NON-NLS-1$
 
         System.out.println(JavaTypesManager.getDefaultValueFromJavaType("char")); //$NON-NLS-1$
 
