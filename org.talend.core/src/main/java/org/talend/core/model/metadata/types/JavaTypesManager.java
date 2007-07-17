@@ -154,6 +154,12 @@ public final class JavaTypesManager {
         return shortNameToJavaType.get(typeName);
     }
 
+    /**
+     * 
+     * DOC amaumont Comment method "getShortNameFromJavaType".
+     * @param javaType
+     * @return primitive name if JavaType is primitive (boolean, int, etc.), else return Object type name (String, Date, etc.)
+     */
     public static String getShortNameFromJavaType(JavaType javaType) {
         Class primitiveClass = javaType.getPrimitiveClass();
         if (primitiveClass != null) {
