@@ -14,7 +14,7 @@
 			<dbType type="DATE" />
 			<dbType type="TIMESTAMP" />
 			<dbType type="CHAR" />
-			<dbType type="VARCHAR" />
+			<dbType type="VARCHAR" default="true" />
 			<dbType type="BLOB" />
 		</dbTypes>
 

@@ -28,7 +28,7 @@
 			<dbType type="TIME" />
 			<dbType type="TIMETZ" />
 			<dbType type="TIMESTAMP" />
-			<dbType type="VARCHAR" />
+			<dbType type="VARCHAR" default="true" />
 		</dbTypes>
 
 		<language name="java">

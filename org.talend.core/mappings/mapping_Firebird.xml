@@ -16,7 +16,7 @@
 			<dbType type="NUMERIC" />
 			<dbType type="SMALLINT" />
 			<dbType type="TIME" />
-			<dbType type="VARCHAR" />	
+			<dbType type="VARCHAR" default="true" />	
 		</dbTypes>
 
 		<language name="java">

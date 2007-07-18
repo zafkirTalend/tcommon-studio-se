@@ -19,7 +19,7 @@
 			<dbType type="BOOLEAN"/>
 			<dbType type="BIT"/>
 			<dbType type="CHAR"/>
-			<dbType type="VARCHAR"/>
+			<dbType type="VARCHAR" default="true" />
 			<dbType type="VARCHAR_IGNORECASE"/>
 			<dbType type="LONGVARCHAR"/>
 			<dbType type="DATE"/>

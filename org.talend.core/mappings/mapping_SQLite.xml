@@ -44,7 +44,7 @@
 				<dbType type="TINYINT UNSIGNED" />
 			<dbType type="TINYTEXT" />
 			<dbType type="VARBINARY" />
-			<dbType type="VARCHAR" />
+			<dbType type="VARCHAR" default="true" />
 			<dbType type="YEAR" />
 		</dbTypes>
 

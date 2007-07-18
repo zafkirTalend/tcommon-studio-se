@@ -15,7 +15,7 @@
 				<dbType type="SMALLINT"/>
 				<dbType type="TIME"/>
 				<dbType type="TIMESTAMP"/>
-				<dbType type="VARCHAR"/>
+				<dbType type="VARCHAR" default="true" />
 				<dbType type="VARGRAPHIC"/>
 				<dbType type="XML"/>
 		</dbTypes>

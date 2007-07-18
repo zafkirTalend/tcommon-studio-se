@@ -24,7 +24,7 @@
 			<dbType type="TINYINT" />
 			<dbType type="UNIQUEIDENTIFIER" />
 			<dbType type="UNIQUEIDENTIFIERSTR" />
-			<dbType type="VARCHAR" />
+			<dbType type="VARCHAR" default="true" />
 			<dbType type="VARBINARY" />
 		</dbTypes>
 

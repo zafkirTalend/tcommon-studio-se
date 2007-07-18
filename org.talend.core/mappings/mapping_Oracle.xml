@@ -3,7 +3,7 @@
 	<dbms product="ORACLE" id="oracle_id" label="Mapping Oracle" default="true">
 		<dbTypes>
 			<dbType type="CHAR" />
-			<dbType type="VARCHAR2" />
+			<dbType type="VARCHAR2" default="true"/>
 			<dbType type="NCHAR" />
 			<dbType type="NVARCHAR2" />
 			<dbType type="NUMBER" />

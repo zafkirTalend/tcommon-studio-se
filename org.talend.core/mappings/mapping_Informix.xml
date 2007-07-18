@@ -23,7 +23,7 @@
 			<dbType type="SERIAL8" />
 			<dbType type="SMALLFLOAT" />
 			<dbType type="SMALLINT" />
-			<dbType type="VARCHAR" />
+			<dbType type="VARCHAR" default="true" />
 			<dbType type="TEXT" />
 		</dbTypes>
 
