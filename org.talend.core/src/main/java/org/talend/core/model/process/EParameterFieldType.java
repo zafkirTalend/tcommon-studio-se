@@ -56,7 +56,8 @@ public enum EParameterFieldType {
     MAPPING_TYPE,
     COLOR,
     DBTABLE,
-    DATE;
+    DATE,
+    DBTYPE_LIST;
 
     public String getName() {
         return toString();
