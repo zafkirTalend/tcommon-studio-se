@@ -228,7 +228,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
         descriptionLab.setText(Messages.getString("PropertiesWizardPage.Description")); //$NON-NLS-1$
         descriptionLab.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_BEGINNING));
 
-        descriptionText = new Text(parent, SWT.BORDER | SWT.MULTI | SWT.WRAP);
+        descriptionText = new Text(parent, SWT.BORDER | SWT.MULTI | SWT.WRAP | SWT.V_SCROLL);
         data = new GridData(GridData.FILL_HORIZONTAL);
         data.heightHint = 60;
         descriptionText.setLayoutData(data);
