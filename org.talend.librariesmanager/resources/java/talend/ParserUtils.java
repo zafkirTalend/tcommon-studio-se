@@ -97,10 +97,9 @@ public class ParserUtils {
     }
 
     public static java.util.Date parseTo_Date(String s, String pattern) {
-        java.text.SimpleDateFormat simpleDateFormat = new java.text.SimpleDateFormat(pattern);
         java.util.Date date = null;
         try {
-            date = simpleDateFormat.parse(s);
+            date = FastDateParser.getInstance(pattern).parse(s);
         } catch (java.text.ParseException e) {
             e.printStackTrace();
             System.err.println("Current string to parse '" + s + "'");
@@ -119,5 +118,4 @@ public class ParserUtils {
         //        }
         return date;
     }
-            
 }
