@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.repository.ui.wizards;
 
+import java.util.Arrays;
+
+import org.apache.log4j.Level;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
@@ -34,6 +37,11 @@ import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.components.ModifyComponentsAction;
+import org.talend.core.model.components.conversions.IComponentConversion;
+import org.talend.core.model.components.conversions.UpdatePropertyComponentConversion;
+import org.talend.core.model.components.filters.IComponentFilter;
+import org.talend.core.model.components.filters.PropertyComponentFilter;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -53,12 +61,15 @@ public class PropertiesWizard extends Wizard {
 
     private IPath path;
 
+    private String originaleObjectLabel;
+
     public PropertiesWizard(IRepositoryObject object, IPath path) {
         super();
         this.object = object;
+        this.originaleObjectLabel = object.getLabel();
         this.path = path;
         setDefaultPageImageDescriptor(ImageProvider.getImageDesc(EImage.PROPERTIES_WIZ));
-        
+
         lockObject();
     }
 
@@ -118,10 +129,30 @@ public class PropertiesWizard extends Wizard {
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         try {
             repositoryFactory.save(object.getProperty());
+            if (!object.getLabel().equals(originaleObjectLabel)) {
+                manageRunJobRenaming(object.getLabel(), originaleObjectLabel);
+            }
             return true;
         } catch (PersistenceException e) {
             MessageBoxExceptionHandler.process(e);
             return false;
+        }
+    }
+
+    /**
+     * Use to replace in all tRunJob, the old job name by the new one.
+     */
+    private void manageRunJobRenaming(String newName, String oldName) {
+        System.out.println("Rename " + oldName + "->" + newName);
+
+        IComponentFilter filter1 = new PropertyComponentFilter("tRunJob", "PROCESS_TYPE_PROCESS", oldName); //$NON-NLS-1$ //$NON-NLS-2$
+
+        IComponentConversion updateCompProperty = new UpdatePropertyComponentConversion("PROCESS_TYPE_PROCESS", newName); //$NON-NLS-1$
+
+        try {
+            ModifyComponentsAction.searchAndModify(filter1, Arrays.<IComponentConversion> asList(updateCompProperty));
+        } catch (Exception e) {
+            ExceptionHandler.process(e, Level.ERROR);
         }
     }
 
