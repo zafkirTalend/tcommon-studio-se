@@ -560,6 +560,9 @@
 				<dbType type="LONG VARCHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
+				<dbType type="LONG NVARCHAR">
+					<talendType type="id_String" default="true" />
+				</dbType>				
 				<dbType type="TEXT">
 					<talendType type="id_String" default="true" />
 				</dbType>
@@ -1061,6 +1064,9 @@
 				<dbType type="LONG VARCHAR">
 					<talendType type="string" default="true" />
 				</dbType>
+				<dbType type="LONG NVARCHAR">
+					<talendType type="string" default="true" />
+				</dbType>				
 				<dbType type="TEXT">
 					<talendType type="string" default="true" />
 				</dbType>
