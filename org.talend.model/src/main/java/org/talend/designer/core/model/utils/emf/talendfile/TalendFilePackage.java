@@ -993,13 +993,31 @@ public interface TalendFilePackage extends EPackage {
     int NODE_TYPE__POS_Y = 9;
 
     /**
+     * The feature id for the '<em><b>Size X</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NODE_TYPE__SIZE_X = 10;
+
+    /**
+     * The feature id for the '<em><b>Size Y</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int NODE_TYPE__SIZE_Y = 11;
+
+    /**
      * The number of structural features of the '<em>Node Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int NODE_TYPE_FEATURE_COUNT = 10;
+    int NODE_TYPE_FEATURE_COUNT = 12;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl <em>Note Type</em>}' class.
@@ -2261,6 +2279,28 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getNodeType_PosY();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeX <em>Size X</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Size X</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeX()
+     * @see #getNodeType()
+     * @generated
+     */
+    EAttribute getNodeType_SizeX();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeY <em>Size Y</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Size Y</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeY()
+     * @see #getNodeType()
+     * @generated
+     */
+    EAttribute getNodeType_SizeY();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.talendfile.NoteType <em>Note Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3325,6 +3365,22 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute NODE_TYPE__POS_Y = eINSTANCE.getNodeType_PosY();
+
+        /**
+         * The meta object literal for the '<em><b>Size X</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NODE_TYPE__SIZE_X = eINSTANCE.getNodeType_SizeX();
+
+        /**
+         * The meta object literal for the '<em><b>Size Y</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute NODE_TYPE__SIZE_Y = eINSTANCE.getNodeType_SizeY();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NoteTypeImpl <em>Note Type</em>}' class.

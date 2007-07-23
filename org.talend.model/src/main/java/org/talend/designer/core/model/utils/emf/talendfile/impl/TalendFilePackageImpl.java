@@ -1043,6 +1043,24 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getNodeType_SizeX() {
+        return (EAttribute)nodeTypeEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getNodeType_SizeY() {
+        return (EAttribute)nodeTypeEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getNoteType() {
         return noteTypeEClass;
     }
@@ -1420,6 +1438,8 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(nodeTypeEClass, NODE_TYPE__OFFSET_LABEL_Y);
         createEAttribute(nodeTypeEClass, NODE_TYPE__POS_X);
         createEAttribute(nodeTypeEClass, NODE_TYPE__POS_Y);
+        createEAttribute(nodeTypeEClass, NODE_TYPE__SIZE_X);
+        createEAttribute(nodeTypeEClass, NODE_TYPE__SIZE_Y);
 
         noteTypeEClass = createEClass(NOTE_TYPE);
         createEAttribute(noteTypeEClass, NOTE_TYPE__OPAQUE);
@@ -1585,6 +1605,8 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getNodeType_OffsetLabelY(), theXMLTypePackage.getInt(), "offsetLabelY", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getNodeType_PosX(), theXMLTypePackage.getInt(), "posX", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getNodeType_PosY(), theXMLTypePackage.getInt(), "posY", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getNodeType_SizeX(), theXMLTypePackage.getInt(), "sizeX", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getNodeType_SizeY(), theXMLTypePackage.getInt(), "sizeY", null, 0, 1, NodeType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(noteTypeEClass, NoteType.class, "NoteType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getNoteType_Opaque(), theXMLTypePackage.getBoolean(), "opaque", null, 0, 1, NoteType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2333,6 +2355,22 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
            new String[] {
              "kind", "attribute",
              "name", "posY",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getNodeType_SizeX(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "sizeX",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getNodeType_SizeY(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "sizeY",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

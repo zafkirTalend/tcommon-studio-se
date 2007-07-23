@@ -87,6 +87,8 @@
 			<xs:attribute name="posX" type="xs:int"/>
 			<xs:attribute name="offsetLabelX" type="xs:int"/>
 			<xs:attribute name="offsetLabelY" type="xs:int"/>
+			<xs:attribute name="sizeX" type="xs:int" use="optional"/>
+			<xs:attribute name="sizeY" type="xs:int" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="Connection">

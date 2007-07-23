@@ -108,6 +108,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NodeType/offsetLabelY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NodeType/posX"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NodeType/posY"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NodeType/sizeX"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NodeType/sizeY"/>
     </genClasses>
     <genClasses ecoreClass="TalendFile.ecore#//NoteType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//NoteType/opaque"/>

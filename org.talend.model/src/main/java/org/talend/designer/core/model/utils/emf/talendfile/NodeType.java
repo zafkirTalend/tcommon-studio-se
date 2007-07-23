@@ -27,6 +27,8 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getOffsetLabelY <em>Offset Label Y</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getPosX <em>Pos X</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getPosY <em>Pos Y</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeX <em>Size X</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeY <em>Size Y</em>}</li>
  * </ul>
  * </p>
  *
@@ -392,5 +394,113 @@ public interface NodeType extends EObject {
      * @generated
      */
     boolean isSetPosY();
+
+    /**
+     * Returns the value of the '<em><b>Size X</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Size X</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Size X</em>' attribute.
+     * @see #isSetSizeX()
+     * @see #unsetSizeX()
+     * @see #setSizeX(int)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_SizeX()
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     *        extendedMetaData="kind='attribute' name='sizeX' namespace='##targetNamespace'"
+     * @generated
+     */
+    int getSizeX();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeX <em>Size X</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Size X</em>' attribute.
+     * @see #isSetSizeX()
+     * @see #unsetSizeX()
+     * @see #getSizeX()
+     * @generated
+     */
+    void setSizeX(int value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeX <em>Size X</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetSizeX()
+     * @see #getSizeX()
+     * @see #setSizeX(int)
+     * @generated
+     */
+    void unsetSizeX();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeX <em>Size X</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Size X</em>' attribute is set.
+     * @see #unsetSizeX()
+     * @see #getSizeX()
+     * @see #setSizeX(int)
+     * @generated
+     */
+    boolean isSetSizeX();
+
+    /**
+     * Returns the value of the '<em><b>Size Y</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Size Y</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Size Y</em>' attribute.
+     * @see #isSetSizeY()
+     * @see #unsetSizeY()
+     * @see #setSizeY(int)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_SizeY()
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     *        extendedMetaData="kind='attribute' name='sizeY' namespace='##targetNamespace'"
+     * @generated
+     */
+    int getSizeY();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeY <em>Size Y</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Size Y</em>' attribute.
+     * @see #isSetSizeY()
+     * @see #unsetSizeY()
+     * @see #getSizeY()
+     * @generated
+     */
+    void setSizeY(int value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeY <em>Size Y</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetSizeY()
+     * @see #getSizeY()
+     * @see #setSizeY(int)
+     * @generated
+     */
+    void unsetSizeY();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType#getSizeY <em>Size Y</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>Size Y</em>' attribute is set.
+     * @see #unsetSizeY()
+     * @see #getSizeY()
+     * @see #setSizeY(int)
+     * @generated
+     */
+    boolean isSetSizeY();
 
 } // NodeType

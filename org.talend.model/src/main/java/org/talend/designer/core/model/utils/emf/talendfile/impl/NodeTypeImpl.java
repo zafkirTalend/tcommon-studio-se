@@ -39,6 +39,8 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getOffsetLabelY <em>Offset Label Y</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getPosX <em>Pos X</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getPosY <em>Pos Y</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getSizeX <em>Size X</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl#getSizeY <em>Size Y</em>}</li>
  * </ul>
  * </p>
  *
@@ -260,6 +262,64 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * @ordered
      */
     protected boolean posYESet = false;
+
+    /**
+     * The default value of the '{@link #getSizeX() <em>Size X</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSizeX()
+     * @generated
+     * @ordered
+     */
+    protected static final int SIZE_X_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getSizeX() <em>Size X</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSizeX()
+     * @generated
+     * @ordered
+     */
+    protected int sizeX = SIZE_X_EDEFAULT;
+
+    /**
+     * This is true if the Size X attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean sizeXESet = false;
+
+    /**
+     * The default value of the '{@link #getSizeY() <em>Size Y</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSizeY()
+     * @generated
+     * @ordered
+     */
+    protected static final int SIZE_Y_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getSizeY() <em>Size Y</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getSizeY()
+     * @generated
+     * @ordered
+     */
+    protected int sizeY = SIZE_Y_EDEFAULT;
+
+    /**
+     * This is true if the Size Y attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean sizeYESet = false;
 
     /**
      * <!-- begin-user-doc -->
@@ -576,6 +636,98 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public int getSizeX() {
+        return sizeX;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSizeX(int newSizeX) {
+        int oldSizeX = sizeX;
+        sizeX = newSizeX;
+        boolean oldSizeXESet = sizeXESet;
+        sizeXESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.NODE_TYPE__SIZE_X, oldSizeX, sizeX, !oldSizeXESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetSizeX() {
+        int oldSizeX = sizeX;
+        boolean oldSizeXESet = sizeXESet;
+        sizeX = SIZE_X_EDEFAULT;
+        sizeXESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.NODE_TYPE__SIZE_X, oldSizeX, SIZE_X_EDEFAULT, oldSizeXESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetSizeX() {
+        return sizeXESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getSizeY() {
+        return sizeY;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSizeY(int newSizeY) {
+        int oldSizeY = sizeY;
+        sizeY = newSizeY;
+        boolean oldSizeYESet = sizeYESet;
+        sizeYESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.NODE_TYPE__SIZE_Y, oldSizeY, sizeY, !oldSizeYESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetSizeY() {
+        int oldSizeY = sizeY;
+        boolean oldSizeYESet = sizeYESet;
+        sizeY = SIZE_Y_EDEFAULT;
+        sizeYESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, TalendFilePackage.NODE_TYPE__SIZE_Y, oldSizeY, SIZE_Y_EDEFAULT, oldSizeYESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetSizeY() {
+        return sizeYESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case TalendFilePackage.NODE_TYPE__ELEMENT_PARAMETER:
@@ -613,6 +765,10 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
                 return new Integer(getPosX());
             case TalendFilePackage.NODE_TYPE__POS_Y:
                 return new Integer(getPosY());
+            case TalendFilePackage.NODE_TYPE__SIZE_X:
+                return new Integer(getSizeX());
+            case TalendFilePackage.NODE_TYPE__SIZE_Y:
+                return new Integer(getSizeY());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -656,6 +812,12 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
             case TalendFilePackage.NODE_TYPE__POS_Y:
                 setPosY(((Integer)newValue).intValue());
                 return;
+            case TalendFilePackage.NODE_TYPE__SIZE_X:
+                setSizeX(((Integer)newValue).intValue());
+                return;
+            case TalendFilePackage.NODE_TYPE__SIZE_Y:
+                setSizeY(((Integer)newValue).intValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -697,6 +859,12 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
             case TalendFilePackage.NODE_TYPE__POS_Y:
                 unsetPosY();
                 return;
+            case TalendFilePackage.NODE_TYPE__SIZE_X:
+                unsetSizeX();
+                return;
+            case TalendFilePackage.NODE_TYPE__SIZE_Y:
+                unsetSizeY();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -728,6 +896,10 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
                 return isSetPosX();
             case TalendFilePackage.NODE_TYPE__POS_Y:
                 return isSetPosY();
+            case TalendFilePackage.NODE_TYPE__SIZE_X:
+                return isSetSizeX();
+            case TalendFilePackage.NODE_TYPE__SIZE_Y:
+                return isSetSizeY();
         }
         return super.eIsSet(featureID);
     }
@@ -757,6 +929,10 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
         if (posXESet) result.append(posX); else result.append("<unset>");
         result.append(", posY: ");
         if (posYESet) result.append(posY); else result.append("<unset>");
+        result.append(", sizeX: ");
+        if (sizeXESet) result.append(sizeX); else result.append("<unset>");
+        result.append(", sizeY: ");
+        if (sizeYESet) result.append(sizeY); else result.append("<unset>");
         result.append(')');
         return result.toString();
     }
