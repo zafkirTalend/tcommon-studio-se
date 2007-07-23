@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -52,7 +53,7 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 
-public class RepositoryObject implements IRepositoryObject {
+public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
     protected Property property = PropertiesFactory.eINSTANCE.createProperty();
 
@@ -257,7 +258,7 @@ public class RepositoryObject implements IRepositoryObject {
                 conn.setFileFieldName(connection.getFileFieldName());
                 conn.setId(connection.getId());
                 conn.setNullChar(connection.getNullChar());
-//                conn.setReadOnly(connection.isReadOnly());
+                // conn.setReadOnly(connection.isReadOnly());
                 conn.setServerName(connection.getServerName());
                 conn.setSqlSynthax(connection.getSqlSynthax());
                 conn.setStringQuote(connection.getStringQuote());
@@ -280,7 +281,7 @@ public class RepositoryObject implements IRepositoryObject {
                         newQuery.setId(query2.getId());
                         newQuery.setLabel(query2.getLabel());
                         newQuery.setQueries(newQ);
-//                        newQuery.setReadOnly(query2.isReadOnly());
+                        // newQuery.setReadOnly(query2.isReadOnly());
                         newQuery.setSynchronised(query2.isSynchronised());
                         newQuery.setValue(query2.getValue());
                         queries2.add(newQuery);
@@ -342,5 +343,9 @@ public class RepositoryObject implements IRepositoryObject {
             // do notbing.
         }
         return object;
+    }
+
+    public Object getAdapter(Class adapter) {
+        return null;
     }
 }
