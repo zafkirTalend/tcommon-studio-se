@@ -49,4 +49,5 @@ public interface INodeReturn {
 
     public abstract void setType(final String type);
 
+    public abstract String getDisplayType();
 }
