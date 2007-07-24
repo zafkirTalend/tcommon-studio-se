@@ -45,10 +45,11 @@ public class ExtendedTableResetDBTypesCommand extends Command implements IExtend
     private List<String> oldDbTypes;
 
     private String dbmsId;
-    
+
     private AbstractExtendedTableViewer extendedTableViewer;
 
-    public ExtendedTableResetDBTypesCommand(ExtendedTableModel extendedTable, String dbmsId, AbstractExtendedTableViewer extendedTableViewer) {
+    public ExtendedTableResetDBTypesCommand(ExtendedTableModel extendedTable, String dbmsId,
+            AbstractExtendedTableViewer extendedTableViewer) {
         super(LABEL);
         this.extendedTable = extendedTable;
         this.dbmsId = dbmsId;
@@ -62,9 +63,6 @@ public class ExtendedTableResetDBTypesCommand extends Command implements IExtend
      */
     @Override
     public void execute() {
-        // JavaType javaType = JavaTypesManager.getJavaTypeFromId(oldTalendType);
-        // String typeName = JavaTypesManager.getShortNameFromJavaType(javaType);
-
         oldDbTypes = new ArrayList<String>();
 
         List beansList = extendedTable.getBeansList();
@@ -73,12 +71,13 @@ public class ExtendedTableResetDBTypesCommand extends Command implements IExtend
                 oldDbTypes.add(((IMetadataColumn) object).getType());
             }
         }
-        
 
         for (int i = 0; i < beansList.size(); i++) {
             if (beansList.get(i) instanceof IMetadataColumn) {
                 IMetadataColumn column = (IMetadataColumn) beansList.get(i);
-                column.setType(TypesManager.getDBTypeFromTalendType(dbmsId, column.getTalendType()));
+                if (!TypesManager.checkDBType(dbmsId, column.getTalendType(), column.getType())) {
+                    column.setType(TypesManager.getDBTypeFromTalendType(dbmsId, column.getTalendType()));
+                }
             }
         }
         extendedTableViewer.getTableViewerCreator().getTableViewer().refresh();
