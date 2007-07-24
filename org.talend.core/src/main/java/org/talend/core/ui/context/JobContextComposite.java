@@ -30,18 +30,14 @@ import java.util.regex.Pattern;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.util.IPropertyChangeListener;
-import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -886,7 +882,7 @@ public abstract class JobContextComposite extends Composite {
         });
         columnDefault.setModifiable(true);
         columnDefault.setWidth(VALUE_COLUMN_WIDTH);
-        TextCellEditor textCellEditor2 = new TextCellEditor(table);
+        CellEditor textCellEditor2 = new DialogCellEditorForContext(table, columnDefault);
         columnDefault.setCellEditor(textCellEditor2, setDirtyValueAdapter);
         textCellEditor2.getControl().addMouseListener(new MouseAdapter() {
 
