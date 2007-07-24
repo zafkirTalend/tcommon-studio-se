@@ -27,12 +27,10 @@ import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
-import org.eclipse.swt.widgets.Display;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.ResetDBTypesPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -56,9 +54,9 @@ public class CustomTableManager {
 
     public static final Color CUSTOM_CELL_BG_COLOR = new Color(null, new RGB(0, 0xF0, 0));
 
-    public static final Color READONLY_CUSTOM_CELL_BG_COLOR = new Color(null, new RGB(0, 0xB0, 0));
+    public static final Color CELL_READ_ONLY_COLOR = new Color(null, new RGB(0, 0xB0, 0));
 
-    public static final Color STANDARD_CELL_BG_COLOR = Display.getCurrent().getSystemColor(SWT.COLOR_DARK_GRAY);
+    public static final Color TABLE_READ_ONLY_COLOR = new Color(null, new RGB(185, 185, 185));
 
     public static final Color CELL_WRONG_DB_TYPE_COLOR = new Color(null, new RGB(0xFF, 0x80, 0));
 
@@ -69,18 +67,17 @@ public class CustomTableManager {
         tableViewerCreator.setCellModifier(new CustomTableCellModifier(tableViewerCreator));
     }
 
-    public static void addCustomManagementToToolBar(final MetadataTableEditorView tableEditorView,
-            final IMetadataTable table, final boolean readOnly, final MetadataTableEditorView linkedTableEditorView,
-            final IMetadataTable linkedTable, final boolean toPropagate) {
-        tableEditorView.getTableViewerCreator().getTableViewer().addPostSelectionChangedListener(
-                new ISelectionChangedListener() {
+    public static void addCustomManagementToToolBar(final MetadataTableEditorView tableEditorView, final IMetadataTable table,
+            final boolean readOnly, final MetadataTableEditorView linkedTableEditorView, final IMetadataTable linkedTable,
+            final boolean toPropagate) {
+        tableEditorView.getTableViewerCreator().getTableViewer().addPostSelectionChangedListener(new ISelectionChangedListener() {
 
-                    public void selectionChanged(SelectionChangedEvent event) {
-                        updateToolBarButtonsOnSelection(event.getSelection(), tableEditorView, table,
-                                linkedTableEditorView, linkedTable, readOnly);
-                    }
+            public void selectionChanged(SelectionChangedEvent event) {
+                updateToolBarButtonsOnSelection(event.getSelection(), tableEditorView, table, linkedTableEditorView, linkedTable,
+                        readOnly);
+            }
 
-                });
+        });
         boolean isThereCustom = false;
         for (IMetadataColumn column : table.getListColumns()) {
             if (column.isCustom()) {
@@ -119,9 +116,8 @@ public class CustomTableManager {
             }
 
             public void widgetSelected(SelectionEvent e) {
-                updateToolBarButtonsOnSelection(
-                        tableEditorView.getTableViewerCreator().getTableViewer().getSelection(), tableEditorView,
-                        table, linkedTableEditorView, linkedTable, readOnly);
+                updateToolBarButtonsOnSelection(tableEditorView.getTableViewerCreator().getTableViewer().getSelection(),
+                        tableEditorView, table, linkedTableEditorView, linkedTable, readOnly);
             }
 
         };
@@ -150,9 +146,9 @@ public class CustomTableManager {
         }
     }
 
-    private static void updateToolBarButtonsOnSelection(ISelection currentSelection,
-            MetadataTableEditorView tableEditorView, IMetadataTable table,
-            final MetadataTableEditorView linkedTableEditorView, final IMetadataTable linkedTable, boolean readOnly) {
+    private static void updateToolBarButtonsOnSelection(ISelection currentSelection, MetadataTableEditorView tableEditorView,
+            IMetadataTable table, final MetadataTableEditorView linkedTableEditorView, final IMetadataTable linkedTable,
+            boolean readOnly) {
         IStructuredSelection selection = (IStructuredSelection) currentSelection;
 
         boolean isThereCustom = false;
@@ -219,21 +215,18 @@ public class CustomTableManager {
                 return null;
             }
             IMetadataColumn column = (IMetadataColumn) element;
-            TableViewerCreatorColumn tableColumn = (TableViewerCreatorColumn) tableViewerCreator.getColumns().get(
-                    columnIndex);
+            TableViewerCreatorColumn tableColumn = (TableViewerCreatorColumn) tableViewerCreator.getColumns().get(columnIndex);
             if (column.isCustom()) {
-                if (column.isReadOnly() || readOnly
-                        || tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_NAME)) {
-                    return READONLY_CUSTOM_CELL_BG_COLOR;
+                if (column.isReadOnly() || readOnly || tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_NAME)) {
+                    return CELL_READ_ONLY_COLOR;
                 } else {
                     return CUSTOM_CELL_BG_COLOR;
                 }
             }
             if (column.isReadOnly()) {
-                return STANDARD_CELL_BG_COLOR;
+                return TABLE_READ_ONLY_COLOR;
             }
-            if (tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_DBTYPE)
-                    && !"".equals(column.getType())
+            if (tableColumn.getId().equals(AbstractMetadataTableEditorView.ID_COLUMN_DBTYPE) && !"".equals(column.getType())
                     && !TypesManager.checkDBType(dbmsId, column.getTalendType(), column.getType())) {
                 return CELL_WRONG_DB_TYPE_COLOR;
             }
@@ -263,8 +256,7 @@ public class CustomTableManager {
         public boolean canModify(Object element, String property) {
             if (element instanceof IMetadataColumn) {
                 IMetadataColumn column = (IMetadataColumn) element;
-                if (column.isReadOnly()
-                        || (column.isCustom() && property.equals(AbstractMetadataTableEditorView.ID_COLUMN_NAME))) {
+                if (column.isReadOnly() || (column.isCustom() && property.equals(AbstractMetadataTableEditorView.ID_COLUMN_NAME))) {
                     return false;
                 }
             }
