@@ -24,6 +24,7 @@ package org.talend.designer.runprocess;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
@@ -259,6 +260,41 @@ public class ProcessorUtilities {
         IProcessor processor = getProcessor(currentProcess, currentContext);
         processor.setTargetPlatform(targetPlatform);
         return processor.getCommandLine(externalUse, statisticPort, tracePort, codeOptions);
+    }
+    
+    public static String[] getMainCommand(String processName, String contextName, int statisticPort, int tracePort,
+            String... codeOptions) throws ProcessorException {
+        IProcess currentProcess = null;
+        ProcessItem selectedProcessItem = getProcessItem(processName);
+        if (selectedProcessItem != null) {
+            IDesignerCoreService service = CorePlugin.getDefault().getDesignerCoreService();
+            currentProcess = service.getProcessFromProcessItem(selectedProcessItem);
+        }
+        if (currentProcess == null) {
+            return new String[] {};
+        }
+        IContext currentContext = getContext(currentProcess, contextName);
+        IProcessor processor = getProcessor(currentProcess, currentContext);
+
+        String[] cmd = new String[] { processor.getCodePath().removeFirstSegments(1).toString().replace("/", ".") };
+        if (codeOptions != null) {
+            for (int i = 0; i < codeOptions.length; i++) {
+                String string = codeOptions[i];
+                if (string != null) {
+                    cmd = (String[]) ArrayUtils.add(cmd, string);
+                }
+            }
+        }
+        if (contextName != null) {
+            cmd = (String[]) ArrayUtils.add(cmd, "--context=" + contextName);
+        }
+        if (statisticPort != -1) {
+            cmd = (String[]) ArrayUtils.add(cmd, "--stat_port=" + statisticPort);
+        }
+        if (tracePort != -1) {
+            cmd = (String[]) ArrayUtils.add(cmd, "--trace_port=" + tracePort);
+        }
+        return cmd;
     }
 
     /**
