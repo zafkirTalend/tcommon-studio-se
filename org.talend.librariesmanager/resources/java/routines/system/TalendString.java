@@ -49,4 +49,65 @@ public class TalendString {
         }
         return buffer.toString();
     }
+    
+    /**
+     * talendTrim: return the trimed String according the padding char and align of the content.
+     
+     * {Category} String
+     * {talendTypes} String
+     * 
+     * {param} string("") origin: The original string need to be trimed.
+     * {param} char(' ') padding_char: The padding char for triming.
+     * {param} int(0) align: The alignment of the content in the original strin. Positive int for right, negative int for left and zero for center.
+     * 
+     * {example} talendTrim("$$talend open studio$$$$", '$', 0) # talend open studio
+     */
+    public static String talendTrim(String origin, char padding_char, int align) { 
+        if (origin.length() < 1) { 
+            return "";
+        }
+        if (align > 0) { //Align right, to trim left
+            int start = 0;
+            char temp = origin.charAt(start);
+            while (temp == padding_char) { 
+                start++;
+                if (start == origin.length()) { 
+                    break;
+                }
+                temp = origin.charAt(start);
+            }
+            return origin.substring(start);
+        } else if (align == 0) { 
+            int start = 0;
+            char temp = origin.charAt(start);
+            while (temp == padding_char) { 
+                start++;
+                if (start == origin.length()) { 
+                    break;
+                }
+                temp = origin.charAt(start);
+            }
+            int end = origin.length();
+            temp = origin.charAt(end - 1);
+            while (temp == padding_char) { 
+                if (end == start) { 
+                    break;
+                }
+                end--;
+                temp = origin.charAt(end - 1);
+            }
+            return origin.substring(start, end);
+        } else { //align left, to trim right
+            int end = origin.length();
+            char temp = origin.charAt(end - 1);
+            while (temp == padding_char) { 
+                end--;
+                if (end == 0) { 
+                    break;
+                }
+                temp = origin.charAt(end - 1);
+            }
+            return origin.substring(0, end);
+        }
+    }
 }
