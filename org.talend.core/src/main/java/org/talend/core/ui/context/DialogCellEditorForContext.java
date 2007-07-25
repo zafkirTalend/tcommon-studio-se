@@ -21,20 +21,13 @@
 // ============================================================================
 package org.talend.core.ui.context;
 
+import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.TableEditor;
-import org.eclipse.swt.events.FocusAdapter;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -98,6 +91,7 @@ public class DialogCellEditorForContext extends CustomDialogCellEditor {
         editor.horizontalAlignment = SWT.CENTER;
         editor.grabHorizontal = true;
         TableItem[] selection = table.getSelection();
+
         if (selection.length > 0) {
             final TableItem item = selection[0];
             Object data = item.getData();
@@ -111,6 +105,10 @@ public class DialogCellEditorForContext extends CustomDialogCellEditor {
                     disposeCheck();
                 } else if (type.equals(JavaTypesManager.FILE.getId())) {
                     dialog = new FileDialog(getControl().getShell());
+                    final FileDialog fileDialog = ((FileDialog) dialog);
+                    if (defaultLabel.getText() != null) {
+                        fileDialog.setFileName(defaultLabel.getText());
+                    }
                     button.setVisible(true);
                     disposeCheck();
                 } else if (type.equals(JavaTypesManager.DATE.getId())) {
@@ -119,6 +117,10 @@ public class DialogCellEditorForContext extends CustomDialogCellEditor {
                     disposeCheck();
                 } else if (type.equals(JavaTypesManager.DIRECTORY.getId())) {
                     dialog = new DirectoryDialog(getControl().getShell());
+                    final DirectoryDialog fileDialog = ((DirectoryDialog) dialog);
+                    if (defaultLabel.getText() != null) {
+                        fileDialog.setFilterPath(defaultLabel.getText());
+                    }
                     button.setVisible(true);
                     disposeCheck();
                     // } else if (type.equals(JavaTypesManager.BOOLEAN.getId())) {
@@ -134,11 +136,11 @@ public class DialogCellEditorForContext extends CustomDialogCellEditor {
                     // * @see org.eclipse.swt.events.FocusAdapter#focusLost(org.eclipse.swt.events.FocusEvent)
                     // */
                     // @Override
-                    //                        public void focusLost(FocusEvent e) {
-                    //                            combo.dispose();
-                    //                        }
-                    //                    });
-                    //                    editor.setEditor(combo, item, 4);
+                    // public void focusLost(FocusEvent e) {
+                    // combo.dispose();
+                    // }
+                    // });
+                    // editor.setEditor(combo, item, 4);
                 } else {
                     dialog = null;
                     button.setVisible(false);
