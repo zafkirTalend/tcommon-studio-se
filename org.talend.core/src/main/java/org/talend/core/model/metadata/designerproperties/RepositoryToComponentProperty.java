@@ -79,6 +79,8 @@ public class RepositoryToComponentProperty {
     
     public static final String ACCESS = "ACCESS"; //$NON-NLS-1$
     
+    public static final String TERADATA = "TERADATA"; //$NON-NLS-1$
+    
 //    public static final String JAVADB = "JAVADB"; //$NON-NLS-1$
 
     public static Object getValue(Connection connection, String value) {
@@ -142,6 +144,9 @@ public class RepositoryToComponentProperty {
         }
         if (dbType.equals(EDatabaseTypeName.ACCESS.getDisplayName())) {
             return ACCESS;
+        }
+        if (dbType.equals(EDatabaseTypeName.TERADATA.getDisplayName())) {
+            return TERADATA;
         }
 //        if (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())) {
 //            return JAVADB;

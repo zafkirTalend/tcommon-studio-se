@@ -47,7 +47,9 @@ public enum EDatabaseTypeName {
     FIREBIRD("FireBird", "FireBird", new Boolean(false), "FIREBIRD"), // "FIREBIRD"),    
     INFORMIX("Informix", "Informix", new Boolean(true), "INFORMIX"), // "INFORMIX");
 
-    ACCESS("Access", "Access", new Boolean(false), "ACCESS"); // "ACCESS");
+    ACCESS("Access", "Access", new Boolean(false), "ACCESS"), // "ACCESS");
+    TERADATA("Teradata", "Teradata", new Boolean(false), "TERADATA"); // "TERADATA");
+
 //    JAVADB_EMBEDED("JavaDB Embeded", "JavaDB Embeded", new Boolean(false), "JAVADB"),
 //    JAVADB_JCCJDBC("JavaDB JCCJDBC", "JavaDB JCCJDBC", new Boolean(false), "JAVADB"),
 //    JAVADB_DERBYCLIENT("JavaDB DerbyClient", "JavaDB DerbyClient", new Boolean(false), "JAVADB");
