@@ -133,6 +133,7 @@ public class PerlFunctionParser extends AbstractFunctionParser {
 
             TalendType talendType = getTalendType(functionType);
             talendType.addFunctions(function);
+            function.setTalendType(talendType);
 
         }
 
