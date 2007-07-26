@@ -38,21 +38,17 @@ import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.IntegerFieldEditor;
-import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 import org.epic.core.preferences.PerlMainPreferencePage;
 import org.epic.perleditor.PerlEditorPlugin;
 import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.utils.workbench.preferences.ComboFieldEditor;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.utils.XmlArray;
-
-import com.sun.org.apache.xerces.internal.impl.dtd.XMLAttributeDecl;
 
 /**
  * DOC chuger class global comment. Detailled comment <br/>
@@ -101,7 +97,8 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         // Adds a combo for language selection.
         String[][] entryNamesAndValues = { { Locale.ENGLISH.getDisplayLanguage(), Locale.ENGLISH.getLanguage() },
                 { Locale.FRENCH.getDisplayLanguage(), Locale.FRENCH.getLanguage() },
-                { Locale.CHINESE.getDisplayLanguage(), Locale.CHINESE.getLanguage() } };
+                { Locale.CHINESE.getDisplayLanguage(), Locale.CHINESE.getLanguage() },
+                { Locale.GERMAN.getDisplayLanguage(), Locale.GERMAN.getLanguage() } };
         languageSelectionEditor = new OneLineComboFieldEditor(ITalendCorePrefConstants.LANGUAGE_SELECTOR, Messages
                 .getString("CorePreferencePage.LocalLanguage"), entryNamesAndValues, //$NON-NLS-1$
                 getFieldEditorParent());
@@ -109,12 +106,12 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         addField(languageSelectionEditor);
 
         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-            BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD, Messages
-                    .getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
+            BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD,
+                    Messages.getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
                     getFieldEditorParent());
-            
+
             addField(runInMultiThread);
-            
+
         }
         // ends
     }
