@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.core.ui.context;
 
-import org.eclipse.jface.viewers.ListViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.widgets.Composite;
@@ -33,6 +32,7 @@ import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DateDialog;
+import org.talend.commons.ui.utils.PathUtils;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContextParameter;
 
@@ -107,7 +107,7 @@ public class DialogCellEditorForContext extends CustomDialogCellEditor {
                     dialog = new FileDialog(getControl().getShell());
                     final FileDialog fileDialog = ((FileDialog) dialog);
                     if (defaultLabel.getText() != null) {
-                        fileDialog.setFileName(defaultLabel.getText());
+                        fileDialog.setFileName(PathUtils.getOSPath(defaultLabel.getText()));
                     }
                     button.setVisible(true);
                     disposeCheck();
@@ -119,7 +119,7 @@ public class DialogCellEditorForContext extends CustomDialogCellEditor {
                     dialog = new DirectoryDialog(getControl().getShell());
                     final DirectoryDialog fileDialog = ((DirectoryDialog) dialog);
                     if (defaultLabel.getText() != null) {
-                        fileDialog.setFilterPath(defaultLabel.getText());
+                        fileDialog.setFilterPath(PathUtils.getOSPath(defaultLabel.getText()));
                     }
                     button.setVisible(true);
                     disposeCheck();
@@ -168,18 +168,24 @@ public class DialogCellEditorForContext extends CustomDialogCellEditor {
      */
     @Override
     protected Object openDialogBox(Control cellEditorWindow) {
-        String value = "";
+        String path = "";
         if (dialog instanceof FileDialog) {
-            value = ((FileDialog) dialog).open();
+            path = ((FileDialog) dialog).open();
+            if (path != null) {
+                path = PathUtils.getPortablePath(path);
+            }
         } else if (dialog instanceof DirectoryDialog) {
-            value = ((DirectoryDialog) dialog).open();
+            path = ((DirectoryDialog) dialog).open();
+            if (path != null) {
+                path = PathUtils.getPortablePath(path);
+            }
         } else if (dialog instanceof DateDialog) {
             final DateDialog dateDialog = ((DateDialog) dialog);
             if (dateDialog.open() == DateDialog.OK) {
-                value = dateDialog.getTalendDateString();
+                path = dateDialog.getTalendDateString();
             }
         }
 
-        return value;
+        return path;
     }
 }
