@@ -14,6 +14,7 @@ use vars qw(@EXPORT @ISA);
 ##
 # return the current datetime with the given display format
 #
+# {Category} Date
 # {talendTypes} Day
 #
 # {param} string('CCYY-MM-DD') format : string representing the wished format of the date
@@ -50,6 +51,7 @@ sub getDate {
 ##
 # return an ISO formatted random date
 #
+# {Category} Date
 # {talendTypes} Day
 #
 # {param} string('2007-01-01') min : minimum date
