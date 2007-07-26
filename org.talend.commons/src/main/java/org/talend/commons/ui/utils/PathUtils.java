@@ -37,4 +37,8 @@ public class PathUtils {
         return Path.fromOSString(path).toPortableString();
     }
 
+    public static String getOSPath(String path) {
+        return Path.fromPortableString(path).toOSString();
+    }
+
 }
