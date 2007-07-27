@@ -3,11 +3,12 @@
 	<dbms product="TERADATA" id="teradata_id" label="Mapping Teradata" default="true">
 		<dbTypes>
 			<dbType type="CHAR" />
-			<dbType type="VARCHAR2" default="true"/>
+			<dbType type="VARCHAR" default="true"/>
 			<dbType type="NCHAR" />
-			<dbType type="NVARCHAR2" />
-			<dbType type="NUMBER" />
+			<dbType type="VARCHAR" />
+			<dbType type="INTEGER" />
 			<dbType type="DATE" />
+			<dbType type="FLOAT" />
 			<dbType type="LONG" />
 			<dbType type="RAW" />
 			<dbType type="LONG RAW" />
@@ -17,7 +18,6 @@
 			<dbType type="NCLOB" />
 			<dbType type="BFILE" />
 			<dbType type="UROWID" />
-			<dbType type="FLOAT" />
 			<dbType type="XMLTYPE" />
 		</dbTypes>
 
@@ -33,25 +33,25 @@
 				</talendType>
 				<talendType type="id_Character">
 					<dbType type="CHAR" default="true"/>
-					<dbType type="VARCHAR2"/>
+					<dbType type="VARCHAR"/>
 					<dbType type="NCHAR"/>
-					<dbType type="NVARCHAR2"/>
+					<dbType type="VARCHAR"/>
 				</talendType>
 				<talendType type="id_Date">
 					<dbType type="DATE" default="true" />
 				</talendType>
 				<talendType type="id_Double">
-					<dbType type="NUMBER" default="true" />
+					<dbType type="INTEGER" default="true" />
 				</talendType>
 				<talendType type="id_Float">
 					<dbType type="FLOAT" default="true" />
-					<dbType type="NUMBER"/>
+					<dbType type="INTEGER"/>
 				</talendType>
 				<talendType type="id_Integer">
-					<dbType type="NUMBER" default="true" />
+					<dbType type="INTEGER" default="true" />
 				</talendType>
 				<talendType type="id_Long">
-					<dbType type="NUMBER" default="true" />
+					<dbType type="INTEGER" default="true" />
 				</talendType>
 				<talendType type="id_Object">
 					<dbType type="BLOB" default="true"/>
@@ -65,12 +65,12 @@
 					<dbType type="ROWID"/>
 				</talendType>
 				<talendType type="id_Short">
-					<dbType type="NUMBER" default="true" />
+					<dbType type="INTEGER" default="true" />
 				</talendType>
 				<talendType type="id_String">
-					<dbType type="VARCHAR2" default="true" />
+					<dbType type="VARCHAR" default="true" />
 					<dbType type="NCHAR" />
-					<dbType type="NVARCHAR2"/>	
+					<dbType type="VARCHAR"/>	
 					<dbType type="CHAR" />		
 				</talendType>
 			</talendToDbTypes>
@@ -78,16 +78,16 @@
 				<dbType type="CHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
-				<dbType type="VARCHAR2">
+				<dbType type="VARCHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
 				<dbType type="NCHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
-				<dbType type="NVARCHAR2">
+				<dbType type="VARCHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
-				<dbType type="NUMBER">
+				<dbType type="INTEGER">
 					<talendType type="id_Float" default="true" />
 					<talendType type="id_Double"/>
 					<talendType type="id_Long"/>
@@ -138,7 +138,7 @@
 		<language name="perl">
 			<talendToDbTypes>
 				<talendType type="int">	
-					<dbType type="NUMBER" default="true" />
+					<dbType type="INTEGER" default="true" />
 					<dbType type="LONG"/>				
 				</talendType>
 				<talendType type="decimal">
@@ -147,9 +147,9 @@
 				<talendType type="boolean">	
 				</talendType>
 				<talendType type="string">
-					<dbType type="VARCHAR2" default="true" />
+					<dbType type="VARCHAR" default="true" />
 					<dbType type="NCHAR" />		
-					<dbType type="NVARCHAR2" />	
+					<dbType type="VARCHAR" />	
 					<dbType type="CHAR" />		
 				</talendType>
 				<talendType type="date">
@@ -163,16 +163,16 @@
 				<dbType type="CHAR">
 					<talendType type="string" default="true" />
 				</dbType>
-				<dbType type="VARCHAR2">
+				<dbType type="VARCHAR">
 					<talendType type="string" default="true" />
 				</dbType>
 				<dbType type="NCHAR">
 					<talendType type="string" default="true" />
 				</dbType>
-				<dbType type="NVARCHAR2">
+				<dbType type="VARCHAR">
 					<talendType type="string" default="true" />
 				</dbType>
-				<dbType type="NUMBER">
+				<dbType type="INTEGER">
 					<talendType type="int" default="true" />
 				</dbType>
 				<dbType type="DATE">
