@@ -61,6 +61,7 @@ public abstract class SWTUIThreadProcessor {
 
         if (isStopped) {
             isStopped = false;
+            exception = null;
             if (!preProcessStart()) {
                 isStopped = true;
                 return;
