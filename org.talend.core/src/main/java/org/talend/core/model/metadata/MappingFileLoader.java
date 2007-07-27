@@ -121,8 +121,19 @@ public class MappingFileLoader {
 
                 // search and load "dbTypes/dbType" nodes
                 ArrayList<String> dbTypes = new ArrayList<String>();
+                ArrayList<DbDefaultLengthAndPrecision> dbDefault=new ArrayList<DbDefaultLengthAndPrecision>();
                 dbms.setDbmsTypes(dbTypes);
+                dbms.setDefaultLengthPrecision(dbDefault);
                 List<Node> typeNodes = getChildElementNodes(dbTypesNode);
+               
+                
+                
+                
+                
+                
+                
+                
+                
                 for (Node typeNode : typeNodes) {
                     NamedNodeMap typeNodeAtttributes = typeNode.getAttributes();
                     String typeValue = typeNodeAtttributes.getNamedItem("type").getNodeValue(); //$NON-NLS-1$
@@ -137,11 +148,37 @@ public class MappingFileLoader {
                     }
                     dbTypes.add(typeValue);
                     hAllDbTypes.add(typeValue);
+                    DbDefaultLengthAndPrecision dbDefaultLP=new DbDefaultLengthAndPrecision();
+                    
+                    Node defaultLengthItem=typeNodeAtttributes.getNamedItem("defaultLength");
+                    Node defaultPrecision=typeNodeAtttributes.getNamedItem("defaultPrecision");
+                    if(defaultLengthItem!=null) dbDefaultLP.setDefaultLength(Integer.parseInt(defaultLengthItem.getNodeValue()));
+                    if(defaultPrecision!=null) dbDefaultLP.setDefaultPrecision(Integer.parseInt(defaultPrecision.getNodeValue()));
+                    if(defaultLengthItem==null&&defaultPrecision!=null){
+                    	String message = Messages
+                        .getString(
+                                "MappingFileLoader.NoDefaultLengthForPrecision", new Object[] { typeValue,dbmsIdValue});//$NON-NLS-1$
+		                log.warn(message);
+		                // System.out.println(message);
+		                continue;
+                    }
+                    dbDefaultLP.setDbTypeName(typeValue);
+                    dbDefault.add(dbDefaultLP);
 
                     if (defaultTypeItem != null && "true".equals(defaultTypeItem.getNodeValue())) { //$NON-NLS-1$
                         dbms.setDefaultDbType(typeValue);
                     }
                 }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 Set<String> hDbTypesProcessed = new HashSet<String>(hAllDbTypes);
 
                 // search and load "language/type" nodes

@@ -48,8 +48,19 @@ public class Dbms {
     private Set<MappingType> dbToTalendTypes;
     
     private Set<MappingType> talendToDbTypes;
+    
+    private List<DbDefaultLengthAndPrecision> defaultLengthPrecision;
 
-    /**
+    public List<DbDefaultLengthAndPrecision> getDefaultLengthPrecision() {
+		return defaultLengthPrecision;
+	}
+
+	public void setDefaultLengthPrecision(
+			List<DbDefaultLengthAndPrecision> defaultLengthPrecision) {
+		this.defaultLengthPrecision = defaultLengthPrecision;
+	}
+
+	/**
      * DOC amaumont Dbms constructor comment.
      * 
      * @param id
