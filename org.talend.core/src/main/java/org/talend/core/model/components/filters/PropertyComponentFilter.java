@@ -47,7 +47,8 @@ public class PropertyComponentFilter extends NameComponentFilter implements ICom
         boolean toReturn = (name == null ? true : super.accept(node));
         if (toReturn) {
             String pValue = ComponentUtilities.getNodePropertyValue(node, property);
-            toReturn = pValue.startsWith(value);
+            // toReturn = pValue.startsWith(value);
+            toReturn = pValue.equals(value);
         }
         return toReturn;
     }
