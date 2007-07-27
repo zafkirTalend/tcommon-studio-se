@@ -268,6 +268,9 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
             }
 
             public void set(IMetadataColumn bean, String value) {
+                if (dbTypeColumnWritable && bean.getLabel().equals(bean.getOriginalDbColumnName())) {
+                    bean.setOriginalDbColumnName(value);
+                }
                 bean.setLabel(value);
             }
 
@@ -351,5 +354,20 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
             super.configureDefaultColumn(tableViewerCreator);
         }
+    }
+
+    @Override
+    protected IBeanPropertyAccessors<IMetadataColumn, String> getDbColumnNameAccessor() {
+        return new IBeanPropertyAccessors<IMetadataColumn, String>() {
+
+            public String get(IMetadataColumn bean) {
+                return bean.getOriginalDbColumnName();
+            }
+
+            public void set(IMetadataColumn bean, String value) {
+                bean.setOriginalDbColumnName(value);
+            }
+
+        };
     }
 }

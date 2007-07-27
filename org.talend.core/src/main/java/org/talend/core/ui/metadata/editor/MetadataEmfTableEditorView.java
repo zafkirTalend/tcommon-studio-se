@@ -300,17 +300,18 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         super.configureDefaultColumn(tableViewerCreator);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView#getCurrentDbms()
-     */
-    // @Override
-    // protected String getCurrentDbms() {
-    // Connection connection = getMetadataEditor().getMetadataTable().getConnection();
-    // if(connection instanceof DatabaseConnection) {
-    // return ((DatabaseConnection) connection).getDatabaseType();
-    // }
-    // return null;
-    // }
+    @Override
+    protected IBeanPropertyAccessors<MetadataColumn, String> getDbColumnNameAccessor() {
+        return new IBeanPropertyAccessors<MetadataColumn, String>() {
+
+            public String get(MetadataColumn bean) {
+                return bean.getOriginalField();
+            }
+
+            public void set(MetadataColumn bean, String value) {
+                bean.setOriginalField(value);
+            }
+
+        };
+    }
 }

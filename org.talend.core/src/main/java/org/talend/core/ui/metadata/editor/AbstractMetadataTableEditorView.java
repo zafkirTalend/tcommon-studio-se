@@ -45,8 +45,6 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.CELL_EDITOR_STATE;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.behavior.ColumnCellModifier;
-import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
-import org.talend.commons.ui.swt.tableviewer.behavior.IColumnCellModifier;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnColorProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnImageProvider;
 import org.talend.commons.ui.swt.tableviewer.behavior.IColumnLabelProvider;
@@ -58,7 +56,6 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
-import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
 import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
 
@@ -95,6 +92,10 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     public static final String ID_COLUMN_PRECISION = "ID_COLUMN_PRECISION"; //$NON-NLS-1$
 
+    public static final String ID_COLUMN_DBCOLUMNNAME = "ID_COLUMN_DBCOLUMNNAME"; //$NON-NLS-1$
+
+    protected boolean showDbColumnName;
+    
     protected boolean showDbTypeColumn;
 
     protected boolean showTalendTypeColumn = true;
@@ -199,6 +200,10 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         // //////////////////////////////////////////////////////////////////////////////////////
 
         configureNameColumn(tableViewerCreator);
+
+        if (showDbColumnName) {
+            configureDbColumnName(tableViewerCreator);
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -564,6 +569,39 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     }
 
     /**
+     * DOC amaumont Comment method "configureNameColumn".
+     * 
+     * @param tableViewerCreator
+     */
+    protected void configureDbColumnName(TableViewerCreator<B> tableViewerCreator) {
+        TableViewerCreatorColumn column;
+        column = new TableViewerCreatorColumn(tableViewerCreator);
+        column.setId(ID_COLUMN_DBCOLUMNNAME);
+        column.setTitle("Db Column"); //$NON-NLS-1$
+        column.setToolTipHeader(Messages.getString("MetadataTableEditorView.ColumnTitle")); //$NON-NLS-1$
+        column.setBeanPropertyAccessors(getDbColumnNameAccessor());
+        column.setWeight(25);
+        column.setModifiable(!isReadOnly());
+        column.setMinimumWidth(45);
+        if (dbTypeColumnWritable) {
+            final TextCellEditor cellEditor = new TextCellEditor(tableViewerCreator.getTable());
+            column.setCellEditor(cellEditor);
+        } else {
+            column.setColorProvider(new IColumnColorProvider() {
+
+                public Color getBackgroundColor(Object bean) {
+                    return READONLY_CELL_BG_COLOR;
+                }
+
+                public Color getForegroundColor(Object bean) {
+                    return null;
+                }
+
+            });
+        }
+    }
+
+    /**
      * DOC amaumont Comment method "validateColumnName".
      * 
      * @param newValue
@@ -578,6 +616,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      * @return
      */
     protected abstract IBeanPropertyAccessors<B, String> getLabelAccessor();
+    
+    protected abstract IBeanPropertyAccessors<B, String> getDbColumnNameAccessor();
 
     /**
      * DOC amaumont Comment method "initTalendTypeColumn".
@@ -704,7 +744,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     @Override
     protected abstract ExtendedToolbarView initToolBar();
 
-    public void setShowDbTypeColumn(boolean showDbTypeColumn, boolean showDbTypeColumnAtLeftPosition, boolean writable) {
+    public void setShowDbTypeColumn(boolean showDbColumnName, boolean showDbTypeColumn, boolean showDbTypeColumnAtLeftPosition, boolean writable) {
+        this.showDbColumnName = showDbColumnName;
         this.showDbTypeColumn = showDbTypeColumn;
         this.showDbTypeColumnAtLeftPosition = showDbTypeColumnAtLeftPosition;
         this.dbTypeColumnWritable = writable;

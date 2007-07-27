@@ -91,6 +91,7 @@ public final class ConvertionHelper {
             newColumn.setPrecision(column.getPrecision());
             newColumn.setTalendType(column.getTalendType());
             newColumn.setType(column.getSourceType());
+            newColumn.setOriginalDbColumnName(column.getOriginalField());
         }
         result.setListColumns(columns);
         // result.setVersion();

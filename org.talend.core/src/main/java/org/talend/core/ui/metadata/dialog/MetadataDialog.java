@@ -161,10 +161,12 @@ public class MetadataDialog extends Dialog {
     }
 
     private void initializeDbType(MetadataTableEditorView metaView, INode node, IMetadataTable metadataTable) {
+        boolean dbComponent = false;
         boolean hasMappingType = false;
 
         boolean hasRepositoryDbSchema = false;
         if (node.getComponent().getFamily().startsWith(DATABASE_LABEL)) {
+            dbComponent = true;
             for (IElementParameter currentParam : node.getElementParameters()) {
                 if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)
                         && currentParam.isShow(node.getElementParameters())) {
@@ -216,7 +218,7 @@ public class MetadataDialog extends Dialog {
                 }
             }
         }
-        metaView.setShowDbTypeColumn(hasMappingType | hasRepositoryDbSchema, false, hasMappingType);
+        metaView.setShowDbTypeColumn(dbComponent, hasMappingType | hasRepositoryDbSchema, false, hasMappingType || (dbComponent && !hasRepositoryDbSchema));
     }
 
     @Override

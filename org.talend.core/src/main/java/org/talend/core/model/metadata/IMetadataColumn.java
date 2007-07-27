@@ -31,29 +31,32 @@ public interface IMetadataColumn {
 
     public static final int OPTIONS_NONE = 0;
 
-    public static final int OPTIONS_IGNORE_KEY = 1;
+    public static final int OPTIONS_IGNORE_KEY = 1 << 0;
 
-    public static final int OPTIONS_IGNORE_NULLABLE = 2;
+    public static final int OPTIONS_IGNORE_NULLABLE = 1 << 1;
 
-    public static final int OPTIONS_IGNORE_COMMENT = 4;
+    public static final int OPTIONS_IGNORE_COMMENT = 1 << 2;
 
-    public static final int OPTIONS_IGNORE_PATTERN = 8;
+    public static final int OPTIONS_IGNORE_PATTERN = 1 << 3;
 
-    public static final int OPTIONS_IGNORE_TYPE = 16;
+    public static final int OPTIONS_IGNORE_TYPE = 1 << 4;
 
-    public static final int OPTIONS_IGNORE_LENGTH = 32;
+    public static final int OPTIONS_IGNORE_LENGTH = 1 << 5;
 
-    public static final int OPTIONS_IGNORE_PRECISION = 64;
+    public static final int OPTIONS_IGNORE_PRECISION = 1 << 6;
 
-    public static final int OPTIONS_IGNORE_DEFAULT = 128;
+    public static final int OPTIONS_IGNORE_DEFAULT = 1 << 7;
 
-    public static final int OPTIONS_IGNORE_TALENDTYPE = 256;
+    public static final int OPTIONS_IGNORE_TALENDTYPE = 1 << 8;
 
-    public static final int OPTIONS_IGNORE_LABEL = 256;
+    public static final int OPTIONS_IGNORE_LABEL = 1 << 9;
+
+    public static final int OPTIONS_IGNORE_DBNAME = 1 << 10;
 
     public static final int OPTIONS_IGNORE_ALL = OPTIONS_IGNORE_LABEL | OPTIONS_IGNORE_TALENDTYPE
             | OPTIONS_IGNORE_DEFAULT | OPTIONS_IGNORE_PRECISION | OPTIONS_IGNORE_LENGTH | OPTIONS_IGNORE_TYPE
-            | OPTIONS_IGNORE_PATTERN | OPTIONS_IGNORE_COMMENT | OPTIONS_IGNORE_NULLABLE | OPTIONS_IGNORE_KEY;
+            | OPTIONS_IGNORE_PATTERN | OPTIONS_IGNORE_COMMENT | OPTIONS_IGNORE_NULLABLE | OPTIONS_IGNORE_KEY
+            | OPTIONS_IGNORE_DBNAME;
 
     public int getId();
 
@@ -118,4 +121,8 @@ public interface IMetadataColumn {
     public void setCustomId(int customId); // only for custom columns to sort them
 
     public int getCustomId(); // only for custom columns to sort them
+
+    public String getOriginalDbColumnName();
+
+    public void setOriginalDbColumnName(String originalDbColumnName);
 }

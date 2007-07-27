@@ -195,6 +195,7 @@ public class MetadataSchema {
      */
     protected IMetadataColumn initializeOneColumn(final IMetadataColumn metadataColumn, final NamedNodeMap nodeMap) {
         final Node label = nodeMap.getNamedItem("label"); //$NON-NLS-1$
+        final Node originalDbColumnName = nodeMap.getNamedItem("originalDbColumnName"); //$NON-NLS-1$
         final Node key = nodeMap.getNamedItem("key"); //$NON-NLS-1$
         final Node type = nodeMap.getNamedItem("talendType"); //$NON-NLS-1$
         final Node sourceType = nodeMap.getNamedItem("type"); //$NON-NLS-1$
@@ -210,6 +211,11 @@ public class MetadataSchema {
         metadataColumn.setTalendType(type.getNodeValue());
         if (sourceType != null) {
             metadataColumn.setType(sourceType.getNodeValue());
+        }
+        if (originalDbColumnName != null) {
+            metadataColumn.setOriginalDbColumnName(originalDbColumnName.getNodeValue());
+        } else {
+            metadataColumn.setOriginalDbColumnName(label.getNodeValue());
         }
         if (length.getNodeValue() != null) {
             try {
@@ -671,6 +677,10 @@ public class MetadataSchema {
         Attr label = document.createAttribute("label"); //$NON-NLS-1$
         label.setNodeValue(metadataColumn.getLabel());
         column.setAttributeNode(label);
+        
+        Attr dbColumnName = document.createAttribute("originalDbColumnName"); //$NON-NLS-1$
+        dbColumnName.setNodeValue(metadataColumn.getOriginalDbColumnName());
+        column.setAttributeNode(dbColumnName);
 
         Attr key = document.createAttribute("key"); //$NON-NLS-1$
         key.setNodeValue(String.valueOf(metadataColumn.isKey()));

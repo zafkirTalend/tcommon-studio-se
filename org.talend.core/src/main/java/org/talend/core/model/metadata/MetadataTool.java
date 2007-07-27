@@ -22,19 +22,12 @@
 package org.talend.core.model.metadata;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.process.EConnectionType;
-import org.talend.core.model.process.EParameterFieldType;
-import org.talend.core.model.process.IConnection;
-import org.talend.core.model.process.IElementParameter;
-import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.repository.model.IProxyRepositoryFactory;
 

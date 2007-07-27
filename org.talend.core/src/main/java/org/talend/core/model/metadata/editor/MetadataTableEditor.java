@@ -158,7 +158,9 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
 
     public IMetadataColumn createNewMetadataColumn() {
         MetadataColumn metadataColumn = new MetadataColumn();
-        metadataColumn.setLabel(getNextGeneratedColumnName());
+        String columnName = getNextGeneratedColumnName();
+        metadataColumn.setLabel(columnName);
+        metadataColumn.setOriginalDbColumnName(columnName);
 
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
