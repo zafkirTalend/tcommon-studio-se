@@ -160,7 +160,7 @@ public class MetadataDialog extends Dialog {
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }
 
-    private void initializeDbType(MetadataTableEditorView metaView, INode node, IMetadataTable metadataTable) {
+    public static void initializeDbType(MetadataTableEditorView metaView, INode node, IMetadataTable metadataTable) {
         boolean dbComponent = false;
         boolean hasMappingType = false;
 
