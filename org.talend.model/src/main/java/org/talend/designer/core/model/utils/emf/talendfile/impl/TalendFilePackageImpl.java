@@ -305,7 +305,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getColumnType_Pattern() {
+    public EAttribute getColumnType_OriginalDbColumnName() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -314,7 +314,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getColumnType_Precision() {
+    public EAttribute getColumnType_Pattern() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -323,7 +323,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getColumnType_SourceType() {
+    public EAttribute getColumnType_Precision() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(8);
     }
 
@@ -332,8 +332,17 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getColumnType_Type() {
+    public EAttribute getColumnType_SourceType() {
         return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getColumnType_Type() {
+        return (EAttribute)columnTypeEClass.getEStructuralFeatures().get(10);
     }
 
     /**
@@ -1343,6 +1352,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         createEAttribute(columnTypeEClass, COLUMN_TYPE__LENGTH);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__NAME);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__NULLABLE);
+        createEAttribute(columnTypeEClass, COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__PATTERN);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__PRECISION);
         createEAttribute(columnTypeEClass, COLUMN_TYPE__SOURCE_TYPE);
@@ -1510,6 +1520,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEAttribute(getColumnType_Length(), theXMLTypePackage.getInt(), "length", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_Nullable(), theXMLTypePackage.getBoolean(), "nullable", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getColumnType_OriginalDbColumnName(), theXMLTypePackage.getString(), "originalDbColumnName", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_Pattern(), theXMLTypePackage.getString(), "pattern", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_Precision(), theXMLTypePackage.getInt(), "precision", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getColumnType_SourceType(), theXMLTypePackage.getString(), "sourceType", null, 0, 1, ColumnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1715,6 +1726,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
            new String[] {
              "kind", "attribute",
              "name", "nullable",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getColumnType_OriginalDbColumnName(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "originalDbColumnName",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

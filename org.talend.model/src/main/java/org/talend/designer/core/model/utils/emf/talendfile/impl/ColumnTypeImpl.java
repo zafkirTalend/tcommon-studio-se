@@ -26,6 +26,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getLength <em>Length</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#isNullable <em>Nullable</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getOriginalDbColumnName <em>Original Db Column Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getPattern <em>Pattern</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getPrecision <em>Precision</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ColumnTypeImpl#getSourceType <em>Source Type</em>}</li>
@@ -182,6 +183,26 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @ordered
      */
     protected boolean nullableESet = false;
+
+    /**
+     * The default value of the '{@link #getOriginalDbColumnName() <em>Original Db Column Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOriginalDbColumnName()
+     * @generated
+     * @ordered
+     */
+    protected static final String ORIGINAL_DB_COLUMN_NAME_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getOriginalDbColumnName() <em>Original Db Column Name</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getOriginalDbColumnName()
+     * @generated
+     * @ordered
+     */
+    protected String originalDbColumnName = ORIGINAL_DB_COLUMN_NAME_EDEFAULT;
 
     /**
      * The default value of the '{@link #getPattern() <em>Pattern</em>}' attribute.
@@ -496,6 +517,27 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getOriginalDbColumnName() {
+        return originalDbColumnName;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setOriginalDbColumnName(String newOriginalDbColumnName) {
+        String oldOriginalDbColumnName = originalDbColumnName;
+        originalDbColumnName = newOriginalDbColumnName;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME, oldOriginalDbColumnName, originalDbColumnName));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getPattern() {
         return pattern;
     }
@@ -619,6 +661,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return getName();
             case TalendFilePackage.COLUMN_TYPE__NULLABLE:
                 return isNullable() ? Boolean.TRUE : Boolean.FALSE;
+            case TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME:
+                return getOriginalDbColumnName();
             case TalendFilePackage.COLUMN_TYPE__PATTERN:
                 return getPattern();
             case TalendFilePackage.COLUMN_TYPE__PRECISION:
@@ -655,6 +699,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return;
             case TalendFilePackage.COLUMN_TYPE__NULLABLE:
                 setNullable(((Boolean)newValue).booleanValue());
+                return;
+            case TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME:
+                setOriginalDbColumnName((String)newValue);
                 return;
             case TalendFilePackage.COLUMN_TYPE__PATTERN:
                 setPattern((String)newValue);
@@ -697,6 +744,9 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
             case TalendFilePackage.COLUMN_TYPE__NULLABLE:
                 unsetNullable();
                 return;
+            case TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME:
+                setOriginalDbColumnName(ORIGINAL_DB_COLUMN_NAME_EDEFAULT);
+                return;
             case TalendFilePackage.COLUMN_TYPE__PATTERN:
                 setPattern(PATTERN_EDEFAULT);
                 return;
@@ -732,6 +782,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
             case TalendFilePackage.COLUMN_TYPE__NULLABLE:
                 return isSetNullable();
+            case TalendFilePackage.COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME:
+                return ORIGINAL_DB_COLUMN_NAME_EDEFAULT == null ? originalDbColumnName != null : !ORIGINAL_DB_COLUMN_NAME_EDEFAULT.equals(originalDbColumnName);
             case TalendFilePackage.COLUMN_TYPE__PATTERN:
                 return PATTERN_EDEFAULT == null ? pattern != null : !PATTERN_EDEFAULT.equals(pattern);
             case TalendFilePackage.COLUMN_TYPE__PRECISION:
@@ -765,6 +817,8 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
         result.append(name);
         result.append(", nullable: ");
         if (nullableESet) result.append(nullable); else result.append("<unset>");
+        result.append(", originalDbColumnName: ");
+        result.append(originalDbColumnName);
         result.append(", pattern: ");
         result.append(pattern);
         result.append(", precision: ");

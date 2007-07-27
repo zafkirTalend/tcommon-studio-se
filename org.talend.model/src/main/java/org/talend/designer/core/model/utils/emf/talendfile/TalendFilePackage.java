@@ -125,13 +125,22 @@ public interface TalendFilePackage extends EPackage {
     int COLUMN_TYPE__NULLABLE = 5;
 
     /**
+     * The feature id for the '<em><b>Original Db Column Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME = 6;
+
+    /**
      * The feature id for the '<em><b>Pattern</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__PATTERN = 6;
+    int COLUMN_TYPE__PATTERN = 7;
 
     /**
      * The feature id for the '<em><b>Precision</b></em>' attribute.
@@ -140,7 +149,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__PRECISION = 7;
+    int COLUMN_TYPE__PRECISION = 8;
 
     /**
      * The feature id for the '<em><b>Source Type</b></em>' attribute.
@@ -149,7 +158,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__SOURCE_TYPE = 8;
+    int COLUMN_TYPE__SOURCE_TYPE = 9;
 
     /**
      * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -158,7 +167,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE__TYPE = 9;
+    int COLUMN_TYPE__TYPE = 10;
 
     /**
      * The number of structural features of the '<em>Column Type</em>' class.
@@ -167,7 +176,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COLUMN_TYPE_FEATURE_COUNT = 10;
+    int COLUMN_TYPE_FEATURE_COUNT = 11;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ConnectionTypeImpl <em>Connection Type</em>}' class.
@@ -1388,6 +1397,17 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      */
     EAttribute getColumnType_Nullable();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getOriginalDbColumnName <em>Original Db Column Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Original Db Column Name</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getOriginalDbColumnName()
+     * @see #getColumnType()
+     * @generated
+     */
+    EAttribute getColumnType_OriginalDbColumnName();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ColumnType#getPattern <em>Pattern</em>}'.
@@ -2683,6 +2703,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute COLUMN_TYPE__NULLABLE = eINSTANCE.getColumnType_Nullable();
+
+        /**
+         * The meta object literal for the '<em><b>Original Db Column Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute COLUMN_TYPE__ORIGINAL_DB_COLUMN_NAME = eINSTANCE.getColumnType_OriginalDbColumnName();
 
         /**
          * The meta object literal for the '<em><b>Pattern</b></em>' attribute feature.

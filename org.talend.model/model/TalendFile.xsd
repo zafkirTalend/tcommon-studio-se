@@ -69,6 +69,7 @@
 									<xs:attribute name="precision" type="xs:int"/>
 									<xs:attribute name="pattern" type="xs:string"/>
 									<xs:attribute name="defaultValue" type="xs:string" use="optional"/>
+									<xs:attribute name="originalDbColumnName" type="xs:string" use="optional"/>
 								</xs:complexType>
 							</xs:element>
 							<xs:element name="Comment" type="xs:string" minOccurs="0"/>
