@@ -45,10 +45,10 @@ public abstract class SWTUIThreadProcessor {
     public void nonUIProcessInThread() {
     }
 
-    public void updateUIInThreadIfThreadIsCancled() {
+    public void updateUIInThreadIfThreadIsCanceled() {
     }
 
-    public void updateUIInThreadIfThreadIsNotCancled() {
+    public void updateUIInThreadIfThreadIsNotCanceled() {
     }
 
     public void updateUIInThreadIfThreadFinally() {
@@ -77,9 +77,9 @@ public abstract class SWTUIThreadProcessor {
 
                         public void run() {
                             if (!isStopped) {
-                                updateUIInThreadIfThreadIsNotCancled();
+                                updateUIInThreadIfThreadIsNotCanceled();
                             } else {
-                                updateUIInThreadIfThreadIsCancled();
+                                updateUIInThreadIfThreadIsCanceled();
                             }
                             updateUIInThreadIfThreadFinally();
                             isStopped = true;
