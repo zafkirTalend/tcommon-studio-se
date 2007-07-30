@@ -45,6 +45,10 @@ import org.talend.core.model.components.filters.PropertyComponentFilter;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.designer.core.model.utils.emf.talendfile.JobType;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.core.model.utils.emf.talendfile.RequiredType;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -148,11 +152,46 @@ public class PropertiesWizard extends Wizard {
         IComponentFilter filter1 = new PropertyComponentFilter("tRunJob", "PROCESS_TYPE_PROCESS", oldName); //$NON-NLS-1$ //$NON-NLS-2$
 
         IComponentConversion updateCompProperty = new UpdatePropertyComponentConversion("PROCESS_TYPE_PROCESS", newName); //$NON-NLS-1$
+        IComponentConversion updateRequiredProperty = new UpdateRequiredProperty(oldName, newName);
 
         try {
-            ModifyComponentsAction.searchAndModify(filter1, Arrays.<IComponentConversion> asList(updateCompProperty));
+            ModifyComponentsAction.searchAndModify(filter1, Arrays.<IComponentConversion> asList(updateCompProperty,
+                    updateRequiredProperty));
         } catch (Exception e) {
             ExceptionHandler.process(e, Level.ERROR);
+        }
+    }
+
+    /**
+     * Update the "required" property.
+     * 
+     * <required> <job context="Default" name="newJobName"/> </required>
+     */
+    private class UpdateRequiredProperty implements IComponentConversion {
+
+        private String oldJobName;
+
+        private String newJobName;
+
+        public UpdateRequiredProperty(String oldJobName, String newJobName) {
+            super();
+            this.oldJobName = oldJobName;
+            this.newJobName = newJobName;
+        }
+
+        public void transform(NodeType node) {
+            ProcessType item = (ProcessType) node.eContainer();
+            renameJobInRequiredProperty(item, newJobName);
+        }
+
+        private void renameJobInRequiredProperty(ProcessType item, String newJobName) {
+            RequiredType required = item.getRequired();
+            for (Object o : required.getJob()) {
+                JobType job = (JobType) o;
+                if (job.getName().equals(oldJobName)) {
+                    job.setName(newJobName);
+                }
+            }
         }
     }
 
