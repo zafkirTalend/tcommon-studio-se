@@ -3,6 +3,8 @@ package talend::filesOp;
 use Exporter;
 use Carp;
 use List::Util qw/min/;
+use File::Spec;
+use File::Basename;
 
 use vars qw(@EXPORT @ISA);
 
@@ -30,28 +32,53 @@ sub tFileRowCount {
 }
 
 sub getFileList {
-    # available parameters : directory, filemask, case_sensitive
+    # available parameters :
+    #  - directory
+    #  - filemask
+    #  - case_sensitive
+    #  - include_subdir
     my %param = @_;
 
-    opendir(DIR, $param{directory});
     my @files;
 
-    if ($param{case_sensitive}) {
-        @files = grep(
-            /$param{filemask}/,
-            readdir(DIR)
+    if ($param{include_subdir}) {
+        use File::Find;
+        find(
+            sub{
+                if ($File::Find::name ne $param{directory}) {
+                    push @files, $File::Find::name;
+                }
+            },
+            $param{directory}
         );
     }
     else {
-        @files = grep(
-            /$param{filemask}/i,
-            readdir(DIR)
-        );
+        opendir(DIR, $param{directory});
+
+        @files = map {
+            File::Spec->catfile($param{directory}, $_);
+        } readdir(DIR);
+
+        closedir(DIR);
     }
 
-    closedir(DIR);
+    my @filtered_files = ();
+    foreach my $file (@files) {
+        my $filename = basename($file);
 
-    return @files;
+        if ($param{case_sensitive}) {
+            if ($filename =~ m/$param{filemask}/) {
+                push @filtered_files, $file;
+            }
+        }
+        else {
+            if ($filename =~ m/$param{filemask}/i) {
+                push @filtered_files, $file;
+            }
+        }
+    }
+
+    return @filtered_files;
 }
 
 sub getFirstAndLastRowNumber {
