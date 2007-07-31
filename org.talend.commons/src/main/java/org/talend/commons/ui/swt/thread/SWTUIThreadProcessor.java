@@ -32,7 +32,7 @@ import org.eclipse.swt.widgets.Display;
  */
 public abstract class SWTUIThreadProcessor {
 
-    private boolean isStopped = true;
+    private volatile boolean isStopped = true;
 
     Thread thread = null;
 
