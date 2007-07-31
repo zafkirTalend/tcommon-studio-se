@@ -1,6 +1,3 @@
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 // ============================================================================
 //
 // Talend Community Edition
@@ -22,7 +19,11 @@ import java.util.Date;
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
+
 package routines;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * yzhang class global comment. Detailled comment <br/>
  * 
