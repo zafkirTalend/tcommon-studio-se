@@ -10,16 +10,16 @@
 			<!--number with precision-->
 			<dbType type="FLOAT"/>
 			<dbType type="DOUBLE"/>
-			<dbType type="DECIMAL"/>
-			<dbType type="NUMERIC"/>
+			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10"/>
+			<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10"/>
 			<dbType type="REAL"/>
 			<dbType type="BINARY"/>
 			<dbType type="VARBINARY"/>
 			<dbType type="LONGVARBINARY"/>
 			<dbType type="BOOLEAN"/>
 			<dbType type="BIT"/>
-			<dbType type="CHAR"/>
-			<dbType type="VARCHAR" default="true" />
+			<dbType type="CHAR" defaultLength="50"/>
+			<dbType type="VARCHAR" default="true" defaultLength="200"/>
 			<dbType type="VARCHAR_IGNORECASE"/>
 			<dbType type="LONGVARCHAR"/>
 			<dbType type="DATE"/>

@@ -6,16 +6,16 @@
 			<dbType type="BIT" />
 			<dbType type="BIGINT" />
 			<dbType type="BINARY" />
-			<dbType type="CHAR" />
+			<dbType type="CHAR" defaultLength="50"/>
 			<dbType type="CHARACTER" />
 			<dbType type="CHARACTER VARYING" />
 			<dbType type="DATE" />
 			<dbType type="DATETIME" />
-			<dbType type="DECIMAL" />
+			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
 			<dbType type="DOUBLE" />
 			<dbType type="FLOAT" />
 			<dbType type="INT" />
-			<dbType type="NUMERIC" />
+			<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10"/>
 			<dbType type="REAL" />
 			<dbType type="SMALLINT" />
 			<dbType type="SMALLDATETIME" />
@@ -24,7 +24,7 @@
 			<dbType type="TINYINT" />
 			<dbType type="UNIQUEIDENTIFIER" />
 			<dbType type="UNIQUEIDENTIFIERSTR" />
-			<dbType type="VARCHAR" default="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="200" />
 			<dbType type="VARBINARY" />
 		</dbTypes>
 

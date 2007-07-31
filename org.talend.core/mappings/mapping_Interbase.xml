@@ -7,14 +7,14 @@
 			<dbType type="INTEGER" />
 			<dbType type="FLOAT" />
 			<dbType type="DOUBLE PRECISION" />
-			<dbType type="DECIMAL" />
-			<dbType type="NUMERIC" />
+			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
+			<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10" />
 			<dbType type="BOOLEAN" />
 			<dbType type="TIME" />
 			<dbType type="DATE" />
 			<dbType type="TIMESTAMP" />
-			<dbType type="CHAR" />
-			<dbType type="VARCHAR" default="true" />
+			<dbType type="CHAR" defaultLength="50"/>
+			<dbType type="VARCHAR" default="true" defaultLength="200"/>
 			<dbType type="BLOB" />
 		</dbTypes>
 

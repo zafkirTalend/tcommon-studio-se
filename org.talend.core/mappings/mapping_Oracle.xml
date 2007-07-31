@@ -2,14 +2,14 @@
 <mapping>
 	<dbms product="ORACLE" id="oracle_id" label="Mapping Oracle" default="true">
 		<dbTypes>
-			<dbType type="CHAR" />
-			<dbType type="VARCHAR2" default="true"/>
-			<dbType type="NCHAR" />
-			<dbType type="NVARCHAR2" />
-			<dbType type="NUMBER" />
+			<dbType type="CHAR" defaultLength="1" />
+			<dbType type="VARCHAR2" default="true" defaultLength="200"/>
+			<dbType type="NCHAR" defaultLength="400" />
+			<dbType type="NVARCHAR2" defaultLength="400"/>
+			<dbType type="NUMBER" defaultLength="20"  defaultPrecision="10" />
 			<dbType type="DATE" />
 			<dbType type="LONG" />
-			<dbType type="RAW" />
+			<dbType type="RAW" defaultLength="300" />
 			<dbType type="LONG RAW" />
 			<dbType type="ROWID" />
 			<dbType type="BLOB" />
@@ -19,6 +19,9 @@
 			<dbType type="UROWID" />
 			<dbType type="FLOAT" />
 			<dbType type="XMLTYPE" />
+			
+			<dbType type="VARCHAR"/>
+			<dbType type="TIMESTAMP" defaultLength="6"/>
 		</dbTypes>
 
 		<language name="java">
@@ -36,9 +39,11 @@
 					<dbType type="VARCHAR2"/>
 					<dbType type="NCHAR"/>
 					<dbType type="NVARCHAR2"/>
+					<dbType type="VARCHAR"/>
 				</talendType>
 				<talendType type="id_Date">
 					<dbType type="DATE" default="true" />
+					<dbType type="TIMESTAMP"/>
 				</talendType>
 				<talendType type="id_Double">
 					<dbType type="NUMBER" default="true" />
@@ -71,7 +76,8 @@
 					<dbType type="VARCHAR2" default="true" />
 					<dbType type="NCHAR" />
 					<dbType type="NVARCHAR2"/>	
-					<dbType type="CHAR" />		
+					<dbType type="CHAR" />	
+					<dbType type="VARCHAR"/>	
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes><!-- Adviced mappings  -->
@@ -130,6 +136,12 @@
 					<talendType type="id_Float" default="true" />
 					<talendType type="id_Double"/>				
 				</dbType>
+				<dbType type="TIMESTAMP">
+					<talendType type="id_Date" default="true"/>
+				</dbType>
+				<dbType type="VARCHAR">
+					<talendType type="id_String" default="true"/>
+				</dbType>
 				<dbType type="XMLTYPE">
 					<talendType type="id_Object" default="true" />
 				</dbType>
@@ -150,13 +162,15 @@
 					<dbType type="VARCHAR2" default="true" />
 					<dbType type="NCHAR" />		
 					<dbType type="NVARCHAR2" />	
-					<dbType type="CHAR" />		
+					<dbType type="CHAR" />	
+					<dbType type="VARCHAR" />		
 				</talendType>
 				<talendType type="date">
 					<dbType type="DATE" default="true" />	
 				</talendType>
 				<talendType type="datetime">
 					<dbType type="DATE" default="true"/>
+					<dbType type="TIMESTAMP" default="true"/>
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes><!-- Adviced mappings  -->
@@ -206,6 +220,12 @@
 					<talendType type="string" default="true" />			
 				</dbType>
 				<dbType type="RAW">
+					<talendType type="string" default="true" />			
+				</dbType>
+				<dbType type="TIMESTAMP">
+					<talendType type="datetime" default="true" />			
+				</dbType>
+				<dbType type="VARCHAR">
 					<talendType type="string" default="true" />			
 				</dbType>
 				<dbType type="XMLTYPE">

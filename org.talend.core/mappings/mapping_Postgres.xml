@@ -17,23 +17,23 @@
 			<dbType type="FLOAT4" />
 			<!--id_Double-->
 			<dbType type="FLOAT8" />
-			<dbType type="NUMERIC" />
+			<dbType type="NUMERIC" defaultLength="10" defaultPrecision="20"/>
 			<!--id_Boolean-->
 			<dbType type="BOOL" />
 			<!--id_byte[]-->
 			<dbType type="BIT" />
 			<dbType type="VARBIT" />			
 			<!--id_Character-->
-			<dbType type="CHAR" />
+			<dbType type="CHAR" defaultLength="50"/>
 			<!--id_String-->
 			<dbType type="BPCHAR" />
-			<dbType type="VARCHAR" />
+			<dbType type="VARCHAR" defaultLength="200"/>
 			<dbType type="TEXT" />
 			<!--id_Date-->
 			<dbType type="DATE" />
 			<dbType type="ABSTIME" />
 			<dbType type="TIMETZ" />
-			<dbType type="TIME" />
+			<dbType type="TIME"/>
 			<dbType type="TIMESTAMPTZ" />
 			<dbType type="TIMESTAMP" />
 			<dbType type="INTERVAL" />

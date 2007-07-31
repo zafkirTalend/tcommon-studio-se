@@ -5,22 +5,22 @@
 		<dbTypes>
 			<dbType type="BIGINT" />
 			<dbType type="BLOB" />
-			<dbType type="CHAR" />
-			<dbType type="CHAR FOR BIT DATA" />
+			<dbType type="CHAR" defaultLength="50"/>
+			<dbType type="CHAR FOR BIT DATA" defaultLength="1"/>
 			<dbType type="CLOB" />
 			<dbType type="DOUBLE PRECISION" />
 			<dbType type="DATE" />
-			<dbType type="DECIMAL" />
-			<dbType type="FLOAT" />
+			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10"/>
+			<dbType type="FLOAT" defaultLength="53"/>
 			<dbType type="INTEGER" />
 			<dbType type="LONG VARCHAR" />
 			<dbType type="LONG VARCHAR FOR BIT DATA" />
-			<dbType type="NUMERIC" />
+			<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10"/>
 			<dbType type="REAL" />
 			<dbType type="SMALLINT" />
 			<dbType type="TIME" />
 			<dbType type="TIMESTAMP" />
-			<dbType type="VARCHAR" default="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="200"/>
 			<dbType type="VARCHAR FOR BIT DATA" />
 			<dbType type="XML" />
 		</dbTypes>

@@ -2,12 +2,12 @@
 <mapping>
 	<dbms product="TERADATA" id="teradata_id" label="Mapping Teradata" default="true">
 		<dbTypes>
-			<dbType type="CHAR" />
-			<dbType type="VARCHAR" default="true"/>
+			<dbType type="CHAR" defaultLength="50"/>
+			<dbType type="VARCHAR" default="true" defaultLength="200"/>
 			<dbType type="NCHAR" />
-			<dbType type="VARCHAR" />
 			<dbType type="INTEGER" />
 			<dbType type="DATE" />
+			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10"/>
 			<dbType type="FLOAT" />
 			<dbType type="LONG" />
 			<dbType type="RAW" />
@@ -42,10 +42,12 @@
 				</talendType>
 				<talendType type="id_Double">
 					<dbType type="INTEGER" default="true" />
+					<dbType type="DECIMAL"/>
 				</talendType>
 				<talendType type="id_Float">
 					<dbType type="FLOAT" default="true" />
 					<dbType type="INTEGER"/>
+					<dbType type="DECIMAL"/>
 				</talendType>
 				<talendType type="id_Integer">
 					<dbType type="INTEGER" default="true" />
@@ -86,6 +88,10 @@
 				</dbType>
 				<dbType type="VARCHAR">
 					<talendType type="id_String" default="true" />
+				</dbType>
+				<dbType type="DECIMAL">
+					<talendType type="id_Float" default="true" />
+					<talendType type="id_Double"/>
 				</dbType>
 				<dbType type="INTEGER">
 					<talendType type="id_Float" default="true" />
@@ -142,7 +148,8 @@
 					<dbType type="LONG"/>				
 				</talendType>
 				<talendType type="decimal">
-					<dbType type="FLOAT" default="true" />		
+					<dbType type="FLOAT" default="true" />	
+					<dbType type="DECIMAL"/>	
 				</talendType>
 				<talendType type="boolean">	
 				</talendType>
@@ -168,6 +175,9 @@
 				</dbType>
 				<dbType type="NCHAR">
 					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="DECIMAL">
+					<talendType type="decimal" default="true"/>
 				</dbType>
 				<dbType type="VARCHAR">
 					<talendType type="string" default="true" />

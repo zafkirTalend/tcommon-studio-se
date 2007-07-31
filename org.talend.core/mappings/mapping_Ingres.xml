@@ -9,7 +9,7 @@
 			<dbType type="BYTE VARYING" />
 			<dbType type="C" />
 			<dbType type="CHAR" />
-			<dbType type="DECIMAL" />
+			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
 			<dbType type="DATE" />
 			<dbType type="FLOAT" />
 			<dbType type="FLOAT4" />
@@ -28,7 +28,7 @@
 			<dbType type="TIME" />
 			<dbType type="TIMESTAMP"/>
 			<dbType type="TABLE_KEY" />
-			<dbType type="VARCHAR" default="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="1200"/>
 		</dbTypes>
 
 		<language name="java">

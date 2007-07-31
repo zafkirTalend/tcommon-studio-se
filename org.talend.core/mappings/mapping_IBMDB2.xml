@@ -5,17 +5,18 @@
 		<dbTypes>
 				<dbType type="BIGINT"/>
 				<dbType type="BLOB"/>
-				<dbType type="CHARACTER"/>
+				<dbType type="CHARACTER" defaultLength="50"/>
 				<dbType type="CLOB"/>
 				<dbType type="DATE"/>
-				<dbType type="DECIMAL"/>
+				<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10"/>
 				<dbType type="GRAPHIC"/>
 				<dbType type="INTEGER"/>
 				<dbType type="LONG VARCHAR"/>
+				<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10"/>
 				<dbType type="SMALLINT"/>
 				<dbType type="TIME"/>
 				<dbType type="TIMESTAMP"/>
-				<dbType type="VARCHAR" default="true" />
+				<dbType type="VARCHAR" default="true" defaultLength="200"/>
 				<dbType type="VARGRAPHIC"/>
 				<dbType type="XML"/>
 		</dbTypes>
@@ -40,9 +41,11 @@
 				</talendType>				
 				<talendType type="id_Double">
 					<dbType type="DECIMAL" default="true"/>
+					<dbType type="NUMERIC"/>
 				</talendType>				
 				<talendType type="id_Float">
 					<dbType type="DECIMAL" default="true"/>
+					<dbType type="NUMERIC"/>
 				</talendType>			
 				<talendType type="id_Integer">
 					<dbType type="INTEGER" default="true"/>
@@ -103,6 +106,10 @@
 				<dbType type="LONG VARCHAR">
 					<talendType type="id_String" default="true" />
 				</dbType>
+				<dbType type="NUMERIC">
+					<talendType type="id_Float" default="true"/>
+					<talendType type="id_Double"/>
+				</dbType>
 				<dbType type="SMALLINT">
 					<talendType type="id_Short" default="true" />
 					<talendType type="id_Integer"/>
@@ -133,7 +140,8 @@
 					<dbType type="SMALLINT"/>	
 				</talendType>
 				<talendType type="decimal">
-					<dbType type="DECIMAL" default="true" />	
+					<dbType type="DECIMAL" default="true" />
+					<dbType type="NUMERIC"/>	
 				</talendType>
 				<talendType type="boolean">	
 				</talendType>
@@ -182,6 +190,9 @@
 				</dbType>
 				<dbType type="LONG VARCHAR">
 					<talendType type="string" default="true" />
+				</dbType>
+				<dbType type="NUMERIC">
+					<talendType type="decimal" default="true"/>
 				</dbType>
 				<dbType type="SMALLINT">
 					<talendType type="int" default="true" />

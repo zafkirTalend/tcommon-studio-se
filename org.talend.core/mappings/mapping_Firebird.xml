@@ -7,16 +7,16 @@
 			<dbType type="CHAR" />
 			<dbType type="CHAR VARYING" />
 			<dbType type="DATE" />
-			<dbType type="DECIMAL" />
+			<dbType type="DECIMAL" defaultLength="10" defaultPrecision="15" />
 			<dbType type="DOUBLE PRECISION" />
 			<dbType type="FLOAT" />
 			<dbType type="INTEGER" /> 
 			<dbType type="NCHAR" />
 			<dbType type="NCHAR VARYING" />
-			<dbType type="NUMERIC" />
+			<dbType type="NUMERIC" defaultLength="10" defaultPrecision="15"/>
 			<dbType type="SMALLINT" />
 			<dbType type="TIME" />
-			<dbType type="VARCHAR" default="true" />	
+			<dbType type="VARCHAR" default="true" defaultLength="200"/>	
 		</dbTypes>
 
 		<language name="java">

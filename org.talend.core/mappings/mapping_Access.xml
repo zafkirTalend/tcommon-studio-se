@@ -6,17 +6,17 @@
 			<dbType type="BIT" />
 			<dbType type="BOOLEAN" />
 			<dbType type="DATE" />
-			<dbType type="DECIMAL" />
+			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
 			<dbType type="DOUBLE" />
 			<dbType type="FLOAT" />
 			<dbType type="INTEGER" />
-			<dbType type="NUMERIC" />
-			<dbType type="REAL" />
+			<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10" />
+			<dbType type="REAL"/>
 			<dbType type="SMALLINT" />
 			<dbType type="TINYINT" />
 			<dbType type="TIME" />
 			<dbType type="TIMESTAMP" />
-			<dbType type="VARCHAR" default="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="200"/>
 		</dbTypes>
 
 		<language name="java">
@@ -83,7 +83,7 @@
 					<talendType type="id_Date" default="true" />
 				</dbType>
 				<dbType type="DECIMAL">
-					<talendType type="id_Float" default="true" />
+					<talendType type="id_Float" default="true"/>
 					<talendType type="id_Double"/>
 				</dbType>
 				<dbType type="DOUBLE">
