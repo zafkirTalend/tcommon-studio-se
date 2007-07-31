@@ -7,7 +7,7 @@ public class TalendString {
     /**
      * return Replace the special character(e.g. <,>,& etc) within a string for XML file.
      
-     * {Category} String
+     * {Category} TalendString
      * {talendTypes} String
      * 
      * {param} string("") input: The string with the special character(s) need to be replaced.
@@ -26,7 +26,7 @@ public class TalendString {
     /**
      * getAsciiRandomString : Return a randomly generated String
      * 
-     * {Category} String
+     * {Category} TalendString
      * {talendTypes} String
      * 
      * {param} int(6) length: length of the String tio return
@@ -53,7 +53,7 @@ public class TalendString {
     /**
      * talendTrim: return the trimed String according the padding char and align of the content.
      
-     * {Category} String
+     * {Category} TalendString
      * {talendTypes} String
      * 
      * {param} string("") origin: The original string need to be trimed.

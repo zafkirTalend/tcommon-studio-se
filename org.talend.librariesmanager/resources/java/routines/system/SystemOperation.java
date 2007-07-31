@@ -34,7 +34,7 @@ public class SystemOperation {
     /**
      * DATE( ) Returns the internal system date.
      * 
-     * {Category} System
+     * {Category} SystemOperation
      * 
      * {talendTypes} String
      * 
@@ -48,7 +48,7 @@ public class SystemOperation {
     /**
      * NAP Suspends execution of a BASIC program, pausing for a specified number of milliseconds.
      * 
-     * {Category} System
+     * {Category} SystemOperation
      * 
      * {talendTypes} String
      * 
@@ -64,7 +64,7 @@ public class SystemOperation {
     /**
      * SLEEP Suspends execution of a BASIC program, pausing for a specified number of seconds.
      * 
-     * {Category} System
+     * {Category} SystemOperation
      * 
      * {talendTypes} String
      * 
@@ -84,7 +84,7 @@ public class SystemOperation {
     /**
      * TIME( ) Returns the time in internal format.
      * 
-     * {Category} System
+     * {Category} SystemOperation
      * 
      * {talendTypes} String
      * 
@@ -98,7 +98,7 @@ public class SystemOperation {
     /**
      * TIMEDATE( ) Returns the time and date.
      * 
-     * {Category} System
+     * {Category} SystemOperation
      * 
      * {talendTypes} String
      * 
