@@ -32,22 +32,27 @@ import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
+import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
+import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
@@ -63,10 +68,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
-import org.talend.commons.ui.swt.tableviewer.celleditor.DateCellEditor;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DateDialog;
-import org.talend.commons.ui.swt.tableviewer.celleditor.DirectoryCellEditor;
-import org.talend.commons.ui.swt.tableviewer.celleditor.FileCellEditor;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
@@ -134,7 +136,13 @@ public abstract class JobContextComposite extends Composite {
 
     boolean readOnly = false;
 
+    private CellEditor cellEditor;
+
+    private TableEditor treeEditor;
+
     private IContextManager jobContextManager;
+
+    private Table table;
 
     public JobContextComposite(Composite parent) {
         super(parent, SWT.None);
@@ -243,7 +251,7 @@ public abstract class JobContextComposite extends Composite {
             Integer intValue = new Integer(-1);
             oldCellEditorValue = originalTypedValue;
             oldContext = getSelectedContext().clone();
-            String[] values = MetadataTalendType.getTalendTypesLabels();
+            String[] values = ContextParameterJavaTypeManager.getPerlTypesLabels();
             for (int j = 0; j < values.length && intValue == -1; j++) {
                 if (values[j].equals(originalTypedValue)) {
                     intValue = new Integer(j);
@@ -258,7 +266,7 @@ public abstract class JobContextComposite extends Composite {
             Integer intValue = (Integer) cellEditorTypedValue;
             String value = ""; //$NON-NLS-1$
             if (intValue > 0) {
-                value = MetadataTalendType.getTalendTypesLabels()[(Integer) cellEditorTypedValue];
+                value = ContextParameterJavaTypeManager.getPerlTypesLabels()[(Integer) cellEditorTypedValue];
             }
             return super.getOriginalTypedValue(cellEditor, value);
         }
@@ -716,8 +724,10 @@ public abstract class JobContextComposite extends Composite {
         tableViewerCreator.setColumnsSortableByDefault(true);
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
 
-        final Table table = tableViewerCreator.createTable();
+        table = tableViewerCreator.createTable();
 
+        treeEditor = new TableEditor(table);
+        createEditorListener();
         removeParameter.addListener(SWT.Selection, removeParameterListener);
         table.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL | GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL
                 | GridData.GRAB_VERTICAL));
@@ -736,7 +746,6 @@ public abstract class JobContextComposite extends Composite {
 
         final List<IContextParameter> listContextParam = context.getContextParameterList();
         tableViewerCreator.init(listContextParam);
-
         TableItem tableItem;
         for (int i = 0; i < table.getItemCount(); i++) {
             tableItem = table.getItem(i);
@@ -765,21 +774,173 @@ public abstract class JobContextComposite extends Composite {
             }
 
             public void widgetSelected(SelectionEvent e) {
-                /*
-                 * TableItem item = (TableItem) e.item; if (item == null) { return; }
-                 * 
-                 * final IContextParameter object = (IContextParameter) item.getData(); final CellEditor cellEditor =
-                 * getCellEditor(table, object.getType()); final List<TableEditor> tableEditorList =
-                 * tableEditorManager.getTableEditorList(); final TableEditor tableEditor =
-                 * tableEditorList.get(table.getSelectionIndex()); tableEditor.setEditor(cellEditor.getControl(), item,
-                 * 5); tableViewerCreator.getTableViewer().refresh(); // columnDefault.setCellEditor(cellEditor); //
-                 * tableViewerCreator.attachCellEditors();
-                 */
                 removeParameter.setEnabled(!isReadOnly());
             }
         });
+        table.addMouseListener(new MouseAdapter() {
+
+            public void mouseDown(MouseEvent e) {
+                Rectangle clientArea = table.getClientArea();
+                Point pt = new Point(e.x, e.y);
+                TableItem item = table.getItem(pt);
+                if (item != null) {
+                    boolean visible = false;
+                    // deactivate the current cell editor
+                    if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
+                        deactivateCellEditor();
+                    }
+                    for (int i = 0; i < table.getColumnCount(); i++) {
+                        Rectangle rect = item.getBounds(i);
+                        if (rect.contains(pt)) {
+                            final int column = i;
+                            if (column == CNUM_DEFAULT) {
+                                handleSelect(item);
+                            }
+                        }
+                        if (!visible && rect.intersects(clientArea)) {
+                            visible = true;
+                        }
+                    }
+                    if (!visible) {
+                        return;
+                    }
+                }
+            }
+
+        });
     }
 
+    /**
+     * zx Comment method "handleSelect".
+     * 
+     * @param item
+     * @link PropertySheetViewer
+     */
+
+    protected void handleSelect(final TableItem selection) {
+        // get the new selection
+        TableItem[] sel = new TableItem[] { selection };
+        if (sel.length == 0) {
+            return;
+        } else {
+            activateCellEditor(sel[0]);
+        }
+    }
+
+    /**
+     * zx Comment method "activateCellEditor".
+     * 
+     * @param item
+     */
+    private void activateCellEditor(final TableItem item) {
+        // ensure the cell editor is visible
+        table.showSelection();
+
+        cellEditor = DefaultCellEditorFactory.getInstance().getCustomCellEditor(((IContextParameter) item.getData()).getType(),
+                table, getSelectedContext(), tableViewerCreatorMap.get(getSelectedContext()));
+        if (cellEditor == null) {
+            // unable to create the editor
+            return;
+        }
+
+        // activate the cell editor
+        cellEditor.activate();
+        // if the cell editor has no control we can stop now
+        Control control = cellEditor.getControl();
+        if (control == null) {
+            cellEditor.deactivate();
+            cellEditor = null;
+            return;
+        }
+        // add our editor listener
+        cellEditor.addListener(editorListener);
+
+        // set the layout of the tree editor to match the cell editor
+        CellEditor.LayoutData layout = cellEditor.getLayoutData();
+        treeEditor.horizontalAlignment = layout.horizontalAlignment;
+        treeEditor.grabHorizontal = layout.grabHorizontal;
+        treeEditor.minimumWidth = layout.minimumWidth;
+        treeEditor.setEditor(control, item, CNUM_DEFAULT);
+        // give focus to the cell editor
+        cellEditor.setFocus();
+
+    }
+
+    private ICellEditorListener editorListener;
+
+    /**
+     * zx Comment method "deactivateCellEditor".
+     */
+    private void deactivateCellEditor() {
+        treeEditor.setEditor(null, null, CNUM_DEFAULT);
+        if (cellEditor != null) {
+            cellEditor.deactivate();
+            // fireCellEditorDeactivated(cellEditor);
+            cellEditor.removeListener(editorListener);
+            cellEditor = null;
+        }
+    }
+
+    private void createEditorListener() {
+        editorListener = new ICellEditorListener() {
+
+            public void cancelEditor() {
+                deactivateCellEditor();
+            }
+
+            public void editorValueChanged(boolean oldValidState, boolean newValidState) {
+                // Do nothing
+            }
+
+            public void applyEditorValue() {
+                // Do nothing
+            }
+        };
+    }
+
+    /**
+     * zx Comment method "applyEditorValue".
+     */
+    private void applyEditorValue() {
+        TableItem treeItem = treeEditor.getItem();
+        // treeItem can be null when view is opened
+        if (treeItem == null || treeItem.isDisposed()) {
+            return;
+        }
+        IContextParameter data2 = (IContextParameter) treeItem.getData();
+        if (cellEditor == null) {
+            return;
+        }
+        applyCellEditor(data2);
+    }
+
+    /**
+     * zx Comment method "applyCellEditor".
+     * 
+     * @param data2
+     */
+    private void applyCellEditor(IContextParameter data2) {
+        // See if the value changed and if so update
+        Object newValue = cellEditor.getValue();
+        boolean changed = false;
+        String editValue = data2.getValue();
+        if (editValue == null) {
+            if (newValue != null) {
+                changed = true;
+            }
+        } else if (!editValue.equals(newValue)) {
+            changed = true;
+        }
+
+        // Set the editor value
+        if (changed && newValue != null) {
+            data2.setValue(newValue.toString());
+        }
+    }
+
+    private CellEditor textCellEditor2;
+
+    @SuppressWarnings("unchecked")
     private void addTableColumns(final TableViewerCreator tableViewerCreator, final Table table) {
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("ContextProcessSection.prompt")); //$NON-NLS-1$
@@ -882,7 +1043,7 @@ public abstract class JobContextComposite extends Composite {
         });
         columnDefault.setModifiable(true);
         columnDefault.setWidth(VALUE_COLUMN_WIDTH);
-        CellEditor textCellEditor2 = new DialogCellEditorForContext(table, columnDefault);
+        textCellEditor2 = new TextCellEditor(table);
         columnDefault.setCellEditor(textCellEditor2, setDirtyValueAdapter);
         textCellEditor2.getControl().addMouseListener(new MouseAdapter() {
 
@@ -1083,23 +1244,4 @@ public abstract class JobContextComposite extends Composite {
         return readOnly;
     }
 
-    /**
-     * qiang.zhang Comment method "updateCellEditor".
-     * 
-     * @param table
-     * @param value
-     */
-    private CellEditor getCellEditor(final Table table, String value) {
-        if (value == null) {
-            return new TextCellEditor(table);
-        } else if (value.equals(JavaTypesManager.FILE.getId())) {
-            return new FileCellEditor(table);
-        } else if (value.equals(JavaTypesManager.DATE.getId())) {
-            return new DateCellEditor(table);
-        } else if (value.equals(JavaTypesManager.DIRECTORY.getId())) {
-            return new DirectoryCellEditor(table);
-        } else {
-            return new TextCellEditor(table);
-        }
-    }
 }

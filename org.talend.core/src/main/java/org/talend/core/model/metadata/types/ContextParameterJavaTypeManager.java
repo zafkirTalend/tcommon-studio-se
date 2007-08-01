@@ -22,6 +22,7 @@
 package org.talend.core.model.metadata.types;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -29,6 +30,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang.ArrayUtils;
+import org.talend.core.model.metadata.MetadataTalendType;
 
 /**
  * qzhang class global comment. Detailled comment <br/>
@@ -41,6 +43,12 @@ public class ContextParameterJavaTypeManager {
             JavaTypesManager.LONG, JavaTypesManager.SHORT, JavaTypesManager.STRING, JavaTypesManager.FILE,
             JavaTypesManager.DIRECTORY };
 
+    public static final String PERL_FILE = "File";
+
+    public static final String PERL_DIRECTORY = "Directory";
+
+    public static final String PERL_DAY = "Day";
+
     private static Map<String, JavaType> shortNameToJavaType;
 
     private static Map<String, JavaType> canonicalClassNameToJavaType;
@@ -51,12 +59,14 @@ public class ContextParameterJavaTypeManager {
 
     private static List<JavaType> javaTypes;
 
+    private static List<String> perlTypes;
+
     private static String[] javaTypesLabelsArray = new String[0];
 
     private static final List<String> JAVA_PRIMITIVE_TYPES = new ArrayList<String>();
 
     private static final Set<String> PRIMITIVE_TYPES_SET = new HashSet<String>(JAVA_PRIMITIVE_TYPES);
-    
+
     static {
         init();
     }
@@ -72,11 +82,15 @@ public class ContextParameterJavaTypeManager {
         canonicalClassNameToJavaType = new HashMap<String, JavaType>();
         javaTypes = new ArrayList<JavaType>();
 
+        perlTypes = new ArrayList<String>();
         for (int i = 0; i < JAVA_TYPES.length; i++) {
             JavaType javaType = JAVA_TYPES[i];
             addJavaType(javaType);
         }
-
+        final String[] loadTalendTypes = MetadataTalendType.getTalendTypesLabels(); //$NON-NLS-1$
+        perlTypes.addAll(Arrays.asList(loadTalendTypes));
+        perlTypes.add(PERL_FILE);
+        perlTypes.add(PERL_DIRECTORY);
     }
 
     /**
@@ -317,5 +331,18 @@ public class ContextParameterJavaTypeManager {
 
     public static JavaType getDefaultJavaType() {
         return JavaTypesManager.STRING;
+    }
+
+    public static List<String> getPerlTypes() {
+        return perlTypes;
+    }
+
+    /**
+     * qzhang Comment method "getPerlTypesLabels".
+     * 
+     * @return
+     */
+    public static String[] getPerlTypesLabels() {
+        return (String[]) ArrayUtils.clone(perlTypes.toArray(new String[0]));
     }
 }

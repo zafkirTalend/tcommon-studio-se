@@ -223,7 +223,7 @@ public class JobContextManager implements IContextManager {
                     }
                 } else {
                     String[] existingTypes;
-                    existingTypes = MetadataTalendType.getTalendTypesLabels();
+                    existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
                     for (int k = 0; k < existingTypes.length; k++) {
                         if (existingTypes[k].equals(contextParamType.getType())) {
                             exists = true;

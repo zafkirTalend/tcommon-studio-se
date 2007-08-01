@@ -24,7 +24,6 @@ package org.talend.core.model.utils;
 import java.util.StringTokenizer;
 
 import org.eclipse.swt.graphics.RGB;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -240,12 +239,12 @@ public class TalendTextUtils {
             return QUOTATION_MARK;
         case TERADATA:
             return QUOTATION_MARK;
-//        case JAVADB_DERBYCLIENT:
-//            return QUOTATION_MARK;
-//        case JAVADB_JCCJDBC:
-//            return QUOTATION_MARK;
-//        case JAVADB_EMBEDED:
-//            return QUOTATION_MARK;
+            // case JAVADB_DERBYCLIENT:
+            // return QUOTATION_MARK;
+            // case JAVADB_JCCJDBC:
+            // return QUOTATION_MARK;
+            // case JAVADB_EMBEDED:
+            // return QUOTATION_MARK;
         default:
             return QUOTATION_MARK;
         }
@@ -317,5 +316,37 @@ public class TalendTextUtils {
         }
         rgb = new RGB(r, g, b);
         return rgb;
+    }
+
+    public static String removeQuotes(String text) {
+        ECodeLanguage language = LanguageManager.getCurrentLanguage();
+
+        switch (language) {
+        case JAVA:
+            return removeQuotes(text, QUOTATION_MARK);
+        default: // PERL
+            return removeQuotes(text, SINGLE_QUOTE);
+        }
+    }
+
+    /**
+     * qzhang Comment method "removeQuotes".
+     * 
+     * @param text
+     * @param quotation_mark2
+     * @return
+     */
+    private static String removeQuotes(String text, String quotation) {
+        if (text.length() > 1) {
+            String substring = text.substring(0, 1);
+            if (quotation.equals(substring)) {
+                text = text.substring(1, text.length());
+            }
+            substring = text.substring(text.length() - 1, text.length());
+            if (quotation.equals(substring)) {
+                text = text.substring(0, text.length() - 1);
+            }
+        }
+        return text;
     }
 }

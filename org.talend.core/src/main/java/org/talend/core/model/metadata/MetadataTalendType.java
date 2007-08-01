@@ -31,7 +31,6 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,7 +53,6 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
-import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -327,7 +325,7 @@ public final class MetadataTalendType {
             return ContextParameterJavaTypeManager.getJavaTypesLabels();
         } else if (codeLanguage == ECodeLanguage.PERL) {
             // return (String[]) ArrayUtils.clone(PERL_TYPES);
-            return loadTalendTypes("TALENDDEFAULT", false); //$NON-NLS-1$
+            return ContextParameterJavaTypeManager.getPerlTypesLabels();
         }
         throw new IllegalStateException("Case not found."); //$NON-NLS-1$
     }
