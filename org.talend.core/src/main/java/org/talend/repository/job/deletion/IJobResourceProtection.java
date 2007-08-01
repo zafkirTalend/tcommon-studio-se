@@ -47,7 +47,7 @@ public interface IJobResourceProtection {
      * 
      * @return
      */
-    public String[] getProjectedIds();
+    public String[] getProtectedIds();
 
     /**
      * The the job resource under the specific id.

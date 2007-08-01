@@ -121,8 +121,7 @@ public class JobResource {
      * 
      * @return
      */
-    public List<IResource> getResorce() {
-
+    public List<IResource> getResource() {
         List<IResource> resources = new ArrayList<IResource>();
         ECodeLanguage language = LanguageManager.getCurrentLanguage();
         IResource res = null;

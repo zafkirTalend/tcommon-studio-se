@@ -49,6 +49,12 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 public class ProcessorUtilities {
 
+    public static final int GENERATE_MAIN_ONLY = 1;
+
+    public static final int GENERATE_WITH_FIRST_CHILD = 2;
+
+    public static final int GENERATE_ALL_CHILDS = 3;
+
     private static String interpreter, codeLocation, libraryPath;
 
     private static boolean exportConfig = false;
@@ -149,7 +155,8 @@ public class ProcessorUtilities {
         }
     }
 
-    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties) {
+    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties,
+            int option) {
         IProcess currentProcess = null;
         jobList.add(jobInfo);
         ProcessItem selectedProcessItem = getProcessItem(jobInfo.getJobName());
@@ -180,13 +187,18 @@ public class ProcessorUtilities {
             MessageBoxExceptionHandler.process(pe);
         }
         boolean toReturn = true;
-        if (selectedProcessItem.getProcess().getRequired() != null) {
+        if (selectedProcessItem.getProcess().getRequired() != null && (option != GENERATE_MAIN_ONLY)) {
             EList emfJobList = selectedProcessItem.getProcess().getRequired().getJob();
             for (int j = 0; j < emfJobList.size() && toReturn; j++) {
                 JobType jType = (JobType) emfJobList.get(j);
                 JobInfo subJobInfo = new JobInfo(jType);
                 if (!jobList.contains(subJobInfo)) {
-                    toReturn = generateCode(subJobInfo, false, false, true); // children won't have stats / traces
+                    // children won't have stats / traces
+                    if (option == GENERATE_WITH_FIRST_CHILD) {
+                        toReturn = generateCode(subJobInfo, false, false, true, GENERATE_MAIN_ONLY);
+                    } else {
+                        toReturn = generateCode(subJobInfo, false, false, true, GENERATE_ALL_CHILDS);
+                    }
                 }
             }
         }
@@ -204,7 +216,14 @@ public class ProcessorUtilities {
     public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName);
-        return generateCode(jobInfo, statistics, trace, true);
+        return generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
+    }
+
+    public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace,
+            int option) {
+        jobList.clear();
+        JobInfo jobInfo = new JobInfo(processName, contextName);
+        return generateCode(jobInfo, statistics, trace, true, option);
     }
 
     public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace,
@@ -213,7 +232,16 @@ public class ProcessorUtilities {
         JobInfo jobInfo = new JobInfo(process.getName(), context.getName());
         jobInfo.setProcess(process);
         jobInfo.setContext(context);
-        return generateCode(jobInfo, statistics, trace, properties);
+        return generateCode(jobInfo, statistics, trace, properties, GENERATE_ALL_CHILDS);
+    }
+
+    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace,
+            boolean properties, int option) {
+        jobList.clear();
+        JobInfo jobInfo = new JobInfo(process.getName(), context.getName());
+        jobInfo.setProcess(process);
+        jobInfo.setContext(context);
+        return generateCode(jobInfo, statistics, trace, properties, option);
     }
 
     /**
@@ -261,7 +289,7 @@ public class ProcessorUtilities {
         processor.setTargetPlatform(targetPlatform);
         return processor.getCommandLine(externalUse, statisticPort, tracePort, codeOptions);
     }
-    
+
     public static String[] getMainCommand(String processName, String contextName, int statisticPort, int tracePort,
             String... codeOptions) throws ProcessorException {
         IProcess currentProcess = null;

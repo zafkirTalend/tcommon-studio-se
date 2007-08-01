@@ -124,7 +124,7 @@ public class JobResourceManager {
             return;
         }
         try {
-            List<IResource> resources = resource.getResorce();
+            List<IResource> resources = resource.getResource();
             for (IResource re : resources) {
                 if (re != null) {
                     re.delete(true, null);
@@ -144,7 +144,7 @@ public class JobResourceManager {
      * @param protection
      */
     public void removeProtection(IJobResourceProtection protection) {
-        String[] ids = protection.getProjectedIds();
+        String[] ids = protection.getProtectedIds();
         if (ids == null) {
             return;
         }
