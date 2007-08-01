@@ -135,7 +135,7 @@ public class ExtractMetaDataUtils {
     }
 
     // PTODO cantoine : Be careful : Integrate in properties or preferences of Talend Product
-    // OCA : save connectionString  and associated regex in the same place.
+    // OCA : save connectionString and associated regex in the same place.
     /**
      * DOC cantoine. Method to return MetaDataInfo on Column DataBaseConnection.
      * 
@@ -159,7 +159,7 @@ public class ExtractMetaDataUtils {
             hashTable.put("IBM DB2", "com.ibm.db2.jcc.DB2Driver"); //$NON-NLS-1$ //$NON-NLS-2$
             hashTable.put("Sybase ASE", "com.sybase.jdbc3.jdbc.SybDriver"); //$NON-NLS-1$ //$NON-NLS-2$
             hashTable.put("Sybase IQ", "com.sybase.jdbc3.jdbc.SybDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            //hashTable.put("Sybase", "net.sourceforge.jtds.jdbc.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
+            // hashTable.put("Sybase", "net.sourceforge.jtds.jdbc.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
             hashTable.put("Microsoft SQL Server", "net.sourceforge.jtds.jdbc.Driver"); //$NON-NLS-1$ //$NON-NLS-2$
             hashTable.put("Ingres", "com.ingres.jdbc.IngresDriver"); //$NON-NLS-1$ //$NON-NLS-2$
             hashTable.put("Interbase", "interbase.interclient.Driver"); //$NON-NLS-1$ //$NON-NLS-2$            
@@ -170,10 +170,10 @@ public class ExtractMetaDataUtils {
 
             hashTable.put("Teradata", "com.ncr.teradata.TeraDriver"); //$NON-NLS-1$ //$NON-NLS-2$
 
-//            hashTable.put("JavaDB Embeded", "org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-//            hashTable.put("JavaDB JCCJDBC", "com.ibm.db2.jcc.DB2Driver"); //$NON-NLS-1$ //$NON-NLS-2$
-//            hashTable.put("JavaDB DerbyClient", "org.apache.derby.jdbc.ClientDriver"); //$NON-NLS-1$ //$NON-NLS-2$
-            
+            // hashTable.put("JavaDB Embeded", "org.apache.derby.jdbc.EmbeddedDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            // hashTable.put("JavaDB JCCJDBC", "com.ibm.db2.jcc.DB2Driver"); //$NON-NLS-1$ //$NON-NLS-2$
+            // hashTable.put("JavaDB DerbyClient", "org.apache.derby.jdbc.ClientDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+
             driverClass = hashTable.get(dbType);
 
         } catch (Exception e) {
@@ -226,7 +226,9 @@ public class ExtractMetaDataUtils {
      */
     public static void closeConnection() {
         try {
-            conn.close();
+            if (!conn.isClosed()) {
+                conn.close();
+            }
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
