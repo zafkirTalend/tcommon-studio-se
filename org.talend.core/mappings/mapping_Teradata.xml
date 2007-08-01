@@ -94,11 +94,11 @@
 					<talendType type="id_Double"/>
 				</dbType>
 				<dbType type="INTEGER">
-					<talendType type="id_Float" default="true" />
-					<talendType type="id_Double"/>
 					<talendType type="id_Long"/>
+					<talendType type="id_Integer" default="true"/>
 					<talendType type="id_Short"/>
-					<talendType type="id_Integer"/>
+					<talendType type="id_Float" />
+					<talendType type="id_Double"/>
 				</dbType>
 				<dbType type="DATE">
 					<talendType type="id_Date" default="true" />
