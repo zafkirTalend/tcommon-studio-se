@@ -783,12 +783,12 @@ public abstract class JobContextComposite extends Composite {
                 Rectangle clientArea = table.getClientArea();
                 Point pt = new Point(e.x, e.y);
                 TableItem item = table.getItem(pt);
+                // deactivate the current cell editor
+                if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
+                    deactivateCellEditor();
+                }
                 if (item != null) {
                     boolean visible = false;
-                    // deactivate the current cell editor
-                    if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
-                        deactivateCellEditor();
-                    }
                     for (int i = 0; i < table.getColumnCount(); i++) {
                         Rectangle rect = item.getBounds(i);
                         if (rect.contains(pt)) {

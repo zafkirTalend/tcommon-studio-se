@@ -461,6 +461,7 @@ public final class DefaultCellEditorFactory {
                 }
                 getDefaultLabel().setText(data2.getValue());
             }
+            CorePlugin.getDefault().getRunProcessService().refreshView();
         }
 
         protected void editOccured(ModifyEvent e) {
