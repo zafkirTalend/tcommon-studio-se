@@ -29,6 +29,6 @@ package org.talend.expressionbuilder;
  */
 public interface IExpressionConsumer {
 
-    public void setExpression(String expression);
+    public void setConsumerExpression(String expression);
 
 }

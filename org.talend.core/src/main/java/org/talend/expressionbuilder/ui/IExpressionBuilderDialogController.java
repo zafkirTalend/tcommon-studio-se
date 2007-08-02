@@ -21,6 +21,10 @@
 // ============================================================================
 package org.talend.expressionbuilder.ui;
 
+import java.util.List;
+
+import org.talend.expressionbuilder.test.shadow.Variable;
+
 /**
  * yzhang class global comment. Detailled comment <br/>
  * 
@@ -30,5 +34,9 @@ package org.talend.expressionbuilder.ui;
 public interface IExpressionBuilderDialogController {
 
     public void openDialog();
+
+    public void setDefaultExpression(String expression);
+
+    public void addVariables(List<Variable> variables);
 
 }
