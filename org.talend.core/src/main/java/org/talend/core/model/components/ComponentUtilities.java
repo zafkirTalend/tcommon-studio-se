@@ -28,6 +28,7 @@ import java.util.List;
 import org.eclipse.emf.common.util.EList;
 import org.talend.core.model.process.UniqueNodeNameGenerator;
 import org.talend.designer.core.model.utils.emf.talendfile.ColumnType;
+import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementValueType;
 import org.talend.designer.core.model.utils.emf.talendfile.MetadataType;
@@ -62,7 +63,7 @@ public class ComponentUtilities {
         }
     }
 
-    private static ElementParameterType getNodeProperty(NodeType node, String property) {
+    public static ElementParameterType getNodeProperty(NodeType node, String property) {
         for (Object o : node.getElementParameter()) {
             ElementParameterType t = (ElementParameterType) o;
             if (t.getName().equals(property)) {
@@ -159,5 +160,23 @@ public class ComponentUtilities {
             values.add(elementValue3);
         }
         return values;
+    }
+
+    private static ProcessType getNodeProcessType(NodeType node) {
+        return (ProcessType) node.eContainer();
+    }
+
+    public static ContextType getNodeCurrentContextType(NodeType node) {
+        ProcessType processType = getNodeProcessType(node);
+        String defaultContext = processType.getDefaultContext();
+        EList context = processType.getContext();
+
+        for (Object object : context) {
+            ContextType contextType = (ContextType) object;
+            if (defaultContext.endsWith(contextType.getName())) {
+                return contextType;
+            }
+        }
+        return null;
     }
 }
