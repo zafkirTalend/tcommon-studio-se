@@ -470,7 +470,7 @@ public final class DefaultCellEditorFactory {
                 TableItem[] selection = table.getSelection();
                 if (selection.length == 1) {
                     IContextParameter data2 = (IContextParameter) selection[0].getData();
-                    data2.setValue(value);
+                    data2.setValue(PathUtils.getPortablePath(value));
                 }
             }
         }
