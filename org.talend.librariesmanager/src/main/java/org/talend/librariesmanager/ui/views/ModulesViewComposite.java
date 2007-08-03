@@ -21,6 +21,10 @@
 // ============================================================================
 package org.talend.librariesmanager.ui.views;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
@@ -48,7 +52,7 @@ import org.talend.librariesmanager.model.ModulesNeededProvider;
  * 
  * yzhang class global comment. Detailled comment <br/>
  * 
- * $Id: PerlModulesViewComposite.java PerlModulesViewComposite 2007-1-26 ä¸‹å?„1¤7:53:04 +0000 (ä¸‹å?„1¤7:53:04, 2007-1-26
+ * $Id: PerlModulesViewComposite.java PerlModulesViewComposite 2007-1-26 ä¸‹ï¿½?ï¿½1ï¿½7:53:04 +0000 (ä¸‹ï¿½?ï¿½1ï¿½7:53:04, 2007-1-26
  * 2007) yzhang $
  * 
  */
@@ -187,7 +191,9 @@ public class ModulesViewComposite extends Composite {
         column.setModifiable(false);
         column.setWeight(2);
 
-        tableViewerCreator.init(ModulesNeededProvider.getModulesNeeded());
+        List<ModuleNeeded> modules = ModulesNeededProvider.getModulesNeeded();
+
+        tableViewerCreator.init(filterHidenModule(modules));
 
         FocusListener fl = new FocusListener() {
 
@@ -210,6 +216,23 @@ public class ModulesViewComposite extends Composite {
         parent.addFocusListener(fl);
         rightPartComposite.addFocusListener(fl);
         tableViewerCreator.getTableViewer().getTable().addFocusListener(fl);
+    }
+
+    /**
+     * DOC bqian Comment method "filterHidenModule".
+     * 
+     * @param modules
+     * @return
+     */
+    private List filterHidenModule(List<ModuleNeeded> modules) {
+        List<ModuleNeeded> list = new ArrayList<ModuleNeeded>();
+        for (Iterator<ModuleNeeded> iter = modules.iterator(); iter.hasNext();) {
+            ModuleNeeded module = iter.next();
+            if (module.isShow()) {
+                list.add(module);
+            }
+        }
+        return list;
     }
 
     /*
