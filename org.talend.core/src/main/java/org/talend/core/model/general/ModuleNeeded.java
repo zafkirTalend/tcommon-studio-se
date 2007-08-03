@@ -39,6 +39,8 @@ public class ModuleNeeded {
 
     private ELibraryInstallStatus status = ELibraryInstallStatus.UNKNOWN;
 
+    private boolean isShow = true;
+
     /**
      * DOC smallet ModuleNeeded class global comment. Detailled comment <br/>
      * 
@@ -116,5 +118,23 @@ public class ModuleNeeded {
 
     public void setStatus(ELibraryInstallStatus status) {
         this.status = status;
+    }
+
+    /**
+     * Getter for isShow.
+     * 
+     * @return the isShow
+     */
+    public boolean isShow() {
+        return this.isShow;
+    }
+
+    /**
+     * Sets the isShow.
+     * 
+     * @param isShow the isShow to set
+     */
+    public void setShow(boolean isShow) {
+        this.isShow = isShow;
     }
 }
