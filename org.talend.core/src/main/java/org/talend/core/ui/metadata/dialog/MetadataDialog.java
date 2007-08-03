@@ -108,10 +108,6 @@ public class MetadataDialog extends Dialog {
 
     private INode outputNode;
 
-    private String inputFamily;
-
-    private String outputFamily;
-
     private ThreeCompositesSashForm compositesSachForm;
 
     public MetadataDialog(Shell parent, IMetadataTable inputMetaTable, INode inputNode, IMetadataTable outputMetaTable,
@@ -121,12 +117,10 @@ public class MetadataDialog extends Dialog {
         this.inputNode = inputNode;
         if (inputNode != null) {
             this.titleInput = inputMetaTable.getTableName();
-            this.inputFamily = inputNode.getComponent().getFamily();
         }
         this.outputNode = outputNode;
         if (outputNode != null) {
             this.titleOutput = outputNode.getUniqueName();
-            this.outputFamily = outputNode.getComponent().getFamily();
         }
         this.outputMetaTable = outputMetaTable;
         this.commandStack = commandStack;
@@ -160,12 +154,14 @@ public class MetadataDialog extends Dialog {
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }
 
-    public static void initializeDbType(MetadataTableEditorView metaView, INode node, IMetadataTable metadataTable) {
+    public static void initializeMetadataTableView(MetadataTableEditorView metaView, INode node,
+            IMetadataTable metadataTable) {
         boolean dbComponent = false;
         boolean hasMappingType = false;
 
         boolean hasRepositoryDbSchema = false;
-        if (node.getComponent().getFamily().startsWith(DATABASE_LABEL)) {
+        if (node.getComponent().getFamily().startsWith(DATABASE_LABEL)
+                || node.getComponent().getFamily().startsWith(ELT_LABEL)) {
             dbComponent = true;
             for (IElementParameter currentParam : node.getElementParameters()) {
                 if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)
@@ -175,8 +171,10 @@ public class MetadataDialog extends Dialog {
                 }
             }
 
-            if (!hasMappingType) { // if there is no mapping type, then check if a db repository schema is used
-                String schemaType = (String) node.getElementParameter("SCHEMA_TYPE").getValue();
+            IElementParameter schemaParam = node.getElementParameter("SCHEMA_TYPE");
+            if (!hasMappingType && schemaParam != null) { // if there is no mapping type, then check if a db
+                                                            // repository schema is used
+                String schemaType = (String) schemaParam.getValue();
                 if (schemaType.equals("REPOSITORY")) {
                     // repository mode
                     String metaRepositoryName = (String) node.getElementParameter("REPOSITORY_SCHEMA_TYPE").getValue();
@@ -218,7 +216,14 @@ public class MetadataDialog extends Dialog {
                 }
             }
         }
-        metaView.setShowDbTypeColumn(dbComponent, hasMappingType | hasRepositoryDbSchema, false, hasMappingType || (dbComponent && !hasRepositoryDbSchema));
+        metaView.setShowDbTypeColumn(dbComponent && (!node.getComponent().getFamily().startsWith(ELT_LABEL)),
+                hasMappingType | hasRepositoryDbSchema, false, hasMappingType
+                        || (dbComponent && !hasRepositoryDbSchema));
+
+        // hide the talend type for ELT components
+        metaView.setShowTalendTypeColumn(!node.getComponent().getFamily().startsWith(ELT_LABEL));
+        // hide the pattern for ELT components
+        metaView.setShowPatternColumn(!node.getComponent().getFamily().startsWith(ELT_LABEL));
     }
 
     @Override
@@ -226,17 +231,13 @@ public class MetadataDialog extends Dialog {
         Composite composite = (Composite) super.createDialogArea(parent);
 
         MetadataTableEditor metadataTableEditor;
-        boolean showTalendTypeColumnForInput = !(inputFamily != null && inputFamily.startsWith(ELT_LABEL));
-        boolean showTalendTypeColumnForOutput = !outputFamily.startsWith(ELT_LABEL);
-
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
             outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly,
                     true, true, false);
 
-            initializeDbType(outputMetaView, outputNode, outputMetaTable);
-            outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
+            initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
         } else {
@@ -257,8 +258,7 @@ public class MetadataDialog extends Dialog {
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
             inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE,
                     metadataTableEditor, inputReadOnly, true, true, false);
-            initializeDbType(inputMetaView, inputNode, inputMetaTable);
-            inputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForInput);
+            initializeMetadataTableView(inputMetaView, inputNode, inputMetaTable);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
 
@@ -337,8 +337,7 @@ public class MetadataDialog extends Dialog {
             outputMetaView = new MetadataTableEditorView(compositesSachForm.getRightComposite(), SWT.NONE,
                     new MetadataTableEditor(outputMetaTable, titleOutput + " (Output)"), outputReadOnly, true, true, //$NON-NLS-1$
                     false);
-            initializeDbType(outputMetaView, outputNode, outputMetaTable);
-            outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
+            initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
             outputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
@@ -347,13 +346,11 @@ public class MetadataDialog extends Dialog {
                 copyToOutput.setEnabled(false);
             }
             compositesSachForm.setGridDatas();
-            CustomTableManager.addCustomManagementToTable(inputMetaView.getTableViewerCreator(), inputReadOnly,
-                    inputMetaView.getCurrentDbms());
+            CustomTableManager.addCustomManagementToTable(inputMetaView, inputReadOnly);
             CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly,
                     outputMetaView, outputMetaTable, outputNode.getComponent().isSchemaAutoPropagated());
         }
-        CustomTableManager.addCustomManagementToTable(outputMetaView.getTableViewerCreator(), outputReadOnly,
-                outputMetaView.getCurrentDbms());
+        CustomTableManager.addCustomManagementToTable(outputMetaView, outputReadOnly);
         CustomTableManager.addCustomManagementToToolBar(outputMetaView, outputMetaTable, outputReadOnly, inputMetaView,
                 inputMetaTable, false);
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {

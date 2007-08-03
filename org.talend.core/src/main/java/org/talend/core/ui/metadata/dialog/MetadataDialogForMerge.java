@@ -149,8 +149,8 @@ public class MetadataDialogForMerge extends Dialog {
         }
     }
 
-    public MetadataDialogForMerge(Shell parent, IMetadataTable inputMetaTable, INode inputNode, IMetadataTable outputMetaTable,
-            INode outputNode, CommandStack commandStack) {
+    public MetadataDialogForMerge(Shell parent, IMetadataTable inputMetaTable, INode inputNode,
+            IMetadataTable outputMetaTable, INode outputNode, CommandStack commandStack) {
         super(parent);
         init(parent, inputMetaTable, inputNode, outputMetaTable, outputNode, commandStack);
     }
@@ -171,7 +171,8 @@ public class MetadataDialogForMerge extends Dialog {
         init(parent, inputMetaTable, inputNode, outputMetaTable, outputNode, commandStack);
     }
 
-    public MetadataDialogForMerge(Shell parent, IMetadataTable outputMetaTable, INode outputNode, CommandStack commandStack) {
+    public MetadataDialogForMerge(Shell parent, IMetadataTable outputMetaTable, INode outputNode,
+            CommandStack commandStack) {
         this(parent, null, null, outputMetaTable, outputNode, commandStack);
     }
 
@@ -193,7 +194,6 @@ public class MetadataDialogForMerge extends Dialog {
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }
 
-  
     @Override
     protected Control createDialogArea(final Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
@@ -205,10 +205,10 @@ public class MetadataDialogForMerge extends Dialog {
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true, true,
-                    false);
+            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly,
+                    true, true, false);
 
-            MetadataDialog.initializeDbType(outputMetaView, outputNode, outputMetaTable);
+            MetadataDialog.initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -250,19 +250,18 @@ public class MetadataDialogForMerge extends Dialog {
                 compositeleft.setLayout(new GridLayout());
 
                 metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput + " (Input)"); //$NON-NLS-1$
-                inputMetaView = new MetadataTableEditorView(compositeleft, SWT.NONE, metadataTableEditor, inputReadOnly, true,
-                        false, false);
-                MetadataDialog.initializeDbType(inputMetaView, inputNode, inputMetaTable);
+                inputMetaView = new MetadataTableEditorView(compositeleft, SWT.NONE, metadataTableEditor,
+                        inputReadOnly, true, false, false);
+                MetadataDialog.initializeMetadataTableView(inputMetaView, inputNode, inputMetaTable);
                 inputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForInput);
                 inputMetaView.initGraphicComponents();
                 inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
 
                 inputMetaView.setGridDataSize(size.x / 2 - 50, size.y - 150);
 
-                CustomTableManager.addCustomManagementToTable(inputMetaView.getTableViewerCreator(), inputReadOnly, inputMetaView
-                        .getCurrentDbms());
-                CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly, outputMetaView,
-                        outputMetaTable, outputNode.getComponent().isSchemaAutoPropagated());
+                CustomTableManager.addCustomManagementToTable(inputMetaView, inputReadOnly);
+                CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly,
+                        outputMetaView, outputMetaTable, outputNode.getComponent().isSchemaAutoPropagated());
 
                 item.setControl(compositeleft);
                 item.setData(INPUTNODE_KEY, inputNode);
@@ -331,7 +330,8 @@ public class MetadataDialogForMerge extends Dialog {
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
+                            | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
@@ -351,7 +351,8 @@ public class MetadataDialogForMerge extends Dialog {
             copyToInput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
+                            | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
@@ -379,10 +380,10 @@ public class MetadataDialogForMerge extends Dialog {
             compositeRight.setLayoutData(new GridData(GridData.FILL_BOTH));
             compositeRight.setLayout(new GridLayout());
 
-            outputMetaView = new MetadataTableEditorView(compositeRight, SWT.NONE, new MetadataTableEditor(outputMetaTable,
-                    titleOutput + " (Output)"), outputReadOnly, true, false, //$NON-NLS-1$
+            outputMetaView = new MetadataTableEditorView(compositeRight, SWT.NONE, new MetadataTableEditor(
+                    outputMetaTable, titleOutput + " (Output)"), outputReadOnly, true, false, //$NON-NLS-1$
                     false);
-            MetadataDialog.initializeDbType(outputMetaView, outputNode, outputMetaTable);
+            MetadataDialog.initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.setShowTalendTypeColumn(showTalendTypeColumnForOutput);
             outputMetaView.initGraphicComponents();
             outputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -397,9 +398,9 @@ public class MetadataDialogForMerge extends Dialog {
             compositesSachForm.setGridDatas();
 
         }
-        CustomTableManager.addCustomManagementToTable(outputMetaView.getTableViewerCreator(), outputReadOnly, outputMetaView
-                .getCurrentDbms());
-        CustomTableManager.addCustomManagementToToolBar(outputMetaView, outputMetaTable, outputReadOnly, null, null, false);
+        CustomTableManager.addCustomManagementToTable(outputMetaView, outputReadOnly);
+        CustomTableManager.addCustomManagementToToolBar(outputMetaView, outputMetaTable, outputReadOnly, null, null,
+                false);
         metadataTableEditor.addModifiedBeanListener(new IModifiedBeanListener<IMetadataColumn>() {
 
             public void handleEvent(ModifiedBeanEvent<IMetadataColumn> event) {

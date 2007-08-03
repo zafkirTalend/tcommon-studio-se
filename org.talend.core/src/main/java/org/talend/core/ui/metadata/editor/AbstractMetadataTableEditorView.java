@@ -388,7 +388,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
             final ColumnCellModifier columnCellModifier = new ColumnCellModifier(column) {
 
                 public boolean canModify(Object bean) {
-                    boolean typeIsDate = currentBeanHasJavaDateType(bean);
+                    boolean typeIsDate = currentBeanHasJavaDateType(bean) && !isReadOnly();
                     return typeIsDate;
                 }
 
@@ -684,7 +684,7 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         column.setToolTipHeader(Messages.getString("MetadataTableEditorView.DBTypeTitle")); //$NON-NLS-1$
         column.setId(ID_COLUMN_DBTYPE);
         column.setBeanPropertyAccessors(getDbTypeAccessor());
-        column.setModifiable(dbTypeColumnWritable);
+        column.setModifiable(dbTypeColumnWritable && !isReadOnly());
         column.setWeight(10);
         column.setMinimumWidth(60);
 
@@ -806,10 +806,6 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     }
 
     public String getCurrentDbms() {
-        // IMetadataConnection connection = getMetadataTableEditor().getMetadataTable().getParent();
-        // if (connection != null) {
-        // return connection.getDatabase();
-        // }
         if (!this.showDbTypeColumn) {
             return null;
         }
