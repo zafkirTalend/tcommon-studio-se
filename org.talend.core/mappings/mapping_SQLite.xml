@@ -4,7 +4,7 @@
 		default="true">
 		<dbTypes>
 			<dbType type="BIGINT" />
-				<dbType type="BIGINT UNSIGNED" />
+			<dbType type="BIGINT UNSIGNED" />
 			<dbType type="BINARY" />
 			<dbType type="BIT" />
 			<dbType type="BLOB" />
@@ -13,20 +13,20 @@
 			<dbType type="DATETIME" />
 			<dbType type="DECIMAL" />
 			<dbType type="DOUBLE" />
-				<dbType type="DOUBLE UNSIGNED" />
+			<dbType type="DOUBLE UNSIGNED" />
 			<dbType type="ENUM" />
 			<dbType type="FLOAT" />
-				<dbType type="FLOAT UNSIGNED" />
+			<dbType type="FLOAT UNSIGNED" />
 			<dbType type="GEOMETRY" />
 			<dbType type="GEOMETRYCOLLECTION" />
 			<dbType type="INT" />
-				<dbType type="INT UNSIGNED" />
+			<dbType type="INT UNSIGNED" />
 			<dbType type="LINESTRING" />
 			<dbType type="LONGTEXT" />
 			<dbType type="LONGBLOB"/>
 			<dbType type="MEDIUMBLOB" />
 			<dbType type="MEDIUMINT" />
-				<dbType type="MEDIUMINT UNSIGNED" />
+			<dbType type="MEDIUMINT UNSIGNED" />
 			<dbType type="MEDIUMTEXT" />
 			<dbType type="MULTILINESTRING" />
 			<dbType type="MULTIPOINT" />
@@ -34,14 +34,14 @@
 			<dbType type="POINT" />
 			<dbType type="POLYGON" />
 			<dbType type="SMALLINT" />
-				<dbType type="SMALLINT UNSIGNED" />
+			<dbType type="SMALLINT UNSIGNED" />
 			<dbType type="SET" />
 			<dbType type="TEXT" />
 			<dbType type="TIME" />
 			<dbType type="TIMESTAMP" />
 			<dbType type="TINYBLOB" />
 			<dbType type="TINYINT" />
-				<dbType type="TINYINT UNSIGNED" />
+			<dbType type="TINYINT UNSIGNED" />
 			<dbType type="TINYTEXT" />
 			<dbType type="VARBINARY" />
 			<dbType type="VARCHAR" default="true" />
@@ -133,8 +133,8 @@
 					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="CHAR">
-					<talendType type="id_Character" default="true" />
-					<talendType type="id_String"/>
+					<talendType type="id_String" default="true" />
+					<talendType type="id_Character"/>
 				</dbType>
 				<dbType type="DATE">
 					<talendType type="id_Date" default="true" />

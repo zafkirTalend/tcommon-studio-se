@@ -102,10 +102,10 @@
 					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="CHAR">
-					<talendType type="id_Character" default="true" />
+					<talendType type="id_String" default="true" />
 				</dbType>
 				<dbType type="CHAR FOR BIT DATA">
-					<talendType type="id_Character" default="true" />
+					<talendType type="id_String" default="true" />
 				</dbType>
 				<dbType type="CLOB">
 					<talendType type="id_Object" default="true" />

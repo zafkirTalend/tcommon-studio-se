@@ -2,145 +2,122 @@
 <mapping>
 	<dbms product="MSODBC" id="MSODBC" label="Mapping MSODBC" default="true">
 		<dbTypes>
-			<!--id_Boolean-->
-			<dbType type="BIT" />
-			<dbType type="BOOLEAN" />
-			
-			<!--id_Byte-->
-			<dbType type="BYTE" />
-			<dbType type="BYTE VARYING" />						
-			<dbType type="TINYINT" />
-			<dbType type="TINYINT UNSIGNED" />
-			<dbType type="INT1" />
-			<dbType type="INTEGER1" />						
-
-			<!--id_Short-->
-			<dbType type="INT2" />
-			<dbType type="INTEGER2" />					
-			<dbType type="SMALLINT" />
-			<dbType type="SMALLINT UNSIGNED" />
-			<dbType type="MEDIUMINT" />
-			<dbType type="MEDIUMINT UNSIGNED" />			
-			
-			<!--id_Int-->											
-			<dbType type="INT"/>
-			<dbType type="INT UNSIGNED" />					
-			<dbType type="INT4" />
-			<dbType type="INTEGER4" />			
-			<dbType type="INTEGER" />
-			<dbType type="SERIAL" />
-			<dbType type="SERIAL8" />						
-			
-			<!--id_Long-->
-			<dbType type="BIGINT UNSIGNED" />						
+			<dbType type="ANSIDATE" />
 			<dbType type="BIGINT"/>
-			<dbType type="LONG" />			
-			<dbType type="NUMBER" />
-			<dbType type="INT8" />			
-			
-			<!--id_Float-->
-			<dbType type="SMALLFLOAT" />									
-			<dbType type="FLOAT" />
-			<dbType type="FLOAT UNSIGNED" />			
-			<dbType type="FLOAT4" />
-			<dbType type="FLOAT8" />			
-			
-			<!--id_Double-->								
+			<dbType type="BIGINT UNSIGNED" />
+			<dbType type="BINARY"/>
+			<dbType type="BIT" />
+			<dbType type="BLOB" />						
+			<dbType type="BFILE" />
+			<dbType type="BOOLEAN" />
+			<dbType type="BOX" />
+			<dbType type="BYTE" />
+			<dbType type="BYTE VARYING" />
+			<dbType type="C" />
+			<dbType type="CHAR" />
+			<dbType type="CHAR FOR BIT DATA" />			
+			<dbType type="CHAR VARYING" />
+			<dbType type="CHARACTER"/>
+			<dbType type="CHARACTER VARYING" />	
+			<dbType type="CIDR" />
+			<dbType type="CIRCLE" />
+			<dbType type="CLOB"/>
+			<dbType type="DATE" />
+			<dbType type="DATETIME"/>
+			<dbType type="DECIMAL" />
 			<dbType type="DOUBLE" />
 			<dbType type="DOUBLE UNSIGNED" />			
 			<dbType type="DOUBLE PRECISION" />			
-			<dbType type="DECIMAL" />
-			<dbType type="NUMERIC" />
-			<dbType type="REAL" />
-
-			<!--id_Character-->
-			<dbType type="CHAR" />
-			<dbType type="CHAR FOR BIT DATA" />			
-			<dbType type="NCHAR" />				
-			<dbType type="CHARACTER"/>
-			<dbType type="C" />									
-			
-			<!--id_String-->
-			<dbType type="CHAR VARYING" />
-			<dbType type="CHARACTER VARYING" />			
-			<dbType type="NCHAR VARYING" />						
-			<dbType type="VARCHAR" />
-			<dbType type="NVARCHAR" />
-			<dbType type="LVARCHAR" />
-			<dbType type="VARCHAR2" />
-			<dbType type="NVARCHAR2" />												
-			<dbType type="VARCHAR_IGNORECASE"/>
-			<dbType type="LONGVARCHAR"/>
-			<dbType type="LONG VARCHAR"/>
-			<dbType type="LONG NVARCHAR" />
-			<dbType type="TEXT" />
-			<dbType type="TINYTEXT" />			
-			<dbType type="NTEXT" />
-			<dbType type="VARCHAR FOR BIT DATA" />
-			<dbType type="LONG VARCHAR FOR BIT DATA" />
-			<dbType type="LINESTRING" />																														
-			<dbType type="LONGTEXT" />			
-			<dbType type="MEDIUMTEXT" />
-			<dbType type="MULTILINESTRING" />						
-			<dbType type="UNIQUEIDENTIFIERSTR" />				
-																		
-			<!--id_Date-->
-			<dbType type="TIME" />																																	
-			<dbType type="DATE" />
-			<dbType type="DATETIME"/>
-			<dbType type="SMALLDATETIME" />						
-			<dbType type="TIMESTAMP" />
-			<dbType type="YEAR" />
-			<dbType type="TIMETZ" />						
-			<dbType type="INGRESDATE" />
-			<dbType type="ANSIDATE" />
-			<dbType type="INTERVAL" />						
-			
-			<!--id_byte[]-->
-			<dbType type="BINARY"/>
-			<dbType type="VARBINARY"/>
-			<dbType type="LONGVARBINARY"/>
-
-			<!--id_Object-->
-			<dbType type="BLOB" />
-			<dbType type="TINYBLOB" />			
-			<dbType type="LONGBLOB"/>
-			<dbType type="MEDIUMBLOB" />						
-			<dbType type="CLOB"/>
-			<dbType type="NCLOB" />			
-			<dbType type="GRAPHIC"/>
-			<dbType type="VARGRAPHIC"/>									
-			<dbType type="OTHER"/>
-			<dbType type="OBJECT"/>
-			<dbType type="XML"/>			
-			<dbType type="MONEY" />
-			<dbType type="SMALLMONEY" />						
-			<dbType type="OBJECT_KEY" />
-			<dbType type="TABLE_KEY" />			
-			<dbType type="ENUM" />			
+			<dbType type="ENUM" />
+			<dbType type="FLOAT" />
+			<dbType type="FLOAT UNSIGNED" />			
+			<dbType type="FLOAT4" />
+			<dbType type="FLOAT8" />
 			<dbType type="GEOMETRY" />
 			<dbType type="GEOMETRYCOLLECTION" />
-			<dbType type="POINT" />
-			<dbType type="POLYGON" />			
+			<dbType type="GRAPHIC"/>
+			<dbType type="MEDIUMINT" />
+			<dbType type="MEDIUMINT UNSIGNED" />
+			<dbType type="NCHAR" />	
+			<dbType type="NUMERIC" />			
+			<dbType type="IMAGE" />
+			<dbType type="INET" />
+			<dbType type="INGRESDATE" />
+			<dbType type="INT"/>
+			<dbType type="INT UNSIGNED" />
+			<dbType type="INT1" />
+			<dbType type="INT2" />
+			<dbType type="INT4" />
+			<dbType type="INT8" />	
+			<dbType type="INTEGER" />
+			<dbType type="INTEGER1" />
+			<dbType type="INTEGER2" />
+			<dbType type="INTEGER4" />			
+			<dbType type="INTERVAL" />
+			<dbType type="LINE" />
+			<dbType type="LINESTRING" />
+			<dbType type="LONG" />
+			<dbType type="LONG VARCHAR"/>
+			<dbType type="LONG NVARCHAR" />
+			<dbType type="LONG VARCHAR FOR BIT DATA" />
+			<dbType type="LONGBLOB"/>
+			<dbType type="LONGTEXT" />
+			<dbType type="LONGVARBINARY"/>
+			<dbType type="LONGVARCHAR"/>
+			<dbType type="LONG RAW" />
+			<dbType type="LSEG" />
+			<dbType type="LVARCHAR" />
+			<dbType type="MEDIUMTEXT" />
+			<dbType type="MEDIUMBLOB" />						
+			<dbType type="MONEY" />
+			<dbType type="MULTILINESTRING" />
 			<dbType type="MULTIPOINT" />
 			<dbType type="MULTIPOLYGON" />
-			<dbType type="SET" />									
-			<dbType type="BFILE" />
-			<dbType type="UROWID" />
-			<dbType type="XMLTYPE" />
-			<dbType type="RAW" />
-			<dbType type="LONG RAW" />
-			<dbType type="ROWID" />
-			<dbType type="CIDR" />
-			<dbType type="CIRCLE" />
-			<dbType type="INET" />
-			<dbType type="LSEG" />
+			<dbType type="NCHAR VARYING" />
+			<dbType type="NCLOB" />
+			<dbType type="NTEXT" />
+			<dbType type="NUMBER" />
+			<dbType type="NVARCHAR" />
+			<dbType type="NVARCHAR2" />	
+			<dbType type="OBJECT"/>																																	
+			<dbType type="OBJECT_KEY" />
+			<dbType type="OTHER"/>
 			<dbType type="PATH" />
-			<dbType type="BOX" />
-			<dbType type="UNIQUEIDENTIFIER" />
-			<dbType type="IMAGE" />
+			<dbType type="POINT" />
+			<dbType type="POLYGON" />
+			<dbType type="RAW" />
+			<dbType type="REAL" />
+			<dbType type="ROWID" />
+			<dbType type="SERIAL" />
+			<dbType type="SERIAL8" />
+			<dbType type="SET" />			
+			<dbType type="SMALLDATETIME" />
+			<dbType type="SMALLFLOAT" />
+			<dbType type="SMALLINT" />
+			<dbType type="SMALLINT UNSIGNED" />
+			<dbType type="SMALLMONEY" />
 			<dbType type="SQL_VARIANT" />
-			<dbType type="LINE" />																																						
+			<dbType type="TABLE_KEY" />	
+			<dbType type="TEXT" />
+			<dbType type="TIME" />
+			<dbType type="TIMESTAMP" />
+			<dbType type="TIMETZ" />
+			<dbType type="TINYBLOB" />
+			<dbType type="TINYINT" />
+			<dbType type="TINYINT UNSIGNED" />
+			<dbType type="TINYTEXT" />
+			<dbType type="UNIQUEIDENTIFIER" />
+			<dbType type="UNIQUEIDENTIFIERSTR" />
+			<dbType type="UROWID" />
+			<dbType type="VARCHAR" />
+			<dbType type="VARCHAR2" />
+			<dbType type="VARCHAR_IGNORECASE"/>
+			<dbType type="VARCHAR FOR BIT DATA" />
+			<dbType type="VARBINARY"/>
+			<dbType type="VARGRAPHIC"/>	
+			<dbType type="XML"/>
+			<dbType type="XMLTYPE" />
+			<dbType type="YEAR" />			
 		</dbTypes>
 
 		<language name="java">

@@ -111,8 +111,8 @@
 					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="CHAR">
-					<talendType type="id_Character" default="true" />
-					<talendType type="id_String"/>
+					<talendType type="id_String" default="true" />
+					<talendType type="id_Character"/>
 				</dbType>
 				<dbType type="CHARACTER VARYING">
 					<talendType type="id_String" default="true" />

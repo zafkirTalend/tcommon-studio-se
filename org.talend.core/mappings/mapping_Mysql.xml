@@ -133,8 +133,7 @@
 					<talendType type="id_Object" default="true" />
 				</dbType>
 				<dbType type="CHAR">
-					<talendType type="id_Character" default="true" />
-					<talendType type="id_String"/>
+					<talendType type="id_String" default="true" />
 				</dbType>
 				<dbType type="DATE">
 					<talendType type="id_Date" default="true" />

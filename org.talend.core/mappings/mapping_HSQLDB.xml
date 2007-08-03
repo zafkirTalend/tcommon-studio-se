@@ -2,32 +2,30 @@
 <mapping>
 	<dbms product="HSQLDB" id="hsqldb_id" label="Mapping HSQLdb" default="true">
 		<dbTypes>
-			<!--number without precision-->
-			<dbType type="TINYINT"/>
-			<dbType type="SMALLINT"/>
-			<dbType type="INT"/>
 			<dbType type="BIGINT"/>
-			<!--number with precision-->
-			<dbType type="FLOAT"/>
-			<dbType type="DOUBLE"/>
-			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10"/>
-			<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10"/>
-			<dbType type="REAL"/>
 			<dbType type="BINARY"/>
-			<dbType type="VARBINARY"/>
-			<dbType type="LONGVARBINARY"/>
-			<dbType type="BOOLEAN"/>
 			<dbType type="BIT"/>
+			<dbType type="BOOLEAN"/>
 			<dbType type="CHAR" defaultLength="50"/>
+			<dbType type="DATE"/>
+			<dbType type="DATETIME"/>
+			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10"/>
+			<dbType type="DOUBLE"/>
+			<dbType type="FLOAT"/>
+			<dbType type="INT"/>		
+			<dbType type="LONGVARBINARY"/>
+			<dbType type="LONGVARCHAR"/>
+			<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10"/>
+			<dbType type="OBJECT"/>
+			<dbType type="OTHER"/>
+			<dbType type="REAL"/>
+			<dbType type="SMALLINT"/>
+			<dbType type="TIME"/>		
+			<dbType type="TIMESTAMP"/>
+			<dbType type="TINYINT"/>
+			<dbType type="VARBINARY"/>				
 			<dbType type="VARCHAR" default="true" defaultLength="200"/>
 			<dbType type="VARCHAR_IGNORECASE"/>
-			<dbType type="LONGVARCHAR"/>
-			<dbType type="DATE"/>
-			<dbType type="TIME"/>
-			<dbType type="DATETIME"/>
-			<dbType type="TIMESTAMP"/>
-			<dbType type="OTHER"/>
-			<dbType type="OBJECT"/>
 		</dbTypes>
 		<language name="java">
 			<talendToDbTypes>
@@ -96,88 +94,87 @@
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes>
-				<dbType type="TINYINT">
-					<talendType type="id_Byte" default="true"/>
-					<talendType type="id_Short"/>
-					<talendType type="id_Integer"/>
-					<talendType type="id_Long"/>
-				</dbType>
-				<dbType type="SMALLINT">
-					<talendType type="id_Short" default="true"/>
-					<talendType type="id_Integer"/>
-					<talendType type="id_Long"/>
-				</dbType>
-				<dbType type="INT">
-					<talendType type="id_Integer" default="true"/>
-					<talendType type="id_Long"/>
-				</dbType>
 				<dbType type="BIGINT">
 					<talendType type="id_Long" default="true"/>
 				</dbType>
-				<dbType type="FLOAT">
+				<dbType type="BINARY">
+					<talendType type="id_byte[]" default="true"/>	
+				</dbType>
+				<dbType type="BIT">
+					<talendType type="id_Boolean" default="true"/>
+				</dbType>
+				<dbType type="BOOLEAN">
+					<talendType type="id_Boolean" default="true"/>
+				</dbType>
+				<dbType type="CHAR">
+					<talendType type="id_String" default="true"/>
+				</dbType>
+				<dbType type="DATE">
+					<talendType type="id_Date" default="true"/>
+				</dbType>
+				<dbType type="DATETIME">
+					<talendType type="id_Date" default="true"/>
+				</dbType>
+				<dbType type="DECIMAL">
 					<talendType type="id_Float" default="true"/>
 					<talendType type="id_Double"/>
 				</dbType>
 				<dbType type="DOUBLE">
 					<talendType type="id_Double" default="true"/>
 				</dbType>
-				<dbType type="DECIMAL">
+				<dbType type="FLOAT">
 					<talendType type="id_Float" default="true"/>
 					<talendType type="id_Double"/>
+				</dbType>
+				<dbType type="INT">
+					<talendType type="id_Integer" default="true"/>
+					<talendType type="id_Long"/>
+				</dbType>																								
+				<dbType type="LONGVARBINARY">
+					<talendType type="id_byte[]" default="true"/>
+				</dbType>
+				<dbType type="LONGVARCHAR">
+					<talendType type="id_String" default="true"/>
 				</dbType>
 				<dbType type="NUMERIC">
 					<talendType type="id_Float" default="true"/>
 					<talendType type="id_Double"/>
+				</dbType>	
+				<dbType type="OBJECT">
+					<talendType type="id_Object" default="true"/>
+				</dbType>
+				<dbType type="OTHER">
+					<talendType type="id_Object" default="true"/>
 				</dbType>
 				<dbType type="REAL">
 					<talendType type="id_Float" default="true"/>
 					<talendType type="id_Double"/>
 				</dbType>
-				<dbType type="BINARY">
-					<talendType type="id_byte[]" default="true"/>	
+				<dbType type="SMALLINT">
+					<talendType type="id_Short" default="true"/>
+					<talendType type="id_Integer"/>
+					<talendType type="id_Long"/>
+				</dbType>											
+				<dbType type="TIME">
+					<talendType type="id_Date" default="true"/>
 				</dbType>				
+				<dbType type="TIMESTAMP">
+					<talendType type="id_Date" default="true"/>
+				</dbType>
+				<dbType type="TINYINT">
+					<talendType type="id_Byte" default="true"/>
+					<talendType type="id_Short"/>
+					<talendType type="id_Integer"/>
+					<talendType type="id_Long"/>
+				</dbType>
 				<dbType type="VARBINARY">
 					<talendType type="id_byte[]" default="true"/>	
-				</dbType>																								
-				<dbType type="LONGVARBINARY">
-					<talendType type="id_byte[]" default="true"/>
-				</dbType>
-				<dbType type="BOOLEAN">
-					<talendType type="id_Boolean" default="true"/>
-				</dbType>				
-				<dbType type="BIT">
-					<talendType type="id_Boolean" default="true"/>
-				</dbType>
-				<dbType type="CHAR">
-					<talendType type="id_Character" default="true"/>
-					<talendType type="id_String"/>
 				</dbType>
 				<dbType type="VARCHAR">
 					<talendType type="id_String" default="true"/>
 				</dbType>
 				<dbType type="VARCHAR_IGNORECASE">
 					<talendType type="id_String" default="true"/>
-				</dbType>
-				<dbType type="LONGVARCHAR">
-					<talendType type="id_String" default="true"/>
-				</dbType>												
-				<dbType type="DATE">
-					<talendType type="id_Date" default="true"/>
-				</dbType>
-				<dbType type="TIME">
-					<talendType type="id_Date" default="true"/>
-				</dbType>				
-				<dbType type="DATETIME">
-					<talendType type="id_Date" default="true"/>
-				</dbType>
-				<dbType type="TIMESTAMP">
-					<talendType type="id_Date" default="true"/>
-				</dbType>
-				<dbType type="OTHER">
-					<talendType type="id_Object" default="true"/>
-				</dbType>
-				<dbType type="OBJECT">
-					<talendType type="id_Object" default="true"/>
 				</dbType>				
 			</dbToTalendTypes>
 		</language>
@@ -222,77 +219,76 @@
 				</talendType>
 			</talendToDbTypes>
 			<dbToTalendTypes>
-				<dbType type="TINYINT">
-					<talendType type="int" default="true"/>
-				</dbType>
-				<dbType type="SMALLINT">
-					<talendType type="int" default="true"/>
-				</dbType>
-				<dbType type="INT">
-					<talendType type="int" default="true"/>
-				</dbType>											
 				<dbType type="BIGINT">
 					<talendType type="int" default="true"/>
 				</dbType>
-				<dbType type="FLOAT">
-					<talendType type="decimal" default="true"/>
-				</dbType>
-				<dbType type="DOUBLE">
-					<talendType type="decimal" default="true"/>
-				</dbType>
-				<dbType type="DECIMAL">
-					<talendType type="decimal" default="true"/>
-				</dbType>
-				<dbType type="NUMERIC">
-					<talendType type="decimal" default="true"/>
-				</dbType>
-				<dbType type="REAL">
-					<talendType type="decimal" default="true"/>
-				</dbType>																				
 				<dbType type="BINARY">
-					<talendType type="string" default="true"/>
+					<talendType type="string" default="true"/>	
 				</dbType>
-				<dbType type="VARBINARY">
-					<talendType type="string" default="true"/>
-				</dbType>
-				<dbType type="LONGVARBINARY">
-					<talendType type="string" default="true"/>
+				<dbType type="BIT">
+					<talendType type="boolean" default="true"/>
 				</dbType>
 				<dbType type="BOOLEAN">
-					<talendType type="boolean" default="true"/>
-				</dbType>												
-				<dbType type="BIT">
 					<talendType type="boolean" default="true"/>
 				</dbType>
 				<dbType type="CHAR">
 					<talendType type="string" default="true"/>
 				</dbType>
-				<dbType type="VARCHAR">
-					<talendType type="string" default="true"/>
+				<dbType type="DATE">
+					<talendType type="date" default="true"/>
 				</dbType>
-				<dbType type="VARCHAR_IGNORECASE">
+				<dbType type="DATETIME">
+					<talendType type="datetime" default="true"/>
+				</dbType>
+				<dbType type="DECIMAL">
+					<talendType type="decimal" default="true"/>
+				</dbType>
+				<dbType type="DOUBLE">
+					<talendType type="decimal" default="true"/>
+				</dbType>
+				<dbType type="FLOAT">
+					<talendType type="decimal" default="true"/>
+				</dbType>
+				<dbType type="INT">
+					<talendType type="int" default="true"/>
+				</dbType>																								
+				<dbType type="LONGVARBINARY">
 					<talendType type="string" default="true"/>
 				</dbType>
 				<dbType type="LONGVARCHAR">
 					<talendType type="string" default="true"/>
-				</dbType>																
-				<dbType type="DATE">
-					<talendType type="date" default="true"/>
-					<talendType type="datetime"/>
 				</dbType>
-				<dbType type="TIME">
-					<talendType type="datetime" default="true"/>
-				</dbType>				
-				<dbType type="DATETIME">
-					<talendType type="datetime" default="true"/>
+				<dbType type="NUMERIC">
+					<talendType type="decimal" default="true"/>
+				</dbType>	
+				<dbType type="OBJECT">
+					<talendType type="string" default="true"/>
 				</dbType>
-				<dbType type="TIMESTAMP">
-					<talendType type="datetime" default="true"/>
-				</dbType>				
 				<dbType type="OTHER">
 					<talendType type="string" default="true"/>
 				</dbType>
-				<dbType type="OBJECT">
+				<dbType type="REAL">
+					<talendType type="decimal" default="true"/>
+				</dbType>
+				<dbType type="SMALLINT">
+					<talendType type="int" default="true"/>
+				</dbType>											
+				<dbType type="TIME">
+					<talendType type="datetime" default="true"/>
+				</dbType>				
+				<dbType type="TIMESTAMP">
+					<talendType type="datetime" default="true"/>
+				</dbType>
+				<dbType type="TINYINT">
+					<talendType type="int" default="true"/>
+				</dbType>
+				<dbType type="VARBINARY">
+					<talendType type="string" default="true"/>	
+				</dbType>
+				<dbType type="VARCHAR">
+					<talendType type="string" default="true"/>
+				</dbType>
+				<dbType type="VARCHAR_IGNORECASE">
 					<talendType type="string" default="true"/>
 				</dbType>
 			</dbToTalendTypes>
