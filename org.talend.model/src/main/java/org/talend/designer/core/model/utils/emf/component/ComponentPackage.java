@@ -864,13 +864,22 @@ public interface ComponentPackage extends EPackage {
     int IMPORT_TYPE__REQUIRED = 3;
 
     /**
+     * The feature id for the '<em><b>SHOW</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IMPORT_TYPE__SHOW = 4;
+
+    /**
      * The number of structural features of the '<em>IMPORT Type</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE_FEATURE_COUNT = 4;
+    int IMPORT_TYPE_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl <em>ITEMS Type</em>}' class.
@@ -2409,6 +2418,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getIMPORTType_REQUIRED();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>SHOW</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW()
+     * @see #getIMPORTType()
+     * @generated
+     */
+    EAttribute getIMPORTType_SHOW();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType <em>ITEMS Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3744,6 +3764,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute IMPORT_TYPE__REQUIRED = eINSTANCE.getIMPORTType_REQUIRED();
+
+        /**
+         * The meta object literal for the '<em><b>SHOW</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute IMPORT_TYPE__SHOW = eINSTANCE.getIMPORTType_SHOW();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl <em>ITEMS Type</em>}' class.

@@ -94,6 +94,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/mODULE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/nAME"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/rEQUIRED"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/sHOW"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//ITEMSType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//ITEMSType/iTEM"/>

@@ -992,6 +992,15 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getIMPORTType_SHOW() {
+        return (EAttribute)importTypeEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getITEMSType() {
         return itemsTypeEClass;
     }
@@ -1661,6 +1670,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(importTypeEClass, IMPORT_TYPE__MODULE);
         createEAttribute(importTypeEClass, IMPORT_TYPE__NAME);
         createEAttribute(importTypeEClass, IMPORT_TYPE__REQUIRED);
+        createEAttribute(importTypeEClass, IMPORT_TYPE__SHOW);
 
         itemsTypeEClass = createEClass(ITEMS_TYPE);
         createEReference(itemsTypeEClass, ITEMS_TYPE__ITEM);
@@ -1855,6 +1865,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getIMPORTType_MODULE(), theXMLTypePackage.getString(), "mODULE", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_REQUIRED(), theXMLTypePackage.getBoolean(), "rEQUIRED", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIMPORTType_SHOW(), theXMLTypePackage.getBoolean(), "sHOW", "true", 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(itemsTypeEClass, ITEMSType.class, "ITEMSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getITEMSType_ITEM(), this.getITEMType(), null, "iTEM", null, 1, -1, ITEMSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2560,6 +2571,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "attribute",
              "name", "REQUIRED",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getIMPORTType_SHOW(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "SHOW",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

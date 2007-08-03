@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMODULE <em>MODULE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getNAME <em>NAME</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isREQUIRED <em>REQUIRED</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}</li>
  * </ul>
  * </p>
  *
@@ -162,5 +163,60 @@ public interface IMPORTType extends EObject {
      * @generated
      */
     boolean isSetREQUIRED();
+
+    /**
+     * Returns the value of the '<em><b>SHOW</b></em>' attribute.
+     * The default value is <code>"true"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>SHOW</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>SHOW</em>' attribute.
+     * @see #isSetSHOW()
+     * @see #unsetSHOW()
+     * @see #setSHOW(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_SHOW()
+     * @model default="true" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='SHOW' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isSHOW();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>SHOW</em>' attribute.
+     * @see #isSetSHOW()
+     * @see #unsetSHOW()
+     * @see #isSHOW()
+     * @generated
+     */
+    void setSHOW(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetSHOW()
+     * @see #isSHOW()
+     * @see #setSHOW(boolean)
+     * @generated
+     */
+    void unsetSHOW();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#isSHOW <em>SHOW</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>SHOW</em>' attribute is set.
+     * @see #unsetSHOW()
+     * @see #isSHOW()
+     * @see #setSHOW(boolean)
+     * @generated
+     */
+    boolean isSetSHOW();
 
 } // IMPORTType
