@@ -21,6 +21,7 @@
 // ============================================================================
 
 package routines;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -35,9 +36,9 @@ public class SystemOperation {
     /**
      * DATE( ) Returns the internal system date.
      * 
-     * {Category} SystemOperation
-     * 
      * {talendTypes} String
+     * 
+     * {Category} SystemOperation
      * 
      */
     public static String DATE() {
@@ -49,9 +50,9 @@ public class SystemOperation {
     /**
      * NAP Suspends execution of a BASIC program, pausing for a specified number of milliseconds.
      * 
-     * {Category} SystemOperation
-     * 
      * {talendTypes} String
+     * 
+     * {Category} SystemOperation
      * 
      */
     public static void NAP(long milliseconds) {
@@ -65,9 +66,9 @@ public class SystemOperation {
     /**
      * SLEEP Suspends execution of a BASIC program, pausing for a specified number of seconds.
      * 
-     * {Category} SystemOperation
-     * 
      * {talendTypes} String
+     * 
+     * {Category} SystemOperation
      * 
      */
     public static void SLEEP(long milliseconds) {
@@ -85,9 +86,9 @@ public class SystemOperation {
     /**
      * TIME( ) Returns the time in internal format.
      * 
-     * {Category} SystemOperation
-     * 
      * {talendTypes} String
+     * 
+     * {Category} SystemOperation
      * 
      */
     public static String TIME() {
@@ -99,9 +100,9 @@ public class SystemOperation {
     /**
      * TIMEDATE( ) Returns the time and date.
      * 
-     * {Category} SystemOperation
-     * 
      * {talendTypes} String
+     * 
+     * {Category} SystemOperation
      * 
      */
     public static String TIMEDATE() {
@@ -109,44 +110,43 @@ public class SystemOperation {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
         return df.format(date);
     }
-    
-// CHECKSUM( ) Returns a cyclical redundancy code (a checksum value).
-// CONVERT Converts specified characters in a string to designated
-// replacement characters.
-    
-// CONVERT( ) Replaces every occurrence of specified characters in a variable
-// with other specified characters.
-    
-// CRC32( ) Returns a 32-bit cyclic redundancy code.
-    
-// EXCHANGE( ) Replaces one character with another or deletes all occurrences
-// of a specific character.
-    
-// FIELD( ) Examines a string expression for any occurrence of a specified
-// delimiter and returns a substring that is marked by that delimiter.
-    
-// FIELDSTORE( ) Replaces, deletes, or inserts substrings in a specified character
-// string.
-    
-// FINDSTR Locates a given occurrence of a substring.
-// FOLD( ) Divides a string into a number of shorter sections.
-    
-// GROUP( ) Returns a substring that is located between the stated number
-// of occurrences of a delimiter.
-    
-// GROUPSTORE Modifies existing character strings by inserting, deleting, or
-// replacing substrings that are separated by a delimiter
-// character.
-    
-// MATCHFIELD( ) Returns the contents of a substring that matches a specified
-// pattern or part of a pattern.
-    
-// QUOTE( ) Encloses an expression in double quotation marks.
-    
-// RAISE( ) Converts system delimiters that appear in expressions to the
-// next higher-level delimiter.
-    
-// SOUNDEX( ) Returns the soundex code for a string.
 
+    // CHECKSUM( ) Returns a cyclical redundancy code (a checksum value).
+    // CONVERT Converts specified characters in a string to designated
+    // replacement characters.
+
+    // CONVERT( ) Replaces every occurrence of specified characters in a variable
+    // with other specified characters.
+
+    // CRC32( ) Returns a 32-bit cyclic redundancy code.
+
+    // EXCHANGE( ) Replaces one character with another or deletes all occurrences
+    // of a specific character.
+
+    // FIELD( ) Examines a string expression for any occurrence of a specified
+    // delimiter and returns a substring that is marked by that delimiter.
+
+    // FIELDSTORE( ) Replaces, deletes, or inserts substrings in a specified character
+    // string.
+
+    // FINDSTR Locates a given occurrence of a substring.
+    // FOLD( ) Divides a string into a number of shorter sections.
+
+    // GROUP( ) Returns a substring that is located between the stated number
+    // of occurrences of a delimiter.
+
+    // GROUPSTORE Modifies existing character strings by inserting, deleting, or
+    // replacing substrings that are separated by a delimiter
+    // character.
+
+    // MATCHFIELD( ) Returns the contents of a substring that matches a specified
+    // pattern or part of a pattern.
+
+    // QUOTE( ) Encloses an expression in double quotation marks.
+
+    // RAISE( ) Converts system delimiters that appear in expressions to the
+    // next higher-level delimiter.
+
+    // SOUNDEX( ) Returns the soundex code for a string.
 
 }

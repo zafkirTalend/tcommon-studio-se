@@ -33,9 +33,9 @@ public class Mathematical {
     /**
      * Returns the absolute (positive) numeric value of an expression.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      * {param} double (10) a:
      * 
@@ -48,9 +48,9 @@ public class Mathematical {
     /**
      * ACOS( ) Calculates the trigonometric arc-cosine of an expression.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      */
     public static double ACOS(double a) {
@@ -60,9 +60,11 @@ public class Mathematical {
     /**
      * ASIN( ) Calculates the trigonometric arc-sine of an expression.
      * 
-     * {Category} Mathematical
+     * 
      * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      */
     public static double ASIN(double a) {
@@ -72,9 +74,9 @@ public class Mathematical {
     /**
      * ATAN( ) Calculates the trigonometric arctangent of an expression.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      * 
      * 
@@ -86,9 +88,9 @@ public class Mathematical {
     /**
      * BITAND( ) Performs a bitwise AND of two integers.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} int | Integer
+     * 
+     * {Category} Mathematical
      * 
      * 
      * 
@@ -100,9 +102,9 @@ public class Mathematical {
     /**
      * BITNOT( ) Performs a bitwise NOT of a integers.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} int | Integer
+     * 
+     * {Category} Mathematical
      */
     public static int BITNOT(int a) {
         return ~a;
@@ -111,9 +113,9 @@ public class Mathematical {
     /**
      * BITOR( ) Performs a bitwise OR of two integers.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} int | Integer
+     * 
+     * {Category} Mathematical
      * 
      * 
      */
@@ -129,9 +131,9 @@ public class Mathematical {
     /**
      * BITXOR( ) Performs a bitwise XOR of two integers.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} int | Integer
+     * 
+     * {Category} Mathematical
      * 
      * 
      */
@@ -142,9 +144,9 @@ public class Mathematical {
     /**
      * COS( ) Calculates the trigonometric cosine of an angle.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      * 
      * 
@@ -156,9 +158,9 @@ public class Mathematical {
     /**
      * COSH( ) Calculates the hyperbolic cosine of an expression.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      * 
      */
@@ -169,9 +171,9 @@ public class Mathematical {
     /**
      * DIV( ) Outputs the whole part of the real division of two real numbers.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      */
     public static double DIV(double a, double b) {
@@ -181,9 +183,9 @@ public class Mathematical {
     /**
      * EXP( ) Calculates the result of base 'e' raised to the power designated by the value of the expression.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      */
     public static double EXP(double a) {
         return Math.exp(a);
@@ -192,9 +194,9 @@ public class Mathematical {
     /**
      * INT( ) Calculates the integer numeric value of an expression.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} int | Integer
+     * 
+     * {Category} Mathematical
      */
     public static int INT(String e) {
         return Integer.valueOf(e);
@@ -209,9 +211,9 @@ public class Mathematical {
      * FFIX( ) Converts a floating-point number to a string with a fixed precision. FFIX is provided for compatibility
      * with existing software.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} String
+     * 
+     * {Category} Mathematical
      */
     public static String FFIX(double d, int precision) {
         double p = Math.pow(10, precision);
@@ -223,9 +225,9 @@ public class Mathematical {
     /**
      * FFLT( ) Rounds a number to a string with a precision of 14.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} String
+     * 
+     * {Category} Mathematical
      * 
      */
     public static String FFLT(double d) {
@@ -239,9 +241,9 @@ public class Mathematical {
     /**
      * LN( ) Calculates the natural logarithm of an expression in base 'e'.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      */
     public static double LN(double a) {
@@ -251,9 +253,9 @@ public class Mathematical {
     /**
      * MOD( ) Calculates the modulo (the remainder) of two expressions.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} String
+     * 
+     * {Category} Mathematical
      * 
      * 
      * 
@@ -265,9 +267,11 @@ public class Mathematical {
     /**
      * NEG( ) Returns the arithmetic additive inverse of the value of the argument.
      * 
-     * {Category} Mathematical
+     * 
      * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      */
     public static double NEG(double a) {
         return -1 * a;
@@ -276,9 +280,9 @@ public class Mathematical {
     /**
      * NUM( ) Returns true (1) if the argument is a numeric data type; otherwise, returns false (0).
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} int | Integer
+     * 
+     * {Category} Mathematical
      * 
      */
     public static int NUM(String e) {
@@ -294,9 +298,9 @@ public class Mathematical {
     /**
      * REAL( ) Converts a numeric expression into a real number without loss of accuracy.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      */
     public static double REAL(String e) {
@@ -310,9 +314,9 @@ public class Mathematical {
     /**
      * RND( ) Generates a random number between zero and a specified number minus one.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      * 
      * 
@@ -324,9 +328,9 @@ public class Mathematical {
     /**
      * SADD( ) Adds two string numbers and returns the result as a string number.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      */
     public static double SADD(String a, String b) {
@@ -336,9 +340,9 @@ public class Mathematical {
     /**
      * SCMP( ) Compares two string numbers.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} int | Integer
+     * 
+     * {Category} Mathematical
      * 
      */
     public static int SCMP(String a, String b) {
@@ -356,9 +360,9 @@ public class Mathematical {
     /**
      * SDIV( ) Outputs the quotient of the whole division of two integers.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} int | Integer
+     * 
+     * {Category} Mathematical
      * 
      */
     public static int SDIV(int a, int b) {
@@ -368,9 +372,9 @@ public class Mathematical {
     /**
      * SIN( ) Calculates the trigonometric sine of an angle.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      * 
      * 
@@ -382,9 +386,9 @@ public class Mathematical {
     /**
      * SINH( ) Calculates the hyperbolic sine of an expression.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      */
     public static double SINH(double a) {
@@ -394,9 +398,9 @@ public class Mathematical {
     /**
      * SMUL( ) Multiplies two string numbers.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      */
     public static double SMUL(String a, String b) {
@@ -406,9 +410,9 @@ public class Mathematical {
     /**
      * SQRT( ) Calculates the square root of a number.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      */
     public static double SQRT(double a) {
@@ -418,9 +422,9 @@ public class Mathematical {
     /**
      * SSUB( ) Subtracts one string number from another and returns the result as a string number.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} String
+     * 
+     * {Category} Mathematical
      * 
      */
     public static String SSUB(String a, String b) {
@@ -430,9 +434,9 @@ public class Mathematical {
     /**
      * TAN( ) Calculates the trigonometric tangent of an angle.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      * 
      */
@@ -443,9 +447,9 @@ public class Mathematical {
     /**
      * TANH( ) Calculates the hyperbolic tangent of an expression.
      * 
-     * {Category} Mathematical
-     * 
      * {talendTypes} double | Double
+     * 
+     * {Category} Mathematical
      * 
      */
     public static double TANH(double a) {

@@ -33,10 +33,10 @@ public class Relational {
     /**
      * ISNULL( ) Indicates when a variable is the null value.
      * 
-     * {Category} Relational
-     * 
      * {talendTypes} boolean | Boolean
      * 
+     * 
+     * {Category} Relational
      */
     public static boolean ISNULL(Object variable) {
         return variable == null;
@@ -45,10 +45,9 @@ public class Relational {
     /**
      * NOT( ) Returns the complement of the logical value of an expression.
      * 
-     * {Category} Relational
-     * 
      * {talendTypes} boolean | Boolean
      * 
+     * {Category} Relational
      */
     public static boolean NOT(boolean expression) {
         return !expression;

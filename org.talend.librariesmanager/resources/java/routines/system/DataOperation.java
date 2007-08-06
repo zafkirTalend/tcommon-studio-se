@@ -32,9 +32,13 @@ public class DataOperation {
     /**
      * ASCII( ) Converts EBCDIC representation of character string data to the equivalent ASCII character code values.
      * 
+     * {talendTypes} int | Integer
+     * 
      * {Category} DataOperation
      * 
-     * {talendTypes} int | Integer
+     * {param} char('a')
+     * 
+     * {example} ASCII('a')
      * 
      */
     public static int ASCII(char c) {
@@ -44,9 +48,13 @@ public class DataOperation {
     /**
      * CHAR( ) Converts a numeric value to its ASCII character string equivalent.
      * 
+     * {talendTypes} char | Character
+     * 
      * {Category} DataOperation
      * 
-     * {talendTypes} char | Character
+     * {param} int(1)
+     * 
+     * {example} CHAR(1)
      * 
      */
     public static char CHAR(int i) {
@@ -56,9 +64,13 @@ public class DataOperation {
     /**
      * DTX( ) Converts a decimal integer into its hexadecimal equivalent.
      * 
+     * {talendTypes} Sting
+     * 
      * {Category} DataOperation
      * 
-     * {talendTypes} Sting
+     * {param} int(1)
+     * 
+     * {example} DTX(1)
      * 
      */
     public static String DTX(int i) {
@@ -72,15 +84,18 @@ public class DataOperation {
     /**
      * FIX( ) Rounds an expression to a decimal number having the accuracy specified by the PRECISION statement.
      * 
+     * {talendTypes} long | Long
+     * 
      * {Category} DataOperation
      * 
-     * {talendTypes} long | Long
+     * {param} double(0.0)
+     * 
+     * {example} FIX(3.14)
      * 
      */
     public static long FIX(double d) {
         return Math.round(d);
     }
-
 
     // FMT( ) Converts data from its internal representation to a specified
     // format for output.
@@ -92,9 +107,13 @@ public class DataOperation {
     /**
      * XTD( ) Converts a hexadecimal string into its decimal equivalent.
      * 
+     * {talendTypes} int | Integer
+     * 
      * {Category} DataOperation
      * 
-     * {talendTypes} int | Integer
+     * {param} string("0")
+     * 
+     * {example} XTD("1")
      * 
      */
     public static int XTD(String text) {

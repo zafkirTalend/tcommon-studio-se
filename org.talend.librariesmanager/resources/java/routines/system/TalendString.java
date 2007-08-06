@@ -6,9 +6,11 @@ public class TalendString {
 
     /**
      * return Replace the special character(e.g. <,>,& etc) within a string for XML file.
-     
-     * {Category} TalendString
+     * 
+     * 
      * {talendTypes} String
+     * 
+     * {Category} TalendString
      * 
      * {param} string("") input: The string with the special character(s) need to be replaced.
      * 
@@ -22,12 +24,14 @@ public class TalendString {
         input = input.replaceAll("\"", "&quot;");
         return input;
     }
-    
+
     /**
      * getAsciiRandomString : Return a randomly generated String
      * 
-     * {Category} TalendString
+     * 
      * {talendTypes} String
+     * 
+     * {Category} TalendString
      * 
      * {param} int(6) length: length of the String tio return
      * 
@@ -35,13 +39,13 @@ public class TalendString {
      */
     public static String getAsciiRandomString(int length) {
         Random random = new Random();
-        int cnt=0;
+        int cnt = 0;
         StringBuffer buffer = new StringBuffer();
         char ch;
         int end = 'z' + 1;
         int start = ' ';
-        while (cnt<length) {
-            ch = (char) (random.nextInt(end-start) + start);
+        while (cnt < length) {
+            ch = (char) (random.nextInt(end - start) + start);
             if (Character.isLetterOrDigit(ch)) {
                 buffer.append(ch);
                 cnt++;
@@ -49,60 +53,66 @@ public class TalendString {
         }
         return buffer.toString();
     }
-    
+
     /**
      * talendTrim: return the trimed String according the padding char and align of the content.
-     
-     * {Category} TalendString
+     * 
+     * 
      * {talendTypes} String
      * 
+     * {Category} TalendString
+     * 
      * {param} string("") origin: The original string need to be trimed.
+     * 
      * {param} char(' ') padding_char: The padding char for triming.
-     * {param} int(0) align: The alignment of the content in the original strin. Positive int for right, negative int for left and zero for center.
+     * 
+     * {param} int(0) align: The alignment of the content in the original strin. Positive int for right, negative int
+     * for left and zero for center.
+     * 
      * 
      * {example} talendTrim("$$talend open studio$$$$", '$', 0) # talend open studio
      */
-    public static String talendTrim(String origin, char padding_char, int align) { 
-        if (origin.length() < 1) { 
+    public static String talendTrim(String origin, char padding_char, int align) {
+        if (origin.length() < 1) {
             return "";
         }
-        if (align > 0) { //Align right, to trim left
+        if (align > 0) { // Align right, to trim left
             int start = 0;
             char temp = origin.charAt(start);
-            while (temp == padding_char) { 
+            while (temp == padding_char) {
                 start++;
-                if (start == origin.length()) { 
+                if (start == origin.length()) {
                     break;
                 }
                 temp = origin.charAt(start);
             }
             return origin.substring(start);
-        } else if (align == 0) { 
+        } else if (align == 0) {
             int start = 0;
             char temp = origin.charAt(start);
-            while (temp == padding_char) { 
+            while (temp == padding_char) {
                 start++;
-                if (start == origin.length()) { 
+                if (start == origin.length()) {
                     break;
                 }
                 temp = origin.charAt(start);
             }
             int end = origin.length();
             temp = origin.charAt(end - 1);
-            while (temp == padding_char) { 
-                if (end == start) { 
+            while (temp == padding_char) {
+                if (end == start) {
                     break;
                 }
                 end--;
                 temp = origin.charAt(end - 1);
             }
             return origin.substring(start, end);
-        } else { //align left, to trim right
+        } else { // align left, to trim right
             int end = origin.length();
             char temp = origin.charAt(end - 1);
-            while (temp == padding_char) { 
+            while (temp == padding_char) {
                 end--;
-                if (end == 0) { 
+                if (end == 0) {
                     break;
                 }
                 temp = origin.charAt(end - 1);

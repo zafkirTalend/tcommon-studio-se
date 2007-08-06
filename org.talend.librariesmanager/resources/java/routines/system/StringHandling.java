@@ -32,9 +32,9 @@ public class StringHandling {
     /**
      * Determines whether the expression is an alphabetic or nonalphabetic string.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} boolean | Boolean
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("abcdefg") input: String need to be known whether is an alphabetic or nonalphabetic string.
      * 
@@ -55,9 +55,9 @@ public class StringHandling {
     /**
      * Substitutes an element of a string with a replacement element.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("hello world!") oldStr: The whole string.
      * 
@@ -76,9 +76,9 @@ public class StringHandling {
     /**
      * Evaluates the number of times a substring is repeated in a string.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} int | Integer
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("hello world!") string: The whole string.
      * 
@@ -98,9 +98,9 @@ public class StringHandling {
     /**
      * Converts all uppercase letters in an expression to lowercase.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("Hello") string: String
      * 
@@ -113,9 +113,9 @@ public class StringHandling {
     /**
      * Converts all lowercase letters in an expression to uppercase.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("Hello") string: String
      * 
@@ -128,9 +128,9 @@ public class StringHandling {
     /**
      * Encloses an expression in double quotation marks.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("Hello") string: String
      * 
@@ -143,9 +143,9 @@ public class StringHandling {
     /**
      * Substitutes an element of a string with a replacement element.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("hello world!") oldStr: The whole string.
      * 
@@ -165,9 +165,9 @@ public class StringHandling {
      * Returns the starting column position of a specified occurrence of a particular substring within a string
      * expression.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} int | Integer
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("hello world!") string: string.
      * 
@@ -182,9 +182,9 @@ public class StringHandling {
     /**
      * Specifies a substring consisting of the first n characters of a string.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("hello world!") string: String.
      * 
@@ -199,9 +199,9 @@ public class StringHandling {
     /**
      * Specifies a substring consisting of the last n characters of a string.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("hello world!") string: String
      * 
@@ -216,9 +216,9 @@ public class StringHandling {
     /**
      * Calculates the length of a string.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} int | Integer
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("hello world!") string:
      * 
@@ -231,9 +231,9 @@ public class StringHandling {
     /**
      * Converts system delimiters that appear in expressions to the next lower-level delimiter.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("HELLO world!") string: String.
      * 
@@ -246,9 +246,9 @@ public class StringHandling {
     /**
      * Builds a string by concatenating the elements of an array.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string(new String[]{"a","b","c"}) string: string.
      * 
@@ -265,9 +265,9 @@ public class StringHandling {
     /**
      * Generates a string consisting of a specified number of blank spaces.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("hellow world!") string: string.
      * 
@@ -287,9 +287,9 @@ public class StringHandling {
     /**
      * Encloses an expression in single quotation marks.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("hellow world!") string:
      * 
@@ -302,9 +302,9 @@ public class StringHandling {
     /**
      * Generates a particular character string a specified number of times.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string('a') string: character
      * 
@@ -323,9 +323,9 @@ public class StringHandling {
     /**
      * Deletes extra blank spaces and tabs from a character string.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string(" hellow world! ") string: string.
      * 
@@ -338,9 +338,9 @@ public class StringHandling {
     /**
      * Deletes all blank spaces and tabs after the last nonblank character in an expression.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string("hellow world! ") string: string.
      * 
@@ -359,9 +359,9 @@ public class StringHandling {
     /**
      * Deletes all blank spaces and tabs up to the first nonblank character in an expression.
      * 
-     * {Category} StringHandling
-     * 
      * {talendTypes} String
+     * 
+     * {Category} StringHandling
      * 
      * {param} string(" hellow world!") string: string.
      * 
