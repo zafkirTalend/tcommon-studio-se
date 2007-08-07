@@ -41,15 +41,18 @@ public class StringHandling {
      * {example} ALPHA("abcdefg") # true
      */
     public static boolean ALPHA(String input) {
-        char[] val = input.toCharArray();
+        if (input != null) {
+            char[] val = input.toCharArray();
 
-        for (int i = 0; i < val.length - 1; i++) {
-            if (val[i] > val[i + 1]) {
-                return false;
+            for (int i = 0; i < val.length - 1; i++) {
+                if (val[i] > val[i + 1]) {
+                    return false;
+                }
             }
-        }
 
-        return true;
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -229,53 +232,17 @@ public class StringHandling {
     }
 
     /**
-     * Converts system delimiters that appear in expressions to the next lower-level delimiter.
-     * 
-     * {talendTypes} String
-     * 
-     * {Category} StringHandling
-     * 
-     * {param} string("HELLO world!") string: String.
-     * 
-     * {example} LOWER("HELLO world!") # hello world!
-     */
-    public static String LOWER(String string) {
-        return string.toLowerCase();
-    }
-
-    /**
-     * Builds a string by concatenating the elements of an array.
-     * 
-     * {talendTypes} String
-     * 
-     * {Category} StringHandling
-     * 
-     * {param} string(new String[]{"a","b","c"}) string: string.
-     * 
-     * {example} MATBUILD(new String[]{"a","b","c"}new String[]{"a","b","c"}) # abc
-     */
-    public static String MATBUILD(String[] stringArray) {
-        StringBuffer buffer = new StringBuffer();
-        for (String string : stringArray) {
-            buffer.append(string);
-        }
-        return buffer.toString();
-    }
-
-    /**
      * Generates a string consisting of a specified number of blank spaces.
      * 
      * {talendTypes} String
      * 
      * {Category} StringHandling
      * 
-     * {param} string("hellow world!") string: string.
-     * 
      * {param} int(2) i: amount of blank space need to generate.
      * 
-     * {example} SPACE("hellow world!",2) # hello world!
+     * {example} SPACE(2) # "  "
      */
-    public static String SPACE(String string, int i) {
+    public static String SPACE( int i) {
         StringBuffer buffer = new StringBuffer();
         buffer.append(string);
         for (int j = 0; j < i; j++) {

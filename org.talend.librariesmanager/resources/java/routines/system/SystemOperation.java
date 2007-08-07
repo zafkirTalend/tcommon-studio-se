@@ -33,97 +33,96 @@ import java.util.Date;
  */
 public class SystemOperation {
 
-    /**
-     * DATE( ) Returns the internal system date.
-     * 
-     * {talendTypes} String
-     * 
-     * {Category} SystemOperation
-     * 
-     * {example} DATE()
-     * 
-     */
-    public static String DATE() {
-        Date date = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-        return df.format(date);
-    }
+//    /**
+//     * DATE( ) Returns the internal system date.
+//     * 
+//     * {talendTypes} Date
+//     * 
+//     * {Category} SystemOperation
+//     * 
+//     * {example} DATE()
+//     * 
+//     */
+//    public static String DATE() {
+//        Date date = new Date();
+//        return date;
+//    }
 
-    /**
-     * NAP Suspends execution of a BASIC program, pausing for a specified number of milliseconds.
-     * 
-     * {talendTypes} String
-     * 
-     * {Category} SystemOperation
-     * 
-     * {param} long(5000)
-     * 
-     * {example} NAP(5000)
-     * 
-     */
-    public static void NAP(long milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * NAP Suspends execution of a BASIC program, pausing for a specified number of milliseconds.
+//     * 
+//     * {talendTypes} String
+//     * 
+//     * {Category} SystemOperation
+//     * 
+//     * {param} long(5000)
+//     * 
+//     * {example} NAP(5000)
+//     * 
+//     */
+//    public static void NAP(long milliseconds) {
+//        try {
+//            Thread.sleep(milliseconds);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    /**
-     * SLEEP Suspends execution of a BASIC program, pausing for a specified number of seconds.
-     * 
-     * {talendTypes} String
-     * 
-     * {Category} SystemOperation
-     * 
-     * {param} long(5000)
-     * 
-     * {example} SLEEP(5000)
-     * 
-     */
-    public static void SLEEP(long milliseconds) {
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
+//    /**
+//     * SLEEP Suspends execution of a BASIC program, pausing for a specified number of seconds.
+//     * 
+//     * {talendTypes} String
+//     * 
+//     * {Category} SystemOperation
+//     * 
+//     * {param} long(5000)
+//     * 
+//     * {example} SLEEP(5000)
+//     * 
+//     */
+//    public static void SLEEP(long milliseconds) {
+//        try {
+//            Thread.sleep(milliseconds);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     // STATUS( ) Reports the results of a function or statement previously
     // executed.
     // SYSTEM( ) Checks the status of a system function.
 
-    /**
-     * TIME( ) Returns the time in internal format.
-     * 
-     * {talendTypes} String
-     * 
-     * {Category} SystemOperation
-     * 
-     * {example} TIME()
-     * 
-     */
-    public static String TIME() {
-        Date date = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-        return df.format(date);
-    }
+//    /**
+//     * TIME( ) Returns the time in internal format.
+//     * 
+//     * {talendTypes} String
+//     * 
+//     * {Category} SystemOperation
+//     * 
+//     * {example} TIME()
+//     * 
+//     */
+//    public static String TIME() {
+//        Date date = new Date();
+//        SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+//        return df.format(date);
+//    }
 
-    /**
-     * TIMEDATE( ) Returns the time and date.
-     * 
-     * {talendTypes} String
-     * 
-     * {Category} SystemOperation
-     * 
-     * {example} TIMEDATE()
-     * 
-     */
-    public static String TIMEDATE() {
-        Date date = new Date();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
-        return df.format(date);
-    }
+    // /**
+    // * TIMEDATE( ) Returns the time and date.
+    // *
+    // * {talendTypes} String
+    // *
+    // * {Category} SystemOperation
+    // *
+    // * {example} TIMEDATE()
+    // *
+    // */
+    // public static String TIMEDATE() {
+    // Date date = new Date();
+    // SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+    // return df.format(date);
+    // }
 
     // CHECKSUM( ) Returns a cyclical redundancy code (a checksum value).
     // CONVERT Converts specified characters in a string to designated

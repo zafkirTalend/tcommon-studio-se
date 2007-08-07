@@ -52,9 +52,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} double(3.14)
+     * {param} double(0.15)
      * 
-     * {example} ACOS(3.14)
+     * {example} ACOS(0.15)
      * 
      */
     public static double ACOS(double a) {
@@ -68,9 +68,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} double(3.14)
+     * {param} double(0.15)
      * 
-     * {example} ASIN(3.14)
+     * {example} ASIN(0.15)
      * 
      */
     public static double ASIN(double a) {
@@ -100,9 +100,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} int(1)
+     * {param} int(1) a :integer
      * 
-     * {param) int(1)
+     * {param} int(2) b :integer
      * 
      * {example} BITAND(1,1)
      * 
@@ -133,9 +133,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} int(10)
+     * {param} int(10) a: integer
      * 
-     * {param) int(10)
+     * {param} int(10) b: integer
      * 
      * {example} BITOR(10,10)
      * 
@@ -157,9 +157,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} int(10)
+     * {param} int(10) a: integer
      * 
-     * {param} int(10)
+     * {param} int(10) b: integer
      * 
      * {example} BITXOR(10,10)
      */
@@ -207,9 +207,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} double(3.14)
+     * {param} double(3.14) a: real number
      * 
-     * {param} double(3.14)
+     * {param} double(3.14) b: real number
      * 
      * {example} DIV(3.14,3.14)
      * 
@@ -242,7 +242,7 @@ public class Mathematical {
      * 
      * {param} string(100)
      * 
-     * {example} INT("100")
+     * {example} INT(\"100\")
      */
     public static int INT(String e) {
         return Integer.valueOf(e);
@@ -261,9 +261,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} double(3.1415926)
+     * {param} double(3.1415926) d: real number
      * 
-     * {param} int(2)
+     * {param} int(2) precision: precision
      * 
      * {example}FFIX(3.1415926,2)
      */
@@ -317,9 +317,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} double(3)
+     * {param} double(3) a: double
      * 
-     * {param} double(2)
+     * {param} double(2)  b: double
      * 
      * {example} MOD(3,2)
      * 
@@ -354,7 +354,7 @@ public class Mathematical {
      * 
      * {param} string(1)
      * 
-     * {example} NUM("1")
+     * {example} NUM(\"1\")
      * 
      */
     public static int NUM(String e) {
@@ -376,7 +376,7 @@ public class Mathematical {
      * 
      * {param} string(1)
      * 
-     * {example} REAL("3.14")
+     * {example} REAL(\"3.14\")
      * 
      */
     public static double REAL(String e) {
@@ -410,11 +410,11 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} string(10)
+     * {param} string(10) a: string number
      * 
-     * {param} string(10)
+     * {param} string(10) b: string number
      * 
-     * {example} SADD("10","10")
+     * {example} SADD(\"10\",\"10\")
      * 
      */
     public static double SADD(String a, String b) {
@@ -428,11 +428,11 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} string(12)
+     * {param} string(12) a: string
+     *  
+     * {param} string(13) b: string
      * 
-     * {param} string(13)
-     * 
-     * {example} SCMP("12","13")
+     * {example} SCMP(\"12\",\"13\")
      * 
      */
     public static int SCMP(String a, String b) {
@@ -454,9 +454,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} int(10)
+     * {param} int(10) a: int
      * 
-     * {param} int(10)
+     * {param} int(10) b: int
      * 
      * {example} SDIV(10,20)
      * 
@@ -504,11 +504,11 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} string(3.14)
+     * {param} string(3.14) a: string
      * 
-     * {param} string(3.14)
+     * {param} string(3.14) b: string
      * 
-     * {example} SMUL("3.14","3.14")
+     * {example} SMUL(\"3.14\",\"3.14\")
      * 
      */
     public static double SMUL(String a, String b) {
@@ -538,11 +538,11 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} string(20)
+     * {param} string(20) a: string
+     *  
+     * {param} string(10) b: string
      * 
-     * {param} string(10)
-     * 
-     * {example} SSUB("20","10)
+     * {example} SSUB(\"20\",\"10\")
      * 
      */
     public static String SSUB(String a, String b) {
@@ -556,7 +556,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} double(3.14)
+     * {param} double(3.14) a: double
      * 
      * {example} TAN(3.14)
      * 
@@ -573,7 +573,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} double(3.14)
+     * {param} double(3.14) a: double
      * 
      * {example} TANH(3.14)
      * 
