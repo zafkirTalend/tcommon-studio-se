@@ -97,7 +97,6 @@ public class Function implements Cloneable {
                     p1.setValue(Double.parseDouble(p0.getValue()));
                     parameters1.add(p1);
                 }
-                
 
                 if (para instanceof ListParameter) {
                     ListParameter p0 = (ListParameter) para;
@@ -107,6 +106,39 @@ public class Function implements Cloneable {
                     p1.setType(p0.getType());
                     p1.setValue(p0.getValue());
                     p1.setValues(p0.getValues());
+                    parameters1.add(p1);
+                }
+
+                if (para instanceof ObjectParameter) {
+                    ObjectParameter p0 = (ObjectParameter) para;
+                    ObjectParameter p1 = new ObjectParameter();
+                    p1.setComment(p0.getComment());
+                    p1.setName(p0.getName());
+                    p1.setType(p0.getType());
+                    p1.setValue(p0.getValue());
+                    p1.setValue(p0.getValue());
+                    parameters1.add(p1);
+                }
+
+                if (para instanceof BooleanParameter) {
+                    BooleanParameter p0 = (BooleanParameter) para;
+                    BooleanParameter p1 = new BooleanParameter();
+                    p1.setComment(p0.getComment());
+                    p1.setName(p0.getName());
+                    p1.setType(p0.getType());
+                    p1.setValue(p0.getValue());
+                    p1.setValue(p0.getValue());
+                    parameters1.add(p1);
+                }
+
+                if (para instanceof LongParameter) {
+                    LongParameter p0 = (LongParameter) para;
+                    LongParameter p1 = new LongParameter();
+                    p1.setComment(p0.getComment());
+                    p1.setName(p0.getName());
+                    p1.setType(p0.getType());
+                    p1.setValue(p0.getValue());
+                    p1.setValue(p0.getValue());
                     parameters1.add(p1);
                 }
             }

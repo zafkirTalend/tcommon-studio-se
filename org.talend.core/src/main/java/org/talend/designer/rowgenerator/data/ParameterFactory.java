@@ -48,6 +48,12 @@ public class ParameterFactory {
 
     private static final String PARAMETER_TYPE_DOUBLE = "double";
 
+    private static final String PARAMETER_TYPE_OBJECT = "object";
+
+    private static final String PARAMETER_TYPE_BOOLEAN = "boolean";
+
+    private static final String PARAMETER_TYPE_LONG = "long";
+
     /**
      * qzhang Comment method "getParameter". <br/>.
      * 
@@ -135,6 +141,12 @@ public class ParameterFactory {
             return new ListParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_DOUBLE)) {
             return new DoubleParameter();
+        } else if (type.equalsIgnoreCase(PARAMETER_TYPE_OBJECT)) {
+            return new ObjectParameter();
+        } else if (type.equalsIgnoreCase(PARAMETER_TYPE_BOOLEAN)) {
+            return new BooleanParameter();
+        } else if (type.equalsIgnoreCase(PARAMETER_TYPE_LONG)) {
+            return new LongParameter();
         }
         return null;
     }
