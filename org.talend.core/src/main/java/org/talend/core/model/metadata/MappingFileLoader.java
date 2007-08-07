@@ -126,14 +126,6 @@ public class MappingFileLoader {
                 dbms.setDefaultLengthPrecision(dbDefault);
                 List<Node> typeNodes = getChildElementNodes(dbTypesNode);
                
-                
-                
-                
-                
-                
-                
-                
-                
                 for (Node typeNode : typeNodes) {
                     NamedNodeMap typeNodeAtttributes = typeNode.getAttributes();
                     String typeValue = typeNodeAtttributes.getNamedItem("type").getNodeValue(); //$NON-NLS-1$
@@ -154,14 +146,7 @@ public class MappingFileLoader {
                     Node defaultPrecision=typeNodeAtttributes.getNamedItem("defaultPrecision");
                     if(defaultLengthItem!=null) dbDefaultLP.setDefaultLength(Integer.parseInt(defaultLengthItem.getNodeValue()));
                     if(defaultPrecision!=null) dbDefaultLP.setDefaultPrecision(Integer.parseInt(defaultPrecision.getNodeValue()));
-                    if(defaultLengthItem==null&&defaultPrecision!=null){
-                    	String message = Messages
-                        .getString(
-                                "MappingFileLoader.NoDefaultLengthForPrecision", new Object[] { typeValue,dbmsIdValue});//$NON-NLS-1$
-		                log.warn(message);
-		                // System.out.println(message);
-		                continue;
-                    }
+                   
                     dbDefaultLP.setDbTypeName(typeValue);
                     dbDefault.add(dbDefaultLP);
 
@@ -169,15 +154,6 @@ public class MappingFileLoader {
                         dbms.setDefaultDbType(typeValue);
                     }
                 }
-                
-                
-                
-                
-                
-                
-                
-                
-                
                 
                 Set<String> hDbTypesProcessed = new HashSet<String>(hAllDbTypes);
 
