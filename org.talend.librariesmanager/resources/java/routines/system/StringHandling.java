@@ -243,8 +243,7 @@ public class StringHandling {
      * {example} SPACE(2) # "  "
      */
     public static String SPACE( int i) {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(string);
+        StringBuffer buffer = new StringBuffer();        
         for (int j = 0; j < i; j++) {
             buffer.append(" ");
         }

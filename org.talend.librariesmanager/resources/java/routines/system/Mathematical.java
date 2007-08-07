@@ -240,7 +240,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} string(100)
+     * {param} string("100")
      * 
      * {example} INT(\"100\")
      */
@@ -327,6 +327,10 @@ public class Mathematical {
     public static double MOD(double a, double b) {
         return a % b;
     }
+    
+    public static void main(String[] args) {
+        Mathematical.MOD(3, 2);
+    }
 
     /**
      * NEG( ) Returns the arithmetic additive inverse of the value of the argument.
@@ -352,7 +356,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} string(1)
+     * {param} string("1")
      * 
      * {example} NUM(\"1\")
      * 
@@ -374,7 +378,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} string(1)
+     * {param} string("3.14")
      * 
      * {example} REAL(\"3.14\")
      * 
@@ -410,9 +414,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} string(10) a: string number
+     * {param} string("10") a: string number
      * 
-     * {param} string(10) b: string number
+     * {param} string("10") b: string number
      * 
      * {example} SADD(\"10\",\"10\")
      * 
@@ -428,9 +432,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} string(12) a: string
+     * {param} string("12") a: string
      *  
-     * {param} string(13) b: string
+     * {param} string("13") b: string
      * 
      * {example} SCMP(\"12\",\"13\")
      * 
@@ -504,9 +508,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} string(3.14) a: string
+     * {param} string("3.14") a: string
      * 
-     * {param} string(3.14) b: string
+     * {param} string("3.14") b: string
      * 
      * {example} SMUL(\"3.14\",\"3.14\")
      * 
