@@ -225,7 +225,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} a(3.14)
+     * {param} double(3.14)
      * 
      * {example} EXP(3.14)
      */
@@ -240,7 +240,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} stirng(100)
+     * {param} string(100)
      * 
      * {example} INT("100")
      */

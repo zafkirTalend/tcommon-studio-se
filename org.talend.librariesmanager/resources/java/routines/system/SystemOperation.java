@@ -76,7 +76,7 @@ public class SystemOperation {
      * 
      * {Category} SystemOperation
      * 
-     * {param} 5000
+     * {param} long(5000)
      * 
      * {example} SLEEP(5000)
      * 
