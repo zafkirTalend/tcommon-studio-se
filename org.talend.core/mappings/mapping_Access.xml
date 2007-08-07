@@ -5,6 +5,7 @@
 		<dbTypes>
 			<dbType type="BIT" />
 			<dbType type="BOOLEAN" />
+			<dbType type="COUNTER"/>
 			<dbType type="DATE" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
 			<dbType type="DOUBLE" />
@@ -55,11 +56,13 @@
 					<dbType type="INTEGER" default="true" />
 					<dbType type="SMALLINT" />
 					<dbType type="TINYINT" />
+					<dbType type="COUNTER"/>
 				</talendType>
 				<talendType type="id_Long">
 					<dbType type="INTEGER" default="true" />	
 					<dbType type="SMALLINT" />
 					<dbType type="TINYINT" />	
+					<dbType type="COUNTER"/>
 				</talendType>
 				<talendType type="id_Object">
 				</talendType>
@@ -67,6 +70,7 @@
 					<dbType type="SMALLINT" default="true" />
 					<dbType type="INTEGER" />
 					<dbType type="TINYINT"/>
+					<dbType type="COUNTER"/>
 				</talendType>
 				<talendType type="id_String">
 					<dbType type="VARCHAR" default="true" />
@@ -78,6 +82,9 @@
 				</dbType>
 				<dbType type="BOOLEAN">
 					<talendType type="id_Boolean" default="true" />
+				</dbType>
+				<dbType type="COUNTER">
+					<talendType type="id_Integer" default="true"/>
 				</dbType>
 				<dbType type="DATE">
 					<talendType type="id_Date" default="true" />
@@ -137,6 +144,7 @@
 					<dbType type="INTEGER" default="true" />	
 					<dbType type="SMALLINT"/>
 					<dbType type="TINYINT"/>
+					<dbType type="COUNTER"/>
 				</talendType>
 				<talendType type="decimal">
 					<dbType type="DECIMAL" default="true" />
@@ -168,6 +176,9 @@
 				</dbType>
 				<dbType type="BOOLEAN">
 					<talendType type="boolean" default="true" />
+				</dbType>
+				<dbType type="COUNTER">
+					<talendType type="int" default="true"/>
 				</dbType>
 				<dbType type="DATE">
 					<talendType type="date" default="true" />
