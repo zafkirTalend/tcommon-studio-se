@@ -91,7 +91,11 @@ public final class ConvertionHelper {
             newColumn.setPrecision(column.getPrecision());
             newColumn.setTalendType(column.getTalendType());
             newColumn.setType(column.getSourceType());
-            newColumn.setOriginalDbColumnName(column.getOriginalField());
+            if (column.getOriginalField() == null || column.getOriginalField().equals("")) {
+                newColumn.setOriginalDbColumnName(column.getLabel());
+            } else {
+                newColumn.setOriginalDbColumnName(column.getOriginalField());
+            }
         }
         result.setListColumns(columns);
         // result.setVersion();
