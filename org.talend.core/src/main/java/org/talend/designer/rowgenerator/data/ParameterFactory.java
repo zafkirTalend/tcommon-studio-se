@@ -54,6 +54,8 @@ public class ParameterFactory {
 
     private static final String PARAMETER_TYPE_LONG = "long";
 
+    private static final String PARAMETER_TYPE_DATE = "date";
+
     /**
      * qzhang Comment method "getParameter". <br/>.
      * 
@@ -147,6 +149,8 @@ public class ParameterFactory {
             return new BooleanParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_LONG)) {
             return new LongParameter();
+        } else if (type.equalsIgnoreCase(PARAMETER_TYPE_DATE)) {
+            return new DateParameter();
         }
         return null;
     }

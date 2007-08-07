@@ -141,6 +141,17 @@ public class Function implements Cloneable {
                     p1.setValue(p0.getValue());
                     parameters1.add(p1);
                 }
+                
+                if (para instanceof DateParameter) {
+                    DateParameter p0 = (DateParameter) para;
+                    DateParameter p1 = new DateParameter();
+                    p1.setComment(p0.getComment());
+                    p1.setName(p0.getName());
+                    p1.setType(p0.getType());
+                    p1.setValue(p0.getValue());
+                    p1.setValue(p0.getValue());
+                    parameters1.add(p1);
+                }
             }
             fun.setParameters(parameters1);
         } catch (Exception e) {
