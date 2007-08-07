@@ -44,7 +44,9 @@ public class ParameterFactory {
 
     public static final String PARAMETER_TYPE_INT = "int"; //$NON-NLS-1$
 
-    public  static final  String PARAMETER_TYPE_LIST = "list"; //$NON-NLS-1$
+    public static final String PARAMETER_TYPE_LIST = "list"; //$NON-NLS-1$
+
+    private static final String PARAMETER_TYPE_DOUBLE = "double";
 
     /**
      * qzhang Comment method "getParameter". <br/>.
@@ -67,13 +69,13 @@ public class ParameterFactory {
                 string = string.substring(end + 1).trim();
                 setDefaultValue(p, value);
             }
-            
+
             String[] s = string.split(":"); //$NON-NLS-1$
             if (s != null && s.length != 0) {
                 if (s[0] != null) {
                     p.setName(s[0]);
                 }
-                
+
                 if (s.length == 2 && s[1] != null) {
                     p.setComment(s[1]);
                 }
@@ -131,6 +133,8 @@ public class ParameterFactory {
             return new IntParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_LIST)) {
             return new ListParameter();
+        } else if (type.equalsIgnoreCase(PARAMETER_TYPE_DOUBLE)) {
+            return new DoubleParameter();
         }
         return null;
     }
