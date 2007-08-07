@@ -37,7 +37,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} double (10) a:
+     * {param} double(10)
      * 
      * {example} ABS(-10) # 10
      */
@@ -52,6 +52,10 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} double(3.14)
+     * 
+     * {example} ACOS(3.14)
+     * 
      */
     public static double ACOS(double a) {
         return Math.acos(a);
@@ -60,11 +64,13 @@ public class Mathematical {
     /**
      * ASIN( ) Calculates the trigonometric arc-sine of an expression.
      * 
-     * 
-     * 
      * {talendTypes} double | Double
      * 
      * {Category} Mathematical
+     * 
+     * {param} double(3.14)
+     * 
+     * {example} ASIN(3.14)
      * 
      */
     public static double ASIN(double a) {
@@ -78,7 +84,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} double(3.14)
      * 
+     * {example} ATAN(3.14)
      * 
      */
     public static double ATAN(double a) {
@@ -92,7 +100,11 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} int(1)
      * 
+     * {param) int(1)
+     * 
+     * {example} BITAND(1,1)
      * 
      */
     public static int BITAND(int a, int b) {
@@ -105,6 +117,10 @@ public class Mathematical {
      * {talendTypes} int | Integer
      * 
      * {Category} Mathematical
+     * 
+     * {param} int(10}
+     * 
+     * {example} BITNOT(10)
      */
     public static int BITNOT(int a) {
         return ~a;
@@ -116,6 +132,12 @@ public class Mathematical {
      * {talendTypes} int | Integer
      * 
      * {Category} Mathematical
+     * 
+     * {param} int(10)
+     * 
+     * {param) int(10)
+     * 
+     * {example} BITOR(10,10)
      * 
      * 
      */
@@ -135,7 +157,11 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} int(10)
      * 
+     * {param} int(10)
+     * 
+     * {example} BITXOR(10,10)
      */
     public static int BITXOR(int a, int b) {
         return a ^ b;
@@ -148,7 +174,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} double(3.14)
      * 
+     * {example} COS(3.14)
      * 
      */
     public static double COS(double a) {
@@ -161,6 +189,10 @@ public class Mathematical {
      * {talendTypes} double | Double
      * 
      * {Category} Mathematical
+     * 
+     * {param} double(3.14)
+     * 
+     * {example} COSH(3.14)
      * 
      * 
      */
@@ -175,6 +207,12 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} double(3.14)
+     * 
+     * {param} double(3.14)
+     * 
+     * {example} DIV(3.14,3.14)
+     * 
      */
     public static double DIV(double a, double b) {
         return a / b;
@@ -186,6 +224,10 @@ public class Mathematical {
      * {talendTypes} double | Double
      * 
      * {Category} Mathematical
+     * 
+     * {param} a(3.14)
+     * 
+     * {example} EXP(3.14)
      */
     public static double EXP(double a) {
         return Math.exp(a);
@@ -197,6 +239,10 @@ public class Mathematical {
      * {talendTypes} int | Integer
      * 
      * {Category} Mathematical
+     * 
+     * {param} stirng(100)
+     * 
+     * {example} INT("100")
      */
     public static int INT(String e) {
         return Integer.valueOf(e);
@@ -214,6 +260,12 @@ public class Mathematical {
      * {talendTypes} String
      * 
      * {Category} Mathematical
+     * 
+     * {param} double(3.1415926)
+     * 
+     * {param} int(2)
+     * 
+     * {example}FFIX(3.1415926,2)
      */
     public static String FFIX(double d, int precision) {
         double p = Math.pow(10, precision);
@@ -228,6 +280,10 @@ public class Mathematical {
      * {talendTypes} String
      * 
      * {Category} Mathematical
+     * 
+     * {param} double(3.14)
+     * 
+     * {example} FFLT(3.14)
      * 
      */
     public static String FFLT(double d) {
@@ -245,6 +301,10 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} double(3.14)
+     * 
+     * {example} LN(3.14)
+     * 
      */
     public static double LN(double a) {
         return Math.log(a) / Math.E;
@@ -257,7 +317,11 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} double(3)
      * 
+     * {param} double(2)
+     * 
+     * {example} MOD(3,2)
      * 
      */
     public static double MOD(double a, double b) {
@@ -272,6 +336,10 @@ public class Mathematical {
      * {talendTypes} double | Double
      * 
      * {Category} Mathematical
+     * 
+     * {param} double(3.14)
+     * 
+     * {example} NEG(3.14)
      */
     public static double NEG(double a) {
         return -1 * a;
@@ -283,6 +351,10 @@ public class Mathematical {
      * {talendTypes} int | Integer
      * 
      * {Category} Mathematical
+     * 
+     * {param} string(1)
+     * 
+     * {example} NUM("1")
      * 
      */
     public static int NUM(String e) {
@@ -302,6 +374,10 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} string(1)
+     * 
+     * {example} REAL("3.14")
+     * 
      */
     public static double REAL(String e) {
         return Double.valueOf(e);
@@ -318,7 +394,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} double(3.14)
      * 
+     * {example} RND(3.14)
      * 
      */
     public static double RND(double a) {
@@ -332,6 +410,12 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} string(10)
+     * 
+     * {param} string(10)
+     * 
+     * {example} SADD("10","10")
+     * 
      */
     public static double SADD(String a, String b) {
         return Double.valueOf(a) + Double.valueOf(b);
@@ -343,6 +427,12 @@ public class Mathematical {
      * {talendTypes} int | Integer
      * 
      * {Category} Mathematical
+     * 
+     * {param} string(12)
+     * 
+     * {param} string(13)
+     * 
+     * {example} SCMP("12","13")
      * 
      */
     public static int SCMP(String a, String b) {
@@ -364,6 +454,12 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} int(10)
+     * 
+     * {param} int(10)
+     * 
+     * {example} SDIV(10,20)
+     * 
      */
     public static int SDIV(int a, int b) {
         return (int) (a / b);
@@ -376,7 +472,9 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} double(3.14)
      * 
+     * {example} SIN(3.14)
      * 
      */
     public static double SIN(double a) {
@@ -390,6 +488,10 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} double(3.14)
+     * 
+     * {example} SINH(3.14)
+     * 
      */
     public static double SINH(double a) {
         return Math.sinh(a);
@@ -401,6 +503,12 @@ public class Mathematical {
      * {talendTypes} double | Double
      * 
      * {Category} Mathematical
+     * 
+     * {param} string(3.14)
+     * 
+     * {param} string(3.14)
+     * 
+     * {example} SMUL("3.14","3.14")
      * 
      */
     public static double SMUL(String a, String b) {
@@ -414,6 +522,10 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} double(4)
+     * 
+     * {example} SQRT(4.0)
+     * 
      */
     public static double SQRT(double a) {
         return Math.sqrt(a);
@@ -425,6 +537,12 @@ public class Mathematical {
      * {talendTypes} String
      * 
      * {Category} Mathematical
+     * 
+     * {param} string(20)
+     * 
+     * {param} string(10)
+     * 
+     * {example} SSUB("20","10)
      * 
      */
     public static String SSUB(String a, String b) {
@@ -438,6 +556,10 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
+     * {param} double(3.14)
+     * 
+     * {example} TAN(3.14)
+     * 
      * 
      */
     public static double TAN(double a) {
@@ -450,6 +572,10 @@ public class Mathematical {
      * {talendTypes} double | Double
      * 
      * {Category} Mathematical
+     * 
+     * {param} double(3.14)
+     * 
+     * {example} TANH(3.14)
      * 
      */
     public static double TANH(double a) {

@@ -30,31 +30,15 @@ package routines;
 public class DataOperation {
 
     /**
-     * ASCII( ) Converts EBCDIC representation of character string data to the equivalent ASCII character code values.
-     * 
-     * {talendTypes} int | Integer
-     * 
-     * {Category} DataOperation
-     * 
-     * {param} char('a')
-     * 
-     * {example} ASCII('a')
-     * 
-     */
-    public static int ASCII(char c) {
-        return Character.digit(c, 10);
-    }
-
-    /**
-     * CHAR( ) Converts a numeric value to its ASCII character string equivalent.
+     * CHAR() Converts a numeric value to its ASCII character string equivalent.
      * 
      * {talendTypes} char | Character
      * 
      * {Category} DataOperation
      * 
-     * {param} int(1)
+     * {param} int(1) i: numeric value
      * 
-     * {example} CHAR(1)
+     * {example} CHAR(1):int
      * 
      */
     public static char CHAR(int i) {
@@ -64,11 +48,11 @@ public class DataOperation {
     /**
      * DTX( ) Converts a decimal integer into its hexadecimal equivalent.
      * 
-     * {talendTypes} Sting
+     * {talendTypes} String
      * 
      * {Category} DataOperation
      * 
-     * {param} int(1)
+     * {param} int(1) i:decimal integer
      * 
      * {example} DTX(1)
      * 
@@ -77,10 +61,6 @@ public class DataOperation {
         return Integer.toHexString(i);
     }
 
-    // EBCDIC( ) Converts data from its ASCII representation to the equivalent
-    // code value in EBCDIC.
-    // 
-
     /**
      * FIX( ) Rounds an expression to a decimal number having the accuracy specified by the PRECISION statement.
      * 
@@ -88,7 +68,7 @@ public class DataOperation {
      * 
      * {Category} DataOperation
      * 
-     * {param} double(0.0)
+     * {param} double (0.0) d:decimal number
      * 
      * {example} FIX(3.14)
      * 
@@ -97,13 +77,6 @@ public class DataOperation {
         return Math.round(d);
     }
 
-    // FMT( ) Converts data from its internal representation to a specified
-    // format for output.
-    // ICONV( ) Converts data to internal storage format.
-    // OCONV( ) Converts data from its internal representation to an external
-    // output format.
-    // SEQ( ) Converts an ASCII character code value to its corresponding
-    // numeric value.
     /**
      * XTD( ) Converts a hexadecimal string into its decimal equivalent.
      * 
@@ -111,9 +84,9 @@ public class DataOperation {
      * 
      * {Category} DataOperation
      * 
-     * {param} string("0")
+     * {param} string ("0") text: hexadecimal string
      * 
-     * {example} XTD("1")
+     * {example} XTD(\"1\")
      * 
      */
     public static int XTD(String text) {

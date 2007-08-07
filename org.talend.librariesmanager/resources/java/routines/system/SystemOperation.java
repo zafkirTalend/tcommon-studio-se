@@ -40,6 +40,8 @@ public class SystemOperation {
      * 
      * {Category} SystemOperation
      * 
+     * {example} DATE()
+     * 
      */
     public static String DATE() {
         Date date = new Date();
@@ -53,6 +55,10 @@ public class SystemOperation {
      * {talendTypes} String
      * 
      * {Category} SystemOperation
+     * 
+     * {param} long(5000)
+     * 
+     * {example} NAP(5000)
      * 
      */
     public static void NAP(long milliseconds) {
@@ -69,6 +75,10 @@ public class SystemOperation {
      * {talendTypes} String
      * 
      * {Category} SystemOperation
+     * 
+     * {param} 5000
+     * 
+     * {example} SLEEP(5000)
      * 
      */
     public static void SLEEP(long milliseconds) {
@@ -90,6 +100,8 @@ public class SystemOperation {
      * 
      * {Category} SystemOperation
      * 
+     * {example} TIME()
+     * 
      */
     public static String TIME() {
         Date date = new Date();
@@ -103,6 +115,8 @@ public class SystemOperation {
      * {talendTypes} String
      * 
      * {Category} SystemOperation
+     * 
+     * {example} TIMEDATE()
      * 
      */
     public static String TIMEDATE() {

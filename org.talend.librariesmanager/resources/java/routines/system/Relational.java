@@ -35,8 +35,13 @@ public class Relational {
      * 
      * {talendTypes} boolean | Boolean
      * 
-     * 
      * {Category} Relational
+     * 
+     * {param} Object(null)
+     * 
+     * {example} ISNULL(null)
+     * 
+     * 
      */
     public static boolean ISNULL(Object variable) {
         return variable == null;
@@ -48,6 +53,10 @@ public class Relational {
      * {talendTypes} boolean | Boolean
      * 
      * {Category} Relational
+     * 
+     * {param} boolean(true)
+     * 
+     * {example} NOT(false)
      */
     public static boolean NOT(boolean expression) {
         return !expression;
