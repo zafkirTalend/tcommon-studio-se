@@ -138,11 +138,7 @@ public abstract class JobContextComposite extends Composite {
 
     private CellEditor cellEditor;
 
-    private TableEditor treeEditor;
-
     private IContextManager jobContextManager;
-
-    private Table table;
 
     public JobContextComposite(Composite parent) {
         super(parent, SWT.None);
@@ -724,31 +720,31 @@ public abstract class JobContextComposite extends Composite {
         tableViewerCreator.setColumnsSortableByDefault(true);
         tableViewerCreator.setLayoutMode(LAYOUT_MODE.FILL_HORIZONTAL);
 
-        table = tableViewerCreator.createTable();
+        final Table newtable = tableViewerCreator.createTable();
 
-        treeEditor = new TableEditor(table);
-        createEditorListener();
+        final TableEditor treeEditor = new TableEditor(newtable);
+        createEditorListener(treeEditor);
         removeParameter.addListener(SWT.Selection, removeParameterListener);
-        table.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL | GridData.HORIZONTAL_ALIGN_FILL | GridData.GRAB_HORIZONTAL
-                | GridData.GRAB_VERTICAL));
+        newtable.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL | GridData.HORIZONTAL_ALIGN_FILL
+                | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL));
 
         if (!isReadOnly()) {
             Menu menuTable;
             menuTable = (Menu) hashCurControls.get(MENU_TABLE);
-            table.setMenu(menuTable);
+            newtable.setMenu(menuTable);
             menuTable.addListener(SWT.Show, menuTableListener);
         }
 
-        table.setEnabled(!isReadOnly());
-        table.addSelectionListener(checkTableAdapter);
+        newtable.setEnabled(!isReadOnly());
+        newtable.addSelectionListener(checkTableAdapter);
 
-        addTableColumns(tableViewerCreator, table);
+        addTableColumns(tableViewerCreator, newtable);
 
         final List<IContextParameter> listContextParam = context.getContextParameterList();
         tableViewerCreator.init(listContextParam);
         TableItem tableItem;
-        for (int i = 0; i < table.getItemCount(); i++) {
-            tableItem = table.getItem(i);
+        for (int i = 0; i < newtable.getItemCount(); i++) {
+            tableItem = newtable.getItem(i);
             String paramName = ((IContextParameter) tableItem.getData()).getName();
             List<IContextParameter> listParams = context.getContextParameterList();
             boolean paramNameFound = false;
@@ -768,7 +764,7 @@ public abstract class JobContextComposite extends Composite {
             removeContext.setEnabled(false);
         }
 
-        table.addSelectionListener(new SelectionListener() {
+        newtable.addSelectionListener(new SelectionListener() {
 
             public void widgetDefaultSelected(SelectionEvent e) {
             }
@@ -777,24 +773,24 @@ public abstract class JobContextComposite extends Composite {
                 removeParameter.setEnabled(!isReadOnly());
             }
         });
-        table.addMouseListener(new MouseAdapter() {
+        newtable.addMouseListener(new MouseAdapter() {
 
             public void mouseDown(MouseEvent e) {
-                Rectangle clientArea = table.getClientArea();
+                Rectangle clientArea = newtable.getClientArea();
                 Point pt = new Point(e.x, e.y);
-                TableItem item = table.getItem(pt);
+                TableItem item = newtable.getItem(pt);
                 // deactivate the current cell editor
                 if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
-                    deactivateCellEditor();
+                    deactivateCellEditor(treeEditor);
                 }
                 if (item != null) {
                     boolean visible = false;
-                    for (int i = 0; i < table.getColumnCount(); i++) {
+                    for (int i = 0; i < newtable.getColumnCount(); i++) {
                         Rectangle rect = item.getBounds(i);
                         if (rect.contains(pt)) {
                             final int column = i;
                             if (column == CNUM_DEFAULT) {
-                                handleSelect(item);
+                                handleSelect(item, newtable, treeEditor);
                             }
                         }
                         if (!visible && rect.intersects(clientArea)) {
@@ -817,27 +813,29 @@ public abstract class JobContextComposite extends Composite {
      * @link PropertySheetViewer
      */
 
-    protected void handleSelect(final TableItem selection) {
+    protected void handleSelect(final TableItem selection, final Table table, final TableEditor tableEditor) {
         // get the new selection
         TableItem[] sel = new TableItem[] { selection };
         if (sel.length == 0) {
             return;
         } else {
-            activateCellEditor(sel[0]);
+            activateCellEditor(sel[0], table, tableEditor);
         }
     }
+
+    private DefaultCellEditorFactory cellEditorFactory = new DefaultCellEditorFactory();
 
     /**
      * zx Comment method "activateCellEditor".
      * 
      * @param item
      */
-    private void activateCellEditor(final TableItem item) {
+    private void activateCellEditor(final TableItem item, final Table table, final TableEditor tableEditor) {
         // ensure the cell editor is visible
         table.showSelection();
 
-        cellEditor = DefaultCellEditorFactory.getInstance().getCustomCellEditor(((IContextParameter) item.getData()).getType(),
-                table, getSelectedContext(), tableViewerCreatorMap.get(getSelectedContext()));
+        cellEditor = cellEditorFactory.getCustomCellEditor(((IContextParameter) item.getData()).getType(), table,
+                getSelectedContext(), tableViewerCreatorMap.get(getSelectedContext()));
         if (cellEditor == null) {
             // unable to create the editor
             return;
@@ -853,14 +851,14 @@ public abstract class JobContextComposite extends Composite {
             return;
         }
         // add our editor listener
-        cellEditor.addListener(editorListener);
+        cellEditor.addListener(createEditorListener(tableEditor));
 
         // set the layout of the tree editor to match the cell editor
         CellEditor.LayoutData layout = cellEditor.getLayoutData();
-        treeEditor.horizontalAlignment = layout.horizontalAlignment;
-        treeEditor.grabHorizontal = layout.grabHorizontal;
-        treeEditor.minimumWidth = layout.minimumWidth;
-        treeEditor.setEditor(control, item, CNUM_DEFAULT);
+        tableEditor.horizontalAlignment = layout.horizontalAlignment;
+        tableEditor.grabHorizontal = layout.grabHorizontal;
+        tableEditor.minimumWidth = layout.minimumWidth;
+        tableEditor.setEditor(control, item, CNUM_DEFAULT);
         // give focus to the cell editor
         cellEditor.setFocus();
 
@@ -871,21 +869,20 @@ public abstract class JobContextComposite extends Composite {
     /**
      * zx Comment method "deactivateCellEditor".
      */
-    private void deactivateCellEditor() {
-        treeEditor.setEditor(null, null, CNUM_DEFAULT);
+    private void deactivateCellEditor(final TableEditor tableEditor) {
+        tableEditor.setEditor(null, null, CNUM_DEFAULT);
         if (cellEditor != null) {
             cellEditor.deactivate();
-            // fireCellEditorDeactivated(cellEditor);
             cellEditor.removeListener(editorListener);
             cellEditor = null;
         }
     }
 
-    private void createEditorListener() {
+    private ICellEditorListener createEditorListener(final TableEditor tableEditor) {
         editorListener = new ICellEditorListener() {
 
             public void cancelEditor() {
-                deactivateCellEditor();
+                deactivateCellEditor(tableEditor);
             }
 
             public void editorValueChanged(boolean oldValidState, boolean newValidState) {
@@ -896,51 +893,11 @@ public abstract class JobContextComposite extends Composite {
                 // Do nothing
             }
         };
-    }
-
-    /**
-     * zx Comment method "applyEditorValue".
-     */
-    private void applyEditorValue() {
-        TableItem treeItem = treeEditor.getItem();
-        // treeItem can be null when view is opened
-        if (treeItem == null || treeItem.isDisposed()) {
-            return;
-        }
-        IContextParameter data2 = (IContextParameter) treeItem.getData();
-        if (cellEditor == null) {
-            return;
-        }
-        applyCellEditor(data2);
-    }
-
-    /**
-     * zx Comment method "applyCellEditor".
-     * 
-     * @param data2
-     */
-    private void applyCellEditor(IContextParameter data2) {
-        // See if the value changed and if so update
-        Object newValue = cellEditor.getValue();
-        boolean changed = false;
-        String editValue = data2.getValue();
-        if (editValue == null) {
-            if (newValue != null) {
-                changed = true;
-            }
-        } else if (!editValue.equals(newValue)) {
-            changed = true;
-        }
-
-        // Set the editor value
-        if (changed && newValue != null) {
-            data2.setValue(newValue.toString());
-        }
+        return editorListener;
     }
 
     private CellEditor textCellEditor2;
 
-    @SuppressWarnings("unchecked")
     private void addTableColumns(final TableViewerCreator tableViewerCreator, final Table table) {
         TableViewerCreatorColumn column = new TableViewerCreatorColumn(tableViewerCreator);
         column.setTitle(Messages.getString("ContextProcessSection.prompt")); //$NON-NLS-1$
