@@ -22,6 +22,7 @@
 package org.talend.designer.runprocess;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -32,7 +33,9 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.model.process.Element;
 import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -155,8 +158,7 @@ public class ProcessorUtilities {
         }
     }
 
-    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties,
-            int option) {
+    private static boolean generateCode(JobInfo jobInfo, boolean statistics, boolean trace, boolean properties, int option) {
         IProcess currentProcess = null;
         jobList.add(jobInfo);
         ProcessItem selectedProcessItem = getProcessItem(jobInfo.getJobName());
@@ -173,7 +175,11 @@ public class ProcessorUtilities {
             }
         } else {
             currentProcess = jobInfo.getProcess();
+
         }
+
+        resetRunJobComponentParameterForContextApply(jobInfo, currentProcess);
+
         IContext currentContext;
         if (jobInfo.getContext() == null) {
             currentContext = getContext(currentProcess, jobInfo.getContextName());
@@ -192,6 +198,10 @@ public class ProcessorUtilities {
             for (int j = 0; j < emfJobList.size() && toReturn; j++) {
                 JobType jType = (JobType) emfJobList.get(j);
                 JobInfo subJobInfo = new JobInfo(jType);
+                if (jobInfo.isApplyContextToChildren()) {
+                    subJobInfo.setApplyContextToChildren(jobInfo.isApplyContextToChildren());
+                    subJobInfo.setContextName(jobInfo.getContextName());
+                }
                 if (!jobList.contains(subJobInfo)) {
                     // children won't have stats / traces
                     if (option == GENERATE_WITH_FIRST_CHILD) {
@@ -203,6 +213,25 @@ public class ProcessorUtilities {
             }
         }
         return toReturn;
+    }
+
+    /**
+     * This method is used to reset the tRunJob component's context,see feature 1625.
+     * 
+     * @param jobInfo
+     * @param currentProcess
+     */
+    private static void resetRunJobComponentParameterForContextApply(JobInfo jobInfo, IProcess currentProcess) {
+        if (jobInfo.isApplyContextToChildren()) {
+            for (Iterator<? extends INode> iter = currentProcess.getGraphicalNodes().iterator(); iter.hasNext();) {
+                INode node = iter.next();
+                if ((node != null) && node.getComponent().getName().equals("tRunJob")) {
+                    Element element = (Element) node;
+                    // the corresponding parameter is EParameterName.PROCESS_TYPE_CONTEXT
+                    element.setPropertyValue("PROCESS_TYPE_CONTEXT", jobInfo.getContextName());
+                }
+            }
+        }
     }
 
     static List<JobInfo> jobList = new ArrayList<JobInfo>();
@@ -219,15 +248,27 @@ public class ProcessorUtilities {
         return generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
     }
 
+    /**
+     * This function will generate the code of the process and all of this sub process.
+     * 
+     * @param processName
+     * @param contextName
+     */
     public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace,
-            int option) {
+            boolean applyContextToChildren) {
+        jobList.clear();
+        JobInfo jobInfo = new JobInfo(processName, contextName);
+        jobInfo.setApplyContextToChildren(applyContextToChildren);
+        return generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
+    }
+
+    public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace, int option) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName);
         return generateCode(jobInfo, statistics, trace, true, option);
     }
 
-    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace,
-            boolean properties) {
+    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process.getName(), context.getName());
         jobInfo.setProcess(process);
@@ -235,8 +276,8 @@ public class ProcessorUtilities {
         return generateCode(jobInfo, statistics, trace, properties, GENERATE_ALL_CHILDS);
     }
 
-    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace,
-            boolean properties, int option) {
+    public static boolean generateCode(IProcess process, IContext context, boolean statistics, boolean trace, boolean properties,
+            int option) {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(process.getName(), context.getName());
         jobInfo.setProcess(process);
@@ -255,8 +296,8 @@ public class ProcessorUtilities {
      * @return
      * @throws ProcessorException
      */
-    public static String[] getCommandLine(boolean externalUse, String processName, String contextName,
-            int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
+    public static String[] getCommandLine(boolean externalUse, String processName, String contextName, int statisticPort,
+            int tracePort, String... codeOptions) throws ProcessorException {
         return getCommandLine(null, externalUse, processName, contextName, statisticPort, tracePort, codeOptions);
     }
 
@@ -273,8 +314,8 @@ public class ProcessorUtilities {
      * @return
      * @throws ProcessorException
      */
-    public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processName,
-            String contextName, int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
+    public static String[] getCommandLine(String targetPlatform, boolean externalUse, String processName, String contextName,
+            int statisticPort, int tracePort, String... codeOptions) throws ProcessorException {
         IProcess currentProcess = null;
         ProcessItem selectedProcessItem = getProcessItem(processName);
         if (selectedProcessItem != null) {
@@ -387,6 +428,8 @@ public class ProcessorUtilities {
 
         IContext context;
 
+        boolean applyContextToChildren = false;
+
         JobInfo(String jobName, String contextName) {
             this.jobName = jobName;
             this.contextName = contextName;
@@ -428,5 +471,24 @@ public class ProcessorUtilities {
         public void setContext(IContext context) {
             this.context = context;
         }
+
+        /**
+         * Getter for applyContextToChildren.
+         * 
+         * @return the applyContextToChildren
+         */
+        public boolean isApplyContextToChildren() {
+            return this.applyContextToChildren;
+        }
+
+        /**
+         * Sets the applyContextToChildren.
+         * 
+         * @param applyContextToChildren the applyContextToChildren to set
+         */
+        public void setApplyContextToChildren(boolean applyContextToChildren) {
+            this.applyContextToChildren = applyContextToChildren;
+        }
+
     }
 }
