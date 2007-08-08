@@ -118,7 +118,7 @@ public class Mathematical {
      * 
      * {Category} Mathematical
      * 
-     * {param} int(10}
+     * {param} int(10)
      * 
      * {example} BITNOT(10)
      */
