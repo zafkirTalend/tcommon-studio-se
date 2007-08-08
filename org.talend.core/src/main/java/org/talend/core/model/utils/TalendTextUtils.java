@@ -186,6 +186,9 @@ public class TalendTextUtils {
     }
 
     public static String addQuotesWithSpaceField(String fieldName, String dbType) {
+        if (fieldName.startsWith("\"") && fieldName.endsWith("\"")) {
+            return fieldName;
+        }
         if (!fieldName.contains(" ")) {
             return fieldName;
         }
@@ -206,7 +209,7 @@ public class TalendTextUtils {
         }
         switch (name) {
         case GODBC:
-            return getBracket();
+            return QUOTATION_MARK;
         case IBMDB2:
             return QUOTATION_MARK;
         case INGRES:
@@ -236,7 +239,7 @@ public class TalendTextUtils {
         case INFORMIX:
             return QUOTATION_MARK;
         case ACCESS:
-            return QUOTATION_MARK;
+            return getBracket();
         case TERADATA:
             return QUOTATION_MARK;
             // case JAVADB_DERBYCLIENT:

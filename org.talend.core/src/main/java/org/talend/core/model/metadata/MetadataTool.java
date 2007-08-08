@@ -26,9 +26,17 @@ import java.util.List;
 
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
+import org.talend.core.model.process.EConnectionType;
+import org.talend.core.model.process.EParameterFieldType;
+import org.talend.core.model.process.Element;
+import org.talend.core.model.process.IConnection;
+import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -38,6 +46,8 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  * 
  */
 public class MetadataTool {
+
+    private static final String DEFAULT_TABLE_NAME = "_MyTable_";
 
     public static List<ColumnNameChanged> getColumnNameChanged(IMetadataTable oldTable, IMetadataTable newTable) {
         List<ColumnNameChanged> columnNameChanged = new ArrayList<ColumnNameChanged>();
@@ -182,6 +192,7 @@ public class MetadataTool {
         }
         return list;
     }
+
     /**
      * qzhang Comment method "getRemoveMetadataColumns".
      * 
@@ -206,5 +217,58 @@ public class MetadataTool {
             }
         }
         return list;
+    }
+
+    public static String getTableName(Element node, IMetadataTable repositoryMetadata, String schema, String dbType,
+            String realTableName) {
+        String currentTableName;
+        String dbTableName = getDbTableName(node);
+        if (dbTableName != null) {
+            switch (LanguageManager.getCurrentLanguage()) {
+            case JAVA:
+                if (dbTableName.contains(TalendTextUtils.QUOTATION_MARK)) {
+                    if (dbTableName.startsWith(TalendTextUtils.QUOTATION_MARK)
+                            && dbTableName.endsWith(TalendTextUtils.QUOTATION_MARK) && dbTableName.length() > 2) {
+                        return dbTableName.substring(1, dbTableName.length() - 1);
+                    } else {
+                        currentTableName = null;
+                    }
+                } else {
+                    currentTableName = dbTableName;
+                }
+                break;
+            default:
+                if (dbTableName.contains(TalendTextUtils.SINGLE_QUOTE)) {
+                    if (dbTableName.startsWith(TalendTextUtils.SINGLE_QUOTE)
+                            && dbTableName.endsWith(TalendTextUtils.SINGLE_QUOTE) && dbTableName.length() > 2) {
+                        return dbTableName.substring(1, dbTableName.length() - 1);
+                    } else {
+                        currentTableName = null;
+                    }
+                } else {
+                    currentTableName = dbTableName;
+                }
+            }
+        }
+        currentTableName = realTableName;
+        if (schema != null && schema.length() > 0) {
+            if (dbType.equalsIgnoreCase("PostgreSQL")) {
+                currentTableName = "\"" + schema + "\"" + "." + "\"" + currentTableName + "\"";
+                return currentTableName;
+            }
+        }
+        if (currentTableName == null) {
+            currentTableName = DEFAULT_TABLE_NAME;
+            return currentTableName;
+        }
+        return currentTableName;
+    }
+
+    private static String getDbTableName(Element node) {
+        IElementParameter param = node.getElementParameterFromField(EParameterFieldType.DBTABLE);
+        if (param != null && param.isShow(node.getElementParameters())) {
+            return (String) param.getValue();
+        }
+        return null;
     }
 }
