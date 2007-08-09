@@ -21,7 +21,9 @@
 // ============================================================================
 package org.talend.core.model.context;
 
+import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.utils.ContextParameterUtils;
 
 /**
  * Parameter in a context. <br/>
@@ -43,6 +45,8 @@ public class JobContextParameter implements IContextParameter, Cloneable {
 
     boolean promptNeeded;
 
+    String scriptCode;
+
     /*
      * (non-Javadoc)
      * 
@@ -59,6 +63,7 @@ public class JobContextParameter implements IContextParameter, Cloneable {
      */
     public void setName(final String name) {
         this.name = name;
+
     }
 
     /*
@@ -142,6 +147,29 @@ public class JobContextParameter implements IContextParameter, Cloneable {
         return this.promptNeeded;
     }
 
+    /**
+     * Getter for scriptCode.
+     * 
+     * @return the scriptCode
+     */
+    public String getScriptCode() {
+        if (this.scriptCode == null) {
+            scriptCode = ContextParameterUtils.getScriptCode(this, ((RepositoryContext) org.talend.core.CorePlugin
+                    .getContext().getProperty(org.talend.core.context.Context.REPOSITORY_CONTEXT_KEY)).getProject()
+                    .getLanguage());
+        }
+        return this.scriptCode;
+    }
+
+    /**
+     * Sets the scriptCode.
+     * 
+     * @param scriptCode the scriptCode to set
+     */
+    public void setScriptCode(String scriptCode) {
+        this.scriptCode = scriptCode;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -177,10 +205,15 @@ public class JobContextParameter implements IContextParameter, Cloneable {
         if (!contextParam.getValue().equals(value)) {
             return false;
         }
-        
+
         if (contextParam.isPromptNeeded() != promptNeeded) {
             return false;
         }
+
+        if (!contextParam.getScriptCode().equals(scriptCode)) {
+            return false;
+        }
+
         return true;
     }
 }

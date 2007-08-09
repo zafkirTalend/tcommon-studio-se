@@ -443,9 +443,9 @@ public abstract class JobContextComposite extends Composite {
                 if (!returnValue.equals("") && Pattern.matches(RepositoryConstants.CODE_ITEM_PATTERN, returnValue)) { //$NON-NLS-1$
                     createContext(returnValue);
                 } else {
-                    MessageDialog.openWarning(new Shell(),
-                            Messages.getString(Messages.getString("ContextProcessSection.50")), Messages //$NON-NLS-1$
-                                    .getString(Messages.getString("ContextProcessSection.51"))); //$NON-NLS-1$
+                    MessageDialog.openWarning(new Shell(), Messages.getString(Messages
+                            .getString("ContextProcessSection.50")), Messages //$NON-NLS-1$
+                            .getString(Messages.getString("ContextProcessSection.51"))); //$NON-NLS-1$
                 }
             }
         }
@@ -463,9 +463,9 @@ public abstract class JobContextComposite extends Composite {
                 if (!newName.equals("") && Pattern.matches(RepositoryConstants.CODE_ITEM_PATTERN, newName)) { //$NON-NLS-1$
                     renameContext(contextName, newName);
                 } else {
-                    MessageDialog.openWarning(new Shell(),
-                            Messages.getString(Messages.getString("ContextProcessSection.52")), Messages //$NON-NLS-1$
-                                    .getString(Messages.getString("ContextProcessSection.53"))); //$NON-NLS-1$
+                    MessageDialog.openWarning(new Shell(), Messages.getString(Messages
+                            .getString("ContextProcessSection.52")), Messages //$NON-NLS-1$
+                            .getString(Messages.getString("ContextProcessSection.53"))); //$NON-NLS-1$
                 }
             }
         }
@@ -519,8 +519,8 @@ public abstract class JobContextComposite extends Composite {
         contextParam.setPrompt(paramName + "?"); //$NON-NLS-1$
         String defaultValue;
         if (curLanguage == ECodeLanguage.JAVA) {
-            defaultValue = ContextParameterJavaTypeManager.getDefaultValueFromJavaIdType(ContextParameterJavaTypeManager
-                    .getDefaultJavaType().getId(), false);
+            defaultValue = ContextParameterJavaTypeManager.getDefaultValueFromJavaIdType(
+                    ContextParameterJavaTypeManager.getDefaultJavaType().getId(), false);
         } else {
             defaultValue = TalendTextUtils.addQuotes(""); //$NON-NLS-1$
         }
@@ -655,7 +655,8 @@ public abstract class JobContextComposite extends Composite {
 
         Composite buttonParameterComposite = new Composite(buttonComposite, SWT.NONE);
         buttonParameterComposite.setLayout(new GridLayout(3, false));
-        buttonParameterComposite.setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_CENTER | GridData.GRAB_HORIZONTAL));
+        buttonParameterComposite
+                .setLayoutData(new GridData(GridData.HORIZONTAL_ALIGN_CENTER | GridData.GRAB_HORIZONTAL));
         CLabel label = new CLabel(buttonParameterComposite, SWT.NONE);
         label.setText(Messages.getString("ContextProcessSection.parametersLabel")); //$NON-NLS-1$
         label.setAlignment(SWT.RIGHT);
@@ -1073,16 +1074,19 @@ public abstract class JobContextComposite extends Composite {
         column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
 
             public String get(IContextParameter bean) {
-                return ContextParameterUtils.getScriptCode(bean, ((RepositoryContext) org.talend.core.CorePlugin.getContext()
-                        .getProperty(org.talend.core.context.Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage());
+                return bean.getScriptCode();
             }
 
             public void set(IContextParameter bean, String value) {
-                // Immutable
+                bean.setScriptCode(value);
+                if (!oldCellEditorValue.equals(newCellEditorValue)) {
+                    onContextModify(jobContextManager, oldContext, getSelectedContext());
+                }
             }
         });
-        column.setModifiable(false);
+        column.setModifiable(true);
         column.setWidth(SCRIPT_COLUMN_WIDTH);
+        column.setCellEditor(new TextCellEditor(table), setDirtyValueAdapter);
     }
 
     public void addComponents() {
@@ -1153,7 +1157,8 @@ public abstract class JobContextComposite extends Composite {
         combo.clearSelection();
 
         for (int i = 0; i < jobContextManager.getListContext().size(); i++) {
-            TableViewerCreator tableViewerCreator = tableViewerCreatorMap.get(jobContextManager.getListContext().get(i));
+            TableViewerCreator tableViewerCreator = tableViewerCreatorMap
+                    .get(jobContextManager.getListContext().get(i));
             tableViewerCreator.getTableViewer().refresh();
 
             Table table = tableViewerCreator.getTable();
@@ -1161,7 +1166,8 @@ public abstract class JobContextComposite extends Composite {
             for (int j = 0; j < table.getItemCount(); j++) {
                 tableItem = table.getItem(j);
                 String paramName = ((IContextParameter) tableItem.getData()).getName();
-                List<IContextParameter> listParams = jobContextManager.getListContext().get(i).getContextParameterList();
+                List<IContextParameter> listParams = jobContextManager.getListContext().get(i)
+                        .getContextParameterList();
                 boolean paramNameFound = false;
                 for (int k = 0; k < listParams.size() && !paramNameFound; k++) {
                     if (paramName.equals(listParams.get(k).getName())) {

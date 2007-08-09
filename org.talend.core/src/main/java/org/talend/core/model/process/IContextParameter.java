@@ -53,6 +53,10 @@ public interface IContextParameter {
 
     public void setPromptNeeded(boolean promptNeeded);
 
+    public void setScriptCode(final String scriptCode);
+
+    public String getScriptCode();
+
     public IContextParameter clone();
 
     public boolean sameAs(IContextParameter contextParam);
