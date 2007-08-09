@@ -131,7 +131,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         // //$NON-NLS-1$
         nodeScheduler.putBoolean(SchedulerStartup.P_ENABLED, true);
         nodeScheduler.put(SchedulerStartup.P_SCHEDULE, SchedulerStartup.VALUE_ON_STARTUP);
-        nodeScheduler.putBoolean(SchedulerStartup.P_DOWNLOAD, true);
+        nodeScheduler.putBoolean(SchedulerStartup.P_DOWNLOAD, false);
     }
 
     public static void setProxy(String proxyHost, String proxyPort) {
