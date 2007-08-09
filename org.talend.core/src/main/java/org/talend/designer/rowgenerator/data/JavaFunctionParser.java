@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jdt.core.ICompilationUnit;
@@ -50,6 +51,8 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
  * 
  */
 public class JavaFunctionParser extends AbstractFunctionParser {
+
+    private static Logger logger = Logger.getLogger(JavaFunctionParser.class);
 
     // k: (Talend type Name).(method Name) v:(class Name).(method Name)
     private static Map<String, String> typeMethods = new HashMap<String, String>();
@@ -147,22 +150,26 @@ public class JavaFunctionParser extends AbstractFunctionParser {
      * @param string
      */
     private void parseJavaCommentToFunctions(String string, String className, String fullName, String funcName) {
-        String des = parseDescription(string);
-        String category = parseCategoryType(string);
-        String functionType = parseFunctionType(string);
-        String[] parameter = parseFunctionParameters(string);
-        if (!functionType.equals(EMPTY_STRING)) {
-            Parameter[] paras = convertToParameter(parameter);
-            Function function = new Function();
-            function.setName(funcName);
-            function.setDescription(des);
-            function.setParameters(Arrays.asList(paras));
-            function.setCategory(category);
-            TalendType talendType = getTalendType(functionType);
-            talendType.addFunctions(function);
-            typeMethods.put(functionType + "." + funcName, className + "." + funcName);
-            typePackgeMethods.put(functionType + "." + funcName, fullName + "." + funcName);
-            function.setTalendType(talendType);
+        try {
+            String des = parseDescription(string);
+            String category = parseCategoryType(string);
+            String functionType = parseFunctionType(string);
+            String[] parameter = parseFunctionParameters(string);
+            if (!functionType.equals(EMPTY_STRING)) {
+                Parameter[] paras = convertToParameter(parameter);
+                Function function = new Function();
+                function.setName(funcName);
+                function.setDescription(des);
+                function.setParameters(Arrays.asList(paras));
+                function.setCategory(category);
+                TalendType talendType = getTalendType(functionType);
+                talendType.addFunctions(function);
+                typeMethods.put(functionType + "." + funcName, className + "." + funcName);
+                typePackgeMethods.put(functionType + "." + funcName, fullName + "." + funcName);
+                function.setTalendType(talendType);
+            }
+        } catch (Exception e) {
+            logger.error("Runtines : \"" + fullName + "." + funcName + "\" parse failed. please check your the Method.", e);
         }
     }
 
