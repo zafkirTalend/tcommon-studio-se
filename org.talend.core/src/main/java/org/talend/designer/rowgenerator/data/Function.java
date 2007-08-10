@@ -35,6 +35,8 @@ public class Function implements Cloneable {
 
     private TalendType talendType;
 
+    private boolean isUserDefined;
+
     /**
      * Getter for category.
      * 
@@ -141,7 +143,7 @@ public class Function implements Cloneable {
                     p1.setValue(p0.getValue());
                     parameters1.add(p1);
                 }
-                
+
                 if (para instanceof DateParameter) {
                     DateParameter p0 = (DateParameter) para;
                     DateParameter p1 = new DateParameter();
@@ -376,5 +378,15 @@ public class Function implements Cloneable {
      */
     public void setTalendType(TalendType talendType) {
         this.talendType = talendType;
+    }
+
+    
+    public boolean isUserDefined() {
+        return this.isUserDefined;
+    }
+
+    
+    public void setUserDefined(boolean isUserDefined) {
+        this.isUserDefined = isUserDefined;
     }
 }

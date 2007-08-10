@@ -22,13 +22,17 @@
 package org.talend.designer.rowgenerator.data;
 
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.common.CommonPlugin;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaElement;
 import org.eclipse.jdt.core.IJavaProject;
@@ -39,10 +43,16 @@ import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.internal.core.SourceType;
 import org.eclipse.jdt.ui.JavadocContentAccess;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.data.container.Container;
+import org.talend.commons.utils.data.container.ContentList;
+import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  * qzhang class global comment. Detailled comment <br/>
@@ -59,6 +69,8 @@ public class JavaFunctionParser extends AbstractFunctionParser {
 
     private static Map<String, String> typePackgeMethods = new HashMap<String, String>();
 
+    private List<String> systems;
+
     /**
      * qzhang JavaFunctionParser constructor comment.
      */
@@ -69,7 +81,20 @@ public class JavaFunctionParser extends AbstractFunctionParser {
     @SuppressWarnings("restriction")
     public void parse() {
         typeMethods.clear();
+        systems = new ArrayList<String>();
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         try {
+            RootContainer<String, IRepositoryObject> routineContainer = factory.getRoutine();
+            final List<Container<String, IRepositoryObject>> subContainer = routineContainer.getSubContainer();
+            for (Container<String, IRepositoryObject> container : subContainer) {
+                if (RepositoryConstants.SYSTEM_DIRECTORY.equals(container.getLabel())) {
+                    final List<IRepositoryObject> members = container.getMembers();
+                    for (IRepositoryObject object : members) {
+                        systems.add(object.getLabel());
+                    }
+                }
+            }
+
             IJavaProject javaProject = CorePlugin.getDefault().getRunProcessService().getJavaProject();
             if (javaProject != null) {
                 IProject project = javaProject.getProject();
@@ -97,7 +122,8 @@ public class JavaFunctionParser extends AbstractFunctionParser {
                                         }
                                         reader.close();
                                         parseJavaCommentToFunctions(str.toString(), sourceType.getElementName(), sourceType
-                                                .getFullyQualifiedName(), method.getElementName());
+                                                .getFullyQualifiedName(), method.getElementName(), systems.contains(sourceType
+                                                .getElementName()));
                                     }
                                 } catch (Exception e) {
                                     ExceptionHandler.process(e);
@@ -148,8 +174,9 @@ public class JavaFunctionParser extends AbstractFunctionParser {
      * qzhang Comment method "parseJavaCommentToFunctions".
      * 
      * @param string
+     * @param isSystem
      */
-    private void parseJavaCommentToFunctions(String string, String className, String fullName, String funcName) {
+    private void parseJavaCommentToFunctions(String string, String className, String fullName, String funcName, boolean isSystem) {
         try {
             String des = parseDescription(string);
             String category = parseCategoryType(string);
@@ -162,6 +189,7 @@ public class JavaFunctionParser extends AbstractFunctionParser {
                 function.setDescription(des);
                 function.setParameters(Arrays.asList(paras));
                 function.setCategory(category);
+                function.setUserDefined(!isSystem);
                 TalendType talendType = getTalendType(functionType);
                 talendType.addFunctions(function);
                 typeMethods.put(functionType + "." + funcName, className + "." + funcName);

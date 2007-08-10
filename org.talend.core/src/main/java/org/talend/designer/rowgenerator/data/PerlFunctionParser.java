@@ -37,12 +37,14 @@ import java.util.regex.PatternSyntaxException;
 import org.eclipse.emf.common.CommonPlugin;
 import org.eclipse.emf.common.util.URI;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.Content;
 import org.talend.commons.utils.data.container.ContentList;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryConstants;
 
 /**
  * class global comment. Detailled comment <br/>
@@ -57,8 +59,11 @@ public class PerlFunctionParser extends AbstractFunctionParser {
      */
     private File[] files;
 
+    private List<String> systems;
+
     public PerlFunctionParser() {
         List<File> filesList = new ArrayList<File>();
+        systems = new ArrayList<String>();
         // List<URL> list = RowGeneratorPlugin.getDefault().getPerlModuleService().getBuiltInRoutines();
         IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
         // TODO find a better way to find routine files
@@ -67,7 +72,17 @@ public class PerlFunctionParser extends AbstractFunctionParser {
 
             RootContainer<String, IRepositoryObject> routineContainer = factory.getRoutine();
             ContentList<String, IRepositoryObject> routineAbsoluteMembers = routineContainer.getAbsoluteMembers();
-
+            final List<Container<String, IRepositoryObject>> subContainer = routineContainer.getSubContainer();
+            for (Container<String, IRepositoryObject> container : subContainer) {
+                if (RepositoryConstants.SYSTEM_DIRECTORY.equals(container.getLabel())) {
+                    final List<IRepositoryObject> members = container.getMembers();
+                    for (IRepositoryObject object : members) {
+                        URI uri = CommonPlugin.asLocalURI(object.getProperty().getItem().eResource().getURI());
+                        final String[] segments = uri.segments();
+                        systems.add(segments[segments.length - 1].replace(".properties", ".item"));
+                    }
+                }
+            }
             for (Content<String, IRepositoryObject> object : routineAbsoluteMembers.values()) {
                 IRepositoryObject routine = (IRepositoryObject) object.getContent();
                 URI uri = CommonPlugin.asLocalURI(routine.getProperty().getItem().eResource().getURI());
@@ -97,8 +112,7 @@ public class PerlFunctionParser extends AbstractFunctionParser {
             try {
                 String strFile = convertFileToString(file);
                 String[] strGroups = parseGroupNeeded(strFile);
-
-                parseToFunctions(strGroups);
+                parseToFunctions(strGroups, systems.contains(file.getName()));
             } catch (Exception e) {
                 e.printStackTrace();
                 ExceptionHandler.process(e);
@@ -111,8 +125,9 @@ public class PerlFunctionParser extends AbstractFunctionParser {
      * qzhang Comment method "parseToFunctions".
      * 
      * @param strGroups
+     * @param b
      */
-    private void parseToFunctions(String[] strGroups) {
+    private void parseToFunctions(String[] strGroups, boolean isSystem) {
         for (int i = 0; i < strGroups.length; i++) {
             String string = strGroups[i];
 
@@ -130,6 +145,7 @@ public class PerlFunctionParser extends AbstractFunctionParser {
             function.setDescription(des);
             function.setParameters(Arrays.asList(paras));
             function.setCategory(category);
+            function.setUserDefined(!isSystem);
 
             TalendType talendType = getTalendType(functionType);
             talendType.addFunctions(function);
