@@ -21,6 +21,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.ItemState;
@@ -454,6 +455,15 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      */
     public static PropertiesPackage getPackage() {
         return PropertiesPackage.eINSTANCE;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.core.model.properties.PropertiesFactory#createExecutionTask()
+     */
+    public ExecutionTask createExecutionTask() {
+        ExecutionTask executionTask = new ExecutionTask();
+        executionTask.setId(1000);
+        return executionTask;
     }
 
 } // PropertiesFactoryImpl
