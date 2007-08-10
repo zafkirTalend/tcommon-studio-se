@@ -37,6 +37,14 @@ import org.talend.core.model.metadata.IMetadataTable;
 public interface INode extends IElement {
 
     /**
+     * Returns the label of the node.
+     * 
+     * @return label
+     */
+    public String getLabel();
+    
+    
+    /**
      * Gives the unique name of the node.
      * 
      * @return unique name

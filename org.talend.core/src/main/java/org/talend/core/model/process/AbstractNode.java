@@ -80,6 +80,8 @@ public abstract class AbstractNode implements INode {
     private boolean isThereLinkWithMerge;
 
     private Map<INode, Integer> mergeInfo;
+    
+    private String label;
 
     public String getComponentName() {
         return componentName;
@@ -506,5 +508,12 @@ public abstract class AbstractNode implements INode {
      */
     public List<? extends IConnection> getIncomingConnections(EConnectionType connectionType) {
         return org.talend.core.model.utils.NodeUtil.getIncomingConnections(this, connectionType);
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.core.model.process.INode#getLabel()
+     */
+    public String getLabel() {
+        return label;
     }
 }
