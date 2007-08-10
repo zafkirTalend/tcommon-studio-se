@@ -133,7 +133,7 @@ public class TypedTextCommandExecutor {
             // System.out.println("ctrlKey===============" + ctrlKey);
             if (undoOrRedo) {
                 // nothing
-            } else if ((this.previousKey != null && alphaNumMatched && this.previousKey.alphaNumMatched) || e.character == ' ') {
+            } else if ((this.previousKey != null && alphaNumMatched && this.previousKey.alphaNumMatched) || (e.character == ' ' && !"DBTABLE".equals(activeControl))) {
                 updateCommand(control);
             } else {
                 addNewCommand(control);
