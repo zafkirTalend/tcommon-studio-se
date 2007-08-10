@@ -81,6 +81,7 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.model.repository.RepositoryObject;
+import org.talend.repository.exception.LoginException;
 import org.talend.repository.localprovider.exceptions.IncorrectFileException;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.AbstractEMFRepositoryFactory;
@@ -1103,11 +1104,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return exist;
     }
 
-    public void createUser() throws PersistenceException {
-        IProject iProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
-        org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
-        Resource projectResource = emfProject.eResource();
-
+    public void createUser(Project project) throws PersistenceException {
+        Resource projectResource = project.getEmfProject().eResource();
         projectResource.getContents().add(getRepositoryContext().getUser());
         xmiResourceManager.saveResource(projectResource);
     }
@@ -1116,9 +1114,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // unused in local mode
     }
 
-    public void logOnProject(Project project) throws PersistenceException {
+    public void logOnProject(Project project) throws PersistenceException, LoginException {
+        super.logOnProject(project);
+        
         if (!doesLoggedUserExist()) {
-            createUser();
+            createUser(project);
         }
 
         IProject project2 = ResourceModelUtils.getProject(project);
