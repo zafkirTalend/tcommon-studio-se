@@ -79,6 +79,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
             case PropertiesPackage.PROJECT: return createProject();
+            case PropertiesPackage.PROJECT_COMPONENT_AUTHORISATION: return createProjectComponentAuthorisation();
+            case PropertiesPackage.PROJECT_REFERENCE: return createProjectReference();
             case PropertiesPackage.STATUS: return createStatus();
             case PropertiesPackage.ITEM_STATE: return createItemState();
             case PropertiesPackage.PROPERTY: return createProperty();
@@ -93,19 +95,18 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.CSV_FILE_CONNECTION_ITEM: return createCSVFileConnectionItem();
             case PropertiesPackage.DATABASE_CONNECTION_ITEM: return createDatabaseConnectionItem();
             case PropertiesPackage.XML_FILE_CONNECTION_ITEM: return createXmlFileConnectionItem();
+            case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: return createLdifFileConnectionItem();
             case PropertiesPackage.PROCESS_ITEM: return createProcessItem();
             case PropertiesPackage.USER_ROLE: return createUserRole();
             case PropertiesPackage.USER: return createUser();
             case PropertiesPackage.FOLDER_ITEM: return createFolderItem();
             case PropertiesPackage.COMPONENT: return createComponent();
             case PropertiesPackage.NOTATION_HOLDER: return createNotationHolder();
-            case PropertiesPackage.PROJECT_COMPONENT_AUTHORISATION: return createProjectComponentAuthorisation();
-            case PropertiesPackage.PROJECT_REFERENCE: return createProjectReference();
-            case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: return createLdifFileConnectionItem();
             case PropertiesPackage.USER_PROJECT_AUTHORIZATION: return createUserProjectAuthorization();
             case PropertiesPackage.CONTEXT_ITEM: return createContextItem();
             case PropertiesPackage.SPAGO_BI_SERVER: return createSpagoBiServer();
             case PropertiesPackage.LICENSE: return createLicense();
+            case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM: return createGenericSchemaConnectionItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -394,6 +395,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public GenericSchemaConnectionItem createGenericSchemaConnectionItem() {
+        GenericSchemaConnectionItemImpl genericSchemaConnectionItem = new GenericSchemaConnectionItemImpl();
+        return genericSchemaConnectionItem;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -456,7 +467,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public static PropertiesPackage getPackage() {
         return PropertiesPackage.eINSTANCE;
     }
-
     /* (non-Javadoc)
      * @see org.talend.core.model.properties.PropertiesFactory#createExecutionTask()
      */

@@ -107,6 +107,18 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.PROJECT_COMPONENT_AUTHORISATION: {
+                ProjectComponentAuthorisation projectComponentAuthorisation = (ProjectComponentAuthorisation)theEObject;
+                Object result = caseProjectComponentAuthorisation(projectComponentAuthorisation);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.PROJECT_REFERENCE: {
+                ProjectReference projectReference = (ProjectReference)theEObject;
+                Object result = caseProjectReference(projectReference);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case PropertiesPackage.STATUS: {
                 Status status = (Status)theEObject;
                 Object result = caseStatus(status);
@@ -223,6 +235,14 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: {
+                LdifFileConnectionItem ldifFileConnectionItem = (LdifFileConnectionItem)theEObject;
+                Object result = caseLdifFileConnectionItem(ldifFileConnectionItem);
+                if (result == null) result = caseConnectionItem(ldifFileConnectionItem);
+                if (result == null) result = caseItem(ldifFileConnectionItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case PropertiesPackage.PROCESS_ITEM: {
                 ProcessItem processItem = (ProcessItem)theEObject;
                 Object result = caseProcessItem(processItem);
@@ -261,26 +281,6 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case PropertiesPackage.PROJECT_COMPONENT_AUTHORISATION: {
-                ProjectComponentAuthorisation projectComponentAuthorisation = (ProjectComponentAuthorisation)theEObject;
-                Object result = caseProjectComponentAuthorisation(projectComponentAuthorisation);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.PROJECT_REFERENCE: {
-                ProjectReference projectReference = (ProjectReference)theEObject;
-                Object result = caseProjectReference(projectReference);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM: {
-                LdifFileConnectionItem ldifFileConnectionItem = (LdifFileConnectionItem)theEObject;
-                Object result = caseLdifFileConnectionItem(ldifFileConnectionItem);
-                if (result == null) result = caseConnectionItem(ldifFileConnectionItem);
-                if (result == null) result = caseItem(ldifFileConnectionItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
             case PropertiesPackage.USER_PROJECT_AUTHORIZATION: {
                 UserProjectAuthorization userProjectAuthorization = (UserProjectAuthorization)theEObject;
                 Object result = caseUserProjectAuthorization(userProjectAuthorization);
@@ -303,6 +303,14 @@ public class PropertiesSwitch {
             case PropertiesPackage.LICENSE: {
                 License license = (License)theEObject;
                 Object result = caseLicense(license);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM: {
+                GenericSchemaConnectionItem genericSchemaConnectionItem = (GenericSchemaConnectionItem)theEObject;
+                Object result = caseGenericSchemaConnectionItem(genericSchemaConnectionItem);
+                if (result == null) result = caseConnectionItem(genericSchemaConnectionItem);
+                if (result == null) result = caseItem(genericSchemaConnectionItem);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -713,6 +721,21 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseLicense(License object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Generic Schema Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Generic Schema Connection Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseGenericSchemaConnectionItem(GenericSchemaConnectionItem object) {
         return null;
     }
 

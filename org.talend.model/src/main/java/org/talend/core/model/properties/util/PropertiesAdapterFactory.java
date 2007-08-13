@@ -90,6 +90,12 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseProject(Project object) {
                 return createProjectAdapter();
             }
+            public Object caseProjectComponentAuthorisation(ProjectComponentAuthorisation object) {
+                return createProjectComponentAuthorisationAdapter();
+            }
+            public Object caseProjectReference(ProjectReference object) {
+                return createProjectReferenceAdapter();
+            }
             public Object caseStatus(Status object) {
                 return createStatusAdapter();
             }
@@ -138,6 +144,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseXmlFileConnectionItem(XmlFileConnectionItem object) {
                 return createXmlFileConnectionItemAdapter();
             }
+            public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
+                return createLdifFileConnectionItemAdapter();
+            }
             public Object caseProcessItem(ProcessItem object) {
                 return createProcessItemAdapter();
             }
@@ -156,15 +165,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseNotationHolder(NotationHolder object) {
                 return createNotationHolderAdapter();
             }
-            public Object caseProjectComponentAuthorisation(ProjectComponentAuthorisation object) {
-                return createProjectComponentAuthorisationAdapter();
-            }
-            public Object caseProjectReference(ProjectReference object) {
-                return createProjectReferenceAdapter();
-            }
-            public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
-                return createLdifFileConnectionItemAdapter();
-            }
             public Object caseUserProjectAuthorization(UserProjectAuthorization object) {
                 return createUserProjectAuthorizationAdapter();
             }
@@ -176,6 +176,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseLicense(License object) {
                 return createLicenseAdapter();
+            }
+            public Object caseGenericSchemaConnectionItem(GenericSchemaConnectionItem object) {
+                return createGenericSchemaConnectionItemAdapter();
             }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
@@ -553,6 +556,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createLicenseAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.GenericSchemaConnectionItem <em>Generic Schema Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.GenericSchemaConnectionItem
+     * @generated
+     */
+    public Adapter createGenericSchemaConnectionItemAdapter() {
         return null;
     }
 

@@ -150,6 +150,15 @@ public interface ConnectionFactory extends EFactory {
     XmlXPathLoopDescriptor createXmlXPathLoopDescriptor();
 
     /**
+     * Returns a new object of class '<em>Generic Schema Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Generic Schema Connection</em>'.
+     * @generated
+     */
+    GenericSchemaConnection createGenericSchemaConnection();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

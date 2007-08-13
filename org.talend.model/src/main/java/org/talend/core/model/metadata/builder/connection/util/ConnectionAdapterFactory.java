@@ -137,6 +137,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl
             public Object caseXmlXPathLoopDescriptor(XmlXPathLoopDescriptor object) {
                 return createXmlXPathLoopDescriptorAdapter();
             }
+            public Object caseGenericSchemaConnection(GenericSchemaConnection object) {
+                return createGenericSchemaConnectionAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -390,6 +393,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl
      * @generated
      */
     public Adapter createXmlXPathLoopDescriptorAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.GenericSchemaConnection <em>Generic Schema Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.GenericSchemaConnection
+     * @generated
+     */
+    public Adapter createGenericSchemaConnectionAdapter() {
         return null;
     }
 

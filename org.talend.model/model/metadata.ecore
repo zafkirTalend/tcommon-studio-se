@@ -198,4 +198,5 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="schemaTargets" upperBound="-1"
         eType="#//SchemaTarget" containment="true" eOpposite="#//SchemaTarget/schema"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenericSchemaConnection" eSuperTypes="#//Connection"/>
 </ecore:EPackage>

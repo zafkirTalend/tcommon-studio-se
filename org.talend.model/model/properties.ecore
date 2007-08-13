@@ -218,4 +218,5 @@
   <eClassifiers xsi:type="ecore:EClass" name="License">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="license" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GenericSchemaConnectionItem" eSuperTypes="#//ConnectionItem"/>
 </ecore:EPackage>

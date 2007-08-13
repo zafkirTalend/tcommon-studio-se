@@ -260,6 +260,15 @@ public interface PropertiesFactory extends EFactory {
     License createLicense();
 
     /**
+     * Returns a new object of class '<em>Generic Schema Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Generic Schema Connection Item</em>'.
+     * @generated
+     */
+    GenericSchemaConnectionItem createGenericSchemaConnectionItem();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.
