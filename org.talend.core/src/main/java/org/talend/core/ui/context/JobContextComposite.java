@@ -1078,15 +1078,14 @@ public abstract class JobContextComposite extends Composite {
             }
 
             public void set(IContextParameter bean, String value) {
-                bean.setScriptCode(value);
-                if (!oldCellEditorValue.equals(newCellEditorValue)) {
-                    onContextModify(jobContextManager, oldContext, getSelectedContext());
-                }
+                // do nothing since script code should not be modified.
             }
         });
         column.setModifiable(true);
         column.setWidth(SCRIPT_COLUMN_WIDTH);
-        column.setCellEditor(new TextCellEditor(table), setDirtyValueAdapter);
+        TextCellEditor cellEditor = new TextCellEditor(table);
+        ((Text) cellEditor.getControl()).setEditable(false);
+        column.setCellEditor(cellEditor, setDirtyValueAdapter);
     }
 
     public void addComponents() {
