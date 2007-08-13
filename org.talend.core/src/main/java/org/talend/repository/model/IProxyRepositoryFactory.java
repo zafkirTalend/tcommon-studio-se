@@ -26,6 +26,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IPath;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
@@ -423,4 +424,6 @@ public interface IProxyRepositoryFactory {
     public void removeContextFiles(IProcess process, IContext context) throws Exception;
 
     public Boolean hasChildren(Object parent);
+
+    public abstract RootContainer<String, IRepositoryObject> getMetadataGenericSchema() throws PersistenceException;
 }

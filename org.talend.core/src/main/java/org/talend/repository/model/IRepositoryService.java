@@ -24,8 +24,13 @@ package org.talend.repository.model;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbench;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
+import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.IRepositoryChangedListener;
 import org.talend.repository.RepositoryElementDelta;
@@ -58,7 +63,15 @@ public interface IRepositoryService extends IService {
 
     /**
      * qzhang Comment method "registerRepositoryChangedListenerAsFirst".
+     * 
      * @param view
      */
     public void registerRepositoryChangedListenerAsFirst(IRepositoryChangedListener listener);
+
+    public WizardDialog getGenericSchemaWizardDialog(Shell shell, IWorkbench workbench, boolean creation,
+            ISelection selection, String[] existingNames, boolean isSinglePageOnly);
+
+    public Property getPropertyFromWizardDialog();
+
+    public IPath getPathForSaveAsGenericSchema();
 }

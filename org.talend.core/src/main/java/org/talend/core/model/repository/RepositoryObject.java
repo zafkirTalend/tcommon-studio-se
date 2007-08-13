@@ -40,6 +40,7 @@ import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.LdifFileConnectionItem;
@@ -198,6 +199,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
                 return ERepositoryObjectType.METADATA_FILE_LDIF;
+            }
+            
+            public Object caseGenericSchemaConnectionItem(GenericSchemaConnectionItem object) {
+                return ERepositoryObjectType.METADATA_GENERIC_SCHEMA;
             }
 
             public Object defaultCase(EObject object) {

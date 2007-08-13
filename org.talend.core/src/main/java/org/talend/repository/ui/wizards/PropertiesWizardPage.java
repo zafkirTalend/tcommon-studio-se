@@ -110,6 +110,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private IPath destinationPath;
 
+    private String path;
+
     private boolean readOnly;
 
     private StatusHelper statusHelper = null;
@@ -120,9 +122,11 @@ public abstract class PropertiesWizardPage extends WizardPage {
         this(pageName, property, destinationPath, false, true);
     }
 
-    protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath, boolean readOnly, boolean editPath) {
+    protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath, boolean readOnly,
+            boolean editPath) {
         super(pageName);
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                IRepositoryService.class);
         statusHelper = new StatusHelper(service.getProxyRepositoryFactory());
         this.destinationPath = destinationPath;
 
@@ -273,11 +277,13 @@ public abstract class PropertiesWizardPage extends WizardPage {
         statusText = new CCombo(parent, SWT.BORDER);
         List<org.talend.core.model.properties.Status> statusList;
         try {
-            statusList = statusHelper.getStatusList(property);
-            statusText.setItems(toArray(statusList));
-            statusText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-            statusText.setEditable(!readOnly);
-            statusText.setEnabled(!readOnly);
+            if (property != null) {
+                statusList = statusHelper.getStatusList(property);
+                statusText.setItems(toArray(statusList));
+                statusText.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+                statusText.setEditable(!readOnly);
+                statusText.setEnabled(!readOnly);
+            }
         } catch (PersistenceException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -384,6 +390,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
                 pathText.setText(""); //$NON-NLS-1$
             } else {
                 pathText.setText(string);
+                this.path = string;
             }
         }
 
@@ -399,13 +406,17 @@ public abstract class PropertiesWizardPage extends WizardPage {
     }
 
     protected void updateContent() {
-        nameText.setText(StringUtils.trimToEmpty(property.getLabel()));
-        purposeText.setText(StringUtils.trimToEmpty(property.getPurpose()));
-        descriptionText.setText(StringUtils.trimToEmpty(property.getDescription()));
-        authorText.setText(property.getAuthor().getLogin());
-        versionText.setText(property.getVersion());
-        statusText.setText(statusHelper.getStatusLabel(property.getStatusCode()));
-        pathText.setText(destinationPath.toString());
+        if (property != null) {
+            nameText.setText(StringUtils.trimToEmpty(property.getLabel()));
+            purposeText.setText(StringUtils.trimToEmpty(property.getPurpose()));
+            descriptionText.setText(StringUtils.trimToEmpty(property.getDescription()));
+            authorText.setText(property.getAuthor().getLogin());
+            versionText.setText(property.getVersion());
+            statusText.setText(statusHelper.getStatusLabel(property.getStatusCode()));
+            if (destinationPath != null) {
+                pathText.setText(destinationPath.toString());
+            }
+        }
 
         evaluateFields();
     }
@@ -429,7 +440,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
             public void modifyText(ModifyEvent e) {
                 if (purposeText.getText().length() == 0) {
-                    purposeStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyPurposeWarning")); //$NON-NLS-1$
+                    purposeStatus = createStatus(IStatus.WARNING, Messages
+                            .getString("PropertiesWizardPage.EmptyPurposeWarning")); //$NON-NLS-1$
                 } else {
                     purposeStatus = createOkStatus();
                 }
@@ -442,7 +454,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
             public void modifyText(ModifyEvent e) {
                 if (descriptionText.getText().length() == 0) {
-                    commentStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyDescWarning")); //$NON-NLS-1$
+                    commentStatus = createStatus(IStatus.WARNING, Messages
+                            .getString("PropertiesWizardPage.EmptyDescWarning")); //$NON-NLS-1$
                 } else {
                     commentStatus = createOkStatus();
                 }
@@ -499,8 +512,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
         } else {
             nameStatus = createOkStatus();
         }
-
-        property.setLabel(StringUtils.trimToNull(nameText.getText()));
+        if (property != null) {
+            property.setLabel(StringUtils.trimToNull(nameText.getText()));
+        }
         updatePageStatus();
     }
 
@@ -553,7 +567,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     public boolean isValid(String itemName) {
 
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                IRepositoryService.class);
         IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
         try {
             return repositoryFactory.isNameAvailable(property.getItem(), itemName);
@@ -564,4 +579,12 @@ public abstract class PropertiesWizardPage extends WizardPage {
     }
 
     public abstract ERepositoryObjectType getRepositoryObjectType();
+
+    public IPath getPathForSaveAsGenericSchema() {        
+        if (this.path != null && path.length()> 0) {
+            return new Path(path);
+        }
+        return null;
+
+    }
 }

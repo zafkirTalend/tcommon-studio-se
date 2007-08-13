@@ -196,7 +196,10 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
             metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
-            metadataColumn.setSourceType(TypesManager.getDBTypeFromTalendType(dbmsId, metadataColumn.getTalendType()));
+            if (dbmsId != null) {
+                metadataColumn.setSourceType(TypesManager.getDBTypeFromTalendType(dbmsId, metadataColumn
+                        .getTalendType()));
+            }
         }
         return metadataColumn;
     }

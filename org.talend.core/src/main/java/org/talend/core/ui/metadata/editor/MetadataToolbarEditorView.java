@@ -36,12 +36,15 @@ import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButtonForExtendedTable;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.ResetDBTypesPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.ResetDBTypesPushButtonForExtendedTable;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.SaveAsGenericSchemaPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.SaveAsGenericSchemaPushButtonForExtendedTable;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.ui.extended.command.MetadataExportXmlCommand;
 import org.talend.core.ui.extended.command.MetadataImportXmlCommand;
 import org.talend.core.ui.extended.command.MetadataPasteCommand;
+import org.talend.core.ui.extended.command.SaveAsGenericSchemaCommand;
 import org.talend.core.ui.metadata.dialog.ExtendedTableResetDBTypesCommand;
 
 /**
@@ -148,6 +151,16 @@ public class MetadataToolbarEditorView extends ExtendedToolbarView {
                 return new ExtendedTableResetDBTypesCommand(extendedTableModel, dbmsId, extendedTableViewer);
             }
 
+        };
+    }
+
+    protected SaveAsGenericSchemaPushButton createSaveAsGenericSchemaButton() {
+        return new SaveAsGenericSchemaPushButtonForExtendedTable(toolbar, extendedTableViewer) {
+
+            @Override
+            protected Command getCommandToExecute(ExtendedTableModel extendedTableModel) {
+                return new SaveAsGenericSchemaCommand(extendedTableModel);
+            }
         };
     }
 }

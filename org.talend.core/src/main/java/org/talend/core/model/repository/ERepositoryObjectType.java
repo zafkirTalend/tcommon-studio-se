@@ -30,6 +30,7 @@ import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.FolderItem;
+import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
@@ -62,15 +63,16 @@ public enum ERepositoryObjectType {
     METADATA_FILE_DELIMITED("repository.metadataFileDelimited", "repository.metadataFileDelimited.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_POSITIONAL("repository.metadataFilePositional", "repository.metadataFilePositional.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_REGEXP("repository.metadataFileRegexp", "repository.metadataFileRegexp.alias"), //$NON-NLS-1$ //$NON-NLS-2$
-    METADATA_FILE_XML("repository.metadataFileXml", "repository.metadataFileXml.alias"),  //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_FILE_XML("repository.metadataFileXml", "repository.metadataFileXml.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_LDIF("repository.metadataFileLdif", "repository.metadataFileLdif.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_GENERIC_SCHEMA("repository.metadataGenericSchema", "repository.metadataGenericSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     FOLDER("repository.folder"), //$NON-NLS-1$
     REFERENCED_PROJECTS("repository.referencedProjects", "repository.referencedProjects.alias"); //$NON-NLS-1$ //$NON-NLS-2$
 
     private String key;
 
     private String alias;
-    
+
     private boolean subItem;
 
     /**
@@ -138,11 +140,13 @@ public enum ERepositoryObjectType {
             return "metadata/fileXml"; //$NON-NLS-1$
         case METADATA_FILE_LDIF:
             return "metadata/fileLdif"; //$NON-NLS-1$
+        case METADATA_GENERIC_SCHEMA:
+            return "metadata/genericSchema";
         default:
-            throw new IllegalArgumentException(Messages.getString("ERepositoryObjectType.FolderNotFound",type)); //$NON-NLS-1$ //$NON-NLS-2$
+            throw new IllegalArgumentException(Messages.getString("ERepositoryObjectType.FolderNotFound", type)); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
-    
+
     public static ERepositoryObjectType getItemType(Item item) {
         return (ERepositoryObjectType) new PropertiesSwitch() {
 
@@ -199,13 +203,16 @@ public enum ERepositoryObjectType {
                 return METADATA_FILE_LDIF;
             }
 
+            public Object caseGenericSchemaConnectionItem(GenericSchemaConnectionItem object) {
+                return METADATA_GENERIC_SCHEMA;
+            }
+
             public Object defaultCase(EObject object) {
                 throw new IllegalStateException();
             }
         }.doSwitch(item);
     }
 
-    
     public boolean isSubItem() {
         return subItem;
     }
