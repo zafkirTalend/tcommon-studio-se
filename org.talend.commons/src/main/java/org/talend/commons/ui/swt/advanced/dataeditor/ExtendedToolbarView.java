@@ -38,6 +38,8 @@ import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButtonForExtendedTable;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.ResetDBTypesPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.SaveAsGenericSchemaPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.SaveAsGenericSchemaPushButtonForExtendedTable;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
@@ -65,7 +67,9 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
     private ExportPushButton exportButton;
 
     private ImportPushButton importButton;
-    
+
+    protected SaveAsGenericSchemaPushButton saveAsGenericSchemaButton;
+
     protected ResetDBTypesPushButton resetDBTypesButton;
 
     /**
@@ -105,6 +109,8 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
 
         importButton = createImportPushButton();
 
+        saveAsGenericSchemaButton = createSaveAsGenericSchemaButton();
+
         // loadButton = new Button(toolbar, SWT.PUSH);
         // loadButton.setToolTipText("Import");
         // loadButton.setImage(ImageProvider.getImage(EImage.IMPORT_ICON));
@@ -113,6 +119,7 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
         // exportButton.setToolTipText("Export");
         // exportButton.setImage(ImageProvider.getImage(EImage.EXPORT_ICON));
     }
+
 
     protected AddPushButton createAddPushButton() {
         return null;
@@ -143,6 +150,10 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
     }
 
     protected ImportPushButton createImportPushButton() {
+        return null;
+    }
+    
+    protected SaveAsGenericSchemaPushButton createSaveAsGenericSchemaButton() {
         return null;
     }
 
@@ -217,16 +228,19 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
     public ImportPushButton getImportButton() {
         return this.importButton;
     }
-    
+
     /**
      * Getter for resetDBTypesButton.
+     * 
      * @return the resetDBTypesButton
      */
     public ResetDBTypesPushButton getResetDBTypesButton() {
         return resetDBTypesButton;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.advanced.dataeditor.AbstractExtendedToolbar#updateEnabledStateOfButtons()
      */
     @Override
@@ -254,7 +268,7 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
         if (getRemoveButton() != null) {
             list.add(getRemoveButton());
         }
-        
+
         if (getMoveDownButton() != null) {
             list.add(getMoveDownButton());
         }
@@ -266,7 +280,7 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
         if (getCopyButton() != null) {
             list.add(getCopyButton());
         }
-        
+
         if (getPasteButton() != null) {
             list.add(getPasteButton());
         }
@@ -278,12 +292,21 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
         if (getImportButton() != null) {
             list.add(getImportButton());
         }
-        
+
         if (getResetDBTypesButton() != null) {
             list.add(getResetDBTypesButton());
         }
 
         return list;
+    }
+
+    /**
+     * Getter for saveAsGenericSchemaButton.
+     * 
+     * @return the saveAsGenericSchemaButton
+     */
+    public SaveAsGenericSchemaPushButton getSaveAsGenericSchemaButton() {
+        return saveAsGenericSchemaButton;
     }
 }
 
