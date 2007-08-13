@@ -45,6 +45,7 @@ import org.talend.core.model.components.filters.PropertyComponentFilter;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.repository.model.ERepositoryStatus;
 import org.talend.designer.core.model.utils.emf.talendfile.JobType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
@@ -65,6 +66,8 @@ public class PropertiesWizard extends Wizard {
 
     private IPath path;
 
+    private boolean alreadyLockedByUser = false;
+
     private String originaleObjectLabel;
 
     public PropertiesWizard(IRepositoryObject object, IPath path) {
@@ -80,7 +83,11 @@ public class PropertiesWizard extends Wizard {
     private void lockObject() {
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         try {
-            repositoryFactory.lock(object);
+            if (repositoryFactory.getStatus(object).equals(ERepositoryStatus.LOCK_BY_USER)) {
+                alreadyLockedByUser = true;
+            } else {
+                repositoryFactory.lock(object);
+            }
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         } catch (BusinessException e) {
@@ -89,17 +96,19 @@ public class PropertiesWizard extends Wizard {
     }
 
     private void unlockObject() {
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-        try {
-            repositoryFactory.unlock(object);
-        } catch (PersistenceException e) {
-            ExceptionHandler.process(e);
+        if (!alreadyLockedByUser) {
+            IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+            try {
+                repositoryFactory.unlock(object);
+            } catch (PersistenceException e) {
+                ExceptionHandler.process(e);
+            }
         }
     }
 
     private boolean isReadOnly() {
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
-        return !repositoryFactory.getStatus(object).isEditable();
+        return !repositoryFactory.getStatus(object).isEditable() || alreadyLockedByUser;
     }
 
     @Override
@@ -130,6 +139,10 @@ public class PropertiesWizard extends Wizard {
 
     @Override
     public boolean performFinish() {
+        if (alreadyLockedByUser) {
+            return false;
+        }
+        
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         try {
             repositoryFactory.save(object.getProperty());
@@ -197,11 +210,13 @@ public class PropertiesWizard extends Wizard {
 
     @Override
     public boolean performCancel() {
-        try {
-            reloadProperty();
-        } catch (PersistenceException e) {
-            MessageBoxExceptionHandler.process(e);
-        }
+        if (!alreadyLockedByUser) {
+            try {
+                reloadProperty();
+            } catch (PersistenceException e) {
+                MessageBoxExceptionHandler.process(e);
+            }
+        }        
         return true;
     }
 
