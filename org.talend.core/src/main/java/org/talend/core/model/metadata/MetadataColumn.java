@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
-
 /**
  * Definition of a column in the Meta Data. <br/>
  * 
@@ -61,8 +60,8 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
     private int customId = 0;
 
     private IMetadataTable metadataTable;
-    
-    String originalDbColumnName;
+
+    private String originalDbColumnName;
 
     public MetadataColumn() {
         super();
@@ -411,6 +410,11 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         }
         if ((options & OPTIONS_IGNORE_TYPE) == 0) {
             if (!sameStringValue(this.type, other.getType())) {
+                return false;
+            }
+        }
+        if ((options & OPTIONS_IGNORE_DBCOLUMNNAME) == 0) {
+            if (!sameStringValue(this.originalDbColumnName, other.getOriginalDbColumnName())) {
                 return false;
             }
         }

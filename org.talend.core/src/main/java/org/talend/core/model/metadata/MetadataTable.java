@@ -188,7 +188,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     }
 
     public boolean sameMetadataAs(IMetadataTable other) {
-        return sameMetadataAs(other, IMetadataColumn.OPTIONS_NONE);
+        return sameMetadataAs(other, IMetadataColumn.OPTIONS_IGNORE_DBCOLUMNNAME);
     }
 
     /**

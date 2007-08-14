@@ -51,12 +51,12 @@ public interface IMetadataColumn {
 
     public static final int OPTIONS_IGNORE_LABEL = 1 << 9;
 
-    public static final int OPTIONS_IGNORE_DBNAME = 1 << 10;
+    public static final int OPTIONS_IGNORE_DBCOLUMNNAME = 1 << 10;
 
     public static final int OPTIONS_IGNORE_ALL = OPTIONS_IGNORE_LABEL | OPTIONS_IGNORE_TALENDTYPE
             | OPTIONS_IGNORE_DEFAULT | OPTIONS_IGNORE_PRECISION | OPTIONS_IGNORE_LENGTH | OPTIONS_IGNORE_TYPE
             | OPTIONS_IGNORE_PATTERN | OPTIONS_IGNORE_COMMENT | OPTIONS_IGNORE_NULLABLE | OPTIONS_IGNORE_KEY
-            | OPTIONS_IGNORE_DBNAME;
+            | OPTIONS_IGNORE_DBCOLUMNNAME;
 
     public int getId();
 

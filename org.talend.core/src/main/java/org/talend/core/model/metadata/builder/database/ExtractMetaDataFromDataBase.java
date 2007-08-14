@@ -236,7 +236,7 @@ public class ExtractMetaDataFromDataBase {
                 }
                 columnIndex++;
 
-                if (primaryKeys != null && !primaryKeys.isEmpty() && primaryKeys.get(metadataColumn.getLabel()) != null) {
+                if (primaryKeys != null && !primaryKeys.isEmpty() && primaryKeys.get(metadataColumn.getOriginalField()) != null) {
                     metadataColumn.setKey(true);
                 } else {
                     metadataColumn.setKey(false);
