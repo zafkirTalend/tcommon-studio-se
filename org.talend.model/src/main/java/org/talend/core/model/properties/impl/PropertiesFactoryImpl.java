@@ -476,4 +476,13 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
         return executionTask;
     }
 
+    /* (non-Javadoc)
+     * @see org.talend.core.model.properties.PropertiesFactory#createExecutionTask()
+     */
+    public ExecutionServer createExecutionServer() {
+        ExecutionServer executionServer = new ExecutionServer();
+        executionServer.setId(1000);
+        return executionServer;
+    }
+    
 } // PropertiesFactoryImpl

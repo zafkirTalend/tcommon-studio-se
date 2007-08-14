@@ -36,18 +36,207 @@ import org.eclipse.emf.ecore.resource.Resource;
  * <br/>
  *
  */
-public class ExecutionTask implements EObject {
+public class ExecutionServer implements EObject {
 
+    
     private int id;
+    
     private String label;
+ 
     private String description;
-    private ExecutionServer executionServer;
-    private Project project;
-    private ProcessItem processItem;
-    private String context;
-    private String jobVersion;
+    
+    private String host;
+
+    private int port = -1;
+
+    private int fileTransfertPort = -1;
+    
     private boolean active;
-    private int idQuartzJob;
+    
+    
+
+    
+    
+    
+    /**
+     * DOC amaumont ExecutionTask constructor comment.
+     */
+    public ExecutionServer() {
+        super();
+    }
+
+    
+    
+
+    
+    
+    /**
+     * Getter for description.
+     * @return the description
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+
+
+
+
+    
+    /**
+     * Sets the description.
+     * @param description the description to set
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+
+
+
+
+    /**
+     * Getter for active.
+     * @return the active
+     */
+    public boolean isActive() {
+        return this.active;
+    }
+
+
+
+
+    
+    /**
+     * Sets the active.
+     * @param active the active to set
+     */
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+
+
+
+    
+    /**
+     * Getter for fileTransfertPort.
+     * @return the fileTransfertPort
+     */
+    public int getFileTransfertPort() {
+        return this.fileTransfertPort;
+    }
+
+
+
+
+    
+    /**
+     * Sets the fileTransfertPort.
+     * @param fileTransfertPort the fileTransfertPort to set
+     */
+    public void setFileTransfertPort(int fileTransfertPort) {
+        this.fileTransfertPort = fileTransfertPort;
+    }
+
+
+
+
+    
+    /**
+     * Getter for host.
+     * @return the host
+     */
+    public String getHost() {
+        return this.host;
+    }
+
+
+
+
+    
+    /**
+     * Sets the host.
+     * @param host the host to set
+     */
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+
+
+
+    
+    /**
+     * Getter for id.
+     * @return the id
+     */
+    public int getId() {
+        return this.id;
+    }
+
+
+
+
+    
+    /**
+     * Sets the id.
+     * @param id the id to set
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+
+
+    
+    /**
+     * Getter for label.
+     * @return the label
+     */
+    public String getLabel() {
+        return this.label;
+    }
+
+
+
+
+    
+    /**
+     * Sets the label.
+     * @param label the label to set
+     */
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
+
+
+
+    
+    /**
+     * Getter for port.
+     * @return the port
+     */
+    public int getPort() {
+        return this.port;
+    }
+
+
+
+
+    
+    /**
+     * Sets the port.
+     * @param port the port to set
+     */
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+
+
 
     /* (non-Javadoc)
      * @see org.eclipse.emf.ecore.EObject#eAllContents()
@@ -192,196 +381,7 @@ public class ExecutionTask implements EObject {
         // TODO Auto-generated method stub
         
     }
-
-    /**
-     * DOC amaumont ExecutionTask constructor comment.
-     */
-    public ExecutionTask() {
-        super();
-    }
-
-    
-    /**
-     * Getter for active.
-     * @return the active
-     */
-    public boolean isActive() {
-        return this.active;
-    }
-
-    
-    /**
-     * Sets the active.
-     * @param active the active to set
-     */
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    
-    /**
-     * Getter for context.
-     * @return the context
-     */
-    public String getContext() {
-        return this.context;
-    }
-
-    
-    /**
-     * Sets the context.
-     * @param context the context to set
-     */
-    public void setContext(String context) {
-        this.context = context;
-    }
-
-    
-    /**
-     * Getter for description.
-     * @return the description
-     */
-    public String getDescription() {
-        return this.description;
-    }
-
-    
-    /**
-     * Sets the description.
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    
-    /**
-     * Getter for executionServer.
-     * @return the executionServer
-     */
-    public ExecutionServer getExecutionServer() {
-        return this.executionServer;
-    }
-
-    
-    /**
-     * Sets the executionServer.
-     * @param executionServer the executionServer to set
-     */
-    public void setExecutionServer(ExecutionServer executionServer) {
-        this.executionServer = executionServer;
-    }
-
-    
-    /**
-     * Getter for id.
-     * @return the id
-     */
-    public int getId() {
-        return this.id;
-    }
-
-    
-    /**
-     * Sets the id.
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    
-    /**
-     * Getter for idQuartzJob.
-     * @return the idQuartzJob
-     */
-    public int getIdQuartzJob() {
-        return this.idQuartzJob;
-    }
-
-    
-    /**
-     * Sets the idQuartzJob.
-     * @param idQuartzJob the idQuartzJob to set
-     */
-    public void setIdQuartzJob(int idQuartzJob) {
-        this.idQuartzJob = idQuartzJob;
-    }
-
-    
-    /**
-     * Getter for label.
-     * @return the label
-     */
-    public String getLabel() {
-        return this.label;
-    }
-
-    
-    /**
-     * Sets the label.
-     * @param label the label to set
-     */
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    
-    /**
-     * Getter for processItem.
-     * @return the processItem
-     */
-    public ProcessItem getProcessItem() {
-        return this.processItem;
-    }
-
-    
-    /**
-     * Sets the processItem.
-     * @param processItem the processItem to set
-     */
-    public void setProcessItem(ProcessItem processItem) {
-        this.processItem = processItem;
-    }
-
-    
-    /**
-     * Getter for project.
-     * @return the project
-     */
-    public Project getProject() {
-        return this.project;
-    }
-
-    
-    /**
-     * Sets the project.
-     * @param project the project to set
-     */
-    public void setProject(Project project) {
-        this.project = project;
-    }
-
-    
-    /**
-     * Getter for jobVersion.
-     * @return the jobVersion
-     */
-    public String getJobVersion() {
-        return this.jobVersion;
-    }
-
-    
-    /**
-     * Sets the jobVersion.
-     * @param jobVersion the jobVersion to set
-     */
-    public void setJobVersion(String jobVersion) {
-        this.jobVersion = jobVersion;
-    }
-
     
     
     
-
 }

@@ -38,13 +38,8 @@ public interface PropertiesFactory extends EFactory {
      */
     Project createProject();
 
-    /**
-     * Returns a new object of class '<em>Project</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>Project</em>'.
-     * @generated
-     */
     ExecutionTask createExecutionTask();
+    ExecutionServer createExecutionServer();
     
     /**
      * Returns a new object of class '<em>Property</em>'.
