@@ -86,9 +86,17 @@ public final class ConvertionHelper {
             newColumn.setKey(column.isKey());
             newColumn.setLabel(column.getLabel());
             newColumn.setPattern(column.getPattern());
-            newColumn.setLength(column.getLength());
+            if (column.getLength() < 0) {
+                newColumn.setLength(null);
+            } else {
+                newColumn.setLength(column.getLength());
+            }
             newColumn.setNullable(column.isNullable());
-            newColumn.setPrecision(column.getPrecision());
+            if (column.getPrecision() < 0) {
+                newColumn.setPrecision(null);
+            } else {
+                newColumn.setPrecision(column.getPrecision());
+            }
             newColumn.setTalendType(column.getTalendType());
             newColumn.setType(column.getSourceType());
             if (column.getOriginalField() == null || column.getOriginalField().equals("")) {
@@ -98,7 +106,6 @@ public final class ConvertionHelper {
             }
         }
         result.setListColumns(columns);
-        // result.setVersion();
         return result;
     }
 
