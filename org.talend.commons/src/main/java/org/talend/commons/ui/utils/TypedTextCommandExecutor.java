@@ -45,9 +45,9 @@ public class TypedTextCommandExecutor {
     private static final int KEY_CODE_UNDO = 122; // 'z'
 
     private static final int KEY_CODE_PROPOSAL = 27; // ' '
-    
+
     public static final String PARAMETER_NAME = "PARAMETER_NAME";
-    
+
     private Key previousKey;
 
     private String previousText;
@@ -133,7 +133,8 @@ public class TypedTextCommandExecutor {
             // System.out.println("ctrlKey===============" + ctrlKey);
             if (undoOrRedo) {
                 // nothing
-            } else if ((this.previousKey != null && alphaNumMatched && this.previousKey.alphaNumMatched) || (e.character == ' ' && !"DBTABLE".equals(activeControl))) {
+            } else if ((this.previousKey != null && alphaNumMatched && this.previousKey.alphaNumMatched)
+                    /*|| (e.character == ' ' && !"DBTABLE".equals(activeControl))*/) {
                 updateCommand(control);
             } else {
                 addNewCommand(control);
