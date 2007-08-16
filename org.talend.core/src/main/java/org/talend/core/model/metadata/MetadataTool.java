@@ -47,7 +47,7 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 public class MetadataTool {
 
-    private static final String DEFAULT_TABLE_NAME = "_MyTable_";
+    public static final String DEFAULT_TABLE_NAME = "_MyTable_";
 
     public static List<ColumnNameChanged> getColumnNameChanged(IMetadataTable oldTable, IMetadataTable newTable) {
         List<ColumnNameChanged> columnNameChanged = new ArrayList<ColumnNameChanged>();
