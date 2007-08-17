@@ -26,6 +26,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.core.context.Context;
 import org.talend.core.model.general.ILibrariesService;
+import org.talend.designer.components.IComponentsLocalProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -127,5 +128,10 @@ public class CorePlugin extends AbstractUIPlugin {
 
     public IRepositoryService getRepositoryServie() {
         return (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+    }
+
+    public IComponentsLocalProviderService getComponentsLocalProviderService() {
+        return (IComponentsLocalProviderService) GlobalServiceRegister.getDefault().getService(
+                IComponentsLocalProviderService.class);
     }
 }
