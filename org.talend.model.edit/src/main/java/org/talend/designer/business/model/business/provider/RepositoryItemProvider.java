@@ -178,6 +178,11 @@ public class RepositoryItemProvider extends ItemProviderAdapter implements IEdit
         newChildDescriptors.add
             (createChildParameter
                 (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
+                 BusinessFactory.eINSTANCE.createGenericSchemaMetadata()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (BusinessPackage.Literals.REPOSITORY__TALENDITEMS,
                  BusinessFactory.eINSTANCE.createContext()));
     }
 

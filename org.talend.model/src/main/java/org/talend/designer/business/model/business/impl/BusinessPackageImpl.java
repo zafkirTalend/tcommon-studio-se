@@ -36,6 +36,7 @@ import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
 import org.talend.designer.business.model.business.FileXmlMetadata;
 import org.talend.designer.business.model.business.GearBusinessItem;
+import org.talend.designer.business.model.business.GenericSchemaMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Repository;
@@ -256,6 +257,13 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
      * @generated
      */
     private EClass fileLdifMetadataEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass genericSchemaMetadataEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -750,6 +758,15 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getGenericSchemaMetadata() {
+        return genericSchemaMetadataEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -810,6 +827,10 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
 
         fileLdifMetadataEClass = createEClass(FILE_LDIF_METADATA);
 
+        genericSchemaMetadataEClass = createEClass(GENERIC_SCHEMA_METADATA);
+
+        contextEClass = createEClass(CONTEXT);
+
         businessAssignmentEClass = createEClass(BUSINESS_ASSIGNMENT);
         createEReference(businessAssignmentEClass, BUSINESS_ASSIGNMENT__BUSINESS_ITEM);
         createEReference(businessAssignmentEClass, BUSINESS_ASSIGNMENT__TALEND_ITEM);
@@ -855,8 +876,6 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         ellipseBusinessItemEClass = createEClass(ELLIPSE_BUSINESS_ITEM);
 
         gearBusinessItemEClass = createEClass(GEAR_BUSINESS_ITEM);
-
-        contextEClass = createEClass(CONTEXT);
     }
 
     /**
@@ -892,6 +911,8 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         fileRegexpMetadataEClass.getESuperTypes().add(this.getTalendItem());
         fileXmlMetadataEClass.getESuperTypes().add(this.getTalendItem());
         fileLdifMetadataEClass.getESuperTypes().add(this.getTalendItem());
+        genericSchemaMetadataEClass.getESuperTypes().add(this.getTalendItem());
+        contextEClass.getESuperTypes().add(this.getTalendItem());
         baseBusinessItemRelationshipEClass.getESuperTypes().add(this.getBusinessItem());
         businessItemRelationshipEClass.getESuperTypes().add(this.getBaseBusinessItemRelationship());
         directionalBusinessItemRelationshipEClass.getESuperTypes().add(this.getBaseBusinessItemRelationship());
@@ -908,7 +929,6 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         actorBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         ellipseBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
         gearBusinessItemEClass.getESuperTypes().add(this.getBusinessItemShape());
-        contextEClass.getESuperTypes().add(this.getTalendItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(repositoryEClass, Repository.class, "Repository", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -946,6 +966,10 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEClass(fileXmlMetadataEClass, FileXmlMetadata.class, "FileXmlMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(fileLdifMetadataEClass, FileLdifMetadata.class, "FileLdifMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(genericSchemaMetadataEClass, GenericSchemaMetadata.class, "GenericSchemaMetadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(contextEClass, Context.class, "Context", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(businessAssignmentEClass, BusinessAssignment.class, "BusinessAssignment", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getBusinessAssignment_BusinessItem(), this.getBusinessItem(), this.getBusinessItem_Assignments(), "businessItem", null, 1, 1, BusinessAssignment.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -992,8 +1016,6 @@ public class BusinessPackageImpl extends EPackageImpl implements BusinessPackage
         initEClass(ellipseBusinessItemEClass, EllipseBusinessItem.class, "EllipseBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(gearBusinessItemEClass, GearBusinessItem.class, "GearBusinessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-        initEClass(contextEClass, Context.class, "Context", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);

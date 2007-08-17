@@ -34,6 +34,7 @@ import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
 import org.talend.designer.business.model.business.FileXmlMetadata;
 import org.talend.designer.business.model.business.GearBusinessItem;
+import org.talend.designer.business.model.business.GenericSchemaMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Repository;
@@ -202,6 +203,20 @@ public class BusinessSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case BusinessPackage.GENERIC_SCHEMA_METADATA: {
+                GenericSchemaMetadata genericSchemaMetadata = (GenericSchemaMetadata)theEObject;
+                Object result = caseGenericSchemaMetadata(genericSchemaMetadata);
+                if (result == null) result = caseTalendItem(genericSchemaMetadata);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case BusinessPackage.CONTEXT: {
+                Context context = (Context)theEObject;
+                Object result = caseContext(context);
+                if (result == null) result = caseTalendItem(context);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case BusinessPackage.BUSINESS_ASSIGNMENT: {
                 BusinessAssignment businessAssignment = (BusinessAssignment)theEObject;
                 Object result = caseBusinessAssignment(businessAssignment);
@@ -337,13 +352,6 @@ public class BusinessSwitch {
                 Object result = caseGearBusinessItem(gearBusinessItem);
                 if (result == null) result = caseBusinessItemShape(gearBusinessItem);
                 if (result == null) result = caseBusinessItem(gearBusinessItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case BusinessPackage.CONTEXT: {
-                Context context = (Context)theEObject;
-                Object result = caseContext(context);
-                if (result == null) result = caseTalendItem(context);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -804,6 +812,21 @@ public class BusinessSwitch {
      * @generated
      */
     public Object caseFileLdifMetadata(FileLdifMetadata object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpretting the object as an instance of '<em>Generic Schema Metadata</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpretting the object as an instance of '<em>Generic Schema Metadata</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseGenericSchemaMetadata(GenericSchemaMetadata object) {
         return null;
     }
 

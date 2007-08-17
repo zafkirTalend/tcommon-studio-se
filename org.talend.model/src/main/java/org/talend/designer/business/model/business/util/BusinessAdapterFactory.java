@@ -34,6 +34,7 @@ import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
 import org.talend.designer.business.model.business.FileXmlMetadata;
 import org.talend.designer.business.model.business.GearBusinessItem;
+import org.talend.designer.business.model.business.GenericSchemaMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Repository;
@@ -138,6 +139,12 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             public Object caseFileLdifMetadata(FileLdifMetadata object) {
                 return createFileLdifMetadataAdapter();
             }
+            public Object caseGenericSchemaMetadata(GenericSchemaMetadata object) {
+                return createGenericSchemaMetadataAdapter();
+            }
+            public Object caseContext(Context object) {
+                return createContextAdapter();
+            }
             public Object caseBusinessAssignment(BusinessAssignment object) {
                 return createBusinessAssignmentAdapter();
             }
@@ -191,9 +198,6 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseGearBusinessItem(GearBusinessItem object) {
                 return createGearBusinessItemAdapter();
-            }
-            public Object caseContext(Context object) {
-                return createContextAdapter();
             }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
@@ -617,6 +621,20 @@ public class BusinessAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createFileLdifMetadataAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.business.model.business.GenericSchemaMetadata <em>Generic Schema Metadata</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.business.model.business.GenericSchemaMetadata
+     * @generated
+     */
+    public Adapter createGenericSchemaMetadataAdapter() {
         return null;
     }
 

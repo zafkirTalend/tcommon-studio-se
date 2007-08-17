@@ -34,6 +34,8 @@
     <genClasses ecoreClass="Business.ecore#//FileRegexpMetadata"/>
     <genClasses ecoreClass="Business.ecore#//FileXmlMetadata"/>
     <genClasses ecoreClass="Business.ecore#//FileLdifMetadata"/>
+    <genClasses ecoreClass="Business.ecore#//GenericSchemaMetadata"/>
+    <genClasses ecoreClass="Business.ecore#//Context"/>
     <genClasses ecoreClass="Business.ecore#//BusinessAssignment">
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Business.ecore#//BusinessAssignment/businessItem"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Business.ecore#//BusinessAssignment/talendItem"/>

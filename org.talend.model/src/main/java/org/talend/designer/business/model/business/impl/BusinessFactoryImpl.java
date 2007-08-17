@@ -33,6 +33,7 @@ import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
 import org.talend.designer.business.model.business.FileXmlMetadata;
 import org.talend.designer.business.model.business.GearBusinessItem;
+import org.talend.designer.business.model.business.GenericSchemaMetadata;
 import org.talend.designer.business.model.business.InputBusinessItem;
 import org.talend.designer.business.model.business.ListBusinessItem;
 import org.talend.designer.business.model.business.Repository;
@@ -97,6 +98,8 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.FILE_REGEXP_METADATA: return createFileRegexpMetadata();
             case BusinessPackage.FILE_XML_METADATA: return createFileXmlMetadata();
             case BusinessPackage.FILE_LDIF_METADATA: return createFileLdifMetadata();
+            case BusinessPackage.GENERIC_SCHEMA_METADATA: return createGenericSchemaMetadata();
+            case BusinessPackage.CONTEXT: return createContext();
             case BusinessPackage.BUSINESS_ASSIGNMENT: return createBusinessAssignment();
             case BusinessPackage.BUSINESS_ITEM_RELATIONSHIP: return createBusinessItemRelationship();
             case BusinessPackage.DIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP: return createDirectionalBusinessItemRelationship();
@@ -112,7 +115,6 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
             case BusinessPackage.ACTOR_BUSINESS_ITEM: return createActorBusinessItem();
             case BusinessPackage.ELLIPSE_BUSINESS_ITEM: return createEllipseBusinessItem();
             case BusinessPackage.GEAR_BUSINESS_ITEM: return createGearBusinessItem();
-            case BusinessPackage.CONTEXT: return createContext();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -379,6 +381,16 @@ public class BusinessFactoryImpl extends EFactoryImpl implements BusinessFactory
     public FileLdifMetadata createFileLdifMetadata() {
         FileLdifMetadataImpl fileLdifMetadata = new FileLdifMetadataImpl();
         return fileLdifMetadata;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public GenericSchemaMetadata createGenericSchemaMetadata() {
+        GenericSchemaMetadataImpl genericSchemaMetadata = new GenericSchemaMetadataImpl();
+        return genericSchemaMetadata;
     }
 
     /**

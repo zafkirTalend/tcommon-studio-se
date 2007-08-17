@@ -32,6 +32,7 @@ import org.talend.designer.business.model.business.FileLdifMetadata;
 import org.talend.designer.business.model.business.FilePositionalMetadata;
 import org.talend.designer.business.model.business.FileRegexpMetadata;
 import org.talend.designer.business.model.business.FileXmlMetadata;
+import org.talend.designer.business.model.business.GenericSchemaMetadata;
 import org.talend.designer.business.model.business.Process;
 import org.talend.designer.business.model.business.Routine;
 import org.talend.designer.business.model.business.TableMetadata;
@@ -312,7 +313,12 @@ public class BusinessAssignmentItemProvider extends ItemProviderAdapter implemen
                 public Object caseContext(Context object) {
                     return getString("_UI_Context_type"); //$NON-NLS-1$
                 }
-                
+
+                @Override
+                public Object caseGenericSchemaMetadata(GenericSchemaMetadata object) {
+                    return getString("_UI_GenericSchemaMetadata_type"); //$NON-NLS-1$
+                }
+
             }.doSwitch(businessAssignment.getTalendItem());
 
             return (String) type;

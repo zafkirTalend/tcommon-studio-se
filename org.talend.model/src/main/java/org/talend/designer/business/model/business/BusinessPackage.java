@@ -807,7 +807,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getBusinessAssignment()
      * @generated
      */
-    int BUSINESS_ASSIGNMENT = 13;
+    int BUSINESS_ASSIGNMENT = 15;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.BusinessItemImpl <em>Item</em>}' class.
@@ -816,7 +816,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getBusinessItem()
      * @generated
      */
-    int BUSINESS_ITEM = 14;
+    int BUSINESS_ITEM = 16;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.BusinessItemRelationshipImpl <em>Item Relationship</em>}' class.
@@ -825,7 +825,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getBusinessItemRelationship()
      * @generated
      */
-    int BUSINESS_ITEM_RELATIONSHIP = 16;
+    int BUSINESS_ITEM_RELATIONSHIP = 18;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.BusinessItemShapeImpl <em>Item Shape</em>}' class.
@@ -834,7 +834,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getBusinessItemShape()
      * @generated
      */
-    int BUSINESS_ITEM_SHAPE = 19;
+    int BUSINESS_ITEM_SHAPE = 21;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DecisionBusinessItemImpl <em>Decision Business Item</em>}' class.
@@ -843,7 +843,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDecisionBusinessItem()
      * @generated
      */
-    int DECISION_BUSINESS_ITEM = 20;
+    int DECISION_BUSINESS_ITEM = 22;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ActionBusinessItemImpl <em>Action Business Item</em>}' class.
@@ -852,7 +852,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getActionBusinessItem()
      * @generated
      */
-    int ACTION_BUSINESS_ITEM = 21;
+    int ACTION_BUSINESS_ITEM = 23;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.TerminalBusinessItemImpl <em>Terminal Business Item</em>}' class.
@@ -861,7 +861,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getTerminalBusinessItem()
      * @generated
      */
-    int TERMINAL_BUSINESS_ITEM = 22;
+    int TERMINAL_BUSINESS_ITEM = 24;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DataBusinessItemImpl <em>Data Business Item</em>}' class.
@@ -870,7 +870,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDataBusinessItem()
      * @generated
      */
-    int DATA_BUSINESS_ITEM = 23;
+    int DATA_BUSINESS_ITEM = 25;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DocumentBusinessItemImpl <em>Document Business Item</em>}' class.
@@ -879,7 +879,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDocumentBusinessItem()
      * @generated
      */
-    int DOCUMENT_BUSINESS_ITEM = 24;
+    int DOCUMENT_BUSINESS_ITEM = 26;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.InputBusinessItemImpl <em>Input Business Item</em>}' class.
@@ -888,7 +888,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getInputBusinessItem()
      * @generated
      */
-    int INPUT_BUSINESS_ITEM = 25;
+    int INPUT_BUSINESS_ITEM = 27;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ListBusinessItemImpl <em>List Business Item</em>}' class.
@@ -897,7 +897,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getListBusinessItem()
      * @generated
      */
-    int LIST_BUSINESS_ITEM = 26;
+    int LIST_BUSINESS_ITEM = 28;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DatabaseBusinessItemImpl <em>Database Business Item</em>}' class.
@@ -906,7 +906,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDatabaseBusinessItem()
      * @generated
      */
-    int DATABASE_BUSINESS_ITEM = 27;
+    int DATABASE_BUSINESS_ITEM = 29;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.FileRegexpMetadataImpl <em>File Regexp Metadata</em>}' class.
@@ -926,7 +926,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getActorBusinessItem()
      * @generated
      */
-    int ACTOR_BUSINESS_ITEM = 28;
+    int ACTOR_BUSINESS_ITEM = 30;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.EllipseBusinessItemImpl <em>Ellipse Business Item</em>}' class.
@@ -936,7 +936,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getEllipseBusinessItem()
      * @generated
      */
-    int ELLIPSE_BUSINESS_ITEM = 29;
+    int ELLIPSE_BUSINESS_ITEM = 31;
 
     /**
      * The meta object id for the '{@link org.talend.designer.business.model.business.impl.GearBusinessItemImpl <em>Gear Business Item</em>}' class.
@@ -946,7 +946,7 @@ public interface BusinessPackage extends EPackage {
      * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getGearBusinessItem()
      * @generated
      */
-    int GEAR_BUSINESS_ITEM = 30;
+    int GEAR_BUSINESS_ITEM = 32;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -1187,6 +1187,201 @@ public interface BusinessPackage extends EPackage {
 
 
     /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.GenericSchemaMetadataImpl <em>Generic Schema Metadata</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.GenericSchemaMetadataImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getGenericSchemaMetadata()
+     * @generated
+     */
+    int GENERIC_SCHEMA_METADATA = 13;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_METADATA__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_METADATA__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_METADATA__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_METADATA__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_METADATA__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_METADATA__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_METADATA__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>Generic Schema Metadata</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_METADATA_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.BaseBusinessItemRelationshipImpl <em>Base Business Item Relationship</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.BaseBusinessItemRelationshipImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getBaseBusinessItemRelationship()
+     * @generated
+     */
+    int BASE_BUSINESS_ITEM_RELATIONSHIP = 17;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DirectionalBusinessItemRelationshipImpl <em>Directional Business Item Relationship</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.DirectionalBusinessItemRelationshipImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDirectionalBusinessItemRelationship()
+     * @generated
+     */
+    int DIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP = 19;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.BidirectionalBusinessItemRelationshipImpl <em>Bidirectional Business Item Relationship</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.BidirectionalBusinessItemRelationshipImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getBidirectionalBusinessItemRelationship()
+     * @generated
+     */
+    int BIDIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP = 20;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ContextImpl <em>Context</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.business.model.business.impl.ContextImpl
+     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getContext()
+     * @generated
+     */
+    int CONTEXT = 14;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__ID = TALEND_ITEM__ID;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__LABEL = TALEND_ITEM__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Author</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__AUTHOR = TALEND_ITEM__AUTHOR;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__VERSION = TALEND_ITEM__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__COMMENT = TALEND_ITEM__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Assignments</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
+
+    /**
+     * The feature id for the '<em><b>Repository</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT__REPOSITORY = TALEND_ITEM__REPOSITORY;
+
+    /**
+     * The number of structural features of the '<em>Context</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONTEXT_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
+
+
+    /**
      * The feature id for the '<em><b>Business Item</b></em>' container reference.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
@@ -1254,16 +1449,6 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int BUSINESS_ITEM_FEATURE_COUNT = 3;
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.BaseBusinessItemRelationshipImpl <em>Base Business Item Relationship</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.BaseBusinessItemRelationshipImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getBaseBusinessItemRelationship()
-     * @generated
-     */
-    int BASE_BUSINESS_ITEM_RELATIONSHIP = 15;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1371,16 +1556,6 @@ public interface BusinessPackage extends EPackage {
     int BUSINESS_ITEM_RELATIONSHIP_FEATURE_COUNT = BASE_BUSINESS_ITEM_RELATIONSHIP_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.DirectionalBusinessItemRelationshipImpl <em>Directional Business Item Relationship</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.DirectionalBusinessItemRelationshipImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getDirectionalBusinessItemRelationship()
-     * @generated
-     */
-    int DIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP = 17;
-
-    /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1433,16 +1608,6 @@ public interface BusinessPackage extends EPackage {
      * @ordered
      */
     int DIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP_FEATURE_COUNT = BASE_BUSINESS_ITEM_RELATIONSHIP_FEATURE_COUNT + 0;
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.BidirectionalBusinessItemRelationshipImpl <em>Bidirectional Business Item Relationship</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.BidirectionalBusinessItemRelationshipImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getBidirectionalBusinessItemRelationship()
-     * @generated
-     */
-    int BIDIRECTIONAL_BUSINESS_ITEM_RELATIONSHIP = 18;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -2138,89 +2303,6 @@ public interface BusinessPackage extends EPackage {
     int GEAR_BUSINESS_ITEM_FEATURE_COUNT = BUSINESS_ITEM_SHAPE_FEATURE_COUNT + 0;
 
     /**
-     * The meta object id for the '{@link org.talend.designer.business.model.business.impl.ContextImpl <em>Context</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.business.model.business.impl.ContextImpl
-     * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getContext()
-     * @generated
-     */
-    int CONTEXT = 31;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT__ID = TALEND_ITEM__ID;
-
-    /**
-     * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT__LABEL = TALEND_ITEM__LABEL;
-
-    /**
-     * The feature id for the '<em><b>Author</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT__AUTHOR = TALEND_ITEM__AUTHOR;
-
-    /**
-     * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT__VERSION = TALEND_ITEM__VERSION;
-
-    /**
-     * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT__COMMENT = TALEND_ITEM__COMMENT;
-
-    /**
-     * The feature id for the '<em><b>Assignments</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT__ASSIGNMENTS = TALEND_ITEM__ASSIGNMENTS;
-
-    /**
-     * The feature id for the '<em><b>Repository</b></em>' container reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT__REPOSITORY = TALEND_ITEM__REPOSITORY;
-
-    /**
-     * The number of structural features of the '<em>Context</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CONTEXT_FEATURE_COUNT = TALEND_ITEM_FEATURE_COUNT + 0;
-
-
-    /**
      * Returns the meta object for class '{@link org.talend.designer.business.model.business.Repository <em>Repository</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Repository</em>'.
@@ -2723,6 +2805,16 @@ public interface BusinessPackage extends EPackage {
     EClass getFileLdifMetadata();
 
     /**
+     * Returns the meta object for class '{@link org.talend.designer.business.model.business.GenericSchemaMetadata <em>Generic Schema Metadata</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Generic Schema Metadata</em>'.
+     * @see org.talend.designer.business.model.business.GenericSchemaMetadata
+     * @generated
+     */
+    EClass getGenericSchemaMetadata();
+
+    /**
      * Returns the factory that creates the instances of the model.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the factory that creates the instances of the model.
@@ -3201,6 +3293,16 @@ public interface BusinessPackage extends EPackage {
          */
         EClass FILE_LDIF_METADATA = eINSTANCE.getFileLdifMetadata();
 
-    }
+            /**
+         * The meta object literal for the '{@link org.talend.designer.business.model.business.impl.GenericSchemaMetadataImpl <em>Generic Schema Metadata</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.business.model.business.impl.GenericSchemaMetadataImpl
+         * @see org.talend.designer.business.model.business.impl.BusinessPackageImpl#getGenericSchemaMetadata()
+         * @generated
+         */
+        EClass GENERIC_SCHEMA_METADATA = eINSTANCE.getGenericSchemaMetadata();
+
+}
 
 } // BusinessPackage

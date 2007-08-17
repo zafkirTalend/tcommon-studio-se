@@ -76,6 +76,7 @@ public enum ECoreImage implements IImage {
     METADATA_FILE_XML_WIZ("/icons/xml_wiz.png"), //$NON-NLS-1$
     METADATA_FILE_LDIF_ICON("/icons/fileldif.gif"), //$NON-NLS-1$
     METADATA_FILE_LDIF_WIZ("/icons/ldif_wiz.png"), //$NON-NLS-1$
+    METADATA_GENERIC_ICON("/icons/filexml.gif"), //$NON-NLS-1$
 
     MODULE_INSTALLED_ICON("/icons/checked.gif"), //$NON-NLS-1$
     MODULE_ERROR_ICON("/icons/error.gif"), //$NON-NLS-1$

@@ -692,6 +692,28 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link org.talend.designer.business.model.business.GenericSchemaMetadata} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected GenericSchemaMetadataItemProvider genericSchemaMetadataItemProvider;
+
+    /**
+     * This creates an adapter for a {@link org.talend.designer.business.model.business.GenericSchemaMetadata}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Adapter createGenericSchemaMetadataAdapter() {
+        if (genericSchemaMetadataItemProvider == null) {
+            genericSchemaMetadataItemProvider = new GenericSchemaMetadataItemProvider(this);
+        }
+
+        return genericSchemaMetadataItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
@@ -792,6 +814,8 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (fileRegexpMetadataItemProvider != null) fileRegexpMetadataItemProvider.dispose();
         if (fileXmlMetadataItemProvider != null) fileXmlMetadataItemProvider.dispose();
         if (fileLdifMetadataItemProvider != null) fileLdifMetadataItemProvider.dispose();
+        if (genericSchemaMetadataItemProvider != null) genericSchemaMetadataItemProvider.dispose();
+        if (contextItemProvider != null) contextItemProvider.dispose();
         if (businessAssignmentItemProvider != null) businessAssignmentItemProvider.dispose();
         if (businessItemRelationshipItemProvider != null) businessItemRelationshipItemProvider.dispose();
         if (directionalBusinessItemRelationshipItemProvider != null) directionalBusinessItemRelationshipItemProvider.dispose();
@@ -807,7 +831,6 @@ public class BusinessItemProviderAdapterFactory extends BusinessAdapterFactory i
         if (actorBusinessItemItemProvider != null) actorBusinessItemItemProvider.dispose();
         if (ellipseBusinessItemItemProvider != null) ellipseBusinessItemItemProvider.dispose();
         if (gearBusinessItemItemProvider != null) gearBusinessItemItemProvider.dispose();
-        if (contextItemProvider != null) contextItemProvider.dispose();
     }
 
 }
