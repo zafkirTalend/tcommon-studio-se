@@ -13,3 +13,6 @@ Require-Bundle: org.eclipse.ui,
  org.talend.designer.codegen,
  org.talend.commons
 Eclipse-LazyStart: true
+Export-Package: org.talend.helpers,
+ org.talend.helpers.i18n,
+ org.talend.helpers.ui.actions

@@ -55,15 +55,12 @@ import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.layout.RowData;
-import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
-import org.eclipse.ui.internal.ide.IDEApplication;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
 import org.eclipse.ui.internal.wizards.datatransfer.ArchiveFileManipulations;
@@ -71,6 +68,7 @@ import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 import org.eclipse.ui.internal.wizards.datatransfer.TarException;
 import org.eclipse.ui.internal.wizards.datatransfer.TarFile;
 import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
+import org.eclipse.ui.internal.wizards.datatransfer.WizardProjectsImportPage;
 import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
 import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
 import org.talend.commons.exception.PersistenceException;
@@ -710,7 +708,7 @@ class ImportItemWizardPage extends WizardPage {
                     collector.add(file.getAbsolutePath(), file);
                 }
                 if (file.isDirectory()) {
-                    if (!contents[i].getName().equals(IDEApplication.METADATA_FOLDER)) {
+                    if (!contents[i].getName().equals(WizardProjectsImportPage.METADATA_FOLDER)) {
                         collectItemFilesFromDirectory(files, contents[i], monitor, collector);
                     }
                 }
