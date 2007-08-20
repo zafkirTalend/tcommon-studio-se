@@ -30,10 +30,14 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
+import org.eclipse.swt.events.TypedEvent;
 import org.eclipse.swt.widgets.Control;
+import org.talend.commons.ui.swt.colorstyledtext.ColorStyledText;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -99,6 +103,19 @@ public class TypedTextCommandExecutor {
 
     private Perl5Matcher matcher;
 
+    private ModifyListener modifyListener = new ModifyListener() {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events.ModifyEvent)
+         */
+        public void modifyText(ModifyEvent e) {
+            mouseUpExecute(e);
+        }
+
+    };
+
     /**
      * DOC amaumont TypedTextCommandExecutor constructor comment.
      * 
@@ -114,7 +131,7 @@ public class TypedTextCommandExecutor {
      * 
      * @param e
      */
-    protected void mouseUpExecute(MouseEvent e) {
+    protected void mouseUpExecute(TypedEvent e) {
         Control control = (Control) e.getSource();
         String currentText = ControlUtils.getText(control);
         previousText2 = previousText;
@@ -241,6 +258,9 @@ public class TypedTextCommandExecutor {
         control.addKeyListener(keyListener);
         control.addFocusListener(focusListener);
         control.addMouseListener(mouseListener);
+        if (control instanceof ColorStyledText) {
+            ((ColorStyledText) control).addModifyListener(modifyListener);
+        }
     }
 
     /**
@@ -252,6 +272,9 @@ public class TypedTextCommandExecutor {
         control.removeKeyListener(keyListener);
         control.removeFocusListener(focusListener);
         control.removeMouseListener(mouseListener);
+        if (control instanceof ColorStyledText) {
+            ((ColorStyledText) control).removeModifyListener(modifyListener);
+        }
     }
 
     private void focusGainedExecute(FocusEvent e) {
