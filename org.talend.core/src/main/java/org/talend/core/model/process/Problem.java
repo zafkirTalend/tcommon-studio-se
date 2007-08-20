@@ -24,8 +24,6 @@ package org.talend.core.model.process;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.eclipse.ui.views.markers.internal.MarkerNode;
-
 /**
  * Class that will be used in the ProblemsView. <br/>
  * 
@@ -74,6 +72,8 @@ public class Problem {
 
     private String key;
 
+    private IProcess job;
+
     /**
      * DOC smallet Problem constructor comment.
      */
@@ -93,6 +93,18 @@ public class Problem {
         this.element = element;
         this.description = description;
         this.status = status;
+        if (element instanceof INode) {
+            job = ((INode) element).getProcess();
+        }
+    }
+
+    /**
+     * Getter for job.
+     * 
+     * @return the job
+     */
+    public IProcess getJob() {
+        return this.job;
     }
 
     /*
@@ -106,6 +118,7 @@ public class Problem {
         int result = 1;
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
         result = prime * result + ((this.element == null) ? 0 : this.element.hashCode());
+        result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
         return result;
     }
 
@@ -132,6 +145,11 @@ public class Problem {
             if (other.element != null)
                 return false;
         } else if (!this.element.equals(other.element))
+            return false;
+        if (this.status == null) {
+            if (other.status != null)
+                return false;
+        } else if (!this.status.equals(other.status))
             return false;
         return true;
     }
