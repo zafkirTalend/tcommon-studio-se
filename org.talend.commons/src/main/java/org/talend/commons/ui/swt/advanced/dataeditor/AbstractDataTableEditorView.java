@@ -67,7 +67,7 @@ import org.talend.commons.utils.data.list.ListenableListEvent;
  */
 public abstract class AbstractDataTableEditorView<B> {
 
-    private boolean readOnly;
+    protected boolean readOnly;
 
     private Label titleLabel;
 
@@ -79,9 +79,9 @@ public abstract class AbstractDataTableEditorView<B> {
 
     protected Composite parentComposite;
 
-    private AbstractExtendedTableViewer<B> extendedTableViewer;
+    protected AbstractExtendedTableViewer<B> extendedTableViewer;
 
-    private ExtendedTableModel<B> extendedTableModel;
+    protected ExtendedTableModel<B> extendedTableModel;
 
     private ExtendedToolbarView extendedToolbar;
 
@@ -351,7 +351,6 @@ public abstract class AbstractDataTableEditorView<B> {
 
             };
             table.addKeyListener(this.tableKeyListener);
-
 
         }
     }
