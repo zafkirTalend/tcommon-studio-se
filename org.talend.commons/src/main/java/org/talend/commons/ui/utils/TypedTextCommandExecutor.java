@@ -30,6 +30,9 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.widgets.Control;
 
 /**
@@ -76,6 +79,22 @@ public class TypedTextCommandExecutor {
 
     };
 
+    private MouseListener mouseListener = new MouseAdapter() {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.swt.events.MouseAdapter#mouseUp(org.eclipse.swt.events.MouseEvent)
+         */
+        @Override
+        public void mouseUp(MouseEvent e) {
+            if (e.button == 3) {
+                mouseUpExecute(e);
+            }
+        }
+
+    };
+
     private Pattern patternAlphaNum;
 
     private Perl5Matcher matcher;
@@ -88,6 +107,25 @@ public class TypedTextCommandExecutor {
     public TypedTextCommandExecutor() {
         super();
         init();
+    }
+
+    /**
+     * DOC qiang.zhang Comment method "mouseUpExecute".
+     * 
+     * @param e
+     */
+    protected void mouseUpExecute(MouseEvent e) {
+        Control control = (Control) e.getSource();
+        String currentText = ControlUtils.getText(control);
+        previousText2 = previousText;
+        activeControl = control.getData(PARAMETER_NAME);
+        if (currentText.equals(previousText)) {
+            // nothing
+        } else if (!currentText.equals(previousText)) {
+            addNewCommand(control);
+            previousText = currentText;
+        }
+
     }
 
     /**
@@ -134,7 +172,7 @@ public class TypedTextCommandExecutor {
             if (undoOrRedo) {
                 // nothing
             } else if ((this.previousKey != null && alphaNumMatched && this.previousKey.alphaNumMatched)
-                    /*|| (e.character == ' ' && !"DBTABLE".equals(activeControl))*/) {
+            /* || (e.character == ' ' && !"DBTABLE".equals(activeControl)) */) {
                 updateCommand(control);
             } else {
                 addNewCommand(control);
@@ -202,6 +240,7 @@ public class TypedTextCommandExecutor {
     public void register(Control control) {
         control.addKeyListener(keyListener);
         control.addFocusListener(focusListener);
+        control.addMouseListener(mouseListener);
     }
 
     /**
@@ -212,6 +251,7 @@ public class TypedTextCommandExecutor {
     public void unregister(Control control) {
         control.removeKeyListener(keyListener);
         control.removeFocusListener(focusListener);
+        control.removeMouseListener(mouseListener);
     }
 
     private void focusGainedExecute(FocusEvent e) {
