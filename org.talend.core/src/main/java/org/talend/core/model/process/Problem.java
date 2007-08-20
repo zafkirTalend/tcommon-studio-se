@@ -21,6 +21,11 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import java.util.Arrays;
+import java.util.Collection;
+
+import org.eclipse.ui.views.markers.internal.MarkerNode;
+
 /**
  * Class that will be used in the ProblemsView. <br/>
  * 
@@ -29,37 +34,44 @@ package org.talend.core.model.process;
  */
 public class Problem {
 
+    public final static String EMPTY_STRING = "";//$NON-NLS-1$
+
+    public static final Problem[] EMPTY_PROBLEM_ARRAY = new Problem[0];
+
+    protected static final Collection<Problem> EMPTY_PROBLEM_COLLECTION = Arrays.asList(new Problem[0]);
+
     /**
-     * DOC smallet Problem class global comment. Detailled comment <br/>
+     * smallet Problem class global comment. Detailled comment <br/>
      * 
      * $Id$
      */
     public enum ProblemStatus {
         ERROR,
-        WARNING;
+        WARNING,
+        INFO;
     }
-    
+
     /**
-     * Added to enhance the refresh speed of the problems view.
-     * <br/>
-     *
-     * $Id$
-     *
+     * bqian Problem class global comment. Detailled comment <br/>
      */
-    public enum ProblemAction {
-        DELETED,
-        ADDED,
-        NONE;
+    public enum ProblemType {
+        JOB,
+        ROUTINE;
     }
+
+    /**
+     * Added to enhance the refresh speed of the problems view. <br/>
+     * 
+     * $Id$
+     * 
+     */
 
     private Element element;
 
     private String description;
 
     private ProblemStatus status;
-    
-    private ProblemAction action;
-    
+
     private String key;
 
     /**
@@ -81,6 +93,47 @@ public class Problem {
         this.element = element;
         this.description = description;
         this.status = status;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
+        result = prime * result + ((this.element == null) ? 0 : this.element.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Problem other = (Problem) obj;
+        if (this.description == null) {
+            if (other.description != null)
+                return false;
+        } else if (!this.description.equals(other.description))
+            return false;
+        if (this.element == null) {
+            if (other.element != null)
+                return false;
+        } else if (!this.element.equals(other.element))
+            return false;
+        return true;
     }
 
     public String getDescription() {
@@ -117,34 +170,38 @@ public class Problem {
         this.status = status;
     }
 
-    
-    public ProblemAction getAction() {
-        return action;
-    }
-
-    
-    public void setAction(ProblemAction action) {
-        this.action = action;
-    }
-
-    
     /**
      * Getter for key.
+     * 
      * @return the key
      */
     public String getKey() {
         return this.key;
     }
 
-    
     /**
      * Sets the key.
+     * 
      * @param key the key to set
      */
     public void setKey(String key) {
         this.key = key;
     }
-    
-    
-    
+
+    public Problem[] getChildren() {
+        return EMPTY_PROBLEM_ARRAY;
+    }
+
+    public boolean isConcrete() {
+        return true;
+    }
+
+    /**
+     * bqian Comment method "getName".
+     * 
+     * @return
+     */
+    public String getProblemResource() {
+        return element.getElementName();
+    }
 }
