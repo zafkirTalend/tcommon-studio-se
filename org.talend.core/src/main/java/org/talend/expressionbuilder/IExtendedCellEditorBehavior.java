@@ -19,24 +19,19 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.expressionbuilder.ui;
+package org.talend.expressionbuilder;
 
-import java.util.List;
-
-import org.talend.expressionbuilder.CellEditorDialogBehavior;
-import org.talend.expressionbuilder.ICellEditorDialog;
-import org.talend.expressionbuilder.test.shadow.Variable;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
  * 
- * $Id: IExpressionBuilderDialogController.java 下午04:43:22 2007-8-1 +0000 (2007-8-1) yzhang $
+ * $Id: IExtendedCellEditorBehavior.java 上午09:52:19 2007-8-16 +0000 (2007-8-16) yzhang $
  * 
  */
-public interface IExpressionBuilderDialogController extends ICellEditorDialog {
+public interface IExtendedCellEditorBehavior {
 
-    public void setDefaultExpression(String expression);
-
-    public void addVariables(List<Variable> variables);
+    public Control createBehaviorControls(Composite parent);
 
 }
