@@ -271,4 +271,62 @@ public class MetadataTool {
         }
         return null;
     }
+    
+    public static void initilializeSchemaFromElementParameters(IMetadataTable metadataTable,
+            List<IElementParameter> elementParameters) {
+        IElementParameter mappingParameter = getMappingParameter(elementParameters);
+        for (int i = 0; i < elementParameters.size(); i++) {
+            IElementParameter param = elementParameters.get(i);
+            if (param.getField().equals(EParameterFieldType.SCHEMA_TYPE) && param.getContext().equals(metadataTable.getAttachedConnector())) {
+                if (param.getValue() instanceof IMetadataTable) {
+                    param.setValueToDefault(elementParameters);
+                    IMetadataTable table = (IMetadataTable) param.getValue();
+                    if (mappingParameter != null) {
+                        if (mappingParameter.getValue() != null && (!mappingParameter.getValue().equals(""))) {
+                            table.setDbms((String) mappingParameter.getValue());
+                        }
+                    }
+                    metadataTable.setReadOnly(table.isReadOnly());
+                    // if all the table is read only then remove all columns to set the one defined in the emf component
+//                    if (metadataTable.isReadOnly()) {
+//                        metadataTable.getListColumns().clear();
+//                    }
+                    for (int k = 0; k < table.getListColumns().size(); k++) {
+                        IMetadataColumn newColumn = table.getListColumns().get(k);
+                        IMetadataColumn oldColumn = metadataTable.getColumn(newColumn.getLabel());
+                        if (oldColumn != null) {
+                            // if column exists, then override read only / custom
+                            oldColumn.setReadOnly(newColumn.isReadOnly());
+                            oldColumn.setCustom(newColumn.isCustom());
+                            oldColumn.setCustomId(newColumn.getCustomId());
+                            if (newColumn.isReadOnly()) { // if read only, override everything
+                                oldColumn.setKey(newColumn.isKey());
+                                oldColumn.setNullable(newColumn.isNullable());
+                                oldColumn.setLength(newColumn.getLength());
+                                oldColumn.setPrecision(newColumn.getPrecision());
+                                oldColumn.setPattern(newColumn.getPattern());
+                                oldColumn.setType(newColumn.getType());
+                                oldColumn.setTalendType(newColumn.getTalendType());
+                            }
+                        } else { // if column doesn't exist, then add it.
+                            if (newColumn.isReadOnly() || newColumn.isCustom() || table.isReadOnly()) {
+                                metadataTable.getListColumns().add(newColumn);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        metadataTable.sortCustomColumns();
+    }
+
+    public static IElementParameter getMappingParameter(List<IElementParameter> elementParameters) {
+        for (int i = 0; i < elementParameters.size(); i++) {
+            IElementParameter param = elementParameters.get(i);
+            if (param.getField().equals(EParameterFieldType.MAPPING_TYPE)) {
+                return param;
+            }
+        }
+        return null;
+    }
 }

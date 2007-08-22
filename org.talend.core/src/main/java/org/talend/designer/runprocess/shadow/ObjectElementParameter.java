@@ -22,6 +22,7 @@
 package org.talend.designer.runprocess.shadow;
 
 import java.util.List;
+import java.util.Map;
 
 import org.talend.core.model.process.EComponentCategory;
 import org.talend.core.model.process.EParameterFieldType;
@@ -479,11 +480,11 @@ public class ObjectElementParameter implements IElementParameter {
         return 0;
     }
 
-    public IElement getParent() {
+    public IElement getElement() {
         return null;
     }
 
-    public void setParent(IElement element) {
+    public void setElement(IElement element) {
     }
 
     public boolean isBasedOnSchema() {
@@ -514,5 +515,30 @@ public class ObjectElementParameter implements IElementParameter {
     public void setNoCheck(boolean noCheck) {
         // TODO Auto-generated method stub
 
+    }
+
+    public String getContext() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void setContext(String context) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public Map<String, IElementParameter> getChildParameters() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public IElementParameter getParentParameter() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    public void setParentParameter(IElementParameter parentParameter) {
+        // TODO Auto-generated method stub
+        
     }
 }

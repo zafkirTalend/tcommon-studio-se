@@ -82,6 +82,8 @@ public abstract class AbstractNode implements INode {
     private Map<INode, Integer> mergeInfo;
     
     private String label;
+    
+    protected List<? extends INodeConnector> listConnector;
 
     public String getComponentName() {
         return componentName;
@@ -516,4 +518,31 @@ public abstract class AbstractNode implements INode {
     public String getLabel() {
         return label;
     }
+
+	@Override
+	public IMetadataTable getMetadataFromConnector(String connector) {
+        for (IMetadataTable table : metadataList) {
+            if (table.getAttachedConnector().equals(connector)) {
+                return table;
+            }
+        }
+        return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.talend.core.model.process.INode#getConnectorFromName(java.lang.String)
+	 */
+	@Override
+	public INodeConnector getConnectorFromName(String connName) {
+        INodeConnector nodeConnector = null;
+        int nbConn = 0;
+
+        while ((nodeConnector == null) && (nbConn < listConnector.size())) {
+            if (listConnector.get(nbConn).getName().equals(connName)) {
+                nodeConnector = listConnector.get(nbConn);
+            }
+            nbConn++;
+        }
+        return nodeConnector;
+	}
 }

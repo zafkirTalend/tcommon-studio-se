@@ -45,7 +45,9 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     private boolean readOnly = false;
     
     private String dbms;
-
+    
+    private String attachedConnector;
+   
     @Override
     public String toString() {
         StringBuffer toReturn = new StringBuffer(getTableName() + ":"); //$NON-NLS-1$
@@ -274,5 +276,21 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
 
     public void setDbms(String dbms) {
         this.dbms = dbms;
+    }
+    
+    /**
+     * Getter for attachedConnector.
+     * @return the attachedConnector
+     */
+    public String getAttachedConnector() {
+        return attachedConnector;
+    }
+    
+    /**
+     * Sets the attachedConnector.
+     * @param attachedConnector the attachedConnector to set
+     */
+    public void setAttachedConnector(String attachedConnector) {
+        this.attachedConnector = attachedConnector;
     }
 }

@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-import org.eclipse.swt.graphics.Color;
 
 /**
  * Interface for Links between Nodes in a Process. <br/>
@@ -76,4 +75,8 @@ public interface INodeConnector {
     public String getMenuName();
 
     public void setMenuName(String menuName);
+    
+    public String getBaseSchema();
+    
+    public void setBaseSchema(String baseSchema);
 }

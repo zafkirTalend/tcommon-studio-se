@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Abstract base class of elements in the model. All elements in the diagram must extends this class <br/>
@@ -73,10 +74,26 @@ public abstract class Element implements Cloneable, IElement {
      * @return Object
      */
     public Object getPropertyValue(final String id) {
-        for (int i = 0; i < listParam.size(); i++) {
-            if (listParam.get(i).getName().equals(id)) {
-                return listParam.get(i).getValue();
-            }
+        // if (id.contains(":")) { // look for the parent first, then will retrieve the children
+        // StringTokenizer token = new StringTokenizer(id, ":");
+        // String parentId = token.nextToken();
+        // String childId = token.nextToken();
+        // for (int i = 0; i < listParam.size(); i++) {
+        // if (listParam.get(i).getName().equals(parentId)) {
+        // IElementParameter parent = listParam.get(i);
+        // return parent.getChildParameters().get(childId).getValue();
+        // }
+        // }
+        // } else {
+        // for (int i = 0; i < listParam.size(); i++) {
+        // if (listParam.get(i).getName().equals(id)) {
+        // return listParam.get(i).getValue();
+        // }
+        // }
+        // }
+        IElementParameter param = this.getElementParameter(id);
+        if (param != null) {
+            return param.getValue();
         }
         return null;
     }
@@ -108,15 +125,56 @@ public abstract class Element implements Cloneable, IElement {
         return listParam;
     }
 
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    /**
+     * The returned list can not be modified.
+     * @return
+     */
+    public List<? extends IElementParameter> getElementParametersWithChildrens() {
+        List<IElementParameter> fullListParam = new ArrayList<IElementParameter>(listParam);
+        
+        for (IElementParameter curParam : listParam) {
+            for (String key : curParam.getChildParameters().keySet()) {
+                IElementParameter childParam = curParam.getChildParameters().get(key);
+                fullListParam.add(childParam);
+            }
+        }
+        return fullListParam;
+    }
+    
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     public void setElementParameters(List<? extends IElementParameter> parameters) {
         this.listParam = (List<IElementParameter>) parameters;
     }
 
     public IElementParameter getElementParameter(String name) {
+        if (name.contains(":")) { // look for the parent first, then will retrieve the children
+            StringTokenizer token = new StringTokenizer(name, ":");
+            String parentId = token.nextToken();
+            String childId = token.nextToken();
+            for (int i = 0; i < listParam.size(); i++) {
+                if (listParam.get(i).getName().equals(parentId)) {
+                    IElementParameter parent = listParam.get(i);
+                    return parent.getChildParameters().get(childId);
+                }
+            }
+        } else {
+            for (IElementParameter elementParam : listParam) {
+                if (elementParam.getName().equals(name)) {
+                    return elementParam;
+                }
+            }
+        }
+
+        // if not found, look for the name if it's the name of a children
+        // this code is added only for compatibility and will be executed only one time
+        // to initialize the child.
+        // The parameters name are unique, so we just take the first one.
         for (IElementParameter elementParam : listParam) {
-            if (elementParam.getName().equals(name)) {
-                return elementParam;
+            for (String key : elementParam.getChildParameters().keySet()) {
+                IElementParameter param = elementParam.getChildParameters().get(key);
+                if (param.getName().equals(name)) {
+                    return param;
+                }
             }
         }
         return null;
@@ -124,6 +182,7 @@ public abstract class Element implements Cloneable, IElement {
 
     /**
      * Note that this will return only the first element parameter only.
+     * 
      * @param fieldType
      * @return
      */

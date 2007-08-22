@@ -22,6 +22,7 @@
 package org.talend.core.model.process;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -128,9 +129,9 @@ public interface IElementParameter {
 
     public void setValueToDefault(List<? extends IElementParameter> listParam);
     
-    public void setParent(IElement element);
+    public void setElement(IElement element);
     
-    public IElement getParent();
+    public IElement getElement();
     
     public boolean isBasedOnSchema();
     
@@ -143,4 +144,14 @@ public interface IElementParameter {
     public boolean isNoCheck();
     
     public void setNoCheck(boolean noCheck);
+    
+    public String getContext();
+    
+    public void setContext(String context);
+    
+    public Map<String, IElementParameter> getChildParameters();
+    
+    public IElementParameter getParentParameter();
+    
+    public void setParentParameter(IElementParameter parentParameter);
 }

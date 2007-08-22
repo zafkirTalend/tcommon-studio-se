@@ -174,4 +174,14 @@ public interface INode extends IElement {
     public Map<INode, Integer> getLinkedMergeInfo();
     
     public boolean isThereLinkWithMerge();
+    
+    public IMetadataTable getMetadataFromConnector(String connector);
+    
+    /**
+     * This function is used only for the designer. 
+     * Not implemented yet for the components use.
+     * @param connector name of the connector
+     * @return INodeConnector
+     */
+    public INodeConnector getConnectorFromName(final String connector);
 }
