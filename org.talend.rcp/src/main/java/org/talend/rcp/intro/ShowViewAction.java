@@ -21,43 +21,63 @@
 // ============================================================================
 package org.talend.rcp.intro;
 
-import org.eclipse.core.commands.ExecutionEvent;
-import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.jface.action.Action;
-import org.eclipse.ui.handlers.ShowViewHandler;
+import org.eclipse.jface.window.Window;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.WorkbenchMessages;
+import org.eclipse.ui.internal.WorkbenchPlugin;
+import org.eclipse.ui.internal.dialogs.ShowViewDialog;
+import org.eclipse.ui.internal.misc.StatusUtil;
+import org.eclipse.ui.statushandlers.StatusManager;
+import org.eclipse.ui.views.IViewDescriptor;
 import org.talend.rcp.i18n.Messages;
 
-
 /**
- * Displays a window for view selection.
- * <br/>
- *
+ * Displays a window for view selection. <br/>
+ * 
  * $Id$
- *
+ * 
  */
 public class ShowViewAction extends Action {
-    
-    private final ShowViewHandler handler;
 
     /**
      * Constructs a new ShowViewAction.
      */
     public ShowViewAction() {
         super(Messages.getString("ShowViewAction.actionLabel")); //$NON-NLS-1$
-        
-        handler = new ShowViewHandler(false);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.eclipse.jface.action.Action#run()
      */
     @Override
     public void run() {
-        try {
-            handler.execute(new ExecutionEvent());
-        } catch (final ExecutionException e) {
-            // Do nothing.
+        IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        final IWorkbenchPage page = window.getActivePage();
+        if (page == null) {
+            return;
+        }
+
+        final ShowViewDialog dialog = new ShowViewDialog(window, WorkbenchPlugin.getDefault().getViewRegistry());
+        dialog.open();
+
+        if (dialog.getReturnCode() == Window.CANCEL) {
+            return;
+        }
+
+        final IViewDescriptor[] descriptors = dialog.getSelection();
+        for (int i = 0; i < descriptors.length; ++i) {
+            try {
+                page.showView(descriptors[i].getId());
+            } catch (PartInitException e) {
+                StatusUtil.handleStatus(e.getStatus(), WorkbenchMessages.ShowView_errorTitle + ": " + e.getMessage(), //$NON-NLS-1$
+                        StatusManager.SHOW);
+            }
         }
     }
-
 }
