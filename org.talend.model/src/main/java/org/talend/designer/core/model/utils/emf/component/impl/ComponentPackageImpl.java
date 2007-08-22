@@ -515,7 +515,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_BUILTIN() {
+    public EAttribute getCONNECTORType_BASESCHEMA() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(0);
     }
 
@@ -524,7 +524,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_COLOR() {
+    public EAttribute getCONNECTORType_BUILTIN() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(1);
     }
 
@@ -533,7 +533,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_CTYPE() {
+    public EAttribute getCONNECTORType_COLOR() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -542,7 +542,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_LINESTYLE() {
+    public EAttribute getCONNECTORType_CTYPE() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -551,7 +551,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_MAXINPUT() {
+    public EAttribute getCONNECTORType_LINESTYLE() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -560,7 +560,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_MAXOUTPUT() {
+    public EAttribute getCONNECTORType_MAXINPUT() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -569,7 +569,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_MININPUT() {
+    public EAttribute getCONNECTORType_MAXOUTPUT() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -578,7 +578,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_MINOUTPUT() {
+    public EAttribute getCONNECTORType_MININPUT() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -587,8 +587,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCONNECTORType_NAME() {
+    public EAttribute getCONNECTORType_MINOUTPUT() {
         return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCONNECTORType_NAME() {
+        return (EAttribute)connectorTypeEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -1208,7 +1217,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_FIELD() {
+    public EAttribute getPARAMETERType_CONTEXT() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -1217,7 +1226,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_FILTER() {
+    public EAttribute getPARAMETERType_FIELD() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -1226,7 +1235,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NAME() {
+    public EAttribute getPARAMETERType_FILTER() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -1235,7 +1244,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NBLINES() {
+    public EAttribute getPARAMETERType_NAME() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -1244,7 +1253,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NOTSHOWIF() {
+    public EAttribute getPARAMETERType_NBLINES() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -1253,7 +1262,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_NUMROW() {
+    public EAttribute getPARAMETERType_NOTSHOWIF() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(8);
     }
 
@@ -1262,7 +1271,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_READONLY() {
+    public EAttribute getPARAMETERType_NUMROW() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(9);
     }
 
@@ -1271,7 +1280,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_REPOSITORYVALUE() {
+    public EAttribute getPARAMETERType_READONLY() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(10);
     }
 
@@ -1280,7 +1289,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_REQUIRED() {
+    public EAttribute getPARAMETERType_REPOSITORYVALUE() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(11);
     }
 
@@ -1289,7 +1298,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_SHOW() {
+    public EAttribute getPARAMETERType_REQUIRED() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(12);
     }
 
@@ -1298,8 +1307,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getPARAMETERType_SHOWIF() {
+    public EAttribute getPARAMETERType_SHOW() {
         return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getPARAMETERType_SHOWIF() {
+        return (EAttribute)parameterTypeEClass.getEStructuralFeatures().get(14);
     }
 
     /**
@@ -1611,6 +1629,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEReference(connectorsTypeEClass, CONNECTORS_TYPE__CONNECTOR);
 
         connectorTypeEClass = createEClass(CONNECTOR_TYPE);
+        createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__BASESCHEMA);
         createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__BUILTIN);
         createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__COLOR);
         createEAttribute(connectorTypeEClass, CONNECTOR_TYPE__CTYPE);
@@ -1699,6 +1718,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEReference(parameterTypeEClass, PARAMETER_TYPE__DEFAULT);
         createEReference(parameterTypeEClass, PARAMETER_TYPE__ITEMS);
         createEReference(parameterTypeEClass, PARAMETER_TYPE__TABLE);
+        createEAttribute(parameterTypeEClass, PARAMETER_TYPE__CONTEXT);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__FIELD);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__FILTER);
         createEAttribute(parameterTypeEClass, PARAMETER_TYPE__NAME);
@@ -1806,6 +1826,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getCONNECTORSType_CONNECTOR(), this.getCONNECTORType(), null, "cONNECTOR", null, 1, -1, CONNECTORSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(connectorTypeEClass, CONNECTORType.class, "CONNECTORType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getCONNECTORType_BASESCHEMA(), theXMLTypePackage.getString(), "bASESCHEMA", null, 0, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCONNECTORType_BUILTIN(), theXMLTypePackage.getBoolean(), "bUILTIN", null, 0, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCONNECTORType_COLOR(), theXMLTypePackage.getString(), "cOLOR", null, 0, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCONNECTORType_CTYPE(), theXMLTypePackage.getString(), "cTYPE", null, 1, 1, CONNECTORType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1894,6 +1915,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getPARAMETERType_DEFAULT(), this.getDEFAULTType(), null, "dEFAULT", null, 0, -1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getPARAMETERType_ITEMS(), this.getITEMSType(), null, "iTEMS", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getPARAMETERType_TABLE(), this.getTABLEType(), null, "tABLE", null, 0, -1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getPARAMETERType_CONTEXT(), theXMLTypePackage.getString(), "cONTEXT", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_FIELD(), theXMLTypePackage.getString(), "fIELD", null, 1, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_FILTER(), theXMLTypePackage.getString(), "fILTER", null, 0, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getPARAMETERType_NAME(), theXMLTypePackage.getString(), "nAME", null, 1, 1, PARAMETERType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2158,6 +2180,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "name", "CONNECTOR_._type",
              "kind", "empty"
+           });		
+        addAnnotation
+          (getCONNECTORType_BASESCHEMA(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "BASE_SCHEMA",
+             "namespace", "##targetNamespace"
            });		
         addAnnotation
           (getCONNECTORType_BUILTIN(), 
@@ -2758,6 +2788,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "element",
              "name", "TABLE",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getPARAMETERType_CONTEXT(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "CONTEXT",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

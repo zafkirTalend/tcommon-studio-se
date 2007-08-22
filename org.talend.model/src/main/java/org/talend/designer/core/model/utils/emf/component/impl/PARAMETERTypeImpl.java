@@ -34,6 +34,7 @@ import org.talend.designer.core.model.utils.emf.component.TABLEType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getDEFAULT <em>DEFAULT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getITEMS <em>ITEMS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getTABLE <em>TABLE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getCONTEXT <em>CONTEXT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.PARAMETERTypeImpl#getNAME <em>NAME</em>}</li>
@@ -80,6 +81,26 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @ordered
      */
     protected EList tABLE = null;
+
+    /**
+     * The default value of the '{@link #getCONTEXT() <em>CONTEXT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCONTEXT()
+     * @generated
+     * @ordered
+     */
+    protected static final String CONTEXT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCONTEXT() <em>CONTEXT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCONTEXT()
+     * @generated
+     * @ordered
+     */
+    protected String cONTEXT = CONTEXT_EDEFAULT;
 
     /**
      * The default value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
@@ -429,6 +450,27 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             tABLE = new EObjectContainmentEList(TABLEType.class, this, ComponentPackage.PARAMETER_TYPE__TABLE);
         }
         return tABLE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getCONTEXT() {
+        return cONTEXT;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCONTEXT(String newCONTEXT) {
+        String oldCONTEXT = cONTEXT;
+        cONTEXT = newCONTEXT;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.PARAMETER_TYPE__CONTEXT, oldCONTEXT, cONTEXT));
     }
 
     /**
@@ -817,6 +859,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return getITEMS();
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 return getTABLE();
+            case ComponentPackage.PARAMETER_TYPE__CONTEXT:
+                return getCONTEXT();
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 return getFIELD();
             case ComponentPackage.PARAMETER_TYPE__FILTER:
@@ -861,6 +905,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 getTABLE().clear();
                 getTABLE().addAll((Collection)newValue);
+                return;
+            case ComponentPackage.PARAMETER_TYPE__CONTEXT:
+                setCONTEXT((String)newValue);
                 return;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 setFIELD((String)newValue);
@@ -915,6 +962,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 getTABLE().clear();
                 return;
+            case ComponentPackage.PARAMETER_TYPE__CONTEXT:
+                setCONTEXT(CONTEXT_EDEFAULT);
+                return;
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 setFIELD(FIELD_EDEFAULT);
                 return;
@@ -965,6 +1015,8 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
                 return iTEMS != null;
             case ComponentPackage.PARAMETER_TYPE__TABLE:
                 return tABLE != null && !tABLE.isEmpty();
+            case ComponentPackage.PARAMETER_TYPE__CONTEXT:
+                return CONTEXT_EDEFAULT == null ? cONTEXT != null : !CONTEXT_EDEFAULT.equals(cONTEXT);
             case ComponentPackage.PARAMETER_TYPE__FIELD:
                 return FIELD_EDEFAULT == null ? fIELD != null : !FIELD_EDEFAULT.equals(fIELD);
             case ComponentPackage.PARAMETER_TYPE__FILTER:
@@ -1000,7 +1052,9 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (fIELD: ");
+        result.append(" (cONTEXT: ");
+        result.append(cONTEXT);
+        result.append(", fIELD: ");
         result.append(fIELD);
         result.append(", fILTER: ");
         result.append(fILTER);

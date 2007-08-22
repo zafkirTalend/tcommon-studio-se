@@ -20,6 +20,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getBASESCHEMA <em>BASESCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#isBUILTIN <em>BUILTIN</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getCOLOR <em>COLOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getCTYPE <em>CTYPE</em>}</li>
@@ -35,6 +36,26 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  * @generated
  */
 public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
+    /**
+     * The default value of the '{@link #getBASESCHEMA() <em>BASESCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBASESCHEMA()
+     * @generated
+     * @ordered
+     */
+    protected static final String BASESCHEMA_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getBASESCHEMA() <em>BASESCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getBASESCHEMA()
+     * @generated
+     * @ordered
+     */
+    protected String bASESCHEMA = BASESCHEMA_EDEFAULT;
+
     /**
      * The default value of the '{@link #isBUILTIN() <em>BUILTIN</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -285,6 +306,27 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      */
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.CONNECTOR_TYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getBASESCHEMA() {
+        return bASESCHEMA;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setBASESCHEMA(String newBASESCHEMA) {
+        String oldBASESCHEMA = bASESCHEMA;
+        bASESCHEMA = newBASESCHEMA;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CONNECTOR_TYPE__BASESCHEMA, oldBASESCHEMA, bASESCHEMA));
     }
 
     /**
@@ -633,6 +675,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
+            case ComponentPackage.CONNECTOR_TYPE__BASESCHEMA:
+                return getBASESCHEMA();
             case ComponentPackage.CONNECTOR_TYPE__BUILTIN:
                 return isBUILTIN() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.CONNECTOR_TYPE__COLOR:
@@ -662,6 +706,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
+            case ComponentPackage.CONNECTOR_TYPE__BASESCHEMA:
+                setBASESCHEMA((String)newValue);
+                return;
             case ComponentPackage.CONNECTOR_TYPE__BUILTIN:
                 setBUILTIN(((Boolean)newValue).booleanValue());
                 return;
@@ -700,6 +747,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      */
     public void eUnset(int featureID) {
         switch (featureID) {
+            case ComponentPackage.CONNECTOR_TYPE__BASESCHEMA:
+                setBASESCHEMA(BASESCHEMA_EDEFAULT);
+                return;
             case ComponentPackage.CONNECTOR_TYPE__BUILTIN:
                 unsetBUILTIN();
                 return;
@@ -738,6 +788,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
+            case ComponentPackage.CONNECTOR_TYPE__BASESCHEMA:
+                return BASESCHEMA_EDEFAULT == null ? bASESCHEMA != null : !BASESCHEMA_EDEFAULT.equals(bASESCHEMA);
             case ComponentPackage.CONNECTOR_TYPE__BUILTIN:
                 return isSetBUILTIN();
             case ComponentPackage.CONNECTOR_TYPE__COLOR:
@@ -769,7 +821,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (bUILTIN: ");
+        result.append(" (bASESCHEMA: ");
+        result.append(bASESCHEMA);
+        result.append(", bUILTIN: ");
         if (bUILTINESet) result.append(bUILTIN); else result.append("<unset>");
         result.append(", cOLOR: ");
         result.append(cOLOR);

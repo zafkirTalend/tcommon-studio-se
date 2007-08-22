@@ -926,7 +926,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getMetadataType_Label() {
+    public EAttribute getMetadataType_Connector() {
         return (EAttribute)metadataTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -935,7 +935,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getMetadataType_Name() {
+    public EAttribute getMetadataType_Label() {
         return (EAttribute)metadataTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -944,8 +944,17 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getMetadataType_Source() {
+    public EAttribute getMetadataType_Name() {
         return (EAttribute)metadataTypeEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getMetadataType_Source() {
+        return (EAttribute)metadataTypeEClass.getEStructuralFeatures().get(5);
     }
 
     /**
@@ -1433,6 +1442,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         metadataTypeEClass = createEClass(METADATA_TYPE);
         createEReference(metadataTypeEClass, METADATA_TYPE__COLUMN);
         createEAttribute(metadataTypeEClass, METADATA_TYPE__COMMENT);
+        createEAttribute(metadataTypeEClass, METADATA_TYPE__CONNECTOR);
         createEAttribute(metadataTypeEClass, METADATA_TYPE__LABEL);
         createEAttribute(metadataTypeEClass, METADATA_TYPE__NAME);
         createEAttribute(metadataTypeEClass, METADATA_TYPE__SOURCE);
@@ -1601,6 +1611,7 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
         initEClass(metadataTypeEClass, MetadataType.class, "MetadataType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getMetadataType_Column(), this.getColumnType(), null, "column", null, 0, -1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataType_Comment(), theXMLTypePackage.getString(), "comment", null, 0, 1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getMetadataType_Connector(), theXMLTypePackage.getString(), "connector", null, 0, 1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataType_Label(), theXMLTypePackage.getString(), "label", null, 0, 1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataType_Name(), theXMLTypePackage.getString(), "name", null, 0, 1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getMetadataType_Source(), theXMLTypePackage.getString(), "source", null, 0, 1, MetadataType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2263,6 +2274,14 @@ public class TalendFilePackageImpl extends EPackageImpl implements TalendFilePac
            new String[] {
              "kind", "element",
              "name", "Comment",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getMetadataType_Connector(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "connector",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

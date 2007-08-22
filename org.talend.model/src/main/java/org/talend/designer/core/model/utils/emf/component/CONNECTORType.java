@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getBASESCHEMA <em>BASESCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isBUILTIN <em>BUILTIN</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCOLOR <em>COLOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCTYPE <em>CTYPE</em>}</li>
@@ -33,6 +34,33 @@ import org.eclipse.emf.ecore.EObject;
  * @generated
  */
 public interface CONNECTORType extends EObject {
+    /**
+     * Returns the value of the '<em><b>BASESCHEMA</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>BASESCHEMA</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>BASESCHEMA</em>' attribute.
+     * @see #setBASESCHEMA(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_BASESCHEMA()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='BASE_SCHEMA' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getBASESCHEMA();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getBASESCHEMA <em>BASESCHEMA</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>BASESCHEMA</em>' attribute.
+     * @see #getBASESCHEMA()
+     * @generated
+     */
+    void setBASESCHEMA(String value);
+
     /**
      * Returns the value of the '<em><b>BUILTIN</b></em>' attribute.
      * <!-- begin-user-doc -->

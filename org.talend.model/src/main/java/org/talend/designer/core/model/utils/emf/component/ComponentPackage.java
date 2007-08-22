@@ -327,13 +327,22 @@ public interface ComponentPackage extends EPackage {
     int CONNECTOR_TYPE = 4;
 
     /**
+     * The feature id for the '<em><b>BASESCHEMA</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTOR_TYPE__BASESCHEMA = 0;
+
+    /**
      * The feature id for the '<em><b>BUILTIN</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__BUILTIN = 0;
+    int CONNECTOR_TYPE__BUILTIN = 1;
 
     /**
      * The feature id for the '<em><b>COLOR</b></em>' attribute.
@@ -342,7 +351,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__COLOR = 1;
+    int CONNECTOR_TYPE__COLOR = 2;
 
     /**
      * The feature id for the '<em><b>CTYPE</b></em>' attribute.
@@ -351,7 +360,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__CTYPE = 2;
+    int CONNECTOR_TYPE__CTYPE = 3;
 
     /**
      * The feature id for the '<em><b>LINESTYLE</b></em>' attribute.
@@ -360,7 +369,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__LINESTYLE = 3;
+    int CONNECTOR_TYPE__LINESTYLE = 4;
 
     /**
      * The feature id for the '<em><b>MAXINPUT</b></em>' attribute.
@@ -369,7 +378,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MAXINPUT = 4;
+    int CONNECTOR_TYPE__MAXINPUT = 5;
 
     /**
      * The feature id for the '<em><b>MAXOUTPUT</b></em>' attribute.
@@ -378,7 +387,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MAXOUTPUT = 5;
+    int CONNECTOR_TYPE__MAXOUTPUT = 6;
 
     /**
      * The feature id for the '<em><b>MININPUT</b></em>' attribute.
@@ -387,7 +396,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MININPUT = 6;
+    int CONNECTOR_TYPE__MININPUT = 7;
 
     /**
      * The feature id for the '<em><b>MINOUTPUT</b></em>' attribute.
@@ -396,7 +405,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MINOUTPUT = 7;
+    int CONNECTOR_TYPE__MINOUTPUT = 8;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -405,7 +414,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__NAME = 8;
+    int CONNECTOR_TYPE__NAME = 9;
 
     /**
      * The number of structural features of the '<em>CONNECTOR Type</em>' class.
@@ -414,7 +423,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE_FEATURE_COUNT = 9;
+    int CONNECTOR_TYPE_FEATURE_COUNT = 10;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.DEFAULTTypeImpl <em>DEFAULT Type</em>}' class.
@@ -1130,13 +1139,22 @@ public interface ComponentPackage extends EPackage {
     int PARAMETER_TYPE__TABLE = 2;
 
     /**
+     * The feature id for the '<em><b>CONTEXT</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PARAMETER_TYPE__CONTEXT = 3;
+
+    /**
      * The feature id for the '<em><b>FIELD</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__FIELD = 3;
+    int PARAMETER_TYPE__FIELD = 4;
 
     /**
      * The feature id for the '<em><b>FILTER</b></em>' attribute.
@@ -1145,7 +1163,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__FILTER = 4;
+    int PARAMETER_TYPE__FILTER = 5;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -1154,7 +1172,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NAME = 5;
+    int PARAMETER_TYPE__NAME = 6;
 
     /**
      * The feature id for the '<em><b>NBLINES</b></em>' attribute.
@@ -1163,7 +1181,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NBLINES = 6;
+    int PARAMETER_TYPE__NBLINES = 7;
 
     /**
      * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
@@ -1172,7 +1190,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NOTSHOWIF = 7;
+    int PARAMETER_TYPE__NOTSHOWIF = 8;
 
     /**
      * The feature id for the '<em><b>NUMROW</b></em>' attribute.
@@ -1181,7 +1199,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__NUMROW = 8;
+    int PARAMETER_TYPE__NUMROW = 9;
 
     /**
      * The feature id for the '<em><b>READONLY</b></em>' attribute.
@@ -1190,7 +1208,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__READONLY = 9;
+    int PARAMETER_TYPE__READONLY = 10;
 
     /**
      * The feature id for the '<em><b>REPOSITORYVALUE</b></em>' attribute.
@@ -1199,7 +1217,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__REPOSITORYVALUE = 10;
+    int PARAMETER_TYPE__REPOSITORYVALUE = 11;
 
     /**
      * The feature id for the '<em><b>REQUIRED</b></em>' attribute.
@@ -1208,7 +1226,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__REQUIRED = 11;
+    int PARAMETER_TYPE__REQUIRED = 12;
 
     /**
      * The feature id for the '<em><b>SHOW</b></em>' attribute.
@@ -1217,7 +1235,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__SHOW = 12;
+    int PARAMETER_TYPE__SHOW = 13;
 
     /**
      * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
@@ -1226,7 +1244,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE__SHOWIF = 13;
+    int PARAMETER_TYPE__SHOWIF = 14;
 
     /**
      * The number of structural features of the '<em>PARAMETER Type</em>' class.
@@ -1235,7 +1253,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PARAMETER_TYPE_FEATURE_COUNT = 14;
+    int PARAMETER_TYPE_FEATURE_COUNT = 15;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.PLUGINDEPENDENCIESTypeImpl <em>PLUGINDEPENDENCIES Type</em>}' class.
@@ -1839,6 +1857,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EClass getCONNECTORType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getBASESCHEMA <em>BASESCHEMA</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>BASESCHEMA</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.CONNECTORType#getBASESCHEMA()
+     * @see #getCONNECTORType()
+     * @generated
+     */
+    EAttribute getCONNECTORType_BASESCHEMA();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isBUILTIN <em>BUILTIN</em>}'.
@@ -2677,6 +2706,17 @@ public interface ComponentPackage extends EPackage {
     EReference getPARAMETERType_TABLE();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getCONTEXT <em>CONTEXT</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>CONTEXT</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.PARAMETERType#getCONTEXT()
+     * @see #getPARAMETERType()
+     * @generated
+     */
+    EAttribute getPARAMETERType_CONTEXT();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.PARAMETERType#getFIELD <em>FIELD</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3330,6 +3370,14 @@ public interface ComponentPackage extends EPackage {
         EClass CONNECTOR_TYPE = eINSTANCE.getCONNECTORType();
 
         /**
+         * The meta object literal for the '<em><b>BASESCHEMA</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTOR_TYPE__BASESCHEMA = eINSTANCE.getCONNECTORType_BASESCHEMA();
+
+        /**
          * The meta object literal for the '<em><b>BUILTIN</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3966,6 +4014,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EReference PARAMETER_TYPE__TABLE = eINSTANCE.getPARAMETERType_TABLE();
+
+        /**
+         * The meta object literal for the '<em><b>CONTEXT</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PARAMETER_TYPE__CONTEXT = eINSTANCE.getPARAMETERType_CONTEXT();
 
         /**
          * The meta object literal for the '<em><b>FIELD</b></em>' attribute feature.

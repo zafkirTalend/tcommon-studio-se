@@ -30,6 +30,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getColumn <em>Column</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getComment <em>Comment</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getConnector <em>Connector</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.MetadataTypeImpl#getSource <em>Source</em>}</li>
@@ -68,6 +69,26 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
      * @ordered
      */
     protected String comment = COMMENT_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getConnector() <em>Connector</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConnector()
+     * @generated
+     * @ordered
+     */
+    protected static final String CONNECTOR_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getConnector() <em>Connector</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getConnector()
+     * @generated
+     * @ordered
+     */
+    protected String connector = CONNECTOR_EDEFAULT;
 
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
@@ -185,6 +206,27 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getConnector() {
+        return connector;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setConnector(String newConnector) {
+        String oldConnector = connector;
+        connector = newConnector;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.METADATA_TYPE__CONNECTOR, oldConnector, connector));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getLabel() {
         return label;
     }
@@ -267,6 +309,8 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
                 return getColumn();
             case TalendFilePackage.METADATA_TYPE__COMMENT:
                 return getComment();
+            case TalendFilePackage.METADATA_TYPE__CONNECTOR:
+                return getConnector();
             case TalendFilePackage.METADATA_TYPE__LABEL:
                 return getLabel();
             case TalendFilePackage.METADATA_TYPE__NAME:
@@ -290,6 +334,9 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
                 return;
             case TalendFilePackage.METADATA_TYPE__COMMENT:
                 setComment((String)newValue);
+                return;
+            case TalendFilePackage.METADATA_TYPE__CONNECTOR:
+                setConnector((String)newValue);
                 return;
             case TalendFilePackage.METADATA_TYPE__LABEL:
                 setLabel((String)newValue);
@@ -317,6 +364,9 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
             case TalendFilePackage.METADATA_TYPE__COMMENT:
                 setComment(COMMENT_EDEFAULT);
                 return;
+            case TalendFilePackage.METADATA_TYPE__CONNECTOR:
+                setConnector(CONNECTOR_EDEFAULT);
+                return;
             case TalendFilePackage.METADATA_TYPE__LABEL:
                 setLabel(LABEL_EDEFAULT);
                 return;
@@ -341,6 +391,8 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
                 return column != null && !column.isEmpty();
             case TalendFilePackage.METADATA_TYPE__COMMENT:
                 return COMMENT_EDEFAULT == null ? comment != null : !COMMENT_EDEFAULT.equals(comment);
+            case TalendFilePackage.METADATA_TYPE__CONNECTOR:
+                return CONNECTOR_EDEFAULT == null ? connector != null : !CONNECTOR_EDEFAULT.equals(connector);
             case TalendFilePackage.METADATA_TYPE__LABEL:
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
             case TalendFilePackage.METADATA_TYPE__NAME:
@@ -362,6 +414,8 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (comment: ");
         result.append(comment);
+        result.append(", connector: ");
+        result.append(connector);
         result.append(", label: ");
         result.append(label);
         result.append(", name: ");

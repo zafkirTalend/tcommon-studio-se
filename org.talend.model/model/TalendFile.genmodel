@@ -94,6 +94,7 @@
     <genClasses ecoreClass="TalendFile.ecore#//MetadataType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TalendFile.ecore#//MetadataType/column"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//MetadataType/comment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//MetadataType/connector"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//MetadataType/label"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//MetadataType/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TalendFile.ecore#//MetadataType/source"/>

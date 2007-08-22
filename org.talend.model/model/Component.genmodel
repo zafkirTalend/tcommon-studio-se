@@ -35,6 +35,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//CONNECTORSType/cONNECTOR"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//CONNECTORType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/bASESCHEMA"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/bUILTIN"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/cOLOR"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/cTYPE"/>
@@ -123,6 +124,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//PARAMETERType/dEFAULT"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//PARAMETERType/iTEMS"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//PARAMETERType/tABLE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/cONTEXT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/fIELD"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/fILTER"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//PARAMETERType/nAME"/>

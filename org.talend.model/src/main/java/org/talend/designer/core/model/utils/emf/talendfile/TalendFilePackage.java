@@ -866,13 +866,22 @@ public interface TalendFilePackage extends EPackage {
     int METADATA_TYPE__COMMENT = 1;
 
     /**
+     * The feature id for the '<em><b>Connector</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int METADATA_TYPE__CONNECTOR = 2;
+
+    /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int METADATA_TYPE__LABEL = 2;
+    int METADATA_TYPE__LABEL = 3;
 
     /**
      * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -881,7 +890,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int METADATA_TYPE__NAME = 3;
+    int METADATA_TYPE__NAME = 4;
 
     /**
      * The feature id for the '<em><b>Source</b></em>' attribute.
@@ -890,7 +899,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int METADATA_TYPE__SOURCE = 4;
+    int METADATA_TYPE__SOURCE = 5;
 
     /**
      * The number of structural features of the '<em>Metadata Type</em>' class.
@@ -899,7 +908,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int METADATA_TYPE_FEATURE_COUNT = 5;
+    int METADATA_TYPE_FEATURE_COUNT = 6;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl <em>Node Type</em>}' class.
@@ -2146,6 +2155,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getMetadataType_Comment();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getConnector <em>Connector</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Connector</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getConnector()
+     * @see #getMetadataType()
+     * @generated
+     */
+    EAttribute getMetadataType_Connector();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.MetadataType#getLabel <em>Label</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3279,6 +3299,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute METADATA_TYPE__COMMENT = eINSTANCE.getMetadataType_Comment();
+
+        /**
+         * The meta object literal for the '<em><b>Connector</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute METADATA_TYPE__CONNECTOR = eINSTANCE.getMetadataType_Connector();
 
         /**
          * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
