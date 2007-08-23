@@ -29,6 +29,6 @@ package org.talend.expressionbuilder;
  */
 public interface ICellEditorDialog {
 
-    public void openDialog();
+    public void openDialog(Object obj);
 
 }

@@ -225,4 +225,13 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
         text.setText(expression);
     }
 
+    /**
+     * yzhang Comment method "getText".
+     * 
+     * @return
+     */
+    public String getText() {
+        return text.getText();
+    }
+
 }

@@ -114,7 +114,7 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
             @Override
             public void mouseUp(MouseEvent e) {
                 if (cellEditorDialog != null) {
-                    cellEditorDialog.openDialog();
+                    cellEditorDialog.openDialog(extendedTextCellEditor.getText());
                 }
             }
         });
