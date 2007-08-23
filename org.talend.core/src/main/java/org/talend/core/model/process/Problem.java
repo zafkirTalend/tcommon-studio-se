@@ -54,7 +54,8 @@ public class Problem {
      */
     public enum ProblemType {
         JOB,
-        ROUTINE;
+        ROUTINE,
+        NONE;
     }
 
     /**
@@ -69,6 +70,8 @@ public class Problem {
     private String description;
 
     private ProblemStatus status;
+
+    private ProblemType type = ProblemType.NONE;
 
     private String key;
 
@@ -95,6 +98,7 @@ public class Problem {
         this.status = status;
         if (element instanceof INode) {
             job = ((INode) element).getProcess();
+            type = ProblemType.JOB;
         }
     }
 
@@ -222,4 +226,23 @@ public class Problem {
     public String getProblemResource() {
         return element.getElementName();
     }
+
+    /**
+     * Getter for type.
+     * 
+     * @return the type
+     */
+    public ProblemType getType() {
+        return this.type;
+    }
+
+    /**
+     * Sets the type.
+     * 
+     * @param type the type to set
+     */
+    public void setType(ProblemType type) {
+        this.type = type;
+    }
+
 }
