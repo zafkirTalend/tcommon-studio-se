@@ -29,8 +29,8 @@ import org.eclipse.ui.IWorkbenchPreferenceConstants;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.application.IWorkbenchConfigurer;
 import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
-import org.eclipse.ui.application.WorkbenchAdvisor;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+import org.eclipse.ui.internal.ide.application.IDEWorkbenchAdvisor;
 import org.talend.commons.exception.BusinessException;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
@@ -52,7 +52,7 @@ import org.talend.repository.ui.wizards.register.RegisterWizardDialog;
  * $Id$
  * 
  */
-public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
+public class ApplicationWorkbenchAdvisor extends IDEWorkbenchAdvisor {
 
     /*
      * @Override public void preStartup() { WorkbenchAdapterBuilder.registerAdapters(); super.preStartup(); }
@@ -137,8 +137,8 @@ public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
                     RegisterManagement.register(registerWizard.getEmail(), registerWizard.getCountry(), registerWizard
                             .isProxyEnabled(), registerWizard.getProxyHost(), registerWizard.getProxyPort(),
                             org.talend.core.CorePlugin.getDefault().getBundle().getHeaders().get(
-                                    org.osgi.framework.Constants.BUNDLE_VERSION).toString(), projectLanguage, osName,
-                            osVersion, javaVersion, totalMemory, memRAM, nbProc);
+                                    org.osgi.framework.Constants.BUNDLE_VERSION).toString(), projectLanguage, osName, osVersion,
+                            javaVersion, totalMemory, memRAM, nbProc);
                 } else {
                     RegisterManagement.decrementTry();
                 }
