@@ -224,7 +224,12 @@ public class Problem {
      * @return
      */
     public String getProblemResource() {
-        return element.getElementName();
+        if (getType().equals(ProblemType.JOB)) {
+            return "Job:" + job.getLabel() + "  (component:" + element.getElementName() + ")";
+        } else {
+            // TODO need to prcess the display of routine here.
+        }
+        return Problem.EMPTY_STRING;
     }
 
     /**
