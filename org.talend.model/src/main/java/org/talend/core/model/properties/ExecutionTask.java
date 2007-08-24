@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.core.model.properties;
 
+import java.sql.Blob;
+import java.util.Date;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
@@ -29,6 +32,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
+
+import sun.security.util.Cache.EqualByteArray;
 
 
 /**
@@ -48,6 +53,8 @@ public class ExecutionTask implements EObject {
     private String jobVersion;
     private boolean active;
     private int idQuartzJob;
+    private Date lastScriptGenerationDate;
+    private ByteArray jobScriptArchive;
 
     /* (non-Javadoc)
      * @see org.eclipse.emf.ecore.EObject#eAllContents()
@@ -378,6 +385,42 @@ public class ExecutionTask implements EObject {
      */
     public void setJobVersion(String jobVersion) {
         this.jobVersion = jobVersion;
+    }
+
+    
+    /**
+     * Getter for lastScriptGenerationDate.
+     * @return the lastScriptGenerationDate
+     */
+    public Date getLastScriptGenerationDate() {
+        return this.lastScriptGenerationDate;
+    }
+
+    
+    /**
+     * Sets the lastScriptGenerationDate.
+     * @param lastScriptGenerationDate the lastScriptGenerationDate to set
+     */
+    public void setLastScriptGenerationDate(Date lastScriptGenerationDate) {
+        this.lastScriptGenerationDate = lastScriptGenerationDate;
+    }
+
+    
+    /**
+     * Getter for jobScriptArchive.
+     * @return the jobScriptArchive
+     */
+    public ByteArray getJobScriptArchive() {
+        return this.jobScriptArchive;
+    }
+
+    
+    /**
+     * Sets the jobScriptArchive.
+     * @param jobScriptArchive the jobScriptArchive to set
+     */
+    public void setJobScriptArchive(ByteArray jobScriptArchive) {
+        this.jobScriptArchive = jobScriptArchive;
     }
 
     

@@ -467,12 +467,15 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public static PropertiesPackage getPackage() {
         return PropertiesPackage.eINSTANCE;
     }
+    
+    private static int counter = 0;
+    
     /* (non-Javadoc)
      * @see org.talend.core.model.properties.PropertiesFactory#createExecutionTask()
      */
     public ExecutionTask createExecutionTask() {
         ExecutionTask executionTask = new ExecutionTask();
-        executionTask.setId(1000);
+        executionTask.setId(counter++);
         return executionTask;
     }
 
@@ -481,7 +484,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      */
     public ExecutionServer createExecutionServer() {
         ExecutionServer executionServer = new ExecutionServer();
-        executionServer.setId(1000);
+        executionServer.setId(counter++);
         return executionServer;
     }
     
