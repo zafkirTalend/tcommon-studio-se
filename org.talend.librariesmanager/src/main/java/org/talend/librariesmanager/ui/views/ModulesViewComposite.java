@@ -111,6 +111,9 @@ public class ModulesViewComposite extends Composite {
                 case NOT_INSTALLED:
                     str = Messages.getString("ModulesViewComposite.hint.notInstalled"); //$NON-NLS-1$
                     break;
+                case UNUSED:
+                    str = "Unused";
+                    break;
                 default:
                     str = Messages.getString("ModulesViewComposite.hint.unknown"); //$NON-NLS-1$
                 }
@@ -240,6 +243,7 @@ public class ModulesViewComposite extends Composite {
      * 
      * @see org.eclipse.swt.widgets.Composite#setFocus()
      */
+    @Override
     public boolean setFocus() {
         return tableViewerCreator.getTableViewer().getTable().setFocus();
     }
@@ -251,6 +255,15 @@ public class ModulesViewComposite extends Composite {
      */
     public void refresh() {
         tableViewerCreator.getTableViewer().refresh();
+    }
+
+    /**
+     * Getter for tableViewerCreator.
+     * 
+     * @return the tableViewerCreator
+     */
+    public static TableViewerCreator getTableViewerCreator() {
+        return tableViewerCreator;
     }
 
 }

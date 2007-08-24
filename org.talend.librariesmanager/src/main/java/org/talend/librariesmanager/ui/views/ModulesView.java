@@ -34,6 +34,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.ILibrariesService.IChangedLibrariesListener;
 import org.talend.librariesmanager.ui.actions.CheckModulesAction;
 import org.talend.librariesmanager.ui.actions.ImportExternalJarAction;
+import org.talend.librariesmanager.ui.actions.RemoveExternalJarAction;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -112,6 +113,8 @@ public class ModulesView extends ViewPart {
         switch (((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
                 .getLanguage()) {
         case JAVA: {
+            RemoveExternalJarAction removeAction = new RemoveExternalJarAction();
+            manager.add(removeAction);
             ImportExternalJarAction importAction = new ImportExternalJarAction();
             manager.add(importAction);
             return;

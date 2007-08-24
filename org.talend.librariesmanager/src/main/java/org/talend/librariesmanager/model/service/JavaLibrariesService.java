@@ -41,6 +41,7 @@ import org.eclipse.jdt.core.JavaModelException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
+import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponentsService;
@@ -80,7 +81,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     public List<URL> getSystemRoutines() {
         List<URL> toReturn = new ArrayList<URL>();
 
-        Enumeration entryPaths = Activator.BUNDLE.getEntryPaths("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER + "/system/");
+        Enumeration entryPaths = Activator.BUNDLE.getEntryPaths("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER
+                + "/system/");
         for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
             String routine = (String) enumer.nextElement();
             if (routine.endsWith(".java")) {
@@ -105,6 +107,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/talend", "");
     }
 
+    @Override
     public void checkInstalledLibraries() {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
         IProject prj = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
@@ -130,13 +133,26 @@ public class JavaLibrariesService extends AbstractLibrariesService {
                 current.setStatus(ELibraryInstallStatus.NOT_INSTALLED);
             }
         }
+        String libpath = CorePlugin.getDefault().getLibrariesService().getLibrariesPath();
+        File file = new File(libpath);
+        if (file.exists() && file.isDirectory()) {
+            List<String> modulesNeededNames = ModulesNeededProvider.getModulesNeededNames();
+            ModulesNeededProvider.getUnUsedModules().clear();
+            File[] listFiles = file.listFiles(FilesUtils.getAcceptModuleFilesFilter());
+            for (File file2 : listFiles) {
+                if (!modulesNeededNames.contains(file2.getName())) {
+                    ModulesNeededProvider.userAddUnusedModules(file2.getPath(), file2.getName());
+                }
+            }
+        }
     }
 
     public void syncLibraries() {
         File target = new File(getLibrariesPath());
         try {
             // 1. Talend libraries:
-            File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile());
+            File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/"))
+                    .getFile());
             FilesUtils.copyFolder(talendLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), true);
 
@@ -144,8 +160,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                     IComponentsService.class);
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
-            FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
-                    .getAcceptJARFilesFilter(), false);
+            FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
+                    FilesUtils.getAcceptJARFilesFilter(), false);
 
             log.debug("Java libraries synchronization done");
         } catch (IOException e) {

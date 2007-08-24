@@ -86,7 +86,7 @@ public class LibrariesService implements ILibrariesService {
     public URL getTalendRoutinesFolder() throws IOException {
         return this.getLibrariesService().getTalendRoutinesFolder();
     }
-    
+
     public List<URL> getTalendRoutines() {
         return this.getLibrariesService().getTalendRoutines();
     }
@@ -105,6 +105,15 @@ public class LibrariesService implements ILibrariesService {
 
     public void resetModulesNeeded() {
         this.getLibrariesService().resetModulesNeeded();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.general.ILibrariesService#undeployLibrary(java.net.URL)
+     */
+    public void undeployLibrary(String path) throws IOException {
+        this.getLibrariesService().undeployLibrary(path);
     }
 
 }

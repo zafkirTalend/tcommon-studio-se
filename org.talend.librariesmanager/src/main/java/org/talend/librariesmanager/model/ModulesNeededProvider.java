@@ -24,7 +24,6 @@ package org.talend.librariesmanager.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
@@ -39,6 +38,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
+import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -57,6 +57,8 @@ public class ModulesNeededProvider {
 
     private static List<ModuleNeeded> componentImportNeedsList = new ArrayList<ModuleNeeded>();;
 
+    private static List<ModuleNeeded> unUsedModules = new ArrayList<ModuleNeeded>();
+
     public static List<ModuleNeeded> getModulesNeeded() {
         if (componentImportNeedsList.isEmpty()) {
             componentImportNeedsList.addAll(getModulesNeededForRoutines());
@@ -65,6 +67,14 @@ public class ModulesNeededProvider {
         }
 
         return componentImportNeedsList;
+    }
+
+    public static List<String> getModulesNeededNames() {
+        List<String> componentImportNeedsListNames = new ArrayList<String>();
+        for (ModuleNeeded m : componentImportNeedsList) {
+            componentImportNeedsListNames.add(m.getModuleName());
+        }
+        return componentImportNeedsListNames;
     }
 
     public static void reset() {
@@ -83,7 +93,8 @@ public class ModulesNeededProvider {
 
     public static List<ModuleNeeded> getModulesNeededForRoutines() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
+                .getProxyRepositoryFactory();
         try {
             List<IRepositoryObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
             for (IRepositoryObject current : routines) {
@@ -93,8 +104,8 @@ public class ModulesNeededProvider {
                 for (Object o : imports) {
                     IMPORTType currentImport = (IMPORTType) o;
                     // FIXME SML i18n
-                    ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport.getMODULE(),
-                            currentImport.getMESSAGE(), currentImport.isREQUIRED());
+                    ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport
+                            .getMODULE(), currentImport.getMESSAGE(), currentImport.isREQUIRED());
                     importNeedsList.add(toAdd);
                 }
             }
@@ -111,8 +122,8 @@ public class ModulesNeededProvider {
                 "org.talend.core.librariesNeeded", "libraryNeeded"); //$NON-NLS-1$ //$NON-NLS-2$
         List<IConfigurationElement> extension = ExtensionImplementationProvider.getInstanceV2(actionExtensionPoint);
 
-        ECodeLanguage projectLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                .getProject().getLanguage();
+        ECodeLanguage projectLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(
+                Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
         for (IConfigurationElement current : extension) {
             ECodeLanguage lang = ECodeLanguage.getCodeLanguage(current.getAttribute("language")); //$NON-NLS-1$
             if (lang == projectLanguage) {
@@ -136,6 +147,50 @@ public class ModulesNeededProvider {
         }
 
         return toReturn;
+    }
+
+    /**
+     * qiang.zhang Comment method "getImportModules".
+     * 
+     * @param name
+     * @param context
+     */
+    public static void userAddImportModules(String context, String name, ELibraryInstallStatus status) {
+        boolean required = true;
+        String message = "User Import Module";
+        ModuleNeeded needed = new ModuleNeeded(context, name, message, required);
+        needed.setStatus(status);
+        componentImportNeedsList.add(needed);
+    }
+
+    public static void userAddUnusedModules(String context, String name) {
+        boolean required = false;
+        String message = "User Unused Module";
+        ModuleNeeded needed = new ModuleNeeded(context, name, message, required);
+        needed.setStatus(ELibraryInstallStatus.UNUSED);
+        unUsedModules.add(needed);
+    }
+
+    public static void userRemoveUnusedModules(String url) {
+        ModuleNeeded needed = null;
+        for (ModuleNeeded module : unUsedModules) {
+            if (module.getContext().equals(url)) {
+                needed = module;
+                break;
+            }
+        }
+        if (needed != null) {
+            unUsedModules.remove(needed);
+        }
+    }
+
+    /**
+     * Getter for unUsedModules.
+     * 
+     * @return the unUsedModules
+     */
+    public static List<ModuleNeeded> getUnUsedModules() {
+        return unUsedModules;
     }
 
 }

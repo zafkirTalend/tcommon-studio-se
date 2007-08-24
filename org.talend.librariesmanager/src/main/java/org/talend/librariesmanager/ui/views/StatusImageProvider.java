@@ -46,6 +46,8 @@ public class StatusImageProvider implements IColumnImageProvider {
             } else {
                 return ImageProvider.getImage(ECoreImage.MODULE_WARNING_ICON);
             }
+        case UNUSED:
+            return ImageProvider.getImage(ECoreImage.MODULE_UNKNOWN_ICON);
         default:
             return ImageProvider.getImage(ECoreImage.MODULE_UNKNOWN_ICON);
         }

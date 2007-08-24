@@ -47,7 +47,7 @@ import org.talend.librariesmanager.model.ModulesNeededProvider;
  */
 public abstract class AbstractLibrariesService implements ILibrariesService {
 
-    private List<IChangedLibrariesListener> listeners = new ArrayList<IChangedLibrariesListener>();
+    private final List<IChangedLibrariesListener> listeners = new ArrayList<IChangedLibrariesListener>();
 
     public abstract String getLibrariesPath();
 
@@ -66,7 +66,17 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
     public void deployLibrary(URL source) throws IOException {
         // TODO SML Allow perl module to be deploy in a folder structure in "lib/perl/..."
         File sourceFile = new File(source.getFile());
-        FilesUtils.copyFile(sourceFile, new File(getLibrariesPath() + File.separatorChar + sourceFile.getName()));
+        File targetFile = new File(getLibrariesPath() + File.separatorChar + sourceFile.getName());
+        FilesUtils.copyFile(sourceFile, targetFile);
+        ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(),
+                ELibraryInstallStatus.UNUSED);
+        fireLibrariesChanges();
+    }
+
+    public void undeployLibrary(String path) throws IOException {
+        File file = new File(path);
+        FilesUtils.removeFile(file);
+        ModulesNeededProvider.userRemoveUnusedModules(file.getPath());
         fireLibrariesChanges();
     }
 

@@ -29,7 +29,6 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -47,7 +46,10 @@ import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.ui.images.ECoreImage;
+import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.librariesmanager.ui.views.ModulesViewComposite;
 
 /**
  * Imports the external jar files into talend.
@@ -75,8 +77,8 @@ public class ImportExternalJarAction extends Action {
     @Override
     public void run() {
 
-        FileDialog fileDialog = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), SWT.OPEN
-                | SWT.MULTI);
+        FileDialog fileDialog = new FileDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
+                SWT.OPEN | SWT.MULTI);
         fileDialog.setFilterExtensions(FilesUtils.getAcceptJARFilesSuffix()); //$NON-NLS-1$
         fileDialog.open();
         final String path = fileDialog.getFilterPath();
@@ -94,7 +96,7 @@ public class ImportExternalJarAction extends Action {
                         ExceptionHandler.process(e);
                     }
                 }
-
+                String libpath = CorePlugin.getDefault().getLibrariesService().getLibrariesPath();
                 // Adds the classpath to java project.
                 IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
                 IProject prj = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
@@ -108,11 +110,15 @@ public class ImportExternalJarAction extends Action {
                     projectLibraries.addAll(Arrays.asList(resolvedClasspath));
 
                     for (int i = 0; i < fileNames.length; i++) {
-                        final File file = new File(path + File.separatorChar + fileNames[i]);
+                        final File file = new File(libpath + File.separatorChar + fileNames[i]);
                         projectLibraries.add(JavaCore.newLibraryEntry(new Path(file.getAbsolutePath()), null, null));
                     }
-                    project.setRawClasspath(projectLibraries.toArray(new IClasspathEntry[projectLibraries.size()]), null);
-
+                    project.setRawClasspath(projectLibraries.toArray(new IClasspathEntry[projectLibraries.size()]),
+                            null);
+                    List<ModuleNeeded> modulesNeeded = new ArrayList<ModuleNeeded>();
+                    modulesNeeded.addAll(ModulesNeededProvider.getModulesNeeded());
+                    modulesNeeded.addAll(ModulesNeededProvider.getUnUsedModules());
+                    ModulesViewComposite.getTableViewerCreator().init(modulesNeeded);
                 } catch (JavaModelException e) {
                     ExceptionHandler.process(e);
                 }

@@ -21,11 +21,17 @@
 // ============================================================================
 package org.talend.librariesmanager.ui.actions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.eclipse.jface.action.Action;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.general.ModuleNeeded;
 import org.talend.librariesmanager.i18n.Messages;
+import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.librariesmanager.ui.views.ModulesViewComposite;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -51,6 +57,10 @@ public class CheckModulesAction extends Action {
     @Override
     public void run() {
         CorePlugin.getDefault().getLibrariesService().checkLibraries();
+        List<ModuleNeeded> modulesNeeded = new ArrayList<ModuleNeeded>();
+        modulesNeeded.addAll(ModulesNeededProvider.getModulesNeeded());
+        modulesNeeded.addAll(ModulesNeededProvider.getUnUsedModules());
+        ModulesViewComposite.getTableViewerCreator().init(modulesNeeded);
     }
 
 }
