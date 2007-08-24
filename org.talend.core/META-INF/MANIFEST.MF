@@ -76,3 +76,4 @@ Export-Package: org.talend.core,
  org.talend.repository.ui.views,
  org.talend.repository.ui.wizards
 Bundle-Vendor: .Talend SA.
+Import-Package: org.eclipse.ui.internal.ide.application

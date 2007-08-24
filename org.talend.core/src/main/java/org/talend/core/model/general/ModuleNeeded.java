@@ -50,6 +50,7 @@ public class ModuleNeeded {
     public enum ELibraryInstallStatus {
         UNKNOWN,
         INSTALLED,
+        UNUSED,
         NOT_INSTALLED;
     }
 

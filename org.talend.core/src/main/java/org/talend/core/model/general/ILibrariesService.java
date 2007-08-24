@@ -45,12 +45,14 @@ public interface ILibrariesService extends IService {
     public List<URL> getSystemRoutines();
 
     public URL getTalendRoutinesFolder() throws IOException;
-    
+
     public List<URL> getTalendRoutines();
 
     public String getLibrariesPath();
 
     public void deployLibrary(URL source) throws IOException;
+
+    public void undeployLibrary(String path) throws IOException;
 
     public URL getRoutineTemplate();
 
