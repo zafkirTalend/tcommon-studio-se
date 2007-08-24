@@ -21,7 +21,7 @@
 // ============================================================================
 package org.talend.designer.codegen;
 
-import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.jobs.Job;
 import org.talend.core.IService;
 import org.talend.core.model.process.IProcess;
 
@@ -32,14 +32,15 @@ import org.talend.core.model.process.IProcess;
  * 
  */
 public interface ICodeGeneratorService extends IService {
-    
+
     /**
      * DOC mhirt Comment method "initializeCodeGenerator".
-     * @param monitorWrap 
+     * 
+     * @param monitorWrap
      * 
      */
-    public void initializeTemplates();
-    
+    public Job initializeTemplates();
+
     /**
      * DOC qian Comment method "createCodeGenerator".
      * 
@@ -73,6 +74,6 @@ public interface ICodeGeneratorService extends IService {
      * @return
      */
     public IRoutineSynchronizer createJavaRoutineSynchronizer();
-    
+
     public IRoutineSynchronizer createRoutineSynchronizer();
 }
