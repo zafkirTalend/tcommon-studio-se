@@ -26,18 +26,18 @@ import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.ExtendedModifyEvent;
-import org.eclipse.swt.custom.ExtendedModifyListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.events.TypedEvent;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.ui.swt.colorstyledtext.ColorStyledText;
 
@@ -61,8 +61,6 @@ public class TypedTextCommandExecutor {
 
     private String previousText;
 
-    private boolean isModifyFromMouse = false;
-
     private final KeyListener keyListener = new KeyListener() {
 
         public void keyPressed(KeyEvent e) {
@@ -71,7 +69,6 @@ public class TypedTextCommandExecutor {
 
         public void keyReleased(KeyEvent e) {
             keyReleasedExecute(e);
-            isModifyFromMouse = false;
         }
 
     };
@@ -88,12 +85,14 @@ public class TypedTextCommandExecutor {
 
     };
 
-    ExtendedModifyListener extendedModifyListener = new ExtendedModifyListener() {
+    SelectionListener selectionListener = new SelectionListener() {
 
-        public void modifyText(ExtendedModifyEvent event) {
-            if (isModifyFromMouse) {
-                modifyExecute(event);
-            }
+        public void widgetDefaultSelected(SelectionEvent e) {
+
+        }
+
+        public void widgetSelected(SelectionEvent e) {
+            modifyExecute(e);
         }
 
     };
@@ -102,37 +101,41 @@ public class TypedTextCommandExecutor {
 
         @Override
         public void mouseUp(MouseEvent e) {
-            isModifyFromMouse = true;
-        }
-
-    };
-
-    private final ModifyListener modifyListener = new ModifyListener() {
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events.ModifyEvent)
-         */
-        public void modifyText(ModifyEvent e) {
-            if (isModifyFromMouse) {
+            if (e.button == 3) {
                 modifyExecute(e);
             }
         }
 
     };
 
+    // private final ModifyListener modifyListener = new ModifyListener() {
+    //
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.eclipse.swt.events.ModifyListener#modifyText(org.eclipse.swt.events.ModifyEvent)
+    // */
+    // public void modifyText(ModifyEvent e) {
+    // if (isModifyFromMouse) {
+    // modifyExecute(e);
+    // }
+    // }
+    //
+    // };
+
     protected void modifyExecute(TypedEvent e) {
-        Control control = (Control) e.getSource();
+        Object source = e.getSource();
+        if (source instanceof MenuItem) {
+            source = ((MenuItem) source).getData();
+        }
+        Control control = (Control) source;
         String currentText = ControlUtils.getText(control);
         previousText2 = previousText;
         activeControl = control.getData(PARAMETER_NAME);
         if (!currentText.equals(previousText)) {
             addNewCommand(control);
             previousText = currentText;
-            isModifyFromMouse = false;
         }
-
     }
 
     private Pattern patternAlphaNum;
@@ -193,9 +196,9 @@ public class TypedTextCommandExecutor {
             if (undoOrRedo) {
                 // nothing
             } else if ((this.previousKey != null && alphaNumMatched && this.previousKey.alphaNumMatched) /*
-             * ||
-             * e.character == ' '
-             */) {
+                                                                                                             * ||
+                                                                                                             * e.character == ' '
+                                                                                                             */) {
                 updateCommand(control);
             } else {
                 addNewCommand(control);
@@ -261,13 +264,19 @@ public class TypedTextCommandExecutor {
      * @param control
      */
     public void register(Control control) {
-        control.addKeyListener(keyListener);
         control.addFocusListener(focusListener);
+        control.addKeyListener(keyListener);
         if (control instanceof ColorStyledText) {
-            ((ColorStyledText) control).addExtendedModifyListener(extendedModifyListener);
-            ((ColorStyledText) control).addMouseListener(mouseListener);
+            ColorStyledText colorStyledText = ((ColorStyledText) control);
+            Menu menu = colorStyledText.getMenu();
+            MenuItem[] items = menu.getItems();
+            for (MenuItem menuItem : items) {
+                if (colorStyledText.equals(menuItem.getData())) {
+                    menuItem.addSelectionListener(selectionListener);
+                }
+            }
         } else if (control instanceof Text) {
-            ((Text) control).addModifyListener(modifyListener);
+            // ((Text) control).addModifyListener(modifyListener);
             ((Text) control).addMouseListener(mouseListener);
         }
 
@@ -282,10 +291,16 @@ public class TypedTextCommandExecutor {
         control.removeKeyListener(keyListener);
         control.removeFocusListener(focusListener);
         if (control instanceof ColorStyledText) {
-            ((ColorStyledText) control).removeExtendedModifyListener(extendedModifyListener);
-            ((ColorStyledText) control).removeMouseListener(mouseListener);
+            ColorStyledText colorStyledText = ((ColorStyledText) control);
+            Menu menu = colorStyledText.getMenu();
+            MenuItem[] items = menu.getItems();
+            for (MenuItem menuItem : items) {
+                if (colorStyledText.equals(menuItem.getData())) {
+                    menuItem.removeSelectionListener(selectionListener);
+                }
+            }
         } else if (control instanceof Text) {
-            ((Text) control).removeModifyListener(modifyListener);
+            // ((Text) control).removeModifyListener(modifyListener);
             ((Text) control).removeMouseListener(mouseListener);
         }
     }

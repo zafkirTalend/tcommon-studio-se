@@ -58,13 +58,13 @@ import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringScanner;
  */
 public class ColorStyledText extends StyledText {
 
-    private ColorManager colorManager;
+    private final ColorManager colorManager;
 
-    private ColoringScanner scanner;
+    private final ColoringScanner scanner;
 
-    private String languageMode;
+    private final String languageMode;
 
-    private MenuItem pasteItem;
+    private final MenuItem pasteItem;
 
     private boolean coloring = true;
 
@@ -89,6 +89,7 @@ public class ColorStyledText extends StyledText {
         image = sharedImages.getImageDescriptor(ISharedImages.IMG_TOOL_PASTE).createImage();
         pasteItem = new MenuItem(popupMenu, SWT.PUSH);
         pasteItem.setText(Messages.getString("ColorStyledText.PasteItem.Text")); //$NON-NLS-1$
+        pasteItem.setData(this);
         pasteItem.setImage(image);
         pasteItem.addListener(SWT.Selection, new Listener() {
 
