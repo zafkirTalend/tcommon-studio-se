@@ -49,8 +49,9 @@ import org.talend.commons.exception.ExceptionHandler;
  */
 public class FilesUtils {
 
-    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy, final FileFilter sourceFolderFilter,
-            final FileFilter sourceFileFilter, boolean copyFolder) throws IOException {
+    public static void copyFolder(File source, File target, boolean emptyTargetBeforeCopy,
+            final FileFilter sourceFolderFilter, final FileFilter sourceFileFilter, boolean copyFolder)
+            throws IOException {
         if (!target.exists()) {
             target.mkdirs();
         }
@@ -107,6 +108,12 @@ public class FilesUtils {
 
         if (!target.exists() || source.lastModified() > target.lastModified()) {
             copyFile(new FileInputStream(source), target);
+        }
+    }
+
+    public static void removeFile(File target) throws IOException {
+        if (target.exists() && target.isFile()) {
+            target.delete();
         }
     }
 
@@ -189,6 +196,17 @@ public class FilesUtils {
 
             public boolean accept(File pathname) {
                 return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip");//$NON-NLS-1$
+            }
+
+        };
+        return filter;
+    }
+
+    public static FileFilter getAcceptModuleFilesFilter() {
+        FileFilter filter = new FileFilter() {
+
+            public boolean accept(File pathname) {
+                return pathname.toString().toLowerCase().endsWith(".jar") || pathname.toString().toLowerCase().endsWith(".zip") || pathname.toString().toLowerCase().endsWith(".properties");//$NON-NLS-1$
             }
 
         };
