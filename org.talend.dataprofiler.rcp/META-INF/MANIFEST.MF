@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Rcp Plug-in
+Bundle-SymbolicName: org.talend.dataprofiler.rcp; singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.talend.dataprofiler.rcp.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.intro,
+ org.eclipse.ui.forms,
+ org.eclipse.swt,
+ org.talend.dataprofiler.libraries
+Eclipse-LazyStart: true
+Bundle-Vendor: .Talend SA.
