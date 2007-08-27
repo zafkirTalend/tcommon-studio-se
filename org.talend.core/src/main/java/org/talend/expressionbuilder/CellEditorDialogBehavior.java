@@ -31,8 +31,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.TableItem;
-import org.talend.designer.rowgenerator.data.Parameter;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -42,7 +40,7 @@ import org.talend.designer.rowgenerator.data.Parameter;
  */
 public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
 
-    private ExtendedTextCellEditor extendedTextCellEditor;
+    private final ExtendedTextCellEditor extendedTextCellEditor;
 
     private ICellEditorDialog cellEditorDialog;
 
@@ -101,7 +99,10 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
         Control text = extendedTextCellEditor.createText(panel);
         text.setLayoutData(controlGD);
 
+        GridData buttonGD = new GridData();
+        buttonGD.heightHint = panel.computeSize(SWT.DEFAULT, SWT.DEFAULT).y;
         Button button = new Button(panel, SWT.NONE);
+        button.setLayoutData(buttonGD);
         button.setText("...");
 
         button.addMouseListener(new MouseAdapter() {
@@ -122,5 +123,4 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
         return panel;
 
     }
-
 }
