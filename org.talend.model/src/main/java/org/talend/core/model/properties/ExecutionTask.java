@@ -54,7 +54,10 @@ public class ExecutionTask implements EObject {
     private boolean active;
     private int idQuartzJob;
     private Date lastScriptGenerationDate;
-    private ByteArray jobScriptArchive;
+    private String idRemoteJob;
+    private String checksumArchive;
+    private byte[] jobScriptArchive;
+    private String status;
 
     /* (non-Javadoc)
      * @see org.eclipse.emf.ecore.EObject#eAllContents()
@@ -410,7 +413,7 @@ public class ExecutionTask implements EObject {
      * Getter for jobScriptArchive.
      * @return the jobScriptArchive
      */
-    public ByteArray getJobScriptArchive() {
+    public byte[] getJobScriptArchive() {
         return this.jobScriptArchive;
     }
 
@@ -419,8 +422,62 @@ public class ExecutionTask implements EObject {
      * Sets the jobScriptArchive.
      * @param jobScriptArchive the jobScriptArchive to set
      */
-    public void setJobScriptArchive(ByteArray jobScriptArchive) {
+    public void setJobScriptArchive(byte[] jobScriptArchive) {
         this.jobScriptArchive = jobScriptArchive;
+    }
+
+    
+    /**
+     * Getter for state.
+     * @return the state
+     */
+    public String getStatus() {
+        return this.status;
+    }
+
+    
+    /**
+     * Sets the state.
+     * @param state the state to set
+     */
+    public void setStatus(String state) {
+        this.status = state;
+    }
+
+    
+    /**
+     * Getter for idJobScriptArchive.
+     * @return the idJobScriptArchive
+     */
+    public String getChecksumArchive() {
+        return this.checksumArchive;
+    }
+
+    
+    /**
+     * Sets the idJobScriptArchive.
+     * @param idJobScriptArchive the idJobScriptArchive to set
+     */
+    public void setChecksumArchive(String idJobScriptArchive) {
+        this.checksumArchive = idJobScriptArchive;
+    }
+
+    
+    /**
+     * Getter for idRemoteJob.
+     * @return the idRemoteJob
+     */
+    public String getIdRemoteJob() {
+        return this.idRemoteJob;
+    }
+
+    
+    /**
+     * Sets the idRemoteJob.
+     * @param idRemoteJob the idRemoteJob to set
+     */
+    public void setIdRemoteJob(String idRemoteJob) {
+        this.idRemoteJob = idRemoteJob;
     }
 
     
