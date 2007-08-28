@@ -35,16 +35,7 @@ import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.IService;
-import org.talend.designer.rowgenerator.data.Parameter;
-import org.talend.expressionbuilder.IExpressionBuilderDialogService;
-import org.talend.expressionbuilder.IExpressionConsumer;
-import org.talend.expressionbuilder.IExtendedCellEditorBehavior;
-import org.talend.expressionbuilder.ui.IExpressionBuilderDialogController;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -67,7 +58,7 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
 
     private boolean isSelectable = false;
 
-    private Composite parent;
+    private final Composite parent;
 
     /**
      * yzhang ExtendedTextCellEditor constructor comment.
@@ -109,6 +100,7 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
         text = new Text(parent, SWT.NONE);
         text.addSelectionListener(new SelectionAdapter() {
 
+            @Override
             public void widgetDefaultSelected(SelectionEvent e) {
                 handleDefaultSelection(e);
             }
@@ -116,6 +108,7 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
         text.addKeyListener(new KeyAdapter() {
 
             // hook key pressed - see PR 14201
+            @Override
             public void keyPressed(KeyEvent e) {
                 keyReleaseOccured(e);
 
@@ -142,6 +135,7 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
         // may have occured
         text.addMouseListener(new MouseAdapter() {
 
+            @Override
             public void mouseUp(MouseEvent e) {
                 checkSelection();
                 checkDeleteable();
@@ -209,16 +203,6 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
     /*
      * (non-Javadoc)
      * 
-     * @see org.eclipse.jface.viewers.CellEditor#focusLost()
-     */
-    @Override
-    public void focusLost() {
-        super.focusLost();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see org.talend.expressionbuilder.IExpressionConsumer#setConsumerExpression(java.lang.String)
      */
     public void setConsumerExpression(String expression) {
@@ -232,6 +216,16 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
      */
     public String getText() {
         return text.getText();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.viewers.CellEditor#focusLost()
+     */
+    @Override
+    public void focusLost() {
+        super.focusLost();
     }
 
 }
