@@ -63,6 +63,8 @@ public class SaxParser extends DefaultHandler implements Runnable {
 
     private boolean stopCurrentThread;
 
+    private boolean isInvalidFile = false;
+
     /**
      * 
      * @param fileName
@@ -100,6 +102,7 @@ public class SaxParser extends DefaultHandler implements Runnable {
             }
 
             // this.inputStream.reStart();
+            isInvalidFile = false;
         } catch (final Exception e) {
             Display.getDefault().asyncExec(new Runnable() {
 
@@ -107,6 +110,7 @@ public class SaxParser extends DefaultHandler implements Runnable {
                     MessageDialog.openError(Display.getDefault().getActiveShell(), "Invalid file", e.getMessage());
                 }
             });
+            isInvalidFile = true;
             // throw new RuntimeException(e.getLocalizedMessage());
         } finally {
             this.alive = false;
@@ -312,6 +316,15 @@ public class SaxParser extends DefaultHandler implements Runnable {
 
         ThreadStopException() {
         }
+    }
+
+    /**
+     * Getter for isInvalidFile.
+     * 
+     * @return the isInvalidFile
+     */
+    public boolean isInvalidFile() {
+        return this.isInvalidFile;
     }
 }
 
