@@ -247,10 +247,12 @@ public class MetadataDialog extends Dialog {
 				}
 			}
 		}
-		metaView.setShowDbTypeColumn(dbComponent
-				&& (!node.getComponent().getFamily().startsWith(ELT_LABEL)),
-				hasMappingType | hasRepositoryDbSchema, false, hasMappingType
+		metaView.setShowDbTypeColumn(hasMappingType | hasRepositoryDbSchema,
+				false, hasMappingType
 						|| (dbComponent && !hasRepositoryDbSchema));
+		metaView.setShowDbColumnName(dbComponent
+				&& (!node.getComponent().getFamily().startsWith(ELT_LABEL)),
+				hasMappingType || (dbComponent && !hasRepositoryDbSchema));
 
 		// hide the talend type for ELT components
 		metaView.setShowTalendTypeColumn(!node.getComponent().getFamily()

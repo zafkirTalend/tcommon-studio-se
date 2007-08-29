@@ -52,444 +52,556 @@ import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.repository.model.IRepositoryService;
 
 /**
- * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata about a DB Connection. <br/>
+ * DOC cantoine. Extract Meta Data Table. Contains all the Table and Metadata
+ * about a DB Connection. <br/>
  * 
  * $Id$
  * 
  */
 public class ExtractMetaDataFromDataBase {
 
-    private static Logger log = Logger.getLogger(ExtractMetaDataFromDataBase.class);
-
-    private static final String TABLETYPE_TABLE = "TABLE"; //$NON-NLS-1$
-
-    private static final String TABLETYPE_VIEW = "VIEW"; //$NON-NLS-1$
-
-    private static final String TABLETYPE_SYNONYM = "SYNONYM"; //$NON-NLS-1$
-
-    private static int columnIndex;
-
-    /**
-     * This map represents sets of table type and table name key value pair.
-     */
-    private static Map<String, String> tableTypeMap = new Hashtable<String, String>();
-
-    /**
-     * DOC cantoine. Method to return a Collection of Tables for a DB connection.
-     * 
-     * @param DatabaseMetaData dbMetaData
-     * @return Collection of MetadataTable
-     */
-    public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData) {
-
-        List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
-
-        try {
-
-            String[] tableTypes = { TABLETYPE_TABLE, TABLETYPE_VIEW, TABLETYPE_SYNONYM };
-            ResultSet rsTables = null;
-            rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, null, tableTypes);
-
-            while (rsTables.next()) {
-                MetadataTable medataTable = new MetadataTable();
-                medataTable.setId(medataTables.size() + 1 + ""); //$NON-NLS-1$
-                medataTable.setLabel(rsTables.getString("TABLE_NAME")); //$NON-NLS-1$
-                medataTable.setTableName(medataTable.getLabel());
-                medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS")); //$NON-NLS-1$
-                try {
-                    tableTypeMap.put(medataTable.getLabel(), rsTables.getString("TABLE_TYPE")); //$NON-NLS-1$    
-                } catch (Exception e) {
-                    tableTypeMap.put(medataTable.getLabel(), "TABLE"); //$NON-NLS-1$
-                }
-                medataTables.add(medataTable);
-            }
-            rsTables.close();
-
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        }
-        return medataTables;
-    }
-
-    /**
-     * DOC cantoine. Method to return a Collection of Column about a Table for a DB connection.
-     * 
-     * @param IMetadataConnection iMetadataConnection
-     * @param String tableLabel
-     * @return Collection of MetadataColumn Object of a Table
-     */
-    public synchronized static List<MetadataColumn> returnMetadataColumnsFormTable(IMetadataConnection iMetadataConnection,
-            String tableLabel) {
-
-        List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
-
-        try {
-            // WARNING Schema equals sid or database
-            ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
-                    .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                    .getSchema());
-            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
-
-            List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
-            Iterator iterate = metadataTables.iterator();
-            IMetadataTable metaTable1 = new MetadataTable();
-            while (iterate.hasNext()) {
-                IMetadataTable metaTable = (IMetadataTable) iterate.next();
-                if (metaTable.getLabel().equals(tableLabel)) {
-                    metaTable1 = metaTable;
-                }
-            }
-
-            String name = getTableTypeByTableName(metaTable1.getLabel());
-
-            if (name != null && name.equals(TABLETYPE_SYNONYM)) {
-                String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, metaTable1.getTableName());
-                metaTable1.setLabel(tableName);
-                metaTable1.setTableName(tableName);
-            }
-
-            metadataColumns = ExtractMetaDataFromDataBase.extractMetadataColumnsFormTable(dbMetaData, metaTable1,
-                    iMetadataConnection);
-
-            ExtractMetaDataUtils.closeConnection();
-
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        }
-
-        return metadataColumns;
-    }
-
-    /**
-     * Retrieves table name by synonym, this method is only for Oracle as we cannot get column informations by metadata
-     * in Oracle.
-     * 
-     * @param connection
-     * 
-     * @param name synonym
-     * @param tableType
-     * @return table name
-     */
-    public static String getTableNameBySynonym(Connection conn, String name) {
-        try {
-            String sql = ""; //$NON-NLS-1$
-            sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$
-            Statement sta;
-            sta = conn.createStatement();
-            ResultSet resultSet = sta.executeQuery(sql);
-            while (resultSet.next()) {
-                return resultSet.getString("TABLE_NAME"); //$NON-NLS-1$
-            }
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        }
-        return null;
-    }
-
-    /**
-     * DOC cantoine. Method to return a Collection of Column description(metadata) for a DB connection.
-     * 
-     * @param DatabaseMetaData dbMetaData
-     * @param MetadataTable medataTable
-     * @return Collection of MetadataColumn Object
-     */
-    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
-            IMetadataConnection metadataConnection) {
-
-        columnIndex = 0;
-
-        List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
-
-        HashMap<String, String> primaryKeys = new HashMap<String, String>();
-
-        try {
-
-            try {
-                ResultSet keys = dbMetaData.getPrimaryKeys(null, ExtractMetaDataUtils.schema, medataTable.getLabel());
-                primaryKeys.clear();
-                while (keys.next()) {
-                    primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
-                }
-                keys.close();
-            } catch (Exception e) {
-                log.error(e.toString());
-            }
-
-            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(), null);
-            IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
-            while (columns.next()) {
-                MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-
-                metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
-                metadataColumn.setOriginalField(metadataColumn.getLabel());
-
-                // Validate the column if it contains space or illegal characters.
-                if (repositoryService != null) {
-                    // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),columnIndex));
-                    metadataColumn.setLabel(repositoryService.validateColumnName(metadataColumn.getLabel(), columnIndex));
-                }
-                columnIndex++;
-
-                if (primaryKeys != null && !primaryKeys.isEmpty() && primaryKeys.get(metadataColumn.getOriginalField()) != null) {
-                    metadataColumn.setKey(true);
-                } else {
-                    metadataColumn.setKey(false);
-                }
-                String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
-                metadataColumn.setSourceType(dbType); //$NON-NLS-1$
-                boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
-                metadataColumn.setNullable(isNullable);
-                metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
-                // Convert dbmsType to TalendType
-
-                String talendType = null;
-
-                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection
-                        .getMapping());
-                talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType);
-                if (talendType == null) {
-                    if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                        talendType = JavaTypesManager.getDefaultJavaType().getId();
-                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
-                    } else {
-                        talendType = "";
-                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
-                    }
-                } else {
-                    // TODO to remove when the new perl type will be added in talend.
-                    talendType = TypesManager.getTalendTypeFromXmlType(talendType);
-                }
-
-                metadataColumn.setTalendType(talendType);
-                metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
-
-                // cantoine : patch to fix 0x0 pb cause by Bad Schema description
-                String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
-                if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
-                    stringMetaDataInfo = "\\0"; //$NON-NLS-1$
-                }
-                metadataColumn.setDefaultValue(stringMetaDataInfo);
-
-                metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
-                metadataColumns.add(metadataColumn);
-
-            }
-            columns.close();
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        }
-
-        return metadataColumns;
-
-    }
-
-    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
-            String dbms) {
-
-        List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
-
-        HashMap<String, String> primaryKeys = new HashMap<String, String>();
-
-        try {
-
-            try {
-                ResultSet keys = dbMetaData.getPrimaryKeys(null, ExtractMetaDataUtils.schema, medataTable.getLabel());
-                primaryKeys.clear();
-                while (keys.next()) {
-                    primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
-                }
-                keys.close();
-            } catch (Exception e) {
-                log.error(e.toString());
-            }
-
-            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(), null);
-            while (columns.next()) {
-
-                MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
-                metadataColumn.setOriginalField(metadataColumn.getLabel());
-                if (primaryKeys != null && !primaryKeys.isEmpty() && primaryKeys.get(metadataColumn.getLabel()) != null) {
-                    metadataColumn.setKey(true);
-                } else {
-                    metadataColumn.setKey(false);
-                }
-                String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
-                metadataColumn.setSourceType(dbType); //$NON-NLS-1$
-                boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
-                metadataColumn.setNullable(isNullable);
-                metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
-                // Convert dbmsType to TalendType
-
-                String talendType = null;
-
-                String product = EDatabaseTypeName.getTypeFromDisplayName(dbms).getProduct();
-                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(MetadataTalendType
-                        .getDefaultDbmsFromProduct(product).getId());
-                talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType);
-                if (talendType == null) {
-                    if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                        talendType = JavaTypesManager.getDefaultJavaType().getId();
-                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
-                    } else {
-                        talendType = "";
-                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
-                    }
-                } else {
-                    // TODO to remove when the new perl type will be added in talend.
-                    talendType = TypesManager.getTalendTypeFromXmlType(talendType);
-                }
-
-                metadataColumn.setTalendType(talendType);
-                metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
-
-                // cantoine : patch to fix 0x0 pb cause by Bad Schema description
-                String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
-                if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
-                    stringMetaDataInfo = "\\0"; //$NON-NLS-1$
-                }
-                metadataColumn.setDefaultValue(stringMetaDataInfo);
-
-                metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
-                metadataColumns.add(metadataColumn);
-
-            }
-            columns.close();
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        }
-
-        return metadataColumns;
-
-    }
-
-    /**
-     * DOC cantoine. Method to test DataBaseConnection.
-     * 
-     * @param String driverClass
-     * @param String urlString pwd
-     * @param String username
-     * @param String pwd
-     * @return ConnectionStatus : the result of connection(boolean Result, String messageException)
-     */
-    public static ConnectionStatus testConnection(String dbType, String url, String username, String pwd, String schema) {
-
-        Connection connection;
-        ConnectionStatus connectionStatus = new ConnectionStatus();
-        connectionStatus.setResult(false);
-        try {
-            Class.forName(ExtractMetaDataUtils.getDriverClassByDbType(dbType)).newInstance();
-            connection = DriverManager.getConnection(url, username, pwd);
-            if ((schema != null) && (schema.compareTo("") != 0)) { //$NON-NLS-1$
-                final String product = EDatabaseTypeName.getTypeFromDisplayName(dbType).getProduct();
-                final boolean equals = product.equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
-                // We have to check schema
-                if (!checkSchemaConnection(schema, connection, equals)) {
-                    connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.SchemaNoPresent")); //$NON-NLS-1$
-                    return connectionStatus;
-                }
-            }
-            // testConnection to alert if you have filled a Wrong Database field.
-            DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection);
-            List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
-
-            connection.close();
-            connectionStatus.setResult(true);
-            connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful")); //$NON-NLS-1$
-        } catch (SQLException e) {
-            connectionStatus.setMessageException(e.getMessage());
-        } catch (Exception e) {
-            connectionStatus.setMessageException(e.getMessage());
-        }
-        return connectionStatus;
-    }
-
-    /**
-     * Get the database meta data.
-     * 
-     * @param schema
-     * @param connection
-     * @return
-     * @throws SQLException
-     */
-    public static boolean checkSchemaConnection(String schema, Connection connection, boolean notCaseSensitive)
-            throws SQLException {
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(connection);
-        if (dbMetaData != null) {
-            ResultSet rs = dbMetaData.getSchemas();
-            while (rs.next()) {
-                if (notCaseSensitive) {
-                    if (rs.getString(1).toLowerCase().compareTo(schema.toLowerCase()) == 0) {
-                        ExtractMetaDataUtils.schema = rs.getString(1);
-                        rs.close();
-                        return (true);
-                    }
-                } else {
-                    if (rs.getString(1).compareTo(schema) == 0) {
-                        ExtractMetaDataUtils.schema = schema;
-                        rs.close();
-                        return (true);
-                    }
-                }
-            }
-            rs.close();
-        }
-        return false;
-    }
-
-    /**
-     * DOC cantoine.
-     * 
-     * @param IMetadataConnection iMetadataConnection
-     * @return Collection : return a String's collection of Table Name of a DB Connection
-     */
-    public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection) {
-        List<String> itemTablesName = new ArrayList<String>();
-
-        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
-                .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
-                .getSchema());
-
-        DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
-
-        List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
-        ExtractMetaDataUtils.closeConnection();
-
-        Iterator<IMetadataTable> iterate = metadataTables.iterator();
-        while (iterate.hasNext()) {
-            IMetadataTable metadataTable = iterate.next();
-            itemTablesName.add(metadataTable.getLabel());
-        }
-
-        return itemTablesName;
-    }
-
-    /**
-     * This method is used for getting table type(table,view or synonym etc.) by table name.
-     * 
-     * @param tableName a string representing table name
-     * @return a string representing table type
-     */
-    public static String getTableTypeByTableName(String tableName) {
-        if (tableTypeMap.containsKey(tableName)) {
-            return tableTypeMap.get(tableName);
-        }
-        return null;
-    }
+	private static Logger log = Logger
+			.getLogger(ExtractMetaDataFromDataBase.class);
+
+	private static final String TABLETYPE_TABLE = "TABLE"; //$NON-NLS-1$
+
+	private static final String TABLETYPE_VIEW = "VIEW"; //$NON-NLS-1$
+
+	private static final String TABLETYPE_SYNONYM = "SYNONYM"; //$NON-NLS-1$
+
+	private static int columnIndex;
+
+	/**
+	 * This map represents sets of table type and table name key value pair.
+	 */
+	private static Map<String, String> tableTypeMap = new Hashtable<String, String>();
+
+	/**
+	 * DOC cantoine. Method to return a Collection of Tables for a DB
+	 * connection.
+	 * 
+	 * @param DatabaseMetaData
+	 *            dbMetaData
+	 * @return Collection of MetadataTable
+	 */
+	public static List<IMetadataTable> extractTablesFromDB(
+			DatabaseMetaData dbMetaData) {
+
+		List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
+
+		try {
+
+			String[] tableTypes = { TABLETYPE_TABLE, TABLETYPE_VIEW,
+					TABLETYPE_SYNONYM };
+			ResultSet rsTables = null;
+			rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema,
+					null, tableTypes);
+
+			while (rsTables.next()) {
+				MetadataTable medataTable = new MetadataTable();
+				medataTable.setId(medataTables.size() + 1 + ""); //$NON-NLS-1$
+				medataTable.setLabel(rsTables.getString("TABLE_NAME")); //$NON-NLS-1$
+				medataTable.setTableName(medataTable.getLabel());
+				medataTable.setDescription(ExtractMetaDataUtils
+						.getStringMetaDataInfo(rsTables, "REMARKS")); //$NON-NLS-1$
+				try {
+					tableTypeMap.put(medataTable.getLabel(), rsTables
+							.getString("TABLE_TYPE")); //$NON-NLS-1$    
+				} catch (Exception e) {
+					tableTypeMap.put(medataTable.getLabel(), "TABLE"); //$NON-NLS-1$
+				}
+				medataTables.add(medataTable);
+			}
+			rsTables.close();
+
+		} catch (SQLException e) {
+			log.error(e.toString());
+			throw new RuntimeException(e);
+		} catch (Exception e) {
+			log.error(e.toString());
+			throw new RuntimeException(e);
+		}
+		return medataTables;
+	}
+
+	/**
+	 * DOC cantoine. Method to return a Collection of Column about a Table for a
+	 * DB connection.
+	 * 
+	 * @param IMetadataConnection
+	 *            iMetadataConnection
+	 * @param String
+	 *            tableLabel
+	 * @return Collection of MetadataColumn Object of a Table
+	 */
+	public synchronized static List<MetadataColumn> returnMetadataColumnsFormTable(
+			IMetadataConnection iMetadataConnection, String tableLabel) {
+
+		List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
+
+		try {
+			// WARNING Schema equals sid or database
+			ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(),
+					iMetadataConnection.getUrl(), iMetadataConnection
+							.getUsername(), iMetadataConnection.getPassword(),
+					iMetadataConnection.getDatabase(), iMetadataConnection
+							.getSchema());
+			DatabaseMetaData dbMetaData = ExtractMetaDataUtils
+					.getDatabaseMetaData(ExtractMetaDataUtils.conn);
+
+			List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase
+					.extractTablesFromDB(dbMetaData);
+			Iterator iterate = metadataTables.iterator();
+			IMetadataTable metaTable1 = new MetadataTable();
+			while (iterate.hasNext()) {
+				IMetadataTable metaTable = (IMetadataTable) iterate.next();
+				if (metaTable.getLabel().equals(tableLabel)) {
+					metaTable1 = metaTable;
+				}
+			}
+
+			String name = getTableTypeByTableName(metaTable1.getLabel());
+
+			if (name != null && name.equals(TABLETYPE_SYNONYM)) {
+				String tableName = getTableNameBySynonym(
+						ExtractMetaDataUtils.conn, metaTable1.getTableName());
+				metaTable1.setLabel(tableName);
+				metaTable1.setTableName(tableName);
+			}
+
+			metadataColumns = ExtractMetaDataFromDataBase
+					.extractMetadataColumnsFormTable(dbMetaData, metaTable1,
+							iMetadataConnection);
+
+			ExtractMetaDataUtils.closeConnection();
+
+		} catch (Exception e) {
+			log.error(e.toString());
+			throw new RuntimeException(e);
+		}
+
+		return metadataColumns;
+	}
+
+	/**
+	 * Retrieves table name by synonym, this method is only for Oracle as we
+	 * cannot get column informations by metadata in Oracle.
+	 * 
+	 * @param connection
+	 * 
+	 * @param name
+	 *            synonym
+	 * @param tableType
+	 * @return table name
+	 */
+	public static String getTableNameBySynonym(Connection conn, String name) {
+		try {
+			String sql = ""; //$NON-NLS-1$
+			sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+			Statement sta;
+			sta = conn.createStatement();
+			ResultSet resultSet = sta.executeQuery(sql);
+			while (resultSet.next()) {
+				return resultSet.getString("TABLE_NAME"); //$NON-NLS-1$
+			}
+		} catch (SQLException e) {
+			log.error(e.toString());
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
+	/**
+	 * DOC cantoine. Method to return a Collection of Column
+	 * description(metadata) for a DB connection.
+	 * 
+	 * @param DatabaseMetaData
+	 *            dbMetaData
+	 * @param MetadataTable
+	 *            medataTable
+	 * @return Collection of MetadataColumn Object
+	 */
+	public static List<MetadataColumn> extractMetadataColumnsFormTable(
+			DatabaseMetaData dbMetaData, IMetadataTable medataTable,
+			IMetadataConnection metadataConnection) {
+
+		columnIndex = 0;
+
+		List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
+
+		HashMap<String, String> primaryKeys = new HashMap<String, String>();
+
+		try {
+
+			try {
+				ResultSet keys = dbMetaData.getPrimaryKeys(null,
+						ExtractMetaDataUtils.schema, medataTable.getLabel());
+				primaryKeys.clear();
+				while (keys.next()) {
+					primaryKeys.put(
+							keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
+				}
+				keys.close();
+			} catch (Exception e) {
+				log.error(e.toString());
+			}
+
+			ResultSet columns = dbMetaData.getColumns(null,
+					ExtractMetaDataUtils.schema, medataTable.getTableName(),
+					null);
+			IRepositoryService repositoryService = CorePlugin.getDefault()
+					.getRepositoryService();
+			while (columns.next()) {
+				MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE
+						.createMetadataColumn();
+
+				metadataColumn.setLabel(ExtractMetaDataUtils
+						.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
+				metadataColumn.setOriginalField(metadataColumn.getLabel());
+
+				// Validate the column if it contains space or illegal
+				// characters.
+				if (repositoryService != null) {
+					// metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),columnIndex));
+					metadataColumn.setLabel(repositoryService
+							.validateColumnName(metadataColumn.getLabel(),
+									columnIndex));
+				}
+				columnIndex++;
+
+				if (primaryKeys != null
+						&& !primaryKeys.isEmpty()
+						&& primaryKeys.get(metadataColumn.getOriginalField()) != null) {
+					metadataColumn.setKey(true);
+				} else {
+					metadataColumn.setKey(false);
+				}
+				String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(
+						columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
+				metadataColumn.setSourceType(dbType); //$NON-NLS-1$
+				boolean isNullable = ExtractMetaDataUtils
+						.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
+				metadataColumn.setNullable(isNullable);
+				metadataColumn.setLength(ExtractMetaDataUtils
+						.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
+				// Convert dbmsType to TalendType
+
+				String talendType = null;
+
+				MappingTypeRetriever mappingTypeRetriever = MetadataTalendType
+						.getMappingTypeRetriever(metadataConnection
+								.getMapping());
+				talendType = mappingTypeRetriever
+						.getDefaultSelectedTalendType(dbType);
+				if (talendType == null) {
+					if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+						talendType = JavaTypesManager.getDefaultJavaType()
+								.getId();
+						log
+								.warn(Messages
+										.getString(
+												"ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
+					} else {
+						talendType = "";
+						log
+								.warn(Messages
+										.getString(
+												"ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
+					}
+				} else {
+					// TODO to remove when the new perl type will be added in
+					// talend.
+					talendType = TypesManager
+							.getTalendTypeFromXmlType(talendType);
+				}
+
+				metadataColumn.setTalendType(talendType);
+				metadataColumn.setPrecision(ExtractMetaDataUtils
+						.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
+
+				// cantoine : patch to fix 0x0 pb cause by Bad Schema
+				// description
+				String stringMetaDataInfo = ExtractMetaDataUtils
+						.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
+				if (stringMetaDataInfo != null
+						&& stringMetaDataInfo.length() > 0
+						&& stringMetaDataInfo.charAt(0) == 0x0) {
+					stringMetaDataInfo = "\\0"; //$NON-NLS-1$
+				}
+				metadataColumn.setDefaultValue(stringMetaDataInfo);
+
+				metadataColumn.setComment(ExtractMetaDataUtils
+						.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
+				metadataColumns.add(metadataColumn);
+
+			}
+			columns.close();
+		} catch (SQLException e) {
+			log.error(e.toString());
+			throw new RuntimeException(e);
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.error(e.toString());
+			throw new RuntimeException(e);
+		}
+
+		return metadataColumns;
+
+	}
+
+	public static List<MetadataColumn> extractMetadataColumnsFormTable(
+			DatabaseMetaData dbMetaData, IMetadataTable medataTable, String dbms) {
+
+		List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
+
+		HashMap<String, String> primaryKeys = new HashMap<String, String>();
+
+		try {
+
+			try {
+				ResultSet keys = dbMetaData.getPrimaryKeys(null,
+						ExtractMetaDataUtils.schema, medataTable.getLabel());
+				primaryKeys.clear();
+				while (keys.next()) {
+					primaryKeys.put(
+							keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
+				}
+				keys.close();
+			} catch (Exception e) {
+				log.error(e.toString());
+			}
+
+			ResultSet columns = dbMetaData.getColumns(null,
+					ExtractMetaDataUtils.schema, medataTable.getTableName(),
+					null);
+			while (columns.next()) {
+
+				MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE
+						.createMetadataColumn();
+				metadataColumn.setLabel(ExtractMetaDataUtils
+						.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
+				metadataColumn.setOriginalField(metadataColumn.getLabel());
+				if (primaryKeys != null
+						&& !primaryKeys.isEmpty()
+						&& primaryKeys.get(metadataColumn.getOriginalField()) != null) {
+					metadataColumn.setKey(true);
+				} else {
+					metadataColumn.setKey(false);
+				}
+				String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(
+						columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
+				metadataColumn.setSourceType(dbType); //$NON-NLS-1$
+				boolean isNullable = ExtractMetaDataUtils
+						.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
+				metadataColumn.setNullable(isNullable);
+				metadataColumn.setLength(ExtractMetaDataUtils
+						.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
+				// Convert dbmsType to TalendType
+
+				String talendType = null;
+
+				String product = EDatabaseTypeName.getTypeFromDisplayName(dbms)
+						.getProduct();
+				MappingTypeRetriever mappingTypeRetriever = MetadataTalendType
+						.getMappingTypeRetriever(MetadataTalendType
+								.getDefaultDbmsFromProduct(product).getId());
+				talendType = mappingTypeRetriever
+						.getDefaultSelectedTalendType(dbType);
+				if (talendType == null) {
+					if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+						talendType = JavaTypesManager.getDefaultJavaType()
+								.getId();
+						log
+								.warn(Messages
+										.getString(
+												"ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
+					} else {
+						talendType = "";
+						log
+								.warn(Messages
+										.getString(
+												"ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
+					}
+				} else {
+					// TODO to remove when the new perl type will be added in
+					// talend.
+					talendType = TypesManager
+							.getTalendTypeFromXmlType(talendType);
+				}
+
+				metadataColumn.setTalendType(talendType);
+				metadataColumn.setPrecision(ExtractMetaDataUtils
+						.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
+
+				// cantoine : patch to fix 0x0 pb cause by Bad Schema
+				// description
+				String stringMetaDataInfo = ExtractMetaDataUtils
+						.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
+				if (stringMetaDataInfo != null
+						&& stringMetaDataInfo.length() > 0
+						&& stringMetaDataInfo.charAt(0) == 0x0) {
+					stringMetaDataInfo = "\\0"; //$NON-NLS-1$
+				}
+				metadataColumn.setDefaultValue(stringMetaDataInfo);
+
+				metadataColumn.setComment(ExtractMetaDataUtils
+						.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
+				metadataColumns.add(metadataColumn);
+
+			}
+			columns.close();
+		} catch (SQLException e) {
+			log.error(e.toString());
+			throw new RuntimeException(e);
+		} catch (Exception e) {
+			log.error(e.toString());
+			throw new RuntimeException(e);
+		}
+
+		return metadataColumns;
+
+	}
+
+	/**
+	 * DOC cantoine. Method to test DataBaseConnection.
+	 * 
+	 * @param String
+	 *            driverClass
+	 * @param String
+	 *            urlString pwd
+	 * @param String
+	 *            username
+	 * @param String
+	 *            pwd
+	 * @return ConnectionStatus : the result of connection(boolean Result,
+	 *         String messageException)
+	 */
+	public static ConnectionStatus testConnection(String dbType, String url,
+			String username, String pwd, String schema) {
+
+		Connection connection;
+		ConnectionStatus connectionStatus = new ConnectionStatus();
+		connectionStatus.setResult(false);
+		try {
+			Class.forName(ExtractMetaDataUtils.getDriverClassByDbType(dbType))
+					.newInstance();
+			connection = DriverManager.getConnection(url, username, pwd);
+			if ((schema != null) && (schema.compareTo("") != 0)) { //$NON-NLS-1$
+				final String product = EDatabaseTypeName
+						.getTypeFromDisplayName(dbType).getProduct();
+				final boolean equals = product
+						.equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
+				// We have to check schema
+				if (!checkSchemaConnection(schema, connection, equals)) {
+					connectionStatus
+							.setMessageException(Messages
+									.getString("ExtractMetaDataFromDataBase.SchemaNoPresent")); //$NON-NLS-1$
+					return connectionStatus;
+				}
+			}
+			// testConnection to alert if you have filled a Wrong Database
+			// field.
+			DatabaseMetaData dbMetaData = ExtractMetaDataUtils
+					.getDatabaseMetaData(connection);
+			List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase
+					.extractTablesFromDB(dbMetaData);
+
+			connection.close();
+			connectionStatus.setResult(true);
+			connectionStatus
+					.setMessageException(Messages
+							.getString("ExtractMetaDataFromDataBase.connectionSuccessful")); //$NON-NLS-1$
+		} catch (SQLException e) {
+			connectionStatus.setMessageException(e.getMessage());
+		} catch (Exception e) {
+			connectionStatus.setMessageException(e.getMessage());
+		}
+		return connectionStatus;
+	}
+
+	/**
+	 * Get the database meta data.
+	 * 
+	 * @param schema
+	 * @param connection
+	 * @return
+	 * @throws SQLException
+	 */
+	public static boolean checkSchemaConnection(String schema,
+			Connection connection, boolean notCaseSensitive)
+			throws SQLException {
+		DatabaseMetaData dbMetaData = ExtractMetaDataUtils
+				.getDatabaseMetaData(connection);
+		if (dbMetaData != null) {
+			ResultSet rs = dbMetaData.getSchemas();
+			while (rs.next()) {
+				if (notCaseSensitive) {
+					if (rs.getString(1).toLowerCase().compareTo(
+							schema.toLowerCase()) == 0) {
+						ExtractMetaDataUtils.schema = rs.getString(1);
+						rs.close();
+						return (true);
+					}
+				} else {
+					if (rs.getString(1).compareTo(schema) == 0) {
+						ExtractMetaDataUtils.schema = schema;
+						rs.close();
+						return (true);
+					}
+				}
+			}
+			rs.close();
+		}
+		return false;
+	}
+
+	/**
+	 * DOC cantoine.
+	 * 
+	 * @param IMetadataConnection
+	 *            iMetadataConnection
+	 * @return Collection : return a String's collection of Table Name of a DB
+	 *         Connection
+	 */
+	public static List<String> returnTablesFormConnection(
+			IMetadataConnection iMetadataConnection) {
+		List<String> itemTablesName = new ArrayList<String>();
+
+		ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(),
+				iMetadataConnection.getUrl(),
+				iMetadataConnection.getUsername(), iMetadataConnection
+						.getPassword(), iMetadataConnection.getDatabase(),
+				iMetadataConnection.getSchema());
+
+		DatabaseMetaData dbMetaData = ExtractMetaDataUtils
+				.getDatabaseMetaData(ExtractMetaDataUtils.conn);
+
+		List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase
+				.extractTablesFromDB(dbMetaData);
+		ExtractMetaDataUtils.closeConnection();
+
+		Iterator<IMetadataTable> iterate = metadataTables.iterator();
+		while (iterate.hasNext()) {
+			IMetadataTable metadataTable = iterate.next();
+			itemTablesName.add(metadataTable.getLabel());
+		}
+
+		return itemTablesName;
+	}
+
+	/**
+	 * This method is used for getting table type(table,view or synonym etc.) by
+	 * table name.
+	 * 
+	 * @param tableName
+	 *            a string representing table name
+	 * @return a string representing table type
+	 */
+	public static String getTableTypeByTableName(String tableName) {
+		if (tableTypeMap.containsKey(tableName)) {
+			return tableTypeMap.get(tableName);
+		}
+		return null;
+	}
 
 }
