@@ -47,7 +47,7 @@ public class QueriesConnectionImpl extends EObjectImpl implements QueriesConnect
      * @generated
      * @ordered
      */
-    protected EList query = null;
+    protected EList query;
 
     /**
      * <!-- begin-user-doc -->

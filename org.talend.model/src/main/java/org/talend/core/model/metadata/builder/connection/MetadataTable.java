@@ -85,7 +85,7 @@ public interface MetadataTable extends AbstractMetadataObject {
      * @see #setConnection(Connection)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataTable_Connection()
      * @see org.talend.core.model.metadata.builder.connection.Connection#getTables
-     * @model opposite="tables"
+     * @model opposite="tables" transient="false"
      * @generated
      */
     Connection getConnection();

@@ -93,7 +93,7 @@ public interface SchemaTarget extends EObject {
      * @see #setSchema(XmlXPathLoopDescriptor)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getSchemaTarget_Schema()
      * @see org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor#getSchemaTargets
-     * @model opposite="schemaTargets"
+     * @model opposite="schemaTargets" transient="false"
      * @generated
      */
     XmlXPathLoopDescriptor getSchema();

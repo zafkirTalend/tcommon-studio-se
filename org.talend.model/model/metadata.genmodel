@@ -164,6 +164,9 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference metadata.ecore#//XmlXPathLoopDescriptor/connection"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//XmlXPathLoopDescriptor/schemaTargets"/>
     </genClasses>
-    <genClasses ecoreClass="metadata.ecore#//GenericSchemaConnection"/>
+    <genClasses ecoreClass="metadata.ecore#//GenericSchemaConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//GenericSchemaConnection/mappingTypeUsed"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//GenericSchemaConnection/mappingTypeId"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

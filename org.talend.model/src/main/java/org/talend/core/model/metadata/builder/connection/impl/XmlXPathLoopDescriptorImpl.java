@@ -93,7 +93,7 @@ public class XmlXPathLoopDescriptorImpl extends EObjectImpl implements XmlXPathL
      * @generated
      * @ordered
      */
-    protected EList schemaTargets = null;
+    protected EList schemaTargets;
 
     /**
      * <!-- begin-user-doc -->

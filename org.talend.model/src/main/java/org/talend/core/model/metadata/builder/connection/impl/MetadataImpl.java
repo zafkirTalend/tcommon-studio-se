@@ -41,7 +41,7 @@ public class MetadataImpl extends AbstractMetadataObjectImpl implements Metadata
      * @generated
      * @ordered
      */
-    protected EList connections = null;
+    protected EList connections;
 
     /**
      * <!-- begin-user-doc -->

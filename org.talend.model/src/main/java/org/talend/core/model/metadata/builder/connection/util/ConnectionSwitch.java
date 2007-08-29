@@ -245,13 +245,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Metadata</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Metadata</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Metadata</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Metadata</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -260,13 +260,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Connection</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Connection</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -275,13 +275,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Metadata Table</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Metadata Table</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Metadata Table</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Metadata Table</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -290,13 +290,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Metadata Column</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Metadata Column</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Metadata Column</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Metadata Column</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -305,13 +305,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Abstract Metadata Object</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Abstract Metadata Object</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Abstract Metadata Object</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Abstract Metadata Object</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -320,13 +320,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>File Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>File Connection</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>File Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>File Connection</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -335,13 +335,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Delimited File Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Delimited File Connection</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Delimited File Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Delimited File Connection</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -350,13 +350,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Positional File Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Positional File Connection</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Positional File Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Positional File Connection</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -365,13 +365,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Database Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Database Connection</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Database Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Database Connection</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -380,13 +380,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>CSV File Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>CSV File Connection</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>CSV File Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>CSV File Connection</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -395,13 +395,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Regexp File Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Regexp File Connection</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Regexp File Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Regexp File Connection</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -410,13 +410,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Xml File Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Xml File Connection</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Xml File Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Xml File Connection</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -425,13 +425,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Schema Target</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Schema Target</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Schema Target</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Schema Target</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -440,13 +440,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Queries Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Queries Connection</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Queries Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Queries Connection</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -455,13 +455,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Query</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Query</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Query</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Query</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -470,13 +470,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Ldif File Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Ldif File Connection</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Ldif File Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Ldif File Connection</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -485,13 +485,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Xml XPath Loop Descriptor</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Xml XPath Loop Descriptor</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Xml XPath Loop Descriptor</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Xml XPath Loop Descriptor</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -500,13 +500,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Generic Schema Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Generic Schema Connection</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Generic Schema Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Generic Schema Connection</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -515,13 +515,13 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch, but this is the last case anyway.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+     * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject)
      * @generated
      */

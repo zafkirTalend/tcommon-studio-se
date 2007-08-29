@@ -162,7 +162,7 @@ public final class FileFormat extends AbstractEnumerator {
             case MAC: return MAC_LITERAL;
             case WINDOWS: return WINDOWS_LITERAL;
         }
-        return null;	
+        return null;
     }
 
     /**

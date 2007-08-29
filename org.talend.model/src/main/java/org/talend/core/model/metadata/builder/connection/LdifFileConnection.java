@@ -40,7 +40,7 @@ public interface LdifFileConnection extends Connection {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Value</em>' attribute list.
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getLdifFileConnection_Value()
-     * @model type="java.lang.String"
+     * @model
      * @generated
      */
     EList getValue();

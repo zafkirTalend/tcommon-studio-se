@@ -2844,13 +2844,31 @@ public interface ConnectionPackage extends EPackage {
     int GENERIC_SCHEMA_CONNECTION__QUERIES = CONNECTION__QUERIES;
 
     /**
+     * The feature id for the '<em><b>Mapping Type Used</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_CONNECTION__MAPPING_TYPE_USED = CONNECTION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Mapping Type Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int GENERIC_SCHEMA_CONNECTION__MAPPING_TYPE_ID = CONNECTION_FEATURE_COUNT + 1;
+
+    /**
      * The number of structural features of the '<em>Generic Schema Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int GENERIC_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 0;
+    int GENERIC_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 2;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
@@ -3949,6 +3967,28 @@ public interface ConnectionPackage extends EPackage {
     EClass getGenericSchemaConnection();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.GenericSchemaConnection#isMappingTypeUsed <em>Mapping Type Used</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Mapping Type Used</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.GenericSchemaConnection#isMappingTypeUsed()
+     * @see #getGenericSchemaConnection()
+     * @generated
+     */
+    EAttribute getGenericSchemaConnection_MappingTypeUsed();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.GenericSchemaConnection#getMappingTypeId <em>Mapping Type Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Mapping Type Id</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.GenericSchemaConnection#getMappingTypeId()
+     * @see #getGenericSchemaConnection()
+     * @generated
+     */
+    EAttribute getGenericSchemaConnection_MappingTypeId();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -4871,6 +4911,22 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EClass GENERIC_SCHEMA_CONNECTION = eINSTANCE.getGenericSchemaConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Mapping Type Used</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute GENERIC_SCHEMA_CONNECTION__MAPPING_TYPE_USED = eINSTANCE.getGenericSchemaConnection_MappingTypeUsed();
+
+        /**
+         * The meta object literal for the '<em><b>Mapping Type Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute GENERIC_SCHEMA_CONNECTION__MAPPING_TYPE_ID = eINSTANCE.getGenericSchemaConnection_MappingTypeId();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

@@ -135,7 +135,7 @@ public final class Escape extends AbstractEnumerator {
             case DELIMITED: return DELIMITED_LITERAL;
             case CSV: return CSV_LITERAL;
         }
-        return null;	
+        return null;
     }
 
     /**

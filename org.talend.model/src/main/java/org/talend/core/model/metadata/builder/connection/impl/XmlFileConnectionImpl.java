@@ -130,7 +130,7 @@ public class XmlFileConnectionImpl extends ConnectionImpl implements XmlFileConn
      * @generated
      * @ordered
      */
-    protected EList schema = null;
+    protected EList schema;
 
     /**
      * The default value of the '{@link #getEncoding() <em>Encoding</em>}' attribute.

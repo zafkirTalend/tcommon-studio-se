@@ -322,7 +322,8 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             }
 
             public void set(MetadataColumn bean, String value) {	
-                throw new UnsupportedOperationException();
+//              throw new UnsupportedOperationException();
+                bean.setSourceType(value);
             }
 
         };

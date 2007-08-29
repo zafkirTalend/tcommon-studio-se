@@ -68,7 +68,7 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * @generated
      * @ordered
      */
-    protected EList tables = null;
+    protected EList tables;
 
     /**
      * The cached value of the '{@link #getQueries() <em>Queries</em>}' containment reference.
@@ -78,7 +78,7 @@ public class ConnectionImpl extends AbstractMetadataObjectImpl implements Connec
      * @generated
      * @ordered
      */
-    protected QueriesConnection queries = null;
+    protected QueriesConnection queries;
 
     protected boolean readOnly = false;
 

@@ -65,7 +65,7 @@ public interface Query extends AbstractMetadataObject {
      * @see #setQueries(QueriesConnection)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getQuery_Queries()
      * @see org.talend.core.model.metadata.builder.connection.QueriesConnection#getQuery
-     * @model opposite="query"
+     * @model opposite="query" transient="false"
      * @generated
      */
     QueriesConnection getQueries();

@@ -133,7 +133,7 @@ public final class RowSeparator extends AbstractEnumerator {
             case CUSTOM_STRING: return CUSTOM_STRING_LITERAL;
             case STANDART_EOL: return STANDART_EOL_LITERAL;
         }
-        return null;	
+        return null;
     }
 
     /**

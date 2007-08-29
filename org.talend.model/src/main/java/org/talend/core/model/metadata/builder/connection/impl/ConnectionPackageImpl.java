@@ -1120,6 +1120,24 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getGenericSchemaConnection_MappingTypeUsed() {
+        return (EAttribute)genericSchemaConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getGenericSchemaConnection_MappingTypeId() {
+        return (EAttribute)genericSchemaConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1312,6 +1330,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEReference(xmlXPathLoopDescriptorEClass, XML_XPATH_LOOP_DESCRIPTOR__SCHEMA_TARGETS);
 
         genericSchemaConnectionEClass = createEClass(GENERIC_SCHEMA_CONNECTION);
+        createEAttribute(genericSchemaConnectionEClass, GENERIC_SCHEMA_CONNECTION__MAPPING_TYPE_USED);
+        createEAttribute(genericSchemaConnectionEClass, GENERIC_SCHEMA_CONNECTION__MAPPING_TYPE_ID);
 
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
@@ -1482,6 +1502,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEReference(getXmlXPathLoopDescriptor_SchemaTargets(), this.getSchemaTarget(), this.getSchemaTarget_Schema(), "schemaTargets", null, 0, -1, XmlXPathLoopDescriptor.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(genericSchemaConnectionEClass, GenericSchemaConnection.class, "GenericSchemaConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getGenericSchemaConnection_MappingTypeUsed(), ecorePackage.getEBoolean(), "mappingTypeUsed", null, 0, 1, GenericSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getGenericSchemaConnection_MappingTypeId(), ecorePackage.getEString(), "mappingTypeId", null, 0, 1, GenericSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");

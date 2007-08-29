@@ -53,7 +53,7 @@ public class LdifFileConnectionImpl extends ConnectionImpl implements LdifFileCo
      * @generated
      * @ordered
      */
-    protected EList value = null;
+    protected EList value;
 
     /**
      * The default value of the '{@link #getFilePath() <em>File Path</em>}' attribute.

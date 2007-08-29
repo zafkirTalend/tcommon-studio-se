@@ -459,7 +459,7 @@ public final class DatabaseProperties extends AbstractEnumerator {
             case STRING_QUOTE: return STRING_QUOTE_LITERAL;
             case NULL_CHAR: return NULL_CHAR_LITERAL;
         }
-        return null;	
+        return null;
     }
 
     /**

@@ -64,7 +64,6 @@ public abstract class ExportPushButtonForExtendedTable extends ExportPushButton 
                     registerListListener(extendedTableModel);
                 }
             }
-
         });
 
         ExtendedTableModel extendedTableModel = extendedTableViewer.getExtendedTableModel();
@@ -84,7 +83,8 @@ public abstract class ExportPushButtonForExtendedTable extends ExportPushButton 
                 public void handleEvent(ListenableListEvent event) {
                     if (event.type == ListenableListEvent.TYPE.CLEARED || event.type == ListenableListEvent.TYPE.REMOVED
                             || event.type == ListenableListEvent.TYPE.ADDED) {
-                        getButton().setEnabled(getEnabledState());
+                        if(!getButton().isDisposed())
+                        {getButton().setEnabled(getEnabledState());}
                     }
                 }
 

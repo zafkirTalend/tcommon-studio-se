@@ -235,7 +235,7 @@ public interface MetadataColumn extends AbstractMetadataObject {
      * @see #setTable(MetadataTable)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getMetadataColumn_Table()
      * @see org.talend.core.model.metadata.builder.connection.MetadataTable#getColumns
-     * @model opposite="columns"
+     * @model opposite="columns" transient="false"
      * @generated
      */
     MetadataTable getTable();

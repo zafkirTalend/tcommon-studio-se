@@ -68,7 +68,7 @@ public class MetadataTableImpl extends AbstractMetadataObjectImpl implements Met
      * @generated
      * @ordered
      */
-    protected EList columns = null;
+    protected EList columns;
 
     /**
      * The default value of the '{@link #getTableType() <em>Table Type</em>}' attribute.

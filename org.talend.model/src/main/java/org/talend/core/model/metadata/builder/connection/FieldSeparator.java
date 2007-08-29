@@ -293,7 +293,7 @@ public final class FieldSeparator extends AbstractEnumerator {
             case CUSTOM_UTF8: return CUSTOM_UTF8_LITERAL;
             case CUSTOM_REG_EXP: return CUSTOM_REG_EXP_LITERAL;
         }
-        return null;	
+        return null;
     }
 
     /**

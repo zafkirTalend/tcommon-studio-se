@@ -95,7 +95,7 @@ public interface XmlXPathLoopDescriptor extends EObject {
      * @see #setConnection(XmlFileConnection)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getXmlXPathLoopDescriptor_Connection()
      * @see org.talend.core.model.metadata.builder.connection.XmlFileConnection#getSchema
-     * @model opposite="schema"
+     * @model opposite="schema" transient="false"
      * @generated
      */
     XmlFileConnection getConnection();

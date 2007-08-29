@@ -198,5 +198,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="schemaTargets" upperBound="-1"
         eType="#//SchemaTarget" containment="true" eOpposite="#//SchemaTarget/schema"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GenericSchemaConnection" eSuperTypes="#//Connection"/>
+  <eClassifiers xsi:type="ecore:EClass" name="GenericSchemaConnection" eSuperTypes="#//Connection">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mappingTypeUsed" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mappingTypeId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

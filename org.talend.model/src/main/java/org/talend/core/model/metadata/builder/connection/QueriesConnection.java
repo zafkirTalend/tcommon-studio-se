@@ -40,7 +40,7 @@ public interface QueriesConnection extends EObject {
      * @see #setConnection(Connection)
      * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getQueriesConnection_Connection()
      * @see org.talend.core.model.metadata.builder.connection.Connection#getQueries
-     * @model opposite="queries" resolveProxies="false"
+     * @model opposite="queries" resolveProxies="false" transient="false"
      * @generated
      */
     Connection getConnection();
