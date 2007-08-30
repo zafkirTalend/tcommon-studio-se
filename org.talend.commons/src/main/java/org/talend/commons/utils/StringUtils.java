@@ -39,12 +39,16 @@ public class StringUtils {
         return org.apache.commons.lang.StringUtils.join(array, separator);
     }
 
+    public static String[] split(String string, char separator) {
+        return org.apache.commons.lang.StringUtils.split(string, separator);
+    }
+
     public static String capitalize(String str) {
         return org.apache.commons.lang.StringUtils.capitalize(str);
     }
 
     public static String getMysqlProtectedColumnName(String colname) {
-    	return "`" + colname + "`";
+        return "`" + colname + "`";
     }
 
     /**
