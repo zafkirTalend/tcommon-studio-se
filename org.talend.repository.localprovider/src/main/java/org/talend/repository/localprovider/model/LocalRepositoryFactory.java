@@ -182,20 +182,25 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
                     if (currentObject != null) {
                         K key;
+                        String currentVersion = currentObject.getVersion();
                         if (onlyLastVersion) {
                             key = (K) currentObject.getId();
                         } else {
-                            key = (K) new MultiKey(currentObject.getId(), currentObject.getVersion());
+                            key = (K) new MultiKey(currentObject.getId(), currentVersion);
                         }
 
                         try {
                             if (onlyLastVersion) {
                                 // Version :
                                 T old = toReturn.getMember(key);
+
                                 if (old == null) {
                                     toReturn.addMember(key, (T) currentObject);
-                                } else if (((IRepositoryObject) old).getVersion().compareTo(currentObject.getVersion()) < 0) {
-                                    toReturn.addMember(key, (T) currentObject);
+                                } else {
+                                    String oldVersion = ((IRepositoryObject) old).getVersion();
+                                    if (VersionUtils.compareTo(oldVersion, currentVersion) < 0) {
+                                        toReturn.addMember(key, (T) currentObject);
+                                    }
                                 }
                             } else {
                                 toReturn.addMember(key, (T) currentObject);
