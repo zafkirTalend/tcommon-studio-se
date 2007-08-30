@@ -22,8 +22,6 @@
 package org.talend.expressionbuilder;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.layout.GridData;
@@ -85,28 +83,6 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
 
         Control text = extendedTextCellEditor.createText(panel);
         text.setLayoutData(controlGD);
-
-        text.addFocusListener(new FocusListener() {
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.FocusListener#focusLost(org.eclipse.swt.events.FocusEvent)
-             */
-            public void focusLost(FocusEvent e) {
-                extendedTextCellEditor.focusLost();
-
-            }
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.FocusListener#focusGained(org.eclipse.swt.events.FocusEvent)
-             */
-            public void focusGained(FocusEvent e) {
-
-            }
-        });
 
         GridData buttonGD = new GridData();
         buttonGD.heightHint = panel.computeSize(SWT.DEFAULT, SWT.DEFAULT).y;

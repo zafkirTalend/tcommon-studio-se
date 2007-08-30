@@ -28,7 +28,7 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent; 
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.TraverseEvent;
@@ -207,6 +207,7 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
      */
     public void setConsumerExpression(String expression) {
         text.setText(expression);
+        focusLost();
     }
 
     /**
@@ -216,16 +217,6 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
      */
     public String getText() {
         return text.getText();
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jface.viewers.CellEditor#focusLost()
-     */
-    @Override
-    public void focusLost() {
-        super.focusLost();
     }
 
 }
