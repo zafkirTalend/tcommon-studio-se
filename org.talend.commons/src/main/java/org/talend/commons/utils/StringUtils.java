@@ -22,6 +22,9 @@
 
 package org.talend.commons.utils;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * 
  * Utility class for strings. <br/>
@@ -41,6 +44,11 @@ public class StringUtils {
 
     public static String[] split(String string, char separator) {
         return org.apache.commons.lang.StringUtils.split(string, separator);
+    }
+
+    public static List<String> splitAsList(String string, char separator) {
+        String[] strings = org.apache.commons.lang.StringUtils.split(string, separator);
+        return Arrays.asList(strings);
     }
 
     public static String capitalize(String str) {
