@@ -93,13 +93,9 @@ public class Problem {
      */
     public Problem(Element element, String description, ProblemStatus status) {
         super();
-        this.element = element;
         this.description = description;
         this.status = status;
-        if (element instanceof INode) {
-            job = ((INode) element).getProcess();
-            type = ProblemType.JOB;
-        }
+        setElement(element);
     }
 
     /**
@@ -172,6 +168,10 @@ public class Problem {
 
     public void setElement(Element element) {
         this.element = element;
+        if (element instanceof INode) {
+            job = ((INode) element).getProcess();
+            type = ProblemType.JOB;
+        }
     }
 
     /**
