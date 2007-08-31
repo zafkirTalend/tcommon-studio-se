@@ -55,9 +55,19 @@ public class ExecutionTask implements EObject {
     private int idQuartzJob;
     private Date lastScriptGenerationDate;
     private String idRemoteJob;
+    private String idRemoteJobExecution;
     private String checksumArchive;
     private byte[] jobScriptArchive;
     private String status;
+    private String errorStatus;
+
+    /**
+     * DOC amaumont ExecutionTask constructor comment.
+     */
+    public ExecutionTask() {
+        super();
+    }
+
 
     /* (non-Javadoc)
      * @see org.eclipse.emf.ecore.EObject#eAllContents()
@@ -201,13 +211,6 @@ public class ExecutionTask implements EObject {
     public void eSetDeliver(boolean deliver) {
         // TODO Auto-generated method stub
         
-    }
-
-    /**
-     * DOC amaumont ExecutionTask constructor comment.
-     */
-    public ExecutionTask() {
-        super();
     }
 
     
@@ -478,6 +481,44 @@ public class ExecutionTask implements EObject {
      */
     public void setIdRemoteJob(String idRemoteJob) {
         this.idRemoteJob = idRemoteJob;
+    }
+
+    
+    /**
+     * Getter for idRemoteJobExecution.
+     * @return the idRemoteJobExecution
+     */
+    public String getIdRemoteJobExecution() {
+        return this.idRemoteJobExecution;
+    }
+
+    
+    /**
+     * Sets the idRemoteJobExecution.
+     * @param idRemoteJobExecution the idRemoteJobExecution to set
+     */
+    public void setIdRemoteJobExecution(String idRemoteJobExecution) {
+        this.idRemoteJobExecution = idRemoteJobExecution;
+    }
+
+
+    
+    /**
+     * Getter for errorStatus.
+     * @return the errorStatus
+     */
+    public String getErrorStatus() {
+        return this.errorStatus;
+    }
+
+
+    
+    /**
+     * Sets the errorStatus.
+     * @param errorStatus the errorStatus to set
+     */
+    public void setErrorStatus(String errorStatus) {
+        this.errorStatus = errorStatus;
     }
 
     
