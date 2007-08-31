@@ -46,6 +46,10 @@ public class StringUtils {
         return org.apache.commons.lang.StringUtils.split(string, separator);
     }
 
+    public static String replace(String text, String repl, String with) {
+        return org.apache.commons.lang.StringUtils.replace(text, repl, with);
+    }
+
     public static List<String> splitAsList(String string, char separator) {
         String[] strings = org.apache.commons.lang.StringUtils.split(string, separator);
         return Arrays.asList(strings);
@@ -82,6 +86,20 @@ public class StringUtils {
         }
 
         return returned;
+    }
+
+    public static String protectMetachar(String input) {
+    	
+    	input = replace(input, "\\", "\\\\") ;
+    	input = replace(input, ".", "\\.") ;
+    	input = replace(input, "[", "\\[") ;
+    	input = replace(input, "]", "\\]") ;
+    	input = replace(input, "(", "\\(") ;
+    	input = replace(input, ")", "\\)") ;
+    	input = replace(input, "^", "\\^") ;
+    	input = replace(input, "$", "\\$") ;
+
+        return input;    	
     }
 
     public static String removeSpecialCharsForPackage(String input) {
