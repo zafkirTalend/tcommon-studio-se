@@ -1639,13 +1639,22 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__PRODUCT_ID = CONNECTION_FEATURE_COUNT + 15;
 
     /**
+     * The feature id for the '<em><b>DB Root Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__DB_ROOT_PATH = CONNECTION_FEATURE_COUNT + 16;
+
+    /**
      * The number of structural features of the '<em>Database Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 16;
+    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 17;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CSVFileConnectionImpl <em>CSV File Connection</em>}' class.
@@ -3635,6 +3644,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_ProductId();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDBRootPath <em>DB Root Path</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>DB Root Path</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDBRootPath()
+     * @see #getDatabaseConnection()
+     * @generated
+     */
+    EAttribute getDatabaseConnection_DBRootPath();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CSVFileConnection <em>CSV File Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>CSV File Connection</em>'.
@@ -4641,6 +4661,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute DATABASE_CONNECTION__PRODUCT_ID = eINSTANCE.getDatabaseConnection_ProductId();
+
+        /**
+         * The meta object literal for the '<em><b>DB Root Path</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DATABASE_CONNECTION__DB_ROOT_PATH = eINSTANCE.getDatabaseConnection_DBRootPath();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CSVFileConnectionImpl <em>CSV File Connection</em>}' class.

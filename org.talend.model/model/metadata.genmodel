@@ -125,6 +125,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/NullChar"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/DbmsId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/ProductId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/DBRootPath"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//CSVFileConnection"/>
     <genClasses ecoreClass="metadata.ecore#//RegexpFileConnection">
