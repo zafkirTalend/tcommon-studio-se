@@ -279,4 +279,10 @@ public interface PropertiesFactory extends EFactory {
      */
     PropertiesPackage getPropertiesPackage();
 
+    /**
+     * DOC amaumont Comment method "createSimpleTalendTrigger".
+     * @return
+     */
+    SimpleTalendTrigger createSimpleTalendTrigger();
+
 } // PropertiesFactory

@@ -34,6 +34,7 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SimpleTalendTrigger;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserRole;
@@ -482,10 +483,19 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     /* (non-Javadoc)
      * @see org.talend.core.model.properties.PropertiesFactory#createExecutionTask()
      */
+    public SimpleTalendTrigger createSimpleTalendTrigger() {
+        SimpleTalendTrigger trigger = new SimpleTalendTrigger();
+        trigger.setId(counter++);
+        return trigger;
+    }
+    
+    /* (non-Javadoc)
+     * @see org.talend.core.model.properties.PropertiesFactory#createExecutionTask()
+     */
     public ExecutionServer createExecutionServer() {
         ExecutionServer executionServer = new ExecutionServer();
         executionServer.setId(counter++);
         return executionServer;
     }
-    
+
 } // PropertiesFactoryImpl
