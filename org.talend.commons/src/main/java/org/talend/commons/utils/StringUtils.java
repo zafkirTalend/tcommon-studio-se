@@ -90,14 +90,15 @@ public class StringUtils {
 
     public static String protectMetachar(String input) {
     	
-    	input = replace(input, "\\", "\\\\") ;
-    	input = replace(input, ".", "\\.") ;
-    	input = replace(input, "[", "\\[") ;
+    	input = replace(input, "\\", "\\\\\\\\") ;
+    	input = replace(input, "+", "\\\\+") ;
+    	input = replace(input, ".", "\\\\.") ;
+    	input = replace(input, "[", "\\\\[") ;
     	input = replace(input, "]", "\\]") ;
-    	input = replace(input, "(", "\\(") ;
-    	input = replace(input, ")", "\\)") ;
-    	input = replace(input, "^", "\\^") ;
-    	input = replace(input, "$", "\\$") ;
+    	input = replace(input, "(", "\\\\(") ;
+    	input = replace(input, ")", "\\\\)") ;
+    	input = replace(input, "^", "\\\\^") ;
+    	input = replace(input, "$", "\\\\$") ;
 
         return input;    	
     }
