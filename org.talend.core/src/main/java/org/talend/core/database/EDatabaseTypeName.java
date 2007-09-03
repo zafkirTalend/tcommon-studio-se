@@ -34,27 +34,27 @@ public enum EDatabaseTypeName {
     MSODBC("Microsoft SQL (Odbc driver)", "Microsoft SQL Server (Odbc driver)", new Boolean(false), "MSODBC"),
     IBMDB2("IBM DB2", "IBM DB2", new Boolean(false), "IBMDB2"),
     SYBASEASE("SybaseASE", "Sybase ASE", new Boolean(false), "SYBASE"),
-   
+
     // this Sybase IQ not used.
     SYBASEIQ("Sybase IQ", "Sybase IQ", new Boolean(false), "SYBASE"),
     MSSQL("MSSQL", "Microsoft SQL Server", new Boolean(false), "MSSQL"),
     // this don't use in Branch 2.0
-    HSQL("HSQL","HSQL",new Boolean(false),"HSQLDB"),
+    HSQL("HSQL", "HSQL", new Boolean(false), "HSQLDB"),
     JAVADB("JavaDB", "JavaDB", new Boolean(false), "JAVADB"),
     INGRES("Ingres", "Ingres", new Boolean(false), "INGRES"), // "INGRES"),
     INTERBASE("Interbase", "Interbase", new Boolean(false), "Interbase"), // "INTERBASE"),
     SQLITE("SQLite", "SQLite", new Boolean(false), "SQLITE"), // "SQLITE"),
-    FIREBIRD("FireBird", "FireBird", new Boolean(false), "FIREBIRD"), // "FIREBIRD"),    
-    INFORMIX("Informix", "Informix", new Boolean(true), "INFORMIX"), // "INFORMIX");
+    FIREBIRD("FireBird", "FireBird", new Boolean(false), "FIREBIRD"), // "FIREBIRD"),
+    INFORMIX("Informix", "Informix", new Boolean(false), "INFORMIX"), // "INFORMIX");
 
     ACCESS("Access", "Access", new Boolean(false), "ACCESS"), // "ACCESS");
     TERADATA("Teradata", "Teradata", new Boolean(false), "TERADATA"), // "TERADATA");
-    AS400("AS400","AS400",new Boolean(false),"AS400");
+    AS400("AS400", "AS400", new Boolean(false), "AS400"),
 
-//    JAVADB_EMBEDED("JavaDB Embeded", "JavaDB Embeded", new Boolean(false), "JAVADB"),
-//    JAVADB_JCCJDBC("JavaDB JCCJDBC", "JavaDB JCCJDBC", new Boolean(false), "JAVADB"),
-//    JAVADB_DERBYCLIENT("JavaDB DerbyClient", "JavaDB DerbyClient", new Boolean(false), "JAVADB");
-    
+    JAVADB_EMBEDED("JavaDB Embeded", "JavaDB Embeded", new Boolean(false), "JAVADB"),
+    JAVADB_JCCJDBC("JavaDB JCCJDBC", "JavaDB JCCJDBC", new Boolean(false), "JAVADB"),
+    JAVADB_DERBYCLIENT("JavaDB DerbyClient", "JavaDB DerbyClient", new Boolean(false), "JAVADB");
+
     // displayName is used in Java code.
     private String displayName;
 
@@ -97,7 +97,7 @@ public enum EDatabaseTypeName {
         }
         return MYSQL;
     }
-    
+
     public static EDatabaseTypeName getTypeFromDisplayName(String displayName) {
         for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
             if (typename.getDisplayName().equals(displayName)) {
@@ -106,9 +106,10 @@ public enum EDatabaseTypeName {
         }
         return MYSQL;
     }
-    
+
     /**
      * This is only for the component type, not for the repository.
+     * 
      * @param dbType
      * @return
      */

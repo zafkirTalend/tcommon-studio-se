@@ -67,6 +67,7 @@ public final class ConvertionHelper {
         result.setUsername(connection.getUsername());
         result.setMapping(connection.getDbmsId());
         result.setProduct(connection.getProductId());
+        result.setDbRootPath(connection.getDBRootPath());
         return result;
     }
 

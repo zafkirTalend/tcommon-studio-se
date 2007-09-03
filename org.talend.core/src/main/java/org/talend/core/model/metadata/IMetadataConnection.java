@@ -98,4 +98,8 @@ public interface IMetadataConnection extends IMetadata {
     public void setMapping(String mapping);
 
     public String getMapping();
+
+    public String getDbRootPath();
+
+    public void setDbRootPath(String dbRootPath);
 }

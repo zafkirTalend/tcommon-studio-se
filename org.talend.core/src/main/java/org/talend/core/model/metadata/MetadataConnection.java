@@ -71,6 +71,8 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
 
     private InputStream xmlStream;
 
+    private String dbRootPath;
+
     /*
      * (non-Javadoc)
      * 
@@ -365,28 +367,43 @@ public class MetadataConnection extends RepositoryObject implements IMetadataCon
      * 
      * @see org.talend.core.model.repository.IRepositoryObject#getType()
      */
+    @Override
     public ERepositoryObjectType getType() {
         return ERepositoryObjectType.METADATA_CONNECTIONS;
     }
 
-    
     public String getMapping() {
         return this.mapping;
     }
 
-    
     public void setMapping(String mapping) {
         this.mapping = mapping;
     }
 
-    
     public String getProduct() {
         return this.product;
     }
 
-    
     public void setProduct(String product) {
         this.product = product;
+    }
+
+    /**
+     * Getter for dbRootPath.
+     * 
+     * @return the dbRootPath
+     */
+    public String getDbRootPath() {
+        return this.dbRootPath;
+    }
+
+    /**
+     * Sets the dbRootPath.
+     * 
+     * @param dbRootPath the dbRootPath to set
+     */
+    public void setDbRootPath(String dbRootPath) {
+        this.dbRootPath = dbRootPath;
     }
 
 }
