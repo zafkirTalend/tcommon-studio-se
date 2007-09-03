@@ -5,7 +5,7 @@
     nsURI="business" nsPrefix="business">
   <eClassifiers xsi:type="ecore:EClass" name="Repository">
     <eStructuralFeatures xsi:type="ecore:EReference" name="Talenditems" upperBound="-1"
-        eType="#//TalendItem" defaultValueLiteral="" containment="true" eOpposite="#//TalendItem/repository"/>
+        eType="#//TalendItem" containment="true" eOpposite="#//TalendItem/repository"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TalendItem" abstract="true">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>

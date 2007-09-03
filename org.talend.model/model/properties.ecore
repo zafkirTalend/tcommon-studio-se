@@ -120,8 +120,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="XmlFileConnectionItem" eSuperTypes="#//ConnectionItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="LdifFileConnectionItem" eSuperTypes="#//ConnectionItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessItem" eSuperTypes="#//Item">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="process" eType="ecore:EClass TalendFile.ecore#//ProcessType"
-        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="process" eType="ecore:EClass TalendFile.ecore#//ProcessType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UserRole">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
@@ -157,7 +156,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FolderItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" unique="false"
-        upperBound="-1" eType="#//Item" defaultValueLiteral="" containment="true"/>
+        upperBound="-1" eType="#//Item" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" unique="false" lowerBound="1"
         eType="#//FolderType"/>
   </eClassifiers>
@@ -202,7 +201,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContextItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EReference" name="context" unique="false"
-        upperBound="-1" eType="ecore:EClass TalendFile.ecore#//ContextType" defaultValueLiteral=""/>
+        upperBound="-1" eType="ecore:EClass TalendFile.ecore#//ContextType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultContext" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SpagoBiServer">
