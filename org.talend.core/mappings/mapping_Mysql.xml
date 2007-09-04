@@ -8,7 +8,7 @@
 			<dbType type="BINARY"/>
 			<dbType type="BIT" />
 			<dbType type="BLOB" />
-			<dbType type="CHAR" defautLength="200"/>
+			<dbType type="CHAR" defaultLength="200"/>
 			<dbType type="DATE" />
 			<dbType type="DATETIME" />
 			<dbType type="DECIMAL" defaultLength="10" defaultPrecision="20" />
