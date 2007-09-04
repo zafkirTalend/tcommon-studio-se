@@ -9,7 +9,6 @@
 			<xs:attribute name="type" use="required">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
@@ -26,15 +25,15 @@
 	<xs:element name="mapping">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element maxOccurs="unbounded" ref="dbms"/>
+				<xs:element ref="dbms" maxOccurs="unbounded"/>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="language">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element maxOccurs="unbounded" ref="talendToDbTypes"/>
-				<xs:element maxOccurs="unbounded" ref="dbToTalendTypes"/>
+				<xs:element ref="talendToDbTypes"/>
+				<xs:element ref="dbToTalendTypes"/>
 			</xs:sequence>
 			<xs:attribute name="name" use="required">
 				<xs:simpleType>
@@ -54,25 +53,20 @@
 			</xs:sequence>
 			<xs:attribute name="product" use="required">
 				<xs:simpleType>
-					<xs:restriction base="xs:string">
-					</xs:restriction>
+					<xs:restriction base="xs:string"/>
 				</xs:simpleType>
 			</xs:attribute>
 			<xs:attribute name="label" use="required">
 				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						
-					</xs:restriction>
+					<xs:restriction base="xs:string"/>
 				</xs:simpleType>
 			</xs:attribute>
 			<xs:attribute name="id" use="required">
 				<xs:simpleType>
-					<xs:restriction base="xs:string">
-						
-					</xs:restriction>
+					<xs:restriction base="xs:string"/>
 				</xs:simpleType>
 			</xs:attribute>
-			<xs:attribute name="default" use="required" type="xs:boolean"/>
+			<xs:attribute name="default" type="xs:boolean" use="required"/>
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="dbTypes">
@@ -90,8 +84,17 @@
 			<xs:attribute name="type" use="required">
 				<xs:simpleType>
 					<xs:restriction base="xs:string">
-						
 					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="defaultPrecision">
+				<xs:simpleType>
+					<xs:restriction base="xs:short"/>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="defaultLength">
+				<xs:simpleType>
+					<xs:restriction base="xs:short"/>
 				</xs:simpleType>
 			</xs:attribute>
 			<xs:attribute name="default" type="xs:boolean"/>
