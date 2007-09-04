@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.core.model.properties;
 
+import java.util.Date;
+
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
@@ -46,8 +48,11 @@ public class TalendTrigger implements EObject {
     private String triggerType;
     private ExecutionTask executionTask;
     
-    
-    
+    private Date startTime;
+    private Date endTime;
+
+    private Date previousFireTime;
+    private Date finalFireTime;
     
     /**
      * Getter for id.
@@ -163,6 +168,98 @@ public class TalendTrigger implements EObject {
     public void setExecutionTask(ExecutionTask executionTask) {
         this.executionTask = executionTask;
     }
+
+    
+    
+    
+    /**
+     * Getter for startTime.
+     * @return the startTime
+     */
+    public Date getStartTime() {
+        return this.startTime;
+    }
+
+
+
+    
+    /**
+     * Sets the startTime.
+     * @param startTime the startTime to set
+     */
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+
+
+    
+    /**
+     * Getter for endTime.
+     * @return the endTime
+     */
+    public Date getEndTime() {
+        return this.endTime;
+    }
+
+
+
+    
+    /**
+     * Sets the endTime.
+     * @param endTime the endTime to set
+     */
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+
+    
+    
+
+    
+    /**
+     * Getter for previousFireTime.
+     * @return the previousFireTime
+     */
+    public Date getPreviousFireTime() {
+        return this.previousFireTime;
+    }
+
+
+
+    
+    /**
+     * Sets the previousFireTime.
+     * @param previousFireTime the previousFireTime to set
+     */
+    public void setPreviousFireTime(Date previousFireTime) {
+        this.previousFireTime = previousFireTime;
+    }
+
+
+
+    
+    /**
+     * Getter for finalFireTime.
+     * @return the finalFireTime
+     */
+    public Date getFinalFireTime() {
+        return this.finalFireTime;
+    }
+
+
+
+    
+    /**
+     * Sets the finalFireTime.
+     * @param finalFireTime the finalFireTime to set
+     */
+    public void setFinalFireTime(Date finalFireTime) {
+        this.finalFireTime = finalFireTime;
+    }
+
+
 
     /* (non-Javadoc)
      * @see org.eclipse.emf.ecore.EObject#eAllContents()

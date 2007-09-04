@@ -33,8 +33,6 @@ public class SimpleTalendTrigger extends TalendTrigger {
 
     private Integer repeatCount;
     private int repeatInterval;
-    private Date startTime;
-    private Date endTime;
     
     /**
      * Getter for repeatCount.
@@ -67,40 +65,6 @@ public class SimpleTalendTrigger extends TalendTrigger {
     public void setRepeatInterval(int repeatInterval) {
         this.repeatInterval = repeatInterval;
     }
-    
-    /**
-     * Getter for startTime.
-     * @return the startTime
-     */
-    public Date getStartTime() {
-        return this.startTime;
-    }
-    
-    /**
-     * Sets the startTime.
-     * @param startTime the startTime to set
-     */
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-    
-    /**
-     * Getter for endTime.
-     * @return the endTime
-     */
-    public Date getEndTime() {
-        return this.endTime;
-    }
-    
-    /**
-     * Sets the endTime.
-     * @param endTime the endTime to set
-     */
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
-    
-    
-    
+       
     
 }
