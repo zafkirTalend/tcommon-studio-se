@@ -27,6 +27,7 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.talend.core.model.process.IContext;
+import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.ITargetExecutionConfig;
 import org.talend.designer.core.ISyntaxCheckableEditor;
 
@@ -235,4 +236,8 @@ public interface IProcessor {
     public void setTargetPlatform(String targetPlatform);
     
     public void initPath() throws ProcessorException;
+
+    public IProcess getProcess();
+
+    public IContext getContext();
 }
