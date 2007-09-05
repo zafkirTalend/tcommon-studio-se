@@ -296,6 +296,9 @@
 				<dbType type="DECIMAL">
 					<talendType type="decimal" default="true" />
 				</dbType>
+				<dbType type="DECIMAL IDENTITY">
+					<talendType type="decimal" default="true" />
+				</dbType>
 				<dbType type="FLOAT">
 					<talendType type="decimal" default="true" />
 				</dbType>
