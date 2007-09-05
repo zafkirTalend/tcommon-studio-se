@@ -27,7 +27,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.talend.commons.utils.generation.CodeGenerationUtils;
-import org.talend.core.i18n.Messages;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -49,7 +50,7 @@ public final class ElementParameterParser {
         boolean end = false;
 
         for (int i = 0; i < node.getElementParameters().size() && !end; i++) {
-            param = (IElementParameter) node.getElementParameters().get(i);
+            param = node.getElementParameters().get(i);
             if (text.indexOf(param.getVariableName()) != -1) {
                 newText = getDisplayValue(param);
                 end = true;
@@ -63,7 +64,7 @@ public final class ElementParameterParser {
      * 
      * @param node
      * @param text
-     * @param fieldName name of field declared in xml component file (or other value for a manual processing) 
+     * @param fieldName name of field declared in xml component file (or other value for a manual processing)
      * @return
      */
     public static String getValueWithUIFieldKey(final INode node, final String text, String fieldName) {
@@ -86,7 +87,7 @@ public final class ElementParameterParser {
         IElementParameter param;
 
         for (int i = 0; i < element.getElementParameters().size(); i++) {
-            param = (IElementParameter) element.getElementParameters().get(i);
+            param = element.getElementParameters().get(i);
             if (text.indexOf(param.getVariableName()) != -1) {
                 if (param.getField() == EParameterFieldType.TABLE) {
                     return createTableValues((List<Map<String, Object>>) param.getValue(), param);
@@ -97,7 +98,8 @@ public final class ElementParameterParser {
         return null;
     }
 
-    private static List<Map<String, String>> createTableValues(final List<Map<String, Object>> paramValues, final IElementParameter param) {
+    private static List<Map<String, String>> createTableValues(final List<Map<String, Object>> paramValues,
+            final IElementParameter param) {
         List<Map<String, String>> tableValues = new ArrayList<Map<String, String>>();
         for (Map<String, Object> currentLine : paramValues) {
             tableValues.add(copyLine(currentLine, param));
@@ -146,7 +148,7 @@ public final class ElementParameterParser {
         IElementParameter param;
 
         for (int i = 0; i < element.getElementParameters().size(); i++) {
-            param = (IElementParameter) element.getElementParameters().get(i);
+            param = element.getElementParameters().get(i);
             if (text.indexOf(param.getVariableName()) != -1) {
                 if (param.getField() == EParameterFieldType.TABLE) {
                     return createTableValuesXML((List<Map<String, Object>>) param.getValue(), param);
@@ -157,7 +159,8 @@ public final class ElementParameterParser {
         return null;
     }
 
-    private static List<Map<String, String>> createTableValuesXML(final List<Map<String, Object>> paramValues, final IElementParameter param) {
+    private static List<Map<String, String>> createTableValuesXML(final List<Map<String, Object>> paramValues,
+            final IElementParameter param) {
         List<Map<String, String>> tableValues = new ArrayList<Map<String, String>>();
         for (Map<String, Object> currentLine : paramValues) {
             tableValues.add(copyLineXML(currentLine, param));
@@ -203,7 +206,7 @@ public final class ElementParameterParser {
 
         newText = text;
         for (int i = 0; i < element.getElementParameters().size(); i++) {
-            param = (IElementParameter) element.getElementParameters().get(i);
+            param = element.getElementParameters().get(i);
             if (newText.contains(param.getVariableName())) {
                 String value = getDisplayValue(param);
                 newText = newText.replace(param.getVariableName(), value);
@@ -212,7 +215,7 @@ public final class ElementParameterParser {
         return newText;
     }
 
-    @SuppressWarnings("unchecked") //$NON-NLS-1$
+    @SuppressWarnings("unchecked")//$NON-NLS-1$
     private static String getDisplayValue(final IElementParameter param) {
         Object value = param.getValue();
         if (value instanceof String) {
@@ -224,7 +227,7 @@ public final class ElementParameterParser {
         }
         if (param.getField() == EParameterFieldType.TABLE) {
             List<Map<String, Object>> tableValues = (List<Map<String, Object>>) param.getValue();
-            String[] items = (String[]) param.getListItemsDisplayCodeName();
+            String[] items = param.getListItemsDisplayCodeName();
             String stringValues = "{"; //$NON-NLS-1$
             for (int i = 0; i < tableValues.size(); i++) {
                 Map<String, Object> lineValues = tableValues.get(i);
@@ -255,4 +258,21 @@ public final class ElementParameterParser {
         }
         return new String(""); //$NON-NLS-1$
     }
+
+    /**
+     * DOC qiang.zhang Comment method "getUNIQUENAME".
+     * 
+     * @param node
+     * @return
+     */
+    public static String getUNIQUENAME(NodeType node) {
+        List<ElementParameterType> parameters = node.getElementParameter();
+        for (ElementParameterType elementParam : parameters) {
+            if (elementParam.getName().equals("UNIQUE_NAME")) {
+                return elementParam.getValue();
+            }
+        }
+        return "";
+    }
+
 }
