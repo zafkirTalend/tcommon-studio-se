@@ -56,7 +56,7 @@ public class CheckModulesAction extends Action {
      */
     @Override
     public void run() {
-        CorePlugin.getDefault().getLibrariesService().checkLibraries();
+        CorePlugin.getDefault().getLibrariesService().resetModulesNeeded();
         List<ModuleNeeded> modulesNeeded = new ArrayList<ModuleNeeded>();
         modulesNeeded.addAll(ModulesNeededProvider.getModulesNeeded());
         modulesNeeded.addAll(ModulesNeededProvider.getUnUsedModules());

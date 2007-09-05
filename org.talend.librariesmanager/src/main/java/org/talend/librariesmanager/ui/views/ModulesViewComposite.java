@@ -42,9 +42,11 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.LAYOUT_MODE;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator.SORT;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
+import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.librariesmanager.i18n.Messages;
 import org.talend.librariesmanager.model.ModulesNeededProvider;
+import org.talend.repository.model.ComponentsFactoryProvider;
 
 /**
  * This is the composite filled in the ModulesView. So it implemented the inferface IModulesViewComposite. Know more see
@@ -193,7 +195,8 @@ public class ModulesViewComposite extends Composite {
 
         column.setModifiable(false);
         column.setWeight(2);
-
+        IComponentsFactory compFac = ComponentsFactoryProvider.getInstance();
+        compFac.getComponents();
         List<ModuleNeeded> modules = ModulesNeededProvider.getModulesNeeded();
 
         tableViewerCreator.init(filterHidenModule(modules));
@@ -202,15 +205,16 @@ public class ModulesViewComposite extends Composite {
 
             public void focusGained(FocusEvent e) {
                 log.trace("Modules gain focus"); //$NON-NLS-1$
-                IContextService contextService = (IContextService) PlatformUI.getWorkbench().getAdapter(IContextService.class);
+                IContextService contextService = (IContextService) PlatformUI.getWorkbench().getAdapter(
+                        IContextService.class);
                 ca = contextService.activateContext("talend.modules"); //$NON-NLS-1$
             }
 
             public void focusLost(FocusEvent e) {
                 log.trace("Modules lost focus"); //$NON-NLS-1$
                 if (ca != null) {
-                    IContextService contextService = (IContextService) PlatformUI.getWorkbench()
-                            .getAdapter(IContextService.class);
+                    IContextService contextService = (IContextService) PlatformUI.getWorkbench().getAdapter(
+                            IContextService.class);
                     contextService.deactivateContext(ca);
                 }
             }

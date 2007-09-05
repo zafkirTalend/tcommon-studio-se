@@ -69,7 +69,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         File targetFile = new File(getLibrariesPath() + File.separatorChar + sourceFile.getName());
         FilesUtils.copyFile(sourceFile, targetFile);
         ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(),
-                ELibraryInstallStatus.UNUSED);
+                ELibraryInstallStatus.INSTALLED);
         fireLibrariesChanges();
     }
 

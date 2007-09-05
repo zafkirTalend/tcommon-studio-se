@@ -61,10 +61,13 @@ public class RemoveExternalJarAction extends Action {
      */
     public RemoveExternalJarAction() {
         super();
-        this.setText("Remove external JARs"); //$NON-NLS-1$
-        this.setDescription("Remove external JARs"); //$NON-NLS-1$
+        setText("Remove external JARs"); //$NON-NLS-1$
+        setDescription("Remove external JARs"); //$NON-NLS-1$
         setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
                 ISharedImages.IMG_TOOL_DELETE_DISABLED));
+        setDisabledImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
+                ISharedImages.IMG_TOOL_DELETE_DISABLED));
+        setEnabled(false);
         init();
     }
 
@@ -87,13 +90,11 @@ public class RemoveExternalJarAction extends Action {
                         if (needed.getStatus() == ELibraryInstallStatus.UNUSED) {
                             modules.add(needed);
                         } else {
-                            setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
-                                    ISharedImages.IMG_TOOL_DELETE_DISABLED));
+                            setEnabled(false);
                             return;
                         }
                     }
-                    setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
-                            ISharedImages.IMG_TOOL_DELETE));
+                    setEnabled(true);
                 }
             });
         }
@@ -118,18 +119,13 @@ public class RemoveExternalJarAction extends Action {
                         ExceptionHandler.process(e);
                     }
                 }
-                // Adds the classpath to java project.
                 IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
                 IProject prj = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
                 IJavaProject project = JavaCore.create(prj);
-
                 List<IClasspathEntry> projectLibraries = new ArrayList<IClasspathEntry>();
-
                 try {
                     IClasspathEntry[] resolvedClasspath = project.getResolvedClasspath(true);
-
                     projectLibraries.addAll(Arrays.asList(resolvedClasspath));
-
                     for (ModuleNeeded module : modules) {
                         projectLibraries.remove(JavaCore.newLibraryEntry(new Path(libpath + module.getModuleName()),
                                 null, null));
@@ -140,8 +136,7 @@ public class RemoveExternalJarAction extends Action {
                     modulesNeeded.addAll(ModulesNeededProvider.getModulesNeeded());
                     modulesNeeded.addAll(ModulesNeededProvider.getUnUsedModules());
                     ModulesViewComposite.getTableViewerCreator().init(modulesNeeded);
-                    setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
-                            ISharedImages.IMG_TOOL_DELETE_DISABLED));
+                    setEnabled(false);
                 } catch (JavaModelException e) {
                     ExceptionHandler.process(e);
                 }

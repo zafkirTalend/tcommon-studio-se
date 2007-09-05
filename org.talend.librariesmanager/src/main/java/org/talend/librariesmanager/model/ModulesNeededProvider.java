@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.common.util.EList;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.time.TimeMeasure;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
@@ -35,15 +36,21 @@ import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
+import org.talend.core.model.process.EParameterFieldType;
+import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
+import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.repository.model.ComponentsFactoryProvider;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -60,11 +67,58 @@ public class ModulesNeededProvider {
     private static List<ModuleNeeded> unUsedModules = new ArrayList<ModuleNeeded>();
 
     public static List<ModuleNeeded> getModulesNeeded() {
+        // TimeMeasure.measureActive = true;
+        // TimeMeasure.display = true;
+        TimeMeasure.begin("ModulesNeededProvider.getAllMoudlesNeeded");
+
+        /*
+         * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForRoutines");
+         * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForRoutines");
+         * 
+         * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForComponents");
+         * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForComponents");
+         * 
+         * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForApplication");
+         * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForApplication");
+         * 
+         * TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForJobs");
+         * TimeMeasure.pause("ModulesNeededProvider.getModulesNeededForJobs");
+         */
         if (componentImportNeedsList.isEmpty()) {
+            // TimeMeasure.step("ModulesNeededProvider.getModulesNeededForRoutines");
             componentImportNeedsList.addAll(getModulesNeededForRoutines());
-            componentImportNeedsList.addAll(getModulesNeededForComponents());
+            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded",
+                    "ModulesNeededProvider.getModulesNeededForRoutines");
+
+            // TimeMeasure.begin("ModulesNeededProvider.getModulesNeededForApplication");
             componentImportNeedsList.addAll(getModulesNeededForApplication());
+            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded",
+                    "ModulesNeededProvider.getModulesNeededForApplication");
+
+            // TimeMeasure.resume("ModulesNeededProvider.getModulesNeededForJobs");
+            if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
+                componentImportNeedsList.addAll(getModulesNeededForJobs());
+            }
+            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded",
+                    "ModulesNeededProvider.getModulesNeededForJobs");
+
+            // TimeMeasure.resume("ModulesNeededProvider.getModulesNeededForComponents");
+            componentImportNeedsList.addAll(getModulesNeededForComponents());
+            TimeMeasure.step("ModulesNeededProvider.getAllMoudlesNeeded",
+                    "ModulesNeededProvider.getModulesNeededForComponents");
         }
+
+        /*
+         * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForRoutines");
+         * 
+         * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForComponents");
+         * 
+         * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForApplication");
+         * 
+         * TimeMeasure.end("ModulesNeededProvider.getModulesNeededForJobs");
+         */// TimeMeasure.measureActive = false;
+        // TimeMeasure.display = false;
+        TimeMeasure.end("ModulesNeededProvider.getAllMoudlesNeeded");
 
         return componentImportNeedsList;
     }
@@ -91,6 +145,33 @@ public class ModulesNeededProvider {
         return importNeedsList;
     }
 
+    public static List<ModuleNeeded> getModulesNeededForJobs() {
+        List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
+                .getProxyRepositoryFactory();
+        try {
+            List<IRepositoryObject> jobs = repositoryFactory.getAll(ERepositoryObjectType.PROCESS, true);
+            for (IRepositoryObject cur : jobs) {
+                ProcessItem item = (ProcessItem) cur.getProperty().getItem();
+                List<NodeType> nodes = item.getProcess().getNode();
+                for (NodeType node : nodes) {
+                    List<ElementParameterType> elementParameter = node.getElementParameter();
+                    for (ElementParameterType elementParam : elementParameter) {
+                        if (elementParam.getField().equals(EParameterFieldType.MODULE_LIST.getName())) {
+                            String uniquename = ElementParameterParser.getUNIQUENAME(node);
+                            ModuleNeeded toAdd = new ModuleNeeded("Job " + item.getProperty().getLabel(), elementParam
+                                    .getValue(), "Required for using component : " + uniquename + ".", true);
+                            importNeedsList.add(toAdd);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            ExceptionHandler.process(e);
+        }
+        return importNeedsList;
+    }
+
     public static List<ModuleNeeded> getModulesNeededForRoutines() {
         List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
@@ -106,6 +187,7 @@ public class ModulesNeededProvider {
                     // FIXME SML i18n
                     ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport
                             .getMODULE(), currentImport.getMESSAGE(), currentImport.isREQUIRED());
+                    // toAdd.setStatus(ELibraryInstallStatus.INSTALLED);
                     importNeedsList.add(toAdd);
                 }
             }

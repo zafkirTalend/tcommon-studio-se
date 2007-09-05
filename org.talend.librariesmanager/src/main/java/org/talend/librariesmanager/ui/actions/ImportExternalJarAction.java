@@ -29,6 +29,7 @@ import java.util.List;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
@@ -106,12 +107,20 @@ public class ImportExternalJarAction extends Action {
 
                 try {
                     IClasspathEntry[] resolvedClasspath = project.getResolvedClasspath(true);
+                    List<String> librariesString = new ArrayList<String>();
+                    for (IClasspathEntry entry : resolvedClasspath) {
+                        IPath path = entry.getPath();
+                        librariesString.add(path.lastSegment());
+                    }
 
                     projectLibraries.addAll(Arrays.asList(resolvedClasspath));
 
                     for (int i = 0; i < fileNames.length; i++) {
-                        final File file = new File(libpath + File.separatorChar + fileNames[i]);
-                        projectLibraries.add(JavaCore.newLibraryEntry(new Path(file.getAbsolutePath()), null, null));
+                        if (!librariesString.contains(fileNames[i])) {
+                            final File file = new File(libpath + File.separatorChar + fileNames[i]);
+                            projectLibraries
+                                    .add(JavaCore.newLibraryEntry(new Path(file.getAbsolutePath()), null, null));
+                        }
                     }
                     project.setRawClasspath(projectLibraries.toArray(new IClasspathEntry[projectLibraries.size()]),
                             null);
