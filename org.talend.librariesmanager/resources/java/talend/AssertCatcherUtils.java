@@ -27,15 +27,15 @@ public class AssertCatcherUtils {
 
     public class AssertCatcherMessage {
 
-        private Date date;
+        private Date moment;
 
         private String pid;
 
-        private String projet;
+        private String project;
 
         private String job;
 
-        private String langage;
+        private String language;
 
         private String origin;
 
@@ -45,13 +45,13 @@ public class AssertCatcherUtils {
 
         private String description;
 
-        public AssertCatcherMessage(String pid, String projet, String job, String langage, String origin,
+        public AssertCatcherMessage(String pid, String project, String job, String language, String origin,
                 String status, String substatus, String description) {
-            this.date = java.util.Calendar.getInstance().getTime();
+            this.moment = java.util.Calendar.getInstance().getTime();
             this.pid = pid;
-            this.projet = projet;
+            this.project = project;
             this.job = job;
-            this.langage = langage;
+            this.language = language;
             this.origin = origin;
             this.status = status;
             this.substatus = substatus;
@@ -59,21 +59,21 @@ public class AssertCatcherUtils {
         }
 
         /**
-         * Getter for date.
+         * Getter for moment.
          * 
-         * @return the date
+         * @return the moment
          */
-        public Date getDate() {
-            return this.date;
+        public Date getMoment() {
+            return this.moment;
         }
 
         /**
-         * Sets the date.
+         * Sets the moment.
          * 
-         * @param date the date to set
+         * @param moment the moment to set
          */
-        public void setDate(Date date) {
-            this.date = date;
+        public void setMoment(Date moment) {
+            this.moment = moment;
         }
 
         /**
@@ -113,21 +113,21 @@ public class AssertCatcherUtils {
         }
 
         /**
-         * Getter for langage.
+         * Getter for language.
          * 
-         * @return the langage
+         * @return the language
          */
-        public String getLangage() {
-            return this.langage;
+        public String getLanguage() {
+            return this.language;
         }
 
         /**
-         * Sets the langage.
+         * Sets the language.
          * 
-         * @param langage the langage to set
+         * @param language the language to set
          */
-        public void setLangage(String langage) {
-            this.langage = langage;
+        public void setLanguage(String language) {
+            this.language = language;
         }
 
         /**
@@ -167,21 +167,21 @@ public class AssertCatcherUtils {
         }
 
         /**
-         * Getter for projet.
+         * Getter for project.
          * 
-         * @return the projet
+         * @return the project
          */
-        public String getProjet() {
-            return this.projet;
+        public String getProject() {
+            return this.project;
         }
 
         /**
-         * Sets the projet.
+         * Sets the project.
          * 
-         * @param projet the projet to set
+         * @param project the project to set
          */
-        public void setProjet(String projet) {
-            this.projet = projet;
+        public void setProject(String project) {
+            this.project = project;
         }
 
         /**
@@ -219,14 +219,13 @@ public class AssertCatcherUtils {
         public void setSubstatus(String substatus) {
             this.substatus = substatus;
         }
-
     }
 
     java.util.List<AssertCatcherMessage> messages = new java.util.ArrayList<AssertCatcherMessage>();
 
-    public void addMessage(String pid, String projet, String job, String langage, String origin,
-            String status, String substatus, String description) {
-        AssertCatcherMessage lcm = new AssertCatcherMessage(pid, projet, job, langage, origin, status, substatus,
+    public void addMessage(String pid, String project, String job, String language, String origin, String status,
+            String substatus, String description) {
+        AssertCatcherMessage lcm = new AssertCatcherMessage(pid, project, job, language, origin, status, substatus,
                 description);
         messages.add(lcm);
     }
