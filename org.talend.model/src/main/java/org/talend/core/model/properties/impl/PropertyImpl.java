@@ -207,7 +207,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * @generated
      * @ordered
      */
-    protected Item item = null;
+    protected Item item;
 
     /**
      * The cached value of the '{@link #getAuthor() <em>Author</em>}' reference.
@@ -217,7 +217,7 @@ public class PropertyImpl extends EObjectImpl implements Property {
      * @generated
      * @ordered
      */
-    protected User author = null;
+    protected User author;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

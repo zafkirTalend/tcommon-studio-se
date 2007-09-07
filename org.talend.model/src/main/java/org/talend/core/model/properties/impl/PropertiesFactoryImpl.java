@@ -108,6 +108,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.SPAGO_BI_SERVER: return createSpagoBiServer();
             case PropertiesPackage.LICENSE: return createLicense();
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM: return createGenericSchemaConnectionItem();
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION: return createUserModuleAuthorization();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -123,6 +124,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
                 return createFolderTypeFromString(eDataType, initialValue);
             case PropertiesPackage.USER_PROJECT_AUTHORIZATION_TYPE:
                 return createUserProjectAuthorizationTypeFromString(eDataType, initialValue);
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION_TYPE:
+                return createUserModuleAuthorizationTypeFromString(eDataType, initialValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -138,6 +141,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
                 return convertFolderTypeToString(eDataType, instanceValue);
             case PropertiesPackage.USER_PROJECT_AUTHORIZATION_TYPE:
                 return convertUserProjectAuthorizationTypeToString(eDataType, instanceValue);
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION_TYPE:
+                return convertUserModuleAuthorizationTypeToString(eDataType, instanceValue);
             default:
                 throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
         }
@@ -406,6 +411,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public UserModuleAuthorization createUserModuleAuthorization() {
+        UserModuleAuthorizationImpl userModuleAuthorization = new UserModuleAuthorizationImpl();
+        return userModuleAuthorization;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -440,6 +455,26 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      * @generated
      */
     public String convertUserProjectAuthorizationTypeToString(EDataType eDataType, Object instanceValue) {
+        return instanceValue == null ? null : instanceValue.toString();
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public UserModuleAuthorizationType createUserModuleAuthorizationTypeFromString(EDataType eDataType, String initialValue) {
+        UserModuleAuthorizationType result = UserModuleAuthorizationType.get(initialValue);
+        if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
+        return result;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String convertUserModuleAuthorizationTypeToString(EDataType eDataType, Object instanceValue) {
         return instanceValue == null ? null : instanceValue.toString();
     }
 

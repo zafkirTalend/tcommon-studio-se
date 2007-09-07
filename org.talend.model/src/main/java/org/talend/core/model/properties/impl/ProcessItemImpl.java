@@ -35,7 +35,7 @@ public class ProcessItemImpl extends ItemImpl implements ProcessItem {
      * @generated
      * @ordered
      */
-    protected ProcessType process = null;
+    protected ProcessType process;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

@@ -45,7 +45,7 @@ public class UserProjectAuthorizationImpl extends EObjectImpl implements UserPro
      * @generated
      * @ordered
      */
-    protected User user = null;
+    protected User user;
 
     /**
      * The cached value of the '{@link #getProject() <em>Project</em>}' reference.
@@ -55,7 +55,7 @@ public class UserProjectAuthorizationImpl extends EObjectImpl implements UserPro
      * @generated
      * @ordered
      */
-    protected Project project = null;
+    protected Project project;
 
     /**
      * The default value of the '{@link #getType() <em>Type</em>}' attribute.

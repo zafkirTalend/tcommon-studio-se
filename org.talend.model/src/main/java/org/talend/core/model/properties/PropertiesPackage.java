@@ -1403,12 +1403,21 @@ public interface PropertiesPackage extends EPackage {
     int USER__PROJECT_AUTHORIZATION = 11;
 
     /**
+     * The feature id for the '<em><b>Module Authorization</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__MODULE_AUTHORIZATION = 12;
+
+    /**
      * The number of structural features of the '<em>User</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int USER_FEATURE_COUNT = 12;
+    int USER_FEATURE_COUNT = 13;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -1823,13 +1832,50 @@ public interface PropertiesPackage extends EPackage {
     int GENERIC_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.UserModuleAuthorizationImpl <em>User Module Authorization</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.UserModuleAuthorizationImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorization()
+     * @generated
+     */
+    int USER_MODULE_AUTHORIZATION = 31;
+
+    /**
+     * The feature id for the '<em><b>User</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_MODULE_AUTHORIZATION__USER = 0;
+
+    /**
+     * The feature id for the '<em><b>Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_MODULE_AUTHORIZATION__TYPE = 1;
+
+    /**
+     * The number of structural features of the '<em>User Module Authorization</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER_MODULE_AUTHORIZATION_FEATURE_COUNT = 2;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 31;
+    int FOLDER_TYPE = 32;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -1839,7 +1885,18 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 32;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 33;
+
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.UserModuleAuthorizationType
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
+     * @generated
+     */
+    int USER_MODULE_AUTHORIZATION_TYPE = 34;
 
 
     /**
@@ -2656,6 +2713,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getUser_ProjectAuthorization();
 
     /**
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.User#getModuleAuthorization <em>Module Authorization</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Module Authorization</em>'.
+     * @see org.talend.core.model.properties.User#getModuleAuthorization()
+     * @see #getUser()
+     * @generated
+     */
+    EReference getUser_ModuleAuthorization();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.FolderItem <em>Folder Item</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Folder Item</em>'.
@@ -3092,6 +3160,38 @@ public interface PropertiesPackage extends EPackage {
     EClass getGenericSchemaConnectionItem();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.UserModuleAuthorization <em>User Module Authorization</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>User Module Authorization</em>'.
+     * @see org.talend.core.model.properties.UserModuleAuthorization
+     * @generated
+     */
+    EClass getUserModuleAuthorization();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.UserModuleAuthorization#getUser <em>User</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>User</em>'.
+     * @see org.talend.core.model.properties.UserModuleAuthorization#getUser()
+     * @see #getUserModuleAuthorization()
+     * @generated
+     */
+    EReference getUserModuleAuthorization_User();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.UserModuleAuthorization#getType <em>Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Type</em>'.
+     * @see org.talend.core.model.properties.UserModuleAuthorization#getType()
+     * @see #getUserModuleAuthorization()
+     * @generated
+     */
+    EAttribute getUserModuleAuthorization_Type();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -3109,6 +3209,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EEnum getUserProjectAuthorizationType();
+
+    /**
+     * Returns the meta object for enum '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for enum '<em>User Module Authorization Type</em>'.
+     * @see org.talend.core.model.properties.UserModuleAuthorizationType
+     * @generated
+     */
+    EEnum getUserModuleAuthorizationType();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.UserRole <em>User Role</em>}'. <!--
@@ -3837,6 +3947,14 @@ public interface PropertiesPackage extends EPackage {
         EReference USER__PROJECT_AUTHORIZATION = eINSTANCE.getUser_ProjectAuthorization();
 
         /**
+         * The meta object literal for the '<em><b>Module Authorization</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference USER__MODULE_AUTHORIZATION = eINSTANCE.getUser_ModuleAuthorization();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.FolderItemImpl <em>Folder Item</em>}' class.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.properties.impl.FolderItemImpl
@@ -4193,6 +4311,32 @@ public interface PropertiesPackage extends EPackage {
         EClass GENERIC_SCHEMA_CONNECTION_ITEM = eINSTANCE.getGenericSchemaConnectionItem();
 
         /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.UserModuleAuthorizationImpl <em>User Module Authorization</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.UserModuleAuthorizationImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorization()
+         * @generated
+         */
+        EClass USER_MODULE_AUTHORIZATION = eINSTANCE.getUserModuleAuthorization();
+
+        /**
+         * The meta object literal for the '<em><b>User</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference USER_MODULE_AUTHORIZATION__USER = eINSTANCE.getUserModuleAuthorization_User();
+
+        /**
+         * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute USER_MODULE_AUTHORIZATION__TYPE = eINSTANCE.getUserModuleAuthorization_Type();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.properties.FolderType
@@ -4210,6 +4354,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EEnum USER_PROJECT_AUTHORIZATION_TYPE = eINSTANCE.getUserProjectAuthorizationType();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.UserModuleAuthorizationType <em>User Module Authorization Type</em>}' enum.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.UserModuleAuthorizationType
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
+         * @generated
+         */
+        EEnum USER_MODULE_AUTHORIZATION_TYPE = eINSTANCE.getUserModuleAuthorizationType();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.UserRoleImpl <em>User Role</em>}' class.

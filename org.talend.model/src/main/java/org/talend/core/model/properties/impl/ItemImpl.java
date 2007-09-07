@@ -38,7 +38,7 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
      * @generated
      * @ordered
      */
-    protected Property property = null;
+    protected Property property;
 
     /**
      * The cached value of the '{@link #getState() <em>State</em>}' reference.
@@ -48,7 +48,7 @@ public abstract class ItemImpl extends EObjectImpl implements Item {
      * @generated
      * @ordered
      */
-    protected ItemState state = null;
+    protected ItemState state;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

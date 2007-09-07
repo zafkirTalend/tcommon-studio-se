@@ -64,7 +64,7 @@ public class RoutineItemImpl extends FileItemImpl implements RoutineItem {
      * @generated
      * @ordered
      */
-    protected EList imports = null;
+    protected EList imports;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

@@ -47,7 +47,7 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
      * @generated
      * @ordered
      */
-    protected Diagram notation = null;
+    protected Diagram notation;
 
     /**
      * The cached value of the '{@link #getSemantic() <em>Semantic</em>}' reference.
@@ -57,7 +57,7 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
      * @generated
      * @ordered
      */
-    protected BusinessProcess semantic = null;
+    protected BusinessProcess semantic;
 
     /**
      * The cached value of the '{@link #getNotationHolder() <em>Notation Holder</em>}' reference.
@@ -67,7 +67,7 @@ public class BusinessProcessItemImpl extends ItemImpl implements BusinessProcess
      * @generated
      * @ordered
      */
-    protected NotationHolder notationHolder = null;
+    protected NotationHolder notationHolder;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

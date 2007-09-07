@@ -135,7 +135,7 @@ public class ComponentImpl extends EObjectImpl implements Component {
      * @generated
      * @ordered
      */
-    protected User author = null;
+    protected User author;
 
     /**
      * The default value of the '{@link #getCreationDate() <em>Creation Date</em>}' attribute.
@@ -225,7 +225,7 @@ public class ComponentImpl extends EObjectImpl implements Component {
      * @generated
      * @ordered
      */
-    protected EList projects = null;
+    protected EList projects;
 
     /**
      * <!-- begin-user-doc -->

@@ -102,7 +102,7 @@ public class ItemStateImpl extends EObjectImpl implements ItemState {
      * @generated
      * @ordered
      */
-    protected User locker = null;
+    protected User locker;
 
     /**
      * The default value of the '{@link #getLockDate() <em>Lock Date</em>}' attribute.

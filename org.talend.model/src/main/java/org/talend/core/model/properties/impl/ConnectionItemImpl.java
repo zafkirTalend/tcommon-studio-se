@@ -35,7 +35,7 @@ public class ConnectionItemImpl extends ItemImpl implements ConnectionItem {
      * @generated
      * @ordered
      */
-    protected Connection connection = null;
+    protected Connection connection;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

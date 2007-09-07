@@ -135,7 +135,7 @@ public final class UserProjectAuthorizationType extends AbstractEnumerator {
             case READ_WRITE: return READ_WRITE_LITERAL;
             case READ_ONLY: return READ_ONLY_LITERAL;
         }
-        return null;	
+        return null;
     }
 
     /**

@@ -70,7 +70,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @generated
      * @ordered
      */
-    protected EList technicalStatus = null;
+    protected EList technicalStatus;
 
     /**
      * The cached value of the '{@link #getDocumentationStatus() <em>Documentation Status</em>}' containment reference list.
@@ -79,7 +79,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @generated
      * @ordered
      */
-    protected EList documentationStatus = null;
+    protected EList documentationStatus;
 
     /**
      * The default value of the '{@link #getId() <em>Id</em>}' attribute.
@@ -209,7 +209,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @generated
      * @ordered
      */
-    protected EList folders = null;
+    protected EList folders;
 
     /**
      * The default value of the '{@link #isDeleted() <em>Deleted</em>}' attribute.
@@ -279,7 +279,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @generated
      * @ordered
      */
-    protected User author = null;
+    protected User author;
 
     /**
      * The cached value of the '{@link #getUserAuthorization() <em>User Authorization</em>}' reference list.
@@ -289,7 +289,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @generated
      * @ordered
      */
-    protected EList userAuthorization = null;
+    protected EList userAuthorization;
 
     /**
      * The cached value of the '{@link #getAllowedComponents() <em>Allowed Components</em>}' reference list.
@@ -299,7 +299,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @generated
      * @ordered
      */
-    protected EList allowedComponents = null;
+    protected EList allowedComponents;
 
     /**
      * The cached value of the '{@link #getReferencedProjects() <em>Referenced Projects</em>}' reference list.
@@ -309,7 +309,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @generated
      * @ordered
      */
-    protected EList referencedProjects = null;
+    protected EList referencedProjects;
 
     /**
      * The cached value of the '{@link #getAvailableRefProject() <em>Available Ref Project</em>}' reference list.
@@ -319,7 +319,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @generated
      * @ordered
      */
-    protected EList availableRefProject = null;
+    protected EList availableRefProject;
 
     /**
      * The cached value of the '{@link #getMigrationTasks() <em>Migration Tasks</em>}' attribute list.
@@ -329,7 +329,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @generated
      * @ordered
      */
-    protected EList migrationTasks = null;
+    protected EList migrationTasks;
 
     /**
      * The default value of the '{@link #getMasterJobId() <em>Master Job Id</em>}' attribute.
@@ -359,7 +359,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
      * @generated
      * @ordered
      */
-    protected EList spagoBiServer = null;
+    protected EList spagoBiServer;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

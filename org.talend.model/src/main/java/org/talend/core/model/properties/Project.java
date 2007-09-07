@@ -288,7 +288,7 @@ public interface Project extends EObject {
      * <!-- end-user-doc -->
      * @return the value of the '<em>Migration Tasks</em>' attribute list.
      * @see org.talend.core.model.properties.PropertiesPackage#getProject_MigrationTasks()
-     * @model type="java.lang.String"
+     * @model
      * @generated
      */
     EList getMigrationTasks();

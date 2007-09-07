@@ -264,6 +264,15 @@ public interface PropertiesFactory extends EFactory {
     GenericSchemaConnectionItem createGenericSchemaConnectionItem();
 
     /**
+     * Returns a new object of class '<em>User Module Authorization</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>User Module Authorization</em>'.
+     * @generated
+     */
+    UserModuleAuthorization createUserModuleAuthorization();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

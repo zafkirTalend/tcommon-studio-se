@@ -31,6 +31,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.User#getComment <em>Comment</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getRole <em>Role</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getProjectAuthorization <em>Project Authorization</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.User#getModuleAuthorization <em>Module Authorization</em>}</li>
  * </ul>
  * </p>
  *
@@ -342,5 +343,23 @@ public interface User extends EObject {
      * @generated
      */
     EList getProjectAuthorization();
+
+    /**
+     * Returns the value of the '<em><b>Module Authorization</b></em>' reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.UserModuleAuthorization}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.UserModuleAuthorization#getUser <em>User</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Module Authorization</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Module Authorization</em>' reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getUser_ModuleAuthorization()
+     * @see org.talend.core.model.properties.UserModuleAuthorization#getUser
+     * @model type="org.talend.core.model.properties.UserModuleAuthorization" opposite="user"
+     * @generated
+     */
+    EList getModuleAuthorization();
 
 } // User

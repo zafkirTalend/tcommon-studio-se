@@ -47,7 +47,7 @@ public class ContextItemImpl extends ItemImpl implements ContextItem {
      * @generated
      * @ordered
      */
-    protected EList context = null;
+    protected EList context;
 
     /**
      * The default value of the '{@link #getDefaultContext() <em>Default Context</em>}' attribute.

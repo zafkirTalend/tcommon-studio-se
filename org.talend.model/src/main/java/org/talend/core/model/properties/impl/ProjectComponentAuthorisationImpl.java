@@ -43,7 +43,7 @@ public class ProjectComponentAuthorisationImpl extends EObjectImpl implements Pr
      * @generated
      * @ordered
      */
-    protected Project project = null;
+    protected Project project;
 
     /**
      * The cached value of the '{@link #getComponent() <em>Component</em>}' reference.
@@ -53,7 +53,7 @@ public class ProjectComponentAuthorisationImpl extends EObjectImpl implements Pr
      * @generated
      * @ordered
      */
-    protected Component component = null;
+    protected Component component;
 
     /**
      * <!-- begin-user-doc -->

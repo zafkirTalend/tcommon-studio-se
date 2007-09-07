@@ -156,7 +156,7 @@ public final class FolderType extends AbstractEnumerator {
             case SYSTEM_FOLDER: return SYSTEM_FOLDER_LITERAL;
             case STABLE_SYSTEM_FOLDER: return STABLE_SYSTEM_FOLDER_LITERAL;
         }
-        return null;	
+        return null;
     }
 
     /**

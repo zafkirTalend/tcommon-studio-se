@@ -314,16 +314,22 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.USER_MODULE_AUTHORIZATION: {
+                UserModuleAuthorization userModuleAuthorization = (UserModuleAuthorization)theEObject;
+                Object result = caseUserModuleAuthorization(userModuleAuthorization);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Status</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Status</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Status</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Status</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -332,11 +338,11 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Project</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Project</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Project</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Project</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -345,11 +351,11 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Property</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Property</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Property</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Property</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -358,11 +364,11 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Item</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Item</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Item</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -469,11 +475,11 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Delimited File Connection Item</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Delimited File Connection Item</em>'.
      * <!-- begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Delimited File Connection Item</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Delimited File Connection Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -482,11 +488,11 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Positional File Connection Item</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Positional File Connection Item</em>'.
      * <!-- begin-user-doc --> This implementation returns null; returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Positional File Connection Item</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Positional File Connection Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -551,11 +557,11 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>User</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>User</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>User</em>'.
+     * @return the result of interpreting the object as an instance of '<em>User</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -620,13 +626,13 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Project Component Authorisation</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Project Component Authorisation</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Project Component Authorisation</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Project Component Authorisation</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -635,13 +641,13 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Project Reference</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Project Reference</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Project Reference</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Project Reference</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -650,13 +656,13 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Ldif File Connection Item</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Ldif File Connection Item</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Ldif File Connection Item</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Ldif File Connection Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -665,13 +671,13 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>User Project Authorization</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>User Project Authorization</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>User Project Authorization</em>'.
+     * @return the result of interpreting the object as an instance of '<em>User Project Authorization</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -680,13 +686,13 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Context Item</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Context Item</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Context Item</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Context Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -695,13 +701,13 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Spago Bi Server</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Spago Bi Server</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Spago Bi Server</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Spago Bi Server</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -710,13 +716,13 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>License</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>License</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>License</em>'.
+     * @return the result of interpreting the object as an instance of '<em>License</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -725,17 +731,32 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Generic Schema Connection Item</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Generic Schema Connection Item</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Generic Schema Connection Item</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Generic Schema Connection Item</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
     public Object caseGenericSchemaConnectionItem(GenericSchemaConnectionItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>User Module Authorization</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>User Module Authorization</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseUserModuleAuthorization(UserModuleAuthorization object) {
         return null;
     }
 
@@ -754,12 +775,12 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch, but this is the last
      * case anyway. <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+     * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject)
      * @generated
      */

@@ -37,7 +37,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="availableRefProject" upperBound="-1"
         eType="#//ProjectReference" eOpposite="#//ProjectReference/referencedProject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="migrationTasks" upperBound="-1"
-        eType="ecore:EDataType ../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="masterJobId" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="spagoBiServer" upperBound="-1"
         eType="#//SpagoBiServer" containment="true"/>
@@ -89,7 +89,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="state" eType="#//ItemState"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BusinessProcessItem" eSuperTypes="#//Item">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="notation" eType="ecore:EClass ../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.ecore#//Diagram"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="notation" eType="ecore:EClass platform:/plugin/org.eclipse.gmf.runtime.notation/model/notation.ecore#//Diagram"
         transient="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="semantic" eType="ecore:EClass Business.ecore#//BusinessProcess"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="notationHolder" eType="#//NotationHolder"/>
@@ -153,6 +153,8 @@
         eType="#//UserRole"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="projectAuthorization" upperBound="-1"
         eType="#//UserProjectAuthorization" eOpposite="#//UserProjectAuthorization/user"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="moduleAuthorization" upperBound="-1"
+        eType="#//UserModuleAuthorization" eOpposite="#//UserModuleAuthorization/user"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FolderItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" unique="false"
@@ -186,7 +188,7 @@
         eType="#//ProjectComponentAuthorisation" eOpposite="#//ProjectComponentAuthorisation/component"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NotationHolder">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationString" eType="ecore:EDataType ../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="notationString" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UserProjectAuthorization">
     <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//User" eOpposite="#//User/projectAuthorization"/>
@@ -210,12 +212,21 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="shortDescription" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="host" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="port" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="login" eType="ecore:EDataType ../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="login" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="password" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="applicationContext" eType="ecore:EDataType ../../../plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="applicationContext" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="License">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="license" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EByteArray"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="GenericSchemaConnectionItem" eSuperTypes="#//ConnectionItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UserModuleAuthorization">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="user" eType="#//User" eOpposite="#//User/moduleAuthorization"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" unique="false" eType="#//UserModuleAuthorizationType"
+        defaultValueLiteral="Scheduler"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="UserModuleAuthorizationType">
+    <eLiterals name="Scheduler" value="1" literal="Scheduler"/>
+    <eLiterals name="Dashboard" value="2" literal="Dashboard"/>
+  </eClassifiers>
 </ecore:EPackage>

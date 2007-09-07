@@ -26,7 +26,6 @@ public interface ProcessItem extends Item {
 
     /**
      * Returns the value of the '<em><b>Process</b></em>' reference.
-     * The default value is <code>""</code>.
      * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Process</em>' reference isn't clear, there really should be more of a description

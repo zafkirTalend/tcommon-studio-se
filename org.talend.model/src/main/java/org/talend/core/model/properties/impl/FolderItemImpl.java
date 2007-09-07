@@ -43,7 +43,7 @@ public class FolderItemImpl extends ItemImpl implements FolderItem {
      * @generated
      * @ordered
      */
-    protected EList children = null;
+    protected EList children;
 
     /**
      * The default value of the '{@link #getType() <em>Type</em>}' attribute.

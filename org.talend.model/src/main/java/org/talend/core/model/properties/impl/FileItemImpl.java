@@ -85,7 +85,7 @@ public abstract class FileItemImpl extends ItemImpl implements FileItem {
      * @generated
      * @ordered
      */
-    protected ByteArray content = null;
+    protected ByteArray content;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->

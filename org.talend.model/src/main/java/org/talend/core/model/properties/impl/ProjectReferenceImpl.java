@@ -42,7 +42,7 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
      * @generated
      * @ordered
      */
-    protected Project project = null;
+    protected Project project;
 
     /**
      * The cached value of the '{@link #getReferencedProject() <em>Referenced Project</em>}' reference.
@@ -52,7 +52,7 @@ public class ProjectReferenceImpl extends EObjectImpl implements ProjectReferenc
      * @generated
      * @ordered
      */
-    protected Project referencedProject = null;
+    protected Project referencedProject;
 
     /**
      * <!-- begin-user-doc -->
