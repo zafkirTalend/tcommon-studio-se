@@ -43,11 +43,11 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     DefaultTableLabelProvider a;
 
     private boolean readOnly = false;
-    
+
     private String dbms;
-    
+
     private String attachedConnector;
-   
+
     @Override
     public String toString() {
         StringBuffer toReturn = new StringBuffer(getTableName() + ":"); //$NON-NLS-1$
@@ -92,7 +92,6 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     public void setListColumns(List<IMetadataColumn> listColumns) {
         this.listColumns = listColumns;
     }
-    
 
     public IMetadataTable clone(boolean withCustoms) {
         IMetadataTable clonedMetadata = null;
@@ -104,6 +103,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
             for (int i = 0; i < listColumns.size(); i++) {
                 clonedMetaColumns.add(listColumns.get(i).clone(withCustoms));
             }
+            clonedMetadata.setTableName(this.getTableName());
         } catch (CloneNotSupportedException e) {
             // nothing
         } catch (Exception e) {
@@ -115,12 +115,14 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     /**
      * cloned without custom columns by default.
      */
+    @Override
     public IMetadataTable clone() {
         return clone(false);
     }
+
     /**
-     * Note: for a table with custom columns, the order for the test is really important.
-     * It should be currentComponentMetadata.sameMetadataAs (other).
+     * Note: for a table with custom columns, the order for the test is really important. It should be
+     * currentComponentMetadata.sameMetadataAs (other).
      */
     public boolean sameMetadataAs(IMetadataTable other, int options) {
         if (this == other) {
@@ -139,7 +141,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
             }
         } else {
             if (listColumns.size() == other.getListColumns().size()) { // test if standard columns (no custom, or same
-                                                                        // input / output)
+                // input / output)
                 for (int i = 0; i < other.getListColumns().size(); i++) {
                     IMetadataColumn otherColumn = other.getListColumns().get(i);
                     IMetadataColumn myColumn = this.listColumns.get(i);
@@ -186,7 +188,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
                 }
             }
         }
-        return true;   
+        return true;
     }
 
     public boolean sameMetadataAs(IMetadataTable other) {
@@ -216,6 +218,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
      * 
      * @see org.talend.core.model.repository.IRepositoryObject#getType()
      */
+    @Override
     public ERepositoryObjectType getType() {
         return ERepositoryObjectType.METADATA_CON_TABLE;
     }
@@ -225,6 +228,7 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
      * 
      * @see org.talend.core.model.repository.IRepositoryObject#getVersion()
      */
+    @Override
     public String getVersion() {
         return getParent().getVersion();
     }
@@ -277,17 +281,19 @@ public class MetadataTable extends RepositoryObject implements IMetadataTable, C
     public void setDbms(String dbms) {
         this.dbms = dbms;
     }
-    
+
     /**
      * Getter for attachedConnector.
+     * 
      * @return the attachedConnector
      */
     public String getAttachedConnector() {
         return attachedConnector;
     }
-    
+
     /**
      * Sets the attachedConnector.
+     * 
      * @param attachedConnector the attachedConnector to set
      */
     public void setAttachedConnector(String attachedConnector) {
