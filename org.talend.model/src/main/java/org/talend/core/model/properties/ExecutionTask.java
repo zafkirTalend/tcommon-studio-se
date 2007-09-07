@@ -59,6 +59,7 @@ public class ExecutionTask implements EObject {
     private String checksumArchive;
     private byte[] jobScriptArchive;
     private String status;
+    private boolean processingState;
     private String errorStatus;
 
     /**
@@ -519,6 +520,26 @@ public class ExecutionTask implements EObject {
      */
     public void setErrorStatus(String errorStatus) {
         this.errorStatus = errorStatus;
+    }
+
+
+    
+    /**
+     * Getter for processingState.
+     * @return the processingState
+     */
+    public boolean isProcessingState() {
+        return this.processingState;
+    }
+
+
+    
+    /**
+     * Sets the processingState.
+     * @param processingState the processingState to set
+     */
+    public void setProcessingState(boolean processingState) {
+        this.processingState = processingState;
     }
 
     

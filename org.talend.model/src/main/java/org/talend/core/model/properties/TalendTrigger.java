@@ -53,7 +53,7 @@ public class TalendTrigger implements EObject {
 
     private Date previousFireTime;
     private Date finalFireTime;
-    
+
     /**
      * Getter for id.
      * @return the id
@@ -260,6 +260,7 @@ public class TalendTrigger implements EObject {
     }
 
 
+    
 
     /* (non-Javadoc)
      * @see org.eclipse.emf.ecore.EObject#eAllContents()

@@ -34,6 +34,8 @@ public class SimpleTalendTrigger extends TalendTrigger {
     private Integer repeatCount;
     private int repeatInterval;
     
+    private int timesTriggered;
+
     /**
      * Getter for repeatCount.
      * @return the repeatCount
@@ -65,6 +67,28 @@ public class SimpleTalendTrigger extends TalendTrigger {
     public void setRepeatInterval(int repeatInterval) {
         this.repeatInterval = repeatInterval;
     }
-       
+
+    
+    /**
+     * Getter for timesTriggered.
+     * @return the timesTriggered
+     */
+    public int getTimesTriggered() {
+        return this.timesTriggered;
+    }
+
+    
+    /**
+     * Sets the timesTriggered.
+     * @param timesTriggered the timesTriggered to set
+     */
+    public void setTimesTriggered(int timesTriggered) {
+        this.timesTriggered = timesTriggered;
+    }
+
+    
+    
     
 }
+
+
