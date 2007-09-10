@@ -25,6 +25,7 @@ import org.eclipse.draw2d.IFigure;
 import org.eclipse.draw2d.geometry.Dimension;
 import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.tools.DirectEditManager;
+import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.widgets.Text;
@@ -45,6 +46,7 @@ public class SimpleHtmlTextEditManager extends DirectEditManager {
         super(source, editorType, locator);
     }
 
+    @Override
     protected void bringDown() {
         Font disposeFont = scaledFont;
         scaledFont = null;
@@ -58,8 +60,9 @@ public class SimpleHtmlTextEditManager extends DirectEditManager {
         this.labelText = labelText;
     }
 
+    @Override
     protected void initCellEditor() {
-        SimpleHtmlFigure label = (SimpleHtmlFigure) ((GraphicalEditPart) getEditPart()).getFigure();
+        SimpleHtmlFigure label = (SimpleHtmlFigure) (getEditPart()).getFigure();
         if (labelText == null) {
             String initialLabelText = label.getText();
             getCellEditor().setValue(initialLabelText);
@@ -67,7 +70,7 @@ public class SimpleHtmlTextEditManager extends DirectEditManager {
             getCellEditor().setValue(labelText);
         }
         Text text = (Text) getCellEditor().getControl();
-        IFigure figure = ((GraphicalEditPart) getEditPart()).getFigure();
+        IFigure figure = (getEditPart()).getFigure();
         scaledFont = figure.getFont();
         FontData data = scaledFont.getFontData()[0];
         Dimension fontSize = new Dimension(0, data.getHeight());
@@ -77,4 +80,16 @@ public class SimpleHtmlTextEditManager extends DirectEditManager {
         text.setFont(scaledFont);
         text.selectAll();
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.gef.tools.DirectEditManager#getCellEditor()
+     */
+    @Override
+    public CellEditor getCellEditor() {
+        // TODO Auto-generated method stub
+        return super.getCellEditor();
+    }
+
 }
