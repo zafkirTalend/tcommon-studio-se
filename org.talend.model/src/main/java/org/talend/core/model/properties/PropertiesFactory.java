@@ -300,4 +300,10 @@ public interface PropertiesFactory extends EFactory {
      */
     CronUITalendTrigger createCronUITalendTrigger();
 
+    /**
+     * DOC amaumont Comment method "createCronTalendTrigger".
+     * @return
+     */
+    CronTalendTrigger createCronTalendTrigger();
+
 } // PropertiesFactory

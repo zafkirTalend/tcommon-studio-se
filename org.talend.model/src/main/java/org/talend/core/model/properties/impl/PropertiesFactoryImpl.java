@@ -17,6 +17,7 @@ import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.Component;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.CronTalendTrigger;
 import org.talend.core.model.properties.CronUITalendTrigger;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
@@ -549,6 +550,15 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      */
     public CronUITalendTrigger createCronUITalendTrigger() {
         CronUITalendTrigger trigger = new CronUITalendTrigger();
+        trigger.setId(counter++);
+        return trigger;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.core.model.properties.PropertiesFactory#createCronTalendTrigger()
+     */
+    public CronTalendTrigger createCronTalendTrigger() {
+        CronTalendTrigger trigger = new CronTalendTrigger();
         trigger.setId(counter++);
         return trigger;
     }
