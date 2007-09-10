@@ -294,4 +294,10 @@ public interface PropertiesFactory extends EFactory {
      */
     SimpleTalendTrigger createSimpleTalendTrigger();
 
+    /**
+     * DOC amaumont Comment method "createCronUITalendTrigger".
+     * @return
+     */
+    CronUITalendTrigger createCronUITalendTrigger();
+
 } // PropertiesFactory

@@ -11,32 +11,43 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
-import org.talend.core.model.properties.*;
-
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.Component;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.CronUITalendTrigger;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
+import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.LdifFileConnectionItem;
+import org.talend.core.model.properties.License;
 import org.talend.core.model.properties.NotationHolder;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
+import org.talend.core.model.properties.ProjectComponentAuthorisation;
+import org.talend.core.model.properties.ProjectReference;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.SimpleTalendTrigger;
+import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
+import org.talend.core.model.properties.UserModuleAuthorization;
+import org.talend.core.model.properties.UserModuleAuthorizationType;
+import org.talend.core.model.properties.UserProjectAuthorization;
+import org.talend.core.model.properties.UserProjectAuthorizationType;
 import org.talend.core.model.properties.UserRole;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 
@@ -531,6 +542,15 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
         ExecutionServer executionServer = new ExecutionServer();
         executionServer.setId(counter++);
         return executionServer;
+    }
+
+    /* (non-Javadoc)
+     * @see org.talend.core.model.properties.PropertiesFactory#createCronUITalendTrigger()
+     */
+    public CronUITalendTrigger createCronUITalendTrigger() {
+        CronUITalendTrigger trigger = new CronUITalendTrigger();
+        trigger.setId(counter++);
+        return trigger;
     }
 
 } // PropertiesFactoryImpl
