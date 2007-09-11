@@ -44,6 +44,7 @@ import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.properties.FileItem;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
@@ -55,6 +56,7 @@ import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.model.XmiResourceManager;
 import org.talend.repository.localprovider.ui.wizard.ResourcesManagerFactory.ResourcesManager;
+import org.talend.repository.model.PerlItemOldTypesConverter;
 import org.talend.repository.model.ProxyRepositoryFactory;
 
 /**
@@ -154,7 +156,9 @@ class RepositoryUtil {
             }
 
             try {
-                ProxyRepositoryFactory.getInstance().create(itemRecord.getItem(), path);
+                Item tmpItem = itemRecord.getItem();
+                PerlItemOldTypesConverter converter = new PerlItemOldTypesConverter(tmpItem);
+                ProxyRepositoryFactory.getInstance().create(converter.getItem(), path);
             } catch (Exception e) {
                 logError(e);
             }
@@ -287,7 +291,7 @@ class RepositoryUtil {
         return projectFilePath;
     }
 
-	//usefull when you export a job with source in an archive
+    // usefull when you export a job with source in an archive
     private IPath getSiblingProjectFilePath(IPath path) {
         IPath projectFilePath = path.removeLastSegments(1);
         projectFilePath = projectFilePath.append(FileConstants.LOCAL_PROJECT_FILENAME);
