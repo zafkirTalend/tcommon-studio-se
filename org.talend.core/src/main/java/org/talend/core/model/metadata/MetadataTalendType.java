@@ -78,8 +78,7 @@ public final class MetadataTalendType {
 
     private static ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
 
-    private static final String[] PERL_TYPES = new String[] {
-            "boolean", "date", "datetime", "int", "decimal", "string" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
+    private static final String[] PERL_TYPES = new String[] { "boolean", "date", "datetime", "int", "decimal", "string" }; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$ //$NON-NLS-7$
 
     private static Set<Dbms> dbmsSet = new HashSet<Dbms>();
 
@@ -315,7 +314,8 @@ public final class MetadataTalendType {
             return JavaTypesManager.getJavaTypesLabels();
         } else if (codeLanguage == ECodeLanguage.PERL) {
             // return (String[]) ArrayUtils.clone(PERL_TYPES);
-            return loadTalendTypes("TALENDDEFAULT", false); //$NON-NLS-1$
+            // return loadTalendTypes("TALENDDEFAULT", false); //before
+            return getPerlTypes();
         }
         throw new IllegalStateException("Case not found."); //$NON-NLS-1$
     }
@@ -464,9 +464,9 @@ public final class MetadataTalendType {
         return metadataMappingFiles;
     }
 
-    
     /**
      * Getter for codeLanguage.
+     * 
      * @return the codeLanguage
      */
     static ECodeLanguage getCodeLanguage() {
@@ -475,6 +475,7 @@ public final class MetadataTalendType {
 
     /**
      * Getter for dbmsSet.
+     * 
      * @return the dbmsSet
      */
     static Set<Dbms> getDbmsSet() {
@@ -514,14 +515,12 @@ public final class MetadataTalendType {
         }
     }
 
-    
-    
-    
     /**
      * Getter for pERL_TYPES.
+     * 
      * @return the pERL_TYPES
      */
-    static String[] getPerlTypes() {
+    public static String[] getPerlTypes() {
         return PERL_TYPES.clone();
     }
 
@@ -533,8 +532,7 @@ public final class MetadataTalendType {
         } catch (SystemException e) {
             ExceptionHandler.process(e);
         }
-       
-        
+
         String dbmsId = "mysql_id"; //$NON-NLS-1$
         Dbms dbms = getDbms(dbmsId);
         System.out.println("dbms:" + dbms);
@@ -555,9 +553,8 @@ public final class MetadataTalendType {
 
         System.out.println("int => " + mappingTypeRetriever.getAdvicedTalendToDbTypes("int"));
 
-        
         System.out.println("id_Long => " + mappingTypeRetriever.getAdvicedTalendToDbTypes("id_Long"));
-        
+
         System.out.println();
     }
 

@@ -39,8 +39,10 @@ import org.eclipse.core.runtime.Platform;
 import org.osgi.framework.Bundle;
 import org.talend.commons.xml.XSDValidator;
 import org.talend.core.CorePlugin;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
+import org.talend.core.model.metadata.types.PerlTypesManager;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -176,7 +178,7 @@ public class MetadataSchema {
                 final Node nodetoParse = nodes.item(i);
                 final NamedNodeMap nodeMap = nodetoParse.getAttributes();
                 metadataColumn = initializeOneColumn(metadataColumn, nodeMap);
-                
+
                 if (!columnsAlreadyAdded.contains(metadataColumn.getLabel())) {
                     listColumns.add(metadataColumn);
                     columnsAlreadyAdded.add(metadataColumn.getLabel());
@@ -208,7 +210,7 @@ public class MetadataSchema {
 
         metadataColumn.setLabel(label.getNodeValue());
         metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
-        metadataColumn.setTalendType(type.getNodeValue());
+        metadataColumn.setTalendType(getNewTalendType(type.getNodeValue()));
         if (sourceType != null) {
             metadataColumn.setType(sourceType.getNodeValue());
         }
@@ -256,8 +258,7 @@ public class MetadataSchema {
      */
     private static List<org.talend.core.model.metadata.builder.connection.MetadataColumn> initializeColumns2(
             final File file) throws ParserConfigurationException, SAXException, IOException {
-        final List<org.talend.core.model.metadata.builder.connection.MetadataColumn> listColumns = 
-            new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataColumn>();
+        final List<org.talend.core.model.metadata.builder.connection.MetadataColumn> listColumns = new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataColumn>();
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
@@ -310,7 +311,7 @@ public class MetadataSchema {
 
                 metadataColumn.setLabel(label.getNodeValue());
                 metadataColumn.setKey(Boolean.parseBoolean(key.getNodeValue()));
-                metadataColumn.setTalendType(type.getNodeValue());
+                metadataColumn.setTalendType(getNewTalendType(type.getNodeValue()));
                 if (sourceType != null) {
                     metadataColumn.setSourceType(sourceType.getNodeValue());
                 }
@@ -347,7 +348,7 @@ public class MetadataSchema {
                 // if (preview.getNodeValue()!=null) {
                 // metadataColumn.setPattern(preview.getNodeValue());
                 // }
-                
+
                 if (!columnsAlreadyAdded.contains(metadataColumn.getLabel())) {
                     listColumns.add(metadataColumn);
                     columnsAlreadyAdded.add(metadataColumn.getLabel());
@@ -368,8 +369,7 @@ public class MetadataSchema {
      */
     private static List<org.talend.core.model.metadata.builder.connection.SchemaTarget> initializeSchemaTarget2(
             final File file) throws ParserConfigurationException, SAXException, IOException {
-        final List<org.talend.core.model.metadata.builder.connection.SchemaTarget> listSchemaTargets = 
-            new ArrayList<org.talend.core.model.metadata.builder.connection.SchemaTarget>();
+        final List<org.talend.core.model.metadata.builder.connection.SchemaTarget> listSchemaTargets = new ArrayList<org.talend.core.model.metadata.builder.connection.SchemaTarget>();
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
@@ -462,8 +462,7 @@ public class MetadataSchema {
             document.appendChild(racine);
 
             for (Object list : table.getColumns()) {
-                org.talend.core.model.metadata.builder.connection.MetadataColumn metadataColumn = 
-                    (org.talend.core.model.metadata.builder.connection.MetadataColumn) list;
+                org.talend.core.model.metadata.builder.connection.MetadataColumn metadataColumn = (org.talend.core.model.metadata.builder.connection.MetadataColumn) list;
                 Element column = document.createElement("column"); //$NON-NLS-1$
                 racine.appendChild(column);
 
@@ -677,7 +676,7 @@ public class MetadataSchema {
         Attr label = document.createAttribute("label"); //$NON-NLS-1$
         label.setNodeValue(metadataColumn.getLabel());
         column.setAttributeNode(label);
-        
+
         Attr dbColumnName = document.createAttribute("originalDbColumnName"); //$NON-NLS-1$
         dbColumnName.setNodeValue(metadataColumn.getOriginalDbColumnName());
         column.setAttributeNode(dbColumnName);
@@ -728,5 +727,23 @@ public class MetadataSchema {
         Attr comment = document.createAttribute("comment"); //$NON-NLS-1$
         comment.setNodeValue(metadataColumn.getComment());
         column.setAttributeNode(comment);
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "getPerlNewType".
+     * 
+     * @param type
+     * @return
+     */
+    private static String getNewTalendType(String type) {
+        // return type;
+        switch (LanguageManager.getCurrentLanguage()) {
+        case JAVA:
+            return type;
+        default:
+            // Return the new types of Perl.
+            return PerlTypesManager.getNewTypeName(type);
+        }
     }
 }

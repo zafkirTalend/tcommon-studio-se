@@ -72,7 +72,6 @@ import org.talend.commons.ui.swt.tableviewer.celleditor.DateDialog;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -85,7 +84,6 @@ import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.model.utils.TalendTextUtils;
 import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
 import org.talend.repository.model.RepositoryConstants;
@@ -261,7 +259,7 @@ public abstract class JobContextComposite extends Composite {
             newCellEditorValue = cellEditorTypedValue;
             Integer intValue = (Integer) cellEditorTypedValue;
             String value = ""; //$NON-NLS-1$
-            if (intValue > 0) {
+            if (intValue >= 0) {
                 value = ContextParameterJavaTypeManager.getPerlTypesLabels()[(Integer) cellEditorTypedValue];
             }
             return super.getOriginalTypedValue(cellEditor, value);
