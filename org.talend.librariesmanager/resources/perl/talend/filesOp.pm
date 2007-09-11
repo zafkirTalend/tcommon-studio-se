@@ -63,19 +63,25 @@ sub getFileList {
     }
 
     my @filtered_files = ();
-    foreach my $file (@files) {
-        my $filename = basename($file);
 
-        if ($param{case_sensitive}) {
-            if ($filename =~ m/$param{filemask}/) {
-                push @filtered_files, $file;
+    if (exists $param{filemask}) {
+        foreach my $file (@files) {
+            my $filename = basename($file);
+
+            if ($param{case_sensitive}) {
+                if ($filename =~ m/$param{filemask}/) {
+                    push @filtered_files, $file;
+                }
+            }
+            else {
+                if ($filename =~ m/$param{filemask}/i) {
+                    push @filtered_files, $file;
+                }
             }
         }
-        else {
-            if ($filename =~ m/$param{filemask}/i) {
-                push @filtered_files, $file;
-            }
-        }
+    }
+    else {
+        @filtered_files = @files;
     }
 
     return @filtered_files;
