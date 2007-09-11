@@ -137,7 +137,7 @@ sub getHexRandomString {
 ##
 # return a random english firstname
 #
-# {talendTypes} String
+# {talendTypes} string
 # {Category} String
 # {param} list(undef, 'uppercase', 'lowercase', 'uppercase first') transformation : processing
 #
@@ -186,7 +186,7 @@ sub firstName {
 # return a random english lastname
 #
 # {Category} String
-# {talendTypes} String
+# {talendTypes} string
 # {param} list(undef, 'uppercase', 'lowercase', 'uppercase first') transformation : processing
 #
 # {example} lastName(undef) # Ford, Truman, Roosevelt
@@ -246,7 +246,7 @@ sub lastName {
 # return a random street name
 #
 # {Category} String
-# {talendTypes} String
+# {talendTypes} string
 # {param} list(undef, 'uppercase', 'lowercase', 'uppercase first') transformation : processing
 #
 # {example} street(undef) # Bailard Avenue, Monroe Street, Fairview Avenue
@@ -336,7 +336,7 @@ sub street {
 # return a random us city name
 #
 # {Category} String
-# {talendTypes} String
+# {talendTypes} string
 # {param} list(undef, 'uppercase', 'lowercase', 'uppercase first') transformation : processing
 #
 # {example} city(undef) # Frankfort, Raleigh, Sacramento
@@ -405,7 +405,7 @@ sub city {
 # return a random us state name
 #
 # {Category} String
-# {talendTypes} String
+# {talendTypes} string
 # {param} list(undef, 'uppercase', 'lowercase', 'uppercase first') transformation : processing
 #
 # {example} state(undef) # Alabama, Illinois, Ohio
