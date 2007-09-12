@@ -79,11 +79,12 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
     public void refresh() {
         if (getContextManager() == null) {
-            tab.setEnabled(false);
-            setTabEnable(false);
+            this.setEnabled(false);
+            // tab.setEnabled(false);
+            // setTabEnable(false);
             clearChildrenUI();
         } else {
-            tab.setEnabled(true);
+            this.setEnabled(true);
             setTabEnable(!isReadOnly());
             refreshChildrenUI();
         }
