@@ -108,7 +108,7 @@ public class DefaultCellModifier implements ICellModifier {
     public void modify(Object tableItem, String idColumn, Object value) {
         Object bean = ((TableItem) tableItem).getData();
         TableViewerCreatorColumn column = tableViewerCreator.getColumn(idColumn);
-        
+
         boolean modifiedByColumnCellModifier = false;
         if (column.getColumnCellModifier() != null) {
             modifiedByColumnCellModifier = column.getColumnCellModifier().modify(bean, value);
@@ -129,7 +129,7 @@ public class DefaultCellModifier implements ICellModifier {
             fireCellEditorApplied((TableItem) tableItem, bean, column, value, previousValue, typedValue);
         }
         ModifiedObjectInfo modifiedObjectInfo = this.tableViewerCreator.getModifiedObjectInfo();
-        modifiedObjectInfo.setPreviousModifiedBean(((TableItem) tableItem).getData());
+        modifiedObjectInfo.setPreviousModifiedBean(bean);
         modifiedObjectInfo.setPreviousModifiedIndex(modifiedObjectInfo.getCurrentModifiedIndex());
         modifiedObjectInfo.setCurrentModifiedBean(null);
         modifiedObjectInfo.setPreviousModifiedColumn(modifiedObjectInfo.getCurrentModifiedColumn());
@@ -149,8 +149,8 @@ public class DefaultCellModifier implements ICellModifier {
      */
     private void fireCellEditorApplied(TableItem tableItem, Object bean, TableViewerCreatorColumn column,
             Object cellEditorAppliedValue, Object previousValue, Object newValue) {
-        TableCellValueModifiedEvent event = new TableCellValueModifiedEvent(tableItem, bean, column,
-                cellEditorAppliedValue, newValue);
+        TableCellValueModifiedEvent event = new TableCellValueModifiedEvent(tableItem, bean, column, cellEditorAppliedValue,
+                newValue);
         final Object[] listenerArray = cellEditorAppliedListeners.getListeners();
         for (int i = 0; i < listenerArray.length; i++) {
             ((ITableCellValueModifiedListener) listenerArray[i]).cellValueModified(event);
