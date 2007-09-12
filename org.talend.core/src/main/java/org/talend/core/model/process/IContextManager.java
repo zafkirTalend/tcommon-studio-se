@@ -38,7 +38,7 @@ public interface IContextManager {
     public void setListContext(List<IContext> listContext);
 
     public IContext getDefaultContext();
-    
+
     public IContext getContext(String name);
 
     public void setDefaultContext(IContext context);
@@ -50,10 +50,10 @@ public interface IContextManager {
     public void fireContextsChangedEvent();
 
     public boolean checkValidParameterName(String parameterName);
-    
+
     public void saveToEmf(EList contextTypeList);
-    
+
     public void loadFromEmf(EList contextTypeList, String defaultContextName);
-    
+
     public boolean sameAs(IContextManager contextManager);
 }
