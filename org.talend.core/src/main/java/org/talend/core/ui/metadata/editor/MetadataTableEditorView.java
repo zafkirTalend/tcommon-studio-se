@@ -37,6 +37,7 @@ import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.model.metadata.types.TypesManager;
+import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
 
 /**
  * MetadataTableEditorView2 must be used.
@@ -209,14 +210,15 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
         return new IBeanPropertyAccessors<IMetadataColumn, Integer>() {
 
             public Integer get(IMetadataColumn bean) {
-            	String dbmsId = getCurrentDbms();        	
-            	if (dbmsId != null) {
-            		Dbms dbms=MetadataTalendType.getDbms(dbmsId);
-            		List<DbDefaultLengthAndPrecision> dlpList=dbms.getDefaultLengthPrecision();                    
-                    for(DbDefaultLengthAndPrecision dlp:dlpList){
-                    	if(dlp.getDbTypeName().equals(bean.getType()))
-		                    if(bean.getPrecision()==null)bean.setPrecision(dlp.getDefaultPrecision());                    	
-                    }      
+                String dbmsId = getCurrentDbms();
+                if (dbmsId != null) {
+                    Dbms dbms = MetadataTalendType.getDbms(dbmsId);
+                    List<DbDefaultLengthAndPrecision> dlpList = dbms.getDefaultLengthPrecision();
+                    for (DbDefaultLengthAndPrecision dlp : dlpList) {
+                        if (dlp.getDbTypeName().equals(bean.getType()))
+                            if (bean.getPrecision() == null)
+                                bean.setPrecision(dlp.getDefaultPrecision());
+                    }
                 }
                 return bean.getPrecision();
             }
@@ -231,21 +233,23 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
     @Override
     protected IBeanPropertyAccessors<IMetadataColumn, Integer> getLengthAccessor() {
         return new IBeanPropertyAccessors<IMetadataColumn, Integer>() {
-            public Integer get(IMetadataColumn bean) {  
-            	String dbmsId = getCurrentDbms();        	
-            	if (dbmsId != null) {
-            		Dbms dbms=MetadataTalendType.getDbms(dbmsId);
-            		List<DbDefaultLengthAndPrecision> dlpList=dbms.getDefaultLengthPrecision();                    
-                    for(DbDefaultLengthAndPrecision dlp:dlpList){
-                    	if(dlp.getDbTypeName().equals(bean.getType()))
-		                    if(bean.getLength()==null)bean.setLength(dlp.getDefaultLength());                    	
-                    }      
+
+            public Integer get(IMetadataColumn bean) {
+                String dbmsId = getCurrentDbms();
+                if (dbmsId != null) {
+                    Dbms dbms = MetadataTalendType.getDbms(dbmsId);
+                    List<DbDefaultLengthAndPrecision> dlpList = dbms.getDefaultLengthPrecision();
+                    for (DbDefaultLengthAndPrecision dlp : dlpList) {
+                        if (dlp.getDbTypeName().equals(bean.getType()))
+                            if (bean.getLength() == null)
+                                bean.setLength(dlp.getDefaultLength());
+                    }
                 }
                 return bean.getLength();
             }
 
             public void set(IMetadataColumn bean, Integer value) {
-            	bean.setLength(value);
+                bean.setLength(value);
             }
         };
     }
@@ -313,7 +317,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
         return new IBeanPropertyAccessors<IMetadataColumn, String>() {
 
             public String get(IMetadataColumn bean) {
-            	 
+
                 return bean.getTalendType();
             }
 
@@ -331,8 +335,10 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
                         bean.setType(TypesManager.getDBTypeFromTalendType(dbms, value));
                     }
                 }
+                if (currentBeanHasJavaDateType(bean)) {
+                    bean.setPattern(new JavaSimpleDateFormatProposalProvider().getProposals(null, 0)[0].getContent());
+                }
             }
-
         };
     }
 
@@ -341,21 +347,21 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
         return new IBeanPropertyAccessors<IMetadataColumn, String>() {
 
             public String get(IMetadataColumn bean) {
-            	
+
                 return bean.getType();
             }
 
             public void set(IMetadataColumn bean, String value) {
-            	String dbmsId = getCurrentDbms();        	
-            	if (dbmsId != null) {
-            		Dbms dbms=MetadataTalendType.getDbms(dbmsId);
-            		List<DbDefaultLengthAndPrecision> dlpList=dbms.getDefaultLengthPrecision();                    
-                    for(DbDefaultLengthAndPrecision dlp:dlpList){
-                    	if(dlp.getDbTypeName().equals(value)){
-		                    bean.setLength(dlp.getDefaultLength());
-		                    bean.setPrecision(dlp.getDefaultPrecision());
-                    	}
-                    }      
+                String dbmsId = getCurrentDbms();
+                if (dbmsId != null) {
+                    Dbms dbms = MetadataTalendType.getDbms(dbmsId);
+                    List<DbDefaultLengthAndPrecision> dlpList = dbms.getDefaultLengthPrecision();
+                    for (DbDefaultLengthAndPrecision dlp : dlpList) {
+                        if (dlp.getDbTypeName().equals(value)) {
+                            bean.setLength(dlp.getDefaultLength());
+                            bean.setPrecision(dlp.getDefaultPrecision());
+                        }
+                    }
                 }
                 bean.setType(value);
             }
