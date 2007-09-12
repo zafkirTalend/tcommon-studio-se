@@ -118,7 +118,7 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * @generated
      * @ordered
      */
-    protected boolean rEQUIREDESet = false;
+    protected boolean rEQUIREDESet;
 
     /**
      * The default value of the '{@link #isSHOW() <em>SHOW</em>}' attribute.
@@ -147,7 +147,7 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * @generated
      * @ordered
      */
-    protected boolean sHOWESet = false;
+    protected boolean sHOWESet;
 
     /**
      * <!-- begin-user-doc -->

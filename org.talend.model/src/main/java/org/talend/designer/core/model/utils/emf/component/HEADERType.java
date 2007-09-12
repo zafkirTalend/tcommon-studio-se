@@ -57,7 +57,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>SIGNATURE</em>' attribute.
      * @see #setSIGNATURE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SIGNATURE()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='element' name='SIGNATURE' namespace='##targetNamespace'"
      * @generated
      */
@@ -84,7 +84,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>AUTHOR</em>' attribute.
      * @see #setAUTHOR(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_AUTHOR()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='AUTHOR' namespace='##targetNamespace'"
      * @generated
      */
@@ -111,7 +111,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>COMPATIBILITY</em>' attribute.
      * @see #setCOMPATIBILITY(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_COMPATIBILITY()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='COMPATIBILITY' namespace='##targetNamespace'"
      * @generated
      */
@@ -141,7 +141,7 @@ public interface HEADERType extends EObject {
      * @see #unsetDATAAUTOPROPAGATE()
      * @see #setDATAAUTOPROPAGATE(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_DATAAUTOPROPAGATE()
-     * @model default="true" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="true" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='DATA_AUTO_PROPAGATE' namespace='##targetNamespace'"
      * @generated
      */
@@ -193,7 +193,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>EXTENSION</em>' attribute.
      * @see #setEXTENSION(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_EXTENSION()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='EXTENSION' namespace='##targetNamespace'"
      * @generated
      */
@@ -222,7 +222,7 @@ public interface HEADERType extends EObject {
      * @see #unsetHASCONDITIONALOUTPUTS()
      * @see #setHASCONDITIONALOUTPUTS(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_HASCONDITIONALOUTPUTS()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='HAS_CONDITIONAL_OUTPUTS' namespace='##targetNamespace'"
      * @generated
      */
@@ -276,7 +276,7 @@ public interface HEADERType extends EObject {
      * @see #unsetISMULTIPLYINGOUTPUTS()
      * @see #setISMULTIPLYINGOUTPUTS(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_ISMULTIPLYINGOUTPUTS()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='IS_MULTIPLYING_OUTPUTS' namespace='##targetNamespace'"
      * @generated
      */
@@ -328,7 +328,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>PLATEFORM</em>' attribute.
      * @see #setPLATEFORM(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_PLATEFORM()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='PLATEFORM' namespace='##targetNamespace'"
      * @generated
      */
@@ -355,7 +355,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>RELEASEDATE</em>' attribute.
      * @see #setRELEASEDATE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_RELEASEDATE()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='RELEASE_DATE' namespace='##targetNamespace'"
      * @generated
      */
@@ -385,7 +385,7 @@ public interface HEADERType extends EObject {
      * @see #unsetSCHEMAAUTOPROPAGATE()
      * @see #setSCHEMAAUTOPROPAGATE(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SCHEMAAUTOPROPAGATE()
-     * @model default="true" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="true" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='SCHEMA_AUTO_PROPAGATE' namespace='##targetNamespace'"
      * @generated
      */
@@ -437,7 +437,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>SERIAL</em>' attribute.
      * @see #setSERIAL(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_SERIAL()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='SERIAL' namespace='##targetNamespace'"
      * @generated
      */
@@ -466,7 +466,7 @@ public interface HEADERType extends EObject {
      * @see #unsetSTARTABLE()
      * @see #setSTARTABLE(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_STARTABLE()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean" required="true"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean" required="true"
      *        extendedMetaData="kind='attribute' name='STARTABLE' namespace='##targetNamespace'"
      * @generated
      */
@@ -518,7 +518,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>STATUS</em>' attribute.
      * @see #setSTATUS(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_STATUS()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='STATUS' namespace='##targetNamespace'"
      * @generated
      */
@@ -548,7 +548,7 @@ public interface HEADERType extends EObject {
      * @see #unsetTSTATCATCHERSTATS()
      * @see #setTSTATCATCHERSTATS(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_TSTATCATCHERSTATS()
-     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='TSTATCATCHER_STATS' namespace='##targetNamespace'"
      * @generated
      */
@@ -603,7 +603,7 @@ public interface HEADERType extends EObject {
      * @see #unsetUSEMERGE()
      * @see #setUSEMERGE(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_USEMERGE()
-     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='USE_MERGE' namespace='##targetNamespace'"
      * @generated
      */
@@ -655,7 +655,7 @@ public interface HEADERType extends EObject {
      * @return the value of the '<em>VERSION</em>' attribute.
      * @see #setVERSION(BigDecimal)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_VERSION()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.Decimal" required="true"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.Decimal" required="true"
      *        extendedMetaData="kind='attribute' name='VERSION' namespace='##targetNamespace'"
      * @generated
      */
@@ -685,7 +685,7 @@ public interface HEADERType extends EObject {
      * @see #unsetVISIBLE()
      * @see #setVISIBLE(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_VISIBLE()
-     * @model default="true" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="true" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='VISIBLE' namespace='##targetNamespace'"
      * @generated
      */

@@ -41,7 +41,7 @@ public class CONNECTORSTypeImpl extends EObjectImpl implements CONNECTORSType {
      * @generated
      * @ordered
      */
-    protected EList cONNECTOR = null;
+    protected EList cONNECTOR;
 
     /**
      * <!-- begin-user-doc -->

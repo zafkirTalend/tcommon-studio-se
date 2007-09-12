@@ -23,6 +23,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getCOMMENT <em>COMMENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#isCUSTOM <em>CUSTOM</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#getDEFAULT <em>DEFAULT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COLUMNTypeImpl#isKEY <em>KEY</em>}</li>
@@ -39,6 +40,26 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  * @generated
  */
 public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
+    /**
+     * The default value of the '{@link #getCOMMENT() <em>COMMENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOMMENT()
+     * @generated
+     * @ordered
+     */
+    protected static final String COMMENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCOMMENT() <em>COMMENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOMMENT()
+     * @generated
+     * @ordered
+     */
+    protected String cOMMENT = COMMENT_EDEFAULT;
+
     /**
      * The default value of the '{@link #isCUSTOM() <em>CUSTOM</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -66,7 +87,7 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @generated
      * @ordered
      */
-    protected boolean cUSTOMESet = false;
+    protected boolean cUSTOMESet;
 
     /**
      * The default value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
@@ -115,7 +136,7 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @generated
      * @ordered
      */
-    protected boolean kEYESet = false;
+    protected boolean kEYESet;
 
     /**
      * The default value of the '{@link #getLENGTH() <em>LENGTH</em>}' attribute.
@@ -144,7 +165,7 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @generated
      * @ordered
      */
-    protected boolean lENGTHESet = false;
+    protected boolean lENGTHESet;
 
     /**
      * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
@@ -193,7 +214,7 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @generated
      * @ordered
      */
-    protected boolean nULLABLEESet = false;
+    protected boolean nULLABLEESet;
 
     /**
      * The default value of the '{@link #getPATTERN() <em>PATTERN</em>}' attribute.
@@ -242,7 +263,7 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @generated
      * @ordered
      */
-    protected boolean pRECISIONESet = false;
+    protected boolean pRECISIONESet;
 
     /**
      * The default value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
@@ -271,7 +292,7 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @generated
      * @ordered
      */
-    protected boolean rEADONLYESet = false;
+    protected boolean rEADONLYESet;
 
     /**
      * The default value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
@@ -309,6 +330,27 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      */
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.COLUMN_TYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getCOMMENT() {
+        return cOMMENT;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCOMMENT(String newCOMMENT) {
+        String oldCOMMENT = cOMMENT;
+        cOMMENT = newCOMMENT;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COLUMN_TYPE__COMMENT, oldCOMMENT, cOMMENT));
     }
 
     /**
@@ -678,6 +720,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
+            case ComponentPackage.COLUMN_TYPE__COMMENT:
+                return getCOMMENT();
             case ComponentPackage.COLUMN_TYPE__CUSTOM:
                 return isCUSTOM() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.COLUMN_TYPE__DEFAULT:
@@ -709,6 +753,9 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
+            case ComponentPackage.COLUMN_TYPE__COMMENT:
+                setCOMMENT((String)newValue);
+                return;
             case ComponentPackage.COLUMN_TYPE__CUSTOM:
                 setCUSTOM(((Boolean)newValue).booleanValue());
                 return;
@@ -750,6 +797,9 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      */
     public void eUnset(int featureID) {
         switch (featureID) {
+            case ComponentPackage.COLUMN_TYPE__COMMENT:
+                setCOMMENT(COMMENT_EDEFAULT);
+                return;
             case ComponentPackage.COLUMN_TYPE__CUSTOM:
                 unsetCUSTOM();
                 return;
@@ -791,6 +841,8 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
+            case ComponentPackage.COLUMN_TYPE__COMMENT:
+                return COMMENT_EDEFAULT == null ? cOMMENT != null : !COMMENT_EDEFAULT.equals(cOMMENT);
             case ComponentPackage.COLUMN_TYPE__CUSTOM:
                 return isSetCUSTOM();
             case ComponentPackage.COLUMN_TYPE__DEFAULT:
@@ -824,7 +876,9 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (cUSTOM: ");
+        result.append(" (cOMMENT: ");
+        result.append(cOMMENT);
+        result.append(", cUSTOM: ");
         if (cUSTOMESet) result.append(cUSTOM); else result.append("<unset>");
         result.append(", dEFAULT: ");
         result.append(dEFAULT);

@@ -11,6 +11,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//CODEGENERATIONType/iMPORTS"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//COLUMNType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/cOMMENT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/cUSTOM"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/dEFAULT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//COLUMNType/kEY"/>

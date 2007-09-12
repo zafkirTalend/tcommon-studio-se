@@ -45,7 +45,7 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * @generated
      * @ordered
      */
-    protected EList iTEM = null;
+    protected EList iTEM;
 
     /**
      * The default value of the '{@link #isBASEDONSCHEMA() <em>BASEDONSCHEMA</em>}' attribute.
@@ -74,7 +74,7 @@ public class ITEMSTypeImpl extends EObjectImpl implements ITEMSType {
      * @generated
      * @ordered
      */
-    protected boolean bASEDONSCHEMAESet = false;
+    protected boolean bASEDONSCHEMAESet;
 
     /**
      * The default value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.

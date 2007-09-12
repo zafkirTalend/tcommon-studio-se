@@ -37,7 +37,7 @@ public interface LINKTOType extends EObject {
      * @return the value of the '<em>CTYPE</em>' attribute.
      * @see #setCTYPE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getLINKTOType_CTYPE()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='CTYPE' namespace='##targetNamespace'"
      * @generated
      */
@@ -64,7 +64,7 @@ public interface LINKTOType extends EObject {
      * @return the value of the '<em>NAME</em>' attribute.
      * @see #setNAME(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getLINKTOType_NAME()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='NAME' namespace='##targetNamespace'"
      * @generated
      */

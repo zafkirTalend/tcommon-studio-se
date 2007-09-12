@@ -257,13 +257,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>CODEGENERATION Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>CODEGENERATION Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>CODEGENERATION Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>CODEGENERATION Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -272,13 +272,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>COLUMN Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>COLUMN Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>COLUMN Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>COLUMN Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -287,13 +287,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>COMPONENT Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>COMPONENT Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>COMPONENT Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>COMPONENT Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -302,13 +302,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>CONNECTORS Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>CONNECTORS Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>CONNECTORS Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>CONNECTORS Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -317,13 +317,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>CONNECTOR Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>CONNECTOR Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>CONNECTOR Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>CONNECTOR Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -332,13 +332,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>DEFAULT Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>DEFAULT Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>DEFAULT Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>DEFAULT Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -347,13 +347,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>DOCUMENTATION Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>DOCUMENTATION Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>DOCUMENTATION Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>DOCUMENTATION Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -362,13 +362,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Document Root</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Document Root</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Document Root</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Document Root</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -377,13 +377,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>HEADER Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>HEADER Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>HEADER Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>HEADER Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -392,13 +392,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>IMPORTS Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>IMPORTS Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>IMPORTS Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>IMPORTS Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -407,13 +407,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>IMPORT Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>IMPORT Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>IMPORT Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>IMPORT Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -422,13 +422,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>ITEMS Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>ITEMS Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>ITEMS Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>ITEMS Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -437,13 +437,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>ITEM Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>ITEM Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>ITEM Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>ITEM Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -452,13 +452,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>LINKTO Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>LINKTO Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>LINKTO Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>LINKTO Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -467,13 +467,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>PARAMETERS Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>PARAMETERS Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>PARAMETERS Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>PARAMETERS Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -482,13 +482,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>PARAMETER Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>PARAMETER Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>PARAMETER Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>PARAMETER Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -497,13 +497,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>PLUGINDEPENDENCIES Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>PLUGINDEPENDENCIES Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>PLUGINDEPENDENCIES Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>PLUGINDEPENDENCIES Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -512,13 +512,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>PLUGINDEPENDENCY Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>PLUGINDEPENDENCY Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>PLUGINDEPENDENCY Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>PLUGINDEPENDENCY Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -527,13 +527,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>RETURNS Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>RETURNS Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>RETURNS Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>RETURNS Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -542,13 +542,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>RETURN Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>RETURN Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>RETURN Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>RETURN Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -557,13 +557,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>TABLE Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>TABLE Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>TABLE Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>TABLE Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -572,13 +572,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>TEMPLATEPARAM Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>TEMPLATEPARAM Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>TEMPLATEPARAM Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>TEMPLATEPARAM Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -587,13 +587,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>TEMPLATES Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>TEMPLATES Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>TEMPLATES Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>TEMPLATES Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -602,13 +602,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>TEMPLATE Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>TEMPLATE Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>TEMPLATE Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>TEMPLATE Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -617,13 +617,13 @@ public class ComponentSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch, but this is the last case anyway.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+     * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject)
      * @generated
      */

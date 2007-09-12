@@ -83,7 +83,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @generated
      * @ordered
      */
-    protected boolean bUILTINESet = false;
+    protected boolean bUILTINESet;
 
     /**
      * The default value of the '{@link #getCOLOR() <em>COLOR</em>}' attribute.
@@ -152,7 +152,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @generated
      * @ordered
      */
-    protected boolean lINESTYLEESet = false;
+    protected boolean lINESTYLEESet;
 
     /**
      * The default value of the '{@link #getMAXINPUT() <em>MAXINPUT</em>}' attribute.
@@ -181,7 +181,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @generated
      * @ordered
      */
-    protected boolean mAXINPUTESet = false;
+    protected boolean mAXINPUTESet;
 
     /**
      * The default value of the '{@link #getMAXOUTPUT() <em>MAXOUTPUT</em>}' attribute.
@@ -210,7 +210,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @generated
      * @ordered
      */
-    protected boolean mAXOUTPUTESet = false;
+    protected boolean mAXOUTPUTESet;
 
     /**
      * The default value of the '{@link #getMININPUT() <em>MININPUT</em>}' attribute.
@@ -239,7 +239,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @generated
      * @ordered
      */
-    protected boolean mININPUTESet = false;
+    protected boolean mININPUTESet;
 
     /**
      * The default value of the '{@link #getMINOUTPUT() <em>MINOUTPUT</em>}' attribute.
@@ -268,7 +268,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @generated
      * @ordered
      */
-    protected boolean mINOUTPUTESet = false;
+    protected boolean mINOUTPUTESet;
 
     /**
      * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.

@@ -60,7 +60,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @generated
      * @ordered
      */
-    protected EList dEFAULT = null;
+    protected EList dEFAULT;
 
     /**
      * The cached value of the '{@link #getITEMS() <em>ITEMS</em>}' containment reference.
@@ -70,7 +70,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @generated
      * @ordered
      */
-    protected ITEMSType iTEMS = null;
+    protected ITEMSType iTEMS;
 
     /**
      * The cached value of the '{@link #getTABLE() <em>TABLE</em>}' containment reference list.
@@ -80,7 +80,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @generated
      * @ordered
      */
-    protected EList tABLE = null;
+    protected EList tABLE;
 
     /**
      * The default value of the '{@link #getCONTEXT() <em>CONTEXT</em>}' attribute.
@@ -189,7 +189,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @generated
      * @ordered
      */
-    protected boolean nBLINESESet = false;
+    protected boolean nBLINESESet;
 
     /**
      * The default value of the '{@link #getNOTSHOWIF() <em>NOTSHOWIF</em>}' attribute.
@@ -238,7 +238,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @generated
      * @ordered
      */
-    protected boolean nUMROWESet = false;
+    protected boolean nUMROWESet;
 
     /**
      * The default value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
@@ -267,7 +267,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @generated
      * @ordered
      */
-    protected boolean rEADONLYESet = false;
+    protected boolean rEADONLYESet;
 
     /**
      * The default value of the '{@link #getREPOSITORYVALUE() <em>REPOSITORYVALUE</em>}' attribute.
@@ -316,7 +316,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @generated
      * @ordered
      */
-    protected boolean rEQUIREDESet = false;
+    protected boolean rEQUIREDESet;
 
     /**
      * The default value of the '{@link #isSHOW() <em>SHOW</em>}' attribute.
@@ -345,7 +345,7 @@ public class PARAMETERTypeImpl extends EObjectImpl implements PARAMETERType {
      * @generated
      * @ordered
      */
-    protected boolean sHOWESet = false;
+    protected boolean sHOWESet;
 
     /**
      * The default value of the '{@link #getSHOWIF() <em>SHOWIF</em>}' attribute.

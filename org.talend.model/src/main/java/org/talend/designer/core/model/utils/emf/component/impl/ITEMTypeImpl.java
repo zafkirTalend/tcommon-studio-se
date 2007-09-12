@@ -48,7 +48,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @generated
      * @ordered
      */
-	protected ITEMSType iTEMS = null;
+	protected ITEMSType iTEMS;
 
     /**
      * The default value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
@@ -77,7 +77,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @generated
      * @ordered
      */
-    protected boolean fIELDESet = false;
+    protected boolean fIELDESet;
 
     /**
      * The default value of the '{@link #getFILTER() <em>FILTER</em>}' attribute.
@@ -166,7 +166,7 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @generated
      * @ordered
      */
-    protected boolean rEADONLYESet = false;
+    protected boolean rEADONLYESet;
 
     /**
      * The default value of the '{@link #getREPOSITORYITEM() <em>REPOSITORYITEM</em>}' attribute.

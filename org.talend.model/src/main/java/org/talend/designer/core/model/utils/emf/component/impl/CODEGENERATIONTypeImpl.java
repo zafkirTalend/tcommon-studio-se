@@ -40,7 +40,7 @@ public class CODEGENERATIONTypeImpl extends EObjectImpl implements CODEGENERATIO
      * @generated
      * @ordered
      */
-    protected TEMPLATESType tEMPLATES = null;
+    protected TEMPLATESType tEMPLATES;
 
     /**
      * The cached value of the '{@link #getIMPORTS() <em>IMPORTS</em>}' containment reference.
@@ -50,7 +50,7 @@ public class CODEGENERATIONTypeImpl extends EObjectImpl implements CODEGENERATIO
      * @generated
      * @ordered
      */
-    protected IMPORTSType iMPORTS = null;
+    protected IMPORTSType iMPORTS;
 
     /**
      * <!-- begin-user-doc -->

@@ -103,16 +103,31 @@
 									<xs:sequence>
 										<xs:element name="COLUMN" minOccurs="0" maxOccurs="unbounded">
 											<xs:complexType>
-												<xs:attribute name="NAME" type="xs:string"/>
-												<xs:attribute name="TYPE" type="xs:string"/>
-												<xs:attribute name="LENGTH" type="xs:int"/>
-												<xs:attribute name="PRECISION" type="xs:int" use="optional" default="0"/>
-												<xs:attribute name="KEY" type="xs:boolean" use="optional" default="false"/>
-												<xs:attribute name="NULLABLE" type="xs:boolean" use="optional" default="true"/>
-												<xs:attribute name="DEFAULT" type="xs:string" use="optional"/>
-												<xs:attribute name="PATTERN" type="xs:string" use="optional"/>
-												<xs:attribute name="READONLY" type="xs:boolean" use="optional"/>
-												<xs:attribute name="CUSTOM" type="xs:boolean" use="optional" default="false"/>
+												<xs:attribute
+													name="NAME" type="xs:string" />
+												<xs:attribute
+													name="TYPE" type="xs:string" />
+												<xs:attribute
+													name="LENGTH" type="xs:int" />
+												<xs:attribute
+													name="PRECISION" type="xs:int" use="optional" default="0" />
+												<xs:attribute name="KEY"
+													type="xs:boolean" use="optional" default="false" />
+												<xs:attribute
+													name="NULLABLE" type="xs:boolean" use="optional"
+													default="true" />
+												<xs:attribute
+													name="DEFAULT" type="xs:string" use="optional" />
+												<xs:attribute
+													name="PATTERN" type="xs:string" use="optional" />
+												<xs:attribute
+													name="READONLY" type="xs:boolean" use="optional" />
+												<xs:attribute
+													name="CUSTOM" type="xs:boolean" use="optional"
+													default="false" />
+												<xs:attribute
+													name="COMMENT" type="xs:string"  use="optional">
+												</xs:attribute>
 											</xs:complexType>
 										</xs:element>
 									</xs:sequence>
