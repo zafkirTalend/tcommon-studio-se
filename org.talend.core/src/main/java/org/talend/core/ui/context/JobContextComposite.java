@@ -42,6 +42,7 @@ import org.eclipse.swt.custom.CTabItem;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseTrackAdapter;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -71,6 +72,7 @@ import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DateDialog;
 import org.talend.commons.ui.swt.tableviewer.tableeditor.TableEditorManager;
 import org.talend.commons.ui.utils.PathUtils;
+import org.talend.commons.ui.ws.WindowSystem;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
@@ -165,7 +167,7 @@ public abstract class JobContextComposite extends Composite {
 
     protected abstract void onContextRenameParameter(IContextManager contextManager, String oldName, String newName);
 
-    private SelectionListener listenerSelection = new SelectionListener() {
+    private final SelectionListener listenerSelection = new SelectionListener() {
 
         public void widgetDefaultSelected(final SelectionEvent e) {
         }
@@ -197,7 +199,7 @@ public abstract class JobContextComposite extends Composite {
         }
     };
 
-    private Listener menuTableListener = new Listener() {
+    private final Listener menuTableListener = new Listener() {
 
         public void handleEvent(final Event event) {
             Menu menuTable = (Menu) hashCurControls.get(MENU_TABLE);
@@ -259,7 +261,7 @@ public abstract class JobContextComposite extends Composite {
             newCellEditorValue = cellEditorTypedValue;
             Integer intValue = (Integer) cellEditorTypedValue;
             String value = ""; //$NON-NLS-1$
-            if (intValue >= 0) {
+            if (intValue > 0) {
                 value = ContextParameterJavaTypeManager.getPerlTypesLabels()[(Integer) cellEditorTypedValue];
             }
             return super.getOriginalTypedValue(cellEditor, value);
@@ -363,7 +365,7 @@ public abstract class JobContextComposite extends Composite {
 
         @Override
         public Object getOriginalTypedValue(final CellEditor cellEditor, final Object cellEditorTypedValue) {
-            if (!oldName.equals((String) cellEditorTypedValue)) {
+            if (!oldName.equals(cellEditorTypedValue)) {
                 if (!renameParameter(oldName, (String) cellEditorTypedValue)) {
                     return super.getOriginalTypedValue(cellEditor, oldName);
                 }
@@ -377,7 +379,7 @@ public abstract class JobContextComposite extends Composite {
 
     private IContext oldContext;
 
-    private CellEditorValueAdapter setDirtyValueAdapter = new CellEditorValueAdapter() {
+    private final CellEditorValueAdapter setDirtyValueAdapter = new CellEditorValueAdapter() {
 
         @Override
         public Object getCellEditorTypedValue(final CellEditor cellEditor, final Object originalTypedValue) {
@@ -393,8 +395,9 @@ public abstract class JobContextComposite extends Composite {
         }
     };
 
-    private SelectionAdapter checkTableAdapter = new SelectionAdapter() {
+    private final SelectionAdapter checkTableAdapter = new SelectionAdapter() {
 
+        @Override
         public void widgetSelected(final SelectionEvent e) {
             if (e.detail == SWT.CHECK) {
                 TableItem tableItem = (TableItem) e.item;
@@ -416,7 +419,7 @@ public abstract class JobContextComposite extends Composite {
         }
     };
 
-    private Listener removeContextListener = new Listener() {
+    private final Listener removeContextListener = new Listener() {
 
         public void handleEvent(final Event event) {
             String contextName = tabFolder.getSelection().getText();
@@ -429,7 +432,7 @@ public abstract class JobContextComposite extends Composite {
         }
     };
 
-    private Listener copyContextListener = new Listener() {
+    private final Listener copyContextListener = new Listener() {
 
         public void handleEvent(final Event event) {
             InputDialog inputDial = new InputDialog(getShell(), Messages.getString("ContextProcessSection.6"), //$NON-NLS-1$
@@ -449,7 +452,7 @@ public abstract class JobContextComposite extends Composite {
         }
     };
 
-    private Listener renameContextListener = new Listener() {
+    private final Listener renameContextListener = new Listener() {
 
         public void handleEvent(final Event event) {
             String contextName = tabFolder.getSelection().getText();
@@ -469,7 +472,7 @@ public abstract class JobContextComposite extends Composite {
         }
     };
 
-    private Listener removeParameterListener = new Listener() {
+    private final Listener removeParameterListener = new Listener() {
 
         public void handleEvent(final Event event) {
             final IContext selectedContext = getSelectedContext();
@@ -721,6 +724,21 @@ public abstract class JobContextComposite extends Composite {
 
         final Table newtable = tableViewerCreator.createTable();
 
+        /*
+         * please look the comment in the Table.class (in the SWT package for GTK) source code, line:1859. Bug in GTK.
+         * GTK segments fault, if the GtkTreeView widget is not in focus and all items in the widget are disposed before
+         * it finishes processing a button press. The fix is to give focus to the widget before it starts processing the
+         * event.
+         */
+        newtable.addMouseTrackListener(new MouseTrackAdapter() {
+
+            public void mouseEnter(MouseEvent e) {
+                if (WindowSystem.isGTK()) {
+                    newtable.setFocus();
+                }
+            }
+
+        });
         final TableEditor treeEditor = new TableEditor(newtable);
         createEditorListener(treeEditor);
         removeParameter.addListener(SWT.Selection, removeParameterListener);
@@ -774,6 +792,7 @@ public abstract class JobContextComposite extends Composite {
         });
         newtable.addMouseListener(new MouseAdapter() {
 
+            @Override
             public void mouseDown(MouseEvent e) {
                 Rectangle clientArea = newtable.getClientArea();
                 Point pt = new Point(e.x, e.y);
@@ -822,7 +841,7 @@ public abstract class JobContextComposite extends Composite {
         }
     }
 
-    private DefaultCellEditorFactory cellEditorFactory = new DefaultCellEditorFactory();
+    private final DefaultCellEditorFactory cellEditorFactory = new DefaultCellEditorFactory();
 
     /**
      * zx Comment method "activateCellEditor".
