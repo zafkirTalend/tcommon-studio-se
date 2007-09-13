@@ -47,7 +47,6 @@ import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
-import org.talend.librariesmanager.model.ModulesNeededProvider;
 import org.talend.librariesmanager.ui.views.ModulesViewComposite;
 
 /**
@@ -63,11 +62,11 @@ public class RemoveExternalJarAction extends Action {
         super();
         setText("Remove external JARs"); //$NON-NLS-1$
         setDescription("Remove external JARs"); //$NON-NLS-1$
-        setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
-                ISharedImages.IMG_TOOL_DELETE_DISABLED));
+        setImageDescriptor(PlatformUI.getWorkbench().getSharedImages()
+                .getImageDescriptor(ISharedImages.IMG_TOOL_DELETE));
         setDisabledImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
                 ISharedImages.IMG_TOOL_DELETE_DISABLED));
-        setEnabled(false);
+        setEnabled(true);
         init();
     }
 
@@ -97,6 +96,7 @@ public class RemoveExternalJarAction extends Action {
                     setEnabled(true);
                 }
             });
+            setEnabled(false);
         }
     }
 
@@ -132,10 +132,6 @@ public class RemoveExternalJarAction extends Action {
                     }
                     project.setRawClasspath(projectLibraries.toArray(new IClasspathEntry[projectLibraries.size()]),
                             null);
-                    List<ModuleNeeded> modulesNeeded = new ArrayList<ModuleNeeded>();
-                    modulesNeeded.addAll(ModulesNeededProvider.getModulesNeeded());
-                    modulesNeeded.addAll(ModulesNeededProvider.getUnUsedModules());
-                    ModulesViewComposite.getTableViewerCreator().init(modulesNeeded);
                     setEnabled(false);
                 } catch (JavaModelException e) {
                     ExceptionHandler.process(e);

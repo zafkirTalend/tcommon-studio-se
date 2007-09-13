@@ -22,8 +22,6 @@
 package org.talend.librariesmanager.ui.actions;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.SWT;
@@ -36,10 +34,7 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.utils.io.FilesUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
-import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.ui.images.ECoreImage;
-import org.talend.librariesmanager.model.ModulesNeededProvider;
-import org.talend.librariesmanager.ui.views.ModulesViewComposite;
 
 /**
  * Imports the external jar files into talend.
@@ -86,10 +81,6 @@ public class ImportExternalJarAction extends Action {
                         ExceptionHandler.process(e);
                     }
                 }
-                List<ModuleNeeded> modulesNeeded = new ArrayList<ModuleNeeded>();
-                modulesNeeded.addAll(ModulesNeededProvider.getModulesNeeded());
-                modulesNeeded.addAll(ModulesNeededProvider.getUnUsedModules());
-                ModulesViewComposite.getTableViewerCreator().init(modulesNeeded);
             }
         });
     }

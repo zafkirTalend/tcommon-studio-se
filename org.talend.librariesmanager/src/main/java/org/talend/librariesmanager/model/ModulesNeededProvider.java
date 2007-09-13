@@ -52,6 +52,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
 import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.repository.model.ComponentsFactoryProvider;
+import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -152,16 +153,19 @@ public class ModulesNeededProvider {
         try {
             List<IRepositoryObject> jobs = repositoryFactory.getAll(ERepositoryObjectType.PROCESS, true);
             for (IRepositoryObject cur : jobs) {
-                ProcessItem item = (ProcessItem) cur.getProperty().getItem();
-                List<NodeType> nodes = item.getProcess().getNode();
-                for (NodeType node : nodes) {
-                    List<ElementParameterType> elementParameter = node.getElementParameter();
-                    for (ElementParameterType elementParam : elementParameter) {
-                        if (elementParam.getField().equals(EParameterFieldType.MODULE_LIST.getName())) {
-                            String uniquename = ElementParameterParser.getUNIQUENAME(node);
-                            ModuleNeeded toAdd = new ModuleNeeded("Job " + item.getProperty().getLabel(), elementParam
-                                    .getValue(), "Required for using component : " + uniquename + ".", true);
-                            importNeedsList.add(toAdd);
+                if (repositoryFactory.getStatus(cur) != ERepositoryStatus.DELETED) {
+                    ProcessItem item = (ProcessItem) cur.getProperty().getItem();
+                    List<NodeType> nodes = item.getProcess().getNode();
+                    for (NodeType node : nodes) {
+                        List<ElementParameterType> elementParameter = node.getElementParameter();
+                        for (ElementParameterType elementParam : elementParameter) {
+                            if (elementParam.getField().equals(EParameterFieldType.MODULE_LIST.getName())) {
+                                String uniquename = ElementParameterParser.getUNIQUENAME(node);
+                                ModuleNeeded toAdd = new ModuleNeeded("Job " + item.getProperty().getLabel(),
+                                        elementParam.getValue(), "Required for using component : " + uniquename + ".",
+                                        true);
+                                importNeedsList.add(toAdd);
+                            }
                         }
                     }
                 }
@@ -179,16 +183,18 @@ public class ModulesNeededProvider {
         try {
             List<IRepositoryObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES, true);
             for (IRepositoryObject current : routines) {
-                Item item = current.getProperty().getItem();
-                RoutineItem routine = (RoutineItem) item;
-                EList imports = routine.getImports();
-                for (Object o : imports) {
-                    IMPORTType currentImport = (IMPORTType) o;
-                    // FIXME SML i18n
-                    ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport
-                            .getMODULE(), currentImport.getMESSAGE(), currentImport.isREQUIRED());
-                    // toAdd.setStatus(ELibraryInstallStatus.INSTALLED);
-                    importNeedsList.add(toAdd);
+                if (repositoryFactory.getStatus(current) != ERepositoryStatus.DELETED) {
+                    Item item = current.getProperty().getItem();
+                    RoutineItem routine = (RoutineItem) item;
+                    EList imports = routine.getImports();
+                    for (Object o : imports) {
+                        IMPORTType currentImport = (IMPORTType) o;
+                        // FIXME SML i18n
+                        ModuleNeeded toAdd = new ModuleNeeded("Routine " + currentImport.getNAME(), currentImport
+                                .getMODULE(), currentImport.getMESSAGE(), currentImport.isREQUIRED());
+                        // toAdd.setStatus(ELibraryInstallStatus.INSTALLED);
+                        importNeedsList.add(toAdd);
+                    }
                 }
             }
         } catch (PersistenceException e) {

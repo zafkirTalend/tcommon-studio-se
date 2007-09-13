@@ -25,23 +25,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.jdt.core.IClasspathEntry;
-import org.eclipse.jdt.core.IJavaProject;
-import org.eclipse.jdt.core.JavaCore;
-import org.eclipse.jdt.core.JavaModelException;
 import org.talend.commons.exception.BusinessException;
-import org.talend.commons.exception.ExceptionHandler;
-import org.talend.commons.utils.generation.JavaUtils;
 import org.talend.commons.utils.io.FilesUtils;
-import org.talend.core.CorePlugin;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ILibrariesService;
@@ -91,30 +78,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         fireLibrariesChanges();
     }
 
-    private void addResolvedClasspathPath(File targetFile) {
-        CorePlugin.getDefault().getLibrariesService().resetModulesNeeded();
-        // Adds the classpath to java project.
-        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
-        IProject prj = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
-        IJavaProject project = JavaCore.create(prj);
-
-        List<IClasspathEntry> projectLibraries = new ArrayList<IClasspathEntry>();
-
-        try {
-            IClasspathEntry[] resolvedClasspath = project.getResolvedClasspath(true);
-            List<String> librariesString = new ArrayList<String>();
-            for (IClasspathEntry entry : resolvedClasspath) {
-                IPath path = entry.getPath();
-                librariesString.add(path.lastSegment());
-            }
-            projectLibraries.addAll(Arrays.asList(resolvedClasspath));
-            if (!librariesString.contains(targetFile.getName())) {
-                projectLibraries.add(JavaCore.newLibraryEntry(new Path(targetFile.getAbsolutePath()), null, null));
-            }
-            project.setRawClasspath(projectLibraries.toArray(new IClasspathEntry[projectLibraries.size()]), null);
-        } catch (JavaModelException e) {
-            ExceptionHandler.process(e);
-        }
+    protected void addResolvedClasspathPath(File targetFile) {
     }
 
     public void undeployLibrary(String path) throws IOException {

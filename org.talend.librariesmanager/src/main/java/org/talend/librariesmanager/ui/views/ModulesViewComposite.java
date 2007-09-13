@@ -258,6 +258,10 @@ public class ModulesViewComposite extends Composite {
      * @see org.talend.designer.codegen.perlmodule.ui.views.IModulesViewComposite#refresh()
      */
     public void refresh() {
+        List<ModuleNeeded> modulesNeeded = new ArrayList<ModuleNeeded>();
+        modulesNeeded.addAll(ModulesNeededProvider.getModulesNeeded());
+        modulesNeeded.addAll(ModulesNeededProvider.getUnUsedModules());
+        ModulesViewComposite.getTableViewerCreator().init(modulesNeeded);
         tableViewerCreator.getTableViewer().refresh();
     }
 

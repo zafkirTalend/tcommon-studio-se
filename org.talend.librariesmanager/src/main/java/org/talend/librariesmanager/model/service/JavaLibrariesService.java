@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -34,6 +35,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.IClasspathEntry;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.JavaCore;
@@ -168,4 +170,32 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             ExceptionHandler.process(e);
         }
     }
+
+    @Override
+    protected void addResolvedClasspathPath(File targetFile) {
+        CorePlugin.getDefault().getLibrariesService().resetModulesNeeded();
+        // Adds the classpath to java project.
+        IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
+        IProject prj = root.getProject(JavaUtils.JAVA_PROJECT_NAME);
+        IJavaProject project = JavaCore.create(prj);
+
+        List<IClasspathEntry> projectLibraries = new ArrayList<IClasspathEntry>();
+
+        try {
+            IClasspathEntry[] resolvedClasspath = project.getResolvedClasspath(true);
+            List<String> librariesString = new ArrayList<String>();
+            for (IClasspathEntry entry : resolvedClasspath) {
+                IPath path = entry.getPath();
+                librariesString.add(path.lastSegment());
+            }
+            projectLibraries.addAll(Arrays.asList(resolvedClasspath));
+            if (!librariesString.contains(targetFile.getName())) {
+                projectLibraries.add(JavaCore.newLibraryEntry(new Path(targetFile.getAbsolutePath()), null, null));
+            }
+            project.setRawClasspath(projectLibraries.toArray(new IClasspathEntry[projectLibraries.size()]), null);
+        } catch (JavaModelException e) {
+            ExceptionHandler.process(e);
+        }
+    }
+
 }
