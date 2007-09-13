@@ -96,7 +96,14 @@ public class ParserUtils {
         return s;
     }
 
-    public static java.util.Date parseTo_Date(String s, String pattern) {
+    public static java.util.Date parseTo_Date(String s, String pattern) {        
+        //check the parameter for supporting " ","2007-09-13"," 2007-09-13 "
+        if (s != null) {
+            s = s.trim();
+        }
+        if(s==null || s.length() == 0) {        
+            return null;
+        }
         java.util.Date date = null;
         try {
             date = FastDateParser.getInstance(pattern).parse(s);
