@@ -51,6 +51,9 @@ public interface IDesignerCoreService extends IService {
     public ILabelProvider getGEFEditorNodeLabelProvider();
 
     public void switchToCurContextsView();
-    //add for feature 840
+
+    // add for feature 840
     public void saveJobBeforeRun(IProcess activeProcess);
+
+    public IProcess getCurrentProcess();
 }

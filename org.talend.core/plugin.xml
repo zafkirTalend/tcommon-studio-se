@@ -61,5 +61,13 @@
          point="org.eclipse.ui.startup">
       <startup class="org.talend.core.ui.DisableLanguageActions"/>
    </extension>
+   <extension
+         id="tos.variables"
+         point="org.eclipse.jdt.ui.javaCompletionProposalComputer">
+      <javaCompletionProposalComputer
+            activate="true"
+            class="org.talend.core.ui.viewer.proposal.TalendCompletionProposalComputer">
+      </javaCompletionProposalComputer>
+   </extension>
 
 </plugin>
