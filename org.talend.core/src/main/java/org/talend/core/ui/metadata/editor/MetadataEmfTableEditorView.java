@@ -164,7 +164,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
 
             public Integer get(MetadataColumn bean) {
                 String dbmsId = getCurrentDbms();
-                if (dbmsId != null && bean.getPrecision() <= 0) {
+                if (dbmsId != null && bean.getPrecision() < 0) {
                     Dbms dbms = MetadataTalendType.getDbms(dbmsId);
                     List<DbDefaultLengthAndPrecision> dlpList = dbms.getDefaultLengthPrecision();
                     for (DbDefaultLengthAndPrecision dlp : dlpList) {
@@ -196,12 +196,13 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
                     Dbms dbms = MetadataTalendType.getDbms(dbmsId);
                     List<DbDefaultLengthAndPrecision> dlpList = dbms.getDefaultLengthPrecision();
                     for (DbDefaultLengthAndPrecision dlp : dlpList) {
-                        if (dlp.getDbTypeName().equals(bean.getSourceType()))
+                        if (dlp.getDbTypeName().equals(bean.getSourceType())) {
                             if (dlp.getDefaultLength() == null) {
                                 bean.setLength(0);
                             } else {
                                 bean.setLength(dlp.getDefaultLength());
                             }
+                        }
                     }
                 }
                 return bean.getLength();
@@ -290,29 +291,33 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
                     if (oldDbType == null || oldDbType.equals(oldDefaultDbType) || "".equals(oldDbType)) {
                         bean.setSourceType(TypesManager.getDBTypeFromTalendType(dbms, value));
                     }
-
-                    Dbms dbmsD = MetadataTalendType.getDbms(dbms);
-                    List<DbDefaultLengthAndPrecision> dlpList = dbmsD.getDefaultLengthPrecision();
-                    for (DbDefaultLengthAndPrecision dlp : dlpList) {
-                        if (dlp.getDbTypeName().equals(bean.getSourceType())) {
-                            if (dlp.getDefaultLength() == null) {
-                                bean.setLength(0);
-                            } else {
-                                bean.setLength(dlp.getDefaultLength());
-                            }
-                            if (dlp.getDefaultPrecision() == null) {
-                                bean.setPrecision(0);
-                            } else {
-                                bean.setPrecision(dlp.getDefaultPrecision());
-                            }
-                        }
-                    }
                 }
                 if (currentBeanHasJavaDateType(bean)) {
                     bean.setPattern(new JavaSimpleDateFormatProposalProvider().getProposals(null, 0)[0].getContent());
+                    adaptLengthAndPrecision(bean, dbms);
                 }
             }
         };
+    }
+
+    private void adaptLengthAndPrecision(MetadataColumn bean, String dbms) {
+        Dbms dbmsD = MetadataTalendType.getDbms(dbms);
+        List<DbDefaultLengthAndPrecision> dlpList = dbmsD.getDefaultLengthPrecision();
+        for (DbDefaultLengthAndPrecision dlp : dlpList) {
+            if (dlp.getDbTypeName().equals(bean.getSourceType())) {
+                if (dlp.getDefaultLength() == null) {
+                    bean.setLength(0);
+                } else {
+                    bean.setLength(dlp.getDefaultLength());
+                }
+                if (dlp.getDefaultPrecision() == null) {
+                    bean.setPrecision(0);
+                } else {
+                    bean.setPrecision(dlp.getDefaultPrecision());
+                }
+            }
+        }
+
     }
 
     @Override
@@ -324,8 +329,11 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             }
 
             public void set(MetadataColumn bean, String value) {
-                // throw new UnsupportedOperationException();
                 bean.setSourceType(value);
+                String dbms = getCurrentDbms();
+                if (dbms != null) {
+                    adaptLengthAndPrecision(bean, dbms);
+                }
             }
 
         };
@@ -338,8 +346,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
      */
     @Override
     protected ExtendedToolbarView initToolBar() {
-        return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(),
-                getCurrentDbms());
+        return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(), getCurrentDbms());
     }
 
     /*
