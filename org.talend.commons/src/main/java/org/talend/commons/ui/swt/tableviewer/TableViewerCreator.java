@@ -42,12 +42,9 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.ControlListener;
-import org.eclipse.swt.events.FocusEvent;
-import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseEvent;
@@ -63,11 +60,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Layout;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
-import org.junit.runner.Runner;
 import org.talend.commons.i18n.internal.Messages;
 import org.talend.commons.ui.swt.extended.table.ModifyBeanValueCommand;
 import org.talend.commons.ui.swt.tableviewer.behavior.DefaultCellModifier;
@@ -167,7 +162,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     private static final String ID_MASKED_COLUMN = "__MASKED_COLUMN__";
 
-    private Composite compositeParent;
+    private final Composite compositeParent;
 
     private List<TableViewerCreatorColumn> columns = new ArrayList<TableViewerCreatorColumn>();
 
@@ -180,7 +175,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     /*
      * The list of listeners who wish to be notified when something significant happens with the proposals.
      */
-    private ListenerList modifiedBeanListeners = new ListenerList();
+    private final ListenerList modifiedBeanListeners = new ListenerList();
 
     private CommandStack commandStack;
 
@@ -1007,7 +1002,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
                 this.tableViewerCreatorSorter.prepareSort(this, defaultOrderedColumn, defaultOrderBy);
             }
         }
-        tableViewer.setSorter((ViewerSorter) this.tableViewerCreatorSorter);
+        tableViewer.setSorter(this.tableViewerCreatorSorter);
     }
 
     protected void attachLabelProvider() {
@@ -1324,7 +1319,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
     }
 
     public List<TableViewerCreatorColumn> getColumns() {
-        return (List<TableViewerCreatorColumn>) Collections.unmodifiableList(columns);
+        return Collections.unmodifiableList(columns);
     }
 
     public void setColumns(List<TableViewerCreatorColumn> columns) {
@@ -1889,7 +1884,19 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         // System.out.println("previousValue="+previousValue);
         // System.out.println("value="+value);
 
-        if (value == null && previousValue != null || value != null && !value.equals(previousValue)) {
+        boolean equalsPrevious = false;
+        if (value instanceof Map) {
+            Map vMap = (Map) value;
+            if (!((String) vMap.get("TEXT")).equals(previousValue)) {
+                equalsPrevious = true;
+            }
+        } else {
+            if (!value.equals(previousValue)) {
+                equalsPrevious = true;
+            }
+        }
+
+        if (value == null && previousValue != null || value != null && equalsPrevious) {
 
             AccessorUtils.set(column, currentRowObject, value);
 
@@ -1903,7 +1910,7 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
             extendedList.setUseEquals(false);
 
             ModifiedBeanEvent<B> event = new ModifiedBeanEvent<B>();
-            event.bean = (B) currentRowObject;
+            event.bean = currentRowObject;
             event.column = column;
             event.index = extendedList.indexOf(currentRowObject);
             event.newValue = value;
