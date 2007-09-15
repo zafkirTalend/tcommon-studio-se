@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.expressionbuilder;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
@@ -36,6 +39,8 @@ import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
+import org.talend.designer.rowgenerator.data.Parameter;
+import org.talend.expressionbuilder.test.shadow.Expression;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -205,8 +210,10 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
      * 
      * @see org.talend.expressionbuilder.IExpressionConsumer#setConsumerExpression(java.lang.String)
      */
-    public void setConsumerExpression(String expression) {
-        text.setText(expression);
+    public void setConsumerExpression(Expression expression) {
+        text.setText(expression.getExpression());
+        this.expression = expression;
+        this.parameter.setVariables(expression.getVariables());
         focusLost();
     }
 
@@ -217,6 +224,44 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
      */
     public String getText() {
         return text.getText();
+    }
+
+    private Expression expression;
+
+    private Parameter parameter;
+
+    /**
+     * yzhang Comment method "getExpression".
+     * 
+     * @return
+     */
+    public Expression getExpression() {
+        return expression;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.viewers.TextCellEditor#doGetValue()
+     */
+    @Override
+    protected Object doGetValue() {
+
+        Map<String, Object> value = new HashMap<String, Object>();
+        value.put("TEXT", text.getText());
+        value.put("TEXT_DATA", this.expression);
+
+        return value;
+    }
+
+    /**
+     * Sets the parameter.
+     * 
+     * @param parameter the parameter to set
+     */
+    public void setParameter(Parameter parameter) {
+        this.parameter = parameter;
+        this.expression = new Expression(parameter.getValue(), parameter.getVariables());
     }
 
 }

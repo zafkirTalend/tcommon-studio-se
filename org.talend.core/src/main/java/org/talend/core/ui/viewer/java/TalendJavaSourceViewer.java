@@ -37,6 +37,7 @@ import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -92,5 +93,15 @@ public class TalendJavaSourceViewer extends JavaSourceViewer {
         });
 
         return viewer;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.text.source.SourceViewer#getControl()
+     */
+    @Override
+    public Control getControl() {
+        return super.getControl();
     }
 }

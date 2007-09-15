@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.expressionbuilder;
 
+import org.talend.expressionbuilder.test.shadow.Expression;
+
 /**
  * yzhang class global comment. Detailled comment <br/>
  * 
@@ -29,6 +31,6 @@ package org.talend.expressionbuilder;
  */
 public interface IExpressionConsumer {
 
-    public void setConsumerExpression(String expression);
+    public void setConsumerExpression(Expression expression);
 
 }

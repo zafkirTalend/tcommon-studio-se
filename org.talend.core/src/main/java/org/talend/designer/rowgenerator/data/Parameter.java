@@ -21,12 +21,17 @@
 // ============================================================================
 package org.talend.designer.rowgenerator.data;
 
+import java.util.List;
+
 import org.talend.core.i18n.Messages;
+import org.talend.expressionbuilder.test.shadow.Variable;
 
 /**
  * class global comment. Detailled comment <br/> $Id: Parameter.java,v 1.4 2007/02/02 03:04:21 pub Exp $
  */
 public abstract class Parameter {
+
+    protected List<Variable> variables;
 
     /**
      * @uml.property name="name"
@@ -143,13 +148,32 @@ public abstract class Parameter {
      */
     public abstract boolean sameParameterAs(Parameter obj);
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb      .append(Messages.getString("Parameter.Name") + name)
-                .append(Messages.getString("Parameter.Value") + this.getValue())
-                .append(Messages.getString("Parameter.Comment") + this.getComment())
-                .append(Messages.getString("Parameter.Type") + this.getType()); 
+        sb.append(Messages.getString("Parameter.Name") + name).append(
+                Messages.getString("Parameter.Value") + this.getValue()).append(
+                Messages.getString("Parameter.Comment") + this.getComment()).append(
+                Messages.getString("Parameter.Type") + this.getType());
 
         return sb.toString();
+    }
+
+    /**
+     * Getter for variables.
+     * 
+     * @return the variables
+     */
+    public List<Variable> getVariables() {
+        return this.variables;
+    }
+
+    /**
+     * Sets the variables.
+     * 
+     * @param variables the variables to set
+     */
+    public void setVariables(List<Variable> variables) {
+        this.variables = variables;
     }
 }
