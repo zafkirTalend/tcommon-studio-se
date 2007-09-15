@@ -46,11 +46,14 @@ public enum EImage implements IImage {
     REFRESH_ICON("/icons/refresh.gif"),
     EDIT_ICON("/icons/write_obj.gif"),
     READ_ICON("/icons/read_obj.gif"),
-    
+
     RESET_DBTYPES_ICON("/icons/reset_dbtypes.jpg"),
 
     IMPORT_ICON("/icons/import.gif"),
     EXPORT_ICON("/icons/export.gif"),
+
+    CHECKED_ICON("/icons/checked.gif"),
+    UNCHECKED_ICON("/icons/unchecked.gif"),
 
     ERROR_ICON("/icons/error.gif"),
     WARNING_ICON("/icons/warning.gif"),
@@ -69,6 +72,7 @@ public enum EImage implements IImage {
     THREE_DOTS_ICON("/icons/dots_button.gif"),
 
     PROPERTIES_WIZ("/icons/editpref_wiz.gif"),
+
     ;
 
     private String path;

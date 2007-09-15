@@ -401,9 +401,18 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
         IStructuredSelection selection = (IStructuredSelection) fTableViewer.getSelection();
         boolean hasSelection = !selection.isEmpty();
         boolean hasSingleSelection = selection.size() == 1;
+        boolean selectDefaultContext = false;
+        for (Iterator iterator = selection.iterator(); iterator.hasNext();) {
+            IContext context = (IContext) iterator.next();
+            if (context == manager.getDefaultContext()) {
+                selectDefaultContext = true;
+                break;
+            }
 
-        fRemoveButton.setEnabled(hasSelection);
-        fEditButton.setEnabled(hasSingleSelection);
+        }
+
+        fRemoveButton.setEnabled(hasSelection && !selectDefaultContext);
+        fEditButton.setEnabled(hasSingleSelection && !selectDefaultContext);
         if (fUpButton != null) {
             fUpButton.setEnabled(canMoveUp());
         }

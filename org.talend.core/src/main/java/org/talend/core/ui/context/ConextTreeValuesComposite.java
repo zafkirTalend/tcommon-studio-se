@@ -34,6 +34,7 @@ import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.CheckboxCellEditor;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -57,6 +58,8 @@ import org.eclipse.swt.widgets.TreeItem;
 import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
 import org.eclipse.ui.internal.WorkbenchImages;
 import org.eclipse.ui.internal.WorkbenchMessages;
+import org.talend.commons.ui.image.EImage;
+import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
@@ -75,6 +78,8 @@ public class ConextTreeValuesComposite extends Composite {
 
     private static final String CONTEXT_COLUMN_NAME = "Context";
 
+    private static final String PROMPTNEEDED_COLUMN_NAME = "PROMPTNEEDED";
+
     private static final String COMMENT_COLUMN_NAME = "Comment";
 
     private static final String VALUE_COLUMN_NAME = "Value";
@@ -82,10 +87,10 @@ public class ConextTreeValuesComposite extends Composite {
     private static final String PROMPT_COLUMN_NAME = "Prompt";
 
     private static final String[] GROUP_BY_VARIABLE_COLUMN_PROPERTIES = new String[] { VARIABLE_COLUMN_NAME, CONTEXT_COLUMN_NAME,
-            PROMPT_COLUMN_NAME, VALUE_COLUMN_NAME, COMMENT_COLUMN_NAME };
+            PROMPTNEEDED_COLUMN_NAME, PROMPT_COLUMN_NAME, VALUE_COLUMN_NAME, COMMENT_COLUMN_NAME };
 
     private static final String[] GROUP_BY_CONTEXT_COLUMN_PROPERTIES = new String[] { CONTEXT_COLUMN_NAME, VARIABLE_COLUMN_NAME,
-            PROMPT_COLUMN_NAME, VALUE_COLUMN_NAME, COMMENT_COLUMN_NAME };
+            PROMPTNEEDED_COLUMN_NAME, PROMPT_COLUMN_NAME, VALUE_COLUMN_NAME, COMMENT_COLUMN_NAME };
 
     private TreeViewer viewer;
 
@@ -136,7 +141,12 @@ public class ConextTreeValuesComposite extends Composite {
         column2nd = new TreeColumn(tree, SWT.NONE);
         column2nd.setText(CONTEXT_COLUMN_NAME);
         column2nd.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
+
         TreeColumn column = new TreeColumn(tree, SWT.NONE);
+        column.setResizable(false);
+        column.setWidth(20);
+
+        column = new TreeColumn(tree, SWT.NONE);
         column.setText(PROMPT_COLUMN_NAME);
         column.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
         column = new TreeColumn(tree, SWT.NONE);
@@ -145,8 +155,8 @@ public class ConextTreeValuesComposite extends Composite {
         column = new TreeColumn(tree, SWT.NONE);
         column.setText(COMMENT_COLUMN_NAME);
         column.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
-        viewer.setCellEditors(new CellEditor[] { null, null, new TextCellEditor(tree), new TextCellEditor(tree),
-                new TextCellEditor(tree) });
+        viewer.setCellEditors(new CellEditor[] { null, null, new CheckboxCellEditor(tree), new TextCellEditor(tree),
+                new TextCellEditor(tree), new TextCellEditor(tree) });
 
         viewer.setCellModifier(new CellModifier());
 
@@ -245,7 +255,7 @@ public class ConextTreeValuesComposite extends Composite {
          * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
          */
         public Image getColumnImage(Object element, int columnIndex) {
-            return null;
+            return provider.getColumnImage(element, columnIndex);
         }
 
         /*
@@ -384,18 +394,37 @@ public class ConextTreeValuesComposite extends Composite {
                 case 1:
                     // context column
                     return son.context;
-                case 2:
+                case 3:
                     // prompt column
                     return son.parameter.getPrompt();
-                case 3:
+                case 4:
                     // value column
                     return son.parameter.getValue();
-                case 4:
+                case 5:
                     // comment column
                     return son.parameter.getComment();
                 }
             }
             return "";
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.core.ui.context.ConextTreeValuesComposite.ProviderProxy#getColumnImage(java.lang.Object, int)
+         */
+        @Override
+        public Image getColumnImage(Object element, int columnIndex) {
+            if (columnIndex == 2 && (element instanceof Parent)) {
+                Son son = (Son) element;
+                if (son.parameter.isPromptNeeded()) {
+                    return ImageProvider.getImage(EImage.CHECKED_ICON);
+                } else {
+                    return ImageProvider.getImage(EImage.UNCHECKED_ICON);
+                }
+
+            }
+            return null;
         }
 
         /*
@@ -501,6 +530,8 @@ public class ConextTreeValuesComposite extends Composite {
                 return para.getPrompt();
             } else if (property.equals(COMMENT_COLUMN_NAME)) {
                 return para.getComment();
+            } else if (property.equals(PROMPTNEEDED_COLUMN_NAME)) {
+                return para.isPromptNeeded();
             }
             return "";
         }
@@ -540,6 +571,8 @@ public class ConextTreeValuesComposite extends Composite {
                         para.setPrompt((String) value);
                     } else if (property.equals(COMMENT_COLUMN_NAME)) {
                         para.setComment((String) value);
+                    } else if (property.equals(PROMPTNEEDED_COLUMN_NAME)) {
+                        para.setPromptNeeded((Boolean) value);
                     }
                     modelManager.refresh();
                 }
@@ -575,18 +608,37 @@ public class ConextTreeValuesComposite extends Composite {
                 case 1:
                     // variable column
                     return para.getName();
-                case 2:
+                case 3:
                     // prompt column
                     return para.getPrompt();
-                case 3:
+                case 4:
                     // value column
                     return para.getValue();
-                case 4:
+                case 5:
                     // comment column
                     return para.getComment();
                 }
             }
             return "";
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.core.ui.context.ConextTreeValuesComposite.ProviderProxy#getColumnImage(java.lang.Object, int)
+         */
+        @Override
+        public Image getColumnImage(Object element, int columnIndex) {
+            if (columnIndex == 2 && (element instanceof IContextParameter)) {
+                IContextParameter para = (IContextParameter) element;
+                if (para.isPromptNeeded()) {
+                    return ImageProvider.getImage(EImage.CHECKED_ICON);
+                } else {
+                    return ImageProvider.getImage(EImage.UNCHECKED_ICON);
+                }
+
+            }
+            return null;
         }
 
         /*
