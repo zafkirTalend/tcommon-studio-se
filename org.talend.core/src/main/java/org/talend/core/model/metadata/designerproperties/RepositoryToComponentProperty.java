@@ -76,12 +76,16 @@ public class RepositoryToComponentProperty {
     public static final String FIREBIRD = "FIREBIRD"; //$NON-NLS-1$
 
     public static final String INFORMIX = "INFORMIX"; //$NON-NLS-1$
-    
+
     public static final String ACCESS = "ACCESS"; //$NON-NLS-1$
-    
+
     public static final String TERADATA = "TERADATA"; //$NON-NLS-1$
-    
-//    public static final String JAVADB = "JAVADB"; //$NON-NLS-1$
+
+    public static final String AS400 = "AS400"; //$NON-NLS-1$
+
+    public static final String HSQLDB = "HSQLDB"; //$NON-NLS-1$
+
+    public static final String JAVADB = "JAVADB"; //$NON-NLS-1$
 
     public static Object getValue(Connection connection, String value) {
         if (connection instanceof FileConnection) {
@@ -148,15 +152,31 @@ public class RepositoryToComponentProperty {
         if (dbType.equals(EDatabaseTypeName.TERADATA.getDisplayName())) {
             return TERADATA;
         }
-//        if (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())) {
-//            return JAVADB;
-//        }
-//        if (dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())) {
-//            return JAVADB;
-//        }
-//        if (dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())) {
-//            return JAVADB;
-//        }
+        if (dbType.equals(EDatabaseTypeName.AS400.getDisplayName())) {
+            return AS400;
+        }
+        if (dbType.equals(EDatabaseTypeName.HSQLDB.getDisplayName())) {
+            return HSQLDB;
+        }
+
+        if (dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())) {
+            return HSQLDB;
+        }
+        if (dbType.equals(EDatabaseTypeName.HSQLDB_INPROGRESS_PERSISTENT.getDisplayName())) {
+            return HSQLDB;
+        }
+        if (dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName())) {
+            return HSQLDB;
+        }
+        if (dbType.equals(EDatabaseTypeName.JAVADB_EMBEDED.getDisplayName())) {
+            return JAVADB;
+        }
+        if (dbType.equals(EDatabaseTypeName.JAVADB_JCCJDBC.getDisplayName())) {
+            return JAVADB;
+        }
+        if (dbType.equals(EDatabaseTypeName.JAVADB_DERBYCLIENT.getDisplayName())) {
+            return JAVADB;
+        }
         return ""; //$NON-NLS-1$
     }
 
@@ -353,7 +373,7 @@ public class RepositoryToComponentProperty {
                             found = true;
                         }
                     }
-                    EList schemaList = (EList) xmlDesc.getSchemaTargets();
+                    EList schemaList = xmlDesc.getSchemaTargets();
                     String[] names = param.getListItemsDisplayCodeName();
                     for (int k = 0; k < schemaList.size(); k++) {
                         if (tableInfo.size() > k) {

@@ -181,6 +181,12 @@ public class ExtractMetaDataUtils {
             //$NON-NLS-2$
             hashTable.put("AS400", "com.ibm.as400.access.AS400JDBCDriver"); //$NON-NLS-1$
 
+            hashTable.put("HSQLDB Server", "org.hsqldb.jdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            hashTable.put("HSQLDB WebServer", "org.hsqldb.jdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+
+            hashTable.put("HSQLDB In Progress Persistent", "org.hsqldb.jdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+
             driverClass = hashTable.get(dbType);
 
         } catch (Exception e) {
@@ -194,7 +200,7 @@ public class ExtractMetaDataUtils {
      * DOC cantoine. Method to connect to DataBase.
      * 
      * @param String driverClass
-     * @param String urlString pwd
+     * @param String urlString pwdT
      * @param String username
      * @param String pwd
      * @param String schemaBase
