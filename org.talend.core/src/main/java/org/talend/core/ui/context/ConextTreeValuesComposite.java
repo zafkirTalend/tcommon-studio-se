@@ -415,7 +415,7 @@ public class ConextTreeValuesComposite extends Composite {
          */
         @Override
         public Image getColumnImage(Object element, int columnIndex) {
-            if (columnIndex == 2 && (element instanceof Parent)) {
+            if (columnIndex == 2 && (element instanceof Son)) {
                 Son son = (Son) element;
                 if (son.parameter.isPromptNeeded()) {
                     return ImageProvider.getImage(EImage.CHECKED_ICON);

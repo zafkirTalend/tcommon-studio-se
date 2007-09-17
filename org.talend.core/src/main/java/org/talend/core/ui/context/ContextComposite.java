@@ -78,6 +78,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
     }
 
     public void refresh() {
+        refreshChoiceComposite();
         if (getContextManager() == null) {
             this.setEnabled(false);
             // tab.setEnabled(false);
@@ -88,7 +89,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
             setTabEnable(!isReadOnly());
             refreshChildrenUI();
         }
-        refreshChoiceComposite();
+
         if (getContextManager() != null) {
             getContextManager().fireContextsChangedEvent();
         }
@@ -233,10 +234,4 @@ public abstract class ContextComposite extends Composite implements IContextMode
     public CommandStack getCommandStack() {
         return null;
     }
-
-    // public abstract void onContextChangeDefault(IContextManager contextManager, IContext newDefault);
-    //
-    // public abstract void onContextRenameParameter(IContextManager contextManager, String oldName, String newName);
-    //
-    // public abstract void onContextModify(IContextManager contextManager, IContextParameter parameter);
 }
