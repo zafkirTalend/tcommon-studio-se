@@ -3,107 +3,107 @@
 	<dbms product="POSTGRESQL" id="postgres_id" label="Mapping Postgres"
 		default="true">
 		<dbTypes>
-			<dbType type="ABSTIME" />
-			<dbType type="ACLITEM" />
-			<dbType type="BIGSERIAL" />
-			<dbType type="BIT" />
-			<dbType type="BOOL" />
-			<dbType type="BOX" />
-			<dbType type="BPCHAR" />
-			<dbType type="BYTEA" />	
-			<dbType type="CHAR" defaultLength="50"/>
-			<dbType type="CID" />
-			<dbType type="CIDR" />
-			<dbType type="CIRCLE" />
-			<dbType type="DATE" />
-			<dbType type="FLOAT4" />
-			<dbType type="FLOAT8" />
-			<dbType type="INET" />
-			<dbType type="INT2" />
-			<dbType type="INT2VECTOR" />
-			<dbType type="INT4" />
-			<dbType type="INT8" />
-			<dbType type="INTERVAL" />
-			<dbType type="LINE" />
-			<dbType type="LSEG" />
-			<dbType type="MACADDR" />
-			<dbType type="MONEY" />	
-			<dbType type="NAME" />
+			<dbType type="ABSTIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="ACLITEM" ignoreLen="true" ignorePre="true" />
+			<dbType type="BIGSERIAL" ignoreLen="true" ignorePre="true" />
+			<dbType type="BIT" ignorePre="true" />
+			<dbType type="BOOL" ignoreLen="true" ignorePre="true" />
+			<dbType type="BOX" ignoreLen="true" ignorePre="true" />
+			<dbType type="BPCHAR" ignoreLen="true" ignorePre="true" />
+			<dbType type="BYTEA" ignoreLen="true" ignorePre="true" />	
+			<dbType type="CHAR" defaultLength="50" ignorePre="true"/>
+			<dbType type="CID" ignoreLen="true" ignorePre="true" />
+			<dbType type="CIDR" ignoreLen="true" ignorePre="true" />
+			<dbType type="CIRCLE" ignoreLen="true" ignorePre="true" />
+			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
+			<dbType type="FLOAT4" ignoreLen="true" ignorePre="true" />
+			<dbType type="FLOAT8" ignoreLen="true" ignorePre="true" />
+			<dbType type="INET" ignoreLen="true" ignorePre="true" />
+			<dbType type="INT2" ignoreLen="true" ignorePre="true" />
+			<dbType type="INT2VECTOR" ignoreLen="true" ignorePre="true" />
+			<dbType type="INT4" ignoreLen="true" ignorePre="true" />
+			<dbType type="INT8" ignoreLen="true" ignorePre="true" />
+			<dbType type="INTERVAL" ignorePre="true" />
+			<dbType type="LINE" ignoreLen="true" ignorePre="true" />
+			<dbType type="LSEG" ignoreLen="true" ignorePre="true" />
+			<dbType type="MACADDR" ignoreLen="true" ignorePre="true" />
+			<dbType type="MONEY" ignoreLen="true" ignorePre="true" />	
+			<dbType type="NAME" ignoreLen="true" ignorePre="true" />
 			<dbType type="NUMERIC" defaultLength="10" defaultPrecision="20"/>
-			<dbType type="OID" />
-			<dbType type="OIDVECTOR" />
-			<dbType type="PATH" />
-			<dbType type="POINT" />
-			<dbType type="POLYGON" />
-			<dbType type="REFCURSOR" />
-			<dbType type="RELTIME" />			
-			<dbType type="REGCLASS" />
-			<dbType type="REGOPER" />
-			<dbType type="REGOPERATOR" />
-			<dbType type="REGPROC" />
-			<dbType type="REGPROCEDURE" />
-			<dbType type="REGTYPE" />
-			<dbType type="SERIAL" />
-			<dbType type="SMGR" />
-			<dbType type="TEXT" />
-			<dbType type="TID" />
-			<dbType type="TIME"/>
-			<dbType type="TINTERVAL" />
-			<dbType type="TIMESTAMPTZ" />
-			<dbType type="TIMESTAMP" />
-			<dbType type="TIMETZ" />
-			<dbType type="VARBIT" />			
-			<dbType type="VARCHAR" defaultLength="200"/>
-			<dbType type="XID" />
+			<dbType type="OID" ignoreLen="true" ignorePre="true"  />
+			<dbType type="OIDVECTOR" ignoreLen="true" ignorePre="true" />
+			<dbType type="PATH" ignoreLen="true" ignorePre="true" />
+			<dbType type="POINT" ignoreLen="true" ignorePre="true"  />
+			<dbType type="POLYGON" ignoreLen="true" ignorePre="true"/>
+			<dbType type="REFCURSOR" ignoreLen="true" ignorePre="true" />
+			<dbType type="RELTIME" ignoreLen="true" ignorePre="true" />			
+			<dbType type="REGCLASS" ignoreLen="true" ignorePre="true" />
+			<dbType type="REGOPER" ignoreLen="true" ignorePre="true" />
+			<dbType type="REGOPERATOR" ignoreLen="true" ignorePre="true" />
+			<dbType type="REGPROC" ignoreLen="true" ignorePre="true" />
+			<dbType type="REGPROCEDURE" ignoreLen="true" ignorePre="true" />
+			<dbType type="REGTYPE" ignoreLen="true" ignorePre="true" />
+			<dbType type="SERIAL" ignoreLen="true" ignorePre="true" />
+			<dbType type="SMGR" ignoreLen="true" ignorePre="true" />
+			<dbType type="TEXT" ignoreLen="true" ignorePre="true" />
+			<dbType type="TID" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIME" ignorePre="true" />
+			<dbType type="TINTERVAL" ignoreLen="true" ignorePre="true"  />
+			<dbType type="TIMESTAMPTZ" ignoreLen="true" ignorePre="true"  />
+			<dbType type="TIMESTAMP" ignorePre="true"  />
+			<dbType type="TIMETZ" ignoreLen="true" ignorePre="true"  />
+			<dbType type="VARBIT" ignoreLen="true" ignorePre="true"  />			
+			<dbType type="VARCHAR" defaultLength="200" ignorePre="true" />
+			<dbType type="XID" ignoreLen="true" ignorePre="true"  />
 			
-			<dbType type="_ABSTIME" />
-			<dbType type="_ACLITEM" />
-			<dbType type="_BIT" />
-			<dbType type="_BOX" />
-			<dbType type="_BOOL" />
-			<dbType type="_BPCHAR" />
-			<dbType type="_BYTEA" />
-			<dbType type="_CHAR" />
-			<dbType type="_CID" />
-			<dbType type="_CIDR" />
-			<dbType type="_CIRCLE" />
-			<dbType type="_DATE" />
-			<dbType type="_FLOAT4" />
-			<dbType type="_FLOAT8" />
-			<dbType type="_INET" />
-			<dbType type="_INT2VECTOR" />
-			<dbType type="_INT4" />
-			<dbType type="_INT8" />
-			<dbType type="_INTERVAL" />
-			<dbType type="_LINE" />
-			<dbType type="_LSEG" />
-			<dbType type="_MACADDR" />
-			<dbType type="_MONEY" />
-			<dbType type="_NAME" />
-			<dbType type="_NUMERIC" />
-			<dbType type="_OID" />
-			<dbType type="_OIDVECTOR" />
-			<dbType type="_PATH" />
-			<dbType type="_POINT" />
-			<dbType type="_POLYGON" />
-			<dbType type="_REFCURSOR" />
-			<dbType type="_REGCLASS" />
-			<dbType type="_REGOPER" />
-			<dbType type="_REGOPERATOR" />
-			<dbType type="_REGPROC" />
-			<dbType type="_REGPROCEDURE" />
-			<dbType type="_REGTYPE" />
-			<dbType type="_RELTIME" />
-			<dbType type="_TEXT" />
-			<dbType type="_TID" />
-			<dbType type="_TIME" />
-			<dbType type="_TIMESTAMP" />
-			<dbType type="_TIMESTAMPTZ" />
-			<dbType type="_TIMETZ" />
-			<dbType type="_TINTERVAL" />
-			<dbType type="_VARBIT" />
-			<dbType type="_VARCHAR" />
-			<dbType type="_XID" />
+			<dbType type="_ABSTIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="_ACLITEM" ignoreLen="true" ignorePre="true" />
+			<dbType type="_BIT" ignoreLen="true" ignorePre="true" />
+			<dbType type="_BOX" ignoreLen="true" ignorePre="true" />
+			<dbType type="_BOOL" ignoreLen="true" ignorePre="true" />
+			<dbType type="_BPCHAR" ignoreLen="true" ignorePre="true" />
+			<dbType type="_BYTEA" ignoreLen="true" ignorePre="true" />
+			<dbType type="_CHAR" ignoreLen="true" ignorePre="true" />
+			<dbType type="_CID" ignoreLen="true" ignorePre="true" />
+			<dbType type="_CIDR" ignoreLen="true" ignorePre="true" />
+			<dbType type="_CIRCLE" ignoreLen="true" ignorePre="true" />
+			<dbType type="_DATE" ignoreLen="true" ignorePre="true" />
+			<dbType type="_FLOAT4" ignoreLen="true" ignorePre="true" />
+			<dbType type="_FLOAT8" ignoreLen="true" ignorePre="true" />
+			<dbType type="_INET" ignoreLen="true" ignorePre="true" />
+			<dbType type="_INT2VECTOR" ignoreLen="true" ignorePre="true" />
+			<dbType type="_INT4" ignoreLen="true" ignorePre="true" />
+			<dbType type="_INT8" ignoreLen="true" ignorePre="true" />
+			<dbType type="_INTERVAL" ignoreLen="true" ignorePre="true" />
+			<dbType type="_LINE" ignoreLen="true" ignorePre="true" />
+			<dbType type="_LSEG" ignoreLen="true" ignorePre="true" />
+			<dbType type="_MACADDR" ignoreLen="true" ignorePre="true" />
+			<dbType type="_MONEY" ignoreLen="true" ignorePre="true" />
+			<dbType type="_NAME" ignoreLen="true" ignorePre="true" />
+			<dbType type="_NUMERIC" ignoreLen="true" ignorePre="true" />
+			<dbType type="_OID" ignoreLen="true" ignorePre="true" />
+			<dbType type="_OIDVECTOR" ignoreLen="true" ignorePre="true" />
+			<dbType type="_PATH" ignoreLen="true" ignorePre="true"/>
+			<dbType type="_POINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="_POLYGON" ignoreLen="true" ignorePre="true" />
+			<dbType type="_REFCURSOR" ignoreLen="true" ignorePre="true" />
+			<dbType type="_REGCLASS" ignoreLen="true" ignorePre="true" />
+			<dbType type="_REGOPER" ignoreLen="true" ignorePre="true" />
+			<dbType type="_REGOPERATOR" ignoreLen="true" ignorePre="true" />
+			<dbType type="_REGPROC" ignoreLen="true" ignorePre="true" />
+			<dbType type="_REGPROCEDURE" ignoreLen="true" ignorePre="true" />
+			<dbType type="_REGTYPE" ignoreLen="true" ignorePre="true" />
+			<dbType type="_RELTIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="_TEXT" ignoreLen="true" ignorePre="true" />
+			<dbType type="_TID" ignoreLen="true" ignorePre="true" />
+			<dbType type="_TIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="_TIMESTAMP" ignoreLen="true" ignorePre="true" />
+			<dbType type="_TIMESTAMPTZ" ignoreLen="true" ignorePre="true" />
+			<dbType type="_TIMETZ" ignoreLen="true" ignorePre="true" />
+			<dbType type="_TINTERVAL" ignoreLen="true" ignorePre="true" />
+			<dbType type="_VARBIT" ignoreLen="true" ignorePre="true" />
+			<dbType type="_VARCHAR" ignoreLen="true" ignorePre="true" />
+			<dbType type="_XID" ignoreLen="true" ignorePre="true" />
 		</dbTypes>
 
 		<language name="java">

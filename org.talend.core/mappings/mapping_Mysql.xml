@@ -3,49 +3,49 @@
 	<dbms product="MYSQL" id="mysql_id" label="Mapping Mysql"
 		default="true">
 		<dbTypes>
-			<dbType type="BIGINT"/>
-			<dbType type="BIGINT UNSIGNED" />
-			<dbType type="BINARY"/>
-			<dbType type="BIT" />
-			<dbType type="BLOB" />
-			<dbType type="CHAR" defaultLength="200"/>
-			<dbType type="DATE" />
-			<dbType type="DATETIME" />
+			<dbType type="BIGINT" ignorePre="true"/>
+			<dbType type="BIGINT UNSIGNED" ignoreLen="true" ignorePre="true" />
+			<dbType type="BINARY" ignorePre="true"/>
+			<dbType type="BIT" ignorePre="true" />
+			<dbType type="BLOB" ignoreLen="true" ignorePre="true" />
+			<dbType type="CHAR" defaultLength="200" ignorePre="true"/>
+			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
+			<dbType type="DATETIME" ignoreLen="true" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="10" defaultPrecision="20" />
 			<dbType type="DOUBLE" defaultLength="10" defaultPrecision="20"/>
-			<dbType type="DOUBLE UNSIGNED" />
-			<dbType type="ENUM" />
+			<dbType type="DOUBLE UNSIGNED" ignoreLen="true" ignorePre="true" />
+			<dbType type="ENUM" ignoreLen="true" ignorePre="true" />
 			<dbType type="FLOAT" defaultPrecision="2"/>
-			<dbType type="FLOAT UNSIGNED" />
-			<dbType type="GEOMETRY" />
-			<dbType type="GEOMETRYCOLLECTION" />
-			<dbType type="INT" />
-			<dbType type="INT UNSIGNED" />
-			<dbType type="LINESTRING" />
-			<dbType type="LONGTEXT" />
-			<dbType type="LONGBLOB"/>
-			<dbType type="MEDIUMBLOB" />
-			<dbType type="MEDIUMINT" />
-			<dbType type="MEDIUMINT UNSIGNED" />
-			<dbType type="MEDIUMTEXT" />
-			<dbType type="MULTILINESTRING" />
-			<dbType type="MULTIPOINT" />
-			<dbType type="MULTIPOLYGON" />
-			<dbType type="POINT" />
-			<dbType type="POLYGON" />
-			<dbType type="SMALLINT" />
-			<dbType type="SMALLINT UNSIGNED" />
-			<dbType type="SET" />
-			<dbType type="TEXT" />
-			<dbType type="TIME" />
-			<dbType type="TIMESTAMP" />
-			<dbType type="TINYBLOB" />
-			<dbType type="TINYINT" />
-			<dbType type="TINYINT UNSIGNED" />
-			<dbType type="TINYTEXT" />
-			<dbType type="VARBINARY" />
-			<dbType type="VARCHAR" default="true" defaultLength="100"/>
-			<dbType type="YEAR" />
+			<dbType type="FLOAT UNSIGNED" ignoreLen="true" ignorePre="true" />
+			<dbType type="GEOMETRY" ignoreLen="true" ignorePre="true" />
+			<dbType type="GEOMETRYCOLLECTION" ignoreLen="true" ignorePre="true" />
+			<dbType type="INT" ignorePre="true" />
+			<dbType type="INT UNSIGNED" ignoreLen="true" ignorePre="true" />
+			<dbType type="LINESTRING" ignoreLen="true" ignorePre="true" />
+			<dbType type="LONGTEXT" ignoreLen="true" ignorePre="true" />
+			<dbType type="LONGBLOB" ignoreLen="true" ignorePre="true"/>
+			<dbType type="MEDIUMBLOB" ignoreLen="true" ignorePre="true" />
+			<dbType type="MEDIUMINT" ignorePre="true" />
+			<dbType type="MEDIUMINT UNSIGNED" ignoreLen="true" ignorePre="true" />
+			<dbType type="MEDIUMTEXT" ignoreLen="true" ignorePre="true" />
+			<dbType type="MULTILINESTRING" ignoreLen="true" ignorePre="true" />
+			<dbType type="MULTIPOINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="MULTIPOLYGON" ignoreLen="true" ignorePre="true" />
+			<dbType type="POINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="POLYGON" ignoreLen="true" ignorePre="true" />
+			<dbType type="SMALLINT" ignorePre="true" />
+			<dbType type="SMALLINT UNSIGNED" ignoreLen="true" ignorePre="true" />
+			<dbType type="SET" ignoreLen="true" ignorePre="true" />
+			<dbType type="TEXT" ignorePre="true" />
+			<dbType type="TIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIMESTAMP" ignorePre="true" />
+			<dbType type="TINYBLOB" ignoreLen="true" ignorePre="true" />
+			<dbType type="TINYINT" ignorePre="true" />
+			<dbType type="TINYINT UNSIGNED" ignoreLen="true" ignorePre="true" />
+			<dbType type="TINYTEXT" ignoreLen="true" ignorePre="true" />
+			<dbType type="VARBINARY" ignorePre="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="100" ignorePre="true"/>
+			<dbType type="YEAR" ignorePre="true"/>
 		</dbTypes>
 
 		<language name="java">

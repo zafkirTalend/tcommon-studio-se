@@ -2,43 +2,43 @@
 <mapping>
 	<dbms product="MSSQL" id="id_MSSQL" label="Mapping MSSQL" default="true">
 		<dbTypes>
-			<dbType type="BIGINT" />
+			<dbType type="BIGINT" ignoreLen="true" ignorePre="true" />
 			<dbType type="BIGINT IDENTITY" />
 			
-			<dbType type="BINARY" />
-			<dbType type="BIT" />
-			<dbType type="CHAR" defaultLength="50" />
-			<dbType type="DATETIME" />
+			<dbType type="BINARY" ignoreLen="true" ignorePre="true" />
+			<dbType type="BIT" ignoreLen="true" ignorePre="true" />
+			<dbType type="CHAR" defaultLength="50"  ignorePre="true"/>
+			<dbType type="DATETIME" ignoreLen="true" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="10" defaultPrecision="20"/>
 			<dbType type="DECIMAL IDENTITY" defaultLength="10" defaultPrecision="20"/>
 			
-			<dbType type="FLOAT" />
-			<dbType type="IMAGE" />
-			<dbType type="INT" />
+			<dbType type="FLOAT" ignorePre="true" />
+			<dbType type="IMAGE" ignoreLen="true" ignorePre="true" />
+			<dbType type="INT" ignoreLen="true" ignorePre="true" />
 			<dbType type="INT IDENTITY" />
 			
-			<dbType type="MONEY" />
-			<dbType type="NCHAR" defaultLength="100"/>
-			<dbType type="NTEXT" />
+			<dbType type="MONEY" ignoreLen="true" ignorePre="true" />
+			<dbType type="NCHAR" defaultLength="100" ignorePre="true"/>
+			<dbType type="NTEXT" ignoreLen="true" ignorePre="true" />
 			<dbType type="NUMERIC" defaultLength="10" defaultPrecision="20" />
-			<dbType type="NUMERIC IDENTITY" defaultLength="10" defaultPrecision="20" />
+			<dbType type="NUMERIC IDENTITY" defaultLength="10" defaultPrecision="20" ignorePre="true"/>
 			
-			<dbType type="NVARCHAR" defaultLength="200"/>
-			<dbType type="REAL" />
-			<dbType type="SMALLDATETIME" />
-			<dbType type="SMALLINT" />
+			<dbType type="NVARCHAR" defaultLength="200" ignorePre="true" />
+			<dbType type="REAL" ignoreLen="true" ignorePre="true" />
+			<dbType type="SMALLDATETIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="SMALLINT" ignoreLen="true" ignorePre="true"  />
 			<dbType type="SMALLINT IDENTITY" />
 			
-			<dbType type="SMALLMONEY" />
-			<dbType type="SQL_VARIANT" />
-			<dbType type="TEXT" />
-			<dbType type="TIMESTAMP" />
-			<dbType type="TINYINT" />
+			<dbType type="SMALLMONEY" ignoreLen="true" ignorePre="true"  />
+			<dbType type="SQL_VARIANT" ignoreLen="true" ignorePre="true"  />
+			<dbType type="TEXT" ignoreLen="true" ignorePre="true"  />
+			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"  />
+			<dbType type="TINYINT" ignoreLen="true" ignorePre="true"  />
 			<dbType type="TINYINT IDENTITY" />
 			
-			<dbType type="UNIQUEIDENTIFIER" />
-			<dbType type="VARBINARY" />
-			<dbType type="VARCHAR" default="true"  defaultLength="200"/>
+			<dbType type="UNIQUEIDENTIFIER" ignoreLen="true" ignorePre="true"  />
+			<dbType type="VARBINARY" ignorePre="true" />
+			<dbType type="VARCHAR" default="true"  defaultLength="200" ignorePre="true" />
 		</dbTypes>
 
 		<language name="java">

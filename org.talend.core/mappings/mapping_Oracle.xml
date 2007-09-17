@@ -2,25 +2,25 @@
 <mapping>
 	<dbms product="ORACLE" id="oracle_id" label="Mapping Oracle" default="true">
 		<dbTypes>
-			<dbType type="BFILE" />
-			<dbType type="BLOB" />
-			<dbType type="CHAR" defaultLength="1" />
-			<dbType type="CLOB" />
-			<dbType type="DATE" />
-			<dbType type="FLOAT" />
-			<dbType type="LONG" />
-			<dbType type="LONG RAW" />
-			<dbType type="NCHAR" defaultLength="400" />
-			<dbType type="NCLOB" />
+			<dbType type="BFILE" ignoreLen="true" ignorePre="true"/>
+			<dbType type="BLOB" ignoreLen="true" ignorePre="true" />
+			<dbType type="CHAR" defaultLength="1" ignorePre="true" />
+			<dbType type="CLOB" ignoreLen="true" ignorePre="true" />
+			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
+			<dbType type="FLOAT" ignorePre="true" />
+			<dbType type="LONG" ignoreLen="true" ignorePre="true" />
+			<dbType type="LONG RAW" ignoreLen="true" ignorePre="true" />
+			<dbType type="NCHAR" defaultLength="400" ignorePre="true" />
+			<dbType type="NCLOB" ignoreLen="true" ignorePre="true" />
 			<dbType type="NUMBER" defaultLength="20"  defaultPrecision="10" />
-			<dbType type="NVARCHAR2" defaultLength="400"/>
-			<dbType type="RAW" defaultLength="300" />
-			<dbType type="ROWID" />
-			<dbType type="TIMESTAMP" defaultLength="6"/>
-			<dbType type="UROWID" />
-			<dbType type="VARCHAR"/>
-			<dbType type="VARCHAR2" default="true" defaultLength="200"/>
-			<dbType type="XMLTYPE" />
+			<dbType type="NVARCHAR2" defaultLength="400" ignorePre="true"/>
+			<dbType type="RAW" defaultLength="300" ignorePre="true" />
+			<dbType type="ROWID" ignoreLen="true" ignorePre="true"/>
+			<dbType type="TIMESTAMP" defaultLength="6" ignorePre="true"/>
+			<dbType type="UROWID" ignorePre="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="200" ignorePre="true"/>
+			<dbType type="VARCHAR2" default="true" defaultLength="200" ignorePre="true"/>
+			<dbType type="XMLTYPE" ignoreLen="true" ignorePre="true" />
 		</dbTypes>
 
 		<language name="java">
