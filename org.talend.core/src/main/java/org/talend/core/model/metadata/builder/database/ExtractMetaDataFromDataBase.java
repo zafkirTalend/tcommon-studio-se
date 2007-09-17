@@ -23,6 +23,7 @@ package org.talend.core.model.metadata.builder.database;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -402,7 +403,8 @@ public class ExtractMetaDataFromDataBase {
         ConnectionStatus connectionStatus = new ConnectionStatus();
         connectionStatus.setResult(false);
         try {
-            Class.forName(ExtractMetaDataUtils.getDriverClassByDbType(dbType)).newInstance();
+            Driver driver = (Driver) Class.forName(ExtractMetaDataUtils.getDriverClassByDbType(dbType)).newInstance();
+            DriverManager.registerDriver(driver);
             connection = DriverManager.getConnection(url, username, pwd);
             if ((schema != null) && (schema.compareTo("") != 0)) { //$NON-NLS-1$
                 final String product = EDatabaseTypeName.getTypeFromDisplayName(dbType).getProduct();

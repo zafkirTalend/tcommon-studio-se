@@ -42,11 +42,7 @@ public enum EDatabaseTypeName {
     HSQLDB("HSQLDB", "HSQLDB", new Boolean(false), "HSQLDB"),
     HSQLDB_SERVER("HSQLDB Server", "HSQLDB Server", new Boolean(false), "HSQLDB"),
     HSQLDB_WEBSERVER("HSQLDB WebServer", "HSQLDB WebServer", new Boolean(false), "HSQLDB"),
-    HSQLDB_INPROGRESS_PERSISTENT(
-                                 "HSQLDB In Progress Persistent",
-                                 "HSQLDB In Progress Persistent",
-                                 new Boolean(false),
-                                 "HSQLDB"),
+    HSQLDB_IN_PROGRESS("HSQLDB In-Process", "HSQLDB In-Process", new Boolean(false), "HSQLDB"),
 
     JAVADB("JavaDB", "JavaDB", new Boolean(false), "JAVADB"),
     INGRES("Ingres", "Ingres", new Boolean(false), "INGRES"), // "INGRES"),

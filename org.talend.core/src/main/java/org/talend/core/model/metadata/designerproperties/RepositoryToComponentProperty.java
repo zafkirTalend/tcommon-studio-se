@@ -162,7 +162,7 @@ public class RepositoryToComponentProperty {
         if (dbType.equals(EDatabaseTypeName.HSQLDB_SERVER.getDisplayName())) {
             return HSQLDB;
         }
-        if (dbType.equals(EDatabaseTypeName.HSQLDB_INPROGRESS_PERSISTENT.getDisplayName())) {
+        if (dbType.equals(EDatabaseTypeName.HSQLDB_IN_PROGRESS.getDisplayName())) {
             return HSQLDB;
         }
         if (dbType.equals(EDatabaseTypeName.HSQLDB_WEBSERVER.getDisplayName())) {

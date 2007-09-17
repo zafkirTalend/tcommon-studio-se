@@ -185,7 +185,7 @@ public class ExtractMetaDataUtils {
 
             hashTable.put("HSQLDB WebServer", "org.hsqldb.jdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
 
-            hashTable.put("HSQLDB In Progress Persistent", "org.hsqldb.jdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
+            hashTable.put("HSQLDB In-Process", "org.hsqldb.jdbcDriver"); //$NON-NLS-1$ //$NON-NLS-2$
 
             driverClass = hashTable.get(dbType);
 
