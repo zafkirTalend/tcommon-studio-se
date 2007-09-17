@@ -87,8 +87,12 @@ public class HTMLHandler {
                         while ((tempLineStr = externalNodeHTMLReader.readLine()) != null) {
                             newMainHTMLWriter.write(tempLineStr);
                         }
+                        // resolved the problem:the tmp folder can't be deleted.
+                        if (externalNodeHTMLReader != null) {
+                            externalNodeHTMLReader.close();
+                        }
                     }
-//                    htmlFileMap.remove(key);
+                    // htmlFileMap.remove(key);
                 }
             }
 
@@ -102,16 +106,16 @@ public class HTMLHandler {
                 if (newMainHTMLWriter != null) {
                     newMainHTMLWriter.close();
                 }
-                if (externalNodeHTMLReader != null) {
-                    externalNodeHTMLReader.close();
-                }
+                // if (externalNodeHTMLReader != null) {
+                // externalNodeHTMLReader.close();
+                // }
             } catch (IOException e) {
                 ExceptionHandler.process(e);
             }
 
             originalHtmlFile.delete();
             boolean isWorked = newMainHTMLFile.renameTo(new File(htmlFilePath));
-            System.out.println("isWorked= " + isWorked);
+            // System.out.println("isWorked= " + isWorked);
 
             // copy(htmlFilePath + "temp", htmlFilePath);
             //            
