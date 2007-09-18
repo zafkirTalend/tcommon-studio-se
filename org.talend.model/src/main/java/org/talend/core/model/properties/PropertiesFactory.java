@@ -282,6 +282,15 @@ public interface PropertiesFactory extends EFactory {
     LDAPSchemaConnectionItem createLDAPSchemaConnectionItem();
 
     /**
+     * Returns a new object of class '<em>Dashboard Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Dashboard Connection</em>'.
+     * @generated
+     */
+    DashboardConnection createDashboardConnection();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

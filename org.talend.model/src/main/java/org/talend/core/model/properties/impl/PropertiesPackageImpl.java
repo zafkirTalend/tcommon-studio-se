@@ -22,6 +22,7 @@ import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.Component;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.DashboardConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
@@ -267,6 +268,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass ldapSchemaConnectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass dashboardConnectionEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1440,6 +1448,105 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getDashboardConnection() {
+        return dashboardConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDashboardConnection_Label() {
+        return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDashboardConnection_Dialect() {
+        return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDashboardConnection_Host() {
+        return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDashboardConnection_Port() {
+        return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDashboardConnection_Database() {
+        return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDashboardConnection_Username() {
+        return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDashboardConnection_Password() {
+        return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDashboardConnection_LogTable() {
+        return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDashboardConnection_StatTable() {
+        return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDashboardConnection_FlowMeterTable() {
+        return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1688,6 +1795,18 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         ldapSchemaConnectionItemEClass = createEClass(LDAP_SCHEMA_CONNECTION_ITEM);
 
+        dashboardConnectionEClass = createEClass(DASHBOARD_CONNECTION);
+        createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__LABEL);
+        createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__DIALECT);
+        createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__HOST);
+        createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__PORT);
+        createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__DATABASE);
+        createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__USERNAME);
+        createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__PASSWORD);
+        createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__LOG_TABLE);
+        createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__STAT_TABLE);
+        createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__FLOW_METER_TABLE);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -1908,6 +2027,18 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getUserModuleAuthorization_Type(), this.getUserModuleAuthorizationType(), "type", "Scheduler", 0, 1, UserModuleAuthorization.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(ldapSchemaConnectionItemEClass, LDAPSchemaConnectionItem.class, "LDAPSchemaConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(dashboardConnectionEClass, DashboardConnection.class, "DashboardConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getDashboardConnection_Label(), ecorePackage.getEString(), "label", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDashboardConnection_Dialect(), ecorePackage.getEString(), "dialect", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDashboardConnection_Host(), ecorePackage.getEString(), "host", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDashboardConnection_Port(), ecorePackage.getEString(), "port", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDashboardConnection_Database(), ecorePackage.getEString(), "database", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDashboardConnection_Username(), ecorePackage.getEString(), "username", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDashboardConnection_Password(), ecorePackage.getEString(), "password", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDashboardConnection_LogTable(), ecorePackage.getEString(), "logTable", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDashboardConnection_StatTable(), ecorePackage.getEString(), "statTable", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getDashboardConnection_FlowMeterTable(), ecorePackage.getEString(), "flowMeterTable", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

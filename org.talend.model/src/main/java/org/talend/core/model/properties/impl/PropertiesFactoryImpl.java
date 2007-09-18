@@ -123,6 +123,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM: return createGenericSchemaConnectionItem();
             case PropertiesPackage.USER_MODULE_AUTHORIZATION: return createUserModuleAuthorization();
             case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM: return createLDAPSchemaConnectionItem();
+            case PropertiesPackage.DASHBOARD_CONNECTION: return createDashboardConnection();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -442,6 +443,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public LDAPSchemaConnectionItem createLDAPSchemaConnectionItem() {
         LDAPSchemaConnectionItemImpl ldapSchemaConnectionItem = new LDAPSchemaConnectionItemImpl();
         return ldapSchemaConnectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DashboardConnection createDashboardConnection() {
+        DashboardConnectionImpl dashboardConnection = new DashboardConnectionImpl();
+        return dashboardConnection;
     }
 
     /**

@@ -1915,13 +1915,122 @@ public interface PropertiesPackage extends EPackage {
     int LDAP_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.DashboardConnectionImpl <em>Dashboard Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.DashboardConnectionImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getDashboardConnection()
+     * @generated
+     */
+    int DASHBOARD_CONNECTION = 33;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__LABEL = 0;
+
+    /**
+     * The feature id for the '<em><b>Dialect</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__DIALECT = 1;
+
+    /**
+     * The feature id for the '<em><b>Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__HOST = 2;
+
+    /**
+     * The feature id for the '<em><b>Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__PORT = 3;
+
+    /**
+     * The feature id for the '<em><b>Database</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__DATABASE = 4;
+
+    /**
+     * The feature id for the '<em><b>Username</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__USERNAME = 5;
+
+    /**
+     * The feature id for the '<em><b>Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__PASSWORD = 6;
+
+    /**
+     * The feature id for the '<em><b>Log Table</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__LOG_TABLE = 7;
+
+    /**
+     * The feature id for the '<em><b>Stat Table</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__STAT_TABLE = 8;
+
+    /**
+     * The feature id for the '<em><b>Flow Meter Table</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__FLOW_METER_TABLE = 9;
+
+    /**
+     * The number of structural features of the '<em>Dashboard Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION_FEATURE_COUNT = 10;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 33;
+    int FOLDER_TYPE = 34;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -1931,7 +2040,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 34;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 35;
 
 
     /**
@@ -1942,7 +2051,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 35;
+    int USER_MODULE_AUTHORIZATION_TYPE = 36;
 
 
     /**
@@ -3248,6 +3357,126 @@ public interface PropertiesPackage extends EPackage {
     EClass getLDAPSchemaConnectionItem();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.DashboardConnection <em>Dashboard Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Dashboard Connection</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection
+     * @generated
+     */
+    EClass getDashboardConnection();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getLabel <em>Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Label</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection#getLabel()
+     * @see #getDashboardConnection()
+     * @generated
+     */
+    EAttribute getDashboardConnection_Label();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getDialect <em>Dialect</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Dialect</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection#getDialect()
+     * @see #getDashboardConnection()
+     * @generated
+     */
+    EAttribute getDashboardConnection_Dialect();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getHost <em>Host</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Host</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection#getHost()
+     * @see #getDashboardConnection()
+     * @generated
+     */
+    EAttribute getDashboardConnection_Host();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getPort <em>Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Port</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection#getPort()
+     * @see #getDashboardConnection()
+     * @generated
+     */
+    EAttribute getDashboardConnection_Port();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getDatabase <em>Database</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Database</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection#getDatabase()
+     * @see #getDashboardConnection()
+     * @generated
+     */
+    EAttribute getDashboardConnection_Database();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getUsername <em>Username</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Username</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection#getUsername()
+     * @see #getDashboardConnection()
+     * @generated
+     */
+    EAttribute getDashboardConnection_Username();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getPassword <em>Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Password</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection#getPassword()
+     * @see #getDashboardConnection()
+     * @generated
+     */
+    EAttribute getDashboardConnection_Password();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getLogTable <em>Log Table</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Log Table</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection#getLogTable()
+     * @see #getDashboardConnection()
+     * @generated
+     */
+    EAttribute getDashboardConnection_LogTable();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getStatTable <em>Stat Table</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Stat Table</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection#getStatTable()
+     * @see #getDashboardConnection()
+     * @generated
+     */
+    EAttribute getDashboardConnection_StatTable();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getFlowMeterTable <em>Flow Meter Table</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Flow Meter Table</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection#getFlowMeterTable()
+     * @see #getDashboardConnection()
+     * @generated
+     */
+    EAttribute getDashboardConnection_FlowMeterTable();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -4401,6 +4630,96 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass LDAP_SCHEMA_CONNECTION_ITEM = eINSTANCE.getLDAPSchemaConnectionItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.DashboardConnectionImpl <em>Dashboard Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.DashboardConnectionImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getDashboardConnection()
+         * @generated
+         */
+        EClass DASHBOARD_CONNECTION = eINSTANCE.getDashboardConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DASHBOARD_CONNECTION__LABEL = eINSTANCE.getDashboardConnection_Label();
+
+        /**
+         * The meta object literal for the '<em><b>Dialect</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DASHBOARD_CONNECTION__DIALECT = eINSTANCE.getDashboardConnection_Dialect();
+
+        /**
+         * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DASHBOARD_CONNECTION__HOST = eINSTANCE.getDashboardConnection_Host();
+
+        /**
+         * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DASHBOARD_CONNECTION__PORT = eINSTANCE.getDashboardConnection_Port();
+
+        /**
+         * The meta object literal for the '<em><b>Database</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DASHBOARD_CONNECTION__DATABASE = eINSTANCE.getDashboardConnection_Database();
+
+        /**
+         * The meta object literal for the '<em><b>Username</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DASHBOARD_CONNECTION__USERNAME = eINSTANCE.getDashboardConnection_Username();
+
+        /**
+         * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DASHBOARD_CONNECTION__PASSWORD = eINSTANCE.getDashboardConnection_Password();
+
+        /**
+         * The meta object literal for the '<em><b>Log Table</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DASHBOARD_CONNECTION__LOG_TABLE = eINSTANCE.getDashboardConnection_LogTable();
+
+        /**
+         * The meta object literal for the '<em><b>Stat Table</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DASHBOARD_CONNECTION__STAT_TABLE = eINSTANCE.getDashboardConnection_StatTable();
+
+        /**
+         * The meta object literal for the '<em><b>Flow Meter Table</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DASHBOARD_CONNECTION__FLOW_METER_TABLE = eINSTANCE.getDashboardConnection_FlowMeterTable();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
