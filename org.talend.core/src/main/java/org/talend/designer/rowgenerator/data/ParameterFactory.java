@@ -56,6 +56,8 @@ public class ParameterFactory {
 
     private static final String PARAMETER_TYPE_DATE = "date";
 
+    private static final String PARAMETER_TYPE_CHAR = "char";
+
     /**
      * qzhang Comment method "getParameter". <br/>.
      * 
@@ -151,6 +153,8 @@ public class ParameterFactory {
             return new LongParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_DATE)) {
             return new DateParameter();
+        } else if (type.equalsIgnoreCase(PARAMETER_TYPE_CHAR)) {
+            return new CharParameter();
         }
         return null;
     }
