@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.talend.core.model.properties.DashboardConnection;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.User;
@@ -45,6 +46,7 @@ import org.talend.core.model.properties.UserRole;
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getRole <em>Role</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getProjectAuthorization <em>Project Authorization</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getModuleAuthorization <em>Module Authorization</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getPreferredDashboardConnection <em>Preferred Dashboard Connection</em>}</li>
  * </ul>
  * </p>
  *
@@ -280,6 +282,16 @@ public class UserImpl extends EObjectImpl implements User {
      * @ordered
      */
     protected EList moduleAuthorization;
+
+    /**
+     * The cached value of the '{@link #getPreferredDashboardConnection() <em>Preferred Dashboard Connection</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getPreferredDashboardConnection()
+     * @generated
+     * @ordered
+     */
+    protected DashboardConnection preferredDashboardConnection;
 
     /**
      * <!-- begin-user-doc -->
@@ -576,6 +588,44 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- end-user-doc -->
      * @generated
      */
+    public DashboardConnection getPreferredDashboardConnection() {
+        if (preferredDashboardConnection != null && preferredDashboardConnection.eIsProxy()) {
+            InternalEObject oldPreferredDashboardConnection = (InternalEObject)preferredDashboardConnection;
+            preferredDashboardConnection = (DashboardConnection)eResolveProxy(oldPreferredDashboardConnection);
+            if (preferredDashboardConnection != oldPreferredDashboardConnection) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION, oldPreferredDashboardConnection, preferredDashboardConnection));
+            }
+        }
+        return preferredDashboardConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public DashboardConnection basicGetPreferredDashboardConnection() {
+        return preferredDashboardConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPreferredDashboardConnection(DashboardConnection newPreferredDashboardConnection) {
+        DashboardConnection oldPreferredDashboardConnection = preferredDashboardConnection;
+        preferredDashboardConnection = newPreferredDashboardConnection;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION, oldPreferredDashboardConnection, preferredDashboardConnection));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
@@ -635,6 +685,9 @@ public class UserImpl extends EObjectImpl implements User {
                 return getProjectAuthorization();
             case PropertiesPackage.USER__MODULE_AUTHORIZATION:
                 return getModuleAuthorization();
+            case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
+                if (resolve) return getPreferredDashboardConnection();
+                return basicGetPreferredDashboardConnection();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -687,6 +740,9 @@ public class UserImpl extends EObjectImpl implements User {
                 getModuleAuthorization().clear();
                 getModuleAuthorization().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
+                setPreferredDashboardConnection((DashboardConnection)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -737,6 +793,9 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__MODULE_AUTHORIZATION:
                 getModuleAuthorization().clear();
                 return;
+            case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
+                setPreferredDashboardConnection((DashboardConnection)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -774,6 +833,8 @@ public class UserImpl extends EObjectImpl implements User {
                 return projectAuthorization != null && !projectAuthorization.isEmpty();
             case PropertiesPackage.USER__MODULE_AUTHORIZATION:
                 return moduleAuthorization != null && !moduleAuthorization.isEmpty();
+            case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
+                return preferredDashboardConnection != null;
         }
         return super.eIsSet(featureID);
     }

@@ -1412,12 +1412,21 @@ public interface PropertiesPackage extends EPackage {
     int USER__MODULE_AUTHORIZATION = 12;
 
     /**
+     * The feature id for the '<em><b>Preferred Dashboard Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__PREFERRED_DASHBOARD_CONNECTION = 13;
+
+    /**
      * The number of structural features of the '<em>User</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int USER_FEATURE_COUNT = 13;
+    int USER_FEATURE_COUNT = 14;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -2879,6 +2888,17 @@ public interface PropertiesPackage extends EPackage {
     EReference getUser_ModuleAuthorization();
 
     /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.User#getPreferredDashboardConnection <em>Preferred Dashboard Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Preferred Dashboard Connection</em>'.
+     * @see org.talend.core.model.properties.User#getPreferredDashboardConnection()
+     * @see #getUser()
+     * @generated
+     */
+    EReference getUser_PreferredDashboardConnection();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.FolderItem <em>Folder Item</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Folder Item</em>'.
@@ -4238,6 +4258,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference USER__MODULE_AUTHORIZATION = eINSTANCE.getUser_ModuleAuthorization();
+
+        /**
+         * The meta object literal for the '<em><b>Preferred Dashboard Connection</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference USER__PREFERRED_DASHBOARD_CONNECTION = eINSTANCE.getUser_PreferredDashboardConnection();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.FolderItemImpl <em>Folder Item</em>}' class.

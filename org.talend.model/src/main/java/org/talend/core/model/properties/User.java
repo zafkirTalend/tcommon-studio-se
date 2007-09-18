@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.User#getRole <em>Role</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getProjectAuthorization <em>Project Authorization</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getModuleAuthorization <em>Module Authorization</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.User#getPreferredDashboardConnection <em>Preferred Dashboard Connection</em>}</li>
  * </ul>
  * </p>
  *
@@ -361,5 +362,31 @@ public interface User extends EObject {
      * @generated
      */
     EList getModuleAuthorization();
+
+    /**
+     * Returns the value of the '<em><b>Preferred Dashboard Connection</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Preferred Dashboard Connection</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Preferred Dashboard Connection</em>' reference.
+     * @see #setPreferredDashboardConnection(DashboardConnection)
+     * @see org.talend.core.model.properties.PropertiesPackage#getUser_PreferredDashboardConnection()
+     * @model
+     * @generated
+     */
+    DashboardConnection getPreferredDashboardConnection();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.User#getPreferredDashboardConnection <em>Preferred Dashboard Connection</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Preferred Dashboard Connection</em>' reference.
+     * @see #getPreferredDashboardConnection()
+     * @generated
+     */
+    void setPreferredDashboardConnection(DashboardConnection value);
 
 } // User

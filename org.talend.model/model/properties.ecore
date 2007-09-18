@@ -155,6 +155,8 @@
         eType="#//UserProjectAuthorization" eOpposite="#//UserProjectAuthorization/user"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="moduleAuthorization" upperBound="-1"
         eType="#//UserModuleAuthorization" eOpposite="#//UserModuleAuthorization/user"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preferredDashboardConnection"
+        eType="#//DashboardConnection"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FolderItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EReference" name="children" unique="false"
