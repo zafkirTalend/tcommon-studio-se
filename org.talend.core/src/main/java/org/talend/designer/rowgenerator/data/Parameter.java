@@ -21,17 +21,12 @@
 // ============================================================================
 package org.talend.designer.rowgenerator.data;
 
-import java.util.List;
-
 import org.talend.core.i18n.Messages;
-import org.talend.expressionbuilder.test.shadow.Variable;
 
 /**
  * class global comment. Detailled comment <br/> $Id: Parameter.java,v 1.4 2007/02/02 03:04:21 pub Exp $
  */
 public abstract class Parameter {
-
-    protected List<Variable> variables;
 
     /**
      * @uml.property name="name"
@@ -70,7 +65,12 @@ public abstract class Parameter {
      * @uml.property name="value"
      */
     public String getValue() {
-        return this.value;
+        int index = this.value.indexOf("{variables}");
+        if (index != -1) {
+            return this.value.substring(0, index);
+        } else {
+            return this.value;
+        }
     }
 
     /**
@@ -159,21 +159,4 @@ public abstract class Parameter {
         return sb.toString();
     }
 
-    /**
-     * Getter for variables.
-     * 
-     * @return the variables
-     */
-    public List<Variable> getVariables() {
-        return this.variables;
-    }
-
-    /**
-     * Sets the variables.
-     * 
-     * @param variables the variables to set
-     */
-    public void setVariables(List<Variable> variables) {
-        this.variables = variables;
-    }
 }
