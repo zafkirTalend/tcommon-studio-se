@@ -67,6 +67,7 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
      */
     public ExtendedTextCellEditor(Composite parent) {
         this.parent = parent;
+        setStyle(SWT.SINGLE);
     }
 
     /**
@@ -82,7 +83,7 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
      * yzhang Comment method "init".
      */
     public void init() {
-        setStyle(SWT.SINGLE);
+
         create(parent);
     }
 
@@ -95,6 +96,10 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
     protected Control createControl(Composite parent) {
         return cellEditorBehavior.createBehaviorControls(parent);
 
+    }
+
+    public Text getTextControl() {
+        return text;
     }
 
     public Text createText(Composite parent) {
