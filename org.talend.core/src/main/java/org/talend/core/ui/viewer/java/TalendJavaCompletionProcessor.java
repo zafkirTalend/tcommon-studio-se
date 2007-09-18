@@ -28,9 +28,12 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProcessor;
+import org.eclipse.jdt.internal.ui.text.java.JavaMethodCompletionProposal;
 import org.eclipse.jdt.internal.ui.text.java.LazyJavaTypeCompletionProposal;
 import org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext;
+import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
+import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.ui.IEditorPart;
 import org.talend.core.ui.viewer.proposal.TalendCompletionProposal;
 
@@ -54,12 +57,26 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
     protected List filterAndSortProposals(List proposals, IProgressMonitor monitor, ContentAssistInvocationContext context) {
         List newProposals = super.filterAndSortProposals(proposals, monitor, context);
         List toRemove = new ArrayList();
-        for (Object o : newProposals) {
-            if (o instanceof LazyJavaTypeCompletionProposal) {
-                if (((LazyJavaTypeCompletionProposal) o).getReplacementString().equals(TalendJavaSourceViewer.VIEWER_CLASS_NAME)) {
-                    toRemove.add(o);
+        try {
+            for (Object o : newProposals) {
+                ICompletionProposal proposal = (ICompletionProposal) o;
+                if (context.getDocument().getChar(context.getInvocationOffset() - 1) != '.') {
+                    if (proposal instanceof JavaMethodCompletionProposal) {
+                        toRemove.add(proposal);
+                    }
+                }
+                if (proposal.getDisplayString().startsWith("myFunction")) {
+                    toRemove.add(proposal);
+                }
+                if (proposal instanceof LazyJavaTypeCompletionProposal) {
+                    if (((LazyJavaTypeCompletionProposal) proposal).getReplacementString().equals(
+                            TalendJavaSourceViewer.VIEWER_CLASS_NAME)) {
+                        toRemove.add(proposal);
+                    }
                 }
             }
+        } catch (BadLocationException e) {
+            throw new RuntimeException(e);
         }
         newProposals.removeAll(toRemove);
         Collections.sort(newProposals, new Comparator() {

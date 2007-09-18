@@ -66,9 +66,25 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             if ((!prefix.equals(""))) {
                 tmpPrefix = prefix;
             } else {
-                if (context.getDocument().get(context.getInvocationOffset() - CONTEXT_PREFIX.length(), CONTEXT_PREFIX.length())
-                        .equals(CONTEXT_PREFIX)) {
-                    tmpPrefix = CONTEXT_PREFIX;
+                if (context.getDocument().getChar(context.getInvocationOffset() - 1) == '.') {
+                    // set by default to avoid other completions
+                    tmpPrefix = ".";
+                    if (context.getDocument().get(context.getInvocationOffset() - CONTEXT_PREFIX.length(),
+                            CONTEXT_PREFIX.length()).equals(CONTEXT_PREFIX)) {
+                        tmpPrefix = CONTEXT_PREFIX;
+                    } else {
+                        // test each component label.
+                        IProcess process = CorePlugin.getDefault().getDesignerCoreService().getCurrentProcess();
+                        List<? extends INode> nodes = process.getGraphicalNodes();
+                        for (INode node : nodes) {
+                            String toTest = node.getLabel() + ".";
+                            if (context.getDocument().get(context.getInvocationOffset() - toTest.length(), toTest.length())
+                                    .equals(toTest)) {
+                                tmpPrefix = toTest;
+                                break;
+                            }
+                        }
+                    }
                 }
             }
             prefix = tmpPrefix;
