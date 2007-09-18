@@ -23,7 +23,7 @@ package org.talend.expressionbuilder.ui;
 
 import java.util.List;
 
-import org.talend.expressionbuilder.CellEditorDialogBehavior;
+import org.talend.commons.ui.swt.tableviewer.celleditor.CellEditorDialogBehavior;
 import org.talend.expressionbuilder.ICellEditorDialog;
 import org.talend.expressionbuilder.test.shadow.Variable;
 
