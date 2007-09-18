@@ -513,9 +513,15 @@ public class MetadataSchema {
             XMLSerializer serializer = new XMLSerializer();
             OutputFormat outputFormat = new OutputFormat();
             outputFormat.setIndenting(true);
+            outputFormat.setEncoding(System.getProperty("file.encoding"));
+
+            java.io.FileWriter fileWriter = new java.io.FileWriter(file);
+
             serializer.setOutputFormat(outputFormat);
-            serializer.setOutputCharStream(new java.io.FileWriter(file));
+            serializer.setOutputCharStream(fileWriter);
             serializer.serialize(document);
+
+            fileWriter.close();
             return true;
         }
         return false;
@@ -657,9 +663,15 @@ public class MetadataSchema {
             XMLSerializer serializer = new XMLSerializer();
             OutputFormat outputFormat = new OutputFormat();
             outputFormat.setIndenting(true);
+            outputFormat.setEncoding(System.getProperty("file.encoding"));
+
+            java.io.FileWriter fileWriter = new java.io.FileWriter(file);
+
             serializer.setOutputFormat(outputFormat);
-            serializer.setOutputCharStream(new java.io.FileWriter(file));
+            serializer.setOutputCharStream(fileWriter);
             serializer.serialize(document);
+
+            fileWriter.close();
             return true;
         }
         return false;
