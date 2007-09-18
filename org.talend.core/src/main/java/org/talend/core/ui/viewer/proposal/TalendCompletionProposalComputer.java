@@ -57,23 +57,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
     public TalendCompletionProposalComputer() {
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer#computeCompletionProposals(org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext,
-     * org.eclipse.core.runtime.IProgressMonitor)
-     */
     public List computeCompletionProposals(ContentAssistInvocationContext context, IProgressMonitor monitor) {
-        List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
-
-        IProcess process = CorePlugin.getDefault().getDesignerCoreService().getCurrentProcess();
-
-        if (process == null) {
-            return Collections.EMPTY_LIST;
-        }
-
-        // Proposals based on process context
-        List<IContextParameter> ctxParams = process.getContextManager().getDefaultContext().getContextParameterList();
         String prefix = "";
         try {
             prefix = context.computeIdentifierPrefix().toString();
@@ -88,43 +72,62 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                 }
             }
             prefix = tmpPrefix;
-            for (IContextParameter ctxParam : ctxParams) {
-                String display = CONTEXT_PREFIX + ctxParam.getName();
-                String code = getContextContent(ctxParam);
-                String description = getContextDescription(ctxParam);
-
-                if (prefix.equals("") || display.startsWith(prefix)) {
-                    ICompletionProposal proposal = new TalendCompletionProposal(code, context.getInvocationOffset()
-                            - prefix.length(), prefix.length(), code.length(), ImageProvider.getImage(ECoreImage.CONTEXT_ICON),
-                            display, null, description);
-                    proposals.add(proposal);
-                }
-
-            }
-
-            // Proposals based on global variables
-            List<? extends INode> nodes = process.getGraphicalNodes();
-            for (INode node : nodes) {
-                List<? extends INodeReturn> nodeReturns = node.getReturns();
-                for (INodeReturn nodeReturn : nodeReturns) {
-                    String display = node.getLabel() + "." + nodeReturn.getName();
-
-                    if (prefix.equals("") || display.startsWith(prefix)) {
-                        String code = getNodeReturnContent(nodeReturn, node);
-
-                        String description = getNodeReturnDescription(nodeReturn, node);
-
-                        ICompletionProposal proposal = new TalendCompletionProposal(code, context.getInvocationOffset()
-                                - prefix.length(), prefix.length(), code.length(), node.getComponent().getIcon16().createImage(),
-                                display, null, description);
-                        proposals.add(proposal);
-                    }
-                }
-            }
         } catch (BadLocationException e) {
             throw new RuntimeException(e);
         }
 
+        return computeCompletionProposals(prefix, context.getInvocationOffset(), monitor);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer#computeCompletionProposals(org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext,
+     * org.eclipse.core.runtime.IProgressMonitor)
+     */
+    public List computeCompletionProposals(String prefix, int offset, IProgressMonitor monitor) {
+        List<ICompletionProposal> proposals = new ArrayList<ICompletionProposal>();
+
+        IProcess process = CorePlugin.getDefault().getDesignerCoreService().getCurrentProcess();
+
+        if (process == null) {
+            return Collections.EMPTY_LIST;
+        }
+
+        // Proposals based on process context
+        List<IContextParameter> ctxParams = process.getContextManager().getDefaultContext().getContextParameterList();
+
+        for (IContextParameter ctxParam : ctxParams) {
+            String display = CONTEXT_PREFIX + ctxParam.getName();
+            String code = getContextContent(ctxParam);
+            String description = getContextDescription(ctxParam, display);
+
+            if (prefix.equals("") || display.startsWith(prefix)) {
+                ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix.length(), code
+                        .length(), ImageProvider.getImage(ECoreImage.CONTEXT_ICON), display, null, description);
+                proposals.add(proposal);
+            }
+
+        }
+
+        // Proposals based on global variables
+        List<? extends INode> nodes = process.getGraphicalNodes();
+        for (INode node : nodes) {
+            List<? extends INodeReturn> nodeReturns = node.getReturns();
+            for (INodeReturn nodeReturn : nodeReturns) {
+                String display = node.getLabel() + "." + nodeReturn.getName();
+
+                if (prefix.equals("") || display.startsWith(prefix)) {
+                    String code = getNodeReturnContent(nodeReturn, node);
+
+                    String description = getNodeReturnDescription(nodeReturn, node, display);
+
+                    ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix.length(),
+                            code.length(), node.getComponent().getIcon16().createImage(), display, null, description);
+                    proposals.add(proposal);
+                }
+            }
+        }
         return proposals;
     }
 
@@ -135,7 +138,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
         return ContextParameterUtils.getScriptCode(contextParameter, language);
     }
 
-    private String getContextDescription(IContextParameter contextParameter) {
+    private String getContextDescription(IContextParameter contextParameter, String display) {
         String desc = new String();
         if (!StringUtils.isEmpty(contextParameter.getComment())) {
             desc = contextParameter.getComment();
@@ -143,9 +146,10 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             desc = Messages.getString("ContextParameterProposal.NoCommentAvaiable"); //$NON-NLS-1$
         }
 
-        String message = Messages.getString("ContextParameterProposal.Description") + "\n"; //$NON-NLS-1$
-        message += Messages.getString("ContextParameterProposal.ContextVariable") + "\n"; //$NON-NLS-1$
-        message += Messages.getString("ContextParameterProposal.Type") + "\n"; //$NON-NLS-1$
+        String message = "<b>" + display + "</b><br><br>" //$NON-NLS-1$ //$NON-NLS-2$
+                + Messages.getString("ContextParameterProposal.Description") + "<br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("ContextParameterProposal.ContextVariable") + "<br><br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("ContextParameterProposal.Type") + "<br><br>"; //$NON-NLS-1$ //$NON-NLS-2$
         message += Messages.getString("ContextParameterProposal.VariableName"); //$NON-NLS-1$
 
         MessageFormat format = new MessageFormat(message);
@@ -157,11 +161,12 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
         return ElementParameterParser.parse(node, nodeReturn.getVarName());
     }
 
-    private String getNodeReturnDescription(INodeReturn nodeReturn, INode node) {
-        String message = Messages.getString("NodeReturnProposal.Description") + "\n"; //$NON-NLS-1$
-        message += Messages.getString("NodeReturnProposal.GlobalVariable") + "\n"; //$NON-NLS-1$
-        message += Messages.getString("NodeReturnProposal.Type") + "\n"; //$NON-NLS-1$
-        message += Messages.getString("NodeReturnProposal.Availability") + "\n"; //$NON-NLS-1$
+    private String getNodeReturnDescription(INodeReturn nodeReturn, INode node, String display) {
+        String message = "<b>" + display + "</b><br><br>" //$NON-NLS-1$ //$NON-NLS-2$
+                + Messages.getString("NodeReturnProposal.Description") + "<br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("NodeReturnProposal.GlobalVariable") + "<br><br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("NodeReturnProposal.Type") + "<br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("NodeReturnProposal.Availability") + "<br><br>"; //$NON-NLS-1$ //$NON-NLS-2$
         message += Messages.getString("NodeReturnProposal.VariableName"); //$NON-NLS-1$
 
         MessageFormat format = new MessageFormat(message);
@@ -177,7 +182,6 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
      * org.eclipse.core.runtime.IProgressMonitor)
      */
     public List computeContextInformation(ContentAssistInvocationContext context, IProgressMonitor monitor) {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -187,7 +191,6 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
      * @see org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer#getErrorMessage()
      */
     public String getErrorMessage() {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -197,8 +200,6 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
      * @see org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer#sessionEnded()
      */
     public void sessionEnded() {
-        // TODO Auto-generated method stub
-
     }
 
     /*
@@ -207,8 +208,6 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
      * @see org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer#sessionStarted()
      */
     public void sessionStarted() {
-        // TODO Auto-generated method stub
-
     }
 
 }
