@@ -30,8 +30,11 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -53,23 +56,43 @@ public class XSDValidator {
         fabrique.setAttribute(SCHEMA_VALIDATOR, fileXSD);
         fabrique.setValidating(true);
 
-        final DocumentBuilder analyseur = fabrique.newDocumentBuilder();
-        analyseur.setErrorHandler(new ErrorHandler() {
+        Document document = null;
+        boolean retry = false;
 
-            public void error(final SAXParseException exception) throws SAXException {
-                throw exception;
+        for (int i = 0; i < 2; i++) {
+
+            DocumentBuilder analyseur = fabrique.newDocumentBuilder();
+            analyseur.setErrorHandler(new ErrorHandler() {
+
+                public void error(final SAXParseException exception) throws SAXException {
+                    throw exception;
+                }
+
+                public void fatalError(final SAXParseException exception) throws SAXException {
+                    throw exception;
+                }
+
+                public void warning(final SAXParseException exception) throws SAXException {
+                    throw exception;
+                }
+
+            });
+
+            InputSource fileSource = new InputSource(fileToCheck.toURI().toASCIIString());
+            try {
+                if (retry) {
+                    fileSource.setEncoding(System.getProperty("file.encoding"));
+                }
+                document = analyseur.parse(fileSource);
+                break;
+            } catch (MalformedByteSequenceException e) {
+                if (retry) {
+                    throw e;
+                }
+                retry = !retry;
+
             }
-
-            public void fatalError(final SAXParseException exception) throws SAXException {
-                throw exception;
-            }
-
-            public void warning(final SAXParseException exception) throws SAXException {
-                throw exception;
-            }
-
-        });
-
-        return analyseur.parse(fileToCheck);
+        }
+        return document;
     }
 }
