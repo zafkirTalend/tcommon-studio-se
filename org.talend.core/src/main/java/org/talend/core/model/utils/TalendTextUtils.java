@@ -24,9 +24,11 @@ package org.talend.core.model.utils;
 import java.util.StringTokenizer;
 
 import org.eclipse.swt.graphics.RGB;
+import org.talend.core.CorePlugin;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -189,9 +191,11 @@ public class TalendTextUtils {
         if (fieldName.startsWith("\"") && fieldName.endsWith("\"")) {
             return fieldName;
         }
-        // if (!fieldName.contains(" ")) {
-        // return fieldName;
-        // }
+        if (!fieldName.contains(" ")) {
+            if (!CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE)) {
+                return fieldName;
+            }
+        }
         String newFieldName = fieldName;
         String quote = getQuoteByDBType(dbType);
         if (!newFieldName.contains(quote)) {

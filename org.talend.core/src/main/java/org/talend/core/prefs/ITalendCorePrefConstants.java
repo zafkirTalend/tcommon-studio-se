@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.core.prefs;
 
-
 /**
  * Core preferences. Detailled comment <br/>
  * 
@@ -35,10 +34,10 @@ public interface ITalendCorePrefConstants {
 
     /** Perl interpreter. */
     String PERL_INTERPRETER = "perlInterpreter"; //$NON-NLS-1$
-  
+
     /** Java interpreter. */
     String JAVA_INTERPRETER = "javaInterpreter"; //$NON-NLS-1$
-    
+
     /** Lanugage selector. */
     String LANGUAGE_SELECTOR = "languageSelector"; //$NON-NLS-1$
 
@@ -62,6 +61,8 @@ public interface ITalendCorePrefConstants {
     String PREVIEW_LIMIT = "previewLimit"; //$NON-NLS-1$
 
     String WORKSPACE_TASKS_DONE = "workspaceTasksDone"; //$NON-NLS-1$
-    
+
     String RUN_IN_MULTI_THREAD = "runInMultiThread"; //$NON-NLS-1$
+
+    String SQL_ADD_QUOTE = "addSqlQuote";
 }

@@ -91,7 +91,8 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         String javaPath = System.getProperty("java.home"); // NON-NLS-1$
         if (os.equals(Platform.OS_WIN32)) {
             String perlPath;
-            perlPath = Platform.getInstallLocation().getURL().getFile().substring(1) + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
+            perlPath = Platform.getInstallLocation().getURL().getFile().substring(1)
+                    + PERL_EMBEDDED_INTERPRETER_DIRECTORY;
             File perlEmbeddedExecFile = new File(perlPath);
             if (!perlEmbeddedExecFile.exists()) {
                 perlPath = PERL_WIN32_INTERPRETER_PATH;
@@ -124,6 +125,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         ColorManager.initDefaultColors(CorePlugin.getDefault().getPreferenceStore());
         String languageType = Locale.getDefault().getLanguage();
         CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.LANGUAGE_SELECTOR, languageType);
+        CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.SQL_ADD_QUOTE, false);
     }
 
     public void initializeUpdatePreference() {
