@@ -34,6 +34,7 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
+import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
@@ -96,6 +97,9 @@ public class RepositoryToComponentProperty {
         }
         if (connection instanceof DatabaseConnection) {
             return getDatabaseValue((DatabaseConnection) connection, value);
+        }
+        if (connection instanceof LDAPSchemaConnection) {
+            return getLDAPValue((LDAPSchemaConnection) connection, value);
         }
         return null;
     }
@@ -393,6 +397,73 @@ public class RepositoryToComponentProperty {
     }
 
     private static Object getLdifFileValue(LdifFileConnection connection, String value) {
+        return null;
+    }
+    
+    /**
+     * Gets repository value for LDAP schema.
+     * 
+     * @param connection
+     * @param value
+     * @return
+     */
+    private static Object getLDAPValue(LDAPSchemaConnection connection, String value) {
+
+        if (value.equals("HOST")) { //$NON-NLS-1$
+            return TalendTextUtils.addQuotes(connection.getHost());
+        }
+
+        if (value.equals("PORT")) { //$NON-NLS-1$
+            return connection.getPort();
+        }
+
+        if (value.equals("BASEDN")) {
+            return TalendTextUtils.addQuotes(connection.getSelectedDN());
+        }
+        String protocol = connection.getProtocol();// Simple or Anonymous
+        if (value.equals("PROTOCOL")) {
+            String encryptionMethodName = connection.getEncryptionMethodName();
+            if(encryptionMethodName.equals("LDAPS(SSL)"))
+                    {
+                return "LDAPS";
+                    }
+        }
+
+        boolean useAuthen = connection.isUseAuthen();
+        if (value.equals("AUTHENTIFICATION")) {
+            return new Boolean(useAuthen);
+        }
+
+        if (useAuthen && value.equals("USER")) {
+            return TalendTextUtils.addQuotes(connection.getBindPrincipal());
+        }
+        if (useAuthen && value.equals("PASSWD")) {
+            return TalendTextUtils.addQuotes(connection.getBindPassword());
+        }
+        if (value.equals("FILTER")) {
+            return TalendTextUtils.addQuotes(connection.getFilter());
+        }
+
+        if (value.equals("MULTI_VALUE_SEPARATOR")) {
+            String separator = connection.getSeparator();
+            return separator == null ? TalendTextUtils.addQuotes(",") : TalendTextUtils.addQuotes(separator);
+        }
+
+        if (value.equals("COLUMN_COUNT_LIMIT")) {
+            return connection.getCountLimit();
+        }
+
+        if (value.equals("TIME_OUT_LIMIT")) {
+            return connection.getTimeOutLimit();
+        }
+
+        if (value.equals("ALIASES")) {
+            return connection.getAliases();
+        }
+
+        if (value.equals("REFERRALS")) {
+            return connection.getReferrals();
+        }
         return null;
     }
 }

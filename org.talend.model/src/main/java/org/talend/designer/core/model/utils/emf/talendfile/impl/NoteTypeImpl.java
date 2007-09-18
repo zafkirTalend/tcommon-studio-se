@@ -62,7 +62,7 @@ public class NoteTypeImpl extends EObjectImpl implements NoteType {
      * @generated
      * @ordered
      */
-    protected boolean opaqueESet = false;
+    protected boolean opaqueESet;
 
     /**
      * The default value of the '{@link #getPosX() <em>Pos X</em>}' attribute.
@@ -91,7 +91,7 @@ public class NoteTypeImpl extends EObjectImpl implements NoteType {
      * @generated
      * @ordered
      */
-    protected boolean posXESet = false;
+    protected boolean posXESet;
 
     /**
      * The default value of the '{@link #getPosY() <em>Pos Y</em>}' attribute.
@@ -120,7 +120,7 @@ public class NoteTypeImpl extends EObjectImpl implements NoteType {
      * @generated
      * @ordered
      */
-    protected boolean posYESet = false;
+    protected boolean posYESet;
 
     /**
      * The default value of the '{@link #getSizeHeight() <em>Size Height</em>}' attribute.
@@ -149,7 +149,7 @@ public class NoteTypeImpl extends EObjectImpl implements NoteType {
      * @generated
      * @ordered
      */
-    protected boolean sizeHeightESet = false;
+    protected boolean sizeHeightESet;
 
     /**
      * The default value of the '{@link #getSizeWidth() <em>Size Width</em>}' attribute.
@@ -178,7 +178,7 @@ public class NoteTypeImpl extends EObjectImpl implements NoteType {
      * @generated
      * @ordered
      */
-    protected boolean sizeWidthESet = false;
+    protected boolean sizeWidthESet;
 
     /**
      * The default value of the '{@link #getText() <em>Text</em>}' attribute.

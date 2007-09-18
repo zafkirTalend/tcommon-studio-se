@@ -46,7 +46,7 @@ public class RequiredTypeImpl extends EObjectImpl implements RequiredType {
      * @generated
      * @ordered
      */
-    protected EList job = null;
+    protected EList job;
 
     /**
      * <!-- begin-user-doc -->

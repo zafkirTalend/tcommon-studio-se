@@ -159,6 +159,15 @@ public interface ConnectionFactory extends EFactory {
     GenericSchemaConnection createGenericSchemaConnection();
 
     /**
+     * Returns a new object of class '<em>LDAP Schema Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>LDAP Schema Connection</em>'.
+     * @generated
+     */
+    LDAPSchemaConnection createLDAPSchemaConnection();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

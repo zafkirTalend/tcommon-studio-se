@@ -42,7 +42,7 @@ public class LogsTypeImpl extends EObjectImpl implements LogsType {
      * @generated
      * @ordered
      */
-    protected LogToFileType logToFile = null;
+    protected LogToFileType logToFile;
 
     /**
      * The cached value of the '{@link #getLogToDatabase() <em>Log To Database</em>}' containment reference.
@@ -52,7 +52,7 @@ public class LogsTypeImpl extends EObjectImpl implements LogsType {
      * @generated
      * @ordered
      */
-    protected LogToDatabaseType logToDatabase = null;
+    protected LogToDatabaseType logToDatabase;
 
     /**
      * The cached value of the '{@link #getLogToStdOut() <em>Log To Std Out</em>}' containment reference.
@@ -62,7 +62,7 @@ public class LogsTypeImpl extends EObjectImpl implements LogsType {
      * @generated
      * @ordered
      */
-    protected LogToStdOutType logToStdOut = null;
+    protected LogToStdOutType logToStdOut;
 
     /**
      * <!-- begin-user-doc -->

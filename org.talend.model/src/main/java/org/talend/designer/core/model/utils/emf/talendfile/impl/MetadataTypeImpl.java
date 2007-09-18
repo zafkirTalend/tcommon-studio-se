@@ -48,7 +48,7 @@ public class MetadataTypeImpl extends EObjectImpl implements MetadataType {
      * @generated
      * @ordered
      */
-    protected EList column = null;
+    protected EList column;
 
     /**
      * The default value of the '{@link #getComment() <em>Comment</em>}' attribute.

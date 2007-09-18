@@ -46,7 +46,7 @@ public class ParametersTypeImpl extends EObjectImpl implements ParametersType {
      * @generated
      * @ordered
      */
-    protected EList elementParameter = null;
+    protected EList elementParameter;
 
     /**
      * <!-- begin-user-doc -->

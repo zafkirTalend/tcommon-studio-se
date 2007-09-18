@@ -84,7 +84,7 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * @generated
      * @ordered
      */
-    protected RequiredType required = null;
+    protected RequiredType required;
 
     /**
      * The cached value of the '{@link #getContext() <em>Context</em>}' containment reference list.
@@ -94,7 +94,7 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * @generated
      * @ordered
      */
-    protected EList context = null;
+    protected EList context;
 
     /**
      * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference.
@@ -104,7 +104,7 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * @generated
      * @ordered
      */
-    protected ParametersType parameters = null;
+    protected ParametersType parameters;
 
     /**
      * The cached value of the '{@link #getNode() <em>Node</em>}' containment reference list.
@@ -114,7 +114,7 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * @generated
      * @ordered
      */
-    protected EList node = null;
+    protected EList node;
 
     /**
      * The cached value of the '{@link #getConnection() <em>Connection</em>}' containment reference list.
@@ -124,7 +124,7 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * @generated
      * @ordered
      */
-    protected EList connection = null;
+    protected EList connection;
 
     /**
      * The cached value of the '{@link #getNote() <em>Note</em>}' containment reference list.
@@ -134,7 +134,7 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * @generated
      * @ordered
      */
-    protected EList note = null;
+    protected EList note;
 
     /**
      * The cached value of the '{@link #getLogs() <em>Logs</em>}' containment reference.
@@ -144,7 +144,7 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * @generated
      * @ordered
      */
-    protected LogsType logs = null;
+    protected LogsType logs;
 
     /**
      * The default value of the '{@link #getAuthor() <em>Author</em>}' attribute.

@@ -76,7 +76,7 @@ public class LogToDatabaseTypeImpl extends EObjectImpl implements LogToDatabaseT
      * @generated
      * @ordered
      */
-    protected boolean levelESet = false;
+    protected boolean levelESet;
 
     /**
      * The default value of the '{@link #isSelected() <em>Selected</em>}' attribute.
@@ -105,7 +105,7 @@ public class LogToDatabaseTypeImpl extends EObjectImpl implements LogToDatabaseT
      * @generated
      * @ordered
      */
-    protected boolean selectedESet = false;
+    protected boolean selectedESet;
 
     /**
      * <!-- begin-user-doc -->

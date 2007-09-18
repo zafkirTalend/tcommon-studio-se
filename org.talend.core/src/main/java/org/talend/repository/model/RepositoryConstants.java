@@ -34,9 +34,8 @@ public class RepositoryConstants {
     public static final String TEMP_DIRECTORY = "temp"; //$NON-NLS-1$
 
     public static final String IMG_DIRECTORY = "images"; //$NON-NLS-1$
-    
+
     public static final String IMG_DIRECTORY_OF_JOB_OUTLINE = "images/job_outlines"; //$NON-NLS-1$
-    
 
     public static final String SYSTEM_DIRECTORY = "system"; //$NON-NLS-1$
 
@@ -49,6 +48,8 @@ public class RepositoryConstants {
     public static final String FOLDER_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$"; //$NON-NLS-1$
 
     public static final String REPOSITORY_ITEM_PATTERN = "^[a-zA-Z0-9\\.\\-\\_\\ \\(\\)\\[\\]=]+$"; //$NON-NLS-1$
+
+    public static final String PORT_ITEM_PATTERN = "^[0-9]";
 
     public static final String MAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*(\\.[_A-Za-z0-9-]+)"; //$NON-NLS-1$
 

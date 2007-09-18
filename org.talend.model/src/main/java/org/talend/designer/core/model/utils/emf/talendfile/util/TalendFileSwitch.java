@@ -215,13 +215,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Column Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Column Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Column Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Column Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -230,13 +230,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Connection Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Connection Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Connection Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Connection Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -245,13 +245,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Context Parameter Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Context Parameter Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Context Parameter Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Context Parameter Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -260,13 +260,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Context Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Context Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Context Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Context Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -275,13 +275,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Document Root</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Document Root</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Document Root</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Document Root</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -290,13 +290,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Element Parameter Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Element Parameter Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Element Parameter Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Element Parameter Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -305,13 +305,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Element Value Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Element Value Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Element Value Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Element Value Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -320,13 +320,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Job Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Job Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Job Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Job Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -335,13 +335,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Logs Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Logs Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Logs Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Logs Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -350,13 +350,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Log To Database Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Log To Database Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Log To Database Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Log To Database Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -365,13 +365,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Log To File Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Log To File Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Log To File Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Log To File Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -380,13 +380,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Log To Std Out Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Log To Std Out Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Log To Std Out Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Log To Std Out Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -395,13 +395,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Metadata Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Metadata Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Metadata Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Metadata Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -410,13 +410,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Node Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Node Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Node Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Node Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -425,13 +425,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Note Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Note Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Note Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Note Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -440,13 +440,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Parameters Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Parameters Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Parameters Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Parameters Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -455,13 +455,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Process Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Process Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Process Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Process Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -470,13 +470,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>Required Type</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Required Type</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>Required Type</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Required Type</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
@@ -485,13 +485,13 @@ public class TalendFileSwitch {
     }
 
     /**
-     * Returns the result of interpretting the object as an instance of '<em>EObject</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch, but this is the last case anyway.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpretting the object as an instance of '<em>EObject</em>'.
+     * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject)
      * @generated
      */

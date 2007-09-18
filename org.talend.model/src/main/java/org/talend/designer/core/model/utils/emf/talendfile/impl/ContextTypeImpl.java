@@ -45,7 +45,7 @@ public class ContextTypeImpl extends EObjectImpl implements ContextType {
      * @generated
      * @ordered
      */
-    protected EList contextParameter = null;
+    protected EList contextParameter;
 
     /**
      * The default value of the '{@link #isConfirmationNeeded() <em>Confirmation Needed</em>}' attribute.
@@ -74,7 +74,7 @@ public class ContextTypeImpl extends EObjectImpl implements ContextType {
      * @generated
      * @ordered
      */
-    protected boolean confirmationNeededESet = false;
+    protected boolean confirmationNeededESet;
 
     /**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.

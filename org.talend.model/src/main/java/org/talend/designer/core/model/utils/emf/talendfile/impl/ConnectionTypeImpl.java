@@ -53,7 +53,7 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
      * @generated
      * @ordered
      */
-    protected EList elementParameter = null;
+    protected EList elementParameter;
 
     /**
      * The default value of the '{@link #getConnectorName() <em>Connector Name</em>}' attribute.
@@ -122,7 +122,7 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
      * @generated
      * @ordered
      */
-    protected boolean lineStyleESet = false;
+    protected boolean lineStyleESet;
 
     /**
      * The default value of the '{@link #getMergeOrder() <em>Merge Order</em>}' attribute.
@@ -151,7 +151,7 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
      * @generated
      * @ordered
      */
-    protected boolean mergeOrderESet = false;
+    protected boolean mergeOrderESet;
 
     /**
      * The default value of the '{@link #getMetaname() <em>Metaname</em>}' attribute.
@@ -200,7 +200,7 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
      * @generated
      * @ordered
      */
-    protected boolean offsetLabelXESet = false;
+    protected boolean offsetLabelXESet;
 
     /**
      * The default value of the '{@link #getOffsetLabelY() <em>Offset Label Y</em>}' attribute.
@@ -229,7 +229,7 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
      * @generated
      * @ordered
      */
-    protected boolean offsetLabelYESet = false;
+    protected boolean offsetLabelYESet;
 
     /**
      * The default value of the '{@link #getOutputId() <em>Output Id</em>}' attribute.
@@ -258,7 +258,7 @@ public class ConnectionTypeImpl extends EObjectImpl implements ConnectionType {
      * @generated
      * @ordered
      */
-    protected boolean outputIdESet = false;
+    protected boolean outputIdESet;
 
     /**
      * The default value of the '{@link #getSource() <em>Source</em>}' attribute.

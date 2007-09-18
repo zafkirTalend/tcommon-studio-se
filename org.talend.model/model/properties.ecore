@@ -229,4 +229,5 @@
     <eLiterals name="Scheduler" value="1" literal="Scheduler"/>
     <eLiterals name="Dashboard" value="2" literal="Dashboard"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LDAPSchemaConnectionItem" eSuperTypes="#//ConnectionItem"/>
 </ecore:EPackage>

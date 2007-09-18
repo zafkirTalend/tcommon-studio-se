@@ -10,8 +10,6 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.talend.core.model.metadata.builder.connection.*;
-
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.CSVFileConnection;
 import org.talend.core.model.metadata.builder.connection.Connection;
@@ -19,9 +17,11 @@ import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.DelimitedFileConnection;
 import org.talend.core.model.metadata.builder.connection.FileConnection;
+import org.talend.core.model.metadata.builder.connection.GenericSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
+import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.Metadata;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
-import org.talend.core.model.metadata.builder.connection.MetadataSchema;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.QueriesConnection;
@@ -29,6 +29,7 @@ import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
+import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 
 /**
  * <!-- begin-user-doc -->
@@ -237,6 +238,14 @@ public class ConnectionSwitch {
                 Object result = caseGenericSchemaConnection(genericSchemaConnection);
                 if (result == null) result = caseConnection(genericSchemaConnection);
                 if (result == null) result = caseAbstractMetadataObject(genericSchemaConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.LDAP_SCHEMA_CONNECTION: {
+                LDAPSchemaConnection ldapSchemaConnection = (LDAPSchemaConnection)theEObject;
+                Object result = caseLDAPSchemaConnection(ldapSchemaConnection);
+                if (result == null) result = caseConnection(ldapSchemaConnection);
+                if (result == null) result = caseAbstractMetadataObject(ldapSchemaConnection);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -511,6 +520,21 @@ public class ConnectionSwitch {
      * @generated
      */
     public Object caseGenericSchemaConnection(GenericSchemaConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>LDAP Schema Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>LDAP Schema Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseLDAPSchemaConnection(LDAPSchemaConnection object) {
         return null;
     }
 

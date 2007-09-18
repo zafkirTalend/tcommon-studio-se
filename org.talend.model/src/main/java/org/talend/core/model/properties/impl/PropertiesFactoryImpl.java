@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.talend.core.model.properties.*;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.ByteArray;
 import org.talend.core.model.properties.CSVFileConnectionItem;
@@ -121,6 +122,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.LICENSE: return createLicense();
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM: return createGenericSchemaConnectionItem();
             case PropertiesPackage.USER_MODULE_AUTHORIZATION: return createUserModuleAuthorization();
+            case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM: return createLDAPSchemaConnectionItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -430,6 +432,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public UserModuleAuthorization createUserModuleAuthorization() {
         UserModuleAuthorizationImpl userModuleAuthorization = new UserModuleAuthorizationImpl();
         return userModuleAuthorization;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LDAPSchemaConnectionItem createLDAPSchemaConnectionItem() {
+        LDAPSchemaConnectionItemImpl ldapSchemaConnectionItem = new LDAPSchemaConnectionItemImpl();
+        return ldapSchemaConnectionItem;
     }
 
     /**

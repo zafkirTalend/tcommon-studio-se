@@ -32,6 +32,7 @@ import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -66,6 +67,7 @@ public enum ERepositoryObjectType {
     METADATA_FILE_XML("repository.metadataFileXml", "repository.metadataFileXml.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_FILE_LDIF("repository.metadataFileLdif", "repository.metadataFileLdif.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_GENERIC_SCHEMA("repository.metadataGenericSchema", "repository.metadataGenericSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    METADATA_LDAP_SCHEMA("repository.metadataLDAPSchema", "repository.metadataLDAPSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     FOLDER("repository.folder"), //$NON-NLS-1$
     REFERENCED_PROJECTS("repository.referencedProjects", "repository.referencedProjects.alias"); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -140,6 +142,8 @@ public enum ERepositoryObjectType {
             return "metadata/fileXml"; //$NON-NLS-1$
         case METADATA_FILE_LDIF:
             return "metadata/fileLdif"; //$NON-NLS-1$
+        case METADATA_LDAP_SCHEMA:
+            return "metadata/LDAPSchema";
         case METADATA_GENERIC_SCHEMA:
             return "metadata/genericSchema";
         default:
@@ -201,6 +205,10 @@ public enum ERepositoryObjectType {
 
             public Object caseLdifFileConnectionItem(LdifFileConnectionItem object) {
                 return METADATA_FILE_LDIF;
+            }
+
+            public Object caseLDAPSchemaConnectionItem(LDAPSchemaConnectionItem object) {
+                return METADATA_LDAP_SCHEMA;
             }
 
             public Object caseGenericSchemaConnectionItem(GenericSchemaConnectionItem object) {

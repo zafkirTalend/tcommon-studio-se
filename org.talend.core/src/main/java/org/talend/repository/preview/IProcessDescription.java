@@ -26,11 +26,17 @@ import java.util.Map;
 
 import org.talend.core.model.metadata.IMetadataTable;
 
+
 /**
  * Description of a Process.
  * 
  * $Id: IProcessDescription.java 663 2006-11-21 17:21:53 +0000 (星期二, 21 十一月 2006) cantoine $
  * 
+ */
+/**
+ * DOC Administrator  class global comment. Detailled comment
+ * <br/>
+ *
  */
 public interface IProcessDescription {
 
@@ -257,4 +263,17 @@ public interface IProcessDescription {
      * @param mapping the mapping to set
      */
     public void setMapping(List<Map<String, String>> mapping);
+    
+    /**
+     * Administrator Comment method "getLdapSchemaBean".
+     * @return
+     */
+    public LDAPSchemaBean getLdapSchemaBean();
+
+    
+    /**
+     * Administrator Comment method "setLdapSchemaBean".
+     * @param ldapSchemaBean
+     */
+    public void setLdapSchemaBean(LDAPSchemaBean ldapSchemaBean);
 }

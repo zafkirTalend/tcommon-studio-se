@@ -2880,13 +2880,338 @@ public interface ConnectionPackage extends EPackage {
     int GENERIC_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 2;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl <em>LDAP Schema Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLDAPSchemaConnection()
+     * @generated
+     */
+    int LDAP_SCHEMA_CONNECTION = 18;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__ID = CONNECTION__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__COMMENT = CONNECTION__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__LABEL = CONNECTION__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__READ_ONLY = CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__SYNCHRONISED = CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__DIVERGENCY = CONNECTION__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__VERSION = CONNECTION__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Tables</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__TABLES = CONNECTION__TABLES;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__HOST = CONNECTION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__PORT = CONNECTION_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Protocol</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__PROTOCOL = CONNECTION_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Filter</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__FILTER = CONNECTION_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Separator</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__SEPARATOR = CONNECTION_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Use Advanced</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__USE_ADVANCED = CONNECTION_FEATURE_COUNT + 5;
+
+    /**
+     * The feature id for the '<em><b>Store Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__STORE_PATH = CONNECTION_FEATURE_COUNT + 6;
+
+    /**
+     * The feature id for the '<em><b>Use Limit</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__USE_LIMIT = CONNECTION_FEATURE_COUNT + 7;
+
+    /**
+     * The feature id for the '<em><b>Use Authen</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__USE_AUTHEN = CONNECTION_FEATURE_COUNT + 8;
+
+    /**
+     * The feature id for the '<em><b>Bind Principal</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL = CONNECTION_FEATURE_COUNT + 9;
+
+    /**
+     * The feature id for the '<em><b>Bind Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__BIND_PASSWORD = CONNECTION_FEATURE_COUNT + 10;
+
+    /**
+     * The feature id for the '<em><b>Limit Value</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__LIMIT_VALUE = CONNECTION_FEATURE_COUNT + 11;
+
+    /**
+     * The feature id for the '<em><b>Encryption Method Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME = CONNECTION_FEATURE_COUNT + 12;
+
+    /**
+     * The feature id for the '<em><b>Connection Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__CONNECTION_NAME = CONNECTION_FEATURE_COUNT + 13;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__VALUE = CONNECTION_FEATURE_COUNT + 14;
+
+    /**
+     * The feature id for the '<em><b>Save Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD = CONNECTION_FEATURE_COUNT + 15;
+
+    /**
+     * The feature id for the '<em><b>Aliases</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__ALIASES = CONNECTION_FEATURE_COUNT + 16;
+
+    /**
+     * The feature id for the '<em><b>Referrals</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__REFERRALS = CONNECTION_FEATURE_COUNT + 17;
+
+    /**
+     * The feature id for the '<em><b>Count Limit</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__COUNT_LIMIT = CONNECTION_FEATURE_COUNT + 18;
+
+    /**
+     * The feature id for the '<em><b>Time Out Limit</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT = CONNECTION_FEATURE_COUNT + 19;
+
+    /**
+     * The feature id for the '<em><b>Base DNs</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__BASE_DNS = CONNECTION_FEATURE_COUNT + 20;
+
+    /**
+     * The feature id for the '<em><b>Get Base DNs From Root</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT = CONNECTION_FEATURE_COUNT + 21;
+
+    /**
+     * The feature id for the '<em><b>Return Attributes</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES = CONNECTION_FEATURE_COUNT + 22;
+
+    /**
+     * The feature id for the '<em><b>Selected DN</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION__SELECTED_DN = CONNECTION_FEATURE_COUNT + 23;
+
+    /**
+     * The number of structural features of the '<em>LDAP Schema Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int LDAP_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 24;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.DatabaseProperties
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 18;
+    int DATABASE_PROPERTIES = 19;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -2895,7 +3220,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 19;
+    int FILE_FORMAT = 20;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -2904,7 +3229,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 20;
+    int FIELD_SEPARATOR = 21;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -2913,7 +3238,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 21;
+    int ESCAPE = 22;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -2922,7 +3247,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 22;
+    int ROW_SEPARATOR = 23;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -2931,7 +3256,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 23;
+    int MAP = 24;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -4009,6 +4334,280 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getGenericSchemaConnection_MappingTypeId();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection <em>LDAP Schema Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>LDAP Schema Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection
+     * @generated
+     */
+    EClass getLDAPSchemaConnection();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getHost <em>Host</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Host</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getHost()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_Host();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getPort <em>Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Port</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getPort()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_Port();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getProtocol <em>Protocol</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Protocol</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getProtocol()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_Protocol();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getFilter <em>Filter</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Filter</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getFilter()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_Filter();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getSeparator <em>Separator</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Separator</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getSeparator()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_Separator();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isUseAdvanced <em>Use Advanced</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Advanced</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isUseAdvanced()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_UseAdvanced();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getStorePath <em>Store Path</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Store Path</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getStorePath()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_StorePath();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isUseLimit <em>Use Limit</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Limit</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isUseLimit()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_UseLimit();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isUseAuthen <em>Use Authen</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Authen</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isUseAuthen()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_UseAuthen();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBindPrincipal <em>Bind Principal</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Bind Principal</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBindPrincipal()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_BindPrincipal();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBindPassword <em>Bind Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Bind Password</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBindPassword()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_BindPassword();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getLimitValue <em>Limit Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Limit Value</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getLimitValue()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_LimitValue();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getEncryptionMethodName <em>Encryption Method Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Encryption Method Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getEncryptionMethodName()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_EncryptionMethodName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getConnectionName <em>Connection Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Connection Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getConnectionName()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_ConnectionName();
+
+    /**
+     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getValue <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute list '<em>Value</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getValue()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_Value();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isSavePassword <em>Save Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Save Password</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isSavePassword()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_SavePassword();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getAliases <em>Aliases</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Aliases</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getAliases()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_Aliases();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getReferrals <em>Referrals</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Referrals</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getReferrals()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_Referrals();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getCountLimit <em>Count Limit</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Count Limit</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getCountLimit()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_CountLimit();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getTimeOutLimit <em>Time Out Limit</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Time Out Limit</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getTimeOutLimit()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_TimeOutLimit();
+
+    /**
+     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBaseDNs <em>Base DNs</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute list '<em>Base DNs</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBaseDNs()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_BaseDNs();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isGetBaseDNsFromRoot <em>Get Base DNs From Root</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Get Base DNs From Root</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isGetBaseDNsFromRoot()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_GetBaseDNsFromRoot();
+
+    /**
+     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getReturnAttributes <em>Return Attributes</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute list '<em>Return Attributes</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getReturnAttributes()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_ReturnAttributes();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getSelectedDN <em>Selected DN</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Selected DN</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getSelectedDN()
+     * @see #getLDAPSchemaConnection()
+     * @generated
+     */
+    EAttribute getLDAPSchemaConnection_SelectedDN();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -4955,6 +5554,208 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute GENERIC_SCHEMA_CONNECTION__MAPPING_TYPE_ID = eINSTANCE.getGenericSchemaConnection_MappingTypeId();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl <em>LDAP Schema Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLDAPSchemaConnection()
+         * @generated
+         */
+        EClass LDAP_SCHEMA_CONNECTION = eINSTANCE.getLDAPSchemaConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__HOST = eINSTANCE.getLDAPSchemaConnection_Host();
+
+        /**
+         * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__PORT = eINSTANCE.getLDAPSchemaConnection_Port();
+
+        /**
+         * The meta object literal for the '<em><b>Protocol</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__PROTOCOL = eINSTANCE.getLDAPSchemaConnection_Protocol();
+
+        /**
+         * The meta object literal for the '<em><b>Filter</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__FILTER = eINSTANCE.getLDAPSchemaConnection_Filter();
+
+        /**
+         * The meta object literal for the '<em><b>Separator</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__SEPARATOR = eINSTANCE.getLDAPSchemaConnection_Separator();
+
+        /**
+         * The meta object literal for the '<em><b>Use Advanced</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__USE_ADVANCED = eINSTANCE.getLDAPSchemaConnection_UseAdvanced();
+
+        /**
+         * The meta object literal for the '<em><b>Store Path</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__STORE_PATH = eINSTANCE.getLDAPSchemaConnection_StorePath();
+
+        /**
+         * The meta object literal for the '<em><b>Use Limit</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__USE_LIMIT = eINSTANCE.getLDAPSchemaConnection_UseLimit();
+
+        /**
+         * The meta object literal for the '<em><b>Use Authen</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__USE_AUTHEN = eINSTANCE.getLDAPSchemaConnection_UseAuthen();
+
+        /**
+         * The meta object literal for the '<em><b>Bind Principal</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__BIND_PRINCIPAL = eINSTANCE.getLDAPSchemaConnection_BindPrincipal();
+
+        /**
+         * The meta object literal for the '<em><b>Bind Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__BIND_PASSWORD = eINSTANCE.getLDAPSchemaConnection_BindPassword();
+
+        /**
+         * The meta object literal for the '<em><b>Limit Value</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__LIMIT_VALUE = eINSTANCE.getLDAPSchemaConnection_LimitValue();
+
+        /**
+         * The meta object literal for the '<em><b>Encryption Method Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME = eINSTANCE.getLDAPSchemaConnection_EncryptionMethodName();
+
+        /**
+         * The meta object literal for the '<em><b>Connection Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__CONNECTION_NAME = eINSTANCE.getLDAPSchemaConnection_ConnectionName();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__VALUE = eINSTANCE.getLDAPSchemaConnection_Value();
+
+        /**
+         * The meta object literal for the '<em><b>Save Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD = eINSTANCE.getLDAPSchemaConnection_SavePassword();
+
+        /**
+         * The meta object literal for the '<em><b>Aliases</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__ALIASES = eINSTANCE.getLDAPSchemaConnection_Aliases();
+
+        /**
+         * The meta object literal for the '<em><b>Referrals</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__REFERRALS = eINSTANCE.getLDAPSchemaConnection_Referrals();
+
+        /**
+         * The meta object literal for the '<em><b>Count Limit</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__COUNT_LIMIT = eINSTANCE.getLDAPSchemaConnection_CountLimit();
+
+        /**
+         * The meta object literal for the '<em><b>Time Out Limit</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT = eINSTANCE.getLDAPSchemaConnection_TimeOutLimit();
+
+        /**
+         * The meta object literal for the '<em><b>Base DNs</b></em>' attribute list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__BASE_DNS = eINSTANCE.getLDAPSchemaConnection_BaseDNs();
+
+        /**
+         * The meta object literal for the '<em><b>Get Base DNs From Root</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT = eINSTANCE.getLDAPSchemaConnection_GetBaseDNsFromRoot();
+
+        /**
+         * The meta object literal for the '<em><b>Return Attributes</b></em>' attribute list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES = eINSTANCE.getLDAPSchemaConnection_ReturnAttributes();
+
+        /**
+         * The meta object literal for the '<em><b>Selected DN</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute LDAP_SCHEMA_CONNECTION__SELECTED_DN = eINSTANCE.getLDAPSchemaConnection_SelectedDN();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

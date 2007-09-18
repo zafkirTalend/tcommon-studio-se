@@ -55,7 +55,7 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * @generated
      * @ordered
      */
-    protected EList elementParameter = null;
+    protected EList elementParameter;
 
     /**
      * The cached value of the '{@link #getMetadata() <em>Metadata</em>}' containment reference list.
@@ -65,7 +65,7 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * @generated
      * @ordered
      */
-    protected EList metadata = null;
+    protected EList metadata;
 
     /**
      * The default value of the '{@link #getBinaryData() <em>Binary Data</em>}' attribute.
@@ -174,7 +174,7 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * @generated
      * @ordered
      */
-    protected boolean offsetLabelXESet = false;
+    protected boolean offsetLabelXESet;
 
     /**
      * The default value of the '{@link #getOffsetLabelY() <em>Offset Label Y</em>}' attribute.
@@ -203,7 +203,7 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * @generated
      * @ordered
      */
-    protected boolean offsetLabelYESet = false;
+    protected boolean offsetLabelYESet;
 
     /**
      * The default value of the '{@link #getPosX() <em>Pos X</em>}' attribute.
@@ -232,7 +232,7 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * @generated
      * @ordered
      */
-    protected boolean posXESet = false;
+    protected boolean posXESet;
 
     /**
      * The default value of the '{@link #getPosY() <em>Pos Y</em>}' attribute.
@@ -261,7 +261,7 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * @generated
      * @ordered
      */
-    protected boolean posYESet = false;
+    protected boolean posYESet;
 
     /**
      * The default value of the '{@link #getSizeX() <em>Size X</em>}' attribute.
@@ -290,7 +290,7 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * @generated
      * @ordered
      */
-    protected boolean sizeXESet = false;
+    protected boolean sizeXESet;
 
     /**
      * The default value of the '{@link #getSizeY() <em>Size Y</em>}' attribute.
@@ -319,7 +319,7 @@ public class NodeTypeImpl extends EObjectImpl implements NodeType {
      * @generated
      * @ordered
      */
-    protected boolean sizeYESet = false;
+    protected boolean sizeYESet;
 
     /**
      * <!-- begin-user-doc -->

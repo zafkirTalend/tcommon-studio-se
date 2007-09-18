@@ -183,6 +183,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseUserModuleAuthorization(UserModuleAuthorization object) {
                 return createUserModuleAuthorizationAdapter();
             }
+            public Object caseLDAPSchemaConnectionItem(LDAPSchemaConnectionItem object) {
+                return createLDAPSchemaConnectionItemAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -587,6 +590,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createUserModuleAuthorizationAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.LDAPSchemaConnectionItem <em>LDAP Schema Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.LDAPSchemaConnectionItem
+     * @generated
+     */
+    public Adapter createLDAPSchemaConnectionItemAdapter() {
         return null;
     }
 

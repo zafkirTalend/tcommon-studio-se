@@ -187,14 +187,14 @@ public abstract class AbstractDataTableEditorView<B> {
 
     public void initGraphicComponents() {
 
-        mainComposite = new Composite(parentComposite, mainCompositeStyle);
+        
+        mainComposite = new Composite(parentComposite, SWT.NONE);
         if (parentComposite.getBackground() != null
                 && !parentComposite.getBackground().equals(mainComposite.getBackground())) {
             mainComposite.setBackground(parentComposite.getBackground());
         }
         GridLayout layout = new GridLayout();
         mainComposite.setLayout(layout);
-
         if (this.labelVisible) {
             titleLabel = new Label(mainComposite, SWT.NONE);
             titleLabel.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
@@ -202,7 +202,7 @@ public abstract class AbstractDataTableEditorView<B> {
                     && !parentComposite.getBackground().equals(titleLabel.getBackground())) {
                 titleLabel.setBackground(parentComposite.getBackground());
             }
-            titleLabel.setVisible(this.labelVisible);
+            titleLabel.setVisible(true);
         }
 
         initTable();

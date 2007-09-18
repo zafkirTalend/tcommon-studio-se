@@ -104,7 +104,7 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @generated
      * @ordered
      */
-    protected boolean keyESet = false;
+    protected boolean keyESet;
 
     /**
      * The default value of the '{@link #getLength() <em>Length</em>}' attribute.
@@ -133,7 +133,7 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @generated
      * @ordered
      */
-    protected boolean lengthESet = false;
+    protected boolean lengthESet;
 
     /**
      * The default value of the '{@link #getName() <em>Name</em>}' attribute.
@@ -182,7 +182,7 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @generated
      * @ordered
      */
-    protected boolean nullableESet = false;
+    protected boolean nullableESet;
 
     /**
      * The default value of the '{@link #getOriginalDbColumnName() <em>Original Db Column Name</em>}' attribute.
@@ -251,7 +251,7 @@ public class ColumnTypeImpl extends EObjectImpl implements ColumnType {
      * @generated
      * @ordered
      */
-    protected boolean precisionESet = false;
+    protected boolean precisionESet;
 
     /**
      * The default value of the '{@link #getSourceType() <em>Source Type</em>}' attribute.

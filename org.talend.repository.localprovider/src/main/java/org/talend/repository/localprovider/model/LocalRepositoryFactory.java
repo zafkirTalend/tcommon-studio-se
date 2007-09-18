@@ -302,6 +302,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_REGEXP);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_XML);
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_LDIF);
+        needsBinFolder.add(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
         needsBinFolder.add(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
         needsBinFolder.add(ERepositoryObjectType.PROCESS);
         needsBinFolder.add(ERepositoryObjectType.ROUTINES);
@@ -948,6 +949,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM:
             case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM:
+            case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
                 // not really usefull for ConnectionItem : it's not copied to another resource for edition
                 itemResource = save((ConnectionItem) item);
                 break;
@@ -1056,7 +1058,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM:
                 itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_GENERIC_SCHEMA, path);
                 break;
-
+            case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
+                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_LDAP_SCHEMA, path);
+                break;
             case PropertiesPackage.DOCUMENTATION_ITEM:
                 itemResource = create((FileItem) item, path, ERepositoryObjectType.DOCUMENTATION);
                 break;
@@ -1132,7 +1136,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void logOnProject(Project project) throws PersistenceException, LoginException {
         super.logOnProject(project);
-        
+
         if (!doesLoggedUserExist()) {
             createUser(project);
         }

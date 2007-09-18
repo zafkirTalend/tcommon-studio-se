@@ -169,5 +169,31 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//GenericSchemaConnection/mappingTypeUsed"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//GenericSchemaConnection/mappingTypeId"/>
     </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//LDAPSchemaConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/Host"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/Port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/Protocol"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/Filter"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/Separator"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/UseAdvanced"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/StorePath"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/UseLimit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/UseAuthen"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/BindPrincipal"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/BindPassword"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/LimitValue"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/EncryptionMethodName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/connectionName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/Value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/SavePassword"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/Aliases"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/Referrals"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/CountLimit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/TimeOutLimit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/BaseDNs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/GetBaseDNsFromRoot"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/ReturnAttributes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/SelectedDN"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

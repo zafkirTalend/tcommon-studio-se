@@ -119,7 +119,7 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
      * @generated
      * @ordered
      */
-    protected boolean promptNeededESet = false;
+    protected boolean promptNeededESet;
 
     /**
      * The default value of the '{@link #getType() <em>Type</em>}' attribute.

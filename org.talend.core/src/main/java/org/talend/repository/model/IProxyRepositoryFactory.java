@@ -426,4 +426,6 @@ public interface IProxyRepositoryFactory {
     public Boolean hasChildren(Object parent);
 
     public abstract RootContainer<String, IRepositoryObject> getMetadataGenericSchema() throws PersistenceException;
+
+    public abstract RootContainer<String, IRepositoryObject> getMetadataLDAPSchema() throws PersistenceException;
 }

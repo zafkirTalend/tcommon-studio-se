@@ -46,7 +46,7 @@ public class ElementParameterTypeImpl extends EObjectImpl implements ElementPara
      * @generated
      * @ordered
      */
-    protected EList elementValue = null;
+    protected EList elementValue;
 
     /**
      * The default value of the '{@link #getField() <em>Field</em>}' attribute.

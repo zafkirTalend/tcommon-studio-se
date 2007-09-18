@@ -96,6 +96,7 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
             case ConnectionPackage.LDIF_FILE_CONNECTION: return createLdifFileConnection();
             case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR: return createXmlXPathLoopDescriptor();
             case ConnectionPackage.GENERIC_SCHEMA_CONNECTION: return createGenericSchemaConnection();
+            case ConnectionPackage.LDAP_SCHEMA_CONNECTION: return createLDAPSchemaConnection();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -294,6 +295,16 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
     public GenericSchemaConnection createGenericSchemaConnection() {
         GenericSchemaConnectionImpl genericSchemaConnection = new GenericSchemaConnectionImpl();
         return genericSchemaConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public LDAPSchemaConnection createLDAPSchemaConnection() {
+        LDAPSchemaConnectionImpl ldapSchemaConnection = new LDAPSchemaConnectionImpl();
+        return ldapSchemaConnection;
     }
 
     /**
