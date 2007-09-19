@@ -30,7 +30,6 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getBindPassword <em>Bind Password</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getLimitValue <em>Limit Value</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getEncryptionMethodName <em>Encryption Method Name</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getConnectionName <em>Connection Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getValue <em>Value</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#isSavePassword <em>Save Password</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getAliases <em>Aliases</em>}</li>
@@ -386,32 +385,6 @@ public interface LDAPSchemaConnection extends Connection {
      * @generated
      */
     void setEncryptionMethodName(String value);
-
-    /**
-     * Returns the value of the '<em><b>Connection Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Connection Name</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Connection Name</em>' attribute.
-     * @see #setConnectionName(String)
-     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getLDAPSchemaConnection_ConnectionName()
-     * @model
-     * @generated
-     */
-    String getConnectionName();
-
-    /**
-     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getConnectionName <em>Connection Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Connection Name</em>' attribute.
-     * @see #getConnectionName()
-     * @generated
-     */
-    void setConnectionName(String value);
 
     /**
      * Returns the value of the '<em><b>Value</b></em>' attribute list.

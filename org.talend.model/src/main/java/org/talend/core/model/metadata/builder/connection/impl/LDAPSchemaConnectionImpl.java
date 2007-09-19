@@ -38,7 +38,6 @@ import org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl#getBindPassword <em>Bind Password</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl#getLimitValue <em>Limit Value</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl#getEncryptionMethodName <em>Encryption Method Name</em>}</li>
- *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl#getConnectionName <em>Connection Name</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl#getValue <em>Value</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl#isSavePassword <em>Save Password</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.LDAPSchemaConnectionImpl#getAliases <em>Aliases</em>}</li>
@@ -314,26 +313,6 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * @ordered
      */
     protected String encryptionMethodName = ENCRYPTION_METHOD_NAME_EDEFAULT;
-
-    /**
-     * The default value of the '{@link #getConnectionName() <em>Connection Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getConnectionName()
-     * @generated
-     * @ordered
-     */
-    protected static final String CONNECTION_NAME_EDEFAULT = null;
-
-    /**
-     * The cached value of the '{@link #getConnectionName() <em>Connection Name</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getConnectionName()
-     * @generated
-     * @ordered
-     */
-    protected String connectionName = CONNECTION_NAME_EDEFAULT;
 
     /**
      * The cached value of the '{@link #getValue() <em>Value</em>}' attribute list.
@@ -801,27 +780,6 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getConnectionName() {
-        return connectionName;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setConnectionName(String newConnectionName) {
-        String oldConnectionName = connectionName;
-        connectionName = newConnectionName;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.LDAP_SCHEMA_CONNECTION__CONNECTION_NAME, oldConnectionName, connectionName));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EList getValue() {
         if (value == null) {
             value = new EDataTypeUniqueEList(String.class, this, ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE);
@@ -1033,8 +991,6 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
                 return new Integer(getLimitValue());
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME:
                 return getEncryptionMethodName();
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__CONNECTION_NAME:
-                return getConnectionName();
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE:
                 return getValue();
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD:
@@ -1104,9 +1060,6 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
                 return;
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME:
                 setEncryptionMethodName((String)newValue);
-                return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__CONNECTION_NAME:
-                setConnectionName((String)newValue);
                 return;
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE:
                 getValue().clear();
@@ -1191,9 +1144,6 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME:
                 setEncryptionMethodName(ENCRYPTION_METHOD_NAME_EDEFAULT);
                 return;
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__CONNECTION_NAME:
-                setConnectionName(CONNECTION_NAME_EDEFAULT);
-                return;
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE:
                 getValue().clear();
                 return;
@@ -1261,8 +1211,6 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
                 return limitValue != LIMIT_VALUE_EDEFAULT;
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME:
                 return ENCRYPTION_METHOD_NAME_EDEFAULT == null ? encryptionMethodName != null : !ENCRYPTION_METHOD_NAME_EDEFAULT.equals(encryptionMethodName);
-            case ConnectionPackage.LDAP_SCHEMA_CONNECTION__CONNECTION_NAME:
-                return CONNECTION_NAME_EDEFAULT == null ? connectionName != null : !CONNECTION_NAME_EDEFAULT.equals(connectionName);
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION__VALUE:
                 return value != null && !value.isEmpty();
             case ConnectionPackage.LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD:
@@ -1322,8 +1270,6 @@ public class LDAPSchemaConnectionImpl extends ConnectionImpl implements LDAPSche
         result.append(limitValue);
         result.append(", EncryptionMethodName: ");
         result.append(encryptionMethodName);
-        result.append(", connectionName: ");
-        result.append(connectionName);
         result.append(", Value: ");
         result.append(value);
         result.append(", SavePassword: ");

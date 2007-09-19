@@ -183,7 +183,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/BindPassword"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/LimitValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/EncryptionMethodName"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/connectionName"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/Value"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/SavePassword"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/Aliases"/>

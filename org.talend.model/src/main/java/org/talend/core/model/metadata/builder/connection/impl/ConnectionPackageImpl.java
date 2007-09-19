@@ -1232,7 +1232,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getLDAPSchemaConnection_ConnectionName() {
+    public EAttribute getLDAPSchemaConnection_Value() {
         return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(13);
     }
 
@@ -1241,7 +1241,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getLDAPSchemaConnection_Value() {
+    public EAttribute getLDAPSchemaConnection_SavePassword() {
         return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(14);
     }
 
@@ -1250,7 +1250,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getLDAPSchemaConnection_SavePassword() {
+    public EAttribute getLDAPSchemaConnection_Aliases() {
         return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(15);
     }
 
@@ -1259,7 +1259,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getLDAPSchemaConnection_Aliases() {
+    public EAttribute getLDAPSchemaConnection_Referrals() {
         return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(16);
     }
 
@@ -1268,7 +1268,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getLDAPSchemaConnection_Referrals() {
+    public EAttribute getLDAPSchemaConnection_CountLimit() {
         return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(17);
     }
 
@@ -1277,7 +1277,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getLDAPSchemaConnection_CountLimit() {
+    public EAttribute getLDAPSchemaConnection_TimeOutLimit() {
         return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(18);
     }
 
@@ -1286,7 +1286,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getLDAPSchemaConnection_TimeOutLimit() {
+    public EAttribute getLDAPSchemaConnection_BaseDNs() {
         return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(19);
     }
 
@@ -1295,7 +1295,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getLDAPSchemaConnection_BaseDNs() {
+    public EAttribute getLDAPSchemaConnection_GetBaseDNsFromRoot() {
         return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(20);
     }
 
@@ -1304,7 +1304,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getLDAPSchemaConnection_GetBaseDNsFromRoot() {
+    public EAttribute getLDAPSchemaConnection_ReturnAttributes() {
         return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(21);
     }
 
@@ -1313,17 +1313,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getLDAPSchemaConnection_ReturnAttributes() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(22);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public EAttribute getLDAPSchemaConnection_SelectedDN() {
-        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(23);
+        return (EAttribute)ldapSchemaConnectionEClass.getEStructuralFeatures().get(22);
     }
 
     /**
@@ -1537,7 +1528,6 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(ldapSchemaConnectionEClass, LDAP_SCHEMA_CONNECTION__BIND_PASSWORD);
         createEAttribute(ldapSchemaConnectionEClass, LDAP_SCHEMA_CONNECTION__LIMIT_VALUE);
         createEAttribute(ldapSchemaConnectionEClass, LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME);
-        createEAttribute(ldapSchemaConnectionEClass, LDAP_SCHEMA_CONNECTION__CONNECTION_NAME);
         createEAttribute(ldapSchemaConnectionEClass, LDAP_SCHEMA_CONNECTION__VALUE);
         createEAttribute(ldapSchemaConnectionEClass, LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD);
         createEAttribute(ldapSchemaConnectionEClass, LDAP_SCHEMA_CONNECTION__ALIASES);
@@ -1737,7 +1727,6 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getLDAPSchemaConnection_BindPassword(), ecorePackage.getEString(), "BindPassword", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getLDAPSchemaConnection_LimitValue(), ecorePackage.getEInt(), "LimitValue", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getLDAPSchemaConnection_EncryptionMethodName(), ecorePackage.getEString(), "EncryptionMethodName", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getLDAPSchemaConnection_ConnectionName(), ecorePackage.getEString(), "connectionName", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getLDAPSchemaConnection_Value(), ecorePackage.getEString(), "Value", null, 0, -1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getLDAPSchemaConnection_SavePassword(), ecorePackage.getEBoolean(), "SavePassword", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getLDAPSchemaConnection_Aliases(), ecorePackage.getEString(), "Aliases", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -3097,22 +3097,13 @@ public interface ConnectionPackage extends EPackage {
     int LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME = CONNECTION_FEATURE_COUNT + 12;
 
     /**
-     * The feature id for the '<em><b>Connection Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int LDAP_SCHEMA_CONNECTION__CONNECTION_NAME = CONNECTION_FEATURE_COUNT + 13;
-
-    /**
      * The feature id for the '<em><b>Value</b></em>' attribute list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int LDAP_SCHEMA_CONNECTION__VALUE = CONNECTION_FEATURE_COUNT + 14;
+    int LDAP_SCHEMA_CONNECTION__VALUE = CONNECTION_FEATURE_COUNT + 13;
 
     /**
      * The feature id for the '<em><b>Save Password</b></em>' attribute.
@@ -3121,7 +3112,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD = CONNECTION_FEATURE_COUNT + 15;
+    int LDAP_SCHEMA_CONNECTION__SAVE_PASSWORD = CONNECTION_FEATURE_COUNT + 14;
 
     /**
      * The feature id for the '<em><b>Aliases</b></em>' attribute.
@@ -3130,7 +3121,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LDAP_SCHEMA_CONNECTION__ALIASES = CONNECTION_FEATURE_COUNT + 16;
+    int LDAP_SCHEMA_CONNECTION__ALIASES = CONNECTION_FEATURE_COUNT + 15;
 
     /**
      * The feature id for the '<em><b>Referrals</b></em>' attribute.
@@ -3139,7 +3130,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LDAP_SCHEMA_CONNECTION__REFERRALS = CONNECTION_FEATURE_COUNT + 17;
+    int LDAP_SCHEMA_CONNECTION__REFERRALS = CONNECTION_FEATURE_COUNT + 16;
 
     /**
      * The feature id for the '<em><b>Count Limit</b></em>' attribute.
@@ -3148,7 +3139,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LDAP_SCHEMA_CONNECTION__COUNT_LIMIT = CONNECTION_FEATURE_COUNT + 18;
+    int LDAP_SCHEMA_CONNECTION__COUNT_LIMIT = CONNECTION_FEATURE_COUNT + 17;
 
     /**
      * The feature id for the '<em><b>Time Out Limit</b></em>' attribute.
@@ -3157,7 +3148,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT = CONNECTION_FEATURE_COUNT + 19;
+    int LDAP_SCHEMA_CONNECTION__TIME_OUT_LIMIT = CONNECTION_FEATURE_COUNT + 18;
 
     /**
      * The feature id for the '<em><b>Base DNs</b></em>' attribute list.
@@ -3166,7 +3157,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LDAP_SCHEMA_CONNECTION__BASE_DNS = CONNECTION_FEATURE_COUNT + 20;
+    int LDAP_SCHEMA_CONNECTION__BASE_DNS = CONNECTION_FEATURE_COUNT + 19;
 
     /**
      * The feature id for the '<em><b>Get Base DNs From Root</b></em>' attribute.
@@ -3175,7 +3166,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT = CONNECTION_FEATURE_COUNT + 21;
+    int LDAP_SCHEMA_CONNECTION__GET_BASE_DNS_FROM_ROOT = CONNECTION_FEATURE_COUNT + 20;
 
     /**
      * The feature id for the '<em><b>Return Attributes</b></em>' attribute list.
@@ -3184,7 +3175,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES = CONNECTION_FEATURE_COUNT + 22;
+    int LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES = CONNECTION_FEATURE_COUNT + 21;
 
     /**
      * The feature id for the '<em><b>Selected DN</b></em>' attribute.
@@ -3193,7 +3184,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LDAP_SCHEMA_CONNECTION__SELECTED_DN = CONNECTION_FEATURE_COUNT + 23;
+    int LDAP_SCHEMA_CONNECTION__SELECTED_DN = CONNECTION_FEATURE_COUNT + 22;
 
     /**
      * The number of structural features of the '<em>LDAP Schema Connection</em>' class.
@@ -3202,7 +3193,7 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int LDAP_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 24;
+    int LDAP_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 23;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
@@ -4487,17 +4478,6 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getLDAPSchemaConnection_EncryptionMethodName();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getConnectionName <em>Connection Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Connection Name</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getConnectionName()
-     * @see #getLDAPSchemaConnection()
-     * @generated
-     */
-    EAttribute getLDAPSchemaConnection_ConnectionName();
-
-    /**
      * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.LDAPSchemaConnection#getValue <em>Value</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5668,14 +5648,6 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute LDAP_SCHEMA_CONNECTION__ENCRYPTION_METHOD_NAME = eINSTANCE.getLDAPSchemaConnection_EncryptionMethodName();
-
-        /**
-         * The meta object literal for the '<em><b>Connection Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute LDAP_SCHEMA_CONNECTION__CONNECTION_NAME = eINSTANCE.getLDAPSchemaConnection_ConnectionName();
 
         /**
          * The meta object literal for the '<em><b>Value</b></em>' attribute list feature.
