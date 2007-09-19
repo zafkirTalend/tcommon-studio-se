@@ -198,7 +198,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
      * org.eclipse.core.runtime.IProgressMonitor)
      */
     public List computeContextInformation(ContentAssistInvocationContext context, IProgressMonitor monitor) {
-        return null;
+        return Collections.EMPTY_LIST;
     }
 
     /*
