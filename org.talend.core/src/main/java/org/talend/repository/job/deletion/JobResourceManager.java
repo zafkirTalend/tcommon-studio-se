@@ -27,7 +27,6 @@ import java.util.Map;
 
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.talend.commons.exception.RuntimeExceptionHandler;
 
 /**
  * Management of deletion and protection on resource of jobs.
@@ -131,7 +130,8 @@ public class JobResourceManager {
                 }
             }
         } catch (CoreException e) {
-            RuntimeExceptionHandler.process(e);
+            // can't delete don't cause problem in the application so ignore it
+            // RuntimeExceptionHandler.process(e);
         }
 
     }
