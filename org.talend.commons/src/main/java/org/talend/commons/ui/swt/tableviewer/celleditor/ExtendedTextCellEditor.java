@@ -62,6 +62,8 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
 
     private final Composite parent;
 
+    private Object variables;
+
     /**
      * yzhang ExtendedTextCellEditor constructor comment.
      */
@@ -224,6 +226,44 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
      */
     public String getText() {
         return text.getText();
+    }
+
+    private IDataBean bean;
+
+    /**
+     * yzhang Comment method "setBean".
+     * 
+     * @param bean
+     */
+    public void setBean(IDataBean bean) {
+        this.bean = bean;
+    }
+
+    /**
+     * yzhang Comment method "getBean".
+     * 
+     * @return
+     */
+    public IDataBean getBean() {
+        return this.bean;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.expressionbuilder.IExpressionConsumer#setData(java.lang.Object)
+     */
+    public void setVariables(Object obj) {
+        this.variables = obj;
+    }
+
+    /**
+     * yzhang Comment method "getTextData".
+     * 
+     * @return
+     */
+    public Object getVariables() {
+        return this.variables;
     }
 
 }

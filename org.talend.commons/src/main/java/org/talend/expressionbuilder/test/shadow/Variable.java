@@ -50,6 +50,17 @@ public class Variable {
     }
 
     /**
+     * yzhang Variable constructor comment.
+     * 
+     * @param name
+     * @param value
+     */
+    public Variable(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
+
+    /**
      * Getter for name.
      * 
      * @return the name

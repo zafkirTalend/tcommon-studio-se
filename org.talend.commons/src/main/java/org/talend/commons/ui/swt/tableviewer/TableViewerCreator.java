@@ -1884,19 +1884,11 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
         // System.out.println("previousValue="+previousValue);
         // System.out.println("value="+value);
 
-        boolean equalsPrevious = false;
-        if (value instanceof Map) {
-            Map vMap = (Map) value;
-            if (!((String) vMap.get("TEXT")).equals(previousValue)) {
-                equalsPrevious = true;
-            }
-        } else {
-            if (!value.equals(previousValue)) {
-                equalsPrevious = true;
-            }
-        }
+        if (value == null && previousValue != null || value != null && !value.equals(previousValue)) {
 
-        if (value == null && previousValue != null || value != null && equalsPrevious) {
+            if (value instanceof String) {
+                value = ((String) value).trim();
+            }
 
             AccessorUtils.set(column, currentRowObject, value);
 

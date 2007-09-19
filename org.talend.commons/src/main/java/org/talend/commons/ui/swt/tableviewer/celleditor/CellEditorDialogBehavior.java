@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.celleditor;
 
+import java.util.List;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -31,6 +33,8 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.talend.expressionbuilder.ICellEditorDialog;
 import org.talend.expressionbuilder.IExtendedCellEditorBehavior;
+import org.talend.expressionbuilder.test.shadow.Expression;
+import org.talend.expressionbuilder.test.shadow.Variable;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -102,7 +106,9 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
             @Override
             public void mouseUp(MouseEvent e) {
                 if (cellEditorDialog != null) {
-                    cellEditorDialog.openDialog(extendedTextCellEditor.getText());
+
+                    cellEditorDialog.openDialog(new Expression(extendedTextCellEditor.getText(),
+                            (List<Variable>) extendedTextCellEditor.getBean().getBeanData()));
                 }
             }
         });

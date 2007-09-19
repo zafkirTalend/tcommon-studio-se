@@ -19,18 +19,16 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.expressionbuilder;
+package org.talend.commons.ui.swt.tableviewer.celleditor;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
  * 
- * $Id: IExpressionConsumer.java 下午04:21:19 2007-8-1 +0000 (2007-8-1) yzhang $
+ * $Id: IDataBean.java 下午08:14:59 2007-9-18 +0000 (2007-9-18) yzhang $
  * 
  */
-public interface IExpressionConsumer {
+public interface IDataBean {
 
-    public void setConsumerExpression(String expression);
-
-    public void setVariables(Object obj);
+    public Object getBeanData();
 
 }
