@@ -73,7 +73,7 @@ public class Truster implements X509TrustManager {
     private boolean deleteCert(String id) {
         try {
             ks.deleteEntry(id);
-        } catch (KeyStoreException _ex) {
+        } catch (KeyStoreException ex) {
             return false;
         }
         return true;
@@ -108,7 +108,7 @@ public class Truster implements X509TrustManager {
         if (certStore.indexOf("://") == -1)
             try {
                 in = new FileInputStream(certStore);
-            } catch (FileNotFoundException _ex) {
+            } catch (FileNotFoundException ex) {
             }
         else
             try {
@@ -117,7 +117,7 @@ public class Truster implements X509TrustManager {
                 in = con.getInputStream();
             } catch (MalformedURLException e) {
                 System.err.println("ASF Truster: The location of the cert store file is invalid: " + e.getMessage());
-            } catch (IOException _ex) {
+            } catch (IOException ex) {
             }
         try {
             ks.load(in, certStorePwd);
@@ -128,7 +128,7 @@ public class Truster implements X509TrustManager {
             if (in != null)
                 try {
                     in.close();
-                } catch (Exception _ex) {
+                } catch (Exception ex) {
                 }
         }
         try {
@@ -225,7 +225,7 @@ public class Truster implements X509TrustManager {
             if (out != null)
                 try {
                     out.close();
-                } catch (Exception _ex) {
+                } catch (Exception ex) {
                 }
         }
     }

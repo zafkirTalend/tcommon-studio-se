@@ -39,7 +39,7 @@ import com.sun.net.ssl.TrustManager;
 import com.sun.net.ssl.internal.ssl.Provider;
 
 /**
- * DOC Administrator  class global comment. Detailled comment
+ * DOC Administrator  class global comment. Detailed comment
  * <br/>
  *
  */
@@ -49,7 +49,7 @@ public class AdvancedSocketFactory extends SSLSocketFactory {
 
     private static TrustManager trustManagers[] = null;
 
-    private static AdvancedSocketFactory default_factory = null;
+    private static AdvancedSocketFactory defaultFactory = null;
 
     private static Hashtable factories = null;
 
@@ -82,7 +82,7 @@ public class AdvancedSocketFactory extends SSLSocketFactory {
             return;
         try {
             in.close();
-        } catch (Exception _ex) {
+        } catch (Exception ex) {
         }
     }
 
@@ -90,18 +90,18 @@ public class AdvancedSocketFactory extends SSLSocketFactory {
         return factory.createSocket(host, port);
     }
 
-    public Socket createSocket(String host, int port, InetAddress client_host, int client_port) throws IOException,
+    public Socket createSocket(String host, int port, InetAddress clientHost, int clientPort) throws IOException,
             UnknownHostException {
-        return factory.createSocket(host, port, client_host, client_port);
+        return factory.createSocket(host, port, clientHost, clientPort);
     }
 
     public Socket createSocket(InetAddress host, int port) throws IOException, UnknownHostException {
         return factory.createSocket(host, port);
     }
 
-    public Socket createSocket(InetAddress host, int port, InetAddress client_host, int client_port) throws IOException,
+    public Socket createSocket(InetAddress host, int port, InetAddress clientHost, int clientPort) throws IOException,
             UnknownHostException {
-        return factory.createSocket(host, port, client_host, client_port);
+        return factory.createSocket(host, port, clientHost, clientPort);
     }
 
     public Socket createSocket(Socket socket, String host, int port, boolean autoclose) throws IOException, UnknownHostException {
@@ -121,9 +121,9 @@ public class AdvancedSocketFactory extends SSLSocketFactory {
     }
 
     private static SocketFactory getDefaultFactory() {
-        if (default_factory == null)
-            default_factory = new AdvancedSocketFactory();
-        return default_factory;
+        if (defaultFactory == null)
+            defaultFactory = new AdvancedSocketFactory();
+        return defaultFactory;
     }
 
     private TrustManager[] getDefaultTrustManager() {
