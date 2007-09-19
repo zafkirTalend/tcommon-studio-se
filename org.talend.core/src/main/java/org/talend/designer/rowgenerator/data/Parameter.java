@@ -21,12 +21,18 @@
 // ============================================================================
 package org.talend.designer.rowgenerator.data;
 
+import java.util.List;
+
+import org.talend.commons.ui.swt.tableviewer.celleditor.IDataBean;
 import org.talend.core.i18n.Messages;
+import org.talend.expressionbuilder.test.shadow.Variable;
 
 /**
  * class global comment. Detailled comment <br/> $Id: Parameter.java,v 1.4 2007/02/02 03:04:21 pub Exp $
  */
-public abstract class Parameter {
+public abstract class Parameter implements IDataBean {
+
+    private List<Variable> vars;
 
     /**
      * @uml.property name="name"
@@ -157,6 +163,33 @@ public abstract class Parameter {
                 Messages.getString("Parameter.Type") + this.getType());
 
         return sb.toString();
+    }
+
+    /**
+     * Getter for vars.
+     * 
+     * @return the vars
+     */
+    public List<Variable> getVars() {
+        return this.vars;
+    }
+
+    /**
+     * Sets the vars.
+     * 
+     * @param vars the vars to set
+     */
+    public void setVars(List<Variable> vars) {
+        this.vars = vars;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.tableviewer.celleditor.IDataBean#getBeanData()
+     */
+    public Object getBeanData() {
+        return getVars();
     }
 
 }
