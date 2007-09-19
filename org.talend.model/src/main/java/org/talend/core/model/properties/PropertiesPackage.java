@@ -1934,13 +1934,22 @@ public interface PropertiesPackage extends EPackage {
     int DASHBOARD_CONNECTION = 33;
 
     /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DASHBOARD_CONNECTION__ID = 0;
+
+    /**
      * The feature id for the '<em><b>Label</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DASHBOARD_CONNECTION__LABEL = 0;
+    int DASHBOARD_CONNECTION__LABEL = 1;
 
     /**
      * The feature id for the '<em><b>Dialect</b></em>' attribute.
@@ -1949,7 +1958,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DASHBOARD_CONNECTION__DIALECT = 1;
+    int DASHBOARD_CONNECTION__DIALECT = 2;
 
     /**
      * The feature id for the '<em><b>Host</b></em>' attribute.
@@ -1958,7 +1967,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DASHBOARD_CONNECTION__HOST = 2;
+    int DASHBOARD_CONNECTION__HOST = 3;
 
     /**
      * The feature id for the '<em><b>Port</b></em>' attribute.
@@ -1967,7 +1976,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DASHBOARD_CONNECTION__PORT = 3;
+    int DASHBOARD_CONNECTION__PORT = 4;
 
     /**
      * The feature id for the '<em><b>Database</b></em>' attribute.
@@ -1976,7 +1985,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DASHBOARD_CONNECTION__DATABASE = 4;
+    int DASHBOARD_CONNECTION__DATABASE = 5;
 
     /**
      * The feature id for the '<em><b>Username</b></em>' attribute.
@@ -1985,7 +1994,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DASHBOARD_CONNECTION__USERNAME = 5;
+    int DASHBOARD_CONNECTION__USERNAME = 6;
 
     /**
      * The feature id for the '<em><b>Password</b></em>' attribute.
@@ -1994,7 +2003,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DASHBOARD_CONNECTION__PASSWORD = 6;
+    int DASHBOARD_CONNECTION__PASSWORD = 7;
 
     /**
      * The feature id for the '<em><b>Log Table</b></em>' attribute.
@@ -2003,7 +2012,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DASHBOARD_CONNECTION__LOG_TABLE = 7;
+    int DASHBOARD_CONNECTION__LOG_TABLE = 8;
 
     /**
      * The feature id for the '<em><b>Stat Table</b></em>' attribute.
@@ -2012,7 +2021,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DASHBOARD_CONNECTION__STAT_TABLE = 8;
+    int DASHBOARD_CONNECTION__STAT_TABLE = 9;
 
     /**
      * The feature id for the '<em><b>Flow Meter Table</b></em>' attribute.
@@ -2021,7 +2030,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DASHBOARD_CONNECTION__FLOW_METER_TABLE = 9;
+    int DASHBOARD_CONNECTION__FLOW_METER_TABLE = 10;
 
     /**
      * The number of structural features of the '<em>Dashboard Connection</em>' class.
@@ -2030,7 +2039,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DASHBOARD_CONNECTION_FEATURE_COUNT = 10;
+    int DASHBOARD_CONNECTION_FEATURE_COUNT = 11;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
@@ -3387,6 +3396,17 @@ public interface PropertiesPackage extends EPackage {
     EClass getDashboardConnection();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.DashboardConnection#getId()
+     * @see #getDashboardConnection()
+     * @generated
+     */
+    EAttribute getDashboardConnection_Id();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.DashboardConnection#getLabel <em>Label</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4668,6 +4688,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass DASHBOARD_CONNECTION = eINSTANCE.getDashboardConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DASHBOARD_CONNECTION__ID = eINSTANCE.getDashboardConnection_Id();
 
         /**
          * The meta object literal for the '<em><b>Label</b></em>' attribute feature.

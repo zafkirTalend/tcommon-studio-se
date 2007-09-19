@@ -1470,7 +1470,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDashboardConnection_Label() {
+    public EAttribute getDashboardConnection_Id() {
         return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(0);
     }
 
@@ -1479,7 +1479,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDashboardConnection_Dialect() {
+    public EAttribute getDashboardConnection_Label() {
         return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(1);
     }
 
@@ -1488,7 +1488,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDashboardConnection_Host() {
+    public EAttribute getDashboardConnection_Dialect() {
         return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(2);
     }
 
@@ -1497,7 +1497,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDashboardConnection_Port() {
+    public EAttribute getDashboardConnection_Host() {
         return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(3);
     }
 
@@ -1506,7 +1506,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDashboardConnection_Database() {
+    public EAttribute getDashboardConnection_Port() {
         return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(4);
     }
 
@@ -1515,7 +1515,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDashboardConnection_Username() {
+    public EAttribute getDashboardConnection_Database() {
         return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(5);
     }
 
@@ -1524,7 +1524,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDashboardConnection_Password() {
+    public EAttribute getDashboardConnection_Username() {
         return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(6);
     }
 
@@ -1533,7 +1533,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDashboardConnection_LogTable() {
+    public EAttribute getDashboardConnection_Password() {
         return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(7);
     }
 
@@ -1542,7 +1542,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDashboardConnection_StatTable() {
+    public EAttribute getDashboardConnection_LogTable() {
         return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(8);
     }
 
@@ -1551,8 +1551,17 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getDashboardConnection_FlowMeterTable() {
+    public EAttribute getDashboardConnection_StatTable() {
         return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getDashboardConnection_FlowMeterTable() {
+        return (EAttribute)dashboardConnectionEClass.getEStructuralFeatures().get(10);
     }
 
     /**
@@ -1806,6 +1815,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         ldapSchemaConnectionItemEClass = createEClass(LDAP_SCHEMA_CONNECTION_ITEM);
 
         dashboardConnectionEClass = createEClass(DASHBOARD_CONNECTION);
+        createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__ID);
         createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__LABEL);
         createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__DIALECT);
         createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__HOST);
@@ -2040,6 +2050,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(ldapSchemaConnectionItemEClass, LDAPSchemaConnectionItem.class, "LDAPSchemaConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(dashboardConnectionEClass, DashboardConnection.class, "DashboardConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getDashboardConnection_Id(), ecorePackage.getEInt(), "id", null, 1, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDashboardConnection_Label(), ecorePackage.getEString(), "label", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDashboardConnection_Dialect(), ecorePackage.getEString(), "dialect", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDashboardConnection_Host(), ecorePackage.getEString(), "host", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

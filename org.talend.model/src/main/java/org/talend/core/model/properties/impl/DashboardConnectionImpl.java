@@ -23,6 +23,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.talend.core.model.properties.impl.DashboardConnectionImpl#getId <em>Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.DashboardConnectionImpl#getLabel <em>Label</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.DashboardConnectionImpl#getDialect <em>Dialect</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.DashboardConnectionImpl#getHost <em>Host</em>}</li>
@@ -39,6 +40,26 @@ import org.talend.core.model.properties.PropertiesPackage;
  * @generated
  */
 public class DashboardConnectionImpl extends EObjectImpl implements DashboardConnection {
+    /**
+     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getId()
+     * @generated
+     * @ordered
+     */
+    protected static final int ID_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getId()
+     * @generated
+     * @ordered
+     */
+    protected int id = ID_EDEFAULT;
+
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -262,6 +283,27 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
      * <!-- end-user-doc -->
      * @generated
      */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setId(int newId) {
+        int oldId = id;
+        id = newId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.DASHBOARD_CONNECTION__ID, oldId, id));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getLabel() {
         return label;
     }
@@ -474,6 +516,8 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
+            case PropertiesPackage.DASHBOARD_CONNECTION__ID:
+                return new Integer(getId());
             case PropertiesPackage.DASHBOARD_CONNECTION__LABEL:
                 return getLabel();
             case PropertiesPackage.DASHBOARD_CONNECTION__DIALECT:
@@ -505,6 +549,9 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
+            case PropertiesPackage.DASHBOARD_CONNECTION__ID:
+                setId(((Integer)newValue).intValue());
+                return;
             case PropertiesPackage.DASHBOARD_CONNECTION__LABEL:
                 setLabel((String)newValue);
                 return;
@@ -546,6 +593,9 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
      */
     public void eUnset(int featureID) {
         switch (featureID) {
+            case PropertiesPackage.DASHBOARD_CONNECTION__ID:
+                setId(ID_EDEFAULT);
+                return;
             case PropertiesPackage.DASHBOARD_CONNECTION__LABEL:
                 setLabel(LABEL_EDEFAULT);
                 return;
@@ -587,6 +637,8 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
+            case PropertiesPackage.DASHBOARD_CONNECTION__ID:
+                return id != ID_EDEFAULT;
             case PropertiesPackage.DASHBOARD_CONNECTION__LABEL:
                 return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
             case PropertiesPackage.DASHBOARD_CONNECTION__DIALECT:
@@ -620,7 +672,9 @@ public class DashboardConnectionImpl extends EObjectImpl implements DashboardCon
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (label: ");
+        result.append(" (id: ");
+        result.append(id);
+        result.append(", label: ");
         result.append(label);
         result.append(", dialect: ");
         result.append(dialect);
