@@ -35,15 +35,18 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 
+import org.apache.log4j.Logger;
+
 import com.sun.net.ssl.TrustManagerFactory;
 import com.sun.net.ssl.X509TrustManager;
 
 /**
- *  Administrator  class global comment. Detailled comment
- * <br/>
- *
+ * This class is used for verifying CA for LDAP connection.
+ * 
+ * @author ftang, 10/09/2007
+ * 
  */
-public class Truster implements X509TrustManager {
+public class LDAPCATruster implements X509TrustManager {
 
     private String certStore;
 
@@ -55,14 +58,23 @@ public class Truster implements X509TrustManager {
 
     private KeyStore ks;
 
-    public Truster(String certStorePath) {
+    String defaultName = "talendcecerts";
+
+    private static Logger log = Logger.getLogger(LDAPCATruster.class);
+
+    /**
+     * LDAPCATruster constructor comment.
+     * 
+     * @param certStorePath
+     */
+    public LDAPCATruster(String certStorePath) {
         certStore = null;
         certStorePwd = null;
         trustManager = null;
         ks = null;
         if (certStorePath == null) {
             isSaveCA = false;
-            certStore = "talendcecerts";
+            certStore = defaultName;
         } else {
             certStore = certStorePath;
         }
@@ -70,6 +82,12 @@ public class Truster implements X509TrustManager {
         init();
     }
 
+    /**
+     * Comment method "deleteCert".
+     * 
+     * @param id
+     * @return
+     */
     private boolean deleteCert(String id) {
         try {
             ks.deleteEntry(id);
@@ -79,6 +97,11 @@ public class Truster implements X509TrustManager {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.sun.net.ssl.X509TrustManager#getAcceptedIssuers()
+     */
     public X509Certificate[] getAcceptedIssuers() {
         if (trustManager == null)
             return null;
@@ -86,6 +109,12 @@ public class Truster implements X509TrustManager {
             return trustManager.getAcceptedIssuers();
     }
 
+    /**
+     * Comment method "getCACert".
+     * 
+     * @param chain
+     * @return
+     */
     private X509Certificate getCACert(X509Certificate chain[]) {
         X509Certificate ca = chain[chain.length - 1];
         if (ca.getSubjectDN().equals(ca.getIssuerDN()))
@@ -94,6 +123,9 @@ public class Truster implements X509TrustManager {
             return null;
     }
 
+    /**
+     * Comment method "init".
+     */
     private void init() {
         try {
             if (certStore.endsWith(".p12"))
@@ -101,7 +133,7 @@ public class Truster implements X509TrustManager {
             else
                 ks = KeyStore.getInstance("JKS");
         } catch (KeyStoreException e) {
-            System.err.println("ASF Truster: Failed to create cert store : " + e.getMessage());
+            log.error("Failed to create cert store : " + e.getMessage());
             return;
         }
         InputStream in = null;
@@ -109,6 +141,7 @@ public class Truster implements X509TrustManager {
             try {
                 in = new FileInputStream(certStore);
             } catch (FileNotFoundException ex) {
+                log.error(ex.getMessage());
             }
         else
             try {
@@ -116,29 +149,38 @@ public class Truster implements X509TrustManager {
                 URLConnection con = url.openConnection();
                 in = con.getInputStream();
             } catch (MalformedURLException e) {
-                System.err.println("ASF Truster: The location of the cert store file is invalid: " + e.getMessage());
+                log.error("The location of the cert store file is invalid: " + e.getMessage());
             } catch (IOException ex) {
             }
         try {
             ks.load(in, certStorePwd);
         } catch (Exception e) {
-            System.err.println("ASF Truster: Failed to load the cert store : " + e.getMessage());
+            log.error("Failed to load the cert store : " + e.getMessage());
             return;
         } finally {
             if (in != null)
                 try {
                     in.close();
                 } catch (Exception ex) {
+                    log.error(ex.getMessage());
                 }
         }
         try {
             trustManager = initTrustManager(ks);
         } catch (Exception e) {
-            System.err.println("ASF Truster: Failed to create initial trust manager : " + e.getMessage());
+            log.error("Failed to create initial trust manager : " + e.getMessage());
             return;
         }
     }
 
+    /**
+     * Comment method "initTrustManager".
+     * 
+     * @param ks
+     * @return
+     * @throws NoSuchAlgorithmException
+     * @throws KeyStoreException
+     */
     private X509TrustManager initTrustManager(KeyStore ks) throws NoSuchAlgorithmException, KeyStoreException {
         TrustManagerFactory trustManagerFactory = null;
         trustManagerFactory = TrustManagerFactory.getInstance("SunX509");
@@ -158,6 +200,11 @@ public class Truster implements X509TrustManager {
         return false;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.sun.net.ssl.X509TrustManager#isClientTrusted(java.security.cert.X509Certificate[])
+     */
     public boolean isClientTrusted(X509Certificate chain[]) {
         if (trustManager == null)
             return false;
@@ -165,6 +212,11 @@ public class Truster implements X509TrustManager {
             return trustManager.isClientTrusted(chain);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.sun.net.ssl.X509TrustManager#isServerTrusted(java.security.cert.X509Certificate[])
+     */
     public boolean isServerTrusted(X509Certificate chain[]) {
         if (trustManager != null) {
             boolean rs = trustManager.isServerTrusted(chain);
@@ -174,7 +226,7 @@ public class Truster implements X509TrustManager {
         X509Certificate ca = getCACert(chain);
         if (ca != null) {
             if (isAccepted(ca)) {
-                System.err.println("SSL Error:Server certificate chain verification failed.");
+                log.error("SSL Error:Server certificate chain verification failed.");
                 return false;
             }
             String id = String.valueOf(System.currentTimeMillis());
@@ -183,7 +235,7 @@ public class Truster implements X509TrustManager {
                 ks.setCertificateEntry(id, ca);
                 tmpTrustManager = initTrustManager(ks);
             } catch (Exception e) {
-                System.err.println("ASF Truster: Failed to create tmp trust store : " + e.getMessage());
+                log.error("Failed to create tmp trust store : " + e.getMessage());
                 return false;
             }
             if (tmpTrustManager.isServerTrusted(chain)) {
@@ -193,16 +245,21 @@ public class Truster implements X509TrustManager {
                 }
                 return true;
             } else {
-                System.err.println("SSL Error:Server certificate chain verification failed and \\nthe CA is missing.");
+                log.error("SSL Error:Server certificate chain verification failed and \\nthe CA is missing.");
                 return false;
             }
         } else {
-            System.err
-                    .println("SSL Error:CA certificate is not in the server certificate chain.\nPlease use the keytool command to import the server certificate.");
+            log.error("SSL Error:CA certificate is not in the server certificate chain."
+                    + "\nPlease use the keytool command to import the server certificate.");
             return false;
         }
     }
 
+    /**
+     * Comment method "saveStore".
+     * 
+     * @return
+     */
     private boolean saveStore() {
         OutputStream out = null;
         try {
@@ -218,7 +275,7 @@ public class Truster implements X509TrustManager {
                 ks.store(out, certStorePwd);
                 return true;
             } catch (Exception e) {
-                System.err.println("ASF Truster: Failed to save trust store : " + e.getMessage());
+                log.error("Failed to save trust store : " + e.getMessage());
             }
             return false;
         } finally {
@@ -226,6 +283,7 @@ public class Truster implements X509TrustManager {
                 try {
                     out.close();
                 } catch (Exception ex) {
+                    log.error(ex.getMessage());
                 }
         }
     }

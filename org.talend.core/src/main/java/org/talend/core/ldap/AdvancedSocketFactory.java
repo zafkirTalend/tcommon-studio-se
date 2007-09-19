@@ -33,15 +33,18 @@ import java.util.Hashtable;
 import javax.net.SocketFactory;
 import javax.net.ssl.SSLSocketFactory;
 
+import org.apache.log4j.Logger;
+
 import com.sun.net.ssl.KeyManagerFactory;
 import com.sun.net.ssl.SSLContext;
 import com.sun.net.ssl.TrustManager;
 import com.sun.net.ssl.internal.ssl.Provider;
 
 /**
- * DOC Administrator  class global comment. Detailed comment
- * <br/>
- *
+ * This class is used for LDAP. <br/>
+ * 
+ * @author ftang, 19/09/2007
+ * 
  */
 public class AdvancedSocketFactory extends SSLSocketFactory {
 
@@ -55,11 +58,24 @@ public class AdvancedSocketFactory extends SSLSocketFactory {
 
     private static String certStorePath = null;
 
+    private static Logger log = Logger.getLogger(AdvancedSocketFactory.class);
+
+    /**
+     * AdvancedSocketFactory constructor comment.
+     */
     protected AdvancedSocketFactory() {
         factory = null;
         init(null, null);
     }
 
+    /**
+     * AdvancedSocketFactory constructor comment.
+     * 
+     * @param in
+     * @param keyStore
+     * @param password
+     * @throws Exception
+     */
     protected AdvancedSocketFactory(InputStream in, String keyStore, String password) throws Exception {
         factory = null;
         KeyStore ks = null;
@@ -72,70 +88,144 @@ public class AdvancedSocketFactory extends SSLSocketFactory {
         init(ks, pwd);
     }
 
+    /**
+     * AdvancedSocketFactory constructor comment.
+     * 
+     * @param keyStore
+     * @param passphrase
+     */
     protected AdvancedSocketFactory(String keyStore, String passphrase) {
         factory = null;
         init(null, null);
     }
 
+    /**
+     * Comment method "closeStream".
+     * 
+     * @param in
+     */
     private static void closeStream(InputStream in) {
         if (in == null)
             return;
         try {
             in.close();
         } catch (Exception ex) {
+            log.error(ex.getMessage());
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.net.SocketFactory#createSocket(java.lang.String, int)
+     */
     public Socket createSocket(String host, int port) throws IOException, UnknownHostException {
         return factory.createSocket(host, port);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.net.SocketFactory#createSocket(java.lang.String, int, java.net.InetAddress, int)
+     */
     public Socket createSocket(String host, int port, InetAddress clientHost, int clientPort) throws IOException,
             UnknownHostException {
         return factory.createSocket(host, port, clientHost, clientPort);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.net.SocketFactory#createSocket(java.net.InetAddress, int)
+     */
     public Socket createSocket(InetAddress host, int port) throws IOException, UnknownHostException {
         return factory.createSocket(host, port);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.net.SocketFactory#createSocket(java.net.InetAddress, int, java.net.InetAddress, int)
+     */
     public Socket createSocket(InetAddress host, int port, InetAddress clientHost, int clientPort) throws IOException,
             UnknownHostException {
         return factory.createSocket(host, port, clientHost, clientPort);
     }
 
-    public Socket createSocket(Socket socket, String host, int port, boolean autoclose) throws IOException, UnknownHostException {
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.net.ssl.SSLSocketFactory#createSocket(java.net.Socket, java.lang.String, int, boolean)
+     */
+    public Socket createSocket(Socket socket, String host, int port, boolean autoclose) throws IOException,
+            UnknownHostException {
         return factory.createSocket(socket, host, port, autoclose);
     }
 
+    /**
+     * Comment method "getDefault".
+     * 
+     * @return
+     */
     public static synchronized SocketFactory getDefault() {
         return getDefaultFactory();
     }
 
+    /**
+     * Comment method "setCertStorePath".
+     * 
+     * @param path
+     */
     public static void setCertStorePath(String path) {
         AdvancedSocketFactory.certStorePath = path;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.net.ssl.SSLSocketFactory#getDefaultCipherSuites()
+     */
     public String[] getDefaultCipherSuites() {
         return factory.getDefaultCipherSuites();
     }
 
+    /**
+     * Comment method "getDefaultFactory".
+     * 
+     * @return
+     */
     private static SocketFactory getDefaultFactory() {
         if (defaultFactory == null)
             defaultFactory = new AdvancedSocketFactory();
         return defaultFactory;
     }
 
+    /**
+     * Comment method "getDefaultTrustManager".
+     * 
+     * @return
+     */
     private TrustManager[] getDefaultTrustManager() {
         if (trustManagers == null)
-            trustManagers = (new Truster[] { new Truster(AdvancedSocketFactory.certStorePath) });
+            trustManagers = (new LDAPCATruster[] { new LDAPCATruster(AdvancedSocketFactory.certStorePath) });
         return trustManagers;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see javax.net.ssl.SSLSocketFactory#getSupportedCipherSuites()
+     */
     public String[] getSupportedCipherSuites() {
         return factory.getSupportedCipherSuites();
     }
 
+    /**
+     * Comment method "init".
+     * 
+     * @param ks
+     * @param password
+     */
     private void init(KeyStore ks, char password[]) {
         SSLContext ctx = null;
         com.sun.net.ssl.KeyManager keyManagers[] = null;
