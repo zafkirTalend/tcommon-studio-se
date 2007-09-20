@@ -32,6 +32,7 @@ import org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext;
 import org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer;
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
@@ -57,6 +58,8 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
 
     private static final String CONTEXT_PREFIX = "context.";
 
+    private static final String PERL_GLOBAL_PREFIX = "global.";
+
     public TalendCompletionProposalComputer() {
     }
 
@@ -66,23 +69,39 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             prefix = context.computeIdentifierPrefix().toString();
 
             String tmpPrefix = "";
-            if ((!prefix.equals(""))) {
+            IDocument doc = context.getDocument();
+            if ((!prefix.equals("")) || (doc.get().length() == 0)) {
                 tmpPrefix = prefix;
             } else {
-                if (context.getDocument().getChar(context.getInvocationOffset() - 1) == '.') {
+                int offset = context.getInvocationOffset();
+                if (doc.getChar(offset - 1) == '.') {
                     // set by default to avoid other completions
+
                     tmpPrefix = ".";
-                    if (context.getDocument().get(context.getInvocationOffset() - CONTEXT_PREFIX.length(),
-                            CONTEXT_PREFIX.length()).equals(CONTEXT_PREFIX)) {
+
+                    if (offset >= CONTEXT_PREFIX.length()
+                            && doc.get(offset - CONTEXT_PREFIX.length(), CONTEXT_PREFIX.length())
+                                    .equals(CONTEXT_PREFIX)) {
                         tmpPrefix = CONTEXT_PREFIX;
+                    } else if (offset >= PERL_GLOBAL_PREFIX.length()
+                            & doc.get(offset - PERL_GLOBAL_PREFIX.length(), PERL_GLOBAL_PREFIX.length()).equals(
+                                    PERL_GLOBAL_PREFIX)) {
+                        switch (LanguageManager.getCurrentLanguage()) {
+                        case JAVA:
+                            // do nothing
+                            break;
+                        case PERL:
+                        default:
+                            tmpPrefix = PERL_GLOBAL_PREFIX;
+                        }
                     } else {
                         // test each component label.
                         IProcess process = CorePlugin.getDefault().getDesignerCoreService().getCurrentProcess();
                         List<? extends INode> nodes = process.getGraphicalNodes();
                         for (INode node : nodes) {
                             String toTest = node.getLabel() + ".";
-                            if (context.getDocument().get(context.getInvocationOffset() - toTest.length(),
-                                    toTest.length()).equals(toTest)) {
+                            if (offset >= toTest.length()
+                                    && doc.get(offset - toTest.length(), toTest.length()).equals(toTest)) {
                                 tmpPrefix = toTest;
                                 break;
                             }

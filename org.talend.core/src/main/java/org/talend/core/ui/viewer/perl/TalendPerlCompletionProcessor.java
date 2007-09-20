@@ -31,6 +31,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextViewer;
@@ -98,21 +99,22 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
 
         String moduleNamePrefix = getModuleNamePrefix(lastTextLine);
         TalendCompletionProposalComputer computer = new TalendCompletionProposalComputer();
-        List<ICompletionProposal> talendCompletionList = computer.computeCompletionProposals("", documentOffset,
-                new NullProgressMonitor());
+        List<ICompletionProposal> talendCompletionList = computer.computeCompletionProposals(
+                new ContentAssistInvocationContext(viewer), new NullProgressMonitor());
         ICompletionProposal[] talendProposals = talendCompletionList
                 .toArray(new ICompletionProposal[talendCompletionList.size()]);
 
         if (moduleNamePrefix != null) {
-            return sort(concatenate(talendProposals, computeModuleNameProposals(viewer, documentOffset, moduleNamePrefix)));
+            return sort(concatenate(talendProposals, computeModuleNameProposals(viewer, documentOffset,
+                    moduleNamePrefix)));
         } else {
             String className = getClassName(documentOffset, document);
             if (className != null) {
                 ICompletionProposal[] methodProposals = computeMethodProposals(viewer, documentOffset, className);
                 return sort(concatenate(talendProposals, methodProposals));
             } else {
-                ICompletionProposal[] standardProposals = sort(concatenate(computeVariableProposals(viewer, documentOffset),
-                        computeTemplateProposals(viewer, documentOffset)));
+                ICompletionProposal[] standardProposals = sort(concatenate(computeVariableProposals(viewer,
+                        documentOffset), computeTemplateProposals(viewer, documentOffset)));
                 return sort(concatenate(talendProposals, standardProposals));
             }
         }
@@ -146,13 +148,15 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
         ContextType contextType = getContextType();
         if (contextType != null) {
             SubroutineEngine subroutineEngine = new SubroutineEngine(contextType);
-            subroutineEngine.complete(viewer, documentOffset, (String[]) proposals.toArray(new String[proposals.size()]));
+            subroutineEngine.complete(viewer, documentOffset, (String[]) proposals
+                    .toArray(new String[proposals.size()]));
             return subroutineEngine.getResults();
         }
         return new IPerlCompletionProposal[0];
     }
 
-    private ICompletionProposal[] computeModuleNameProposals(ITextViewer viewer, int documentOffset, String moduleNamePrefix) {
+    private ICompletionProposal[] computeModuleNameProposals(ITextViewer viewer, int documentOffset,
+            String moduleNamePrefix) {
         ModuleCompletionHelper completionHelper = ModuleCompletionHelper.getInstance();
         return completionHelper.getProposals(moduleNamePrefix, documentOffset, viewer);
     }
@@ -192,13 +196,14 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
         String filehandleChars = "<";
 
         try {
-            documentOffset = getCompletionStartOffset(viewer.getDocument(), documentOffset, variableChars + filehandleChars);
+            documentOffset = getCompletionStartOffset(viewer.getDocument(), documentOffset, variableChars
+                    + filehandleChars);
 
             if (documentOffset < viewer.getDocument().getLength()) {
                 String key = viewer.getDocument().get(documentOffset, 1);
                 if (variableChars.indexOf(key) != -1) {
-                    variablesModel = SourceParser.getElements(viewer.getDocument(), "([$@%][a-z0-9A-Z_]+)\\s*[,)=;]", "", "",
-                            true);
+                    variablesModel = SourceParser.getElements(viewer.getDocument(), "([$@%][a-z0-9A-Z_]+)\\s*[,)=;]",
+                            "", "", true);
                 } else if (filehandleChars.indexOf(key) != -1) {
                     variablesModel = SourceParser.getElements(viewer.getDocument(),
                             "open[a-z]*\\s*?\\s*?[(]\\s*?([A-Z_0-9]+)\\s*?[,]", "<", ">", true);
@@ -243,8 +248,8 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
             if (VAR_PREFIX_PATTERN.matcher(line).find()) {
                 String objName = line.substring(line.lastIndexOf('$'));
 
-                objName = objName.indexOf("->") != -1 ? objName.substring(0, objName.indexOf("->")) : objName.substring(0,
-                        objName.indexOf("::"));
+                objName = objName.indexOf("->") != -1 ? objName.substring(0, objName.indexOf("->")) : objName
+                        .substring(0, objName.indexOf("::"));
 
                 // **** Get the classname ***
                 Pattern p = Pattern.compile("\\" + objName + "\\s*=\\s*([a-zA-Z:->]+)(->|::|;)");
@@ -270,9 +275,9 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
 
     private List getProposalsForClassname(String className) {
         String perlCode = "use " + className + ";\n\n" + "foreach $name (sort keys %" + className + "::) {\n"
-                + " next if($name !~ /[a-z]/ || $name =~ /^_/);\n" + "   if(defined &{\"" + className + "::$name\"}) {\n"
-                + "       print \"$name()\\n\";\n" + "   }\n" + "   else {\n" + "       #print \"$name\\n\";\n" + "   }\n"
-                + "}\n";
+                + " next if($name !~ /[a-z]/ || $name =~ /^_/);\n" + "   if(defined &{\"" + className
+                + "::$name\"}) {\n" + "       print \"$name()\\n\";\n" + "   }\n" + "   else {\n"
+                + "       #print \"$name\\n\";\n" + "   }\n" + "}\n";
 
         PerlExecutor executor = new PerlExecutor();
         // try {
@@ -305,7 +310,8 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
      * @param caretOffset offset at which completion was requested
      * @return offset
      */
-    private int getCompletionStartOffset(IDocument document, int caretOffset, String specialChars) throws BadLocationException {
+    private int getCompletionStartOffset(IDocument document, int caretOffset, String specialChars)
+            throws BadLocationException {
         while (stepLeft(document, caretOffset, specialChars))
             caretOffset--;
         if (stepLeft(document, caretOffset, specialChars))
@@ -325,7 +331,8 @@ public class TalendPerlCompletionProcessor implements IContentAssistProcessor {
 
     private boolean stepLeft(IDocument doc, int offset, String specialChars) throws BadLocationException {
         return offset != 0
-                && (Character.isUnicodeIdentifierPart(doc.getChar(offset - 1)) || specialChars.indexOf(doc.getChar(offset - 1)) != -1);
+                && (Character.isUnicodeIdentifierPart(doc.getChar(offset - 1)) || specialChars.indexOf(doc
+                        .getChar(offset - 1)) != -1);
     }
 
     private static ICompletionProposal[] concatenate(ICompletionProposal[] a, ICompletionProposal[] b) {
