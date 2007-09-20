@@ -112,16 +112,10 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
 			@Override
 			public void mouseUp(MouseEvent e) {
 				if (cellEditorDialog != null) {
-					if (extendedTextCellEditor.getBean() != null) {
-						cellEditorDialog.openDialog(new Expression(
-								extendedTextCellEditor.getText(),
-								(List<Variable>) extendedTextCellEditor
-										.getBean().getBeanData()));
-					} else {
-						cellEditorDialog.openDialog(new Expression(
-								extendedTextCellEditor.getText(),
-								new ArrayList<Variable>()));
-					}
+
+					cellEditorDialog.openDialog(extendedTextCellEditor
+							.getText());
+
 				}
 			}
 		});
