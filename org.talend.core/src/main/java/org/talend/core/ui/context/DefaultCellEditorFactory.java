@@ -263,7 +263,7 @@ public final class DefaultCellEditorFactory {
      * @param path
      * @return
      */
-    public String getAddQuoteString(String path) {
+    public static String getAddQuoteString(String path) {
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.PERL) {
             return TalendTextUtils.addQuotes(path);
@@ -277,7 +277,7 @@ public final class DefaultCellEditorFactory {
      * @param path
      * @return
      */
-    public String getRemoveQuoteString(String path) {
+    public static String getRemoveQuoteString(String path) {
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.PERL) {
             return TalendTextUtils.removeQuotes(path);
