@@ -204,6 +204,25 @@ public class MappingTypeRetriever {
 		return false;
 	}
 
+	public boolean isPreBeforeLength(String dbmsId, String dbType) {
+		Dbms dbms = MetadataTalendType.getDbms(dbmsId);
+		List preBeforeLen = dbms.getPrebeforelength();
+		String before = new String("");
+		for (int i = 0; i < preBeforeLen.size(); i++) {
+			DbPreBeforeLength dbPBL = (DbPreBeforeLength) preBeforeLen.get(i);
+			if (dbPBL.getDbType().equals(dbType)) {
+				before = dbPBL.getPreBeforeLen();
+				if (before == null)
+					return false;
+				if (before.equals("true"))
+					return true;
+				else
+					return false;
+			}
+		}
+		return false;
+	}
+
 	/**
 	 * 
 	 * Search and return the Db type which matches with the given parameters. If

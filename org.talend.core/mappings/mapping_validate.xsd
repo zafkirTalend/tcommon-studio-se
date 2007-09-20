@@ -87,6 +87,9 @@
 					</xs:restriction>
 				</xs:simpleType>
 			</xs:attribute>
+			<xs:attribute name="preBeforelen" type="xs:boolean"/>
+			<xs:attribute name="ignorePre" type="xs:boolean"/>
+			<xs:attribute name="ignoreLen" type="xs:boolean"/>
 			<xs:attribute name="defaultPrecision">
 				<xs:simpleType>
 					<xs:restriction base="xs:short"/>

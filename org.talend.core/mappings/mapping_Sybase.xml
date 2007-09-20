@@ -3,29 +3,29 @@
 	<dbms product="SYBASE" id="sybase_id" label="Mapping Sybase"
 		default="true">
 		<dbTypes>
-			<dbType type="BIT" />
-			<dbType type="BIGINT" />
-			<dbType type="BINARY" />
-			<dbType type="CHAR" defaultLength="50"/>
-			<dbType type="CHARACTER" />
-			<dbType type="CHARACTER VARYING" />
-			<dbType type="DATE" />
-			<dbType type="DATETIME" />
+			<dbType type="BIT" ignoreLen="true" ignorePre="true" />
+			<dbType type="BIGINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="BINARY" ignoreLen="true" ignorePre="true" />
+			<dbType type="CHAR" defaultLength="50" ignorePre="true"/>
+			<dbType type="CHARACTER" ignoreLen="true" ignorePre="true" />
+			<dbType type="CHARACTER VARYING" ignoreLen="true" ignorePre="true" />
+			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
+			<dbType type="DATETIME" ignoreLen="true" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
-			<dbType type="DOUBLE" />
-			<dbType type="FLOAT" />
-			<dbType type="INT" />
+			<dbType type="DOUBLE" ignoreLen="true" ignorePre="true" />
+			<dbType type="FLOAT" ignoreLen="true" ignorePre="true" />
+			<dbType type="INT" ignoreLen="true" ignorePre="true" />
 			<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10"/>
 			<dbType type="REAL" />
-			<dbType type="SMALLINT" />
-			<dbType type="SMALLDATETIME" />
-			<dbType type="TIME" />	
-			<dbType type="TIMESTAMP" />
-			<dbType type="TINYINT" />
-			<dbType type="UNIQUEIDENTIFIER" />
-			<dbType type="UNIQUEIDENTIFIERSTR" />
-			<dbType type="VARCHAR" default="true" defaultLength="200" />
-			<dbType type="VARBINARY" />
+			<dbType type="SMALLINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="SMALLDATETIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIME" ignoreLen="true" ignorePre="true" />	
+			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true" />
+			<dbType type="TINYINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="UNIQUEIDENTIFIER" ignoreLen="true" ignorePre="true" />
+			<dbType type="UNIQUEIDENTIFIERSTR" ignoreLen="true" ignorePre="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="200" ignorePre="true" />
+			<dbType type="VARBINARY" ignoreLen="true" ignorePre="true" />
 		</dbTypes>
 
 		<language name="java">

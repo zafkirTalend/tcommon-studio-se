@@ -3,21 +3,21 @@
 	<dbms product="AS400" id="as400_id" label="Mapping AS400"
 		default="true">
 		<dbTypes>
-			<dbType type="BIT" />
-			<dbType type="BOOLEAN" />
+			<dbType type="BIT" ignoreLen="true" ignorePre="true" />
+			<dbType type="BOOLEAN" ignoreLen="true" ignorePre="true" />
 			<dbType type="COUNTER"/>
-			<dbType type="DATE" />
+			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
-			<dbType type="DOUBLE" />
-			<dbType type="FLOAT" />
-			<dbType type="INTEGER" />
-			<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10" />
-			<dbType type="REAL"/>
-			<dbType type="SMALLINT" />
-			<dbType type="TINYINT" />
-			<dbType type="TIME" />
-			<dbType type="TIMESTAMP" />
-			<dbType type="VARCHAR" default="true" defaultLength="200"/>
+			<dbType type="DOUBLE" ignoreLen="true" ignorePre="true" />
+			<dbType type="FLOAT" ignoreLen="true" ignorePre="true" />
+			<dbType type="INTEGER" ignoreLen="true" ignorePre="true" />
+			<dbType type="NUMERIC" ignoreLen="true" ignorePre="true" />
+			<dbType type="REAL" ignoreLen="true" ignorePre="true"/>
+			<dbType type="SMALLINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="TINYINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="200" ignorePre="true"/>
 		</dbTypes>
 
 		<language name="java">

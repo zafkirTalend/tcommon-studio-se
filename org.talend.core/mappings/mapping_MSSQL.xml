@@ -9,8 +9,8 @@
 			<dbType type="BIT" ignoreLen="true" ignorePre="true" />
 			<dbType type="CHAR" defaultLength="50"  ignorePre="true"/>
 			<dbType type="DATETIME" ignoreLen="true" ignorePre="true" />
-			<dbType type="DECIMAL" defaultLength="10" defaultPrecision="20"/>
-			<dbType type="DECIMAL IDENTITY" defaultLength="10" defaultPrecision="20"/>
+			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10"/>
+			<dbType type="DECIMAL IDENTITY" defaultLength="20" defaultPrecision="10"/>
 			
 			<dbType type="FLOAT" ignorePre="true" />
 			<dbType type="IMAGE" ignoreLen="true" ignorePre="true" />
@@ -20,8 +20,8 @@
 			<dbType type="MONEY" ignoreLen="true" ignorePre="true" />
 			<dbType type="NCHAR" defaultLength="100" ignorePre="true"/>
 			<dbType type="NTEXT" ignoreLen="true" ignorePre="true" />
-			<dbType type="NUMERIC" defaultLength="10" defaultPrecision="20" />
-			<dbType type="NUMERIC IDENTITY" defaultLength="10" defaultPrecision="20" ignorePre="true"/>
+			<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10" />
+			<dbType type="NUMERIC IDENTITY" defaultLength="20" defaultPrecision="10" ignorePre="true"/>
 			
 			<dbType type="NVARCHAR" defaultLength="200" ignorePre="true" />
 			<dbType type="REAL" ignoreLen="true" ignorePre="true" />

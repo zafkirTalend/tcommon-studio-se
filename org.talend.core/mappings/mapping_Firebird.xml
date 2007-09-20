@@ -3,20 +3,20 @@
 	<dbms product="FIREBIRD" id="firebird_id" label="Mapping Firebird"
 		default="true">
 		<dbTypes>
-			<dbType type="BLOB" />
-			<dbType type="CHAR" />
-			<dbType type="CHAR VARYING" />
-			<dbType type="DATE" />
-			<dbType type="DECIMAL" defaultLength="10" defaultPrecision="15" />
-			<dbType type="DOUBLE PRECISION" />
-			<dbType type="FLOAT" />
-			<dbType type="INTEGER" /> 
-			<dbType type="NCHAR" />
-			<dbType type="NCHAR VARYING" />
-			<dbType type="NUMERIC" defaultLength="10" defaultPrecision="15"/>
-			<dbType type="SMALLINT" />
-			<dbType type="TIME" />
-			<dbType type="VARCHAR" default="true" defaultLength="200"/>	
+			<dbType type="BLOB" defaultLength="20" defaultPrecision="10" />
+			<dbType type="CHAR" defaultLength="10" ignorePre="true" />
+			<dbType type="CHAR VARYING" ignorePre="true" />
+			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
+			<dbType type="DECIMAL" defaultLength="10" defaultPrecision="5" />
+			<dbType type="DOUBLE PRECISION" ignoreLen="true" ignorePre="true" />
+			<dbType type="FLOAT" defaultLength="10" ignorePre="true" />
+			<dbType type="INTEGER" ignoreLen="true" ignorePre="true" /> 
+			<dbType type="NCHAR" defaultLength="10" ignorePre="true" />
+			<dbType type="NCHAR VARYING" defaultLength="10" ignorePre="true" />
+			<dbType type="NUMERIC" defaultLength="10" defaultPrecision="5"/>
+			<dbType type="SMALLINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="200" ignorePre="true"/>	
 		</dbTypes>
 
 		<language name="java">

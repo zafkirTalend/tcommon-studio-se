@@ -12,7 +12,7 @@
 			<dbType type="LONG RAW" ignoreLen="true" ignorePre="true" />
 			<dbType type="NCHAR" defaultLength="400" ignorePre="true" />
 			<dbType type="NCLOB" ignoreLen="true" ignorePre="true" />
-			<dbType type="NUMBER" defaultLength="20"  defaultPrecision="10" />
+			<dbType type="NUMBER" defaultLength="20"  defaultPrecision="10"/>
 			<dbType type="NVARCHAR2" defaultLength="400" ignorePre="true"/>
 			<dbType type="RAW" defaultLength="300" ignorePre="true" />
 			<dbType type="ROWID" ignoreLen="true" ignorePre="true"/>

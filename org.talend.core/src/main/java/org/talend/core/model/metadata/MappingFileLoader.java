@@ -132,12 +132,15 @@ public class MappingFileLoader {
 
 				// search and load "dbTypes/dbType" nodes
 				// search and load ignoreLength and ignorePrecision nodes
+				// search and load preBeforelen nodes
 				ArrayList<String> dbTypes = new ArrayList<String>();
 				ArrayList<DbDefaultLengthAndPrecision> dbDefault = new ArrayList<DbDefaultLengthAndPrecision>();
 				ArrayList<DbIgnoreLengthAndPrecision> dbIgnore = new ArrayList<DbIgnoreLengthAndPrecision>();
+				ArrayList<DbPreBeforeLength> dbPbeforeLList = new ArrayList<DbPreBeforeLength>();
 				dbms.setDbmsTypes(dbTypes);
 				dbms.setDefaultLengthPrecision(dbDefault);
 				dbms.setIgnoreLengthPrecision(dbIgnore);
+				dbms.setPrebeforelength(dbPbeforeLList);
 				List<Node> typeNodes = getChildElementNodes(dbTypesNode);
 
 				for (Node typeNode : typeNodes) {
@@ -151,14 +154,14 @@ public class MappingFileLoader {
 								.getString(
 										"MappingFileLoader.DbTypeAlreadyExists", new Object[] { dbmsIdValue, typeValue, file.getName(), XmlNodeRetriever.getAbsoluteXPathFromNode(typeNode) });//$NON-NLS-1$
 						log.warn(message);
-						// System.out.println(message);
 						continue;
 					}
 					dbTypes.add(typeValue);
 					hAllDbTypes.add(typeValue);
 					DbDefaultLengthAndPrecision dbDefaultLP = new DbDefaultLengthAndPrecision();
 					DbIgnoreLengthAndPrecision dbIgnoreLP = new DbIgnoreLengthAndPrecision();
-
+					DbPreBeforeLength dbPBeforeL = new DbPreBeforeLength();
+					// default length and precision
 					Node defaultLengthItem = typeNodeAtttributes
 							.getNamedItem("defaultLength");
 					Node defaultPrecision = typeNodeAtttributes
@@ -174,7 +177,7 @@ public class MappingFileLoader {
 					dbDefaultLP.setDbTypeName(typeValue);
 					dbDefault.add(dbDefaultLP);
 
-					// //
+					// ignore Length and Precision
 					Node ignoreLength = typeNodeAtttributes
 							.getNamedItem("ignoreLen");
 					Node ignorePrecision = typeNodeAtttributes
@@ -187,7 +190,14 @@ public class MappingFileLoader {
 								.getNodeValue());
 					dbIgnoreLP.setDbType(typeValue);
 					dbIgnore.add(dbIgnoreLP);
-					// //3
+
+					// Precision before Length
+					Node preBeforelen = typeNodeAtttributes
+							.getNamedItem("preBeforelen");
+					if (preBeforelen != null)
+						dbPBeforeL.setPreBeforeLen(preBeforelen.getNodeValue());
+					dbPBeforeL.setDbType(typeValue);
+					dbPbeforeLList.add(dbPBeforeL);
 
 					if (defaultTypeItem != null
 							&& "true".equals(defaultTypeItem.getNodeValue())) { //$NON-NLS-1$

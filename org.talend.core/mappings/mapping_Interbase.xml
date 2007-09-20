@@ -3,20 +3,19 @@
 	<dbms product="Interbase" id="interbase_id" label="Mapping Interbase"
 		default="true">
 		<dbTypes>
-			<dbType type="BLOB" />
-			<dbType type="BOOLEAN" />
-			<dbType type="CHAR" defaultLength="50"/>
-			<dbType type="DATE" />
+			<dbType type="BLOB" ignorePre="true" />
+			<dbType type="BOOLEAN" ignoreLen="true" ignorePre="true" />
+			<dbType type="CHAR" defaultLength="50" ignorePre="true"/>
+			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
 			<dbType type="DOUBLE PRECISION" />
-			<dbType type="FLOAT" />
-			<dbType type="INTEGER" />
+			<dbType type="FLOAT" ignoreLen="true" ignorePre="true" />
+			<dbType type="INTEGER" ignoreLen="true" ignorePre="true" />
 			<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10" />
-			<dbType type="SMALLINT" />
-			<dbType type="TIME" />
-			<dbType type="TIMESTAMP" />
-			<dbType type="VARCHAR" default="true" defaultLength="200"/>
-			
+			<dbType type="SMALLINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="200" ignorePre="true"/>
 		</dbTypes>
 
 		<language name="java">

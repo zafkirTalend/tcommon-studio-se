@@ -3,28 +3,28 @@
 	<dbms product="INFORMIX" id="informix_id" label="Mapping Informix"
 		default="true">
 		<dbTypes>
-			<dbType type="BYTE" />
-			<dbType type="BOOLEAN" />
-			<dbType type="BLOB" />
-			<dbType type="CLOB" />
-			<dbType type="CHAR" defaultLength="50" />
-			<dbType type="CHARACTER VARYING" />
-			<dbType type="DATE" />
-			<dbType type="DATETIME" />
+			<dbType type="BYTE" ignoreLen="true" ignorePre="true" />
+			<dbType type="BOOLEAN" ignoreLen="true" ignorePre="true" />
+			<dbType type="BLOB" ignorePre="true" />
+			<dbType type="CLOB" ignorePre="true" />
+			<dbType type="CHAR" defaultLength="50" ignorePre="true" />
+			<dbType type="CHARACTER VARYING" ignorePre="true"/>
+			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
+			<dbType type="DATETIME" ignoreLen="true" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
-			<dbType type="FLOAT" />
-			<dbType type="INTEGER" />
-			<dbType type="INT8" />
-			<dbType type="LVARCHAR" />
-			<dbType type="MONEY" />
-			<dbType type="NCHAR" defaultLength="50" />
-			<dbType type="NVARCHAR" />
+			<dbType type="FLOAT" ignoreLen="true" ignorePre="true" />
+			<dbType type="INTEGER" ignoreLen="true" ignorePre="true" />
+			<dbType type="INT8" ignoreLen="true" ignorePre="true" />
+			<dbType type="LVARCHAR" ignoreLen="true" ignorePre="true" />
+			<dbType type="MONEY" ignoreLen="true" ignorePre="true" />
+			<dbType type="NCHAR" defaultLength="50" ignorePre="true" />
+			<dbType type="NVARCHAR" ignorePre="true" />
 			<dbType type="SERIAL"/>
 			<dbType type="SERIAL8" />
-			<dbType type="SMALLFLOAT" />
-			<dbType type="SMALLINT" />
-			<dbType type="VARCHAR" default="true" defaultLength="200"/>
-			<dbType type="TEXT" />
+			<dbType type="SMALLFLOAT" ignoreLen="true" ignorePre="true" />
+			<dbType type="SMALLINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="200" ignorePre="true"/>
+			<dbType type="TEXT" ignoreLen="true" ignorePre="true" />
 		</dbTypes>
 
 		<language name="java">

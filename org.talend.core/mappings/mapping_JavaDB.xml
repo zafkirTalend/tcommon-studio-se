@@ -3,26 +3,26 @@
 	<dbms product="JAVADB" id="javadb_id" label="Mapping JavaDB"
 		default="true">
 		<dbTypes>
-			<dbType type="BIGINT" />
-			<dbType type="BLOB" />
-			<dbType type="CHAR" defaultLength="50"/>
-			<dbType type="CHAR FOR BIT DATA" defaultLength="1"/>
-			<dbType type="CLOB" />
+			<dbType type="BIGINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="BLOB" ignorePre="true" />
+			<dbType type="CHAR" defaultLength="50" ignorePre="true"/>
+			<dbType type="CHAR FOR BIT DATA" defaultLength="1" ignorePre="true"/>
+			<dbType type="CLOB"  ignorePre="true"/>
 			<dbType type="DOUBLE PRECISION" />
-			<dbType type="DATE" />
+			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10"/>
-			<dbType type="FLOAT" defaultLength="53"/>
-			<dbType type="INTEGER" />
-			<dbType type="LONG VARCHAR" />
-			<dbType type="LONG VARCHAR FOR BIT DATA" />
+			<dbType type="FLOAT" defaultLength="53" ignorePre="true"/>
+			<dbType type="INTEGER" ignoreLen="true" ignorePre="true" />
+			<dbType type="LONG VARCHAR" ignorePre="true"/>
+			<dbType type="LONG VARCHAR FOR BIT DATA" ignorePre="true" />
 			<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10"/>
 			<dbType type="REAL" />
-			<dbType type="SMALLINT" />
-			<dbType type="TIME" />
-			<dbType type="TIMESTAMP" />
-			<dbType type="VARCHAR" default="true" defaultLength="200"/>
-			<dbType type="VARCHAR FOR BIT DATA" />
-			<dbType type="XML" />
+			<dbType type="SMALLINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="200" ignorePre="true"/>
+			<dbType type="VARCHAR FOR BIT DATA" ignorePre="true" />
+			<dbType type="XML" ignoreLen="true" ignorePre="true" />
 		</dbTypes>
 
 		<language name="java">

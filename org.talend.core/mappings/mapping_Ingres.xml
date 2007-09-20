@@ -3,32 +3,32 @@
 	<dbms product="INGRES" id="ingres_id" label="Mapping Ingres"
 		default="true">
 		<dbTypes>
-			<dbType type="ANSIDATE" />
-			<dbType type="BIGINT" />
-			<dbType type="BYTE" />
-			<dbType type="BYTE VARYING" />
-			<dbType type="C" />
-			<dbType type="CHAR" />
+			<dbType type="ANSIDATE" ignoreLen="true" ignorePre="true" />
+			<dbType type="BIGINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="BYTE" ignoreLen="true" ignorePre="true" />
+			<dbType type="BYTE VARYING" ignoreLen="true" ignorePre="true" />
+			<dbType type="C" ignoreLen="true" ignorePre="true" />
+			<dbType type="CHAR" ignorePre="true" />
 			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" />
-			<dbType type="DATE" />
-			<dbType type="FLOAT" />
-			<dbType type="FLOAT4" />
-			<dbType type="INTEGER" />
-			<dbType type="INGRESDATE" />
-			<dbType type="INTERVAL" />
-			<dbType type="LONG NVARCHAR" />
-			<dbType type="LONG VARCHAR" />
-			<dbType type="MONEY" />
-			<dbType type="NCHAR" />
-			<dbType type="NVARCHAR" />
-			<dbType type="OBJECT_KEY" />
-			<dbType type="SMALLINT" />
-			<dbType type="TEXT" />
-			<dbType type="TINYINT" />
-			<dbType type="TIME" />
-			<dbType type="TIMESTAMP"/>
-			<dbType type="TABLE_KEY" />
-			<dbType type="VARCHAR" default="true" defaultLength="1200"/>
+			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
+			<dbType type="FLOAT" ignoreLen="true" ignorePre="true" />
+			<dbType type="FLOAT4" ignoreLen="true" ignorePre="true" />
+			<dbType type="INTEGER" ignoreLen="true" ignorePre="true" />
+			<dbType type="INGRESDATE" ignoreLen="true" ignorePre="true" />
+			<dbType type="INTERVAL" ignoreLen="true" ignorePre="true" />
+			<dbType type="LONG NVARCHAR" ignorePre="true" />
+			<dbType type="LONG VARCHAR" ignoreLen="true" ignorePre="true" />
+			<dbType type="MONEY" ignoreLen="true" ignorePre="true" />
+			<dbType type="NCHAR" ignorePre="true" />
+			<dbType type="NVARCHAR" ignorePre="true" />
+			<dbType type="OBJECT_KEY"  ignoreLen="true" ignorePre="true"/>
+			<dbType type="SMALLINT"  ignoreLen="true" ignorePre="true"/>
+			<dbType type="TEXT" ignoreLen="true" ignorePre="true" />
+			<dbType type="TINYINT" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIME" ignoreLen="true" ignorePre="true" />
+			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"/>
+			<dbType type="TABLE_KEY" ignoreLen="true" ignorePre="true" />
+			<dbType type="VARCHAR" default="true" defaultLength="1200" ignorePre="true"/>
 		</dbTypes>
 
 		<language name="java">

@@ -53,6 +53,16 @@ public class Dbms {
 
 	private List<DbIgnoreLengthAndPrecision> ignoreLengthPrecision;
 
+	private List<DbPreBeforeLength> prebeforelength;
+
+	public List<DbPreBeforeLength> getPrebeforelength() {
+		return prebeforelength;
+	}
+
+	public void setPrebeforelength(List<DbPreBeforeLength> prebeforelength) {
+		this.prebeforelength = prebeforelength;
+	}
+
 	public List<DbDefaultLengthAndPrecision> getDefaultLengthPrecision() {
 		return defaultLengthPrecision;
 	}

@@ -3,22 +3,22 @@
 	<dbms product="IBMDB2" id="ibmdb2_id" label="Mapping IBMDB2"
 		default="true">
 		<dbTypes>
-				<dbType type="BIGINT"/>
-				<dbType type="BLOB"/>
-				<dbType type="CHARACTER" defaultLength="50"/>
-				<dbType type="CLOB"/>
-				<dbType type="DATE"/>
+				<dbType type="BIGINT" ignoreLen="true" ignorePre="true"/>
+				<dbType type="BLOB" defaultLength="10" ignorePre="true"/>
+				<dbType type="CHARACTER" defaultLength="50" ignorePre="true"/>
+				<dbType type="CLOB" ignorePre="true"/>
+				<dbType type="DATE" ignoreLen="true" ignorePre="true"/>
 				<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10"/>
-				<dbType type="GRAPHIC"/>
-				<dbType type="INTEGER"/>
-				<dbType type="LONG VARCHAR"/>
+				<dbType type="GRAPHIC" defaultLength="20" ignoreLen="true" ignorePre="true"/>
+				<dbType type="INTEGER" ignoreLen="true" ignorePre="true"/>
+				<dbType type="LONG VARCHAR" ignoreLen="true" ignorePre="true"/>
 				<dbType type="NUMERIC" defaultLength="20" defaultPrecision="10"/>
-				<dbType type="SMALLINT"/>
-				<dbType type="TIME"/>
-				<dbType type="TIMESTAMP"/>
-				<dbType type="VARCHAR" default="true" defaultLength="200"/>
-				<dbType type="VARGRAPHIC"/>
-				<dbType type="XML"/>
+				<dbType type="SMALLINT" ignoreLen="true" ignorePre="true"/>
+				<dbType type="TIME" ignoreLen="true" ignorePre="true"/>
+				<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"/>
+				<dbType type="VARCHAR" default="true" defaultLength="200" ignorePre="true"/>
+				<dbType type="VARGRAPHIC" defaultLength="20" ignorePre="true"/>
+				<dbType type="XML" ignoreLen="true" ignorePre="true"/>
 		</dbTypes>
 
 		<language name="java">
