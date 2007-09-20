@@ -141,7 +141,7 @@ public class LDAPCATruster implements X509TrustManager {
             try {
                 in = new FileInputStream(certStore);
             } catch (FileNotFoundException ex) {
-                log.error(ex.getMessage());
+//                log.error(ex.getMessage());
             }
         else
             try {

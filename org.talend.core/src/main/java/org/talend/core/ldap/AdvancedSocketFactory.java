@@ -242,8 +242,7 @@ public class AdvancedSocketFactory extends SSLSocketFactory {
             ctx.init(keyManagers, trustManagers, null);
             factory = ctx.getSocketFactory();
         } catch (Exception e) {
-            System.err.println("ASF Error: failed to initialize : " + e.getMessage());
-            e.printStackTrace();
+            log.error("Error: failed to initialize : " + e.getMessage());
         }
     }
 
