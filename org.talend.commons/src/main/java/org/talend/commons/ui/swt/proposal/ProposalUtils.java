@@ -121,7 +121,8 @@ public final class ProposalUtils {
         if (cellEditor instanceof TextCellEditorWithProposal) {
             return getContentProposalAdapter(cellEditor.getControl(), new TextCellEditorContentAdapterExtended());
         } else if (cellEditor instanceof ExtendedTextCellEditorWithProposal) {
-            return getContentProposalAdapter(cellEditor.getControl(), new TextCellEditorContentAdapterExtended());
+            return getContentProposalAdapter(((ExtendedTextCellEditorWithProposal) cellEditor).getTextControl(),
+                    new TextCellEditorContentAdapterExtended());
         } else {
             throw new IllegalArgumentException(Messages.getString("ProposalUtils.CellProposal.Error") + cellEditor.getClass()); //$NON-NLS-1$
         }
