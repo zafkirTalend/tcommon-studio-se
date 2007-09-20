@@ -31,6 +31,7 @@ package routines;
  *                  object,
  *                  boolean,
  *                  long,
+ *                  char,
  *                  date.
  *      <name>'s value is the Function's parameter name.
  *  the {param} is optional. so if you the Function without the parameters. the {param} don't added.
