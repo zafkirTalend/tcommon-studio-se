@@ -29,6 +29,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
@@ -37,11 +38,16 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
@@ -69,6 +75,10 @@ public class ConextTableValuesComposite extends Composite {
 
     private IContextModelManager modelManager = null;
 
+    private CellModifier cellModifier;
+
+    private DefaultCellEditorFactory cellFactory;
+
     /**
      * Constructor.
      * 
@@ -78,6 +88,7 @@ public class ConextTableValuesComposite extends Composite {
     public ConextTableValuesComposite(Composite parent, IContextModelManager manager) {
         super(parent, SWT.NONE);
         modelManager = manager;
+        cellFactory = new DefaultCellEditorFactory(modelManager);
         this.setBackground(parent.getBackground());
         this.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).create());
         initializeUI();
@@ -120,12 +131,115 @@ public class ConextTableValuesComposite extends Composite {
         ViewerProvider provider = new ViewerProvider();
         viewer.setLabelProvider(provider);
         viewer.setContentProvider(provider);
-        Table table = viewer.getTable();
+        final Table table = viewer.getTable();
         table.setHeaderVisible(true);
         table.setLinesVisible(true);
         GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(table);
-        viewer.setCellModifier(new CellModifier());
+        cellModifier = new CellModifier();
+        viewer.setCellModifier(cellModifier);
+
+        final TableEditor treeEditor = new TableEditor(table);
+        createEditorListener(treeEditor);
+        table.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseDown(MouseEvent e) {
+                Point pt = new Point(e.x, e.y);
+                TableItem item = table.getItem(pt);
+                // deactivate the current cell editor
+                if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
+                    deactivateCellEditor(treeEditor);
+                }
+                if (item != null && !item.isDisposed()) {
+                    for (int i = 0; i < table.getColumnCount(); i++) {
+                        Rectangle rect = item.getBounds(i);
+                        if (rect.contains(pt)) {
+                            int columnIndex = i;
+                            handleSelect(item, table, treeEditor, columnIndex);
+                        }
+
+                    }
+                }
+            }
+        });
     }
+
+    private void activateCellEditor(final TableItem item, final Table table, final TableEditor treeEditor, int columnIndex) {
+        // ensure the cell editor is visible
+        table.showSelection();
+        if (properties[columnIndex].equals(COLUMN_NAME_PROPERTY)) {
+            return;
+        }
+
+        IContextParameter para = cellModifier.getRealParameter(properties[columnIndex], (IContextParameter) item.getData());
+        if (para == null) {
+            return;
+        }
+
+        cellEditor = cellFactory.getCustomCellEditor(para, table);
+
+        if (cellEditor == null) {
+            // unable to create the editor
+            return;
+        }
+        // activate the cell editor
+        cellEditor.activate();
+        // if the cell editor has no control we can stop now
+        Control control = cellEditor.getControl();
+        if (control == null) {
+            cellEditor.deactivate();
+            cellEditor = null;
+            return;
+        }
+        // add our editor listener
+        cellEditor.addListener(createEditorListener(treeEditor));
+
+        // set the layout of the tree editor to match the cell editor
+        CellEditor.LayoutData layout = cellEditor.getLayoutData();
+        treeEditor.horizontalAlignment = layout.horizontalAlignment;
+        treeEditor.grabHorizontal = layout.grabHorizontal;
+        treeEditor.minimumWidth = layout.minimumWidth;
+        treeEditor.setEditor(control, item, columnIndex);
+        // give focus to the cell editor
+        cellEditor.setFocus();
+
+    }
+
+    protected void handleSelect(final TableItem item, final Table tree, final TableEditor treeEditor, int columnIndex) {
+        // get the new selection
+        activateCellEditor(item, tree, treeEditor, columnIndex);
+    }
+
+    private void deactivateCellEditor(final TableEditor tableEditor) {
+        // tableEditor.setEditor(null, null, 4);
+        if (cellEditor != null) {
+            cellEditor.deactivate();
+            cellEditor.removeListener(editorListener);
+            cellEditor = null;
+        }
+    }
+
+    private ICellEditorListener createEditorListener(final TableEditor tableEditor) {
+        editorListener = new ICellEditorListener() {
+
+            public void cancelEditor() {
+                deactivateCellEditor(tableEditor);
+            }
+
+            public void editorValueChanged(boolean oldValidState, boolean newValidState) {
+            }
+
+            public void applyEditorValue() {
+            }
+        };
+        return editorListener;
+    }
+
+    private ICellEditorListener editorListener;
+
+    private CellEditor cellEditor;
+
+    private String[] properties;
 
     /**
      * bqian Comment method "getContexts".
@@ -151,7 +265,7 @@ public class ConextTableValuesComposite extends Composite {
         column.setWidth(CONTEXT_COLUMN_WIDTH);
 
         CellEditor[] cellEditors = new CellEditor[contexts.size() + 1];
-        String[] properties = new String[contexts.size() + 1];
+        properties = new String[contexts.size() + 1];
         properties[0] = COLUMN_NAME_PROPERTY;
         int index = 1;
         for (IContext context : contexts) {
@@ -269,7 +383,7 @@ public class ConextTableValuesComposite extends Composite {
          * @param templatePara
          * @return
          */
-        private IContextParameter getRealParameter(String property, IContextParameter templatePara) {
+        public IContextParameter getRealParameter(String property, IContextParameter templatePara) {
             IContext context = modelManager.getContextManager().getContext(property);
             IContextParameter para = context.getContextParameter(templatePara.getName());
             return para;

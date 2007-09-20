@@ -35,6 +35,7 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.CheckboxCellEditor;
+import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ICellModifier;
 import org.eclipse.jface.viewers.ITableLabelProvider;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -43,12 +44,17 @@ import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.TreeEditor;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -71,6 +77,11 @@ import org.talend.core.ui.context.ConextTreeValuesComposite.GroupByVariableProvi
  * 
  */
 public class ConextTreeValuesComposite extends Composite {
+
+    /**
+     * 
+     */
+    private static final int VARIABLE_COLUMN_INDEX = 4;
 
     private static final String PRESENTATION_TYPE_KEY = "PRESENTATION_TYPE_KEY";
 
@@ -106,6 +117,10 @@ public class ConextTreeValuesComposite extends Composite {
 
     private GroupByContextAction groupByContext;
 
+    private CellModifier cellModifier;
+
+    private DefaultCellEditorFactory cellFactory;
+
     /**
      * bqian ConextTemplateComposite constructor comment.
      * 
@@ -116,6 +131,7 @@ public class ConextTreeValuesComposite extends Composite {
         super(parent, SWT.NONE);
         this.setBackground(parent.getBackground());
         modelManager = manager;
+        cellFactory = new DefaultCellEditorFactory(modelManager);
         this.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).create());
         initializeUI();
     }
@@ -130,7 +146,7 @@ public class ConextTreeValuesComposite extends Composite {
         createMenuBar(toolBar);
 
         viewer = new TreeViewer(this, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-        Tree tree = viewer.getTree();
+        final Tree tree = viewer.getTree();
         tree.setHeaderVisible(true);
         tree.setLinesVisible(true);
         tree.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -157,14 +173,108 @@ public class ConextTreeValuesComposite extends Composite {
         column.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
         viewer.setCellEditors(new CellEditor[] { null, null, new CheckboxCellEditor(tree), new TextCellEditor(tree),
                 new TextCellEditor(tree), new TextCellEditor(tree) });
-
-        viewer.setCellModifier(new CellModifier());
+        cellModifier = new CellModifier();
+        viewer.setCellModifier(cellModifier);
 
         provider = new ViewerProvier();
         viewer.setLabelProvider(provider);
         viewer.setContentProvider(provider);
         setDefaultPresentationType();
+
+        final TreeEditor treeEditor = new TreeEditor(tree);
+        createEditorListener(treeEditor);
+        tree.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseDown(MouseEvent e) {
+                Point pt = new Point(e.x, e.y);
+                TreeItem item = tree.getItem(pt);
+                // deactivate the current cell editor
+                if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
+                    deactivateCellEditor(treeEditor);
+                }
+                if (item != null && !item.isDisposed()) {
+                    Rectangle rect = item.getBounds(VARIABLE_COLUMN_INDEX);
+                    if (rect.contains(pt)) {
+                        handleSelect(item, tree, treeEditor);
+                    }
+                }
+            }
+        });
+
     }
+
+    private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
+        // ensure the cell editor is visible
+        tree.showSelection();
+
+        IContextParameter para = cellModifier.getRealParameter(item.getData());
+        if (para == null) {
+            return;
+        }
+        //
+        cellEditor = cellFactory.getCustomCellEditor(para, tree);
+
+        if (cellEditor == null) {
+            // unable to create the editor
+            return;
+        }
+        // activate the cell editor
+        cellEditor.activate();
+        // if the cell editor has no control we can stop now
+        Control control = cellEditor.getControl();
+        if (control == null) {
+            cellEditor.deactivate();
+            cellEditor = null;
+            return;
+        }
+        // add our editor listener
+        cellEditor.addListener(createEditorListener(treeEditor));
+
+        // set the layout of the tree editor to match the cell editor
+        CellEditor.LayoutData layout = cellEditor.getLayoutData();
+        treeEditor.horizontalAlignment = layout.horizontalAlignment;
+        treeEditor.grabHorizontal = layout.grabHorizontal;
+        treeEditor.minimumWidth = layout.minimumWidth;
+        treeEditor.setEditor(control, item, VARIABLE_COLUMN_INDEX);
+        // give focus to the cell editor
+        cellEditor.setFocus();
+
+    }
+
+    protected void handleSelect(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
+        // get the new selection
+        activateCellEditor(item, tree, treeEditor);
+    }
+
+    private void deactivateCellEditor(final TreeEditor tableEditor) {
+        tableEditor.setEditor(null, null, VARIABLE_COLUMN_INDEX);
+        if (cellEditor != null) {
+            cellEditor.deactivate();
+            cellEditor.removeListener(editorListener);
+            cellEditor = null;
+        }
+    }
+
+    private ICellEditorListener createEditorListener(final TreeEditor tableEditor) {
+        editorListener = new ICellEditorListener() {
+
+            public void cancelEditor() {
+                deactivateCellEditor(tableEditor);
+            }
+
+            public void editorValueChanged(boolean oldValidState, boolean newValidState) {
+            }
+
+            public void applyEditorValue() {
+            }
+        };
+        return editorListener;
+    }
+
+    private ICellEditorListener editorListener;
+
+    private CellEditor cellEditor;
 
     /**
      * bqian Comment method "createMenuBar".
@@ -511,6 +621,10 @@ public class ConextTreeValuesComposite extends Composite {
          * @see org.eclipse.jface.viewers.ICellModifier#canModify(java.lang.Object, java.lang.String)
          */
         public boolean canModify(Object element, String property) {
+            IContextParameter para = getRealParameter(element);
+            if (para == null) {
+                return false;
+            }
             if (property.equals(VARIABLE_COLUMN_NAME) || property.equals(CONTEXT_COLUMN_NAME)) {
                 return false;
             }
@@ -524,14 +638,16 @@ public class ConextTreeValuesComposite extends Composite {
          */
         public Object getValue(Object element, String property) {
             IContextParameter para = getRealParameter(element);
-            if (property.equals(VALUE_COLUMN_NAME)) {
-                return para.getValue();
-            } else if (property.equals(PROMPT_COLUMN_NAME)) {
-                return para.getPrompt();
-            } else if (property.equals(COMMENT_COLUMN_NAME)) {
-                return para.getComment();
-            } else if (property.equals(PROMPTNEEDED_COLUMN_NAME)) {
-                return para.isPromptNeeded();
+            if (para != null) {
+                if (property.equals(VALUE_COLUMN_NAME)) {
+                    return para.getValue();
+                } else if (property.equals(PROMPT_COLUMN_NAME)) {
+                    return para.getPrompt();
+                } else if (property.equals(COMMENT_COLUMN_NAME)) {
+                    return para.getComment();
+                } else if (property.equals(PROMPTNEEDED_COLUMN_NAME)) {
+                    return para.isPromptNeeded();
+                }
             }
             return "";
         }
@@ -562,26 +678,46 @@ public class ConextTreeValuesComposite extends Composite {
             TreeItem item = (TreeItem) element;
             final Object object = item.getData();
             final IContextParameter para = getRealParameter(object);
+            if (para == null) {
+                return;
+            }
+
+            if (property.equals(VALUE_COLUMN_NAME)) {
+                if (para.getValue().equals(value)) {
+                    return;
+                }
+                para.setValue((String) value);
+            } else if (property.equals(PROMPT_COLUMN_NAME)) {
+                if (para.getPrompt().equals(value)) {
+                    return;
+                }
+                para.setPrompt((String) value);
+            } else if (property.equals(COMMENT_COLUMN_NAME)) {
+                if (para.getComment().equals(value)) {
+                    return;
+                }
+                para.setComment((String) value);
+            } else if (property.equals(PROMPTNEEDED_COLUMN_NAME)) {
+                if (para.isPromptNeeded() == ((Boolean) value).booleanValue()) {
+                    return;
+                }
+                para.setPromptNeeded((Boolean) value);
+            }
             Command command = new Command() {
 
                 public void execute() {
-                    if (property.equals(VALUE_COLUMN_NAME)) {
-                        para.setValue((String) value);
-                    } else if (property.equals(PROMPT_COLUMN_NAME)) {
-                        para.setPrompt((String) value);
-                    } else if (property.equals(COMMENT_COLUMN_NAME)) {
-                        para.setComment((String) value);
-                    } else if (property.equals(PROMPTNEEDED_COLUMN_NAME)) {
-                        para.setPromptNeeded((Boolean) value);
-                    }
                     modelManager.refresh();
                 }
             };
-            if (modelManager.getCommandStack() == null) {
-                command.execute();
-            } else {
-                modelManager.getCommandStack().execute(command);
-            }
+            runCommand(command);
+        }
+    }
+
+    private void runCommand(Command command) {
+        if (modelManager.getCommandStack() == null) {
+            command.execute();
+        } else {
+            modelManager.getCommandStack().execute(command);
         }
     }
 
