@@ -30,6 +30,7 @@ import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext;
 import org.eclipse.jdt.ui.text.java.IJavaCompletionProposalComputer;
+import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.talend.commons.ui.image.ImageProvider;
@@ -38,6 +39,7 @@ import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
@@ -45,6 +47,7 @@ import org.talend.core.model.process.INodeReturn;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.ui.images.ECoreImage;
+import org.talend.core.ui.proposal.PerlGlobalUtils;
 
 /**
  * @author nrousseau
@@ -78,8 +81,8 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                         List<? extends INode> nodes = process.getGraphicalNodes();
                         for (INode node : nodes) {
                             String toTest = node.getLabel() + ".";
-                            if (context.getDocument().get(context.getInvocationOffset() - toTest.length(), toTest.length())
-                                    .equals(toTest)) {
+                            if (context.getDocument().get(context.getInvocationOffset() - toTest.length(),
+                                    toTest.length()).equals(toTest)) {
                                 tmpPrefix = toTest;
                                 break;
                             }
@@ -119,8 +122,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             String description = getContextDescription(ctxParam, display);
 
             if (prefix.equals("") || display.startsWith(prefix)) {
-                ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix.length(), code
-                        .length(), ImageProvider.getImage(ECoreImage.CONTEXT_ICON), display, null, description);
+                ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
+                        .length(), code.length(), ImageProvider.getImage(ECoreImage.CONTEXT_ICON), display, null,
+                        description);
                 proposals.add(proposal);
             }
 
@@ -138,12 +142,36 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
 
                     String description = getNodeReturnDescription(nodeReturn, node, display);
 
-                    ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix.length(),
-                            code.length(), node.getComponent().getIcon16().createImage(), display, null, description);
+                    ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
+                            .length(), code.length(), node.getComponent().getIcon16().createImage(), display, null,
+                            description);
                     proposals.add(proposal);
                 }
             }
         }
+
+        // Proposals based on global variables(only perl ).
+        switch (LanguageManager.getCurrentLanguage()) {
+        case JAVA:
+            // do nothing
+            break;
+        case PERL:
+        default:
+            IContentProposal[] vars = PerlGlobalUtils.getProposals();
+            for (int i = 0; i < vars.length; i++) {
+                String display = vars[i].getLabel();
+
+                if (prefix.equals("") || display.startsWith(prefix)) {
+                    String code = vars[i].getContent();
+                    String description = getPerlGlobalVarDescription(vars[i], display);
+                    ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
+                            .length(), code.length(), ImageProvider.getImage(ECoreImage.PROCESS_ICON), display, null,
+                            description);
+                    proposals.add(proposal);
+                }
+            }
+        }
+
         return proposals;
     }
 
@@ -186,8 +214,20 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
         message += Messages.getString("NodeReturnProposal.VariableName"); //$NON-NLS-1$
 
         MessageFormat format = new MessageFormat(message);
-        Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponent().getTranslatedName(), node.getLabel(),
-                nodeReturn.getDisplayType(), nodeReturn.getAvailability(), getNodeReturnContent(nodeReturn, node) };
+        Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponent().getTranslatedName(),
+                node.getLabel(), nodeReturn.getDisplayType(), nodeReturn.getAvailability(),
+                getNodeReturnContent(nodeReturn, node) };
+        return format.format(args);
+    }
+
+    private String getPerlGlobalVarDescription(IContentProposal cp, String display) {
+        String message = "<b>" + display + "</b><br><br>" //$NON-NLS-1$ //$NON-NLS-2$
+                + Messages.getString("PerlGlobalVariableProposal.Description") + "<br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("PerlGlobalVariableProposal.VariableName"); //$NON-NLS-1$
+
+        MessageFormat format = new MessageFormat(message);
+
+        Object[] args = new Object[] { cp.getDescription(), cp.getLabel().substring(7) };
         return format.format(args);
     }
 

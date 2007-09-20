@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeReturn;
@@ -70,6 +71,19 @@ public class ProcessProposalProvider implements IContentProposalProvider {
             List<? extends INodeReturn> nodeReturns = node.getReturns();
             for (INodeReturn nodeReturn : nodeReturns) {
                 proposals.add(new NodeReturnProposal(node, nodeReturn));
+            }
+        }
+
+        // Proposals based on global variables(only perl ).
+        switch (LanguageManager.getCurrentLanguage()) {
+        case JAVA:
+            // do nothing
+            break;
+        case PERL:
+        default:
+            IContentProposal[] vars = PerlGlobalUtils.getProposals();
+            for (int i = 0; i < vars.length; i++) {
+                proposals.add(vars[i]);
             }
         }
 
