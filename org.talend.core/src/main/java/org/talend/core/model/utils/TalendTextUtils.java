@@ -191,7 +191,19 @@ public class TalendTextUtils {
         if (fieldName.startsWith("\"") && fieldName.endsWith("\"")) {
             return fieldName;
         }
-        if (!fieldName.contains(" ")) {
+        boolean b = true;
+        boolean isAllNum = true;
+        for (int i = 0; i < fieldName.length(); i++) {
+            char c = fieldName.charAt(i);
+            b = c >= 'A' && c <= 'Z';
+            isAllNum = isAllNum && (c >= '0' && c <= '9');
+            b = b || (c >= '0' && c <= '9');
+            b = b || (c >= 'a' && c <= 'z');
+            if (!b) {
+                break;
+            }
+        }
+        if (b && !isAllNum) {
             if (!CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE)) {
                 return fieldName;
             }
