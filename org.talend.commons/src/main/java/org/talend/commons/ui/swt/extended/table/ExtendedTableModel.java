@@ -137,6 +137,10 @@ public class ExtendedTableModel<B> extends AbstractExtendedControlModel {
         return this.beansList;
     }
 
+    public void setUseEquals(boolean useEquals) {
+        beansList.setUseEquals(useEquals);
+    }
+
     /**
      * DOC amaumont Comment method "remove".
      * 
