@@ -81,8 +81,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                     tmpPrefix = ".";
 
                     if (offset >= CONTEXT_PREFIX.length()
-                            && doc.get(offset - CONTEXT_PREFIX.length(), CONTEXT_PREFIX.length())
-                                    .equals(CONTEXT_PREFIX)) {
+                            && doc.get(offset - CONTEXT_PREFIX.length(), CONTEXT_PREFIX.length()).equals(CONTEXT_PREFIX)) {
                         tmpPrefix = CONTEXT_PREFIX;
                     } else if (offset >= PERL_GLOBAL_PREFIX.length()
                             & doc.get(offset - PERL_GLOBAL_PREFIX.length(), PERL_GLOBAL_PREFIX.length()).equals(
@@ -98,11 +97,13 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                     } else {
                         // test each component label.
                         IProcess process = CorePlugin.getDefault().getDesignerCoreService().getCurrentProcess();
+                        if (process == null) {
+                            return Collections.EMPTY_LIST;
+                        }
                         List<? extends INode> nodes = process.getGraphicalNodes();
                         for (INode node : nodes) {
                             String toTest = node.getLabel() + ".";
-                            if (offset >= toTest.length()
-                                    && doc.get(offset - toTest.length(), toTest.length()).equals(toTest)) {
+                            if (offset >= toTest.length() && doc.get(offset - toTest.length(), toTest.length()).equals(toTest)) {
                                 tmpPrefix = toTest;
                                 break;
                             }
@@ -142,9 +143,8 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             String description = getContextDescription(ctxParam, display);
 
             if (prefix.equals("") || display.startsWith(prefix)) {
-                ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
-                        .length(), code.length(), ImageProvider.getImage(ECoreImage.CONTEXT_ICON), display, null,
-                        description);
+                ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix.length(), code
+                        .length(), ImageProvider.getImage(ECoreImage.CONTEXT_ICON), display, null, description);
                 proposals.add(proposal);
             }
 
@@ -162,9 +162,8 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
 
                     String description = getNodeReturnDescription(nodeReturn, node, display);
 
-                    ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
-                            .length(), code.length(), node.getComponent().getIcon16().createImage(), display, null,
-                            description);
+                    ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix.length(),
+                            code.length(), node.getComponent().getIcon16().createImage(), display, null, description);
                     proposals.add(proposal);
                 }
             }
@@ -184,9 +183,8 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                 if (prefix.equals("") || display.startsWith(prefix)) {
                     String code = vars[i].getContent();
                     String description = getPerlGlobalVarDescription(vars[i], display);
-                    ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
-                            .length(), code.length(), ImageProvider.getImage(ECoreImage.PROCESS_ICON), display, null,
-                            description);
+                    ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix.length(),
+                            code.length(), ImageProvider.getImage(ECoreImage.PROCESS_ICON), display, null, description);
                     proposals.add(proposal);
                 }
             }
@@ -240,9 +238,8 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
         message += Messages.getString("NodeReturnProposal.VariableName"); //$NON-NLS-1$
 
         MessageFormat format = new MessageFormat(message);
-        Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponent().getTranslatedName(),
-                node.getLabel(), nodeReturn.getDisplayType(), nodeReturn.getAvailability(),
-                getNodeReturnContent(nodeReturn, node) };
+        Object[] args = new Object[] { nodeReturn.getDisplayName(), node.getComponent().getTranslatedName(), node.getLabel(),
+                nodeReturn.getDisplayType(), nodeReturn.getAvailability(), getNodeReturnContent(nodeReturn, node) };
         return format.format(args);
     }
 
