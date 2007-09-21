@@ -87,8 +87,7 @@ public class MetadataTool {
             IMetadataColumn newTargetColumn = column.clone();
             if (targetColumn == null) {
                 columnsTAdd.add(newTargetColumn);
-                newTargetColumn
-                        .setReadOnly(target.isReadOnly() || readOnlycolumns.contains(newTargetColumn.getLabel()));
+                newTargetColumn.setReadOnly(target.isReadOnly() || readOnlycolumns.contains(newTargetColumn.getLabel()));
             } else {
                 if (!targetColumn.isReadOnly()) {
                     target.getListColumns().remove(targetColumn);
@@ -100,12 +99,6 @@ public class MetadataTool {
         }
         target.getListColumns().addAll(columnsTAdd);
         target.sortCustomColumns();
-        target.setTableName(source.getTableName());
-        // List<IMetadataColumn> listColumns = target.getListColumns();
-        // for (IMetadataColumn column : listColumns) {
-        // column.setPattern(null);
-        // }
-
     }
 
     public static IMetadataTable getMetadataFromRepository(String metaRepositoryName) {
