@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.celleditor;
 
+import java.util.List;
+
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyAdapter;
@@ -37,7 +39,9 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Text;
 import org.talend.expressionbuilder.IExpressionConsumer;
+import org.talend.expressionbuilder.IExpressionDataBean;
 import org.talend.expressionbuilder.IExtendedCellEditorBehavior;
+import org.talend.expressionbuilder.test.shadow.Variable;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -46,11 +50,13 @@ import org.talend.expressionbuilder.IExtendedCellEditorBehavior;
  * 
  */
 public class ExtendedTextCellEditor extends TextCellEditor implements
-		IExpressionConsumer {
+		IExpressionConsumer, IExpressionDataBean {
 
 	private IExtendedCellEditorBehavior cellEditorBehavior;
 
 	private ModifyListener modifyListener;
+
+	private Object data;
 
 	/**
 	 * State information for updating action enablement
@@ -62,8 +68,6 @@ public class ExtendedTextCellEditor extends TextCellEditor implements
 	private boolean isSelectable = false;
 
 	private final Composite parent;
-
-	private Object variables;
 
 	/**
 	 * yzhang ExtendedTextCellEditor constructor comment.
@@ -224,31 +228,38 @@ public class ExtendedTextCellEditor extends TextCellEditor implements
 		focusLost();
 	}
 
-	/**
-	 * yzhang Comment method "getText".
-	 * 
-	 * @return
-	 */
-	public String getText() {
-		return text.getText();
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see org.talend.expressionbuilder.IExpressionConsumer#setData(java.lang.Object)
 	 */
 	public void setVariables(Object obj) {
-		this.variables = obj;
+		this.data = obj;
+	}
+
+	@Override
+	public String getExpression() {
+		return text.getText();
+	}
+
+	@Override
+	public List<Variable> getVariables() {
+		if (this.data instanceof List) {
+			return (List<Variable>) this.data;
+		}
+		return null;
 	}
 
 	/**
-	 * yzhang Comment method "getTextData".
+	 * yzhang Comment method "setData".
 	 * 
-	 * @return
+	 * @param data
 	 */
-	public Object getVariables() {
-		return this.variables;
+	public void setData(Object data) {
+		this.data = data;
 	}
 
+	public Object getData() {
+		return this.data;
+	}
 }

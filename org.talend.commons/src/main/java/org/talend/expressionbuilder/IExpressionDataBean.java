@@ -19,16 +19,23 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
+
 package org.talend.expressionbuilder;
+
+import java.util.List;
+
+import org.talend.expressionbuilder.test.shadow.Variable;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
  * 
- * $Id: ICellEditorDialog.java 下午05:56:18 2007-8-16 +0000 (2007-8-16) yzhang $
+ * $Id: IExpressionConsumer.java 下午04:21:19 2007-8-1 +0000 (2007-8-1) yzhang $
  * 
  */
-public interface ICellEditorDialog {
+public interface IExpressionDataBean {
 
-	public void openDialog(Object obj);
+	public String getExpression();
+
+	public List<Variable> getVariables();
 
 }
