@@ -30,6 +30,7 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
@@ -463,6 +464,7 @@ public class ConextTemplateComposite extends Composite {
 
         fieldsModel.removeAll();
         fieldsModel.addAll(contextTemplate);
+        tableViewerCreator.getTable().deselectAll();
     }
 
     /**
@@ -536,8 +538,15 @@ public class ConextTemplateComposite extends Composite {
                     ContextTemplateModel tableEditorModel = (ContextTemplateModel) getExtendedTableViewer()
                             .getExtendedControlModel();
                     IContextParameter parameter = (IContextParameter) tableEditorModel.createNewEntry();
-
                     modelManager.onContextAddParameter(getContextManager(), parameter);
+
+                    List<IContextParameter> list = tableEditorModel.getBeansList();
+                    int index = list.indexOf(parameter);
+                    if (index >= 0) {
+                        // find the real parameter to select
+                        parameter = (IContextParameter) list.get(index);
+                        tableViewerCreator.getTableViewer().setSelection(new StructuredSelection(parameter), true);
+                    }
                 }
 
                 @Override
@@ -561,10 +570,24 @@ public class ConextTemplateComposite extends Composite {
                     if (object == null) {
                         return;
                     }
+                    IContextParameter parameter = (IContextParameter) object;
 
-                    String paramName = ((IContextParameter) object).getName();
+                    ContextTemplateModel tableEditorModel = (ContextTemplateModel) getExtendedTableViewer()
+                            .getExtendedControlModel();
+                    List<IContextParameter> list = tableEditorModel.getBeansList();
+                    int index = list.indexOf(parameter);
 
-                    modelManager.onContextRemoveParameter(getContextManager(), paramName);
+                    modelManager.onContextRemoveParameter(getContextManager(), parameter.getName());
+
+                    if (list.isEmpty()) {
+                        return;
+                    }
+                    if (index > list.size() - 1) {
+                        index = list.size() - 1;
+                    }
+                    // find the real parameter to select
+                    parameter = (IContextParameter) list.get(index);
+                    tableViewerCreator.getTableViewer().setSelection(new StructuredSelection(parameter), true);
                 }
             };
         }

@@ -44,6 +44,7 @@ public class ContextTemplateModel extends ExtendedTableModel<IContextParameter> 
 
     public ContextTemplateModel() {
         super();
+        setUseEquals(true);
     }
 
     /**
