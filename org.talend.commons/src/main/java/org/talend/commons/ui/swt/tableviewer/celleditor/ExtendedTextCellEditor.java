@@ -49,217 +49,211 @@ import org.talend.expressionbuilder.test.shadow.Variable;
  * $Id: ExtendedTextCellEditor.java 下午03:55:26 2007-8-1 +0000 (2007-8-1) yzhang $
  * 
  */
-public class ExtendedTextCellEditor extends TextCellEditor implements
-		IExpressionConsumer, IExpressionDataBean {
+public class ExtendedTextCellEditor extends TextCellEditor implements IExpressionConsumer, IExpressionDataBean {
 
-	private IExtendedCellEditorBehavior cellEditorBehavior;
+    private IExtendedCellEditorBehavior cellEditorBehavior;
 
-	private ModifyListener modifyListener;
+    private ModifyListener modifyListener;
 
-	private Object data;
+    private Object data;
 
-	/**
-	 * State information for updating action enablement
-	 */
-	private boolean isSelection = false;
+    /**
+     * State information for updating action enablement
+     */
+    private boolean isSelection = false;
 
-	private boolean isDeleteable = false;
+    private boolean isDeleteable = false;
 
-	private boolean isSelectable = false;
+    private boolean isSelectable = false;
 
-	private final Composite parent;
+    private final Composite parent;
 
-	/**
-	 * yzhang ExtendedTextCellEditor constructor comment.
-	 */
-	public ExtendedTextCellEditor(Composite parent) {
-		this.parent = parent;
-		setStyle(SWT.SINGLE);
-	}
+    /**
+     * yzhang ExtendedTextCellEditor constructor comment.
+     */
+    public ExtendedTextCellEditor(Composite parent) {
+        this.parent = parent;
+        setStyle(SWT.SINGLE);
+    }
 
-	/**
-	 * Sets the cellEditorBehavior.
-	 * 
-	 * @param cellEditorBehavior
-	 *            the cellEditorBehavior to set
-	 */
-	public void setCellEditorBehavior(
-			IExtendedCellEditorBehavior cellEditorBehavior) {
-		this.cellEditorBehavior = cellEditorBehavior;
-	}
+    /**
+     * Sets the cellEditorBehavior.
+     * 
+     * @param cellEditorBehavior the cellEditorBehavior to set
+     */
+    public void setCellEditorBehavior(IExtendedCellEditorBehavior cellEditorBehavior) {
+        this.cellEditorBehavior = cellEditorBehavior;
+    }
 
-	/**
-	 * yzhang Comment method "init".
-	 */
-	public void init() {
+    /**
+     * yzhang Comment method "init".
+     */
+    public void init() {
 
-		create(parent);
-	}
+        create(parent);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.eclipse.jface.viewers.TextCellEditor#createControl(org.eclipse.swt.widgets.Composite)
-	 */
-	@Override
-	protected Control createControl(Composite parent) {
-		return cellEditorBehavior.createBehaviorControls(parent);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.viewers.TextCellEditor#createControl(org.eclipse.swt.widgets.Composite)
+     */
+    @Override
+    protected Control createControl(Composite parent) {
+        return cellEditorBehavior.createBehaviorControls(parent);
 
-	}
+    }
 
-	public Text getTextControl() {
-		return text;
-	}
+    public Text getTextControl() {
+        return text;
+    }
 
-	public Text createText(Composite parent) {
+    public Text createText(Composite parent) {
 
-		text = new Text(parent, SWT.NONE);
-		text.addSelectionListener(new SelectionAdapter() {
+        text = new Text(parent, SWT.NONE);
+        text.addSelectionListener(new SelectionAdapter() {
 
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				handleDefaultSelection(e);
-			}
-		});
-		text.addKeyListener(new KeyAdapter() {
+            @Override
+            public void widgetDefaultSelected(SelectionEvent e) {
+                handleDefaultSelection(e);
+            }
+        });
+        text.addKeyListener(new KeyAdapter() {
 
-			// hook key pressed - see PR 14201
-			@Override
-			public void keyPressed(KeyEvent e) {
-				keyReleaseOccured(e);
+            // hook key pressed - see PR 14201
+            @Override
+            public void keyPressed(KeyEvent e) {
+                keyReleaseOccured(e);
 
-				// as a result of processing the above call, clients may have
-				// disposed this cell editor
-				if ((getControl() == null) || getControl().isDisposed()) {
-					return;
-				}
-				checkSelection(); // see explaination below
-				checkDeleteable();
-				checkSelectable();
-			}
-		});
-		text.addTraverseListener(new TraverseListener() {
+                // as a result of processing the above call, clients may have
+                // disposed this cell editor
+                if ((getControl() == null) || getControl().isDisposed()) {
+                    return;
+                }
+                checkSelection(); // see explaination below
+                checkDeleteable();
+                checkSelectable();
+            }
+        });
+        text.addTraverseListener(new TraverseListener() {
 
-			public void keyTraversed(TraverseEvent e) {
-				if (e.detail == SWT.TRAVERSE_ESCAPE
-						|| e.detail == SWT.TRAVERSE_RETURN) {
-					e.doit = false;
-				}
-			}
-		});
-		// We really want a selection listener but it is not supported so we
-		// use a key listener and a mouse listener to know when selection
-		// changes
-		// may have occured
-		text.addMouseListener(new MouseAdapter() {
+            public void keyTraversed(TraverseEvent e) {
+                if (e.detail == SWT.TRAVERSE_ESCAPE || e.detail == SWT.TRAVERSE_RETURN) {
+                    e.doit = false;
+                }
+            }
+        });
+        // We really want a selection listener but it is not supported so we
+        // use a key listener and a mouse listener to know when selection
+        // changes
+        // may have occured
+        text.addMouseListener(new MouseAdapter() {
 
-			@Override
-			public void mouseUp(MouseEvent e) {
-				checkSelection();
-				checkDeleteable();
-				checkSelectable();
-			}
-		});
+            @Override
+            public void mouseUp(MouseEvent e) {
+                checkSelection();
+                checkDeleteable();
+                checkSelectable();
+            }
+        });
 
-		text.setFont(parent.getFont());
-		text.setBackground(parent.getBackground());
-		text.setText("");//$NON-NLS-1$
-		text.addModifyListener(getModifyListener());
-		return text;
+        text.setFont(parent.getFont());
+        text.setBackground(parent.getBackground());
+        text.setText("");//$NON-NLS-1$
+        text.addModifyListener(getModifyListener());
+        return text;
 
-	}
+    }
 
-	/**
-	 * Return the modify listener.
-	 */
-	public ModifyListener getModifyListener() {
-		if (modifyListener == null) {
-			modifyListener = new ModifyListener() {
+    /**
+     * Return the modify listener.
+     */
+    public ModifyListener getModifyListener() {
+        if (modifyListener == null) {
+            modifyListener = new ModifyListener() {
 
-				public void modifyText(ModifyEvent e) {
-					editOccured(e);
-				}
-			};
-		}
-		return modifyListener;
-	}
+                public void modifyText(ModifyEvent e) {
+                    editOccured(e);
+                }
+            };
+        }
+        return modifyListener;
+    }
 
-	/**
-	 * yzhang Comment method "checkSelection".
-	 */
-	public void checkSelection() {
-		boolean oldIsSelection = isSelection;
-		isSelection = text.getSelectionCount() > 0;
-		if (oldIsSelection != isSelection) {
-			fireEnablementChanged(COPY);
-			fireEnablementChanged(CUT);
-		}
-	}
+    /**
+     * yzhang Comment method "checkSelection".
+     */
+    public void checkSelection() {
+        boolean oldIsSelection = isSelection;
+        isSelection = text.getSelectionCount() > 0;
+        if (oldIsSelection != isSelection) {
+            fireEnablementChanged(COPY);
+            fireEnablementChanged(CUT);
+        }
+    }
 
-	/**
-	 * yzhang Comment method "checkDeleteable".
-	 */
-	public void checkDeleteable() {
-		boolean oldIsDeleteable = isDeleteable;
-		isDeleteable = isDeleteEnabled();
-		if (oldIsDeleteable != isDeleteable) {
-			fireEnablementChanged(DELETE);
-		}
-	}
+    /**
+     * yzhang Comment method "checkDeleteable".
+     */
+    public void checkDeleteable() {
+        boolean oldIsDeleteable = isDeleteable;
+        isDeleteable = isDeleteEnabled();
+        if (oldIsDeleteable != isDeleteable) {
+            fireEnablementChanged(DELETE);
+        }
+    }
 
-	/**
-	 * yzhang Comment method "checkSelectable".
-	 */
-	public void checkSelectable() {
-		boolean oldIsSelectable = isSelectable;
-		isSelectable = isSelectAllEnabled();
-		if (oldIsSelectable != isSelectable) {
-			fireEnablementChanged(SELECT_ALL);
-		}
-	}
+    /**
+     * yzhang Comment method "checkSelectable".
+     */
+    public void checkSelectable() {
+        boolean oldIsSelectable = isSelectable;
+        isSelectable = isSelectAllEnabled();
+        if (oldIsSelectable != isSelectable) {
+            fireEnablementChanged(SELECT_ALL);
+        }
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.talend.expressionbuilder.IExpressionConsumer#setConsumerExpression(java.lang.String)
-	 */
-	public void setConsumerExpression(String expression) {
-		text.setText(expression);
-		focusLost();
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.expressionbuilder.IExpressionConsumer#setConsumerExpression(java.lang.String)
+     */
+    public void setConsumerExpression(String expression) {
+        text.setText(expression);
+        focusLost();
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.talend.expressionbuilder.IExpressionConsumer#setData(java.lang.Object)
-	 */
-	public void setVariables(Object obj) {
-		this.data = obj;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.expressionbuilder.IExpressionConsumer#setData(java.lang.Object)
+     */
+    public void setVariables(Object obj) {
+        this.data = obj;
+    }
 
-	@Override
-	public String getExpression() {
-		return text.getText();
-	}
+    public String getExpression() {
+        return text.getText();
+    }
 
-	@Override
-	public List<Variable> getVariables() {
-		if (this.data instanceof List) {
-			return (List<Variable>) this.data;
-		}
-		return null;
-	}
+    public List<Variable> getVariables() {
+        if (this.data instanceof List) {
+            return (List<Variable>) this.data;
+        }
+        return null;
+    }
 
-	/**
-	 * yzhang Comment method "setData".
-	 * 
-	 * @param data
-	 */
-	public void setData(Object data) {
-		this.data = data;
-	}
+    /**
+     * yzhang Comment method "setData".
+     * 
+     * @param data
+     */
+    public void setData(Object data) {
+        this.data = data;
+    }
 
-	public Object getData() {
-		return this.data;
-	}
+    public Object getData() {
+        return this.data;
+    }
 }
