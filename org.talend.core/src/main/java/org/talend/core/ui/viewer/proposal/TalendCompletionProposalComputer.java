@@ -24,6 +24,7 @@ package org.talend.core.ui.viewer.proposal;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -190,7 +191,13 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                 }
             }
         }
+        // sort the list
+        Collections.sort(proposals, new Comparator<ICompletionProposal>() {
 
+            public int compare(ICompletionProposal o1, ICompletionProposal o2) {
+                return o2.getDisplayString().compareToIgnoreCase(o1.getDisplayString());
+            }
+        });
         return proposals;
     }
 
@@ -246,7 +253,7 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
 
         MessageFormat format = new MessageFormat(message);
 
-        Object[] args = new Object[] { cp.getDescription(), cp.getLabel().substring(7) };
+        Object[] args = new Object[] { cp.getDescription(), cp.getContent() };
         return format.format(args);
     }
 

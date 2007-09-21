@@ -22,6 +22,8 @@
 package org.talend.core.ui.proposal;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
@@ -31,6 +33,9 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeReturn;
 import org.talend.core.model.process.IProcess;
+import org.talend.designer.rowgenerator.data.Function;
+import org.talend.designer.rowgenerator.data.FunctionManager;
+import org.talend.designer.rowgenerator.data.TalendType;
 
 /**
  * ContentProposalProvider based on a Process. <br/>
@@ -86,6 +91,25 @@ public class ProcessProposalProvider implements IContentProposalProvider {
                 proposals.add(vars[i]);
             }
         }
+
+        // Proposals based on routines
+        FunctionManager functionManager = new FunctionManager();
+
+        List<TalendType> talendTypes = functionManager.getTalendTypes();
+        for (TalendType type : talendTypes) {
+            for (Object objectFunction : type.getFunctions()) {
+                Function function = (Function) objectFunction;
+                proposals.add(new RoutinesFunctionProposal(function));
+            }
+        }
+        // sort the list
+        Collections.sort(proposals, new Comparator<IContentProposal>() {
+
+            public int compare(IContentProposal arg0, IContentProposal arg1) {
+                return arg0.getLabel().compareToIgnoreCase(arg1.getLabel());
+            }
+
+        });
 
         IContentProposal[] res = new IContentProposal[proposals.size()];
         res = proposals.toArray(res);

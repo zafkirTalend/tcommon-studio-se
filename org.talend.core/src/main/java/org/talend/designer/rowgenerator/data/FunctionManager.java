@@ -53,6 +53,12 @@ public class FunctionManager {
 
     public static final String FUN_PARAM_SEPARATED = ",";
 
+    public static final String JAVA_METHOD_SEPARATED = ".";
+
+    public static final String FUN_PREFIX = "(";
+
+    public static final String FUN_SUFFIX = ")";
+
     /**
      * qzhang Comment method "getFunctionByName".
      * 
@@ -113,16 +119,49 @@ public class FunctionManager {
         talendTypes = parser.getList();
     }
 
-
     public static boolean isJavaProject() {
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         return (codeLanguage == ECodeLanguage.JAVA);
     }
 
-    
     public List<TalendType> getTalendTypes() {
         return this.talendTypes;
     }
-    
+
+    /**
+     * 
+     * DOC ggu Comment method "getFunctionMethod".
+     * 
+     * @param f
+     */
+    public static String getFunctionMethod(Function f) {
+        String newValue = "";
+        if (f != null) {
+
+            final List<Parameter> parameters = f.getParameters();
+            if (isJavaProject()) {
+                String fullName = f.getCategory() + JAVA_METHOD_SEPARATED + f.getName();
+                newValue = fullName + FUN_PREFIX;
+                for (Parameter pa : parameters) {
+                    newValue += pa.getValue() + FUN_PARAM_SEPARATED;
+                }
+                if (!parameters.isEmpty()) {
+                    newValue = newValue.substring(0, newValue.length() - 1);
+                }
+                newValue += FUN_SUFFIX;
+
+            } else {
+                newValue = f.getName() + FUN_PREFIX;
+                for (Parameter pa : parameters) {
+                    newValue += pa.getValue() + FUN_PARAM_SEPARATED;
+                }
+                if (!parameters.isEmpty()) {
+                    newValue = newValue.substring(0, newValue.length() - 1);
+                }
+                newValue += FUN_SUFFIX;
+            }
+        }
+        return newValue;
+    }
 
 }
