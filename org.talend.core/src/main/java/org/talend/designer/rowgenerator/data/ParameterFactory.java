@@ -71,25 +71,27 @@ public class ParameterFactory {
         Parameter p = createParameter(type);
         if (p != null) {
             string = string.replaceFirst(type, PerlFunctionParser.EMPTY_STRING).trim();
-            String value = null;
-            // get Value
-            if (string.startsWith("(")) { //$NON-NLS-1$
-                int end = string.indexOf(")"); //$NON-NLS-1$
-                value = string.substring(1, end);
-                string = string.substring(end + 1).trim();
-                setDefaultValue(p, value);
-            }
-
             String[] s = string.split(":"); //$NON-NLS-1$
             if (s != null && s.length != 0) {
                 if (s[0] != null) {
-                    p.setName(s[0]);
+                    string = s[0];
                 }
 
                 if (s.length == 2 && s[1] != null) {
                     p.setComment(s[1]);
                 }
             }
+
+            if (string.startsWith("(")) { //$NON-NLS-1$
+                String defaultValue = string.replaceAll("(\\((.*)\\)).*", "$2");
+                String temp = string.replaceAll("(\\((.*)\\)).*", "$1");
+
+                setDefaultValue(p, defaultValue);
+                string = string.substring(temp.length());
+            }
+
+            p.setName(string.trim());
+
             return p;
         }
         return null;
