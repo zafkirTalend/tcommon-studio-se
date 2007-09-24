@@ -39,7 +39,7 @@ public class RepositoryConstants {
 
     public static final String SYSTEM_DIRECTORY = "system"; //$NON-NLS-1$
 
-    public static final String CONTEXT_AND_VARIABLE_PATTERN = "^[a-z]+[a-zA-Z0-9\\_]*$"; //$NON-NLS-1$
+    public static final String CONTEXT_AND_VARIABLE_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9\\_]*$"; //$NON-NLS-1$
 
     public static final String PROJECT_PATTERN = "^[a-zA-Z]+[a-zA-Z0-9 \\-_]*$"; //$NON-NLS-1$
 

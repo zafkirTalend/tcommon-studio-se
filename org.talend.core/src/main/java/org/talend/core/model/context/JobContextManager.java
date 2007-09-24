@@ -126,27 +126,6 @@ public class JobContextManager implements IContextManager {
         }
 
         return Pattern.matches(RepositoryConstants.CONTEXT_AND_VARIABLE_PATTERN, contextName);
-
-        // TODO SML/NRO See with nrousseau if this new way to check name may cause some troubles
-
-        // Perl5Matcher matcher = new Perl5Matcher();
-        // Perl5Compiler compiler = new Perl5Compiler();
-        // Pattern pattern;
-        //
-        // switch (language) {
-        // case PERL:
-        // try {
-        // pattern = compiler.compile("^[A-Za-z_][A-Za-z0-9_]*$"); //$NON-NLS-1$
-        // if (!matcher.matches(contextName, pattern)) {
-        // return false;
-        // }
-        // } catch (MalformedPatternException e) {
-        // throw new RuntimeException(e);
-        // }
-        // default:
-        // }
-        //
-        // return true;
     }
 
     public IContext getContext(String name) {
