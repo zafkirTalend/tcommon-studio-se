@@ -7,6 +7,9 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: org.talend.core.model,
+ org.talend.core.model.expression,
+ org.talend.core.model.expression.impl,
+ org.talend.core.model.expression.util,
  org.talend.core.model.metadata.builder.connection,
  org.talend.core.model.metadata.builder.connection.impl,
  org.talend.core.model.metadata.builder.connection.util,
