@@ -965,13 +965,22 @@ public interface ComponentPackage extends EPackage {
 	int ITEM_TYPE__ITEMS = 0;
 
     /**
+     * The feature id for the '<em><b>CONTEXT</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ITEM_TYPE__CONTEXT = 1;
+
+    /**
      * The feature id for the '<em><b>FIELD</b></em>' attribute.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-	int ITEM_TYPE__FIELD = 1;
+	int ITEM_TYPE__FIELD = 2;
 
     /**
      * The feature id for the '<em><b>FILTER</b></em>' attribute.
@@ -980,7 +989,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__FILTER = 2;
+    int ITEM_TYPE__FILTER = 3;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -989,7 +998,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__NAME = 3;
+    int ITEM_TYPE__NAME = 4;
 
     /**
      * The feature id for the '<em><b>NOTSHOWIF</b></em>' attribute.
@@ -998,7 +1007,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__NOTSHOWIF = 4;
+    int ITEM_TYPE__NOTSHOWIF = 5;
 
     /**
      * The feature id for the '<em><b>READONLY</b></em>' attribute.
@@ -1007,7 +1016,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__READONLY = 5;
+    int ITEM_TYPE__READONLY = 6;
 
     /**
      * The feature id for the '<em><b>REPOSITORYITEM</b></em>' attribute.
@@ -1016,7 +1025,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__REPOSITORYITEM = 6;
+    int ITEM_TYPE__REPOSITORYITEM = 7;
 
     /**
      * The feature id for the '<em><b>SHOWIF</b></em>' attribute.
@@ -1025,7 +1034,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__SHOWIF = 7;
+    int ITEM_TYPE__SHOWIF = 8;
 
     /**
      * The feature id for the '<em><b>VALUE</b></em>' attribute.
@@ -1034,7 +1043,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE__VALUE = 8;
+    int ITEM_TYPE__VALUE = 9;
 
     /**
      * The number of structural features of the '<em>ITEM Type</em>' class.
@@ -1043,7 +1052,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ITEM_TYPE_FEATURE_COUNT = 9;
+    int ITEM_TYPE_FEATURE_COUNT = 10;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.LINKTOTypeImpl <em>LINKTO Type</em>}' class.
@@ -2542,6 +2551,17 @@ public interface ComponentPackage extends EPackage {
 	EReference getITEMType_ITEMS();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getCONTEXT <em>CONTEXT</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>CONTEXT</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ITEMType#getCONTEXT()
+     * @see #getITEMType()
+     * @generated
+     */
+    EAttribute getITEMType_CONTEXT();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}'.
      * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3900,6 +3920,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
 		EReference ITEM_TYPE__ITEMS = eINSTANCE.getITEMType_ITEMS();
+
+        /**
+         * The meta object literal for the '<em><b>CONTEXT</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute ITEM_TYPE__CONTEXT = eINSTANCE.getITEMType_CONTEXT();
 
         /**
          * The meta object literal for the '<em><b>FIELD</b></em>' attribute feature.

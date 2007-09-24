@@ -243,6 +243,7 @@ On CLOSED_LIST mode:
 						</xs:sequence>
 						<xs:attribute name="NAME" type="xs:string" use="required"/>
 						<xs:attribute name="VALUE" type="xs:string" use="optional"/>
+						<xs:attribute name="CONTEXT" type="xs:string" use="optional"/>
 						<xs:attribute name="REPOSITORY_ITEM" type="xs:string" use="optional"/>
 						<xs:attribute name="SHOW_IF" type="xs:string" use="optional"/>
 						<xs:attribute name="NOT_SHOW_IF" type="xs:string" use="optional"/>

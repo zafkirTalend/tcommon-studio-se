@@ -1070,19 +1070,19 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
     /**
      * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
+     * <!-- end-user-doc -->
      * @generated
      */
-	public EAttribute getITEMType_FIELD() {
+    public EAttribute getITEMType_CONTEXT() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
      * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+	 * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getITEMType_FILTER() {
+	public EAttribute getITEMType_FIELD() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -1091,7 +1091,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getITEMType_NAME() {
+    public EAttribute getITEMType_FILTER() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -1100,7 +1100,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getITEMType_NOTSHOWIF() {
+    public EAttribute getITEMType_NAME() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -1109,7 +1109,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getITEMType_READONLY() {
+    public EAttribute getITEMType_NOTSHOWIF() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -1118,7 +1118,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getITEMType_REPOSITORYITEM() {
+    public EAttribute getITEMType_READONLY() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(6);
     }
 
@@ -1127,7 +1127,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getITEMType_SHOWIF() {
+    public EAttribute getITEMType_REPOSITORYITEM() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(7);
     }
 
@@ -1136,8 +1136,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getITEMType_VALUE() {
+    public EAttribute getITEMType_SHOWIF() {
         return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getITEMType_VALUE() {
+        return (EAttribute)itemTypeEClass.getEStructuralFeatures().get(9);
     }
 
     /**
@@ -1708,6 +1717,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
         itemTypeEClass = createEClass(ITEM_TYPE);
         createEReference(itemTypeEClass, ITEM_TYPE__ITEMS);
+        createEAttribute(itemTypeEClass, ITEM_TYPE__CONTEXT);
         createEAttribute(itemTypeEClass, ITEM_TYPE__FIELD);
         createEAttribute(itemTypeEClass, ITEM_TYPE__FILTER);
         createEAttribute(itemTypeEClass, ITEM_TYPE__NAME);
@@ -1906,6 +1916,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
         initEClass(itemTypeEClass, ITEMType.class, "ITEMType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getITEMType_ITEMS(), this.getITEMSType(), null, "iTEMS", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getITEMType_CONTEXT(), theXMLTypePackage.getString(), "cONTEXT", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMType_FIELD(), theXMLTypePackage.getString(), "fIELD", "TEXT", 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMType_FILTER(), theXMLTypePackage.getString(), "fILTER", null, 0, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getITEMType_NAME(), theXMLTypePackage.getString(), "nAME", null, 1, 1, ITEMType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2674,6 +2685,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "element",
              "name", "ITEMS",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getITEMType_CONTEXT(), 
+           source, 
+           new String[] {
+             "kind", "attribute",
+             "name", "CONTEXT",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

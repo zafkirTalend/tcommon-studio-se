@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getITEMS <em>ITEMS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getCONTEXT <em>CONTEXT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getNAME <em>NAME</em>}</li>
@@ -62,6 +63,33 @@ public interface ITEMType extends EObject {
      * @generated
      */
 	void setITEMS(ITEMSType value);
+
+    /**
+     * Returns the value of the '<em><b>CONTEXT</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>CONTEXT</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>CONTEXT</em>' attribute.
+     * @see #setCONTEXT(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_CONTEXT()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='CONTEXT' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getCONTEXT();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.ITEMType#getCONTEXT <em>CONTEXT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>CONTEXT</em>' attribute.
+     * @see #getCONTEXT()
+     * @generated
+     */
+    void setCONTEXT(String value);
 
     /**
      * Returns the value of the '<em><b>FIELD</b></em>' attribute.

@@ -26,6 +26,7 @@ import org.talend.designer.core.model.utils.emf.component.ITEMType;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getITEMS <em>ITEMS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getCONTEXT <em>CONTEXT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFIELD <em>FIELD</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getFILTER <em>FILTER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMTypeImpl#getNAME <em>NAME</em>}</li>
@@ -49,6 +50,26 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
      * @ordered
      */
 	protected ITEMSType iTEMS;
+
+    /**
+     * The default value of the '{@link #getCONTEXT() <em>CONTEXT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCONTEXT()
+     * @generated
+     * @ordered
+     */
+    protected static final String CONTEXT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCONTEXT() <em>CONTEXT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCONTEXT()
+     * @generated
+     * @ordered
+     */
+    protected String cONTEXT = CONTEXT_EDEFAULT;
 
     /**
      * The default value of the '{@link #getFIELD() <em>FIELD</em>}' attribute.
@@ -291,6 +312,27 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
 
     /**
      * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getCONTEXT() {
+        return cONTEXT;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCONTEXT(String newCONTEXT) {
+        String oldCONTEXT = cONTEXT;
+        cONTEXT = newCONTEXT;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.ITEM_TYPE__CONTEXT, oldCONTEXT, cONTEXT));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
      * @generated
      */
@@ -529,6 +571,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         switch (featureID) {
             case ComponentPackage.ITEM_TYPE__ITEMS:
                 return getITEMS();
+            case ComponentPackage.ITEM_TYPE__CONTEXT:
+                return getCONTEXT();
             case ComponentPackage.ITEM_TYPE__FIELD:
                 return getFIELD();
             case ComponentPackage.ITEM_TYPE__FILTER:
@@ -558,6 +602,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         switch (featureID) {
             case ComponentPackage.ITEM_TYPE__ITEMS:
                 setITEMS((ITEMSType)newValue);
+                return;
+            case ComponentPackage.ITEM_TYPE__CONTEXT:
+                setCONTEXT((String)newValue);
                 return;
             case ComponentPackage.ITEM_TYPE__FIELD:
                 setFIELD((String)newValue);
@@ -597,6 +644,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
             case ComponentPackage.ITEM_TYPE__ITEMS:
                 setITEMS((ITEMSType)null);
                 return;
+            case ComponentPackage.ITEM_TYPE__CONTEXT:
+                setCONTEXT(CONTEXT_EDEFAULT);
+                return;
             case ComponentPackage.ITEM_TYPE__FIELD:
                 unsetFIELD();
                 return;
@@ -634,6 +684,8 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         switch (featureID) {
             case ComponentPackage.ITEM_TYPE__ITEMS:
                 return iTEMS != null;
+            case ComponentPackage.ITEM_TYPE__CONTEXT:
+                return CONTEXT_EDEFAULT == null ? cONTEXT != null : !CONTEXT_EDEFAULT.equals(cONTEXT);
             case ComponentPackage.ITEM_TYPE__FIELD:
                 return isSetFIELD();
             case ComponentPackage.ITEM_TYPE__FILTER:
@@ -663,7 +715,9 @@ public class ITEMTypeImpl extends EObjectImpl implements ITEMType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (fIELD: ");
+        result.append(" (cONTEXT: ");
+        result.append(cONTEXT);
+        result.append(", fIELD: ");
         if (fIELDESet) result.append(fIELD); else result.append("<unset>");
         result.append(", fILTER: ");
         result.append(fILTER);
