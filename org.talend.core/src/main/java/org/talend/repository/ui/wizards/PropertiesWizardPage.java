@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.repository.ui.wizards;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -50,10 +52,14 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.dialogs.ListDialog;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.ui.swt.colorstyledtext.jedit.KeywordMap;
+import org.talend.commons.ui.swt.colorstyledtext.jedit.Mode;
+import org.talend.commons.ui.swt.colorstyledtext.jedit.Modes;
 import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -507,6 +513,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameEmptyError")); //$NON-NLS-1$
         } else if (!Pattern.matches(RepositoryConstants.getPattern(getRepositoryObjectType()), nameText.getText())) {
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.NameFormatError")); //$NON-NLS-1$
+        } else if (isKeywords(nameText.getText())) {
+            nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.KeywordsError")); //$NON-NLS-1$
         } else if (!isValid(nameText.getText()) && nameModifiedByUser) {
             nameStatus = createStatus(IStatus.ERROR, Messages.getString("PropertiesWizardPage.ItemExistsError")); //$NON-NLS-1$
         } else {
@@ -580,11 +588,36 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     public abstract ERepositoryObjectType getRepositoryObjectType();
 
-    public IPath getPathForSaveAsGenericSchema() {        
-        if (this.path != null && path.length()> 0) {
+    public IPath getPathForSaveAsGenericSchema() {
+        if (this.path != null && path.length() > 0) {
             return new Path(path);
         }
         return null;
 
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "isKeywords".
+     * 
+     * @param itemName
+     * @return
+     */
+    private boolean isKeywords(String itemName) {
+        if (property.getItem() instanceof ProcessItem) {
+            Mode mode = Modes.getMode("java.xml");
+            KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();
+            List<String> keywords = new ArrayList<String>();
+            keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD1")));
+            keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD2")));
+            keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD3")));
+            keywords.addAll(Arrays.asList(keywordMap.get("LITERAL2")));
+            keywords.addAll(Arrays.asList(keywordMap.get("INVALID")));
+            if (keywords.contains(itemName)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

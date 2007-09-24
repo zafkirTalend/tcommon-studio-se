@@ -64,4 +64,11 @@ public class RepositoryConstants {
             return REPOSITORY_ITEM_PATTERN;
         }
     }
+
+    public static boolean isSystemFolder(String label) {
+        if (label == null) {
+            return false;
+        }
+        return label.equalsIgnoreCase(SYSTEM_DIRECTORY);
+    }
 }
