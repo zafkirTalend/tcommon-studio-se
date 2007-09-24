@@ -21,7 +21,18 @@
 // ============================================================================
 package routines.system;
 
+import java.util.List; 
+import java.util.ArrayList; 
+
 public class ParserUtils {
+    public static List parseTo_List(String s) { 
+                  if (s != null) { 
+                                  List list = new ArrayList(); 
+                                  list.add(s); 
+                                  return list; 
+                          } 
+                  return null; 
+              } 
     public static char parseTo_Character(String s) {
         return (s != null) ? s.charAt(0) : null;
     }
