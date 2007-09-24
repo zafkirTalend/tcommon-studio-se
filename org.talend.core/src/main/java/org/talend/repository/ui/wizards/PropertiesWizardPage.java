@@ -604,7 +604,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
      * @return
      */
     private boolean isKeywords(String itemName) {
-        if (property.getItem() instanceof ProcessItem) {
+        if (property != null && property.getItem() instanceof ProcessItem) {
             Mode mode = Modes.getMode("java.xml");
             KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();
             List<String> keywords = new ArrayList<String>();
