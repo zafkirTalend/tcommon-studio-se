@@ -23,6 +23,7 @@
 
 		<language name="java">
 			<talendToDbTypes><!-- Adviced mappings  -->
+				<talendType type="id_List"/>
 				<talendType type="id_Boolean">
 				</talendType>		
 				<talendType type="id_Byte">

@@ -21,6 +21,7 @@
 
 		<language name="java">
 			<talendToDbTypes><!-- Adviced mappings  -->
+				<talendType type="id_List"/>
 				<talendType type="id_Boolean">	
 					<dbType type="BOOLEAN" default="true" />				
 				</talendType>
