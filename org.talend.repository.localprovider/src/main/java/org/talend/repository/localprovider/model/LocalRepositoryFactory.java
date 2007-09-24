@@ -400,8 +400,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             createFolder(prj, folderHelper, folderName);
         }
 
-        // 3. Code/routines/Snippets :
-        createFolder(prj, folderHelper, "code/routines"); //$NON-NLS-1$
+        // 4. Code/routines/Snippets :
+        createFolder(prj, folderHelper, "code/routines"); //$NON-NLS-1$  
+        // 5. Job Disigns/System
+        // createFolder(prj, folderHelper, "process/system"); //$NON-NLS-1$
+
     }
 
     protected FolderHelper getFolderHelper(org.talend.core.model.properties.Project emfProject) {
@@ -542,7 +545,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             return false;
         }
 
-        if (label.equals(BIN)) {
+        if (label.equalsIgnoreCase(BIN)) {
+            return false;
+        } else if (RepositoryConstants.isSystemFolder(label)) {
+            // can't create the "system" folder in the root.
             return false;
         } else {
             // TODO SML Delete this ?
@@ -557,6 +563,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void deleteFolder(ERepositoryObjectType type, IPath path) throws PersistenceException {
+        // If the "System" folder is created in the root, it can't be deleted .
+        if (RepositoryConstants.isSystemFolder(path.toString())) {
+            return;
+        }
         IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
 
         String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
@@ -570,6 +580,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void moveFolder(ERepositoryObjectType type, IPath sourcePath, IPath targetPath) throws PersistenceException {
+        if (RepositoryConstants.isSystemFolder(sourcePath.toString())
+                || RepositoryConstants.isSystemFolder(targetPath.toString())) {
+            // The "system" folder wasn't allowed to move
+            return;
+        }
         IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
 
         String completeOldPath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + sourcePath.toString();
