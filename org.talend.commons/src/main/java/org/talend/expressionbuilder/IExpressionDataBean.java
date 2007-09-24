@@ -34,8 +34,12 @@ import org.talend.expressionbuilder.test.shadow.Variable;
  */
 public interface IExpressionDataBean {
 
-	public String getExpression();
+    public String getExpression();
 
-	public List<Variable> getVariables();
+    public List<Variable> getVariables();
+
+    public String getOwnerId();
+
+    public String getExpressionFilePath();
 
 }

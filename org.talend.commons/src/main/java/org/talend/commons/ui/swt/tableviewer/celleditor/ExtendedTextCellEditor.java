@@ -233,15 +233,54 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
         this.data = obj;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.expressionbuilder.IExpressionDataBean#getExpression()
+     */
     public String getExpression() {
         return text.getText();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.expressionbuilder.IExpressionDataBean#getVariables()
+     */
     public List<Variable> getVariables() {
         if (this.data instanceof List) {
             return (List<Variable>) this.data;
         }
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.expressionbuilder.IExpressionDataBean#getOwnerId()
+     */
+    public String getOwnerId() {
+        return null;
+    }
+
+    private String path;
+
+    /**
+     * DOC yzhang Comment method "setPath".
+     * 
+     * @param path
+     */
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.expressionbuilder.IExpressionDataBean#getExpressionFilePath()
+     */
+    public String getExpressionFilePath() {
+        return this.path;
     }
 
     /**
@@ -253,6 +292,11 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
         this.data = data;
     }
 
+    /**
+     * yzhang Comment method "getData".
+     * 
+     * @return
+     */
     public Object getData() {
         return this.data;
     }
