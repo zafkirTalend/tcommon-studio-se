@@ -334,6 +334,45 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.EXECUTION_SERVER: {
+                ExecutionServer executionServer = (ExecutionServer)theEObject;
+                Object result = caseExecutionServer(executionServer);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.EXECUTION_TASK: {
+                ExecutionTask executionTask = (ExecutionTask)theEObject;
+                Object result = caseExecutionTask(executionTask);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.TALEND_TRIGGER: {
+                TalendTrigger talendTrigger = (TalendTrigger)theEObject;
+                Object result = caseTalendTrigger(talendTrigger);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.CRON_TALEND_TRIGGER: {
+                CronTalendTrigger cronTalendTrigger = (CronTalendTrigger)theEObject;
+                Object result = caseCronTalendTrigger(cronTalendTrigger);
+                if (result == null) result = caseTalendTrigger(cronTalendTrigger);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.CRON_UI_TALEND_TRIGGER: {
+                CronUITalendTrigger cronUITalendTrigger = (CronUITalendTrigger)theEObject;
+                Object result = caseCronUITalendTrigger(cronUITalendTrigger);
+                if (result == null) result = caseTalendTrigger(cronUITalendTrigger);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.SIMPLE_TALEND_TRIGGER: {
+                SimpleTalendTrigger simpleTalendTrigger = (SimpleTalendTrigger)theEObject;
+                Object result = caseSimpleTalendTrigger(simpleTalendTrigger);
+                if (result == null) result = caseTalendTrigger(simpleTalendTrigger);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -801,6 +840,96 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseDashboardConnection(DashboardConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Execution Server</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Execution Server</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseExecutionServer(ExecutionServer object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Execution Task</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Execution Task</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseExecutionTask(ExecutionTask object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Talend Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Talend Trigger</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseTalendTrigger(TalendTrigger object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Cron Talend Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Cron Talend Trigger</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseCronTalendTrigger(CronTalendTrigger object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Cron UI Talend Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Cron UI Talend Trigger</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseCronUITalendTrigger(CronUITalendTrigger object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Simple Talend Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Simple Talend Trigger</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSimpleTalendTrigger(SimpleTalendTrigger object) {
         return null;
     }
 

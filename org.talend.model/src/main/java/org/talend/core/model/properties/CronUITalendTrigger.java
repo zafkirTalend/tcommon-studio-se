@@ -1,157 +1,188 @@
-// ============================================================================
-//
-// Talend Community Edition
-//
-// Copyright (C) 2006-2007 Talend - www.talend.com
-//
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation; either
-// version 2.1 of the License.
-//
-// This library is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
-// ============================================================================
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
 package org.talend.core.model.properties;
 
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Cron UI Talend Trigger</b></em>'.
+ * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.talend.core.model.properties.CronUITalendTrigger#getListDaysOfWeek <em>List Days Of Week</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.CronUITalendTrigger#getListDaysOfMonth <em>List Days Of Month</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.CronUITalendTrigger#getListMonths <em>List Months</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.CronUITalendTrigger#getListYears <em>List Years</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.CronUITalendTrigger#getListHours <em>List Hours</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.CronUITalendTrigger#getListMinutes <em>List Minutes</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see org.talend.core.model.properties.PropertiesPackage#getCronUITalendTrigger()
+ * @model
+ * @generated
  */
-public class CronUITalendTrigger extends TalendTrigger {
-
-    private String listDaysOfWeek;
-
-    private String listDaysOfMonth;
-
-    private String listMonths;
-
-    private String listYears;
-
-    private String listHours;
-
-    private String listMinutes;
-
-    
+public interface CronUITalendTrigger extends TalendTrigger {
     /**
-     * Getter for listDaysOfWeek.
-     * @return the listDaysOfWeek
+     * Returns the value of the '<em><b>List Days Of Week</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>List Days Of Week</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>List Days Of Week</em>' attribute.
+     * @see #setListDaysOfWeek(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronUITalendTrigger_ListDaysOfWeek()
+     * @model
+     * @generated
      */
-    public String getListDaysOfWeek() {
-        return this.listDaysOfWeek;
-    }
+    String getListDaysOfWeek();
 
-    
     /**
-     * Sets the listDaysOfWeek.
-     * @param listDaysOfWeek the listDaysOfWeek to set
+     * Sets the value of the '{@link org.talend.core.model.properties.CronUITalendTrigger#getListDaysOfWeek <em>List Days Of Week</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>List Days Of Week</em>' attribute.
+     * @see #getListDaysOfWeek()
+     * @generated
      */
-    public void setListDaysOfWeek(String listDaysOfWeek) {
-        this.listDaysOfWeek = listDaysOfWeek;
-    }
+    void setListDaysOfWeek(String value);
 
-    
     /**
-     * Getter for listDaysOfMonth.
-     * @return the listDaysOfMonth
+     * Returns the value of the '<em><b>List Days Of Month</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>List Days Of Month</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>List Days Of Month</em>' attribute.
+     * @see #setListDaysOfMonth(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronUITalendTrigger_ListDaysOfMonth()
+     * @model
+     * @generated
      */
-    public String getListDaysOfMonth() {
-        return this.listDaysOfMonth;
-    }
+    String getListDaysOfMonth();
 
-    
     /**
-     * Sets the listDaysOfMonth.
-     * @param listDaysOfMonth the listDaysOfMonth to set
+     * Sets the value of the '{@link org.talend.core.model.properties.CronUITalendTrigger#getListDaysOfMonth <em>List Days Of Month</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>List Days Of Month</em>' attribute.
+     * @see #getListDaysOfMonth()
+     * @generated
      */
-    public void setListDaysOfMonth(String listDaysOfMonth) {
-        this.listDaysOfMonth = listDaysOfMonth;
-    }
+    void setListDaysOfMonth(String value);
 
-    
     /**
-     * Getter for listMonths.
-     * @return the listMonths
+     * Returns the value of the '<em><b>List Months</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>List Months</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>List Months</em>' attribute.
+     * @see #setListMonths(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronUITalendTrigger_ListMonths()
+     * @model
+     * @generated
      */
-    public String getListMonths() {
-        return this.listMonths;
-    }
+    String getListMonths();
 
-    
     /**
-     * Sets the listMonths.
-     * @param listMonths the listMonths to set
+     * Sets the value of the '{@link org.talend.core.model.properties.CronUITalendTrigger#getListMonths <em>List Months</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>List Months</em>' attribute.
+     * @see #getListMonths()
+     * @generated
      */
-    public void setListMonths(String listMonths) {
-        this.listMonths = listMonths;
-    }
+    void setListMonths(String value);
 
-    
     /**
-     * Getter for listYears.
-     * @return the listYears
+     * Returns the value of the '<em><b>List Years</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>List Years</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>List Years</em>' attribute.
+     * @see #setListYears(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronUITalendTrigger_ListYears()
+     * @model
+     * @generated
      */
-    public String getListYears() {
-        return this.listYears;
-    }
+    String getListYears();
 
-    
     /**
-     * Sets the listYears.
-     * @param listYears the listYears to set
+     * Sets the value of the '{@link org.talend.core.model.properties.CronUITalendTrigger#getListYears <em>List Years</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>List Years</em>' attribute.
+     * @see #getListYears()
+     * @generated
      */
-    public void setListYears(String listYears) {
-        this.listYears = listYears;
-    }
+    void setListYears(String value);
 
-    
     /**
-     * Getter for listHours.
-     * @return the listHours
+     * Returns the value of the '<em><b>List Hours</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>List Hours</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>List Hours</em>' attribute.
+     * @see #setListHours(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronUITalendTrigger_ListHours()
+     * @model
+     * @generated
      */
-    public String getListHours() {
-        return this.listHours;
-    }
+    String getListHours();
 
-    
     /**
-     * Sets the listHours.
-     * @param listHours the listHours to set
+     * Sets the value of the '{@link org.talend.core.model.properties.CronUITalendTrigger#getListHours <em>List Hours</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>List Hours</em>' attribute.
+     * @see #getListHours()
+     * @generated
      */
-    public void setListHours(String listHours) {
-        this.listHours = listHours;
-    }
+    void setListHours(String value);
 
-    
     /**
-     * Getter for listMinutes.
-     * @return the listMinutes
+     * Returns the value of the '<em><b>List Minutes</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>List Minutes</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>List Minutes</em>' attribute.
+     * @see #setListMinutes(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronUITalendTrigger_ListMinutes()
+     * @model
+     * @generated
      */
-    public String getListMinutes() {
-        return this.listMinutes;
-    }
+    String getListMinutes();
 
-    
     /**
-     * Sets the listMinutes.
-     * @param listMinutes the listMinutes to set
+     * Sets the value of the '{@link org.talend.core.model.properties.CronUITalendTrigger#getListMinutes <em>List Minutes</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>List Minutes</em>' attribute.
+     * @see #getListMinutes()
+     * @generated
      */
-    public void setListMinutes(String listMinutes) {
-        this.listMinutes = listMinutes;
-    }
+    void setListMinutes(String value);
 
-    
-    
-}
-
-
+} // CronUITalendTrigger

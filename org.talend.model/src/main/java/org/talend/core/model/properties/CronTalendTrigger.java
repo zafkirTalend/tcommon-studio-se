@@ -1,159 +1,215 @@
-// ============================================================================
-//
-// Talend Community Edition
-//
-// Copyright (C) 2006-2007 Talend - www.talend.com
-//
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation; either
-// version 2.1 of the License.
-//
-// This library is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
-// ============================================================================
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
 package org.talend.core.model.properties;
 
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Cron Talend Trigger</b></em>'.
+ * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.talend.core.model.properties.CronTalendTrigger#getDaysOfWeek <em>Days Of Week</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.CronTalendTrigger#getDaysOfMonth <em>Days Of Month</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.CronTalendTrigger#getMonths <em>Months</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.CronTalendTrigger#getYears <em>Years</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.CronTalendTrigger#getHours <em>Hours</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.CronTalendTrigger#getMinutes <em>Minutes</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.CronTalendTrigger#getSeconds <em>Seconds</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see org.talend.core.model.properties.PropertiesPackage#getCronTalendTrigger()
+ * @model
+ * @generated
  */
-public class CronTalendTrigger extends TalendTrigger {
+public interface CronTalendTrigger extends TalendTrigger {
+    /**
+     * Returns the value of the '<em><b>Days Of Week</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Days Of Week</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Days Of Week</em>' attribute.
+     * @see #setDaysOfWeek(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronTalendTrigger_DaysOfWeek()
+     * @model
+     * @generated
+     */
+    String getDaysOfWeek();
 
-    private String daysOfWeek;
-    private String daysOfMonth;
-    private String months;
-    private String years;
-    private String seconds;
-    private String minutes;
-    private String hours;
-    
     /**
-     * Getter for daysOfWeek.
-     * @return the daysOfWeek
+     * Sets the value of the '{@link org.talend.core.model.properties.CronTalendTrigger#getDaysOfWeek <em>Days Of Week</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Days Of Week</em>' attribute.
+     * @see #getDaysOfWeek()
+     * @generated
      */
-    public String getDaysOfWeek() {
-        return this.daysOfWeek;
-    }
-    
-    /**
-     * Sets the daysOfWeek.
-     * @param daysOfWeek the daysOfWeek to set
-     */
-    public void setDaysOfWeek(String daysOfWeek) {
-        this.daysOfWeek = daysOfWeek;
-    }
-    
-    /**
-     * Getter for daysOfMonth.
-     * @return the daysOfMonth
-     */
-    public String getDaysOfMonth() {
-        return this.daysOfMonth;
-    }
-    
-    /**
-     * Sets the daysOfMonth.
-     * @param daysOfMonth the daysOfMonth to set
-     */
-    public void setDaysOfMonth(String daysOfMonth) {
-        this.daysOfMonth = daysOfMonth;
-    }
-    
-    /**
-     * Getter for months.
-     * @return the months
-     */
-    public String getMonths() {
-        return this.months;
-    }
-    
-    /**
-     * Sets the months.
-     * @param months the months to set
-     */
-    public void setMonths(String months) {
-        this.months = months;
-    }
-    
-    /**
-     * Getter for years.
-     * @return the years
-     */
-    public String getYears() {
-        return this.years;
-    }
-    
-    /**
-     * Sets the years.
-     * @param years the years to set
-     */
-    public void setYears(String years) {
-        this.years = years;
-    }
-    
-    /**
-     * Getter for seconds.
-     * @return the seconds
-     */
-    public String getSeconds() {
-        return this.seconds;
-    }
-    
-    /**
-     * Sets the seconds.
-     * @param seconds the seconds to set
-     */
-    public void setSeconds(String seconds) {
-        this.seconds = seconds;
-    }
-    
-    /**
-     * Getter for minutes.
-     * @return the minutes
-     */
-    public String getMinutes() {
-        return this.minutes;
-    }
-    
-    /**
-     * Sets the minutes.
-     * @param minutes the minutes to set
-     */
-    public void setMinutes(String minutes) {
-        this.minutes = minutes;
-    }
-    
-    /**
-     * Getter for hours.
-     * @return the hours
-     */
-    public String getHours() {
-        return this.hours;
-    }
-    
-    /**
-     * Sets the hours.
-     * @param hours the hours to set
-     */
-    public void setHours(String hours) {
-        this.hours = hours;
-    }
+    void setDaysOfWeek(String value);
 
-    
-    
-    
-    
-}
+    /**
+     * Returns the value of the '<em><b>Days Of Month</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Days Of Month</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Days Of Month</em>' attribute.
+     * @see #setDaysOfMonth(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronTalendTrigger_DaysOfMonth()
+     * @model
+     * @generated
+     */
+    String getDaysOfMonth();
 
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.CronTalendTrigger#getDaysOfMonth <em>Days Of Month</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Days Of Month</em>' attribute.
+     * @see #getDaysOfMonth()
+     * @generated
+     */
+    void setDaysOfMonth(String value);
 
+    /**
+     * Returns the value of the '<em><b>Months</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Months</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Months</em>' attribute.
+     * @see #setMonths(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronTalendTrigger_Months()
+     * @model
+     * @generated
+     */
+    String getMonths();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.CronTalendTrigger#getMonths <em>Months</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Months</em>' attribute.
+     * @see #getMonths()
+     * @generated
+     */
+    void setMonths(String value);
+
+    /**
+     * Returns the value of the '<em><b>Years</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Years</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Years</em>' attribute.
+     * @see #setYears(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronTalendTrigger_Years()
+     * @model
+     * @generated
+     */
+    String getYears();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.CronTalendTrigger#getYears <em>Years</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Years</em>' attribute.
+     * @see #getYears()
+     * @generated
+     */
+    void setYears(String value);
+
+    /**
+     * Returns the value of the '<em><b>Hours</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Hours</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Hours</em>' attribute.
+     * @see #setHours(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronTalendTrigger_Hours()
+     * @model
+     * @generated
+     */
+    String getHours();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.CronTalendTrigger#getHours <em>Hours</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Hours</em>' attribute.
+     * @see #getHours()
+     * @generated
+     */
+    void setHours(String value);
+
+    /**
+     * Returns the value of the '<em><b>Minutes</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Minutes</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Minutes</em>' attribute.
+     * @see #setMinutes(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronTalendTrigger_Minutes()
+     * @model
+     * @generated
+     */
+    String getMinutes();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.CronTalendTrigger#getMinutes <em>Minutes</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Minutes</em>' attribute.
+     * @see #getMinutes()
+     * @generated
+     */
+    void setMinutes(String value);
+
+    /**
+     * Returns the value of the '<em><b>Seconds</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Seconds</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Seconds</em>' attribute.
+     * @see #setSeconds(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getCronTalendTrigger_Seconds()
+     * @model
+     * @generated
+     */
+    String getSeconds();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.CronTalendTrigger#getSeconds <em>Seconds</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Seconds</em>' attribute.
+     * @see #getSeconds()
+     * @generated
+     */
+    void setSeconds(String value);
+
+} // CronTalendTrigger

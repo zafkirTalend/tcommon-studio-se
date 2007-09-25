@@ -189,6 +189,24 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseDashboardConnection(DashboardConnection object) {
                 return createDashboardConnectionAdapter();
             }
+            public Object caseExecutionServer(ExecutionServer object) {
+                return createExecutionServerAdapter();
+            }
+            public Object caseExecutionTask(ExecutionTask object) {
+                return createExecutionTaskAdapter();
+            }
+            public Object caseTalendTrigger(TalendTrigger object) {
+                return createTalendTriggerAdapter();
+            }
+            public Object caseCronTalendTrigger(CronTalendTrigger object) {
+                return createCronTalendTriggerAdapter();
+            }
+            public Object caseCronUITalendTrigger(CronUITalendTrigger object) {
+                return createCronUITalendTriggerAdapter();
+            }
+            public Object caseSimpleTalendTrigger(SimpleTalendTrigger object) {
+                return createSimpleTalendTriggerAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -621,6 +639,90 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createDashboardConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ExecutionServer <em>Execution Server</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ExecutionServer
+     * @generated
+     */
+    public Adapter createExecutionServerAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ExecutionTask <em>Execution Task</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ExecutionTask
+     * @generated
+     */
+    public Adapter createExecutionTaskAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.TalendTrigger
+     * @generated
+     */
+    public Adapter createTalendTriggerAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.CronTalendTrigger <em>Cron Talend Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.CronTalendTrigger
+     * @generated
+     */
+    public Adapter createCronTalendTriggerAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.CronUITalendTrigger <em>Cron UI Talend Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.CronUITalendTrigger
+     * @generated
+     */
+    public Adapter createCronUITalendTriggerAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.SimpleTalendTrigger <em>Simple Talend Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.SimpleTalendTrigger
+     * @generated
+     */
+    public Adapter createSimpleTalendTriggerAdapter() {
         return null;
     }
 

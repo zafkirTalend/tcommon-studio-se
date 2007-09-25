@@ -1,549 +1,515 @@
-// ============================================================================
-//
-// Talend Community Edition
-//
-// Copyright (C) 2006-2007 Talend - www.talend.com
-//
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation; either
-// version 2.1 of the License.
-//
-// This library is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
-// ============================================================================
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
 package org.talend.core.model.properties;
 
-import java.sql.Blob;
 import java.util.Date;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.resource.Resource;
-
-import sun.security.util.Cache.EqualByteArray;
-
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Execution Task</b></em>'.
+ * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getId <em>Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getExecutionServer <em>Execution Server</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getProject <em>Project</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getProcessItem <em>Process Item</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getContext <em>Context</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobVersion <em>Job Version</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#isActive <em>Active</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdQuartzJob <em>Id Quartz Job</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastScriptGenerationDate <em>Last Script Generation Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJob <em>Id Remote Job</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getChecksumArchive <em>Checksum Archive</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchive <em>Job Script Archive</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getStatus <em>Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#isProcessingState <em>Processing State</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getErrorStatus <em>Error Status</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask()
+ * @model
+ * @generated
  */
-public class ExecutionTask implements EObject {
-
-    private int id;
-    private String label;
-    private String description;
-    private ExecutionServer executionServer;
-    private Project project;
-    private ProcessItem processItem;
-    private String context;
-    private String jobVersion;
-    private boolean active;
-    private int idQuartzJob;
-    private Date lastScriptGenerationDate;
-    private String idRemoteJob;
-    private String idRemoteJobExecution;
-    private String checksumArchive;
-    private byte[] jobScriptArchive;
-    private String status;
-    private boolean processingState;
-    private String errorStatus;
+public interface ExecutionTask extends EObject {
+    /**
+     * Returns the value of the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Id</em>' attribute.
+     * @see #setId(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Id()
+     * @model id="true" required="true"
+     * @generated
+     */
+    int getId();
 
     /**
-     * DOC amaumont ExecutionTask constructor comment.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getId <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Id</em>' attribute.
+     * @see #getId()
+     * @generated
      */
-    public ExecutionTask() {
-        super();
-    }
+    void setId(int value);
 
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eAllContents()
-     */
-    public TreeIterator eAllContents() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eClass()
-     */
-    public EClass eClass() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eContainer()
-     */
-    public EObject eContainer() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eContainingFeature()
-     */
-    public EStructuralFeature eContainingFeature() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eContainmentFeature()
-     */
-    public EReference eContainmentFeature() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eContents()
-     */
-    public EList eContents() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eCrossReferences()
-     */
-    public EList eCrossReferences() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature)
-     */
-    public Object eGet(EStructuralFeature feature) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature, boolean)
-     */
-    public Object eGet(EStructuralFeature feature, boolean resolve) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eIsProxy()
-     */
-    public boolean eIsProxy() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eIsSet(org.eclipse.emf.ecore.EStructuralFeature)
-     */
-    public boolean eIsSet(EStructuralFeature feature) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eResource()
-     */
-    public Resource eResource() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object)
-     */
-    public void eSet(EStructuralFeature feature, Object newValue) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eUnset(org.eclipse.emf.ecore.EStructuralFeature)
-     */
-    public void eUnset(EStructuralFeature feature) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.common.notify.Notifier#eAdapters()
-     */
-    public EList eAdapters() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.common.notify.Notifier#eDeliver()
-     */
-    public boolean eDeliver() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.common.notify.Notifier#eNotify(org.eclipse.emf.common.notify.Notification)
-     */
-    public void eNotify(Notification notification) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.common.notify.Notifier#eSetDeliver(boolean)
-     */
-    public void eSetDeliver(boolean deliver) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    
     /**
-     * Getter for active.
-     * @return the active
+     * Returns the value of the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Label</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Label</em>' attribute.
+     * @see #setLabel(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Label()
+     * @model
+     * @generated
      */
-    public boolean isActive() {
-        return this.active;
-    }
+    String getLabel();
 
-    
     /**
-     * Sets the active.
-     * @param active the active to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLabel <em>Label</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Label</em>' attribute.
+     * @see #getLabel()
+     * @generated
      */
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+    void setLabel(String value);
 
-    
     /**
-     * Getter for context.
-     * @return the context
+     * Returns the value of the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Description</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Description</em>' attribute.
+     * @see #setDescription(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Description()
+     * @model
+     * @generated
      */
-    public String getContext() {
-        return this.context;
-    }
+    String getDescription();
 
-    
     /**
-     * Sets the context.
-     * @param context the context to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getDescription <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Description</em>' attribute.
+     * @see #getDescription()
+     * @generated
      */
-    public void setContext(String context) {
-        this.context = context;
-    }
+    void setDescription(String value);
 
-    
     /**
-     * Getter for description.
-     * @return the description
+     * Returns the value of the '<em><b>Execution Server</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Execution Server</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Execution Server</em>' reference.
+     * @see #setExecutionServer(ExecutionServer)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ExecutionServer()
+     * @model
+     * @generated
      */
-    public String getDescription() {
-        return this.description;
-    }
+    ExecutionServer getExecutionServer();
 
-    
     /**
-     * Sets the description.
-     * @param description the description to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getExecutionServer <em>Execution Server</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Execution Server</em>' reference.
+     * @see #getExecutionServer()
+     * @generated
      */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    void setExecutionServer(ExecutionServer value);
 
-    
     /**
-     * Getter for executionServer.
-     * @return the executionServer
+     * Returns the value of the '<em><b>Project</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Project</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Project</em>' reference.
+     * @see #setProject(Project)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Project()
+     * @model
+     * @generated
      */
-    public ExecutionServer getExecutionServer() {
-        return this.executionServer;
-    }
+    Project getProject();
 
-    
     /**
-     * Sets the executionServer.
-     * @param executionServer the executionServer to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getProject <em>Project</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Project</em>' reference.
+     * @see #getProject()
+     * @generated
      */
-    public void setExecutionServer(ExecutionServer executionServer) {
-        this.executionServer = executionServer;
-    }
+    void setProject(Project value);
 
-    
     /**
-     * Getter for id.
-     * @return the id
+     * Returns the value of the '<em><b>Process Item</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Process Item</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Process Item</em>' reference.
+     * @see #setProcessItem(ProcessItem)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ProcessItem()
+     * @model
+     * @generated
      */
-    public int getId() {
-        return this.id;
-    }
+    ProcessItem getProcessItem();
 
-    
     /**
-     * Sets the id.
-     * @param id the id to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getProcessItem <em>Process Item</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Process Item</em>' reference.
+     * @see #getProcessItem()
+     * @generated
      */
-    public void setId(int id) {
-        this.id = id;
-    }
+    void setProcessItem(ProcessItem value);
 
-    
     /**
-     * Getter for idQuartzJob.
-     * @return the idQuartzJob
+     * Returns the value of the '<em><b>Context</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Context</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Context</em>' attribute.
+     * @see #setContext(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Context()
+     * @model
+     * @generated
      */
-    public int getIdQuartzJob() {
-        return this.idQuartzJob;
-    }
+    String getContext();
 
-    
     /**
-     * Sets the idQuartzJob.
-     * @param idQuartzJob the idQuartzJob to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getContext <em>Context</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Context</em>' attribute.
+     * @see #getContext()
+     * @generated
      */
-    public void setIdQuartzJob(int idQuartzJob) {
-        this.idQuartzJob = idQuartzJob;
-    }
+    void setContext(String value);
 
-    
     /**
-     * Getter for label.
-     * @return the label
+     * Returns the value of the '<em><b>Job Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Job Version</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Job Version</em>' attribute.
+     * @see #setJobVersion(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_JobVersion()
+     * @model
+     * @generated
      */
-    public String getLabel() {
-        return this.label;
-    }
+    String getJobVersion();
 
-    
     /**
-     * Sets the label.
-     * @param label the label to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getJobVersion <em>Job Version</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Job Version</em>' attribute.
+     * @see #getJobVersion()
+     * @generated
      */
-    public void setLabel(String label) {
-        this.label = label;
-    }
+    void setJobVersion(String value);
 
-    
     /**
-     * Getter for processItem.
-     * @return the processItem
+     * Returns the value of the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Active</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Active</em>' attribute.
+     * @see #setActive(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Active()
+     * @model
+     * @generated
      */
-    public ProcessItem getProcessItem() {
-        return this.processItem;
-    }
+    boolean isActive();
 
-    
     /**
-     * Sets the processItem.
-     * @param processItem the processItem to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isActive <em>Active</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Active</em>' attribute.
+     * @see #isActive()
+     * @generated
      */
-    public void setProcessItem(ProcessItem processItem) {
-        this.processItem = processItem;
-    }
+    void setActive(boolean value);
 
-    
     /**
-     * Getter for project.
-     * @return the project
+     * Returns the value of the '<em><b>Id Quartz Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Id Quartz Job</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Id Quartz Job</em>' attribute.
+     * @see #setIdQuartzJob(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_IdQuartzJob()
+     * @model
+     * @generated
      */
-    public Project getProject() {
-        return this.project;
-    }
+    int getIdQuartzJob();
 
-    
     /**
-     * Sets the project.
-     * @param project the project to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getIdQuartzJob <em>Id Quartz Job</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Id Quartz Job</em>' attribute.
+     * @see #getIdQuartzJob()
+     * @generated
      */
-    public void setProject(Project project) {
-        this.project = project;
-    }
+    void setIdQuartzJob(int value);
 
-    
     /**
-     * Getter for jobVersion.
-     * @return the jobVersion
+     * Returns the value of the '<em><b>Last Script Generation Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Last Script Generation Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Last Script Generation Date</em>' attribute.
+     * @see #setLastScriptGenerationDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_LastScriptGenerationDate()
+     * @model
+     * @generated
      */
-    public String getJobVersion() {
-        return this.jobVersion;
-    }
+    Date getLastScriptGenerationDate();
 
-    
     /**
-     * Sets the jobVersion.
-     * @param jobVersion the jobVersion to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastScriptGenerationDate <em>Last Script Generation Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Last Script Generation Date</em>' attribute.
+     * @see #getLastScriptGenerationDate()
+     * @generated
      */
-    public void setJobVersion(String jobVersion) {
-        this.jobVersion = jobVersion;
-    }
+    void setLastScriptGenerationDate(Date value);
 
-    
     /**
-     * Getter for lastScriptGenerationDate.
-     * @return the lastScriptGenerationDate
+     * Returns the value of the '<em><b>Id Remote Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Id Remote Job</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Id Remote Job</em>' attribute.
+     * @see #setIdRemoteJob(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_IdRemoteJob()
+     * @model
+     * @generated
      */
-    public Date getLastScriptGenerationDate() {
-        return this.lastScriptGenerationDate;
-    }
+    String getIdRemoteJob();
 
-    
     /**
-     * Sets the lastScriptGenerationDate.
-     * @param lastScriptGenerationDate the lastScriptGenerationDate to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJob <em>Id Remote Job</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Id Remote Job</em>' attribute.
+     * @see #getIdRemoteJob()
+     * @generated
      */
-    public void setLastScriptGenerationDate(Date lastScriptGenerationDate) {
-        this.lastScriptGenerationDate = lastScriptGenerationDate;
-    }
+    void setIdRemoteJob(String value);
 
-    
     /**
-     * Getter for jobScriptArchive.
-     * @return the jobScriptArchive
+     * Returns the value of the '<em><b>Id Remote Job Execution</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Id Remote Job Execution</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Id Remote Job Execution</em>' attribute.
+     * @see #setIdRemoteJobExecution(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_IdRemoteJobExecution()
+     * @model
+     * @generated
      */
-    public byte[] getJobScriptArchive() {
-        return this.jobScriptArchive;
-    }
+    String getIdRemoteJobExecution();
 
-    
     /**
-     * Sets the jobScriptArchive.
-     * @param jobScriptArchive the jobScriptArchive to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Id Remote Job Execution</em>' attribute.
+     * @see #getIdRemoteJobExecution()
+     * @generated
      */
-    public void setJobScriptArchive(byte[] jobScriptArchive) {
-        this.jobScriptArchive = jobScriptArchive;
-    }
+    void setIdRemoteJobExecution(String value);
 
-    
     /**
-     * Getter for state.
-     * @return the state
+     * Returns the value of the '<em><b>Checksum Archive</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Checksum Archive</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Checksum Archive</em>' attribute.
+     * @see #setChecksumArchive(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ChecksumArchive()
+     * @model
+     * @generated
      */
-    public String getStatus() {
-        return this.status;
-    }
+    String getChecksumArchive();
 
-    
     /**
-     * Sets the state.
-     * @param state the state to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getChecksumArchive <em>Checksum Archive</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Checksum Archive</em>' attribute.
+     * @see #getChecksumArchive()
+     * @generated
      */
-    public void setStatus(String state) {
-        this.status = state;
-    }
+    void setChecksumArchive(String value);
 
-    
     /**
-     * Getter for idJobScriptArchive.
-     * @return the idJobScriptArchive
+     * Returns the value of the '<em><b>Job Script Archive</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Job Script Archive</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Job Script Archive</em>' attribute.
+     * @see #setJobScriptArchive(byte[])
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_JobScriptArchive()
+     * @model
+     * @generated
      */
-    public String getChecksumArchive() {
-        return this.checksumArchive;
-    }
+    byte[] getJobScriptArchive();
 
-    
     /**
-     * Sets the idJobScriptArchive.
-     * @param idJobScriptArchive the idJobScriptArchive to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchive <em>Job Script Archive</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Job Script Archive</em>' attribute.
+     * @see #getJobScriptArchive()
+     * @generated
      */
-    public void setChecksumArchive(String idJobScriptArchive) {
-        this.checksumArchive = idJobScriptArchive;
-    }
+    void setJobScriptArchive(byte[] value);
 
-    
     /**
-     * Getter for idRemoteJob.
-     * @return the idRemoteJob
+     * Returns the value of the '<em><b>Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Status</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Status</em>' attribute.
+     * @see #setStatus(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Status()
+     * @model
+     * @generated
      */
-    public String getIdRemoteJob() {
-        return this.idRemoteJob;
-    }
+    String getStatus();
 
-    
     /**
-     * Sets the idRemoteJob.
-     * @param idRemoteJob the idRemoteJob to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getStatus <em>Status</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Status</em>' attribute.
+     * @see #getStatus()
+     * @generated
      */
-    public void setIdRemoteJob(String idRemoteJob) {
-        this.idRemoteJob = idRemoteJob;
-    }
+    void setStatus(String value);
 
-    
     /**
-     * Getter for idRemoteJobExecution.
-     * @return the idRemoteJobExecution
+     * Returns the value of the '<em><b>Processing State</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Processing State</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Processing State</em>' attribute.
+     * @see #setProcessingState(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ProcessingState()
+     * @model
+     * @generated
      */
-    public String getIdRemoteJobExecution() {
-        return this.idRemoteJobExecution;
-    }
+    boolean isProcessingState();
 
-    
     /**
-     * Sets the idRemoteJobExecution.
-     * @param idRemoteJobExecution the idRemoteJobExecution to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isProcessingState <em>Processing State</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Processing State</em>' attribute.
+     * @see #isProcessingState()
+     * @generated
      */
-    public void setIdRemoteJobExecution(String idRemoteJobExecution) {
-        this.idRemoteJobExecution = idRemoteJobExecution;
-    }
+    void setProcessingState(boolean value);
 
-
-    
     /**
-     * Getter for errorStatus.
-     * @return the errorStatus
+     * Returns the value of the '<em><b>Error Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Error Status</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Error Status</em>' attribute.
+     * @see #setErrorStatus(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ErrorStatus()
+     * @model
+     * @generated
      */
-    public String getErrorStatus() {
-        return this.errorStatus;
-    }
+    String getErrorStatus();
 
-
-    
     /**
-     * Sets the errorStatus.
-     * @param errorStatus the errorStatus to set
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getErrorStatus <em>Error Status</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Error Status</em>' attribute.
+     * @see #getErrorStatus()
+     * @generated
      */
-    public void setErrorStatus(String errorStatus) {
-        this.errorStatus = errorStatus;
-    }
+    void setErrorStatus(String value);
 
-
-    
-    /**
-     * Getter for processingState.
-     * @return the processingState
-     */
-    public boolean isProcessingState() {
-        return this.processingState;
-    }
-
-
-    
-    /**
-     * Sets the processingState.
-     * @param processingState the processingState to set
-     */
-    public void setProcessingState(boolean processingState) {
-        this.processingState = processingState;
-    }
-
-    
-    
-    
-
-}
+} // ExecutionTask

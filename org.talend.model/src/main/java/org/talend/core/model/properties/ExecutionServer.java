@@ -1,387 +1,218 @@
-// ============================================================================
-//
-// Talend Community Edition
-//
-// Copyright (C) 2006-2007 Talend - www.talend.com
-//
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation; either
-// version 2.1 of the License.
-//
-// This library is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
-// ============================================================================
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
 package org.talend.core.model.properties;
 
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.resource.Resource;
-
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Execution Server</b></em>'.
+ * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getId <em>Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getHost <em>Host</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getPort <em>Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getFileTransfertPort <em>File Transfert Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#isActive <em>Active</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer()
+ * @model
+ * @generated
  */
-public class ExecutionServer implements EObject {
-
-    
-    private int id;
-    
-    private String label;
- 
-    private String description;
-    
-    private String host;
-
-    private int port = -1;
-
-    private int fileTransfertPort = -1;
-    
-    private boolean active;
-    
-    
-
-    
-    
-    
+public interface ExecutionServer extends EObject {
     /**
-     * DOC amaumont ExecutionTask constructor comment.
+     * Returns the value of the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Id</em>' attribute.
+     * @see #setId(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_Id()
+     * @model id="true" required="true"
+     * @generated
      */
-    public ExecutionServer() {
-        super();
-    }
-
-    
-    
-
-    
-    
-    /**
-     * Getter for description.
-     * @return the description
-     */
-    public String getDescription() {
-        return this.description;
-    }
-
-
-
-
-
-    
-    /**
-     * Sets the description.
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-
-
-
+    int getId();
 
     /**
-     * Getter for active.
-     * @return the active
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getId <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Id</em>' attribute.
+     * @see #getId()
+     * @generated
      */
-    public boolean isActive() {
-        return this.active;
-    }
+    void setId(int value);
 
-
-
-
-    
     /**
-     * Sets the active.
-     * @param active the active to set
+     * Returns the value of the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Label</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Label</em>' attribute.
+     * @see #setLabel(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_Label()
+     * @model
+     * @generated
      */
-    public void setActive(boolean active) {
-        this.active = active;
-    }
+    String getLabel();
 
-
-
-
-    
     /**
-     * Getter for fileTransfertPort.
-     * @return the fileTransfertPort
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getLabel <em>Label</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Label</em>' attribute.
+     * @see #getLabel()
+     * @generated
      */
-    public int getFileTransfertPort() {
-        return this.fileTransfertPort;
-    }
+    void setLabel(String value);
 
-
-
-
-    
     /**
-     * Sets the fileTransfertPort.
-     * @param fileTransfertPort the fileTransfertPort to set
+     * Returns the value of the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Description</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Description</em>' attribute.
+     * @see #setDescription(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_Description()
+     * @model
+     * @generated
      */
-    public void setFileTransfertPort(int fileTransfertPort) {
-        this.fileTransfertPort = fileTransfertPort;
-    }
+    String getDescription();
 
-
-
-
-    
     /**
-     * Getter for host.
-     * @return the host
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getDescription <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Description</em>' attribute.
+     * @see #getDescription()
+     * @generated
      */
-    public String getHost() {
-        return this.host;
-    }
+    void setDescription(String value);
 
-
-
-
-    
     /**
-     * Sets the host.
-     * @param host the host to set
+     * Returns the value of the '<em><b>Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Host</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Host</em>' attribute.
+     * @see #setHost(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_Host()
+     * @model
+     * @generated
      */
-    public void setHost(String host) {
-        this.host = host;
-    }
+    String getHost();
 
-
-
-
-    
     /**
-     * Getter for id.
-     * @return the id
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getHost <em>Host</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Host</em>' attribute.
+     * @see #getHost()
+     * @generated
      */
-    public int getId() {
-        return this.id;
-    }
+    void setHost(String value);
 
-
-
-
-    
     /**
-     * Sets the id.
-     * @param id the id to set
+     * Returns the value of the '<em><b>Port</b></em>' attribute.
+     * The default value is <code>"-1"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Port</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Port</em>' attribute.
+     * @see #setPort(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_Port()
+     * @model default="-1"
+     * @generated
      */
-    public void setId(int id) {
-        this.id = id;
-    }
+    int getPort();
 
-
-
-
-    
     /**
-     * Getter for label.
-     * @return the label
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getPort <em>Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Port</em>' attribute.
+     * @see #getPort()
+     * @generated
      */
-    public String getLabel() {
-        return this.label;
-    }
+    void setPort(int value);
 
-
-
-
-    
     /**
-     * Sets the label.
-     * @param label the label to set
+     * Returns the value of the '<em><b>File Transfert Port</b></em>' attribute.
+     * The default value is <code>"-1"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>File Transfert Port</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>File Transfert Port</em>' attribute.
+     * @see #setFileTransfertPort(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_FileTransfertPort()
+     * @model default="-1"
+     * @generated
      */
-    public void setLabel(String label) {
-        this.label = label;
-    }
+    int getFileTransfertPort();
 
-
-
-
-    
     /**
-     * Getter for port.
-     * @return the port
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getFileTransfertPort <em>File Transfert Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>File Transfert Port</em>' attribute.
+     * @see #getFileTransfertPort()
+     * @generated
      */
-    public int getPort() {
-        return this.port;
-    }
+    void setFileTransfertPort(int value);
 
-
-
-
-    
     /**
-     * Sets the port.
-     * @param port the port to set
+     * Returns the value of the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Active</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Active</em>' attribute.
+     * @see #setActive(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_Active()
+     * @model
+     * @generated
      */
-    public void setPort(int port) {
-        this.port = port;
-    }
+    boolean isActive();
 
-
-
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eAllContents()
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#isActive <em>Active</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Active</em>' attribute.
+     * @see #isActive()
+     * @generated
      */
-    public TreeIterator eAllContents() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    void setActive(boolean value);
 
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eClass()
-     */
-    public EClass eClass() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eContainer()
-     */
-    public EObject eContainer() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eContainingFeature()
-     */
-    public EStructuralFeature eContainingFeature() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eContainmentFeature()
-     */
-    public EReference eContainmentFeature() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eContents()
-     */
-    public EList eContents() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eCrossReferences()
-     */
-    public EList eCrossReferences() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature)
-     */
-    public Object eGet(EStructuralFeature feature) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature, boolean)
-     */
-    public Object eGet(EStructuralFeature feature, boolean resolve) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eIsProxy()
-     */
-    public boolean eIsProxy() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eIsSet(org.eclipse.emf.ecore.EStructuralFeature)
-     */
-    public boolean eIsSet(EStructuralFeature feature) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eResource()
-     */
-    public Resource eResource() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object)
-     */
-    public void eSet(EStructuralFeature feature, Object newValue) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eUnset(org.eclipse.emf.ecore.EStructuralFeature)
-     */
-    public void eUnset(EStructuralFeature feature) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.common.notify.Notifier#eAdapters()
-     */
-    public EList eAdapters() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.common.notify.Notifier#eDeliver()
-     */
-    public boolean eDeliver() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.common.notify.Notifier#eNotify(org.eclipse.emf.common.notify.Notification)
-     */
-    public void eNotify(Notification notification) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.common.notify.Notifier#eSetDeliver(boolean)
-     */
-    public void eSetDeliver(boolean deliver) {
-        // TODO Auto-generated method stub
-        
-    }
-    
-    
-    
-}
+} // ExecutionServer

@@ -22,10 +22,14 @@ import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.Component;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.model.properties.CronTalendTrigger;
+import org.talend.core.model.properties.CronUITalendTrigger;
 import org.talend.core.model.properties.DashboardConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
+import org.talend.core.model.properties.ExecutionServer;
+import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
@@ -47,8 +51,10 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SimpleTalendTrigger;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
+import org.talend.core.model.properties.TalendTrigger;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserModuleAuthorization;
 import org.talend.core.model.properties.UserModuleAuthorizationType;
@@ -275,6 +281,48 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass dashboardConnectionEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass executionServerEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass executionTaskEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass talendTriggerEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass cronTalendTriggerEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass cronUITalendTriggerEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass simpleTalendTriggerEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1565,6 +1613,519 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getExecutionServer() {
+        return executionServerEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionServer_Id() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionServer_Label() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionServer_Description() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionServer_Host() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionServer_Port() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionServer_FileTransfertPort() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionServer_Active() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getExecutionTask() {
+        return executionTaskEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_Id() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_Label() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_Description() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getExecutionTask_ExecutionServer() {
+        return (EReference)executionTaskEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getExecutionTask_Project() {
+        return (EReference)executionTaskEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getExecutionTask_ProcessItem() {
+        return (EReference)executionTaskEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_Context() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_JobVersion() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_Active() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_IdQuartzJob() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_LastScriptGenerationDate() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_IdRemoteJob() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_IdRemoteJobExecution() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_ChecksumArchive() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_JobScriptArchive() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(14);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_Status() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(15);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_ProcessingState() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(16);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_ErrorStatus() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(17);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getTalendTrigger() {
+        return talendTriggerEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTalendTrigger_Id() {
+        return (EAttribute)talendTriggerEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTalendTrigger_Active() {
+        return (EAttribute)talendTriggerEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTalendTrigger_Label() {
+        return (EAttribute)talendTriggerEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTalendTrigger_Description() {
+        return (EAttribute)talendTriggerEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTalendTrigger_TriggerType() {
+        return (EAttribute)talendTriggerEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getTalendTrigger_ExecutionTask() {
+        return (EReference)talendTriggerEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTalendTrigger_StartTime() {
+        return (EAttribute)talendTriggerEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTalendTrigger_EndTime() {
+        return (EAttribute)talendTriggerEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTalendTrigger_PreviousFireTime() {
+        return (EAttribute)talendTriggerEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getTalendTrigger_FinalFireTime() {
+        return (EAttribute)talendTriggerEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getCronTalendTrigger() {
+        return cronTalendTriggerEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronTalendTrigger_DaysOfWeek() {
+        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronTalendTrigger_DaysOfMonth() {
+        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronTalendTrigger_Months() {
+        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronTalendTrigger_Years() {
+        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronTalendTrigger_Hours() {
+        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronTalendTrigger_Minutes() {
+        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronTalendTrigger_Seconds() {
+        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getCronUITalendTrigger() {
+        return cronUITalendTriggerEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronUITalendTrigger_ListDaysOfWeek() {
+        return (EAttribute)cronUITalendTriggerEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronUITalendTrigger_ListDaysOfMonth() {
+        return (EAttribute)cronUITalendTriggerEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronUITalendTrigger_ListMonths() {
+        return (EAttribute)cronUITalendTriggerEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronUITalendTrigger_ListYears() {
+        return (EAttribute)cronUITalendTriggerEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronUITalendTrigger_ListHours() {
+        return (EAttribute)cronUITalendTriggerEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getCronUITalendTrigger_ListMinutes() {
+        return (EAttribute)cronUITalendTriggerEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSimpleTalendTrigger() {
+        return simpleTalendTriggerEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSimpleTalendTrigger_RepeatCount() {
+        return (EAttribute)simpleTalendTriggerEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSimpleTalendTrigger_RepeatInterval() {
+        return (EAttribute)simpleTalendTriggerEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSimpleTalendTrigger_TimesTriggered() {
+        return (EAttribute)simpleTalendTriggerEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1827,6 +2388,69 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__STAT_TABLE);
         createEAttribute(dashboardConnectionEClass, DASHBOARD_CONNECTION__FLOW_METER_TABLE);
 
+        executionServerEClass = createEClass(EXECUTION_SERVER);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__ID);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__LABEL);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__DESCRIPTION);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__HOST);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__PORT);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__FILE_TRANSFERT_PORT);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__ACTIVE);
+
+        executionTaskEClass = createEClass(EXECUTION_TASK);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__ID);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__LABEL);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__DESCRIPTION);
+        createEReference(executionTaskEClass, EXECUTION_TASK__EXECUTION_SERVER);
+        createEReference(executionTaskEClass, EXECUTION_TASK__PROJECT);
+        createEReference(executionTaskEClass, EXECUTION_TASK__PROCESS_ITEM);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__CONTEXT);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__JOB_VERSION);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__ACTIVE);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__ID_QUARTZ_JOB);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__ID_REMOTE_JOB);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__CHECKSUM_ARCHIVE);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__JOB_SCRIPT_ARCHIVE);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__STATUS);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__PROCESSING_STATE);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__ERROR_STATUS);
+
+        talendTriggerEClass = createEClass(TALEND_TRIGGER);
+        createEAttribute(talendTriggerEClass, TALEND_TRIGGER__ID);
+        createEAttribute(talendTriggerEClass, TALEND_TRIGGER__ACTIVE);
+        createEAttribute(talendTriggerEClass, TALEND_TRIGGER__LABEL);
+        createEAttribute(talendTriggerEClass, TALEND_TRIGGER__DESCRIPTION);
+        createEAttribute(talendTriggerEClass, TALEND_TRIGGER__TRIGGER_TYPE);
+        createEReference(talendTriggerEClass, TALEND_TRIGGER__EXECUTION_TASK);
+        createEAttribute(talendTriggerEClass, TALEND_TRIGGER__START_TIME);
+        createEAttribute(talendTriggerEClass, TALEND_TRIGGER__END_TIME);
+        createEAttribute(talendTriggerEClass, TALEND_TRIGGER__PREVIOUS_FIRE_TIME);
+        createEAttribute(talendTriggerEClass, TALEND_TRIGGER__FINAL_FIRE_TIME);
+
+        cronTalendTriggerEClass = createEClass(CRON_TALEND_TRIGGER);
+        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__DAYS_OF_WEEK);
+        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__DAYS_OF_MONTH);
+        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__MONTHS);
+        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__YEARS);
+        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__HOURS);
+        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__MINUTES);
+        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__SECONDS);
+
+        cronUITalendTriggerEClass = createEClass(CRON_UI_TALEND_TRIGGER);
+        createEAttribute(cronUITalendTriggerEClass, CRON_UI_TALEND_TRIGGER__LIST_DAYS_OF_WEEK);
+        createEAttribute(cronUITalendTriggerEClass, CRON_UI_TALEND_TRIGGER__LIST_DAYS_OF_MONTH);
+        createEAttribute(cronUITalendTriggerEClass, CRON_UI_TALEND_TRIGGER__LIST_MONTHS);
+        createEAttribute(cronUITalendTriggerEClass, CRON_UI_TALEND_TRIGGER__LIST_YEARS);
+        createEAttribute(cronUITalendTriggerEClass, CRON_UI_TALEND_TRIGGER__LIST_HOURS);
+        createEAttribute(cronUITalendTriggerEClass, CRON_UI_TALEND_TRIGGER__LIST_MINUTES);
+
+        simpleTalendTriggerEClass = createEClass(SIMPLE_TALEND_TRIGGER);
+        createEAttribute(simpleTalendTriggerEClass, SIMPLE_TALEND_TRIGGER__REPEAT_COUNT);
+        createEAttribute(simpleTalendTriggerEClass, SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL);
+        createEAttribute(simpleTalendTriggerEClass, SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -1881,6 +2505,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         contextItemEClass.getESuperTypes().add(this.getItem());
         genericSchemaConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         ldapSchemaConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
+        cronTalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
+        cronUITalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
+        simpleTalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2061,6 +2688,69 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getDashboardConnection_LogTable(), ecorePackage.getEString(), "logTable", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDashboardConnection_StatTable(), ecorePackage.getEString(), "statTable", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getDashboardConnection_FlowMeterTable(), ecorePackage.getEString(), "flowMeterTable", null, 0, 1, DashboardConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(executionServerEClass, ExecutionServer.class, "ExecutionServer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getExecutionServer_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_Label(), theEcorePackage.getEString(), "label", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_Description(), theEcorePackage.getEString(), "description", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_Host(), theEcorePackage.getEString(), "host", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_Port(), theEcorePackage.getEInt(), "port", "-1", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_FileTransfertPort(), theEcorePackage.getEInt(), "fileTransfertPort", "-1", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_Active(), theEcorePackage.getEBoolean(), "active", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(executionTaskEClass, ExecutionTask.class, "ExecutionTask", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getExecutionTask_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_Label(), theEcorePackage.getEString(), "label", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_Description(), theEcorePackage.getEString(), "description", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getExecutionTask_ExecutionServer(), this.getExecutionServer(), null, "executionServer", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getExecutionTask_Project(), this.getProject(), null, "project", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getExecutionTask_ProcessItem(), this.getProcessItem(), null, "processItem", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_Context(), theEcorePackage.getEString(), "context", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_JobVersion(), theEcorePackage.getEString(), "jobVersion", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_Active(), theEcorePackage.getEBoolean(), "active", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_IdQuartzJob(), theEcorePackage.getEInt(), "idQuartzJob", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_LastScriptGenerationDate(), theEcorePackage.getEDate(), "lastScriptGenerationDate", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_IdRemoteJob(), theEcorePackage.getEString(), "idRemoteJob", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_IdRemoteJobExecution(), theEcorePackage.getEString(), "idRemoteJobExecution", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_ChecksumArchive(), theEcorePackage.getEString(), "checksumArchive", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_JobScriptArchive(), theEcorePackage.getEByteArray(), "jobScriptArchive", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_Status(), theEcorePackage.getEString(), "status", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_ProcessingState(), theEcorePackage.getEBoolean(), "processingState", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_ErrorStatus(), theEcorePackage.getEString(), "errorStatus", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(talendTriggerEClass, TalendTrigger.class, "TalendTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getTalendTrigger_Id(), ecorePackage.getEInt(), "id", null, 1, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTalendTrigger_Active(), theEcorePackage.getEBoolean(), "active", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTalendTrigger_Label(), theEcorePackage.getEString(), "label", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTalendTrigger_Description(), theEcorePackage.getEString(), "description", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTalendTrigger_TriggerType(), theEcorePackage.getEString(), "triggerType", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getTalendTrigger_ExecutionTask(), this.getExecutionTask(), null, "executionTask", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTalendTrigger_StartTime(), theEcorePackage.getEDate(), "startTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTalendTrigger_EndTime(), theEcorePackage.getEDate(), "endTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTalendTrigger_PreviousFireTime(), theEcorePackage.getEDate(), "previousFireTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getTalendTrigger_FinalFireTime(), theEcorePackage.getEDate(), "finalFireTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(cronTalendTriggerEClass, CronTalendTrigger.class, "CronTalendTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getCronTalendTrigger_DaysOfWeek(), theEcorePackage.getEString(), "daysOfWeek", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCronTalendTrigger_DaysOfMonth(), theEcorePackage.getEString(), "daysOfMonth", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCronTalendTrigger_Months(), theEcorePackage.getEString(), "months", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCronTalendTrigger_Years(), theEcorePackage.getEString(), "years", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCronTalendTrigger_Hours(), theEcorePackage.getEString(), "hours", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCronTalendTrigger_Minutes(), theEcorePackage.getEString(), "minutes", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCronTalendTrigger_Seconds(), theEcorePackage.getEString(), "seconds", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(cronUITalendTriggerEClass, CronUITalendTrigger.class, "CronUITalendTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getCronUITalendTrigger_ListDaysOfWeek(), theEcorePackage.getEString(), "listDaysOfWeek", null, 0, 1, CronUITalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCronUITalendTrigger_ListDaysOfMonth(), theEcorePackage.getEString(), "listDaysOfMonth", null, 0, 1, CronUITalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCronUITalendTrigger_ListMonths(), theEcorePackage.getEString(), "listMonths", null, 0, 1, CronUITalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCronUITalendTrigger_ListYears(), theEcorePackage.getEString(), "listYears", null, 0, 1, CronUITalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCronUITalendTrigger_ListHours(), theEcorePackage.getEString(), "listHours", null, 0, 1, CronUITalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCronUITalendTrigger_ListMinutes(), theEcorePackage.getEString(), "listMinutes", null, 0, 1, CronUITalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(simpleTalendTriggerEClass, SimpleTalendTrigger.class, "SimpleTalendTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSimpleTalendTrigger_RepeatCount(), theEcorePackage.getEIntegerObject(), "repeatCount", null, 0, 1, SimpleTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSimpleTalendTrigger_RepeatInterval(), ecorePackage.getEInt(), "repeatInterval", null, 0, 1, SimpleTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSimpleTalendTrigger_TimesTriggered(), ecorePackage.getEInt(), "timesTriggered", null, 0, 1, SimpleTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

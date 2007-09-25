@@ -18,17 +18,15 @@ import org.talend.core.model.properties.CSVFileConnectionItem;
 import org.talend.core.model.properties.Component;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
-import org.talend.core.model.properties.CronTalendTrigger;
-import org.talend.core.model.properties.CronUITalendTrigger;
+import org.talend.core.model.properties.DashboardConnection;
 import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
-import org.talend.core.model.properties.ExecutionServer;
-import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.License;
 import org.talend.core.model.properties.NotationHolder;
@@ -42,7 +40,6 @@ import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
-import org.talend.core.model.properties.SimpleTalendTrigger;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
@@ -124,6 +121,12 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.USER_MODULE_AUTHORIZATION: return createUserModuleAuthorization();
             case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM: return createLDAPSchemaConnectionItem();
             case PropertiesPackage.DASHBOARD_CONNECTION: return createDashboardConnection();
+            case PropertiesPackage.EXECUTION_SERVER: return createExecutionServer();
+            case PropertiesPackage.EXECUTION_TASK: return createExecutionTask();
+            case PropertiesPackage.TALEND_TRIGGER: return createTalendTrigger();
+            case PropertiesPackage.CRON_TALEND_TRIGGER: return createCronTalendTrigger();
+            case PropertiesPackage.CRON_UI_TALEND_TRIGGER: return createCronUITalendTrigger();
+            case PropertiesPackage.SIMPLE_TALEND_TRIGGER: return createSimpleTalendTrigger();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -346,8 +349,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ProjectComponentAuthorisation createProjectComponentAuthorisation() {
@@ -356,8 +358,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ProjectReference createProjectReference() {
@@ -366,8 +367,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public LdifFileConnectionItem createLdifFileConnectionItem() {
@@ -376,8 +376,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public UserProjectAuthorization createUserProjectAuthorization() {
@@ -386,8 +385,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ContextItem createContextItem() {
@@ -396,8 +394,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public SpagoBiServer createSpagoBiServer() {
@@ -406,8 +403,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public License createLicense() {
@@ -416,8 +412,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public GenericSchemaConnectionItem createGenericSchemaConnectionItem() {
@@ -426,8 +421,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public UserModuleAuthorization createUserModuleAuthorization() {
@@ -436,8 +430,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public LDAPSchemaConnectionItem createLDAPSchemaConnectionItem() {
@@ -446,13 +439,72 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public DashboardConnection createDashboardConnection() {
         DashboardConnectionImpl dashboardConnection = new DashboardConnectionImpl();
         return dashboardConnection;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionServer createExecutionServer() {
+        ExecutionServerImpl executionServer = new ExecutionServerImpl();
+        return executionServer;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionTask createExecutionTask() {
+        ExecutionTaskImpl executionTask = new ExecutionTaskImpl();
+        return executionTask;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public TalendTrigger createTalendTrigger() {
+        TalendTriggerImpl talendTrigger = new TalendTriggerImpl();
+        return talendTrigger;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public CronTalendTrigger createCronTalendTrigger() {
+        CronTalendTriggerImpl cronTalendTrigger = new CronTalendTriggerImpl();
+        return cronTalendTrigger;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public CronUITalendTrigger createCronUITalendTrigger() {
+        CronUITalendTriggerImpl cronUITalendTrigger = new CronUITalendTriggerImpl();
+        return cronUITalendTrigger;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SimpleTalendTrigger createSimpleTalendTrigger() {
+        SimpleTalendTriggerImpl simpleTalendTrigger = new SimpleTalendTriggerImpl();
+        return simpleTalendTrigger;
     }
 
     /**
@@ -474,19 +526,18 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public UserProjectAuthorizationType createUserProjectAuthorizationTypeFromString(EDataType eDataType, String initialValue) {
+    public UserProjectAuthorizationType createUserProjectAuthorizationTypeFromString(EDataType eDataType,
+            String initialValue) {
         UserProjectAuthorizationType result = UserProjectAuthorizationType.get(initialValue);
         if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertUserProjectAuthorizationTypeToString(EDataType eDataType, Object instanceValue) {
@@ -494,19 +545,18 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public UserModuleAuthorizationType createUserModuleAuthorizationTypeFromString(EDataType eDataType, String initialValue) {
+    public UserModuleAuthorizationType createUserModuleAuthorizationTypeFromString(EDataType eDataType,
+            String initialValue) {
         UserModuleAuthorizationType result = UserModuleAuthorizationType.get(initialValue);
         if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
         return result;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String convertUserModuleAuthorizationTypeToString(EDataType eDataType, Object instanceValue) {
@@ -538,52 +588,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public static PropertiesPackage getPackage() {
         return PropertiesPackage.eINSTANCE;
     }
-    
+
     private static int counter = 0;
-    
-    /* (non-Javadoc)
-     * @see org.talend.core.model.properties.PropertiesFactory#createExecutionTask()
-     */
-    public ExecutionTask createExecutionTask() {
-        ExecutionTask executionTask = new ExecutionTask();
-        executionTask.setId(counter++);
-        return executionTask;
-    }
-
-    /* (non-Javadoc)
-     * @see org.talend.core.model.properties.PropertiesFactory#createExecutionTask()
-     */
-    public SimpleTalendTrigger createSimpleTalendTrigger() {
-        SimpleTalendTrigger trigger = new SimpleTalendTrigger();
-        trigger.setId(counter++);
-        return trigger;
-    }
-    
-    /* (non-Javadoc)
-     * @see org.talend.core.model.properties.PropertiesFactory#createExecutionTask()
-     */
-    public ExecutionServer createExecutionServer() {
-        ExecutionServer executionServer = new ExecutionServer();
-        executionServer.setId(counter++);
-        return executionServer;
-    }
-
-    /* (non-Javadoc)
-     * @see org.talend.core.model.properties.PropertiesFactory#createCronUITalendTrigger()
-     */
-    public CronUITalendTrigger createCronUITalendTrigger() {
-        CronUITalendTrigger trigger = new CronUITalendTrigger();
-        trigger.setId(counter++);
-        return trigger;
-    }
-
-    /* (non-Javadoc)
-     * @see org.talend.core.model.properties.PropertiesFactory#createCronTalendTrigger()
-     */
-    public CronTalendTrigger createCronTalendTrigger() {
-        CronTalendTrigger trigger = new CronTalendTrigger();
-        trigger.setId(counter++);
-        return trigger;
-    }
 
 } // PropertiesFactoryImpl

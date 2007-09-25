@@ -1,409 +1,299 @@
-// ============================================================================
-//
-// Talend Community Edition
-//
-// Copyright (C) 2006-2007 Talend - www.talend.com
-//
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation; either
-// version 2.1 of the License.
-//
-// This library is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-//
-// ============================================================================
+/**
+ * <copyright>
+ * </copyright>
+ *
+ * $Id$
+ */
 package org.talend.core.model.properties;
 
 import java.util.Date;
 
-import org.eclipse.emf.common.notify.Adapter;
-import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.emf.ecore.resource.Resource;
-
 
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
+ * <!-- begin-user-doc -->
+ * A representation of the model object '<em><b>Talend Trigger</b></em>'.
+ * <!-- end-user-doc -->
  *
+ * <p>
+ * The following features are supported:
+ * <ul>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#getId <em>Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#isActive <em>Active</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#getTriggerType <em>Trigger Type</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#getExecutionTask <em>Execution Task</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#getStartTime <em>Start Time</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#getEndTime <em>End Time</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#getPreviousFireTime <em>Previous Fire Time</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.TalendTrigger#getFinalFireTime <em>Final Fire Time</em>}</li>
+ * </ul>
+ * </p>
+ *
+ * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger()
+ * @model
+ * @generated
  */
-public class TalendTrigger implements EObject {
-
-    private int id;
-    private boolean active;
-    private String label;
-    private String description;
-    private String triggerType;
-    private ExecutionTask executionTask;
-    
-    private Date startTime;
-    private Date endTime;
-
-    private Date previousFireTime;
-    private Date finalFireTime;
+public interface TalendTrigger extends EObject {
+    /**
+     * Returns the value of the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Id</em>' attribute.
+     * @see #setId(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_Id()
+     * @model id="true" required="true"
+     * @generated
+     */
+    int getId();
 
     /**
-     * Getter for id.
-     * @return the id
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getId <em>Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Id</em>' attribute.
+     * @see #getId()
+     * @generated
      */
-    public int getId() {
-        return this.id;
-    }
-
-
-    
-    /**
-     * Sets the id.
-     * @param id the id to set
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    
-    
-    /**
-     * Getter for triggerType.
-     * @return the triggerType
-     */
-    public String getTriggerType() {
-        return this.triggerType;
-    }
-
-    
-
-    
-    /**
-     * Sets the triggerType.
-     * @param triggerType the triggerType to set
-     */
-    public void setTriggerType(String triggerType) {
-        this.triggerType = triggerType;
-    }
-
-
+    void setId(int value);
 
     /**
-     * Getter for active.
-     * @return the active
+     * Returns the value of the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Active</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Active</em>' attribute.
+     * @see #setActive(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_Active()
+     * @model
+     * @generated
      */
-    public boolean isActive() {
-        return this.active;
-    }
-
-
-
-    
-    /**
-     * Sets the active.
-     * @param active the active to set
-     */
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-
+    boolean isActive();
 
     /**
-     * Getter for label.
-     * @return the label
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#isActive <em>Active</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Active</em>' attribute.
+     * @see #isActive()
+     * @generated
      */
-    public String getLabel() {
-        return this.label;
-    }
+    void setActive(boolean value);
 
-    
     /**
-     * Sets the label.
-     * @param label the label to set
+     * Returns the value of the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Label</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Label</em>' attribute.
+     * @see #setLabel(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_Label()
+     * @model
+     * @generated
      */
-    public void setLabel(String label) {
-        this.label = label;
-    }
+    String getLabel();
 
-    
     /**
-     * Getter for description.
-     * @return the description
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getLabel <em>Label</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Label</em>' attribute.
+     * @see #getLabel()
+     * @generated
      */
-    public String getDescription() {
-        return this.description;
-    }
+    void setLabel(String value);
 
-    
     /**
-     * Sets the description.
-     * @param description the description to set
+     * Returns the value of the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Description</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Description</em>' attribute.
+     * @see #setDescription(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_Description()
+     * @model
+     * @generated
      */
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    String getDescription();
 
-    
     /**
-     * Getter for executionTask.
-     * @return the executionTask
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getDescription <em>Description</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Description</em>' attribute.
+     * @see #getDescription()
+     * @generated
      */
-    public ExecutionTask getExecutionTask() {
-        return this.executionTask;
-    }
+    void setDescription(String value);
 
-    
     /**
-     * Sets the executionTask.
-     * @param executionTask the executionTask to set
+     * Returns the value of the '<em><b>Trigger Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Trigger Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Trigger Type</em>' attribute.
+     * @see #setTriggerType(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_TriggerType()
+     * @model
+     * @generated
      */
-    public void setExecutionTask(ExecutionTask executionTask) {
-        this.executionTask = executionTask;
-    }
+    String getTriggerType();
 
-    
-    
-    
     /**
-     * Getter for startTime.
-     * @return the startTime
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getTriggerType <em>Trigger Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Trigger Type</em>' attribute.
+     * @see #getTriggerType()
+     * @generated
      */
-    public Date getStartTime() {
-        return this.startTime;
-    }
+    void setTriggerType(String value);
 
-
-
-    
     /**
-     * Sets the startTime.
-     * @param startTime the startTime to set
+     * Returns the value of the '<em><b>Execution Task</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Execution Task</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Execution Task</em>' reference.
+     * @see #setExecutionTask(ExecutionTask)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_ExecutionTask()
+     * @model
+     * @generated
      */
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
+    ExecutionTask getExecutionTask();
 
-
-
-    
     /**
-     * Getter for endTime.
-     * @return the endTime
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTask <em>Execution Task</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Execution Task</em>' reference.
+     * @see #getExecutionTask()
+     * @generated
      */
-    public Date getEndTime() {
-        return this.endTime;
-    }
+    void setExecutionTask(ExecutionTask value);
 
-
-
-    
     /**
-     * Sets the endTime.
-     * @param endTime the endTime to set
+     * Returns the value of the '<em><b>Start Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Start Time</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Start Time</em>' attribute.
+     * @see #setStartTime(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_StartTime()
+     * @model
+     * @generated
      */
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
+    Date getStartTime();
 
-
-    
-    
-
-    
     /**
-     * Getter for previousFireTime.
-     * @return the previousFireTime
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getStartTime <em>Start Time</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Start Time</em>' attribute.
+     * @see #getStartTime()
+     * @generated
      */
-    public Date getPreviousFireTime() {
-        return this.previousFireTime;
-    }
+    void setStartTime(Date value);
 
-
-
-    
     /**
-     * Sets the previousFireTime.
-     * @param previousFireTime the previousFireTime to set
+     * Returns the value of the '<em><b>End Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>End Time</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>End Time</em>' attribute.
+     * @see #setEndTime(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_EndTime()
+     * @model
+     * @generated
      */
-    public void setPreviousFireTime(Date previousFireTime) {
-        this.previousFireTime = previousFireTime;
-    }
+    Date getEndTime();
 
-
-
-    
     /**
-     * Getter for finalFireTime.
-     * @return the finalFireTime
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getEndTime <em>End Time</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>End Time</em>' attribute.
+     * @see #getEndTime()
+     * @generated
      */
-    public Date getFinalFireTime() {
-        return this.finalFireTime;
-    }
+    void setEndTime(Date value);
 
-
-
-    
     /**
-     * Sets the finalFireTime.
-     * @param finalFireTime the finalFireTime to set
+     * Returns the value of the '<em><b>Previous Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Previous Fire Time</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Previous Fire Time</em>' attribute.
+     * @see #setPreviousFireTime(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_PreviousFireTime()
+     * @model
+     * @generated
      */
-    public void setFinalFireTime(Date finalFireTime) {
-        this.finalFireTime = finalFireTime;
-    }
+    Date getPreviousFireTime();
 
-
-    
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eAllContents()
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getPreviousFireTime <em>Previous Fire Time</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Previous Fire Time</em>' attribute.
+     * @see #getPreviousFireTime()
+     * @generated
      */
-    public TreeIterator<EObject> eAllContents() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    void setPreviousFireTime(Date value);
 
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eClass()
+    /**
+     * Returns the value of the '<em><b>Final Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Final Fire Time</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Final Fire Time</em>' attribute.
+     * @see #setFinalFireTime(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getTalendTrigger_FinalFireTime()
+     * @model
+     * @generated
      */
-    public EClass eClass() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    Date getFinalFireTime();
 
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eContainer()
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.TalendTrigger#getFinalFireTime <em>Final Fire Time</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Final Fire Time</em>' attribute.
+     * @see #getFinalFireTime()
+     * @generated
      */
-    public EObject eContainer() {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    void setFinalFireTime(Date value);
 
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eContainingFeature()
-     */
-    public EStructuralFeature eContainingFeature() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eContainmentFeature()
-     */
-    public EReference eContainmentFeature() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eContents()
-     */
-    public EList<EObject> eContents() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eCrossReferences()
-     */
-    public EList<EObject> eCrossReferences() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature)
-     */
-    public Object eGet(EStructuralFeature feature) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eGet(org.eclipse.emf.ecore.EStructuralFeature, boolean)
-     */
-    public Object eGet(EStructuralFeature feature, boolean resolve) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eIsProxy()
-     */
-    public boolean eIsProxy() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eIsSet(org.eclipse.emf.ecore.EStructuralFeature)
-     */
-    public boolean eIsSet(EStructuralFeature feature) {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eResource()
-     */
-    public Resource eResource() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eSet(org.eclipse.emf.ecore.EStructuralFeature, java.lang.Object)
-     */
-    public void eSet(EStructuralFeature feature, Object newValue) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.ecore.EObject#eUnset(org.eclipse.emf.ecore.EStructuralFeature)
-     */
-    public void eUnset(EStructuralFeature feature) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.common.notify.Notifier#eAdapters()
-     */
-    public EList<Adapter> eAdapters() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.common.notify.Notifier#eDeliver()
-     */
-    public boolean eDeliver() {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.common.notify.Notifier#eNotify(org.eclipse.emf.common.notify.Notification)
-     */
-    public void eNotify(Notification notification) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    /* (non-Javadoc)
-     * @see org.eclipse.emf.common.notify.Notifier#eSetDeliver(boolean)
-     */
-    public void eSetDeliver(boolean deliver) {
-        // TODO Auto-generated method stub
-        
-    }
-
-}
+} // TalendTrigger

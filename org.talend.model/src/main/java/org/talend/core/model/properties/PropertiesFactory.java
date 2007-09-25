@@ -38,9 +38,6 @@ public interface PropertiesFactory extends EFactory {
      */
     Project createProject();
 
-    ExecutionTask createExecutionTask();
-    ExecutionServer createExecutionServer();
-    
     /**
      * Returns a new object of class '<em>Property</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -193,8 +190,8 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Project Component Authorisation</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return a new object of class '<em>Project Component Authorisation</em>'.
      * @generated
      */
@@ -202,17 +199,16 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Project Reference</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Project Reference</em>'.
      * @generated
      */
     ProjectReference createProjectReference();
 
     /**
-     * Returns a new object of class '<em>Ldif File Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>Ldif File Connection Item</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return a new object of class '<em>Ldif File Connection Item</em>'.
      * @generated
      */
@@ -220,8 +216,8 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>User Project Authorization</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return a new object of class '<em>User Project Authorization</em>'.
      * @generated
      */
@@ -229,8 +225,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Context Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Context Item</em>'.
      * @generated
      */
@@ -238,8 +233,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Spago Bi Server</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Spago Bi Server</em>'.
      * @generated
      */
@@ -247,8 +241,7 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>License</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>License</em>'.
      * @generated
      */
@@ -256,17 +249,17 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Generic Schema Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return a new object of class '<em>Generic Schema Connection Item</em>'.
      * @generated
      */
     GenericSchemaConnectionItem createGenericSchemaConnectionItem();
 
     /**
-     * Returns a new object of class '<em>User Module Authorization</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * Returns a new object of class '<em>User Module Authorization</em>'. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @return a new object of class '<em>User Module Authorization</em>'.
      * @generated
      */
@@ -274,8 +267,8 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>LDAP Schema Connection Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @return a new object of class '<em>LDAP Schema Connection Item</em>'.
      * @generated
      */
@@ -283,12 +276,65 @@ public interface PropertiesFactory extends EFactory {
 
     /**
      * Returns a new object of class '<em>Dashboard Connection</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>Dashboard Connection</em>'.
      * @generated
      */
     DashboardConnection createDashboardConnection();
+
+    /**
+     * Returns a new object of class '<em>Execution Server</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Execution Server</em>'.
+     * @generated
+     */
+    ExecutionServer createExecutionServer();
+
+    /**
+     * Returns a new object of class '<em>Execution Task</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Execution Task</em>'.
+     * @generated
+     */
+    ExecutionTask createExecutionTask();
+
+    /**
+     * Returns a new object of class '<em>Talend Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Talend Trigger</em>'.
+     * @generated
+     */
+    TalendTrigger createTalendTrigger();
+
+    /**
+     * Returns a new object of class '<em>Cron Talend Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Cron Talend Trigger</em>'.
+     * @generated
+     */
+    CronTalendTrigger createCronTalendTrigger();
+
+    /**
+     * Returns a new object of class '<em>Cron UI Talend Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Cron UI Talend Trigger</em>'.
+     * @generated
+     */
+    CronUITalendTrigger createCronUITalendTrigger();
+
+    /**
+     * Returns a new object of class '<em>Simple Talend Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Simple Talend Trigger</em>'.
+     * @generated
+     */
+    SimpleTalendTrigger createSimpleTalendTrigger();
 
     /**
      * Returns a new object of class '<em>User Role</em>'.
@@ -305,23 +351,5 @@ public interface PropertiesFactory extends EFactory {
      * @generated
      */
     PropertiesPackage getPropertiesPackage();
-
-    /**
-     * DOC amaumont Comment method "createSimpleTalendTrigger".
-     * @return
-     */
-    SimpleTalendTrigger createSimpleTalendTrigger();
-
-    /**
-     * DOC amaumont Comment method "createCronUITalendTrigger".
-     * @return
-     */
-    CronUITalendTrigger createCronUITalendTrigger();
-
-    /**
-     * DOC amaumont Comment method "createCronTalendTrigger".
-     * @return
-     */
-    CronTalendTrigger createCronTalendTrigger();
 
 } // PropertiesFactory

@@ -2042,13 +2042,856 @@ public interface PropertiesPackage extends EPackage {
     int DASHBOARD_CONNECTION_FEATURE_COUNT = 11;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionServerImpl <em>Execution Server</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionServerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionServer()
+     * @generated
+     */
+    int EXECUTION_SERVER = 34;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__LABEL = 1;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__DESCRIPTION = 2;
+
+    /**
+     * The feature id for the '<em><b>Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__HOST = 3;
+
+    /**
+     * The feature id for the '<em><b>Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__PORT = 4;
+
+    /**
+     * The feature id for the '<em><b>File Transfert Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__FILE_TRANSFERT_PORT = 5;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__ACTIVE = 6;
+
+    /**
+     * The number of structural features of the '<em>Execution Server</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER_FEATURE_COUNT = 7;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionTaskImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionTask()
+     * @generated
+     */
+    int EXECUTION_TASK = 35;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__LABEL = 1;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__DESCRIPTION = 2;
+
+    /**
+     * The feature id for the '<em><b>Execution Server</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__EXECUTION_SERVER = 3;
+
+    /**
+     * The feature id for the '<em><b>Project</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__PROJECT = 4;
+
+    /**
+     * The feature id for the '<em><b>Process Item</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__PROCESS_ITEM = 5;
+
+    /**
+     * The feature id for the '<em><b>Context</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__CONTEXT = 6;
+
+    /**
+     * The feature id for the '<em><b>Job Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__JOB_VERSION = 7;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__ACTIVE = 8;
+
+    /**
+     * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__ID_QUARTZ_JOB = 9;
+
+    /**
+     * The feature id for the '<em><b>Last Script Generation Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE = 10;
+
+    /**
+     * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__ID_REMOTE_JOB = 11;
+
+    /**
+     * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION = 12;
+
+    /**
+     * The feature id for the '<em><b>Checksum Archive</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__CHECKSUM_ARCHIVE = 13;
+
+    /**
+     * The feature id for the '<em><b>Job Script Archive</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__JOB_SCRIPT_ARCHIVE = 14;
+
+    /**
+     * The feature id for the '<em><b>Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__STATUS = 15;
+
+    /**
+     * The feature id for the '<em><b>Processing State</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__PROCESSING_STATE = 16;
+
+    /**
+     * The feature id for the '<em><b>Error Status</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__ERROR_STATUS = 17;
+
+    /**
+     * The number of structural features of the '<em>Execution Task</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK_FEATURE_COUNT = 18;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.TalendTriggerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTalendTrigger()
+     * @generated
+     */
+    int TALEND_TRIGGER = 36;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER__ACTIVE = 1;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER__LABEL = 2;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER__DESCRIPTION = 3;
+
+    /**
+     * The feature id for the '<em><b>Trigger Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER__TRIGGER_TYPE = 4;
+
+    /**
+     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER__EXECUTION_TASK = 5;
+
+    /**
+     * The feature id for the '<em><b>Start Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER__START_TIME = 6;
+
+    /**
+     * The feature id for the '<em><b>End Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER__END_TIME = 7;
+
+    /**
+     * The feature id for the '<em><b>Previous Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER__PREVIOUS_FIRE_TIME = 8;
+
+    /**
+     * The feature id for the '<em><b>Final Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER__FINAL_FIRE_TIME = 9;
+
+    /**
+     * The number of structural features of the '<em>Talend Trigger</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int TALEND_TRIGGER_FEATURE_COUNT = 10;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.CronTalendTriggerImpl <em>Cron Talend Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.CronTalendTriggerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronTalendTrigger()
+     * @generated
+     */
+    int CRON_TALEND_TRIGGER = 37;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__ID = TALEND_TRIGGER__ID;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__ACTIVE = TALEND_TRIGGER__ACTIVE;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__LABEL = TALEND_TRIGGER__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__DESCRIPTION = TALEND_TRIGGER__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Trigger Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__EXECUTION_TASK = TALEND_TRIGGER__EXECUTION_TASK;
+
+    /**
+     * The feature id for the '<em><b>Start Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__START_TIME = TALEND_TRIGGER__START_TIME;
+
+    /**
+     * The feature id for the '<em><b>End Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__END_TIME = TALEND_TRIGGER__END_TIME;
+
+    /**
+     * The feature id for the '<em><b>Previous Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__PREVIOUS_FIRE_TIME = TALEND_TRIGGER__PREVIOUS_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Final Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__FINAL_FIRE_TIME = TALEND_TRIGGER__FINAL_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Days Of Week</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__DAYS_OF_WEEK = TALEND_TRIGGER_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Days Of Month</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__DAYS_OF_MONTH = TALEND_TRIGGER_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Months</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__MONTHS = TALEND_TRIGGER_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Years</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__YEARS = TALEND_TRIGGER_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>Hours</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__HOURS = TALEND_TRIGGER_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Minutes</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__MINUTES = TALEND_TRIGGER_FEATURE_COUNT + 5;
+
+    /**
+     * The feature id for the '<em><b>Seconds</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER__SECONDS = TALEND_TRIGGER_FEATURE_COUNT + 6;
+
+    /**
+     * The number of structural features of the '<em>Cron Talend Trigger</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_TALEND_TRIGGER_FEATURE_COUNT = TALEND_TRIGGER_FEATURE_COUNT + 7;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.CronUITalendTriggerImpl <em>Cron UI Talend Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.CronUITalendTriggerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronUITalendTrigger()
+     * @generated
+     */
+    int CRON_UI_TALEND_TRIGGER = 38;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__ID = TALEND_TRIGGER__ID;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__ACTIVE = TALEND_TRIGGER__ACTIVE;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__LABEL = TALEND_TRIGGER__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__DESCRIPTION = TALEND_TRIGGER__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Trigger Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__EXECUTION_TASK = TALEND_TRIGGER__EXECUTION_TASK;
+
+    /**
+     * The feature id for the '<em><b>Start Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__START_TIME = TALEND_TRIGGER__START_TIME;
+
+    /**
+     * The feature id for the '<em><b>End Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__END_TIME = TALEND_TRIGGER__END_TIME;
+
+    /**
+     * The feature id for the '<em><b>Previous Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__PREVIOUS_FIRE_TIME = TALEND_TRIGGER__PREVIOUS_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Final Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__FINAL_FIRE_TIME = TALEND_TRIGGER__FINAL_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>List Days Of Week</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__LIST_DAYS_OF_WEEK = TALEND_TRIGGER_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>List Days Of Month</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__LIST_DAYS_OF_MONTH = TALEND_TRIGGER_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>List Months</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__LIST_MONTHS = TALEND_TRIGGER_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>List Years</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__LIST_YEARS = TALEND_TRIGGER_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>List Hours</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__LIST_HOURS = TALEND_TRIGGER_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>List Minutes</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER__LIST_MINUTES = TALEND_TRIGGER_FEATURE_COUNT + 5;
+
+    /**
+     * The number of structural features of the '<em>Cron UI Talend Trigger</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CRON_UI_TALEND_TRIGGER_FEATURE_COUNT = TALEND_TRIGGER_FEATURE_COUNT + 6;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.SimpleTalendTriggerImpl <em>Simple Talend Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.SimpleTalendTriggerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSimpleTalendTrigger()
+     * @generated
+     */
+    int SIMPLE_TALEND_TRIGGER = 39;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__ID = TALEND_TRIGGER__ID;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__ACTIVE = TALEND_TRIGGER__ACTIVE;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__LABEL = TALEND_TRIGGER__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__DESCRIPTION = TALEND_TRIGGER__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Trigger Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__EXECUTION_TASK = TALEND_TRIGGER__EXECUTION_TASK;
+
+    /**
+     * The feature id for the '<em><b>Start Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__START_TIME = TALEND_TRIGGER__START_TIME;
+
+    /**
+     * The feature id for the '<em><b>End Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__END_TIME = TALEND_TRIGGER__END_TIME;
+
+    /**
+     * The feature id for the '<em><b>Previous Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__PREVIOUS_FIRE_TIME = TALEND_TRIGGER__PREVIOUS_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Final Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__FINAL_FIRE_TIME = TALEND_TRIGGER__FINAL_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Repeat Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__REPEAT_COUNT = TALEND_TRIGGER_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Repeat Interval</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL = TALEND_TRIGGER_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Times Triggered</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED = TALEND_TRIGGER_FEATURE_COUNT + 2;
+
+    /**
+     * The number of structural features of the '<em>Simple Talend Trigger</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SIMPLE_TALEND_TRIGGER_FEATURE_COUNT = TALEND_TRIGGER_FEATURE_COUNT + 3;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 34;
+    int FOLDER_TYPE = 40;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -2058,7 +2901,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 35;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 41;
 
 
     /**
@@ -2069,7 +2912,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 36;
+    int USER_MODULE_AUTHORIZATION_TYPE = 42;
 
 
     /**
@@ -3517,6 +4360,627 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getDashboardConnection_FlowMeterTable();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionServer <em>Execution Server</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Execution Server</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer
+     * @generated
+     */
+    EClass getExecutionServer();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getId()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getLabel <em>Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Label</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getLabel()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_Label();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getDescription()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_Description();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getHost <em>Host</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Host</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getHost()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_Host();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getPort <em>Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Port</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getPort()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_Port();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getFileTransfertPort <em>File Transfert Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>File Transfert Port</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getFileTransfertPort()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_FileTransfertPort();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#isActive <em>Active</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Active</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#isActive()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_Active();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTask <em>Execution Task</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Execution Task</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask
+     * @generated
+     */
+    EClass getExecutionTask();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getId()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getLabel <em>Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Label</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getLabel()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_Label();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getDescription()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_Description();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionTask#getExecutionServer <em>Execution Server</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Execution Server</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getExecutionServer()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EReference getExecutionTask_ExecutionServer();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionTask#getProject <em>Project</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Project</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getProject()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EReference getExecutionTask_Project();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionTask#getProcessItem <em>Process Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Process Item</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getProcessItem()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EReference getExecutionTask_ProcessItem();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getContext <em>Context</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Context</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getContext()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_Context();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getJobVersion <em>Job Version</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Job Version</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getJobVersion()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_JobVersion();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#isActive <em>Active</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Active</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#isActive()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_Active();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getIdQuartzJob <em>Id Quartz Job</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id Quartz Job</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getIdQuartzJob()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_IdQuartzJob();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getLastScriptGenerationDate <em>Last Script Generation Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Last Script Generation Date</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getLastScriptGenerationDate()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_LastScriptGenerationDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJob <em>Id Remote Job</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id Remote Job</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getIdRemoteJob()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_IdRemoteJob();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id Remote Job Execution</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getIdRemoteJobExecution()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_IdRemoteJobExecution();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getChecksumArchive <em>Checksum Archive</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Checksum Archive</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getChecksumArchive()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_ChecksumArchive();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchive <em>Job Script Archive</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Job Script Archive</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getJobScriptArchive()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_JobScriptArchive();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getStatus <em>Status</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Status</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getStatus()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_Status();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#isProcessingState <em>Processing State</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Processing State</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#isProcessingState()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_ProcessingState();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getErrorStatus <em>Error Status</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Error Status</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getErrorStatus()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_ErrorStatus();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Talend Trigger</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger
+     * @generated
+     */
+    EClass getTalendTrigger();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TalendTrigger#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#getId()
+     * @see #getTalendTrigger()
+     * @generated
+     */
+    EAttribute getTalendTrigger_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TalendTrigger#isActive <em>Active</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Active</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#isActive()
+     * @see #getTalendTrigger()
+     * @generated
+     */
+    EAttribute getTalendTrigger_Active();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TalendTrigger#getLabel <em>Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Label</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#getLabel()
+     * @see #getTalendTrigger()
+     * @generated
+     */
+    EAttribute getTalendTrigger_Label();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TalendTrigger#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#getDescription()
+     * @see #getTalendTrigger()
+     * @generated
+     */
+    EAttribute getTalendTrigger_Description();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TalendTrigger#getTriggerType <em>Trigger Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Trigger Type</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#getTriggerType()
+     * @see #getTalendTrigger()
+     * @generated
+     */
+    EAttribute getTalendTrigger_TriggerType();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTask <em>Execution Task</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Execution Task</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#getExecutionTask()
+     * @see #getTalendTrigger()
+     * @generated
+     */
+    EReference getTalendTrigger_ExecutionTask();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TalendTrigger#getStartTime <em>Start Time</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Start Time</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#getStartTime()
+     * @see #getTalendTrigger()
+     * @generated
+     */
+    EAttribute getTalendTrigger_StartTime();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TalendTrigger#getEndTime <em>End Time</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>End Time</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#getEndTime()
+     * @see #getTalendTrigger()
+     * @generated
+     */
+    EAttribute getTalendTrigger_EndTime();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TalendTrigger#getPreviousFireTime <em>Previous Fire Time</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Previous Fire Time</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#getPreviousFireTime()
+     * @see #getTalendTrigger()
+     * @generated
+     */
+    EAttribute getTalendTrigger_PreviousFireTime();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.TalendTrigger#getFinalFireTime <em>Final Fire Time</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Final Fire Time</em>'.
+     * @see org.talend.core.model.properties.TalendTrigger#getFinalFireTime()
+     * @see #getTalendTrigger()
+     * @generated
+     */
+    EAttribute getTalendTrigger_FinalFireTime();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.CronTalendTrigger <em>Cron Talend Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Cron Talend Trigger</em>'.
+     * @see org.talend.core.model.properties.CronTalendTrigger
+     * @generated
+     */
+    EClass getCronTalendTrigger();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getDaysOfWeek <em>Days Of Week</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Days Of Week</em>'.
+     * @see org.talend.core.model.properties.CronTalendTrigger#getDaysOfWeek()
+     * @see #getCronTalendTrigger()
+     * @generated
+     */
+    EAttribute getCronTalendTrigger_DaysOfWeek();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getDaysOfMonth <em>Days Of Month</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Days Of Month</em>'.
+     * @see org.talend.core.model.properties.CronTalendTrigger#getDaysOfMonth()
+     * @see #getCronTalendTrigger()
+     * @generated
+     */
+    EAttribute getCronTalendTrigger_DaysOfMonth();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getMonths <em>Months</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Months</em>'.
+     * @see org.talend.core.model.properties.CronTalendTrigger#getMonths()
+     * @see #getCronTalendTrigger()
+     * @generated
+     */
+    EAttribute getCronTalendTrigger_Months();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getYears <em>Years</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Years</em>'.
+     * @see org.talend.core.model.properties.CronTalendTrigger#getYears()
+     * @see #getCronTalendTrigger()
+     * @generated
+     */
+    EAttribute getCronTalendTrigger_Years();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getHours <em>Hours</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Hours</em>'.
+     * @see org.talend.core.model.properties.CronTalendTrigger#getHours()
+     * @see #getCronTalendTrigger()
+     * @generated
+     */
+    EAttribute getCronTalendTrigger_Hours();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getMinutes <em>Minutes</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Minutes</em>'.
+     * @see org.talend.core.model.properties.CronTalendTrigger#getMinutes()
+     * @see #getCronTalendTrigger()
+     * @generated
+     */
+    EAttribute getCronTalendTrigger_Minutes();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getSeconds <em>Seconds</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Seconds</em>'.
+     * @see org.talend.core.model.properties.CronTalendTrigger#getSeconds()
+     * @see #getCronTalendTrigger()
+     * @generated
+     */
+    EAttribute getCronTalendTrigger_Seconds();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.CronUITalendTrigger <em>Cron UI Talend Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Cron UI Talend Trigger</em>'.
+     * @see org.talend.core.model.properties.CronUITalendTrigger
+     * @generated
+     */
+    EClass getCronUITalendTrigger();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronUITalendTrigger#getListDaysOfWeek <em>List Days Of Week</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>List Days Of Week</em>'.
+     * @see org.talend.core.model.properties.CronUITalendTrigger#getListDaysOfWeek()
+     * @see #getCronUITalendTrigger()
+     * @generated
+     */
+    EAttribute getCronUITalendTrigger_ListDaysOfWeek();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronUITalendTrigger#getListDaysOfMonth <em>List Days Of Month</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>List Days Of Month</em>'.
+     * @see org.talend.core.model.properties.CronUITalendTrigger#getListDaysOfMonth()
+     * @see #getCronUITalendTrigger()
+     * @generated
+     */
+    EAttribute getCronUITalendTrigger_ListDaysOfMonth();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronUITalendTrigger#getListMonths <em>List Months</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>List Months</em>'.
+     * @see org.talend.core.model.properties.CronUITalendTrigger#getListMonths()
+     * @see #getCronUITalendTrigger()
+     * @generated
+     */
+    EAttribute getCronUITalendTrigger_ListMonths();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronUITalendTrigger#getListYears <em>List Years</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>List Years</em>'.
+     * @see org.talend.core.model.properties.CronUITalendTrigger#getListYears()
+     * @see #getCronUITalendTrigger()
+     * @generated
+     */
+    EAttribute getCronUITalendTrigger_ListYears();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronUITalendTrigger#getListHours <em>List Hours</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>List Hours</em>'.
+     * @see org.talend.core.model.properties.CronUITalendTrigger#getListHours()
+     * @see #getCronUITalendTrigger()
+     * @generated
+     */
+    EAttribute getCronUITalendTrigger_ListHours();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronUITalendTrigger#getListMinutes <em>List Minutes</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>List Minutes</em>'.
+     * @see org.talend.core.model.properties.CronUITalendTrigger#getListMinutes()
+     * @see #getCronUITalendTrigger()
+     * @generated
+     */
+    EAttribute getCronUITalendTrigger_ListMinutes();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.SimpleTalendTrigger <em>Simple Talend Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Simple Talend Trigger</em>'.
+     * @see org.talend.core.model.properties.SimpleTalendTrigger
+     * @generated
+     */
+    EClass getSimpleTalendTrigger();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SimpleTalendTrigger#getRepeatCount <em>Repeat Count</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Repeat Count</em>'.
+     * @see org.talend.core.model.properties.SimpleTalendTrigger#getRepeatCount()
+     * @see #getSimpleTalendTrigger()
+     * @generated
+     */
+    EAttribute getSimpleTalendTrigger_RepeatCount();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SimpleTalendTrigger#getRepeatInterval <em>Repeat Interval</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Repeat Interval</em>'.
+     * @see org.talend.core.model.properties.SimpleTalendTrigger#getRepeatInterval()
+     * @see #getSimpleTalendTrigger()
+     * @generated
+     */
+    EAttribute getSimpleTalendTrigger_RepeatInterval();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.SimpleTalendTrigger#getTimesTriggered <em>Times Triggered</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Times Triggered</em>'.
+     * @see org.talend.core.model.properties.SimpleTalendTrigger#getTimesTriggered()
+     * @see #getSimpleTalendTrigger()
+     * @generated
+     */
+    EAttribute getSimpleTalendTrigger_TimesTriggered();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -4776,6 +6240,474 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute DASHBOARD_CONNECTION__FLOW_METER_TABLE = eINSTANCE.getDashboardConnection_FlowMeterTable();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionServerImpl <em>Execution Server</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ExecutionServerImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionServer()
+         * @generated
+         */
+        EClass EXECUTION_SERVER = eINSTANCE.getExecutionServer();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__ID = eINSTANCE.getExecutionServer_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__LABEL = eINSTANCE.getExecutionServer_Label();
+
+        /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__DESCRIPTION = eINSTANCE.getExecutionServer_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Host</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__HOST = eINSTANCE.getExecutionServer_Host();
+
+        /**
+         * The meta object literal for the '<em><b>Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__PORT = eINSTANCE.getExecutionServer_Port();
+
+        /**
+         * The meta object literal for the '<em><b>File Transfert Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__FILE_TRANSFERT_PORT = eINSTANCE.getExecutionServer_FileTransfertPort();
+
+        /**
+         * The meta object literal for the '<em><b>Active</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__ACTIVE = eINSTANCE.getExecutionServer_Active();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ExecutionTaskImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionTask()
+         * @generated
+         */
+        EClass EXECUTION_TASK = eINSTANCE.getExecutionTask();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__ID = eINSTANCE.getExecutionTask_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__LABEL = eINSTANCE.getExecutionTask_Label();
+
+        /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__DESCRIPTION = eINSTANCE.getExecutionTask_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Execution Server</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_TASK__EXECUTION_SERVER = eINSTANCE.getExecutionTask_ExecutionServer();
+
+        /**
+         * The meta object literal for the '<em><b>Project</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_TASK__PROJECT = eINSTANCE.getExecutionTask_Project();
+
+        /**
+         * The meta object literal for the '<em><b>Process Item</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_TASK__PROCESS_ITEM = eINSTANCE.getExecutionTask_ProcessItem();
+
+        /**
+         * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__CONTEXT = eINSTANCE.getExecutionTask_Context();
+
+        /**
+         * The meta object literal for the '<em><b>Job Version</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__JOB_VERSION = eINSTANCE.getExecutionTask_JobVersion();
+
+        /**
+         * The meta object literal for the '<em><b>Active</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__ACTIVE = eINSTANCE.getExecutionTask_Active();
+
+        /**
+         * The meta object literal for the '<em><b>Id Quartz Job</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__ID_QUARTZ_JOB = eINSTANCE.getExecutionTask_IdQuartzJob();
+
+        /**
+         * The meta object literal for the '<em><b>Last Script Generation Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE = eINSTANCE.getExecutionTask_LastScriptGenerationDate();
+
+        /**
+         * The meta object literal for the '<em><b>Id Remote Job</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__ID_REMOTE_JOB = eINSTANCE.getExecutionTask_IdRemoteJob();
+
+        /**
+         * The meta object literal for the '<em><b>Id Remote Job Execution</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION = eINSTANCE.getExecutionTask_IdRemoteJobExecution();
+
+        /**
+         * The meta object literal for the '<em><b>Checksum Archive</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__CHECKSUM_ARCHIVE = eINSTANCE.getExecutionTask_ChecksumArchive();
+
+        /**
+         * The meta object literal for the '<em><b>Job Script Archive</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__JOB_SCRIPT_ARCHIVE = eINSTANCE.getExecutionTask_JobScriptArchive();
+
+        /**
+         * The meta object literal for the '<em><b>Status</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__STATUS = eINSTANCE.getExecutionTask_Status();
+
+        /**
+         * The meta object literal for the '<em><b>Processing State</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__PROCESSING_STATE = eINSTANCE.getExecutionTask_ProcessingState();
+
+        /**
+         * The meta object literal for the '<em><b>Error Status</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__ERROR_STATUS = eINSTANCE.getExecutionTask_ErrorStatus();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.TalendTriggerImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getTalendTrigger()
+         * @generated
+         */
+        EClass TALEND_TRIGGER = eINSTANCE.getTalendTrigger();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TALEND_TRIGGER__ID = eINSTANCE.getTalendTrigger_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Active</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TALEND_TRIGGER__ACTIVE = eINSTANCE.getTalendTrigger_Active();
+
+        /**
+         * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TALEND_TRIGGER__LABEL = eINSTANCE.getTalendTrigger_Label();
+
+        /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TALEND_TRIGGER__DESCRIPTION = eINSTANCE.getTalendTrigger_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Trigger Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TALEND_TRIGGER__TRIGGER_TYPE = eINSTANCE.getTalendTrigger_TriggerType();
+
+        /**
+         * The meta object literal for the '<em><b>Execution Task</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference TALEND_TRIGGER__EXECUTION_TASK = eINSTANCE.getTalendTrigger_ExecutionTask();
+
+        /**
+         * The meta object literal for the '<em><b>Start Time</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TALEND_TRIGGER__START_TIME = eINSTANCE.getTalendTrigger_StartTime();
+
+        /**
+         * The meta object literal for the '<em><b>End Time</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TALEND_TRIGGER__END_TIME = eINSTANCE.getTalendTrigger_EndTime();
+
+        /**
+         * The meta object literal for the '<em><b>Previous Fire Time</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TALEND_TRIGGER__PREVIOUS_FIRE_TIME = eINSTANCE.getTalendTrigger_PreviousFireTime();
+
+        /**
+         * The meta object literal for the '<em><b>Final Fire Time</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute TALEND_TRIGGER__FINAL_FIRE_TIME = eINSTANCE.getTalendTrigger_FinalFireTime();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.CronTalendTriggerImpl <em>Cron Talend Trigger</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.CronTalendTriggerImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronTalendTrigger()
+         * @generated
+         */
+        EClass CRON_TALEND_TRIGGER = eINSTANCE.getCronTalendTrigger();
+
+        /**
+         * The meta object literal for the '<em><b>Days Of Week</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_TALEND_TRIGGER__DAYS_OF_WEEK = eINSTANCE.getCronTalendTrigger_DaysOfWeek();
+
+        /**
+         * The meta object literal for the '<em><b>Days Of Month</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_TALEND_TRIGGER__DAYS_OF_MONTH = eINSTANCE.getCronTalendTrigger_DaysOfMonth();
+
+        /**
+         * The meta object literal for the '<em><b>Months</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_TALEND_TRIGGER__MONTHS = eINSTANCE.getCronTalendTrigger_Months();
+
+        /**
+         * The meta object literal for the '<em><b>Years</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_TALEND_TRIGGER__YEARS = eINSTANCE.getCronTalendTrigger_Years();
+
+        /**
+         * The meta object literal for the '<em><b>Hours</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_TALEND_TRIGGER__HOURS = eINSTANCE.getCronTalendTrigger_Hours();
+
+        /**
+         * The meta object literal for the '<em><b>Minutes</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_TALEND_TRIGGER__MINUTES = eINSTANCE.getCronTalendTrigger_Minutes();
+
+        /**
+         * The meta object literal for the '<em><b>Seconds</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_TALEND_TRIGGER__SECONDS = eINSTANCE.getCronTalendTrigger_Seconds();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.CronUITalendTriggerImpl <em>Cron UI Talend Trigger</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.CronUITalendTriggerImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getCronUITalendTrigger()
+         * @generated
+         */
+        EClass CRON_UI_TALEND_TRIGGER = eINSTANCE.getCronUITalendTrigger();
+
+        /**
+         * The meta object literal for the '<em><b>List Days Of Week</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_UI_TALEND_TRIGGER__LIST_DAYS_OF_WEEK = eINSTANCE.getCronUITalendTrigger_ListDaysOfWeek();
+
+        /**
+         * The meta object literal for the '<em><b>List Days Of Month</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_UI_TALEND_TRIGGER__LIST_DAYS_OF_MONTH = eINSTANCE.getCronUITalendTrigger_ListDaysOfMonth();
+
+        /**
+         * The meta object literal for the '<em><b>List Months</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_UI_TALEND_TRIGGER__LIST_MONTHS = eINSTANCE.getCronUITalendTrigger_ListMonths();
+
+        /**
+         * The meta object literal for the '<em><b>List Years</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_UI_TALEND_TRIGGER__LIST_YEARS = eINSTANCE.getCronUITalendTrigger_ListYears();
+
+        /**
+         * The meta object literal for the '<em><b>List Hours</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_UI_TALEND_TRIGGER__LIST_HOURS = eINSTANCE.getCronUITalendTrigger_ListHours();
+
+        /**
+         * The meta object literal for the '<em><b>List Minutes</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CRON_UI_TALEND_TRIGGER__LIST_MINUTES = eINSTANCE.getCronUITalendTrigger_ListMinutes();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.SimpleTalendTriggerImpl <em>Simple Talend Trigger</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.SimpleTalendTriggerImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getSimpleTalendTrigger()
+         * @generated
+         */
+        EClass SIMPLE_TALEND_TRIGGER = eINSTANCE.getSimpleTalendTrigger();
+
+        /**
+         * The meta object literal for the '<em><b>Repeat Count</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SIMPLE_TALEND_TRIGGER__REPEAT_COUNT = eINSTANCE.getSimpleTalendTrigger_RepeatCount();
+
+        /**
+         * The meta object literal for the '<em><b>Repeat Interval</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL = eINSTANCE.getSimpleTalendTrigger_RepeatInterval();
+
+        /**
+         * The meta object literal for the '<em><b>Times Triggered</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED = eINSTANCE.getSimpleTalendTrigger_TimesTriggered();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
