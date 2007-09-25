@@ -272,7 +272,7 @@ public class ExtractMetaDataFromDataBase {
                 metadataColumn.setTalendType(talendType);
                 metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
                 
-                boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "NULLABLE"); //$NON-NLS-1$
+                boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
                 metadataColumn.setNullable(isNullable);
                 
                 metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
