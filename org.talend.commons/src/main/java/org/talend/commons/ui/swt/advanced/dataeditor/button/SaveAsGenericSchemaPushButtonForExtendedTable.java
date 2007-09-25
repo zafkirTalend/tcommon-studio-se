@@ -33,44 +33,47 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 public abstract class SaveAsGenericSchemaPushButtonForExtendedTable extends SaveAsGenericSchemaPushButton implements
         IExtendedTablePushButton {
 
+    private String dbmsId;
+
     public SaveAsGenericSchemaPushButtonForExtendedTable(Composite parent,
-            final AbstractExtendedTableViewer extendedTableViewer) {
+            final AbstractExtendedTableViewer extendedTableViewer, String dbmsId) {
         super(parent, extendedTableViewer);
-//        extendedTableViewer.addListener(new IExtendedControlListener() {
-//
-//            public void handleEvent(ExtendedControlEvent event) {
-//                if (event.getType() == AbstractExtendedControlViewer.EVENT_TYPE.MODEL_CHANGED) {
-//                    ExtendedTableModel extendedTableModel = extendedTableViewer.getExtendedTableModel();
-//                    registerListListener(extendedTableModel);
-//                }
-//            }
-//
-//        });
-//
-//        ExtendedTableModel extendedTableModel = extendedTableViewer.getExtendedTableModel();
-//        registerListListener(extendedTableModel);
+        this.dbmsId = dbmsId;
+        // extendedTableViewer.addListener(new IExtendedControlListener() {
+        //
+        // public void handleEvent(ExtendedControlEvent event) {
+        // if (event.getType() == AbstractExtendedControlViewer.EVENT_TYPE.MODEL_CHANGED) {
+        // ExtendedTableModel extendedTableModel = extendedTableViewer.getExtendedTableModel();
+        // registerListListener(extendedTableModel);
+        // }
+        // }
+        //
+        // });
+        //
+        // ExtendedTableModel extendedTableModel = extendedTableViewer.getExtendedTableModel();
+        // registerListListener(extendedTableModel);
     }
 
-//    /**
-//     * DOC amaumont Comment method "registerListListener".
-//     * 
-//     * @param extendedTableModel
-//     */
-//    private void registerListListener(ExtendedTableModel extendedTableModel) {
-//        if (extendedTableModel != null) {
-//            extendedTableModel.addAfterOperationListListener(new IListenableListListener() {
-//
-//                public void handleEvent(ListenableListEvent event) {
-//                    if (event.type == ListenableListEvent.TYPE.CLEARED
-//                            || event.type == ListenableListEvent.TYPE.REMOVED
-//                            || event.type == ListenableListEvent.TYPE.ADDED) {
-//                        getButton().setEnabled(getEnabledState());
-//                    }
-//                }
-//
-//            });
-//        }
-//    }
+    // /**
+    // * DOC amaumont Comment method "registerListListener".
+    // *
+    // * @param extendedTableModel
+    // */
+    // private void registerListListener(ExtendedTableModel extendedTableModel) {
+    // if (extendedTableModel != null) {
+    // extendedTableModel.addAfterOperationListListener(new IListenableListListener() {
+    //
+    // public void handleEvent(ListenableListEvent event) {
+    // if (event.type == ListenableListEvent.TYPE.CLEARED
+    // || event.type == ListenableListEvent.TYPE.REMOVED
+    // || event.type == ListenableListEvent.TYPE.ADDED) {
+    // getButton().setEnabled(getEnabledState());
+    // }
+    // }
+    //
+    // });
+    // }
+    // }
 
     private EnableStateListenerForTableButton enableStateHandler;
 
@@ -83,22 +86,22 @@ public abstract class SaveAsGenericSchemaPushButtonForExtendedTable extends Save
         return (AbstractExtendedTableViewer) getExtendedControlViewer();
     }
 
-//    /*
-//     * (non-Javadoc)
-//     * 
-//     * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#beforeCommandExecution()
-//     */
-//    @Override
-//    protected void beforeCommandExecution() {
-//
-//        FileDialog dial = new FileDialog(getButton().getShell(), SWT.SAVE);
-//        dial.setFilterExtensions(new String[] { "*.xml" });
-//        String fileName = dial.open();
-//        if ((fileName != null) && (!fileName.equals(""))) { //$NON-NLS-1$
-//            this.file = new File(fileName);
-//        }
-//
-//    }
+    // /*
+    // * (non-Javadoc)
+    // *
+    // * @see org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton#beforeCommandExecution()
+    // */
+    // @Override
+    // protected void beforeCommandExecution() {
+    //
+    // FileDialog dial = new FileDialog(getButton().getShell(), SWT.SAVE);
+    // dial.setFilterExtensions(new String[] { "*.xml" });
+    // String fileName = dial.open();
+    // if ((fileName != null) && (!fileName.equals(""))) { //$NON-NLS-1$
+    // this.file = new File(fileName);
+    // }
+    //
+    // }
 
     public boolean getEnabledState() {
         AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
@@ -113,8 +116,8 @@ public abstract class SaveAsGenericSchemaPushButtonForExtendedTable extends Save
 
     protected Command getCommandToExecute() {
         AbstractExtendedTableViewer extendedTableViewer = (AbstractExtendedTableViewer) extendedControlViewer;
-        return getCommandToExecute(extendedTableViewer.getExtendedTableModel());
+        return getCommandToExecute(extendedTableViewer.getExtendedTableModel(), this.dbmsId);
     }
 
-    protected abstract Command getCommandToExecute(ExtendedTableModel extendedTableModel);
+    protected abstract Command getCommandToExecute(ExtendedTableModel extendedTableModel, String dbmsId);
 }
