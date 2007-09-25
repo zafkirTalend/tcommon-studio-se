@@ -25,6 +25,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -34,6 +36,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.adaptor.EclipseStarter;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
+import org.eclipse.jface.preference.FieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -59,6 +62,8 @@ import org.talend.core.utils.XmlArray;
 public class CorePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
     private OneLineComboFieldEditor languageSelectionEditor;
+
+    private List<FieldEditor> fields = new ArrayList<FieldEditor>();
 
     /**
      * Construct a new CorePreferencePage.
@@ -191,4 +196,35 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
     public void init(IWorkbench workbench) {
         // Do nothing
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.preference.FieldEditorPreferencePage#addField(org.eclipse.jface.preference.FieldEditor)
+     */
+    @Override
+    protected void addField(FieldEditor editor) {
+        super.addField(editor);
+        fields.add(editor);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.preference.FieldEditorPreferencePage#checkState()
+     */
+    @Override
+    protected void checkState() {
+        super.checkState();
+        int size = fields.size();
+        if (size > 0) {
+            for (int i = 0; i < size; i++) {
+                FieldEditor editor = fields.get(i);
+                if (!editor.isValid()) {
+                    editor.setFocus();
+                }
+            }
+        }
+    }
+
 }
