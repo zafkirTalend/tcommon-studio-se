@@ -40,8 +40,8 @@ public class ContextParameterJavaTypeManager {
 
     public static final JavaType[] JAVA_TYPES = new JavaType[] { JavaTypesManager.BOOLEAN, JavaTypesManager.CHARACTER,
             JavaTypesManager.DATE, JavaTypesManager.DOUBLE, JavaTypesManager.FLOAT, JavaTypesManager.INTEGER,
-            JavaTypesManager.LONG, JavaTypesManager.SHORT, JavaTypesManager.STRING, JavaTypesManager.FILE,
-            JavaTypesManager.DIRECTORY };
+            JavaTypesManager.LONG, JavaTypesManager.SHORT, JavaTypesManager.STRING, JavaTypesManager.OBJECT,
+            JavaTypesManager.FILE, JavaTypesManager.DIRECTORY };
 
     public static final String PERL_FILE = "File";
 

@@ -86,8 +86,10 @@ public final class ContextParameterUtils {
                 }
             } else if (typeToGenerate.compareTo("java.util.Date") == 0) {
 
-                code = "(" + typeToGenerate + ")" + "(new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\")" + ".parse" + "(" + string
-                        + "))";
+                code = "(" + typeToGenerate + ")" + "(new SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\")" + ".parse" + "("
+                        + string + "))";
+            } else if (typeToGenerate.compareTo("java.lang.Object") == 0) {
+                code = "(" + typeToGenerate + ")" + string;
             } else {
                 code = "(" + typeToGenerate + ")" + string;
             }
@@ -131,8 +133,8 @@ public final class ContextParameterUtils {
     }
 
     public static String parseScriptContextCode(String code, IContext context) {
-        final ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                .getProject().getLanguage();
+        final ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(
+                Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
         if (!isContainContextParam(code)) {
             return code;
         } else {
@@ -140,7 +142,8 @@ public final class ContextParameterUtils {
             for (IContextParameter param : context.getContextParameterList()) {
                 if (param.getName().equals(paraName)) {
                     // return code.replace(getScriptCode(param, language), param.getValue());
-                    return parseScriptContextCode(code.replace(getScriptCode(param, language), param.getValue()), context);
+                    return parseScriptContextCode(code.replace(getScriptCode(param, language), param.getValue()),
+                            context);
                 }
             }
         }
@@ -159,13 +162,14 @@ public final class ContextParameterUtils {
     }
 
     public static boolean isContainContextParam(String code) {
-        final ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                .getProject().getLanguage();
+        final ECodeLanguage language = ((RepositoryContext) CorePlugin.getContext().getProperty(
+                Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
         switch (language) {
         case PERL:
             return code.contains(PERL_STARTWITH) && code.contains(PERL_ENDWITH);
         case JAVA:
-            return code.contains(JAVA_STARTWITH.substring(0, JAVA_STARTWITH.length() - 1)) && code.contains(JAVA_ENDWITH);
+            return code.contains(JAVA_STARTWITH.substring(0, JAVA_STARTWITH.length() - 1))
+                    && code.contains(JAVA_ENDWITH);
         default:
             return false;
         }
@@ -180,6 +184,7 @@ public final class ContextParameterUtils {
      * 
      * @deprecated should be tested in by the context manager of a process
      */
+    @Deprecated
     public static boolean isValidName(String name, ECodeLanguage language) {
         boolean valid;
         switch (language) {
