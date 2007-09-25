@@ -247,11 +247,10 @@ public class ExtractMetaDataFromDataBase {
                 }
                 String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
                 metadataColumn.setSourceType(dbType); //$NON-NLS-1$
-                boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
-                metadataColumn.setNullable(isNullable);
+
                 metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
                 // Convert dbmsType to TalendType
-
+                
                 String talendType = null;
 
                 MappingTypeRetriever mappingTypeRetriever = MetadataTalendType
@@ -272,6 +271,12 @@ public class ExtractMetaDataFromDataBase {
 
                 metadataColumn.setTalendType(talendType);
                 metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
+                
+                boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "NULLABLE"); //$NON-NLS-1$
+                metadataColumn.setNullable(isNullable);
+                
+                metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
+                metadataColumns.add(metadataColumn);
 
                 // cantoine : patch to fix 0x0 pb cause by Bad Schema
                 // description
@@ -281,9 +286,6 @@ public class ExtractMetaDataFromDataBase {
                     stringMetaDataInfo = "\\0"; //$NON-NLS-1$
                 }
                 metadataColumn.setDefaultValue(stringMetaDataInfo);
-
-                metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
-                metadataColumns.add(metadataColumn);
 
             }
             columns.close();
