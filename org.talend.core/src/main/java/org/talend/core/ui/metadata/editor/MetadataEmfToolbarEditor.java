@@ -34,6 +34,8 @@ import org.talend.commons.ui.swt.advanced.dataeditor.button.ImportPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.ImportPushButtonForExtendedTable;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButtonForExtendedTable;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.ResetDBTypesPushButton;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.ResetDBTypesPushButtonForExtendedTable;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
@@ -41,6 +43,7 @@ import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.talend.core.ui.extended.command.MetadataEmfExportXmlCommand;
 import org.talend.core.ui.extended.command.MetadataEmfImportXmlCommand;
 import org.talend.core.ui.extended.command.MetadataEmfPasteCommand;
+import org.talend.core.ui.metadata.dialog.ExtendedTableResetDBTypesCommand;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -68,6 +71,21 @@ public class MetadataEmfToolbarEditor extends ExtendedToolbarView {
             String dbmsId) {
         this(parent, style, extendedTableViewer);
         this.dbmsId = dbmsId;
+        if (dbmsId != null) {
+            resetDBTypesButton = createResetDBTypesPushButton(dbmsId);
+            updateEnabledStateOfButtons();
+        }
+    }
+
+    protected ResetDBTypesPushButton createResetDBTypesPushButton(final String dbmsId) {
+        return new ResetDBTypesPushButtonForExtendedTable(toolbar, extendedTableViewer, dbmsId) {
+
+            @Override
+            protected Command getCommandToExecute(ExtendedTableModel extendedTableModel) {
+                return new ExtendedTableResetDBTypesCommand(extendedTableModel, dbmsId, extendedTableViewer);
+            }
+
+        };
     }
 
     /*

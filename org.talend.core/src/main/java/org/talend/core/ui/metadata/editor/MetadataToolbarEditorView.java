@@ -69,6 +69,7 @@ public class MetadataToolbarEditorView extends ExtendedToolbarView {
         super(parent, style, extendedTableViewer);
         if (dbmsId != null) {
             resetDBTypesButton = createResetDBTypesPushButton(dbmsId);
+            saveAsGenericSchemaButton = createSaveAsGenericSchemaButton(dbmsId);
             updateEnabledStateOfButtons();
         }
     }
@@ -150,17 +151,17 @@ public class MetadataToolbarEditorView extends ExtendedToolbarView {
             protected Command getCommandToExecute(ExtendedTableModel extendedTableModel) {
                 return new ExtendedTableResetDBTypesCommand(extendedTableModel, dbmsId, extendedTableViewer);
             }
-
         };
     }
 
-    protected SaveAsGenericSchemaPushButton createSaveAsGenericSchemaButton() {
-        return new SaveAsGenericSchemaPushButtonForExtendedTable(toolbar, extendedTableViewer) {
+    protected SaveAsGenericSchemaPushButton createSaveAsGenericSchemaButton(final String dbmsId) {
+        return new SaveAsGenericSchemaPushButtonForExtendedTable(toolbar, extendedTableViewer,dbmsId) {
 
             @Override
-            protected Command getCommandToExecute(ExtendedTableModel extendedTableModel) {
-                return new SaveAsGenericSchemaCommand(extendedTableModel);
+            protected Command getCommandToExecute(ExtendedTableModel extendedTableModel,String dbmsId) {
+                return new SaveAsGenericSchemaCommand(extendedTableModel,dbmsId);
             }
+
         };
     }
 }

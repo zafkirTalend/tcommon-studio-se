@@ -57,7 +57,7 @@ import org.talend.repository.model.RepositoryNode.EProperties;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
- * DOC Administrator class global comment. Detailled comment <br/>
+ * Administrator class global comment. Detailed comment <br/>
  * 
  */
 public class SaveAsGenericSchemaCommand extends Command {
@@ -68,8 +68,11 @@ public class SaveAsGenericSchemaCommand extends Command {
 
     protected static final int WIZARD_HEIGHT = 475;
 
-    public SaveAsGenericSchemaCommand(ExtendedTableModel extendedTableModel) {
+    private String dbmsId;
+
+    public SaveAsGenericSchemaCommand(ExtendedTableModel extendedTableModel, String dbmsId) {
         this.extendedTableModel = extendedTableModel;
+        this.dbmsId = dbmsId;
     }
 
     /*
@@ -127,6 +130,12 @@ public class SaveAsGenericSchemaCommand extends Command {
             GenericSchemaConnection connection = ConnectionFactory.eINSTANCE.createGenericSchemaConnection();
             connection.setLabel("connectionLabel");
             connection.setComment("connectionComment");
+
+            if (this.dbmsId != null && this.dbmsId.length() > 0) {
+                connection.setMappingTypeId(this.dbmsId);
+                connection.setMappingTypeUsed(true);
+            }
+
             MetadataTable createMetadataTable = ConnectionFactory.eINSTANCE.createMetadataTable();
             createMetadataTable.setConnection(connection);
             createMetadataTable.setLabel("metadata");
@@ -143,6 +152,7 @@ public class SaveAsGenericSchemaCommand extends Command {
                 createMetadataColumn.setNullable(column.isNullable());
                 createMetadataColumn.setOriginalField(column.getOriginalDbColumnName());
                 createMetadataColumn.setTalendType(column.getTalendType());
+                createMetadataColumn.setSourceType(column.getType());
 
                 createMetadataTable.getColumns().add(createMetadataColumn);
             }
