@@ -144,6 +144,9 @@ public class ConextTableValuesComposite extends Composite {
 
             @Override
             public void mouseDown(MouseEvent e) {
+                if (modelManager.isReadOnly()) {
+                    return;
+                }
                 Point pt = new Point(e.x, e.y);
                 TableItem item = table.getItem(pt);
                 // deactivate the current cell editor
@@ -360,6 +363,9 @@ public class ConextTableValuesComposite extends Composite {
          * @see org.eclipse.jface.viewers.ICellModifier#canModify(java.lang.Object, java.lang.String)
          */
         public boolean canModify(Object element, String property) {
+            if (modelManager.isReadOnly()) {
+                return false;
+            }
             if (property.equals(COLUMN_NAME_PROPERTY)) {
                 return false;
             }

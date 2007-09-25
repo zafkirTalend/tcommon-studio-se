@@ -187,6 +187,9 @@ public class ConextTreeValuesComposite extends Composite {
 
             @Override
             public void mouseDown(MouseEvent e) {
+                if (modelManager.isReadOnly()) {
+                    return;
+                }
                 Point pt = new Point(e.x, e.y);
                 TreeItem item = tree.getItem(pt);
                 // deactivate the current cell editor
@@ -621,6 +624,9 @@ public class ConextTreeValuesComposite extends Composite {
          * @see org.eclipse.jface.viewers.ICellModifier#canModify(java.lang.Object, java.lang.String)
          */
         public boolean canModify(Object element, String property) {
+            if (modelManager.isReadOnly()) {
+                return false;
+            }
             IContextParameter para = getRealParameter(element);
             if (para == null) {
                 return false;

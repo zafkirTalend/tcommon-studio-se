@@ -28,20 +28,16 @@ import org.eclipse.gef.commands.CommandStack;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
-import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
-import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
@@ -55,6 +51,7 @@ import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveUpPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButtonForExtendedTable;
+import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
@@ -116,6 +113,25 @@ public class ConextTemplateComposite extends Composite {
         fieldsTableEditorView.getExtendedTableViewer().setCommandStack(commandStack);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.swt.widgets.Control#setEnabled(boolean)
+     */
+    @Override
+    public void setEnabled(boolean enabled) {
+        // update the state of buttons
+
+        // fieldsTableEditorView.getExtendedToolbar().getParentComposite().setEnabled(enabled);
+        for (ExtendedPushButton button : fieldsTableEditorView.getExtendedToolbar().getButtons()) {
+            button.getButton().setEnabled(enabled);
+        }
+        // update the table;
+        for (TableViewerCreatorColumn column : tableViewerCreator.getColumns()) {
+            column.setModifiable(enabled);
+        }
+    }
+
     /**
      * bqian Comment method "initializeUI".
      */
@@ -129,100 +145,12 @@ public class ConextTemplateComposite extends Composite {
         tableViewerCreator = fieldsTableEditorView.getTableViewerCreator();
     }
 
-    /**
-     * zx Comment method "handleSelect".
-     * 
-     * @param item
-     * @link PropertySheetViewer
-     */
-
-    protected void handleSelect(final TableItem selection, final Table table, final TableEditor tableEditor) {
-        // get the new selection
-        TableItem[] sel = new TableItem[] { selection };
-        if (sel.length == 0) {
-            return;
-        } else {
-            activateCellEditor(sel[0], table, tableEditor);
-        }
-    }
-
-    /**
-     * zx Comment method "activateCellEditor".
-     * 
-     * @param item
-     */
-    private void activateCellEditor(final TableItem item, final Table table, final TableEditor tableEditor) {
-        // ensure the cell editor is visible
-        table.showSelection();
-
-        // cellEditor = cellEditorFactory.getCustomCellEditor(((IContextParameter) item.getData()).getType(), table,
-        // getSelectedContext(), tableViewerCreatorMap.get(getSelectedContext()));
-        if (cellEditor == null) {
-            // unable to create the editor
-            return;
-        }
-
-        // activate the cell editor
-        cellEditor.activate();
-        // if the cell editor has no control we can stop now
-        Control control = cellEditor.getControl();
-        if (control == null) {
-            cellEditor.deactivate();
-            cellEditor = null;
-            return;
-        }
-        // add our editor listener
-        cellEditor.addListener(createEditorListener(tableEditor));
-
-        // set the layout of the tree editor to match the cell editor
-        CellEditor.LayoutData layout = cellEditor.getLayoutData();
-        tableEditor.horizontalAlignment = layout.horizontalAlignment;
-        tableEditor.grabHorizontal = layout.grabHorizontal;
-        tableEditor.minimumWidth = layout.minimumWidth;
-        tableEditor.setEditor(control, item, CNUM_DEFAULT);
-        // give focus to the cell editor
-        cellEditor.setFocus();
-
-    }
-
-    private ICellEditorListener editorListener;
-
-    /**
-     * zx Comment method "deactivateCellEditor".
-     */
-    private void deactivateCellEditor(final TableEditor tableEditor) {
-        tableEditor.setEditor(null, null, CNUM_DEFAULT);
-        if (cellEditor != null) {
-            cellEditor.deactivate();
-            cellEditor.removeListener(editorListener);
-            cellEditor = null;
-        }
-    }
-
-    private ICellEditorListener createEditorListener(final TableEditor tableEditor) {
-        editorListener = new ICellEditorListener() {
-
-            public void cancelEditor() {
-                deactivateCellEditor(tableEditor);
-            }
-
-            public void editorValueChanged(boolean oldValidState, boolean newValidState) {
-                // Do nothing
-            }
-
-            public void applyEditorValue() {
-                // Do nothing
-            }
-        };
-        return editorListener;
-    }
-
     private void addTableColumns(final TableViewerCreator<IContextParameter> tableViewerCreator, final Table table) {
         // Name column
-        TableViewerCreatorColumn<IContextParameter, String> column = new TableViewerCreatorColumn<IContextParameter, String>(
+        TableViewerCreatorColumn<IContextParameter, String> nameColumn = new TableViewerCreatorColumn<IContextParameter, String>(
                 tableViewerCreator);
-        column.setTitle(Messages.getString("ContextProcessSection.39")); //$NON-NLS-1$
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
+        nameColumn.setTitle(Messages.getString("ContextProcessSection.39")); //$NON-NLS-1$
+        nameColumn.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
 
             public String get(IContextParameter bean) {
                 return bean.getName();
@@ -232,16 +160,17 @@ public class ConextTemplateComposite extends Composite {
                 bean.setName(value);
             }
         });
-        column.setModifiable(true);
-        column.setWidth(80);
+        nameColumn.setModifiable(true);
+        nameColumn.setWidth(80);
         TextCellEditor textCellEditor = new TextCellEditor(table);
-        column.setCellEditor(textCellEditor, paramNameCellEditorValueAdapter);
+        nameColumn.setCellEditor(textCellEditor, paramNameCellEditorValueAdapter);
 
         // //////////////////////////////////////////////////////////
         // Type column
-        column = new TableViewerCreatorColumn<IContextParameter, String>(tableViewerCreator);
-        column.setTitle(Messages.getString("ContextProcessSection.43")); //$NON-NLS-1$
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
+        TableViewerCreatorColumn<IContextParameter, String> typeColumn = new TableViewerCreatorColumn<IContextParameter, String>(
+                tableViewerCreator);
+        typeColumn.setTitle(Messages.getString("ContextProcessSection.43")); //$NON-NLS-1$
+        typeColumn.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
 
             public String get(IContextParameter bean) {
                 return bean.getType();
@@ -255,8 +184,8 @@ public class ConextTemplateComposite extends Composite {
                 // }
             }
         });
-        column.setModifiable(true);
-        column.setWidth(80);
+        typeColumn.setModifiable(true);
+        typeColumn.setWidth(80);
 
         ComboBoxCellEditor comboBoxCellEditor = new ComboBoxCellEditor(table, MetadataTalendType
                 .getCxtParameterTalendTypesLabels());
@@ -267,14 +196,15 @@ public class ConextTemplateComposite extends Composite {
         } else if (codeLanguage == ECodeLanguage.PERL) {
             comboValueAdapter = perlComboCellEditorValueAdapter;
         }
-        column.setCellEditor(comboBoxCellEditor, comboValueAdapter);
+        typeColumn.setCellEditor(comboBoxCellEditor, comboValueAdapter);
 
         ((CCombo) comboBoxCellEditor.getControl()).setEditable(false);
 
         // Code Column
-        column = new TableViewerCreatorColumn<IContextParameter, String>(tableViewerCreator);
-        column.setTitle(Messages.getString("ContextProcessSection.scriptCodeColumnTitle")); //$NON-NLS-1$
-        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
+        TableViewerCreatorColumn<IContextParameter, String> codeColumn = new TableViewerCreatorColumn<IContextParameter, String>(
+                tableViewerCreator);
+        codeColumn.setTitle(Messages.getString("ContextProcessSection.scriptCodeColumnTitle")); //$NON-NLS-1$
+        codeColumn.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
 
             public String get(IContextParameter bean) {
                 return bean.getScriptCode();
@@ -284,11 +214,11 @@ public class ConextTemplateComposite extends Composite {
                 // do nothing since script code should not be modified.
             }
         });
-        column.setModifiable(true);
-        column.setWidth(400);
+        codeColumn.setModifiable(true);
+        codeColumn.setWidth(400);
         TextCellEditor cellEditor = new TextCellEditor(table);
         ((Text) cellEditor.getControl()).setEditable(false);
-        column.setCellEditor(cellEditor, setDirtyValueAdapter);
+        codeColumn.setCellEditor(cellEditor, setDirtyValueAdapter);
     }
 
     IBeanPropertyAccessors<IContextParameter, Boolean> nullableAccessors = new IBeanPropertyAccessors<IContextParameter, Boolean>() {
@@ -564,6 +494,14 @@ public class ConextTemplateComposite extends Composite {
         @Override
         protected RemovePushButton createRemovePushButton() {
             return new RemovePushButtonForExtendedTable(toolbar, extendedTableViewer) {
+
+                public boolean getEnabledState() {
+                    if (modelManager.isReadOnly()) {
+                        return false;
+                    } else {
+                        return super.getEnabledState();
+                    }
+                }
 
                 protected void handleSelectionEvent(Event event) {
                     Object object = ((IStructuredSelection) tableViewerCreator.getTableViewer().getSelection()).getFirstElement();

@@ -53,4 +53,6 @@ public interface IContextModelManager {
     public void onContextAddParameter(IContextManager contextManager, IContextParameter parameter);
 
     public void onContextRemoveParameter(IContextManager contextManager, String paramName);
+
+    public boolean isReadOnly();
 }

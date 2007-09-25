@@ -34,7 +34,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.layout.RowLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IProcess;
@@ -72,17 +71,15 @@ public abstract class ContextComposite extends Composite implements IContextMode
     }
 
     private void setTabEnable(boolean enable) {
-        for (Control tabItem : tab.getTabList()) {
-            tabItem.setEnabled(enable);
-        }
+        template.setEnabled(enable);
+        // no need to set the ConextTreeValuesComposite and ConextTableValuesComposite. They can take care of
+        // themselvies.
     }
 
     public void refresh() {
         refreshChoiceComposite();
         if (getContextManager() == null) {
             this.setEnabled(false);
-            // tab.setEnabled(false);
-            // setTabEnable(false);
             clearChildrenUI();
         } else {
             this.setEnabled(true);
