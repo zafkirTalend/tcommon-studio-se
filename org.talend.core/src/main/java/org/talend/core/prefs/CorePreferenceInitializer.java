@@ -123,10 +123,10 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
             store.setValue(editorLineNumberRuler, true);
             store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
             store.setValue(editorLineNumberRuler, true);
-        }
 
-        // default colors for the ColorStyledText.
-        ColorManager.initDefaultColors(CorePlugin.getDefault().getPreferenceStore());
+            // default colors for the ColorStyledText.
+            ColorManager.initDefaultColors(CorePlugin.getDefault().getPreferenceStore());
+        }
         String languageType = Locale.getDefault().getLanguage();
         CorePlugin.getDefault().getPreferenceStore().setValue(ITalendCorePrefConstants.LANGUAGE_SELECTOR, languageType);
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.SQL_ADD_QUOTE, false);
