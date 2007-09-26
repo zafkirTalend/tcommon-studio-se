@@ -117,13 +117,13 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         final String editorsBundleName = "org.eclipse.ui.editors"; // NON-NLS-1$ //$NON-NLS-1$
         // AbstractDecoratedTextEditorPreferenceConstants.EDITOR_LINE_NUMBER_RULER = "lineNumberRuler"
         final String editorLineNumberRuler = "lineNumberRuler"; //$NON-NLS-1$
-        IPreferenceStore store;
+
         if (PlatformUI.isWorkbenchRunning()) {
-            store = new ScopedPreferenceStore(new InstanceScope(), perlEditorBundleName);
+            IPreferenceStore store = new ScopedPreferenceStore(new InstanceScope(), perlEditorBundleName);
+            store.setValue(editorLineNumberRuler, true);
+            store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
             store.setValue(editorLineNumberRuler, true);
         }
-        store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
-        store.setValue(editorLineNumberRuler, true);
 
         // default colors for the ColorStyledText.
         ColorManager.initDefaultColors(CorePlugin.getDefault().getPreferenceStore());
