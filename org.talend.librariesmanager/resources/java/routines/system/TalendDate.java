@@ -55,7 +55,7 @@ public class TalendDate {
      * {param} string("EN") languageOrCountyCode : the language or country whose date format symbols should be used, in
      * lower or upper case
      * 
-     * {example} formatDate("yyyy-MM-dd", new Date(), "en") #
+     * {example} formatDateLocale("yyyy-MM-dd", new Date(), "en") #
      */
     public synchronized static String formatDateLocale(String pattern, java.util.Date date, String languageOrCountyCode) {
         return FastDateParser.getInstance(pattern, LocaleProvider.getLocale(languageOrCountyCode)).format(date);
@@ -113,7 +113,7 @@ public class TalendDate {
      * {param} string("EN") languageOrCountyCode : the language or country whose date format symbols should be used, in
      * lower or upper case
      * 
-     * {example} parseDate("yyyy-MMM-dd", "23-Mar-1979", "en") #
+     * {example} parseDateLocale("yyyy-MMM-dd", "23-Mar-1979", "en") #
      */
     public synchronized static Date parseDateLocale(String pattern, String stringDate, String languageOrCountyCode) {
         try {
@@ -136,6 +136,8 @@ public class TalendDate {
      * 
      * {param} string("CCYY-MM-DD hh:mm:ss") pattern : date pattern + CC for century + YY for year + MM for month + DD
      * for day + hh for hour + mm for minute + ss for second
+     * 
+     * {example} getDate("CCYY-MM-DD hh:mm:ss") #
      */
     public static String getDate(String pattern) {
         StringBuffer result = new StringBuffer();
