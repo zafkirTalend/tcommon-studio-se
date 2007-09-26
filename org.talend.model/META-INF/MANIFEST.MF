@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: org.talend.model; singleton:=true
+Bundle-SymbolicName: org.talend.model;singleton:=true
 Bundle-Version: 2.2.0.qualifier
 Bundle-ClassPath: .
 Bundle-Vendor: %providerName
@@ -9,7 +9,6 @@ Bundle-Localization: plugin
 Export-Package: org.talend.core.model,
  org.talend.core.model.expression,
  org.talend.core.model.expression.impl,
- org.talend.core.model.expression.util,
  org.talend.core.model.metadata.builder.connection,
  org.talend.core.model.metadata.builder.connection.impl,
  org.talend.core.model.metadata.builder.connection.util,
