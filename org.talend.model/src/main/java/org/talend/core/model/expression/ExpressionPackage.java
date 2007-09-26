@@ -88,7 +88,7 @@ public interface ExpressionPackage extends EPackage {
     int EMF_EXPRESSION__EXPRESSION = 1;
 
     /**
-     * The feature id for the '<em><b>Variables</b></em>' reference list.
+     * The feature id for the '<em><b>Variables</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -176,10 +176,10 @@ public interface ExpressionPackage extends EPackage {
     EAttribute getEMFExpression_Expression();
 
     /**
-     * Returns the meta object for the reference list '{@link org.talend.core.model.expression.EMFExpression#getVariables <em>Variables</em>}'.
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.expression.EMFExpression#getVariables <em>Variables</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Variables</em>'.
+     * @return the meta object for the containment reference list '<em>Variables</em>'.
      * @see org.talend.core.model.expression.EMFExpression#getVariables()
      * @see #getEMFExpression()
      * @generated
@@ -267,7 +267,7 @@ public interface ExpressionPackage extends EPackage {
         EAttribute EMF_EXPRESSION__EXPRESSION = eINSTANCE.getEMFExpression_Expression();
 
         /**
-         * The meta object literal for the '<em><b>Variables</b></em>' reference list feature.
+         * The meta object literal for the '<em><b>Variables</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

@@ -82,17 +82,17 @@ public interface EMFExpression extends EObject {
     void setExpression(String value);
 
     /**
-     * Returns the value of the '<em><b>Variables</b></em>' reference list.
+     * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
      * The list contents are of type {@link org.talend.core.model.expression.EMFVariable}.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Variables</em>' reference list isn't clear,
+     * If the meaning of the '<em>Variables</em>' containment reference list isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Variables</em>' reference list.
+     * @return the value of the '<em>Variables</em>' containment reference list.
      * @see org.talend.core.model.expression.ExpressionPackage#getEMFExpression_Variables()
-     * @model
+     * @model containment="true"
      * @generated
      */
     EList<EMFVariable> getVariables();
