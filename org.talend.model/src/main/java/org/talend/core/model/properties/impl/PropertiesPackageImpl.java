@@ -1968,62 +1968,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getCronTalendTrigger_DaysOfWeek() {
+    public EAttribute getCronTalendTrigger_CronExpression() {
         return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getCronTalendTrigger_DaysOfMonth() {
-        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getCronTalendTrigger_Months() {
-        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getCronTalendTrigger_Years() {
-        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getCronTalendTrigger_Hours() {
-        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(4);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getCronTalendTrigger_Minutes() {
-        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(5);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EAttribute getCronTalendTrigger_Seconds() {
-        return (EAttribute)cronTalendTriggerEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -2430,13 +2376,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(talendTriggerEClass, TALEND_TRIGGER__FINAL_FIRE_TIME);
 
         cronTalendTriggerEClass = createEClass(CRON_TALEND_TRIGGER);
-        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__DAYS_OF_WEEK);
-        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__DAYS_OF_MONTH);
-        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__MONTHS);
-        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__YEARS);
-        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__HOURS);
-        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__MINUTES);
-        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__SECONDS);
+        createEAttribute(cronTalendTriggerEClass, CRON_TALEND_TRIGGER__CRON_EXPRESSION);
 
         cronUITalendTriggerEClass = createEClass(CRON_UI_TALEND_TRIGGER);
         createEAttribute(cronUITalendTriggerEClass, CRON_UI_TALEND_TRIGGER__LIST_DAYS_OF_WEEK);
@@ -2731,13 +2671,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getTalendTrigger_FinalFireTime(), theEcorePackage.getEDate(), "finalFireTime", null, 0, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(cronTalendTriggerEClass, CronTalendTrigger.class, "CronTalendTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getCronTalendTrigger_DaysOfWeek(), theEcorePackage.getEString(), "daysOfWeek", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getCronTalendTrigger_DaysOfMonth(), theEcorePackage.getEString(), "daysOfMonth", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getCronTalendTrigger_Months(), theEcorePackage.getEString(), "months", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getCronTalendTrigger_Years(), theEcorePackage.getEString(), "years", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getCronTalendTrigger_Hours(), theEcorePackage.getEString(), "hours", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getCronTalendTrigger_Minutes(), theEcorePackage.getEString(), "minutes", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getCronTalendTrigger_Seconds(), theEcorePackage.getEString(), "seconds", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getCronTalendTrigger_CronExpression(), ecorePackage.getEString(), "cronExpression", null, 0, 1, CronTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(cronUITalendTriggerEClass, CronUITalendTrigger.class, "CronUITalendTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getCronUITalendTrigger_ListDaysOfWeek(), theEcorePackage.getEString(), "listDaysOfWeek", null, 0, 1, CronUITalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

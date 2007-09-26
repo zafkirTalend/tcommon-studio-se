@@ -2514,67 +2514,13 @@ public interface PropertiesPackage extends EPackage {
     int CRON_TALEND_TRIGGER__FINAL_FIRE_TIME = TALEND_TRIGGER__FINAL_FIRE_TIME;
 
     /**
-     * The feature id for the '<em><b>Days Of Week</b></em>' attribute.
+     * The feature id for the '<em><b>Cron Expression</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CRON_TALEND_TRIGGER__DAYS_OF_WEEK = TALEND_TRIGGER_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Days Of Month</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CRON_TALEND_TRIGGER__DAYS_OF_MONTH = TALEND_TRIGGER_FEATURE_COUNT + 1;
-
-    /**
-     * The feature id for the '<em><b>Months</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CRON_TALEND_TRIGGER__MONTHS = TALEND_TRIGGER_FEATURE_COUNT + 2;
-
-    /**
-     * The feature id for the '<em><b>Years</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CRON_TALEND_TRIGGER__YEARS = TALEND_TRIGGER_FEATURE_COUNT + 3;
-
-    /**
-     * The feature id for the '<em><b>Hours</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CRON_TALEND_TRIGGER__HOURS = TALEND_TRIGGER_FEATURE_COUNT + 4;
-
-    /**
-     * The feature id for the '<em><b>Minutes</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CRON_TALEND_TRIGGER__MINUTES = TALEND_TRIGGER_FEATURE_COUNT + 5;
-
-    /**
-     * The feature id for the '<em><b>Seconds</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CRON_TALEND_TRIGGER__SECONDS = TALEND_TRIGGER_FEATURE_COUNT + 6;
+    int CRON_TALEND_TRIGGER__CRON_EXPRESSION = TALEND_TRIGGER_FEATURE_COUNT + 0;
 
     /**
      * The number of structural features of the '<em>Cron Talend Trigger</em>' class.
@@ -2583,7 +2529,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CRON_TALEND_TRIGGER_FEATURE_COUNT = TALEND_TRIGGER_FEATURE_COUNT + 7;
+    int CRON_TALEND_TRIGGER_FEATURE_COUNT = TALEND_TRIGGER_FEATURE_COUNT + 1;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.CronUITalendTriggerImpl <em>Cron UI Talend Trigger</em>}' class.
@@ -4785,81 +4731,15 @@ public interface PropertiesPackage extends EPackage {
     EClass getCronTalendTrigger();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getDaysOfWeek <em>Days Of Week</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getCronExpression <em>Cron Expression</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Days Of Week</em>'.
-     * @see org.talend.core.model.properties.CronTalendTrigger#getDaysOfWeek()
+     * @return the meta object for the attribute '<em>Cron Expression</em>'.
+     * @see org.talend.core.model.properties.CronTalendTrigger#getCronExpression()
      * @see #getCronTalendTrigger()
      * @generated
      */
-    EAttribute getCronTalendTrigger_DaysOfWeek();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getDaysOfMonth <em>Days Of Month</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Days Of Month</em>'.
-     * @see org.talend.core.model.properties.CronTalendTrigger#getDaysOfMonth()
-     * @see #getCronTalendTrigger()
-     * @generated
-     */
-    EAttribute getCronTalendTrigger_DaysOfMonth();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getMonths <em>Months</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Months</em>'.
-     * @see org.talend.core.model.properties.CronTalendTrigger#getMonths()
-     * @see #getCronTalendTrigger()
-     * @generated
-     */
-    EAttribute getCronTalendTrigger_Months();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getYears <em>Years</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Years</em>'.
-     * @see org.talend.core.model.properties.CronTalendTrigger#getYears()
-     * @see #getCronTalendTrigger()
-     * @generated
-     */
-    EAttribute getCronTalendTrigger_Years();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getHours <em>Hours</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Hours</em>'.
-     * @see org.talend.core.model.properties.CronTalendTrigger#getHours()
-     * @see #getCronTalendTrigger()
-     * @generated
-     */
-    EAttribute getCronTalendTrigger_Hours();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getMinutes <em>Minutes</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Minutes</em>'.
-     * @see org.talend.core.model.properties.CronTalendTrigger#getMinutes()
-     * @see #getCronTalendTrigger()
-     * @generated
-     */
-    EAttribute getCronTalendTrigger_Minutes();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.CronTalendTrigger#getSeconds <em>Seconds</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Seconds</em>'.
-     * @see org.talend.core.model.properties.CronTalendTrigger#getSeconds()
-     * @see #getCronTalendTrigger()
-     * @generated
-     */
-    EAttribute getCronTalendTrigger_Seconds();
+    EAttribute getCronTalendTrigger_CronExpression();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.CronUITalendTrigger <em>Cron UI Talend Trigger</em>}'.
@@ -6562,60 +6442,12 @@ public interface PropertiesPackage extends EPackage {
         EClass CRON_TALEND_TRIGGER = eINSTANCE.getCronTalendTrigger();
 
         /**
-         * The meta object literal for the '<em><b>Days Of Week</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Cron Expression</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute CRON_TALEND_TRIGGER__DAYS_OF_WEEK = eINSTANCE.getCronTalendTrigger_DaysOfWeek();
-
-        /**
-         * The meta object literal for the '<em><b>Days Of Month</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute CRON_TALEND_TRIGGER__DAYS_OF_MONTH = eINSTANCE.getCronTalendTrigger_DaysOfMonth();
-
-        /**
-         * The meta object literal for the '<em><b>Months</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute CRON_TALEND_TRIGGER__MONTHS = eINSTANCE.getCronTalendTrigger_Months();
-
-        /**
-         * The meta object literal for the '<em><b>Years</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute CRON_TALEND_TRIGGER__YEARS = eINSTANCE.getCronTalendTrigger_Years();
-
-        /**
-         * The meta object literal for the '<em><b>Hours</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute CRON_TALEND_TRIGGER__HOURS = eINSTANCE.getCronTalendTrigger_Hours();
-
-        /**
-         * The meta object literal for the '<em><b>Minutes</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute CRON_TALEND_TRIGGER__MINUTES = eINSTANCE.getCronTalendTrigger_Minutes();
-
-        /**
-         * The meta object literal for the '<em><b>Seconds</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute CRON_TALEND_TRIGGER__SECONDS = eINSTANCE.getCronTalendTrigger_Seconds();
+        EAttribute CRON_TALEND_TRIGGER__CRON_EXPRESSION = eINSTANCE.getCronTalendTrigger_CronExpression();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.CronUITalendTriggerImpl <em>Cron UI Talend Trigger</em>}' class.
