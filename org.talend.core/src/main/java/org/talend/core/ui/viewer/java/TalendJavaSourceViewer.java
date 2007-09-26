@@ -130,7 +130,7 @@ public class TalendJavaSourceViewer extends JavaSourceViewer {
         IPreferenceStore store = JavaPlugin.getDefault().getCombinedPreferenceStore();
         final TalendJavaSourceViewer viewer = new TalendJavaSourceViewer(composite, null, null, false, styles, store);
         StringBuffer buff = new StringBuffer();
-        buff.append("package routines;\n\n");
+        buff.append("package internal;\n\n");
         buff.append("public class " + VIEWER_CLASS_NAME + " {\n");
         buff.append("public void myFunction(){\n");
         buff.append(text);
