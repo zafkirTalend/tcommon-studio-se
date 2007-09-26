@@ -254,19 +254,30 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
         return null;
     }
 
+    private String ownerId;
+
+    /**
+     * Sets the ownerId.
+     * 
+     * @param ownerId the ownerId to set
+     */
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
     /*
      * (non-Javadoc)
      * 
      * @see org.talend.expressionbuilder.IExpressionDataBean#getOwnerId()
      */
     public String getOwnerId() {
-        return null;
+        return this.ownerId;
     }
 
     private String path;
 
     /**
-     * DOC yzhang Comment method "setPath".
+     * yzhang Comment method "setPath".
      * 
      * @param path
      */
