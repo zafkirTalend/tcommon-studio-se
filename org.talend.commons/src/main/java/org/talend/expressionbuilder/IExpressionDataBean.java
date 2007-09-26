@@ -40,6 +40,4 @@ public interface IExpressionDataBean {
 
     public String getOwnerId();
 
-    public String getExpressionFilePath();
-
 }

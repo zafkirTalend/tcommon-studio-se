@@ -277,24 +277,6 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
     private String path;
 
     /**
-     * yzhang Comment method "setPath".
-     * 
-     * @param path
-     */
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.expressionbuilder.IExpressionDataBean#getExpressionFilePath()
-     */
-    public String getExpressionFilePath() {
-        return this.path;
-    }
-
-    /**
      * yzhang Comment method "setData".
      * 
      * @param data
