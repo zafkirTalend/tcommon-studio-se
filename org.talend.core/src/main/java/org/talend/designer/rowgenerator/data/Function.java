@@ -154,6 +154,16 @@ public class Function implements Cloneable {
                     p1.setValue(p0.getValue());
                     parameters1.add(p1);
                 }
+                if (para instanceof CharParameter) {
+                    CharParameter p0 = (CharParameter) para;
+                    CharParameter p1 = new CharParameter();
+                    p1.setComment(p0.getComment());
+                    p1.setName(p0.getName());
+                    p1.setType(p0.getType());
+                    p1.setValue(p0.getValue());
+                    p1.setValue(p0.getValue());
+                    parameters1.add(p1);
+                }
             }
             fun.setParameters(parameters1);
         } catch (Exception e) {
@@ -349,6 +359,7 @@ public class Function implements Cloneable {
         this.parameters = parameters;
     }
 
+    @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(Messages.getString("Function.FunctionName", name))
@@ -380,12 +391,10 @@ public class Function implements Cloneable {
         this.talendType = talendType;
     }
 
-    
     public boolean isUserDefined() {
         return this.isUserDefined;
     }
 
-    
     public void setUserDefined(boolean isUserDefined) {
         this.isUserDefined = isUserDefined;
     }
