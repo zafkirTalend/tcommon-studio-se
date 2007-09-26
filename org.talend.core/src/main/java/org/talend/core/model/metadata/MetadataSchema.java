@@ -22,7 +22,9 @@
 package org.talend.core.model.metadata;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -509,19 +511,9 @@ public class MetadataSchema {
                 column.setAttributeNode(comment);
             }
 
-            // use specific Xerces class to write DOM-data to a file:
-            XMLSerializer serializer = new XMLSerializer();
-            OutputFormat outputFormat = new OutputFormat();
-            outputFormat.setIndenting(true);
-            outputFormat.setEncoding(System.getProperty("file.encoding"));
+            // save document to file
+            saveDocumentByEncoding(document, file);
 
-            java.io.FileWriter fileWriter = new java.io.FileWriter(file);
-
-            serializer.setOutputFormat(outputFormat);
-            serializer.setOutputCharStream(fileWriter);
-            serializer.serialize(document);
-
-            fileWriter.close();
             return true;
         }
         return false;
@@ -659,19 +651,9 @@ public class MetadataSchema {
                 saveOneColumn(document, metadataColumn, column);
             }
 
-            // use specific Xerces class to write DOM-data to a file:
-            XMLSerializer serializer = new XMLSerializer();
-            OutputFormat outputFormat = new OutputFormat();
-            outputFormat.setIndenting(true);
-            outputFormat.setEncoding(System.getProperty("file.encoding"));
+            // save document
+            saveDocumentByEncoding(document, file);
 
-            java.io.FileWriter fileWriter = new java.io.FileWriter(file);
-
-            serializer.setOutputFormat(outputFormat);
-            serializer.setOutputCharStream(fileWriter);
-            serializer.serialize(document);
-
-            fileWriter.close();
             return true;
         }
         return false;
@@ -757,5 +739,46 @@ public class MetadataSchema {
             // Return the new types of Perl.
             return PerlTypesManager.getNewTypeName(type);
         }
+    }
+
+    /**
+     * 
+     * DOC ggu Comment method "saveDocumentByEncoding".
+     * 
+     * @param document
+     * @param file
+     * @throws IOException
+     */
+    private static void saveDocumentByEncoding(Document document, File file) throws IOException {
+        if (document == null || file == null) {
+            return;
+        }
+        // use specific Xerces class to write DOM-data to a file:
+        XMLSerializer serializer = new XMLSerializer();
+        OutputFormat outputFormat = new OutputFormat();
+        outputFormat.setIndenting(true);
+        serializer.setOutputFormat(outputFormat);
+
+        // java.io.FileWriter fileWriter = new java.io.FileWriter(file);
+        // serializer.setOutputCharStream(fileWriter);
+        // try {
+        // // firstly, use the local encoding
+        // outputFormat.setEncoding(System.getProperty("file.encoding"));
+        //
+        // serializer.serialize(document);
+        // } catch (java.io.UnsupportedEncodingException e) {
+        // // Use default "UTF-8"
+        // outputFormat.setEncoding("UTF-8");
+        //
+        // serializer.serialize(document);
+        // }
+        //
+        // fileWriter.close();
+        // fileWriter = null;
+        OutputStreamWriter output = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
+        serializer.setOutputCharStream(output);
+        serializer.serialize(document);
+        output.close();
+
     }
 }
