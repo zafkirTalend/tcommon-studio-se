@@ -32,10 +32,7 @@ import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
-import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
-import org.talend.core.context.Context;
-import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
@@ -45,7 +42,6 @@ import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
-import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -149,6 +145,10 @@ public class SaveAsGenericSchemaCommand extends Command {
                 if (column.getLength() != null) {
                     createMetadataColumn.setLength(column.getLength().intValue());
                 }
+                if (column.getPrecision() != null) {
+                    createMetadataColumn.setPrecision(column.getPrecision().intValue());
+                }
+                createMetadataColumn.setPattern(column.getPattern());
                 createMetadataColumn.setNullable(column.isNullable());
                 createMetadataColumn.setOriginalField(column.getOriginalDbColumnName());
                 createMetadataColumn.setTalendType(column.getTalendType());
