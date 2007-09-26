@@ -71,15 +71,13 @@ public class ParameterFactory {
         Parameter p = createParameter(type);
         if (p != null) {
             string = string.replaceFirst(type, PerlFunctionParser.EMPTY_STRING).trim();
+            if (string.endsWith(":")) {
+                string = string.substring(0, string.length() - 1);
+            }
             String[] s = string.split(":"); //$NON-NLS-1$
-            if (s != null && s.length != 0) {
-                if (s[0] != null) {
-                    string = s[0];
-                }
-
-                if (s.length == 2 && s[1] != null) {
-                    p.setComment(s[1]);
-                }
+            if (s != null && s.length > 1) {
+                p.setComment(s[s.length - 1].trim());
+                string = string.substring(0, string.length() - s[s.length - 1].length() - 1);
             }
 
             if (string.startsWith("(")) { //$NON-NLS-1$
@@ -91,10 +89,9 @@ public class ParameterFactory {
             }
 
             p.setName(string.trim());
-
-            return p;
         }
-        return null;
+
+        return p;
     }
 
     /**
@@ -162,10 +159,8 @@ public class ParameterFactory {
     }
 
     public static void main(String[] args) {
-        String string = "string(\'2007-01-01\') min : minimum date";
-
-        String type = "string"; //$NON-NLS-1$
-        string = string.replaceFirst(type, ""); //$NON-NLS-1$
-        System.out.println(string);
+        String s = "sdfdsf:";
+        String[] ss = s.split(":");
+        System.out.println(ss.length);
     }
 }
