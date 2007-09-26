@@ -32,6 +32,7 @@ import org.eclipse.core.runtime.preferences.DefaultScope;
 import org.eclipse.core.runtime.preferences.IEclipsePreferences;
 import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.jface.preference.IPreferenceStore;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.preferences.ScopedPreferenceStore;
 import org.eclipse.update.core.SiteManager;
 import org.eclipse.update.internal.scheduler.SchedulerStartup;
@@ -116,8 +117,11 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         final String editorsBundleName = "org.eclipse.ui.editors"; // NON-NLS-1$ //$NON-NLS-1$
         // AbstractDecoratedTextEditorPreferenceConstants.EDITOR_LINE_NUMBER_RULER = "lineNumberRuler"
         final String editorLineNumberRuler = "lineNumberRuler"; //$NON-NLS-1$
-        IPreferenceStore store = new ScopedPreferenceStore(new InstanceScope(), perlEditorBundleName);
-        store.setValue(editorLineNumberRuler, true);
+        IPreferenceStore store;
+        if (PlatformUI.isWorkbenchRunning()) {
+            store = new ScopedPreferenceStore(new InstanceScope(), perlEditorBundleName);
+            store.setValue(editorLineNumberRuler, true);
+        }
         store = new ScopedPreferenceStore(new InstanceScope(), editorsBundleName);
         store.setValue(editorLineNumberRuler, true);
 
