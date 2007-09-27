@@ -22,7 +22,6 @@
 package org.talend.core.model.process;
 
 import org.eclipse.draw2d.Graphics;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.RGB;
 import org.talend.core.i18n.Messages;
 
@@ -33,12 +32,13 @@ import org.talend.core.i18n.Messages;
  * 
  */
 public enum EConnectionType implements IConnectionCategory {
+
     FLOW_MAIN(0, "FLOW", //$NON-NLS-1$
               EConnectionCategory.MAIN,
               MAIN | DATA | FLOW | CUSTOM_NAME | UNIQUE_NAME,
               "Main", Messages.getString("EConnectionType.mainMenu"), //$NON-NLS-1$ //$NON-NLS-2$
               new Integer(Graphics.LINE_SOLID),
-              new Color(null, new RGB(230, 100, 0))),
+              new RGB(230, 100, 0)),
     /*
      * RUN_BEFORE(1, "BEFORE", //$NON-NLS-1$ EConnectionCategory.OTHER, EXECUTION_ORDER | DEPENDENCY, "RunBefore",
      * Messages.getString("EConnectionType.runBeforeMenu"), //$NON-NLS-1$ //$NON-NLS-2$ new
@@ -55,56 +55,56 @@ public enum EConnectionType implements IConnectionCategory {
               CONDITION | DEPENDENCY,
               "OnOk", Messages.getString("EConnectionType.runIfOKMenu"), //$NON-NLS-1$ //$NON-NLS-2$
               new Integer(Graphics.LINE_SOLID),
-              new Color(null, new RGB(0, 150, 0))),
+              new RGB(0, 150, 0)),
     RUN_IF_ERROR(5, "RUN_ERROR", //$NON-NLS-1$
                  EConnectionCategory.OTHER,
                  CONDITION | DEPENDENCY,
                  "OnError", Messages.getString("EConnectionType.runIfErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                  new Integer(Graphics.LINE_SOLID),
-                 new Color(null, new RGB(200, 0, 0))),
+                 new RGB(200, 0, 0)),
     RUN_IF(6, "RUN_IF", //$NON-NLS-1$
            EConnectionCategory.OTHER,
            CONDITION | DEPENDENCY | CUSTOM_NAME,
            "If", Messages.getString("EConnectionType.runIfMenu"), //$NON-NLS-1$ //$NON-NLS-2$
            new Integer(Graphics.LINE_DASHDOTDOT),
-           new Color(null, new RGB(180, 100, 30))),
+           new RGB(180, 100, 30)),
     ITERATE(7, "ITERATE", //$NON-NLS-1$
             EConnectionCategory.MAIN,
             MAIN,
             "Iterate", Messages.getString("EConnectionType.iteratorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
             new Integer(Graphics.LINE_SOLID),
-            new Color(null, new RGB(100, 230, 0))),
+            new RGB(100, 230, 0)),
     FLOW_REF(8, "LOOKUP", //$NON-NLS-1$
              EConnectionCategory.OTHER,
              DATA | FLOW | CUSTOM_NAME | USE_HASH | UNIQUE_NAME,
              "Lookup", Messages.getString("EDesignerConnection.lookupMenu"), //$NON-NLS-1$ //$NON-NLS-2$
              new Integer(Graphics.LINE_DOT),
-             new Color(null, new RGB(230, 100, 0))),
+             new RGB(230, 100, 0)),
     TABLE(9, "TABLE", //$NON-NLS-1$
           EConnectionCategory.MAIN,
           MAIN | DATA | CUSTOM_NAME,
           "Table", Messages.getString("EConnectionType.tableMenu"), //$NON-NLS-1$ //$NON-NLS-2$
           new Integer(Graphics.LINE_SOLID),
-          new Color(null, new RGB(0, 150, 100))),
+          new RGB(0, 150, 100)),
     FLOW_MERGE(10, "MERGE", //$NON-NLS-1$
                EConnectionCategory.MAIN,
                MAIN | DATA | FLOW | CUSTOM_NAME | UNIQUE_NAME | MERGE,
                "Merge", Messages.getString("EConnectionType.mergeMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                new Integer(Graphics.LINE_DASHDOT),
-               new Color(null, new RGB(230, 100, 0))),
+               new RGB(230, 100, 0)),
     THEN_RUN(1, "THEN_RUN", //$NON-NLS-1$
              EConnectionCategory.OTHER,
              EXECUTION_ORDER | DEPENDENCY,
              "ThenRun", Messages.getString("EConnectionType.thenRunMenu"), //$NON-NLS-1$ //$NON-NLS-2$
              new Integer(Graphics.LINE_SOLID),
-             new Color(null, new RGB(100, 100, 100))),
+             new RGB(100, 100, 100)),
 
     RUN_AFTER(2, "AFTER", //$NON-NLS-1$
               EConnectionCategory.OTHER,
               EXECUTION_ORDER | DEPENDENCY,
               "RunAfter", Messages.getString("EConnectionType.runAfterMenu"), //$NON-NLS-1$ //$NON-NLS-2$ 
               new Integer(Graphics.LINE_SOLID),
-              new Color(null, new RGB(100, 100, 100)));
+              new RGB(100, 100, 100));
 
     private String name;
 
@@ -123,10 +123,10 @@ public enum EConnectionType implements IConnectionCategory {
      */
     private Integer defaultLineStyle;
 
-    private Color defaultColor;
+    private RGB rgb;
 
     EConnectionType(int id, String name, EConnectionCategory category, int connectionCategory, String linkName,
-            String menuName, Integer lineStyle, Color color) {
+            String menuName, Integer lineStyle, RGB rgb) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -134,7 +134,7 @@ public enum EConnectionType implements IConnectionCategory {
         this.defaultLinkName = linkName;
         this.defaultMenuName = menuName;
         this.defaultLineStyle = lineStyle;
-        this.defaultColor = color;
+        this.rgb = rgb;
     }
 
     public static EConnectionType getTypeFromId(int id) {
@@ -185,8 +185,8 @@ public enum EConnectionType implements IConnectionCategory {
      * 
      * @return the defaultColor
      */
-    public Color getDefaultColor() {
-        return defaultColor;
+    public RGB getRGB() {
+        return rgb;
     }
 
     /**

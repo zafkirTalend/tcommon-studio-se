@@ -21,19 +21,17 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-import org.eclipse.swt.graphics.Color;
-
+import org.eclipse.swt.graphics.RGB;
 
 /**
- * DOC nrousseau  class global comment. Detailled comment
- * <br/>
- *
+ * DOC nrousseau class global comment. Detailled comment <br/>
+ * 
  */
 public interface IConnectionProperty {
-    
-    public Color getColor();
 
-    public void setColor(Color color);
+    public RGB getRGB();
+
+    public void setRGB(RGB rgb);
 
     public Integer getLineStyle();
 
