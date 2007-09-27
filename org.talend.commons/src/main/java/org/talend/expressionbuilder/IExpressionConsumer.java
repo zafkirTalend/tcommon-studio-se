@@ -31,6 +31,4 @@ public interface IExpressionConsumer {
 
     public void setConsumerExpression(String expression);
 
-    public void setVariables(Object obj);
-
 }

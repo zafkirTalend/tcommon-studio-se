@@ -227,15 +227,6 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.expressionbuilder.IExpressionConsumer#setData(java.lang.Object)
-     */
-    public void setVariables(Object obj) {
-        this.data = obj;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see org.talend.expressionbuilder.IExpressionDataBean#getExpression()
      */
     public String getExpression() {
