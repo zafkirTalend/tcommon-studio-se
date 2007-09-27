@@ -50,6 +50,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.JobType;
 import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 import org.talend.designer.core.model.utils.emf.talendfile.RequiredType;
+import org.talend.expressionbuilder.ExpressionPersistance;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
@@ -62,13 +63,13 @@ public class PropertiesWizard extends Wizard {
 
     private PropertiesWizardPage mainPage;
 
-    private IRepositoryObject object;
+    private final IRepositoryObject object;
 
-    private IPath path;
+    private final IPath path;
 
     private boolean alreadyLockedByUser = false;
 
-    private String originaleObjectLabel;
+    private final String originaleObjectLabel;
 
     public PropertiesWizard(IRepositoryObject object, IPath path) {
         super();
@@ -81,7 +82,8 @@ public class PropertiesWizard extends Wizard {
     }
 
     private void lockObject() {
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
+                .getProxyRepositoryFactory();
         try {
             if (repositoryFactory.getStatus(object).equals(ERepositoryStatus.LOCK_BY_USER)) {
                 alreadyLockedByUser = true;
@@ -97,7 +99,8 @@ public class PropertiesWizard extends Wizard {
 
     private void unlockObject() {
         if (!alreadyLockedByUser) {
-            IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+            IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
+                    .getProxyRepositoryFactory();
             try {
                 repositoryFactory.unlock(object);
             } catch (PersistenceException e) {
@@ -107,7 +110,8 @@ public class PropertiesWizard extends Wizard {
     }
 
     private boolean isReadOnly() {
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
+                .getProxyRepositoryFactory();
         return !repositoryFactory.getStatus(object).isEditable() || alreadyLockedByUser;
     }
 
@@ -115,6 +119,7 @@ public class PropertiesWizard extends Wizard {
     public void addPages() {
         mainPage = new PropertiesWizardPage("WizardPage", object.getProperty(), path, isReadOnly(), false) { //$NON-NLS-1$
 
+            @Override
             public void createControl(Composite parent) {
                 Composite container = new Composite(parent, SWT.NONE);
                 GridLayout layout = new GridLayout(2, false);
@@ -142,13 +147,15 @@ public class PropertiesWizard extends Wizard {
         if (alreadyLockedByUser) {
             return false;
         }
-        
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
+                .getProxyRepositoryFactory();
         try {
             repositoryFactory.save(object.getProperty());
             if (!object.getLabel().equals(originaleObjectLabel)) {
                 manageRunJobRenaming(object.getLabel(), originaleObjectLabel);
             }
+            ExpressionPersistance.getInstance().jobNameChanged(originaleObjectLabel, object.getLabel());
             return true;
         } catch (PersistenceException e) {
             MessageBoxExceptionHandler.process(e);
@@ -182,9 +189,9 @@ public class PropertiesWizard extends Wizard {
      */
     private class UpdateRequiredProperty implements IComponentConversion {
 
-        private String oldJobName;
+        private final String oldJobName;
 
-        private String newJobName;
+        private final String newJobName;
 
         public UpdateRequiredProperty(String oldJobName, String newJobName) {
             super();
@@ -216,12 +223,13 @@ public class PropertiesWizard extends Wizard {
             } catch (PersistenceException e) {
                 MessageBoxExceptionHandler.process(e);
             }
-        }        
+        }
         return true;
     }
 
     private void reloadProperty() throws PersistenceException {
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
+                .getProxyRepositoryFactory();
         Property property = repositoryFactory.reload(object.getProperty());
         object.setProperty(property);
     }
