@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.core.model.metadata.designerproperties;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -353,6 +355,19 @@ public class RepositoryToComponentProperty {
                 return TalendTextUtils.addQuotes(xmlDesc.getAbsoluteXPathQuery());
             }
         }
+        if (value.equals("XML_MAPPING")) {
+            if (xmlDesc != null) {
+                List<SchemaTarget> schemaTargets = xmlDesc.getSchemaTargets();
+                List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
+                for (SchemaTarget schema : schemaTargets) {
+                    Map<String, Object> map = new HashMap<String, Object>();
+                    // map.put("SCHEMA_COLUMN", schema.getTagName());
+                    map.put("QUERY", TalendTextUtils.addQuotes(schema.getRelativeXPathQuery()));
+                    maps.add(map);
+                }
+                return maps;
+            }
+        }
         return null;
     }
 
@@ -399,7 +414,7 @@ public class RepositoryToComponentProperty {
     private static Object getLdifFileValue(LdifFileConnection connection, String value) {
         return null;
     }
-    
+
     /**
      * Gets repository value for LDAP schema.
      * 
@@ -423,10 +438,9 @@ public class RepositoryToComponentProperty {
         String protocol = connection.getProtocol();// Simple or Anonymous
         if (value.equals("PROTOCOL")) {
             String encryptionMethodName = connection.getEncryptionMethodName();
-            if(encryptionMethodName.equals("LDAPS(SSL)"))
-                    {
+            if (encryptionMethodName.equals("LDAPS(SSL)")) {
                 return "LDAPS";
-                    }
+            }
         }
 
         boolean useAuthen = connection.isUseAuthen();
