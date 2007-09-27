@@ -69,9 +69,9 @@ public class MetadataToolbarEditorView extends ExtendedToolbarView {
         super(parent, style, extendedTableViewer);
         if (dbmsId != null) {
             resetDBTypesButton = createResetDBTypesPushButton(dbmsId);
-            saveAsGenericSchemaButton = createSaveAsGenericSchemaButton(dbmsId);
-            updateEnabledStateOfButtons();
         }
+        saveAsGenericSchemaButton = createSaveAsGenericSchemaButton(dbmsId);
+        updateEnabledStateOfButtons();
     }
 
     /*
