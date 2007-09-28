@@ -147,6 +147,8 @@ public class ExpressionPersistance {
             EMFVariable emfVariable = ExpressionFactory.eINSTANCE.createEMFVariable();
             emfVariable.setName(variable.getName());
             emfVariable.setValue(variable.getValue());
+            emfVariable.setTalendType(variable.getTalendType());
+            emfVariable.setNullable(variable.isNullable());
             emfExpression.getVariables().add(emfVariable);
         }
 
@@ -164,7 +166,7 @@ public class ExpressionPersistance {
         List<Variable> vars = new ArrayList<Variable>();
 
         for (EMFVariable emfVar : emfExpression.getVariables()) {
-            vars.add(new Variable(emfVar.getName(), emfVar.getValue()));
+            vars.add(new Variable(emfVar.getName(), emfVar.getValue(), emfVar.getTalendType(), emfVar.isNullable()));
         }
 
         return new Expression(emfExpression.getExpression(), vars);
