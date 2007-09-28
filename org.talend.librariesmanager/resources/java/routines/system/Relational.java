@@ -21,13 +21,7 @@
 // ============================================================================
 package routines;
 
-/**
- * 
- * yzhang class global comment. Detailled comment <br/>
- * 
- * $Id: Relational.java 下午01:31:49 2007-7-3 +0000 (2007-7-3) yzhang $
- * 
- */
+
 public class Relational {
 
     /**

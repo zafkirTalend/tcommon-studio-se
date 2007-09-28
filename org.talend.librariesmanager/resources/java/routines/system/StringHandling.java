@@ -21,12 +21,7 @@
 // ============================================================================
 package routines;
 
-/**
- * yzhang class global comment. Detailled comment <br/>
- * 
- * $Id: StringHandling.java 上午10:32:32 2007-7-2 +0000 (2007-7-2) yzhang $
- * 
- */
+
 public class StringHandling {
 
     /**

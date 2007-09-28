@@ -25,12 +25,7 @@ package routines;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-/**
- * yzhang class global comment. Detailled comment <br/>
- * 
- * $Id: System.java 下午01:45:23 2007-7-3 +0000 (2007-7-3) yzhang $
- * 
- */
+
 public class SystemOperation {
 
 //    /**

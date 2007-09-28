@@ -26,10 +26,7 @@ import java.util.Map;
 //
 // ============================================================================
 
-/**
- * DOC amaumont class global comment. Detailled comment <br/>
- * 
- */
+
 public class LocaleProvider {
 
     private static Map<String, Locale> cache;

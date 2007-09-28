@@ -21,12 +21,7 @@
 // ============================================================================
 package routines;
 
-/**
- * yzhang class global comment. Detailled comment <br/>
- * 
- * $Id: DataOperation.java 下午01:46:17 2007-7-3 +0000 (2007-7-3) yzhang $
- * 
- */
+
 public class DataOperation {
 
     /**

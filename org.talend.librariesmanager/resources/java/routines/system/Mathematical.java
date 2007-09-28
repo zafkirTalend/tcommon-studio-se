@@ -21,13 +21,7 @@
 // ============================================================================
 package routines;
 
-/**
- * 
- * yzhang class global comment. Detailled comment <br/>
- * 
- * $Id: Mathematical.java 下午04:21:13 2007-7-2 +0000 (2007-7-2) yzhang $
- * 
- */
+
 public class Mathematical {
 
     /**
