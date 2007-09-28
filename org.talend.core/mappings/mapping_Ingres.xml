@@ -19,8 +19,8 @@
 			<dbType type="LONG NVARCHAR" ignorePre="true" />
 			<dbType type="LONG VARCHAR" ignoreLen="true" ignorePre="true" />
 			<dbType type="MONEY" ignoreLen="true" ignorePre="true" />
-			<dbType type="NCHAR" ignorePre="true" />
-			<dbType type="NVARCHAR" ignorePre="true" />
+			<dbType type="NCHAR" ignorePre="true" defaultLength="10"/>
+			<dbType type="NVARCHAR" ignorePre="true" defaultLength="10"/>
 			<dbType type="OBJECT_KEY"  ignoreLen="true" ignorePre="true"/>
 			<dbType type="SMALLINT"  ignoreLen="true" ignorePre="true"/>
 			<dbType type="TEXT" ignoreLen="true" ignorePre="true" />
