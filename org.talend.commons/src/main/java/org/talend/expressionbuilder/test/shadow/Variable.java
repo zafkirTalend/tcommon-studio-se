@@ -35,6 +35,10 @@ public class Variable {
 
     private String value;
 
+    private String talendType;
+
+    private boolean nullable;
+
     /**
      * yzhang Variable constructor comment.
      */
@@ -61,6 +65,19 @@ public class Variable {
     }
 
     /**
+     * yzhang Variable constructor comment.
+     * 
+     * @param name
+     * @param value
+     */
+    public Variable(String name, String value, String type, boolean nullable) {
+        this.name = name;
+        this.value = value;
+        this.talendType = type;
+        this.nullable = nullable;
+    }
+
+    /**
      * Getter for name.
      * 
      * @return the name
@@ -79,6 +96,24 @@ public class Variable {
     }
 
     /**
+     * yzhang Comment method "getTalendType".
+     * 
+     * @return
+     */
+    public String getTalendType() {
+        return this.talendType;
+    }
+
+    /**
+     * yzhang Comment method "isNullable".
+     * 
+     * @return
+     */
+    public boolean isNullable() {
+        return this.nullable;
+    }
+
+    /**
      * Sets the name.
      * 
      * @param name the name to set
@@ -94,5 +129,23 @@ public class Variable {
      */
     public void setValue(String value) {
         this.value = value;
+    }
+
+    /**
+     * yzhang Comment method "setTalendType".
+     * 
+     * @param typeId
+     */
+    public void setTalendType(String typeId) {
+        this.talendType = typeId;
+    }
+
+    /**
+     * yzhang Comment method "setNullable".
+     * 
+     * @param nullable
+     */
+    public void setNullable(boolean nullable) {
+        this.nullable = nullable;
     }
 }
