@@ -2,9 +2,8 @@
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.talend.model/src/main/java"
-    editDirectory="/org.talend.model/src/main/java" editorDirectory="/org.talend.model/src/main/java"
-    modelPluginID="org.talend.model" modelName="Expression" testsDirectory="/org.talend.model/src/main/java"
-    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" copyrightFields="false">
+    modelPluginID="org.talend.model" modelName="Expression" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="5.0" copyrightFields="false">
   <foreignModel>Expression.ecore</foreignModel>
   <genPackages prefix="Expression" basePackage="org.talend.core.model" disposableProviderFactory="true"
       ecorePackage="Expression.ecore#/">
@@ -16,6 +15,8 @@
     <genClasses ecoreClass="Expression.ecore#//EMFVariable">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expression.ecore#//EMFVariable/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expression.ecore#//EMFVariable/value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expression.ecore#//EMFVariable/talendType"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Expression.ecore#//EMFVariable/nullable"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

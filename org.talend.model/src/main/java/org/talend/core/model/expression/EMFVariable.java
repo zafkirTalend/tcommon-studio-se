@@ -18,6 +18,8 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.talend.core.model.expression.EMFVariable#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.core.model.expression.EMFVariable#getValue <em>Value</em>}</li>
+ *   <li>{@link org.talend.core.model.expression.EMFVariable#getTalendType <em>Talend Type</em>}</li>
+ *   <li>{@link org.talend.core.model.expression.EMFVariable#isNullable <em>Nullable</em>}</li>
  * </ul>
  * </p>
  *
@@ -77,5 +79,57 @@ public interface EMFVariable extends EObject {
      * @generated
      */
     void setValue(String value);
+
+    /**
+     * Returns the value of the '<em><b>Talend Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Talend Type</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Talend Type</em>' attribute.
+     * @see #setTalendType(String)
+     * @see org.talend.core.model.expression.ExpressionPackage#getEMFVariable_TalendType()
+     * @model
+     * @generated
+     */
+    String getTalendType();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.expression.EMFVariable#getTalendType <em>Talend Type</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Talend Type</em>' attribute.
+     * @see #getTalendType()
+     * @generated
+     */
+    void setTalendType(String value);
+
+    /**
+     * Returns the value of the '<em><b>Nullable</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Nullable</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Nullable</em>' attribute.
+     * @see #setNullable(boolean)
+     * @see org.talend.core.model.expression.ExpressionPackage#getEMFVariable_Nullable()
+     * @model
+     * @generated
+     */
+    boolean isNullable();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.expression.EMFVariable#isNullable <em>Nullable</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Nullable</em>' attribute.
+     * @see #isNullable()
+     * @generated
+     */
+    void setNullable(boolean value);
 
 } // EMFVariable

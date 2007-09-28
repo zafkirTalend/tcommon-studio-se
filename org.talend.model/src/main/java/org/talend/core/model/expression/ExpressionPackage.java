@@ -134,13 +134,31 @@ public interface ExpressionPackage extends EPackage {
     int EMF_VARIABLE__VALUE = 1;
 
     /**
+     * The feature id for the '<em><b>Talend Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EMF_VARIABLE__TALEND_TYPE = 2;
+
+    /**
+     * The feature id for the '<em><b>Nullable</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EMF_VARIABLE__NULLABLE = 3;
+
+    /**
      * The number of structural features of the '<em>EMF Variable</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EMF_VARIABLE_FEATURE_COUNT = 2;
+    int EMF_VARIABLE_FEATURE_COUNT = 4;
 
 
     /**
@@ -217,6 +235,28 @@ public interface ExpressionPackage extends EPackage {
      * @generated
      */
     EAttribute getEMFVariable_Value();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.expression.EMFVariable#getTalendType <em>Talend Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Talend Type</em>'.
+     * @see org.talend.core.model.expression.EMFVariable#getTalendType()
+     * @see #getEMFVariable()
+     * @generated
+     */
+    EAttribute getEMFVariable_TalendType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.expression.EMFVariable#isNullable <em>Nullable</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Nullable</em>'.
+     * @see org.talend.core.model.expression.EMFVariable#isNullable()
+     * @see #getEMFVariable()
+     * @generated
+     */
+    EAttribute getEMFVariable_Nullable();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -299,6 +339,22 @@ public interface ExpressionPackage extends EPackage {
          * @generated
          */
         EAttribute EMF_VARIABLE__VALUE = eINSTANCE.getEMFVariable_Value();
+
+        /**
+         * The meta object literal for the '<em><b>Talend Type</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EMF_VARIABLE__TALEND_TYPE = eINSTANCE.getEMFVariable_TalendType();
+
+        /**
+         * The meta object literal for the '<em><b>Nullable</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EMF_VARIABLE__NULLABLE = eINSTANCE.getEMFVariable_Nullable();
 
     }
 
