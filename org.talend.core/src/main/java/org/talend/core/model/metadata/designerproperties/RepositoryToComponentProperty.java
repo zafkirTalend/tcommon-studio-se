@@ -31,6 +31,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.EMetadataEncoding;
+import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataTable;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
@@ -355,20 +356,37 @@ public class RepositoryToComponentProperty {
                 return TalendTextUtils.addQuotes(xmlDesc.getAbsoluteXPathQuery());
             }
         }
-        if (value.equals("XML_MAPPING")) {
-            if (xmlDesc != null) {
-                List<SchemaTarget> schemaTargets = xmlDesc.getSchemaTargets();
-                List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
+        return null;
+    }
+
+    /**
+     * qiang.zhang Comment method "getTableXMLMappingValue".
+     * 
+     * @param connection
+     * @param tableInfo
+     * @param metaTable
+     */
+    public static void getTableXMLMappingValue(Connection connection, List<Map<String, Object>> tableInfo,
+            IMetadataTable metaTable) {
+        if (connection instanceof XmlFileConnection) {
+            XmlFileConnection xmlConnection = (XmlFileConnection) connection;
+            EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection
+                    .getSchema();
+            XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
+            List<SchemaTarget> schemaTargets = xmlDesc.getSchemaTargets();
+            tableInfo.clear();
+            List<IMetadataColumn> listColumns = metaTable.getListColumns();
+            for (IMetadataColumn metadataColumn : listColumns) {
                 for (SchemaTarget schema : schemaTargets) {
-                    Map<String, Object> map = new HashMap<String, Object>();
-                    // map.put("SCHEMA_COLUMN", schema.getTagName());
-                    map.put("QUERY", TalendTextUtils.addQuotes(schema.getRelativeXPathQuery()));
-                    maps.add(map);
+                    if (metadataColumn.getLabel().equals(schema.getTagName())) {
+                        Map<String, Object> map = new HashMap<String, Object>();
+                        map.put("SCHEMA_COLUMN", schema.getTagName());
+                        map.put("QUERY", TalendTextUtils.addQuotes(schema.getRelativeXPathQuery()));
+                        tableInfo.add(map);
+                    }
                 }
-                return maps;
             }
         }
-        return null;
     }
 
     public static void getTableXmlFileValue(Connection connection, String value, IElementParameter param,
@@ -477,6 +495,42 @@ public class RepositoryToComponentProperty {
 
         if (value.equals("REFERRALS")) {
             return connection.getReferrals();
+        }
+        return null;
+    }
+
+    /**
+     * DOC qiang.zhang Comment method "getXMLMappingValue".
+     * 
+     * @param repositoryConnection
+     * @param metadataTable
+     * @return
+     */
+    public static List<Map<String, Object>> getXMLMappingValue(Connection connection, IMetadataTable metadataTable) {
+        if (connection instanceof XmlFileConnection) {
+            XmlFileConnection xmlConnection = (XmlFileConnection) connection;
+            EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection
+                    .getSchema();
+            XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
+            if (metadataTable != null) {
+                if (xmlDesc != null) {
+                    List<SchemaTarget> schemaTargets = xmlDesc.getSchemaTargets();
+                    List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
+                    for (IMetadataColumn col : metadataTable.getListColumns()) {
+                        Map<String, Object> map = new HashMap<String, Object>();
+                        map.put("QUERY", null);
+                        for (int i = 0; i < schemaTargets.size(); i++) {
+                            SchemaTarget sch = schemaTargets.get(i);
+                            if (col.getLabel().equals(sch.getTagName())) {
+                                // map.put("SCHEMA_COLUMN", schema.getTagName());
+                                map.put("QUERY", TalendTextUtils.addQuotes(sch.getRelativeXPathQuery()));
+                            }
+                        }
+                        maps.add(map);
+                    }
+                    return maps;
+                }
+            }
         }
         return null;
     }
