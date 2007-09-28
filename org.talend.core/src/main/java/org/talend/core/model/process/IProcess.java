@@ -21,9 +21,6 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -37,7 +34,7 @@ import org.talend.designer.runprocess.IProcessor;
  * 
  */
 public interface IProcess extends IRepositoryObject, IElement {
-    
+
     public String getName();
 
     // list of nodes that are in the designer
@@ -54,15 +51,15 @@ public interface IProcess extends IRepositoryObject, IElement {
     public void removeUniqueConnectionName(String uniqueConnectionName);
 
     public boolean checkValidConnectionName(String connectionName);
-    
+
     public boolean checkValidConnectionName(String connectionName, boolean checkExists);
 
     public IContextManager getContextManager();
-    
+
     public List<? extends INode> getNodesOfType(String componentName);
-    
+
     public void setProcessor(IProcessor processor);
-    
+
     public IProcessor getProcessor();
 
     /**
@@ -72,6 +69,10 @@ public interface IProcess extends IRepositoryObject, IElement {
      * @return
      */
     public IConnection[] getAllConnections(String filter);
-    
+
     public Set<String> getNeededLibraries(boolean withChildrens);
+
+    public int getMergelinkOrder(final INode node);
+
+    public boolean isThereLinkWithHash(final INode node);
 }
