@@ -29,8 +29,6 @@ package org.talend.core.model.process;
  */
 public interface INodeConnector {
 
-    public static final String INPUT_FLOW = "INPUT:FLOW";
-
     public EConnectionType getDefaultConnectionType();
 
     public void setDefaultConnectionType(final EConnectionType defaultConnectionType);
