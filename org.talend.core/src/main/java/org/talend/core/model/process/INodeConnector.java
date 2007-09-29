@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.core.model.process;
 
-
 /**
  * Interface for Links between Nodes in a Process. <br/>
  * 
@@ -30,10 +29,12 @@ package org.talend.core.model.process;
  */
 public interface INodeConnector {
 
+    public static final String INPUT_FLOW = "INPUT:FLOW";
+
     public EConnectionType getDefaultConnectionType();
 
     public void setDefaultConnectionType(final EConnectionType defaultConnectionType);
-    
+
     public IConnectionProperty getConnectionProperty(EConnectionType type);
 
     public int getMaxLinkOutput();
@@ -63,20 +64,20 @@ public interface INodeConnector {
     public int getCurLinkNbOutput();
 
     public void setCurLinkNbOutput(final int curLinkNb);
-    
+
     public String getName();
 
     public void setName(String name);
-    
+
     public String getLinkName();
 
     public void setLinkName(String linkName);
-    
+
     public String getMenuName();
 
     public void setMenuName(String menuName);
-    
+
     public String getBaseSchema();
-    
+
     public void setBaseSchema(String baseSchema);
 }
