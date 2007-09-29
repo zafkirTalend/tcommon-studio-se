@@ -163,19 +163,19 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         return new IBeanPropertyAccessors<MetadataColumn, Integer>() {
 
             public Integer get(MetadataColumn bean) {
-                String dbmsId = getCurrentDbms();
-                if (dbmsId != null && bean.getPrecision() < 0) {
-                    Dbms dbms = MetadataTalendType.getDbms(dbmsId);
-                    List<DbDefaultLengthAndPrecision> dlpList = dbms.getDefaultLengthPrecision();
-                    for (DbDefaultLengthAndPrecision dlp : dlpList) {
-                        if (dlp.getDbTypeName().equals(bean.getSourceType()))
-                            if (dlp.getDefaultPrecision() == null) {
-                                bean.setPrecision(0);
-                            } else {
-                                bean.setPrecision(dlp.getDefaultPrecision());
-                            }
-                    }
-                }
+                // String dbmsId = getCurrentDbms();
+                // if (dbmsId != null && bean.getPrecision() < 0) {
+                // Dbms dbms = MetadataTalendType.getDbms(dbmsId);
+                // List<DbDefaultLengthAndPrecision> dlpList = dbms.getDefaultLengthPrecision();
+                // for (DbDefaultLengthAndPrecision dlp : dlpList) {
+                // if (dlp.getDbTypeName().equals(bean.getSourceType()))
+                // if (dlp.getDefaultPrecision() == null) {
+                // bean.setPrecision(0);
+                // } else {
+                // bean.setPrecision(dlp.getDefaultPrecision());
+                // }
+                // }
+                // }
                 return bean.getPrecision();
             }
 
@@ -191,20 +191,20 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         return new IBeanPropertyAccessors<MetadataColumn, Integer>() {
 
             public Integer get(MetadataColumn bean) {
-                String dbmsId = getCurrentDbms();
-                if (dbmsId != null && bean.getLength() <= 0) {
-                    Dbms dbms = MetadataTalendType.getDbms(dbmsId);
-                    List<DbDefaultLengthAndPrecision> dlpList = dbms.getDefaultLengthPrecision();
-                    for (DbDefaultLengthAndPrecision dlp : dlpList) {
-                        if (dlp.getDbTypeName().equals(bean.getSourceType())) {
-                            if (dlp.getDefaultLength() == null) {
-                                bean.setLength(0);
-                            } else {
-                                bean.setLength(dlp.getDefaultLength());
-                            }
-                        }
-                    }
-                }
+                // String dbmsId = getCurrentDbms();
+                // if (dbmsId != null && bean.getLength() <= 0) {
+                // Dbms dbms = MetadataTalendType.getDbms(dbmsId);
+                // List<DbDefaultLengthAndPrecision> dlpList = dbms.getDefaultLengthPrecision();
+                // for (DbDefaultLengthAndPrecision dlp : dlpList) {
+                // if (dlp.getDbTypeName().equals(bean.getSourceType())) {
+                // if (dlp.getDefaultLength() == null) {
+                // bean.setLength(0);
+                // } else {
+                // bean.setLength(dlp.getDefaultLength());
+                // }
+                // }
+                // }
+                // }
                 return bean.getLength();
             }
 
@@ -294,7 +294,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
                 }
                 if (currentBeanHasJavaDateType(bean)) {
                     bean.setPattern(new JavaSimpleDateFormatProposalProvider().getProposals(null, 0)[0].getContent());
-                    adaptLengthAndPrecision(bean, dbms);
+                    // adaptLengthAndPrecision(bean, dbms);
                 }
             }
         };
@@ -330,10 +330,10 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
 
             public void set(MetadataColumn bean, String value) {
                 bean.setSourceType(value);
-                String dbms = getCurrentDbms();
-                if (dbms != null) {
-                    adaptLengthAndPrecision(bean, dbms);
-                }
+                // String dbms = getCurrentDbms();
+                // if (dbms != null) {
+                // adaptLengthAndPrecision(bean, dbms);
+                // }
             }
 
         };
