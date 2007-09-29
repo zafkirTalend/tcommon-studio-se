@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
@@ -70,6 +69,8 @@ public class ExtractMetaDataFromDataBase {
     private static final String TABLETYPE_SYNONYM = "SYNONYM"; //$NON-NLS-1$
 
     private static int columnIndex;
+
+    private static String driveClass = null;
 
     /**
      * This map represents sets of table type and table name key value pair.
@@ -458,6 +459,24 @@ public class ExtractMetaDataFromDataBase {
             return tableTypeMap.get(tableName);
         }
         return null;
+    }
+
+    /**
+     * Getter for driveClass.
+     * 
+     * @return the driveClass
+     */
+    public static String getDriveClass() {
+        return driveClass;
+    }
+
+    /**
+     * Sets the driveClass.
+     * 
+     * @param driveClass the driveClass to set
+     */
+    public static void setDriveClass(String driveClass) {
+        ExtractMetaDataFromDataBase.driveClass = driveClass;
     }
 
 }
