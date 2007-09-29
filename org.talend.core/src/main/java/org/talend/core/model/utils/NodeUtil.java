@@ -28,7 +28,6 @@ import java.util.List;
 
 import org.talend.core.model.process.EConnectionType;
 import org.talend.core.model.process.IConnection;
-import org.talend.core.model.process.IConnectionCategory;
 import org.talend.core.model.process.INode;
 
 /**
@@ -50,17 +49,7 @@ public class NodeUtil {
 
         List<? extends IConnection> outgoingConnections = node.getOutgoingConnections();
         if (outgoingConnections != null) {
-            conns = new ArrayList<IConnection>();
-
-            for (int i = 0; i < outgoingConnections.size(); i++) {
-                IConnection connection = outgoingConnections.get(i);
-                if (connection.getLineStyle().hasConnectionCategory(IConnectionCategory.MAIN)
-                        || connection.getLineStyle().equals(EConnectionType.FLOW_REF)) {
-                    conns.add(connection);
-                }
-            }
-        }
-        if (outgoingConnections != null) {
+            conns = new ArrayList<IConnection>(outgoingConnections);
             Collections.sort(conns, new Comparator<IConnection>() {
 
                 public int compare(IConnection connection1, IConnection connection2) {
