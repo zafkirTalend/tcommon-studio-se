@@ -209,9 +209,9 @@ public class JobContextParameter implements IContextParameter, Cloneable {
             return false;
         }
 
-        if (!contextParam.getScriptCode().equals(scriptCode)) {
-            return false;
-        }
+        // if (!contextParam.getScriptCode().equals(scriptCode)) {
+        // return false;
+        // }
 
         return true;
     }
