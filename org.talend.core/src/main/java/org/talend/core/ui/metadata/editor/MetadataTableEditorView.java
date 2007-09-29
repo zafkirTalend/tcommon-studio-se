@@ -216,6 +216,8 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
                         value = "null";
                     } else if (value.length() == 0) {
                         value = "\"" + "\"";
+                    } else if (value.equalsIgnoreCase("null")) {
+                        value = "null";
                     } else {
                         value = value.replaceAll("\"", "");
                         value = value.replaceAll("\'", "");
