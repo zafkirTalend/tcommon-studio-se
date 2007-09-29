@@ -209,18 +209,18 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
              * @return String
              */
             private String handleDefaultValue(IMetadataColumn bean, String value) {
-                if (value != null && value.length() > 0) {
-                    value = value.replaceAll("\"", "");
-                    value = value.replaceAll("\'", "");
 
-                    // Checks if Talend type is String or Date.
-                    if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) {
+                // Checks if Talend type is String or Date.
+                if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) {
+                    if (value == null) {
+                        value = "null";
+                    } else if (value.length() == 0) {
+                        value = "\"" + "\"";
+                    } else {
+                        value = value.replaceAll("\"", "");
+                        value = value.replaceAll("\'", "");
                         value = "\"" + value + "\"";
                     }
-                } else if (value == null) {
-                    value = "NULL";
-                } else {
-                    value = "\"" + "\"";
                 }
                 return value;
             }
