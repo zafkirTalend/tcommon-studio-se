@@ -522,7 +522,7 @@ public class RepositoryToComponentProperty {
                         for (int i = 0; i < schemaTargets.size(); i++) {
                             SchemaTarget sch = schemaTargets.get(i);
                             if (col.getLabel().equals(sch.getTagName())) {
-                                // map.put("SCHEMA_COLUMN", schema.getTagName());
+                                // map.put("SCHEMA_COLUMN", sch.getTagName());
                                 map.put("QUERY", TalendTextUtils.addQuotes(sch.getRelativeXPathQuery()));
                             }
                         }
