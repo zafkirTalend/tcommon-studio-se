@@ -21,10 +21,12 @@
 // ============================================================================
 package org.talend.core.model.metadata.builder.database;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -177,8 +179,7 @@ public class ExtractMetaDataFromDataBase {
      */
     public static String getTableNameBySynonym(Connection conn, String name) {
         try {
-            String sql = ""; //$NON-NLS-1$
-            sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$
+            String sql = "select TABLE_NAME from USER_SYNONYMS where SYNONYM_NAME = '" + name + "'"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-2$
             Statement sta;
             sta = conn.createStatement();
             ResultSet resultSet = sta.executeQuery(sql);
@@ -221,6 +222,11 @@ public class ExtractMetaDataFromDataBase {
                 log.error(e.toString());
             }
 
+            // PTODO ftang: should to support all kinds of databases not only for Mysql.
+            Connection connection = dbMetaData.getConnection();
+
+            checkUniqueKeyConstraint(medataTable, primaryKeys, connection);
+
             ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(),
                     null);
             IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
@@ -245,12 +251,13 @@ public class ExtractMetaDataFromDataBase {
                 } else {
                     metadataColumn.setKey(false);
                 }
+
                 String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
                 metadataColumn.setSourceType(dbType); //$NON-NLS-1$
 
                 metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
                 // Convert dbmsType to TalendType
-                
+
                 String talendType = null;
 
                 MappingTypeRetriever mappingTypeRetriever = MetadataTalendType
@@ -271,10 +278,10 @@ public class ExtractMetaDataFromDataBase {
 
                 metadataColumn.setTalendType(talendType);
                 metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
-                
+
                 boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
                 metadataColumn.setNullable(isNullable);
-                
+
                 metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
                 metadataColumns.add(metadataColumn);
 
@@ -302,92 +309,37 @@ public class ExtractMetaDataFromDataBase {
 
     }
 
-    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData,
-            IMetadataTable medataTable, String dbms) {
-
-        List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
-
-        HashMap<String, String> primaryKeys = new HashMap<String, String>();
-
-        try {
-
+    /**
+     * DOC Administrator Comment method "checkUniqueKeyConstraint".
+     * 
+     * @param medataTable
+     * @param primaryKeys
+     * @param connection
+     */
+    private static void checkUniqueKeyConstraint(IMetadataTable medataTable, HashMap<String, String> primaryKeys,
+            Connection connection) {
+        if (connection instanceof com.mysql.jdbc.Connection) {// MySql
             try {
-                ResultSet keys = dbMetaData.getPrimaryKeys(null, ExtractMetaDataUtils.schema, medataTable.getLabel());
-                primaryKeys.clear();
-                while (keys.next()) {
-                    primaryKeys.put(keys.getString("COLUMN_NAME"), "PRIMARY KEY"); //$NON-NLS-1$ //$NON-NLS-2$
+                PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement("desc "
+                        + medataTable.getLabel() + ";");
+                ResultSet keys = null;
+                if (statement.execute()) {
+                    keys = statement.getResultSet();
+                    while (keys.next()) {
+                        String prim = keys.getString("Key");
+                        String field = keys.getString("Field");
+                        if (prim.equals("UNI")) {
+                            primaryKeys.put(field, "PRIMARY KEY"); //$NON-NLS-1$
+                        }
+                    }
                 }
                 keys.close();
             } catch (Exception e) {
                 log.error(e.toString());
             }
-
-            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(),
-                    null);
-            while (columns.next()) {
-
-                MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
-                metadataColumn.setLabel(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_NAME")); //$NON-NLS-1$
-                metadataColumn.setOriginalField(metadataColumn.getLabel());
-                if (primaryKeys != null && !primaryKeys.isEmpty()
-                        && primaryKeys.get(metadataColumn.getOriginalField()) != null) {
-                    metadataColumn.setKey(true);
-                } else {
-                    metadataColumn.setKey(false);
-                }
-                String dbType = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "TYPE_NAME").toUpperCase(); //$NON-NLS-1$
-                metadataColumn.setSourceType(dbType); //$NON-NLS-1$
-                boolean isNullable = ExtractMetaDataUtils.getBooleanMetaDataInfo(columns, "IS_NULLABLE"); //$NON-NLS-1$
-                metadataColumn.setNullable(isNullable);
-                metadataColumn.setLength(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "COLUMN_SIZE")); //$NON-NLS-1$
-                // Convert dbmsType to TalendType
-
-                String talendType = null;
-
-                String product = EDatabaseTypeName.getTypeFromDisplayName(dbms).getProduct();
-                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType
-                        .getMappingTypeRetriever(MetadataTalendType.getDefaultDbmsFromProduct(product).getId());
-                talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType);
-                if (talendType == null) {
-                    if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-                        talendType = JavaTypesManager.getDefaultJavaType().getId();
-                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
-                    } else {
-                        talendType = "";
-                        log.warn(Messages.getString("ExtractMetaDataFromDataBase.dbTypeNotFound", dbType)); //$NON-NLS-1$
-                    }
-                } else {
-                    // to remove when the new perl type will be added in talend.
-                    // talendType = TypesManager.getTalendTypeFromXmlType(talendType);
-                }
-
-                metadataColumn.setTalendType(talendType);
-                metadataColumn.setPrecision(ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS")); //$NON-NLS-1$
-
-                // cantoine : patch to fix 0x0 pb cause by Bad Schema
-                // description
-                String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
-                if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0
-                        && stringMetaDataInfo.charAt(0) == 0x0) {
-                    stringMetaDataInfo = "\\0"; //$NON-NLS-1$
-                }
-                metadataColumn.setDefaultValue(stringMetaDataInfo);
-
-                metadataColumn.setComment(ExtractMetaDataUtils.getStringMetaDataInfo(columns, "REMARKS")); //$NON-NLS-1$
-                metadataColumns.add(metadataColumn);
-
-            }
-            columns.close();
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
-        } catch (Exception e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
         }
-
-        return metadataColumns;
-
+        // PTODO ftang: should continue to handle all kinds of databases in this case.
+        // else if (connection instanceof java.sql.Connection) // SQL Server
     }
 
     /**
