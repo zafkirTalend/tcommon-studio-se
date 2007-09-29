@@ -30,7 +30,6 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataColumn;
-import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
@@ -287,7 +286,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
             }
 
             public void set(IMetadataColumn bean, String value) {
-                bean.setPattern(value);
+                bean.setPattern(MetadataTableEditorView.this.getJavaDateTypeForDefaultPattern(bean));
             }
 
         };

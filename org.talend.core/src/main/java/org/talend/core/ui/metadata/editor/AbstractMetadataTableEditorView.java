@@ -828,4 +828,14 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
     public void setCurrentDbms(String dbmsId) {
         this.dbmsId = dbmsId;
     }
+
+    /*
+     * When the type is Date in java, set the default pattern.
+     */
+    public String getJavaDateTypeForDefaultPattern(Object bean) {
+        if (currentBeanHasJavaDateType(bean)) {
+            return new JavaSimpleDateFormatProposalProvider().getProposals(null, 0)[0].getContent();
+        }
+        return "";
+    }
 }

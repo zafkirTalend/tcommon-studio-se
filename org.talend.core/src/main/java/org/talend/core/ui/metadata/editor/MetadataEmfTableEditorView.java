@@ -257,7 +257,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             }
 
             public void set(MetadataColumn bean, String value) {
-                bean.setPattern(value);
+                bean.setPattern(MetadataEmfTableEditorView.this.getJavaDateTypeForDefaultPattern(bean));
             }
 
         };
