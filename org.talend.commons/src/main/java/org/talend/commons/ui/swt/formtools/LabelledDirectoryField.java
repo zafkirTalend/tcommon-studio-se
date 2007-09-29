@@ -166,7 +166,15 @@ public class LabelledDirectoryField {
         text.setLayoutData(gridData);
 
         compositeButton = new Composite(composite, SWT.NONE);
-        compositeButton.setLayout(new GridLayout());
+        GridLayout gridLayout = new GridLayout();
+        gridLayout.marginHeight = 0;
+        gridLayout.marginBottom = 0;
+        gridLayout.marginLeft = 0;
+        gridLayout.marginRight = 0;
+        gridLayout.marginTop = 0;
+        gridLayout.marginWidth = 0;
+
+        compositeButton.setLayout(gridLayout);
         compositeButton.setLayoutData(new GridData(SWT.LEFT, SWT.CENTER, false, true));
         button = new Button(compositeButton, SWT.PUSH);
         button.setText(Messages.getString("LabelledFileField.BrowseButton.Text")); //$NON-NLS-1$
