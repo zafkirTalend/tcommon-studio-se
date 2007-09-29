@@ -148,13 +148,43 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
         return new IBeanPropertyAccessors<MetadataColumn, String>() {
 
             public String get(MetadataColumn bean) {
-                return bean.getDefaultValue();
+                String value = bean.getDefaultValue();
+
+                // Replaces all single quote mark and double quotes.
+                value = handleDefaultValue(bean, value);
+                return value;
             }
 
             public void set(MetadataColumn bean, String value) {
+
+                // Replaces all single quote mark and double quotes.
+                value = handleDefaultValue(bean, value);
                 bean.setDefaultValue(value);
             }
 
+            /**
+             * Adds double quotes if Talend type is Date or String.
+             * 
+             * @param bean
+             * @param value
+             * @return
+             */
+            private String handleDefaultValue(MetadataColumn bean, String value) {
+                if (value != null && value.length() > 0) {
+                    value = value.replaceAll("\"", "");
+                    value = value.replaceAll("\'", "");
+
+                    // Checks if Talend type is String or Date.
+                    if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) {
+                        value = "\"" + value + "\"";
+                    }
+                } else if (value == null) {
+                    value = "NULL";
+                } else {
+                    value = "\"" + "\"";
+                }
+                return value;
+            }
         };
     }
 
@@ -346,7 +376,8 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
      */
     @Override
     protected ExtendedToolbarView initToolBar() {
-        return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(), getCurrentDbms());
+        return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(),
+                getCurrentDbms());
     }
 
     /*

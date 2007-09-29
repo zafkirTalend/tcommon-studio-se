@@ -30,6 +30,7 @@ import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataColumn;
+import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
 import org.talend.core.model.metadata.types.TypesManager;
 import org.talend.core.ui.proposal.JavaSimpleDateFormatProposalProvider;
@@ -114,7 +115,8 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
      * @param labelVisible
      */
     public MetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
-            ExtendedTableModel<IMetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible, boolean labelVisible) {
+            ExtendedTableModel<IMetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible,
+            boolean labelVisible) {
         super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible);
     }
 
@@ -189,13 +191,39 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
         return new IBeanPropertyAccessors<IMetadataColumn, String>() {
 
             public String get(IMetadataColumn bean) {
-                return bean.getDefault();
+                String value = bean.getDefault();
+                value = handleDefaultValue(bean, value);
+                return value;
             }
 
             public void set(IMetadataColumn bean, String value) {
+                value = handleDefaultValue(bean, value);
                 bean.setDefault(value);
             }
 
+            /**
+             * Adds double quotes if Talend type is Date or String.
+             * 
+             * @param bean
+             * @param value
+             * @return String
+             */
+            private String handleDefaultValue(IMetadataColumn bean, String value) {
+                if (value != null && value.length() > 0) {
+                    value = value.replaceAll("\"", "");
+                    value = value.replaceAll("\'", "");
+
+                    // Checks if Talend type is String or Date.
+                    if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) {
+                        value = "\"" + value + "\"";
+                    }
+                } else if (value == null) {
+                    value = "NULL";
+                } else {
+                    value = "\"" + "\"";
+                }
+                return value;
+            }
         };
     }
 
@@ -370,7 +398,8 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
      */
     @Override
     protected ExtendedToolbarView initToolBar() {
-        return new MetadataToolbarEditorView(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(), this.getCurrentDbms());
+        return new MetadataToolbarEditorView(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(), this
+                .getCurrentDbms());
     }
 
     public MetadataToolbarEditorView getToolBar() {
