@@ -25,10 +25,13 @@ import java.util.Arrays;
 
 import org.apache.log4j.Level;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.draw2d.ColorConstants;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
@@ -125,6 +128,15 @@ public class PropertiesWizard extends Wizard {
                 GridLayout layout = new GridLayout(2, false);
                 container.setLayout(layout);
 
+                if (alreadyLockedByUser) {
+                    Label label = new Label(container, SWT.NONE);
+                    label.setForeground(ColorConstants.red);
+                    label.setText(Messages.getString("PropertiesWizard.alreadyLockedByUser")); //$NON-NLS-1$
+                    GridData gridData = new GridData();
+                    gridData.horizontalSpan = 2;
+                    label.setLayoutData(gridData);
+                }
+
                 super.createControl(container);
 
                 setControl(container);
@@ -167,7 +179,7 @@ public class PropertiesWizard extends Wizard {
      * Use to replace in all tRunJob, the old job name by the new one.
      */
     private void manageRunJobRenaming(String newName, String oldName) {
-        System.out.println("Rename " + oldName + "->" + newName);
+        System.out.println("Rename " + oldName + "->" + newName); //$NON-NLS-1$ //$NON-NLS-2$
 
         IComponentFilter filter1 = new PropertyComponentFilter("tRunJob", "PROCESS_TYPE_PROCESS", oldName); //$NON-NLS-1$ //$NON-NLS-2$
 
