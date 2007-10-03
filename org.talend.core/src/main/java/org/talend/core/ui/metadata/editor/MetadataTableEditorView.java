@@ -114,8 +114,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
      * @param labelVisible
      */
     public MetadataTableEditorView(Composite parentComposite, int mainCompositeStyle,
-            ExtendedTableModel<IMetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible,
-            boolean labelVisible) {
+            ExtendedTableModel<IMetadataColumn> extendedTableModel, boolean readOnly, boolean toolbarVisible, boolean labelVisible) {
         super(parentComposite, mainCompositeStyle, extendedTableModel, readOnly, toolbarVisible, labelVisible);
     }
 
@@ -286,7 +285,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
             }
 
             public void set(IMetadataColumn bean, String value) {
-                bean.setPattern(MetadataTableEditorView.this.getJavaDateTypeForDefaultPattern(bean));
+                bean.setPattern(value); // MetadataTableEditorView.this.getJavaDateTypeForDefaultPattern(bean));
             }
 
         };
@@ -399,8 +398,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
      */
     @Override
     protected ExtendedToolbarView initToolBar() {
-        return new MetadataToolbarEditorView(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(), this
-                .getCurrentDbms());
+        return new MetadataToolbarEditorView(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(), this.getCurrentDbms());
     }
 
     public MetadataToolbarEditorView getToolBar() {

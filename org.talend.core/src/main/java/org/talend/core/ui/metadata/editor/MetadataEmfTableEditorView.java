@@ -257,7 +257,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
             }
 
             public void set(MetadataColumn bean, String value) {
-                bean.setPattern(MetadataEmfTableEditorView.this.getJavaDateTypeForDefaultPattern(bean));
+                bean.setPattern(value); // MetadataEmfTableEditorView.this.getJavaDateTypeForDefaultPattern(bean));
             }
 
         };
@@ -379,8 +379,7 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
      */
     @Override
     protected ExtendedToolbarView initToolBar() {
-        return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(),
-                getCurrentDbms());
+        return new MetadataEmfToolbarEditor(getMainComposite(), SWT.NONE, this.getExtendedTableViewer(), getCurrentDbms());
     }
 
     /*
