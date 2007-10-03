@@ -129,6 +129,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//User/role"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//User/projectAuthorization"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//User/moduleAuthorization"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//User/preferredDashboardConnection"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//FolderItem">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//FolderItem/children"/>
@@ -176,5 +177,76 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//UserModuleAuthorization/type"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//LDAPSchemaConnectionItem"/>
+    <genClasses ecoreClass="properties.ecore#//DashboardConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/dialect"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/host"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/database"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/username"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/password"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/logTable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/statTable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//DashboardConnection/flowMeterTable"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//ExecutionServer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/host"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/port"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/fileTransfertPort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/active"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionServer/monitoringPort"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//ExecutionTask">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/executionServer"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/project"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/processItem"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/context"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/jobVersion"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/active"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/idQuartzJob"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/lastScriptGenerationDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/idRemoteJob"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/idRemoteJobExecution"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/checksumArchive"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/jobScriptArchive"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/status"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/processingState"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/errorStatus"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//TalendTrigger">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/active"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/triggerType"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//TalendTrigger/executionTask"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/startTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/endTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/previousFireTime"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/finalFireTime"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//CronTalendTrigger">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//CronTalendTrigger/cronExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//CronUITalendTrigger">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//CronUITalendTrigger/listDaysOfWeek"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//CronUITalendTrigger/listDaysOfMonth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//CronUITalendTrigger/listMonths"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//CronUITalendTrigger/listYears"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//CronUITalendTrigger/listHours"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//CronUITalendTrigger/listMinutes"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//SimpleTalendTrigger">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SimpleTalendTrigger/repeatCount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SimpleTalendTrigger/repeatInterval"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SimpleTalendTrigger/timesTriggered"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

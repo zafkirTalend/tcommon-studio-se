@@ -1689,6 +1689,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EAttribute getExecutionServer_MonitoringPort() {
+        return (EAttribute)executionServerEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getExecutionTask() {
         return executionTaskEClass;
     }
@@ -2342,6 +2351,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionServerEClass, EXECUTION_SERVER__PORT);
         createEAttribute(executionServerEClass, EXECUTION_SERVER__FILE_TRANSFERT_PORT);
         createEAttribute(executionServerEClass, EXECUTION_SERVER__ACTIVE);
+        createEAttribute(executionServerEClass, EXECUTION_SERVER__MONITORING_PORT);
 
         executionTaskEClass = createEClass(EXECUTION_TASK);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__ID);
@@ -2637,6 +2647,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionServer_Port(), theEcorePackage.getEInt(), "port", "-1", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionServer_FileTransfertPort(), theEcorePackage.getEInt(), "fileTransfertPort", "-1", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionServer_Active(), theEcorePackage.getEBoolean(), "active", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionServer_MonitoringPort(), theEcorePackage.getEInt(), "monitoringPort", "-1", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionTaskEClass, ExecutionTask.class, "ExecutionTask", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionTask_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

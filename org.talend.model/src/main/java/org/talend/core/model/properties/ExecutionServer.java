@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getPort <em>Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getFileTransfertPort <em>File Transfert Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#isActive <em>Active</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getMonitoringPort <em>Monitoring Port</em>}</li>
  * </ul>
  * </p>
  *
@@ -214,5 +215,32 @@ public interface ExecutionServer extends EObject {
      * @generated
      */
     void setActive(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Monitoring Port</b></em>' attribute.
+     * The default value is <code>"-1"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Monitoring Port</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Monitoring Port</em>' attribute.
+     * @see #setMonitoringPort(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_MonitoringPort()
+     * @model default="-1"
+     * @generated
+     */
+    int getMonitoringPort();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionServer#getMonitoringPort <em>Monitoring Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Monitoring Port</em>' attribute.
+     * @see #getMonitoringPort()
+     * @generated
+     */
+    void setMonitoringPort(int value);
 
 } // ExecutionServer

@@ -2115,13 +2115,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_SERVER__ACTIVE = 6;
 
     /**
+     * The feature id for the '<em><b>Monitoring Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_SERVER__MONITORING_PORT = 7;
+
+    /**
      * The number of structural features of the '<em>Execution Server</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_SERVER_FEATURE_COUNT = 7;
+    int EXECUTION_SERVER_FEATURE_COUNT = 8;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.
@@ -4393,6 +4402,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionServer_Active();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionServer#getMonitoringPort <em>Monitoring Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Monitoring Port</em>'.
+     * @see org.talend.core.model.properties.ExecutionServer#getMonitoringPort()
+     * @see #getExecutionServer()
+     * @generated
+     */
+    EAttribute getExecutionServer_MonitoringPort();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTask <em>Execution Task</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6186,6 +6206,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_SERVER__ACTIVE = eINSTANCE.getExecutionServer_Active();
+
+        /**
+         * The meta object literal for the '<em><b>Monitoring Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_SERVER__MONITORING_PORT = eINSTANCE.getExecutionServer_MonitoringPort();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.

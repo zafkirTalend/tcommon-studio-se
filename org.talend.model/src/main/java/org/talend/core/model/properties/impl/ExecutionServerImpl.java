@@ -30,6 +30,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getPort <em>Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getFileTransfertPort <em>File Transfert Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#isActive <em>Active</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getMonitoringPort <em>Monitoring Port</em>}</li>
  * </ul>
  * </p>
  *
@@ -175,6 +176,26 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
      * @ordered
      */
     protected boolean active = ACTIVE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getMonitoringPort() <em>Monitoring Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMonitoringPort()
+     * @generated
+     * @ordered
+     */
+    protected static final int MONITORING_PORT_EDEFAULT = -1;
+
+    /**
+     * The cached value of the '{@link #getMonitoringPort() <em>Monitoring Port</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMonitoringPort()
+     * @generated
+     * @ordered
+     */
+    protected int monitoringPort = MONITORING_PORT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -346,6 +367,27 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
      * <!-- end-user-doc -->
      * @generated
      */
+    public int getMonitoringPort() {
+        return monitoringPort;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMonitoringPort(int newMonitoringPort) {
+        int oldMonitoringPort = monitoringPort;
+        monitoringPort = newMonitoringPort;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT, oldMonitoringPort, monitoringPort));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_SERVER__ID:
@@ -362,6 +404,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return new Integer(getFileTransfertPort());
             case PropertiesPackage.EXECUTION_SERVER__ACTIVE:
                 return isActive() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
+                return new Integer(getMonitoringPort());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -393,6 +437,9 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return;
             case PropertiesPackage.EXECUTION_SERVER__ACTIVE:
                 setActive(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
+                setMonitoringPort(((Integer)newValue).intValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -426,6 +473,9 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
             case PropertiesPackage.EXECUTION_SERVER__ACTIVE:
                 setActive(ACTIVE_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
+                setMonitoringPort(MONITORING_PORT_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -451,6 +501,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return fileTransfertPort != FILE_TRANSFERT_PORT_EDEFAULT;
             case PropertiesPackage.EXECUTION_SERVER__ACTIVE:
                 return active != ACTIVE_EDEFAULT;
+            case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
+                return monitoringPort != MONITORING_PORT_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -478,6 +530,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
         result.append(fileTransfertPort);
         result.append(", active: ");
         result.append(active);
+        result.append(", monitoringPort: ");
+        result.append(monitoringPort);
         result.append(')');
         return result.toString();
     }
