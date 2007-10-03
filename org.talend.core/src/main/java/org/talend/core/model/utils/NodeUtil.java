@@ -58,7 +58,7 @@ public class NodeUtil {
                     if (lineStyle == EConnectionType.FLOW_MAIN || lineStyle == EConnectionType.FLOW_MERGE) {
                         return -1;
                     } else {
-                        return 0;
+                        return 1;
                     }
                 }
             });
