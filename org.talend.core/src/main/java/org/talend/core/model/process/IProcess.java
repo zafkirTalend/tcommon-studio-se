@@ -35,6 +35,10 @@ import org.talend.designer.runprocess.IProcessor;
  */
 public interface IProcess extends IRepositoryObject, IElement {
 
+    public static final String SCREEN_OFFSET_X = "SCREEN_OFFSET_X";
+
+    public static final String SCREEN_OFFSET_Y = "SCREEN_OFFSET_Y";
+
     public String getName();
 
     // list of nodes that are in the designer
