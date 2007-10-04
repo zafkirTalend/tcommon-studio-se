@@ -55,11 +55,16 @@ public class NodeUtil {
                 public int compare(IConnection connection1, IConnection connection2) {
 
                     EConnectionType lineStyle = connection1.getLineStyle();
+                    EConnectionType lineStyle2 = connection2.getLineStyle();
                     if (lineStyle == EConnectionType.FLOW_MAIN || lineStyle == EConnectionType.FLOW_MERGE) {
                         return -1;
-                    } else {
-                        return 1;
                     }
+                    if (lineStyle2 == EConnectionType.FLOW_MAIN || lineStyle2 == EConnectionType.FLOW_MERGE) {
+                        return 1;
+                    } else {
+                        return 0;
+                    }
+
                 }
             });
         }

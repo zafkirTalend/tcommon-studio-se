@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.eclipse.jface.fieldassist.IContentProposal;
 import org.eclipse.jface.fieldassist.IContentProposalProvider;
+import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
@@ -63,6 +64,23 @@ public class ProcessProposalProvider implements IContentProposalProvider {
      */
     public IContentProposal[] getProposals(String contents, int position) {
         List<IContentProposal> proposals = new ArrayList<IContentProposal>();
+
+        int initialPosition = position;
+
+        if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
+
+            int end = position;
+            int start = end;
+            while (--start >= 0) {
+                if (!Character.isJavaIdentifierPart(contents.charAt(start))) {
+                    break;
+                }
+            }
+            start++;
+            initialPosition = start;
+        }
+
+        System.out.println("content:" + contents + " / position:" + position + " / initialPosition:" + initialPosition);
 
         // Proposals based on process context
         List<IContextParameter> ctxParams = process.getContextManager().getDefaultContext().getContextParameterList();

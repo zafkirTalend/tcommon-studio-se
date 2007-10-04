@@ -208,4 +208,14 @@ public abstract class AbstractConnection implements IConnection {
         }
         return false;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "{Name=" + getName() + ", Table=" + getMetadataTable() + "}"; //$NON-NLS-1$ //$NON-NLS-2$
+    }
 }
