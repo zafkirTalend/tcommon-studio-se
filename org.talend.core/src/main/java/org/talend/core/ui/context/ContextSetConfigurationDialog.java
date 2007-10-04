@@ -331,6 +331,7 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
         JobContextParameter param;
         for (int i = 0; i < context.getContextParameterList().size(); i++) {
             param = new JobContextParameter();
+            param.setContext(newContext);
             param.setName(context.getContextParameterList().get(i).getName());
             param.setPrompt(context.getContextParameterList().get(i).getPrompt());
             param.setType(context.getContextParameterList().get(i).getType());

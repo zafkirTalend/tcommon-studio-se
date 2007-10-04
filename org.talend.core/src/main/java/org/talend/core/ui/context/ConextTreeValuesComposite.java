@@ -642,6 +642,7 @@ public class ConextTreeValuesComposite extends Composite {
          */
         public Object getValue(Object element, String property) {
             IContextParameter para = getRealParameter(element);
+
             if (para != null) {
                 if (property.equals(VALUE_COLUMN_NAME)) {
                     return para.getValue();
@@ -663,6 +664,7 @@ public class ConextTreeValuesComposite extends Composite {
          */
         private IContextParameter getRealParameter(Object element) {
             IContextParameter para = null;
+
             if (element instanceof IContextParameter) {
                 para = (IContextParameter) element;
             } else if (element instanceof Son) {
@@ -679,6 +681,7 @@ public class ConextTreeValuesComposite extends Composite {
         public void modify(Object element, final String property, final Object value) {
             TreeItem item = (TreeItem) element;
             final Object object = item.getData();
+
             final IContextParameter para = getRealParameter(object);
             if (para == null) {
                 return;
@@ -841,6 +844,9 @@ public class ConextTreeValuesComposite extends Composite {
             viewer.setColumnProperties(GROUP_BY_VARIABLE_COLUMN_PROPERTIES);
             GroupByVariableProvier labelprovider = new GroupByVariableProvier();
             provider.setProvider(labelprovider);
+            Tree tree = viewer.getTree();
+            viewer.setCellEditors(new CellEditor[] { null, null, new CheckboxCellEditor(tree), new TextCellEditor(tree),
+                    new TextCellEditor(tree) });
             viewer.refresh();
             viewer.expandAll();
         }
@@ -872,6 +878,9 @@ public class ConextTreeValuesComposite extends Composite {
             viewer.setColumnProperties(GROUP_BY_CONTEXT_COLUMN_PROPERTIES);
             GroupByContextProvier labelprovider = new GroupByContextProvier();
             provider.setProvider(labelprovider);
+            Tree tree = viewer.getTree();
+            viewer.setCellEditors(new CellEditor[] { null, null, new CheckboxCellEditor(tree), new TextCellEditor(tree),
+                    new TextCellEditor(tree) });
             viewer.refresh();
             viewer.expandAll();
         }

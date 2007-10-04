@@ -22,6 +22,7 @@
 package org.talend.core.model.context;
 
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
 
@@ -46,6 +47,30 @@ public class JobContextParameter implements IContextParameter, Cloneable {
     boolean promptNeeded;
 
     String scriptCode;
+
+    IContext context;
+
+    public JobContextParameter() {
+
+    }
+
+    /**
+     * Getter for context.
+     * 
+     * @return the context
+     */
+    public IContext getContext() {
+        return this.context;
+    }
+
+    /**
+     * Sets the context.
+     * 
+     * @param context the context to set
+     */
+    public void setContext(IContext context) {
+        this.context = context;
+    }
 
     /*
      * (non-Javadoc)
@@ -189,6 +214,7 @@ public class JobContextParameter implements IContextParameter, Cloneable {
     }
 
     public boolean sameAs(IContextParameter contextParam) {
+
         if (!contextParam.getComment().equals(comment)) {
             return false;
         }
@@ -243,6 +269,13 @@ public class JobContextParameter implements IContextParameter, Cloneable {
         if (getClass() != obj.getClass())
             return false;
         final JobContextParameter other = (JobContextParameter) obj;
+
+        if (this.getContext() != null && other.getContext() != null) {
+            if (!this.getContext().equals(other.getContext())) {
+                return false;
+            }
+        }
+
         if (this.name == null) {
             if (other.name != null)
                 return false;

@@ -29,6 +29,10 @@ package org.talend.core.model.process;
  */
 public interface IContextParameter {
 
+    public IContext getContext();
+
+    public void setContext(IContext context);
+
     public String getName();
 
     public void setName(final String name);
