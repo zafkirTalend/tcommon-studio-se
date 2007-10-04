@@ -91,17 +91,17 @@ public class ConextTreeValuesComposite extends Composite {
 
     private static final String PROMPTNEEDED_COLUMN_NAME = "PROMPTNEEDED";
 
-    private static final String COMMENT_COLUMN_NAME = "Comment";
+    // private static final String COMMENT_COLUMN_NAME = "Comment";
 
     private static final String VALUE_COLUMN_NAME = "Value";
 
     private static final String PROMPT_COLUMN_NAME = "Prompt";
 
     private static final String[] GROUP_BY_VARIABLE_COLUMN_PROPERTIES = new String[] { VARIABLE_COLUMN_NAME, CONTEXT_COLUMN_NAME,
-            PROMPTNEEDED_COLUMN_NAME, PROMPT_COLUMN_NAME, VALUE_COLUMN_NAME, COMMENT_COLUMN_NAME };
+            PROMPTNEEDED_COLUMN_NAME, PROMPT_COLUMN_NAME, VALUE_COLUMN_NAME };
 
     private static final String[] GROUP_BY_CONTEXT_COLUMN_PROPERTIES = new String[] { CONTEXT_COLUMN_NAME, VARIABLE_COLUMN_NAME,
-            PROMPTNEEDED_COLUMN_NAME, PROMPT_COLUMN_NAME, VALUE_COLUMN_NAME, COMMENT_COLUMN_NAME };
+            PROMPTNEEDED_COLUMN_NAME, PROMPT_COLUMN_NAME, VALUE_COLUMN_NAME };
 
     private TreeViewer viewer;
 
@@ -168,11 +168,9 @@ public class ConextTreeValuesComposite extends Composite {
         column = new TreeColumn(tree, SWT.NONE);
         column.setText(VALUE_COLUMN_NAME);
         column.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
-        column = new TreeColumn(tree, SWT.NONE);
-        column.setText(COMMENT_COLUMN_NAME);
-        column.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
+
         viewer.setCellEditors(new CellEditor[] { null, null, new CheckboxCellEditor(tree), new TextCellEditor(tree),
-                new TextCellEditor(tree), new TextCellEditor(tree) });
+                new TextCellEditor(tree) });
         cellModifier = new CellModifier();
         viewer.setCellModifier(cellModifier);
 
@@ -649,8 +647,6 @@ public class ConextTreeValuesComposite extends Composite {
                     return para.getValue();
                 } else if (property.equals(PROMPT_COLUMN_NAME)) {
                     return para.getPrompt();
-                } else if (property.equals(COMMENT_COLUMN_NAME)) {
-                    return para.getComment();
                 } else if (property.equals(PROMPTNEEDED_COLUMN_NAME)) {
                     return para.isPromptNeeded();
                 }
@@ -698,11 +694,6 @@ public class ConextTreeValuesComposite extends Composite {
                     return;
                 }
                 para.setPrompt((String) value);
-            } else if (property.equals(COMMENT_COLUMN_NAME)) {
-                if (para.getComment().equals(value)) {
-                    return;
-                }
-                para.setComment((String) value);
             } else if (property.equals(PROMPTNEEDED_COLUMN_NAME)) {
                 if (para.isPromptNeeded() == ((Boolean) value).booleanValue()) {
                     return;
@@ -756,9 +747,6 @@ public class ConextTreeValuesComposite extends Composite {
                 case 4:
                     // value column
                     return para.getValue();
-                case 5:
-                    // comment column
-                    return para.getComment();
                 }
             }
             return "";

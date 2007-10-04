@@ -219,6 +219,26 @@ public class ConextTemplateComposite extends Composite {
         TextCellEditor cellEditor = new TextCellEditor(table);
         ((Text) cellEditor.getControl()).setEditable(false);
         codeColumn.setCellEditor(cellEditor, setDirtyValueAdapter);
+
+        TableViewerCreatorColumn<IContextParameter, String> column = new TableViewerCreatorColumn<IContextParameter, String>(
+                tableViewerCreator);
+        column.setTitle(Messages.getString("ContextProcessSection.47")); //$NON-NLS-1$
+        column.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
+
+            public String get(IContextParameter bean) {
+                return bean.getComment();
+            }
+
+            public void set(IContextParameter bean, String value) {
+                if (!bean.getComment().equals(value))
+                    bean.setComment(value);
+                onContextModify(getContextManager(), bean);
+            }
+        });
+        column.setModifiable(true);
+        column.setWidth(400);
+        column.setCellEditor(new TextCellEditor(table), setDirtyValueAdapter);
+
     }
 
     IBeanPropertyAccessors<IContextParameter, Boolean> nullableAccessors = new IBeanPropertyAccessors<IContextParameter, Boolean>() {
