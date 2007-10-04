@@ -76,7 +76,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
             initModelListeners();
         }
     }
-    
+
     public AbstractExtendedTableViewer(Composite parent) {
         super(null, parent, false);
         initTable();
@@ -86,7 +86,7 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         super(null, parent, readOnly);
         initTable();
     }
-    
+
     /**
      * DOC amaumont Comment method "init".
      * 
@@ -242,7 +242,8 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
 
                 public void handleEvent(ListenableListEvent<B> event) {
                     if (tableViewerCreator.getTable() != null && !tableViewerCreator.getTable().isDisposed()) {
-                        tableViewerCreator.getTable().forceFocus();
+                        // tableViewerCreator.getTable().forceFocus();
+
                         if (event.type == TYPE.ADDED) {
                             if (event.index != null) {
                                 tableViewerCreator.getSelectionHelper().setSelection(event.index,
@@ -419,7 +420,9 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         getTableViewerCreator().getSelectionHelper().setActiveFireSelectionChanged(executeSelectionEvent);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.commons.ui.swt.extended.table.AbstractExtendedControlViewer#setReadOnly(boolean)
      */
     @Override
@@ -429,6 +432,4 @@ public abstract class AbstractExtendedTableViewer<B> extends AbstractExtendedCon
         getTableViewerCreator().refreshTableEditorControls();
     }
 
-    
-    
 }
