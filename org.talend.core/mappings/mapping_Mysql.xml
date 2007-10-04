@@ -11,7 +11,7 @@
 			<dbType type="CHAR" defaultLength="200" ignorePre="true"/>
 			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
 			<dbType type="DATETIME" ignoreLen="true" ignorePre="true" />
-			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" preBeforelen="true"/>
+			<dbType type="DECIMAL" defaultLength="20" defaultPrecision="10" preBeforelen="false"/>
 			<dbType type="DOUBLE" defaultLength="20" defaultPrecision="10"/>
 			<dbType type="DOUBLE UNSIGNED" ignoreLen="true" ignorePre="true" />
 			<dbType type="ENUM" ignoreLen="true" ignorePre="true" />
