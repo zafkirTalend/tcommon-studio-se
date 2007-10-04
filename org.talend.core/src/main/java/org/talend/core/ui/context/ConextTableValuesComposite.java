@@ -404,6 +404,9 @@ public class ConextTableValuesComposite extends Composite {
             TableItem item = (TableItem) element;
             final IContextParameter templatePara = (IContextParameter) item.getData();
             final IContextParameter parameterToSet = getRealParameter(property, templatePara);
+            if (parameterToSet == null) {
+                return;
+            }
             final String value2Set = (String) value;
             parameterToSet.setValue(value2Set);
             Command command = new Command() {
