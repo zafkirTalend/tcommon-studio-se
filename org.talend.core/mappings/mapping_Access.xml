@@ -8,6 +8,7 @@
 			<dbType type="COUNTER"/>
 			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
 			<dbType type="DOUBLE" ignoreLen="true" ignorePre="true" />
+			<dbType type="DECIMAL" ignoreLen="true" ignorePre="true" />
 			<dbType type="FLOAT" ignoreLen="true" ignorePre="true" />
 			<dbType type="INTEGER" ignoreLen="true" ignorePre="true" />
 			<dbType type="NUMERIC" ignoreLen="true" ignorePre="true" />
@@ -43,12 +44,14 @@
 				<talendType type="id_Double">
 					<dbType type="DOUBLE" default="true" />
 					<dbType type="NUMERIC" />	
-					<dbType type="FLOAT" />			
+					<dbType type="FLOAT" />
+                    <dbType type="DECIMAL" />
 				</talendType>
 				<talendType type="id_Float">
 					<dbType type="FLOAT" default="true" />
 					<dbType type="DOUBLE"/>
 					<dbType type="NUMERIC" />
+                    <dbType type="DECIMAL" />
 				</talendType>
 				<talendType type="id_Integer">
 					<dbType type="INTEGER" default="true" />
@@ -86,6 +89,10 @@
 				</dbType>
 				<dbType type="DATE">
 					<talendType type="id_Date" default="true" />
+				</dbType>
+				<dbType type="DECIMAL">
+					<talendType type="id_Double" default="true" />
+					<talendType type="id_Float"/>
 				</dbType>
 				<dbType type="DOUBLE">
 					<talendType type="id_Double" default="true" />
@@ -144,6 +151,7 @@
 					<dbType type="DOUBLE" default="true" />	
 					<dbType type="FLOAT"/>
 					<dbType type="NUMERIC"/>
+					<dbType type="DECIMAL"/>
 				</talendType>
 				<talendType type="boolean">
 					<dbType type="BOOLEAN" default="true" />	
@@ -175,6 +183,9 @@
 				</dbType>
 				<dbType type="DATE">
 					<talendType type="date" default="true" />
+				</dbType>
+				<dbType type="DECIMAL">
+					<talendType type="decimal" default="true" />
 				</dbType>
 				<dbType type="DOUBLE">
 					<talendType type="decimal" default="true" />
