@@ -29,6 +29,7 @@ import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.DbDefaultLengthAndPrecision;
 import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -171,22 +172,41 @@ public class MetadataEmfTableEditorView extends AbstractMetadataTableEditorView<
              */
             private String handleDefaultValue(MetadataColumn bean, String value) {
                 // Checks if Talend type is String or Date.
-                if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) {
-                    if (value == null) {
-                        value = "null";
-                    } else if (value.length() == 0) {
-                        value = "\"" + "\"";
-                    } else if (value.equalsIgnoreCase("null")) {
-                        value = "null";
-                    } else {
-                        {
-                            value = value.replaceAll("\"", "");
-                            value = value.replaceAll("\'", "");
-                            value = "\"" + value + "\"";
+
+                String returnValue = value;
+
+                switch (LanguageManager.getCurrentLanguage()) {
+                case JAVA:
+                    if (bean.getTalendType().equals("id_String") || bean.getTalendType().equals("id_Date")) {
+                        if (returnValue == null) {
+                            returnValue = "null";
+                        } else if (returnValue.length() == 0) {
+                            returnValue = "\"" + "\"";
+                        } else if (returnValue.equalsIgnoreCase("null")) {
+                            returnValue = "null";
+                        } else {
+                            returnValue = returnValue.replaceAll("\"", "");
+                            returnValue = returnValue.replaceAll("\'", "");
+                            returnValue = "\"" + returnValue + "\"";
                         }
                     }
+                default:
+                    // if (bean.getTalendType() != null && bean.getTalendType().equals("string")
+                    // || bean.getTalendType().equals("date")) {
+                    // if (returnValue == null) {
+                    // returnValue = "null";
+                    // } else if (returnValue.length() == 0) {
+                    // returnValue = "\"" + "\"";
+                    // } else if (returnValue.equalsIgnoreCase("null")) {
+                    // returnValue = "null";
+                    // } else {
+                    // returnValue = returnValue.replaceAll("\"", "");
+                    // returnValue = returnValue.replaceAll("\'", "");
+                    // returnValue = "\"" + returnValue + "\"";
+                    // }
+                    // }
                 }
-                return value;
+                return returnValue;
             }
         };
     }
