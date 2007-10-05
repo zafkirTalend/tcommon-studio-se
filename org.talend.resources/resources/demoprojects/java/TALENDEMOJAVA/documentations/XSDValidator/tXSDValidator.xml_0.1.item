@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--A Oracle Magazine Catalog--> 
+<catalog  
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="OracleCatalog.xsd"
+        title="Oracle Magazine" publisher="Oracle Publishing"> 
+  <magazine date="November-December 2003"> 
+  <article>
+    <title>Updating XQuery</title>
+    <author> 
+     <firstname>Jason</firstname> 
+     <lastname>Hunter</lastname> 
+     </author> 
+   </article>
+  <article>
+    <title>Servlets and JSP Step Up</title>
+    <author> 
+     <firstname>Budi</firstname> 
+     <lastname>Kurniawan</lastname> 
+     </author> 
+   </article>
+  
+  </magazine>
+  <magazine date="September-October 2003"> 
+  <article>
+    <title>Parsing XML Efficiently</title>
+    <author>
+    <firstname>Ping</firstname> 
+     <lastname>Guo</lastname></author> 
+   <author> 
+     <firstname>Julie</firstname> 
+     <lastname>Basu</lastname> 
+     </author>
+    <author> 
+     <firstname>Mark</firstname> 
+     <lastname>Scardina</lastname> 
+     </author>
+   <author> 
+     <firstname>K</firstname> 
+     <lastname>Karun</lastname> 
+     </author>
+   </article>
+  <article>
+    <title>The Active Database</title>
+    <author> 
+     <firstname>Cameron</firstname> 
+     <lastname>O'Rourke</lastname> 
+     </author> 
+   </article>
+
+  </magazine>
+</catalog> 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 

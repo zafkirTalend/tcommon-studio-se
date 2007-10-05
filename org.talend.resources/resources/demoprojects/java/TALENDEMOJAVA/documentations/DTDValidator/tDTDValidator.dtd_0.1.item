@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- Déclaration de deux entités paramétrées afin de factoriser des déclarations (%src; est utilisé pour 5 balises différentes, %personne; est utilisé 2 fois) améliorant ainsi la maintenance et la lisibilité de ce fichier-->
+<!ENTITY % src "source (Interne|Externe) 'Interne'">
+<!ENTITY % personne "((etudiant|enseignant)*)">
+
+<!-- Définition de la balise root /annuaire qui contient ( iut ou cnam ) n fois (c'est à dire que c'est une succession non ordonnée de 0 à n balises iut ou cnam-->
+<!ELEMENT annuaire ((iut | cnam)*)>
+
+<!-- Définition d'un /annuaire/(iut|cnam) Utilisation d'une entité paramétrée définie plus haut -->
+<!-- les balises (iut|cnam) possèdent 2 attributs obligatoires promo et ville -->
+<!ELEMENT iut %personne;>
+<!ATTLIST iut
+	ville CDATA #REQUIRED
+	promo CDATA #REQUIRED
+>
+<!ELEMENT cnam %personne;>
+<!ATTLIST cnam
+	ville CDATA #REQUIRED
+	promo CDATA #REQUIRED
+>
+
+<!-- Définition d'un /annuaire/(iut|cnam)/etudiant, élément fils de %personne; -->
+<!ELEMENT etudiant (nom, prenom+, adresse?, mail*, tel*, siteWeb*)>
+<!-- Les balises filles d'un etudiant est une suite ordonnée d'un tag nom, un ou plusieurs tags prenom, un tag facultatif adresse, et de 3 tags mail tel siteWeb de cardinilité [0-n] -->
+<!ATTLIST etudiant
+	id CDATA #REQUIRED
+	sexe (m | f) #REQUIRED
+	formation (initiale | alternance) #REQUIRED
+>
+<!-- la balise etudiant possede 3 attributs obligatoirement renseignés, id, sexe et formation. Les 2 derniers paramètres ne peuvent prendre les valeurs que de respectivement m,f et initiale alternance.-->
+<!ELEMENT nom (#PCDATA)>
+<!ELEMENT prenom (#PCDATA)>
+<!ELEMENT adresse (rue, ville, cp)>
+<!ATTLIST adresse
+	%src; 
+>
+<!ELEMENT rue (#PCDATA)>
+<!ELEMENT ville (#PCDATA)>
+<!ELEMENT cp (#PCDATA)>
+<!ELEMENT mail (#PCDATA)>
+<!ATTLIST mail
+	%src;
+	type (pro | perso) #IMPLIED
+>
+<!ELEMENT tel (#PCDATA)>
+<!ATTLIST tel
+	%src; 
+	type (personnel | professionel | portable | bippeur) "professionel"
+>
+<!-- Par défaut la valeur de l attribut type est positionné à "professionel" -->
+<!ELEMENT siteWeb (#PCDATA)>
+<!ATTLIST siteWeb
+	%src; 
+	type (pro | perso) #IMPLIED
+>
+<!-- Définition d'un /annuaire/(iut|cnam)/enseignant -->
+<!ELEMENT enseignant (nom, prenom, mail*, enseignement)>
+<!ATTLIST enseignant
+	id CDATA #REQUIRED
+	type CDATA #IMPLIED
+>
+<!-- Utilisation de trois entitées paramétrées afin d'améliorer la lisibilité de la DTD -->
+<!ENTITY % module "((module,date*,cours*,tp*,td*,examen?)+) ">
+<!ENTITY % stage "((stage,date?)+)">
+<!ENTITY % conf "((conference,date*)+)">
+<!ELEMENT enseignement (%module; | %stage; | %conf;)>
+<!ELEMENT module (#PCDATA)>
+<!ATTLIST module
+	nbHeures NMTOKEN #REQUIRED
+>
+<!ELEMENT date (#PCDATA)>
+
+<!ELEMENT cours EMPTY>
+<!ATTLIST cours
+	nbHeures NMTOKEN #REQUIRED
+	nom CDATA #IMPLIED
+>
+<!ELEMENT tp EMPTY>
+<!ATTLIST tp
+	nbHeures NMTOKEN #REQUIRED
+>
+<!ELEMENT td EMPTY>
+<!ATTLIST td
+	nbHeures NMTOKEN #REQUIRED
+>
+<!ELEMENT examen (#PCDATA)>
+<!ATTLIST examen
+	nbHeures NMTOKEN #REQUIRED
+>
+<!ELEMENT stage (#PCDATA)>
+<!ELEMENT conference (#PCDATA)>
+<!-- Utilisation d'entité pour le fichier xml afin de centraliser une information et de pouvoir la modifier plus aisément-->
+
