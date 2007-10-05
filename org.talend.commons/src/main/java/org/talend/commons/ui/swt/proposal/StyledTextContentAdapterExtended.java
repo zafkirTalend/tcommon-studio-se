@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.commons.ui.swt.proposal;
 
+import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
@@ -65,7 +66,14 @@ public class StyledTextContentAdapterExtended extends StyledTextContentAdapter i
             return;
         } else {
             int remaingCharsOffset = 0;
-            int nextSpaceIndex = controlContents.indexOf(' ', selection.x);
+            int nextSpaceIndex = -1;
+            char[] separators = new char[] { ' ', '.', '\'', '"', '(', ')', '+' };
+            for (int i = selection.x; i < controlContents.length(); i++) {
+                if (ArrayUtils.contains(separators, controlContents.charAt(i))) {
+                    nextSpaceIndex = i;
+                    break;
+                }
+            }
             int nextCrIndex = controlContents.indexOf('\n', selection.x);
             if (filterValueLength == 0) {
                 remaingCharsOffset = 0;

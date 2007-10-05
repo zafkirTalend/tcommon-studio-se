@@ -69,7 +69,7 @@ public class TextContentAdapterExtended extends TextContentAdapter implements IC
             int remaingCharsOffset = 0;
             int nextSpaceIndex = -1;
             char[] separators = new char[] { ' ', '.', '\'', '"', '(', ')', '+' };
-            for (int i = selection.x; i <= controlContents.length(); i++) {
+            for (int i = selection.x; i < controlContents.length(); i++) {
                 if (ArrayUtils.contains(separators, controlContents.charAt(i))) {
                     nextSpaceIndex = i;
                     break;
