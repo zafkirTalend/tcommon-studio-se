@@ -21,7 +21,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.proposal;
 
-import org.apache.commons.lang.ArrayUtils;
 import org.eclipse.jface.fieldassist.TextContentAdapter;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Control;
@@ -67,24 +66,25 @@ public class TextContentAdapterExtended extends TextContentAdapter implements IC
             return;
         } else {
             int remaingCharsOffset = 0;
-            int nextSpaceIndex = -1;
-            char[] separators = new char[] { ' ', '.', '\'', '"', '(', ')', '+' };
-            for (int i = selection.x; i < controlContents.length(); i++) {
-                if (ArrayUtils.contains(separators, controlContents.charAt(i))) {
-                    nextSpaceIndex = i;
-                    break;
-                }
-            }
-            int nextCrIndex = controlContents.indexOf('\n', selection.x);
-            if (filterValueLength == 0) {
-                remaingCharsOffset = 0;
-            } else if (nextSpaceIndex != -1 && (nextCrIndex != -1 && nextSpaceIndex < nextCrIndex || nextCrIndex == -1)) {
-                remaingCharsOffset = nextSpaceIndex - selection.x;
-            } else if (nextCrIndex != -1) {
-                remaingCharsOffset = nextCrIndex - 1 - selection.x;
-            } else {
-                remaingCharsOffset = controlContents.length() - selection.x;
-            }
+            // int nextSpaceIndex = -1;
+            // char[] separators = new char[] { ' ', '.', '\'', '"', '(', ')', '+' };
+            // for (int i = selection.x; i < controlContents.length(); i++) {
+            // if (ArrayUtils.contains(separators, controlContents.charAt(i))) {
+            // nextSpaceIndex = i;
+            // break;
+            // }
+            // }
+            // int nextCrIndex = controlContents.indexOf('\n', selection.x);
+            // if (filterValueLength == 0) {
+            // remaingCharsOffset = 0;
+            // } else if (nextSpaceIndex != -1 && (nextCrIndex != -1 && nextSpaceIndex < nextCrIndex || nextCrIndex ==
+            // -1)) {
+            // remaingCharsOffset = nextSpaceIndex - selection.x;
+            // } else if (nextCrIndex != -1) {
+            // remaingCharsOffset = nextCrIndex - 1 - selection.x;
+            // } else {
+            // remaingCharsOffset = 0; // controlContents.length() - selection.x;
+            // }
             int end1 = selection.x - filterValueLength - 1;
             String beforeSelection = controlText.getText(0, end1);
             int start2 = selection.x + remaingCharsOffset;
