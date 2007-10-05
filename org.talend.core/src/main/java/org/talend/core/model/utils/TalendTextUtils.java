@@ -142,7 +142,7 @@ public class TalendTextUtils {
         String after = "";
         if (string.length() > LINE_MAX_NUM) {
             String substring = string.substring(0, LINE_MAX_NUM);
-            substring = substring.substring(0, getLastWord(substring, quoteStyle)-1);
+            substring = substring.substring(0, getLastWord(string, substring, quoteStyle));
             after += substring + "\n";
             after += getAfterString(quoteStyle, string.substring(substring.length()));
         } else {
@@ -158,19 +158,12 @@ public class TalendTextUtils {
      * @param quoteStyle
      * @return
      */
-    private static int getLastWord(String substring, String quoteStyle) {
-        int lastIndexOf = substring.lastIndexOf(" ");
-        int lastIndexOf2 = substring.lastIndexOf(quoteStyle);
-        if (lastIndexOf2 > 1) {
-            String s = substring.substring(lastIndexOf2 - 1, lastIndexOf2);
-            if (s.equals("\\")) {
-                lastIndexOf2 = lastIndexOf2 - 1;
-            }
+    private static int getLastWord(String fullString, String substring, String quoteStyle) {
+        int lastIndexOf3 = substring.lastIndexOf(",");
+        if ((lastIndexOf3 + 1) < fullString.length()) {
+            lastIndexOf3++;
         }
-        final int lastIndexOf3 = substring.lastIndexOf(",");
-        lastIndexOf = lastIndexOf < lastIndexOf2 ? lastIndexOf2 : lastIndexOf;
-        lastIndexOf = lastIndexOf < lastIndexOf3 ? lastIndexOf3 : lastIndexOf;
-        return lastIndexOf;
+        return lastIndexOf3;
     }
 
     private static String checkStringQuotes(String str) {
