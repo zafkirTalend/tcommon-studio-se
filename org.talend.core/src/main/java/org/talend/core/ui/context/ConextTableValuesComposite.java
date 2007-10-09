@@ -357,6 +357,8 @@ public class ConextTableValuesComposite extends Composite {
      */
     class CellModifier implements ICellModifier {
 
+        IContextManager contextManager;
+
         /*
          * (non-Javadoc)
          * 
@@ -378,6 +380,7 @@ public class ConextTableValuesComposite extends Composite {
          * @see org.eclipse.jface.viewers.ICellModifier#getValue(java.lang.Object, java.lang.String)
          */
         public Object getValue(Object element, String property) {
+            contextManager = modelManager.getContextManager();
             IContextParameter templatePara = (IContextParameter) element;
             return getRealParameter(property, templatePara).getValue();
         }
@@ -390,7 +393,7 @@ public class ConextTableValuesComposite extends Composite {
          * @return
          */
         public IContextParameter getRealParameter(String property, IContextParameter templatePara) {
-            IContext context = modelManager.getContextManager().getContext(property);
+            IContext context = contextManager.getContext(property);
             IContextParameter para = context.getContextParameter(templatePara.getName());
             return para;
         }
