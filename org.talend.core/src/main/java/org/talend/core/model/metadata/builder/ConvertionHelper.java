@@ -28,6 +28,7 @@ import java.util.List;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.IMetadataConnection;
 import org.talend.core.model.metadata.IMetadataTable;
+import org.talend.core.model.metadata.builder.connection.ConnectionFactory;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
@@ -111,6 +112,50 @@ public final class ConvertionHelper {
     }
 
     private ConvertionHelper() {
+    }
+
+    /**
+     * DOC qiang.zhang Comment method "convert".
+     * 
+     * @param metadataTable
+     * @return
+     */
+    public static MetadataTable convert(IMetadataTable old) {
+        MetadataTable result = ConnectionFactory.eINSTANCE.createMetadataTable();
+        result.setComment(old.getDescription());
+        result.setId(old.getId());
+        result.setLabel(old.getLabel());
+        result.setSourceName(old.getTableName());
+        List<MetadataColumn> columns = new ArrayList<MetadataColumn>(old.getListColumns().size());
+        for (IMetadataColumn column : old.getListColumns()) {
+            MetadataColumn newColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
+            columns.add(newColumn);
+            newColumn.setComment(column.getComment());
+            newColumn.setDefaultValue(column.getDefault());
+            newColumn.setKey(column.isKey());
+            newColumn.setLabel(column.getLabel());
+            newColumn.setPattern(column.getPattern());
+            if (column.getLength() < 0) {
+                newColumn.setLength(0);
+            } else {
+                newColumn.setLength(column.getLength());
+            }
+            newColumn.setNullable(column.isNullable());
+            if (column.getPrecision() < 0) {
+                newColumn.setPrecision(0);
+            } else {
+                newColumn.setPrecision(column.getPrecision());
+            }
+            newColumn.setTalendType(column.getTalendType());
+            newColumn.setSourceType(column.getType());
+            if (column.getOriginalDbColumnName() == null || column.getOriginalDbColumnName().equals("")) {
+                newColumn.setOriginalField(column.getLabel());
+            } else {
+                newColumn.setOriginalField(column.getOriginalDbColumnName());
+            }
+        }
+        result.getColumns().addAll(columns);
+        return result;
     }
 
 }

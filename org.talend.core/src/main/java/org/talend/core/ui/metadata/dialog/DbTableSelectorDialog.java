@@ -55,7 +55,7 @@ public class DbTableSelectorDialog extends Dialog {
 
     private static Image tableImage = CorePlugin.getImageDescriptor("/icons/database/table.gif").createImage();
 
-    private DbTableSelectorObject object;
+    private final DbTableSelectorObject object;
 
     private String selectName;
 
@@ -82,9 +82,10 @@ public class DbTableSelectorDialog extends Dialog {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText("Select Table Name");
-        newShell.setSize(200, 300);
-        newShell.setLocation(getParentShell().getLocation().x + getParentShell().getSize().x / 2,
-                getParentShell().getLocation().y + getParentShell().getSize().y / 2);
+        newShell.setSize(230, 300);
+        newShell.setLocation(getParentShell().getLocation().x + getParentShell().getSize().x / 2, getParentShell()
+                .getLocation().y
+                + getParentShell().getSize().y / 2);
     }
 
     /*
@@ -146,6 +147,7 @@ public class DbTableSelectorDialog extends Dialog {
      */
     private class ListProvider extends LabelProvider implements IStructuredContentProvider, ITreeContentProvider {
 
+        @Override
         public Image getImage(Object element) {
             Image image = super.getImage(element);
             if (element instanceof DbTableSelectorObject) {
@@ -222,7 +224,7 @@ public class DbTableSelectorDialog extends Dialog {
          */
         public Object getParent(Object element) {
             if (element instanceof DbTableSelectorObject) {
-                DbTableSelectorObject parent = ((DbTableSelectorObject) object).getParent();
+                DbTableSelectorObject parent = (object).getParent();
                 if (parent != null) {
                     return parent;
                 }

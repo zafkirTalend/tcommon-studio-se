@@ -45,6 +45,8 @@ public class ExtractMetaDataUtils {
 
     public static String schema;
 
+    public static boolean isReconnect = true;
+
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
      * 
@@ -209,31 +211,40 @@ public class ExtractMetaDataUtils {
      */
     public static void getConnection(String dbType, String url, String username, String pwd, String dataBase,
             String schemaBase) {
+        boolean isColsed = false;
         try {
-            Class.forName(getDriverClassByDbType(dbType)).newInstance();
-            conn = DriverManager.getConnection(url, username, pwd);
-            if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
-                final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
-                        EDatabaseTypeName.ORACLEFORSID.getProduct());
-                if (!ExtractMetaDataFromDataBase.checkSchemaConnection(schemaBase, conn, equals)) {
-                    schema = null;
-                }
-            } else {
-                schema = null;
-                // PTODO Verify for each Database type the Schema necessity
-                // if (dataBase.equals("")) {
-                // schema = null;
-                // } else {
-                // schema = dataBase;
-                // }
+            if (conn != null) {
+                isColsed = conn.isClosed();
             }
-
-        } catch (SQLException e) {
-            log.error(e.toString());
-            throw new RuntimeException(e);
         } catch (Exception e) {
             log.error(e.toString());
-            throw new RuntimeException(e);
+        }
+        if (isReconnect || conn == null || isColsed) {
+            try {
+                Class.forName(getDriverClassByDbType(dbType)).newInstance();
+                conn = DriverManager.getConnection(url, username, pwd);
+                if (schemaBase != null && !schemaBase.equals("")) { //$NON-NLS-1$
+                    final boolean equals = EDatabaseTypeName.getTypeFromDbType(dbType).getProduct().equals(
+                            EDatabaseTypeName.ORACLEFORSID.getProduct());
+                    if (!ExtractMetaDataFromDataBase.checkSchemaConnection(schemaBase, conn, equals)) {
+                        schema = null;
+                    }
+                } else {
+                    schema = null;
+                    // PTODO Verify for each Database type the Schema necessity
+                    // if (dataBase.equals("")) {
+                    // schema = null;
+                    // } else {
+                    // schema = dataBase;
+                    // }
+                }
+            } catch (SQLException e) {
+                log.error(e.toString());
+                throw new RuntimeException(e);
+            } catch (Exception e) {
+                log.error(e.toString());
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -243,7 +254,9 @@ public class ExtractMetaDataUtils {
     public static void closeConnection() {
         try {
             if (!conn.isClosed()) {
-                conn.close();
+                if (isReconnect) {
+                    conn.close();
+                }
             }
         } catch (SQLException e) {
             log.error(e.toString());
