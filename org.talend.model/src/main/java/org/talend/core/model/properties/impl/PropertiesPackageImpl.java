@@ -30,6 +30,7 @@ import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
+import org.talend.core.model.properties.ExecutionVirtualServer;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
@@ -323,6 +324,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass simpleTalendTriggerEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass executionVirtualServerEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -2081,6 +2089,60 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getExecutionVirtualServer() {
+        return executionVirtualServerEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionVirtualServer_Id() {
+        return (EAttribute)executionVirtualServerEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionVirtualServer_Label() {
+        return (EAttribute)executionVirtualServerEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionVirtualServer_Description() {
+        return (EAttribute)executionVirtualServerEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionVirtualServer_Active() {
+        return (EAttribute)executionVirtualServerEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getExecutionVirtualServer_PhysicalServers() {
+        return (EReference)executionVirtualServerEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2401,6 +2463,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(simpleTalendTriggerEClass, SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL);
         createEAttribute(simpleTalendTriggerEClass, SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED);
 
+        executionVirtualServerEClass = createEClass(EXECUTION_VIRTUAL_SERVER);
+        createEAttribute(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__ID);
+        createEAttribute(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__LABEL);
+        createEAttribute(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__DESCRIPTION);
+        createEAttribute(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__ACTIVE);
+        createEReference(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -2696,6 +2765,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getSimpleTalendTrigger_RepeatCount(), theEcorePackage.getEIntegerObject(), "repeatCount", null, 0, 1, SimpleTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSimpleTalendTrigger_RepeatInterval(), ecorePackage.getEInt(), "repeatInterval", null, 0, 1, SimpleTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getSimpleTalendTrigger_TimesTriggered(), ecorePackage.getEInt(), "timesTriggered", null, 0, 1, SimpleTalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(executionVirtualServerEClass, ExecutionVirtualServer.class, "ExecutionVirtualServer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getExecutionVirtualServer_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionVirtualServer_Label(), theEcorePackage.getEString(), "label", null, 0, 1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionVirtualServer_Description(), theEcorePackage.getEString(), "description", null, 0, 1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionVirtualServer_Active(), theEcorePackage.getEBoolean(), "active", null, 0, 1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getExecutionVirtualServer_PhysicalServers(), this.getExecutionServer(), null, "physicalServers", null, 0, -1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

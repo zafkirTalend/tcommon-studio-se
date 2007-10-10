@@ -2840,13 +2840,77 @@ public interface PropertiesPackage extends EPackage {
     int SIMPLE_TALEND_TRIGGER_FEATURE_COUNT = TALEND_TRIGGER_FEATURE_COUNT + 3;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl <em>Execution Virtual Server</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.ExecutionVirtualServerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionVirtualServer()
+     * @generated
+     */
+    int EXECUTION_VIRTUAL_SERVER = 40;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_VIRTUAL_SERVER__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_VIRTUAL_SERVER__LABEL = 1;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_VIRTUAL_SERVER__DESCRIPTION = 2;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_VIRTUAL_SERVER__ACTIVE = 3;
+
+    /**
+     * The feature id for the '<em><b>Physical Servers</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS = 4;
+
+    /**
+     * The number of structural features of the '<em>Execution Virtual Server</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_VIRTUAL_SERVER_FEATURE_COUNT = 5;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 40;
+    int FOLDER_TYPE = 41;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -2856,7 +2920,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 41;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 42;
 
 
     /**
@@ -2867,7 +2931,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 42;
+    int USER_MODULE_AUTHORIZATION_TYPE = 43;
 
 
     /**
@@ -4881,6 +4945,71 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getSimpleTalendTrigger_TimesTriggered();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionVirtualServer <em>Execution Virtual Server</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Execution Virtual Server</em>'.
+     * @see org.talend.core.model.properties.ExecutionVirtualServer
+     * @generated
+     */
+    EClass getExecutionVirtualServer();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionVirtualServer#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.ExecutionVirtualServer#getId()
+     * @see #getExecutionVirtualServer()
+     * @generated
+     */
+    EAttribute getExecutionVirtualServer_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionVirtualServer#getLabel <em>Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Label</em>'.
+     * @see org.talend.core.model.properties.ExecutionVirtualServer#getLabel()
+     * @see #getExecutionVirtualServer()
+     * @generated
+     */
+    EAttribute getExecutionVirtualServer_Label();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionVirtualServer#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see org.talend.core.model.properties.ExecutionVirtualServer#getDescription()
+     * @see #getExecutionVirtualServer()
+     * @generated
+     */
+    EAttribute getExecutionVirtualServer_Description();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionVirtualServer#isActive <em>Active</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Active</em>'.
+     * @see org.talend.core.model.properties.ExecutionVirtualServer#isActive()
+     * @see #getExecutionVirtualServer()
+     * @generated
+     */
+    EAttribute getExecutionVirtualServer_Active();
+
+    /**
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.ExecutionVirtualServer#getPhysicalServers <em>Physical Servers</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Physical Servers</em>'.
+     * @see org.talend.core.model.properties.ExecutionVirtualServer#getPhysicalServers()
+     * @see #getExecutionVirtualServer()
+     * @generated
+     */
+    EReference getExecutionVirtualServer_PhysicalServers();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -6568,6 +6697,56 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED = eINSTANCE.getSimpleTalendTrigger_TimesTriggered();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl <em>Execution Virtual Server</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.ExecutionVirtualServerImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionVirtualServer()
+         * @generated
+         */
+        EClass EXECUTION_VIRTUAL_SERVER = eINSTANCE.getExecutionVirtualServer();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_VIRTUAL_SERVER__ID = eINSTANCE.getExecutionVirtualServer_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_VIRTUAL_SERVER__LABEL = eINSTANCE.getExecutionVirtualServer_Label();
+
+        /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_VIRTUAL_SERVER__DESCRIPTION = eINSTANCE.getExecutionVirtualServer_Description();
+
+        /**
+         * The meta object literal for the '<em><b>Active</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_VIRTUAL_SERVER__ACTIVE = eINSTANCE.getExecutionVirtualServer_Active();
+
+        /**
+         * The meta object literal for the '<em><b>Physical Servers</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS = eINSTANCE.getExecutionVirtualServer_PhysicalServers();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

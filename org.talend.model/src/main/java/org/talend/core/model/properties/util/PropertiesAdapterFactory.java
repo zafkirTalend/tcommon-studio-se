@@ -207,6 +207,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseSimpleTalendTrigger(SimpleTalendTrigger object) {
                 return createSimpleTalendTriggerAdapter();
             }
+            public Object caseExecutionVirtualServer(ExecutionVirtualServer object) {
+                return createExecutionVirtualServerAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -723,6 +726,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createSimpleTalendTriggerAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.ExecutionVirtualServer <em>Execution Virtual Server</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.ExecutionVirtualServer
+     * @generated
+     */
+    public Adapter createExecutionVirtualServerAdapter() {
         return null;
     }
 

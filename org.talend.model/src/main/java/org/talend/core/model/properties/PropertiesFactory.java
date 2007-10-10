@@ -337,6 +337,15 @@ public interface PropertiesFactory extends EFactory {
     SimpleTalendTrigger createSimpleTalendTrigger();
 
     /**
+     * Returns a new object of class '<em>Execution Virtual Server</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Execution Virtual Server</em>'.
+     * @generated
+     */
+    ExecutionVirtualServer createExecutionVirtualServer();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

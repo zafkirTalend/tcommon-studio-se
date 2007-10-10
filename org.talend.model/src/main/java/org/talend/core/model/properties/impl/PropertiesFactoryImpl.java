@@ -127,6 +127,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.CRON_TALEND_TRIGGER: return createCronTalendTrigger();
             case PropertiesPackage.CRON_UI_TALEND_TRIGGER: return createCronUITalendTrigger();
             case PropertiesPackage.SIMPLE_TALEND_TRIGGER: return createSimpleTalendTrigger();
+            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER: return createExecutionVirtualServer();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -505,6 +506,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public SimpleTalendTrigger createSimpleTalendTrigger() {
         SimpleTalendTriggerImpl simpleTalendTrigger = new SimpleTalendTriggerImpl();
         return simpleTalendTrigger;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionVirtualServer createExecutionVirtualServer() {
+        ExecutionVirtualServerImpl executionVirtualServer = new ExecutionVirtualServerImpl();
+        return executionVirtualServer;
     }
 
     /**
