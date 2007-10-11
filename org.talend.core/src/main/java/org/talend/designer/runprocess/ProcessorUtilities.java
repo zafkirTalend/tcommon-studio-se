@@ -186,12 +186,30 @@ public class ProcessorUtilities {
         } else {
             currentContext = jobInfo.getContext();
         }
-        IProcessor processor = getProcessor(currentProcess, currentContext);
+        IProcessor processor = getProcessor(currentProcess);
+
+        // See issue 2188
+        if (generateAllContexts) {
+            List<IContext> list = currentProcess.getContextManager().getListContext();
+            for (IContext context : list) {
+                if (context.getName().equals(currentContext.getName())) {
+                    continue;
+                }
+                processor.setContext(context);
+                try {
+                    processor.generateCode(statistics, trace, properties); // main job will use stats / traces
+                } catch (ProcessorException pe) {
+                    MessageBoxExceptionHandler.process(pe);
+                }
+            }
+        }
+        processor.setContext(currentContext);
         try {
             processor.generateCode(statistics, trace, properties); // main job will use stats / traces
         } catch (ProcessorException pe) {
             MessageBoxExceptionHandler.process(pe);
         }
+
         boolean toReturn = true;
         if (selectedProcessItem.getProcess().getRequired() != null && (option != GENERATE_MAIN_ONLY)) {
             EList emfJobList = selectedProcessItem.getProcess().getRequired().getJob();
@@ -248,6 +266,8 @@ public class ProcessorUtilities {
         return generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
     }
 
+    private static boolean generateAllContexts = false;
+
     /**
      * This function will generate the code of the process and all of this sub process.
      * 
@@ -259,7 +279,10 @@ public class ProcessorUtilities {
         jobList.clear();
         JobInfo jobInfo = new JobInfo(processName, contextName);
         jobInfo.setApplyContextToChildren(applyContextToChildren);
-        return generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
+        generateAllContexts = true;
+        boolean result = generateCode(jobInfo, statistics, trace, true, GENERATE_ALL_CHILDS);
+        generateAllContexts = false;
+        return result;
     }
 
     public static boolean generateCode(String processName, String contextName, boolean statistics, boolean trace, int option) {
