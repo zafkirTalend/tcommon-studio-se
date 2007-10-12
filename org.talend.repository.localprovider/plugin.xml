@@ -6,6 +6,7 @@
       <RepositoryFactory
             authenticationNeeded="false"
             class="org.talend.repository.localprovider.model.LocalRepositoryFactory"
+            displayToUser="true"
             id="local"
             name="Local"/>
    </extension>
