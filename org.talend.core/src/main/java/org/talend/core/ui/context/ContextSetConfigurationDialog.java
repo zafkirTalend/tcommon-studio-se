@@ -46,6 +46,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.SelectionDialog;
@@ -103,13 +104,15 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
 
     private IContext[] fResult;
 
+    private Label msgLabel;
+
     private int nextButtonId = IDialogConstants.CLIENT_ID + 1;
 
     @SuppressWarnings("restriction")
     public ContextSetConfigurationDialog(Shell parentShell, IContextManager manager) {
         super(parentShell);
         setTitle("Configure Contexts");
-        setMessage("Configure Contexts for Job");
+        setMessage("Configure Contexts for Job                           ");
         this.manager = manager;
         fAllContexts = new ArrayList<IContext>(manager.getListContext());
         setShellStyle(getShellStyle() | SWT.RESIZE);
@@ -130,8 +133,8 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
     protected Control createDialogArea(Composite parent) {
         Composite composite = (Composite) super.createDialogArea(parent);
         composite.setFont(parent.getFont());
-
-        createMessageArea(composite);
+        msgLabel = createMessageArea(composite);
+        // createRemoveArea(composite);
         Composite inner = new Composite(composite, SWT.NONE);
         inner.setFont(composite.getFont());
         inner.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -411,15 +414,23 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
             }
 
         }
-
+        if (selectDefaultContext) {
+            String contextNname = manager.getDefaultContext().getName();
+            // label.setText(Messages.getString("ContextProcessSection.RemoveInformation", contextNname)); //$NON-NLS-1$
+            msgLabel.setText(Messages.getString("ContextProcessSection.RemoveInformation", contextNname)); //$NON-NLS-1$
+        } else {
+            msgLabel.setText("Configure Contexts for Job                           ");
+        }
         fRemoveButton.setEnabled(hasSelection && !selectDefaultContext);
-        fEditButton.setEnabled(hasSingleSelection && !selectDefaultContext);
+        // fEditButton.setEnabled(hasSingleSelection && !selectDefaultContext);
+        fEditButton.setEnabled(hasSingleSelection);
         if (fUpButton != null) {
             fUpButton.setEnabled(canMoveUp());
         }
         if (fDownButton != null) {
             fDownButton.setEnabled(canMoveDown());
         }
+
     }
 
     private void moveUp(List toMoveUp) {
@@ -502,4 +513,5 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
     private void deselectAll() {
         fTableViewer.setSelection(StructuredSelection.EMPTY);
     }
+
 }
