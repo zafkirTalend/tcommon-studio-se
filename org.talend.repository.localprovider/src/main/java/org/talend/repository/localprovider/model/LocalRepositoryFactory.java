@@ -182,13 +182,19 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
                     if (currentObject != null) {
                         K key;
-                        String currentVersion = currentObject.getVersion();
+                        String currentVersion = null;
+                        try{
+                            currentVersion = currentObject.getVersion();
+                        }catch(Exception e)
+                        {
+                            e.printStackTrace();
+                        }
                         if (onlyLastVersion) {
                             key = (K) currentObject.getId();
                         } else {
                             key = (K) new MultiKey(currentObject.getId(), currentVersion);
                         }
-
+                        
                         try {
                             if (onlyLastVersion) {
                                 // Version :
@@ -256,7 +262,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @param id - the id of the object searched. Specify <code>null</code> to get all objects.
      * @param type - the type searched
      * @param allVersion - <code>true</code> if all version of each object must be return or <code>false</code> if
-     * on ly the most recent version
+     * only the most recent version
      * @return a list (may be empty) of objects found
      * @throws PersistenceException
      */
@@ -274,7 +280,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         }
                     }
                 }
-            } else if (current instanceof IFolder) {
+            } else if (current instanceof IFolder && (!current.getName().equals("bin"))) {
                 if (searchInChildren) {
                     toReturn.addAll(getSerializableFromFolder((IFolder) current, id, type, allVersion, true,
                             withDeleted));
