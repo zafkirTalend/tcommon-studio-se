@@ -21,9 +21,6 @@
 // ============================================================================
 package org.talend.commons.ui.swt.tableviewer.celleditor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -34,92 +31,88 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.talend.expressionbuilder.ICellEditorDialog;
 import org.talend.expressionbuilder.IExtendedCellEditorBehavior;
-import org.talend.expressionbuilder.test.shadow.Expression;
-import org.talend.expressionbuilder.test.shadow.Variable;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
  * 
- * $Id: CellEditorDialogBehavior.java 上午10:08:35 2007-8-16 +0000 (2007-8-16)
- * yzhang $
+ * $Id: CellEditorDialogBehavior.java 上午10:08:35 2007-8-16 +0000 (2007-8-16) yzhang $
  * 
  */
 public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
 
-	private final ExtendedTextCellEditor extendedTextCellEditor;
+    private final ExtendedTextCellEditor extendedTextCellEditor;
 
-	private ICellEditorDialog cellEditorDialog;
+    private ICellEditorDialog cellEditorDialog;
 
-	/**
-	 * Sets the cellEditorDialog.
-	 * 
-	 * @param cellEditorDialog
-	 *            the cellEditorDialog to set
-	 */
-	public void setCellEditorDialog(ICellEditorDialog cellEditorDialog) {
-		this.cellEditorDialog = cellEditorDialog;
-	}
+    /**
+     * Sets the cellEditorDialog.
+     * 
+     * @param cellEditorDialog the cellEditorDialog to set
+     */
+    public void setCellEditorDialog(ICellEditorDialog cellEditorDialog) {
+        this.cellEditorDialog = cellEditorDialog;
+    }
 
-	/**
-	 * yzhang CellEditorDialogBehavior constructor comment.
-	 */
-	public CellEditorDialogBehavior(
-			ExtendedTextCellEditor extendedTextCellEditor) {
-		this.extendedTextCellEditor = extendedTextCellEditor;
-	}
+    /**
+     * yzhang CellEditorDialogBehavior constructor comment.
+     */
+    public CellEditorDialogBehavior(ExtendedTextCellEditor extendedTextCellEditor) {
+        this.extendedTextCellEditor = extendedTextCellEditor;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.talend.designer.rowgenerator.ui.tabs.IExtendedCellEditorBehavior#createBehaviorControls(org.eclipse.swt.widgets.Composite)
-	 */
-	public Control createBehaviorControls(Composite parent) {
+    private Composite panel;
 
-		Composite panel = new Composite(parent, SWT.NONE);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.rowgenerator.ui.tabs.IExtendedCellEditorBehavior#createBehaviorControls(org.eclipse.swt.widgets.Composite)
+     */
+    public Control createBehaviorControls(Composite parent) {
 
-		GridLayout gridLayout = new GridLayout(2, false);
-		gridLayout.marginBottom = 0;
-		gridLayout.marginHeight = 0;
-		gridLayout.marginLeft = 0;
-		gridLayout.marginRight = 0;
-		gridLayout.marginTop = 0;
-		gridLayout.marginWidth = 0;
-		panel.setLayout(gridLayout);
+        panel = new Composite(parent, SWT.NONE);
 
-		GridData gd = new GridData(GridData.FILL_BOTH
-				| GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
-		panel.setLayoutData(gd);
+        GridLayout gridLayout = new GridLayout(2, false);
+        gridLayout.marginBottom = 0;
+        gridLayout.marginHeight = 0;
+        gridLayout.marginLeft = 0;
+        gridLayout.marginRight = 0;
+        gridLayout.marginTop = 0;
+        gridLayout.marginWidth = 0;
+        panel.setLayout(gridLayout);
 
-		GridData controlGD = new GridData(GridData.FILL_HORIZONTAL
-				| GridData.VERTICAL_ALIGN_BEGINNING);
+        GridData gd = new GridData(GridData.FILL_BOTH | GridData.HORIZONTAL_ALIGN_FILL | GridData.VERTICAL_ALIGN_FILL);
+        panel.setLayoutData(gd);
 
-		Control text = extendedTextCellEditor.createText(panel);
-		text.setLayoutData(controlGD);
+        GridData controlGD = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
 
-		GridData buttonGD = new GridData();
-		buttonGD.heightHint = panel.computeSize(SWT.DEFAULT, SWT.DEFAULT).y;
-		Button button = new Button(panel, SWT.NONE);
-		button.setLayoutData(buttonGD);
-		button.setText("...");
+        Control text = extendedTextCellEditor.createText(panel);
+        text.setLayoutData(controlGD);
 
-		button.addMouseListener(new MouseAdapter() {
+        GridData buttonGD = new GridData();
+        buttonGD.heightHint = panel.computeSize(SWT.DEFAULT, SWT.DEFAULT).y;
+        Button button = new Button(panel, SWT.NONE);
+        button.setLayoutData(buttonGD);
+        button.setText("...");
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see org.eclipse.swt.events.MouseAdapter#mouseUp(org.eclipse.swt.events.MouseEvent)
-			 */
-			@Override
-			public void mouseUp(MouseEvent e) {
-				if (cellEditorDialog != null) {
+        button.addMouseListener(new MouseAdapter() {
 
-					cellEditorDialog.openDialog(extendedTextCellEditor);
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.swt.events.MouseAdapter#mouseUp(org.eclipse.swt.events.MouseEvent)
+             */
+            @Override
+            public void mouseUp(MouseEvent e) {
+                if (cellEditorDialog != null) {
 
-				}
-			}
-		});
+                    cellEditorDialog.openDialog(extendedTextCellEditor);
 
-		return panel;
+                }
+            }
+        });
 
-	}
+        return panel;
+
+    }
+
 }

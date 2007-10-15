@@ -25,6 +25,8 @@ import java.util.List;
 
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.FocusAdapter;
+import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.ModifyEvent;
@@ -37,6 +39,7 @@ import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.talend.expressionbuilder.IExpressionConsumer;
 import org.talend.expressionbuilder.IExpressionDataBean;
@@ -76,6 +79,40 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
         setStyle(SWT.SINGLE);
     }
 
+    private void initFocusListener(Composite composite) {
+        if (composite instanceof Shell) {
+            Shell shell = (Shell) composite;
+            for (Control control : shell.getChildren()) {
+                addFocusListenerToControl(control);
+            }
+        } else {
+            initFocusListener(composite.getParent());
+        }
+
+    }
+
+    private void addFocusListenerToControl(Control control) {
+        if (control instanceof Composite) {
+            Composite composite = (Composite) control;
+            for (Control con : composite.getChildren()) {
+                addFocusListenerToControl(con);
+            }
+        }
+        control.addFocusListener(new FocusAdapter() {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.eclipse.swt.events.FocusAdapter#focusGained(org.eclipse.swt.events.FocusEvent)
+             */
+            @Override
+            public void focusGained(FocusEvent e) {
+                ExtendedTextCellEditor.this.focusLost();
+            }
+        });
+
+    }
+
     /**
      * Sets the cellEditorBehavior.
      * 
@@ -89,7 +126,7 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
      * yzhang Comment method "init".
      */
     public void init() {
-
+        initFocusListener(parent);
         create(parent);
     }
 
@@ -100,6 +137,7 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
      */
     @Override
     protected Control createControl(Composite parent) {
+
         return cellEditorBehavior.createBehaviorControls(parent);
 
     }
@@ -221,7 +259,6 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
      */
     public void setConsumerExpression(String expression) {
         text.setText(expression);
-        focusLost();
     }
 
     /*
@@ -284,4 +321,15 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
     public Object getData() {
         return this.data;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.viewers.CellEditor#focusLost()
+     */
+    @Override
+    public void focusLost() {
+        super.focusLost();
+    }
+
 }
