@@ -43,10 +43,13 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getIdRemoteJob <em>Id Remote Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getChecksumArchive <em>Checksum Archive</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobScriptArchive <em>Job Script Archive</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobScriptArchiveFilename <em>Job Script Archive Filename</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isProcessingState <em>Processing State</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getErrorStatus <em>Error Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastRunDate <em>Last Run Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastDeploymentDate <em>Last Deployment Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
  * </ul>
  * </p>
  *
@@ -304,24 +307,24 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     protected String checksumArchive = CHECKSUM_ARCHIVE_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getJobScriptArchive() <em>Job Script Archive</em>}' attribute.
+     * The default value of the '{@link #getJobScriptArchiveFilename() <em>Job Script Archive Filename</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getJobScriptArchive()
+     * @see #getJobScriptArchiveFilename()
      * @generated
      * @ordered
      */
-    protected static final byte[] JOB_SCRIPT_ARCHIVE_EDEFAULT = null;
+    protected static final String JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getJobScriptArchive() <em>Job Script Archive</em>}' attribute.
+     * The cached value of the '{@link #getJobScriptArchiveFilename() <em>Job Script Archive Filename</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getJobScriptArchive()
+     * @see #getJobScriptArchiveFilename()
      * @generated
      * @ordered
      */
-    protected byte[] jobScriptArchive = JOB_SCRIPT_ARCHIVE_EDEFAULT;
+    protected String jobScriptArchiveFilename = JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT;
 
     /**
      * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
@@ -382,6 +385,66 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected String errorStatus = ERROR_STATUS_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLastRunDate() <em>Last Run Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLastRunDate()
+     * @generated
+     * @ordered
+     */
+    protected static final Date LAST_RUN_DATE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLastRunDate() <em>Last Run Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLastRunDate()
+     * @generated
+     * @ordered
+     */
+    protected Date lastRunDate = LAST_RUN_DATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLastDeploymentDate() <em>Last Deployment Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLastDeploymentDate()
+     * @generated
+     * @ordered
+     */
+    protected static final Date LAST_DEPLOYMENT_DATE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLastDeploymentDate() <em>Last Deployment Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLastDeploymentDate()
+     * @generated
+     * @ordered
+     */
+    protected Date lastDeploymentDate = LAST_DEPLOYMENT_DATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLastEndedRunDate() <em>Last Ended Run Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLastEndedRunDate()
+     * @generated
+     * @ordered
+     */
+    protected static final Date LAST_ENDED_RUN_DATE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLastEndedRunDate() <em>Last Ended Run Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLastEndedRunDate()
+     * @generated
+     * @ordered
+     */
+    protected Date lastEndedRunDate = LAST_ENDED_RUN_DATE_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -751,8 +814,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
-    public byte[] getJobScriptArchive() {
-        return jobScriptArchive;
+    public String getJobScriptArchiveFilename() {
+        return jobScriptArchiveFilename;
     }
 
     /**
@@ -760,11 +823,11 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setJobScriptArchive(byte[] newJobScriptArchive) {
-        byte[] oldJobScriptArchive = jobScriptArchive;
-        jobScriptArchive = newJobScriptArchive;
+    public void setJobScriptArchiveFilename(String newJobScriptArchiveFilename) {
+        String oldJobScriptArchiveFilename = jobScriptArchiveFilename;
+        jobScriptArchiveFilename = newJobScriptArchiveFilename;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE, oldJobScriptArchive, jobScriptArchive));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME, oldJobScriptArchiveFilename, jobScriptArchiveFilename));
     }
 
     /**
@@ -835,6 +898,69 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
+    public Date getLastRunDate() {
+        return lastRunDate;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLastRunDate(Date newLastRunDate) {
+        Date oldLastRunDate = lastRunDate;
+        lastRunDate = newLastRunDate;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE, oldLastRunDate, lastRunDate));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Date getLastDeploymentDate() {
+        return lastDeploymentDate;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLastDeploymentDate(Date newLastDeploymentDate) {
+        Date oldLastDeploymentDate = lastDeploymentDate;
+        lastDeploymentDate = newLastDeploymentDate;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE, oldLastDeploymentDate, lastDeploymentDate));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Date getLastEndedRunDate() {
+        return lastEndedRunDate;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLastEndedRunDate(Date newLastEndedRunDate) {
+        Date oldLastEndedRunDate = lastEndedRunDate;
+        lastEndedRunDate = newLastEndedRunDate;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE, oldLastEndedRunDate, lastEndedRunDate));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK__ID:
@@ -868,14 +994,20 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getIdRemoteJobExecution();
             case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
                 return getChecksumArchive();
-            case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE:
-                return getJobScriptArchive();
+            case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
+                return getJobScriptArchiveFilename();
             case PropertiesPackage.EXECUTION_TASK__STATUS:
                 return getStatus();
             case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
                 return isProcessingState() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
                 return getErrorStatus();
+            case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
+                return getLastRunDate();
+            case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
+                return getLastDeploymentDate();
+            case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
+                return getLastEndedRunDate();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -929,8 +1061,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
                 setChecksumArchive((String)newValue);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE:
-                setJobScriptArchive((byte[])newValue);
+            case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
+                setJobScriptArchiveFilename((String)newValue);
                 return;
             case PropertiesPackage.EXECUTION_TASK__STATUS:
                 setStatus((String)newValue);
@@ -940,6 +1072,15 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
                 setErrorStatus((String)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
+                setLastRunDate((Date)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
+                setLastDeploymentDate((Date)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
+                setLastEndedRunDate((Date)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -994,8 +1135,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
                 setChecksumArchive(CHECKSUM_ARCHIVE_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE:
-                setJobScriptArchive(JOB_SCRIPT_ARCHIVE_EDEFAULT);
+            case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
+                setJobScriptArchiveFilename(JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT);
                 return;
             case PropertiesPackage.EXECUTION_TASK__STATUS:
                 setStatus(STATUS_EDEFAULT);
@@ -1005,6 +1146,15 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
                 setErrorStatus(ERROR_STATUS_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
+                setLastRunDate(LAST_RUN_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
+                setLastDeploymentDate(LAST_DEPLOYMENT_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
+                setLastEndedRunDate(LAST_ENDED_RUN_DATE_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -1045,14 +1195,20 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return ID_REMOTE_JOB_EXECUTION_EDEFAULT == null ? idRemoteJobExecution != null : !ID_REMOTE_JOB_EXECUTION_EDEFAULT.equals(idRemoteJobExecution);
             case PropertiesPackage.EXECUTION_TASK__CHECKSUM_ARCHIVE:
                 return CHECKSUM_ARCHIVE_EDEFAULT == null ? checksumArchive != null : !CHECKSUM_ARCHIVE_EDEFAULT.equals(checksumArchive);
-            case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE:
-                return JOB_SCRIPT_ARCHIVE_EDEFAULT == null ? jobScriptArchive != null : !JOB_SCRIPT_ARCHIVE_EDEFAULT.equals(jobScriptArchive);
+            case PropertiesPackage.EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME:
+                return JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT == null ? jobScriptArchiveFilename != null : !JOB_SCRIPT_ARCHIVE_FILENAME_EDEFAULT.equals(jobScriptArchiveFilename);
             case PropertiesPackage.EXECUTION_TASK__STATUS:
                 return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
             case PropertiesPackage.EXECUTION_TASK__PROCESSING_STATE:
                 return processingState != PROCESSING_STATE_EDEFAULT;
             case PropertiesPackage.EXECUTION_TASK__ERROR_STATUS:
                 return ERROR_STATUS_EDEFAULT == null ? errorStatus != null : !ERROR_STATUS_EDEFAULT.equals(errorStatus);
+            case PropertiesPackage.EXECUTION_TASK__LAST_RUN_DATE:
+                return LAST_RUN_DATE_EDEFAULT == null ? lastRunDate != null : !LAST_RUN_DATE_EDEFAULT.equals(lastRunDate);
+            case PropertiesPackage.EXECUTION_TASK__LAST_DEPLOYMENT_DATE:
+                return LAST_DEPLOYMENT_DATE_EDEFAULT == null ? lastDeploymentDate != null : !LAST_DEPLOYMENT_DATE_EDEFAULT.equals(lastDeploymentDate);
+            case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
+                return LAST_ENDED_RUN_DATE_EDEFAULT == null ? lastEndedRunDate != null : !LAST_ENDED_RUN_DATE_EDEFAULT.equals(lastEndedRunDate);
         }
         return super.eIsSet(featureID);
     }
@@ -1088,14 +1244,20 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(idRemoteJobExecution);
         result.append(", checksumArchive: ");
         result.append(checksumArchive);
-        result.append(", jobScriptArchive: ");
-        result.append(jobScriptArchive);
+        result.append(", jobScriptArchiveFilename: ");
+        result.append(jobScriptArchiveFilename);
         result.append(", status: ");
         result.append(status);
         result.append(", processingState: ");
         result.append(processingState);
         result.append(", errorStatus: ");
         result.append(errorStatus);
+        result.append(", lastRunDate: ");
+        result.append(lastRunDate);
+        result.append(", lastDeploymentDate: ");
+        result.append(lastDeploymentDate);
+        result.append(", lastEndedRunDate: ");
+        result.append(lastEndedRunDate);
         result.append(')');
         return result.toString();
     }

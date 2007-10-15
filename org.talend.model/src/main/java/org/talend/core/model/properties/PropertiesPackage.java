@@ -2269,13 +2269,13 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__CHECKSUM_ARCHIVE = 13;
 
     /**
-     * The feature id for the '<em><b>Job Script Archive</b></em>' attribute.
+     * The feature id for the '<em><b>Job Script Archive Filename</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_SCRIPT_ARCHIVE = 14;
+    int EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME = 14;
 
     /**
      * The feature id for the '<em><b>Status</b></em>' attribute.
@@ -2305,13 +2305,40 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__ERROR_STATUS = 17;
 
     /**
+     * The feature id for the '<em><b>Last Run Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__LAST_RUN_DATE = 18;
+
+    /**
+     * The feature id for the '<em><b>Last Deployment Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__LAST_DEPLOYMENT_DATE = 19;
+
+    /**
+     * The feature id for the '<em><b>Last Ended Run Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__LAST_ENDED_RUN_DATE = 20;
+
+    /**
      * The number of structural features of the '<em>Execution Task</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = 18;
+    int EXECUTION_TASK_FEATURE_COUNT = 21;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
@@ -4641,15 +4668,15 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_ChecksumArchive();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchive <em>Job Script Archive</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchiveFilename <em>Job Script Archive Filename</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Job Script Archive</em>'.
-     * @see org.talend.core.model.properties.ExecutionTask#getJobScriptArchive()
+     * @return the meta object for the attribute '<em>Job Script Archive Filename</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getJobScriptArchiveFilename()
      * @see #getExecutionTask()
      * @generated
      */
-    EAttribute getExecutionTask_JobScriptArchive();
+    EAttribute getExecutionTask_JobScriptArchiveFilename();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getStatus <em>Status</em>}'.
@@ -4683,6 +4710,39 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EAttribute getExecutionTask_ErrorStatus();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getLastRunDate <em>Last Run Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Last Run Date</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getLastRunDate()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_LastRunDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getLastDeploymentDate <em>Last Deployment Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Last Deployment Date</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getLastDeploymentDate()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_LastDeploymentDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getLastEndedRunDate <em>Last Ended Run Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Last Ended Run Date</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getLastEndedRunDate()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_LastEndedRunDate();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
@@ -6467,12 +6527,12 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK__CHECKSUM_ARCHIVE = eINSTANCE.getExecutionTask_ChecksumArchive();
 
         /**
-         * The meta object literal for the '<em><b>Job Script Archive</b></em>' attribute feature.
+         * The meta object literal for the '<em><b>Job Script Archive Filename</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute EXECUTION_TASK__JOB_SCRIPT_ARCHIVE = eINSTANCE.getExecutionTask_JobScriptArchive();
+        EAttribute EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME = eINSTANCE.getExecutionTask_JobScriptArchiveFilename();
 
         /**
          * The meta object literal for the '<em><b>Status</b></em>' attribute feature.
@@ -6497,6 +6557,30 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_TASK__ERROR_STATUS = eINSTANCE.getExecutionTask_ErrorStatus();
+
+        /**
+         * The meta object literal for the '<em><b>Last Run Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__LAST_RUN_DATE = eINSTANCE.getExecutionTask_LastRunDate();
+
+        /**
+         * The meta object literal for the '<em><b>Last Deployment Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__LAST_DEPLOYMENT_DATE = eINSTANCE.getExecutionTask_LastDeploymentDate();
+
+        /**
+         * The meta object literal for the '<em><b>Last Ended Run Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__LAST_ENDED_RUN_DATE = eINSTANCE.getExecutionTask_LastEndedRunDate();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.

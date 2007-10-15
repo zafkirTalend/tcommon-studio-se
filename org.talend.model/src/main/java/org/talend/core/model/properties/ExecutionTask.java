@@ -32,10 +32,13 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJob <em>Id Remote Job</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getIdRemoteJobExecution <em>Id Remote Job Execution</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getChecksumArchive <em>Checksum Archive</em>}</li>
- *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchive <em>Job Script Archive</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchiveFilename <em>Job Script Archive Filename</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#isProcessingState <em>Processing State</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getErrorStatus <em>Error Status</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastRunDate <em>Last Run Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastDeploymentDate <em>Last Deployment Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
  * </ul>
  * </p>
  *
@@ -409,30 +412,30 @@ public interface ExecutionTask extends EObject {
     void setChecksumArchive(String value);
 
     /**
-     * Returns the value of the '<em><b>Job Script Archive</b></em>' attribute.
+     * Returns the value of the '<em><b>Job Script Archive Filename</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Job Script Archive</em>' attribute isn't clear,
+     * If the meaning of the '<em>Job Script Archive Filename</em>' attribute isn't clear,
      * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * @return the value of the '<em>Job Script Archive</em>' attribute.
-     * @see #setJobScriptArchive(byte[])
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_JobScriptArchive()
+     * @return the value of the '<em>Job Script Archive Filename</em>' attribute.
+     * @see #setJobScriptArchiveFilename(String)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_JobScriptArchiveFilename()
      * @model
      * @generated
      */
-    byte[] getJobScriptArchive();
+    String getJobScriptArchiveFilename();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchive <em>Job Script Archive</em>}' attribute.
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getJobScriptArchiveFilename <em>Job Script Archive Filename</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Job Script Archive</em>' attribute.
-     * @see #getJobScriptArchive()
+     * @param value the new value of the '<em>Job Script Archive Filename</em>' attribute.
+     * @see #getJobScriptArchiveFilename()
      * @generated
      */
-    void setJobScriptArchive(byte[] value);
+    void setJobScriptArchiveFilename(String value);
 
     /**
      * Returns the value of the '<em><b>Status</b></em>' attribute.
@@ -511,5 +514,83 @@ public interface ExecutionTask extends EObject {
      * @generated
      */
     void setErrorStatus(String value);
+
+    /**
+     * Returns the value of the '<em><b>Last Run Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Last Run Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Last Run Date</em>' attribute.
+     * @see #setLastRunDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_LastRunDate()
+     * @model
+     * @generated
+     */
+    Date getLastRunDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastRunDate <em>Last Run Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Last Run Date</em>' attribute.
+     * @see #getLastRunDate()
+     * @generated
+     */
+    void setLastRunDate(Date value);
+
+    /**
+     * Returns the value of the '<em><b>Last Deployment Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Last Deployment Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Last Deployment Date</em>' attribute.
+     * @see #setLastDeploymentDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_LastDeploymentDate()
+     * @model
+     * @generated
+     */
+    Date getLastDeploymentDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastDeploymentDate <em>Last Deployment Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Last Deployment Date</em>' attribute.
+     * @see #getLastDeploymentDate()
+     * @generated
+     */
+    void setLastDeploymentDate(Date value);
+
+    /**
+     * Returns the value of the '<em><b>Last Ended Run Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Last Ended Run Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Last Ended Run Date</em>' attribute.
+     * @see #setLastEndedRunDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_LastEndedRunDate()
+     * @model
+     * @generated
+     */
+    Date getLastEndedRunDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getLastEndedRunDate <em>Last Ended Run Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Last Ended Run Date</em>' attribute.
+     * @see #getLastEndedRunDate()
+     * @generated
+     */
+    void setLastEndedRunDate(Date value);
 
 } // ExecutionTask
