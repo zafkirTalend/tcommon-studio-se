@@ -112,7 +112,7 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
     public ContextSetConfigurationDialog(Shell parentShell, IContextManager manager) {
         super(parentShell);
         setTitle("Configure Contexts");
-        setMessage("Configure Contexts for Job                           ");
+        setMessage("Configure Contexts for Job                                      ");
         this.manager = manager;
         fAllContexts = new ArrayList<IContext>(manager.getListContext());
         setShellStyle(getShellStyle() | SWT.RESIZE);
@@ -419,7 +419,7 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
             // label.setText(Messages.getString("ContextProcessSection.RemoveInformation", contextNname)); //$NON-NLS-1$
             msgLabel.setText(Messages.getString("ContextProcessSection.RemoveInformation", contextNname)); //$NON-NLS-1$
         } else {
-            msgLabel.setText("Configure Contexts for Job                           ");
+            msgLabel.setText("Configure Contexts for Job                                      ");
         }
         fRemoveButton.setEnabled(hasSelection && !selectDefaultContext);
         // fEditButton.setEnabled(hasSingleSelection && !selectDefaultContext);
