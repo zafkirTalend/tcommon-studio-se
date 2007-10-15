@@ -23,6 +23,7 @@ package org.talend.core.model.metadata;
 
 import java.util.List;
 
+import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.Element;
@@ -37,8 +38,8 @@ public class QueryUtil {
 
     public static final String DEFAULT_TABLE_NAME = "_MyTable_";
 
-    public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
-            String realTableName) {
+    public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType,
+            String schema, String realTableName) {
         String tableName = getTableName(node, repositoryMetadata, schema, dbType, realTableName);
         return generateNewQuery(repositoryMetadata, dbType, tableName);
     }
@@ -59,15 +60,16 @@ public class QueryUtil {
 
         for (int i = 0; i < metaDataColumnList.size(); i++) {
             IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
-            String columnName = TalendTextUtils.addQuotesWithSpaceField(getColumnName(metaDataColumn.getOriginalDbColumnName(),
-                    dbType), dbType);
+            String columnName = TalendTextUtils.addQuotesWithSpaceField(getColumnName(metaDataColumn
+                    .getOriginalDbColumnName(), dbType), dbType);
             if (i != index - 1) {
                 query.append(tableNameForColumnSuffix).append(columnName).append(",").append(space);
             } else {
                 query.append(tableNameForColumnSuffix).append(columnName).append(space);
             }
         }
-        query.append(enter).append("FROM").append(space).append(TalendTextUtils.addQuotesWithSpaceField(tableName, dbType));
+        query.append(enter).append("FROM").append(space).append(
+                TalendTextUtils.addQuotesWithSpaceField(tableName, dbType));
 
         return query.toString();
     }
@@ -123,15 +125,18 @@ public class QueryUtil {
         if (!flag) {
             currentTableName = realTableName;
         }
-        if (schema != null && schema.length() > 0) {
-            if (dbType.equalsIgnoreCase("PostgreSQL")) {
-                currentTableName = "\"" + schema + "\"" + "." + "\"" + currentTableName + "\"";
-                return currentTableName;
-            }
-        }
         if (currentTableName == null) {
             currentTableName = DEFAULT_TABLE_NAME;
-            return currentTableName;
+        }
+        if (schema != null && schema.length() > 0) {
+            currentTableName = getSchemaName(schema, dbType, currentTableName);
+        }
+        return currentTableName;
+    }
+
+    private static String getSchemaName(String schema, String dbType, String currentTableName) {
+        if (EDatabaseTypeName.getTypeFromDbType(dbType).isNeedSchema()) {
+            currentTableName = "\"" + schema + "\"" + "." + "\"" + currentTableName + "\"";
         }
         return currentTableName;
     }
