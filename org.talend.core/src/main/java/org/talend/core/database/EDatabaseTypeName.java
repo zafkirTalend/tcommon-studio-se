@@ -99,7 +99,7 @@ public enum EDatabaseTypeName {
                 return typename;
             }
         }
-        return MYSQL;
+        return getTypeFromDisplayName(dbType);
     }
 
     public static EDatabaseTypeName getTypeFromDisplayName(String displayName) {
