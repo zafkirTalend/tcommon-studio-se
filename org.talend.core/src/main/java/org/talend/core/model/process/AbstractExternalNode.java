@@ -23,7 +23,6 @@ package org.talend.core.model.process;
 
 import java.util.List;
 
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.components.IODataComponent;
 import org.talend.core.model.components.IODataComponentContainer;
 import org.talend.core.model.metadata.ColumnNameChanged;
@@ -37,6 +36,16 @@ import org.talend.core.model.metadata.ColumnNameChanged;
 public abstract class AbstractExternalNode extends AbstractNode implements IExternalNode {
 
     private IODataComponentContainer ioDataContainer;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.AbstractNode#getExternalNode()
+     */
+    @Override
+    public IExternalNode getExternalNode() {
+        return this;
+    }
 
     public List<Problem> getProblems() {
         return null;
@@ -67,14 +76,14 @@ public abstract class AbstractExternalNode extends AbstractNode implements IExte
      */
     public void metadataInputChanged(IODataComponent dataComponent, String connectionToApply) {
         for (ColumnNameChanged col : dataComponent.getColumnNameChanged()) {
-//            System.out.println("    -> " + col + " " + connectionToApply); //$NON-NLS-1$ //$NON-NLS-2$
+            // System.out.println(" -> " + col + " " + connectionToApply); //$NON-NLS-1$ //$NON-NLS-2$
             this.renameMetadataColumnName(connectionToApply, col.getOldName(), col.getNewName());
         }
     }
 
     public void metadataOutputChanged(IODataComponent dataComponent, String connectionToApply) {
         for (ColumnNameChanged col : dataComponent.getColumnNameChanged()) {
-//            System.out.println("    -> " + col + " " + connectionToApply); //$NON-NLS-1$ //$NON-NLS-2$
+            // System.out.println(" -> " + col + " " + connectionToApply); //$NON-NLS-1$ //$NON-NLS-2$
             this.renameMetadataColumnName(connectionToApply, col.getOldName(), col.getNewName());
         }
     }
