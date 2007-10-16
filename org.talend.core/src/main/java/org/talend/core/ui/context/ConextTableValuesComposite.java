@@ -79,6 +79,8 @@ public class ConextTableValuesComposite extends Composite {
 
     private DefaultCellEditorFactory cellFactory;
 
+    private ConfigureContextAction configContext;
+
     /**
      * Constructor.
      * 
@@ -112,7 +114,8 @@ public class ConextTableValuesComposite extends Composite {
 
         final MenuManager menuManager = new MenuManager("Context Configuration");
 
-        ConfigureContextAction configContext = new ConfigureContextAction(modelManager, this.getShell());
+        configContext = new ConfigureContextAction(modelManager, this.getShell());
+
         menuManager.add(configContext);
 
         final Menu aMenu = menuManager.createContextMenu(toolBar.getParent());
@@ -165,6 +168,11 @@ public class ConextTableValuesComposite extends Composite {
                 }
             }
         });
+    }
+
+    public void setEnabled(boolean enabled) {
+        configContext.setEnabled(enabled);
+
     }
 
     private void activateCellEditor(final TableItem item, final Table table, final TableEditor treeEditor, int columnIndex) {

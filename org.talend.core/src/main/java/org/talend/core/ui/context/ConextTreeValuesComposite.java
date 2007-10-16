@@ -121,6 +121,8 @@ public class ConextTreeValuesComposite extends Composite {
 
     private DefaultCellEditorFactory cellFactory;
 
+    private ConfigureContextAction configContext;
+
     /**
      * bqian ConextTemplateComposite constructor comment.
      * 
@@ -202,6 +204,11 @@ public class ConextTreeValuesComposite extends Composite {
                 }
             }
         });
+
+    }
+
+    public void setEnabled(boolean enabled) {
+        configContext.setEnabled(enabled);
 
     }
 
@@ -293,7 +300,7 @@ public class ConextTreeValuesComposite extends Composite {
         IMenuManager submenu = new MenuManager("Context Presentation");
         manager.add(submenu);
 
-        ConfigureContextAction configContext = new ConfigureContextAction(modelManager, this.getShell());
+        configContext = new ConfigureContextAction(modelManager, this.getShell());
         manager.add(configContext);
 
         groupByVariable = new GroupByVariableAction();

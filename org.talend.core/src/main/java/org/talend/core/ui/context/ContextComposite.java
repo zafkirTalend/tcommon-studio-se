@@ -74,6 +74,9 @@ public abstract class ContextComposite extends Composite implements IContextMode
         template.setEnabled(enable);
         // no need to set the ConextTreeValuesComposite and ConextTableValuesComposite. They can take care of
         // themselvies.
+        tableValues.setEnabled(enable);
+        treeValues.setEnabled(enable);
+
     }
 
     public void refresh() {
