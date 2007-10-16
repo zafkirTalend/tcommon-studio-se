@@ -183,10 +183,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     if (currentObject != null) {
                         K key;
                         String currentVersion = null;
-                        try{
+                        try {
                             currentVersion = currentObject.getVersion();
-                        }catch(Exception e)
-                        {
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                         if (onlyLastVersion) {
@@ -194,7 +193,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         } else {
                             key = (K) new MultiKey(currentObject.getId(), currentVersion);
                         }
-                        
+
                         try {
                             if (onlyLastVersion) {
                                 // Version :
@@ -280,7 +279,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                         }
                     }
                 }
-            } else if (current instanceof IFolder){      // && (!current.getName().equals("bin"))) {
+            } else if (current instanceof IFolder) { // && (!current.getName().equals("bin"))) {
                 if (searchInChildren) {
                     toReturn.addAll(getSerializableFromFolder((IFolder) current, id, type, allVersion, true,
                             withDeleted));
@@ -1156,6 +1155,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void logOnProject(Project project) throws PersistenceException, LoginException {
+        if (getRepositoryContext().getUser().getLogin() == null) {
+            throw new LoginException(Messages.getString("LocalRepositoryFactory.UserLoginCannotBeNull")); //$NON-NLS-1$
+        }
+
         super.logOnProject(project);
 
         if (!doesLoggedUserExist()) {
