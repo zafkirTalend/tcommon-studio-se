@@ -2332,13 +2332,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__LAST_ENDED_RUN_DATE = 20;
 
     /**
+     * The feature id for the '<em><b>Triggers</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__TRIGGERS = 21;
+
+    /**
      * The number of structural features of the '<em>Execution Task</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = 21;
+    int EXECUTION_TASK_FEATURE_COUNT = 22;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
@@ -2396,7 +2405,7 @@ public interface PropertiesPackage extends EPackage {
     int TALEND_TRIGGER__TRIGGER_TYPE = 4;
 
     /**
-     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2505,7 +2514,7 @@ public interface PropertiesPackage extends EPackage {
     int CRON_TALEND_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
 
     /**
-     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2623,7 +2632,7 @@ public interface PropertiesPackage extends EPackage {
     int CRON_UI_TALEND_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
 
     /**
-     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -2786,7 +2795,7 @@ public interface PropertiesPackage extends EPackage {
     int SIMPLE_TALEND_TRIGGER__TRIGGER_TYPE = TALEND_TRIGGER__TRIGGER_TYPE;
 
     /**
-     * The feature id for the '<em><b>Execution Task</b></em>' reference.
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -4745,6 +4754,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_LastEndedRunDate();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.ExecutionTask#getTriggers <em>Triggers</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Triggers</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getTriggers()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EReference getExecutionTask_Triggers();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4810,10 +4830,10 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getTalendTrigger_TriggerType();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTask <em>Execution Task</em>}'.
+     * Returns the meta object for the container reference '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTask <em>Execution Task</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Execution Task</em>'.
+     * @return the meta object for the container reference '<em>Execution Task</em>'.
      * @see org.talend.core.model.properties.TalendTrigger#getExecutionTask()
      * @see #getTalendTrigger()
      * @generated
@@ -6583,6 +6603,14 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_TASK__LAST_ENDED_RUN_DATE = eINSTANCE.getExecutionTask_LastEndedRunDate();
 
         /**
+         * The meta object literal for the '<em><b>Triggers</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_TASK__TRIGGERS = eINSTANCE.getExecutionTask_Triggers();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -6633,7 +6661,7 @@ public interface PropertiesPackage extends EPackage {
         EAttribute TALEND_TRIGGER__TRIGGER_TYPE = eINSTANCE.getTalendTrigger_TriggerType();
 
         /**
-         * The meta object literal for the '<em><b>Execution Task</b></em>' reference feature.
+         * The meta object literal for the '<em><b>Execution Task</b></em>' container reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated

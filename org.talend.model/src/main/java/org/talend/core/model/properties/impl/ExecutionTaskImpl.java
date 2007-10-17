@@ -6,21 +6,27 @@
  */
 package org.talend.core.model.properties.impl;
 
+import java.util.Collection;
 import java.util.Date;
 
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
+import org.talend.core.model.properties.TalendTrigger;
 
 /**
  * <!-- begin-user-doc -->
@@ -50,6 +56,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastRunDate <em>Last Run Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastDeploymentDate <em>Last Deployment Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getTriggers <em>Triggers</em>}</li>
  * </ul>
  * </p>
  *
@@ -445,6 +452,16 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected Date lastEndedRunDate = LAST_ENDED_RUN_DATE_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getTriggers() <em>Triggers</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getTriggers()
+     * @generated
+     * @ordered
+     */
+    protected EList triggers;
 
     /**
      * <!-- begin-user-doc -->
@@ -961,6 +978,44 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList getTriggers() {
+        if (triggers == null) {
+            triggers = new EObjectContainmentWithInverseEList(TalendTrigger.class, this, PropertiesPackage.EXECUTION_TASK__TRIGGERS, PropertiesPackage.TALEND_TRIGGER__EXECUTION_TASK);
+        }
+        return triggers;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+                return ((InternalEList)getTriggers()).basicAdd(otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+                return ((InternalEList)getTriggers()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK__ID:
@@ -1008,6 +1063,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getLastDeploymentDate();
             case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
                 return getLastEndedRunDate();
+            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+                return getTriggers();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1081,6 +1138,10 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
                 setLastEndedRunDate((Date)newValue);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+                getTriggers().clear();
+                getTriggers().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -1156,6 +1217,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
                 setLastEndedRunDate(LAST_ENDED_RUN_DATE_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+                getTriggers().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1209,6 +1273,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return LAST_DEPLOYMENT_DATE_EDEFAULT == null ? lastDeploymentDate != null : !LAST_DEPLOYMENT_DATE_EDEFAULT.equals(lastDeploymentDate);
             case PropertiesPackage.EXECUTION_TASK__LAST_ENDED_RUN_DATE:
                 return LAST_ENDED_RUN_DATE_EDEFAULT == null ? lastEndedRunDate != null : !LAST_ENDED_RUN_DATE_EDEFAULT.equals(lastEndedRunDate);
+            case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
+                return triggers != null && !triggers.isEmpty();
         }
         return super.eIsSet(featureID);
     }

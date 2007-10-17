@@ -8,6 +8,7 @@ package org.talend.core.model.properties;
 
 import java.util.Date;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -39,6 +40,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastRunDate <em>Last Run Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastDeploymentDate <em>Last Deployment Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionTask#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionTask#getTriggers <em>Triggers</em>}</li>
  * </ul>
  * </p>
  *
@@ -592,5 +594,23 @@ public interface ExecutionTask extends EObject {
      * @generated
      */
     void setLastEndedRunDate(Date value);
+
+    /**
+     * Returns the value of the '<em><b>Triggers</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.TalendTrigger}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.TalendTrigger#getExecutionTask <em>Execution Task</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Triggers</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Triggers</em>' containment reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_Triggers()
+     * @see org.talend.core.model.properties.TalendTrigger#getExecutionTask
+     * @model type="org.talend.core.model.properties.TalendTrigger" opposite="executionTask" containment="true"
+     * @generated
+     */
+    EList getTriggers();
 
 } // ExecutionTask
