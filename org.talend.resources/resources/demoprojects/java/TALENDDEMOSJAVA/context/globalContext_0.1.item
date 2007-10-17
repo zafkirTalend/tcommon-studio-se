@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="ASCII"?>
+<talendfile:ContextType xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:talendfile="platform:/resource/org.talend.model/model/TalendFile.xsd" confirmationNeeded="false" name="demo">
+  <contextParameter comment="This var is just used on t04_Context/repositoryContext" name="sampleInt" prompt="please define an sample int:" promptNeeded="false" type="id_Integer" value="100"/>
+  <contextParameter comment="" name="defaultDir" prompt="Set the path of the dir to store the file will be generate by the demo jobs:" promptNeeded="false" type="id_String" value="C://talend_files"/>
+</talendfile:ContextType>

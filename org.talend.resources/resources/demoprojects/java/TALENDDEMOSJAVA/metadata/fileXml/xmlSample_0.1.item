@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<TalendMetadata:XmlFileConnection xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:TalendMetadata="http://www.talend.org" XmlFilePath="C:/cca.xml" Encoding="ISO-8859-1">
+  <tables id="_bncF0GEPEdy2Lemiu-Bn7Q" label="metadata">
+    <columns label="sousTitre" talendType="id_String" length="12" precision="0"/>
+    <columns label="auteur" talendType="id_String" length="7" precision="0"/>
+    <columns label="name" talendType="id_String" length="6" precision="0"/>
+    <columns label="lname" talendType="id_String" length="7" precision="0"/>
+  </tables>
+  <schema AbsoluteXPathQuery="/root/biblio/livre | /root/customers/pays/state/customer">
+    <schemaTargets RelativeXPathQuery="titre/@sousTitre" TagName="sousTitre"/>
+    <schemaTargets RelativeXPathQuery="auteur" TagName="auteur"/>
+    <schemaTargets RelativeXPathQuery="@firstname" TagName="name"/>
+    <schemaTargets RelativeXPathQuery="@lastname" TagName="lname"/>
+  </schema>
+</TalendMetadata:XmlFileConnection>
