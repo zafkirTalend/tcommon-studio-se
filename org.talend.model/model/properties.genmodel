@@ -215,10 +215,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/idRemoteJob"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/idRemoteJobExecution"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/checksumArchive"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/jobScriptArchive"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/jobScriptArchiveFilename"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/status"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/processingState"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/errorStatus"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/lastRunDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/lastDeploymentDate"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/lastEndedRunDate"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//TalendTrigger">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/id"/>
@@ -247,6 +250,13 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SimpleTalendTrigger/repeatCount"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SimpleTalendTrigger/repeatInterval"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//SimpleTalendTrigger/timesTriggered"/>
+    </genClasses>
+    <genClasses ecoreClass="properties.ecore#//ExecutionVirtualServer">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionVirtualServer/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionVirtualServer/label"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionVirtualServer/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionVirtualServer/active"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionVirtualServer/physicalServers"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>
