@@ -33,6 +33,8 @@ import org.talend.core.model.properties.RoutineItem;
  */
 public interface IRoutineSynchronizer {
 
+    public final static String TEMPLATE = "__TEMPLATE__";
+
     public void syncAllRoutines() throws SystemException;
 
     public IFile syncRoutine(RoutineItem routineItem, boolean copyToTemp) throws SystemException;
