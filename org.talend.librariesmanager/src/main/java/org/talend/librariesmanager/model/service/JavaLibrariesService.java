@@ -72,7 +72,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
 
     @Override
     public URL getRoutineTemplate() {
-        return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER + "/Template.java");
+        return Activator.BUNDLE.getEntry("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER + "/__TEMPLATE__.java");
     }
 
     /*
@@ -83,8 +83,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     public List<URL> getSystemRoutines() {
         List<URL> toReturn = new ArrayList<URL>();
 
-        Enumeration entryPaths = Activator.BUNDLE.getEntryPaths("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER
-                + "/system/");
+        Enumeration entryPaths = Activator.BUNDLE.getEntryPaths("resources/java/" + SOURCE_JAVA_ROUTINES_FOLDER);
         for (Enumeration enumer = entryPaths; enumer.hasMoreElements();) {
             String routine = (String) enumer.nextElement();
             if (routine.endsWith(".java")) {
@@ -101,12 +100,12 @@ public class JavaLibrariesService extends AbstractLibrariesService {
      * @see org.talend.core.model.general.ILibrariesService#getTalendRoutines()
      */
     public URL getTalendRoutinesFolder() throws IOException {
-        URL url = Activator.BUNDLE.getEntry("resources/java/talend"); //$NON-NLS-1$
+        URL url = Activator.BUNDLE.getEntry("resources/java/routines/system"); //$NON-NLS-1$
         return FileLocator.resolve(url);
     }
 
     public List<URL> getTalendRoutines() {
-        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/talend", "");
+        return FilesUtils.getFilesFromFolder(Activator.BUNDLE, "resources/java/routines/system", "");
     }
 
     @Override
