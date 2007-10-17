@@ -227,7 +227,7 @@
         defaultValueLiteral="Scheduler"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="UserModuleAuthorizationType">
-    <eLiterals name="Scheduler" value="1" literal="Scheduler"/>
+    <eLiterals name="Job_Conductor" value="1" literal="Job Conductor"/>
     <eLiterals name="Dashboard" value="2" literal="Dashboard"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="LDAPSchemaConnectionItem" eSuperTypes="#//ConnectionItem"/>

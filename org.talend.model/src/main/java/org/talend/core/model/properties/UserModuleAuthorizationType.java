@@ -23,21 +23,6 @@ import org.eclipse.emf.common.util.AbstractEnumerator;
  */
 public final class UserModuleAuthorizationType extends AbstractEnumerator {
     /**
-     * The '<em><b>Scheduler</b></em>' literal value.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of '<em><b>Scheduler</b></em>' literal object isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @see #SCHEDULER_LITERAL
-     * @model name="Scheduler"
-     * @generated
-     * @ordered
-     */
-    public static final int SCHEDULER = 1;
-
-    /**
      * The '<em><b>Dashboard</b></em>' literal value.
      * <!-- begin-user-doc -->
      * <p>
@@ -53,14 +38,19 @@ public final class UserModuleAuthorizationType extends AbstractEnumerator {
     public static final int DASHBOARD = 2;
 
     /**
-     * The '<em><b>Scheduler</b></em>' literal object.
+     * The '<em><b>Job Conductor</b></em>' literal value.
      * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of '<em><b>Job Conductor</b></em>' literal object isn't clear,
+     * there really should be more of a description here...
+     * </p>
      * <!-- end-user-doc -->
-     * @see #SCHEDULER
+     * @see #JOB_CONDUCTOR_LITERAL
+     * @model name="Job_Conductor" literal="Job Conductor"
      * @generated
      * @ordered
      */
-    public static final UserModuleAuthorizationType SCHEDULER_LITERAL = new UserModuleAuthorizationType(SCHEDULER, "Scheduler", "Scheduler");
+    public static final int JOB_CONDUCTOR = 1;
 
     /**
      * The '<em><b>Dashboard</b></em>' literal object.
@@ -73,6 +63,16 @@ public final class UserModuleAuthorizationType extends AbstractEnumerator {
     public static final UserModuleAuthorizationType DASHBOARD_LITERAL = new UserModuleAuthorizationType(DASHBOARD, "Dashboard", "Dashboard");
 
     /**
+     * The '<em><b>Job Conductor</b></em>' literal object.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #JOB_CONDUCTOR
+     * @generated
+     * @ordered
+     */
+    public static final UserModuleAuthorizationType JOB_CONDUCTOR_LITERAL = new UserModuleAuthorizationType(JOB_CONDUCTOR, "Job_Conductor", "Job Conductor");
+
+    /**
      * An array of all the '<em><b>User Module Authorization Type</b></em>' enumerators.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -80,8 +80,8 @@ public final class UserModuleAuthorizationType extends AbstractEnumerator {
      */
     private static final UserModuleAuthorizationType[] VALUES_ARRAY =
         new UserModuleAuthorizationType[] {
-            SCHEDULER_LITERAL,
             DASHBOARD_LITERAL,
+            JOB_CONDUCTOR_LITERAL,
         };
 
     /**
@@ -132,8 +132,8 @@ public final class UserModuleAuthorizationType extends AbstractEnumerator {
      */
     public static UserModuleAuthorizationType get(int value) {
         switch (value) {
-            case SCHEDULER: return SCHEDULER_LITERAL;
             case DASHBOARD: return DASHBOARD_LITERAL;
+            case JOB_CONDUCTOR: return JOB_CONDUCTOR_LITERAL;
         }
         return null;
     }

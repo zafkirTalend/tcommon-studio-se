@@ -2828,8 +2828,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         addEEnumLiteral(userProjectAuthorizationTypeEEnum, UserProjectAuthorizationType.READ_ONLY_LITERAL);
 
         initEEnum(userModuleAuthorizationTypeEEnum, UserModuleAuthorizationType.class, "UserModuleAuthorizationType");
-        addEEnumLiteral(userModuleAuthorizationTypeEEnum, UserModuleAuthorizationType.SCHEDULER_LITERAL);
         addEEnumLiteral(userModuleAuthorizationTypeEEnum, UserModuleAuthorizationType.DASHBOARD_LITERAL);
+        addEEnumLiteral(userModuleAuthorizationTypeEEnum, UserModuleAuthorizationType.JOB_CONDUCTOR_LITERAL);
 
         // Create resource
         createResource(eNS_URI);

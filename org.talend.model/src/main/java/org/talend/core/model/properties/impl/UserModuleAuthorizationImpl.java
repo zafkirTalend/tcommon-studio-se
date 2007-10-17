@@ -53,7 +53,7 @@ public class UserModuleAuthorizationImpl extends EObjectImpl implements UserModu
      * @generated
      * @ordered
      */
-    protected static final UserModuleAuthorizationType TYPE_EDEFAULT = UserModuleAuthorizationType.SCHEDULER_LITERAL;
+    protected static final UserModuleAuthorizationType TYPE_EDEFAULT = UserModuleAuthorizationType.DASHBOARD_LITERAL;
 
     /**
      * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
