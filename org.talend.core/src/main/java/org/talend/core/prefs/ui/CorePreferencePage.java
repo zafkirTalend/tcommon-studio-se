@@ -150,9 +150,11 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         boolean ok = super.performOk();
         saveLanguageType();
         if (ok) {
-            String perlInterpreter = getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
-            PerlEditorPlugin.getDefault().setExecutablePreference("\"" + perlInterpreter + "\"");
-            PerlMainPreferencePage.refreshExecutableTextValue("\"" + perlInterpreter + "\"");
+            if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) {
+                String perlInterpreter = getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
+                PerlEditorPlugin.getDefault().setExecutablePreference("\"" + perlInterpreter + "\"");
+                PerlMainPreferencePage.refreshExecutableTextValue("\"" + perlInterpreter + "\"");
+            }
             XmlArray.setLimitToDefault();
         }
         return ok;
