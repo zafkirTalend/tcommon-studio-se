@@ -54,6 +54,8 @@ public class ComponentUtilities {
 
     private static final String UNIQUE_NAME = "UNIQUE_NAME"; //$NON-NLS-1$
 
+    public static boolean isComponentPaletteNeedFresh;
+
     public static String getNodePropertyValue(NodeType node, String property) {
         ElementParameterType prop = getNodeProperty(node, property);
         if (prop == null) {
