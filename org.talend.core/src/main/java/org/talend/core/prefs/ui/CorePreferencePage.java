@@ -86,11 +86,30 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         addField(filePathTemp);
 
         FileFieldEditor perlInterpreter = new FileFieldEditor(ITalendCorePrefConstants.PERL_INTERPRETER, Messages
-                .getString("CorePreferencePage.perlInterpreter"), true, getFieldEditorParent()); //$NON-NLS-1$
+                .getString("CorePreferencePage.perlInterpreter"), true, getFieldEditorParent()) {//$NON-NLS-1$
+
+            protected boolean checkState() {
+                if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
+                    return true;
+                }
+
+                return super.checkState();
+            }
+
+        };
         addField(perlInterpreter);
 
         FileFieldEditor javaInterpreter = new FileFieldEditor(ITalendCorePrefConstants.JAVA_INTERPRETER, Messages
-                .getString("CorePreferencePage.javaInterpreter"), true, getFieldEditorParent()); //$NON-NLS-1$
+                .getString("CorePreferencePage.javaInterpreter"), true, getFieldEditorParent()){; //$NON-NLS-1$
+                protected boolean checkState() {
+                    if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) {
+                        return true;
+                    }
+
+                    return super.checkState();
+                }
+        };
+            
         addField(javaInterpreter);
 
         IntegerFieldEditor previewLimit = new IntegerFieldEditor(ITalendCorePrefConstants.PREVIEW_LIMIT, Messages
@@ -111,8 +130,8 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         addField(languageSelectionEditor);
 
         if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-            BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD,
-                    Messages.getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
+            BooleanFieldEditor runInMultiThread = new BooleanFieldEditor(ITalendCorePrefConstants.RUN_IN_MULTI_THREAD, Messages
+                    .getString("CorePreferencePage.runInMultiThread"), //$NON-NLS-1$
                     getFieldEditorParent());
 
             addField(runInMultiThread);
