@@ -40,7 +40,6 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getDescription <em>Description</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getExecutionServer <em>Execution Server</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getProject <em>Project</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getProcessItem <em>Process Item</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobVersion <em>Job Version</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isActive <em>Active</em>}</li>
@@ -57,6 +56,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastDeploymentDate <em>Last Deployment Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getTriggers <em>Triggers</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobId <em>Job Id</em>}</li>
  * </ul>
  * </p>
  *
@@ -142,16 +142,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected Project project;
-
-    /**
-     * The cached value of the '{@link #getProcessItem() <em>Process Item</em>}' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getProcessItem()
-     * @generated
-     * @ordered
-     */
-    protected ProcessItem processItem;
 
     /**
      * The default value of the '{@link #getContext() <em>Context</em>}' attribute.
@@ -464,6 +454,26 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
     protected EList triggers;
 
     /**
+     * The default value of the '{@link #getJobId() <em>Job Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJobId()
+     * @generated
+     * @ordered
+     */
+    protected static final String JOB_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getJobId() <em>Job Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getJobId()
+     * @generated
+     * @ordered
+     */
+    protected String jobId = JOB_ID_EDEFAULT;
+
+    /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
@@ -618,44 +628,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         project = newProject;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__PROJECT, oldProject, project));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public ProcessItem getProcessItem() {
-        if (processItem != null && processItem.eIsProxy()) {
-            InternalEObject oldProcessItem = (InternalEObject)processItem;
-            processItem = (ProcessItem)eResolveProxy(oldProcessItem);
-            if (processItem != oldProcessItem) {
-                if (eNotificationRequired())
-                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.EXECUTION_TASK__PROCESS_ITEM, oldProcessItem, processItem));
-            }
-        }
-        return processItem;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public ProcessItem basicGetProcessItem() {
-        return processItem;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setProcessItem(ProcessItem newProcessItem) {
-        ProcessItem oldProcessItem = processItem;
-        processItem = newProcessItem;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__PROCESS_ITEM, oldProcessItem, processItem));
     }
 
     /**
@@ -990,6 +962,27 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getJobId() {
+        return jobId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setJobId(String newJobId) {
+        String oldJobId = jobId;
+        jobId = newJobId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__JOB_ID, oldJobId, jobId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
@@ -1030,9 +1023,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__PROJECT:
                 if (resolve) return getProject();
                 return basicGetProject();
-            case PropertiesPackage.EXECUTION_TASK__PROCESS_ITEM:
-                if (resolve) return getProcessItem();
-                return basicGetProcessItem();
             case PropertiesPackage.EXECUTION_TASK__CONTEXT:
                 return getContext();
             case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
@@ -1065,6 +1055,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getLastEndedRunDate();
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
                 return getTriggers();
+            case PropertiesPackage.EXECUTION_TASK__JOB_ID:
+                return getJobId();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1090,9 +1082,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__PROJECT:
                 setProject((Project)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__PROCESS_ITEM:
-                setProcessItem((ProcessItem)newValue);
                 return;
             case PropertiesPackage.EXECUTION_TASK__CONTEXT:
                 setContext((String)newValue);
@@ -1143,6 +1132,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 getTriggers().clear();
                 getTriggers().addAll((Collection)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__JOB_ID:
+                setJobId((String)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1168,9 +1160,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return;
             case PropertiesPackage.EXECUTION_TASK__PROJECT:
                 setProject((Project)null);
-                return;
-            case PropertiesPackage.EXECUTION_TASK__PROCESS_ITEM:
-                setProcessItem((ProcessItem)null);
                 return;
             case PropertiesPackage.EXECUTION_TASK__CONTEXT:
                 setContext(CONTEXT_EDEFAULT);
@@ -1220,6 +1209,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
                 getTriggers().clear();
                 return;
+            case PropertiesPackage.EXECUTION_TASK__JOB_ID:
+                setJobId(JOB_ID_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1241,8 +1233,6 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return executionServer != null;
             case PropertiesPackage.EXECUTION_TASK__PROJECT:
                 return project != null;
-            case PropertiesPackage.EXECUTION_TASK__PROCESS_ITEM:
-                return processItem != null;
             case PropertiesPackage.EXECUTION_TASK__CONTEXT:
                 return CONTEXT_EDEFAULT == null ? context != null : !CONTEXT_EDEFAULT.equals(context);
             case PropertiesPackage.EXECUTION_TASK__JOB_VERSION:
@@ -1275,6 +1265,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return LAST_ENDED_RUN_DATE_EDEFAULT == null ? lastEndedRunDate != null : !LAST_ENDED_RUN_DATE_EDEFAULT.equals(lastEndedRunDate);
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
                 return triggers != null && !triggers.isEmpty();
+            case PropertiesPackage.EXECUTION_TASK__JOB_ID:
+                return JOB_ID_EDEFAULT == null ? jobId != null : !JOB_ID_EDEFAULT.equals(jobId);
         }
         return super.eIsSet(featureID);
     }
@@ -1324,6 +1316,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(lastDeploymentDate);
         result.append(", lastEndedRunDate: ");
         result.append(lastEndedRunDate);
+        result.append(", jobId: ");
+        result.append(jobId);
         result.append(')');
         return result.toString();
     }

@@ -2188,22 +2188,13 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__PROJECT = 4;
 
     /**
-     * The feature id for the '<em><b>Process Item</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_TASK__PROCESS_ITEM = 5;
-
-    /**
      * The feature id for the '<em><b>Context</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CONTEXT = 6;
+    int EXECUTION_TASK__CONTEXT = 5;
 
     /**
      * The feature id for the '<em><b>Job Version</b></em>' attribute.
@@ -2212,7 +2203,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_VERSION = 7;
+    int EXECUTION_TASK__JOB_VERSION = 6;
 
     /**
      * The feature id for the '<em><b>Active</b></em>' attribute.
@@ -2221,7 +2212,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ACTIVE = 8;
+    int EXECUTION_TASK__ACTIVE = 7;
 
     /**
      * The feature id for the '<em><b>Id Quartz Job</b></em>' attribute.
@@ -2230,7 +2221,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ID_QUARTZ_JOB = 9;
+    int EXECUTION_TASK__ID_QUARTZ_JOB = 8;
 
     /**
      * The feature id for the '<em><b>Last Script Generation Date</b></em>' attribute.
@@ -2239,7 +2230,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE = 10;
+    int EXECUTION_TASK__LAST_SCRIPT_GENERATION_DATE = 9;
 
     /**
      * The feature id for the '<em><b>Id Remote Job</b></em>' attribute.
@@ -2248,7 +2239,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ID_REMOTE_JOB = 11;
+    int EXECUTION_TASK__ID_REMOTE_JOB = 10;
 
     /**
      * The feature id for the '<em><b>Id Remote Job Execution</b></em>' attribute.
@@ -2257,7 +2248,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION = 12;
+    int EXECUTION_TASK__ID_REMOTE_JOB_EXECUTION = 11;
 
     /**
      * The feature id for the '<em><b>Checksum Archive</b></em>' attribute.
@@ -2266,7 +2257,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__CHECKSUM_ARCHIVE = 13;
+    int EXECUTION_TASK__CHECKSUM_ARCHIVE = 12;
 
     /**
      * The feature id for the '<em><b>Job Script Archive Filename</b></em>' attribute.
@@ -2275,7 +2266,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME = 14;
+    int EXECUTION_TASK__JOB_SCRIPT_ARCHIVE_FILENAME = 13;
 
     /**
      * The feature id for the '<em><b>Status</b></em>' attribute.
@@ -2284,7 +2275,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__STATUS = 15;
+    int EXECUTION_TASK__STATUS = 14;
 
     /**
      * The feature id for the '<em><b>Processing State</b></em>' attribute.
@@ -2293,7 +2284,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__PROCESSING_STATE = 16;
+    int EXECUTION_TASK__PROCESSING_STATE = 15;
 
     /**
      * The feature id for the '<em><b>Error Status</b></em>' attribute.
@@ -2302,7 +2293,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__ERROR_STATUS = 17;
+    int EXECUTION_TASK__ERROR_STATUS = 16;
 
     /**
      * The feature id for the '<em><b>Last Run Date</b></em>' attribute.
@@ -2311,7 +2302,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_RUN_DATE = 18;
+    int EXECUTION_TASK__LAST_RUN_DATE = 17;
 
     /**
      * The feature id for the '<em><b>Last Deployment Date</b></em>' attribute.
@@ -2320,7 +2311,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_DEPLOYMENT_DATE = 19;
+    int EXECUTION_TASK__LAST_DEPLOYMENT_DATE = 18;
 
     /**
      * The feature id for the '<em><b>Last Ended Run Date</b></em>' attribute.
@@ -2329,7 +2320,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__LAST_ENDED_RUN_DATE = 20;
+    int EXECUTION_TASK__LAST_ENDED_RUN_DATE = 19;
 
     /**
      * The feature id for the '<em><b>Triggers</b></em>' containment reference list.
@@ -2338,7 +2329,16 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK__TRIGGERS = 21;
+    int EXECUTION_TASK__TRIGGERS = 20;
+
+    /**
+     * The feature id for the '<em><b>Job Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__JOB_ID = 21;
 
     /**
      * The number of structural features of the '<em>Execution Task</em>' class.
@@ -4578,17 +4578,6 @@ public interface PropertiesPackage extends EPackage {
     EReference getExecutionTask_Project();
 
     /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionTask#getProcessItem <em>Process Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Process Item</em>'.
-     * @see org.talend.core.model.properties.ExecutionTask#getProcessItem()
-     * @see #getExecutionTask()
-     * @generated
-     */
-    EReference getExecutionTask_ProcessItem();
-
-    /**
      * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getContext <em>Context</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -4763,6 +4752,17 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getExecutionTask_Triggers();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getJobId <em>Job Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Job Id</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getJobId()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_JobId();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
@@ -6475,14 +6475,6 @@ public interface PropertiesPackage extends EPackage {
         EReference EXECUTION_TASK__PROJECT = eINSTANCE.getExecutionTask_Project();
 
         /**
-         * The meta object literal for the '<em><b>Process Item</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference EXECUTION_TASK__PROCESS_ITEM = eINSTANCE.getExecutionTask_ProcessItem();
-
-        /**
          * The meta object literal for the '<em><b>Context</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -6609,6 +6601,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference EXECUTION_TASK__TRIGGERS = eINSTANCE.getExecutionTask_Triggers();
+
+        /**
+         * The meta object literal for the '<em><b>Job Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__JOB_ID = eINSTANCE.getExecutionTask_JobId();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.

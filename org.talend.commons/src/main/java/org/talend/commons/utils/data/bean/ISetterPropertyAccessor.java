@@ -24,11 +24,17 @@ package org.talend.commons.utils.data.bean;
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
  * 
- * $Id$
- * 
  * @param <B> Bean object
  * @param <V> Value of the bean's property
  */
-public interface IBeanPropertyAccessors<B, V> extends IGetterPropertyAccessor<B, V>, ISetterPropertyAccessor<B, V> {
+public interface ISetterPropertyAccessor<B, V> {
+
+    /**
+     * 
+     * This implementation is optional, you must implement it if this property is modifiable.
+     * 
+     * @param value
+     */
+    public void set(B bean, V value);
 
 }
