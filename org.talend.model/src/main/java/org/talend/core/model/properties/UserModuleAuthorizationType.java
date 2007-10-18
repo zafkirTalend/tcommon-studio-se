@@ -46,7 +46,7 @@ public final class UserModuleAuthorizationType extends AbstractEnumerator {
      * </p>
      * <!-- end-user-doc -->
      * @see #JOB_CONDUCTOR_LITERAL
-     * @model name="Job_Conductor" literal="Job Conductor"
+     * @model name="JobConductor" literal="Job Conductor"
      * @generated
      * @ordered
      */
@@ -70,7 +70,7 @@ public final class UserModuleAuthorizationType extends AbstractEnumerator {
      * @generated
      * @ordered
      */
-    public static final UserModuleAuthorizationType JOB_CONDUCTOR_LITERAL = new UserModuleAuthorizationType(JOB_CONDUCTOR, "Job_Conductor", "Job Conductor");
+    public static final UserModuleAuthorizationType JOB_CONDUCTOR_LITERAL = new UserModuleAuthorizationType(JOB_CONDUCTOR, "JobConductor", "Job Conductor");
 
     /**
      * An array of all the '<em><b>User Module Authorization Type</b></em>' enumerators.
