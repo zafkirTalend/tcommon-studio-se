@@ -159,11 +159,15 @@ public class TalendTextUtils {
      * @return
      */
     private static int getLastWord(String fullString, String substring, String quoteStyle) {
-        int lastIndexOf3 = substring.lastIndexOf(",");
-        if ((lastIndexOf3 + 1) < fullString.length()) {
-            lastIndexOf3++;
+        if (substring.contains(",")) {
+            int lastIndexOf3 = substring.lastIndexOf(",");
+            if ((lastIndexOf3 + 1) < fullString.length()) {
+                lastIndexOf3++;
+            }
+            return lastIndexOf3;
+        } else {
+            return substring.length();
         }
-        return lastIndexOf3;
     }
 
     private static String checkStringQuotes(String str) {
