@@ -81,14 +81,6 @@ public interface ConnectionFactory extends EFactory {
     DatabaseConnection createDatabaseConnection();
 
     /**
-     * Returns a new object of class '<em>CSV File Connection</em>'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return a new object of class '<em>CSV File Connection</em>'.
-     * @generated
-     */
-    CSVFileConnection createCSVFileConnection();
-
-    /**
      * Returns a new object of class '<em>Regexp File Connection</em>'. <!-- begin-user-doc --> <!-- end-user-doc
      * -->
      * 

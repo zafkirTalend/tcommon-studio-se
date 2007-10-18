@@ -38,10 +38,6 @@
       <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//FieldSeparator/Custom_UTF8"/>
       <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//FieldSeparator/Custom_RegExp"/>
     </genEnums>
-    <genEnums ecoreEnum="metadata.ecore#//Escape">
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Escape/Delimited"/>
-      <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//Escape/CSV"/>
-    </genEnums>
     <genEnums ecoreEnum="metadata.ecore#//RowSeparator">
       <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//RowSeparator/Custom_String"/>
       <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//RowSeparator/Standart_EOL"/>
@@ -100,7 +96,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/LimitValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/FirstLineCaption"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/RemoveEmptyRow"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/EscapeType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/EscapeChar"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/TextEnclosure"/>
     </genClasses>
@@ -127,7 +122,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/ProductId"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DatabaseConnection/DBRootPath"/>
     </genClasses>
-    <genClasses ecoreClass="metadata.ecore#//CSVFileConnection"/>
     <genClasses ecoreClass="metadata.ecore#//RegexpFileConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//RegexpFileConnection/FieldSeparatorType"/>
     </genClasses>

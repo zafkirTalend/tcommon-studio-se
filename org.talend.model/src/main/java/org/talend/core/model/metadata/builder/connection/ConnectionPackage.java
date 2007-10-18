@@ -1657,288 +1657,13 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 17;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.CSVFileConnectionImpl <em>CSV File Connection</em>}' class.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @see org.talend.core.model.metadata.builder.connection.impl.CSVFileConnectionImpl
-     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCSVFileConnection()
-     * @generated
-     */
-    int CSV_FILE_CONNECTION = 9;
-
-    /**
-     * The feature id for the '<em><b>Properties</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__PROPERTIES = DELIMITED_FILE_CONNECTION__PROPERTIES;
-
-    /**
-     * The feature id for the '<em><b>Id</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__ID = DELIMITED_FILE_CONNECTION__ID;
-
-    /**
-     * The feature id for the '<em><b>Comment</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__COMMENT = DELIMITED_FILE_CONNECTION__COMMENT;
-
-    /**
-     * The feature id for the '<em><b>Label</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__LABEL = DELIMITED_FILE_CONNECTION__LABEL;
-
-    /**
-     * The feature id for the '<em><b>Read Only</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__READ_ONLY = DELIMITED_FILE_CONNECTION__READ_ONLY;
-
-    /**
-     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__SYNCHRONISED = DELIMITED_FILE_CONNECTION__SYNCHRONISED;
-
-    /**
-     * The feature id for the '<em><b>Divergency</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__DIVERGENCY = DELIMITED_FILE_CONNECTION__DIVERGENCY;
-
-    /**
-     * The feature id for the '<em><b>Version</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__VERSION = DELIMITED_FILE_CONNECTION__VERSION;
-
-    /**
-     * The feature id for the '<em><b>Tables</b></em>' containment reference list.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__TABLES = DELIMITED_FILE_CONNECTION__TABLES;
-
-    /**
-     * The feature id for the '<em><b>Queries</b></em>' containment reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__QUERIES = DELIMITED_FILE_CONNECTION__QUERIES;
-
-    /**
-     * The feature id for the '<em><b>Server</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__SERVER = DELIMITED_FILE_CONNECTION__SERVER;
-
-    /**
-     * The feature id for the '<em><b>File Path</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__FILE_PATH = DELIMITED_FILE_CONNECTION__FILE_PATH;
-
-    /**
-     * The feature id for the '<em><b>Format</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__FORMAT = DELIMITED_FILE_CONNECTION__FORMAT;
-
-    /**
-     * The feature id for the '<em><b>Encoding</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__ENCODING = DELIMITED_FILE_CONNECTION__ENCODING;
-
-    /**
-     * The feature id for the '<em><b>Field Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__FIELD_SEPARATOR_VALUE = DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Row Separator Type</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__ROW_SEPARATOR_TYPE = DELIMITED_FILE_CONNECTION__ROW_SEPARATOR_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Row Separator Value</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__ROW_SEPARATOR_VALUE = DELIMITED_FILE_CONNECTION__ROW_SEPARATOR_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Text Identifier</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__TEXT_IDENTIFIER = DELIMITED_FILE_CONNECTION__TEXT_IDENTIFIER;
-
-    /**
-     * The feature id for the '<em><b>Use Header</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__USE_HEADER = DELIMITED_FILE_CONNECTION__USE_HEADER;
-
-    /**
-     * The feature id for the '<em><b>Header Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__HEADER_VALUE = DELIMITED_FILE_CONNECTION__HEADER_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Use Footer</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__USE_FOOTER = DELIMITED_FILE_CONNECTION__USE_FOOTER;
-
-    /**
-     * The feature id for the '<em><b>Footer Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__FOOTER_VALUE = DELIMITED_FILE_CONNECTION__FOOTER_VALUE;
-
-    /**
-     * The feature id for the '<em><b>Use Limit</b></em>' attribute.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__USE_LIMIT = DELIMITED_FILE_CONNECTION__USE_LIMIT;
-
-    /**
-     * The feature id for the '<em><b>Limit Value</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__LIMIT_VALUE = DELIMITED_FILE_CONNECTION__LIMIT_VALUE;
-
-    /**
-     * The feature id for the '<em><b>First Line Caption</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__FIRST_LINE_CAPTION = DELIMITED_FILE_CONNECTION__FIRST_LINE_CAPTION;
-
-    /**
-     * The feature id for the '<em><b>Remove Empty Row</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__REMOVE_EMPTY_ROW = DELIMITED_FILE_CONNECTION__REMOVE_EMPTY_ROW;
-
-    /**
-     * The feature id for the '<em><b>Escape Type</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__ESCAPE_TYPE = DELIMITED_FILE_CONNECTION__ESCAPE_TYPE;
-
-    /**
-     * The feature id for the '<em><b>Escape Char</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__ESCAPE_CHAR = DELIMITED_FILE_CONNECTION__ESCAPE_CHAR;
-
-    /**
-     * The feature id for the '<em><b>Text Enclosure</b></em>' attribute. <!-- begin-user-doc --> <!-- end-user-doc
-     * -->
-     * 
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__TEXT_ENCLOSURE = DELIMITED_FILE_CONNECTION__TEXT_ENCLOSURE;
-
-    /**
-     * The feature id for the '<em><b>Field Separator Type</b></em>' attribute.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION__FIELD_SEPARATOR_TYPE = DELIMITED_FILE_CONNECTION__FIELD_SEPARATOR_TYPE;
-
-    /**
-     * The number of structural features of the '<em>CSV File Connection</em>' class.
-     * <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int CSV_FILE_CONNECTION_FEATURE_COUNT = DELIMITED_FILE_CONNECTION_FEATURE_COUNT + 0;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl <em>Regexp File Connection</em>}' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRegexpFileConnection()
      * @generated
      */
-    int REGEXP_FILE_CONNECTION = 10;
+    int REGEXP_FILE_CONNECTION = 9;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2213,7 +1938,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlFileConnection()
      * @generated
      */
-    int XML_FILE_CONNECTION = 11;
+    int XML_FILE_CONNECTION = 10;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2369,7 +2094,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getSchemaTarget()
      * @generated
      */
-    int SCHEMA_TARGET = 12;
+    int SCHEMA_TARGET = 11;
 
     /**
      * The feature id for the '<em><b>Relative XPath Query</b></em>' attribute.
@@ -2414,7 +2139,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQueriesConnection()
      * @generated
      */
-    int QUERIES_CONNECTION = 13;
+    int QUERIES_CONNECTION = 12;
 
     /**
      * The feature id for the '<em><b>Connection</b></em>' container reference.
@@ -2451,7 +2176,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getQuery()
      * @generated
      */
-    int QUERY = 14;
+    int QUERY = 13;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2551,7 +2276,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLdifFileConnection()
      * @generated
      */
-    int LDIF_FILE_CONNECTION = 15;
+    int LDIF_FILE_CONNECTION = 14;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2705,7 +2430,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getXmlXPathLoopDescriptor()
      * @generated
      */
-    int XML_XPATH_LOOP_DESCRIPTOR = 16;
+    int XML_XPATH_LOOP_DESCRIPTOR = 15;
 
     /**
      * The feature id for the '<em><b>Limit Boucle</b></em>' attribute.
@@ -2760,7 +2485,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getGenericSchemaConnection()
      * @generated
      */
-    int GENERIC_SCHEMA_CONNECTION = 17;
+    int GENERIC_SCHEMA_CONNECTION = 16;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -2887,7 +2612,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getLDAPSchemaConnection()
      * @generated
      */
-    int LDAP_SCHEMA_CONNECTION = 18;
+    int LDAP_SCHEMA_CONNECTION = 17;
 
     /**
      * The feature id for the '<em><b>Properties</b></em>' attribute.
@@ -3202,7 +2927,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 19;
+    int DATABASE_PROPERTIES = 18;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -3211,7 +2936,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 20;
+    int FILE_FORMAT = 19;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -3220,7 +2945,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 21;
+    int FIELD_SEPARATOR = 20;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -3229,7 +2954,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 22;
+    int ESCAPE = 21;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -3238,7 +2963,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 23;
+    int ROW_SEPARATOR = 22;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -3247,7 +2972,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 24;
+    int MAP = 23;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -3969,15 +3694,6 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EAttribute getDatabaseConnection_DBRootPath();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.CSVFileConnection <em>CSV File Connection</em>}'.
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @return the meta object for class '<em>CSV File Connection</em>'.
-     * @see org.talend.core.model.metadata.builder.connection.CSVFileConnection
-     * @generated
-     */
-    EClass getCSVFileConnection();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.RegexpFileConnection <em>Regexp File Connection</em>}'.
@@ -5248,15 +4964,6 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute DATABASE_CONNECTION__DB_ROOT_PATH = eINSTANCE.getDatabaseConnection_DBRootPath();
-
-        /**
-         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.CSVFileConnectionImpl <em>CSV File Connection</em>}' class.
-         * <!-- begin-user-doc --> <!-- end-user-doc -->
-         * @see org.talend.core.model.metadata.builder.connection.impl.CSVFileConnectionImpl
-         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getCSVFileConnection()
-         * @generated
-         */
-        EClass CSV_FILE_CONNECTION = eINSTANCE.getCSVFileConnection();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl <em>Regexp File Connection</em>}' class.
