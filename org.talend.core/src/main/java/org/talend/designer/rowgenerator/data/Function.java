@@ -86,7 +86,6 @@ public class Function implements Cloneable {
                     p1.setName(p0.getName());
                     p1.setType(p0.getType());
                     p1.setValue(p0.getValue());
-                    p1.setValue(Integer.parseInt(p0.getValue()));
                     parameters1.add(p1);
                 }
                 if (para instanceof DoubleParameter) {
@@ -96,7 +95,6 @@ public class Function implements Cloneable {
                     p1.setName(p0.getName());
                     p1.setType(p0.getType());
                     p1.setValue(p0.getValue());
-                    p1.setValue(Double.parseDouble(p0.getValue()));
                     parameters1.add(p1);
                 }
 
@@ -118,7 +116,6 @@ public class Function implements Cloneable {
                     p1.setName(p0.getName());
                     p1.setType(p0.getType());
                     p1.setValue(p0.getValue());
-                    p1.setValue(p0.getValue());
                     parameters1.add(p1);
                 }
 
@@ -128,7 +125,6 @@ public class Function implements Cloneable {
                     p1.setComment(p0.getComment());
                     p1.setName(p0.getName());
                     p1.setType(p0.getType());
-                    p1.setValue(p0.getValue());
                     p1.setValue(p0.getValue());
                     parameters1.add(p1);
                 }
@@ -140,7 +136,6 @@ public class Function implements Cloneable {
                     p1.setName(p0.getName());
                     p1.setType(p0.getType());
                     p1.setValue(p0.getValue());
-                    p1.setValue(p0.getValue());
                     parameters1.add(p1);
                 }
 
@@ -151,7 +146,6 @@ public class Function implements Cloneable {
                     p1.setName(p0.getName());
                     p1.setType(p0.getType());
                     p1.setValue(p0.getValue());
-                    p1.setValue(p0.getValue());
                     parameters1.add(p1);
                 }
                 if (para instanceof CharParameter) {
@@ -160,7 +154,6 @@ public class Function implements Cloneable {
                     p1.setComment(p0.getComment());
                     p1.setName(p0.getName());
                     p1.setType(p0.getType());
-                    p1.setValue(p0.getValue());
                     p1.setValue(p0.getValue());
                     parameters1.add(p1);
                 }

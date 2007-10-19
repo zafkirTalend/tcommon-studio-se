@@ -26,21 +26,10 @@ package org.talend.designer.rowgenerator.data;
  */
 public class IntParameter extends Parameter {
 
-    int intValue;
-
-    /**
-     * Setter of the property <tt>value</tt>.
-     * 
-     * @param value The value to set.
-     * @uml.property name="value"
-     */
-    public void setValue(int value) {
-        intValue = value;
-    }
-
     /**
      * Sets the properties from the input String.
      */
+    @Override
     public void parseProperties(String str) {
 
     }
@@ -91,9 +80,6 @@ public class IntParameter extends Parameter {
                 return false;
             }
         } else if (!this.value.equals(p.value)) {
-            return false;
-        }
-        if (this.intValue != p.intValue) {
             return false;
         }
         return true;

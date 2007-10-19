@@ -21,29 +21,19 @@
 // ============================================================================
 package org.talend.designer.rowgenerator.data;
 
-
 /**
- * qzhang  class global comment. Detailled comment
- * <br/>
- *
+ * qzhang class global comment. Detailled comment <br/>
+ * 
  */
 public class DoubleParameter extends Parameter {
 
-    double doubleValue;
-
-    /**
-     * Setter of the property <tt>value</tt>.
-     * 
-     * @param value The value to set.
-     * @uml.property name="value"
-     */
-    public void setValue(double value) {
-        doubleValue = value;
-    }
-    
+    @Override
     public void parseProperties(String str) {
     }
-    /* (non-Javadoc)
+
+    /*
+     * (non-Javadoc)
+     * 
      * @see org.talend.designer.rowgenerator.data.Parameter#sameParameterAs(org.talend.designer.rowgenerator.data.Parameter)
      */
     @Override
@@ -87,9 +77,6 @@ public class DoubleParameter extends Parameter {
                 return false;
             }
         } else if (!this.value.equals(p.value)) {
-            return false;
-        }
-        if (this.doubleValue != p.doubleValue) {
             return false;
         }
         return true;
