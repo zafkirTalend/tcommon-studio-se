@@ -110,4 +110,37 @@ public abstract class MultiLazyValuesMap implements Map {
         return map.values();
     }
 
+    public Object removeValue(Object key, Object value) {
+        Object v = map.get(key);
+        if (v != null) {
+            if (v instanceof List) {
+                ((List) v).remove(value);
+                return value;
+            } else if (value.equals(v)) {
+                remove(key);
+                return value;
+            }
+            return null;
+        }
+        return null;
+    }
+
+    public Collection getCollection(Object key) {
+        Object v = map.get(key);
+        if (v != null) {
+            if (v instanceof List) {
+                return (Collection) v;
+            } else {
+                Collection list = instanciateNewCollection();
+                list.add(v);
+                map.put(key, list);
+                return list;
+            }
+        } else {
+            Collection list = instanciateNewCollection();
+            map.put(key, list);
+            return list;
+        }
+    }
+
 }
