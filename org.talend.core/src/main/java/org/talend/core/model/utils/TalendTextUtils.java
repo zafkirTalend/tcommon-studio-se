@@ -189,24 +189,20 @@ public class TalendTextUtils {
             return fieldName;
         }
         boolean b = true;
-        boolean isAllNum = true;
         for (int i = 0; i < fieldName.length(); i++) {
             char c = fieldName.charAt(i);
-            b = c >= 'A' && c <= 'Z';
-            isAllNum = isAllNum && (c >= '0' && c <= '9');
-            b = b || (c >= '0' && c <= '9');
-            b = b || (c >= 'a' && c <= 'z');
-            if (!b) {
-                break;
-            }
+            b = b && c >= '0' && c <= '9';
         }
-        if (b && !isAllNum) {
-            if (!CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE)) {
+        EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
+        boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(
+                ITalendCorePrefConstants.SQL_ADD_QUOTE);
+        if (!b) {
+            if (isCheck && !name.equals(EDatabaseTypeName.PSQL)) {
                 return fieldName;
             }
         }
         String newFieldName = fieldName;
-        String quote = getQuoteByDBType(dbType);
+        String quote = getQuoteByDBType(name);
         if (!newFieldName.contains(quote)) {
             newFieldName = addQuotes(newFieldName, quote);
         }
@@ -215,14 +211,8 @@ public class TalendTextUtils {
 
     private static boolean isLeft = true;
 
-    public static String getQuoteByDBType(String dbType) {
-        EDatabaseTypeName name = EDatabaseTypeName.IBMDB2;
-        for (EDatabaseTypeName typename : EDatabaseTypeName.values()) {
-            if (typename.getDisplayName().equals(dbType)) {
-                name = typename;
-                break;
-            }
-        }
+    private static String getQuoteByDBType(EDatabaseTypeName name) {
+
         switch (name) {
         case GODBC:
             return QUOTATION_MARK;
@@ -287,7 +277,8 @@ public class TalendTextUtils {
     public static String removeQuotesForField(String text, String dbType) {
         String newText;
         isLeft = true;
-        final String quoteByDBType = getQuoteByDBType(dbType);
+        EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
+        final String quoteByDBType = getQuoteByDBType(name);
         if (quoteByDBType.equals(LBRACKET)) {
             if (text.length() > 2) {
                 newText = text.substring(1, text.length() - 1);
@@ -315,7 +306,8 @@ public class TalendTextUtils {
      */
     public static String getQuoteByDBType(String dbType, boolean b) {
         isLeft = b;
-        return getQuoteByDBType(dbType);
+        EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
+        return getQuoteByDBType(name);
     }
 
     public static RGB stringToRGB(String string) {

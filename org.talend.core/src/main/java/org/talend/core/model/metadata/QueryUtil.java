@@ -60,8 +60,8 @@ public class QueryUtil {
 
         for (int i = 0; i < metaDataColumnList.size(); i++) {
             IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
-            String columnName = TalendTextUtils.addQuotesWithSpaceField(getColumnName(metaDataColumn
-                    .getOriginalDbColumnName(), dbType), dbType);
+            String columnName = TalendTextUtils.addQuotesWithSpaceField(metaDataColumn.getOriginalDbColumnName(),
+                    dbType);
             if (i != index - 1) {
                 query.append(tableNameForColumnSuffix).append(columnName).append(",").append(space);
             } else {
@@ -72,20 +72,6 @@ public class QueryUtil {
                 TalendTextUtils.addQuotesWithSpaceField(tableName, dbType));
 
         return query.toString();
-    }
-
-    private static String getColumnName(String name, String dbType) {
-        String nameAfterChanged;
-        if (name.startsWith("\"") && name.endsWith("\"")) {
-            nameAfterChanged = name;
-        } else {
-            if (!dbType.equalsIgnoreCase("PostgreSQL")) {
-                nameAfterChanged = name;
-            } else {
-                nameAfterChanged = "\"" + name + "\"";
-            }
-        }
-        return nameAfterChanged;
     }
 
     public static String getTableName(Element node, IMetadataTable repositoryMetadata, String schema, String dbType,
@@ -136,7 +122,8 @@ public class QueryUtil {
 
     private static String getSchemaName(String schema, String dbType, String currentTableName) {
         if (EDatabaseTypeName.getTypeFromDbType(dbType).isNeedSchema()) {
-            currentTableName = "\"" + schema + "\"" + "." + "\"" + currentTableName + "\"";
+            currentTableName = TalendTextUtils.addQuotesWithSpaceField(schema, dbType) + "."
+                    + TalendTextUtils.addQuotesWithSpaceField(currentTableName, dbType);
         }
         return currentTableName;
     }
