@@ -22,6 +22,7 @@
 package org.talend.core.model.metadata;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.talend.commons.exception.PersistenceException;
@@ -30,6 +31,7 @@ import org.talend.core.model.metadata.builder.ConvertionHelper;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
+import org.talend.core.model.process.INode;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.repository.model.IProxyRepositoryFactory;
 
@@ -49,6 +51,25 @@ public class MetadataTool {
             if (clonedColumn != null) {
                 if (!originalColumn.getLabel().equals(clonedColumn.getLabel())) {
                     columnNameChanged.add(new ColumnNameChanged(originalColumn.getLabel(), clonedColumn.getLabel()));
+                }
+            }
+        }
+        return columnNameChanged;
+    }
+
+    public static List<ColumnNameChanged> getColumnNameChangedExt(INode changedNode, IMetadataTable oldTable,
+            IMetadataTable newTable) {
+        if (changedNode == null || oldTable == null || newTable == null) {
+            return Collections.EMPTY_LIST;
+        }
+        List<ColumnNameChanged> columnNameChanged = new ArrayList<ColumnNameChanged>();
+        for (int i = 0; i < oldTable.getListColumns().size(); i++) {
+            IMetadataColumn originalColumn = oldTable.getListColumns().get(i);
+            IMetadataColumn clonedColumn = getColumn(newTable, originalColumn.getId());
+            if (clonedColumn != null) {
+                if (!originalColumn.getLabel().equals(clonedColumn.getLabel())) {
+                    columnNameChanged.add(new ColumnNameChangedExt(changedNode, originalColumn.getLabel(), clonedColumn
+                            .getLabel()));
                 }
             }
         }
@@ -87,7 +108,8 @@ public class MetadataTool {
             IMetadataColumn newTargetColumn = column.clone();
             if (targetColumn == null) {
                 columnsTAdd.add(newTargetColumn);
-                newTargetColumn.setReadOnly(target.isReadOnly() || readOnlycolumns.contains(newTargetColumn.getLabel()));
+                newTargetColumn
+                        .setReadOnly(target.isReadOnly() || readOnlycolumns.contains(newTargetColumn.getLabel()));
             } else {
                 if (!targetColumn.isReadOnly()) {
                     target.getListColumns().remove(targetColumn);
