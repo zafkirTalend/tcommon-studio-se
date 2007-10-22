@@ -27,7 +27,6 @@ import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
-import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.IMetadataColumn;
 import org.talend.core.model.metadata.editor.MetadataTableEditor;
@@ -431,9 +430,7 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
      */
     @Override
     protected void configureDefaultColumn(TableViewerCreator<IMetadataColumn> tableViewerCreator) {
-        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
-            super.configureDefaultColumn(tableViewerCreator);
-        }
+        super.configureDefaultColumn(tableViewerCreator);
     }
 
     @Override
