@@ -297,8 +297,8 @@
 					<dbType type="TINYTEXT"/>				
 				</talendType>
 				<talendType type="datetime">
-					<dbType type="DATE" default="true" />
-					<dbType type="DATETIME" />	
+					<dbType type="DATE" />
+					<dbType type="DATETIME" default="true" />	
 					<dbType type="TIME"/>
 					<dbType type="TIMESTAMP"/>
 					<dbType type="YEAR"/>	
@@ -327,7 +327,7 @@
 					<talendType type="date" default="true" />
 				</dbType>
 				<dbType type="DATETIME">
-					<talendType type="date" default="true" />
+					<talendType type="datetime" default="true" />
 				</dbType>
 				<dbType type="DECIMAL">
 					<talendType type="decimal" default="true" />
