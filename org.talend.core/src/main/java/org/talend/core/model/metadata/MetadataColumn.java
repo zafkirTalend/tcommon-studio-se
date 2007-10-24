@@ -77,7 +77,9 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
         this();
 
         this.setLabel(metadataColumn.getLabel());
+        this.setOriginalDbColumnName(metadataColumn.getOriginalDbColumnName());
         this.key = metadataColumn.isKey();
+        this.pattern = metadataColumn.getPattern();
         try {
             this.setTalendType(metadataColumn.getTalendType());
         } catch (NoClassDefFoundError e) {
