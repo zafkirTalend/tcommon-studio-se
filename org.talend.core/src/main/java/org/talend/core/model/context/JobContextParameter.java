@@ -25,6 +25,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.utils.ContextParameterUtils;
+import org.talend.core.ui.context.DefaultCellEditorFactory;
 
 /**
  * Parameter in a context. <br/>
@@ -50,8 +51,24 @@ public class JobContextParameter implements IContextParameter, Cloneable {
 
     IContext context;
 
+    String[] valueList;
+
     public JobContextParameter() {
 
+    }
+
+    public String[] getValueList() {
+        if (valueList == null) {
+            if (DefaultCellEditorFactory.isList(getType())) {
+                valueList = getValue().split(",");
+            }
+        }
+
+        return valueList;
+    }
+
+    public void setValueList(String[] list) {
+        valueList = list;
     }
 
     /**

@@ -65,6 +65,8 @@ public final class JavaTypesManager {
 
     public static final JavaType DIRECTORY = new JavaType(String.class, true, "Directory");
 
+    public static final JavaType VALUE_LIST = new JavaType(String.class, true, "List Of Value");
+
     public static final JavaType DOUBLE = new JavaType(Double.class, double.class);
 
     public static final JavaType FLOAT = new JavaType(Float.class, float.class);

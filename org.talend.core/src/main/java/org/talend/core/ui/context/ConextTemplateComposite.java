@@ -64,7 +64,6 @@ import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
 import org.talend.core.model.metadata.types.JavaType;
-import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -345,28 +344,35 @@ public class ConextTemplateComposite extends Composite {
          * @see org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter#getColumnText(org.eclipse.jface.viewers.CellEditor,
          * java.lang.Object, java.lang.Object)
          */
-        @Override
-        public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {
-            JavaType javaType = ContextParameterJavaTypeManager.getJavaTypeFromId((String) originalTypedValue);
+        // @Override
+        // public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {
+        // JavaType javaType =
+        //
+        // Class primitiveClass = javaType.getPrimitiveClass();
+        // Boolean nullable = nullableAccessors.get((IContextParameter) bean);
+        // String displayedValue = null;
+        // if (primitiveClass != null && !nullable.equals(Boolean.TRUE)) {
+        // displayedValue = primitiveClass.getSimpleName();
+        // } else if (originalTypedValue.equals(JavaTypesManager.DIRECTORY.getId())
+        // || originalTypedValue.equals(JavaTypesManager.FILE.getId())
+        // || originalTypedValue.equals(JavaTypesManager.VALUE_LIST.getId())) {
+        // displayedValue = javaType.getLabel();
+        // } else {
+        // displayedValue = javaType.getNullableClass().getSimpleName();
+        // }
+        //
+        // return displayedValue;
+        // }
+        protected JavaType getJavaType(Object originalTypedValue) {
+            return ContextParameterJavaTypeManager.getJavaTypeFromId((String) originalTypedValue);
+        }
 
-            Class primitiveClass = javaType.getPrimitiveClass();
-            Boolean nullable = nullableAccessors.get((IContextParameter) bean);
-            String displayedValue = null;
-            if (primitiveClass != null && !nullable.equals(Boolean.TRUE)) {
-                displayedValue = primitiveClass.getSimpleName();
-            } else if (originalTypedValue.equals(JavaTypesManager.DIRECTORY.getId())
-                    || originalTypedValue.equals(JavaTypesManager.FILE.getId())) {
-                displayedValue = javaType.getLabel();
-            } else {
-                displayedValue = javaType.getNullableClass().getSimpleName();
-            }
-
+        protected String getDefaultDisplayValue(String displayedValue) {
             if (displayedValue == null && ContextParameterJavaTypeManager.getDefaultJavaType() != null) {
                 displayedValue = ContextParameterJavaTypeManager.getDefaultJavaType().getLabel();
             }
             return displayedValue;
         }
-
     };
 
     CellEditorValueAdapter paramNameCellEditorValueAdapter = new CellEditorValueAdapter() {

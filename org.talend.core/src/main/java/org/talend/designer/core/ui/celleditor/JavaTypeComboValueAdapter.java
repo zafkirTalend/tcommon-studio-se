@@ -25,7 +25,6 @@ import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
-import org.talend.core.model.metadata.MetadataTalendType;
 import org.talend.core.model.metadata.types.JavaType;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 
@@ -92,7 +91,7 @@ public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
      */
     @Override
     public String getColumnText(CellEditor cellEditor, Object bean, Object originalTypedValue) {
-        JavaType javaType = JavaTypesManager.getJavaTypeFromId((String) originalTypedValue);
+        JavaType javaType = getJavaType(originalTypedValue);
 
         Class primitiveClass = javaType.getPrimitiveClass();
         Boolean nullable = nullableAccessors.get((B) bean);
@@ -100,16 +99,24 @@ public class JavaTypeComboValueAdapter<B> extends CellEditorValueAdapter {
         if (primitiveClass != null && !nullable.equals(Boolean.TRUE)) {
             displayedValue = primitiveClass.getSimpleName();
         } else if (originalTypedValue.equals(JavaTypesManager.DIRECTORY.getId())
-                || originalTypedValue.equals(JavaTypesManager.FILE.getId())) {
+                || originalTypedValue.equals(JavaTypesManager.FILE.getId())
+                || originalTypedValue.equals(JavaTypesManager.VALUE_LIST.getId())) {
             displayedValue = javaType.getLabel();
         } else {
             displayedValue = javaType.getNullableClass().getSimpleName();
         }
+        displayedValue = getDefaultDisplayValue(displayedValue);
+        return displayedValue;
+    }
 
+    protected JavaType getJavaType(Object originalTypedValue) {
+        return JavaTypesManager.getJavaTypeFromId((String) originalTypedValue);
+    }
+
+    protected String getDefaultDisplayValue(String displayedValue) {
         if (displayedValue == null && defaultJavaType != null) {
             displayedValue = defaultJavaType.getLabel();
         }
         return displayedValue;
     }
-
 };

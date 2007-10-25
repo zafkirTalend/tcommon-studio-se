@@ -220,7 +220,6 @@ public class ConextTreeValuesComposite extends Composite {
         if (para == null) {
             return;
         }
-        //
         cellEditor = cellFactory.getCustomCellEditor(para, tree);
 
         if (cellEditor == null) {

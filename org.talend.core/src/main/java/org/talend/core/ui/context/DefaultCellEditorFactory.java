@@ -33,8 +33,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.Tree;
 import org.talend.commons.ui.swt.tableviewer.celleditor.DateDialog;
 import org.talend.commons.ui.utils.PathUtils;
 import org.talend.core.language.ECodeLanguage;
@@ -82,62 +80,7 @@ public final class DefaultCellEditorFactory {
         modelManager.getCommandStack().execute(c);
     }
 
-    public CellEditor getCustomCellEditor(final IContextParameter para, final Tree tree) {
-        this.para = para;
-        final String defalutDataValue = para.getValue();
-        String type = para.getType();
-
-        if (isBoolean(type)) {
-
-            ComboBoxCellEditor boxCellEditor = new ComboBoxCellEditor(tree, BOOLEANS, SWT.READ_ONLY) {
-
-                final List<String> list = Arrays.asList(BOOLEANS);
-
-                protected void focusLost() {
-                    super.focusLost();
-                    refreshAll();
-                }
-
-                public Object doGetValue() {
-                    // Get the index into the list via this call to super.
-                    //
-                    int index = ((Integer) super.doGetValue()).intValue();
-                    final String string = index < list.size() && index >= 0 ? list.get(((Integer) super.doGetValue()).intValue())
-                            : null;
-                    if (string != null) {
-                        para.setValue(string.toString());
-                    }
-                    return string;
-                }
-            };
-            Integer integer = new Integer(0);
-            if (BOOLEANS[1].equals(defalutDataValue)) {
-                integer = new Integer(1);
-            }
-            boxCellEditor.setValue(integer);
-            return boxCellEditor;
-        }
-
-        CellEditor cellEditor = null;
-
-        if (type != null) {
-            if (isFile(type)) {
-                cellEditor = createFileCellEditor(tree, defalutDataValue);
-            } else if (isDate(type)) {
-                cellEditor = createDateCellEditor(tree);
-            } else if (isDirectory(type)) {
-                cellEditor = createDirectoryCellEditor(tree, defalutDataValue);
-            }
-        }
-
-        if (cellEditor == null) {
-            return null;
-        }
-        cellEditor.setValue(defalutDataValue);
-        return cellEditor;
-    }
-
-    public CellEditor getCustomCellEditor(final IContextParameter para, final Table table) {
+    public CellEditor getCustomCellEditor(final IContextParameter para, final Composite table) {
         this.para = para;
         final String defalutDataValue = para.getValue();
         String type = para.getType();
@@ -182,6 +125,8 @@ public final class DefaultCellEditorFactory {
                 cellEditor = createDateCellEditor(table);
             } else if (isDirectory(type)) {
                 cellEditor = createDirectoryCellEditor(table, defalutDataValue);
+            } else if (isList(type)) {
+                cellEditor = createListCellEditor(table, defalutDataValue);
             }
         }
 
@@ -212,6 +157,23 @@ public final class DefaultCellEditorFactory {
             public void deactivate() {
                 super.deactivate();
             }
+        };
+    }
+
+    private CellEditor createListCellEditor(Composite parent, final String defaultValue) {
+        return new CustomCellEditor(parent) {
+
+            protected Object openDialogBox(Control cellEditorWindow) {
+                String input = getDefaultLabel().getText();
+                MultiStringSelectionDialog d = new MultiStringSelectionDialog(cellEditorWindow.getShell(), input);
+                int res = d.open();
+                if (res == Dialog.OK) {
+                    return d.getResultString();
+                } else {
+                    return getValue();
+                }
+            }
+
         };
     }
 
@@ -307,6 +269,15 @@ public final class DefaultCellEditorFactory {
             return value.equals(JavaTypesManager.DIRECTORY.getId());
         } else {
             return value.equals(ContextParameterJavaTypeManager.PERL_DIRECTORY);
+        }
+    }
+
+    public static boolean isList(final String value) {
+        ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+        if (codeLanguage == ECodeLanguage.JAVA) {
+            return value.equals(JavaTypesManager.VALUE_LIST.getId());
+        } else {
+            return value.equals(ContextParameterJavaTypeManager.PERL_VALUE_LIST);
         }
     }
 

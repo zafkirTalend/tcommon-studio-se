@@ -25,31 +25,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jdt.internal.ui.workingsets.WorkingSetMessages;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.dialogs.SelectionDialog;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.context.JobContext;
@@ -64,7 +46,9 @@ import org.talend.repository.model.RepositoryConstants;
  * A dialog that config the context value sets.
  * 
  */
-public class ContextSetConfigurationDialog extends SelectionDialog {
+public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContext> {
+
+    private static String defaultMesage = "Configure Contexts for Job                                      ";
 
     IContextManager manager = null;
 
@@ -72,7 +56,7 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
      * DOC bqian ContextSetConfigurationDialog class global comment. Detailled comment <br/>
      * 
      */
-    private class ContextLabelProvider extends LabelProvider {
+    public class ContextLabelProvider extends LabelProvider {
 
         public Image getImage(Object object) {
             return ImageProvider.getImage(ECoreImage.CONTEXT_ICON);
@@ -84,208 +68,25 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
         }
     }
 
-    private List<IContext> fAllContexts;
-
-    private TableViewer fTableViewer;
-
-    private Button fNewButton;
-
-    private Button fEditButton;
-
-    private Button fRemoveButton;
-
-    private Button fUpButton;
-
-    private Button fDownButton;
-
-    private Button fSelectAll;
-
-    private Button fDeselectAll;
-
-    private IContext[] fResult;
-
-    private Label msgLabel;
-
-    private int nextButtonId = IDialogConstants.CLIENT_ID + 1;
-
     @SuppressWarnings("restriction")
     public ContextSetConfigurationDialog(Shell parentShell, IContextManager manager) {
-        super(parentShell);
-        setTitle("Configure Contexts");
-        setMessage("Configure Contexts for Job                                      ");
+        super(parentShell, "Configure Contexts", defaultMesage, null);
         this.manager = manager;
-        fAllContexts = new ArrayList<IContext>(manager.getListContext());
+        setLabelProvider(getLabelProvider());
+        List<IContext> list = new ArrayList<IContext>(manager.getListContext());
+        setData(list);
         setShellStyle(getShellStyle() | SWT.RESIZE);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected Control createContents(Composite parent) {
-        Control control = super.createContents(parent);
-        updateButtonAvailability();
-        return control;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected Control createDialogArea(Composite parent) {
-        Composite composite = (Composite) super.createDialogArea(parent);
-        composite.setFont(parent.getFont());
-        msgLabel = createMessageArea(composite);
-        // createRemoveArea(composite);
-        Composite inner = new Composite(composite, SWT.NONE);
-        inner.setFont(composite.getFont());
-        inner.setLayoutData(new GridData(GridData.FILL_BOTH));
-        GridLayout layout = new GridLayout();
-        layout.numColumns = 2;
-        layout.marginHeight = 0;
-        layout.marginWidth = 0;
-        inner.setLayout(layout);
-        createTableViewer(inner);
-        createOrderButtons(inner);
-        createModifyButtons(composite);
-        fTableViewer.setInput(fAllContexts);
-
-        return composite;
-    }
-
-    private void createTableViewer(Composite parent) {
-        fTableViewer = new TableViewer(parent);
-        fTableViewer.addSelectionChangedListener(new ISelectionChangedListener() {
-
-            public void selectionChanged(SelectionChangedEvent event) {
-                updateButtonAvailability();
-            }
-        });
-
-        GridData data = new GridData(GridData.FILL_BOTH);
-        data.heightHint = convertHeightInCharsToPixels(20);
-        data.widthHint = convertWidthInCharsToPixels(50);
-        fTableViewer.getTable().setLayoutData(data);
-        fTableViewer.getTable().setFont(parent.getFont());
-
-        fTableViewer.setLabelProvider(new ContextLabelProvider());
-        fTableViewer.setContentProvider(new ArrayContentProvider());
-    }
-
-    private void createModifyButtons(Composite composite) {
-        Composite buttonComposite = new Composite(composite, SWT.RIGHT);
-        GridLayout layout = new GridLayout();
-        layout.numColumns = 2;
-        buttonComposite.setLayout(layout);
-        GridData data = new GridData(GridData.HORIZONTAL_ALIGN_END | GridData.GRAB_HORIZONTAL);
-        data.grabExcessHorizontalSpace = true;
-        composite.setData(data);
-
-        fNewButton = createButton(buttonComposite, nextButtonId++, WorkingSetMessages.WorkingSetConfigurationDialog_new_label,
-                false);
-        fNewButton.setFont(composite.getFont());
-        fNewButton.addSelectionListener(new SelectionAdapter() {
-
-            public void widgetSelected(SelectionEvent e) {
-                createContext();
-            }
-        });
-
-        fEditButton = createButton(buttonComposite, nextButtonId++, WorkingSetMessages.WorkingSetConfigurationDialog_edit_label,
-                false);
-        fEditButton.setFont(composite.getFont());
-        fEditButton.addSelectionListener(new SelectionAdapter() {
-
-            public void widgetSelected(SelectionEvent e) {
-                editSelectedContext();
-            }
-        });
-
-        fRemoveButton = createButton(buttonComposite, nextButtonId++,
-                WorkingSetMessages.WorkingSetConfigurationDialog_remove_label, false);
-        fRemoveButton.setFont(composite.getFont());
-        fRemoveButton.addSelectionListener(new SelectionAdapter() {
-
-            public void widgetSelected(SelectionEvent e) {
-                removeSelectedContexts();
-            }
-        });
-    }
-
-    private void createOrderButtons(Composite parent) {
-        Composite buttons = new Composite(parent, SWT.NONE);
-        buttons.setFont(parent.getFont());
-        buttons.setLayoutData(new GridData(GridData.FILL_VERTICAL));
-        GridLayout layout = new GridLayout();
-        layout.marginHeight = 0;
-        layout.marginWidth = 0;
-        buttons.setLayout(layout);
-
-        fUpButton = new Button(buttons, SWT.PUSH);
-        fUpButton.setText(WorkingSetMessages.WorkingSetConfigurationDialog_up_label);
-        fUpButton.setFont(parent.getFont());
-        setButtonLayoutData(fUpButton);
-        fUpButton.addSelectionListener(new SelectionAdapter() {
-
-            public void widgetSelected(SelectionEvent e) {
-                moveUp(((IStructuredSelection) fTableViewer.getSelection()).toList());
-            }
-        });
-
-        fDownButton = new Button(buttons, SWT.PUSH);
-        fDownButton.setText(WorkingSetMessages.WorkingSetConfigurationDialog_down_label);
-        fDownButton.setFont(parent.getFont());
-        setButtonLayoutData(fDownButton);
-        fDownButton.addSelectionListener(new SelectionAdapter() {
-
-            public void widgetSelected(SelectionEvent e) {
-                moveDown(((IStructuredSelection) fTableViewer.getSelection()).toList());
-            }
-        });
-
-        fSelectAll = new Button(buttons, SWT.PUSH);
-        fSelectAll.setText(WorkingSetMessages.WorkingSetConfigurationDialog_selectAll_label);
-        fSelectAll.setFont(parent.getFont());
-        setButtonLayoutData(fSelectAll);
-        fSelectAll.addSelectionListener(new SelectionAdapter() {
-
-            public void widgetSelected(SelectionEvent e) {
-                selectAll();
-            }
-        });
-
-        fDeselectAll = new Button(buttons, SWT.PUSH);
-        fDeselectAll.setText(WorkingSetMessages.WorkingSetConfigurationDialog_deselectAll_label);
-        fDeselectAll.setFont(parent.getFont());
-        setButtonLayoutData(fDeselectAll);
-        fDeselectAll.addSelectionListener(new SelectionAdapter() {
-
-            public void widgetSelected(SelectionEvent e) {
-                deselectAll();
-            }
-        });
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected void okPressed() {
-        List<IContext> newResult = getResultContexts();
-        fResult = (IContext[]) newResult.toArray(new IContext[newResult.size()]);
-        setResult(newResult);
-        super.okPressed();
-    }
-
     public List<IContext> getResultContexts() {
-        return fAllContexts;
+        return getData();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    protected void cancelPressed() {
-        super.cancelPressed();
+    LabelProvider getLabelProvider() {
+        return new ContextLabelProvider();
     }
 
-    private void createContext() {
+    public void createElement() {
         InputDialog inputDial = new InputDialog(getShell(), Messages.getString("ContextProcessSection.6"), //$NON-NLS-1$
                 Messages.getString("ContextProcessSection.7"), "", null); //$NON-NLS-1$ //$NON-NLS-2$
 
@@ -311,8 +112,12 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
         return !isContextExisting(name);
     }
 
+    public List<IContext> getAllContexts() {
+        return (List<IContext>) getData();
+    }
+
     private boolean isContextExisting(String name) {
-        for (IContext context : fAllContexts) {
+        for (IContext context : getAllContexts()) {
             if (context.getName().equalsIgnoreCase(name)) {
                 MessageBox mBox = new MessageBox(this.getShell(), SWT.ICON_ERROR);
                 mBox.setText(Messages.getString("ContextProcessSection.29")); //$NON-NLS-1$
@@ -343,11 +148,11 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
             param.setPromptNeeded(context.getContextParameterList().get(i).isPromptNeeded());
             newParamList.add(param);
         }
-        fAllContexts.add(newContext);
+        getAllContexts().add(newContext);
     }
 
-    private void editSelectedContext() {
-        IContext selectedContext = (IContext) ((IStructuredSelection) fTableViewer.getSelection()).getFirstElement();
+    protected void editSelectedElement() {
+        IContext selectedContext = (IContext) (getSelection()).getFirstElement();
         String contextName = selectedContext.getName();
         InputDialog inputDial = new InputDialog(getShell(), Messages.getString("ContextProcessSection.12"), //$NON-NLS-1$
                 Messages.getString("ContextProcessSection.13", contextName), "", null); //$NON-NLS-1$ //$NON-NLS-2$
@@ -368,45 +173,13 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
     }
 
     /**
-     * Overrides method in Dialog
-     * 
-     * @see org.eclipse.jface.dialogs.Dialog#open()
-     */
-    public int open() {
-        return super.open();
-    }
-
-    /**
-     * Removes the selected working sets from the workbench.
-     */
-    private void removeSelectedContexts() {
-        ISelection selection = fTableViewer.getSelection();
-        if (selection instanceof IStructuredSelection) {
-            Iterator iter = ((IStructuredSelection) selection).iterator();
-            while (iter.hasNext()) {
-
-                fAllContexts.remove((IContext) iter.next());
-            }
-        }
-        refreshViewer();
-    }
-
-    /**
-     * bqian Comment method "refreshViewer".
-     */
-    private void refreshViewer() {
-        fTableViewer.refresh();
-    }
-
-    /**
      * Updates the modify buttons' enabled state based on the current seleciton.
      */
-    private void updateButtonAvailability() {
-        IStructuredSelection selection = (IStructuredSelection) fTableViewer.getSelection();
-        boolean hasSelection = !selection.isEmpty();
-        boolean hasSingleSelection = selection.size() == 1;
+    protected void updateButtonAvailability() {
+        super.updateButtonAvailability();
+
         boolean selectDefaultContext = false;
-        for (Iterator iterator = selection.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = getSelection().iterator(); iterator.hasNext();) {
             IContext context = (IContext) iterator.next();
             if (context == manager.getDefaultContext()) {
                 selectDefaultContext = true;
@@ -415,103 +188,12 @@ public class ContextSetConfigurationDialog extends SelectionDialog {
 
         }
         if (selectDefaultContext) {
+            fRemoveButton.setEnabled(false);
             String contextNname = manager.getDefaultContext().getName();
-            // label.setText(Messages.getString("ContextProcessSection.RemoveInformation", contextNname)); //$NON-NLS-1$
-            msgLabel.setText(Messages.getString("ContextProcessSection.RemoveInformation", contextNname)); //$NON-NLS-1$
+            setDisplayMessage(Messages.getString("ContextProcessSection.RemoveInformation", contextNname));
         } else {
-            msgLabel.setText("Configure Contexts for Job                                      ");
-        }
-        fRemoveButton.setEnabled(hasSelection && !selectDefaultContext);
-        // fEditButton.setEnabled(hasSingleSelection && !selectDefaultContext);
-        fEditButton.setEnabled(hasSingleSelection);
-        if (fUpButton != null) {
-            fUpButton.setEnabled(canMoveUp());
-        }
-        if (fDownButton != null) {
-            fDownButton.setEnabled(canMoveDown());
+            setDisplayMessage(defaultMesage);
         }
 
     }
-
-    private void moveUp(List toMoveUp) {
-        if (toMoveUp.size() > 0) {
-            setElements(moveUp(fAllContexts, toMoveUp));
-            fTableViewer.reveal(toMoveUp.get(0));
-        }
-    }
-
-    private void moveDown(List toMoveDown) {
-        if (toMoveDown.size() > 0) {
-            setElements(reverse(moveUp(reverse(fAllContexts), toMoveDown)));
-            fTableViewer.reveal(toMoveDown.get(toMoveDown.size() - 1));
-        }
-    }
-
-    private void setElements(List elements) {
-        fAllContexts = elements;
-        fTableViewer.setInput(fAllContexts);
-        updateButtonAvailability();
-    }
-
-    private List moveUp(List elements, List move) {
-        int nElements = elements.size();
-        List res = new ArrayList(nElements);
-        Object floating = null;
-        for (int i = 0; i < nElements; i++) {
-            Object curr = elements.get(i);
-            if (move.contains(curr)) {
-                res.add(curr);
-            } else {
-                if (floating != null) {
-                    res.add(floating);
-                }
-                floating = curr;
-            }
-        }
-        if (floating != null) {
-            res.add(floating);
-        }
-        return res;
-    }
-
-    private List reverse(List p) {
-        List reverse = new ArrayList(p.size());
-        for (int i = p.size() - 1; i >= 0; i--) {
-            reverse.add(p.get(i));
-        }
-        return reverse;
-    }
-
-    private boolean canMoveUp() {
-        int[] indc = fTableViewer.getTable().getSelectionIndices();
-        for (int i = 0; i < indc.length; i++) {
-            if (indc[i] != i) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean canMoveDown() {
-        int[] indc = fTableViewer.getTable().getSelectionIndices();
-        int k = fAllContexts.size() - 1;
-        for (int i = indc.length - 1; i >= 0; i--, k--) {
-            if (indc[i] != k) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // ---- select / deselect --------------------------------------------------
-
-    private void selectAll() {
-        fTableViewer.setSelection(new StructuredSelection(fAllContexts));
-
-    }
-
-    private void deselectAll() {
-        fTableViewer.setSelection(StructuredSelection.EMPTY);
-    }
-
 }
