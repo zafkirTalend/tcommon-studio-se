@@ -56,4 +56,6 @@ public interface IDesignerCoreService extends IService {
     public void saveJobBeforeRun(IProcess activeProcess);
 
     public IProcess getCurrentProcess();
+
+    public void refreshDesignerPalette();
 }
