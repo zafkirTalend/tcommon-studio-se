@@ -35,6 +35,10 @@ public class LanguageManager {
 
     private static ECodeLanguage currentLanguage;
 
+    public static void reset() {
+        currentLanguage = null;
+    }
+
     public static ECodeLanguage getCurrentLanguage() {
         if (currentLanguage == null) {
             try {
