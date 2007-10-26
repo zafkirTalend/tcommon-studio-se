@@ -100,7 +100,7 @@ public class ConextTableValuesComposite extends Composite {
         final ToolBar toolBar = new ToolBar(this, SWT.FLAT | SWT.NO_BACKGROUND);
         GridDataFactory.swtDefaults().align(SWT.RIGHT, SWT.TOP).applyTo(toolBar);
 
-        createMenuBar(toolBar);
+        createToolBar(toolBar);
 
         viewer = new TableViewer(this, SWT.MULTI | SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
         ViewerProvider provider = new ViewerProvider();
@@ -147,7 +147,7 @@ public class ConextTableValuesComposite extends Composite {
      * 
      * @param toolBar
      */
-    private void createMenuBar(final ToolBar toolBar) {
+    private void createToolBar(final ToolBar toolBar) {
         configContext = new ConfigureContextAction(modelManager, this.getShell());
         ToolItem contextConfigButton = new ToolItem(toolBar, SWT.PUSH);
         // contextConfigButton.setDisabledImage();
