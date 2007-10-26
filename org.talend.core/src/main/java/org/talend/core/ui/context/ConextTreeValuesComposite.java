@@ -28,7 +28,6 @@ import java.util.List;
 import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
@@ -142,10 +141,17 @@ public class ConextTreeValuesComposite extends Composite {
      * bqian Comment method "initializeUI".
      */
     private void initializeUI() {
-        final ToolBar toolBar = new ToolBar(this, SWT.FLAT | SWT.NO_BACKGROUND);
+        Composite toolbarContainer = new Composite(this, SWT.NONE);
+        toolbarContainer.setLayout(GridLayoutFactory.swtDefaults().spacing(0, 0).margins(0, 0).numColumns(2).create());
+        GridDataFactory.swtDefaults().align(SWT.RIGHT, SWT.TOP).grab(true, false).applyTo(toolbarContainer);
+        final ToolBar toolBar = new ToolBar(toolbarContainer, SWT.FLAT | SWT.NO_BACKGROUND);
         GridDataFactory.swtDefaults().align(SWT.RIGHT, SWT.TOP).applyTo(toolBar);
 
-        createMenuBar(toolBar);
+        createToolBar(toolBar);
+
+        final ToolBar menuBar = new ToolBar(toolbarContainer, SWT.FLAT | SWT.NO_BACKGROUND);
+        GridDataFactory.swtDefaults().align(SWT.RIGHT, SWT.TOP).applyTo(menuBar);
+        createMenuBar(menuBar);
 
         viewer = new TreeViewer(this, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
         final Tree tree = viewer.getTree();
@@ -288,33 +294,43 @@ public class ConextTreeValuesComposite extends Composite {
      * 
      * @param toolBar
      */
-    private void createMenuBar(final ToolBar toolBar) {
-        ToolItem pullDownButton = new ToolItem(toolBar, SWT.PUSH);
+    private void createToolBar(final ToolBar toolBar) {
+        configContext = new ConfigureContextAction(modelManager, this.getShell());
+        ToolItem contextConfigButton = new ToolItem(toolBar, SWT.PUSH);
+        // contextConfigButton.setDisabledImage();
+        contextConfigButton.setImage(configContext.getImageDescriptor().createImage());
+        contextConfigButton.setToolTipText(configContext.getText());
+        contextConfigButton.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                configContext.run();
+            }
+        });
+    }
+
+    private void createMenuBar(final ToolBar menuBar) {
+        ToolItem pullDownButton = new ToolItem(menuBar, SWT.PUSH);
         Image hoverImage = WorkbenchImages.getImage(IWorkbenchGraphicConstants.IMG_LCL_RENDERED_VIEW_MENU);
         pullDownButton.setDisabledImage(hoverImage);
         pullDownButton.setImage(hoverImage);
         pullDownButton.setToolTipText(WorkbenchMessages.Menu);
+        pullDownButton.setWidth(5);
 
-        MenuManager manager = new MenuManager("Context Configuration");
-        IMenuManager submenu = new MenuManager("Context Presentation");
-        manager.add(submenu);
-
-        configContext = new ConfigureContextAction(modelManager, this.getShell());
-        manager.add(configContext);
+        MenuManager menuManager = new MenuManager("Context Presentation");
 
         groupByVariable = new GroupByVariableAction();
         groupByContext = new GroupByContextAction();
 
-        submenu.add(groupByVariable);
-        submenu.add(groupByContext);
+        menuManager.add(groupByVariable);
+        menuManager.add(groupByContext);
 
-        final Menu aMenu = manager.createContextMenu(toolBar.getParent());
+        final Menu aMenu = menuManager.createContextMenu(menuBar.getParent());
 
         pullDownButton.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
-                Point toolbarSize = toolBar.getSize();
-                toolbarSize = toolBar.toDisplay(0, toolbarSize.y);
+                Point toolbarSize = menuBar.getSize();
+                toolbarSize = menuBar.toDisplay(0, toolbarSize.y);
                 aMenu.setLocation(toolbarSize);
                 aMenu.setVisible(true);
             }

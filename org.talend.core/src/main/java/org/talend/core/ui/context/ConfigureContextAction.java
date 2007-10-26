@@ -27,7 +27,11 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.model.process.IContext;
+import org.talend.core.ui.images.ECoreImage;
+import org.talend.core.model.process.IContext;
+import org.talend.core.ui.images.ECoreImage;
 
 /**
  * An action that can config the contexts. <br/>
@@ -44,6 +48,7 @@ public class ConfigureContextAction extends Action {
         super("Configure Contexts...");
         this.manager = modelManager;
         this.shell = shell;
+        this.setImageDescriptor(ImageProvider.getImageDesc(ECoreImage.CONTEXT_ICON));
     }
 
     /**

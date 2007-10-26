@@ -25,7 +25,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.gef.commands.Command;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.CellEditor;
@@ -48,15 +47,11 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
-import org.eclipse.ui.internal.IWorkbenchGraphicConstants;
-import org.eclipse.ui.internal.WorkbenchImages;
-import org.eclipse.ui.internal.WorkbenchMessages;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -105,30 +100,7 @@ public class ConextTableValuesComposite extends Composite {
         final ToolBar toolBar = new ToolBar(this, SWT.FLAT | SWT.NO_BACKGROUND);
         GridDataFactory.swtDefaults().align(SWT.RIGHT, SWT.TOP).applyTo(toolBar);
 
-        ToolItem pullDownButton = new ToolItem(toolBar, SWT.PUSH);
-        Image hoverImage = WorkbenchImages.getImage(IWorkbenchGraphicConstants.IMG_LCL_RENDERED_VIEW_MENU);
-        pullDownButton.setDisabledImage(hoverImage);
-        pullDownButton.setImage(hoverImage);
-        pullDownButton.setHotImage(hoverImage);
-        pullDownButton.setToolTipText(WorkbenchMessages.Menu);
-
-        final MenuManager menuManager = new MenuManager("Context Configuration");
-
-        configContext = new ConfigureContextAction(modelManager, this.getShell());
-
-        menuManager.add(configContext);
-
-        final Menu aMenu = menuManager.createContextMenu(toolBar.getParent());
-
-        pullDownButton.addSelectionListener(new SelectionAdapter() {
-
-            public void widgetSelected(SelectionEvent e) {
-                Point toolbarSize = toolBar.getSize();
-                toolbarSize = toolBar.toDisplay(0, toolbarSize.y);
-                aMenu.setLocation(toolbarSize);
-                aMenu.setVisible(true);
-            }
-        });
+        createMenuBar(toolBar);
 
         viewer = new TableViewer(this, SWT.MULTI | SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
         ViewerProvider provider = new ViewerProvider();
@@ -166,6 +138,25 @@ public class ConextTableValuesComposite extends Composite {
 
                     }
                 }
+            }
+        });
+    }
+
+    /**
+     * bqian Comment method "createMenuBar".
+     * 
+     * @param toolBar
+     */
+    private void createMenuBar(final ToolBar toolBar) {
+        configContext = new ConfigureContextAction(modelManager, this.getShell());
+        ToolItem contextConfigButton = new ToolItem(toolBar, SWT.PUSH);
+        // contextConfigButton.setDisabledImage();
+        contextConfigButton.setImage(configContext.getImageDescriptor().createImage());
+        contextConfigButton.setToolTipText(configContext.getText());
+        contextConfigButton.addSelectionListener(new SelectionAdapter() {
+
+            public void widgetSelected(SelectionEvent e) {
+                configContext.run();
             }
         });
     }
