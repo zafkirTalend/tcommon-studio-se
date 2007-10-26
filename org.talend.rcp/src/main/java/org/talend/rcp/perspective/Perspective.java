@@ -26,13 +26,16 @@ import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
 /**
- * DOC ccarbone class global comment. Detailled comment <br/>
+ * DOC ccarbone class global comment. Detailed comment <br/>
  * 
  * $Id$
  * 
  */
 public class Perspective implements IPerspectiveFactory {
 
+    /* (non-Javadoc)
+     * @see org.eclipse.ui.IPerspectiveFactory#createInitialLayout(org.eclipse.ui.IPageLayout)
+     */
     public void createInitialLayout(IPageLayout layout) {
         String propertyId = "org.eclipse.ui.views.PropertySheet"; //$NON-NLS-1$
         String navigatorId = "org.eclipse.ui.views.ResourceNavigator"; //$NON-NLS-1$
@@ -51,6 +54,7 @@ public class Perspective implements IPerspectiveFactory {
         String schedulerViewId = "org.talend.scheduler.views.Scheduler"; //$NON-NLS-1$
         String contextsViewId = "org.talend.designer.core.ui.views.ContextsView"; //$NON-NLS-1$
         String gefPaletteViewId = "org.eclipse.gef.ui.palette_view";
+        String statsAndLogsViewId = "org.talend.designer.core.ui.views.statsandlogs.statsAndLogsView";
 
         // leftTopLayout
         IFolderLayout leftTopLayout = layout.createFolder("navigatorLayout", IPageLayout.LEFT, new Float(0.3), //$NON-NLS-1$
@@ -83,6 +87,8 @@ public class Perspective implements IPerspectiveFactory {
         bottomLayout.addView(problemsViewId);
         bottomLayout.addView(modulesViewId);
         bottomLayout.addView(schedulerViewId);
+        bottomLayout.addView(statsAndLogsViewId);
+        
         
         
         // rightTopLayout
