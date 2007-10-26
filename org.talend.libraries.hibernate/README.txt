@@ -1,0 +1,1 @@
+this project only contains hibernate and related librairies.
