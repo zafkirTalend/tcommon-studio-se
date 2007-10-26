@@ -35,6 +35,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.talend.core.CorePlugin;
@@ -61,13 +62,44 @@ import org.talend.repository.model.IRepositoryService;
  */
 public class ExtractMetaDataFromDataBase {
 
+    /**
+     * qzhang TableInfoParameters class global comment. Detailled comment <br/>
+     * 
+     */
+    public enum ETableTypes {
+        TABLETYPE_TABLE("TABLE"),
+        TABLETYPE_VIEW("VIEW"),
+        TABLETYPE_SYNONYM("SYNONYM");
+
+        private final String name;
+
+        /**
+         * qzhang TableInfoParameters constructor comment.
+         */
+        ETableTypes(String name) {
+            this.name = name;
+        }
+
+        /**
+         * Getter for name.
+         * 
+         * @return the name
+         */
+        public String getName() {
+            return this.name;
+        }
+
+        public static ETableTypes getTableTypeFromName(String name) {
+            for (ETableTypes type : values()) {
+                if (type.name.equals(name)) {
+                    return type;
+                }
+            }
+            return null;
+        }
+    }
+
     private static Logger log = Logger.getLogger(ExtractMetaDataFromDataBase.class);
-
-    public static final String TABLETYPE_TABLE = "TABLE"; //$NON-NLS-1$
-
-    public static final String TABLETYPE_VIEW = "VIEW"; //$NON-NLS-1$
-
-    public static final String TABLETYPE_SYNONYM = "SYNONYM"; //$NON-NLS-1$
 
     private static int columnIndex;
 
@@ -85,30 +117,13 @@ public class ExtractMetaDataFromDataBase {
      * @return Collection of MetadataTable
      */
     public static List<IMetadataTable> extractTablesFromDB(DatabaseMetaData dbMetaData) {
-
         List<IMetadataTable> medataTables = new ArrayList<IMetadataTable>();
-
         try {
-
-            String[] tableTypes = { TABLETYPE_TABLE, TABLETYPE_VIEW, TABLETYPE_SYNONYM };
             ResultSet rsTables = null;
+            String[] tableTypes = { ETableTypes.TABLETYPE_TABLE.getName(), ETableTypes.TABLETYPE_VIEW.getName(),
+                    ETableTypes.TABLETYPE_SYNONYM.getName() };
             rsTables = dbMetaData.getTables(null, ExtractMetaDataUtils.schema, null, tableTypes);
-
-            while (rsTables.next()) {
-                MetadataTable medataTable = new MetadataTable();
-                medataTable.setId(medataTables.size() + 1 + ""); //$NON-NLS-1$
-                medataTable.setLabel(rsTables.getString("TABLE_NAME")); //$NON-NLS-1$
-                medataTable.setTableName(medataTable.getLabel());
-                medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS")); //$NON-NLS-1$
-                try {
-                    tableTypeMap.put(medataTable.getLabel(), rsTables.getString("TABLE_TYPE")); //$NON-NLS-1$    
-                } catch (Exception e) {
-                    tableTypeMap.put(medataTable.getLabel(), "TABLE"); //$NON-NLS-1$
-                }
-                medataTables.add(medataTable);
-            }
-            rsTables.close();
-
+            getMetadataTables(medataTables, rsTables);
         } catch (SQLException e) {
             log.error(e.toString());
             throw new RuntimeException(e);
@@ -117,6 +132,33 @@ public class ExtractMetaDataFromDataBase {
             throw new RuntimeException(e);
         }
         return medataTables;
+    }
+
+    /**
+     * DOC qzhang Comment method "getMetadataTables".
+     * 
+     * @param medataTables
+     * @param rsTables
+     * @throws SQLException
+     */
+    private static void getMetadataTables(List<IMetadataTable> medataTables, ResultSet rsTables) throws SQLException {
+        if (rsTables == null) {
+            return;
+        }
+        while (rsTables.next()) {
+            MetadataTable medataTable = new MetadataTable();
+            medataTable.setId(medataTables.size() + 1 + ""); //$NON-NLS-1$
+            medataTable.setLabel(rsTables.getString("TABLE_NAME")); //$NON-NLS-1$
+            medataTable.setTableName(medataTable.getLabel());
+            medataTable.setDescription(ExtractMetaDataUtils.getStringMetaDataInfo(rsTables, "REMARKS")); //$NON-NLS-1$
+            try {
+                tableTypeMap.put(medataTable.getLabel(), rsTables.getString("TABLE_TYPE")); //$NON-NLS-1$    
+            } catch (Exception e) {
+                tableTypeMap.put(medataTable.getLabel(), "TABLE"); //$NON-NLS-1$
+            }
+            medataTables.add(medataTable);
+        }
+        rsTables.close();
     }
 
     /**
@@ -150,7 +192,7 @@ public class ExtractMetaDataFromDataBase {
 
             String name = getTableTypeByTableName(metaTable1.getLabel());
 
-            if (name != null && name.equals(TABLETYPE_SYNONYM)) {
+            if (name != null && name.equals(ETableTypes.TABLETYPE_SYNONYM.getName())) {
                 String tableName = getTableNameBySynonym(ExtractMetaDataUtils.conn, metaTable1.getTableName());
                 metaTable1.setLabel(tableName);
                 metaTable1.setTableName(tableName);
@@ -506,6 +548,110 @@ public class ExtractMetaDataFromDataBase {
      */
     public static void setDriveClass(String driveClass) {
         ExtractMetaDataFromDataBase.driveClass = driveClass;
+    }
+
+    /**
+     * DOC qzhang Comment method "returnTablesFormConnection".
+     * 
+     * @param metadataConnection
+     * @param tableInfoParameters
+     * @return
+     */
+    public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection,
+            TableInfoParameters tableInfoParameters) {
+        List<String> itemTablesName = new ArrayList<String>();
+
+        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
+                iMetadataConnection.getUsername(), iMetadataConnection.getPassword(),
+                iMetadataConnection.getDatabase(), iMetadataConnection.getSchema());
+        try {
+            if (!tableInfoParameters.isUsedName()) {
+                if (tableInfoParameters.getSqlFiter() != null && !"".equals(tableInfoParameters.getSqlFiter())) {
+                    Statement stmt = ExtractMetaDataUtils.conn.createStatement();
+                    ResultSet rsTables = stmt.executeQuery(tableInfoParameters.getSqlFiter());
+                    List<String> itemTablesName2 = getTableNamesFromQuery(rsTables);
+                    for (String string : itemTablesName2) {
+                        if (tableInfoParameters.getTypes().contains(
+                                ETableTypes.getTableTypeFromName(getTableTypeByTableName(string)))) {
+                            itemTablesName.add(string);
+                        }
+                    }
+                }
+            } else {
+                Set<String> nameFiters = tableInfoParameters.getNameFilters();
+                if (nameFiters.isEmpty()) {
+                    itemTablesName = getTableNamesFromTables(getResultSetFromTableInfo(tableInfoParameters, ""));
+                } else {
+                    for (String s : nameFiters) {
+                        itemTablesName
+                                .addAll(getTableNamesFromTables(getResultSetFromTableInfo(tableInfoParameters, s)));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        } catch (Exception e) {
+            log.error(e.toString());
+            throw new RuntimeException(e);
+        }
+        ExtractMetaDataUtils.closeConnection();
+
+        return itemTablesName;
+    }
+
+    /**
+     * DOC qzhang Comment method "getTableNamesFromQuery".
+     * 
+     * @param rsTables
+     * 
+     * @return
+     * @throws SQLException
+     */
+    private static List<String> getTableNamesFromQuery(ResultSet resultSet) throws SQLException {
+        List<String> itemTablesName = new ArrayList<String>();
+        while (resultSet.next()) {
+            itemTablesName.add(resultSet.getString(1));
+        }
+        return itemTablesName;
+    }
+
+    /**
+     * DOC qzhang Comment method "getTableNamesFromQuery".
+     * 
+     * @param rsTables
+     * 
+     * @return
+     * @throws SQLException
+     */
+    private static List<String> getTableNamesFromTables(ResultSet resultSet) throws SQLException {
+        List<String> itemTablesName = new ArrayList<String>();
+        if (resultSet != null) {
+            while (resultSet.next()) {
+                itemTablesName.add(resultSet.getString("TABLE_NAME"));
+            }
+        }
+        return itemTablesName;
+    }
+
+    /**
+     * DOC qzhang Comment method "getResultSetFromTableInfo".
+     * 
+     * @param dbMetaData
+     * @return
+     * @throws SQLException
+     */
+    private static ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern)
+            throws SQLException {
+        ResultSet rsTables = null;
+        Connection conn = ExtractMetaDataUtils.conn;
+        String tableNamePattern = "".equals(namePattern) ? null : namePattern;
+        String[] types = new String[tableInfo.getTypes().size()];
+        for (int i = 0; i < types.length; i++) {
+            types[i] = tableInfo.getTypes().get(i).getName();
+        }
+        rsTables = conn.getMetaData().getTables(null, ExtractMetaDataUtils.schema, tableNamePattern, types);
+        return rsTables;
     }
 
 }
