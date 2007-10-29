@@ -31,8 +31,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.eclipse.gef.commands.Command;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
+import org.talend.core.model.metadata.MetadataColumnsAndDbmsId;
 import org.talend.core.model.metadata.MetadataSchema;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
+import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
 import org.xml.sax.SAXException;
 
 /**
@@ -76,8 +78,18 @@ public class MetadataEmfImportXmlCommand extends Command {
             // // load the schema
             removed = new ArrayList<MetadataColumn>(extendedTableModel.getBeansList());
             extendedTableModel.removeAll(removed);
-            added = MetadataSchema.loadMetadataColumnFromFile(file);
+
+            MetadataColumnsAndDbmsId<MetadataColumn> metadataColumnsAndDbmsId = MetadataSchema
+                    .loadMetadataColumnsAndDbmsIdFromFile(file);
+            added = metadataColumnsAndDbmsId.getMetadataColumns();
             extendedTableModel.addAll(added);
+            if (extendedTableModel instanceof MetadataEmfTableEditor) {
+                MetadataEmfTableEditor editor = (MetadataEmfTableEditor) extendedTableModel;
+                String dbmsId = metadataColumnsAndDbmsId.getDbmsId();
+                if (dbmsId != null && dbmsId.trim() != "" && editor.getEditorView() != null) {
+                    editor.getEditorView().setCurrentDbms(dbmsId);
+                }
+            }
 
         } catch (ParserConfigurationException e) {
             ExceptionHandler.process(e);
@@ -87,5 +99,4 @@ public class MetadataEmfImportXmlCommand extends Command {
             ExceptionHandler.process(e);
         }
     }
-
 }

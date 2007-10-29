@@ -63,12 +63,13 @@ public class MetadataEmfToolbarEditor extends ExtendedToolbarView {
      * @param style
      * @param metadataEditorView
      */
-    public MetadataEmfToolbarEditor(Composite parent, int style, AbstractExtendedTableViewer<MetadataColumn> extendedTableViewer) {
+    public MetadataEmfToolbarEditor(Composite parent, int style,
+            AbstractExtendedTableViewer<MetadataColumn> extendedTableViewer) {
         super(parent, style, extendedTableViewer);
     }
 
-    public MetadataEmfToolbarEditor(Composite parent, int style, AbstractExtendedTableViewer<MetadataColumn> extendedTableViewer,
-            String dbmsId) {
+    public MetadataEmfToolbarEditor(Composite parent, int style,
+            AbstractExtendedTableViewer<MetadataColumn> extendedTableViewer, String dbmsId) {
         this(parent, style, extendedTableViewer);
         this.dbmsId = dbmsId;
         if (dbmsId != null) {
@@ -135,7 +136,7 @@ public class MetadataEmfToolbarEditor extends ExtendedToolbarView {
 
             @Override
             protected Command getCommandToExecute(ExtendedTableModel extendedTableModel, File file) {
-                return new MetadataEmfExportXmlCommand((MetadataEmfTableEditor) extendedTableModel, file);
+                return new MetadataEmfExportXmlCommand((MetadataEmfTableEditor) extendedTableModel, file, dbmsId);
             }
 
         };

@@ -38,6 +38,7 @@ import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
 import org.talend.core.model.metadata.types.JavaTypesManager;
 import org.talend.core.model.metadata.types.TypesManager;
+import org.talend.core.ui.metadata.editor.MetadataEmfTableEditorView;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -47,199 +48,202 @@ import org.talend.core.model.metadata.types.TypesManager;
  */
 public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
 
-	private String defaultLabel = "newColumn"; //$NON-NLS-1$
+    private String defaultLabel = "newColumn"; //$NON-NLS-1$
 
-	private static int indexNewColumn;
+    private static int indexNewColumn;
 
-	public static final String VALID_CHAR_COLUMN_NAME = "a-zA-Z_0-9"; //$NON-NLS-1$
+    public static final String VALID_CHAR_COLUMN_NAME = "a-zA-Z_0-9"; //$NON-NLS-1$
 
-	private static final PatternCompiler COMPILER = new Perl5Compiler();
+    private static final PatternCompiler COMPILER = new Perl5Compiler();
 
-	private static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][" + VALID_CHAR_COLUMN_NAME + "]*$"; //$NON-NLS-1$ //$NON-NLS-2$
+    private static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][" + VALID_CHAR_COLUMN_NAME + "]*$"; //$NON-NLS-1$ //$NON-NLS-2$
 
-	private static Pattern validPatternColumnNameRegexp = null;
+    private static Pattern validPatternColumnNameRegexp = null;
 
-	private MetadataTable metadataTable;
+    private MetadataTable metadataTable;
 
-	public MetadataEmfTableEditor(String titleName) {
-		super(titleName);
-	}
+    private MetadataEmfTableEditorView editorView;
 
-	public MetadataEmfTableEditor() {
-		super();
-	}
+    public MetadataEmfTableEditor(String titleName) {
+        super(titleName);
+    }
 
-	public MetadataEmfTableEditor(MetadataTable metadataTable, String titleName) {
-		super(titleName);
-		setMetadataTable(metadataTable);
-	}
+    public MetadataEmfTableEditor() {
+        super();
+    }
 
-	public String getTitleName() {
-		return getName();
-	}
+    public MetadataEmfTableEditor(MetadataTable metadataTable, String titleName) {
+        super(titleName);
+        setMetadataTable(metadataTable);
+    }
 
-	public List<MetadataColumn> getMetadataColumnList() {
-		return getBeansList();
-	}
+    public String getTitleName() {
+        return getName();
+    }
 
-	public MetadataTable getMetadataTable() {
-		return this.metadataTable;
-	}
+    public List<MetadataColumn> getMetadataColumnList() {
+        return getBeansList();
+    }
 
-	/**
-	 * set MetadataTable.
-	 * 
-	 * @param metadataEditorTable
-	 */
-	public void setMetadataTable(MetadataTable metadataTable) {
-		this.metadataTable = metadataTable;
-		registerDataList((List<MetadataColumn>) this.metadataTable.getColumns());
-	}
+    public MetadataTable getMetadataTable() {
+        return this.metadataTable;
+    }
 
-	/**
-	 * 
-	 * DOC amaumont Comment method "validateColumnName". Check columName width
-	 * the list of columns to be see on the table
-	 * 
-	 * @param columnName
-	 * @param beanPosition
-	 * @return
-	 */
-	public String validateColumnName(String columnName, int beanPosition) {
-		return validateColumnName(columnName, beanPosition, getBeansList());
-	}
+    /**
+     * set MetadataTable.
+     * 
+     * @param metadataEditorTable
+     */
+    public void setMetadataTable(MetadataTable metadataTable) {
+        this.metadataTable = metadataTable;
+        registerDataList((List<MetadataColumn>) this.metadataTable.getColumns());
+    }
 
-	/**
-	 * 
-	 * DOC amaumont Comment method "validateColumnName".
-	 * 
-	 * @param columnName
-	 * @param beanPosition
-	 * @param List
-	 *            <MetadataColumn>
-	 * @return
-	 */
-	public String validateColumnName(String columnName, int beanPosition,
-			List<MetadataColumn> metadataColumns) {
-		if (columnName == null) {
-			return Messages
-					.getString("MetadataEmfTableEditor.ColumnNameIsNullError"); //$NON-NLS-1$
-		}
+    /**
+     * 
+     * DOC amaumont Comment method "validateColumnName". Check columName width the list of columns to be see on the
+     * table
+     * 
+     * @param columnName
+     * @param beanPosition
+     * @return
+     */
+    public String validateColumnName(String columnName, int beanPosition) {
+        return validateColumnName(columnName, beanPosition, getBeansList());
+    }
 
-		validPatternColumnNameRegexp = null;
-		if (validPatternColumnNameRegexp == null) {
-			try {
-				validPatternColumnNameRegexp = COMPILER
-						.compile(VALID_PATTERN_COLUMN_NAME);
-			} catch (MalformedPatternException e) {
-				throw new RuntimeException(e);
-			}
-		}
-		Perl5Matcher matcher = new Perl5Matcher();
-		boolean match = matcher.matches(columnName,
-				validPatternColumnNameRegexp);
-		if (!match) {
-			return Messages.getString(
-					("MetadataEmfTableEditor.ColumnInvalid"), columnName); //$NON-NLS-1$ //$NON-NLS-2$
-		}
+    /**
+     * 
+     * DOC amaumont Comment method "validateColumnName".
+     * 
+     * @param columnName
+     * @param beanPosition
+     * @param List <MetadataColumn>
+     * @return
+     */
+    public String validateColumnName(String columnName, int beanPosition, List<MetadataColumn> metadataColumns) {
+        if (columnName == null) {
+            return Messages.getString("MetadataEmfTableEditor.ColumnNameIsNullError"); //$NON-NLS-1$
+        }
 
-		int lstSize = metadataColumns.size();
-		for (int i = 0; i < lstSize; i++) {
-			if (columnName.equals(metadataColumns.get(i).getLabel())
-					&& i != beanPosition) {
-				return Messages.getString(
-						"MetadataEmfTableEditor.ColumnNameExists", columnName); //$NON-NLS-1$ //$NON-NLS-2$
-			}
-		}
-		return null;
-	}
+        validPatternColumnNameRegexp = null;
+        if (validPatternColumnNameRegexp == null) {
+            try {
+                validPatternColumnNameRegexp = COMPILER.compile(VALID_PATTERN_COLUMN_NAME);
+            } catch (MalformedPatternException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Perl5Matcher matcher = new Perl5Matcher();
+        boolean match = matcher.matches(columnName, validPatternColumnNameRegexp);
+        if (!match) {
+            return Messages.getString(("MetadataEmfTableEditor.ColumnInvalid"), columnName); //$NON-NLS-1$ //$NON-NLS-2$
+        }
 
-	/**
-	 * DOC ocarbone. getValidateColumnName return a valid label to a column (not
-	 * empty, no doublon, no illegal char).
-	 * 
-	 * @param columnLabel
-	 * @param List
-	 *            <MetadataColumn>
-	 * @return string
-	 */
-	public String getNextGeneratedColumnName(String columnLabel) {
-		return getNextGeneratedColumnName(columnLabel, getBeansList());
-	}
+        int lstSize = metadataColumns.size();
+        for (int i = 0; i < lstSize; i++) {
+            if (columnName.equals(metadataColumns.get(i).getLabel()) && i != beanPosition) {
+                return Messages.getString("MetadataEmfTableEditor.ColumnNameExists", columnName); //$NON-NLS-1$ //$NON-NLS-2$
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * DOC ocarbone. getValidateColumnName return a valid label to a column (not
-	 * empty, no doublon, no illegal char).
-	 * 
-	 * @param columnLabel
-	 * @param i
-	 * @param List
-	 *            <MetadataColumn>
-	 * @return string
-	 */
-	protected String getNextGeneratedColumnName(String oldColumnName,
-			List<MetadataColumn> metadataColumns) {
+    /**
+     * DOC ocarbone. getValidateColumnName return a valid label to a column (not empty, no doublon, no illegal char).
+     * 
+     * @param columnLabel
+     * @param List <MetadataColumn>
+     * @return string
+     */
+    public String getNextGeneratedColumnName(String columnLabel) {
+        return getNextGeneratedColumnName(columnLabel, getBeansList());
+    }
 
-		UniqueStringGenerator<MetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<MetadataColumn>(
-				oldColumnName, metadataColumns) {
+    /**
+     * DOC ocarbone. getValidateColumnName return a valid label to a column (not empty, no doublon, no illegal char).
+     * 
+     * @param columnLabel
+     * @param i
+     * @param List <MetadataColumn>
+     * @return string
+     */
+    protected String getNextGeneratedColumnName(String oldColumnName, List<MetadataColumn> metadataColumns) {
 
-			/*
-			 * (non-Javadoc)
-			 * 
-			 * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
-			 */
-			@Override
-			protected String getBeanString(MetadataColumn bean) {
-				return bean.getLabel();
-			}
+        UniqueStringGenerator<MetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<MetadataColumn>(
+                oldColumnName, metadataColumns) {
 
-		};
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.talend.commons.utils.data.list.UniqueStringGenerator#getBeanString(java.lang.Object)
+             */
+            @Override
+            protected String getBeanString(MetadataColumn bean) {
+                return bean.getLabel();
+            }
 
-		return uniqueStringGenerator.getUniqueString();
-	}
+        };
 
-	/**
-	 * DOC amaumont Comment method "createNewMetadataColumn".
-	 * 
-	 * @return
-	 */
-	public MetadataColumn createNewMetadataColumn(String dbmsId) {
-		MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE
-				.createMetadataColumn();
+        return uniqueStringGenerator.getUniqueString();
+    }
 
-		String columnName = getNextGeneratedColumnName(defaultLabel);
-		metadataColumn.setLabel(columnName);
-		metadataColumn.setOriginalField(columnName);
-		ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
-		if (codeLanguage == ECodeLanguage.JAVA) {
-			metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType()
-					.getId());
-			if (dbmsId != null) {
-				metadataColumn.setSourceType(TypesManager
-						.getDBTypeFromTalendType(dbmsId, metadataColumn
-								.getTalendType()));
-			}
-		}
-		return metadataColumn;
-	}
+    /**
+     * DOC amaumont Comment method "createNewMetadataColumn".
+     * 
+     * @return
+     */
+    public MetadataColumn createNewMetadataColumn(String dbmsId) {
+        MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
 
-	/**
-	 * Getter for defaultLabel.
-	 * 
-	 * @return the defaultLabel
-	 */
-	public String getDefaultLabel() {
-		return this.defaultLabel;
-	}
+        String columnName = getNextGeneratedColumnName(defaultLabel);
+        metadataColumn.setLabel(columnName);
+        metadataColumn.setOriginalField(columnName);
+        ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+        if (codeLanguage == ECodeLanguage.JAVA) {
+            metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
+            if (dbmsId != null) {
+                metadataColumn.setSourceType(TypesManager.getDBTypeFromTalendType(dbmsId, metadataColumn
+                        .getTalendType()));
+            }
+        }
+        return metadataColumn;
+    }
 
-	/**
-	 * Sets the defaultLabel.
-	 * 
-	 * @param defaultLabel
-	 *            the defaultLabel to set
-	 */
-	public void setDefaultLabel(String defaultLabel) {
-		this.defaultLabel = defaultLabel;
-	}
+    /**
+     * Getter for defaultLabel.
+     * 
+     * @return the defaultLabel
+     */
+    public String getDefaultLabel() {
+        return this.defaultLabel;
+    }
+
+    /**
+     * Sets the defaultLabel.
+     * 
+     * @param defaultLabel the defaultLabel to set
+     */
+    public void setDefaultLabel(String defaultLabel) {
+        this.defaultLabel = defaultLabel;
+    }
+
+    /**
+     * Getter for editorView.
+     * 
+     * @return the editorView
+     */
+    public MetadataEmfTableEditorView getEditorView() {
+        return editorView;
+    }
+
+    /**
+     * Sets the editorView.
+     * 
+     * @param editorView the editorView to set
+     */
+    public void setEditorView(MetadataEmfTableEditorView editorView) {
+        this.editorView = editorView;
+    }
 
 }

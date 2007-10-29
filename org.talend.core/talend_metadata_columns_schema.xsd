@@ -5,6 +5,7 @@
 			<xs:sequence>
 				<xs:element maxOccurs="unbounded" name="column" type="column"/>
 			</xs:sequence>
+			<xs:attribute name="dbmsId" type="xs:string" use="optional"/>			
 		</xs:complexType>
 	</xsd:element>
 

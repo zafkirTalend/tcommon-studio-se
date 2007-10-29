@@ -260,7 +260,13 @@ public class MetadataSchema {
      */
     private static List<org.talend.core.model.metadata.builder.connection.MetadataColumn> initializeColumns2(
             final File file) throws ParserConfigurationException, SAXException, IOException {
+        return loadMetadataColumnsAndDbmsIdFromFile(file).getMetadataColumns();
+    }
+
+    public static MetadataColumnsAndDbmsId<org.talend.core.model.metadata.builder.connection.MetadataColumn> loadMetadataColumnsAndDbmsIdFromFile(
+            final File file) throws ParserConfigurationException, SAXException, IOException {
         final List<org.talend.core.model.metadata.builder.connection.MetadataColumn> listColumns = new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataColumn>();
+        String dbmsId = null;
         if (file != null) {
             final DocumentBuilderFactory fabrique = DocumentBuilderFactory.newInstance();
 
@@ -290,6 +296,8 @@ public class MetadataSchema {
             });
 
             final Document document = analyseur.parse(file);
+            dbmsId = document.getDocumentElement().getAttribute("dbmsId");
+
             final NodeList nodes = document.getElementsByTagName("column"); //$NON-NLS-1$
             Set<String> columnsAlreadyAdded = new HashSet<String>();
             for (int i = 0; i < nodes.getLength(); i++) {
@@ -307,6 +315,8 @@ public class MetadataSchema {
                 final Node defaultValue = nodeMap.getNamedItem("default"); //$NON-NLS-1$
                 final Node comment = nodeMap.getNamedItem("comment"); //$NON-NLS-1$
                 final Node pattern = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
+                final Node originalField = nodeMap.getNamedItem("originalDbColumnName"); //$NON-NLS-1$
+
                 // final Node function = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
                 // final Node parameter = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
                 // final Node preview = nodeMap.getNamedItem("pattern"); //$NON-NLS-1$
@@ -350,6 +360,11 @@ public class MetadataSchema {
                 // if (preview.getNodeValue()!=null) {
                 // metadataColumn.setPattern(preview.getNodeValue());
                 // }
+                if (originalField != null && originalField.getNodeValue() != null) {
+                    metadataColumn.setOriginalField(originalField.getNodeValue());
+                } else {
+                    metadataColumn.setOriginalField(label.getNodeValue());
+                }
 
                 if (!columnsAlreadyAdded.contains(metadataColumn.getLabel())) {
                     listColumns.add(metadataColumn);
@@ -357,7 +372,8 @@ public class MetadataSchema {
                 }
             }
         }
-        return listColumns;
+        return new MetadataColumnsAndDbmsId<org.talend.core.model.metadata.builder.connection.MetadataColumn>(
+                listColumns, dbmsId);
     }
 
     /**
@@ -418,6 +434,12 @@ public class MetadataSchema {
         return listSchemaTargets;
     }
 
+    public static boolean saveMetadataColumnToFile(File file,
+            org.talend.core.model.metadata.builder.connection.MetadataTable table) throws IOException,
+            ParserConfigurationException {
+        return saveMetadataColumnToFile(file, table, null);
+    }
+
     /**
      * Export MetadataColumn to the specified file.
      * 
@@ -428,7 +450,7 @@ public class MetadataSchema {
      * @throws ParserConfigurationException if dom is not fully respected
      */
     public static boolean saveMetadataColumnToFile(File file,
-            org.talend.core.model.metadata.builder.connection.MetadataTable table) throws IOException,
+            org.talend.core.model.metadata.builder.connection.MetadataTable table, String dbmsId) throws IOException,
             ParserConfigurationException {
 
         if (file != null) {
@@ -463,6 +485,12 @@ public class MetadataSchema {
             Element racine = document.createElement("schema"); //$NON-NLS-1$
             document.appendChild(racine);
 
+            if (dbmsId != null && dbmsId.trim() != "") {
+                Attr idAttr = document.createAttribute("dbmsId"); //$NON-NLS-1$
+                idAttr.setNodeValue(dbmsId);
+                racine.setAttributeNode(idAttr);
+            }
+
             for (Object list : table.getColumns()) {
                 org.talend.core.model.metadata.builder.connection.MetadataColumn metadataColumn = (org.talend.core.model.metadata.builder.connection.MetadataColumn) list;
                 Element column = document.createElement("column"); //$NON-NLS-1$
@@ -471,6 +499,10 @@ public class MetadataSchema {
                 Attr label = document.createAttribute("label"); //$NON-NLS-1$
                 label.setNodeValue(metadataColumn.getLabel());
                 column.setAttributeNode(label);
+
+                Attr originalField = document.createAttribute("originalDbColumnName"); //$NON-NLS-1$
+                originalField.setNodeValue(metadataColumn.getOriginalField());
+                column.setAttributeNode(originalField);
 
                 Attr key = document.createAttribute("key"); //$NON-NLS-1$
                 key.setNodeValue(String.valueOf(metadataColumn.isKey()));
@@ -644,6 +676,12 @@ public class MetadataSchema {
             Document document = analyseur.newDocument();
             Element racine = document.createElement("schema"); //$NON-NLS-1$
             document.appendChild(racine);
+
+            if (table.getDbms() != null && table.getDbms().trim() != "") {
+                Attr dbmsId = document.createAttribute("dbmsId"); //$NON-NLS-1$
+                dbmsId.setNodeValue(table.getDbms());
+                racine.setAttributeNode(dbmsId);
+            }
 
             for (IMetadataColumn metadataColumn : table.getListColumns()) {
                 Element column = document.createElement("column"); //$NON-NLS-1$

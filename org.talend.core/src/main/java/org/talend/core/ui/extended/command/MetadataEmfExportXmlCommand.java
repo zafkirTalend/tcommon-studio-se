@@ -40,6 +40,8 @@ import org.talend.core.model.metadata.editor.MetadataEmfTableEditor;
  */
 public class MetadataEmfExportXmlCommand extends Command {
 
+    private String dbmsId = null;
+
     private File file;
 
     private MetadataEmfTableEditor extendedTableModel;
@@ -58,6 +60,13 @@ public class MetadataEmfExportXmlCommand extends Command {
         this.extendedTableModel = extendedTableModel;
     }
 
+    public MetadataEmfExportXmlCommand(MetadataEmfTableEditor extendedTableModel, File file, String dbmsId) {
+        super();
+        this.file = file;
+        this.extendedTableModel = extendedTableModel;
+        this.dbmsId = dbmsId;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -72,9 +81,8 @@ public class MetadataEmfExportXmlCommand extends Command {
                     MetadataTable currentTable = extendedTableModel.getMetadataTable();
                     // get all the columns from the table
                     if (currentTable != null) {
+                        MetadataSchema.saveMetadataColumnToFile(file, currentTable, dbmsId);
 
-                        MetadataSchema.saveMetadataColumnToFile(file, currentTable);
-                        
                     }
                 }
             }
