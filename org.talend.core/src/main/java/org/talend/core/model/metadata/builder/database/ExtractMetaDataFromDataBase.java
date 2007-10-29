@@ -569,13 +569,7 @@ public class ExtractMetaDataFromDataBase {
                 if (tableInfoParameters.getSqlFiter() != null && !"".equals(tableInfoParameters.getSqlFiter())) {
                     Statement stmt = ExtractMetaDataUtils.conn.createStatement();
                     ResultSet rsTables = stmt.executeQuery(tableInfoParameters.getSqlFiter());
-                    List<String> itemTablesName2 = getTableNamesFromQuery(rsTables);
-                    for (String string : itemTablesName2) {
-                        if (tableInfoParameters.getTypes().contains(
-                                ETableTypes.getTableTypeFromName(getTableTypeByTableName(string)))) {
-                            itemTablesName.add(string);
-                        }
-                    }
+                    itemTablesName = getTableNamesFromQuery(rsTables);
                 }
             } else {
                 Set<String> nameFiters = tableInfoParameters.getNameFilters();
@@ -583,8 +577,13 @@ public class ExtractMetaDataFromDataBase {
                     itemTablesName = getTableNamesFromTables(getResultSetFromTableInfo(tableInfoParameters, ""));
                 } else {
                     for (String s : nameFiters) {
-                        itemTablesName
-                                .addAll(getTableNamesFromTables(getResultSetFromTableInfo(tableInfoParameters, s)));
+                        List<String> tableNamesFromTables = getTableNamesFromTables(getResultSetFromTableInfo(
+                                tableInfoParameters, s));
+                        for (String string : tableNamesFromTables) {
+                            if (!itemTablesName.contains(string)) {
+                                itemTablesName.add(string);
+                            }
+                        }
                     }
                 }
             }
