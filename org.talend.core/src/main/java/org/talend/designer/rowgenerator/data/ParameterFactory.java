@@ -46,17 +46,17 @@ public class ParameterFactory {
 
     public static final String PARAMETER_TYPE_LIST = "list"; //$NON-NLS-1$
 
-    private static final String PARAMETER_TYPE_DOUBLE = "double";
+    public static final String PARAMETER_TYPE_DOUBLE = "double";
 
-    private static final String PARAMETER_TYPE_OBJECT = "object";
+    public static final String PARAMETER_TYPE_OBJECT = "object";
 
-    private static final String PARAMETER_TYPE_BOOLEAN = "boolean";
+    public static final String PARAMETER_TYPE_BOOLEAN = "boolean";
 
-    private static final String PARAMETER_TYPE_LONG = "long";
+    public static final String PARAMETER_TYPE_LONG = "long";
 
-    private static final String PARAMETER_TYPE_DATE = "date";
+    public static final String PARAMETER_TYPE_DATE = "date";
 
-    private static final String PARAMETER_TYPE_CHAR = "char";
+    public static final String PARAMETER_TYPE_CHAR = "char";
 
     /**
      * qzhang Comment method "getParameter". <br/>.
@@ -136,26 +136,30 @@ public class ParameterFactory {
     }
 
     private Parameter createParameter(String type) {
+        Parameter parameter = null;
         if (type.startsWith(PARAMETER_TYPE_STRING)) {
-            return new StringParameter();
+            parameter = new StringParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_INT)) {
-            return new IntParameter();
+            parameter = new IntParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_LIST)) {
-            return new ListParameter();
+            parameter = new ListParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_DOUBLE)) {
-            return new DoubleParameter();
+            parameter = new DoubleParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_OBJECT)) {
-            return new ObjectParameter();
+            parameter = new ObjectParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_BOOLEAN)) {
-            return new BooleanParameter();
+            parameter = new BooleanParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_LONG)) {
-            return new LongParameter();
+            parameter = new LongParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_DATE)) {
-            return new DateParameter();
+            parameter = new DateParameter();
         } else if (type.equalsIgnoreCase(PARAMETER_TYPE_CHAR)) {
-            return new CharParameter();
+            parameter = new CharParameter();
         }
-        return null;
+        if (parameter != null) {
+            parameter.setType(type);
+        }
+        return parameter;
     }
 
     public static void main(String[] args) {

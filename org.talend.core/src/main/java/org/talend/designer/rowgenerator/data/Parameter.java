@@ -21,152 +21,142 @@
 // ============================================================================
 package org.talend.designer.rowgenerator.data;
 
-import java.util.List;
-
 import org.talend.core.i18n.Messages;
-import org.talend.expressionbuilder.test.shadow.Variable;
 
 /**
- * class global comment. Detailled comment <br/> $Id: Parameter.java,v 1.4
- * 2007/02/02 03:04:21 pub Exp $
+ * class global comment. Detailled comment <br/> $Id: Parameter.java,v 1.4 2007/02/02 03:04:21 pub Exp $
  */
 public abstract class Parameter {
 
-	/**
-	 * @uml.property name="name"
-	 */
-	protected String name = ""; //$NON-NLS-1$
+    protected String type;
 
-	/**
-	 * Getter of the property <tt>name</tt>.
-	 * 
-	 * @return Returns the name.
-	 * @uml.property name="name"
-	 */
-	public String getName() {
-		return this.name;
-	}
+    /**
+     * @uml.property name="name"
+     */
+    protected String name = ""; //$NON-NLS-1$
 
-	/**
-	 * Setter of the property <tt>name</tt>.
-	 * 
-	 * @param name
-	 *            The name to set.
-	 * @uml.property name="name"
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+    /**
+     * Getter of the property <tt>name</tt>.
+     * 
+     * @return Returns the name.
+     * @uml.property name="name"
+     */
+    public String getName() {
+        return this.name;
+    }
 
-	/**
-	 * @uml.property name="value"
-	 */
-	protected String value = ""; //$NON-NLS-1$
+    /**
+     * Setter of the property <tt>name</tt>.
+     * 
+     * @param name The name to set.
+     * @uml.property name="name"
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	/**
-	 * Getter of the property <tt>value</tt>.
-	 * 
-	 * @return Returns the value.
-	 * @uml.property name="value"
-	 */
-	public String getValue() {
-		int index = this.value.indexOf("{variables}");
-		if (index != -1) {
-			return this.value.substring(0, index);
-		} else {
-			return this.value;
-		}
-	}
+    /**
+     * @uml.property name="value"
+     */
+    protected String value = ""; //$NON-NLS-1$
 
-	/**
-	 * Setter of the property <tt>value</tt>.
-	 * 
-	 * @param value
-	 *            The value to set.
-	 * @uml.property name="value"
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
+    /**
+     * Getter of the property <tt>value</tt>.
+     * 
+     * @return Returns the value.
+     * @uml.property name="value"
+     */
+    public String getValue() {
+        int index = this.value.indexOf("{variables}");
+        if (index != -1) {
+            return this.value.substring(0, index);
+        } else {
+            return this.value;
+        }
+    }
 
-	/**
-	 * @uml.property name="comment"
-	 */
-	protected String comment = ""; //$NON-NLS-1$
+    /**
+     * Setter of the property <tt>value</tt>.
+     * 
+     * @param value The value to set.
+     * @uml.property name="value"
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	/**
-	 * Getter of the property <tt>comment</tt>.
-	 * 
-	 * @return Returns the comment.
-	 * @uml.property name="comment"
-	 */
-	public String getComment() {
-		return this.comment;
-	}
+    /**
+     * @uml.property name="comment"
+     */
+    protected String comment = ""; //$NON-NLS-1$
 
-	/**
-	 * Setter of the property <tt>comment</tt>.
-	 * 
-	 * @param comment
-	 *            The comment to set.
-	 * @uml.property name="comment"
-	 */
-	public void setComment(String comment) {
-		this.comment = comment;
-	}
+    /**
+     * Getter of the property <tt>comment</tt>.
+     * 
+     * @return Returns the comment.
+     * @uml.property name="comment"
+     */
+    public String getComment() {
+        return this.comment;
+    }
 
-	/**
-	 * @uml.property name="type"
-	 */
-	protected ParameterType type;
+    /**
+     * Setter of the property <tt>comment</tt>.
+     * 
+     * @param comment The comment to set.
+     * @uml.property name="comment"
+     */
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
-	/**
-	 * Getter of the property <tt>type</tt>.
-	 * 
-	 * @return Returns the type.
-	 * @uml.property name="type"
-	 */
-	public ParameterType getType() {
-		return this.type;
-	}
+    /**
+     * Sets the properties from the input String.
+     */
+    public void parseProperties(String str) {
 
-	/**
-	 * Setter of the property <tt>type</tt>.
-	 * 
-	 * @param type
-	 *            The type to set.
-	 * @uml.property name="type"
-	 */
-	public void setType(ParameterType type) {
-		this.type = type;
-	}
+    }
 
-	/**
-	 * Sets the properties from the input String.
-	 */
-	public void parseProperties(String str) {
+    /**
+     * qzhang Comment method "sameParameterAs".
+     * 
+     * @param obj
+     * @return
+     */
+    public abstract boolean sameParameterAs(Parameter obj);
 
-	}
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(Messages.getString("Parameter.Name") + name).append(
+                Messages.getString("Parameter.Value") + this.getValue()).append(
+                Messages.getString("Parameter.Comment") + this.getComment()).append(
+                Messages.getString("Parameter.Type") + this.getType());
 
-	/**
-	 * qzhang Comment method "sameParameterAs".
-	 * 
-	 * @param obj
-	 * @return
-	 */
-	public abstract boolean sameParameterAs(Parameter obj);
+        return sb.toString();
+    }
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(Messages.getString("Parameter.Name") + name).append(
-				Messages.getString("Parameter.Value") + this.getValue())
-				.append(
-						Messages.getString("Parameter.Comment")
-								+ this.getComment()).append(
-						Messages.getString("Parameter.Type") + this.getType());
+    /**
+     * Getter for type.
+     * 
+     * @return the type
+     * @see #setType(String);
+     */
+    public String getType() {
+        return this.type;
+    }
 
-		return sb.toString();
-	}
+    /**
+     * Sets the type.
+     * 
+     * @param the type value: {@link ParameterFactory#PARAMETER_TYPE_STRING} or
+     * {@link ParameterFactory#PARAMETER_TYPE_INT} or {@link ParameterFactory#PARAMETER_TYPE_LIST} or
+     * {@link ParameterFactory#PARAMETER_TYPE_DOUBLE} or {@link ParameterFactory#PARAMETER_TYPE_OBJECT} or
+     * {@link ParameterFactory#PARAMETER_TYPE_BOOLEAN} or {@link ParameterFactory#PARAMETER_TYPE_LONG} or
+     * {@link ParameterFactory#PARAMETER_TYPE_DATE} or {@link ParameterFactory#PARAMETER_TYPE_CHAR}
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
 
 }
