@@ -41,7 +41,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
-import org.talend.expressionbuilder.IExpressionConsumer;
 import org.talend.expressionbuilder.IExpressionDataBean;
 import org.talend.expressionbuilder.IExtendedCellEditorBehavior;
 import org.talend.expressionbuilder.test.shadow.Variable;
@@ -52,7 +51,7 @@ import org.talend.expressionbuilder.test.shadow.Variable;
  * $Id: ExtendedTextCellEditor.java 下午03:55:26 2007-8-1 +0000 (2007-8-1) yzhang $
  * 
  */
-public class ExtendedTextCellEditor extends TextCellEditor implements IExpressionConsumer, IExpressionDataBean {
+public class ExtendedTextCellEditor extends TextCellEditor implements IExpressionDataBean {
 
     private IExtendedCellEditorBehavior cellEditorBehavior;
 
@@ -70,6 +69,8 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
     private boolean isSelectable = false;
 
     private final Composite parent;
+
+    private String expressionType;
 
     /**
      * yzhang ExtendedTextCellEditor constructor comment.
@@ -330,6 +331,24 @@ public class ExtendedTextCellEditor extends TextCellEditor implements IExpressio
     @Override
     public void focusLost() {
         super.focusLost();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.expressionbuilder.IExpressionDataBean#getExpressionType()
+     */
+    public String getExpressionType() {
+        return expressionType;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.expressionbuilder.IExpressionDataBean#setExpressionType(java.lang.String)
+     */
+    public void setExpressionType(String expressionType) {
+        this.expressionType = expressionType;
     }
 
 }

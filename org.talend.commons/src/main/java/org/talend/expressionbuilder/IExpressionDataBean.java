@@ -40,4 +40,11 @@ public interface IExpressionDataBean {
 
     public String getOwnerId();
 
+    public void setConsumerExpression(String expression);
+
+    // java Only
+    public String getExpressionType();
+
+    public void setExpressionType(String expressionType);
+
 }
