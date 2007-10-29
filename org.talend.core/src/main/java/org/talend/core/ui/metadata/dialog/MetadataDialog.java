@@ -172,8 +172,7 @@ public class MetadataDialog extends Dialog {
                 || node.getComponent().getFamily().startsWith(ELT_LABEL)) {
             dbComponent = true;
             for (IElementParameter currentParam : node.getElementParameters()) {
-                if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)
-                        && currentParam.isShow(node.getElementParameters())) {
+                if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)) {
                     metaView.setCurrentDbms((String) currentParam.getValue());
                     hasMappingType = true;
                 }
@@ -251,8 +250,7 @@ public class MetadataDialog extends Dialog {
                 }
             }
         }
-        metaView.setShowDbTypeColumn(hasMappingType || hasRepositoryDbSchema, false, hasMappingType
-                || (dbComponent && !hasRepositoryDbSchema));
+        metaView.setShowDbTypeColumn(dbComponent, false, hasMappingType || (dbComponent && !hasRepositoryDbSchema));
         metaView.setShowDbColumnName(dbComponent && (!node.getComponent().getFamily().startsWith(ELT_LABEL)),
                 hasMappingType || (dbComponent && !hasRepositoryDbSchema));
 

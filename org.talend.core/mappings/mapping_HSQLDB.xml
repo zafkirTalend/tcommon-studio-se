@@ -24,7 +24,7 @@
 			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"/>
 			<dbType type="TINYINT" ignoreLen="true" ignorePre="true"/>
 			<dbType type="VARBINARY" ignoreLen="true" ignorePre="true"/>				
-			<dbType type="VARCHAR" default="true" defaultLength="200"/>
+			<dbType type="VARCHAR" ignorePre="true" default="true" defaultLength="200"/>
 			<dbType type="VARCHAR_IGNORECASE" ignoreLen="true" ignorePre="true"/>
 		</dbTypes>
 		<language name="java">
