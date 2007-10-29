@@ -21,6 +21,9 @@
 // ============================================================================
 package org.talend.designer.rowgenerator.data;
 
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
+
 /**
  * yzhang class global comment. Detailled comment <br/>
  * 
@@ -90,6 +93,20 @@ public class ObjectParameter extends Parameter {
         }
 
         return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.rowgenerator.data.Parameter#setType(java.lang.String)
+     */
+    @Override
+    public void setType(String type) {
+        if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
+            super.setType("Object");
+        } else {
+            super.setType(type);
+        }
     }
 
 }

@@ -33,7 +33,6 @@ import org.talend.expressionbuilder.ui.IExpressionBuilderDialogController;
  */
 public interface IExpressionBuilderDialogService extends IService {
 
-    public IExpressionBuilderDialogController getExpressionBuilderInstance(Composite parent,
-            IExpressionConsumer consumer);
+    public IExpressionBuilderDialogController getExpressionBuilderInstance(Composite parent, IExpressionDataBean dataBean);
 
 }

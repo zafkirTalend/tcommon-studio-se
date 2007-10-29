@@ -86,17 +86,17 @@ public class HiddenJavaEditor extends CompilationUnitEditor {
     public HiddenJavaEditor() {
         super();
         filename = "src/internal/" + TalendJavaSourceViewer.VIEWER_CLASS_NAME + ".java";
-        if (viewer != null) {
-            WorkbenchWindow ww = (WorkbenchWindow) PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-            EditorManager manager = new EditorManager(ww, (WorkbenchPage) ww.getActivePage(), new EditorAreaHelper(
-                    (WorkbenchPage) ww.getActivePage()));
-            EditorDescriptor desc = EditorDescriptor.createForProgram(filename);
-            EditorReference ref = new EditorReference(manager, getEditorInput(), desc);
-            site = new EditorSite(ref, this, (WorkbenchPage) ww.getActivePage(), desc);
-            IEditorSite baseSite = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()
-                    .getEditorSite();
-            site.setActionBars((SubActionBars) baseSite.getActionBars());
-        }
+        // if (viewer != null) {
+        WorkbenchWindow ww = (WorkbenchWindow) PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+        EditorManager manager = new EditorManager(ww, (WorkbenchPage) ww.getActivePage(), new EditorAreaHelper((WorkbenchPage) ww
+                .getActivePage()));
+        EditorDescriptor desc = EditorDescriptor.createForProgram(filename);
+        EditorReference ref = new EditorReference(manager, getEditorInput(), desc);
+        site = new EditorSite(ref, this, (WorkbenchPage) ww.getActivePage(), desc);
+        IEditorSite baseSite = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()
+                .getEditorSite();
+        site.setActionBars((SubActionBars) baseSite.getActionBars());
+        // }
     }
 
     public IEditorSite getEditorSite() {
