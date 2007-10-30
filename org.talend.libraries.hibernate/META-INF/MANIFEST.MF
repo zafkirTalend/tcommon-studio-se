@@ -5,6 +5,7 @@ Bundle-SymbolicName: org.talend.libraries.hibernate
 Bundle-Version: 1.0.0
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: .,
+ mysql-connector-java-5.1.0-bin.jar,
  antlr-2.7.6.jar,
  c3p0-0.9.0.jar,
  dom4j-1.6.1.jar,
@@ -13,7 +14,6 @@ Bundle-ClassPath: .,
  jta.jar,
  xerces-2.6.2.jar,
  xml-apis.jar,
- mysql-connector-java-5.1.0-bin.jar,
  hibernate3.jar
 Eclipse-RegisterBuddy: org.talend.model, org.talend.repository.databaseprovider, org.talend.teneo.model
 Eclipse-BuddyPolicy: registered, dependent
