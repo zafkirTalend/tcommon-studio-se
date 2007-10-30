@@ -77,10 +77,10 @@ public class CorePlugin extends AbstractUIPlugin {
      */
     @Override
     public void stop(BundleContext contextP) throws Exception {
-        plugin = null;
-        super.stop(contextP);
         ECodeLanguage lan = LanguageManager.getCurrentLanguage();
         getPluginPreferences().setValue(PROJECT_LANGUAGE_TYPE, lan.getName());
+        plugin = null;
+        super.stop(contextP);
     }
 
     public static CorePlugin getDefault() {
