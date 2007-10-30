@@ -74,4 +74,22 @@ public interface IRepositoryService extends IService {
     public Property getPropertyFromWizardDialog();
 
     public IPath getPathForSaveAsGenericSchema();
+
+    // for integration with eclipse
+    public void openLoginDialog();
+
+    /**
+     * initialize before running of job that extends the "IStartup" extension.
+     */
+    public void initializeForTalendStartupJob();
+
+    public void initializeTalend();
+
+    public boolean isRCPMode();
+
+    public void setRCPMode();
+
+    public void setPartListener(boolean isReuqired);
+
+    public boolean needSetPartListener();
 }

@@ -25,7 +25,10 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.core.context.Context;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ILibrariesService;
+import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.components.IComponentsLocalProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
@@ -43,11 +46,13 @@ public class CorePlugin extends AbstractUIPlugin {
     // The plug-in ID
     public static final String PLUGIN_ID = "org.talend.core"; //$NON-NLS-1$
 
+    public static final String PROJECT_LANGUAGE_TYPE = "PROJECT_LANGUAGE_TYPE";
+
     // The shared instance
     private static CorePlugin plugin;
 
     /** Context. */
-    private Context context;
+    private final Context context;
 
     public CorePlugin() {
         plugin = this;
@@ -60,6 +65,7 @@ public class CorePlugin extends AbstractUIPlugin {
      * 
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#start(org.osgi.framework.BundleContext)
      */
+    @Override
     public void start(BundleContext contextP) throws Exception {
         super.start(contextP);
     }
@@ -69,9 +75,12 @@ public class CorePlugin extends AbstractUIPlugin {
      * 
      * @see org.eclipse.ui.plugin.AbstractUIPlugin#stop(org.osgi.framework.BundleContext)
      */
+    @Override
     public void stop(BundleContext contextP) throws Exception {
         plugin = null;
         super.stop(contextP);
+        ECodeLanguage lan = LanguageManager.getCurrentLanguage();
+        getPluginPreferences().setValue(PROJECT_LANGUAGE_TYPE, lan.getName());
     }
 
     public static CorePlugin getDefault() {
@@ -134,4 +143,9 @@ public class CorePlugin extends AbstractUIPlugin {
         return (IComponentsLocalProviderService) GlobalServiceRegister.getDefault().getService(
                 IComponentsLocalProviderService.class);
     }
+
+    public ICodeGeneratorService getCodeGeneratorService() {
+        return (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(ICodeGeneratorService.class);
+    }
+
 }

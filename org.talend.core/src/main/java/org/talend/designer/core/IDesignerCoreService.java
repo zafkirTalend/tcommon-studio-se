@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.ui.IPartListener;
 import org.talend.core.IService;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
@@ -58,4 +59,6 @@ public interface IDesignerCoreService extends IService {
     public IProcess getCurrentProcess();
 
     public void refreshDesignerPalette();
+
+    public IPartListener getActiveProcessTracker();
 }

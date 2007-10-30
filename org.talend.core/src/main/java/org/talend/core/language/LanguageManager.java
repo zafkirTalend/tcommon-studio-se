@@ -40,18 +40,30 @@ public class LanguageManager {
     }
 
     public static ECodeLanguage getCurrentLanguage() {
-        if (currentLanguage == null) {
-            try {
-                currentLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(
-                        Context.REPOSITORY_CONTEXT_KEY)).getProject().getLanguage();
-            } catch (RuntimeException e) {
-                // should be run only when testing
-                e.printStackTrace();
-                currentLanguage = ECodeLanguage.PERL;
+        if (CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY) == null) {
+            CorePlugin.getDefault().getRepositoryServie().initializeForTalendStartupJob();
+
+            String lanType = CorePlugin.getDefault().getPluginPreferences().getString(CorePlugin.PROJECT_LANGUAGE_TYPE);
+
+            for (ECodeLanguage language : ECodeLanguage.values()) {
+                if (language.getName().equals(lanType)) {
+                    return language;
+                }
             }
+
+            // the first time run talend in eclipse
+            // TODO
+            return ECodeLanguage.JAVA;
         }
 
+        try {
+            currentLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                    .getProject().getLanguage();
+        } catch (RuntimeException e) {
+            // should be run only when testing
+            e.printStackTrace();
+            currentLanguage = ECodeLanguage.PERL;
+        }
         return currentLanguage;
     }
-
 }

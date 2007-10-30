@@ -62,7 +62,8 @@ public interface ICodeGeneratorService extends IService {
     /**
      * Create the routine synchronizer for Perl project.
      * 
-     *  yzhang Comment method "creatPerlRoutineSynchronizer".
+     * yzhang Comment method "creatPerlRoutineSynchronizer".
+     * 
      * @return
      */
     public IRoutineSynchronizer createPerlRoutineSynchronizer();
@@ -70,10 +71,13 @@ public interface ICodeGeneratorService extends IService {
     /**
      * Create the routine synchronizer for Java project.
      * 
-     *  yzhang Comment method "creatJavaRoutineSynchronizer".
+     * yzhang Comment method "creatJavaRoutineSynchronizer".
+     * 
      * @return
      */
     public IRoutineSynchronizer createJavaRoutineSynchronizer();
 
     public IRoutineSynchronizer createRoutineSynchronizer();
+
+    public void generationInit();
 }

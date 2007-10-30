@@ -37,6 +37,9 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.language.ECodeLanguage;
+import org.talend.core.language.LanguageManager;
+import org.talend.core.model.general.Project;
 
 /**
  * Use to disabled some actions following the project language.<br/>
@@ -46,9 +49,12 @@ public class DisableLanguageActions implements IStartup {
 
     public void earlyStartup() {
         List<String> ids = null;
+        RepositoryContext context = (RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
+        Project project = context.getProject();
 
-        switch (((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject()
-                .getLanguage()) {
+        ECodeLanguage lan = LanguageManager.getCurrentLanguage();
+
+        switch (lan) {
         case JAVA:
             ids = Arrays.asList(new String[] { "org.talend.help.perl.OpenPerlHelpAction" });
             break;
