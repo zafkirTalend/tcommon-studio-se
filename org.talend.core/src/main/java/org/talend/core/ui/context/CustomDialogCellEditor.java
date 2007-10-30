@@ -267,10 +267,20 @@ public abstract class CustomDialogCellEditor extends CellEditor {
             }
         });
         defaultLabel.setText(""); //$NON-NLS-1$
+        defaultLabel.setEditable(isTextEditable());
         defaultLabel.setFont(cell.getFont());
         defaultLabel.setBackground(cell.getBackground());
         defaultLabel.addModifyListener(getModifyListener());
         return defaultLabel;
+    }
+
+    /**
+     * bqian Comment method "isTextEditable".
+     * 
+     * @return
+     */
+    protected boolean isTextEditable() {
+        return true;
     }
 
     private ModifyListener getModifyListener() {
@@ -491,6 +501,10 @@ public abstract class CustomDialogCellEditor extends CellEditor {
     protected void doSetValue(Object value) {
         this.value = value;
         updateContents(value);
+    }
+
+    protected void setLocalValue(Object value) {
+        this.value = value;
     }
 
     /**

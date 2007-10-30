@@ -532,7 +532,7 @@ public class ConextTreeValuesComposite extends Composite {
                     return son.parameter.getPrompt();
                 case 4:
                     // value column
-                    return son.parameter.getValue();
+                    return son.parameter.getDisplayValue();
                 case 5:
                     // comment column
                     return son.parameter.getComment();
@@ -667,7 +667,7 @@ public class ConextTreeValuesComposite extends Composite {
 
             if (para != null) {
                 if (property.equals(VALUE_COLUMN_NAME)) {
-                    return para.getValue();
+                    return para.getDisplayValue();
                 } else if (property.equals(PROMPT_COLUMN_NAME)) {
                     return para.getPrompt();
                 } else if (property.equals(PROMPTNEEDED_COLUMN_NAME)) {
@@ -710,7 +710,7 @@ public class ConextTreeValuesComposite extends Composite {
             }
 
             if (property.equals(VALUE_COLUMN_NAME)) {
-                if (para.getValue().equals(value)) {
+                if (para.getDisplayValue().equals(value)) {
                     return;
                 }
                 para.setValue((String) value);
@@ -771,7 +771,7 @@ public class ConextTreeValuesComposite extends Composite {
                     return para.getPrompt();
                 case 4:
                     // value column
-                    return para.getValue();
+                    return para.getDisplayValue();
                 }
             }
             return "";

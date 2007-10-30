@@ -327,7 +327,7 @@ public class ConextTableValuesComposite extends Composite {
             if (columnIndex == 0) {
                 return para.getName();
             } else {
-                return getContexts().get(columnIndex - 1).getContextParameter(para.getName()).getValue();
+                return getContexts().get(columnIndex - 1).getContextParameter(para.getName()).getDisplayValue();
             }
         }
 
@@ -381,7 +381,7 @@ public class ConextTableValuesComposite extends Composite {
         public Object getValue(Object element, String property) {
             contextManager = modelManager.getContextManager();
             IContextParameter templatePara = (IContextParameter) element;
-            return getRealParameter(property, templatePara).getValue();
+            return getRealParameter(property, templatePara).getDisplayValue();
         }
 
         /**
@@ -410,6 +410,9 @@ public class ConextTableValuesComposite extends Composite {
                 return;
             }
             final String value2Set = (String) value;
+            if (parameterToSet.getDisplayValue().equals(value)) {
+                return;
+            }
             parameterToSet.setValue(value2Set);
             Command command = new Command() {
 

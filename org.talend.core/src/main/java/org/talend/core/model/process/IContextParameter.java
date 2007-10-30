@@ -51,7 +51,11 @@ public interface IContextParameter {
 
     public String getValue();
 
+    public String getDisplayValue();
+
     public void setValue(final String value);
+
+    public void setInternalValue(String value);
 
     public String getComment();
 

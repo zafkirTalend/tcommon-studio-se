@@ -82,7 +82,7 @@ public final class DefaultCellEditorFactory {
 
     public CellEditor getCustomCellEditor(final IContextParameter para, final Composite table) {
         this.para = para;
-        final String defalutDataValue = para.getValue();
+        String defalutDataValue = para.getValue();
         String type = para.getType();
 
         if (isBoolean(type)) {
@@ -126,7 +126,8 @@ public final class DefaultCellEditorFactory {
             } else if (isDirectory(type)) {
                 cellEditor = createDirectoryCellEditor(table, defalutDataValue);
             } else if (isList(type)) {
-                cellEditor = createListCellEditor(table, defalutDataValue);
+                cellEditor = createListCellEditor(table, para);
+                defalutDataValue = para.getDisplayValue();
             }
         }
 
@@ -154,24 +155,47 @@ public final class DefaultCellEditorFactory {
                 return getAddQuoteString(path);
             }
 
-            public void deactivate() {
-                super.deactivate();
-            }
         };
     }
 
-    private CellEditor createListCellEditor(Composite parent, final String defaultValue) {
+    private CellEditor createListCellEditor(Composite parent, final IContextParameter para2) {
         return new CustomCellEditor(parent) {
 
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.talend.core.ui.context.DefaultCellEditorFactory.CustomCellEditor#doSetValue(java.lang.Object)
+             */
+            // @Override
+            protected void doSetValue(Object value) {
+                if (value instanceof String[]) {
+                    para2.setValueList((String[]) value);
+                }
+
+                setLocalValue(para.getDisplayValue());
+                updateContents(para.getDisplayValue());
+                if (value instanceof String[]) {
+                    refreshAll();
+                }
+
+            }
+
+            protected boolean isTextEditable() {
+                return false;
+            }
+
             protected Object openDialogBox(Control cellEditorWindow) {
-                String input = getDefaultLabel().getText();
+                // Because the text is not editable.
+                // String input = getDefaultLabel().getText();
+                String[] input = para2.getValueList();
                 MultiStringSelectionDialog d = new MultiStringSelectionDialog(cellEditorWindow.getShell(), input);
                 int res = d.open();
                 if (res == Dialog.OK) {
-                    return d.getResultString();
-                } else {
-                    return getValue();
+                    String[] result = d.getResultString();
+                    return result;
                 }
+                return para2.getDisplayValue();
+
             }
 
         };
@@ -333,7 +357,9 @@ public final class DefaultCellEditorFactory {
             if (para.getValue().equals(value)) {
                 return;
             }
+            // if (!isList(para.getType())) {
             para.setValue(value.toString());
+            // }
             refreshAll();
         }
     }

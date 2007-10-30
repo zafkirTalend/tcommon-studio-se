@@ -35,6 +35,8 @@ import org.talend.core.ui.context.DefaultCellEditorFactory;
  */
 public class JobContextParameter implements IContextParameter, Cloneable {
 
+    public static final String LIST_SEPARATOR = ",";
+
     String name;
 
     String type;
@@ -58,10 +60,13 @@ public class JobContextParameter implements IContextParameter, Cloneable {
     }
 
     public String[] getValueList() {
-        if (valueList == null) {
-            if (DefaultCellEditorFactory.isList(getType())) {
-                valueList = getValue().split(",");
-            }
+        if (!isList()) {
+            return null;
+        }
+
+        if (valueList == null && value.length() != 0) {
+            valueList = getValue().split(",");
+            return valueList;
         }
 
         return valueList;
@@ -69,6 +74,10 @@ public class JobContextParameter implements IContextParameter, Cloneable {
 
     public void setValueList(String[] list) {
         valueList = list;
+        value = "";
+        if (valueList.length != 0) {
+            value = combineStrings(valueList);
+        }
     }
 
     /**
@@ -142,6 +151,27 @@ public class JobContextParameter implements IContextParameter, Cloneable {
      */
     public void setType(final String type) {
         this.type = type;
+        valueList = null;
+        value = "";
+        // if (isList() && getValue() != null && getValue().length() != 0) {
+        // valueList = getValue().split(",");
+        // }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.designer.core.model.context.IDesignerContextParameter#setValue(java.lang.String)
+     */
+    public void setValue(final String value) {
+        this.value = value;
+        if (isList() && value.length() != 0) {
+            valueList = getValue().split(LIST_SEPARATOR);
+        }
+    }
+
+    public void setInternalValue(String value) {
+        this.value = value;
     }
 
     /*
@@ -156,10 +186,34 @@ public class JobContextParameter implements IContextParameter, Cloneable {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.designer.core.model.context.IDesignerContextParameter#setValue(java.lang.String)
+     * @see org.talend.core.model.process.IContextParameter#getDiaplayValue()
      */
-    public void setValue(final String value) {
-        this.value = value;
+    public String getDisplayValue() {
+        if (isList()) {
+            if (valueList == null || valueList.length == 0) {
+                return "(Empty)";
+
+            } else {
+                return "<" + combineStrings(valueList) + ">";
+            }
+        }
+        return getValue();
+    }
+
+    private String combineStrings(String[] arrays) {
+        StringBuilder sb = new StringBuilder();
+        for (String string : arrays) {
+            sb.append(string).append(LIST_SEPARATOR);
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        return sb.toString();
+    }
+
+    private boolean isList() {
+        if (getType() == null) {
+            return false;
+        }
+        return DefaultCellEditorFactory.isList(getType());
     }
 
     /*
@@ -300,5 +354,4 @@ public class JobContextParameter implements IContextParameter, Cloneable {
             return false;
         return true;
     }
-
 }

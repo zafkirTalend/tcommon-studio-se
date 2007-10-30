@@ -138,14 +138,8 @@ public class ContextSetConfigurationDialog extends ObjectSelectionDialog<IContex
         newContext.setContextParameterList(newParamList);
         JobContextParameter param;
         for (int i = 0; i < context.getContextParameterList().size(); i++) {
-            param = new JobContextParameter();
+            param = (JobContextParameter) context.getContextParameterList().get(i).clone();
             param.setContext(newContext);
-            param.setName(context.getContextParameterList().get(i).getName());
-            param.setPrompt(context.getContextParameterList().get(i).getPrompt());
-            param.setType(context.getContextParameterList().get(i).getType());
-            param.setValue(context.getContextParameterList().get(i).getValue());
-            param.setComment(context.getContextParameterList().get(i).getComment());
-            param.setPromptNeeded(context.getContextParameterList().get(i).isPromptNeeded());
             newParamList.add(param);
         }
         getAllContexts().add(newContext);
