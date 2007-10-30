@@ -132,7 +132,7 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @generated
      * @ordered
      */
-    protected boolean dATAAUTOPROPAGATEESet;
+    protected boolean dATAAUTOPROPAGATEESet= false;
 
     /**
      * The default value of the '{@link #getEXTENSION() <em>EXTENSION</em>}' attribute.
@@ -181,7 +181,7 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @generated
      * @ordered
      */
-    protected boolean hASCONDITIONALOUTPUTSESet;
+    protected boolean hASCONDITIONALOUTPUTSESet= false;
 
     /**
      * The default value of the '{@link #isISMULTIPLYINGOUTPUTS() <em>ISMULTIPLYINGOUTPUTS</em>}' attribute.
@@ -210,7 +210,7 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @generated
      * @ordered
      */
-    protected boolean iSMULTIPLYINGOUTPUTSESet;
+    protected boolean iSMULTIPLYINGOUTPUTSESet= false;
 
     /**
      * The default value of the '{@link #getPLATEFORM() <em>PLATEFORM</em>}' attribute.
@@ -279,7 +279,7 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @generated
      * @ordered
      */
-    protected boolean sCHEMAAUTOPROPAGATEESet;
+    protected boolean sCHEMAAUTOPROPAGATEESet= false;
 
     /**
      * The default value of the '{@link #getSERIAL() <em>SERIAL</em>}' attribute.
@@ -328,7 +328,7 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @generated
      * @ordered
      */
-    protected boolean sTARTABLEESet;
+    protected boolean sTARTABLEESet= false;
 
     /**
      * The default value of the '{@link #getSTATUS() <em>STATUS</em>}' attribute.
@@ -377,7 +377,7 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @generated
      * @ordered
      */
-    protected boolean tSTATCATCHERSTATSESet;
+    protected boolean tSTATCATCHERSTATSESet= false;
 
     /**
      * The default value of the '{@link #isUSEMERGE() <em>USEMERGE</em>}' attribute.
@@ -406,7 +406,7 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @generated
      * @ordered
      */
-    protected boolean uSEMERGEESet;
+    protected boolean uSEMERGEESet= false;
 
     /**
      * The default value of the '{@link #getVERSION() <em>VERSION</em>}' attribute.
@@ -455,7 +455,7 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @generated
      * @ordered
      */
-    protected boolean vISIBLEESet;
+    protected boolean vISIBLEESet= false;
 
     /**
      * <!-- begin-user-doc -->

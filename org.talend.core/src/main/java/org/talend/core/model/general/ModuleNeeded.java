@@ -21,6 +21,8 @@
 // ============================================================================
 package org.talend.core.model.general;
 
+import java.util.List;
+
 /**
  * This bean is use to manage needed moduless (perl) and libraries (java).<br/>
  * 
@@ -40,6 +42,8 @@ public class ModuleNeeded {
     private ELibraryInstallStatus status = ELibraryInstallStatus.UNKNOWN;
 
     private boolean isShow = true;
+
+    List<InstallModule> installModule;
 
     /**
      * DOC smallet ModuleNeeded class global comment. Detailled comment <br/>
@@ -71,6 +75,16 @@ public class ModuleNeeded {
         this.required = required;
     }
 
+    public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required,
+            List<InstallModule> installModule) {
+        super();
+        this.context = context;
+        this.moduleName = moduleName;
+        this.informationMsg = informationMsg;
+        this.required = required;
+        this.installModule = installModule;
+    }
+
     /**
      * Getter for component.
      * 
@@ -87,6 +101,14 @@ public class ModuleNeeded {
      */
     public void setContext(String component) {
         this.context = component;
+    }
+
+    public List<InstallModule> getInstallModule() {
+        return this.installModule;
+    }
+
+    public void setInstallModule(List<InstallModule> installModule) {
+        this.installModule = installModule;
     }
 
     public String getInformationMsg() {

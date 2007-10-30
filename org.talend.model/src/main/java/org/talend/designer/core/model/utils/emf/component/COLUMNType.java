@@ -46,7 +46,7 @@ public interface COLUMNType extends EObject {
      * @return the value of the '<em>COMMENT</em>' attribute.
      * @see #setCOMMENT(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_COMMENT()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='COMMENT' namespace='##targetNamespace'"
      * @generated
      */
@@ -76,7 +76,7 @@ public interface COLUMNType extends EObject {
      * @see #unsetCUSTOM()
      * @see #setCUSTOM(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_CUSTOM()
-     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='CUSTOM' namespace='##targetNamespace'"
      * @generated
      */
@@ -128,7 +128,7 @@ public interface COLUMNType extends EObject {
      * @return the value of the '<em>DEFAULT</em>' attribute.
      * @see #setDEFAULT(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_DEFAULT()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='DEFAULT' namespace='##targetNamespace'"
      * @generated
      */
@@ -158,7 +158,7 @@ public interface COLUMNType extends EObject {
      * @see #unsetKEY()
      * @see #setKEY(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_KEY()
-     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='KEY' namespace='##targetNamespace'"
      * @generated
      */
@@ -212,7 +212,7 @@ public interface COLUMNType extends EObject {
      * @see #unsetLENGTH()
      * @see #setLENGTH(int)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_LENGTH()
-     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='LENGTH' namespace='##targetNamespace'"
      * @generated
      */
@@ -264,7 +264,7 @@ public interface COLUMNType extends EObject {
      * @return the value of the '<em>NAME</em>' attribute.
      * @see #setNAME(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_NAME()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='NAME' namespace='##targetNamespace'"
      * @generated
      */
@@ -294,7 +294,7 @@ public interface COLUMNType extends EObject {
      * @see #unsetNULLABLE()
      * @see #setNULLABLE(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_NULLABLE()
-     * @model default="true" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="true" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='NULLABLE' namespace='##targetNamespace'"
      * @generated
      */
@@ -346,7 +346,7 @@ public interface COLUMNType extends EObject {
      * @return the value of the '<em>PATTERN</em>' attribute.
      * @see #setPATTERN(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_PATTERN()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='PATTERN' namespace='##targetNamespace'"
      * @generated
      */
@@ -376,7 +376,7 @@ public interface COLUMNType extends EObject {
      * @see #unsetPRECISION()
      * @see #setPRECISION(int)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_PRECISION()
-     * @model default="0" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model default="0" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='PRECISION' namespace='##targetNamespace'"
      * @generated
      */
@@ -430,7 +430,7 @@ public interface COLUMNType extends EObject {
      * @see #unsetREADONLY()
      * @see #setREADONLY(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_READONLY()
-     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='READONLY' namespace='##targetNamespace'"
      * @generated
      */
@@ -482,7 +482,7 @@ public interface COLUMNType extends EObject {
      * @return the value of the '<em>TYPE</em>' attribute.
      * @see #setTYPE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOLUMNType_TYPE()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='TYPE' namespace='##targetNamespace'"
      * @generated
      */

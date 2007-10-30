@@ -38,7 +38,7 @@ public interface RETURNType extends EObject {
      * @return the value of the '<em>AVAILABILITY</em>' attribute.
      * @see #setAVAILABILITY(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getRETURNType_AVAILABILITY()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='AVAILABILITY' namespace='##targetNamespace'"
      * @generated
      */
@@ -65,7 +65,7 @@ public interface RETURNType extends EObject {
      * @return the value of the '<em>NAME</em>' attribute.
      * @see #setNAME(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getRETURNType_NAME()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='NAME' namespace='##targetNamespace'"
      * @generated
      */
@@ -92,7 +92,7 @@ public interface RETURNType extends EObject {
      * @return the value of the '<em>TYPE</em>' attribute.
      * @see #setTYPE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getRETURNType_TYPE()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='TYPE' namespace='##targetNamespace'"
      * @generated
      */

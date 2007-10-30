@@ -846,13 +846,22 @@ public interface ComponentPackage extends EPackage {
     int IMPORT_TYPE = 10;
 
     /**
+     * The feature id for the '<em><b>INSTALL</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int IMPORT_TYPE__INSTALL = 0;
+
+    /**
      * The feature id for the '<em><b>MESSAGE</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE__MESSAGE = 0;
+    int IMPORT_TYPE__MESSAGE = 1;
 
     /**
      * The feature id for the '<em><b>MODULE</b></em>' attribute.
@@ -861,7 +870,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE__MODULE = 1;
+    int IMPORT_TYPE__MODULE = 2;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -870,7 +879,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE__NAME = 2;
+    int IMPORT_TYPE__NAME = 3;
 
     /**
      * The feature id for the '<em><b>REQUIRED</b></em>' attribute.
@@ -879,7 +888,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE__REQUIRED = 3;
+    int IMPORT_TYPE__REQUIRED = 4;
 
     /**
      * The feature id for the '<em><b>SHOW</b></em>' attribute.
@@ -888,7 +897,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE__SHOW = 4;
+    int IMPORT_TYPE__SHOW = 5;
 
     /**
      * The number of structural features of the '<em>IMPORT Type</em>' class.
@@ -897,7 +906,44 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int IMPORT_TYPE_FEATURE_COUNT = 5;
+    int IMPORT_TYPE_FEATURE_COUNT = 6;
+
+    /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.INSTALLTypeImpl <em>INSTALL Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.component.impl.INSTALLTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getINSTALLType()
+     * @generated
+     */
+    int INSTALL_TYPE = 11;
+
+    /**
+     * The feature id for the '<em><b>COMMAND</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INSTALL_TYPE__COMMAND = 0;
+
+    /**
+     * The feature id for the '<em><b>OS</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INSTALL_TYPE__OS = 1;
+
+    /**
+     * The number of structural features of the '<em>INSTALL Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int INSTALL_TYPE_FEATURE_COUNT = 2;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl <em>ITEMS Type</em>}' class.
@@ -907,7 +953,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getITEMSType()
      * @generated
      */
-    int ITEMS_TYPE = 11;
+    int ITEMS_TYPE = 12;
 
     /**
      * The feature id for the '<em><b>ITEM</b></em>' containment reference list.
@@ -953,7 +999,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getITEMType()
      * @generated
      */
-    int ITEM_TYPE = 12;
+    int ITEM_TYPE = 13;
 
     /**
      * The feature id for the '<em><b>ITEMS</b></em>' containment reference.
@@ -1062,7 +1108,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getLINKTOType()
      * @generated
      */
-    int LINKTO_TYPE = 13;
+    int LINKTO_TYPE = 14;
 
     /**
      * The feature id for the '<em><b>CTYPE</b></em>' attribute.
@@ -1099,7 +1145,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPARAMETERSType()
      * @generated
      */
-    int PARAMETERS_TYPE = 14;
+    int PARAMETERS_TYPE = 15;
 
     /**
      * The feature id for the '<em><b>PARAMETER</b></em>' containment reference list.
@@ -1127,7 +1173,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPARAMETERType()
      * @generated
      */
-    int PARAMETER_TYPE = 15;
+    int PARAMETER_TYPE = 16;
 
     /**
      * The feature id for the '<em><b>DEFAULT</b></em>' containment reference list.
@@ -1281,7 +1327,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPLUGINDEPENDENCIESType()
      * @generated
      */
-    int PLUGINDEPENDENCIES_TYPE = 16;
+    int PLUGINDEPENDENCIES_TYPE = 17;
 
     /**
      * The feature id for the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference list.
@@ -1309,7 +1355,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPLUGINDEPENDENCYType()
      * @generated
      */
-    int PLUGINDEPENDENCY_TYPE = 17;
+    int PLUGINDEPENDENCY_TYPE = 18;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1337,7 +1383,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getRETURNSType()
      * @generated
      */
-    int RETURNS_TYPE = 18;
+    int RETURNS_TYPE = 19;
 
     /**
      * The feature id for the '<em><b>RETURN</b></em>' containment reference list.
@@ -1365,7 +1411,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getRETURNType()
      * @generated
      */
-    int RETURN_TYPE = 19;
+    int RETURN_TYPE = 20;
 
     /**
      * The feature id for the '<em><b>AVAILABILITY</b></em>' attribute.
@@ -1411,7 +1457,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTABLEType()
      * @generated
      */
-    int TABLE_TYPE = 20;
+    int TABLE_TYPE = 21;
 
     /**
      * The feature id for the '<em><b>COLUMN</b></em>' containment reference list.
@@ -1466,7 +1512,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEPARAMType()
      * @generated
      */
-    int TEMPLATEPARAM_TYPE = 21;
+    int TEMPLATEPARAM_TYPE = 22;
 
     /**
      * The feature id for the '<em><b>SOURCE</b></em>' attribute.
@@ -1512,7 +1558,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATESType()
      * @generated
      */
-    int TEMPLATES_TYPE = 22;
+    int TEMPLATES_TYPE = 23;
 
     /**
      * The feature id for the '<em><b>TEMPLATE</b></em>' containment reference list.
@@ -1567,7 +1613,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEType()
      * @generated
      */
-    int TEMPLATE_TYPE = 23;
+    int TEMPLATE_TYPE = 24;
 
     /**
      * The feature id for the '<em><b>LINKTO</b></em>' containment reference list.
@@ -2432,6 +2478,17 @@ public interface ComponentPackage extends EPackage {
     EClass getIMPORTType();
 
     /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getINSTALL <em>INSTALL</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>INSTALL</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.IMPORTType#getINSTALL()
+     * @see #getIMPORTType()
+     * @generated
+     */
+    EReference getIMPORTType_INSTALL();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMESSAGE <em>MESSAGE</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2485,6 +2542,38 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getIMPORTType_SHOW();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.INSTALLType <em>INSTALL Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>INSTALL Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.INSTALLType
+     * @generated
+     */
+    EClass getINSTALLType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.INSTALLType#getCOMMAND <em>COMMAND</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>COMMAND</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.INSTALLType#getCOMMAND()
+     * @see #getINSTALLType()
+     * @generated
+     */
+    EAttribute getINSTALLType_COMMAND();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.INSTALLType#getOS <em>OS</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>OS</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.INSTALLType#getOS()
+     * @see #getINSTALLType()
+     * @generated
+     */
+    EAttribute getINSTALLType_OS();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.ITEMSType <em>ITEMS Type</em>}'.
@@ -3830,6 +3919,14 @@ public interface ComponentPackage extends EPackage {
         EClass IMPORT_TYPE = eINSTANCE.getIMPORTType();
 
         /**
+         * The meta object literal for the '<em><b>INSTALL</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference IMPORT_TYPE__INSTALL = eINSTANCE.getIMPORTType_INSTALL();
+
+        /**
          * The meta object literal for the '<em><b>MESSAGE</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3868,6 +3965,32 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute IMPORT_TYPE__SHOW = eINSTANCE.getIMPORTType_SHOW();
+
+        /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.INSTALLTypeImpl <em>INSTALL Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.component.impl.INSTALLTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getINSTALLType()
+         * @generated
+         */
+        EClass INSTALL_TYPE = eINSTANCE.getINSTALLType();
+
+        /**
+         * The meta object literal for the '<em><b>COMMAND</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute INSTALL_TYPE__COMMAND = eINSTANCE.getINSTALLType_COMMAND();
+
+        /**
+         * The meta object literal for the '<em><b>OS</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute INSTALL_TYPE__OS = eINSTANCE.getINSTALLType_OS();
 
         /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ITEMSTypeImpl <em>ITEMS Type</em>}' class.

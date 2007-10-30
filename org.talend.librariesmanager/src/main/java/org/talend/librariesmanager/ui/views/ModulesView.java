@@ -34,6 +34,7 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.model.general.ILibrariesService.IChangedLibrariesListener;
 import org.talend.librariesmanager.ui.actions.CheckModulesAction;
 import org.talend.librariesmanager.ui.actions.ImportExternalJarAction;
+import org.talend.librariesmanager.ui.actions.InstallPerlModulesAction;
 import org.talend.librariesmanager.ui.actions.RemoveExternalJarAction;
 
 /**
@@ -117,6 +118,11 @@ public class ModulesView extends ViewPart {
             manager.add(removeAction);
             ImportExternalJarAction importAction = new ImportExternalJarAction();
             manager.add(importAction);
+            return;
+        }
+        case PERL: {
+            InstallPerlModulesAction installModulesAction = new InstallPerlModulesAction();
+            manager.add(installModulesAction);
             return;
         }
         }

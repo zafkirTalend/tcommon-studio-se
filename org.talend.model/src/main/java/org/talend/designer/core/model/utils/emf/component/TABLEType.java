@@ -61,7 +61,7 @@ public interface TABLEType extends EObject {
      * @see #unsetREADONLY()
      * @see #setREADONLY(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTABLEType_READONLY()
-     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='READONLY' namespace='##targetNamespace'"
      * @generated
      */
@@ -113,7 +113,7 @@ public interface TABLEType extends EObject {
      * @return the value of the '<em>IF</em>' attribute.
      * @see #setIF(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTABLEType_IF()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='IF' namespace='##targetNamespace'"
      * @generated
      */
@@ -140,7 +140,7 @@ public interface TABLEType extends EObject {
      * @return the value of the '<em>NOTIF</em>' attribute.
      * @see #setNOTIF(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTABLEType_NOTIF()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='NOT_IF' namespace='##targetNamespace'"
      * @generated
      */

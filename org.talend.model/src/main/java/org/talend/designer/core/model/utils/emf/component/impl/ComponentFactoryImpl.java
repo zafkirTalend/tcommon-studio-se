@@ -90,6 +90,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
             case ComponentPackage.HEADER_TYPE: return createHEADERType();
             case ComponentPackage.IMPORTS_TYPE: return createIMPORTSType();
             case ComponentPackage.IMPORT_TYPE: return createIMPORTType();
+            case ComponentPackage.INSTALL_TYPE: return createINSTALLType();
             case ComponentPackage.ITEMS_TYPE: return createITEMSType();
             case ComponentPackage.ITEM_TYPE: return createITEMType();
             case ComponentPackage.LINKTO_TYPE: return createLINKTOType();
@@ -216,6 +217,16 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
     public IMPORTType createIMPORTType() {
         IMPORTTypeImpl importType = new IMPORTTypeImpl();
         return importType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public INSTALLType createINSTALLType() {
+        INSTALLTypeImpl installType = new INSTALLTypeImpl();
+        return installType;
     }
 
     /**

@@ -46,7 +46,7 @@ public class PLUGINDEPENDENCIESTypeImpl extends EObjectImpl implements PLUGINDEP
      * @generated
      * @ordered
      */
-    protected EList pLUGINDEPENDENCY;
+    protected EList pLUGINDEPENDENCY= null;
 
     /**
      * <!-- begin-user-doc -->

@@ -58,7 +58,7 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * @generated
      * @ordered
      */
-    protected HEADERType hEADER;
+    protected HEADERType hEADER= null;
 
     /**
      * The cached value of the '{@link #getDOCUMENTATION() <em>DOCUMENTATION</em>}' containment reference.
@@ -68,7 +68,7 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * @generated
      * @ordered
      */
-    protected DOCUMENTATIONType dOCUMENTATION;
+    protected DOCUMENTATIONType dOCUMENTATION= null;
 
     /**
      * The cached value of the '{@link #getCONNECTORS() <em>CONNECTORS</em>}' containment reference.
@@ -78,7 +78,7 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * @generated
      * @ordered
      */
-    protected CONNECTORSType cONNECTORS;
+    protected CONNECTORSType cONNECTORS= null;
 
     /**
      * The cached value of the '{@link #getPARAMETERS() <em>PARAMETERS</em>}' containment reference.
@@ -88,7 +88,7 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * @generated
      * @ordered
      */
-    protected PARAMETERSType pARAMETERS;
+    protected PARAMETERSType pARAMETERS= null;
 
     /**
      * The cached value of the '{@link #getCODEGENERATION() <em>CODEGENERATION</em>}' containment reference.
@@ -98,7 +98,7 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * @generated
      * @ordered
      */
-    protected CODEGENERATIONType cODEGENERATION;
+    protected CODEGENERATIONType cODEGENERATION= null;
 
     /**
      * The cached value of the '{@link #getRETURNS() <em>RETURNS</em>}' containment reference.
@@ -108,7 +108,7 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * @generated
      * @ordered
      */
-    protected RETURNSType rETURNS;
+    protected RETURNSType rETURNS= null;
 
     /**
      * The cached value of the '{@link #getPLUGINDEPENDENCIES() <em>PLUGINDEPENDENCIES</em>}' containment reference.
@@ -118,7 +118,7 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * @generated
      * @ordered
      */
-    protected PLUGINDEPENDENCIESType pLUGINDEPENDENCIES;
+    protected PLUGINDEPENDENCIESType pLUGINDEPENDENCIES= null;
 
     /**
      * <!-- begin-user-doc -->

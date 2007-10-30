@@ -2,7 +2,10 @@
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.talend.model/src/main/java"
-    modelPluginID="org.talend.model" templateDirectory="" modelName="component" importerID="org.eclipse.emf.importer.ecore">
+    modelPluginID="org.talend.model" templateDirectory="" modelName="component" editPluginClass="org.talend.designer.core.model.utils.emf.component.provider.componentEditPlugin"
+    editorPluginClass="org.talend.designer.core.model.utils.emf.component.presentation.componentEditorPlugin"
+    testSuiteClass="org.talend.designer.core.model.utils.emf.component.tests.componentAllTests"
+    importerID="org.eclipse.emf.importer.ecore">
   <foreignModel>Component.ecore</foreignModel>
   <genPackages prefix="Component" basePackage="org.talend.designer.core.model.utils.emf"
       resource="XML" disposableProviderFactory="true" ecorePackage="Component.ecore#/">
@@ -92,11 +95,16 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//IMPORTSType/iMPORT"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//IMPORTType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//IMPORTType/iNSTALL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/mESSAGE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/mODULE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/nAME"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/rEQUIRED"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/sHOW"/>
+    </genClasses>
+    <genClasses ecoreClass="Component.ecore#//INSTALLType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//INSTALLType/cOMMAND"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//INSTALLType/oS"/>
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//ITEMSType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//ITEMSType/iTEM"/>

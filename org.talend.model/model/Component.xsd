@@ -192,15 +192,38 @@
 				<xs:element name="IMPORTS" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="IMPORT" maxOccurs="unbounded">
+							<xs:element name="IMPORT"
+								maxOccurs="unbounded">
 								<xs:complexType>
-									<xs:attribute name="NAME" type="xs:string"/>
-									<xs:attribute name="MODULE" type="xs:string"/>
-									<xs:attribute name="MESSAGE" type="xs:string"/>
-									<xs:attribute name="REQUIRED" type="xs:boolean"/>
-									<xs:attribute name="SHOW" type="xs:boolean" use="optional" default="true"/>
+									<xs:sequence>
+										<xs:element name="INSTALL"
+											maxOccurs="unbounded" minOccurs="0">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element
+														name="COMMAND" type="xs:string">
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="OS"
+													type="xs:string" />
+											</xs:complexType>
+										</xs:element>
+
+
+									</xs:sequence>
+									<xs:attribute name="NAME"
+										type="xs:string" />
+									<xs:attribute name="MODULE"
+										type="xs:string" />
+									<xs:attribute name="MESSAGE"
+										type="xs:string" />
+									<xs:attribute name="REQUIRED"
+										type="xs:boolean" />
+									<xs:attribute name="SHOW"
+										type="xs:boolean" use="optional" default="true" />
 								</xs:complexType>
 							</xs:element>
+
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>

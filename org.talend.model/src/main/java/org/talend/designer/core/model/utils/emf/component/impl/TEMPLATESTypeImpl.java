@@ -47,7 +47,7 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * @generated
      * @ordered
      */
-    protected EList tEMPLATE;
+    protected EList tEMPLATE= null;
 
     /**
      * The cached value of the '{@link #getTEMPLATEPARAM() <em>TEMPLATEPARAM</em>}' containment reference list.
@@ -57,7 +57,7 @@ public class TEMPLATESTypeImpl extends EObjectImpl implements TEMPLATESType {
      * @generated
      * @ordered
      */
-    protected EList tEMPLATEPARAM;
+    protected EList tEMPLATEPARAM= null;
 
     /**
      * The default value of the '{@link #getINPUT() <em>INPUT</em>}' attribute.

@@ -6,12 +6,25 @@
  */
 package org.talend.designer.core.model.utils.emf.component.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
+
+import org.talend.designer.core.model.utils.emf.component.INSTALLType;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,6 +33,7 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getINSTALL <em>INSTALL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getMESSAGE <em>MESSAGE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getMODULE <em>MODULE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getNAME <em>NAME</em>}</li>
@@ -31,6 +45,16 @@ import org.talend.designer.core.model.utils.emf.component.IMPORTType;
  * @generated
  */
 public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
+    /**
+     * The cached value of the '{@link #getINSTALL() <em>INSTALL</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getINSTALL()
+     * @generated
+     * @ordered
+     */
+    protected EList iNSTALL = null;
+
     /**
      * The default value of the '{@link #getMESSAGE() <em>MESSAGE</em>}' attribute.
      * <!-- begin-user-doc -->
@@ -118,7 +142,7 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * @generated
      * @ordered
      */
-    protected boolean rEQUIREDESet;
+    protected boolean rEQUIREDESet= false;
 
     /**
      * The default value of the '{@link #isSHOW() <em>SHOW</em>}' attribute.
@@ -147,7 +171,7 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * @generated
      * @ordered
      */
-    protected boolean sHOWESet;
+    protected boolean sHOWESet= false;
 
     /**
      * <!-- begin-user-doc -->
@@ -165,6 +189,18 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      */
     protected EClass eStaticClass() {
         return ComponentPackage.Literals.IMPORT_TYPE;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getINSTALL() {
+        if (iNSTALL == null) {
+            iNSTALL = new EObjectContainmentEList(INSTALLType.class, this, ComponentPackage.IMPORT_TYPE__INSTALL);
+        }
+        return iNSTALL;
     }
 
     /**
@@ -327,8 +363,23 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case ComponentPackage.IMPORT_TYPE__INSTALL:
+                return ((InternalEList)getINSTALL()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
+            case ComponentPackage.IMPORT_TYPE__INSTALL:
+                return getINSTALL();
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 return getMESSAGE();
             case ComponentPackage.IMPORT_TYPE__MODULE:
@@ -350,6 +401,10 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
+            case ComponentPackage.IMPORT_TYPE__INSTALL:
+                getINSTALL().clear();
+                getINSTALL().addAll((Collection)newValue);
+                return;
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 setMESSAGE((String)newValue);
                 return;
@@ -376,6 +431,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      */
     public void eUnset(int featureID) {
         switch (featureID) {
+            case ComponentPackage.IMPORT_TYPE__INSTALL:
+                getINSTALL().clear();
+                return;
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 setMESSAGE(MESSAGE_EDEFAULT);
                 return;
@@ -402,6 +460,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
+            case ComponentPackage.IMPORT_TYPE__INSTALL:
+                return iNSTALL != null && !iNSTALL.isEmpty();
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 return MESSAGE_EDEFAULT == null ? mESSAGE != null : !MESSAGE_EDEFAULT.equals(mESSAGE);
             case ComponentPackage.IMPORT_TYPE__MODULE:

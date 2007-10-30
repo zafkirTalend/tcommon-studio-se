@@ -36,7 +36,7 @@ public interface PLUGINDEPENDENCYType extends EObject {
      * @return the value of the '<em>ID</em>' attribute.
      * @see #setID(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPLUGINDEPENDENCYType_ID()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='ID' namespace='##targetNamespace'"
      * @generated
      */

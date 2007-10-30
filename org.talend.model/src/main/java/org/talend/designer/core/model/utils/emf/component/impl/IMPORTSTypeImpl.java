@@ -41,7 +41,7 @@ public class IMPORTSTypeImpl extends EObjectImpl implements IMPORTSType {
      * @generated
      * @ordered
      */
-    protected EList iMPORT;
+    protected EList iMPORT= null;
 
     /**
      * <!-- begin-user-doc -->

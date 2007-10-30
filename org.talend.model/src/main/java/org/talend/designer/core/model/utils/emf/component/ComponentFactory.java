@@ -125,6 +125,15 @@ public interface ComponentFactory extends EFactory {
     IMPORTType createIMPORTType();
 
     /**
+     * Returns a new object of class '<em>INSTALL Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>INSTALL Type</em>'.
+     * @generated
+     */
+    INSTALLType createINSTALLType();
+
+    /**
      * Returns a new object of class '<em>ITEMS Type</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

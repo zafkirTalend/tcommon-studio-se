@@ -6,6 +6,8 @@
  */
 package org.talend.designer.core.model.utils.emf.component;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -16,6 +18,7 @@ import org.eclipse.emf.ecore.EObject;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getINSTALL <em>INSTALL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMESSAGE <em>MESSAGE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMODULE <em>MODULE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getNAME <em>NAME</em>}</li>
@@ -25,10 +28,27 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  *
  * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType()
- * @model extendedMetaData="name='IMPORT_._type' kind='empty'"
+ * @model extendedMetaData="name='IMPORT_._type' kind='elementOnly'"
  * @generated
  */
 public interface IMPORTType extends EObject {
+    /**
+     * Returns the value of the '<em><b>INSTALL</b></em>' containment reference list.
+     * The list contents are of type {@link org.talend.designer.core.model.utils.emf.component.INSTALLType}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>INSTALL</em>' containment reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>INSTALL</em>' containment reference list.
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_INSTALL()
+     * @model type="org.talend.designer.core.model.utils.emf.component.INSTALLType" containment="true"
+     *        extendedMetaData="kind='element' name='INSTALL' namespace='##targetNamespace'"
+     * @generated
+     */
+    EList getINSTALL();
+
     /**
      * Returns the value of the '<em><b>MESSAGE</b></em>' attribute.
      * <!-- begin-user-doc -->
@@ -40,7 +60,7 @@ public interface IMPORTType extends EObject {
      * @return the value of the '<em>MESSAGE</em>' attribute.
      * @see #setMESSAGE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_MESSAGE()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='MESSAGE' namespace='##targetNamespace'"
      * @generated
      */
@@ -67,7 +87,7 @@ public interface IMPORTType extends EObject {
      * @return the value of the '<em>MODULE</em>' attribute.
      * @see #setMODULE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_MODULE()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='MODULE' namespace='##targetNamespace'"
      * @generated
      */
@@ -94,7 +114,7 @@ public interface IMPORTType extends EObject {
      * @return the value of the '<em>NAME</em>' attribute.
      * @see #setNAME(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_NAME()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='NAME' namespace='##targetNamespace'"
      * @generated
      */
@@ -123,7 +143,7 @@ public interface IMPORTType extends EObject {
      * @see #unsetREQUIRED()
      * @see #setREQUIRED(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_REQUIRED()
-     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='REQUIRED' namespace='##targetNamespace'"
      * @generated
      */
@@ -178,7 +198,7 @@ public interface IMPORTType extends EObject {
      * @see #unsetSHOW()
      * @see #setSHOW(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_SHOW()
-     * @model default="true" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="true" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='SHOW' namespace='##targetNamespace'"
      * @generated
      */

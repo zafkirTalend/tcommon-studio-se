@@ -51,7 +51,7 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * @generated
      * @ordered
      */
-    protected EList cOLUMN;
+    protected EList cOLUMN= null;
 
     /**
      * The default value of the '{@link #getIF() <em>IF</em>}' attribute.
@@ -120,7 +120,7 @@ public class TABLETypeImpl extends EObjectImpl implements TABLEType {
      * @generated
      * @ordered
      */
-    protected boolean rEADONLYESet;
+    protected boolean rEADONLYESet= false;
 
     /**
      * <!-- begin-user-doc -->

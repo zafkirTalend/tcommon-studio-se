@@ -117,7 +117,7 @@ public interface PARAMETERType extends EObject {
      * @return the value of the '<em>CONTEXT</em>' attribute.
      * @see #setCONTEXT(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_CONTEXT()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='CONTEXT' namespace='##targetNamespace'"
      * @generated
      */
@@ -144,7 +144,7 @@ public interface PARAMETERType extends EObject {
      * @return the value of the '<em>FIELD</em>' attribute.
      * @see #setFIELD(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_FIELD()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='FIELD' namespace='##targetNamespace'"
      * @generated
      */
@@ -171,7 +171,7 @@ public interface PARAMETERType extends EObject {
      * @return the value of the '<em>FILTER</em>' attribute.
      * @see #setFILTER(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_FILTER()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='FILTER' namespace='##targetNamespace'"
      * @generated
      */
@@ -198,7 +198,7 @@ public interface PARAMETERType extends EObject {
      * @return the value of the '<em>NAME</em>' attribute.
      * @see #setNAME(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_NAME()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='NAME' namespace='##targetNamespace'"
      * @generated
      */
@@ -228,7 +228,7 @@ public interface PARAMETERType extends EObject {
      * @see #unsetNBLINES()
      * @see #setNBLINES(int)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_NBLINES()
-     * @model default="3" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model default="3" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='NB_LINES' namespace='##targetNamespace'"
      * @generated
      */
@@ -280,7 +280,7 @@ public interface PARAMETERType extends EObject {
      * @return the value of the '<em>NOTSHOWIF</em>' attribute.
      * @see #setNOTSHOWIF(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_NOTSHOWIF()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='NOT_SHOW_IF' namespace='##targetNamespace'"
      * @generated
      */
@@ -309,7 +309,7 @@ public interface PARAMETERType extends EObject {
      * @see #unsetNUMROW()
      * @see #setNUMROW(int)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_NUMROW()
-     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int" required="true"
+     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int" required="true"
      *        extendedMetaData="kind='attribute' name='NUM_ROW' namespace='##targetNamespace'"
      * @generated
      */
@@ -364,7 +364,7 @@ public interface PARAMETERType extends EObject {
      * @see #unsetREADONLY()
      * @see #setREADONLY(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_READONLY()
-     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='READONLY' namespace='##targetNamespace'"
      * @generated
      */
@@ -416,7 +416,7 @@ public interface PARAMETERType extends EObject {
      * @return the value of the '<em>REPOSITORYVALUE</em>' attribute.
      * @see #setREPOSITORYVALUE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_REPOSITORYVALUE()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='REPOSITORY_VALUE' namespace='##targetNamespace'"
      * @generated
      */
@@ -446,7 +446,7 @@ public interface PARAMETERType extends EObject {
      * @see #unsetREQUIRED()
      * @see #setREQUIRED(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_REQUIRED()
-     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='REQUIRED' namespace='##targetNamespace'"
      * @generated
      */
@@ -501,7 +501,7 @@ public interface PARAMETERType extends EObject {
      * @see #unsetSHOW()
      * @see #setSHOW(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_SHOW()
-     * @model default="true" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="true" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='SHOW' namespace='##targetNamespace'"
      * @generated
      */
@@ -553,7 +553,7 @@ public interface PARAMETERType extends EObject {
      * @return the value of the '<em>SHOWIF</em>' attribute.
      * @see #setSHOWIF(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getPARAMETERType_SHOWIF()
-     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='SHOW_IF' namespace='##targetNamespace'"
      * @generated
      */

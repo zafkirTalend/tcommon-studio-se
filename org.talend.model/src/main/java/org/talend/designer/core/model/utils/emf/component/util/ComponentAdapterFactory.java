@@ -122,6 +122,9 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
             public Object caseIMPORTType(IMPORTType object) {
                 return createIMPORTTypeAdapter();
             }
+            public Object caseINSTALLType(INSTALLType object) {
+                return createINSTALLTypeAdapter();
+            }
             public Object caseITEMSType(ITEMSType object) {
                 return createITEMSTypeAdapter();
             }
@@ -330,6 +333,20 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createIMPORTTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.component.INSTALLType <em>INSTALL Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.component.INSTALLType
+     * @generated
+     */
+    public Adapter createINSTALLTypeAdapter() {
         return null;
     }
 

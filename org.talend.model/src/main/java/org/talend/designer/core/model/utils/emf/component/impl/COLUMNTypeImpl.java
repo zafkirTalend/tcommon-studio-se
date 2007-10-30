@@ -87,7 +87,7 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @generated
      * @ordered
      */
-    protected boolean cUSTOMESet;
+    protected boolean cUSTOMESet= false;
 
     /**
      * The default value of the '{@link #getDEFAULT() <em>DEFAULT</em>}' attribute.
@@ -136,7 +136,7 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @generated
      * @ordered
      */
-    protected boolean kEYESet;
+    protected boolean kEYESet= false;
 
     /**
      * The default value of the '{@link #getLENGTH() <em>LENGTH</em>}' attribute.
@@ -165,7 +165,7 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @generated
      * @ordered
      */
-    protected boolean lENGTHESet;
+    protected boolean lENGTHESet= false;
 
     /**
      * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
@@ -214,7 +214,7 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @generated
      * @ordered
      */
-    protected boolean nULLABLEESet;
+    protected boolean nULLABLEESet= false;
 
     /**
      * The default value of the '{@link #getPATTERN() <em>PATTERN</em>}' attribute.
@@ -263,7 +263,7 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @generated
      * @ordered
      */
-    protected boolean pRECISIONESet;
+    protected boolean pRECISIONESet= false;
 
     /**
      * The default value of the '{@link #isREADONLY() <em>READONLY</em>}' attribute.
@@ -292,7 +292,7 @@ public class COLUMNTypeImpl extends EObjectImpl implements COLUMNType {
      * @generated
      * @ordered
      */
-    protected boolean rEADONLYESet;
+    protected boolean rEADONLYESet= false;
 
     /**
      * The default value of the '{@link #getTYPE() <em>TYPE</em>}' attribute.
