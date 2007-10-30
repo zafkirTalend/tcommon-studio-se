@@ -29,6 +29,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
+import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.repository.ui.login.LoginDialog;
@@ -38,59 +39,60 @@ import org.talend.repository.ui.login.LoginDialog;
  */
 public class Application implements IApplication {
 
-	public Object start(IApplicationContext context) throws Exception {
-		Display display = PlatformUI.createDisplay();
-		try {
+    public Object start(IApplicationContext context) throws Exception {
+        Display display = PlatformUI.createDisplay();
+        try {
             Shell shell = new Shell(display, SWT.ON_TOP);
-		
-			IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister
-            		.getDefault().getService(IMigrationToolService.class);
+
+            CorePlugin.getDefault().getRepositoryService().setRCPMode();
+
+            IMigrationToolService service = (IMigrationToolService) GlobalServiceRegister.getDefault().getService(
+                    IMigrationToolService.class);
             service.executeWorspaceTasks();
-            
+
             try {
-            	if (!logUserOnProject(display.getActiveShell())) {
+                if (!logUserOnProject(display.getActiveShell())) {
                     Platform.endSplash();
                     return EXIT_OK;
-            	}
+                }
             } finally {
                 if (shell != null) {
                     shell.dispose();
                 }
             }
-            
-			int returnCode = PlatformUI.createAndRunWorkbench(display,
-					new ApplicationWorkbenchAdvisor());
-			if (returnCode == PlatformUI.RETURN_RESTART) {
-				return IApplication.EXIT_RESTART;
-			} else {
-				return IApplication.EXIT_OK;
-			}
-		} finally {
-			display.dispose();
-		}
 
-	}
+            int returnCode = PlatformUI.createAndRunWorkbench(display, new ApplicationWorkbenchAdvisor());
+            if (returnCode == PlatformUI.RETURN_RESTART) {
+                return IApplication.EXIT_RESTART;
+            } else {
+                return IApplication.EXIT_OK;
+            }
+        } finally {
+            display.dispose();
+        }
 
-	
-	private boolean logUserOnProject(Shell shell) {
-		boolean logged = false;
-		LoginDialog loginDialog = new LoginDialog(shell);
-		logged = loginDialog.open() == LoginDialog.OK;
-		return logged;
-	}
+    }
 
-	public void stop() {
-		final IWorkbench workbench = PlatformUI.getWorkbench();
-		if (workbench == null) {
-			return;
-		}
-		final Display display = workbench.getDisplay();
-		display.syncExec(new Runnable() {
-			public void run() {
-				if (!display.isDisposed()) {
-					workbench.close();
-				}
-			}
-		});
-	}
+    private boolean logUserOnProject(Shell shell) {
+        boolean logged = false;
+        LoginDialog loginDialog = new LoginDialog(shell);
+        logged = loginDialog.open() == LoginDialog.OK;
+        return logged;
+    }
+
+    public void stop() {
+        final IWorkbench workbench = PlatformUI.getWorkbench();
+        if (workbench == null) {
+            return;
+        }
+        final Display display = workbench.getDisplay();
+        display.syncExec(new Runnable() {
+
+            public void run() {
+                if (!display.isDisposed()) {
+                    workbench.close();
+                }
+            }
+        });
+    }
 }
