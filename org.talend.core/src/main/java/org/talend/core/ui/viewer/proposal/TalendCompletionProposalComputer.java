@@ -112,6 +112,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                 }
             }
             prefix = tmpPrefix;
+            if (".".equals(prefix) && LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) {
+                prefix = "";
+            }
         } catch (BadLocationException e) {
             throw new RuntimeException(e);
         }

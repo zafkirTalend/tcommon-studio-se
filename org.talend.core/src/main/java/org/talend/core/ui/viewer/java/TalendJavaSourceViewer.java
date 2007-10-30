@@ -123,8 +123,6 @@ public class TalendJavaSourceViewer extends JavaSourceViewer {
         final JavaSourceViewer viewer = (JavaSourceViewer) editor.getViewer();
         SynchronizableDocument doc = (SynchronizableDocument) viewer.getDocument();
 
-        // doc.ignorePostNotificationReplaces();
-
         viewer.setVisibleRegion(length, defaultValue.length());
         viewer.getControl().addDisposeListener(new DisposeListener() {
 

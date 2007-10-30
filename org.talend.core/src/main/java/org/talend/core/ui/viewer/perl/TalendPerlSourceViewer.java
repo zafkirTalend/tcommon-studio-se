@@ -21,64 +21,161 @@
 // ============================================================================
 package org.talend.core.ui.viewer.perl;
 
-import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.PreferenceConverter;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.Iterator;
+
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.IDocumentPartitioner;
 import org.eclipse.jface.text.ITextOperationTarget;
-import org.eclipse.jface.text.contentassist.ContentAssistant;
-import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
-import org.eclipse.jface.text.contentassist.IContentAssistant;
+import org.eclipse.jface.text.source.IAnnotationAccess;
+import org.eclipse.jface.text.source.IAnnotationModel;
+import org.eclipse.jface.text.source.IOverviewRuler;
+import org.eclipse.jface.text.source.ISharedTextColors;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
-import org.eclipse.jface.text.source.SourceViewer;
-import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.text.source.OverviewRuler;
+import org.eclipse.jface.text.source.VerticalRuler;
+import org.eclipse.jface.text.source.projection.ProjectionSupport;
+import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.VerifyKeyListener;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.VerifyEvent;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.internal.editors.text.EditorsPlugin;
+import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
+import org.eclipse.ui.texteditor.AnnotationPreference;
+import org.eclipse.ui.texteditor.DefaultMarkerAnnotationAccess;
+import org.eclipse.ui.texteditor.MarkerAnnotationPreferences;
+import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
+import org.epic.core.model.SourceFile;
 import org.epic.perleditor.PerlEditorPlugin;
+import org.epic.perleditor.editors.OccurrencesUpdater;
 import org.epic.perleditor.editors.PerlPartitioner;
-import org.epic.perleditor.editors.PerlSourceViewerConfiguration;
-import org.epic.perleditor.preferences.PreferenceConstants;
+import org.epic.perleditor.editors.PerlSourceAnnotationModel;
+import org.epic.perleditor.editors.util.PerlValidator;
+import org.talend.commons.exception.MessageBoxExceptionHandler;
+import org.talend.commons.utils.threading.ExecutionLimiter;
+import org.talend.core.CorePlugin;
+import org.talend.core.language.LanguageManager;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
  */
-public class TalendPerlSourceViewer extends SourceViewer {
+public class TalendPerlSourceViewer extends ProjectionViewer {
 
-    public static ISourceViewer createViewer(Composite composite, String text, int styles) {
-        return new TalendPerlSourceViewer(composite, null, styles, new Document(text));
+    private IFile file = null;
+
+    private SourceFile source;
+
+    private SourceViewerDecorationSupport fSourceViewerDecorationSupport;
+
+    private IOverviewRuler fOverviewRuler;
+
+    private MarkerAnnotationPreferences fAnnotationPreferences;
+
+    private IAnnotationAccess annotationAccess;
+
+    private ISharedTextColors sharedColors;
+
+    private OccurrencesUpdater occ;
+
+    private boolean checkCode;
+
+    private static int currentId = 0;
+
+    /**
+     * Preference key for highlighting current line.
+     */
+    private final static String CURRENT_LINE = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_CURRENT_LINE;
+
+    /**
+     * Preference key for highlight color of current line.
+     */
+    private final static String CURRENT_LINE_COLOR = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_CURRENT_LINE_COLOR;
+
+    /**
+     * Preference key for showing print margin ruler.
+     */
+    private final static String PRINT_MARGIN = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN;
+
+    /**
+     * Preference key for print margin ruler color.
+     */
+    private final static String PRINT_MARGIN_COLOR = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN_COLOR;
+
+    /**
+     * Preference key for print margin ruler column.
+     */
+    private final static String PRINT_MARGIN_COLUMN = AbstractDecoratedTextEditorPreferenceConstants.EDITOR_PRINT_MARGIN_COLUMN;
+
+    public static ISourceViewer createViewer(Composite composite, int styles, boolean checkCode) {
+        // / see JavaEditor.createSourceViewer
+        IAnnotationAccess annotationAccess = new DefaultMarkerAnnotationAccess();
+        ISharedTextColors sharedColors = EditorsPlugin.getDefault().getSharedTextColors();
+        IOverviewRuler overviewRuler = null;
+        IVerticalRuler verticalRuler = null;
+        if (checkCode) {
+            overviewRuler = new OverviewRuler(annotationAccess, 12, sharedColors);
+            Iterator e = EditorsPlugin.getDefault().getMarkerAnnotationPreferences().getAnnotationPreferences().iterator();
+            while (e.hasNext()) {
+                AnnotationPreference preference = (AnnotationPreference) e.next();
+                if (preference.contributesToHeader())
+                    overviewRuler.addHeaderAnnotationType(preference.getAnnotationType());
+            }
+            verticalRuler = new VerticalRuler(12);
+        }
+
+        return new TalendPerlSourceViewer(composite, verticalRuler, overviewRuler, checkCode, styles, annotationAccess,
+                sharedColors, checkCode);
     }
 
-    public TalendPerlSourceViewer(Composite parent, IVerticalRuler ruler, int styles, IDocument document) {
-        super(parent, ruler, styles);
-        initializeViewer(document);
+    public TalendPerlSourceViewer(Composite parent, IVerticalRuler verticalRuler, IOverviewRuler overviewRuler,
+            boolean showAnnotationsOverview, int styles, IAnnotationAccess annotationAccess, ISharedTextColors sharedColors,
+            boolean checkCode) {
+        super(parent, verticalRuler, overviewRuler, showAnnotationsOverview, styles);
+        fOverviewRuler = overviewRuler;
+        this.annotationAccess = annotationAccess;
+        this.sharedColors = sharedColors;
+        this.checkCode = checkCode;
+        initializeViewer();
     }
 
-    private IContentAssistProcessor fProcessor;
+    // private IContentAssistProcessor fProcessor;
 
     // private TemplateTranslator fTranslator = new TemplateTranslator();
 
-    private void initializeViewer(IDocument document) {
-        fProcessor = new TalendPerlCompletionProcessor();
+    private void initializeViewer() {
+        fAnnotationPreferences = EditorsPlugin.getDefault().getMarkerAnnotationPreferences();
+        IDocument document = new Document();
+
+        // fProcessor = new TalendPerlCompletionProcessor();
+
+        setDocument(document);
+        configure(new TalendPerlSourceViewerConfiguration(PerlEditorPlugin.getDefault().getPreferenceStore(), this));
+        setEditable(true);
+
         IDocumentPartitioner partitioner = new PerlPartitioner(PerlEditorPlugin.getDefault().getLog());
 
         document.setDocumentPartitioner(partitioner);
         partitioner.connect(document);
-        configure(new SimpleJavaSourceViewerConfiguration(fProcessor));
-        setEditable(true);
-        setDocument(document);
 
         Font font = JFaceResources.getFontRegistry().get(JFaceResources.TEXT_FONT);
         getTextWidget().setFont(font);
@@ -87,19 +184,137 @@ public class TalendPerlSourceViewer extends SourceViewer {
         GridData data = new GridData(GridData.FILL_BOTH);
         control.setLayoutData(data);
 
-        addSelectionChangedListener(new ISelectionChangedListener() {
-
-            public void selectionChanged(SelectionChangedEvent event) {
-                // updateSelectionDependentActions();
-            }
-        });
-
         prependVerifyKeyListener(new VerifyKeyListener() {
 
             public void verifyKey(VerifyEvent event) {
                 handleVerifyKeyPressed(event);
             }
         });
+
+        final ExecutionLimiter reconcileLimiter = new ExecutionLimiter(10, false) {
+
+            @Override
+            public void execute(final boolean isFinalExecution) {
+                if (!getControl().isDisposed()) {
+                    getControl().getDisplay().asyncExec(new Runnable() {
+
+                        public void run() {
+                            reconcile();
+                        }
+                    });
+                }
+            }
+        };
+
+        if (checkCode) {
+            document.addDocumentListener(new IDocumentListener() {
+
+                public void documentAboutToBeChanged(DocumentEvent event) {
+                    if (occ != null) {
+                        occ.selectionChanged(new SelectionChangedEvent(getSelectionProvider(), getSelection()));
+                    }
+                }
+
+                public void documentChanged(DocumentEvent event) {
+                    setContents(event.getDocument());
+                    reconcileLimiter.resetTimer();
+                    reconcileLimiter.startIfExecutable(true);
+                }
+            });
+
+            this.getTextWidget().addDisposeListener(new DisposeListener() {
+
+                public void widgetDisposed(DisposeEvent e) {
+                    if (file != null && file.exists()) {
+                        try {
+                            file.delete(false, new NullProgressMonitor());
+                        } catch (CoreException e1) {
+                            // do nothing as the delete is not important.
+                        }
+                    }
+                }
+            });
+        }
+    }
+
+    protected SourceViewerDecorationSupport getSourceViewerDecorationSupport() {
+        if (fSourceViewerDecorationSupport == null) {
+            fSourceViewerDecorationSupport = new SourceViewerDecorationSupport(this, fOverviewRuler, annotationAccess,
+                    sharedColors);
+            configureSourceViewerDecorationSupport(fSourceViewerDecorationSupport);
+        }
+        return fSourceViewerDecorationSupport;
+    }
+
+    protected void configureSourceViewerDecorationSupport(SourceViewerDecorationSupport support) {
+
+        Iterator e = fAnnotationPreferences.getAnnotationPreferences().iterator();
+        while (e.hasNext()) {
+            support.setAnnotationPreference((AnnotationPreference) e.next());
+        }
+
+        support.setCursorLinePainterPreferenceKeys(CURRENT_LINE, CURRENT_LINE_COLOR);
+        support.setMarginPainterPreferenceKeys(PRINT_MARGIN, PRINT_MARGIN_COLOR, PRINT_MARGIN_COLUMN);
+        support.setSymbolicFontName(JFaceResources.TEXT_FONT);
+    }
+
+    public void reconcile() {
+        if (file != null) {
+            try {
+                PerlValidator.instance().validate(file, getDocument().get());
+            } catch (CoreException e) {
+                MessageBoxExceptionHandler.process(e);
+            }
+        }
+    }
+
+    private void setContents(IDocument document) {
+        InputStream codeStream = new ByteArrayInputStream(document.get().getBytes());
+        try {
+            if (file == null) {
+                IProject perlProject = CorePlugin.getDefault().getRunProcessService().getProject(
+                        LanguageManager.getCurrentLanguage());
+                if (!perlProject.getFolder("internal").exists()) {
+                    perlProject.getFolder("internal").create(true, false, new NullProgressMonitor());
+                }
+
+                IPath path = new Path("internal/codeChecker" + currentId++ + ".pl");
+                file = perlProject.getFile(path);
+                if (!file.exists()) {
+                    file.create(codeStream, true, null);
+                } else {
+                    file.setContents(codeStream, true, false, null);
+                }
+                initializeModel();
+                occ = new OccurrencesUpdater();
+                occ.install(this);
+            } else {
+                file.setContents(codeStream, true, false, null);
+            }
+        } catch (CoreException e) {
+            MessageBoxExceptionHandler.process(e);
+        }
+
+    }
+
+    private void initializeModel() {
+        IAnnotationModel model = new PerlSourceAnnotationModel(file);
+        IDocument document = this.getDocument();
+        model.connect(document);
+
+        if (document != null) {
+            setDocument(document, model);
+            showAnnotations(model != null);
+        }
+
+        ProjectionSupport projectionSupport = new ProjectionSupport(this, annotationAccess, sharedColors);
+        projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.error");
+        projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.warning");
+        projectionSupport.install();
+
+        getSourceViewerDecorationSupport().install(PerlEditorPlugin.getDefault().getPreferenceStore());
+
+        doOperation(ProjectionViewer.TOGGLE);
     }
 
     private void handleVerifyKeyPressed(VerifyEvent event) {
@@ -127,66 +342,20 @@ public class TalendPerlSourceViewer extends SourceViewer {
     }
 
     /**
-     * DOC nrousseau TalendPerlSourceViewer class global comment. Detailled comment <br/>
+     * Getter for source.
      * 
+     * @return the source
      */
-    private static class SimpleJavaSourceViewerConfiguration extends PerlSourceViewerConfiguration {
+    public SourceFile getSource() {
+        return this.source;
+    }
 
-        private final IContentAssistProcessor fProcessor;
-
-        SimpleJavaSourceViewerConfiguration(IContentAssistProcessor processor) {
-            super(PerlEditorPlugin.getDefault().getPreferenceStore(), null);
-            fProcessor = processor;
-        }
-
-        /*
-         * @see SourceViewerConfiguration#getContentAssistant(ISourceViewer)
-         */
-        public IContentAssistant getContentAssistant(ISourceViewer sourceViewer) {
-
-            IPreferenceStore store = PerlEditorPlugin.getDefault().getPreferenceStore();
-
-            ContentAssistant assistant = new ContentAssistant();
-            assistant.setContentAssistProcessor(fProcessor, IDocument.DEFAULT_CONTENT_TYPE);
-            assistant.setProposalPopupOrientation(IContentAssistant.PROPOSAL_OVERLAY);
-            assistant.setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);
-            // assistant.setInformationControlCreator(getInformationControlCreator(sourceViewer));
-
-            Display display = sourceViewer.getTextWidget().getDisplay();
-            Color background = PerlEditorPlugin.getDefault().getColor(new RGB(254, 241, 233));
-            assistant.setContextInformationPopupBackground(background);
-            assistant.setContextSelectorBackground(background);
-            assistant.setProposalSelectorBackground(background);
-
-            Color foreground = createColor(store, PreferenceConstants.EDITOR_FOREGROUND_COLOR, display);
-            assistant.setContextInformationPopupForeground(foreground);
-            assistant.setContextSelectorForeground(foreground);
-            assistant.setProposalSelectorForeground(foreground);
-
-            return assistant;
-        }
-
-        /**
-         * Creates a color from the information stored in the given preference store. Returns <code>null</code> if
-         * there is no such information available.
-         */
-        private Color createColor(IPreferenceStore store, String key, Display display) {
-
-            RGB rgb = null;
-
-            if (store.contains(key)) {
-                if (store.isDefault(key)) {
-                    rgb = PreferenceConverter.getDefaultColor(store, key);
-                } else {
-                    rgb = PreferenceConverter.getColor(store, key);
-                }
-
-                if (rgb != null) {
-                    return new Color(display, rgb);
-                }
-            }
-
-            return null;
-        }
+    /**
+     * Getter for file.
+     * 
+     * @return the file
+     */
+    public IFile getFile() {
+        return this.file;
     }
 }
