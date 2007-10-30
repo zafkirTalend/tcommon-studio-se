@@ -34,7 +34,7 @@ import org.talend.core.CorePlugin;
 public enum ECoreImage implements IImage {
 
     TALEND_PICTO("/icons/talend-picto-small.gif"), //$NON-NLS-1$
-    
+
     PROJECT_WIZ("/icons/project_wiz.png"), //$NON-NLS-1$
 
     RECYCLE_BIN_EMPTY_ICON("/icons/recyclebinempty.png"), //$NON-NLS-1$
@@ -48,6 +48,7 @@ public enum ECoreImage implements IImage {
     PROCESS_ICON("/icons/process_icon.gif"), //$NON-NLS-1$
     PROCESS_WIZ("/icons/process_wiz.png"), //$NON-NLS-1$
     CONTEXT_ICON("/icons/context_icon.gif"), //$NON-NLS-1$
+    CONTEXT_CONF_ICON("/icons/context_conf_icon.gif"), //$NON-NLS-1$
     CONTEXT_WIZ("/icons/context_wiz.png"), //$NON-NLS-1$
     CODE_ICON("/icons/code.png"), //$NON-NLS-1$
     ROUTINE_ICON("/icons/routine.gif"), //$NON-NLS-1$
@@ -95,9 +96,9 @@ public enum ECoreImage implements IImage {
     DOC_WORD_OVERLAY("/icons/docs/doc_word_overlay.gif"), //$NON-NLS-1$
     RECYCLE_BIN_OVERLAY("/icons/recycle_bin_overlay.gif"), //$NON-NLS-1$
     DELETED_OVERLAY("/icons/deleted_overlay.gif"), //$NON-NLS-1$
-    IMPORT_JAR("/icons/importjar.gif"), 
+    IMPORT_JAR("/icons/importjar.gif"),
     REFERENCED_ICON("/icons/referenced.png"); //$NON-NLS-1$
-    
+
     private String path;
 
     ECoreImage() {

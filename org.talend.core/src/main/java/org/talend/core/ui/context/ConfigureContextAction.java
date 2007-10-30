@@ -48,7 +48,7 @@ public class ConfigureContextAction extends Action {
         super("Configure Contexts...");
         this.manager = modelManager;
         this.shell = shell;
-        this.setImageDescriptor(ImageProvider.getImageDesc(ECoreImage.CONTEXT_ICON));
+        this.setImageDescriptor(ImageProvider.getImageDesc(ECoreImage.CONTEXT_CONF_ICON));
     }
 
     /**
