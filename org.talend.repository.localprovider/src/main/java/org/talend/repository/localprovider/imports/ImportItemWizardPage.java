@@ -19,14 +19,13 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.repository.localprovider.ui.wizard;
+package org.talend.repository.localprovider.imports;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
@@ -45,7 +44,6 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.osgi.util.NLS;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusAdapter;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -68,19 +66,16 @@ import org.eclipse.ui.internal.wizards.datatransfer.DataTransferMessages;
 import org.eclipse.ui.internal.wizards.datatransfer.TarException;
 import org.eclipse.ui.internal.wizards.datatransfer.TarFile;
 import org.eclipse.ui.internal.wizards.datatransfer.TarLeveledStructureProvider;
-import org.eclipse.ui.internal.wizards.datatransfer.WizardProjectsImportPage;
 import org.eclipse.ui.internal.wizards.datatransfer.ZipLeveledStructureProvider;
-import org.eclipse.ui.wizards.datatransfer.IImportStructureProvider;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.repository.localprovider.i18n.Messages;
-import org.talend.repository.localprovider.ui.wizard.ResourcesManagerFactory.ResourcesManager;
 
 /**
  * Initialy copied from org.eclipse.ui.internal.wizards.datatransfer.WizardProjectsImportPage.
  */
 class ImportItemWizardPage extends WizardPage {
 
-    private RepositoryUtil repositoryUtil = new RepositoryUtil();
+    private ImportItemUtil repositoryUtil = new ImportItemUtil();
 
     private Button itemFromDirectoryRadio;
 
@@ -200,8 +195,7 @@ class ImportItemWizardPage extends WizardPage {
 
         GridData gridData = new GridData(GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL | GridData.FILL_BOTH);
         gridData.heightHint = 100;
-        listComposite
-                .setLayoutData(gridData);
+        listComposite.setLayoutData(gridData);
 
         itemsList = new CheckboxTreeViewer(listComposite, SWT.BORDER);
         GridData listData = gridData;
@@ -513,11 +507,9 @@ class ImportItemWizardPage extends WizardPage {
 
                         TarLeveledStructureProvider provider = ArchiveFileManipulations.getTarStructureProvider(
                                 sourceTarFile, getContainer().getShell());
-                        Object child = provider.getRoot();
-
                         manager = ResourcesManagerFactory.getInstance().createResourcesManager(provider);
 
-                        if (!collectItemFilesFromProvider(items, provider, child, 0, monitor, manager)) {
+                        if (!manager.collectPath2Object(provider.getRoot())) {
                             return;
                         }
                     } else if (!dirSelected && ArchiveFileManipulations.isZipFile(path)) {
@@ -527,17 +519,15 @@ class ImportItemWizardPage extends WizardPage {
                         }
                         ZipLeveledStructureProvider provider = ArchiveFileManipulations.getZipStructureProvider(
                                 sourceFile, getContainer().getShell());
-                        Object child = provider.getRoot();
-
                         manager = ResourcesManagerFactory.getInstance().createResourcesManager(provider);
 
-                        if (!collectItemFilesFromProvider(items, provider, child, 0, monitor, manager)) {
+                        if (!manager.collectPath2Object(provider.getRoot())) {
                             return;
                         }
                     } else if (dirSelected && directory.isDirectory()) {
                         manager = ResourcesManagerFactory.getInstance().createResourcesManager();
 
-                        if (!collectItemFilesFromDirectory(items, directory, monitor, manager)) {
+                        if (!manager.collectPath2Object(directory)) {
                             return;
                         }
                     } else {
@@ -553,8 +543,14 @@ class ImportItemWizardPage extends WizardPage {
             // Nothing to do if the user interrupts.
         }
 
+        items = repositoryUtil.populateItems(manager);
+
         errors.clear();
-        items = repositoryUtil.populateItems(manager, errors);
+        for (ItemRecord itemRecord : items) {
+            for (String error : itemRecord.getErrors()) {
+                errors.add("'" + itemRecord.getItemName() + "' " + error);
+            }
+        }
         if (errorsList != null) {
             errorsList.refresh();
         }
@@ -631,10 +627,9 @@ class ImportItemWizardPage extends WizardPage {
         List validItems = new ArrayList();
         for (int i = 0; i < selectedItems.length; i++) {
             ItemRecord itemRecord = selectedItems[i];
-            repositoryUtil.populateValidItems(validItems, itemRecord, errors);
-        }
-        if (errorsList != null) {
-            errorsList.refresh();
+            if (itemRecord.isValid()) {
+                validItems.add(itemRecord);
+            }
         }
         return (ItemRecord[]) validItems.toArray(new ItemRecord[validItems.size()]);
     }
@@ -688,56 +683,6 @@ class ImportItemWizardPage extends WizardPage {
 
     public boolean performCancel() {
         ArchiveFileManipulations.clearProviderCache(getContainer().getShell());
-        return true;
-    }
-
-    private boolean collectItemFilesFromDirectory(Collection files, File directory, IProgressMonitor monitor,
-            ResourcesManager collector) {
-
-        if (monitor.isCanceled()) {
-            return false;
-        }
-        monitor.subTask(NLS.bind(DataTransferMessages.WizardProjectsImportPage_CheckingMessage, directory.getPath()));
-        File[] contents = directory.listFiles();
-
-        if (contents != null) {
-            for (int i = 0; i < contents.length; i++) {
-                File file = contents[i];
-
-                if (file.isFile()) {
-                    collector.add(file.getAbsolutePath(), file);
-                }
-                if (file.isDirectory()) {
-                    if (!contents[i].getName().equals(WizardProjectsImportPage.METADATA_FOLDER)) {
-                        collectItemFilesFromDirectory(files, contents[i], monitor, collector);
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
-    private boolean collectItemFilesFromProvider(Collection files, IImportStructureProvider provider, Object entry,
-            int level, IProgressMonitor monitor, ResourcesManager collector) {
-
-        if (monitor.isCanceled()) {
-            return false;
-        }
-        monitor.subTask(NLS.bind(DataTransferMessages.WizardProjectsImportPage_CheckingMessage, provider
-                .getLabel(entry)));
-        List children = provider.getChildren(entry);
-        if (children == null) {
-            children = new ArrayList(1);
-        }
-        Iterator childrenEnum = children.iterator();
-        while (childrenEnum.hasNext()) {
-            Object child = childrenEnum.next();
-            if (provider.isFolder(child)) {
-                collectItemFilesFromProvider(files, provider, child, level + 1, monitor, collector);
-            } else {
-                collector.add(provider.getFullPath(child), child);
-            }
-        }
         return true;
     }
 }

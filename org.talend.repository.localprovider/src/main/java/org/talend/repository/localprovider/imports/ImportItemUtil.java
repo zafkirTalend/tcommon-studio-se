@@ -19,7 +19,7 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.repository.localprovider.ui.wizard;
+package org.talend.repository.localprovider.imports;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -55,13 +55,12 @@ import org.talend.repository.constants.FileConstants;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.model.XmiResourceManager;
-import org.talend.repository.localprovider.ui.wizard.ResourcesManagerFactory.ResourcesManager;
 import org.talend.repository.model.PerlItemOldTypesConverter;
 import org.talend.repository.model.ProxyRepositoryFactory;
 
 /**
  */
-class RepositoryUtil {
+public class ImportItemUtil {
 
     private static final String SEGMENT_PARENT = ".."; //$NON-NLS-1$
 
@@ -77,14 +76,13 @@ class RepositoryUtil {
         return hasErrors;
     }
 
-    public void populateValidItems(List validItems, ItemRecord itemRecord, List<String> errors) {
-        String error = null;
+    private boolean checkItem(ItemRecord itemRecord) {
+        boolean result = false;
 
         try {
             boolean nameAvailable = ProxyRepositoryFactory.getInstance().isNameAvailable(itemRecord.getItem(),
-                    itemRecord.getItem().getProperty().getLabel());
-            boolean idAvailable = ProxyRepositoryFactory.getInstance().getLastVersion(
-                    itemRecord.getItem().getProperty().getId()) == null;
+                    itemRecord.getProperty().getLabel());
+            boolean idAvailable = ProxyRepositoryFactory.getInstance().getLastVersion(itemRecord.getProperty().getId()) == null;
 
             boolean isSystemRoutine = false;
             // we do not import built in routines
@@ -98,27 +96,21 @@ class RepositoryUtil {
             if (nameAvailable) {
                 if (idAvailable) {
                     if (!isSystemRoutine) {
-                        validItems.add(itemRecord);
+                        result = true;
                     } else {
-                        error = getQuotedItemName(itemRecord) + Messages.getString("RepositoryUtil.isSystemRoutine"); //$NON-NLS-1$ 
+                        itemRecord.addError(Messages.getString("RepositoryUtil.isSystemRoutine")); //$NON-NLS-1$ 
                     }
                 } else {
-                    error = getQuotedItemName(itemRecord) + Messages.getString("RepositoryUtil.idUsed"); //$NON-NLS-1$
+                    itemRecord.addError(Messages.getString("RepositoryUtil.idUsed")); //$NON-NLS-1$
                 }
             } else {
-                error = getQuotedItemName(itemRecord) + Messages.getString("RepositoryUtil.nameUsed"); //$NON-NLS-1$
+                itemRecord.addError(Messages.getString("RepositoryUtil.nameUsed")); //$NON-NLS-1$
             }
         } catch (PersistenceException e) {
             // ignore
         }
 
-        if (error != null && !errors.contains(error)) {
-            errors.add(error);
-        }
-    }
-
-    private String getQuotedItemName(ItemRecord itemRecord) {
-        return "\"" + itemRecord.getItemName() + "\""; //$NON-NLS-1$ //$NON-NLS-2$
+        return result;
     }
 
     public void importItemRecord(ResourcesManager manager, ItemRecord itemRecord) {
@@ -174,7 +166,7 @@ class RepositoryUtil {
         RepositoryLocalProviderPlugin.getDefault().getLog().log(status);
     }
 
-    public Collection<ItemRecord> populateItems(ResourcesManager collector, List<String> errors) {
+    public Collection<ItemRecord> populateItems(ResourcesManager collector) {
         List<ItemRecord> items = new ArrayList<ItemRecord>();
 
         for (IPath path : collector.getPaths()) {
@@ -184,20 +176,25 @@ class RepositoryUtil {
                     Property property = computeProperty(collector, path);
                     if (property != null) {
                         ItemRecord itemRecord = new ItemRecord(path, property);
+                        items.add(itemRecord);
 
-                        InternalEObject author = (InternalEObject) property.getAuthor();
-                        property.setAuthor(null); // the author will be the one who import items
-
-                        IPath projectFilePath = getValidProjectFilePath(collector, path, author);
-                        if (projectFilePath != null) {
-                            Project project = computeProject(collector, itemRecord, projectFilePath);
-                            boolean checkProject = checkProject(errors, project, itemRecord);
-                            if (checkProject) {
-                                items.add(itemRecord);
+                        if (checkItem(itemRecord)) {
+                            InternalEObject author = (InternalEObject) property.getAuthor();
+                            URI uri = null;
+                            if (author != null) {
+                                uri = author.eProxyURI();
+                                property.setAuthor(null); // the author will be the one who import items
                             }
-                        } else {
-                            errors.add(getQuotedItemName(itemRecord)
-                                    + Messages.getString("RepositoryUtil.ProjectNotFound")); //$NON-NLS-1$
+
+                            IPath projectFilePath = getValidProjectFilePath(collector, path, uri);
+                            if (projectFilePath != null) {
+                                Project project = computeProject(collector, itemRecord, projectFilePath);
+                                if (checkProject(project, itemRecord)) {
+                                    // we can try to import item
+                                }
+                            } else {
+                                itemRecord.addError(Messages.getString("RepositoryUtil.ProjectNotFound")); //$NON-NLS-1$
+                            }
                         }
                     }
                 }
@@ -207,7 +204,7 @@ class RepositoryUtil {
         return items;
     }
 
-    private boolean checkProject(List<String> errors, Project project, ItemRecord itemRecord) {
+    private boolean checkProject(Project project, ItemRecord itemRecord) {
         boolean checkProject = false;
 
         Context ctx = CorePlugin.getContext();
@@ -216,23 +213,23 @@ class RepositoryUtil {
 
         if (project != null) {
             if (project.getLanguage().equals(currentProject.getLanguage())) {
-                if (checkMigrationTasks(errors, project, itemRecord, currentProject)) {
+                if (checkMigrationTasks(project, itemRecord, currentProject)) {
                     checkProject = true;
                 }
             } else {
-                errors.add(getQuotedItemName(itemRecord)
-                        + Messages.getString("RepositoryUtil.DifferentLanguage", project.getLanguage(), currentProject //$NON-NLS-1$
+                itemRecord.addError(Messages.getString(
+                        "RepositoryUtil.DifferentLanguage", project.getLanguage(), currentProject //$NON-NLS-1$
                                 .getLanguage()));
             }
         } else {
-            errors.add(getQuotedItemName(itemRecord) + Messages.getString("RepositoryUtil.ProjectNotFound")); //$NON-NLS-1$
+            itemRecord.addError(Messages.getString("RepositoryUtil.ProjectNotFound")); //$NON-NLS-1$
         }
 
         return checkProject;
     }
 
-    private boolean checkMigrationTasks(List<String> errors, Project project, ItemRecord itemRecord,
-            Project currentProject) {
+    @SuppressWarnings("unchecked")
+    private boolean checkMigrationTasks(Project project, ItemRecord itemRecord, Project currentProject) {
         boolean result = true;
 
         if (project.getMigrationTasks().size() == currentProject.getMigrationTasks().size()) {
@@ -254,17 +251,17 @@ class RepositoryUtil {
         }
 
         if (!result) {
-            errors.add(getQuotedItemName(itemRecord) + " " //$NON-NLS-1$
+            itemRecord.addError(" " //$NON-NLS-1$
                     + Messages.getString("RepositoryUtil.DifferentVersion")); //$NON-NLS-1$
         }
 
         return result;
     }
 
-    private IPath getValidProjectFilePath(ResourcesManager collector, IPath path, InternalEObject author) {
+    private IPath getValidProjectFilePath(ResourcesManager collector, IPath path, URI uri) {
         IPath projectFilePath = getSiblingProjectFilePath(path);
         if (!collector.getPaths().contains(projectFilePath)) {
-            projectFilePath = getAuthorProjectFilePath(author, path);
+            projectFilePath = getAuthorProjectFilePath(uri, path);
             if (!collector.getPaths().contains(projectFilePath)) {
                 return null;
             }
@@ -273,11 +270,10 @@ class RepositoryUtil {
         return projectFilePath;
     }
 
-    private IPath getAuthorProjectFilePath(InternalEObject author, IPath path) {
+    private IPath getAuthorProjectFilePath(URI uri, IPath path) {
         IPath projectFilePath = path.removeLastSegments(1);
 
-        if (author != null) {
-            URI uri = author.eProxyURI();
+        if (uri != null) {
             for (int i = 0; i < uri.segments().length; i++) {
                 String segment = uri.segments()[i];
                 if (segment.equals(SEGMENT_PARENT)) {
@@ -323,7 +319,7 @@ class RepositoryUtil {
         return null;
     }
 
-    public void resolveItem(ResourcesManager manager, ItemRecord itemRecord) {
+    private void resolveItem(ResourcesManager manager, ItemRecord itemRecord) {
         InputStream stream = null;
         ResourceSet resourceSet = itemRecord.getProperty().eResource().getResourceSet();
 
@@ -347,7 +343,7 @@ class RepositoryUtil {
         }
     }
 
-    public Project computeProject(ResourcesManager manager, ItemRecord itemRecord, IPath path) {
+    private Project computeProject(ResourcesManager manager, ItemRecord itemRecord, IPath path) {
         InputStream stream = null;
         ResourceSet resourceSet = itemRecord.getProperty().eResource().getResourceSet();
 
@@ -371,7 +367,7 @@ class RepositoryUtil {
         return null;
     }
 
-    public Resource createResource(ResourceSet resourceSet, IPath path, boolean byteArrayResource)
+    private Resource createResource(ResourceSet resourceSet, IPath path, boolean byteArrayResource)
             throws FileNotFoundException {
         Resource resource;
         if (byteArrayResource) {

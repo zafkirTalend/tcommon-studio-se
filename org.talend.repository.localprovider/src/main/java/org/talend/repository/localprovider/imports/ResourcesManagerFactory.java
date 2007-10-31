@@ -19,45 +19,30 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.repository.localprovider.ui.wizard;
+package org.talend.repository.localprovider.imports;
 
-import org.eclipse.core.runtime.IPath;
-import org.talend.core.model.properties.Item;
-import org.talend.core.model.properties.Property;
-import org.talend.core.model.repository.ERepositoryObjectType;
+import java.util.zip.ZipFile;
+
 
 /**
  */
-class ItemRecord {
+public class ResourcesManagerFactory {
 
-    private String itemName;
+    private static ResourcesManagerFactory instance = new ResourcesManagerFactory();
 
-    private Property property;
-
-    private IPath path;
-
-    public ItemRecord(IPath path, Property property) {
-        this.path = path;
-        this.property = property;
+    public ProviderManager createResourcesManager(Object provider) {
+        return new ProviderManager(provider);
     }
 
-    public Item getItem() {
-        return property.getItem();
+    public ZipFileManager createResourcesManager(ZipFile zipFile) {
+        return new ZipFileManager(zipFile);
     }
 
-    public Property getProperty() {
-        return property;
+    public FilesManager createResourcesManager() {
+        return new FilesManager();
     }
 
-    public String getItemName() {
-        if (itemName == null) {
-            itemName = ERepositoryObjectType.getItemType(property.getItem()).toString() + " " + property.getLabel() //$NON-NLS-1$
-                    + " " + property.getVersion(); //$NON-NLS-1$
-        }
-        return itemName;
-    }
-
-    public IPath getPath() {
-        return path;
+    public static ResourcesManagerFactory getInstance() {
+        return instance;
     }
 }

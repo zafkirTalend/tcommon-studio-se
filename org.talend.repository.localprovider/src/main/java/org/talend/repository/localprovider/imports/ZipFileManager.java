@@ -19,42 +19,36 @@
 // Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 // ============================================================================
-package org.talend.repository.localprovider.ui.wizard;
+package org.talend.repository.localprovider.imports;
 
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.ui.IImportWizard;
-import org.eclipse.ui.IWorkbench;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
+import org.eclipse.core.runtime.IPath;
 
 /**
  */
-public class ImportItemWizard extends Wizard implements IImportWizard {
-    
-    private ImportItemWizardPage mainPage;
-    private IWorkbench workbench;
-    private IStructuredSelection selection;
-    
-    public ImportItemWizard() {
-        super();
+public class ZipFileManager extends ResourcesManager {
+
+    private ZipFile zipFile;
+
+    public ZipFileManager(ZipFile zipFile) {
+        this.zipFile = zipFile;
     }
 
-    public void addPages() {
-        super.addPages();
-        mainPage = new ImportItemWizardPage(getWindowTitle()); //$NON-NLS-1$
-        addPage(mainPage);
+    public InputStream getStream(IPath path) throws IOException {
+        return zipFile.getInputStream((ZipEntry) path2Object.get(path));
     }
 
-    public void init(IWorkbench workbench, IStructuredSelection selection) {
-        this.workbench = workbench;
-        this.selection = selection;
+    public boolean collectPath2Object(Object root) {
+        Enumeration entries = zipFile.entries();
+        while (entries.hasMoreElements()) {
+            ZipEntry entry = (ZipEntry) entries.nextElement();
+            add(entry.getName(), entry);
+        }
+        return true;
     }
-
-    public boolean performCancel() {
-        return mainPage.performCancel();
-    }
-
-    public boolean performFinish() {
-        return mainPage.performFinish();
-    }
-    
 }

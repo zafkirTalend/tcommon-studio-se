@@ -35,7 +35,7 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.repository.localprovider.i18n.Messages;
-import org.talend.repository.localprovider.ui.wizard.ImportItemWizard;
+import org.talend.repository.localprovider.imports.ImportItemWizard;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNode.ENodeType;
 import org.talend.repository.ui.actions.AContextualAction;

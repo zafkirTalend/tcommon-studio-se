@@ -15,4 +15,5 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.ui.ide
 Eclipse-LazyStart: true
 Bundle-Vendor: .Talend SA.
-Export-Package: org.talend.repository.localprovider.model
+Export-Package: org.talend.repository.localprovider.imports,
+ org.talend.repository.localprovider.model
