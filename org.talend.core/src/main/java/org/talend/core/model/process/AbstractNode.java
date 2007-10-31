@@ -525,6 +525,9 @@ public abstract class AbstractNode implements INode {
     }
 
     public IMetadataTable getMetadataFromConnector(String connector) {
+        if (metadataList == null) {
+            return null;
+        }
         for (IMetadataTable table : metadataList) {
             if (table.getAttachedConnector().equals(connector)) {
                 return table;
