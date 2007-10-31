@@ -77,7 +77,12 @@ public final class DefaultCellEditorFactory {
                 modelManager.refresh();
             }
         };
-        modelManager.getCommandStack().execute(c);
+        if (modelManager.getCommandStack() == null) {
+            c.execute();
+        } else {
+            modelManager.getCommandStack().execute(c);
+        }
+
     }
 
     public CellEditor getCustomCellEditor(final IContextParameter para, final Composite table) {
