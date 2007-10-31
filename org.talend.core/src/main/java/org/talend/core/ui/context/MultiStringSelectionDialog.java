@@ -46,7 +46,9 @@ public class MultiStringSelectionDialog extends ObjectSelectionDialog<String> {
     public MultiStringSelectionDialog(Shell parentShell, String[] input) {
         super(parentShell, "Configure Values", defaultMesage, null);
         setLabelProvider(getLabelProvider());
-
+        if (input == null) {
+            input = new String[0];
+        }
         List<String> list = new ArrayList<String>(Arrays.asList(input));
         setData(list);
         setShellStyle(getShellStyle() | SWT.RESIZE);
