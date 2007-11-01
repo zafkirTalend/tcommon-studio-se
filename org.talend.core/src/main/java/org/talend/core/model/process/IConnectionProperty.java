@@ -36,4 +36,8 @@ public interface IConnectionProperty {
     public Integer getLineStyle();
 
     public void setLineStyle(Integer lineStyle);
+
+    public String getLinkedComponent();
+
+    public void setLinkedComponent(String linkedComponent);
 }
