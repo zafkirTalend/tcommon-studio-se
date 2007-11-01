@@ -58,6 +58,7 @@ public enum EParameterFieldType {
     DBTABLE,
     DATE,
     DBTYPE_LIST,
+    LABEL,
     MODULE_LIST;
 
     public String getName() {
