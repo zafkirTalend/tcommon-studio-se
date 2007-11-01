@@ -41,6 +41,8 @@ public interface IRunProcessService extends IService {
 
     public ICodeProblemsChecker getSyntaxChecker(ECodeLanguage codeLanguage);
 
+    public int getPauseTime();
+
     /**
      * Sets the activeProcess.
      * 
@@ -91,9 +93,9 @@ public interface IRunProcessService extends IService {
 
     public IProject getProject(ECodeLanguage language) throws CoreException;
 
-    //add this method for RowGenerator to get routines's Functions by qzhang.
+    // add this method for RowGenerator to get routines's Functions by qzhang.
     public IJavaProject getJavaProject() throws CoreException;
-    
+
     /**
      * Setter for a custom delegate service. This method should'nt be called from a delegate class, only in the
      * RunProcessService class.
