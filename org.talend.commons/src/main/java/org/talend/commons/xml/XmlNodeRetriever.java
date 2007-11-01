@@ -91,12 +91,12 @@ public class XmlNodeRetriever {
 
             public String getNamespaceURI(String prefix) {
                 String uri;
-//                if (prefix.equals("h"))
-//                    uri = "http://www.w3.org/TR/REC-html40";
-//                else if (prefix.equals("r"))
-//                    uri = "http://itworld.com/ROYAL";
-//                else
-                    uri = null;
+                // if (prefix.equals("h"))
+                // uri = "http://www.w3.org/TR/REC-html40";
+                // else if (prefix.equals("r"))
+                // uri = "http://itworld.com/ROYAL";
+                // else
+                uri = prefix;
                 return uri;
             }
 
@@ -111,7 +111,6 @@ public class XmlNodeRetriever {
             }
         };
 
-
     }
 
     /**
@@ -123,7 +122,7 @@ public class XmlNodeRetriever {
         // Parse document containing schemas and validation roots
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
-//            dbf.setNamespaceAware(true);
+            // dbf.setNamespaceAware(true);
             DocumentBuilder db = dbf.newDocumentBuilder();
             document = db.parse(new File(filePath));
         } catch (ParserConfigurationException e) {
@@ -253,7 +252,8 @@ public class XmlNodeRetriever {
      * @return <code>NodeList</code> or null if expression is invalid
      * @throws XPathExpressionException
      */
-    public synchronized Node retrieveNodeFromNode(String relativeXPathExpression, Node referenceNode) throws XPathExpressionException {
+    public synchronized Node retrieveNodeFromNode(String relativeXPathExpression, Node referenceNode)
+            throws XPathExpressionException {
         relativeXPathExpression = simplifyXPathExpression(relativeXPathExpression);
         Node node = (Node) xpath.evaluate(relativeXPathExpression, referenceNode, XPathConstants.NODE);
         return node;
@@ -269,7 +269,7 @@ public class XmlNodeRetriever {
      */
     public synchronized Double retrieveNodeCount(String xPathExpression) throws XPathExpressionException {
         XPathExpression xpathSchema = xpath.compile(xPathExpression);
-        Object countNode = (Object) xpathSchema.evaluate(document, XPathConstants.NUMBER);
+        Object countNode = xpathSchema.evaluate(document, XPathConstants.NUMBER);
         return (Double) countNode;
     }
 
@@ -390,7 +390,7 @@ public class XmlNodeRetriever {
             if (i > limit) {
                 break;
             }
-            Node node = (Node) nodeList.get(i);
+            Node node = nodeList.get(i);
             System.out.println(node.getNodeName());
 
         }
