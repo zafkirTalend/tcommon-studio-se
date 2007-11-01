@@ -21,6 +21,11 @@
 // ============================================================================
 package routines.system;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.LineNumberReader;
+
 public class RunTrace implements Runnable {
 
     private class TraceBean {
@@ -60,14 +65,14 @@ public class RunTrace implements Runnable {
 
     private String str = "";
 
-    public void startThreadTrace(String clientHost, int portTraces) throws java.io.IOException,
-            java.net.UnknownHostException {
+    private Thread t;
+
+    public void startThreadTrace(String clientHost, int portTraces) throws java.io.IOException, java.net.UnknownHostException {
         System.out.println("[trace] connecting to socket on port " + portTraces);
         s = new java.net.Socket(clientHost, portTraces);
-        pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())),
-                true);
+        pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())), true);
         System.out.println("[trace] connected");
-        Thread t = new Thread(this);
+        t = new Thread(this);
         t.start();
 
     }
@@ -92,6 +97,23 @@ public class RunTrace implements Runnable {
             System.out.println("[trace] disconnected");
         } catch (java.io.IOException ie) {
         }
+    }
+
+    public boolean isPause() {
+        InputStream in;
+        try {
+            in = s.getInputStream();
+            LineNumberReader reader = new LineNumberReader(new InputStreamReader(in));
+            askForStatus();
+            return "PAUSE".equals(reader.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private void askForStatus() {
+        pred.println("ID_STATUS");
     }
 
     public void sendTrace(String componentId, String datas) {
