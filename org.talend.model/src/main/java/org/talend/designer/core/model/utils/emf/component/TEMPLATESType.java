@@ -74,7 +74,7 @@ public interface TEMPLATESType extends EObject {
      * @return the value of the '<em>INPUT</em>' attribute.
      * @see #setINPUT(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATESType_INPUT()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='INPUT' namespace='##targetNamespace'"
      * @generated
      */
@@ -101,7 +101,7 @@ public interface TEMPLATESType extends EObject {
      * @return the value of the '<em>OUTPUT</em>' attribute.
      * @see #setOUTPUT(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATESType_OUTPUT()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='OUTPUT' namespace='##targetNamespace'"
      * @generated
      */

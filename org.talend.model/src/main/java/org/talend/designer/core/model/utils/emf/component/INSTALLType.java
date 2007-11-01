@@ -37,7 +37,7 @@ public interface INSTALLType extends EObject {
      * @return the value of the '<em>COMMAND</em>' attribute.
      * @see #setCOMMAND(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getINSTALLType_COMMAND()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='element' name='COMMAND' namespace='##targetNamespace'"
      * @generated
      */
@@ -64,7 +64,7 @@ public interface INSTALLType extends EObject {
      * @return the value of the '<em>OS</em>' attribute.
      * @see #setOS(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getINSTALLType_OS()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='OS' namespace='##targetNamespace'"
      * @generated
      */

@@ -23,6 +23,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getBASESCHEMA <em>BASESCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#isBUILTIN <em>BUILTIN</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getCOLOR <em>COLOR</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getCOMPONENT <em>COMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getCTYPE <em>CTYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getLINESTYLE <em>LINESTYLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getMAXINPUT <em>MAXINPUT</em>}</li>
@@ -83,7 +84,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @generated
      * @ordered
      */
-    protected boolean bUILTINESet= false;
+    protected boolean bUILTINESet;
 
     /**
      * The default value of the '{@link #getCOLOR() <em>COLOR</em>}' attribute.
@@ -104,6 +105,26 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @ordered
      */
     protected String cOLOR = COLOR_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getCOMPONENT() <em>COMPONENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOMPONENT()
+     * @generated
+     * @ordered
+     */
+    protected static final String COMPONENT_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getCOMPONENT() <em>COMPONENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCOMPONENT()
+     * @generated
+     * @ordered
+     */
+    protected String cOMPONENT = COMPONENT_EDEFAULT;
 
     /**
      * The default value of the '{@link #getCTYPE() <em>CTYPE</em>}' attribute.
@@ -152,7 +173,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @generated
      * @ordered
      */
-    protected boolean lINESTYLEESet= false;
+    protected boolean lINESTYLEESet;
 
     /**
      * The default value of the '{@link #getMAXINPUT() <em>MAXINPUT</em>}' attribute.
@@ -181,7 +202,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @generated
      * @ordered
      */
-    protected boolean mAXINPUTESet= false;
+    protected boolean mAXINPUTESet;
 
     /**
      * The default value of the '{@link #getMAXOUTPUT() <em>MAXOUTPUT</em>}' attribute.
@@ -210,7 +231,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @generated
      * @ordered
      */
-    protected boolean mAXOUTPUTESet= false;
+    protected boolean mAXOUTPUTESet;
 
     /**
      * The default value of the '{@link #getMININPUT() <em>MININPUT</em>}' attribute.
@@ -239,7 +260,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @generated
      * @ordered
      */
-    protected boolean mININPUTESet= false;
+    protected boolean mININPUTESet;
 
     /**
      * The default value of the '{@link #getMINOUTPUT() <em>MINOUTPUT</em>}' attribute.
@@ -268,7 +289,7 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @generated
      * @ordered
      */
-    protected boolean mINOUTPUTESet= false;
+    protected boolean mINOUTPUTESet;
 
     /**
      * The default value of the '{@link #getNAME() <em>NAME</em>}' attribute.
@@ -394,6 +415,27 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
         cOLOR = newCOLOR;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CONNECTOR_TYPE__COLOR, oldCOLOR, cOLOR));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public String getCOMPONENT() {
+        return cOMPONENT;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCOMPONENT(String newCOMPONENT) {
+        String oldCOMPONENT = cOMPONENT;
+        cOMPONENT = newCOMPONENT;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CONNECTOR_TYPE__COMPONENT, oldCOMPONENT, cOMPONENT));
     }
 
     /**
@@ -681,6 +723,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return isBUILTIN() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.CONNECTOR_TYPE__COLOR:
                 return getCOLOR();
+            case ComponentPackage.CONNECTOR_TYPE__COMPONENT:
+                return getCOMPONENT();
             case ComponentPackage.CONNECTOR_TYPE__CTYPE:
                 return getCTYPE();
             case ComponentPackage.CONNECTOR_TYPE__LINESTYLE:
@@ -714,6 +758,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return;
             case ComponentPackage.CONNECTOR_TYPE__COLOR:
                 setCOLOR((String)newValue);
+                return;
+            case ComponentPackage.CONNECTOR_TYPE__COMPONENT:
+                setCOMPONENT((String)newValue);
                 return;
             case ComponentPackage.CONNECTOR_TYPE__CTYPE:
                 setCTYPE((String)newValue);
@@ -756,6 +803,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
             case ComponentPackage.CONNECTOR_TYPE__COLOR:
                 setCOLOR(COLOR_EDEFAULT);
                 return;
+            case ComponentPackage.CONNECTOR_TYPE__COMPONENT:
+                setCOMPONENT(COMPONENT_EDEFAULT);
+                return;
             case ComponentPackage.CONNECTOR_TYPE__CTYPE:
                 setCTYPE(CTYPE_EDEFAULT);
                 return;
@@ -794,6 +844,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return isSetBUILTIN();
             case ComponentPackage.CONNECTOR_TYPE__COLOR:
                 return COLOR_EDEFAULT == null ? cOLOR != null : !COLOR_EDEFAULT.equals(cOLOR);
+            case ComponentPackage.CONNECTOR_TYPE__COMPONENT:
+                return COMPONENT_EDEFAULT == null ? cOMPONENT != null : !COMPONENT_EDEFAULT.equals(cOMPONENT);
             case ComponentPackage.CONNECTOR_TYPE__CTYPE:
                 return CTYPE_EDEFAULT == null ? cTYPE != null : !CTYPE_EDEFAULT.equals(cTYPE);
             case ComponentPackage.CONNECTOR_TYPE__LINESTYLE:
@@ -827,6 +879,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
         if (bUILTINESet) result.append(bUILTIN); else result.append("<unset>");
         result.append(", cOLOR: ");
         result.append(cOLOR);
+        result.append(", cOMPONENT: ");
+        result.append(cOMPONENT);
         result.append(", cTYPE: ");
         result.append(cTYPE);
         result.append(", lINESTYLE: ");

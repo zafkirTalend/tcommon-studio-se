@@ -68,7 +68,7 @@ public interface ITEMSType extends EObject {
      * @see #unsetBASEDONSCHEMA()
      * @see #setBASEDONSCHEMA(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMSType_BASEDONSCHEMA()
-     * @model default="false" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='BASED_ON_SCHEMA' namespace='##targetNamespace'"
      * @generated
      */
@@ -120,7 +120,7 @@ public interface ITEMSType extends EObject {
      * @return the value of the '<em>DEFAULT</em>' attribute.
      * @see #setDEFAULT(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMSType_DEFAULT()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='DEFAULT' namespace='##targetNamespace'"
      * @generated
      */

@@ -75,7 +75,7 @@ public interface ITEMType extends EObject {
      * @return the value of the '<em>CONTEXT</em>' attribute.
      * @see #setCONTEXT(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_CONTEXT()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='CONTEXT' namespace='##targetNamespace'"
      * @generated
      */
@@ -105,7 +105,7 @@ public interface ITEMType extends EObject {
      * @see #unsetFIELD()
      * @see #setFIELD(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_FIELD()
-     * @model default="TEXT" unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model default="TEXT" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='FIELD' namespace='##targetNamespace'"
      * @generated
      */
@@ -157,7 +157,7 @@ public interface ITEMType extends EObject {
      * @return the value of the '<em>FILTER</em>' attribute.
      * @see #setFILTER(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_FILTER()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='FILTER' namespace='##targetNamespace'"
      * @generated
      */
@@ -184,7 +184,7 @@ public interface ITEMType extends EObject {
      * @return the value of the '<em>NAME</em>' attribute.
      * @see #setNAME(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_NAME()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='NAME' namespace='##targetNamespace'"
      * @generated
      */
@@ -211,7 +211,7 @@ public interface ITEMType extends EObject {
      * @return the value of the '<em>NOTSHOWIF</em>' attribute.
      * @see #setNOTSHOWIF(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_NOTSHOWIF()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='NOT_SHOW_IF' namespace='##targetNamespace'"
      * @generated
      */
@@ -240,7 +240,7 @@ public interface ITEMType extends EObject {
      * @see #unsetREADONLY()
      * @see #setREADONLY(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_READONLY()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='READONLY' namespace='##targetNamespace'"
      * @generated
      */
@@ -292,7 +292,7 @@ public interface ITEMType extends EObject {
      * @return the value of the '<em>REPOSITORYITEM</em>' attribute.
      * @see #setREPOSITORYITEM(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_REPOSITORYITEM()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='REPOSITORY_ITEM' namespace='##targetNamespace'"
      * @generated
      */
@@ -319,7 +319,7 @@ public interface ITEMType extends EObject {
      * @return the value of the '<em>SHOWIF</em>' attribute.
      * @see #setSHOWIF(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_SHOWIF()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='SHOW_IF' namespace='##targetNamespace'"
      * @generated
      */
@@ -346,7 +346,7 @@ public interface ITEMType extends EObject {
      * @return the value of the '<em>VALUE</em>' attribute.
      * @see #setVALUE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getITEMType_VALUE()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='VALUE' namespace='##targetNamespace'"
      * @generated
      */

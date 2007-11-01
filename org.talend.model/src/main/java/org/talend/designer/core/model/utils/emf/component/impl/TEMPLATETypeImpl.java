@@ -45,7 +45,7 @@ public class TEMPLATETypeImpl extends EObjectImpl implements TEMPLATEType {
      * @generated
      * @ordered
      */
-    protected EList lINKTO= null;
+    protected EList lINKTO;
 
     /**
      * The default value of the '{@link #getCOMPONENT() <em>COMPONENT</em>}' attribute.

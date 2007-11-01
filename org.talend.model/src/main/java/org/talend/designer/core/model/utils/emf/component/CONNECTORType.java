@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getBASESCHEMA <em>BASESCHEMA</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isBUILTIN <em>BUILTIN</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCOLOR <em>COLOR</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCOMPONENT <em>COMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCTYPE <em>CTYPE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getLINESTYLE <em>LINESTYLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMAXINPUT <em>MAXINPUT</em>}</li>
@@ -45,7 +46,7 @@ public interface CONNECTORType extends EObject {
      * @return the value of the '<em>BASESCHEMA</em>' attribute.
      * @see #setBASESCHEMA(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_BASESCHEMA()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='BASE_SCHEMA' namespace='##targetNamespace'"
      * @generated
      */
@@ -74,7 +75,7 @@ public interface CONNECTORType extends EObject {
      * @see #unsetBUILTIN()
      * @see #setBUILTIN(boolean)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_BUILTIN()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='BUILTIN' namespace='##targetNamespace'"
      * @generated
      */
@@ -126,7 +127,7 @@ public interface CONNECTORType extends EObject {
      * @return the value of the '<em>COLOR</em>' attribute.
      * @see #setCOLOR(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_COLOR()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='COLOR' namespace='##targetNamespace'"
      * @generated
      */
@@ -143,6 +144,33 @@ public interface CONNECTORType extends EObject {
     void setCOLOR(String value);
 
     /**
+     * Returns the value of the '<em><b>COMPONENT</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>COMPONENT</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>COMPONENT</em>' attribute.
+     * @see #setCOMPONENT(String)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_COMPONENT()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='COMPONENT' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getCOMPONENT();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCOMPONENT <em>COMPONENT</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>COMPONENT</em>' attribute.
+     * @see #getCOMPONENT()
+     * @generated
+     */
+    void setCOMPONENT(String value);
+
+    /**
      * Returns the value of the '<em><b>CTYPE</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -153,7 +181,7 @@ public interface CONNECTORType extends EObject {
      * @return the value of the '<em>CTYPE</em>' attribute.
      * @see #setCTYPE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_CTYPE()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String" required="true"
      *        extendedMetaData="kind='attribute' name='CTYPE' namespace='##targetNamespace'"
      * @generated
      */
@@ -182,7 +210,7 @@ public interface CONNECTORType extends EObject {
      * @see #unsetLINESTYLE()
      * @see #setLINESTYLE(int)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_LINESTYLE()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='LINE_STYLE' namespace='##targetNamespace'"
      * @generated
      */
@@ -236,7 +264,7 @@ public interface CONNECTORType extends EObject {
      * @see #unsetMAXINPUT()
      * @see #setMAXINPUT(int)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_MAXINPUT()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='MAX_INPUT' namespace='##targetNamespace'"
      * @generated
      */
@@ -290,7 +318,7 @@ public interface CONNECTORType extends EObject {
      * @see #unsetMAXOUTPUT()
      * @see #setMAXOUTPUT(int)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_MAXOUTPUT()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='MAX_OUTPUT' namespace='##targetNamespace'"
      * @generated
      */
@@ -344,7 +372,7 @@ public interface CONNECTORType extends EObject {
      * @see #unsetMININPUT()
      * @see #setMININPUT(int)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_MININPUT()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='MIN_INPUT' namespace='##targetNamespace'"
      * @generated
      */
@@ -398,7 +426,7 @@ public interface CONNECTORType extends EObject {
      * @see #unsetMINOUTPUT()
      * @see #setMINOUTPUT(int)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_MINOUTPUT()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='MIN_OUTPUT' namespace='##targetNamespace'"
      * @generated
      */
@@ -450,7 +478,7 @@ public interface CONNECTORType extends EObject {
      * @return the value of the '<em>NAME</em>' attribute.
      * @see #setNAME(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_NAME()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='NAME' namespace='##targetNamespace'"
      * @generated
      */

@@ -363,13 +363,22 @@ public interface ComponentPackage extends EPackage {
     int CONNECTOR_TYPE__COLOR = 2;
 
     /**
+     * The feature id for the '<em><b>COMPONENT</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTOR_TYPE__COMPONENT = 3;
+
+    /**
      * The feature id for the '<em><b>CTYPE</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__CTYPE = 3;
+    int CONNECTOR_TYPE__CTYPE = 4;
 
     /**
      * The feature id for the '<em><b>LINESTYLE</b></em>' attribute.
@@ -378,7 +387,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__LINESTYLE = 4;
+    int CONNECTOR_TYPE__LINESTYLE = 5;
 
     /**
      * The feature id for the '<em><b>MAXINPUT</b></em>' attribute.
@@ -387,7 +396,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MAXINPUT = 5;
+    int CONNECTOR_TYPE__MAXINPUT = 6;
 
     /**
      * The feature id for the '<em><b>MAXOUTPUT</b></em>' attribute.
@@ -396,7 +405,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MAXOUTPUT = 6;
+    int CONNECTOR_TYPE__MAXOUTPUT = 7;
 
     /**
      * The feature id for the '<em><b>MININPUT</b></em>' attribute.
@@ -405,7 +414,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MININPUT = 7;
+    int CONNECTOR_TYPE__MININPUT = 8;
 
     /**
      * The feature id for the '<em><b>MINOUTPUT</b></em>' attribute.
@@ -414,7 +423,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MINOUTPUT = 8;
+    int CONNECTOR_TYPE__MINOUTPUT = 9;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -423,7 +432,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__NAME = 9;
+    int CONNECTOR_TYPE__NAME = 10;
 
     /**
      * The number of structural features of the '<em>CONNECTOR Type</em>' class.
@@ -432,7 +441,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE_FEATURE_COUNT = 10;
+    int CONNECTOR_TYPE_FEATURE_COUNT = 11;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.DEFAULTTypeImpl <em>DEFAULT Type</em>}' class.
@@ -1965,6 +1974,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getCONNECTORType_COLOR();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCOMPONENT <em>COMPONENT</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>COMPONENT</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCOMPONENT()
+     * @see #getCONNECTORType()
+     * @generated
+     */
+    EAttribute getCONNECTORType_COMPONENT();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCTYPE <em>CTYPE</em>}'.
@@ -3529,6 +3549,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute CONNECTOR_TYPE__COLOR = eINSTANCE.getCONNECTORType_COLOR();
+
+        /**
+         * The meta object literal for the '<em><b>COMPONENT</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTOR_TYPE__COMPONENT = eINSTANCE.getCONNECTORType_COMPONENT();
 
         /**
          * The meta object literal for the '<em><b>CTYPE</b></em>' attribute feature.

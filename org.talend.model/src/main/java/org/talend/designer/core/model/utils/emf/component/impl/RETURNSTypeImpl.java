@@ -41,7 +41,7 @@ public class RETURNSTypeImpl extends EObjectImpl implements RETURNSType {
      * @generated
      * @ordered
      */
-    protected EList rETURN= null;
+    protected EList rETURN;
 
     /**
      * <!-- begin-user-doc -->

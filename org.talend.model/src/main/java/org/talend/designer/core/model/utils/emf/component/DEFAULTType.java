@@ -38,7 +38,7 @@ public interface DEFAULTType extends EObject {
      * @return the value of the '<em>Value</em>' attribute.
      * @see #setValue(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getDEFAULTType_Value()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="name=':0' kind='simple'"
      * @generated
      */
@@ -65,7 +65,7 @@ public interface DEFAULTType extends EObject {
      * @return the value of the '<em>IF</em>' attribute.
      * @see #setIF(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getDEFAULTType_IF()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='IF' namespace='##targetNamespace'"
      * @generated
      */
@@ -92,7 +92,7 @@ public interface DEFAULTType extends EObject {
      * @return the value of the '<em>NOTIF</em>' attribute.
      * @see #setNOTIF(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getDEFAULTType_NOTIF()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='NOT_IF' namespace='##targetNamespace'"
      * @generated
      */

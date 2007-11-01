@@ -38,7 +38,7 @@ public interface TEMPLATEPARAMType extends EObject {
      * @return the value of the '<em>SOURCE</em>' attribute.
      * @see #setSOURCE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATEPARAMType_SOURCE()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='SOURCE' namespace='##targetNamespace'"
      * @generated
      */
@@ -65,7 +65,7 @@ public interface TEMPLATEPARAMType extends EObject {
      * @return the value of the '<em>TARGET</em>' attribute.
      * @see #setTARGET(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATEPARAMType_TARGET()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='TARGET' namespace='##targetNamespace'"
      * @generated
      */
@@ -92,7 +92,7 @@ public interface TEMPLATEPARAMType extends EObject {
      * @return the value of the '<em>VALUE</em>' attribute.
      * @see #setVALUE(String)
      * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getTEMPLATEPARAMType_VALUE()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='VALUE' namespace='##targetNamespace'"
      * @generated
      */

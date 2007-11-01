@@ -64,7 +64,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * @generated
      * @ordered
      */
-    protected FeatureMap mixed= null;
+    protected FeatureMap mixed;
 
     /**
      * The cached value of the '{@link #getXMLNSPrefixMap() <em>XMLNS Prefix Map</em>}' map.
@@ -74,7 +74,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * @generated
      * @ordered
      */
-    protected EMap xMLNSPrefixMap= null;
+    protected EMap xMLNSPrefixMap;
 
     /**
      * The cached value of the '{@link #getXSISchemaLocation() <em>XSI Schema Location</em>}' map.
@@ -84,7 +84,7 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * @generated
      * @ordered
      */
-    protected EMap xSISchemaLocation= null;
+    protected EMap xSISchemaLocation;
 
     /**
      * <!-- begin-user-doc -->
