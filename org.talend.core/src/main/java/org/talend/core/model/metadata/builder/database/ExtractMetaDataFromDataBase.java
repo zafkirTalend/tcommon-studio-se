@@ -168,16 +168,16 @@ public class ExtractMetaDataFromDataBase {
      * @param String tableLabel
      * @return Collection of MetadataColumn Object of a Table
      */
-    public static synchronized List<MetadataColumn> returnMetadataColumnsFormTable(
-            IMetadataConnection iMetadataConnection, String tableLabel) {
+    public static synchronized List<MetadataColumn> returnMetadataColumnsFormTable(IMetadataConnection iMetadataConnection,
+            String tableLabel) {
 
         List<MetadataColumn> metadataColumns = new ArrayList<MetadataColumn>();
 
         try {
             // WARNING Schema equals sid or database
-            ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
-                    iMetadataConnection.getUsername(), iMetadataConnection.getPassword(), iMetadataConnection
-                            .getDatabase(), iMetadataConnection.getSchema());
+            ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
+                    .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
+                    .getSchema());
             DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
             List<IMetadataTable> metadataTables = ExtractMetaDataFromDataBase.extractTablesFromDB(dbMetaData);
@@ -244,8 +244,8 @@ public class ExtractMetaDataFromDataBase {
      * @param MetadataTable medataTable
      * @return Collection of MetadataColumn Object
      */
-    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData,
-            IMetadataTable medataTable, IMetadataConnection metadataConnection) {
+    public static List<MetadataColumn> extractMetadataColumnsFormTable(DatabaseMetaData dbMetaData, IMetadataTable medataTable,
+            IMetadataConnection metadataConnection) {
 
         columnIndex = 0;
 
@@ -271,8 +271,7 @@ public class ExtractMetaDataFromDataBase {
 
             checkUniqueKeyConstraint(medataTable, primaryKeys, connection);
 
-            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(),
-                    null);
+            ResultSet columns = dbMetaData.getColumns(null, ExtractMetaDataUtils.schema, medataTable.getTableName(), null);
             IRepositoryService repositoryService = CorePlugin.getDefault().getRepositoryService();
             while (columns.next()) {
                 MetadataColumn metadataColumn = ConnectionFactory.eINSTANCE.createMetadataColumn();
@@ -284,13 +283,11 @@ public class ExtractMetaDataFromDataBase {
                 // characters.
                 if (repositoryService != null) {
                     // metadataColumn.setDisplayField(repositoryService.validateColumnName(metadataColumn.getLabel(),columnIndex));
-                    metadataColumn.setLabel(repositoryService
-                            .validateColumnName(metadataColumn.getLabel(), columnIndex));
+                    metadataColumn.setLabel(repositoryService.validateColumnName(metadataColumn.getLabel(), columnIndex));
                 }
                 columnIndex++;
 
-                if (primaryKeys != null && !primaryKeys.isEmpty()
-                        && primaryKeys.get(metadataColumn.getOriginalField()) != null) {
+                if (primaryKeys != null && !primaryKeys.isEmpty() && primaryKeys.get(metadataColumn.getOriginalField()) != null) {
                     metadataColumn.setKey(true);
                 } else {
                     metadataColumn.setKey(false);
@@ -304,8 +301,8 @@ public class ExtractMetaDataFromDataBase {
 
                 String talendType = null;
 
-                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType
-                        .getMappingTypeRetriever(metadataConnection.getMapping());
+                MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection
+                        .getMapping());
                 talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType);
                 if (talendType == null) {
                     if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
@@ -332,8 +329,7 @@ public class ExtractMetaDataFromDataBase {
                 // cantoine : patch to fix 0x0 pb cause by Bad Schema
                 // description
                 String stringMetaDataInfo = ExtractMetaDataUtils.getStringMetaDataInfo(columns, "COLUMN_DEF"); //$NON-NLS-1$
-                if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0
-                        && stringMetaDataInfo.charAt(0) == 0x0) {
+                if (stringMetaDataInfo != null && stringMetaDataInfo.length() > 0 && stringMetaDataInfo.charAt(0) == 0x0) {
                     stringMetaDataInfo = "\\0"; //$NON-NLS-1$
                 }
                 metadataColumn.setDefaultValue(stringMetaDataInfo);
@@ -364,23 +360,50 @@ public class ExtractMetaDataFromDataBase {
             Connection connection) {
         if (connection instanceof com.mysql.jdbc.Connection) {// MySql
             try {
-                PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement("desc `"
-                        + medataTable.getLabel() + "`;");
+                PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement("SHOW INDEX FROM "
+                        + medataTable.getLabel() + " WHERE Non_unique=0 AND Key_name != \'PRIMARY\';");
                 ResultSet keys = null;
                 if (statement.execute()) {
                     keys = statement.getResultSet();
                     while (keys.next()) {
-                        String prim = keys.getString("Key");
-                        String field = keys.getString("Field");
-                        if (prim.equals("UNI")) {
-                            primaryKeys.put(field, "PRIMARY KEY"); //$NON-NLS-1$
-                        }
+                        String field = keys.getString("COLUMN_NAME"); //$NON-NLS-1$
+                        primaryKeys.put(field, "PRIMARY KEY"); //$NON-NLS-1$
                     }
                 }
                 keys.close();
             } catch (Exception e) {
                 log.error(e.toString());
             }
+        }
+        // SQL Server
+        else if (connection instanceof net.sourceforge.jtds.jdbc.ConnectionJDBC2) {
+            // try {
+            // String query = "SELECT "
+            // + " Field=a.name,"
+            // + " Flag=case when exists(SELECT 1 FROM sysobjects where xtype=\'UQ\' and name in ( "
+            // + " SELECT name FROM sysindexes WHERE indid in( "
+            // + " SELECT indid FROM sysindexkeys WHERE id = a.id AND colid=a.colid "
+            // + " ))) then \'true\' else \'false\' end "
+            // + " FROM syscolumns a "
+            // + " inner join sysobjects d on a.id=d.id and d.xtype=\'U\' and d.name<>\'dtproperties\' "
+            // + " where d.name=\'" + medataTable.getLabel() + "\' order by a.name;";
+            // PreparedStatement statement = ExtractMetaDataUtils.conn.prepareStatement(query);
+            //
+            // ResultSet keys = null;
+            // if (statement.execute()) {
+            // keys = statement.getResultSet();
+            // while (keys.next()) {
+            // String unique = keys.getString("Flag"); //$NON-NLS-1$
+            // String field = keys.getString("Field"); //$NON-NLS-1$
+            // if ("true".equals(unique)) { //$NON-NLS-1$
+            // primaryKeys.put(field, "PRIMARY KEY"); //$NON-NLS-1$
+            // }
+            // }
+            // }
+            // keys.close();
+            // } catch (Exception e) {
+            // log.error(e.toString());
+            // }
         }
         // PTODO ftang: should continue to handle all kinds of databases in this case.
         // else if (connection instanceof java.sql.Connection) // SQL Server
@@ -409,8 +432,7 @@ public class ExtractMetaDataFromDataBase {
                 final boolean equals = product.equals(EDatabaseTypeName.ORACLEFORSID.getProduct());
                 // We have to check schema
                 if (!checkSchemaConnection(schema, connection, equals)) {
-                    connectionStatus.setMessageException(Messages
-                            .getString("ExtractMetaDataFromDataBase.SchemaNoPresent")); //$NON-NLS-1$
+                    connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.SchemaNoPresent")); //$NON-NLS-1$
                     return connectionStatus;
                 }
             }
@@ -421,8 +443,7 @@ public class ExtractMetaDataFromDataBase {
 
             connection.close();
             connectionStatus.setResult(true);
-            connectionStatus
-                    .setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful")); //$NON-NLS-1$
+            connectionStatus.setMessageException(Messages.getString("ExtractMetaDataFromDataBase.connectionSuccessful")); //$NON-NLS-1$
         } catch (SQLException e) {
             connectionStatus.setMessageException(e.getMessage());
         } catch (Exception e) {
@@ -473,9 +494,9 @@ public class ExtractMetaDataFromDataBase {
     public static List<String> returnTablesFormConnection(IMetadataConnection iMetadataConnection) {
         List<String> itemTablesName = new ArrayList<String>();
 
-        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
-                iMetadataConnection.getUsername(), iMetadataConnection.getPassword(),
-                iMetadataConnection.getDatabase(), iMetadataConnection.getSchema());
+        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
+                .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
+                .getSchema());
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
@@ -501,9 +522,9 @@ public class ExtractMetaDataFromDataBase {
             IMetadataConnection iMetadataConnection) {
         List<org.talend.core.model.metadata.builder.connection.MetadataTable> itemTablesName = new ArrayList<org.talend.core.model.metadata.builder.connection.MetadataTable>();
 
-        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
-                iMetadataConnection.getUsername(), iMetadataConnection.getPassword(),
-                iMetadataConnection.getDatabase(), iMetadataConnection.getSchema());
+        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
+                .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
+                .getSchema());
 
         DatabaseMetaData dbMetaData = ExtractMetaDataUtils.getDatabaseMetaData(ExtractMetaDataUtils.conn);
 
@@ -561,9 +582,9 @@ public class ExtractMetaDataFromDataBase {
             TableInfoParameters tableInfoParameters) {
         List<String> itemTablesName = new ArrayList<String>();
 
-        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(),
-                iMetadataConnection.getUsername(), iMetadataConnection.getPassword(),
-                iMetadataConnection.getDatabase(), iMetadataConnection.getSchema());
+        ExtractMetaDataUtils.getConnection(iMetadataConnection.getDbType(), iMetadataConnection.getUrl(), iMetadataConnection
+                .getUsername(), iMetadataConnection.getPassword(), iMetadataConnection.getDatabase(), iMetadataConnection
+                .getSchema());
         try {
             if (!tableInfoParameters.isUsedName()) {
                 if (tableInfoParameters.getSqlFiter() != null && !"".equals(tableInfoParameters.getSqlFiter())) {
@@ -640,8 +661,7 @@ public class ExtractMetaDataFromDataBase {
      * @return
      * @throws SQLException
      */
-    private static ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern)
-            throws SQLException {
+    private static ResultSet getResultSetFromTableInfo(TableInfoParameters tableInfo, String namePattern) throws SQLException {
         ResultSet rsTables = null;
         Connection conn = ExtractMetaDataUtils.conn;
         String tableNamePattern = "".equals(namePattern) ? null : namePattern;
