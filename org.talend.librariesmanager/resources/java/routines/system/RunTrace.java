@@ -102,9 +102,9 @@ public class RunTrace implements Runnable {
     public boolean isPause() {
         InputStream in;
         try {
+            askForStatus();
             in = s.getInputStream();
             LineNumberReader reader = new LineNumberReader(new InputStreamReader(in));
-            askForStatus();
             return "PAUSE".equals(reader.readLine());
         } catch (IOException e) {
             e.printStackTrace();
