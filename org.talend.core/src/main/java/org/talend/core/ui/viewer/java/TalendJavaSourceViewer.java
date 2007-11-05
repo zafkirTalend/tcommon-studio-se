@@ -96,8 +96,8 @@ public class TalendJavaSourceViewer extends JavaSourceViewer {
      * @param styles
      * @return
      */
-    public static ISourceViewer createViewer2(Composite composite, int styles, IExpressionDataBean dataBean) {
-        final CompilationUnitEditor editor = new HiddenJavaEditor();
+    public static CompilationUnitEditor createViewer2(Composite composite, int styles, IExpressionDataBean dataBean) {
+        final HiddenJavaEditor editor = new HiddenJavaEditor();
         StringBuffer buff = new StringBuffer();
         buff.append("package internal;\n\n");
         buff.append("public class " + VIEWER_CLASS_NAME + " {\n");
@@ -122,7 +122,6 @@ public class TalendJavaSourceViewer extends JavaSourceViewer {
 
         final JavaSourceViewer viewer = (JavaSourceViewer) editor.getViewer();
         SynchronizableDocument doc = (SynchronizableDocument) viewer.getDocument();
-
         viewer.setVisibleRegion(length, defaultValue.length());
         viewer.getControl().addDisposeListener(new DisposeListener() {
 
@@ -189,7 +188,7 @@ public class TalendJavaSourceViewer extends JavaSourceViewer {
             }
         });
 
-        return viewer;
+        return editor;
     }
 
     /**
