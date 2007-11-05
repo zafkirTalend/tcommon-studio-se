@@ -592,4 +592,30 @@ public interface ExecutionTask extends EObject {
      */
     void setJobId(String value);
 
+    /**
+     * Returns the value of the '<em><b>Virtual Server</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Virtual Server</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Virtual Server</em>' reference.
+     * @see #setVirtualServer(ExecutionVirtualServer)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_VirtualServer()
+     * @model
+     * @generated
+     */
+    ExecutionVirtualServer getVirtualServer();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getVirtualServer <em>Virtual Server</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Virtual Server</em>' reference.
+     * @see #getVirtualServer()
+     * @generated
+     */
+    void setVirtualServer(ExecutionVirtualServer value);
+
 } // ExecutionTask

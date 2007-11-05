@@ -23,6 +23,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentWithInverseEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
+import org.talend.core.model.properties.ExecutionVirtualServer;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Project;
 import org.talend.core.model.properties.PropertiesPackage;
@@ -57,6 +58,7 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getLastEndedRunDate <em>Last Ended Run Date</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getTriggers <em>Triggers</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobId <em>Job Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getVirtualServer <em>Virtual Server</em>}</li>
  * </ul>
  * </p>
  *
@@ -472,6 +474,16 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected String jobId = JOB_ID_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getVirtualServer() <em>Virtual Server</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getVirtualServer()
+     * @generated
+     * @ordered
+     */
+    protected ExecutionVirtualServer virtualServer;
 
     /**
      * <!-- begin-user-doc -->
@@ -983,6 +995,44 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
+    public ExecutionVirtualServer getVirtualServer() {
+        if (virtualServer != null && virtualServer.eIsProxy()) {
+            InternalEObject oldVirtualServer = (InternalEObject)virtualServer;
+            virtualServer = (ExecutionVirtualServer)eResolveProxy(oldVirtualServer);
+            if (virtualServer != oldVirtualServer) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER, oldVirtualServer, virtualServer));
+            }
+        }
+        return virtualServer;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionVirtualServer basicGetVirtualServer() {
+        return virtualServer;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setVirtualServer(ExecutionVirtualServer newVirtualServer) {
+        ExecutionVirtualServer oldVirtualServer = virtualServer;
+        virtualServer = newVirtualServer;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER, oldVirtualServer, virtualServer));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
@@ -1057,6 +1107,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return getTriggers();
             case PropertiesPackage.EXECUTION_TASK__JOB_ID:
                 return getJobId();
+            case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
+                if (resolve) return getVirtualServer();
+                return basicGetVirtualServer();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1135,6 +1188,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__JOB_ID:
                 setJobId((String)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
+                setVirtualServer((ExecutionVirtualServer)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1212,6 +1268,9 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__JOB_ID:
                 setJobId(JOB_ID_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
+                setVirtualServer((ExecutionVirtualServer)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1267,6 +1326,8 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return triggers != null && !triggers.isEmpty();
             case PropertiesPackage.EXECUTION_TASK__JOB_ID:
                 return JOB_ID_EDEFAULT == null ? jobId != null : !JOB_ID_EDEFAULT.equals(jobId);
+            case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
+                return virtualServer != null;
         }
         return super.eIsSet(featureID);
     }

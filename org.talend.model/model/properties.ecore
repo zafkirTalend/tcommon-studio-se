@@ -286,6 +286,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="triggers" upperBound="-1"
         eType="#//TalendTrigger" containment="true" eOpposite="#//TalendTrigger/executionTask"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="jobId" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="virtualServer" eType="#//ExecutionVirtualServer"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TalendTrigger">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"

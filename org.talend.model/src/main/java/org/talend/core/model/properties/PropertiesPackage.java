@@ -2341,13 +2341,22 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__JOB_ID = 21;
 
     /**
+     * The feature id for the '<em><b>Virtual Server</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__VIRTUAL_SERVER = 22;
+
+    /**
      * The number of structural features of the '<em>Execution Task</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = 22;
+    int EXECUTION_TASK_FEATURE_COUNT = 23;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
@@ -4765,6 +4774,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionTask_JobId();
 
     /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionTask#getVirtualServer <em>Virtual Server</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Virtual Server</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getVirtualServer()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EReference getExecutionTask_VirtualServer();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6609,6 +6629,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute EXECUTION_TASK__JOB_ID = eINSTANCE.getExecutionTask_JobId();
+
+        /**
+         * The meta object literal for the '<em><b>Virtual Server</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference EXECUTION_TASK__VIRTUAL_SERVER = eINSTANCE.getExecutionTask_VirtualServer();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
