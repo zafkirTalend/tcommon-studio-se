@@ -98,6 +98,15 @@ public interface ComponentFactory extends EFactory {
     DocumentRoot createDocumentRoot();
 
     /**
+     * Returns a new object of class '<em>FORMAT Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>FORMAT Type</em>'.
+     * @generated
+     */
+    FORMATType createFORMATType();
+
+    /**
      * Returns a new object of class '<em>HEADER Type</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

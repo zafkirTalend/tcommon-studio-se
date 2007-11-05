@@ -50,7 +50,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "component"; //$NON-NLS-1$
+    String eNS_PREFIX = "Component"; //$NON-NLS-1$
 
     /**
      * The singleton instance of the package.
@@ -645,6 +645,52 @@ public interface ComponentPackage extends EPackage {
     int DOCUMENT_ROOT_FEATURE_COUNT = 12;
 
     /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.FORMATTypeImpl <em>FORMAT Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.component.impl.FORMATTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getFORMATType()
+     * @generated
+     */
+    int FORMAT_TYPE = 8;
+
+    /**
+     * The feature id for the '<em><b>CONNECTION</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FORMAT_TYPE__CONNECTION = 0;
+
+    /**
+     * The feature id for the '<em><b>HINT</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FORMAT_TYPE__HINT = 1;
+
+    /**
+     * The feature id for the '<em><b>LABEL</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FORMAT_TYPE__LABEL = 2;
+
+    /**
+     * The number of structural features of the '<em>FORMAT Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FORMAT_TYPE_FEATURE_COUNT = 3;
+
+    /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl <em>HEADER Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -652,7 +698,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getHEADERType()
      * @generated
      */
-    int HEADER_TYPE = 8;
+    int HEADER_TYPE = 9;
 
     /**
      * The feature id for the '<em><b>SIGNATURE</b></em>' attribute.
@@ -664,13 +710,22 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__SIGNATURE = 0;
 
     /**
+     * The feature id for the '<em><b>FORMAT</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HEADER_TYPE__FORMAT = 1;
+
+    /**
      * The feature id for the '<em><b>AUTHOR</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__AUTHOR = 1;
+    int HEADER_TYPE__AUTHOR = 2;
 
     /**
      * The feature id for the '<em><b>COMPATIBILITY</b></em>' attribute.
@@ -679,7 +734,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__COMPATIBILITY = 2;
+    int HEADER_TYPE__COMPATIBILITY = 3;
 
     /**
      * The feature id for the '<em><b>DATAAUTOPROPAGATE</b></em>' attribute.
@@ -688,7 +743,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__DATAAUTOPROPAGATE = 3;
+    int HEADER_TYPE__DATAAUTOPROPAGATE = 4;
 
     /**
      * The feature id for the '<em><b>EXTENSION</b></em>' attribute.
@@ -697,7 +752,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__EXTENSION = 4;
+    int HEADER_TYPE__EXTENSION = 5;
 
     /**
      * The feature id for the '<em><b>HASCONDITIONALOUTPUTS</b></em>' attribute.
@@ -706,7 +761,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__HASCONDITIONALOUTPUTS = 5;
+    int HEADER_TYPE__HASCONDITIONALOUTPUTS = 6;
 
     /**
      * The feature id for the '<em><b>ISMULTIPLYINGOUTPUTS</b></em>' attribute.
@@ -715,7 +770,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__ISMULTIPLYINGOUTPUTS = 6;
+    int HEADER_TYPE__ISMULTIPLYINGOUTPUTS = 7;
 
     /**
      * The feature id for the '<em><b>PLATEFORM</b></em>' attribute.
@@ -724,7 +779,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__PLATEFORM = 7;
+    int HEADER_TYPE__PLATEFORM = 8;
 
     /**
      * The feature id for the '<em><b>RELEASEDATE</b></em>' attribute.
@@ -733,7 +788,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__RELEASEDATE = 8;
+    int HEADER_TYPE__RELEASEDATE = 9;
 
     /**
      * The feature id for the '<em><b>SCHEMAAUTOPROPAGATE</b></em>' attribute.
@@ -742,7 +797,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SCHEMAAUTOPROPAGATE = 9;
+    int HEADER_TYPE__SCHEMAAUTOPROPAGATE = 10;
 
     /**
      * The feature id for the '<em><b>SERIAL</b></em>' attribute.
@@ -751,7 +806,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__SERIAL = 10;
+    int HEADER_TYPE__SERIAL = 11;
 
     /**
      * The feature id for the '<em><b>STARTABLE</b></em>' attribute.
@@ -760,7 +815,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STARTABLE = 11;
+    int HEADER_TYPE__STARTABLE = 12;
 
     /**
      * The feature id for the '<em><b>STATUS</b></em>' attribute.
@@ -769,7 +824,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__STATUS = 12;
+    int HEADER_TYPE__STATUS = 13;
 
     /**
      * The feature id for the '<em><b>TSTATCATCHERSTATS</b></em>' attribute.
@@ -778,7 +833,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__TSTATCATCHERSTATS = 13;
+    int HEADER_TYPE__TSTATCATCHERSTATS = 14;
 
     /**
      * The feature id for the '<em><b>USEMERGE</b></em>' attribute.
@@ -787,7 +842,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__USEMERGE = 14;
+    int HEADER_TYPE__USEMERGE = 15;
 
     /**
      * The feature id for the '<em><b>VERSION</b></em>' attribute.
@@ -796,7 +851,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VERSION = 15;
+    int HEADER_TYPE__VERSION = 16;
 
     /**
      * The feature id for the '<em><b>VISIBLE</b></em>' attribute.
@@ -805,7 +860,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VISIBLE = 16;
+    int HEADER_TYPE__VISIBLE = 17;
 
     /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
@@ -814,7 +869,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 17;
+    int HEADER_TYPE_FEATURE_COUNT = 18;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -824,7 +879,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getIMPORTSType()
      * @generated
      */
-    int IMPORTS_TYPE = 9;
+    int IMPORTS_TYPE = 10;
 
     /**
      * The feature id for the '<em><b>IMPORT</b></em>' containment reference list.
@@ -852,7 +907,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getIMPORTType()
      * @generated
      */
-    int IMPORT_TYPE = 10;
+    int IMPORT_TYPE = 11;
 
     /**
      * The feature id for the '<em><b>INSTALL</b></em>' containment reference list.
@@ -925,7 +980,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getINSTALLType()
      * @generated
      */
-    int INSTALL_TYPE = 11;
+    int INSTALL_TYPE = 12;
 
     /**
      * The feature id for the '<em><b>COMMAND</b></em>' attribute.
@@ -962,7 +1017,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getITEMSType()
      * @generated
      */
-    int ITEMS_TYPE = 12;
+    int ITEMS_TYPE = 13;
 
     /**
      * The feature id for the '<em><b>ITEM</b></em>' containment reference list.
@@ -1008,7 +1063,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getITEMType()
      * @generated
      */
-    int ITEM_TYPE = 13;
+    int ITEM_TYPE = 14;
 
     /**
      * The feature id for the '<em><b>ITEMS</b></em>' containment reference.
@@ -1117,7 +1172,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getLINKTOType()
      * @generated
      */
-    int LINKTO_TYPE = 14;
+    int LINKTO_TYPE = 15;
 
     /**
      * The feature id for the '<em><b>CTYPE</b></em>' attribute.
@@ -1154,7 +1209,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPARAMETERSType()
      * @generated
      */
-    int PARAMETERS_TYPE = 15;
+    int PARAMETERS_TYPE = 16;
 
     /**
      * The feature id for the '<em><b>PARAMETER</b></em>' containment reference list.
@@ -1182,7 +1237,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPARAMETERType()
      * @generated
      */
-    int PARAMETER_TYPE = 16;
+    int PARAMETER_TYPE = 17;
 
     /**
      * The feature id for the '<em><b>DEFAULT</b></em>' containment reference list.
@@ -1336,7 +1391,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPLUGINDEPENDENCIESType()
      * @generated
      */
-    int PLUGINDEPENDENCIES_TYPE = 17;
+    int PLUGINDEPENDENCIES_TYPE = 18;
 
     /**
      * The feature id for the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference list.
@@ -1364,7 +1419,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPLUGINDEPENDENCYType()
      * @generated
      */
-    int PLUGINDEPENDENCY_TYPE = 18;
+    int PLUGINDEPENDENCY_TYPE = 19;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1392,7 +1447,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getRETURNSType()
      * @generated
      */
-    int RETURNS_TYPE = 19;
+    int RETURNS_TYPE = 20;
 
     /**
      * The feature id for the '<em><b>RETURN</b></em>' containment reference list.
@@ -1420,7 +1475,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getRETURNType()
      * @generated
      */
-    int RETURN_TYPE = 20;
+    int RETURN_TYPE = 21;
 
     /**
      * The feature id for the '<em><b>AVAILABILITY</b></em>' attribute.
@@ -1466,7 +1521,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTABLEType()
      * @generated
      */
-    int TABLE_TYPE = 21;
+    int TABLE_TYPE = 22;
 
     /**
      * The feature id for the '<em><b>COLUMN</b></em>' containment reference list.
@@ -1521,7 +1576,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEPARAMType()
      * @generated
      */
-    int TEMPLATEPARAM_TYPE = 22;
+    int TEMPLATEPARAM_TYPE = 23;
 
     /**
      * The feature id for the '<em><b>SOURCE</b></em>' attribute.
@@ -1567,7 +1622,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATESType()
      * @generated
      */
-    int TEMPLATES_TYPE = 23;
+    int TEMPLATES_TYPE = 24;
 
     /**
      * The feature id for the '<em><b>TEMPLATE</b></em>' containment reference list.
@@ -1622,7 +1677,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEType()
      * @generated
      */
-    int TEMPLATE_TYPE = 24;
+    int TEMPLATE_TYPE = 25;
 
     /**
      * The feature id for the '<em><b>LINKTO</b></em>' containment reference list.
@@ -2270,6 +2325,49 @@ public interface ComponentPackage extends EPackage {
     EReference getDocumentRoot_RETURNS();
 
     /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.FORMATType <em>FORMAT Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>FORMAT Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.FORMATType
+     * @generated
+     */
+    EClass getFORMATType();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.FORMATType#getCONNECTION <em>CONNECTION</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>CONNECTION</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.FORMATType#getCONNECTION()
+     * @see #getFORMATType()
+     * @generated
+     */
+    EAttribute getFORMATType_CONNECTION();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.FORMATType#getHINT <em>HINT</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>HINT</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.FORMATType#getHINT()
+     * @see #getFORMATType()
+     * @generated
+     */
+    EAttribute getFORMATType_HINT();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.FORMATType#getLABEL <em>LABEL</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>LABEL</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.FORMATType#getLABEL()
+     * @see #getFORMATType()
+     * @generated
+     */
+    EAttribute getFORMATType_LABEL();
+
+    /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.HEADERType <em>HEADER Type</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2289,6 +2387,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getHEADERType_SIGNATURE();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getFORMAT <em>FORMAT</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>FORMAT</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#getFORMAT()
+     * @see #getHEADERType()
+     * @generated
+     */
+    EReference getHEADERType_FORMAT();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getAUTHOR <em>AUTHOR</em>}'.
@@ -3773,6 +3882,40 @@ public interface ComponentPackage extends EPackage {
         EReference DOCUMENT_ROOT__RETURNS = eINSTANCE.getDocumentRoot_RETURNS();
 
         /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.FORMATTypeImpl <em>FORMAT Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.component.impl.FORMATTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getFORMATType()
+         * @generated
+         */
+        EClass FORMAT_TYPE = eINSTANCE.getFORMATType();
+
+        /**
+         * The meta object literal for the '<em><b>CONNECTION</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FORMAT_TYPE__CONNECTION = eINSTANCE.getFORMATType_CONNECTION();
+
+        /**
+         * The meta object literal for the '<em><b>HINT</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FORMAT_TYPE__HINT = eINSTANCE.getFORMATType_HINT();
+
+        /**
+         * The meta object literal for the '<em><b>LABEL</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FORMAT_TYPE__LABEL = eINSTANCE.getFORMATType_LABEL();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl <em>HEADER Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3789,6 +3932,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__SIGNATURE = eINSTANCE.getHEADERType_SIGNATURE();
+
+        /**
+         * The meta object literal for the '<em><b>FORMAT</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference HEADER_TYPE__FORMAT = eINSTANCE.getHEADERType_FORMAT();
 
         /**
          * The meta object literal for the '<em><b>AUTHOR</b></em>' attribute feature.

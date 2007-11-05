@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSIGNATURE <em>SIGNATURE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getFORMAT <em>FORMAT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getAUTHOR <em>AUTHOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getCOMPATIBILITY <em>COMPATIBILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
@@ -52,7 +53,9 @@ public interface HEADERType extends EObject {
      * </p>
      * <!-- end-user-doc -->
      * <!-- begin-model-doc -->
-     * Not used for the moment
+     * 
+     * 							Not used for the moment
+     * 						
      * <!-- end-model-doc -->
      * @return the value of the '<em>SIGNATURE</em>' attribute.
      * @see #setSIGNATURE(String)
@@ -72,6 +75,33 @@ public interface HEADERType extends EObject {
      * @generated
      */
     void setSIGNATURE(String value);
+
+    /**
+     * Returns the value of the '<em><b>FORMAT</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>FORMAT</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>FORMAT</em>' containment reference.
+     * @see #setFORMAT(FORMATType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_FORMAT()
+     * @model containment="true"
+     *        extendedMetaData="kind='element' name='FORMAT' namespace='##targetNamespace'"
+     * @generated
+     */
+    FORMATType getFORMAT();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getFORMAT <em>FORMAT</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>FORMAT</em>' containment reference.
+     * @see #getFORMAT()
+     * @generated
+     */
+    void setFORMAT(FORMATType value);
 
     /**
      * Returns the value of the '<em><b>AUTHOR</b></em>' attribute.

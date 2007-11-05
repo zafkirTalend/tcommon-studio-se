@@ -5,8 +5,8 @@
     modelPluginID="org.talend.model" templateDirectory="" modelName="component" editPluginClass="org.talend.designer.core.model.utils.emf.component.provider.componentEditPlugin"
     editorPluginClass="org.talend.designer.core.model.utils.emf.component.presentation.componentEditorPlugin"
     testSuiteClass="org.talend.designer.core.model.utils.emf.component.tests.componentAllTests"
-    importerID="org.eclipse.xsd.ecore.importer">
-  <foreignModel>Component.xsd</foreignModel>
+    importerID="org.eclipse.emf.importer.ecore">
+  <foreignModel>Component.ecore</foreignModel>
   <genPackages prefix="Component" basePackage="org.talend.designer.core.model.utils.emf"
       resource="XML" disposableProviderFactory="true" ecorePackage="Component.ecore#/">
     <genClasses ecoreClass="Component.ecore#//CODEGENERATIONType">
@@ -73,8 +73,14 @@
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/pLUGINDEPENDENCIES"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/rETURNS"/>
     </genClasses>
+    <genClasses ecoreClass="Component.ecore#//FORMATType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//FORMATType/cONNECTION"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//FORMATType/hINT"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//FORMATType/lABEL"/>
+    </genClasses>
     <genClasses ecoreClass="Component.ecore#//HEADERType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sIGNATURE"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//HEADERType/fORMAT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/aUTHOR"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/cOMPATIBILITY"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/dATAAUTOPROPAGATE"/>

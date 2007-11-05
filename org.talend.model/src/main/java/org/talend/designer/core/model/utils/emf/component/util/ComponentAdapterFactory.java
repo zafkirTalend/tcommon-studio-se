@@ -113,6 +113,9 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
             public Object caseDocumentRoot(DocumentRoot object) {
                 return createDocumentRootAdapter();
             }
+            public Object caseFORMATType(FORMATType object) {
+                return createFORMATTypeAdapter();
+            }
             public Object caseHEADERType(HEADERType object) {
                 return createHEADERTypeAdapter();
             }
@@ -291,6 +294,20 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createDocumentRootAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.component.FORMATType <em>FORMAT Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.component.FORMATType
+     * @generated
+     */
+    public Adapter createFORMATTypeAdapter() {
         return null;
     }
 

@@ -9,10 +9,13 @@ package org.talend.designer.core.model.utils.emf.component.impl;
 import java.math.BigDecimal;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
+import org.talend.designer.core.model.utils.emf.component.FORMATType;
 import org.talend.designer.core.model.utils.emf.component.HEADERType;
 
 /**
@@ -23,6 +26,7 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSIGNATURE <em>SIGNATURE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getFORMAT <em>FORMAT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getAUTHOR <em>AUTHOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getCOMPATIBILITY <em>COMPATIBILITY</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isDATAAUTOPROPAGATE <em>DATAAUTOPROPAGATE</em>}</li>
@@ -64,6 +68,16 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected String sIGNATURE = SIGNATURE_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getFORMAT() <em>FORMAT</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFORMAT()
+     * @generated
+     * @ordered
+     */
+    protected FORMATType fORMAT;
 
     /**
      * The default value of the '{@link #getAUTHOR() <em>AUTHOR</em>}' attribute.
@@ -494,6 +508,49 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         sIGNATURE = newSIGNATURE;
         if (eNotificationRequired())
             eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__SIGNATURE, oldSIGNATURE, sIGNATURE));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FORMATType getFORMAT() {
+        return fORMAT;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetFORMAT(FORMATType newFORMAT, NotificationChain msgs) {
+        FORMATType oldFORMAT = fORMAT;
+        fORMAT = newFORMAT;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__FORMAT, oldFORMAT, newFORMAT);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFORMAT(FORMATType newFORMAT) {
+        if (newFORMAT != fORMAT) {
+            NotificationChain msgs = null;
+            if (fORMAT != null)
+                msgs = ((InternalEObject)fORMAT).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.HEADER_TYPE__FORMAT, null, msgs);
+            if (newFORMAT != null)
+                msgs = ((InternalEObject)newFORMAT).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.HEADER_TYPE__FORMAT, null, msgs);
+            msgs = basicSetFORMAT(newFORMAT, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__FORMAT, newFORMAT, newFORMAT));
     }
 
     /**
@@ -1037,10 +1094,25 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case ComponentPackage.HEADER_TYPE__FORMAT:
+                return basicSetFORMAT(null, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ComponentPackage.HEADER_TYPE__SIGNATURE:
                 return getSIGNATURE();
+            case ComponentPackage.HEADER_TYPE__FORMAT:
+                return getFORMAT();
             case ComponentPackage.HEADER_TYPE__AUTHOR:
                 return getAUTHOR();
             case ComponentPackage.HEADER_TYPE__COMPATIBILITY:
@@ -1086,6 +1158,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         switch (featureID) {
             case ComponentPackage.HEADER_TYPE__SIGNATURE:
                 setSIGNATURE((String)newValue);
+                return;
+            case ComponentPackage.HEADER_TYPE__FORMAT:
+                setFORMAT((FORMATType)newValue);
                 return;
             case ComponentPackage.HEADER_TYPE__AUTHOR:
                 setAUTHOR((String)newValue);
@@ -1149,6 +1224,9 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__SIGNATURE:
                 setSIGNATURE(SIGNATURE_EDEFAULT);
                 return;
+            case ComponentPackage.HEADER_TYPE__FORMAT:
+                setFORMAT((FORMATType)null);
+                return;
             case ComponentPackage.HEADER_TYPE__AUTHOR:
                 setAUTHOR(AUTHOR_EDEFAULT);
                 return;
@@ -1210,6 +1288,8 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         switch (featureID) {
             case ComponentPackage.HEADER_TYPE__SIGNATURE:
                 return SIGNATURE_EDEFAULT == null ? sIGNATURE != null : !SIGNATURE_EDEFAULT.equals(sIGNATURE);
+            case ComponentPackage.HEADER_TYPE__FORMAT:
+                return fORMAT != null;
             case ComponentPackage.HEADER_TYPE__AUTHOR:
                 return AUTHOR_EDEFAULT == null ? aUTHOR != null : !AUTHOR_EDEFAULT.equals(aUTHOR);
             case ComponentPackage.HEADER_TYPE__COMPATIBILITY:

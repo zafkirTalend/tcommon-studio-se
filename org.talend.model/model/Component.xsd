@@ -19,26 +19,51 @@
 			<xs:sequence>
 				<xs:element name="SIGNATURE" type="xs:string">
 					<xs:annotation>
-						<xs:documentation>Not used for the moment</xs:documentation>
+						<xs:documentation>
+							Not used for the moment
+						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
+				<xs:element name="FORMAT" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:attribute name="LABEL" type="xs:string">
+						</xs:attribute>
+						<xs:attribute name="HINT" type="xs:string">
+						</xs:attribute>
+						<xs:attribute name="CONNECTION"
+							type="xs:string">
+						</xs:attribute>
+					</xs:complexType></xs:element>
 			</xs:sequence>
-			<xs:attribute name="PLATEFORM" type="xs:string" use="required"/>
-			<xs:attribute name="SERIAL" type="xs:string" use="required"/>
-			<xs:attribute name="VERSION" type="xs:decimal" use="required"/>
-			<xs:attribute name="STATUS" type="xs:string" use="required"/>
-			<xs:attribute name="COMPATIBILITY" type="xs:string" use="required"/>
-			<xs:attribute name="AUTHOR" type="xs:string" use="required"/>
-			<xs:attribute name="RELEASE_DATE" type="xs:string" use="required"/>
-			<xs:attribute name="STARTABLE" type="xs:boolean" use="required"/>
-			<xs:attribute name="EXTENSION" type="xs:string" use="optional"/>
-			<xs:attribute name="SCHEMA_AUTO_PROPAGATE" type="xs:boolean" use="optional" default="true"/>
-			<xs:attribute name="DATA_AUTO_PROPAGATE" type="xs:boolean" use="optional" default="true"/>
-			<xs:attribute name="HAS_CONDITIONAL_OUTPUTS" type="xs:boolean" use="optional"/>
-			<xs:attribute name="IS_MULTIPLYING_OUTPUTS" type="xs:boolean" use="optional"/>
-			<xs:attribute name="VISIBLE" type="xs:boolean" use="optional" default="true"/>
-			<xs:attribute name="TSTATCATCHER_STATS" type="xs:boolean" use="optional" default="false"/>
-			<xs:attribute name="USE_MERGE" type="xs:boolean" use="optional" default="false"/>
+			<xs:attribute name="PLATEFORM" type="xs:string"
+				use="required" />
+			<xs:attribute name="SERIAL" type="xs:string" use="required" />
+			<xs:attribute name="VERSION" type="xs:decimal"
+				use="required" />
+			<xs:attribute name="STATUS" type="xs:string" use="required" />
+			<xs:attribute name="COMPATIBILITY" type="xs:string"
+				use="required" />
+			<xs:attribute name="AUTHOR" type="xs:string" use="required" />
+			<xs:attribute name="RELEASE_DATE" type="xs:string"
+				use="required" />
+			<xs:attribute name="STARTABLE" type="xs:boolean"
+				use="required" />
+			<xs:attribute name="EXTENSION" type="xs:string"
+				use="optional" />
+			<xs:attribute name="SCHEMA_AUTO_PROPAGATE" type="xs:boolean"
+				use="optional" default="true" />
+			<xs:attribute name="DATA_AUTO_PROPAGATE" type="xs:boolean"
+				use="optional" default="true" />
+			<xs:attribute name="HAS_CONDITIONAL_OUTPUTS"
+				type="xs:boolean" use="optional" />
+			<xs:attribute name="IS_MULTIPLYING_OUTPUTS"
+				type="xs:boolean" use="optional" />
+			<xs:attribute name="VISIBLE" type="xs:boolean"
+				use="optional" default="true" />
+			<xs:attribute name="TSTATCATCHER_STATS" type="xs:boolean"
+				use="optional" default="false" />
+			<xs:attribute name="USE_MERGE" type="xs:boolean"
+				use="optional" default="false" />
 		</xs:complexType>
 	</xs:element>
 	<xs:element name="DOCUMENTATION">
