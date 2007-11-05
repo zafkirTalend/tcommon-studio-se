@@ -18,7 +18,7 @@
       <genEnumLiterals ecoreEnumLiteral="properties.ecore#//UserProjectAuthorizationType/ReadOnly"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="properties.ecore#//UserModuleAuthorizationType">
-      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//UserModuleAuthorizationType/Scheduler"/>
+      <genEnumLiterals ecoreEnumLiteral="properties.ecore#//UserModuleAuthorizationType/JobConductor"/>
       <genEnumLiterals ecoreEnumLiteral="properties.ecore#//UserModuleAuthorizationType/Dashboard"/>
     </genEnums>
     <genClasses ecoreClass="properties.ecore#//Project">
@@ -206,7 +206,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/description"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/executionServer"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/project"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/processItem"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/context"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/jobVersion"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/active"/>
@@ -223,6 +222,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/lastDeploymentDate"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/lastEndedRunDate"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionTask/triggers"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionTask/jobId"/>
     </genClasses>
     <genClasses ecoreClass="properties.ecore#//TalendTrigger">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//TalendTrigger/id"/>
