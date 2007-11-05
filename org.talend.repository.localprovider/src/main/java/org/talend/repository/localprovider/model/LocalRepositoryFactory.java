@@ -281,8 +281,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 }
             } else if (current instanceof IFolder) { // && (!current.getName().equals("bin"))) {
                 if (searchInChildren) {
-                    toReturn.addAll(getSerializableFromFolder((IFolder) current, id, type, allVersion, true,
-                            withDeleted));
+                    toReturn.addAll(getSerializableFromFolder((IFolder) current, id, type, allVersion, true, withDeleted));
                 }
             }
         }
@@ -377,8 +376,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @param project
      * @throws PersistenceException
      */
-    private void createFolders(IProject prj, org.talend.core.model.properties.Project emfProject)
-            throws PersistenceException {
+    private void createFolders(IProject prj, org.talend.core.model.properties.Project emfProject) throws PersistenceException {
         FolderHelper folderHelper = getFolderHelper(emfProject);
 
         // Folder creation :
@@ -527,10 +525,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
 
-        String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString()
-                + IPath.SEPARATOR + label;
-        FolderItem folderItem = getFolderHelper(getRepositoryContext().getProject().getEmfProject()).createFolder(
-                completePath);
+        String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString() + IPath.SEPARATOR
+                + label;
+        FolderItem folderItem = getFolderHelper(getRepositoryContext().getProject().getEmfProject()).createFolder(completePath);
         xmiResourceManager.saveResource(getRepositoryContext().getProject().getEmfProject().eResource());
         // Getting the folder :
         IFolder folder = ResourceUtils.getFolder(fsProject, completePath, false);
@@ -558,8 +555,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         } else {
             // TODO SML Delete this ?
             IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
-            String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString()
-                    + IPath.SEPARATOR + label;
+            String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString() + IPath.SEPARATOR
+                    + label;
 
             // Getting the folder :
             IFolder existingFolder = ResourceUtils.getFolder(fsProject, completePath, false);
@@ -607,8 +604,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         Item[] childrens = (Item[]) emfFolder.getChildren().toArray();
         for (int i = 0; i < childrens.length; i++) {
             FolderItem children = (FolderItem) childrens[i];
-            moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder
-                    .getProperty().getLabel()));
+            moveFolder(type, sourcePath.append(children.getProperty().getLabel()), targetPath.append(emfFolder.getProperty()
+                    .getLabel()));
         }
 
         List<IRepositoryObject> serializableFromFolder = getSerializableFromFolder(folder, null, type, true, true, true);
@@ -653,8 +650,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         List<IRepositoryObject> toReturn = new VersionList(false);
 
         FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
-        IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(),
-                ERepositoryObjectType.PROCESS);
+        IFolder folder = LocalResourceModelUtils.getFolder(getRepositoryContext().getProject(), ERepositoryObjectType.PROCESS);
 
         for (IResource current : ResourceUtils.getMembers(folder)) {
             if (current instanceof IFile) {
@@ -715,8 +711,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public void restoreObject(IRepositoryObject objToRestore, IPath path) throws PersistenceException {
         IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
-        IFolder typeRootFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToRestore
-                .getType()), true);
+        IFolder typeRootFolder = ResourceUtils.getFolder(fsProject, ERepositoryObjectType.getFolderName(objToRestore.getType()),
+                true);
         // IPath thePath = (path == null ? typeRootFolder.getFullPath() : typeRootFolder.getFullPath().append(path));
         org.talend.core.model.properties.Project project = xmiResourceManager.loadProject(getProject());
 
@@ -920,16 +916,16 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private Resource create(ProcessItem item, IPath path) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path,
-                ERepositoryObjectType.PROCESS, false);
+        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, ERepositoryObjectType.PROCESS,
+                false);
         itemResource.getContents().add(item.getProcess());
 
         return itemResource;
     }
 
     private Resource create(ContextItem item, IPath path) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path,
-                ERepositoryObjectType.CONTEXT, false);
+        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, ERepositoryObjectType.CONTEXT,
+                false);
         itemResource.getContents().addAll(item.getContext());
 
         return itemResource;
@@ -1130,8 +1126,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         org.talend.core.model.properties.Project emfProject = xmiResourceManager.loadProject(iProject);
         Resource projectResource = emfProject.eResource();
 
-        Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE
-                .getUser());
+        Collection users = EcoreUtil.getObjectsByType(projectResource.getContents(), PropertiesPackage.eINSTANCE.getUser());
         for (Iterator iter = users.iterator(); iter.hasNext();) {
             User emfUser = (User) iter.next();
 
@@ -1177,27 +1172,28 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
      * @see org.talend.repository.model.IRepositoryFactory#getStatus(org.talend.core.model.properties.Item)
      */
     public ERepositoryStatus getStatus(Item item) {
-        if (item.getState().isDeleted()) {
-            return ERepositoryStatus.DELETED;
-        }
+        if (item != null) {
+            if (item.getState().isDeleted()) {
+                return ERepositoryStatus.DELETED;
+            }
 
-        // FIXME SML [Synchronizer] Move
-        if (item.getState().isLocked()) {
-            // User locker = item.getState().getLocker();
-            // User connected = getRepositoryContext().getUser();
-            // if (connected.equals(locker)) {
-            return ERepositoryStatus.LOCK_BY_USER;
-            // } else {
-            // return ERepositoryStatus.LOCK_BY_OTHER;
-            // }
-        }
+            // FIXME SML [Synchronizer] Move
+            if (item.getState().isLocked()) {
+                // User locker = item.getState().getLocker();
+                // User connected = getRepositoryContext().getUser();
+                // if (connected.equals(locker)) {
+                return ERepositoryStatus.LOCK_BY_USER;
+                // } else {
+                // return ERepositoryStatus.LOCK_BY_OTHER;
+                // }
+            }
 
-        if (item instanceof RoutineItem) {
-            if (((RoutineItem) item).isBuiltIn()) {
-                return ERepositoryStatus.READ_ONLY;
+            if (item instanceof RoutineItem) {
+                if (((RoutineItem) item).isBuiltIn()) {
+                    return ERepositoryStatus.READ_ONLY;
+                }
             }
         }
-
         return ERepositoryStatus.DEFAULT;
     }
 
