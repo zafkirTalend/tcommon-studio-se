@@ -38,6 +38,7 @@ import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
 import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 import org.eclipse.ui.contexts.IContextService;
 import org.eclipse.ui.handlers.IHandlerService;
+import org.eclipse.ui.internal.ide.EditorAreaDropAdapter;
 import org.talend.commons.utils.workbench.extensions.ExtensionImplementationProvider;
 import org.talend.commons.utils.workbench.extensions.ExtensionPointLimiterImpl;
 import org.talend.commons.utils.workbench.extensions.IExtensionPointLimiter;
@@ -77,7 +78,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         configurer.setShowStatusLine(true);
         configurer.setShowProgressIndicator(true);
         configurer.setShowPerspectiveBar(true);
-
+        configurer.configureEditorAreaDropListener(new EditorAreaDropAdapter(configurer.getWindow()));
         RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
                 Context.REPOSITORY_CONTEXT_KEY);
         Project project = repositoryContext.getProject();
@@ -86,6 +87,7 @@ public class ApplicationWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
         String appName = configurer.getTitle(); // BrandingService.getInstance().getFullProductName();
         configurer.setTitle(appName + " (" + buildId + ") | " + repositoryContext.getUser() + " | " + project.getLabel()); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+
     }
 
     /*
