@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
@@ -36,11 +37,10 @@ import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
 /**
- * TODO smallet Manage all rep item types (currently only process)
- * 
- * TODO smallet Manage returned ExecutionResult
  */
 public abstract class AbstractItemMigrationTask extends AbstractMigrationTask implements IProjectMigrationTask {
+
+    private static Logger log = Logger.getLogger(AbstractItemMigrationTask.class);
 
     private Project project;
 
@@ -48,7 +48,7 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
         setProject(project);
         IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
-        ExecutionResult execute = null;
+        ExecutionResult executeFinal = null;
         List<IRepositoryObject> list = new ArrayList<IRepositoryObject>();
         try {
             for (ERepositoryObjectType curTyp : getTypes()) {
@@ -58,13 +58,18 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
             for (IRepositoryObject mainobject : list) {
                 List<IRepositoryObject> allVersion = factory.getAllVersion(mainobject.getId());
                 for (IRepositoryObject object : allVersion) {
+                    ExecutionResult execute = null;
                     Item item = object.getProperty().getItem();
 
                     execute = execute(item);
+                    if (execute == ExecutionResult.FAILURE) {
+                        log.warn("Migration task " + this.getName() + " failed on item " + item.getProperty().getLabel());
+                        executeFinal = ExecutionResult.FAILURE;
+                    }
                 }
             }
 
-            return execute;
+            return executeFinal;
         } catch (PersistenceException e) {
             ExceptionHandler.process(e);
             return ExecutionResult.FAILURE;
@@ -72,6 +77,9 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
     }
 
     public ExecutionResult execute(Project project, Item item) {
+        if (!getTypes().contains(ERepositoryObjectType.getItemType(item))) {
+            return ExecutionResult.NOTHING_TO_DO;
+        }
         setProject(project);
         return execute(item);
     }

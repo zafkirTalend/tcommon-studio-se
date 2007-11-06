@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
@@ -40,9 +39,12 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.exception.SystemException;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
+import org.talend.core.model.migration.IProjectMigrationTask;
+import org.talend.core.model.migration.IProjectMigrationTask.ExecutionResult;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.Project;
@@ -51,11 +53,11 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.helper.ByteArrayResource;
 import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.migrationtool.model.GetTasksHelper;
 import org.talend.repository.constants.FileConstants;
 import org.talend.repository.localprovider.RepositoryLocalProviderPlugin;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.localprovider.model.XmiResourceManager;
-import org.talend.repository.model.PerlItemOldTypesConverter;
 import org.talend.repository.model.ProxyRepositoryFactory;
 
 /**
@@ -149,8 +151,17 @@ public class ImportItemUtil {
 
             try {
                 Item tmpItem = itemRecord.getItem();
-                PerlItemOldTypesConverter converter = new PerlItemOldTypesConverter(tmpItem);
-                ProxyRepositoryFactory.getInstance().create(converter.getItem(), path);
+                Context ctx = CorePlugin.getContext();
+                RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
+                for (String taskId : itemRecord.getMigrationTasksToApply()) {
+                    IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
+                    ExecutionResult executionResult = task.execute(repositoryContext.getProject(), tmpItem);
+                    if (executionResult == ExecutionResult.FAILURE) {
+                        throw new SystemException("Cannot import item " + itemRecord.getItemName() + " (migration task "
+                                + task.getName() + " failed)");
+                    }
+                }
+                ProxyRepositoryFactory.getInstance().create(tmpItem, path);
             } catch (Exception e) {
                 logError(e);
             }
@@ -217,9 +228,8 @@ public class ImportItemUtil {
                     checkProject = true;
                 }
             } else {
-                itemRecord.addError(Messages.getString(
-                        "RepositoryUtil.DifferentLanguage", project.getLanguage(), currentProject //$NON-NLS-1$
-                                .getLanguage()));
+                itemRecord.addError(Messages.getString("RepositoryUtil.DifferentLanguage", project.getLanguage(), currentProject //$NON-NLS-1$
+                        .getLanguage()));
             }
         } else {
             itemRecord.addError(Messages.getString("RepositoryUtil.ProjectNotFound")); //$NON-NLS-1$
@@ -230,32 +240,25 @@ public class ImportItemUtil {
 
     @SuppressWarnings("unchecked")
     private boolean checkMigrationTasks(Project project, ItemRecord itemRecord, Project currentProject) {
-        boolean result = true;
+        List<String> itemMigrationTasks = new ArrayList(project.getMigrationTasks());
+        List<String> projectMigrationTasks = new ArrayList(currentProject.getMigrationTasks());
 
-        if (project.getMigrationTasks().size() == currentProject.getMigrationTasks().size()) {
-            for (Iterator iter = project.getMigrationTasks().iterator(); iter.hasNext();) {
-                String element = (String) iter.next();
-                boolean found = false;
-                for (Iterator iterator = currentProject.getMigrationTasks().iterator(); iterator.hasNext();) {
-                    String element2 = (String) iterator.next();
-                    if (element.equals(element2)) {
-                        found = true;
-                    }
-                }
-                if (!found) {
-                    result = false;
-                }
-            }
-        } else {
-            result = false;
-        }
+        // 1. Check if all the migration tasks of the items are done in the project:
+        // if not, the item use a more recent version of TOS: impossible to import (forward compatibility)
+        if (!projectMigrationTasks.containsAll(itemMigrationTasks)) {
+            itemMigrationTasks.removeAll(projectMigrationTasks);
 
-        if (!result) {
             itemRecord.addError(" " //$NON-NLS-1$
                     + Messages.getString("RepositoryUtil.DifferentVersion")); //$NON-NLS-1$
+            return false;
         }
 
-        return result;
+        // 2. Get all the migration tasks to apply on this item on import (backwards compatibility)
+        // (those that are in the project but not in the item)
+        projectMigrationTasks.removeAll(itemMigrationTasks);
+        itemRecord.setMigrationTasksToApply(projectMigrationTasks);
+
+        return true;
     }
 
     private IPath getValidProjectFilePath(ResourcesManager collector, IPath path, URI uri) {
@@ -302,8 +305,7 @@ public class ImportItemUtil {
             stream = manager.getStream(path);
             Resource resource = createResource(resourceSet, path, false);
             resource.load(stream, null);
-            return (Property) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE
-                    .getProperty());
+            return (Property) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProperty());
         } catch (IOException e) {
             // ignore
         } finally {
@@ -351,8 +353,7 @@ public class ImportItemUtil {
             stream = manager.getStream(path);
             Resource resource = createResource(resourceSet, path, false);
             resource.load(stream, null);
-            return (Project) EcoreUtil
-                    .getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());
+            return (Project) EcoreUtil.getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());
         } catch (IOException e) {
             // ignore
         } finally {
@@ -367,8 +368,7 @@ public class ImportItemUtil {
         return null;
     }
 
-    private Resource createResource(ResourceSet resourceSet, IPath path, boolean byteArrayResource)
-            throws FileNotFoundException {
+    private Resource createResource(ResourceSet resourceSet, IPath path, boolean byteArrayResource) throws FileNotFoundException {
         Resource resource;
         if (byteArrayResource) {
             resource = new ByteArrayResource(getURI(path));

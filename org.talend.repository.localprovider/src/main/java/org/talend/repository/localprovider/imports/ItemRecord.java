@@ -41,6 +41,8 @@ public class ItemRecord {
 
     private List<String> errors = new ArrayList<String>();
 
+    private List<String> migrationTasksToApply = new ArrayList<String>();
+
     public ItemRecord(IPath path, Property property) {
         this.path = path;
         this.property = property;
@@ -77,4 +79,23 @@ public class ItemRecord {
     public boolean isValid() {
         return errors.isEmpty();
     }
+
+    /**
+     * Getter for migrationTasksToApply.
+     * 
+     * @return the migrationTasksToApply
+     */
+    public List<String> getMigrationTasksToApply() {
+        return this.migrationTasksToApply;
+    }
+
+    /**
+     * Sets the migrationTasksToApply.
+     * 
+     * @param migrationTasksToApply the migrationTasksToApply to set
+     */
+    public void setMigrationTasksToApply(List<String> migrationTasksToApply) {
+        this.migrationTasksToApply = migrationTasksToApply;
+    }
+
 }
