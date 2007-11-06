@@ -66,7 +66,7 @@ public class XmlNodeRetriever {
 
     public static final String STRING_AT = "@";
 
-    public static final String DEFAULT_PRE = "pre:";
+    public static final String DEFAULT_PRE = "pre" + Math.random();
 
     private Document document;
 
@@ -225,7 +225,7 @@ public class XmlNodeRetriever {
             String[] split = xPathExpression.split("/");
             for (String string : split) {
                 if (!string.equals("") && string.indexOf(':') == -1 && string.indexOf('.') == -1) {
-                    expr.append(DEFAULT_PRE);
+                    expr.append(DEFAULT_PRE + ":");
                 }
                 expr.append(string + "/");
             }
