@@ -303,7 +303,8 @@ public class ExtractMetaDataFromDataBase {
 
                 MappingTypeRetriever mappingTypeRetriever = MetadataTalendType.getMappingTypeRetriever(metadataConnection
                         .getMapping());
-                talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType);
+                talendType = mappingTypeRetriever.getDefaultSelectedTalendType(dbType, ExtractMetaDataUtils.getIntMetaDataInfo(
+                        columns, "COLUMN_SIZE"), ExtractMetaDataUtils.getIntMetaDataInfo(columns, "DECIMAL_DIGITS"));
                 if (talendType == null) {
                     if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
                         talendType = JavaTypesManager.getDefaultJavaType().getId();
