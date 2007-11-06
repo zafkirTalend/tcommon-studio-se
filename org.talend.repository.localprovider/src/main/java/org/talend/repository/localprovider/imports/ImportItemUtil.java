@@ -151,17 +151,21 @@ public class ImportItemUtil {
 
             try {
                 Item tmpItem = itemRecord.getItem();
+                ProxyRepositoryFactory.getInstance().create(tmpItem, path);
+
+                Item newItem = ProxyRepositoryFactory.getInstance().getLastVersion(tmpItem.getProperty().getId()).getProperty()
+                        .getItem();
+
                 Context ctx = CorePlugin.getContext();
                 RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
                 for (String taskId : itemRecord.getMigrationTasksToApply()) {
                     IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
-                    ExecutionResult executionResult = task.execute(repositoryContext.getProject(), tmpItem);
+                    ExecutionResult executionResult = task.execute(repositoryContext.getProject(), newItem);
                     if (executionResult == ExecutionResult.FAILURE) {
-                        throw new SystemException("Cannot import item " + itemRecord.getItemName() + " (migration task "
+                        throw new SystemException("Incomplete import item " + itemRecord.getItemName() + " (migration task "
                                 + task.getName() + " failed)");
                     }
                 }
-                ProxyRepositoryFactory.getInstance().create(tmpItem, path);
             } catch (Exception e) {
                 logError(e);
             }
