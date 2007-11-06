@@ -22,14 +22,14 @@
 package org.talend.migrationtool.test;
 
 import org.talend.core.model.general.Project;
-import org.talend.core.model.migration.AbstractMigrationTask;
+import org.talend.core.model.migration.AbstractProjectMigrationTask;
 import org.talend.core.model.migration.IProjectMigrationTask;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
  */
-public class NothingToDoMT extends AbstractMigrationTask implements IProjectMigrationTask {
+public class NothingToDoMT extends AbstractProjectMigrationTask implements IProjectMigrationTask {
 
     public ExecutionResult execute(Project project) {
         return ExecutionResult.NOTHING_TO_DO;

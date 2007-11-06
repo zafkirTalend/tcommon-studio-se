@@ -22,14 +22,14 @@
 package org.talend.migrationtool.test;
 
 import org.talend.core.model.general.Project;
-import org.talend.core.model.migration.AbstractMigrationTask;
+import org.talend.core.model.migration.AbstractProjectMigrationTask;
 import org.talend.core.model.migration.IProjectMigrationTask;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
  * 
  */
-public class SuccessAlertMT extends AbstractMigrationTask implements IProjectMigrationTask {
+public class SuccessAlertMT extends AbstractProjectMigrationTask implements IProjectMigrationTask {
 
     public ExecutionResult execute(Project project) {
         return ExecutionResult.SUCCESS_WITH_ALERT;
