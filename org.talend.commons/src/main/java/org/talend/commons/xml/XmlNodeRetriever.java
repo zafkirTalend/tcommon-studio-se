@@ -24,9 +24,12 @@ package org.talend.commons.xml;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -46,6 +49,7 @@ import org.apache.oro.text.regex.Util;
 import org.talend.commons.exception.ExceptionHandler;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -62,6 +66,8 @@ public class XmlNodeRetriever {
 
     public static final String STRING_AT = "@";
 
+    public static final String DEFAULT_PRE = "pre:";
+
     private Document document;
 
     private XPath xpath;
@@ -69,6 +75,8 @@ public class XmlNodeRetriever {
     private String currentLoopXPath;
 
     private NamespaceContext namespaceContext;
+
+    private final Map<String, String> prefixToNamespace = new HashMap<String, String>();
 
     /**
      * DOC amaumont XMLNodeRetriever constructor comment.
@@ -90,14 +98,8 @@ public class XmlNodeRetriever {
         namespaceContext = new NamespaceContext() {
 
             public String getNamespaceURI(String prefix) {
-                String uri;
-                // if (prefix.equals("h"))
-                // uri = "http://www.w3.org/TR/REC-html40";
-                // else if (prefix.equals("r"))
-                // uri = "http://itworld.com/ROYAL";
-                // else
-                uri = prefix;
-                return uri;
+                String namespaceForPrefix = getNamespaceForPrefix(prefix);
+                return namespaceForPrefix;
             }
 
             // Dummy implementation - not used!
@@ -114,6 +116,41 @@ public class XmlNodeRetriever {
     }
 
     /**
+     * DOC qzhang Comment method "getNamespaceForPrefix".
+     * 
+     * @param prefix
+     * @return
+     */
+    protected String getNamespaceForPrefix(String prefix) {
+        String namespace = prefixToNamespace.get(prefix);
+        if (namespace != null) {
+            return namespace;
+        }
+        return getDefaultNamespace();
+    }
+
+    /**
+     * qzhang Comment method "getDefaultNamespace".
+     * 
+     * @return
+     */
+    private String getDefaultNamespace() {
+        Node parent = document.getDocumentElement();
+        int type = parent.getNodeType();
+        if (type == Node.ELEMENT_NODE) {
+            NamedNodeMap nnm = parent.getAttributes();
+            for (int i = 0; i < nnm.getLength(); i++) {
+                Node attr = nnm.item(i);
+                String aname = attr.getNodeName();
+                if (aname.equals(XMLConstants.XMLNS_ATTRIBUTE)) {
+                    return attr.getNodeValue();
+                }
+            }
+        }
+        return XMLConstants.NULL_NS_URI;
+    }
+
+    /**
      * DOC amaumont Comment method "initSource".
      * 
      * @param filePath2
@@ -122,9 +159,12 @@ public class XmlNodeRetriever {
         // Parse document containing schemas and validation roots
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         try {
-            // dbf.setNamespaceAware(true);
+            dbf.setNamespaceAware(true);
             DocumentBuilder db = dbf.newDocumentBuilder();
             document = db.parse(new File(filePath));
+            prefixToNamespace.clear();
+            initLastNodes(document.getDocumentElement());
+            prefixToNamespace.put(XMLConstants.XML_NS_PREFIX, XMLConstants.XML_NS_URI);
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         } catch (SAXException e) {
@@ -136,6 +176,64 @@ public class XmlNodeRetriever {
         XPathFactory xpf = XPathFactory.newInstance();
         xpath = xpf.newXPath();
         xpath.setNamespaceContext(namespaceContext);
+    }
+
+    /**
+     * DOC qzhang Comment method "initLastNodes".
+     * 
+     * @param node
+     */
+    private void initLastNodes(Node node) {
+        NodeList childNodes = node.getChildNodes();
+        int length = childNodes.getLength();
+        int type = node.getNodeType();
+        if (type == Node.ELEMENT_NODE) {
+            setPrefixToNamespace(node);
+        }
+        for (int i = 0; i < length; i++) {
+            Node item = childNodes.item(i);
+            if (item.getChildNodes().getLength() > 0) {
+                initLastNodes(item);
+            }
+        }
+    }
+
+    /**
+     * DOC qzhang Comment method "setPrefixToNamespace".
+     * 
+     * @param node
+     */
+    private void setPrefixToNamespace(Node node) {
+        NamedNodeMap nnm = node.getAttributes();
+        for (int i = 0; i < nnm.getLength(); i++) {
+            Node attr = nnm.item(i);
+            String aname = attr.getNodeName();
+            boolean isPrefix = aname.startsWith(XMLConstants.XMLNS_ATTRIBUTE + ":");
+            if (isPrefix || aname.equals(XMLConstants.XMLNS_ATTRIBUTE)) {
+                int index = aname.indexOf(':');
+                String p = isPrefix ? aname.substring(index + 1) : XMLConstants.NULL_NS_URI;
+                prefixToNamespace.put(p, attr.getNodeValue());
+            }
+        }
+    }
+
+    private String addDefaultNS(String xPathExpression) {
+        if (XMLConstants.NULL_NS_URI.equals(getDefaultNamespace())) {
+            return xPathExpression;
+        } else {
+            StringBuilder expr = new StringBuilder();
+            String[] split = xPathExpression.split("/");
+            for (String string : split) {
+                if (!string.equals("") && string.indexOf(':') == -1 && string.indexOf('.') == -1) {
+                    expr.append(DEFAULT_PRE);
+                }
+                expr.append(string + "/");
+            }
+            if (split.length > 0) {
+                expr.deleteCharAt(expr.length() - 1);
+            }
+            return expr.toString();
+        }
     }
 
     /**
@@ -173,7 +271,7 @@ public class XmlNodeRetriever {
     public synchronized NodeList retrieveNodeList(String xPathExpression) throws XPathExpressionException {
 
         xPathExpression = simplifyXPathExpression(xPathExpression);
-
+        xPathExpression = addDefaultNS(xPathExpression);
         NodeList nodeList = null;
         // System.out.println("xPathExpression = "+xPathExpression);
         XPathExpression xpathSchema = xpath.compile(xPathExpression);
@@ -225,6 +323,7 @@ public class XmlNodeRetriever {
     public synchronized NodeList retrieveNodeListFromNode(String relativeXPathExpression, Node referenceNode)
             throws XPathExpressionException {
         relativeXPathExpression = simplifyXPathExpression(relativeXPathExpression);
+        relativeXPathExpression = addDefaultNS(relativeXPathExpression);
         NodeList nodeList = (NodeList) xpath.evaluate(relativeXPathExpression, referenceNode, XPathConstants.NODESET);
         return nodeList;
     }
