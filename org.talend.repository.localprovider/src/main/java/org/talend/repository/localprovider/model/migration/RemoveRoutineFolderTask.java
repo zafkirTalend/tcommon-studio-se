@@ -27,8 +27,7 @@ import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.general.Project;
-import org.talend.core.model.migration.AbstractMigrationTask;
-import org.talend.core.model.migration.IProjectMigrationTask;
+import org.talend.core.model.migration.AbstractProjectMigrationTask;
 import org.talend.repository.model.ResourceModelUtils;
 
 /**
@@ -37,7 +36,7 @@ import org.talend.repository.model.ResourceModelUtils;
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ven., 29 sept. 2006) nrousseau $
  * 
  */
-public class RemoveRoutineFolderTask extends AbstractMigrationTask implements IProjectMigrationTask {
+public class RemoveRoutineFolderTask extends AbstractProjectMigrationTask {
 
     /*
      * (non-Javadoc)

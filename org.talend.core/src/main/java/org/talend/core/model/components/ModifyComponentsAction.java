@@ -28,7 +28,6 @@ import java.util.List;
 import org.eclipse.core.runtime.CoreException;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.IService;
 import org.talend.core.model.components.conversions.IComponentConversion;
 import org.talend.core.model.components.conversions.RenameComponentConversion;
 import org.talend.core.model.components.filters.IComponentFilter;
@@ -48,11 +47,29 @@ import org.talend.repository.model.IRepositoryService;
  */
 public class ModifyComponentsAction {
 
-    private static IService service;
+    public static void searchAndRename(ProcessItem item, String oldName, String newName) throws PersistenceException {
+        searchAndModify(item, new NameComponentFilter(oldName), Arrays
+                .<IComponentConversion> asList(new RenameComponentConversion(newName)));
+    }
 
-    public static void searchAndRename(String oldName, String newName) throws PersistenceException, IOException, CoreException {
-        searchAndModify(new NameComponentFilter(oldName), Arrays.<IComponentConversion> asList(new RenameComponentConversion(
-                newName)));
+    public static void searchAndModify(ProcessItem item, IComponentFilter filter, List<IComponentConversion> conversions)
+            throws PersistenceException {
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
+        boolean modified = false;
+        for (Object o : item.getProcess().getNode()) {
+            NodeType currentNode = (NodeType) o;
+
+            if (filter.accept(currentNode)) {
+                for (IComponentConversion conversion : conversions) {
+                    conversion.transform(currentNode);
+                    modified = true;
+                }
+            }
+        }
+        if (modified) {
+            factory.save(item);
+        }
     }
 
     public static void searchAndModify(IComponentFilter filter, List<IComponentConversion> conversions)
@@ -62,27 +79,12 @@ public class ModifyComponentsAction {
 
         List<IRepositoryObject> list = factory.getAll(ERepositoryObjectType.PROCESS, true);
 
-        boolean modified;
         for (IRepositoryObject mainobject : list) {
             List<IRepositoryObject> allVersion = factory.getAllVersion(mainobject.getId());
             for (IRepositoryObject object : allVersion) {
-                modified = false;
                 ProcessItem item = (ProcessItem) object.getProperty().getItem();
-                for (Object o : item.getProcess().getNode()) {
-                    NodeType currentNode = (NodeType) o;
-
-                    if (filter.accept(currentNode)) {
-                        for (IComponentConversion conversion : conversions) {
-                            conversion.transform(currentNode);
-                        }
-                        modified = true;
-                    }
-                }
-                if (modified) {
-                    factory.save(item);
-                }
+                searchAndModify(item, filter, conversions);
             }
         }
     }
-
 }
