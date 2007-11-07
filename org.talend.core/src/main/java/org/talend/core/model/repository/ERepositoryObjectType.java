@@ -225,4 +225,9 @@ public enum ERepositoryObjectType {
         return subItem;
     }
 
+    public boolean isExportableItem() {
+        return !subItem && !this.equals(ERepositoryObjectType.FOLDER)
+                && !this.equals(ERepositoryObjectType.REFERENCED_PROJECTS)
+                && !this.equals(ERepositoryObjectType.SNIPPETS);
+    }
 }

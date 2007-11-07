@@ -43,6 +43,11 @@
             id="org.talend.repository.localprovider.ui.actions.ImportItemAction"
             isEditAction="false"
             isReadAction="false"/>
+      <Action
+            class="org.talend.repository.localprovider.ui.actions.ExportItemAction"
+            id="org.talend.repository.localprovider.ui.actions.ExportItemAction"
+            isEditAction="false"
+            isReadAction="false"/>
    </extension>
    <extension
          point="org.eclipse.ui.actionSets">
@@ -52,12 +57,20 @@
             visible="true">
          <action
                class="org.talend.repository.localprovider.ui.actions.ImportItemAction"
-               icon="icons/import.gif"
+               icon="platform:/plugin/org.talend.commons/icons/import.gif"
                id="org.talend.repository.localprovider.ui.actions.ImportItemAction"
                label="%ImportItemAction.title"
                style="push"
                toolbarPath="Default"
                tooltip="%ImportItemAction.tooltip"/>
+         <action
+               class="org.talend.repository.localprovider.ui.actions.ExportItemAction"
+               icon="platform:/plugin/org.talend.commons/icons/export.gif"
+               id="org.talend.repository.localprovider.ui.actions.ExportItemAction"
+               label="%ExportItemAction.title"
+               style="push"
+               toolbarPath="Default"
+               tooltip="%ExportItemAction.tooltip"/>
       </actionSet>
    </extension>
 

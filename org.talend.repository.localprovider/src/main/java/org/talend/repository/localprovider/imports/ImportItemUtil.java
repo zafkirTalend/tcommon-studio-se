@@ -392,7 +392,7 @@ public class ImportItemUtil {
     }
 
     private IPath getItemPath(IPath path) {
-        return path.removeFileExtension().addFileExtension(XmiResourceManager.ITEM_EXTENSION);
+        return path.removeFileExtension().addFileExtension(FileConstants.ITEM_EXTENSION);
     }
 
 }
