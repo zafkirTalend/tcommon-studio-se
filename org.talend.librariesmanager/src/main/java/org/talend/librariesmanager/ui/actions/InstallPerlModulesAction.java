@@ -1,4 +1,4 @@
-// ============================================================================
+﻿// ============================================================================
 //
 // Talend Community Edition
 //
@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.librariesmanager.ui.actions;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.TableItem;
 import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
@@ -127,11 +129,13 @@ public class InstallPerlModulesAction extends Action {
         Process process = null;
         try {
             if (osName.equals("WINDOWS")) {
-                String path = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
+                String path = CorePlugin.getDefault().getPreferenceStore().getString(
+                        ITalendCorePrefConstants.PERL_INTERPRETER);
                 path = path.substring(0, path.lastIndexOf("\\"));
                 process = runTime.exec("cmd /c start /D" + path + "\\" + " " + installModule.getcommandName().trim());
-            } else {
-                process = runTime.exec("perl -MCPAN -e " + "'install " + installModule.getcommandName().trim() + "'");
+            } else if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") >= 0) {
+                String command = "perl -MCPAN -e " + "'install " + installModule.getcommandName().trim() + "'\n";
+                openTerminal(command, process);
             }
         } catch (Exception e) {
 
@@ -145,17 +149,29 @@ public class InstallPerlModulesAction extends Action {
         try {
             if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) {
                 modulename = modulename.replaceAll("::", "-");
-                String path = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
+                String path = CorePlugin.getDefault().getPreferenceStore().getString(
+                        ITalendCorePrefConstants.PERL_INTERPRETER);
                 path = path.substring(0, path.lastIndexOf("\\"));
                 process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + modulename);
-            } else {
-                // process = runTime.exec("C DBD::DB2'");
-                process = runTime.exec("perl -MCPAN -e " + "'install " + modulename + "'");
-                // String proc = "perl -MCPAN -e " + "'install " + modulename + "'";
-
+            } else if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") >= 0) {
+                String command = "perl -MCPAN -e 'install " + modulename + "'";
+                openTerminal(command, process);
             }
         } catch (Exception e) {
-            ExceptionHandler.process(e);
+            MessageBoxExceptionHandler.process(e);
+        }
+    }
+
+    public static void openTerminal(String command, Process process) {
+        String terminal = System.getenv("TERM");
+
+        try {
+            process = Runtime.getRuntime().exec(new String[] { terminal, "-e", command + "; $SHELL" });
+            process.waitFor();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (InterruptedException e) {
+            // TODO: handle exception
         }
     }
 }
