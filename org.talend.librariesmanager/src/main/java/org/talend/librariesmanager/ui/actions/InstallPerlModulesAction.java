@@ -129,8 +129,7 @@ public class InstallPerlModulesAction extends Action {
         Process process = null;
         try {
             if (osName.equals("WINDOWS")) {
-                String path = CorePlugin.getDefault().getPreferenceStore().getString(
-                        ITalendCorePrefConstants.PERL_INTERPRETER);
+                String path = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
                 path = path.substring(0, path.lastIndexOf("\\"));
                 process = runTime.exec("cmd /c start /D" + path + "\\" + " " + installModule.getcommandName().trim());
             } else if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") >= 0) {
@@ -149,8 +148,7 @@ public class InstallPerlModulesAction extends Action {
         try {
             if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) {
                 modulename = modulename.replaceAll("::", "-");
-                String path = CorePlugin.getDefault().getPreferenceStore().getString(
-                        ITalendCorePrefConstants.PERL_INTERPRETER);
+                String path = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
                 path = path.substring(0, path.lastIndexOf("\\"));
                 process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + modulename);
             } else if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") >= 0) {
