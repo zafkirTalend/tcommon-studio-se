@@ -132,7 +132,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     private static final String[] ACTIONSETID = new String[] { "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
             "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
             "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
-            "org.eclipse.search.searchActionSet" ,"org.eclipse.ui.externaltools.ExternalToolsSet"}; //$NON-NLS-1$
+            "org.eclipse.search.searchActionSet", "org.eclipse.ui.externaltools.ExternalToolsSet" }; //$NON-NLS-1$
 
     protected void fillMenuBar(final IMenuManager menuBar) {
 
@@ -164,15 +164,22 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         fileMenu.add(new Separator());
 
         fileMenu.add(ActionFactory.SAVE.create(window));
-        
+
         IWorkbenchAction saveAllAction = ActionFactory.SAVE_ALL.create(window);
         fileMenu.add(saveAllAction);
         actionBarConfigurer.registerGlobalAction(saveAllAction);
         // fileMenu.add(ActionFactory.SAVE_AS.create(window));
-
+        fileMenu.add(new Separator());
+        fileMenu.add(ActionFactory.PRINT.create(window));
+        fileMenu.add(new Separator());
         // CAN. SwitchProject Action must be call the LoginDialog to Change of Project and Open this.
         fileMenu.add(new SwitchProjectAction());
-        fileMenu.add(ActionFactory.PRINT.create(window));
+        fileMenu.add(new Separator());
+
+        fileMenu.add(ActionFactory.IMPORT.create(window));
+        fileMenu.add(ActionFactory.EXPORT.create(window));
+
+        fileMenu.add(new Separator());
         fileMenu.add(ActionFactory.QUIT.create(window));
         MenuManager editMenu = new MenuManager(
                 Messages.getString("ApplicationActionBarAdvisor.menuEditLabel"), IWorkbenchActionConstants.M_EDIT); //$NON-NLS-1$
