@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.designer.components;
 
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.talend.core.IService;
 
 /**
@@ -30,5 +31,7 @@ import org.talend.core.IService;
 public interface IComponentsLocalProviderService extends IService {
 
     public boolean isAvoidToShowJobAfterDoubleClick();
+
+    public IPreferenceStore getPreferenceStore();
 
 }
