@@ -549,14 +549,18 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         if (label.equalsIgnoreCase(BIN)) {
             return false;
-        } else if (RepositoryConstants.isSystemFolder(label)) {
-            // can't create the "system" folder in the root.
+        } else if (RepositoryConstants.isSystemFolder(label) || RepositoryConstants.isGeneratedFolder(label)
+                || RepositoryConstants.isJobsFolder(label)) {
+            // can't create the "system" ,"Generated", "Jobs" folder in the root.
             return false;
         } else {
             // TODO SML Delete this ?
             IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
-            String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString() + IPath.SEPARATOR
-                    + label;
+            String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
+            if(!label.equals(""))
+            {
+                completePath = completePath+ IPath.SEPARATOR+ label;
+            }
 
             // Getting the folder :
             IFolder existingFolder = ResourceUtils.getFolder(fsProject, completePath, false);
@@ -565,8 +569,8 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void deleteFolder(ERepositoryObjectType type, IPath path) throws PersistenceException {
-        // If the "System" folder is created in the root, it can't be deleted .
-        if (RepositoryConstants.isSystemFolder(path.toString())) {
+        // If the "System", "Generated", "Jobs" folder is created in the root, it can't be deleted .
+        if (RepositoryConstants.isSystemFolder(path.toString())|| RepositoryConstants.isGeneratedFolder(path.toString()) || RepositoryConstants.isJobsFolder(path.toString())) {
             return;
         }
         IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
