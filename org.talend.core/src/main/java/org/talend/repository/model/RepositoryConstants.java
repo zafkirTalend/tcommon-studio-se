@@ -71,4 +71,18 @@ public class RepositoryConstants {
         }
         return label.equalsIgnoreCase(SYSTEM_DIRECTORY);
     }
+
+    public static boolean isGeneratedFolder(String label) {
+        if (label == null) {
+            return false;
+        }
+        return label.equalsIgnoreCase(ERepositoryObjectType.GENERATED.toString());
+    }
+
+    public static boolean isJobsFolder(String label) {
+        if (label == null) {
+            return false;
+        }
+        return label.equalsIgnoreCase(ERepositoryObjectType.JOBS.toString());
+    }
 }

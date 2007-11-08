@@ -28,7 +28,6 @@ import java.util.Map;
 
 import org.talend.commons.ui.image.IImage;
 import org.talend.core.GlobalServiceRegister;
-import org.talend.core.model.process.IProcess;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.Folder;
 import org.talend.core.model.repository.IRepositoryObject;
@@ -59,8 +58,11 @@ public class RepositoryNode {
         // Represents a folder created by a user. Those folders can be rename, moved or removed.
         REPOSITORY_ELEMENT,
         // Represents an object such as a process or a table.
-        REFERENCED_PROJECT;
+        REFERENCED_PROJECT,
         // Represents a referenced project;
+        RELATED_FOLDER;
+      //Represents a folder related with others;
+        
     }
 
     /**

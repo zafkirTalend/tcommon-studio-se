@@ -64,5 +64,7 @@ public interface ITalendCorePrefConstants {
 
     String RUN_IN_MULTI_THREAD = "runInMultiThread"; //$NON-NLS-1$
 
-    String SQL_ADD_QUOTE = "addSqlQuote";
+    String SQL_ADD_QUOTE = "addSqlQuote"; //$NON-NLS-1$
+    
+    String DOC_GENERATION = "doc_generation"; //$NON-NLS-1$
 }

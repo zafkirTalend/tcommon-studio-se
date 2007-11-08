@@ -69,7 +69,9 @@ public enum ERepositoryObjectType {
     METADATA_GENERIC_SCHEMA("repository.metadataGenericSchema", "repository.metadataGenericSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     METADATA_LDAP_SCHEMA("repository.metadataLDAPSchema", "repository.metadataLDAPSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     FOLDER("repository.folder"), //$NON-NLS-1$
-    REFERENCED_PROJECTS("repository.referencedProjects", "repository.referencedProjects.alias"); //$NON-NLS-1$ //$NON-NLS-2$
+    REFERENCED_PROJECTS("repository.referencedProjects", "repository.referencedProjects.alias"), //$NON-NLS-1$ //$NON-NLS-2$
+    GENERATED("repository.generated"),
+    JOBS("repository.jobs");
 
     private String key;
 
@@ -128,6 +130,10 @@ public enum ERepositoryObjectType {
             return "code/routines"; //$NON-NLS-1$
         case DOCUMENTATION:
             return "documentations"; //$NON-NLS-1$
+        case GENERATED:
+            return "documentations/generated";
+        case JOBS:
+            return "documentations/generated/jobs";
         case METADATA:
             return "metadata"; //$NON-NLS-1$
         case METADATA_CONNECTIONS:
