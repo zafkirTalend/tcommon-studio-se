@@ -6,14 +6,23 @@
  */
 package org.talend.core.model.properties.impl;
 
+import java.util.Collection;
 import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.talend.core.model.properties.ExecutionServer;
+import org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation;
+import org.talend.core.model.properties.ExecutionVirtualServer;
 import org.talend.core.model.properties.PropertiesPackage;
 
 /**
@@ -31,6 +40,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getFileTransfertPort <em>File Transfert Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getMonitoringPort <em>Monitoring Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getVirtualServersRelations <em>Virtual Servers Relations</em>}</li>
  * </ul>
  * </p>
  *
@@ -196,6 +206,16 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
      * @ordered
      */
     protected int monitoringPort = MONITORING_PORT_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getVirtualServersRelations() <em>Virtual Servers Relations</em>}' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getVirtualServersRelations()
+     * @generated
+     * @ordered
+     */
+    protected EList virtualServersRelations;
 
     /**
      * <!-- begin-user-doc -->
@@ -388,6 +408,44 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList getVirtualServersRelations() {
+        if (virtualServersRelations == null) {
+            virtualServersRelations = new EObjectWithInverseResolvingEList(ExecutionServerPhysicalVirtualRelation.class, this, PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS, PropertiesPackage.EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION__PHYSICAL);
+        }
+        return virtualServersRelations;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS:
+                return ((InternalEList)getVirtualServersRelations()).basicAdd(otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+            case PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS:
+                return ((InternalEList)getVirtualServersRelations()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_SERVER__ID:
@@ -406,6 +464,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return isActive() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
                 return new Integer(getMonitoringPort());
+            case PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS:
+                return getVirtualServersRelations();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -440,6 +500,10 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return;
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
                 setMonitoringPort(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS:
+                getVirtualServersRelations().clear();
+                getVirtualServersRelations().addAll((Collection)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -476,6 +540,9 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
                 setMonitoringPort(MONITORING_PORT_EDEFAULT);
                 return;
+            case PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS:
+                getVirtualServersRelations().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -503,6 +570,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return active != ACTIVE_EDEFAULT;
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
                 return monitoringPort != MONITORING_PORT_EDEFAULT;
+            case PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS:
+                return virtualServersRelations != null && !virtualServersRelations.isEmpty();
         }
         return super.eIsSet(featureID);
     }

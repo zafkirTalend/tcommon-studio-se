@@ -6,6 +6,7 @@
  */
 package org.talend.core.model.properties;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -24,6 +25,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getFileTransfertPort <em>File Transfert Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.ExecutionServer#getMonitoringPort <em>Monitoring Port</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionServer#getVirtualServersRelations <em>Virtual Servers Relations</em>}</li>
  * </ul>
  * </p>
  *
@@ -242,5 +244,23 @@ public interface ExecutionServer extends EObject {
      * @generated
      */
     void setMonitoringPort(int value);
+
+    /**
+     * Returns the value of the '<em><b>Virtual Servers Relations</b></em>' reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation}.
+     * It is bidirectional and its opposite is '{@link org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation#getPhysical <em>Physical</em>}'.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Virtual Servers Relations</em>' reference list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Virtual Servers Relations</em>' reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionServer_VirtualServersRelations()
+     * @see org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation#getPhysical
+     * @model type="org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation" opposite="physical"
+     * @generated
+     */
+    EList getVirtualServersRelations();
 
 } // ExecutionServer

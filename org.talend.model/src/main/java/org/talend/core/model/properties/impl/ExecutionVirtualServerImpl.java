@@ -1,50 +1,51 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.properties.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
-
+import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EClass;
-
+import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-
+import org.eclipse.emf.ecore.util.EObjectEList;
+import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 import org.talend.core.model.properties.ExecutionServer;
+import org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation;
 import org.talend.core.model.properties.ExecutionVirtualServer;
 import org.talend.core.model.properties.PropertiesPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Execution Virtual Server</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Execution Virtual Server</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getId <em>Id</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getLabel <em>Label</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getDescription <em>Description</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#isActive <em>Active</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getPhysicalServers <em>Physical Servers</em>}</li>
+ * <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getId <em>Id</em>}</li>
+ * <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getLabel <em>Label</em>}</li>
+ * <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getDescription <em>Description</em>}</li>
+ * <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#isActive <em>Active</em>}</li>
+ * <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getPhysicalServersRelations <em>Physical Servers Relations</em>}</li>
+ * <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getPhysicalServers <em>Physical Servers</em>}</li>
  * </ul>
  * </p>
- *
+ * 
  * @generated
  */
 public class ExecutionVirtualServerImpl extends EObjectImpl implements ExecutionVirtualServer {
+
     /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getId()
      * @generated
      * @ordered
@@ -52,9 +53,8 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     protected static final int ID_EDEFAULT = 0;
 
     /**
-     * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getId()
      * @generated
      * @ordered
@@ -62,9 +62,9 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     protected int id = ID_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getLabel() <em>Label</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getLabel()
      * @generated
      * @ordered
@@ -72,9 +72,9 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     protected static final String LABEL_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #getLabel()
      * @generated
      * @ordered
@@ -82,9 +82,9 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     protected String label = LABEL_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
+     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #getDescription()
      * @generated
      * @ordered
@@ -92,9 +92,9 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     protected static final String DESCRIPTION_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
-     * <!-- begin-user-doc -->
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute. <!-- begin-user-doc -->
      * <!-- end-user-doc -->
+     * 
      * @see #getDescription()
      * @generated
      * @ordered
@@ -102,9 +102,9 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     protected String description = DESCRIPTION_EDEFAULT;
 
     /**
-     * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #isActive() <em>Active</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #isActive()
      * @generated
      * @ordered
@@ -112,9 +112,9 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     protected static final boolean ACTIVE_EDEFAULT = false;
 
     /**
-     * The cached value of the '{@link #isActive() <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #isActive() <em>Active</em>}' attribute. <!-- begin-user-doc --> <!--
+     * end-user-doc -->
+     * 
      * @see #isActive()
      * @generated
      * @ordered
@@ -122,18 +122,18 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     protected boolean active = ACTIVE_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getPhysicalServers() <em>Physical Servers</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getPhysicalServers()
+     * The cached value of the '{@link #getPhysicalServersRelations() <em>Physical Servers Relations</em>}' reference
+     * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @see #getPhysicalServersRelations()
      * @generated
      * @ordered
      */
-    protected EList physicalServers;
+    protected EList physicalServersRelations;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected ExecutionVirtualServerImpl() {
@@ -141,8 +141,8 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     protected EClass eStaticClass() {
@@ -150,8 +150,8 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public int getId() {
@@ -159,20 +159,21 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setId(int newId) {
         int oldId = id;
         id = newId;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ID, oldId, id));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ID,
+                    oldId, id));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getLabel() {
@@ -180,20 +181,21 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setLabel(String newLabel) {
         String oldLabel = label;
         label = newLabel;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_VIRTUAL_SERVER__LABEL, oldLabel, label));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_VIRTUAL_SERVER__LABEL,
+                    oldLabel, label));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String getDescription() {
@@ -201,20 +203,21 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setDescription(String newDescription) {
         String oldDescription = description;
         description = newDescription;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_VIRTUAL_SERVER__DESCRIPTION, oldDescription, description));
+            eNotify(new ENotificationImpl(this, Notification.SET,
+                    PropertiesPackage.EXECUTION_VIRTUAL_SERVER__DESCRIPTION, oldDescription, description));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean isActive() {
@@ -222,131 +225,185 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void setActive(boolean newActive) {
         boolean oldActive = active;
         active = newActive;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE, oldActive, active));
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE,
+                    oldActive, active));
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> This method is a technical method. It contains the relations between the
+     * ExecutionVirtualServer and the ExecutionServer. <!-- end-user-doc -->
+     * 
      * @generated
      */
+    public EList getPhysicalServersRelations() {
+        if (physicalServersRelations == null) {
+            physicalServersRelations = new EObjectWithInverseResolvingEList(
+                    ExecutionServerPhysicalVirtualRelation.class, this,
+                    PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS,
+                    PropertiesPackage.EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION__VIRTUAL);
+        }
+        return physicalServersRelations;
+    }
+
+    /**
+     * <!-- begin-user-doc --> Get the physical servers from the technical relation object (physicalServersRelations).
+     * <!-- end-user-doc -->
+     * 
+     * @generated NOT
+     */
     public EList getPhysicalServers() {
-        if (physicalServers == null) {
-            physicalServers = new EObjectResolvingEList(ExecutionServer.class, this, PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS);
+        EList physicalServers = new EObjectEList<ExecutionServer>(ExecutionServer.class, this,
+                PropertiesPackage.EXECUTION_SERVER);
+        EList relations = getPhysicalServersRelations();
+        for (Iterator itRelation = relations.iterator(); itRelation.hasNext();) {
+            ExecutionServerPhysicalVirtualRelation rel = (ExecutionServerPhysicalVirtualRelation) itRelation.next();
+            ExecutionServer physical = rel.getPhysical();
+            physicalServers.add(physical);
         }
         return physicalServers;
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS:
+            return ((InternalEList) getPhysicalServersRelations()).basicAdd(otherEnd, msgs);
+        }
+        return super.eInverseAdd(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
+     * @generated
+     */
+    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+        switch (featureID) {
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS:
+            return ((InternalEList) getPhysicalServersRelations()).basicRemove(otherEnd, msgs);
+        }
+        return super.eInverseRemove(otherEnd, featureID, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ID:
-                return new Integer(getId());
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__LABEL:
-                return getLabel();
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__DESCRIPTION:
-                return getDescription();
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE:
-                return isActive() ? Boolean.TRUE : Boolean.FALSE;
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS:
-                return getPhysicalServers();
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ID:
+            return new Integer(getId());
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__LABEL:
+            return getLabel();
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__DESCRIPTION:
+            return getDescription();
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE:
+            return isActive() ? Boolean.TRUE : Boolean.FALSE;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS:
+            return getPhysicalServersRelations();
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS:
+            return getPhysicalServers();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ID:
-                setId(((Integer)newValue).intValue());
-                return;
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__LABEL:
-                setLabel((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__DESCRIPTION:
-                setDescription((String)newValue);
-                return;
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE:
-                setActive(((Boolean)newValue).booleanValue());
-                return;
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS:
-                getPhysicalServers().clear();
-                getPhysicalServers().addAll((Collection)newValue);
-                return;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ID:
+            setId(((Integer) newValue).intValue());
+            return;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__LABEL:
+            setLabel((String) newValue);
+            return;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__DESCRIPTION:
+            setDescription((String) newValue);
+            return;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE:
+            setActive(((Boolean) newValue).booleanValue());
+            return;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS:
+            getPhysicalServersRelations().clear();
+            getPhysicalServersRelations().addAll((Collection) newValue);
+            return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public void eUnset(int featureID) {
         switch (featureID) {
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ID:
-                setId(ID_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__LABEL:
-                setLabel(LABEL_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__DESCRIPTION:
-                setDescription(DESCRIPTION_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE:
-                setActive(ACTIVE_EDEFAULT);
-                return;
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS:
-                getPhysicalServers().clear();
-                return;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ID:
+            setId(ID_EDEFAULT);
+            return;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__LABEL:
+            setLabel(LABEL_EDEFAULT);
+            return;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__DESCRIPTION:
+            setDescription(DESCRIPTION_EDEFAULT);
+            return;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE:
+            setActive(ACTIVE_EDEFAULT);
+            return;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS:
+            getPhysicalServersRelations().clear();
+            return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ID:
-                return id != ID_EDEFAULT;
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__LABEL:
-                return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__DESCRIPTION:
-                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE:
-                return active != ACTIVE_EDEFAULT;
-            case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS:
-                return physicalServers != null && !physicalServers.isEmpty();
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ID:
+            return id != ID_EDEFAULT;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__LABEL:
+            return LABEL_EDEFAULT == null ? label != null : !LABEL_EDEFAULT.equals(label);
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__DESCRIPTION:
+            return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE:
+            return active != ACTIVE_EDEFAULT;
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS:
+            return physicalServersRelations != null && !physicalServersRelations.isEmpty();
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS:
+            return !getPhysicalServers().isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @generated
      */
     public String toString() {
-        if (eIsProxy()) return super.toString();
+        if (eIsProxy())
+            return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
         result.append(" (id: ");
@@ -361,4 +418,4 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
         return result.toString();
     }
 
-} //ExecutionVirtualServerImpl
+} // ExecutionVirtualServerImpl

@@ -29,6 +29,7 @@ import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.ExecutionServer;
+import org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.ExecutionVirtualServer;
 import org.talend.core.model.properties.FileItem;
@@ -331,6 +332,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass executionVirtualServerEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass executionServerPhysicalVirtualRelationEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -1706,6 +1714,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getExecutionServer_VirtualServersRelations() {
+        return (EReference)executionServerEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getExecutionTask() {
         return executionTaskEClass;
     }
@@ -2183,8 +2200,44 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getExecutionVirtualServer_PhysicalServers() {
+    public EReference getExecutionVirtualServer_PhysicalServersRelations() {
         return (EReference)executionVirtualServerEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getExecutionVirtualServer_PhysicalServers() {
+        return (EReference)executionVirtualServerEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getExecutionServerPhysicalVirtualRelation() {
+        return executionServerPhysicalVirtualRelationEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getExecutionServerPhysicalVirtualRelation_Physical() {
+        return (EReference)executionServerPhysicalVirtualRelationEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getExecutionServerPhysicalVirtualRelation_Virtual() {
+        return (EReference)executionServerPhysicalVirtualRelationEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -2459,6 +2512,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionServerEClass, EXECUTION_SERVER__FILE_TRANSFERT_PORT);
         createEAttribute(executionServerEClass, EXECUTION_SERVER__ACTIVE);
         createEAttribute(executionServerEClass, EXECUTION_SERVER__MONITORING_PORT);
+        createEReference(executionServerEClass, EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS);
 
         executionTaskEClass = createEClass(EXECUTION_TASK);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__ID);
@@ -2518,7 +2572,12 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__LABEL);
         createEAttribute(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__DESCRIPTION);
         createEAttribute(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__ACTIVE);
+        createEReference(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS);
         createEReference(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS);
+
+        executionServerPhysicalVirtualRelationEClass = createEClass(EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION);
+        createEReference(executionServerPhysicalVirtualRelationEClass, EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION__PHYSICAL);
+        createEReference(executionServerPhysicalVirtualRelationEClass, EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION__VIRTUAL);
 
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
@@ -2767,6 +2826,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionServer_FileTransfertPort(), theEcorePackage.getEInt(), "fileTransfertPort", "-1", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionServer_Active(), theEcorePackage.getEBoolean(), "active", null, 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionServer_MonitoringPort(), theEcorePackage.getEInt(), "monitoringPort", "-1", 0, 1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getExecutionServer_VirtualServersRelations(), this.getExecutionServerPhysicalVirtualRelation(), this.getExecutionServerPhysicalVirtualRelation_Physical(), "virtualServersRelations", null, 0, -1, ExecutionServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(executionTaskEClass, ExecutionTask.class, "ExecutionTask", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getExecutionTask_Id(), ecorePackage.getEInt(), "id", null, 1, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2826,7 +2886,12 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionVirtualServer_Label(), theEcorePackage.getEString(), "label", null, 0, 1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionVirtualServer_Description(), theEcorePackage.getEString(), "description", null, 0, 1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionVirtualServer_Active(), theEcorePackage.getEBoolean(), "active", null, 0, 1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEReference(getExecutionVirtualServer_PhysicalServers(), this.getExecutionServer(), null, "physicalServers", null, 0, -1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getExecutionVirtualServer_PhysicalServersRelations(), this.getExecutionServerPhysicalVirtualRelation(), this.getExecutionServerPhysicalVirtualRelation_Virtual(), "physicalServersRelations", null, 0, -1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getExecutionVirtualServer_PhysicalServers(), this.getExecutionServer(), null, "physicalServers", null, 0, -1, ExecutionVirtualServer.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(executionServerPhysicalVirtualRelationEClass, ExecutionServerPhysicalVirtualRelation.class, "ExecutionServerPhysicalVirtualRelation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getExecutionServerPhysicalVirtualRelation_Physical(), this.getExecutionServer(), this.getExecutionServer_VirtualServersRelations(), "physical", null, 0, 1, ExecutionServerPhysicalVirtualRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getExecutionServerPhysicalVirtualRelation_Virtual(), this.getExecutionVirtualServer(), this.getExecutionVirtualServer_PhysicalServersRelations(), "virtual", null, 0, 1, ExecutionServerPhysicalVirtualRelation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");
