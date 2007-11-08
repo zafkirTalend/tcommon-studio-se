@@ -30,6 +30,20 @@ import org.talend.core.IService;
  */
 public interface IComponentsLocalProviderService extends IService {
 
+    public static final String FORMAT_IDS = "formatIds";
+
+    public static final String IDS_SEPARATOR = ";";
+
+    public static final String PALETTE_ENTRY_TYPE = ":ToolEntry";
+
+    public static final String PALETTE_CONTAINER_TYPE = ":PaletteContainer";
+
+    public final static String PREFERENCE_TYPE_HINT = ":HINT";
+
+    public final static String PREFERENCE_TYPE_LABEL = ":LABEL";
+
+    public final static String PREFERENCE_TYPE_CONNECTION = ":CONNECTION";
+
     public boolean isAvoidToShowJobAfterDoubleClick();
 
     public IPreferenceStore getPreferenceStore();
