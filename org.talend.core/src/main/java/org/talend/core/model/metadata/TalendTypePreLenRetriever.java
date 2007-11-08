@@ -38,13 +38,16 @@ public class TalendTypePreLenRetriever {
 
     private int dbPrecion;
 
+    private String talendTypeNew;
+
     public TalendTypePreLenRetriever(MappingType mappingType, int dbLength, int dbPrecion) {
         this.mappingtype = mappingType;
         this.dbLength = dbLength;
         this.dbPrecion = dbPrecion;
+        this.talendTypeNew = mappingType.getTalendType();
         List<TalendTypePrecisionLength> list = new ArrayList();
-        TalendTypePrecisionLength talendTypeFloat = new TalendTypePrecisionLength("id_Float", 32, 0, 16, 1);
-        TalendTypePrecisionLength talendTypeInt = new TalendTypePrecisionLength("id_Integer", 32, 0, 0, 0);
+        TalendTypePrecisionLength talendTypeFloat = new TalendTypePrecisionLength("id_Float", 32, 0, 16, 0);
+        TalendTypePrecisionLength talendTypeInt = new TalendTypePrecisionLength("id_Integer", 16, 0, 0, 0);
         TalendTypePrecisionLength talendTypeLong = new TalendTypePrecisionLength("id_Long", 64, 0, 32, 17);
         TalendTypePrecisionLength talendTypeDouble = new TalendTypePrecisionLength("id_Double", 64, 0, 64, 33);
         list.add(talendTypeFloat);
@@ -60,7 +63,7 @@ public class TalendTypePreLenRetriever {
             for (TalendTypePrecisionLength talendtype : talendTypeList) {
                 if ((talendtype.getLengthMin() <= dbLength && dbLength <= talendtype.getLengthMax())
                         && (talendtype.getPrecMin() <= dbPrecion && dbPrecion <= talendtype.getPrecMax())) {
-                    mappingtype.setTalendType(talendtype.getTalendtype());
+                    talendTypeNew = talendtype.getTalendtype();
                     return;
                 }
             }
@@ -70,8 +73,8 @@ public class TalendTypePreLenRetriever {
 
     }
 
-    public MappingType getMappingType() {
+    public String getMappingType() {
 
-        return mappingtype;
+        return this.talendTypeNew;
     }
 }

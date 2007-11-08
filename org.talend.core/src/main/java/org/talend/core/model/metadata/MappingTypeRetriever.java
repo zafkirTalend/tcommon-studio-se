@@ -21,6 +21,7 @@
 // ============================================================================
 package org.talend.core.model.metadata;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,13 +69,11 @@ public class MappingTypeRetriever {
         Set<MappingType> mappingTypes = dbms.getTalendToDbTypes();
         defaultMappings.clear();
         mapTalendToDbTypes.clear();
-
         for (MappingType mappingType : mappingTypes) {
 
             MappingType mapTalendToDbKey = new MappingType();
             mapTalendToDbKey.setTalendType(mappingType.getTalendType());
             mapTalendToDbTypes.put(mapTalendToDbKey, mappingType);
-
             if (mappingType.getDefaultSelected()) {
                 mapTalendToDbKey = new MappingType();
                 mapTalendToDbKey.setTalendType(mappingType.getTalendType());
@@ -83,15 +82,12 @@ public class MappingTypeRetriever {
             }
 
         }
-
         mappingTypes = dbms.getDbToTalendTypes();
         mapDbToTalendTypes.clear();
         for (MappingType mappingType : mappingTypes) {
-
             MappingType mapDbToTalendKey = new MappingType();
             mapDbToTalendKey.setDbType(mappingType.getDbType());
             mapDbToTalendTypes.put(mapDbToTalendKey, mappingType);
-
             if (mappingType.getDefaultSelected()) {
                 mapDbToTalendKey = new MappingType();
                 mapDbToTalendKey.setDbType(mappingType.getDbType().toUpperCase());
@@ -251,22 +247,27 @@ public class MappingTypeRetriever {
         }
         mappingTypeKey.setDbType(dbmsType.toUpperCase());
         mappingTypeKey.setTalendType(null);
+        List<MappingType> listMappingtype = new ArrayList<MappingType>();
+        listMappingtype = (List<MappingType>) mapDbToTalendTypes.get(mappingTypeKey);
         mappingTypeKey.setDefaultSelected(Boolean.TRUE);
-        MappingType mappingType = defaultMappings.get(mappingTypeKey);
-        if (mappingType == null) {
+        MappingType mappingTypeOrigin = defaultMappings.get(mappingTypeKey);
+        if (mappingTypeOrigin == null) {
             mappingTypeKey.setDefaultSelected(Boolean.FALSE);
-            mappingType = defaultMappings.get(mappingTypeKey);
-            if (mappingType == null) {
+            mappingTypeOrigin = defaultMappings.get(mappingTypeKey);
+            if (mappingTypeOrigin == null) {
                 return MetadataTalendType.getDefaultTalendType();
-            } else {
-                TalendTypePreLenRetriever talendTypePre = new TalendTypePreLenRetriever(mappingType, length, precison);
-                mappingType = talendTypePre.getMappingType();
             }
-        } else {
-            TalendTypePreLenRetriever talendTypePre = new TalendTypePreLenRetriever(mappingType, length, precison);
-            mappingType = talendTypePre.getMappingType();
         }
-        return mappingType.getTalendType();
+        TalendTypePreLenRetriever talendTypePre = new TalendTypePreLenRetriever(mappingTypeOrigin, length, precison);
+        String mappingType = talendTypePre.getMappingType();
+        for (MappingType type : listMappingtype) {
+            if (type.getTalendType().equals(mappingType)) {
+                return type.getTalendType();
+            }
+        }
+
+        return mappingTypeOrigin.getTalendType();
+
     }
 
     /**
