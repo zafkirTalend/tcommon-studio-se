@@ -2,12 +2,10 @@ package routines;
 
 import java.text.FieldPosition;
 import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import routines.system.FastDateParser;
 import routines.system.LocaleProvider;
@@ -180,7 +178,9 @@ public class TalendDate {
      * 
      * {Category} TalendDate
      * 
-     * {param} string("2007-01-01") min : minimum date {param} string("2008-12-31") max : maximum date (superior to min)
+     * {param} string("2007-01-01") min : minimum date
+     * 
+     * {param} string("2008-12-31") max : maximum date (superior to min)
      * 
      * {example} getRandomDate("1981-01-18", "2005-07-24") {example} getRandomDate("1980-12-08", "2007-02-26")
      */
@@ -215,6 +215,7 @@ public class TalendDate {
         final String dateTimeRef_Test1 = "1979-03-23 mars 12:30";
         Thread test1 = new Thread() {
 
+            @Override
             public void run() {
                 Calendar calendar = GregorianCalendar.getInstance();
                 calendar.set(1979, 2, 23, 12, 30, 40);
@@ -233,6 +234,7 @@ public class TalendDate {
         final String dateTimeRef_Test2 = "1980-03-23 mars 12:30";
         Thread test2 = new Thread() {
 
+            @Override
             public void run() {
                 Calendar calendar = GregorianCalendar.getInstance();
                 calendar.set(1980, 2, 23, 12, 30, 40);
@@ -252,6 +254,7 @@ public class TalendDate {
         final String dateTimeRef_Test3 = "1979-03-23 mars 12:30";
         Thread test3 = new Thread() {
 
+            @Override
             public void run() {
                 Calendar calendar = GregorianCalendar.getInstance();
                 calendar.set(1979, 2, 23, 12, 30, 40);
@@ -270,6 +273,7 @@ public class TalendDate {
         final String dateTimeRef_Test4 = "1980-03-23 Mar 12:30";
         Thread test4 = new Thread() {
 
+            @Override
             public void run() {
                 Calendar calendar = GregorianCalendar.getInstance();
                 calendar.set(1980, 2, 23, 12, 30, 40);
@@ -289,6 +293,7 @@ public class TalendDate {
         final String dateTimeRef_Test5 = "1979-03-23";
         Thread test5 = new Thread() {
 
+            @Override
             public void run() {
                 Calendar calendar = GregorianCalendar.getInstance();
                 calendar.set(1979, 2, 23, 12, 30, 40);
