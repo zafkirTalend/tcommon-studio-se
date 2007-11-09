@@ -50,7 +50,8 @@ public class InstallPerlModulesAction extends Action {
         super();
         setText(Messages.getString("InstallPerlModulesAction.InstallBtn.Text")); //$NON-NLS-1$
         setToolTipText(Messages.getString("InstallPerlModulesAction.InstallBtn.Text")); //$NON-NLS-1$
-        setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_NEW_WIZARD));
+        setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(
+                ISharedImages.IMG_TOOL_NEW_WIZARD));
         init();
     }
 
@@ -130,7 +131,8 @@ public class InstallPerlModulesAction extends Action {
                 // process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + modulename);
                 List<String> InstallModuleAll = module.getInstallURL();
                 if (InstallModuleAll != null) {
-                    if (InstallModuleAll.size() != 0) {
+                    if (InstallModuleAll.size() != 0
+                            && System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) {
                         for (String installModule : InstallModuleAll) {
                             execSpecialInstall(installModule);
                         }
@@ -152,13 +154,15 @@ public class InstallPerlModulesAction extends Action {
         Process process = null;
         try {
             if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) {
-                String path = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
+                String path = CorePlugin.getDefault().getPreferenceStore().getString(
+                        ITalendCorePrefConstants.PERL_INTERPRETER);
                 path = path.substring(0, path.lastIndexOf("\\"));
                 process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + installModule);
-            } else if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") >= 0) {
-                String command = "perl -MCPAN -e " + "'install " + installModule + "'\n";
-                openTerminal(command, process);
             }
+            // else if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") >= 0) {
+            // String command = "perl -MCPAN -e " + "'install " + installModule + "'\n";
+            // openTerminal(command, process);
+            // }
         } catch (Exception e) {
 
             ExceptionHandler.process(e);
@@ -171,7 +175,8 @@ public class InstallPerlModulesAction extends Action {
         try {
             if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) {
                 modulename = modulename.replaceAll("::", "-");
-                String path = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
+                String path = CorePlugin.getDefault().getPreferenceStore().getString(
+                        ITalendCorePrefConstants.PERL_INTERPRETER);
                 path = path.substring(0, path.lastIndexOf("\\"));
                 process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + modulename);
             } else if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") >= 0) {
