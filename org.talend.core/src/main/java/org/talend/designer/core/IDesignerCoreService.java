@@ -24,9 +24,11 @@ package org.talend.designer.core;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.ui.IPartListener;
 import org.talend.core.IService;
+import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
@@ -61,4 +63,8 @@ public interface IDesignerCoreService extends IService {
     public void refreshDesignerPalette();
 
     public IPartListener getActiveProcessTracker();
+
+    public String getPreferenceStore(String key);
+
+    public PaletteRoot createPalette(IComponentsFactory factory);
 }
