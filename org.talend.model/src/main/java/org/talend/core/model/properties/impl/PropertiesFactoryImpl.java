@@ -128,7 +128,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.CRON_UI_TALEND_TRIGGER: return createCronUITalendTrigger();
             case PropertiesPackage.SIMPLE_TALEND_TRIGGER: return createSimpleTalendTrigger();
             case PropertiesPackage.EXECUTION_VIRTUAL_SERVER: return createExecutionVirtualServer();
-            case PropertiesPackage.EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION: return createExecutionServerPhysicalVirtualRelation();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -517,16 +516,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public ExecutionVirtualServer createExecutionVirtualServer() {
         ExecutionVirtualServerImpl executionVirtualServer = new ExecutionVirtualServerImpl();
         return executionVirtualServer;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public ExecutionServerPhysicalVirtualRelation createExecutionServerPhysicalVirtualRelation() {
-        ExecutionServerPhysicalVirtualRelationImpl executionServerPhysicalVirtualRelation = new ExecutionServerPhysicalVirtualRelationImpl();
-        return executionServerPhysicalVirtualRelation;
     }
 
     /**

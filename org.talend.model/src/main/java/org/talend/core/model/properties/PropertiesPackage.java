@@ -2124,22 +2124,13 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_SERVER__MONITORING_PORT = 7;
 
     /**
-     * The feature id for the '<em><b>Virtual Servers Relations</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS = 8;
-
-    /**
      * The number of structural features of the '<em>Execution Server</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_SERVER_FEATURE_COUNT = 9;
+    int EXECUTION_SERVER_FEATURE_COUNT = 8;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.
@@ -2940,22 +2931,13 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_VIRTUAL_SERVER__ACTIVE = 3;
 
     /**
-     * The feature id for the '<em><b>Physical Servers Relations</b></em>' reference list.
+     * The feature id for the '<em><b>Execution Servers</b></em>' reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS = 4;
-
-    /**
-     * The feature id for the '<em><b>Physical Servers</b></em>' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS = 5;
+    int EXECUTION_VIRTUAL_SERVER__EXECUTION_SERVERS = 4;
 
     /**
      * The number of structural features of the '<em>Execution Virtual Server</em>' class.
@@ -2964,44 +2946,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int EXECUTION_VIRTUAL_SERVER_FEATURE_COUNT = 6;
-
-    /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.ExecutionServerPhysicalVirtualRelationImpl <em>Execution Server Physical Virtual Relation</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.ExecutionServerPhysicalVirtualRelationImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionServerPhysicalVirtualRelation()
-     * @generated
-     */
-    int EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION = 41;
-
-    /**
-     * The feature id for the '<em><b>Physical</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION__PHYSICAL = 0;
-
-    /**
-     * The feature id for the '<em><b>Virtual</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION__VIRTUAL = 1;
-
-    /**
-     * The number of structural features of the '<em>Execution Server Physical Virtual Relation</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION_FEATURE_COUNT = 2;
+    int EXECUTION_VIRTUAL_SERVER_FEATURE_COUNT = 5;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
@@ -3010,7 +2955,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 42;
+    int FOLDER_TYPE = 41;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -3020,7 +2965,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 43;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 42;
 
 
     /**
@@ -3031,7 +2976,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 44;
+    int USER_MODULE_AUTHORIZATION_TYPE = 43;
 
 
     /**
@@ -4577,17 +4522,6 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionServer_MonitoringPort();
 
     /**
-     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.ExecutionServer#getVirtualServersRelations <em>Virtual Servers Relations</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Virtual Servers Relations</em>'.
-     * @see org.talend.core.model.properties.ExecutionServer#getVirtualServersRelations()
-     * @see #getExecutionServer()
-     * @generated
-     */
-    EReference getExecutionServer_VirtualServersRelations();
-
-    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionTask <em>Execution Task</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5165,58 +5099,15 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getExecutionVirtualServer_Active();
 
     /**
-     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.ExecutionVirtualServer#getPhysicalServersRelations <em>Physical Servers Relations</em>}'.
+     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.ExecutionVirtualServer#getExecutionServers <em>Execution Servers</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Physical Servers Relations</em>'.
-     * @see org.talend.core.model.properties.ExecutionVirtualServer#getPhysicalServersRelations()
+     * @return the meta object for the reference list '<em>Execution Servers</em>'.
+     * @see org.talend.core.model.properties.ExecutionVirtualServer#getExecutionServers()
      * @see #getExecutionVirtualServer()
      * @generated
      */
-    EReference getExecutionVirtualServer_PhysicalServersRelations();
-
-    /**
-     * Returns the meta object for the reference list '{@link org.talend.core.model.properties.ExecutionVirtualServer#getPhysicalServers <em>Physical Servers</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference list '<em>Physical Servers</em>'.
-     * @see org.talend.core.model.properties.ExecutionVirtualServer#getPhysicalServers()
-     * @see #getExecutionVirtualServer()
-     * @generated
-     */
-    EReference getExecutionVirtualServer_PhysicalServers();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation <em>Execution Server Physical Virtual Relation</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Execution Server Physical Virtual Relation</em>'.
-     * @see org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation
-     * @generated
-     */
-    EClass getExecutionServerPhysicalVirtualRelation();
-
-    /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation#getPhysical <em>Physical</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Physical</em>'.
-     * @see org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation#getPhysical()
-     * @see #getExecutionServerPhysicalVirtualRelation()
-     * @generated
-     */
-    EReference getExecutionServerPhysicalVirtualRelation_Physical();
-
-    /**
-     * Returns the meta object for the reference '{@link org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation#getVirtual <em>Virtual</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the reference '<em>Virtual</em>'.
-     * @see org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation#getVirtual()
-     * @see #getExecutionServerPhysicalVirtualRelation()
-     * @generated
-     */
-    EReference getExecutionServerPhysicalVirtualRelation_Virtual();
+    EReference getExecutionVirtualServer_ExecutionServers();
 
     /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
@@ -6554,14 +6445,6 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_SERVER__MONITORING_PORT = eINSTANCE.getExecutionServer_MonitoringPort();
 
         /**
-         * The meta object literal for the '<em><b>Virtual Servers Relations</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS = eINSTANCE.getExecutionServer_VirtualServersRelations();
-
-        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionTaskImpl <em>Execution Task</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -6998,46 +6881,12 @@ public interface PropertiesPackage extends EPackage {
         EAttribute EXECUTION_VIRTUAL_SERVER__ACTIVE = eINSTANCE.getExecutionVirtualServer_Active();
 
         /**
-         * The meta object literal for the '<em><b>Physical Servers Relations</b></em>' reference list feature.
+         * The meta object literal for the '<em><b>Execution Servers</b></em>' reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS = eINSTANCE.getExecutionVirtualServer_PhysicalServersRelations();
-
-        /**
-         * The meta object literal for the '<em><b>Physical Servers</b></em>' reference list feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS = eINSTANCE.getExecutionVirtualServer_PhysicalServers();
-
-        /**
-         * The meta object literal for the '{@link org.talend.core.model.properties.impl.ExecutionServerPhysicalVirtualRelationImpl <em>Execution Server Physical Virtual Relation</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.core.model.properties.impl.ExecutionServerPhysicalVirtualRelationImpl
-         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getExecutionServerPhysicalVirtualRelation()
-         * @generated
-         */
-        EClass EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION = eINSTANCE.getExecutionServerPhysicalVirtualRelation();
-
-        /**
-         * The meta object literal for the '<em><b>Physical</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION__PHYSICAL = eINSTANCE.getExecutionServerPhysicalVirtualRelation_Physical();
-
-        /**
-         * The meta object literal for the '<em><b>Virtual</b></em>' reference feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EReference EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION__VIRTUAL = eINSTANCE.getExecutionServerPhysicalVirtualRelation_Virtual();
+        EReference EXECUTION_VIRTUAL_SERVER__EXECUTION_SERVERS = eINSTANCE.getExecutionVirtualServer_ExecutionServers();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

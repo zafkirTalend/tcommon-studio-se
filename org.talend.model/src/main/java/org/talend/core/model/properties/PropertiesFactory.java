@@ -346,15 +346,6 @@ public interface PropertiesFactory extends EFactory {
     ExecutionVirtualServer createExecutionVirtualServer();
 
     /**
-     * Returns a new object of class '<em>Execution Server Physical Virtual Relation</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>Execution Server Physical Virtual Relation</em>'.
-     * @generated
-     */
-    ExecutionServerPhysicalVirtualRelation createExecutionServerPhysicalVirtualRelation();
-
-    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

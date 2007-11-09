@@ -258,8 +258,6 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="active" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="monitoringPort" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"
         defaultValueLiteral="-1"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="virtualServersRelations"
-        upperBound="-1" eType="#//ExecutionServerPhysicalVirtualRelation" eOpposite="#//ExecutionServerPhysicalVirtualRelation/physical"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExecutionTask">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
@@ -326,16 +324,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="label" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="active" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="physicalServersRelations"
-        upperBound="-1" eType="#//ExecutionServerPhysicalVirtualRelation" eOpposite="#//ExecutionServerPhysicalVirtualRelation/virtual"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="physicalServers" unique="false"
-        upperBound="-1" eType="#//ExecutionServer" changeable="false" volatile="true"
-        transient="true" resolveProxies="false"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExecutionServerPhysicalVirtualRelation">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="physical" eType="#//ExecutionServer"
-        eOpposite="#//ExecutionServer/virtualServersRelations"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="virtual" eType="#//ExecutionVirtualServer"
-        eOpposite="#//ExecutionVirtualServer/physicalServersRelations"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="executionServers" unique="false"
+        upperBound="-1" eType="#//ExecutionServer"/>
   </eClassifiers>
 </ecore:EPackage>
