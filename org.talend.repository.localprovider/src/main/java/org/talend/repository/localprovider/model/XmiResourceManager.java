@@ -295,4 +295,12 @@ public class XmiResourceManager {
     public void setUseOldProjectFile(boolean useOldProjectFile) {
         this.useOldProjectFile = useOldProjectFile;
     }
+
+    public void unloadResources() {
+        List<Resource> resources = new ArrayList<Resource>(resourceSet.getResources());
+        for (Resource resource : resources) {
+            resource.unload();
+            resourceSet.getResources().remove(resource);
+        }
+    }
 }
