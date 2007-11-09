@@ -66,6 +66,9 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
                         log.warn("Migration task " + this.getName() + " failed on item " + item.getProperty().getLabel());
                         executeFinal = ExecutionResult.FAILURE;
                     }
+                    if (executeFinal != ExecutionResult.FAILURE) {
+                        executeFinal = execute;
+                    }
                 }
             }
 
