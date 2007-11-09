@@ -42,6 +42,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TreeEditor;
 import org.eclipse.swt.events.MouseAdapter;
@@ -54,6 +55,8 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
@@ -185,6 +188,9 @@ public class ConextTreeValuesComposite extends Composite {
         provider = new ViewerProvier();
         viewer.setLabelProvider(provider);
         viewer.setContentProvider(provider);
+
+        addSorter(viewer);
+
         setDefaultPresentationType();
 
         final TreeEditor treeEditor = new TreeEditor(tree);
@@ -213,9 +219,63 @@ public class ConextTreeValuesComposite extends Composite {
 
     }
 
+    /**
+     * DOC bqian Comment method "addSorter".
+     * 
+     * @param viewer2
+     */
+    private void addSorter(final TreeViewer viewer2) {
+        final Tree table = viewer2.getTree();
+        Listener sortListener = new Listener() {
+
+            private int direction = 1;
+
+            public void handleEvent(Event e) {
+                final TreeColumn column = (TreeColumn) e.widget;
+
+                if (column == table.getSortColumn()) {
+                    direction = -direction;
+                }
+                if (direction == 1) {
+                    table.setSortDirection(SWT.UP);
+                } else {
+                    table.setSortDirection(SWT.DOWN);
+                }
+
+                table.setSortColumn(column);
+                viewer2.setSorter(new ViewerSorter() {
+
+                    int index = 0;
+
+                    @Override
+                    public void sort(Viewer viewer, Object[] elements) {
+                        while (index < table.getColumns().length && table.getColumn(index) != column) {
+                            index++;
+                        }
+                        super.sort(viewer, elements);
+                    }
+
+                    @Override
+                    public int compare(Viewer viewer, Object e1, Object e2) {
+                        ITableLabelProvider labelProvider = (ITableLabelProvider) viewer2.getLabelProvider();
+                        String columnText = labelProvider.getColumnText(e1, index) != null ? labelProvider.getColumnText(e1,
+                                index) : "";
+                        String columnText2 = labelProvider.getColumnText(e2, index) != null ? labelProvider.getColumnText(e2,
+                                index) : "";
+                        return getComparator().compare(columnText, columnText2) * direction;
+                    }
+                });
+                viewer2.expandAll();
+            }
+        };
+        table.getColumn(0).addListener(SWT.Selection, sortListener);
+        table.getColumn(1).addListener(SWT.Selection, sortListener);
+        table.setSortColumn(table.getColumn(0));
+        table.setSortDirection(SWT.UP);
+    }
+
     public void setEnabled(boolean enabled) {
         configContext.setEnabled(enabled);
-
     }
 
     private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
@@ -372,6 +432,18 @@ public class ConextTreeValuesComposite extends Composite {
             groupByVariable.setChecked(false);
             groupByContext.run();
         }
+    }
+
+    /**
+     * bqian ConextTreeValuesComposite class global comment. Detailled comment <br/>
+     * 
+     */
+    class ContextViewSorter extends ViewerSorter {
+
+        // public int compare(Viewer viewer, Object e1, Object e2) {
+        // TreeViewer treeViewer = (TreeViewer) viewer;
+        // ViewerProvier provider = treeViewer.getLabelProvider();
+        // }
     }
 
     /**

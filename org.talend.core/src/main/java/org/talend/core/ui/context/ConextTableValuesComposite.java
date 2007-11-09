@@ -36,6 +36,7 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.events.MouseAdapter;
@@ -47,6 +48,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
@@ -140,6 +143,61 @@ public class ConextTableValuesComposite extends Composite {
                 }
             }
         });
+
+    }
+
+    /**
+     * DOC bqian Comment method "addSorter".
+     * 
+     * @param viewer2
+     */
+    private void addSorter(final TableViewer tableViewer) {
+        final Table table = tableViewer.getTable();
+        Listener sortListener = new Listener() {
+
+            private int direction = 1;
+
+            public void handleEvent(Event e) {
+                final TableColumn column = (TableColumn) e.widget;
+
+                if (column == table.getSortColumn()) {
+                    direction = -direction;
+                }
+                if (direction == 1) {
+                    table.setSortDirection(SWT.UP);
+                } else {
+                    table.setSortDirection(SWT.DOWN);
+                }
+
+                table.setSortColumn(column);
+                tableViewer.setSorter(new ViewerSorter() {
+
+                    int index = 0;
+
+                    @Override
+                    public void sort(Viewer viewer, Object[] elements) {
+                        while (index < table.getColumns().length && table.getColumn(index) != column) {
+                            index++;
+                        }
+                        super.sort(viewer, elements);
+                    }
+
+                    @Override
+                    public int compare(Viewer viewer, Object e1, Object e2) {
+                        ITableLabelProvider labelProvider = (ITableLabelProvider) tableViewer.getLabelProvider();
+                        String columnText = labelProvider.getColumnText(e1, index) != null ? labelProvider.getColumnText(e1,
+                                index) : "";
+                        String columnText2 = labelProvider.getColumnText(e2, index) != null ? labelProvider.getColumnText(e2,
+                                index) : "";
+                        return getComparator().compare(columnText, columnText2) * direction;
+                    }
+                });
+            }
+        };
+        table.getColumn(0).addListener(SWT.Selection, sortListener);
+        table.setSortColumn(table.getColumn(0));
+        table.setSortDirection(SWT.UP);
+
     }
 
     /**
@@ -282,7 +340,7 @@ public class ConextTableValuesComposite extends Composite {
         viewer.setColumnProperties(properties);
         viewer.setCellEditors(cellEditors);
         table.layout();
-
+        addSorter(viewer);
         List<IContextParameter> contextTemplate = ConextTemplateComposite.computeContextTemplate(contexts);
         viewer.setInput(contextTemplate);
     }

@@ -163,7 +163,7 @@ public class ConextTemplateComposite extends Composite {
         nameColumn.setWidth(80);
         TextCellEditor textCellEditor = new TextCellEditor(table);
         nameColumn.setCellEditor(textCellEditor, paramNameCellEditorValueAdapter);
-
+        nameColumn.setSortable(true);
         // //////////////////////////////////////////////////////////
         // Type column
         TableViewerCreatorColumn<IContextParameter, String> typeColumn = new TableViewerCreatorColumn<IContextParameter, String>(
@@ -237,8 +237,61 @@ public class ConextTemplateComposite extends Composite {
         column.setModifiable(true);
         column.setWidth(400);
         column.setCellEditor(new TextCellEditor(table), setDirtyValueAdapter);
-
     }
+
+    // /**
+    // * DOC bqian Comment method "addSorter".
+    // *
+    // * @param tableViewer
+    // */
+    // private void addSorter(final TableViewer tableViewer) {
+    // final Table table = tableViewer.getTable();
+    // Listener sortListener = new Listener() {
+    //
+    // private int direction = 1;
+    //
+    // public void handleEvent(Event e) {
+    // final TableColumn column = (TableColumn) e.widget;
+    //
+    // if (column == table.getSortColumn()) {
+    // direction = -direction;
+    // }
+    // if (direction == 1) {
+    // table.setSortDirection(SWT.UP);
+    // } else {
+    // table.setSortDirection(SWT.DOWN);
+    // }
+    //
+    // table.setSortColumn(column);
+    // tableViewer.setSorter(new ViewerSorter() {
+    //
+    // int index = 0;
+    //
+    // @Override
+    // public void sort(Viewer viewer, Object[] elements) {
+    // while (index < table.getColumns().length && table.getColumn(index) != column) {
+    // index++;
+    // }
+    // super.sort(viewer, elements);
+    // }
+    //
+    // @Override
+    // public int compare(Viewer viewer, Object e1, Object e2) {
+    // ITableLabelProvider labelProvider = (ITableLabelProvider) tableViewer.getLabelProvider();
+    // String columnText = labelProvider.getColumnText(e1, index) != null ? labelProvider.getColumnText(e1,
+    // index) : "";
+    // String columnText2 = labelProvider.getColumnText(e2, index) != null ? labelProvider.getColumnText(e2,
+    // index) : "";
+    // return getComparator().compare(columnText, columnText2) * direction;
+    // }
+    // });
+    // }
+    // };
+    // table.getColumn(0).addListener(SWT.Selection, sortListener);
+    // table.setSortColumn(table.getColumn(0));
+    // table.setSortDirection(SWT.UP);
+    //
+    // }
 
     IBeanPropertyAccessors<IContextParameter, Boolean> nullableAccessors = new IBeanPropertyAccessors<IContextParameter, Boolean>() {
 
