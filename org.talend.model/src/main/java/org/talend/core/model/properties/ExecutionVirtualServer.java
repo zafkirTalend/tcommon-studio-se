@@ -12,19 +12,18 @@ import org.eclipse.emf.ecore.EObject;
 /**
  * <!-- begin-user-doc --> A representation of the model object '<em><b>Execution Virtual Server</b></em>'. <!--
  * end-user-doc -->
- * 
+ *
  * <p>
  * The following features are supported:
  * <ul>
- * <li>{@link org.talend.core.model.properties.ExecutionVirtualServer#getId <em>Id</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionVirtualServer#getLabel <em>Label</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionVirtualServer#getDescription <em>Description</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionVirtualServer#isActive <em>Active</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionVirtualServer#getPhysicalServersRelations <em>Physical Servers Relations</em>}</li>
- * <li>{@link org.talend.core.model.properties.ExecutionVirtualServer#getPhysicalServers <em>Physical Servers</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionVirtualServer#getId <em>Id</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionVirtualServer#getLabel <em>Label</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionVirtualServer#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionVirtualServer#isActive <em>Active</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.ExecutionVirtualServer#getExecutionServers <em>Execution Servers</em>}</li>
  * </ul>
  * </p>
- * 
+ *
  * @see org.talend.core.model.properties.PropertiesPackage#getExecutionVirtualServer()
  * @model
  * @generated
@@ -32,13 +31,13 @@ import org.eclipse.emf.ecore.EObject;
 public interface ExecutionVirtualServer extends EObject {
 
     /**
-     * Returns the value of the '<em><b>Id</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Id</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Id</em>' attribute.
      * @see #setId(int)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionVirtualServer_Id()
@@ -48,9 +47,8 @@ public interface ExecutionVirtualServer extends EObject {
     int getId();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionVirtualServer#getId <em>Id</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionVirtualServer#getId <em>Id</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Id</em>' attribute.
      * @see #getId()
      * @generated
@@ -58,13 +56,13 @@ public interface ExecutionVirtualServer extends EObject {
     void setId(int value);
 
     /**
-     * Returns the value of the '<em><b>Label</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Label</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Label</em>' attribute.
      * @see #setLabel(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionVirtualServer_Label()
@@ -74,9 +72,8 @@ public interface ExecutionVirtualServer extends EObject {
     String getLabel();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionVirtualServer#getLabel <em>Label</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionVirtualServer#getLabel <em>Label</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Label</em>' attribute.
      * @see #getLabel()
      * @generated
@@ -84,13 +81,13 @@ public interface ExecutionVirtualServer extends EObject {
     void setLabel(String value);
 
     /**
-     * Returns the value of the '<em><b>Description</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Description</em>' attribute isn't clear, there really should be more of a
      * description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Description</em>' attribute.
      * @see #setDescription(String)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionVirtualServer_Description()
@@ -100,9 +97,8 @@ public interface ExecutionVirtualServer extends EObject {
     String getDescription();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionVirtualServer#getDescription <em>Description</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionVirtualServer#getDescription <em>Description</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Description</em>' attribute.
      * @see #getDescription()
      * @generated
@@ -110,13 +106,13 @@ public interface ExecutionVirtualServer extends EObject {
     void setDescription(String value);
 
     /**
-     * Returns the value of the '<em><b>Active</b></em>' attribute. <!-- begin-user-doc -->
+     * Returns the value of the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
      * <p>
      * If the meaning of the '<em>Active</em>' attribute isn't clear, there really should be more of a description
      * here...
      * </p>
      * <!-- end-user-doc -->
-     * 
      * @return the value of the '<em>Active</em>' attribute.
      * @see #setActive(boolean)
      * @see org.talend.core.model.properties.PropertiesPackage#getExecutionVirtualServer_Active()
@@ -126,9 +122,8 @@ public interface ExecutionVirtualServer extends EObject {
     boolean isActive();
 
     /**
-     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionVirtualServer#isActive <em>Active</em>}'
-     * attribute. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionVirtualServer#isActive <em>Active</em>}' attribute.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @param value the new value of the '<em>Active</em>' attribute.
      * @see #isActive()
      * @generated
@@ -136,38 +131,19 @@ public interface ExecutionVirtualServer extends EObject {
     void setActive(boolean value);
 
     /**
-     * Returns the value of the '<em><b>Physical Servers Relations</b></em>' reference list. The list contents are
-     * of type {@link org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation}. It is bidirectional and
-     * its opposite is '{@link org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation#getVirtual <em>Virtual</em>}'.
+     * Returns the value of the '<em><b>Execution Servers</b></em>' reference list.
+     * The list contents are of type {@link org.talend.core.model.properties.ExecutionServer}.
      * <!-- begin-user-doc -->
      * <p>
-     * If the meaning of the '<em>Physical Servers Relations</em>' reference list isn't clear, there really should
-     * be more of a description here...
+     * If the meaning of the '<em>Execution Servers</em>' reference list isn't clear,
+     * there really should be more of a description here...
      * </p>
      * <!-- end-user-doc -->
-     * 
-     * @return the value of the '<em>Physical Servers Relations</em>' reference list.
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionVirtualServer_PhysicalServersRelations()
-     * @see org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation#getVirtual
-     * @model type="org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation" opposite="virtual"
+     * @return the value of the '<em>Execution Servers</em>' reference list.
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionVirtualServer_ExecutionServers()
+     * @model type="org.talend.core.model.properties.ExecutionServer"
      * @generated
      */
-    EList getPhysicalServersRelations();
-
-    /**
-     * Returns the value of the '<em><b>Physical Servers</b></em>' reference list. The list contents are of type
-     * {@link org.talend.core.model.properties.ExecutionServer}. <!-- begin-user-doc -->
-     * <p>
-     * The list of physical servers should not be modified since it is a volatile attribute.
-     * </p>
-     * <!-- end-user-doc -->
-     * 
-     * @return the value of the '<em>Physical Servers</em>' reference list.
-     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionVirtualServer_PhysicalServers()
-     * @model type="org.talend.core.model.properties.ExecutionServer" resolveProxies="false" transient="true"
-     * changeable="false" volatile="true"
-     * @generated
-     */
-    EList getPhysicalServers();
+    EList getExecutionServers();
 
 } // ExecutionVirtualServer

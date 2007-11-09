@@ -1,34 +1,27 @@
 /**
- * <copyright>
- * </copyright>
- *
+ * <copyright> </copyright>
+ * 
  * $Id$
  */
 package org.talend.core.model.properties.impl;
 
 import java.util.Collection;
-import org.eclipse.emf.common.notify.Notification;
 
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.talend.core.model.properties.ExecutionServer;
-import org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation;
-import org.talend.core.model.properties.ExecutionVirtualServer;
 import org.talend.core.model.properties.PropertiesPackage;
 
 /**
- * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Execution Server</b></em>'.
- * <!-- end-user-doc -->
+ * <!-- begin-user-doc --> An implementation of the model object '<em><b>Execution Server</b></em>'. <!--
+ * end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
@@ -40,17 +33,17 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getFileTransfertPort <em>File Transfert Port</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#isActive <em>Active</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getMonitoringPort <em>Monitoring Port</em>}</li>
- *   <li>{@link org.talend.core.model.properties.impl.ExecutionServerImpl#getVirtualServersRelations <em>Virtual Servers Relations</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
 public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer {
+
     /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getId()
      * @generated
      * @ordered
@@ -59,8 +52,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
 
     /**
      * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -69,8 +61,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
 
     /**
      * The default value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLabel()
      * @generated
      * @ordered
@@ -79,8 +71,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
 
     /**
      * The cached value of the '{@link #getLabel() <em>Label</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getLabel()
      * @generated
      * @ordered
@@ -109,8 +101,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
 
     /**
      * The default value of the '{@link #getHost() <em>Host</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getHost()
      * @generated
      * @ordered
@@ -118,9 +110,9 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     protected static final String HOST_EDEFAULT = null;
 
     /**
-     * The cached value of the '{@link #getHost() <em>Host</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getHost() <em>Host</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getHost()
      * @generated
      * @ordered
@@ -129,8 +121,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
 
     /**
      * The default value of the '{@link #getPort() <em>Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #getPort()
      * @generated
      * @ordered
@@ -138,9 +130,9 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     protected static final int PORT_EDEFAULT = -1;
 
     /**
-     * The cached value of the '{@link #getPort() <em>Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getPort() <em>Port</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getPort()
      * @generated
      * @ordered
@@ -148,9 +140,9 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     protected int port = PORT_EDEFAULT;
 
     /**
-     * The default value of the '{@link #getFileTransfertPort() <em>File Transfert Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getFileTransfertPort() <em>File Transfert Port</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getFileTransfertPort()
      * @generated
      * @ordered
@@ -158,9 +150,9 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     protected static final int FILE_TRANSFERT_PORT_EDEFAULT = -1;
 
     /**
-     * The cached value of the '{@link #getFileTransfertPort() <em>File Transfert Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getFileTransfertPort() <em>File Transfert Port</em>}' attribute. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getFileTransfertPort()
      * @generated
      * @ordered
@@ -169,8 +161,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
 
     /**
      * The default value of the '{@link #isActive() <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isActive()
      * @generated
      * @ordered
@@ -179,8 +171,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
 
     /**
      * The cached value of the '{@link #isActive() <em>Active</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!--
+     * end-user-doc -->
      * @see #isActive()
      * @generated
      * @ordered
@@ -189,8 +181,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
 
     /**
      * The default value of the '{@link #getMonitoringPort() <em>Monitoring Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #getMonitoringPort()
      * @generated
      * @ordered
@@ -199,8 +191,8 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
 
     /**
      * The cached value of the '{@link #getMonitoringPort() <em>Monitoring Port</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc
+     * --> <!-- end-user-doc -->
      * @see #getMonitoringPort()
      * @generated
      * @ordered
@@ -208,18 +200,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     protected int monitoringPort = MONITORING_PORT_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getVirtualServersRelations() <em>Virtual Servers Relations</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #getVirtualServersRelations()
-     * @generated
-     * @ordered
-     */
-    protected EList virtualServersRelations;
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected ExecutionServerImpl() {
@@ -227,8 +208,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected EClass eStaticClass() {
@@ -236,8 +216,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getId() {
@@ -245,8 +224,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setId(int newId) {
@@ -257,8 +235,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getLabel() {
@@ -266,8 +243,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setLabel(String newLabel) {
@@ -278,8 +254,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getDescription() {
@@ -287,8 +262,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setDescription(String newDescription) {
@@ -299,8 +273,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getHost() {
@@ -308,8 +281,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setHost(String newHost) {
@@ -320,8 +292,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getPort() {
@@ -329,8 +300,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setPort(int newPort) {
@@ -341,8 +311,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getFileTransfertPort() {
@@ -350,8 +319,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setFileTransfertPort(int newFileTransfertPort) {
@@ -362,8 +330,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean isActive() {
@@ -371,8 +338,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setActive(boolean newActive) {
@@ -383,8 +349,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getMonitoringPort() {
@@ -392,8 +357,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMonitoringPort(int newMonitoringPort) {
@@ -404,46 +368,7 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EList getVirtualServersRelations() {
-        if (virtualServersRelations == null) {
-            virtualServersRelations = new EObjectWithInverseResolvingEList(ExecutionServerPhysicalVirtualRelation.class, this, PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS, PropertiesPackage.EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION__PHYSICAL);
-        }
-        return virtualServersRelations;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS:
-                return ((InternalEList)getVirtualServersRelations()).basicAdd(otherEnd, msgs);
-        }
-        return super.eInverseAdd(otherEnd, featureID, msgs);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-            case PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS:
-                return ((InternalEList)getVirtualServersRelations()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
@@ -464,15 +389,12 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return isActive() ? Boolean.TRUE : Boolean.FALSE;
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
                 return new Integer(getMonitoringPort());
-            case PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS:
-                return getVirtualServersRelations();
         }
         return super.eGet(featureID, resolve, coreType);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void eSet(int featureID, Object newValue) {
@@ -501,17 +423,12 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
                 setMonitoringPort(((Integer)newValue).intValue());
                 return;
-            case PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS:
-                getVirtualServersRelations().clear();
-                getVirtualServersRelations().addAll((Collection)newValue);
-                return;
         }
         super.eSet(featureID, newValue);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void eUnset(int featureID) {
@@ -540,16 +457,12 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
                 setMonitoringPort(MONITORING_PORT_EDEFAULT);
                 return;
-            case PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS:
-                getVirtualServersRelations().clear();
-                return;
         }
         super.eUnset(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public boolean eIsSet(int featureID) {
@@ -570,15 +483,12 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
                 return active != ACTIVE_EDEFAULT;
             case PropertiesPackage.EXECUTION_SERVER__MONITORING_PORT:
                 return monitoringPort != MONITORING_PORT_EDEFAULT;
-            case PropertiesPackage.EXECUTION_SERVER__VIRTUAL_SERVERS_RELATIONS:
-                return virtualServersRelations != null && !virtualServersRelations.isEmpty();
         }
         return super.eIsSet(featureID);
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String toString() {
@@ -605,4 +515,4 @@ public class ExecutionServerImpl extends EObjectImpl implements ExecutionServer 
         return result.toString();
     }
 
-} //ExecutionServerImpl
+} // ExecutionServerImpl

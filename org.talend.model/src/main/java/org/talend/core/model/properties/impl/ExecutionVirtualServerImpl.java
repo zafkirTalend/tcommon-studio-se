@@ -6,20 +6,14 @@
 package org.talend.core.model.properties.impl;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
-import org.eclipse.emf.ecore.util.EObjectEList;
-import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.talend.core.model.properties.ExecutionServer;
-import org.talend.core.model.properties.ExecutionServerPhysicalVirtualRelation;
 import org.talend.core.model.properties.ExecutionVirtualServer;
 import org.talend.core.model.properties.PropertiesPackage;
 
@@ -33,8 +27,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  * <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getLabel <em>Label</em>}</li>
  * <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getDescription <em>Description</em>}</li>
  * <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#isActive <em>Active</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getPhysicalServersRelations <em>Physical Servers Relations</em>}</li>
- * <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getPhysicalServers <em>Physical Servers</em>}</li>
+ * <li>{@link org.talend.core.model.properties.impl.ExecutionVirtualServerImpl#getExecutionServers <em>Execution Servers</em>}</li>
  * </ul>
  * </p>
  * 
@@ -122,14 +115,14 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     protected boolean active = ACTIVE_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getPhysicalServersRelations() <em>Physical Servers Relations</em>}' reference
-     * list. <!-- begin-user-doc --> <!-- end-user-doc -->
+     * The cached value of the '{@link #getExecutionServers() <em>Execution Servers</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
      * 
-     * @see #getPhysicalServersRelations()
+     * @see #getExecutionServers()
      * @generated
      * @ordered
      */
-    protected EList physicalServersRelations;
+    protected EList executionServers;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -238,63 +231,16 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
     }
 
     /**
-     * <!-- begin-user-doc --> This method is a technical method. It contains the relations between the
-     * ExecutionVirtualServer and the ExecutionServer. <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    public EList getPhysicalServersRelations() {
-        if (physicalServersRelations == null) {
-            physicalServersRelations = new EObjectWithInverseResolvingEList(
-                    ExecutionServerPhysicalVirtualRelation.class, this,
-                    PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS,
-                    PropertiesPackage.EXECUTION_SERVER_PHYSICAL_VIRTUAL_RELATION__VIRTUAL);
-        }
-        return physicalServersRelations;
-    }
-
-    /**
-     * <!-- begin-user-doc --> Get the physical servers from the technical relation object (physicalServersRelations).
-     * <!-- end-user-doc -->
-     * 
-     * @generated NOT
-     */
-    public EList getPhysicalServers() {
-        EList physicalServers = new EObjectEList<ExecutionServer>(ExecutionServer.class, this,
-                PropertiesPackage.EXECUTION_SERVER);
-        EList relations = getPhysicalServersRelations();
-        for (Iterator itRelation = relations.iterator(); itRelation.hasNext();) {
-            ExecutionServerPhysicalVirtualRelation rel = (ExecutionServerPhysicalVirtualRelation) itRelation.next();
-            ExecutionServer physical = rel.getPhysical();
-            physicalServers.add(physical);
-        }
-        return physicalServers;
-    }
-
-    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * 
      * @generated
      */
-    public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS:
-            return ((InternalEList) getPhysicalServersRelations()).basicAdd(otherEnd, msgs);
+    public EList getExecutionServers() {
+        if (executionServers == null) {
+            executionServers = new EObjectResolvingEList(ExecutionServer.class, this,
+                    PropertiesPackage.EXECUTION_VIRTUAL_SERVER__EXECUTION_SERVERS);
         }
-        return super.eInverseAdd(otherEnd, featureID, msgs);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-        switch (featureID) {
-        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS:
-            return ((InternalEList) getPhysicalServersRelations()).basicRemove(otherEnd, msgs);
-        }
-        return super.eInverseRemove(otherEnd, featureID, msgs);
+        return executionServers;
     }
 
     /**
@@ -312,10 +258,8 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
             return getDescription();
         case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE:
             return isActive() ? Boolean.TRUE : Boolean.FALSE;
-        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS:
-            return getPhysicalServersRelations();
-        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS:
-            return getPhysicalServers();
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__EXECUTION_SERVERS:
+            return getExecutionServers();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -339,9 +283,9 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
         case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE:
             setActive(((Boolean) newValue).booleanValue());
             return;
-        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS:
-            getPhysicalServersRelations().clear();
-            getPhysicalServersRelations().addAll((Collection) newValue);
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__EXECUTION_SERVERS:
+            getExecutionServers().clear();
+            getExecutionServers().addAll((Collection) newValue);
             return;
         }
         super.eSet(featureID, newValue);
@@ -366,8 +310,8 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
         case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE:
             setActive(ACTIVE_EDEFAULT);
             return;
-        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS:
-            getPhysicalServersRelations().clear();
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__EXECUTION_SERVERS:
+            getExecutionServers().clear();
             return;
         }
         super.eUnset(featureID);
@@ -388,10 +332,8 @@ public class ExecutionVirtualServerImpl extends EObjectImpl implements Execution
             return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
         case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__ACTIVE:
             return active != ACTIVE_EDEFAULT;
-        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS_RELATIONS:
-            return physicalServersRelations != null && !physicalServersRelations.isEmpty();
-        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__PHYSICAL_SERVERS:
-            return !getPhysicalServers().isEmpty();
+        case PropertiesPackage.EXECUTION_VIRTUAL_SERVER__EXECUTION_SERVERS:
+            return executionServers != null && !executionServers.isEmpty();
         }
         return super.eIsSet(featureID);
     }
