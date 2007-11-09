@@ -1053,7 +1053,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getIMPORTType_MESSAGE() {
+    public EAttribute getIMPORTType_URL() {
         return (EAttribute)importTypeEClass.getEStructuralFeatures().get(1);
     }
 
@@ -1062,7 +1062,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getIMPORTType_MODULE() {
+    public EAttribute getIMPORTType_MESSAGE() {
         return (EAttribute)importTypeEClass.getEStructuralFeatures().get(2);
     }
 
@@ -1071,7 +1071,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getIMPORTType_NAME() {
+    public EAttribute getIMPORTType_MODULE() {
         return (EAttribute)importTypeEClass.getEStructuralFeatures().get(3);
     }
 
@@ -1080,7 +1080,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getIMPORTType_REQUIRED() {
+    public EAttribute getIMPORTType_NAME() {
         return (EAttribute)importTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -1089,8 +1089,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EAttribute getIMPORTType_SHOW() {
+    public EAttribute getIMPORTType_REQUIRED() {
         return (EAttribute)importTypeEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getIMPORTType_SHOW() {
+        return (EAttribute)importTypeEClass.getEStructuralFeatures().get(6);
     }
 
     /**
@@ -1818,6 +1827,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
         importTypeEClass = createEClass(IMPORT_TYPE);
         createEReference(importTypeEClass, IMPORT_TYPE__INSTALL);
+        createEAttribute(importTypeEClass, IMPORT_TYPE__URL);
         createEAttribute(importTypeEClass, IMPORT_TYPE__MESSAGE);
         createEAttribute(importTypeEClass, IMPORT_TYPE__MODULE);
         createEAttribute(importTypeEClass, IMPORT_TYPE__NAME);
@@ -2029,6 +2039,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
 
         initEClass(importTypeEClass, IMPORTType.class, "IMPORTType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getIMPORTType_INSTALL(), this.getINSTALLType(), null, "iNSTALL", null, 0, -1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getIMPORTType_URL(), theXMLTypePackage.getString(), "uRL", null, 0, -1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_MESSAGE(), theXMLTypePackage.getString(), "mESSAGE", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_MODULE(), theXMLTypePackage.getString(), "mODULE", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getIMPORTType_NAME(), theXMLTypePackage.getString(), "nAME", null, 0, 1, IMPORTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2784,6 +2795,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "element",
              "name", "INSTALL",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getIMPORTType_URL(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "URL",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

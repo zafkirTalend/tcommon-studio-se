@@ -103,6 +103,7 @@
     </genClasses>
     <genClasses ecoreClass="Component.ecore#//IMPORTType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//IMPORTType/iNSTALL"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/uRL"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/mESSAGE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/mODULE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//IMPORTType/nAME"/>

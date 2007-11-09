@@ -29,12 +29,11 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.TableItem;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
-import org.talend.commons.ui.image.EImage;
-import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
-import org.talend.core.model.general.InstallModule;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -51,7 +50,7 @@ public class InstallPerlModulesAction extends Action {
         super();
         setText(Messages.getString("InstallPerlModulesAction.InstallBtn.Text")); //$NON-NLS-1$
         setToolTipText(Messages.getString("InstallPerlModulesAction.InstallBtn.Text")); //$NON-NLS-1$
-        setImageDescriptor(ImageProvider.getImageDesc(EImage.IMPORT_ICON));
+        setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_TOOL_NEW_WIZARD));
         init();
     }
 
@@ -91,29 +90,54 @@ public class InstallPerlModulesAction extends Action {
      * @see org.eclipse.jface.action.Action#run()
      */
     @Override
+    // public void run() {
+    // String osName = "";
+    // if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) {
+    // osName = "WINDOWS";
+    // } else {
+    // osName = "LINUX";
+    // }
+    // try {
+    // for (ModuleNeeded module : modules) {
+    // String modulename = module.getModuleName();
+    // // process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + modulename);
+    // // process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + modulename);
+    // List<InstallModule> InstallModuleAll = module.getInstallModule();
+    // if (InstallModuleAll != null) {
+    // if (InstallModuleAll.size() != 0) {
+    // for (InstallModule installModule : InstallModuleAll) {
+    // execSpecialInstall(osName, installModule);
+    // }
+    //
+    // } else {
+    // execNormalInstall(modulename);
+    // }
+    //
+    // }
+    //
+    // }
+    // setEnabled(false);
+    // } catch (Exception e) {
+    // ExceptionHandler.process(e);
+    // }
+    //
+    // }
     public void run() {
-        String osName = "";
-        if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) {
-            osName = "WINDOWS";
-        } else {
-            osName = "LINUX";
-        }
         try {
             for (ModuleNeeded module : modules) {
                 String modulename = module.getModuleName();
                 // process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + modulename);
                 // process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + modulename);
-                List<InstallModule> InstallModuleAll = module.getInstallModule();
+                List<String> InstallModuleAll = module.getInstallURL();
                 if (InstallModuleAll != null) {
                     if (InstallModuleAll.size() != 0) {
-                        for (InstallModule installModule : InstallModuleAll) {
-                            execSpecialInstall(osName, installModule);
+                        for (String installModule : InstallModuleAll) {
+                            execSpecialInstall(installModule);
                         }
 
                     } else {
                         execNormalInstall(modulename);
                     }
-
                 }
 
             }
@@ -121,19 +145,18 @@ public class InstallPerlModulesAction extends Action {
         } catch (Exception e) {
             ExceptionHandler.process(e);
         }
-
     }
 
-    public void execSpecialInstall(String osName, InstallModule installModule) {
+    public void execSpecialInstall(String installModule) {
         Runtime runTime = Runtime.getRuntime();
         Process process = null;
         try {
-            if (osName.equals("WINDOWS")) {
+            if (System.getProperty("os.name").toUpperCase().indexOf("WINDOWS") >= 0) {
                 String path = CorePlugin.getDefault().getPreferenceStore().getString(ITalendCorePrefConstants.PERL_INTERPRETER);
                 path = path.substring(0, path.lastIndexOf("\\"));
-                process = runTime.exec("cmd /c start /D" + path + "\\" + " " + installModule.getcommandName().trim());
+                process = runTime.exec("cmd /c start /D" + path + "\\" + " ppm install " + installModule);
             } else if (System.getProperty("os.name").toUpperCase().indexOf("LINUX") >= 0) {
-                String command = "perl -MCPAN -e " + "'install " + installModule.getcommandName().trim() + "'\n";
+                String command = "perl -MCPAN -e " + "'install " + installModule + "'\n";
                 openTerminal(command, process);
             }
         } catch (Exception e) {
@@ -162,7 +185,6 @@ public class InstallPerlModulesAction extends Action {
 
     public static void openTerminal(String command, Process process) {
         String terminal = System.getenv("TERM");
-
         try {
             process = Runtime.getRuntime().exec(new String[] { terminal, "-e", command + "; $SHELL" });
             process.waitFor();

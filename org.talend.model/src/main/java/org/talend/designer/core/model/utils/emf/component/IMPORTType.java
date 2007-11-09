@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getINSTALL <em>INSTALL</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getURL <em>URL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMESSAGE <em>MESSAGE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getMODULE <em>MODULE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.IMPORTType#getNAME <em>NAME</em>}</li>
@@ -48,6 +49,23 @@ public interface IMPORTType extends EObject {
      * @generated
      */
     EList getINSTALL();
+
+    /**
+     * Returns the value of the '<em><b>URL</b></em>' attribute list.
+     * The list contents are of type {@link java.lang.String}.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>URL</em>' attribute list isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>URL</em>' attribute list.
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getIMPORTType_URL()
+     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='element' name='URL' namespace='##targetNamespace'"
+     * @generated
+     */
+    EList getURL();
 
     /**
      * Returns the value of the '<em><b>MESSAGE</b></em>' attribute.

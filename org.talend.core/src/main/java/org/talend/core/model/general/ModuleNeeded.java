@@ -45,6 +45,8 @@ public class ModuleNeeded {
 
     List<InstallModule> installModule;
 
+    List<String> installURL;
+
     /**
      * DOC smallet ModuleNeeded class global comment. Detailled comment <br/>
      * 
@@ -75,14 +77,41 @@ public class ModuleNeeded {
         this.required = required;
     }
 
-    public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required,
-            List<InstallModule> installModule) {
+    public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required, List<String> installURL) {
         super();
         this.context = context;
         this.moduleName = moduleName;
         this.informationMsg = informationMsg;
         this.required = required;
-        this.installModule = installModule;
+        this.installURL = installURL;
+    }
+
+    // public ModuleNeeded(String context, String moduleName, String informationMsg, boolean required,
+    // List<InstallModule> installModule) {
+    // super();
+    // this.context = context;
+    // this.moduleName = moduleName;
+    // this.informationMsg = informationMsg;
+    // this.required = required;
+    // this.installModule = installModule;
+    // }
+
+    /**
+     * Getter for installURL.
+     * 
+     * @return the installURL
+     */
+    public List<String> getInstallURL() {
+        return this.installURL;
+    }
+
+    /**
+     * Sets the installURL.
+     * 
+     * @param installURL the installURL to set
+     */
+    public void setInstallURL(List<String> installURL) {
+        this.installURL = installURL;
     }
 
     /**

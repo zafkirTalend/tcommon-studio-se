@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -34,6 +35,7 @@ import org.talend.designer.core.model.utils.emf.component.INSTALLType;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getINSTALL <em>INSTALL</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getURL <em>URL</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getMESSAGE <em>MESSAGE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getMODULE <em>MODULE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTTypeImpl#getNAME <em>NAME</em>}</li>
@@ -54,6 +56,16 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
      * @ordered
      */
     protected EList iNSTALL;
+
+    /**
+     * The cached value of the '{@link #getURL() <em>URL</em>}' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getURL()
+     * @generated
+     * @ordered
+     */
+    protected EList uRL;
 
     /**
      * The default value of the '{@link #getMESSAGE() <em>MESSAGE</em>}' attribute.
@@ -201,6 +213,18 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             iNSTALL = new EObjectContainmentEList(INSTALLType.class, this, ComponentPackage.IMPORT_TYPE__INSTALL);
         }
         return iNSTALL;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EList getURL() {
+        if (uRL == null) {
+            uRL = new EDataTypeEList(String.class, this, ComponentPackage.IMPORT_TYPE__URL);
+        }
+        return uRL;
     }
 
     /**
@@ -380,6 +404,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
         switch (featureID) {
             case ComponentPackage.IMPORT_TYPE__INSTALL:
                 return getINSTALL();
+            case ComponentPackage.IMPORT_TYPE__URL:
+                return getURL();
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 return getMESSAGE();
             case ComponentPackage.IMPORT_TYPE__MODULE:
@@ -404,6 +430,10 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__INSTALL:
                 getINSTALL().clear();
                 getINSTALL().addAll((Collection)newValue);
+                return;
+            case ComponentPackage.IMPORT_TYPE__URL:
+                getURL().clear();
+                getURL().addAll((Collection)newValue);
                 return;
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 setMESSAGE((String)newValue);
@@ -434,6 +464,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
             case ComponentPackage.IMPORT_TYPE__INSTALL:
                 getINSTALL().clear();
                 return;
+            case ComponentPackage.IMPORT_TYPE__URL:
+                getURL().clear();
+                return;
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 setMESSAGE(MESSAGE_EDEFAULT);
                 return;
@@ -462,6 +495,8 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
         switch (featureID) {
             case ComponentPackage.IMPORT_TYPE__INSTALL:
                 return iNSTALL != null && !iNSTALL.isEmpty();
+            case ComponentPackage.IMPORT_TYPE__URL:
+                return uRL != null && !uRL.isEmpty();
             case ComponentPackage.IMPORT_TYPE__MESSAGE:
                 return MESSAGE_EDEFAULT == null ? mESSAGE != null : !MESSAGE_EDEFAULT.equals(mESSAGE);
             case ComponentPackage.IMPORT_TYPE__MODULE:
@@ -485,7 +520,9 @@ public class IMPORTTypeImpl extends EObjectImpl implements IMPORTType {
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (mESSAGE: ");
+        result.append(" (uRL: ");
+        result.append(uRL);
+        result.append(", mESSAGE: ");
         result.append(mESSAGE);
         result.append(", mODULE: ");
         result.append(mODULE);
