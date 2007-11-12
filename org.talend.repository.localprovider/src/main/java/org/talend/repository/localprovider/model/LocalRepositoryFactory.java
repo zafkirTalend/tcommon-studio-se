@@ -1156,7 +1156,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void initialize() {
-        xmiResourceManager.unloadResources();
+        // xmiResourceManager.unloadResources();
     }
 
     public void logOnProject(Project project) throws PersistenceException, LoginException {
