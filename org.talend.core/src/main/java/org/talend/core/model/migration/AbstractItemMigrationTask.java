@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -37,13 +37,18 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
     public final ExecutionResult execute(Project project) {
         setProject(project);
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
+                IRepositoryService.class);
         IProxyRepositoryFactory factory = service.getProxyRepositoryFactory();
         ExecutionResult executeFinal = null;
         List<IRepositoryObject> list = new ArrayList<IRepositoryObject>();
         try {
             for (ERepositoryObjectType curTyp : getTypes()) {
                 list.addAll(factory.getAll(curTyp, true));
+            }
+
+            if (list.isEmpty()) {
+                return ExecutionResult.NOTHING_TO_DO;
             }
 
             for (IRepositoryObject mainobject : list) {
@@ -54,7 +59,8 @@ public abstract class AbstractItemMigrationTask extends AbstractMigrationTask im
 
                     execute = execute(item);
                     if (execute == ExecutionResult.FAILURE) {
-                        log.warn("Migration task " + this.getName() + " failed on item " + item.getProperty().getLabel());
+                        log.warn("Migration task " + this.getName() + " failed on item "
+                                + item.getProperty().getLabel());
                         executeFinal = ExecutionResult.FAILURE;
                     }
                     if (executeFinal != ExecutionResult.FAILURE) {
