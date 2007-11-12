@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
@@ -54,6 +55,8 @@ import org.talend.repository.model.ProxyRepositoryFactory;
 /**
  */
 public class ImportItemUtil {
+
+    private static Logger log = Logger.getLogger(ImportItemUtil.class);
 
     private static final String SEGMENT_PARENT = ".."; //$NON-NLS-1$
 
@@ -245,6 +248,9 @@ public class ImportItemUtil {
 
             itemRecord.addError(" " //$NON-NLS-1$
                     + Messages.getString("RepositoryUtil.DifferentVersion")); //$NON-NLS-1$
+
+            log.debug("Cannot import item " + itemRecord.getItemName() + " -> unknow task(s) " + itemMigrationTasks);
+
             return false;
         }
 
