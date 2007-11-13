@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -153,14 +153,13 @@ public class MetadataDialog extends Dialog {
         createButton(parent, IDialogConstants.CANCEL_ID, IDialogConstants.CANCEL_LABEL, false);
     }
 
-    public static void initializeMetadataTableView(MetadataTableEditorView metaView, INode node,
-            IMetadataTable metadataTable) {
+    public static void initializeMetadataTableView(MetadataTableEditorView metaView, INode node, IMetadataTable metadataTable) {
         boolean dbComponent = false;
         boolean hasMappingType = false;
+        boolean eltComponent = node.getComponent().getFamily().startsWith(ELT_LABEL);
 
         boolean hasRepositoryDbSchema = false;
-        if (node.getComponent().getFamily().startsWith(DATABASE_LABEL)
-                || node.getComponent().getFamily().startsWith(ELT_LABEL)) {
+        if (node.getComponent().getFamily().startsWith(DATABASE_LABEL) || eltComponent) {
             dbComponent = true;
             for (IElementParameter currentParam : node.getElementParameters()) {
                 if (currentParam.getField().equals(EParameterFieldType.MAPPING_TYPE)) {
@@ -206,10 +205,6 @@ public class MetadataDialog extends Dialog {
                             hasRepositoryDbSchema = false;
                         }
                         String componentProduct = EDatabaseTypeName.getTypeFromDbType(componentDbType).getProduct();
-                        // String connectionDbType = ((DatabaseConnection)
-                        // connection).getDatabaseType();
-                        // String connectionProduct =
-                        // EDatabaseTypeName.getTypeFromDisplayName(connectionDbType).getProduct();
                         String connectionProduct = null;
                         if (isDatabaseConnection) {
                             connectionProduct = ((DatabaseConnection) connection).getProductId();
@@ -229,26 +224,19 @@ public class MetadataDialog extends Dialog {
                                 connectionProduct = mappingTypeId;
                                 metaView.setCurrentDbms(connectionProduct);
                             }
-                            // if (!componentProduct.equals(connectionProduct)) {
-                            // hasRepositoryDbSchema = false;
-                            // // the component don't support this product so don't
-                            // // display.
-                            // } else {
-
-                            // }
                         }
                     }
                 }
             }
         }
-        metaView.setShowDbTypeColumn(dbComponent, false, hasMappingType || (dbComponent && !hasRepositoryDbSchema));
-        metaView.setShowDbColumnName(dbComponent && (!node.getComponent().getFamily().startsWith(ELT_LABEL)),
-                hasMappingType || (dbComponent && !hasRepositoryDbSchema));
+        metaView.setShowDbTypeColumn(hasMappingType || eltComponent, false, hasMappingType
+                || (dbComponent && !hasRepositoryDbSchema));
+        metaView.setShowDbColumnName(dbComponent && (!eltComponent), hasMappingType || (dbComponent && !hasRepositoryDbSchema));
 
         // hide the talend type for ELT components
-        metaView.setShowTalendTypeColumn(!node.getComponent().getFamily().startsWith(ELT_LABEL));
+        metaView.setShowTalendTypeColumn(!eltComponent);
         // hide the pattern for ELT components
-        metaView.setShowPatternColumn(!node.getComponent().getFamily().startsWith(ELT_LABEL));
+        metaView.setShowPatternColumn(!eltComponent);
     }
 
     @Override
@@ -259,8 +247,8 @@ public class MetadataDialog extends Dialog {
         if (inputMetaTable == null) {
             composite.setLayout(new FillLayout());
             metadataTableEditor = new MetadataTableEditor(outputMetaTable, titleOutput);
-            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly,
-                    true, true, false);
+            outputMetaView = new MetadataTableEditorView(composite, SWT.NONE, metadataTableEditor, outputReadOnly, true, true,
+                    false);
 
             initializeMetadataTableView(outputMetaView, outputNode, outputMetaTable);
             outputMetaView.initGraphicComponents();
@@ -281,8 +269,8 @@ public class MetadataDialog extends Dialog {
             composite.setLayoutData(gridData);
 
             metadataTableEditor = new MetadataTableEditor(inputMetaTable, titleInput); //$NON-NLS-1$
-            inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE,
-                    metadataTableEditor, inputReadOnly, true, true, false);
+            inputMetaView = new MetadataTableEditorView(compositesSachForm.getLeftComposite(), SWT.NONE, metadataTableEditor,
+                    inputReadOnly, true, true, false);
             initializeMetadataTableView(inputMetaView, inputNode, inputMetaTable);
             inputMetaView.initGraphicComponents();
             inputMetaView.getExtendedTableViewer().setCommandStack(commandStack);
@@ -323,8 +311,7 @@ public class MetadataDialog extends Dialog {
             copyToOutput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
-                            | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.Message")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
@@ -344,8 +331,7 @@ public class MetadataDialog extends Dialog {
             copyToInput.addListener(SWT.Selection, new Listener() {
 
                 public void handleEvent(Event event) {
-                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK
-                            | SWT.CANCEL);
+                    MessageBox messageBox = new MessageBox(parent.getShell(), SWT.APPLICATION_MODAL | SWT.OK | SWT.CANCEL);
                     messageBox.setText(Messages.getString("MetadataDialog.SchemaModification")); //$NON-NLS-1$
                     messageBox.setMessage(Messages.getString("MetadataDialog.TransferMessage")); //$NON-NLS-1$
                     if (messageBox.open() == SWT.OK) {
@@ -372,8 +358,8 @@ public class MetadataDialog extends Dialog {
             }
             compositesSachForm.setGridDatas();
             CustomTableManager.addCustomManagementToTable(inputMetaView, inputReadOnly);
-            CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly,
-                    outputMetaView, outputMetaTable, outputNode.getComponent().isSchemaAutoPropagated());
+            CustomTableManager.addCustomManagementToToolBar(inputMetaView, inputMetaTable, inputReadOnly, outputMetaView,
+                    outputMetaTable, outputNode.getComponent().isSchemaAutoPropagated());
         }
         CustomTableManager.addCustomManagementToTable(outputMetaView, outputReadOnly);
         CustomTableManager.addCustomManagementToToolBar(outputMetaView, outputMetaTable, outputReadOnly, inputMetaView,
