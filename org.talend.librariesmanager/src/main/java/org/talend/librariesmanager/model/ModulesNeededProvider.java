@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -32,16 +32,11 @@ import org.talend.core.model.components.IComponent;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.general.ModuleNeeded;
 import org.talend.core.model.general.ModuleNeeded.ELibraryInstallStatus;
-import org.talend.core.model.process.EParameterFieldType;
-import org.talend.core.model.process.ElementParameterParser;
 import org.talend.core.model.properties.Item;
-import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.designer.core.model.utils.emf.component.IMPORTType;
-import org.talend.designer.core.model.utils.emf.talendfile.ElementParameterType;
-import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.repository.model.ComponentsFactoryProvider;
 import org.talend.repository.model.ERepositoryStatus;
 import org.talend.repository.model.IProxyRepositoryFactory;
@@ -138,32 +133,17 @@ public class ModulesNeededProvider {
     }
 
     public static List<ModuleNeeded> getModulesNeededForJobs() {
-        List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
         IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
                 .getProxyRepositoryFactory();
+
+        List<ModuleNeeded> importNeedsList = new ArrayList<ModuleNeeded>();
+
         try {
-            List<IRepositoryObject> jobs = repositoryFactory.getAll(ERepositoryObjectType.PROCESS, true);
-            for (IRepositoryObject cur : jobs) {
-                if (repositoryFactory.getStatus(cur) != ERepositoryStatus.DELETED) {
-                    ProcessItem item = (ProcessItem) cur.getProperty().getItem();
-                    List<NodeType> nodes = item.getProcess().getNode();
-                    for (NodeType node : nodes) {
-                        List<ElementParameterType> elementParameter = node.getElementParameter();
-                        for (ElementParameterType elementParam : elementParameter) {
-                            if (elementParam.getField().equals(EParameterFieldType.MODULE_LIST.getName())) {
-                                String uniquename = ElementParameterParser.getUNIQUENAME(node);
-                                ModuleNeeded toAdd = new ModuleNeeded("Job " + item.getProperty().getLabel(),
-                                        elementParam.getValue(), "Required for using component : " + uniquename + ".",
-                                        true);
-                                importNeedsList.add(toAdd);
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
+            importNeedsList = repositoryFactory.getModulesNeededForJobs();
+        } catch (PersistenceException e) {
             ExceptionHandler.process(e);
         }
+
         return importNeedsList;
     }
 
