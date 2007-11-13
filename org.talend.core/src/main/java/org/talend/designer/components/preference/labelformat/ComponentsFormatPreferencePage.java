@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -186,13 +186,16 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
             public void keyReleased(KeyEvent e) {
                 Object[] objs = ((IStructuredSelection) viewer.getSelection()).toArray();
                 for (Object o : objs) {
-                    if (o instanceof ToolEntry) {
-                        preferenceCach.put(((ToolEntry) o).getLabel() + IComponentsLocalProviderService.PALETTE_ENTRY_TYPE
-                                + preferenceType, text.getText());
-                    } else if (o instanceof PaletteContainer) {
-                        preferenceCach.put(((PaletteContainer) o).getLabel()
-                                + IComponentsLocalProviderService.PALETTE_CONTAINER_TYPE + preferenceType, text.getText());
-                    }
+                    // if (o instanceof ToolEntry) {
+                    // preferenceCach.put(((ToolEntry) o).getLabel() +
+                    // IComponentsLocalProviderService.PALETTE_ENTRY_TYPE
+                    // + preferenceType, text.getText());
+                    // } else if (o instanceof PaletteContainer) {
+                    // preferenceCach.put(((PaletteContainer) o).getLabel()
+                    // + IComponentsLocalProviderService.PALETTE_CONTAINER_TYPE + preferenceType, text.getText());
+                    // }
+                    preferenceCach.put(getIdWithoutPreferenceType(o) + preferenceType, text.getText());
+
                 }
 
             }
@@ -267,7 +270,13 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
             }
 
             public String getText(Object element) {
-                return ((PaletteEntry) element).getLabel();
+                String label = null;
+                if (element instanceof PaletteContainer) {
+                    label = formContainerName((PaletteContainer) element);
+                } else {
+                    label = ((PaletteEntry) element).getLabel();
+                }
+                return label;
             }
 
             public void addListener(ILabelProviderListener listener) {
@@ -330,11 +339,23 @@ public class ComponentsFormatPreferencePage extends PreferencePage implements IW
      */
     private String getIdWithoutPreferenceType(Object o) {
         if (o instanceof ToolEntry) {
-            return ((ToolEntry) o).getLabel() + ":ToolEntry";
+            return ((ToolEntry) o).getLabel() + IComponentsLocalProviderService.PALETTE_ENTRY_TYPE;
         } else if (o instanceof PaletteContainer) {
-            return ((PaletteContainer) o).getLabel() + ":PaletteContainer";
+            String name = formContainerName((PaletteContainer) o);
+            return name + IComponentsLocalProviderService.PALETTE_CONTAINER_TYPE;
         }
         return null;
+    }
+
+    private String formContainerName(PaletteContainer container) {
+        String family = null;
+
+        if (container.getParent() != null) {
+            family = formContainerName(container.getParent());
+        }
+
+        return family != null ? family + "/" + container.getLabel() : container.getLabel();
+
     }
 
     /**
