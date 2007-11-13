@@ -7,7 +7,7 @@
 			<dbType type="CHAR" defaultLength="1" ignorePre="true" />
 			<dbType type="CLOB" ignoreLen="true" ignorePre="true" />
 			<dbType type="DATE" ignoreLen="true" ignorePre="true" />
-			<dbType type="FLOAT" defaultLength="20" defaultPrecision="10" />
+			<dbType type="FLOAT" ignoreLen="true" defaultPrecision="10" />
 			<dbType type="LONG" ignoreLen="true" ignorePre="true" />
 			<dbType type="LONG RAW" ignoreLen="true" ignorePre="true" />
 			<dbType type="NCHAR" defaultLength="400" ignorePre="true" />
