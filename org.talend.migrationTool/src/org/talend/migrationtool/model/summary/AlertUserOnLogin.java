@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -17,6 +17,7 @@ import org.eclipse.ui.IStartup;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.migrationtool.MigrationToolService;
@@ -27,7 +28,19 @@ import org.talend.migrationtool.MigrationToolService;
  */
 public class AlertUserOnLogin implements IStartup {
 
+    public static boolean executed;
+
+    private boolean startUnderPluginModel;
+
+    public void startup(boolean underPluginModel) {
+        startUnderPluginModel = underPluginModel;
+        earlyStartup();
+    }
+
     public void earlyStartup() {
+        if (!startUnderPluginModel && !CorePlugin.getDefault().getRepositoryService().isRCPMode()) {
+            return;
+        }
         final IWorkbench workbench = PlatformUI.getWorkbench();
         workbench.getDisplay().asyncExec(new Runnable() {
 
@@ -46,5 +59,7 @@ public class AlertUserOnLogin implements IStartup {
                 }
             }
         });
+
+        executed = true;
     }
 }

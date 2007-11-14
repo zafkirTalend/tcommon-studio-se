@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -27,6 +27,7 @@ import org.talend.core.model.migration.IProjectMigrationTask;
 import org.talend.core.model.migration.IWorkspaceMigrationTask;
 import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.migrationtool.model.GetTasksHelper;
+import org.talend.migrationtool.model.summary.AlertUserOnLogin;
 import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.IRepositoryService;
 
@@ -168,6 +169,24 @@ public class MigrationToolService implements IMigrationToolService {
         for (IWorkspaceMigrationTask task : toExecute) {
             prefManipulator.addWorkspaceTaskDone(task.getId());
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.migration.IMigrationToolService#executeMigration()
+     */
+    public void executeMigration(boolean underPluginModel) {
+        new AlertUserOnLogin().startup(underPluginModel);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.migration.IMigrationToolService#needExecutemigration()
+     */
+    public boolean needExecutemigration() {
+        return !AlertUserOnLogin.executed;
     }
 
 }
