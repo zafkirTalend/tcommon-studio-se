@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -38,10 +38,16 @@ import org.talend.core.model.general.Project;
  */
 public class DisableLanguageActions implements IStartup {
 
+    public static boolean exectued;
+
     public void earlyStartup() {
         List<String> ids = null;
         RepositoryContext context = (RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY);
-        Project project = context.getProject();
+        if (context != null) {
+            Project project = context.getProject();
+        } else {
+            return;
+        }
 
         ECodeLanguage lan = LanguageManager.getCurrentLanguage();
 
@@ -105,6 +111,8 @@ public class DisableLanguageActions implements IStartup {
                     }
                 }
             });
+
+            exectued = true;
         }
     }
 }

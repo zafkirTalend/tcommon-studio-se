@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -19,6 +19,7 @@ import org.talend.core.context.Context;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ILibrariesService;
+import org.talend.core.model.migration.IMigrationToolService;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.components.IComponentsLocalProviderService;
 import org.talend.designer.core.IDesignerCoreService;
@@ -137,6 +138,10 @@ public class CorePlugin extends AbstractUIPlugin {
 
     public ICodeGeneratorService getCodeGeneratorService() {
         return (ICodeGeneratorService) GlobalServiceRegister.getDefault().getService(ICodeGeneratorService.class);
+    }
+
+    public IMigrationToolService getMigrationToolService() {
+        return (IMigrationToolService) GlobalServiceRegister.getDefault().getService(IMigrationToolService.class);
     }
 
 }
