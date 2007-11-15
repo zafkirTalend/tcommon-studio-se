@@ -46,7 +46,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
 
     private IWorkbenchWindow window;
 
-    private IActionBarConfigurer actionBarConfigurer;
+    private final IActionBarConfigurer actionBarConfigurer;
 
     private static final String GROUP_UNDO = "group undo"; //$NON-NLS-1$
 
@@ -64,6 +64,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
     public static final IExtensionPointLimiter GLOBAL_ACTIONS = new ExtensionPointLimiterImpl("org.talend.core.global_actions", //$NON-NLS-1$
             "GlobalAction"); //$NON-NLS-1$
 
+    @Override
     protected void makeActions(final IWorkbenchWindow myWindow) {
         this.window = myWindow;
         introAction = ActionFactory.INTRO.create(myWindow);
@@ -120,11 +121,13 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         reg.removeExtension(ext, new Object[] { actionSet });
     }
 
-    private static final String[] ACTIONSETID = new String[] { "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
+    private static final String[] ACTIONSETID = new String[] {
+            "org.eclipse.ui.edit.text.actionSet.convertLineDelimitersTo", //$NON-NLS-1$
             "org.eclipse.ui.edit.text.actionSet.annotationNavigation", "org.eclipse.ui.NavigateActionSet", //$NON-NLS-1$ //$NON-NLS-2$
             "org.eclipse.ui.WorkingSetActionSet", "org.eclipse.ui.edit.text.actionSet.navigation", //$NON-NLS-1$ //$NON-NLS-2$
-            "org.eclipse.search.searchActionSet", "org.eclipse.ui.externaltools.ExternalToolsSet" }; //$NON-NLS-1$
+            "org.eclipse.search.searchActionSet", "org.eclipse.ui.externaltools.ExternalToolsSet", "org.talend.repository.bootTalendActionSet" }; //$NON-NLS-1$
 
+    @Override
     protected void fillMenuBar(final IMenuManager menuBar) {
 
         ActionSetRegistry reg = WorkbenchPlugin.getDefault().getActionSetRegistry();
