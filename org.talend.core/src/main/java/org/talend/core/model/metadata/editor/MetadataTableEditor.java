@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -129,8 +129,8 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
     }
 
     public String getNextGeneratedColumnName(String oldColumnName) {
-        UniqueStringGenerator<IMetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<IMetadataColumn>(
-                oldColumnName, getBeansList()) {
+        UniqueStringGenerator<IMetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<IMetadataColumn>(oldColumnName,
+                getBeansList()) {
 
             /*
              * (non-Javadoc)
@@ -151,6 +151,7 @@ public class MetadataTableEditor extends ExtendedTableModel<IMetadataColumn> {
         MetadataColumn metadataColumn = new MetadataColumn();
         String columnName = getNextGeneratedColumnName();
         metadataColumn.setLabel(columnName);
+        metadataColumn.setNullable(true);
         metadataColumn.setOriginalDbColumnName(columnName);
 
         ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
