@@ -1,22 +1,13 @@
 // ============================================================================
 //
-// Talend Community Edition
+// Copyright (C) 2006-2007 Talend Inc. - www.talend.com
 //
-// Copyright (C) 2006-2007 Talend - www.talend.com
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// This library is free software; you can redistribute it and/or
-// modify it under the terms of the GNU Lesser General Public
-// License as published by the Free Software Foundation; either
-// version 2.1 of the License.
-//
-// This library is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
-// Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program; if not, write to the Free Software
-// Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
 //
 // ============================================================================
 /***********************************************************************************************************************
@@ -153,8 +144,7 @@ public class ContentProposalAdapterExtended {
                         public void run() {
                             if (!control.isDisposed()) {
                                 Control focusControl = control.getDisplay().getFocusControl();
-                                if (focusControl != control && focusControl != proposalTable
-                                        && focusControl != getShell()) {
+                                if (focusControl != control && focusControl != proposalTable && focusControl != getShell()) {
                                     authorizedClose();
                                 }
                             }
@@ -204,8 +194,7 @@ public class ContentProposalAdapterExtended {
                                 // the popup shell on the Mac.
                                 // Check the active shell.
                                 Shell activeShell = e.display.getActiveShell();
-                                if (activeShell == getShell()
-                                        || (infoPopup != null && infoPopup.getShell() == activeShell)) {
+                                if (activeShell == getShell() || (infoPopup != null && infoPopup.getShell() == activeShell)) {
                                     return;
                                 }
                                 // System.out.println("close focusout");
@@ -456,8 +445,8 @@ public class ContentProposalAdapterExtended {
                     // Modifier keys are explicitly checked and ignored because
                     // they are not complete yet (no character).
                     default:
-                        if (e.type != SWT.KeyUp && e.keyCode != SWT.CAPS_LOCK && e.keyCode != SWT.MOD1
-                                && e.keyCode != SWT.MOD2 && e.keyCode != SWT.MOD3 && e.keyCode != SWT.MOD4) {
+                        if (e.type != SWT.KeyUp && e.keyCode != SWT.CAPS_LOCK && e.keyCode != SWT.MOD1 && e.keyCode != SWT.MOD2
+                                && e.keyCode != SWT.MOD3 && e.keyCode != SWT.MOD4) {
                             authorizedClose();
                         }
                         return;
@@ -599,15 +588,14 @@ public class ContentProposalAdapterExtended {
                 rightProposedBounds = getConstrainedShellBounds(rightProposedBounds);
                 // If it won't fit on the right, try the left
                 if (rightProposedBounds.intersects(parentBounds)) {
-                    Rectangle leftProposedBounds = new Rectangle(parentBounds.x - parentBounds.width
-                            - POPUP_HORIZONTALSPACING - 1, parentBounds.y, parentBounds.width, parentBounds.height);
+                    Rectangle leftProposedBounds = new Rectangle(parentBounds.x - parentBounds.width - POPUP_HORIZONTALSPACING
+                            - 1, parentBounds.y, parentBounds.width, parentBounds.height);
                     leftProposedBounds = getConstrainedShellBounds(leftProposedBounds);
                     // If it won't fit on the left, choose the proposed bounds
                     // that fits the best
                     if (leftProposedBounds.intersects(parentBounds)) {
                         if (rightProposedBounds.x - parentBounds.x >= parentBounds.x - leftProposedBounds.x) {
-                            rightProposedBounds.x = parentBounds.x + parentBounds.width
-                                    + PopupDialog.POPUP_HORIZONTALSPACING;
+                            rightProposedBounds.x = parentBounds.x + parentBounds.width + PopupDialog.POPUP_HORIZONTALSPACING;
                             proposedBounds = rightProposedBounds;
                         } else {
                             leftProposedBounds.width = parentBounds.x - POPUP_HORIZONTALSPACING - leftProposedBounds.x;
@@ -1152,8 +1140,7 @@ public class ContentProposalAdapterExtended {
             int results = 0;
             boolean continueSearching = true;
             String currentFilter = EMPTY;
-            for (int indexStartFilter = 0; results == 0 && continueSearching
-                    && indexStartFilter < filterString.length(); indexStartFilter++) {
+            for (int indexStartFilter = 0; results == 0 && continueSearching && indexStartFilter < filterString.length(); indexStartFilter++) {
                 currentFilter = filterString.substring(indexStartFilter);
                 // System.out.println("currentFilter="+currentFilter);
 
@@ -1717,13 +1704,12 @@ public class ContentProposalAdapterExtended {
                         if (triggerKeyStroke != null) {
                             // Either there are no modifiers for the trigger and we
                             // check the character field...
-                            if ((triggerKeyStroke.getModifierKeys() == KeyStroke.NO_KEY && triggerKeyStroke
-                                    .getNaturalKey() == e.character)
+                            if ((triggerKeyStroke.getModifierKeys() == KeyStroke.NO_KEY && triggerKeyStroke.getNaturalKey() == e.character)
                                     ||
                                     // ...or there are modifiers, in which case the
                                     // keycode and state must match
-                                    (triggerKeyStroke.getNaturalKey() == e.keyCode && ((triggerKeyStroke
-                                            .getModifierKeys() & e.stateMask) == triggerKeyStroke.getModifierKeys()))) {
+                                    (triggerKeyStroke.getNaturalKey() == e.keyCode && ((triggerKeyStroke.getModifierKeys() & e.stateMask) == triggerKeyStroke
+                                            .getModifierKeys()))) {
                                 // We never propagate the keystroke for an explicit
                                 // keystroke invocation of the popup
                                 e.doit = false;
