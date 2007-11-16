@@ -46,6 +46,9 @@ import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 
+/**
+ * DOC nrousseau class global comment. Detailled comment
+ */
 public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
     protected Property property = PropertiesFactory.eINSTANCE.createProperty();
