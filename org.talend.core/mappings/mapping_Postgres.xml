@@ -135,6 +135,11 @@
 					<dbType type="TINTERVAL" />
 					<dbType type="RELTIME" />						
 				</talendType>
+				<talendType type="id_BigDecimal">
+					<dbType type="NUMERIC" default="true" />							
+					<dbType type="FLOAT4" />
+					<dbType type="FLOAT8"/>
+				</talendType>
 				<talendType type="id_Double">
 					<dbType type="FLOAT4" />
 					<dbType type="FLOAT8" default="true" />
@@ -268,12 +273,15 @@
 				</dbType>				
 				<dbType type="FLOAT4" >
 					<talendType type="id_Float" default="true" />				
+					<talendType type="id_BigDecimal"/>			
 				</dbType>				
 				<dbType type="FLOAT8" >
 					<talendType type="id_Double" default="true" />				
+					<talendType type="id_BigDecimal"/>			
 				</dbType>				
 				<dbType type="NUMERIC" >
-					<talendType type="id_Double" default="true" />				
+					<talendType type="id_Double" default="true" />
+					<talendType type="id_BigDecimal"/>			
 				</dbType>				
 				<dbType type="BOOL" >
 					<talendType type="id_Boolean" default="true" />				

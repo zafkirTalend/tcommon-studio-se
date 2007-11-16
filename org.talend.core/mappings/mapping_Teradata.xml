@@ -42,13 +42,16 @@
 				<talendType type="id_Date">
 					<dbType type="DATE" default="true" />
 				</talendType>
+				<talendType type="id_BigDecimal">
+					<dbType type="DECIMAL" default="true" />
+					<dbType type="FLOAT" />
+				</talendType>
 				<talendType type="id_Double">
-					<dbType type="INTEGER" default="true" />
-					<dbType type="DECIMAL"/>
+					<dbType type="DECIMAL" default="true" />
+					<dbType type="FLOAT" />
 				</talendType>
 				<talendType type="id_Float">
 					<dbType type="FLOAT" default="true" />
-					<dbType type="INTEGER"/>
 					<dbType type="DECIMAL"/>
 				</talendType>
 				<talendType type="id_Integer">
@@ -97,10 +100,12 @@
 				<dbType type="DECIMAL">
 					<talendType type="id_Float" default="true" />
 					<talendType type="id_Double"/>
+					<talendType type="id_BigDecimal"/>				
 				</dbType>
 				<dbType type="FLOAT">
 					<talendType type="id_Float" default="true" />
 					<talendType type="id_Double"/>				
+					<talendType type="id_BigDecimal"/>				
 				</dbType>
 				<dbType type="INTEGER">
 					<talendType type="id_Long"/>

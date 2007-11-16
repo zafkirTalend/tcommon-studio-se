@@ -74,8 +74,14 @@
 					<dbType type="YEAR" />
 					<dbType type="TIMESTAMP" />				
 				</talendType>
+				<talendType type="id_BigDecimal">
+					<dbType type="DECIMAL" default="true" />
+					<dbType type="FLOAT"/>
+					<dbType type="DOUBLE" />				
+				</talendType>
 				<talendType type="id_Double">
 					<dbType type="DOUBLE" default="true" />
+					<dbType type="FLOAT"/>
 					<dbType type="DECIMAL" />				
 				</talendType>
 				<talendType type="id_Float">
@@ -145,9 +151,11 @@
 				<dbType type="DECIMAL">
 					<talendType type="id_Float" default="true" />
 					<talendType type="id_Double"/>
+					<talendType type="id_BigDecimal"/>
 				</dbType>
 				<dbType type="DOUBLE">
 					<talendType type="id_Double" default="true" />
+					<talendType type="id_BigDecimal"/>
 				</dbType>
 				<dbType type="ENUM">
 					<talendType type="id_Object" default="true" />
@@ -155,6 +163,7 @@
 				<dbType type="FLOAT">
 					<talendType type="id_Float" default="true" />
 					<talendType type="id_Double"/>
+					<talendType type="id_BigDecimal"/>
 				</dbType>
 				<dbType type="GEOMETRY">
 					<talendType type="id_Object" default="true" />
@@ -238,12 +247,13 @@
 					<talendType type="id_Date" default="true" />
 				</dbType>		
 				<dbType type="BIGINT UNSIGNED" >
-					
 				</dbType>
 				<dbType type="DOUBLE UNSIGNED" >		
+					<talendType type="id_BigDecimal"/>
 				</dbType>
 				<dbType type="FLOAT UNSIGNED" >
 					<talendType type="id_Double" default="true" />
+					<talendType type="id_BigDecimal"/>
 				</dbType>
 				<dbType type="INT UNSIGNED" >
 					<talendType type="id_Long" default="true" />

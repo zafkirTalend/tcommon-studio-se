@@ -40,6 +40,10 @@
 					<dbType type="TIME"/>
 					<dbType type="TIMESTAMP"/>
 				</talendType>				
+				<talendType type="id_BigDecimal">
+					<dbType type="DECIMAL" default="true"/>
+					<dbType type="NUMERIC"/>
+				</talendType>				
 				<talendType type="id_Double">
 					<dbType type="DECIMAL" default="true"/>
 					<dbType type="NUMERIC"/>
@@ -94,6 +98,7 @@
 				</dbType>
 				<dbType type="DECIMAL">
 					<talendType type="id_Float" default="true" />
+					<talendType type="id_BigDecimal"/>
 					<talendType type="id_Double"/>
 				</dbType>
 				<dbType type="GRAPHIC">
@@ -109,6 +114,7 @@
 				</dbType>
 				<dbType type="NUMERIC">
 					<talendType type="id_Float" default="true"/>
+					<talendType type="id_BigDecimal"/>
 					<talendType type="id_Double"/>
 				</dbType>
 				<dbType type="SMALLINT">

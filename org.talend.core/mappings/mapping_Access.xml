@@ -41,17 +41,26 @@
 					<dbType type="TIMESTAMP" />	
 					<dbType type="TIME" />
 				</talendType>
+				<talendType type="id_BigDecimal">
+					<dbType type="NUMERIC"  default="true" />	
+					<dbType type="DOUBLE"/>
+					<dbType type="FLOAT" />
+                    <dbType type="DECIMAL" />
+                    <dbType type="REAL" />
+				</talendType>
 				<talendType type="id_Double">
 					<dbType type="DOUBLE" default="true" />
 					<dbType type="NUMERIC" />	
 					<dbType type="FLOAT" />
                     <dbType type="DECIMAL" />
+                    <dbType type="REAL" />
 				</talendType>
 				<talendType type="id_Float">
 					<dbType type="FLOAT" default="true" />
 					<dbType type="DOUBLE"/>
 					<dbType type="NUMERIC" />
                     <dbType type="DECIMAL" />
+                    <dbType type="REAL" />
 				</talendType>
 				<talendType type="id_Integer">
 					<dbType type="INTEGER" default="true" />
@@ -92,14 +101,17 @@
 				</dbType>
 				<dbType type="DECIMAL">
 					<talendType type="id_Double" default="true" />
+					<talendType type="id_BigDecimal"/>
 					<talendType type="id_Float"/>
 				</dbType>
 				<dbType type="DOUBLE">
 					<talendType type="id_Double" default="true" />
+					<talendType type="id_BigDecimal"/>
 					<talendType type="id_Float"/>
 				</dbType>
 				<dbType type="FLOAT">
 					<talendType type="id_Float" default="true" />
+					<talendType type="id_BigDecimal"/>
 					<talendType type="id_Double"/>
 				</dbType>
 				<dbType type="INTEGER">
@@ -110,10 +122,12 @@
 				</dbType>
 				<dbType type="NUMERIC">
 					<talendType type="id_Float" default="true" />
+					<talendType type="id_BigDecimal"/>
 					<talendType type="id_Double"/>
 				</dbType>
 				<dbType type="REAL">
 					<talendType type="id_Float" default="true" />
+					<talendType type="id_BigDecimal"/>
 					<talendType type="id_Double"/>
 				</dbType>
 				<dbType type="SMALLINT">
