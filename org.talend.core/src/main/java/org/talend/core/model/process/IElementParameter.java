@@ -21,7 +21,7 @@ import java.util.Map;
  * $Id$
  * 
  */
-public interface IElementParameter {
+public interface IElementParameter extends Cloneable {
 
     public void setName(final String s);
 
@@ -79,7 +79,7 @@ public interface IElementParameter {
     public String[] getListItemsDisplayCodeName();
 
     public Object[] getListItemsValue();
-    
+
     public String getRepositoryValue();
 
     public void setRepositoryValue(String repositoryValue);
@@ -91,7 +91,7 @@ public interface IElementParameter {
     public String[] getListRepositoryItems();
 
     public void setListRepositoryItems(final String[] list);
-    
+
     public int getIndexOfItemFromList(String item);
 
     public String getShowIf();
@@ -119,30 +119,30 @@ public interface IElementParameter {
     public void setDefaultValues(List<IElementParameterDefaultValue> defaultValues);
 
     public void setValueToDefault(List<? extends IElementParameter> listParam);
-    
+
     public void setElement(IElement element);
-    
+
     public IElement getElement();
-    
+
     public boolean isBasedOnSchema();
-    
-    public void setBasedOnSchema(boolean basedOnSchema); 
-    
+
+    public void setBasedOnSchema(boolean basedOnSchema);
+
     public String getFilter();
 
     public void setFilter(String filter);
-    
+
     public boolean isNoCheck();
-    
+
     public void setNoCheck(boolean noCheck);
-    
+
     public String getContext();
-    
+
     public void setContext(String context);
-    
+
     public Map<String, IElementParameter> getChildParameters();
-    
+
     public IElementParameter getParentParameter();
-    
+
     public void setParentParameter(IElementParameter parentParameter);
 }

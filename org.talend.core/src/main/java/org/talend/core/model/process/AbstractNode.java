@@ -233,7 +233,7 @@ public abstract class AbstractNode implements INode {
         IConnection connec;
 
         for (int j = 0; j < getIncomingConnections().size(); j++) {
-            connec = (IConnection) getIncomingConnections().get(j);
+            connec = getIncomingConnections().get(j);
             if (!connec.getLineStyle().equals(EConnectionType.FLOW_REF)) {
                 return ((AbstractNode) connec.getSource()).getSubProcessStartNode(withConditions);
             }
@@ -544,4 +544,34 @@ public abstract class AbstractNode implements INode {
         }
         return nodeConnector;
     }
+
+    private boolean dummy;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.INode#isDummy()
+     */
+    public boolean isDummy() {
+        return dummy;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.INode#setDummy(boolean)
+     */
+    public void setDummy(boolean dummy) {
+        this.dummy = dummy;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.INode#getOldComponent()
+     */
+    public IComponent getOldComponent() {
+        return this.component;
+    }
+
 }

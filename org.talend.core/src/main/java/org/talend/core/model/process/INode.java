@@ -33,8 +33,7 @@ public interface INode extends IElement {
      * @return label
      */
     public String getLabel();
-    
-    
+
     /**
      * Gives the unique name of the node.
      * 
@@ -80,11 +79,11 @@ public interface INode extends IElement {
     public String getPluginFullName();
 
     public Boolean hasConditionalOutputs();
-    
+
     public List<BlockCode> getBlocksCodeToClose();
-    
+
     public Boolean isMultiplyingOutputs();
-    
+
     /**
      * Set performance data on this node.
      * 
@@ -107,6 +106,8 @@ public interface INode extends IElement {
 
     public IComponent getComponent();
 
+    public IComponent getOldComponent();
+
     public void setComponent(IComponent component);
 
     public IExternalNode getExternalNode();
@@ -114,7 +115,7 @@ public interface INode extends IElement {
     public void metadataInputChanged(IODataComponent dataComponent, String connectionToApply);
 
     public void metadataOutputChanged(IODataComponent dataComponent, String connectionToApply);
-    
+
     /**
      * Will return the first item of the subprocess. If "withCondition" is true, if there is links from type RunIf /
      * RunAfter / RunBefore, it will return the first element found. If "withCondition" is false, it will return the
@@ -124,55 +125,63 @@ public interface INode extends IElement {
      * @return Start Node found.
      */
     public INode getSubProcessStartNode(boolean withConditions);
-    
+
     /**
-     * Test if the component use one data (in the property or other), this data for example a name of a context / component or other.
+     * Test if the component use one data (in the property or other), this data for example a name of a context /
+     * component or other.
+     * 
      * @param name
      * @return
      */
     public boolean useData(String name);
-    
+
     /**
-     * Used for example when a component is renamed, or when a context is renamed.
-     * This function should look into each property of the component to modify the value.
+     * Used for example when a component is renamed, or when a context is renamed. This function should look into each
+     * property of the component to modify the value.
+     * 
      * @param oldName
      * @param newName
      */
     public void renameData(String oldName, String newName);
-    
+
     /**
      * Gets current node's position.
+     * 
      * @return
      */
     public Point getLocation();
-    
+
     public boolean isThereLinkWithHash();
-    
+
     public List<? extends IConnection> getOutgoingSortedConnections();
-    
+
     public List<? extends IConnection> getMainOutgoingConnections();
-    
+
     public List<? extends IConnection> getOutgoingConnections(EConnectionType connectionType);
 
     public List<? extends IConnection> getIncomingConnections(EConnectionType connectionType);
 
     public List<? extends IConnection> getOutgoingConnections(String connectorName);
-    
+
     /**
-     * the key is the Merge node, and value is inputId.
-     * if don't link with merge, it will return null.
+     * the key is the Merge node, and value is inputId. if don't link with merge, it will return null.
      */
     public Map<INode, Integer> getLinkedMergeInfo();
-    
+
     public boolean isThereLinkWithMerge();
-    
+
     public IMetadataTable getMetadataFromConnector(String connector);
-    
+
     /**
-     * This function is used only for the designer. 
-     * Not implemented yet for the components use.
+     * This function is used only for the designer. Not implemented yet for the components use.
+     * 
      * @param connector name of the connector
      * @return INodeConnector
      */
     public INodeConnector getConnectorFromName(final String connector);
+
+    public void setDummy(boolean dummy);
+
+    public boolean isDummy();
+
 }
