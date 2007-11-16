@@ -401,7 +401,7 @@ public class MetadataColumn implements IMetadataColumn, Cloneable {
                 return false;
             }
         }
-        if ((options & OPTIONS_IGNORE_TYPE) == 0) {
+        if ((options & OPTIONS_IGNORE_DBTYPE) == 0) {
             if (!sameStringValue(this.type, other.getType())) {
                 return false;
             }
