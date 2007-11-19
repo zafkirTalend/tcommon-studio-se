@@ -21,11 +21,21 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProcessor;
 import org.eclipse.jdt.internal.ui.text.java.JavaMethodCompletionProposal;
 import org.eclipse.jdt.internal.ui.text.java.LazyJavaTypeCompletionProposal;
+import org.eclipse.jdt.ui.text.java.CompletionProposalCollector;
 import org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext;
+import org.eclipse.jdt.ui.text.java.JavaContentAssistInvocationContext;
 import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorSite;
+import org.eclipse.ui.IPropertyListener;
+import org.eclipse.ui.IWorkbenchPartSite;
+import org.eclipse.ui.PartInitException;
 import org.talend.core.ui.viewer.proposal.TalendCompletionProposal;
 
 /**
@@ -34,8 +44,8 @@ import org.talend.core.ui.viewer.proposal.TalendCompletionProposal;
  */
 public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
 
-    public TalendJavaCompletionProcessor(IEditorPart editor, ContentAssistant assistant, String partition) {
-        super(editor, assistant, partition);
+    public TalendJavaCompletionProcessor(ContentAssistant assistant, String partition) {
+        super(null, assistant, partition);
     }
 
     /*
@@ -83,4 +93,185 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
         return newProposals;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jdt.internal.ui.text.java.JavaCompletionProcessor#createContext(org.eclipse.jface.text.ITextViewer,
+     * int)
+     */
+    @Override
+    protected ContentAssistInvocationContext createContext(ITextViewer viewer, int offset) {
+        if (viewer instanceof TalendJavaSourceViewer) {
+            CompletionProposalCollector cpc = new CompletionProposalCollector(((TalendJavaSourceViewer) viewer)
+                    .getCompilationUnit());
+            // set an empty editor Part as it's the only constructor where the viewer can be used.
+            JavaContentAssistInvocationContext invocContext = new JavaContentAssistInvocationContext(viewer, offset,
+                    new NullEditorPart());
+            cpc.setInvocationContext(invocContext);
+            return invocContext;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * DOC nrousseau TalendJavaCompletionProcessor class global comment. Detailled comment
+     */
+    private class NullEditorPart implements IEditorPart {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.IEditorPart#getEditorInput()
+         */
+        public IEditorInput getEditorInput() {
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.IEditorPart#getEditorSite()
+         */
+        public IEditorSite getEditorSite() {
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.IEditorPart#init(org.eclipse.ui.IEditorSite, org.eclipse.ui.IEditorInput)
+         */
+        public void init(IEditorSite site, IEditorInput input) throws PartInitException {
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.IWorkbenchPart#addPropertyListener(org.eclipse.ui.IPropertyListener)
+         */
+        public void addPropertyListener(IPropertyListener listener) {
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.IWorkbenchPart#createPartControl(org.eclipse.swt.widgets.Composite)
+         */
+        public void createPartControl(Composite parent) {
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.IWorkbenchPart#dispose()
+         */
+        public void dispose() {
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.IWorkbenchPart#getSite()
+         */
+        public IWorkbenchPartSite getSite() {
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.IWorkbenchPart#getTitle()
+         */
+        public String getTitle() {
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.IWorkbenchPart#getTitleImage()
+         */
+        public Image getTitleImage() {
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.IWorkbenchPart#getTitleToolTip()
+         */
+        public String getTitleToolTip() {
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.IWorkbenchPart#removePropertyListener(org.eclipse.ui.IPropertyListener)
+         */
+        public void removePropertyListener(IPropertyListener listener) {
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.IWorkbenchPart#setFocus()
+         */
+        public void setFocus() {
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.core.runtime.IAdaptable#getAdapter(java.lang.Class)
+         */
+        public Object getAdapter(Class adapter) {
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.ISaveablePart#doSave(org.eclipse.core.runtime.IProgressMonitor)
+         */
+        public void doSave(IProgressMonitor monitor) {
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.ISaveablePart#doSaveAs()
+         */
+        public void doSaveAs() {
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.ISaveablePart#isDirty()
+         */
+        public boolean isDirty() {
+            return false;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.ISaveablePart#isSaveAsAllowed()
+         */
+        public boolean isSaveAsAllowed() {
+            return false;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.ui.ISaveablePart#isSaveOnCloseNeeded()
+         */
+        public boolean isSaveOnCloseNeeded() {
+            return false;
+        }
+
+    };
 }

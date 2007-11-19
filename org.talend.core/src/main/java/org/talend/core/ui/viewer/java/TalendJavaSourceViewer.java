@@ -16,82 +16,114 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.eclipse.core.internal.filebuffers.SynchronizableDocument;
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.jdt.core.ICompilationUnit;
+import org.eclipse.jdt.core.IPackageFragment;
+import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
-import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
-import org.eclipse.jdt.internal.ui.javaeditor.JavaSourceViewer;
-import org.eclipse.jdt.ui.PreferenceConstants;
+import org.eclipse.jdt.internal.ui.text.FastJavaPartitionScanner;
 import org.eclipse.jdt.ui.text.IJavaPartitions;
 import org.eclipse.jdt.ui.text.JavaTextTools;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
-import org.eclipse.jface.text.DocumentEvent;
-import org.eclipse.jface.text.IDocumentListener;
+import org.eclipse.jface.text.FindReplaceDocumentAdapter;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IDocumentPartitioner;
+import org.eclipse.jface.text.Region;
+import org.eclipse.jface.text.rules.FastPartitioner;
+import org.eclipse.jface.text.source.IAnnotationAccess;
+import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jface.text.source.IOverviewRuler;
+import org.eclipse.jface.text.source.ISharedTextColors;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.events.KeyAdapter;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
+import org.eclipse.jface.text.source.OverviewRuler;
+import org.eclipse.jface.text.source.VerticalRuler;
+import org.eclipse.jface.text.source.projection.ProjectionSupport;
+import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.internal.texteditor.LineNumberColumn;
+import org.eclipse.ui.IEditorInput;
+import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.ui.texteditor.rulers.IColumnSupport;
-import org.eclipse.ui.texteditor.rulers.RulerColumnDescriptor;
-import org.eclipse.ui.texteditor.rulers.RulerColumnRegistry;
-import org.talend.commons.utils.threading.ExecutionLimiter;
+import org.eclipse.ui.texteditor.AnnotationPreference;
+import org.eclipse.ui.texteditor.DefaultMarkerAnnotationAccess;
+import org.eclipse.ui.texteditor.IDocumentProvider;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.temp.ECodePart;
+import org.talend.core.ui.viewer.ReconcilerViewer;
 import org.talend.expressionbuilder.IExpressionDataBean;
 import org.talend.expressionbuilder.test.shadow.Variable;
 
 /**
- * DOC nrousseau class global comment. Detailled comment <br/>
- * 
+ * DOC nrousseau class global comment. Detailled comment
  */
-/**
- * DOC nrousseau class global comment. Detailled comment <br/>
- * 
- */
-public class TalendJavaSourceViewer extends JavaSourceViewer {
+public class TalendJavaSourceViewer extends ReconcilerViewer {
+
+    private String filename;
 
     public static final String VIEWER_CLASS_NAME = "TalendJavaSourceViewer";
 
-    private TalendJavaSourceViewer(Composite parent, IVerticalRuler verticalRuler, IOverviewRuler overviewRuler,
-            boolean showAnnotationsOverview, int styles, IPreferenceStore store) {
-        super(parent, verticalRuler, overviewRuler, showAnnotationsOverview, styles, store);
-    }
+    private static int currentId = 0;
+
+    private ICompilationUnit compilationUnit;
 
     /**
-     * This viewer is for test only.
+     * DOC nrousseau TalendJavaSourceViewer2 constructor comment.
      * 
-     * @param composite
-     * @param text
+     * @param parent
+     * @param verticalRuler
+     * @param overviewRuler
+     * @param showAnnotationsOverview
      * @param styles
-     * @return
+     * @param annotationAccess
+     * @param sharedColors
+     * @param checkCode
      */
-    public static CompilationUnitEditor createViewer2(Composite composite, int styles, IExpressionDataBean dataBean) {
-        final HiddenJavaEditor editor = new HiddenJavaEditor();
+    public TalendJavaSourceViewer(Composite parent, IVerticalRuler verticalRuler, IOverviewRuler overviewRuler,
+            boolean showAnnotationsOverview, int styles, IAnnotationAccess annotationAccess, ISharedTextColors sharedColors,
+            boolean checkCode, IDocument document) {
+        super(parent, verticalRuler, overviewRuler, showAnnotationsOverview, styles, annotationAccess, sharedColors, checkCode,
+                document);
+        IPath packagePath = new Path("/.Java/src/internal");
+        filename = TalendJavaSourceViewer.VIEWER_CLASS_NAME + currentId++ + ".java";
+        IPackageFragment packageFragment;
+        try {
+            packageFragment = CorePlugin.getDefault().getRunProcessService().getJavaProject().findPackageFragment(packagePath);
+            compilationUnit = packageFragment.createCompilationUnit(filename, document.get(), false, new NullProgressMonitor());
+        } catch (JavaModelException e) {
+            ExceptionHandler.process(e);
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        }
+
+        setContents(document);
+    }
+
+    public static ISourceViewer createViewer(Composite composite, int styles, boolean checkCode) {
+        SynchronizableDocument doc = new SynchronizableDocument();
+        return initializeViewer(composite, styles, true, new Document(), -1);
+    }
+
+    public static ISourceViewer createViewerWithVariables(Composite composite, int styles, IExpressionDataBean dataBean) {
+        IDocument document = new Document();
         StringBuffer buff = new StringBuffer();
         buff.append("package internal;\n\n");
         buff.append("public class " + VIEWER_CLASS_NAME + " {\n");
+        buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n");
         buff
                 .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n");
 
@@ -100,86 +132,168 @@ public class TalendJavaSourceViewer extends JavaSourceViewer {
         buff.append("\t\treturn \n");
 
         int length = buff.toString().length();
-        String defaultValue = JavaTypesManager.getDefaultValueFromJavaType(dataBean.getExpressionType());
+        String defaultValue = "";
         buff.append(defaultValue + ";\t\n}\n}");
-        editor.setInput(createFileEditorInput(buff.toString()));
-        composite.setLayout(new FillLayout());
-        editor.createPartControl(composite);
-        IColumnSupport columnSupport = (IColumnSupport) editor.getAdapter(IColumnSupport.class);
-        RulerColumnDescriptor lineNumberColumnDescriptor = RulerColumnRegistry.getDefault().getColumnDescriptor(
-                LineNumberColumn.ID);
-        if (lineNumberColumnDescriptor != null)
-            columnSupport.setColumnVisible(lineNumberColumnDescriptor, false);
 
-        final JavaSourceViewer viewer = (JavaSourceViewer) editor.getViewer();
-        SynchronizableDocument doc = (SynchronizableDocument) viewer.getDocument();
-        viewer.setVisibleRegion(length, defaultValue.length());
-        viewer.getControl().addDisposeListener(new DisposeListener() {
+        document.set(buff.toString());
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.DisposeListener#widgetDisposed(org.eclipse.swt.events.DisposeEvent)
-             */
-            public void widgetDisposed(DisposeEvent e) {
-                editor.dispose();
-            }
+        return initializeViewer(composite, styles, true, document, length);
+    }
 
-        });
+    // for test only
+    public static ISourceViewer createViewerForComponent(Composite composite, int styles, IDocument document,
+            List<Variable> variableList, String uniqueName, ECodePart codePart) {
 
-        final ExecutionLimiter saveLimiter = new ExecutionLimiter(10, false) {
+        String mainPart = "[" + uniqueName + " " + codePart.getName() + " ] start";
 
-            @Override
-            public void execute(final boolean isFinalExecution) {
-                if (!viewer.getControl().isDisposed()) {
-                    viewer.getControl().getDisplay().asyncExec(new Runnable() {
+        int documentOffset = -1;
 
-                        public void run() {
-                            editor.doSave(new NullProgressMonitor());
-                        }
-                    });
-                }
-            }
-        };
-        viewer.getDocument().addDocumentListener(new IDocumentListener() {
-
-            public void documentAboutToBeChanged(DocumentEvent event) {
-            }
-
-            public void documentChanged(DocumentEvent event) {
-                saveLimiter.resetTimer();
-                saveLimiter.startIfExecutable(true);
-            }
-
-        });
-        Point sel = viewer.getSelectedRange();
+        IDocument newDoc = new Document();
+        newDoc.set(document.get());
+        FindReplaceDocumentAdapter frda = new FindReplaceDocumentAdapter(newDoc);
         try {
-            viewer.getDocument().replace(sel.x, defaultValue.length(), "");
-        } catch (BadLocationException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+            Region region = (Region) frda.find(0, mainPart, true, false, false, false);
+            if (region != null) {
+                documentOffset = region.getOffset();
+                documentOffset = newDoc.getLineOffset(newDoc.getLineOfOffset(documentOffset) + 2);
+            }
+        } catch (BadLocationException e) {
+            ExceptionHandler.process(e);
         }
 
-        viewer.enableOperation(ISourceViewer.CONTENTASSIST_PROPOSALS, true);
-        viewer.enableOperation(ISourceViewer.QUICK_ASSIST, false);
-        viewer.getTextWidget().addKeyListener(new KeyAdapter() {
+        return initializeViewer(composite, styles, true, newDoc, documentOffset);
+    }
 
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.KeyAdapter#keyPressed(org.eclipse.swt.events.KeyEvent)
-             */
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.stateMask == SWT.CTRL && e.keyCode == 32) {
-                    viewer.doOperation(ISourceViewer.CONTENTASSIST_PROPOSALS);
-                } else if (e.stateMask == SWT.CTRL && e.stateMask == SWT.SHIFT && e.keyCode == 'F') {
-                    viewer.doOperation(ISourceViewer.FORMAT);
+    private static ISourceViewer initializeViewer(Composite composite, int styles, boolean checkCode, IDocument document,
+            int visibleOffset) {
+        IAnnotationAccess annotationAccess = new DefaultMarkerAnnotationAccess();
+        ISharedTextColors sharedColors = EditorsPlugin.getDefault().getSharedTextColors();
+        IOverviewRuler overviewRuler = null;
+        IVerticalRuler verticalRuler = null;
+        if (checkCode) {
+            overviewRuler = new OverviewRuler(annotationAccess, 12, sharedColors);
+            Iterator e = EditorsPlugin.getDefault().getMarkerAnnotationPreferences().getAnnotationPreferences().iterator();
+            while (e.hasNext()) {
+                AnnotationPreference preference = (AnnotationPreference) e.next();
+                if (preference.contributesToHeader()) {
+                    overviewRuler.addHeaderAnnotationType(preference.getAnnotationType());
                 }
             }
-        });
+            verticalRuler = new VerticalRuler(12);
+        }
+        ISourceViewer viewer = new TalendJavaSourceViewer(composite, verticalRuler, overviewRuler, checkCode, styles,
+                annotationAccess, sharedColors, checkCode, document);
 
-        return editor;
+        if (visibleOffset != -1) {
+            viewer.setVisibleRegion(visibleOffset, 0);
+        }
+
+        return viewer;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.viewer.ReconcilerViewer#getDocumentPartitioner()
+     */
+    @Override
+    protected IDocumentPartitioner getDocumentPartitioner() {
+        return new FastPartitioner(new FastJavaPartitionScanner(), new String[] { IJavaPartitions.JAVA_DOC,
+                IJavaPartitions.JAVA_MULTI_LINE_COMMENT, IJavaPartitions.JAVA_SINGLE_LINE_COMMENT, IJavaPartitions.JAVA_STRING,
+                IJavaPartitions.JAVA_CHARACTER });
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.viewer.ReconcilerViewer#initializeModel()
+     */
+    @Override
+    protected void initializeModel() {
+        IDocumentProvider provider = JavaPlugin.getDefault().getCompilationUnitDocumentProvider();
+        IEditorInput ei = new FileEditorInput(file);
+        try {
+            provider.connect(ei);
+        } catch (CoreException e) {
+            ExceptionHandler.process(e);
+        }
+        IDocument document = getDocument();
+        IAnnotationModel model = provider.getAnnotationModel(ei);
+        model.connect(document);
+
+        if (document != null) {
+            setDocument(document, model);
+            showAnnotations(model != null);
+        }
+
+        ProjectionSupport projectionSupport = new ProjectionSupport(this, annotationAccess, sharedColors);
+        projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.error");
+        projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.warning");
+        projectionSupport.install();
+
+        getSourceViewerDecorationSupport().install(JavaPlugin.getDefault().getCombinedPreferenceStore());
+
+        doOperation(ProjectionViewer.TOGGLE);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.viewer.ReconcilerViewer#installViewerConfiguration()
+     */
+    @Override
+    protected void installViewerConfiguration() {
+        IPreferenceStore store = JavaPlugin.getDefault().getCombinedPreferenceStore();
+        JavaTextTools tools = JavaPlugin.getDefault().getJavaTextTools();
+        configure(new TalendJavaViewerConfiguration(tools.getColorManager(), store, this));
+
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.viewer.ReconcilerViewer#reconcile()
+     */
+    @Override
+    public void reconcile() {
+        if (compilationUnit != null) {
+            try {
+                compilationUnit.reconcile(ICompilationUnit.NO_AST, false, false, null, new NullProgressMonitor());
+            } catch (JavaModelException e) {
+                ExceptionHandler.process(e);
+            }
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.ui.viewer.ReconcilerViewer#setContents(org.eclipse.jface.text.IDocument)
+     */
+    @Override
+    protected void setContents(IDocument document) {
+        IPath filePath = new Path("src/internal/" + filename);
+        InputStream codeStream = new ByteArrayInputStream(document.get().getBytes());
+        try {
+            if (file == null) {
+                file = CorePlugin.getDefault().getRunProcessService().getProject(LanguageManager.getCurrentLanguage()).getFile(
+                        filePath);
+
+                if (!file.exists()) {
+                    // file.create(codeStream, true, null);
+                    System.out.println("error file should be already created");
+                } else {
+                    file.setContents(codeStream, true, false, null);
+                }
+                initializeModel();
+                installOccurrencesUpdater();
+                reconcile();
+            } else {
+                file.setContents(codeStream, true, false, null);
+            }
+        } catch (CoreException e) {
+            MessageBoxExceptionHandler.process(e);
+        }
     }
 
     /**
@@ -235,68 +349,22 @@ public class TalendJavaSourceViewer extends JavaSourceViewer {
         return buff.toString();
     }
 
-    public static ISourceViewer createViewer(Composite composite, String text, int styles) {
-        IPreferenceStore store = JavaPlugin.getDefault().getCombinedPreferenceStore();
-        final TalendJavaSourceViewer viewer = new TalendJavaSourceViewer(composite, null, null, false, styles, store);
-        StringBuffer buff = new StringBuffer();
-        buff.append("package internal;\n\n");
-        buff.append("public class " + VIEWER_CLASS_NAME + " {\n");
-        buff.append("public void myFunction(){\n");
-        buff.append(text);
-        Document doc = new Document(buff.toString());
-
-        viewer.setDocument(doc, buff.toString().length() - text.length(), text.length());
-
-        JavaTextTools tools = JavaPlugin.getDefault().getJavaTextTools();
-        tools.setupJavaDocumentPartitioner(viewer.getDocument(), IJavaPartitions.JAVA_PARTITIONING);
-        CompilationUnitEditor editor = new HiddenJavaEditor(viewer);
-        TalendJavaViewerConfiguration config = new TalendJavaViewerConfiguration(tools.getColorManager(), store, editor);
-        viewer.configure(config);
-
-        viewer.getTextWidget().setFont(JFaceResources.getFont(PreferenceConstants.EDITOR_TEXT_FONT));
-
-        viewer.enableOperation(ISourceViewer.CONTENTASSIST_PROPOSALS, true);
-        viewer.setEditable(true);
-        viewer.getControl().setLayoutData(new GridData(GridData.FILL_BOTH));
-
-        viewer.getTextWidget().addKeyListener(new KeyAdapter() {
-
-            /*
-             * (non-Javadoc)
-             * 
-             * @see org.eclipse.swt.events.KeyAdapter#keyPressed(org.eclipse.swt.events.KeyEvent)
-             */
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.stateMask == SWT.CTRL && e.keyCode == 32) {
-                    viewer.doOperation(ISourceViewer.CONTENTASSIST_PROPOSALS);
-                } else if (e.stateMask == SWT.CTRL && e.stateMask == SWT.SHIFT && e.keyCode == 'F') {
-                    viewer.doOperation(ISourceViewer.FORMAT);
-                }
-            }
-        });
-
-        return viewer;
+    /**
+     * Getter for compilationUnit.
+     * 
+     * @return the compilationUnit
+     */
+    public ICompilationUnit getCompilationUnit() {
+        return this.compilationUnit;
     }
 
-    private static FileEditorInput createFileEditorInput(String content) {
-        FileEditorInput input = null;
-        IPath path = new Path("src/internal/" + TalendJavaSourceViewer.VIEWER_CLASS_NAME + ".java");
-
-        IFile file = null;
-        try {
-
-            file = CorePlugin.getDefault().getRunProcessService().getProject(LanguageManager.getCurrentLanguage()).getFile(path);
-            InputStream codeStream = new ByteArrayInputStream(content.getBytes());
-            if (!file.exists()) {
-                file.create(codeStream, true, null);
-            } else {
-                file.setContents(codeStream, true, false, null);
-            }
-            input = new FileEditorInput(file);
-        } catch (CoreException e) {
-            e.printStackTrace();
-        }
-        return input;
+    /**
+     * Sets the compilationUnit.
+     * 
+     * @param compilationUnit the compilationUnit to set
+     */
+    public void setCompilationUnit(ICompilationUnit compilationUnit) {
+        this.compilationUnit = compilationUnit;
     }
+
 }

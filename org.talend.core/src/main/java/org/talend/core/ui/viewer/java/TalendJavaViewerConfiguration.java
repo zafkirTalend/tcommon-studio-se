@@ -12,14 +12,10 @@
 // ============================================================================
 package org.talend.core.ui.viewer.java;
 
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
 import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
 import org.eclipse.jdt.internal.ui.text.ContentAssistPreference;
-import org.eclipse.jdt.internal.ui.text.JavaCompositeReconcilingStrategy;
-import org.eclipse.jdt.internal.ui.text.JavaReconciler;
 import org.eclipse.jdt.internal.ui.text.java.ContentAssistProcessor;
-import org.eclipse.jdt.internal.ui.text.javadoc.JavadocCompletionProcessor;
 import org.eclipse.jdt.ui.text.IColorManager;
 import org.eclipse.jdt.ui.text.IJavaPartitions;
 import org.eclipse.jdt.ui.text.JavaSourceViewerConfiguration;
@@ -31,7 +27,6 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContentAssistant;
 import org.eclipse.jface.text.reconciler.IReconciler;
 import org.eclipse.jface.text.source.ISourceViewer;
-import org.eclipse.ui.texteditor.ITextEditor;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -39,12 +34,12 @@ import org.eclipse.ui.texteditor.ITextEditor;
  */
 public class TalendJavaViewerConfiguration extends JavaSourceViewerConfiguration {
 
-    private CompilationUnitEditor editor = null;
+    private TalendJavaSourceViewer viewer = null;
 
     public TalendJavaViewerConfiguration(IColorManager colorManager, IPreferenceStore preferenceStore,
-            CompilationUnitEditor editor) {
+            TalendJavaSourceViewer viewer) {
         this(colorManager, preferenceStore, null, IJavaPartitions.JAVA_PARTITIONING);
-        this.editor = editor;
+        this.viewer = viewer;
     }
 
     /**
@@ -60,13 +55,6 @@ public class TalendJavaViewerConfiguration extends JavaSourceViewerConfiguration
         super(colorManager, preferenceStore, editor, javaPartitioning);
     }
 
-    private ITextEditor getInternalEditor() {
-        if (editor != null) {
-            return editor;
-        }
-        return getEditor();
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -79,25 +67,23 @@ public class TalendJavaViewerConfiguration extends JavaSourceViewerConfiguration
 
         assistant.setRestoreCompletionProposalSize(getSettings("completion_proposal_size")); //$NON-NLS-1$
 
-        IContentAssistProcessor javaProcessor = new TalendJavaCompletionProcessor(getInternalEditor(), assistant,
-                IDocument.DEFAULT_CONTENT_TYPE);
+        IContentAssistProcessor javaProcessor = new TalendJavaCompletionProcessor(assistant, IDocument.DEFAULT_CONTENT_TYPE);
         assistant.setContentAssistProcessor(javaProcessor, IDocument.DEFAULT_CONTENT_TYPE);
 
-        ContentAssistProcessor singleLineProcessor = new TalendJavaCompletionProcessor(getInternalEditor(), assistant,
+        ContentAssistProcessor singleLineProcessor = new TalendJavaCompletionProcessor(assistant,
                 IJavaPartitions.JAVA_SINGLE_LINE_COMMENT);
         assistant.setContentAssistProcessor(singleLineProcessor, IJavaPartitions.JAVA_SINGLE_LINE_COMMENT);
 
-        ContentAssistProcessor stringProcessor = new TalendJavaCompletionProcessor(getInternalEditor(), assistant,
-                IJavaPartitions.JAVA_STRING);
+        ContentAssistProcessor stringProcessor = new TalendJavaCompletionProcessor(assistant, IJavaPartitions.JAVA_STRING);
         assistant.setContentAssistProcessor(stringProcessor, IJavaPartitions.JAVA_STRING);
 
-        ContentAssistProcessor multiLineProcessor = new TalendJavaCompletionProcessor(getInternalEditor(), assistant,
+        ContentAssistProcessor multiLineProcessor = new TalendJavaCompletionProcessor(assistant,
                 IJavaPartitions.JAVA_MULTI_LINE_COMMENT);
         assistant.setContentAssistProcessor(multiLineProcessor, IJavaPartitions.JAVA_MULTI_LINE_COMMENT);
 
-        ContentAssistProcessor javadocProcessor = new JavadocCompletionProcessor(getInternalEditor(), assistant);
-        assistant.setContentAssistProcessor(javadocProcessor, IJavaPartitions.JAVA_DOC);
-
+        // ContentAssistProcessor javadocProcessor = new JavadocCompletionProcessor(getInternalEditor(), assistant);
+        // assistant.setContentAssistProcessor(javadocProcessor, IJavaPartitions.JAVA_DOC);
+        //
         ContentAssistPreference.configure(assistant, fPreferenceStore);
 
         assistant.setContextInformationPopupOrientation(IContentAssistant.CONTEXT_INFO_ABOVE);
@@ -127,16 +113,6 @@ public class TalendJavaViewerConfiguration extends JavaSourceViewerConfiguration
      */
     @Override
     public IReconciler getReconciler(ISourceViewer sourceViewer) {
-        if (editor != null && editor.isEditable()) {
-            JavaCompositeReconcilingStrategy strategy = new JavaCompositeReconcilingStrategy(sourceViewer, editor,
-                    getConfiguredDocumentPartitioning(sourceViewer));
-            JavaReconciler reconciler = new JavaReconciler(editor, strategy, false);
-            reconciler.setIsIncrementalReconciler(false);
-            reconciler.setIsAllowedToModifyDocument(false);
-            reconciler.setProgressMonitor(new NullProgressMonitor());
-            reconciler.setDelay(500);
-            return reconciler;
-        }
-        return super.getReconciler(sourceViewer);
+        return null;
     }
 }
