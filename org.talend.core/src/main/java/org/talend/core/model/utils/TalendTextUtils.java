@@ -185,8 +185,7 @@ public class TalendTextUtils {
             b = b && c >= '0' && c <= '9';
         }
         EDatabaseTypeName name = EDatabaseTypeName.getTypeFromDbType(dbType);
-        boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(
-                ITalendCorePrefConstants.SQL_ADD_QUOTE);
+        boolean isCheck = !CorePlugin.getDefault().getPreferenceStore().getBoolean(ITalendCorePrefConstants.SQL_ADD_QUOTE);
         if (!b) {
             if (isCheck && !name.equals(EDatabaseTypeName.PSQL)) {
                 return fieldName;
@@ -338,7 +337,7 @@ public class TalendTextUtils {
      * @param quotation_mark2
      * @return
      */
-    private static String removeQuotes(String text, String quotation) {
+    public static String removeQuotes(String text, String quotation) {
         if (text.length() > 1) {
             String substring = text.substring(0, 1);
             if (quotation.equals(substring)) {
