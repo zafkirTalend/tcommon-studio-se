@@ -18,8 +18,12 @@ import java.util.List;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.jface.action.ICoolBarManager;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
+import org.eclipse.jface.action.ToolBarContributionItem;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.swt.SWT;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.actions.ActionFactory;
@@ -99,7 +103,6 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         actionBarConfigurer.registerGlobalAction(ActionFactory.PASTE.create(window));
         actionBarConfigurer.registerGlobalAction(ActionFactory.DELETE.create(window));
         actionBarConfigurer.registerGlobalAction(ActionFactory.SELECT_ALL.create(window));
-
         // IContextService contextService = (IContextService) Activator.getDefault().getWorkbench()
         // .getAdapter(IContextService.class);
         // contextService.activateContext("talend.global");
@@ -230,6 +233,10 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         // for (IAction action : coolbaractions) {
         // toolbar.add(action);
         // }
+        IToolBarManager toolBar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
+        coolBar.add(new ToolBarContributionItem(toolBar, "save"));
+        toolBar.add(ActionFactory.SAVE.create(window));
+
     }
 
 }
