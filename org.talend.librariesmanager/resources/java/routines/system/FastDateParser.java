@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -28,11 +28,11 @@ public class FastDateParser {
     private FastDateParser() {
         super();
     }
-    
+
     private static java.util.HashMap<DateFormatKey, java.text.DateFormat> cache = new java.util.HashMap<DateFormatKey, java.text.DateFormat>();
 
     private static DateFormatKey dateFormatKey = getInstance().new DateFormatKey();
-    
+
     // Warning : DateFormat objects returned by this method are not thread safe
     public static java.text.DateFormat getInstance(String pattern) {
         return getInstance(pattern, null);
@@ -48,7 +48,7 @@ public class FastDateParser {
             } else if (pattern.equals("yyyy-MM-dd HH:mm:ss")) {
                 format = new DateTimeParser();
             } else {
-                if(locale != null) {
+                if (locale != null) {
                     format = new java.text.SimpleDateFormat(pattern, locale);
                 } else {
                     format = new java.text.SimpleDateFormat(pattern);
@@ -68,6 +68,7 @@ public class FastDateParser {
             calendar = java.util.Calendar.getInstance();
         }
 
+        @Override
         public StringBuffer format(java.util.Date date, StringBuffer toAppendTo, java.text.FieldPosition fieldPosition) {
             calendar.setTime(date);
 
@@ -93,6 +94,7 @@ public class FastDateParser {
             return toAppendTo;
         }
 
+        @Override
         public java.util.Date parse(String source, java.text.ParsePosition pos) {
             int index = 0;
             try {
@@ -123,6 +125,7 @@ public class FastDateParser {
             calendar = java.util.Calendar.getInstance();
         }
 
+        @Override
         public StringBuffer format(java.util.Date date, StringBuffer toAppendTo, java.text.FieldPosition fieldPosition) {
             calendar.setTime(date);
 
@@ -147,7 +150,7 @@ public class FastDateParser {
             toAppendTo.append(" ");
 
             // Hour
-            hour = calendar.get(java.util.Calendar.HOUR);
+            hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
             if (hour < 10)
                 toAppendTo.append("0");
             toAppendTo.append(hour);
@@ -169,6 +172,7 @@ public class FastDateParser {
             return toAppendTo;
         }
 
+        @Override
         public java.util.Date parse(String source, java.text.ParsePosition pos) {
             int index = 0;
             try {
@@ -204,12 +208,12 @@ public class FastDateParser {
 
         public DateFormatKey() {
         }
-        
+
         public DateFormatKey(String pattern, Locale locale) {
             this.pattern = pattern;
             this.locale = locale;
         }
-        
+
         /*
          * (non-Javadoc)
          * 
