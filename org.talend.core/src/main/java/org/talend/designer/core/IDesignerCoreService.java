@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.gef.palette.PaletteRoot;
+import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.ui.IPartListener;
 import org.talend.core.IService;
@@ -58,4 +59,6 @@ public interface IDesignerCoreService extends IService {
     public String getPreferenceStore(String key);
 
     public PaletteRoot createPalette(IComponentsFactory factory);
+
+    public IAction getCreateProcessAction(boolean isToolbar);
 }

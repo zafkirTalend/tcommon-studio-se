@@ -20,6 +20,7 @@ import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.general.ILibrariesService;
 import org.talend.core.model.migration.IMigrationToolService;
+import org.talend.designer.business.diagram.custom.IDiagramModelService;
 import org.talend.designer.codegen.ICodeGeneratorService;
 import org.talend.designer.components.IComponentsLocalProviderService;
 import org.talend.designer.core.IDesignerCoreService;
@@ -142,6 +143,10 @@ public class CorePlugin extends AbstractUIPlugin {
 
     public IMigrationToolService getMigrationToolService() {
         return (IMigrationToolService) GlobalServiceRegister.getDefault().getService(IMigrationToolService.class);
+    }
+
+    public IDiagramModelService getDiagramModelService() {
+        return (IDiagramModelService) GlobalServiceRegister.getDefault().getService(IDiagramModelService.class);
     }
 
 }
