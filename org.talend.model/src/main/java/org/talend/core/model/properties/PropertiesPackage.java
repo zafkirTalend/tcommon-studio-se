@@ -2949,13 +2949,50 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_VIRTUAL_SERVER_FEATURE_COUNT = 5;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.HTMLDocumentationItemImpl <em>HTML Documentation Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.HTMLDocumentationItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHTMLDocumentationItem()
+     * @generated
+     */
+    int HTML_DOCUMENTATION_ITEM = 41;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HTML_DOCUMENTATION_ITEM__PROPERTY = ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HTML_DOCUMENTATION_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The number of structural features of the '<em>HTML Documentation Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HTML_DOCUMENTATION_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 41;
+    int FOLDER_TYPE = 42;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -2965,7 +3002,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 42;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 43;
 
 
     /**
@@ -2976,7 +3013,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 43;
+    int USER_MODULE_AUTHORIZATION_TYPE = 44;
 
 
     /**
@@ -5110,6 +5147,16 @@ public interface PropertiesPackage extends EPackage {
     EReference getExecutionVirtualServer_ExecutionServers();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.HTMLDocumentationItem <em>HTML Documentation Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>HTML Documentation Item</em>'.
+     * @see org.talend.core.model.properties.HTMLDocumentationItem
+     * @generated
+     */
+    EClass getHTMLDocumentationItem();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -6887,6 +6934,16 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference EXECUTION_VIRTUAL_SERVER__EXECUTION_SERVERS = eINSTANCE.getExecutionVirtualServer_ExecutionServers();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.HTMLDocumentationItemImpl <em>HTML Documentation Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.HTMLDocumentationItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHTMLDocumentationItem()
+         * @generated
+         */
+        EClass HTML_DOCUMENTATION_ITEM = eINSTANCE.getHTMLDocumentationItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

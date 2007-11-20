@@ -346,6 +346,15 @@ public interface PropertiesFactory extends EFactory {
     ExecutionVirtualServer createExecutionVirtualServer();
 
     /**
+     * Returns a new object of class '<em>HTML Documentation Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>HTML Documentation Item</em>'.
+     * @generated
+     */
+    HTMLDocumentationItem createHTMLDocumentationItem();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

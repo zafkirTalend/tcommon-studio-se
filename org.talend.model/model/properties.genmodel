@@ -260,5 +260,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionVirtualServer/active"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionVirtualServer/executionServers"/>
     </genClasses>
+    <genClasses ecoreClass="properties.ecore#//HTMLDocumentationItem"/>
   </genPackages>
 </genmodel:GenModel>

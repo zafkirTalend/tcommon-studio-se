@@ -327,4 +327,5 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="executionServers" unique="false"
         upperBound="-1" eType="#//ExecutionServer"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="HTMLDocumentationItem" eSuperTypes="#//Item"/>
 </ecore:EPackage>
