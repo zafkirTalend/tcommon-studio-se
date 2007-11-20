@@ -22,6 +22,7 @@ import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
+import org.talend.core.model.properties.HTMLDocumentationItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
@@ -62,7 +63,8 @@ public enum ERepositoryObjectType {
     FOLDER("repository.folder"), //$NON-NLS-1$
     REFERENCED_PROJECTS("repository.referencedProjects", "repository.referencedProjects.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     GENERATED("repository.generated"),
-    JOBS("repository.jobs");
+    JOBS("repository.jobs"),
+    HTML_DOC("repository.htmldoc");
 
     private String key;
 
@@ -125,6 +127,8 @@ public enum ERepositoryObjectType {
             return "documentations/generated";
         case JOBS:
             return "documentations/generated/jobs";
+        case HTML_DOC:
+            return "documentations/generated/jobs";
         case METADATA:
             return "metadata"; //$NON-NLS-1$
         case METADATA_CONNECTIONS:
@@ -158,6 +162,11 @@ public enum ERepositoryObjectType {
 
             public Object caseDocumentationItem(DocumentationItem object) {
                 return DOCUMENTATION;
+            }
+            
+            public Object caseHTMLDocumentationItem(HTMLDocumentationItem object)
+            {
+                return HTML_DOC;
             }
 
             public Object caseRoutineItem(RoutineItem object) {

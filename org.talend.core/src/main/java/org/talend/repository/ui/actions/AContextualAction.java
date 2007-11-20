@@ -12,20 +12,29 @@
 // ============================================================================
 package org.talend.repository.ui.actions;
 
-import java.util.Iterator;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.general.Project;
+import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
-import org.talend.repository.IRepositoryChangedListener;
-import org.talend.repository.RepositoryElementDelta;
+import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.RepositoryNode.ENodeType;
+import org.talend.repository.model.RepositoryNode.EProperties;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -163,4 +172,5 @@ public abstract class AContextualAction extends Action implements ITreeContextua
     protected void notifySQLBuilder(List<IRepositoryObject> list) {
         CorePlugin.getDefault().getRepositoryService().notifySQLBuilder(list);
     }
+
 }

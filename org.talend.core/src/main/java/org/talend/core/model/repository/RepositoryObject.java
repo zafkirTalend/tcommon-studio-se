@@ -32,6 +32,7 @@ import org.talend.core.model.properties.DatabaseConnectionItem;
 import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
+import org.talend.core.model.properties.HTMLDocumentationItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
@@ -204,6 +205,9 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
                 return ERepositoryObjectType.METADATA_LDAP_SCHEMA;
             }
 
+            public Object caseHTMLDocumentationItem(HTMLDocumentationItem object) {
+                return ERepositoryObjectType.HTML_DOC;
+            } 
             public Object defaultCase(EObject object) {
                 throw new IllegalStateException();
             }
