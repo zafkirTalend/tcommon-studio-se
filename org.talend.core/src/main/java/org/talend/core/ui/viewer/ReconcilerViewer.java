@@ -21,7 +21,6 @@ import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
-import org.eclipse.jface.text.IDocumentPartitioner;
 import org.eclipse.jface.text.ITextOperationTarget;
 import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.IOverviewRuler;
@@ -29,7 +28,6 @@ import org.eclipse.jface.text.source.ISharedTextColors;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.events.DisposeEvent;
@@ -52,7 +50,6 @@ import org.eclipse.ui.texteditor.AnnotationPreference;
 import org.eclipse.ui.texteditor.MarkerAnnotationPreferences;
 import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.epic.core.model.SourceFile;
-import org.epic.perleditor.editors.OccurrencesUpdater;
 import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**
@@ -74,8 +71,6 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
     protected IAnnotationAccess annotationAccess;
 
     protected ISharedTextColors sharedColors;
-
-    private OccurrencesUpdater occ;
 
     protected boolean checkCode;
 
@@ -120,13 +115,9 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
         fAnnotationPreferences = EditorsPlugin.getDefault().getMarkerAnnotationPreferences();
 
         setDocument(document);
+
         installViewerConfiguration();
         setEditable(true);
-
-        IDocumentPartitioner partitioner = getDocumentPartitioner();
-
-        document.setDocumentPartitioner(partitioner);
-        partitioner.connect(document);
 
         Font font = JFaceResources.getFontRegistry().get(JFaceResources.TEXT_FONT);
         getTextWidget().setFont(font);
@@ -141,24 +132,21 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
                 handleVerifyKeyPressed(event);
             }
         });
-
-        if (checkCode) {
-            addCodeChecker(document);
-        }
+        addDocumentListener(document);
 
         addMenu();
     }
 
-    private void addCodeChecker(IDocument document) {
-        final ExecutionLimiter reconcileLimiter = new ExecutionLimiter(20, false) {
+    private void addDocumentListener(final IDocument document) {
+        final ExecutionLimiter documentReconcilerLimiter = new ExecutionLimiter(50, true) {
 
             @Override
-            public void execute(final boolean isFinalExecution) {
+            protected void execute(boolean isFinalExecution) {
                 if (!getControl().isDisposed()) {
                     getControl().getDisplay().asyncExec(new Runnable() {
 
                         public void run() {
-                            reconcile();
+                            updateContents();
                         }
                     });
                 }
@@ -168,15 +156,12 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
         document.addDocumentListener(new IDocumentListener() {
 
             public void documentAboutToBeChanged(DocumentEvent event) {
-                if (occ != null) {
-                    occ.selectionChanged(new SelectionChangedEvent(getSelectionProvider(), getSelection()));
-                }
+                // nothing
             }
 
             public void documentChanged(DocumentEvent event) {
-                setContents(event.getDocument());
-                reconcileLimiter.resetTimer();
-                reconcileLimiter.startIfExecutable(true);
+                documentReconcilerLimiter.resetTimer();
+                documentReconcilerLimiter.startIfExecutable(true);
             }
         });
 
@@ -247,13 +232,6 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
     }
 
     /**
-     * DOC nrousseau Comment method "getDocumentPartitioner".
-     * 
-     * @return
-     */
-    protected abstract IDocumentPartitioner getDocumentPartitioner();
-
-    /**
      * Example: configure(new TalendPerlSourceViewerConfiguration(PerlEditorPlugin.getDefault().getPreferenceStore(),
      * this));.
      */
@@ -280,16 +258,9 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
         support.setSymbolicFontName(JFaceResources.TEXT_FONT);
     }
 
-    public abstract void reconcile();
-
-    protected abstract void setContents(IDocument document);
+    public abstract void updateContents();
 
     protected abstract void initializeModel();
-
-    protected void installOccurrencesUpdater() {
-        occ = new OccurrencesUpdater();
-        occ.install(this);
-    }
 
     private void handleVerifyKeyPressed(VerifyEvent event) {
         if (!event.doit) {
@@ -337,5 +308,4 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
     public IFile getFile() {
         return this.file;
     }
-
 }

@@ -19,6 +19,7 @@ import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
+import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
@@ -98,8 +99,8 @@ public class TalendCompletionProposal implements ICompletionProposal {
     public void apply(IDocument document) {
         try {
             document.replace(fReplacementOffset, fReplacementLength, fReplacementString);
-        } catch (BadLocationException x) {
-            // ignore
+        } catch (BadLocationException e) {
+            ExceptionHandler.process(e);
         }
     }
 

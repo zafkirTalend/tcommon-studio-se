@@ -18,9 +18,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jdt.internal.core.SourceField;
 import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProcessor;
+import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProposal;
 import org.eclipse.jdt.internal.ui.text.java.JavaMethodCompletionProposal;
-import org.eclipse.jdt.internal.ui.text.java.LazyJavaTypeCompletionProposal;
 import org.eclipse.jdt.ui.text.java.CompletionProposalCollector;
 import org.eclipse.jdt.ui.text.java.ContentAssistInvocationContext;
 import org.eclipse.jdt.ui.text.java.JavaContentAssistInvocationContext;
@@ -28,6 +29,7 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.ITextViewer;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
+import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
@@ -36,6 +38,7 @@ import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PartInitException;
+import org.talend.core.ui.viewer.ReconcilerViewer;
 import org.talend.core.ui.viewer.proposal.TalendCompletionProposal;
 
 /**
@@ -57,23 +60,32 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
     @Override
     protected List filterAndSortProposals(List proposals, IProgressMonitor monitor, ContentAssistInvocationContext context) {
         List newProposals = super.filterAndSortProposals(proposals, monitor, context);
+
         List toRemove = new ArrayList();
         try {
+            char firstChar = context.getDocument().getChar(context.getInvocationOffset() - 1);
+            boolean globalFieldsDone = false;
             for (Object o : newProposals) {
                 ICompletionProposal proposal = (ICompletionProposal) o;
-                if (context.getDocument().getChar(context.getInvocationOffset() - 1) != '.') {
+
+                if (proposal instanceof JavaCompletionProposal) {
+                    JavaCompletionProposal javaProposal = ((JavaCompletionProposal) proposal);
+
+                    if (javaProposal.getJavaElement() instanceof SourceField) {
+                        globalFieldsDone = true;
+                    }
+                    if (javaProposal.getJavaElement() == null && globalFieldsDone) {
+                        toRemove.add(proposal);
+                    }
+                }
+
+                if (firstChar != '.') {
                     if (proposal instanceof JavaMethodCompletionProposal) {
                         toRemove.add(proposal);
                     }
                 }
-                if (proposal.getDisplayString().startsWith("myFunction")) {
+                if (proposal.getDisplayString().contains(TalendJavaSourceViewer.VIEWER_CLASS_NAME)) {
                     toRemove.add(proposal);
-                }
-                if (proposal instanceof LazyJavaTypeCompletionProposal) {
-                    if (((LazyJavaTypeCompletionProposal) proposal).getReplacementString().equals(
-                            TalendJavaSourceViewer.VIEWER_CLASS_NAME)) {
-                        toRemove.add(proposal);
-                    }
                 }
             }
         } catch (BadLocationException e) {
@@ -273,5 +285,19 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
             return false;
         }
 
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jdt.internal.ui.text.java.ContentAssistProcessor#computeContextInformation(org.eclipse.jface.text.ITextViewer,
+     * int)
+     */
+    @Override
+    public IContextInformation[] computeContextInformation(ITextViewer viewer, int offset) {
+        if (viewer instanceof ReconcilerViewer) {
+            ((ReconcilerViewer) viewer).updateContents();
+        }
+        return super.computeContextInformation(viewer, offset);
     };
 }

@@ -102,6 +102,9 @@ public class TalendPerlSourceViewer extends ReconcilerViewer {
     @Override
     protected void installViewerConfiguration() {
         configure(new TalendPerlSourceViewerConfiguration(PerlEditorPlugin.getDefault().getPreferenceStore(), this));
+        IDocumentPartitioner partitioner = new PerlPartitioner(PerlEditorPlugin.getDefault().getLog());
+        getDocument().setDocumentPartitioner(partitioner);
+        partitioner.connect(getDocument());
     }
 
     /*
@@ -110,8 +113,8 @@ public class TalendPerlSourceViewer extends ReconcilerViewer {
      * @see org.talend.core.ui.viewer.ReconcilerViewer#setContents(org.eclipse.jface.text.IDocument)
      */
     @Override
-    protected void setContents(IDocument document) {
-        InputStream codeStream = new ByteArrayInputStream(document.get().getBytes());
+    public void updateContents() {
+        InputStream codeStream = new ByteArrayInputStream(getDocument().get().getBytes());
         try {
             if (file == null) {
                 IProject perlProject = CorePlugin.getDefault().getRunProcessService().getProject(
@@ -128,10 +131,15 @@ public class TalendPerlSourceViewer extends ReconcilerViewer {
                     file.setContents(codeStream, true, false, null);
                 }
                 initializeModel();
-                installOccurrencesUpdater();
             } else {
                 file.setContents(codeStream, true, false, null);
             }
+            try {
+                PerlValidator.instance().validate(file, getDocument().get());
+            } catch (CoreException e) {
+                MessageBoxExceptionHandler.process(e);
+            }
+
         } catch (CoreException e) {
             MessageBoxExceptionHandler.process(e);
         }
@@ -161,31 +169,5 @@ public class TalendPerlSourceViewer extends ReconcilerViewer {
         getSourceViewerDecorationSupport().install(PerlEditorPlugin.getDefault().getPreferenceStore());
 
         doOperation(ProjectionViewer.TOGGLE);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.ui.viewer.ReconcilerViewer#getDocumentPartitioner()
-     */
-    @Override
-    protected IDocumentPartitioner getDocumentPartitioner() {
-        return new PerlPartitioner(PerlEditorPlugin.getDefault().getLog());
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.ui.viewer.ReconcilerViewer#reconcile()
-     */
-    @Override
-    public void reconcile() {
-        if (file != null) {
-            try {
-                PerlValidator.instance().validate(file, getDocument().get());
-            } catch (CoreException e) {
-                MessageBoxExceptionHandler.process(e);
-            }
-        }
     }
 }

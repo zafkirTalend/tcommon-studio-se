@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import org.eclipse.core.internal.filebuffers.SynchronizableDocument;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -29,8 +28,12 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.JavaModelException;
+import org.eclipse.jdt.internal.core.SourceField;
 import org.eclipse.jdt.internal.ui.JavaPlugin;
-import org.eclipse.jdt.internal.ui.text.FastJavaPartitionScanner;
+import org.eclipse.jdt.internal.ui.javaeditor.CompilationUnitEditor;
+import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProcessor;
+import org.eclipse.jdt.internal.ui.text.java.JavaCompletionProposal;
+import org.eclipse.jdt.ui.text.IColorManager;
 import org.eclipse.jdt.ui.text.IJavaPartitions;
 import org.eclipse.jdt.ui.text.JavaTextTools;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -38,9 +41,9 @@ import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.FindReplaceDocumentAdapter;
 import org.eclipse.jface.text.IDocument;
-import org.eclipse.jface.text.IDocumentPartitioner;
 import org.eclipse.jface.text.Region;
-import org.eclipse.jface.text.rules.FastPartitioner;
+import org.eclipse.jface.text.contentassist.ContentAssistant;
+import org.eclipse.jface.text.contentassist.ICompletionProposal;
 import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jface.text.source.IOverviewRuler;
@@ -63,7 +66,6 @@ import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.core.CorePlugin;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
-import org.talend.core.model.temp.ECodePart;
 import org.talend.core.ui.viewer.ReconcilerViewer;
 import org.talend.expressionbuilder.IExpressionDataBean;
 import org.talend.expressionbuilder.test.shadow.Variable;
@@ -98,6 +100,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
             boolean checkCode, IDocument document) {
         super(parent, verticalRuler, overviewRuler, showAnnotationsOverview, styles, annotationAccess, sharedColors, checkCode,
                 document);
+
         IPath packagePath = new Path("/.Java/src/internal");
         filename = TalendJavaSourceViewer.VIEWER_CLASS_NAME + currentId++ + ".java";
         IPackageFragment packageFragment;
@@ -109,20 +112,31 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         } catch (CoreException e) {
             ExceptionHandler.process(e);
         }
-
-        setContents(document);
+        updateContents();
     }
 
     public static ISourceViewer createViewer(Composite composite, int styles, boolean checkCode) {
-        SynchronizableDocument doc = new SynchronizableDocument();
-        return initializeViewer(composite, styles, true, new Document(), -1);
+        StringBuffer buff = new StringBuffer();
+        buff.append("package internal;\n\n");
+        buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n");
+        buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n");
+        buff
+                .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n");
+
+        buff.append("\tpublic void myFunction(){\n");
+        int documentOffset = buff.toString().length();
+        buff.append("\t\n}\n}");
+
+        IDocument document = new Document();
+        document.set(buff.toString());
+        return initializeViewer(composite, styles, checkCode, document, documentOffset);
     }
 
     public static ISourceViewer createViewerWithVariables(Composite composite, int styles, IExpressionDataBean dataBean) {
         IDocument document = new Document();
         StringBuffer buff = new StringBuffer();
         buff.append("package internal;\n\n");
-        buff.append("public class " + VIEWER_CLASS_NAME + " {\n");
+        buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n");
         buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n");
         buff
                 .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n");
@@ -140,34 +154,81 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         return initializeViewer(composite, styles, true, document, length);
     }
 
-    // for test only
-    public static ISourceViewer createViewerForComponent(Composite composite, int styles, IDocument document,
-            List<Variable> variableList, String uniqueName, ECodePart codePart) {
+    public static ISourceViewer createViewerForComponent(Composite composite, int styles, CompilationUnitEditor editor,
+            List<Variable> variableList, String uniqueName, String codePart) {
 
-        String mainPart = "[" + uniqueName + " " + codePart.getName() + " ] start";
+        String selectedPart = "[" + uniqueName + " " + codePart + " ] start";
 
+        IDocument originalDocument = editor.getDocumentProvider().getDocument(editor.getEditorInput());
         int documentOffset = -1;
+        String globalFields = "";
+        String localFields = "";
+        globalFields = "\tprivate static java.util.Properties context = new java.util.Properties();\n";
+        globalFields += "\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n";
 
         IDocument newDoc = new Document();
-        newDoc.set(document.get());
-        FindReplaceDocumentAdapter frda = new FindReplaceDocumentAdapter(newDoc);
+        boolean checkCode = false;
+        FindReplaceDocumentAdapter frda = new FindReplaceDocumentAdapter(originalDocument);
         try {
-            Region region = (Region) frda.find(0, mainPart, true, false, false, false);
+            Region region = (Region) frda.find(0, selectedPart, true, false, false, false);
             if (region != null) {
+                checkCode = true;
                 documentOffset = region.getOffset();
-                documentOffset = newDoc.getLineOffset(newDoc.getLineOfOffset(documentOffset) + 2);
+                documentOffset = originalDocument.getLineOffset(originalDocument.getLineOfOffset(documentOffset) + 2);
+                JavaCompletionProcessor processor = new JavaCompletionProcessor(editor, new ContentAssistant(),
+                        IDocument.DEFAULT_CONTENT_TYPE);
+
+                boolean globalFieldsDone = false;
+                globalFields = "";
+
+                ICompletionProposal[] proposals = processor.computeCompletionProposals(editor.getViewer(), documentOffset);
+                for (ICompletionProposal curProposal : proposals) {
+                    if (curProposal instanceof JavaCompletionProposal) {
+                        JavaCompletionProposal javaProposal = ((JavaCompletionProposal) curProposal);
+
+                        if (javaProposal.getJavaElement() instanceof SourceField) {
+                            globalFieldsDone = true;
+                            SourceField sourceField = (SourceField) javaProposal.getJavaElement();
+                            globalFields += "\t" + sourceField.getSource() + "\n";
+                            // System.out.println();
+                        }
+                        if (javaProposal.getJavaElement() == null && !globalFieldsDone) {
+                            String[] str = javaProposal.getSortString().split(" ");
+                            String variable = "";
+                            for (int i = str.length - 1; i >= 0; i--) {
+                                variable += str[i].length() == 0 ? " " : str[i];
+                            }
+                            variable += ";";
+                            localFields = "\t\t" + variable + "\n";
+                            // System.out.println(variable);
+                        }
+                    }
+                }
             }
         } catch (BadLocationException e) {
             ExceptionHandler.process(e);
+        } catch (JavaModelException e) {
+            e.printStackTrace();
         }
+        StringBuffer buff = new StringBuffer();
+        buff.append("package internal;\n\n");
+        buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n");
+        buff.append(globalFields);
+        buff.append("\tpublic void myFunction(){\n");
+        buff.append(localFields);
 
-        return initializeViewer(composite, styles, true, newDoc, documentOffset);
+        documentOffset = buff.toString().length();
+        buff.append("\t\n}\n}");
+
+        newDoc.set(buff.toString());
+
+        return initializeViewer(composite, styles, checkCode, newDoc, documentOffset);
     }
 
     private static ISourceViewer initializeViewer(Composite composite, int styles, boolean checkCode, IDocument document,
             int visibleOffset) {
         IAnnotationAccess annotationAccess = new DefaultMarkerAnnotationAccess();
-        ISharedTextColors sharedColors = EditorsPlugin.getDefault().getSharedTextColors();
+        ISharedTextColors sharedColors = JavaPlugin.getDefault().getJavaTextTools().getColorManager();
         IOverviewRuler overviewRuler = null;
         IVerticalRuler verticalRuler = null;
         if (checkCode) {
@@ -194,46 +255,36 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.ui.viewer.ReconcilerViewer#getDocumentPartitioner()
-     */
-    @Override
-    protected IDocumentPartitioner getDocumentPartitioner() {
-        return new FastPartitioner(new FastJavaPartitionScanner(), new String[] { IJavaPartitions.JAVA_DOC,
-                IJavaPartitions.JAVA_MULTI_LINE_COMMENT, IJavaPartitions.JAVA_SINGLE_LINE_COMMENT, IJavaPartitions.JAVA_STRING,
-                IJavaPartitions.JAVA_CHARACTER });
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see org.talend.core.ui.viewer.ReconcilerViewer#initializeModel()
      */
     @Override
     protected void initializeModel() {
-        IDocumentProvider provider = JavaPlugin.getDefault().getCompilationUnitDocumentProvider();
-        IEditorInput ei = new FileEditorInput(file);
-        try {
-            provider.connect(ei);
-        } catch (CoreException e) {
-            ExceptionHandler.process(e);
+        if (checkCode) {
+            IDocumentProvider provider = JavaPlugin.getDefault().getCompilationUnitDocumentProvider();
+            IEditorInput ei = new FileEditorInput(file);
+            try {
+                provider.connect(ei);
+            } catch (CoreException e) {
+                ExceptionHandler.process(e);
+            }
+            IDocument document = getDocument();
+            IAnnotationModel model = provider.getAnnotationModel(ei);
+            model.connect(document);
+
+            if (document != null) {
+                setDocument(document, model);
+                showAnnotations(model != null);
+            }
+
+            ProjectionSupport projectionSupport = new ProjectionSupport(this, annotationAccess, sharedColors);
+            projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.error");
+            projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.warning");
+            projectionSupport.install();
+
+            getSourceViewerDecorationSupport().install(JavaPlugin.getDefault().getCombinedPreferenceStore());
+
+            doOperation(ProjectionViewer.TOGGLE);
         }
-        IDocument document = getDocument();
-        IAnnotationModel model = provider.getAnnotationModel(ei);
-        model.connect(document);
-
-        if (document != null) {
-            setDocument(document, model);
-            showAnnotations(model != null);
-        }
-
-        ProjectionSupport projectionSupport = new ProjectionSupport(this, annotationAccess, sharedColors);
-        projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.error");
-        projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.warning");
-        projectionSupport.install();
-
-        getSourceViewerDecorationSupport().install(JavaPlugin.getDefault().getCombinedPreferenceStore());
-
-        doOperation(ProjectionViewer.TOGGLE);
     }
 
     /*
@@ -243,26 +294,10 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
      */
     @Override
     protected void installViewerConfiguration() {
-        IPreferenceStore store = JavaPlugin.getDefault().getCombinedPreferenceStore();
         JavaTextTools tools = JavaPlugin.getDefault().getJavaTextTools();
-        configure(new TalendJavaViewerConfiguration(tools.getColorManager(), store, this));
-
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.ui.viewer.ReconcilerViewer#reconcile()
-     */
-    @Override
-    public void reconcile() {
-        if (compilationUnit != null) {
-            try {
-                compilationUnit.reconcile(ICompilationUnit.NO_AST, false, false, null, new NullProgressMonitor());
-            } catch (JavaModelException e) {
-                ExceptionHandler.process(e);
-            }
-        }
+        tools.setupJavaDocumentPartitioner(getDocument(), IJavaPartitions.JAVA_PARTITIONING);
+        IPreferenceStore store = JavaPlugin.getDefault().getCombinedPreferenceStore();
+        configure(new TalendJavaViewerConfiguration((IColorManager) sharedColors, store, this));
     }
 
     /*
@@ -271,23 +306,15 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
      * @see org.talend.core.ui.viewer.ReconcilerViewer#setContents(org.eclipse.jface.text.IDocument)
      */
     @Override
-    protected void setContents(IDocument document) {
+    public void updateContents() {
         IPath filePath = new Path("src/internal/" + filename);
-        InputStream codeStream = new ByteArrayInputStream(document.get().getBytes());
+        InputStream codeStream = new ByteArrayInputStream(getDocument().get().getBytes());
         try {
             if (file == null) {
                 file = CorePlugin.getDefault().getRunProcessService().getProject(LanguageManager.getCurrentLanguage()).getFile(
                         filePath);
-
-                if (!file.exists()) {
-                    // file.create(codeStream, true, null);
-                    System.out.println("error file should be already created");
-                } else {
-                    file.setContents(codeStream, true, false, null);
-                }
+                file.setContents(codeStream, true, false, null);
                 initializeModel();
-                installOccurrencesUpdater();
-                reconcile();
             } else {
                 file.setContents(codeStream, true, false, null);
             }
@@ -335,7 +362,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
                 buff.append("\tprivate " + className + "Struct " + className + "= new " + className + "Struct();\n");
             }
         }
-        buff.append("\t" + VIEWER_CLASS_NAME + "() {\n");
+        buff.append("\t" + VIEWER_CLASS_NAME + currentId + "() {\n");
         buff.append("\t\tglobalMap.put(\"NULL\", null);\n");
         if (variables != null) {
             for (String className : classesToGenerate.keySet()) {
