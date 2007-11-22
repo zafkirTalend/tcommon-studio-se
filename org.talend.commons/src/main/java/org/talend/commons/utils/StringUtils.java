@@ -79,18 +79,18 @@ public class StringUtils {
     }
 
     public static String protectMetachar(String input) {
-    	
-    	input = replace(input, "\\", "\\\\\\\\") ;
-    	input = replace(input, "+", "\\\\+") ;
-    	input = replace(input, ".", "\\\\.") ;
-    	input = replace(input, "[", "\\\\[") ;
-    	input = replace(input, "]", "\\]") ;
-    	input = replace(input, "(", "\\\\(") ;
-    	input = replace(input, ")", "\\\\)") ;
-    	input = replace(input, "^", "\\\\^") ;
-    	input = replace(input, "$", "\\\\$") ;
 
-        return input;    	
+        input = replace(input, "\\", "\\\\\\\\");
+        input = replace(input, "+", "\\\\+");
+        input = replace(input, ".", "\\\\.");
+        input = replace(input, "[", "\\\\[");
+        input = replace(input, "]", "\\]");
+        input = replace(input, "(", "\\\\(");
+        input = replace(input, ")", "\\\\)");
+        input = replace(input, "^", "\\\\^");
+        input = replace(input, "$", "\\\\$");
+
+        return input;
     }
 
     public static String removeSpecialCharsForPackage(String input) {
@@ -102,6 +102,135 @@ public class StringUtils {
         input = input.replaceAll("'", "apos");
         input = input.replaceAll("\"", "quot");
         return input;
+    }
+
+    public static String loadConvert(String inputStr) {
+        if (inputStr == null) {
+            return null;
+        }
+        char[] inputChars = new char[inputStr.length()];
+        inputStr.getChars(0, inputStr.length(), inputChars, 0);
+        String loadConvert = loadConvert(inputChars, 0, inputStr.length(), new char[inputStr.length()]);
+        return loadConvert;
+    }
+
+    /*
+     * Converts encoded &#92;uxxxx to unicode chars and changes special saved chars to their original forms. it can deal
+     * with the unicode encode character and the octal encode character, for example: String s =
+     * "\\u8C2D\\u5148\\u94FE\0022\22\022"; it is very useful in GUI, such as Text.getText(), and will to keep the input
+     * string like: \22
+     */
+    private static String loadConvert(char[] in, int off, int len, char[] convtBuf) {
+        if (convtBuf.length < len) {
+            int newLen = len * 2;
+            if (newLen < 0) {
+                newLen = Integer.MAX_VALUE;
+            }
+            convtBuf = new char[newLen];
+        }
+        char aChar;
+        char[] out = convtBuf;
+        int outLen = 0;
+        int end = off + len;
+
+        while (off < end) {
+            aChar = in[off++];
+            if (aChar == '\\') {
+                aChar = in[off++];
+                if (aChar == 'u') {
+                    // Read the xxxx
+                    int value = 0;
+                    for (int i = 0; i < 4; i++) {
+
+                        if (off == len) {
+                            throw new IllegalArgumentException("Malformed \\uxxxx encoding.");
+                        }
+
+                        aChar = in[off++];
+                        switch (aChar) {
+                        case '0':
+                        case '1':
+                        case '2':
+                        case '3':
+                        case '4':
+                        case '5':
+                        case '6':
+                        case '7':
+                        case '8':
+                        case '9':
+                            value = (value << 4) + aChar - '0';
+                            break;
+                        case 'a':
+                        case 'b':
+                        case 'c':
+                        case 'd':
+                        case 'e':
+                        case 'f':
+                            value = (value << 4) + 10 + aChar - 'a';
+                            break;
+                        case 'A':
+                        case 'B':
+                        case 'C':
+                        case 'D':
+                        case 'E':
+                        case 'F':
+                            value = (value << 4) + 10 + aChar - 'A';
+                            break;
+                        default:
+                            throw new IllegalArgumentException("Malformed \\uxxxx encoding.");
+                        }
+                    }
+                    out[outLen++] = (char) value;
+                } else {
+                    if (aChar == 't')
+                        aChar = '\t';
+                    else if (aChar == 'r')
+                        aChar = '\r';
+                    else if (aChar == 'n')
+                        aChar = '\n';
+                    else if (aChar == 'f')
+                        aChar = '\f';
+                    else if (Character.isDigit(aChar)) {
+                        int maxNextOctalLeng = 3; // \222
+                        if (aChar == '0') { // \0222
+                            maxNextOctalLeng = 4;
+                        }
+                        int value = 0;
+                        for (int i = 0; i < maxNextOctalLeng; i++) {
+
+                            switch (aChar) {
+                            case '0':
+                            case '1':
+                            case '2':
+                            case '3':
+                            case '4':
+                            case '5':
+                            case '6':
+                            case '7':
+                                value = (value << 3) + aChar - '0';
+                                break;
+                            default:
+                                throw new IllegalArgumentException("Malformed \\0xxx encoding.");
+                            }
+
+                            if (off < len && Character.isDigit(in[off])) {
+                                aChar = in[off++];
+                            } else {
+                                break;
+                            }
+
+                        }
+
+                        aChar = (char) value;
+
+                    }
+                    out[outLen++] = aChar;
+                }
+            } else {
+                out[outLen++] = (char) aChar;
+            }
+        }
+        return new String(out, 0, outLen);
     }
 
 }
