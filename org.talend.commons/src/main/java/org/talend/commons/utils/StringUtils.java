@@ -158,7 +158,9 @@ public class StringUtils {
         while (off < end) {
             aChar = in[off++];
             if (aChar == '\\') {
-                if (off < len && (in[off] == preHex || in[off] == 't' || in[off] == 'r' || in[off] == 'n' || in[off] == 'f')) {
+                if (off < len
+                        && (in[off] == preHex || in[off] == 't' || in[off] == 'r' || in[off] == 'n' || in[off] == 'f' || Character
+                                .isDigit(in[off]))) {
                     aChar = in[off++];
                 }
                 if (aChar == preHex) {
