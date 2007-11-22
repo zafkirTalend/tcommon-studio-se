@@ -1,0 +1,185 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2007 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package org.talend.core.properties.tab;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.layout.FormLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyComposite;
+import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyList;
+import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyTitle;
+import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyViewer;
+import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
+
+/**
+ * yzhang class global comment. Detailled comment <br/>
+ * 
+ * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
+ * 
+ */
+public class HorizontalTabFactory {
+
+    private TabbedPropertyComposite tabbedPropertyComposite;
+
+    private TabbedPropertyTitle title;
+
+    private TabbedPropertyViewer tabbedPropertyViewer;
+
+    private TabbedPropertySheetWidgetFactory widgetFactory;
+
+    public void initComposite(Composite parent) {
+
+        Composite panel = new Composite(parent, SWT.BORDER);
+        panel.setLayoutData(new GridData(GridData.FILL_BOTH));
+        panel.setLayout(new FormLayout());
+
+        widgetFactory = new TabbedPropertySheetWidgetFactory();
+        tabbedPropertyComposite = new TabbedPropertyComposite(panel, widgetFactory, true);
+        widgetFactory.paintBordersFor(tabbedPropertyComposite);
+        tabbedPropertyComposite.setLayout(new FormLayout());
+        FormData formData = new FormData();
+        formData.left = new FormAttachment(0, 0);
+        formData.right = new FormAttachment(100, 0);
+        formData.top = new FormAttachment(0, 0);
+        formData.bottom = new FormAttachment(100, 0);
+        tabbedPropertyComposite.setLayoutData(formData);
+
+        tabbedPropertyViewer = new TabbedPropertyViewer(tabbedPropertyComposite.getList());
+        tabbedPropertyViewer.setContentProvider(new TabListContentProvider());
+        tabbedPropertyViewer.setLabelProvider(new TabbedPropertySheetPageLabelProvider());
+
+        title = tabbedPropertyComposite.getTitle();
+
+    }
+
+    public Composite createTabComposite() {
+        Composite result = widgetFactory.createComposite(tabbedPropertyComposite.getTabComposite(), SWT.NO_FOCUS);
+        result.setVisible(false);
+        result.setLayout(new FillLayout());
+        FormData data = new FormData();
+        data.top = new FormAttachment(tabbedPropertyComposite.getTitle(), 0);
+        data.bottom = new FormAttachment(100, 0);
+        data.left = new FormAttachment(0, 0);
+        data.right = new FormAttachment(100, 0);
+        result.setLayoutData(data);
+        return result;
+    }
+
+    /**
+     * yzhang Comment method "setSelection".
+     * 
+     * @param selection
+     */
+    public void setSelection(IStructuredSelection selection) {
+        tabbedPropertyViewer.setSelection(selection);
+    }
+
+    /**
+     * yzhang Comment method "addSelectionChangedListener".
+     * 
+     * @param listener
+     */
+    public void addSelectionChangedListener(ISelectionChangedListener listener) {
+        if (tabbedPropertyViewer != null) {
+            tabbedPropertyViewer.addSelectionChangedListener(listener);
+        }
+    }
+
+    /**
+     * yzhang Comment method "setInput".
+     * 
+     * @param descriptors
+     */
+    public void setInput(List<TalendPropertyTabDescriptor> descriptors) {
+        tabbedPropertyViewer.setInput(descriptors);
+    }
+
+    /**
+     * yzhang Comment method "setTitle".
+     * 
+     * @param label
+     * @param image
+     */
+    public void setTitle(String label, Image image) {
+        title.setTitle(label, image);
+    }
+
+    /**
+     * yzhang HorizontalTabFactory class global comment. Detailled comment <br/>
+     * 
+     * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
+     * 
+     */
+    private class TabbedPropertySheetPageLabelProvider extends LabelProvider {
+
+        public String getText(Object element) {
+            if (element instanceof TalendPropertyTabDescriptor) {
+                return ((TalendPropertyTabDescriptor) element).getLabel();
+            }
+            return null;
+        }
+    }
+
+    /**
+     * yzhang HorizontalTabFactory class global comment. Detailled comment <br/>
+     * 
+     * $Id: talend.epf 1 2006-09-29 17:06:40Z nrousseau $
+     * 
+     */
+    private class TabListContentProvider implements IStructuredContentProvider {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
+         */
+        public Object[] getElements(Object inputElement) {
+            return ((List) inputElement).toArray();
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.IContentProvider#dispose()
+         */
+        public void dispose() {
+
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
+         * java.lang.Object, java.lang.Object)
+         */
+        public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+
+        }
+    }
+
+}

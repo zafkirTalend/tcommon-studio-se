@@ -19,13 +19,43 @@ package org.talend.core.model.process;
  * 
  */
 public enum EComponentCategory {
-    MAIN,
-    VIEW,
-    PROPERTY,
-    DOC,
-    CONTEXT,
-    VERSIONS,
-    LOGS,
-    STATSANDLOGS,
-    TECHNICAL; // for non displayed parameters
+    MAIN("Main", 1),
+    VIEW("View", 3),
+    PROPERTY("Properties", 2),
+    DOC("Document", 4),
+    CONTEXT("Context", 5),
+    VERSIONS("Version", 9),
+    LOGS("Logs", 6),
+    STATSANDLOGS("Statsand logs", 7),
+    TECHNICAL("Technical", 8); // for non displayed parameters
+
+    private String title;
+
+    private int priority;
+
+    /**
+     * yzhang EComponentCategory constructor comment.
+     */
+    private EComponentCategory(String title, int priority) {
+        this.title = title;
+        this.priority = priority;
+    }
+
+    /**
+     * yzhang Comment method "getTitle".
+     * 
+     * @return
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * yzhang Comment method "getPriorityNumber".
+     * 
+     * @return
+     */
+    public int getPriorityNumber() {
+        return priority;
+    }
 }
