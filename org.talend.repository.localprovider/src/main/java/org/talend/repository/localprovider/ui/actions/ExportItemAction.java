@@ -28,12 +28,13 @@ import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.localprovider.i18n.Messages;
 import org.talend.repository.model.ProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.model.RepositoryNode.EProperties;
 import org.talend.repository.ui.actions.AContextualAction;
 
 /**
  */
 /**
- * DOC Administrator class global comment. Detailled comment <br/>
+ * DOC Administrator class global comment. Detailed comment <br/>
  * 
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ææäº, 29 ä¹æ 2006) nrousseau $
  * 
@@ -42,23 +43,31 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
 
     private static final String EXPORT_ITEM = Messages.getString("ExportItemAction.Label"); //$NON-NLS-1$
 
-    private boolean visible;
-
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.commons.ui.swt.actions.ITreeContextualAction#init(org.eclipse.jface.viewers.TreeViewer,
+     * org.eclipse.jface.viewers.IStructuredSelection)
+     */
     public void init(TreeViewer viewer, IStructuredSelection selection) {
-        boolean visible = !selection.isEmpty();
-        this.setText(null);
-        if (ProxyRepositoryFactory.getInstance().isUserReadOnlyOnCurrentProject()) {
+        boolean visible = false;
+        if (selection.isEmpty()) {
             visible = false;
-        }
-        for (Object object : (selection).toArray()) {
-            if (visible) {
+        } else if (ProxyRepositoryFactory.getInstance().isUserReadOnlyOnCurrentProject()) {
+            visible = false;
+        } else {
+            for (Object object : (selection).toArray()) {
+
+                // Avoid to show this action on Node "Generated"/"Jobs" and Node HTML_DOC.
                 RepositoryNode node = (RepositoryNode) object;
-                if (node.getContentType() == ERepositoryObjectType.HTML_DOC) {
-                    visible = false;
-                    continue;
+                if (node.getProperties(EProperties.CONTENT_TYPE) != ERepositoryObjectType.HTML_DOC
+                        && node.getContentType() != ERepositoryObjectType.GENERATED
+                        && node.getContentType() != ERepositoryObjectType.JOBS) {
+                    visible = true;
                 }
             }
         }
+        setEnabled(visible);
     }
 
     public ExportItemAction() {
@@ -90,24 +99,5 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
     }
 
     public void selectionChanged(IAction action, ISelection selection) {
-    }
-
-    /**
-     * Getter for visible.
-     * 
-     * @return the visible
-     */
-    @Override
-    public boolean isVisible() {
-        return this.visible;
-    }
-
-    /**
-     * Sets the visible.
-     * 
-     * @param visible the visible to set
-     */
-    public void setVisible(boolean visible) {
-        this.visible = visible;
     }
 }
