@@ -104,13 +104,18 @@ public class StringUtils {
         return input;
     }
 
-    public static String loadConvert(String inputStr) {
+    public static String loadConvert(String inputStr, String language) {
         if (inputStr == null) {
             return null;
         }
         char[] inputChars = new char[inputStr.length()];
         inputStr.getChars(0, inputStr.length(), inputChars, 0);
-        String loadConvert = loadConvert(inputChars, 0, inputStr.length(), new char[inputStr.length()]);
+        String loadConvert = null;
+        if (language.equalsIgnoreCase("perl")) {
+            loadConvert = loadConvert(inputChars, 0, inputStr.length(), new char[inputStr.length()], 'x');
+        } else {
+            loadConvert = loadConvert(inputChars, 0, inputStr.length(), new char[inputStr.length()], 'u');
+        }
         return loadConvert;
     }
 
@@ -118,9 +123,26 @@ public class StringUtils {
      * Converts encoded &#92;uxxxx to unicode chars and changes special saved chars to their original forms. it can deal
      * with the unicode encode character and the octal encode character, for example: String s =
      * "\\u8C2D\\u5148\\u94FE\0022\22\022"; it is very useful in GUI, such as Text.getText(), and will to keep the input
-     * string like: \22
+     * string like: \22; it can support the perl String like this: \\x2\\x22
      */
-    private static String loadConvert(char[] in, int off, int len, char[] convtBuf) {
+    private static String loadConvert(char[] in, int off, int len, char[] convtBuf, char preHex) {
+        boolean limitLengthForHex = false;
+        int limitLength = 0;
+        if (preHex == 'u') {
+            limitLengthForHex = true; // in java, it must be \\uxxxx
+
+
+            limitLength = 4;
+
+        } else if (preHex == 'x') {
+
+            limitLengthForHex = false; // in perl, it can like this \\xhh
+            limitLength = 2;
+
+        } else {
+            throw new IllegalArgumentException("only support the \\uxxxx or \\xhh encoding.");
+        }
+
         if (convtBuf.length < len) {
             int newLen = len * 2;
             if (newLen < 0) {
@@ -136,17 +158,30 @@ public class StringUtils {
         while (off < end) {
             aChar = in[off++];
             if (aChar == '\\') {
-                aChar = in[off++];
-                if (aChar == 'u') {
+                if (off < len && (in[off] == preHex || in[off] == 't' || in[off] == 'r' || in[off] == 'n' || in[off] == 'f')) {
+                    aChar = in[off++];
+                }
+                if (aChar == preHex) {
                     // Read the xxxx
                     int value = 0;
-                    for (int i = 0; i < 4; i++) {
+                    for (int i = 0; i < limitLength; i++) {
 
                         if (off == len) {
-                            throw new IllegalArgumentException("Malformed \\uxxxx encoding.");
+                            if (limitLengthForHex) {
+                                throw new IllegalArgumentException("Malformed \\uxxxx encoding.");
+                            } else {
+                                break;
+                            }
                         }
 
-                        aChar = in[off++];
+                        if (limitLengthForHex) {
+                            aChar = in[off++];
+                        } else if (Character.isDigit(in[off])) {
+                            aChar = in[off++];
+                        } else {
+                            break;
+                        }
+
                         switch (aChar) {
                         case '0':
                         case '1':
@@ -191,12 +226,9 @@ public class StringUtils {
                     else if (aChar == 'f')
                         aChar = '\f';
                     else if (Character.isDigit(aChar)) {
-                        int maxNextOctalLeng = 3; // \222
-                        if (aChar == '0') { // \0222
-                            maxNextOctalLeng = 4;
-                        }
+
                         int value = 0;
-                        for (int i = 0; i < maxNextOctalLeng; i++) {
+                        for (int i = 0; i < 3; i++) {
 
                             switch (aChar) {
                             case '0':
@@ -232,5 +264,4 @@ public class StringUtils {
         }
         return new String(out, 0, outLen);
     }
-
 }
