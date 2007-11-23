@@ -46,6 +46,8 @@ public class JobContextParameter implements IContextParameter, Cloneable {
 
     String[] valueList;
 
+    String source = "";
+
     public JobContextParameter() {
 
     }
@@ -256,6 +258,24 @@ public class JobContextParameter implements IContextParameter, Cloneable {
         this.scriptCode = scriptCode;
     }
 
+    /**
+     * Getter for source.
+     * 
+     * @return the source
+     */
+    public String getSource() {
+        return this.source;
+    }
+
+    /**
+     * Sets the source.
+     * 
+     * @param source the source to set
+     */
+    public void setSource(String source) {
+        this.source = source;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -292,7 +312,12 @@ public class JobContextParameter implements IContextParameter, Cloneable {
         if (!contextParam.getValue().equals(value)) {
             return false;
         }
-
+        if (!contextParam.getSource().equals(source)) {
+            return false;
+        }
+        if (contextParam.isBuiltIn() != isBuiltIn()) {
+            return false;
+        }
         if (contextParam.isPromptNeeded() != promptNeeded) {
             return false;
         }
@@ -343,6 +368,18 @@ public class JobContextParameter implements IContextParameter, Cloneable {
                 return false;
         } else if (!this.name.equals(other.name))
             return false;
+        return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.IContextParameter#checkBuiltIn(org.talend.core.model.process.IContextParameter)
+     */
+    public boolean isBuiltIn() {
+        if (getSource() != null && !"".equals(getSource()) && !IContextParameter.BUILT_IN.equals(getSource())) {
+            return false;
+        }
         return true;
     }
 }

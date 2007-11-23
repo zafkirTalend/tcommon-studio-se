@@ -70,6 +70,8 @@ public class ConextTableValuesComposite extends Composite {
 
     private ConfigureContextAction configContext;
 
+    private ToolItem contextConfigButton;
+
     /**
      * Constructor.
      * 
@@ -198,7 +200,7 @@ public class ConextTableValuesComposite extends Composite {
      */
     private void createToolBar(final ToolBar toolBar) {
         configContext = new ConfigureContextAction(modelManager, this.getShell());
-        ToolItem contextConfigButton = new ToolItem(toolBar, SWT.PUSH);
+        contextConfigButton = new ToolItem(toolBar, SWT.PUSH);
         // contextConfigButton.setDisabledImage();
         contextConfigButton.setImage(configContext.getImageDescriptor().createImage());
         contextConfigButton.setToolTipText(configContext.getText());
@@ -226,7 +228,9 @@ public class ConextTableValuesComposite extends Composite {
         if (para == null) {
             return;
         }
-
+        if (!para.isBuiltIn()) {
+            return;
+        }
         cellEditor = cellFactory.getCustomCellEditor(para, table);
 
         if (cellEditor == null) {
@@ -304,6 +308,7 @@ public class ConextTableValuesComposite extends Composite {
     }
 
     public void refresh() {
+        contextConfigButton.setEnabled(!modelManager.isReadOnly());
         List<IContext> contexts = getContexts();
         Table table = viewer.getTable();
         TableColumn[] columns = table.getColumns();
@@ -416,9 +421,17 @@ public class ConextTableValuesComposite extends Composite {
             if (modelManager.isReadOnly()) {
                 return false;
             }
+            if (element instanceof IContextParameter) {
+                IContextParameter param = (IContextParameter) element;
+                if (!param.isBuiltIn()) {
+                    return false;
+                }
+            }
+
             if (property.equals(COLUMN_NAME_PROPERTY)) {
                 return false;
             }
+
             return true;
         }
 
@@ -441,7 +454,13 @@ public class ConextTableValuesComposite extends Composite {
          * @return
          */
         public IContextParameter getRealParameter(String property, IContextParameter templatePara) {
+            if (contextManager == null) {
+                return null;
+            }
             IContext context = contextManager.getContext(property);
+            if (context == null) {
+                return null;
+            }
             IContextParameter para = context.getContextParameter(templatePara.getName());
             return para;
         }

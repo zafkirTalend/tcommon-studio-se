@@ -47,6 +47,8 @@ public abstract class ContextComposite extends Composite implements IContextMode
 
     private CCombo contextCombo;
 
+    private boolean isRepositoryContext;
+
     /**
      * bqian ContextComposite constructor comment.
      * 
@@ -54,8 +56,12 @@ public abstract class ContextComposite extends Composite implements IContextMode
      * @param style
      */
     public ContextComposite(Composite parent) {
-        super(parent, SWT.NONE);
+        this(parent, true);
+    }
 
+    public ContextComposite(Composite parent, boolean isRepositoryContext) {
+        super(parent, SWT.NONE);
+        this.isRepositoryContext = isRepositoryContext;
         this.setBackground(parent.getBackground());
         this.setLayout(new GridLayout());
         initializeUI();
@@ -118,7 +124,9 @@ public abstract class ContextComposite extends Composite implements IContextMode
      * bqian Comment method "initializeUI".
      */
     protected void initializeUI() {
-        addChoiceComposite();
+        if (isRepositoryContext) {
+            addChoiceComposite();
+        }
 
         tab = new CTabFolder(this, SWT.FLAT | SWT.BORDER);
         tab.setLayoutData(new GridData(GridData.FILL_BOTH));
@@ -225,4 +233,14 @@ public abstract class ContextComposite extends Composite implements IContextMode
     public CommandStack getCommandStack() {
         return null;
     }
+
+    /**
+     * Getter for isRepositoryContext.
+     * 
+     * @return the isRepositoryContext
+     */
+    public boolean isRepositoryContext() {
+        return this.isRepositoryContext;
+    }
+
 }

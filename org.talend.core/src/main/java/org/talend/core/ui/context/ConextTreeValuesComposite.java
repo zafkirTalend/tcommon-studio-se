@@ -116,6 +116,8 @@ public class ConextTreeValuesComposite extends Composite {
 
     private ConfigureContextAction configContext;
 
+    private ToolItem contextConfigButton;
+
     /**
      * bqian ConextTemplateComposite constructor comment.
      * 
@@ -277,6 +279,10 @@ public class ConextTreeValuesComposite extends Composite {
         if (para == null) {
             return;
         }
+        if (!para.isBuiltIn()) {
+            // not built-in
+            return;
+        }
         cellEditor = cellFactory.getCustomCellEditor(para, tree);
 
         if (cellEditor == null) {
@@ -347,7 +353,7 @@ public class ConextTreeValuesComposite extends Composite {
      */
     private void createToolBar(final ToolBar toolBar) {
         configContext = new ConfigureContextAction(modelManager, this.getShell());
-        ToolItem contextConfigButton = new ToolItem(toolBar, SWT.PUSH);
+        contextConfigButton = new ToolItem(toolBar, SWT.PUSH);
         // contextConfigButton.setDisabledImage();
         contextConfigButton.setImage(configContext.getImageDescriptor().createImage());
         contextConfigButton.setToolTipText(configContext.getText());
@@ -392,6 +398,7 @@ public class ConextTreeValuesComposite extends Composite {
         IContextManager cm = modelManager.getContextManager();
         viewer.setInput(cm.getListContext());
         viewer.expandAll();
+        contextConfigButton.setEnabled(!modelManager.isReadOnly());
     }
 
     /**
@@ -714,6 +721,13 @@ public class ConextTreeValuesComposite extends Composite {
             if (para == null) {
                 return false;
             }
+
+            if (!para.isBuiltIn()) {
+                // not built-in, not update
+                return false;
+
+            }
+
             if (property.equals(VARIABLE_COLUMN_NAME) || property.equals(CONTEXT_COLUMN_NAME)) {
                 return false;
             }

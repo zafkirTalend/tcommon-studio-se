@@ -33,6 +33,8 @@ public class ContextTemplateModel extends ExtendedTableModel<IContextParameter> 
 
     public static final String NEW_PARAM_NAME = "new"; //$NON-NLS-1$
 
+    private boolean showRepositoryContext = false;
+
     public ContextTemplateModel() {
         super();
         setUseEquals(true);
@@ -80,6 +82,18 @@ public class ContextTemplateModel extends ExtendedTableModel<IContextParameter> 
         }
         contextParam.setValue(defaultValue);
         contextParam.setComment(""); //$NON-NLS-1$
+        contextParam.setSource(""); //$NON-NLS-1$
         return contextParam;
+    }
+
+    public boolean showRepositoryContext() {
+        return this.showRepositoryContext;
+    }
+
+    /*
+     * set the showed "select repository context" button
+     */
+    public void setShowRepositoryContext(boolean isRepository) {
+        this.showRepositoryContext = isRepository;
     }
 }

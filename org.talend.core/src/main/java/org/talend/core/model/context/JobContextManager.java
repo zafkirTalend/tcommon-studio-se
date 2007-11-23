@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.EList;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.core.CorePlugin;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.MetadataTalendType;
@@ -25,9 +27,12 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextListener;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFileFactory;
+import org.talend.repository.model.ERepositoryStatus;
+import org.talend.repository.model.IProxyRepositoryFactory;
 import org.talend.repository.model.RepositoryConstants;
 
 /**
@@ -153,6 +158,12 @@ public class JobContextManager implements IContextManager {
                     contextParamType.setValue(contextParam.getValue());
                     contextParamType.setPromptNeeded(contextParam.isPromptNeeded());
                     contextParamType.setComment(contextParam.getComment());
+                    if (!contextParam.isBuiltIn()) {
+                        String id = getContexIdFromName(contextParam.getSource());
+                        if (id != null) {
+                            contextParamType.setRepositoryContextId(id);
+                        }
+                    }
                     contextTypeParamList.add(contextParamType);
                 }
             }
@@ -209,7 +220,15 @@ public class JobContextManager implements IContextManager {
                 contextParam.setValue(contextParamType.getValue());
                 contextParam.setPromptNeeded(contextParamType.isPromptNeeded());
                 contextParam.setComment(contextParamType.getComment());
-
+                String name = getContextNameFromId(contextParamType.getRepositoryContextId());
+                if (name == null) {
+                    name = IContextParameter.BUILT_IN;
+                } else {
+                    if (!isFound(name, contextParamType.getName())) {
+                        name = IContextParameter.BUILT_IN;
+                    }
+                }
+                contextParam.setSource(name);
                 contextParamList.add(contextParam);
             }
             context.setContextParameterList(contextParamList);
@@ -236,5 +255,92 @@ public class JobContextManager implements IContextManager {
             }
         }
         return true;
+    }
+
+    public String getContexIdFromName(String contextName) {
+        if (contextName == null || "".equals(contextName)) {
+            return null;
+        }
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<ContextItem> contextItemList = null;
+        try {
+            contextItemList = factory.getContextItem();
+        } catch (PersistenceException e) {
+            throw new RuntimeException(e);
+        }
+        if (contextItemList != null) {
+            for (ContextItem item : contextItemList) {
+                if (factory.getStatus(item) != ERepositoryStatus.DELETED) {
+                    String name = item.getProperty().getLabel();
+                    if (name.equals(contextName)) {
+                        return item.getProperty().getId();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public String getContextNameFromId(String contextId) {
+        if (contextId == null || "".equals(contextId)) {
+            return null;
+        }
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<ContextItem> contextItemList = null;
+        try {
+            contextItemList = factory.getContextItem();
+        } catch (PersistenceException e) {
+            throw new RuntimeException(e);
+        }
+        if (contextItemList != null) {
+            for (ContextItem item : contextItemList) {
+                if (factory.getStatus(item) != ERepositoryStatus.DELETED) {
+                    String id = item.getProperty().getId();
+                    if (id.equals(contextId)) {
+                        return item.getProperty().getLabel();
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    public ContextItem getContextItemByName(String name) {
+        if (name == null) {
+            return null;
+        }
+        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
+        List<ContextItem> contextItemList = null;
+        try {
+            contextItemList = factory.getContextItem();
+        } catch (PersistenceException e) {
+            throw new RuntimeException(e);
+        }
+        if (contextItemList != null) {
+            for (ContextItem item : contextItemList) {
+                if (item.getProperty().getLabel().equals(name)) {
+                    return item;
+                }
+            }
+        }
+        return null;
+
+    }
+
+    public boolean isFound(String itemName, String paramName) {
+        if (paramName == null || itemName == null) {
+            return false;
+        }
+        ContextItem item = getContextItemByName(itemName);
+        if (item != null) {
+            for (Object obj : ((ContextType) item.getContext().get(0)).getContextParameter()) {
+                ContextParameterType paramType = (ContextParameterType) obj;
+                if (paramType.getName().equals(paramName)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

@@ -24,12 +24,14 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TextCellEditor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.Text;
+import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.advanced.dataeditor.AbstractDataTableEditorView;
 import org.talend.commons.ui.swt.advanced.dataeditor.ExtendedToolbarView;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.AddPushButton;
@@ -42,6 +44,7 @@ import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveUpPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButtonForExtendedTable;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.SelectContextVariablesPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
@@ -59,6 +62,7 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.ui.images.ECoreImage;
 import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
 
 /**
@@ -99,6 +103,10 @@ public class ConextTemplateComposite extends Composite {
         return modelManager.getContextManager();
     }
 
+    public IContextModelManager getContextModelManager() {
+        return modelManager;
+    }
+
     protected void setCommandStack(CommandStack commandStack) {
         fieldsTableEditorView.getExtendedTableViewer().setCommandStack(commandStack);
     }
@@ -126,7 +134,10 @@ public class ConextTemplateComposite extends Composite {
      * bqian Comment method "initializeUI".
      */
     private void initializeUI() {
-        fieldsModel = new ContextTemplateModel(); //$NON-NLS-1$
+        fieldsModel = new ContextTemplateModel(); //$NON-NLS-1$      
+        if (modelManager instanceof ContextComposite) {
+            fieldsModel.setShowRepositoryContext((!((ContextComposite) modelManager).isRepositoryContext()));
+        }
         fieldsTableEditorView = new ContextTemplateEditorView(fieldsModel, this);
 
         final Composite fieldTableEditorComposite = fieldsTableEditorView.getMainComposite();
@@ -148,6 +159,7 @@ public class ConextTemplateComposite extends Composite {
 
             public void set(IContextParameter bean, String value) {
                 bean.setName(value);
+
             }
         });
         nameColumn.setModifiable(true);
@@ -155,7 +167,27 @@ public class ConextTemplateComposite extends Composite {
         TextCellEditor textCellEditor = new TextCellEditor(table);
         nameColumn.setCellEditor(textCellEditor, paramNameCellEditorValueAdapter);
         nameColumn.setSortable(true);
-        // //////////////////////////////////////////////////////////
+
+        // Source column. only for job context
+        if (modelManager instanceof ContextComposite && !((ContextComposite) modelManager).isRepositoryContext()) {
+            TableViewerCreatorColumn<IContextParameter, String> sourceColumn = new TableViewerCreatorColumn<IContextParameter, String>(
+                    tableViewerCreator);
+            sourceColumn.setTitle("Source"); //$NON-NLS-1$
+            sourceColumn.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
+
+                public String get(IContextParameter bean) {
+                    return bean.getSource();
+                }
+
+                public void set(IContextParameter bean, String value) {
+                    // nothing to do
+                }
+            });
+            sourceColumn.setModifiable(false);
+            sourceColumn.setWidth(80);
+            sourceColumn.setSortable(true);
+
+        }
         // Type column
         TableViewerCreatorColumn<IContextParameter, String> typeColumn = new TableViewerCreatorColumn<IContextParameter, String>(
                 tableViewerCreator);
@@ -167,11 +199,13 @@ public class ConextTemplateComposite extends Composite {
             }
 
             public void set(IContextParameter bean, String value) {
-                bean.setType(value);
-                // if (!oldCellEditorValue.equals(newCellEditorValue)) {
-                IContext context = getSelectedContext();
-                onContextModify(getContextManager(), bean);
-                // }
+                if (bean.isBuiltIn()) {
+                    bean.setType(value);
+                    // if (!oldCellEditorValue.equals(newCellEditorValue)) {
+                    IContext context = getSelectedContext();
+                    onContextModify(getContextManager(), bean);
+                    // }
+                }
             }
         });
         typeColumn.setModifiable(true);
@@ -220,9 +254,12 @@ public class ConextTemplateComposite extends Composite {
             }
 
             public void set(IContextParameter bean, String value) {
-                if (!bean.getComment().equals(value))
-                    bean.setComment(value);
-                onContextModify(getContextManager(), bean);
+                if (bean.isBuiltIn()) {
+                    if (!bean.getComment().equals(value)) {
+                        bean.setComment(value);
+                    }
+                    onContextModify(getContextManager(), bean);
+                }
             }
         });
         column.setModifiable(true);
@@ -297,6 +334,13 @@ public class ConextTemplateComposite extends Composite {
     };
 
     private boolean renameParameter(final String oldParamName, final String newParamName) {
+        IContextParameter param = getContextManager().getDefaultContext().getContextParameter(oldParamName);
+        if (param != null && !param.isBuiltIn()) {
+            // not built-in, not update
+            return false;
+
+        }
+
         if (!getContextManager().checkValidParameterName(newParamName)) {
             MessageDialog
                     .openError(
@@ -460,6 +504,7 @@ public class ConextTemplateComposite extends Composite {
      */
     public void refresh() {
         List<IContext> contexts = getContextManager().getListContext();
+
         List<IContextParameter> contextTemplate = computeContextTemplate(contexts);
 
         fieldsModel.removeAll();
@@ -490,6 +535,7 @@ public class ConextTemplateComposite extends Composite {
             // All the context has the same template
             List<IContextParameter> paras = contexts.get(0).getContextParameterList();
             for (IContextParameter contextParameter : paras) {
+
                 contextTemplate.add(contextParameter.clone());
             }
 
@@ -503,6 +549,8 @@ public class ConextTemplateComposite extends Composite {
      */
     class ContextTemplateTableToolbarEditorView extends ExtendedToolbarView {
 
+        private boolean showRepositoryContext;
+
         /**
          * amaumont MetadataToolbarEditorView constructor comment.
          * 
@@ -512,16 +560,18 @@ public class ConextTemplateComposite extends Composite {
          */
         public ContextTemplateTableToolbarEditorView(Composite parent, AbstractExtendedTableViewer extendedTableViewer) {
             super(parent, SWT.NONE, extendedTableViewer);
+            showRepositoryContext = false;
         }
 
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.talend.core.ui.extended.ExtendedToolbarView#createComponents(org.eclipse.swt.widgets.Composite)
-         */
         @Override
         protected void createComponents(Composite parent) {
+            ContextTemplateModel tableEditorModel = (ContextTemplateModel) getExtendedTableViewer().getExtendedControlModel();
+            showRepositoryContext = tableEditorModel.showRepositoryContext();
             super.createComponents(parent);
+            if (showRepositoryContext) {
+                // only for job context
+                createDefaultContext();
+            }
 
         }
 
@@ -538,6 +588,12 @@ public class ConextTemplateComposite extends Composite {
                     ContextTemplateModel tableEditorModel = (ContextTemplateModel) getExtendedTableViewer()
                             .getExtendedControlModel();
                     IContextParameter parameter = (IContextParameter) tableEditorModel.createNewEntry();
+                    // set the source to built-in
+                    if (modelManager instanceof ContextComposite && !((ContextComposite) modelManager).isRepositoryContext()) {
+                        parameter.setSource(IContextParameter.BUILT_IN);
+                    } else {
+                        parameter.setSource(""); //$NON-NLS-1$
+                    }
                     modelManager.onContextAddParameter(getContextManager(), parameter);
 
                     List<IContextParameter> list = tableEditorModel.getBeansList();
@@ -598,6 +654,45 @@ public class ConextTemplateComposite extends Composite {
                     tableViewerCreator.getTableViewer().setSelection(new StructuredSelection(parameter), true);
                 }
             };
+        }
+
+        protected SelectContextVariablesPushButton createSelectContextVariablesPushButton() {
+
+            if (!showRepositoryContext) {
+                // only for job context
+                return null;
+            }
+
+            Image image = ImageProvider.getImageDesc(ECoreImage.CONTEXT_ICON).createImage();
+            return new SelectContextVariablesPushButton(toolbar, extendedTableViewer, image) {
+
+                @Override
+                protected void handleSelectionEvent(Event event) {
+                    SelectRepositoryContextDialog dialog = new SelectRepositoryContextDialog(getContextModelManager(),
+                            extendedTableViewer.getParentComposite().getShell());
+                    dialog.open();
+                    refresh();
+                    // tableViewerCreator.getTableViewer().setSelection(new StructuredSelection(dialog.getResult()),
+                    // true);
+
+                }
+
+            };
+        }
+
+        private void createDefaultContext() {
+            Composite defaultComposite = new Composite(toolbar, SWT.NONE);
+            GridLayout layout = new GridLayout();
+            layout.numColumns = 2;
+
+            GridData gridData = new GridData();
+            gridData.verticalAlignment = GridData.CENTER;
+            defaultComposite.setLayout(layout);
+            if (getContextModelManager() instanceof ContextComposite) {
+                ContextComposite cComposite = (ContextComposite) getContextModelManager();
+                cComposite.addChoiceComponents(defaultComposite);
+            }
+
         }
 
         /*
@@ -667,6 +762,7 @@ public class ConextTemplateComposite extends Composite {
         public ImportPushButton createImportPushButton() {
             return null;
         }
+
     }
 
     /**

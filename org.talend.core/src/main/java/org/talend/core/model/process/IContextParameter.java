@@ -20,6 +20,8 @@ package org.talend.core.model.process;
  */
 public interface IContextParameter {
 
+    public static final String BUILT_IN = "built-in";
+
     public String[] getValueList();
 
     public void setValueList(String[] list);
@@ -63,4 +65,10 @@ public interface IContextParameter {
     public IContextParameter clone();
 
     public boolean sameAs(IContextParameter contextParam);
+
+    public String getSource();
+
+    public void setSource(final String sourceName);
+
+    public boolean isBuiltIn();
 }
