@@ -95,8 +95,12 @@ public class TalendJavaCompletionProcessor extends JavaCompletionProcessor {
         Collections.sort(newProposals, new Comparator() {
 
             public int compare(Object arg0, Object arg1) {
-                if (arg1 instanceof TalendCompletionProposal) {
+                if (arg1 instanceof TalendCompletionProposal && (!(arg0 instanceof TalendCompletionProposal))) {
                     return 1;
+                } else if (arg1 instanceof TalendCompletionProposal && (arg0 instanceof TalendCompletionProposal)) {
+                    TalendCompletionProposal a = (TalendCompletionProposal) arg0;
+                    TalendCompletionProposal b = (TalendCompletionProposal) arg1;
+                    return a.getType().compareTo(b.getType());
                 }
                 return 0;
             }

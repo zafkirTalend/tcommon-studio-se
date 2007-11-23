@@ -67,14 +67,15 @@ public class RoutinesFunctionProposal implements IContentProposal {
      * @see org.eclipse.jface.fieldassist.IContentProposal#getDescription()
      */
     public String getDescription() {
-        String message = Messages.getString("RoutinesFunctionProposal.ReturnType"); //$NON-NLS-1$
-        message += Messages.getString("RoutinesFunctionProposal.isUserDefined"); //$NON-NLS-1$
-        message += Messages.getString("RoutinesFunctionProposal.VariableName"); //$NON-NLS-1$
-        message += Messages.getString("RoutinesFunctionProposal.Description"); //$NON-NLS-1$
+        String message = Messages.getString("RoutinesFunctionProposal.Description") + "{0}<br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("RoutinesFunctionProposal.CreatedBy") + "{1}<br><br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("RoutinesFunctionProposal.ReturnType") + "{2}<br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("RoutinesFunctionProposal.VariableName") + "{3}<br><br>"; //$NON-NLS-1$ //$NON-NLS-2$
 
         MessageFormat format = new MessageFormat(message);
-        Object[] args = new Object[] { function.getTalendType().getName(),
-                function.isUserDefined() ? "User Defined" : "System Defined", method, function.getDescription() };
+        Object[] args = new Object[] { function.getDescription(),
+                function.isUserDefined() ? Messages.getString("RoutinesFunctionProposal.User") : Messages //$NON-NLS-1$
+                        .getString("RoutinesFunctionProposal.System"), function.getTalendType().getName(), method }; //$NON-NLS-1$
         return format.format(args);
     }
 

@@ -24,6 +24,8 @@ public class Function implements Cloneable {
 
     private String category;
 
+    private String className;
+
     private TalendType talendType;
 
     private boolean isUserDefined;
@@ -56,6 +58,7 @@ public class Function implements Cloneable {
     public Object clone() {
         Function fun = new Function();
         try {
+            fun.setClassName(getClassName());
             fun.setName(getName());
             fun.setDescription(getDescription());
             fun.setPreview(getPreview());
@@ -183,6 +186,13 @@ public class Function implements Cloneable {
                 return false;
             }
         } else if (!this.name.equals(fun.name)) {
+            return false;
+        }
+        if (this.className == null) {
+            if (fun.className != null) {
+                return false;
+            }
+        } else if (!this.className.equals(fun.className)) {
             return false;
         }
         if (this.description == null) {
@@ -381,5 +391,23 @@ public class Function implements Cloneable {
 
     public void setUserDefined(boolean isUserDefined) {
         this.isUserDefined = isUserDefined;
+    }
+
+    /**
+     * Getter for className.
+     * 
+     * @return the className
+     */
+    public String getClassName() {
+        return this.className;
+    }
+
+    /**
+     * Sets the className.
+     * 
+     * @param className the className to set
+     */
+    public void setClassName(String className) {
+        this.className = className;
     }
 }

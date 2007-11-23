@@ -12,10 +12,14 @@
 // ============================================================================
 package org.talend.core.ui.viewer.perl;
 
+import org.eclipse.jface.internal.text.html.HTMLTextPresenter;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.DefaultAutoIndentStrategy;
+import org.eclipse.jface.text.DefaultInformationControl;
 import org.eclipse.jface.text.IAutoIndentStrategy;
 import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.IInformationControl;
+import org.eclipse.jface.text.IInformationControlCreator;
 import org.eclipse.jface.text.ITextDoubleClickStrategy;
 import org.eclipse.jface.text.ITextHover;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
@@ -25,7 +29,9 @@ import org.eclipse.jface.text.reconciler.IReconciler;
 import org.eclipse.jface.text.source.IAnnotationHover;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.SourceViewerConfiguration;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Shell;
 import org.epic.perleditor.PerlEditorPlugin;
 import org.epic.perleditor.editors.PartitionTypes;
 import org.epic.perleditor.editors.PerlPresentationReconciler;
@@ -114,5 +120,19 @@ public class TalendPerlSourceViewerConfiguration extends SourceViewerConfigurati
 
     public IReconciler getReconciler(ISourceViewer sourceViewer) {
         return null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.text.source.SourceViewerConfiguration#getInformationControlCreator(org.eclipse.jface.text.source.ISourceViewer)
+     */
+    public IInformationControlCreator getInformationControlCreator(ISourceViewer sourceViewer) {
+        return new IInformationControlCreator() {
+
+            public IInformationControl createInformationControl(Shell parent) {
+                return new DefaultInformationControl(parent, SWT.NONE, new HTMLTextPresenter(true));
+            }
+        };
     }
 }

@@ -27,6 +27,14 @@ import org.talend.commons.exception.ExceptionHandler;
  */
 public class TalendCompletionProposal implements ICompletionProposal {
 
+    public static final String NODE_RETURN = "NODE_RETURN"; //$NON-NLS-1$
+
+    public static final String ROUTINE = "ROUTINE"; //$NON-NLS-1$
+
+    public static final String CONTEXT = "CONTEXT"; //$NON-NLS-1$
+
+    public static final String VARIABLE = "VARIABLE"; //$NON-NLS-1$
+
     /** The string to be displayed in the completion proposal popup. */
     private String fDisplayString;
 
@@ -50,6 +58,8 @@ public class TalendCompletionProposal implements ICompletionProposal {
 
     /** The additional info of this proposal. */
     private String fAdditionalProposalInfo;
+
+    private String type;
 
     /**
      * Creates a new completion proposal based on the provided information. The replacement string is considered being
@@ -139,5 +149,33 @@ public class TalendCompletionProposal implements ICompletionProposal {
      */
     public String getAdditionalProposalInfo() {
         return fAdditionalProposalInfo;
+    }
+
+    /**
+     * Getter for type.
+     * 
+     * @return the type
+     */
+    public String getType() {
+        return this.type;
+    }
+
+    /**
+     * Sets the type.
+     * 
+     * @param type the type to set
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return fDisplayString;
     }
 }

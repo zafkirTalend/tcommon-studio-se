@@ -131,7 +131,7 @@ public class FunctionManager {
 
             final List<Parameter> parameters = f.getParameters();
             if (isJavaProject()) {
-                String fullName = f.getCategory() + JAVA_METHOD_SEPARATED + f.getName();
+                String fullName = f.getClassName() + JAVA_METHOD_SEPARATED + f.getName();
                 newValue = fullName + FUN_PREFIX;
                 for (Parameter pa : parameters) {
                     newValue += pa.getValue() + FUN_PARAM_SEPARATED;

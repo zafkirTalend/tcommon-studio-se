@@ -63,12 +63,16 @@ import org.eclipse.ui.texteditor.DefaultMarkerAnnotationAccess;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.language.LanguageManager;
 import org.talend.core.model.metadata.types.JavaTypesManager;
+import org.talend.core.model.repository.ERepositoryObjectType;
+import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.ui.viewer.ReconcilerViewer;
 import org.talend.expressionbuilder.IExpressionDataBean;
 import org.talend.expressionbuilder.test.shadow.Variable;
+import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
  * DOC nrousseau class global comment. Detailled comment
@@ -118,6 +122,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
     public static ISourceViewer createViewer(Composite composite, int styles, boolean checkCode) {
         StringBuffer buff = new StringBuffer();
         buff.append("package internal;\n\n");
+        buff.append(getImports());
         buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n");
         buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n");
         buff
@@ -136,6 +141,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         IDocument document = new Document();
         StringBuffer buff = new StringBuffer();
         buff.append("package internal;\n\n");
+        buff.append(getImports());
         buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n");
         buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n");
         buff
@@ -212,6 +218,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         }
         StringBuffer buff = new StringBuffer();
         buff.append("package internal;\n\n");
+        buff.append(getImports());
         buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n");
         buff.append(globalFields);
         buff.append("\tpublic void myFunction(){\n");
@@ -250,6 +257,29 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         }
 
         return viewer;
+    }
+
+    private static String getImports() {
+        String imports = "";
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
+
+        try {
+            List<IRepositoryObject> routines = repositoryFactory.getAll(ERepositoryObjectType.ROUTINES);
+            for (IRepositoryObject routine : routines) {
+                imports += "import routines." + routine.getLabel() + ";";
+            }
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+            return "";
+        }
+
+        imports += "import routines.system.*;";
+        imports += "import java.text.ParseException;";
+        imports += "import java.text.SimpleDateFormat;";
+        imports += "import java.util.Date;";
+        imports += "import java.util.List;";
+        imports += "import java.math.BigDecimal;";
+        return imports;
     }
 
     /*

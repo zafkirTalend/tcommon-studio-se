@@ -15,7 +15,6 @@ package org.talend.core.ui.viewer.proposal;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -41,6 +40,9 @@ import org.talend.core.model.process.IProcess;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.core.ui.proposal.PerlGlobalUtils;
+import org.talend.designer.rowgenerator.data.Function;
+import org.talend.designer.rowgenerator.data.FunctionManager;
+import org.talend.designer.rowgenerator.data.TalendType;
 
 /**
  * @author nrousseau
@@ -137,8 +139,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             String description = getContextDescription(ctxParam, display);
 
             if (prefix.equals("") || display.startsWith(prefix)) {
-                ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix.length(), code
-                        .length(), ImageProvider.getImage(ECoreImage.CONTEXT_ICON), display, null, description);
+                TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix.length(),
+                        code.length(), ImageProvider.getImage(ECoreImage.CONTEXT_ICON), display, null, description);
+                proposal.setType(TalendCompletionProposal.CONTEXT);
                 proposals.add(proposal);
             }
 
@@ -156,8 +159,9 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
 
                     String description = getNodeReturnDescription(nodeReturn, node, display);
 
-                    ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix.length(),
-                            code.length(), node.getComponent().getIcon16().createImage(), display, null, description);
+                    TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
+                            .length(), code.length(), node.getComponent().getIcon16().createImage(), display, null, description);
+                    proposal.setType(TalendCompletionProposal.NODE_RETURN);
                     proposals.add(proposal);
                 }
             }
@@ -177,19 +181,32 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
                 if (prefix.equals("") || display.startsWith(prefix)) {
                     String code = vars[i].getContent();
                     String description = getPerlGlobalVarDescription(vars[i], display);
-                    ICompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix.length(),
-                            code.length(), ImageProvider.getImage(ECoreImage.PROCESS_ICON), display, null, description);
+                    TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
+                            .length(), code.length(), ImageProvider.getImage(ECoreImage.PROCESS_ICON), display, null, description);
+                    proposal.setType(TalendCompletionProposal.VARIABLE);
                     proposals.add(proposal);
                 }
             }
         }
-        // sort the list
-        Collections.sort(proposals, new Comparator<ICompletionProposal>() {
 
-            public int compare(ICompletionProposal o1, ICompletionProposal o2) {
-                return o2.getDisplayString().compareToIgnoreCase(o1.getDisplayString());
+        FunctionManager functionManager = new FunctionManager();
+        List<TalendType> talendTypes = functionManager.getTalendTypes();
+        for (TalendType type : talendTypes) {
+            for (Object objectFunction : type.getFunctions()) {
+                Function function = (Function) objectFunction;
+                String display = function.getCategory() + "." + function.getName();
+                if (prefix.equals("") || display.startsWith(prefix)) {
+                    String code = FunctionManager.getFunctionMethod(function);
+
+                    String description = getFunctionDescription(function, display, code);
+
+                    TalendCompletionProposal proposal = new TalendCompletionProposal(code, offset - prefix.length(), prefix
+                            .length(), code.length(), ImageProvider.getImage(ECoreImage.ROUTINE_ICON), display, null, description);
+                    proposal.setType(TalendCompletionProposal.ROUTINE);
+                    proposals.add(proposal);
+                }
             }
-        });
+        }
         return proposals;
     }
 
@@ -245,6 +262,20 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
         MessageFormat format = new MessageFormat(message);
 
         Object[] args = new Object[] { cp.getDescription(), cp.getContent() };
+        return format.format(args);
+    }
+
+    private String getFunctionDescription(Function function, String display, String code) {
+        String message = "<b>" + display + "</b><br><br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("RoutinesFunctionProposal.Description") + "{0}<br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("RoutinesFunctionProposal.CreatedBy") + "{1}<br><br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("RoutinesFunctionProposal.ReturnType") + "{2}<br>"; //$NON-NLS-1$ //$NON-NLS-2$
+        message += Messages.getString("RoutinesFunctionProposal.Example") + "{3}<br><br>"; //$NON-NLS-1$ //$NON-NLS-2$
+
+        MessageFormat format = new MessageFormat(message);
+        Object[] args = new Object[] { function.getDescription(),
+                function.isUserDefined() ? Messages.getString("RoutinesFunctionProposal.User") : Messages //$NON-NLS-1$
+                        .getString("RoutinesFunctionProposal.System"), function.getTalendType().getName(), code }; //$NON-NLS-1$
         return format.format(args);
     }
 
