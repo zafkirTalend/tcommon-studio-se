@@ -38,7 +38,7 @@ public interface LogToFileType extends EObject {
      * @return the value of the '<em>Filename</em>' attribute.
      * @see #setFilename(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getLogToFileType_Filename()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='filename' namespace='##targetNamespace'"
      * @generated
      */
@@ -67,7 +67,7 @@ public interface LogToFileType extends EObject {
      * @see #unsetLevel()
      * @see #setLevel(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getLogToFileType_Level()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='level' namespace='##targetNamespace'"
      * @generated
      */
@@ -121,7 +121,7 @@ public interface LogToFileType extends EObject {
      * @see #unsetSelected()
      * @see #setSelected(boolean)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getLogToFileType_Selected()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='selected' namespace='##targetNamespace'"
      * @generated
      */

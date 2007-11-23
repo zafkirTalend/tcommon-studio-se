@@ -24,6 +24,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getPrompt <em>Prompt</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#isPromptNeeded <em>Prompt Needed</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getRepositoryContextId <em>Repository Context Id</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ContextParameterTypeImpl#getValue <em>Value</em>}</li>
  * </ul>
@@ -120,6 +121,26 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
      * @ordered
      */
     protected boolean promptNeededESet;
+
+    /**
+     * The default value of the '{@link #getRepositoryContextId() <em>Repository Context Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRepositoryContextId()
+     * @generated
+     * @ordered
+     */
+    protected static final String REPOSITORY_CONTEXT_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getRepositoryContextId() <em>Repository Context Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRepositoryContextId()
+     * @generated
+     * @ordered
+     */
+    protected String repositoryContextId = REPOSITORY_CONTEXT_ID_EDEFAULT;
 
     /**
      * The default value of the '{@link #getType() <em>Type</em>}' attribute.
@@ -293,6 +314,27 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getRepositoryContextId() {
+        return repositoryContextId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRepositoryContextId(String newRepositoryContextId) {
+        String oldRepositoryContextId = repositoryContextId;
+        repositoryContextId = newRepositoryContextId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID, oldRepositoryContextId, repositoryContextId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getType() {
         return type;
     }
@@ -345,6 +387,8 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
                 return getPrompt();
             case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED:
                 return isPromptNeeded() ? Boolean.TRUE : Boolean.FALSE;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID:
+                return getRepositoryContextId();
             case TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE:
                 return getType();
             case TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE:
@@ -371,6 +415,9 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
                 return;
             case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED:
                 setPromptNeeded(((Boolean)newValue).booleanValue());
+                return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID:
+                setRepositoryContextId((String)newValue);
                 return;
             case TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE:
                 setType((String)newValue);
@@ -401,6 +448,9 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
             case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED:
                 unsetPromptNeeded();
                 return;
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID:
+                setRepositoryContextId(REPOSITORY_CONTEXT_ID_EDEFAULT);
+                return;
             case TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE:
                 setType(TYPE_EDEFAULT);
                 return;
@@ -426,6 +476,8 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
                 return PROMPT_EDEFAULT == null ? prompt != null : !PROMPT_EDEFAULT.equals(prompt);
             case TalendFilePackage.CONTEXT_PARAMETER_TYPE__PROMPT_NEEDED:
                 return isSetPromptNeeded();
+            case TalendFilePackage.CONTEXT_PARAMETER_TYPE__REPOSITORY_CONTEXT_ID:
+                return REPOSITORY_CONTEXT_ID_EDEFAULT == null ? repositoryContextId != null : !REPOSITORY_CONTEXT_ID_EDEFAULT.equals(repositoryContextId);
             case TalendFilePackage.CONTEXT_PARAMETER_TYPE__TYPE:
                 return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
             case TalendFilePackage.CONTEXT_PARAMETER_TYPE__VALUE:
@@ -451,6 +503,8 @@ public class ContextParameterTypeImpl extends EObjectImpl implements ContextPara
         result.append(prompt);
         result.append(", promptNeeded: ");
         if (promptNeededESet) result.append(promptNeeded); else result.append("<unset>");
+        result.append(", repositoryContextId: ");
+        result.append(repositoryContextId);
         result.append(", type: ");
         result.append(type);
         result.append(", value: ");

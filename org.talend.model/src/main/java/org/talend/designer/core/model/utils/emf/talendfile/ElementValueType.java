@@ -37,7 +37,7 @@ public interface ElementValueType extends EObject {
      * @return the value of the '<em>Element Ref</em>' attribute.
      * @see #setElementRef(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getElementValueType_ElementRef()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='elementRef' namespace='##targetNamespace'"
      * @generated
      */
@@ -64,7 +64,7 @@ public interface ElementValueType extends EObject {
      * @return the value of the '<em>Value</em>' attribute.
      * @see #setValue(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getElementValueType_Value()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='value' namespace='##targetNamespace'"
      * @generated
      */

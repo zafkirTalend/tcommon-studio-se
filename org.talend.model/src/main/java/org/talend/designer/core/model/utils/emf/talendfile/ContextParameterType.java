@@ -20,6 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType#getPrompt <em>Prompt</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType#isPromptNeeded <em>Prompt Needed</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType#getRepositoryContextId <em>Repository Context Id</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType#getType <em>Type</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType#getValue <em>Value</em>}</li>
  * </ul>
@@ -41,7 +42,7 @@ public interface ContextParameterType extends EObject {
      * @return the value of the '<em>Comment</em>' attribute.
      * @see #setComment(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getContextParameterType_Comment()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='comment' namespace='##targetNamespace'"
      * @generated
      */
@@ -68,7 +69,7 @@ public interface ContextParameterType extends EObject {
      * @return the value of the '<em>Name</em>' attribute.
      * @see #setName(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getContextParameterType_Name()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='name' namespace='##targetNamespace'"
      * @generated
      */
@@ -95,7 +96,7 @@ public interface ContextParameterType extends EObject {
      * @return the value of the '<em>Prompt</em>' attribute.
      * @see #setPrompt(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getContextParameterType_Prompt()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='prompt' namespace='##targetNamespace'"
      * @generated
      */
@@ -124,7 +125,7 @@ public interface ContextParameterType extends EObject {
      * @see #unsetPromptNeeded()
      * @see #setPromptNeeded(boolean)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getContextParameterType_PromptNeeded()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='promptNeeded' namespace='##targetNamespace'"
      * @generated
      */
@@ -166,6 +167,33 @@ public interface ContextParameterType extends EObject {
     boolean isSetPromptNeeded();
 
     /**
+     * Returns the value of the '<em><b>Repository Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Repository Context Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Repository Context Id</em>' attribute.
+     * @see #setRepositoryContextId(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getContextParameterType_RepositoryContextId()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='repositoryContextId' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getRepositoryContextId();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType#getRepositoryContextId <em>Repository Context Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Repository Context Id</em>' attribute.
+     * @see #getRepositoryContextId()
+     * @generated
+     */
+    void setRepositoryContextId(String value);
+
+    /**
      * Returns the value of the '<em><b>Type</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -176,7 +204,7 @@ public interface ContextParameterType extends EObject {
      * @return the value of the '<em>Type</em>' attribute.
      * @see #setType(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getContextParameterType_Type()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='type' namespace='##targetNamespace'"
      * @generated
      */
@@ -203,7 +231,7 @@ public interface ContextParameterType extends EObject {
      * @return the value of the '<em>Value</em>' attribute.
      * @see #setValue(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getContextParameterType_Value()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='value' namespace='##targetNamespace'"
      * @generated
      */

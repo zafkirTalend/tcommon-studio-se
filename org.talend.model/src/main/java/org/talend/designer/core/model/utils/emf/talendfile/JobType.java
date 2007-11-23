@@ -37,7 +37,7 @@ public interface JobType extends EObject {
      * @return the value of the '<em>Context</em>' attribute.
      * @see #setContext(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getJobType_Context()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='context' namespace='##targetNamespace'"
      * @generated
      */
@@ -64,7 +64,7 @@ public interface JobType extends EObject {
      * @return the value of the '<em>Name</em>' attribute.
      * @see #setName(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getJobType_Name()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='name' namespace='##targetNamespace'"
      * @generated
      */

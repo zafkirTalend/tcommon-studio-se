@@ -57,7 +57,7 @@ public interface ElementParameterType extends EObject {
      * @return the value of the '<em>Field</em>' attribute.
      * @see #setField(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getElementParameterType_Field()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='field' namespace='##targetNamespace'"
      * @generated
      */
@@ -84,7 +84,7 @@ public interface ElementParameterType extends EObject {
      * @return the value of the '<em>Name</em>' attribute.
      * @see #setName(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getElementParameterType_Name()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='name' namespace='##targetNamespace'"
      * @generated
      */
@@ -111,7 +111,7 @@ public interface ElementParameterType extends EObject {
      * @return the value of the '<em>Value</em>' attribute.
      * @see #setValue(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getElementParameterType_Value()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='value' namespace='##targetNamespace'"
      * @generated
      */

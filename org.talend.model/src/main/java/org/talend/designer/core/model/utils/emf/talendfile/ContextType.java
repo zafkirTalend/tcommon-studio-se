@@ -58,7 +58,7 @@ public interface ContextType extends EObject {
      * @see #unsetConfirmationNeeded()
      * @see #setConfirmationNeeded(boolean)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getContextType_ConfirmationNeeded()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='confirmationNeeded' namespace='##targetNamespace'"
      * @generated
      */
@@ -110,7 +110,7 @@ public interface ContextType extends EObject {
      * @return the value of the '<em>Name</em>' attribute.
      * @see #setName(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getContextType_Name()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='name' namespace='##targetNamespace'"
      * @generated
      */

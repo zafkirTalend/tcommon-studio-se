@@ -39,7 +39,7 @@ public interface LogToStdOutType extends EObject {
      * @see #unsetLevel()
      * @see #setLevel(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getLogToStdOutType_Level()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='level' namespace='##targetNamespace'"
      * @generated
      */
@@ -93,7 +93,7 @@ public interface LogToStdOutType extends EObject {
      * @see #unsetSelected()
      * @see #setSelected(boolean)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getLogToStdOutType_Selected()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='selected' namespace='##targetNamespace'"
      * @generated
      */

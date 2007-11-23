@@ -82,7 +82,7 @@ public interface NodeType extends EObject {
      * @return the value of the '<em>Binary Data</em>' attribute.
      * @see #setBinaryData(byte[])
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_BinaryData()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.Base64Binary"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.Base64Binary"
      *        extendedMetaData="kind='element' name='BinaryData' namespace='##targetNamespace'"
      * @generated
      */
@@ -109,7 +109,7 @@ public interface NodeType extends EObject {
      * @return the value of the '<em>String Data</em>' attribute.
      * @see #setStringData(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_StringData()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='element' name='StringData' namespace='##targetNamespace'"
      * @generated
      */
@@ -136,7 +136,7 @@ public interface NodeType extends EObject {
      * @return the value of the '<em>Component Name</em>' attribute.
      * @see #setComponentName(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_ComponentName()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='componentName' namespace='##targetNamespace'"
      * @generated
      */
@@ -163,7 +163,7 @@ public interface NodeType extends EObject {
      * @return the value of the '<em>Component Version</em>' attribute.
      * @see #setComponentVersion(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_ComponentVersion()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='componentVersion' namespace='##targetNamespace'"
      * @generated
      */
@@ -192,7 +192,7 @@ public interface NodeType extends EObject {
      * @see #unsetOffsetLabelX()
      * @see #setOffsetLabelX(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_OffsetLabelX()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='offsetLabelX' namespace='##targetNamespace'"
      * @generated
      */
@@ -246,7 +246,7 @@ public interface NodeType extends EObject {
      * @see #unsetOffsetLabelY()
      * @see #setOffsetLabelY(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_OffsetLabelY()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='offsetLabelY' namespace='##targetNamespace'"
      * @generated
      */
@@ -300,7 +300,7 @@ public interface NodeType extends EObject {
      * @see #unsetPosX()
      * @see #setPosX(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_PosX()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='posX' namespace='##targetNamespace'"
      * @generated
      */
@@ -354,7 +354,7 @@ public interface NodeType extends EObject {
      * @see #unsetPosY()
      * @see #setPosY(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_PosY()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='posY' namespace='##targetNamespace'"
      * @generated
      */
@@ -408,7 +408,7 @@ public interface NodeType extends EObject {
      * @see #unsetSizeX()
      * @see #setSizeX(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_SizeX()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='sizeX' namespace='##targetNamespace'"
      * @generated
      */
@@ -462,7 +462,7 @@ public interface NodeType extends EObject {
      * @see #unsetSizeY()
      * @see #setSizeY(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNodeType_SizeY()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='sizeY' namespace='##targetNamespace'"
      * @generated
      */

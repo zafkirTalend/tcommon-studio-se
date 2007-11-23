@@ -43,7 +43,7 @@ public interface NoteType extends EObject {
      * @see #unsetOpaque()
      * @see #setOpaque(boolean)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNoteType_Opaque()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
      *        extendedMetaData="kind='attribute' name='opaque' namespace='##targetNamespace'"
      * @generated
      */
@@ -97,7 +97,7 @@ public interface NoteType extends EObject {
      * @see #unsetPosX()
      * @see #setPosX(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNoteType_PosX()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='posX' namespace='##targetNamespace'"
      * @generated
      */
@@ -151,7 +151,7 @@ public interface NoteType extends EObject {
      * @see #unsetPosY()
      * @see #setPosY(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNoteType_PosY()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='posY' namespace='##targetNamespace'"
      * @generated
      */
@@ -205,7 +205,7 @@ public interface NoteType extends EObject {
      * @see #unsetSizeHeight()
      * @see #setSizeHeight(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNoteType_SizeHeight()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='sizeHeight' namespace='##targetNamespace'"
      * @generated
      */
@@ -259,7 +259,7 @@ public interface NoteType extends EObject {
      * @see #unsetSizeWidth()
      * @see #setSizeWidth(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNoteType_SizeWidth()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='sizeWidth' namespace='##targetNamespace'"
      * @generated
      */
@@ -311,7 +311,7 @@ public interface NoteType extends EObject {
      * @return the value of the '<em>Text</em>' attribute.
      * @see #setText(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getNoteType_Text()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='text' namespace='##targetNamespace'"
      * @generated
      */

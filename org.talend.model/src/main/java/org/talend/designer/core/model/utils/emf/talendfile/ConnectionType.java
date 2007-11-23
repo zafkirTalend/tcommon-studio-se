@@ -64,7 +64,7 @@ public interface ConnectionType extends EObject {
      * @return the value of the '<em>Connector Name</em>' attribute.
      * @see #setConnectorName(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_ConnectorName()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='connectorName' namespace='##targetNamespace'"
      * @generated
      */
@@ -91,7 +91,7 @@ public interface ConnectionType extends EObject {
      * @return the value of the '<em>Label</em>' attribute.
      * @see #setLabel(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_Label()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='label' namespace='##targetNamespace'"
      * @generated
      */
@@ -120,7 +120,7 @@ public interface ConnectionType extends EObject {
      * @see #unsetLineStyle()
      * @see #setLineStyle(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_LineStyle()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='lineStyle' namespace='##targetNamespace'"
      * @generated
      */
@@ -174,7 +174,7 @@ public interface ConnectionType extends EObject {
      * @see #unsetMergeOrder()
      * @see #setMergeOrder(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_MergeOrder()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='mergeOrder' namespace='##targetNamespace'"
      * @generated
      */
@@ -226,7 +226,7 @@ public interface ConnectionType extends EObject {
      * @return the value of the '<em>Metaname</em>' attribute.
      * @see #setMetaname(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_Metaname()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='metaname' namespace='##targetNamespace'"
      * @generated
      */
@@ -255,7 +255,7 @@ public interface ConnectionType extends EObject {
      * @see #unsetOffsetLabelX()
      * @see #setOffsetLabelX(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_OffsetLabelX()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='offsetLabelX' namespace='##targetNamespace'"
      * @generated
      */
@@ -309,7 +309,7 @@ public interface ConnectionType extends EObject {
      * @see #unsetOffsetLabelY()
      * @see #setOffsetLabelY(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_OffsetLabelY()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='offsetLabelY' namespace='##targetNamespace'"
      * @generated
      */
@@ -363,7 +363,7 @@ public interface ConnectionType extends EObject {
      * @see #unsetOutputId()
      * @see #setOutputId(int)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_OutputId()
-     * @model unique="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
+     * @model unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Int"
      *        extendedMetaData="kind='attribute' name='outputId' namespace='##targetNamespace'"
      * @generated
      */
@@ -415,7 +415,7 @@ public interface ConnectionType extends EObject {
      * @return the value of the '<em>Source</em>' attribute.
      * @see #setSource(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_Source()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='source' namespace='##targetNamespace'"
      * @generated
      */
@@ -442,7 +442,7 @@ public interface ConnectionType extends EObject {
      * @return the value of the '<em>Target</em>' attribute.
      * @see #setTarget(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getConnectionType_Target()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='target' namespace='##targetNamespace'"
      * @generated
      */

@@ -30,7 +30,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getDefaultContext <em>Default Context</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getPurpose <em>Purpose</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRepositoryContextId <em>Repository Context Id</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getVersion <em>Version</em>}</li>
  * </ul>
@@ -52,7 +51,7 @@ public interface ProcessType extends EObject {
      * @return the value of the '<em>Description</em>' attribute.
      * @see #setDescription(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Description()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='element' name='Description' namespace='##targetNamespace'"
      * @generated
      */
@@ -228,7 +227,7 @@ public interface ProcessType extends EObject {
      * @return the value of the '<em>Author</em>' attribute.
      * @see #setAuthor(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Author()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='author' namespace='##targetNamespace'"
      * @generated
      */
@@ -255,7 +254,7 @@ public interface ProcessType extends EObject {
      * @return the value of the '<em>Comment</em>' attribute.
      * @see #setComment(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Comment()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='comment' namespace='##targetNamespace'"
      * @generated
      */
@@ -282,7 +281,7 @@ public interface ProcessType extends EObject {
      * @return the value of the '<em>Default Context</em>' attribute.
      * @see #setDefaultContext(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_DefaultContext()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='defaultContext' namespace='##targetNamespace'"
      * @generated
      */
@@ -309,7 +308,7 @@ public interface ProcessType extends EObject {
      * @return the value of the '<em>Name</em>' attribute.
      * @see #setName(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Name()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='name' namespace='##targetNamespace'"
      * @generated
      */
@@ -336,7 +335,7 @@ public interface ProcessType extends EObject {
      * @return the value of the '<em>Purpose</em>' attribute.
      * @see #setPurpose(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Purpose()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='purpose' namespace='##targetNamespace'"
      * @generated
      */
@@ -353,33 +352,6 @@ public interface ProcessType extends EObject {
     void setPurpose(String value);
 
     /**
-     * Returns the value of the '<em><b>Repository Context Id</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>Repository Context Id</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>Repository Context Id</em>' attribute.
-     * @see #setRepositoryContextId(String)
-     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_RepositoryContextId()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
-     *        extendedMetaData="kind='attribute' name='repositoryContextId' namespace='##targetNamespace'"
-     * @generated
-     */
-    String getRepositoryContextId();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRepositoryContextId <em>Repository Context Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>Repository Context Id</em>' attribute.
-     * @see #getRepositoryContextId()
-     * @generated
-     */
-    void setRepositoryContextId(String value);
-
-    /**
      * Returns the value of the '<em><b>Status</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <p>
@@ -390,7 +362,7 @@ public interface ProcessType extends EObject {
      * @return the value of the '<em>Status</em>' attribute.
      * @see #setStatus(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Status()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='status' namespace='##targetNamespace'"
      * @generated
      */
@@ -417,7 +389,7 @@ public interface ProcessType extends EObject {
      * @return the value of the '<em>Version</em>' attribute.
      * @see #setVersion(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_Version()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='version' namespace='##targetNamespace'"
      * @generated
      */

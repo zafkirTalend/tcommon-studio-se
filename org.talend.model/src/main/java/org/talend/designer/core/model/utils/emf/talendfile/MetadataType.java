@@ -59,7 +59,7 @@ public interface MetadataType extends EObject {
      * @return the value of the '<em>Comment</em>' attribute.
      * @see #setComment(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getMetadataType_Comment()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='element' name='Comment' namespace='##targetNamespace'"
      * @generated
      */
@@ -86,7 +86,7 @@ public interface MetadataType extends EObject {
      * @return the value of the '<em>Connector</em>' attribute.
      * @see #setConnector(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getMetadataType_Connector()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='connector' namespace='##targetNamespace'"
      * @generated
      */
@@ -113,7 +113,7 @@ public interface MetadataType extends EObject {
      * @return the value of the '<em>Label</em>' attribute.
      * @see #setLabel(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getMetadataType_Label()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='label' namespace='##targetNamespace'"
      * @generated
      */
@@ -140,7 +140,7 @@ public interface MetadataType extends EObject {
      * @return the value of the '<em>Name</em>' attribute.
      * @see #setName(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getMetadataType_Name()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='name' namespace='##targetNamespace'"
      * @generated
      */
@@ -167,7 +167,7 @@ public interface MetadataType extends EObject {
      * @return the value of the '<em>Source</em>' attribute.
      * @see #setSource(String)
      * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getMetadataType_Source()
-     * @model unique="false" dataType="org.eclipse.emf.ecore.xml.type.String"
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
      *        extendedMetaData="kind='attribute' name='source' namespace='##targetNamespace'"
      * @generated
      */
