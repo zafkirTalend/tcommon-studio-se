@@ -65,7 +65,8 @@ public class BezierHorizontalLink extends AbstractDrawableLink {
             pl = (Point2DList) curve.getPointList();
         }
 
-        curve.setSubdiv((int) (DISTANCE_REFERENCE / distance));
+        int subdiv = (int) (DISTANCE_REFERENCE / distance);
+        curve.setSubdiv(subdiv > 0 ? subdiv : 2);
         double coefDistConnectorWidth = distance / 1500 * connectorWidth;
 
         int point1xHalfTableWidth1ConnWidth = point1.x + connectorWidth;

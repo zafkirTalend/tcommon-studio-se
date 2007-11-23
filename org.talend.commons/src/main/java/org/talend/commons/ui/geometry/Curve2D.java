@@ -49,7 +49,7 @@ public abstract class Curve2D extends Curve {
 
     int subdiv;
 
-    private int minimumSegements = 0;
+    private int minimumSegements = 2;
 
     private int maximumSegements = Integer.MAX_VALUE;
 

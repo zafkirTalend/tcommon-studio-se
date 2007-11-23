@@ -48,6 +48,16 @@ public class Locker<B, KP> {
 
     private boolean verbose;
 
+    private boolean detectSameThread;
+
+    /**
+     * DOC amaumont Locker constructor comment.
+     */
+    public Locker(boolean detectSameThread) {
+        super();
+        this.detectSameThread = detectSameThread;
+    }
+
     /**
      * DOC amaumont Locker constructor comment.
      */
@@ -58,8 +68,16 @@ public class Locker<B, KP> {
     /**
      * DOC amaumont Locker constructor comment.
      */
+    public Locker(boolean detectSameThread, IGetterPropertyAccessor<B, KP> getterId) {
+        this(getterId);
+        this.detectSameThread = detectSameThread;
+    }
+
+    /**
+     * DOC amaumont Locker constructor comment.
+     */
     public Locker(IGetterPropertyAccessor<B, KP> getterId) {
-        super();
+        this();
         this.getterId = getterId;
         if (getterId == null) {
             throw new IllegalArgumentException("getterId can't be null");
@@ -135,7 +153,7 @@ public class Locker<B, KP> {
         } else {
             KP key = getterId.get(bean);
             Thread thread = lockKeyToThreadsMap.get(key);
-            if (Thread.currentThread() == thread) {
+            if (detectSameThread && Thread.currentThread() == thread) {
                 return true;
             } else {
                 return false;
@@ -157,7 +175,8 @@ public class Locker<B, KP> {
             return true;
         } else {
             Thread thread = lockKeyToThreadsMap.get(key);
-            if (Thread.currentThread() == thread) {
+            if (detectSameThread && Thread.currentThread() == thread) {
+                System.out.println("Same thread");
                 return true;
             } else {
                 return false;
@@ -209,7 +228,7 @@ public class Locker<B, KP> {
     public boolean unlock(KP key) {
         check(key);
         if (verbose) {
-        log.info("Unlocking (" + Thread.currentThread().toString() + ") key=" + key + "...");
+            log.info("Unlocking (" + Thread.currentThread().toString() + ") key=" + key + "...");
         }
         Thread thread = lockKeyToThreadsMap.remove(key);
         List<Thread> waitingThreads = (List<Thread>) waitingThreadsByKey.getCollection(key);
@@ -241,13 +260,13 @@ public class Locker<B, KP> {
                 waitingThreadsByKey.put(getterId.get(bean), Thread.currentThread());
                 try {
                     if (verbose) {
-                    log.info("Waiting for unlocked (" + Thread.currentThread().toString() + ") key="
-                            + getterId.get(bean) + "...");
+                        log.info("Waiting for unlocked (" + Thread.currentThread().toString() + ") key="
+                                + getterId.get(bean) + "...");
                     }
                     Thread.currentThread().wait();
                     if (verbose) {
-                    log.info("Waiting ended (" + Thread.currentThread().toString() + ") key=" + getterId.get(bean)
-                            + "...");
+                        log.info("Waiting ended (" + Thread.currentThread().toString() + ") key=" + getterId.get(bean)
+                                + "...");
                     }
                     waitForLockBean(bean);
                 } catch (InterruptedException e) {

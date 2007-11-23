@@ -118,7 +118,7 @@ public class Curve2DBezier extends Curve2D {
                 y += ((Point2D) pl.get(i)).getY() * bt;
             }
              
-            if (y >= yMinVisiblePoints && y <= yMaxVisiblePoints || firstInvisiblePoint) {
+            if (y >= yMinVisiblePoints && y <= yMaxVisiblePoints || firstInvisiblePoint || pointsTmp.length > 4) {
                 if (indexTStart == -1) {
                     indexTStart = t;
                 }

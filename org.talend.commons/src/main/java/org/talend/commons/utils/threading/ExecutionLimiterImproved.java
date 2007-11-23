@@ -80,14 +80,14 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
      * @return true if executable, false else
      */
     @SuppressWarnings("unchecked")
-    public boolean startIfExecutable(boolean executeAtEndOfTime) {
-        boolean executable = false;
+    public boolean startIfExecutable(final boolean executeAtEndOfTime) {
 
         boolean locked = false;
 
         synchronized (this) {
             locked = locker.lockIfUnlocked(ExecutionLimiterImproved.this);
             if (locked) {
+                //System.out.println("locked");
                 atLeastOneCallRefused = false;
             }
 
@@ -95,15 +95,15 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
 
         if (locked) {
 
-            try {
-                executable = isExecutable(executeAtEndOfTime);
-                if (executable) {
-                    inExecution = true;
-                    if (executeAtEndOfTime) {
+            final boolean executable = isExecutable(executeAtEndOfTime);
+            if (executable) {
+                executor.execute(new Runnable() {
 
-                        executor.execute(new Runnable() {
+                    public void run() {
+                        try {
+                            inExecution = true;
+                            if (executeAtEndOfTime) {
 
-                            public void run() {
                                 try {
                                     // System.out.println("1 HASHCODE = " + ExecutionLimiter.this.hashCode() + " " +
                                     // this.hashCode());
@@ -124,29 +124,27 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
                                     return;
                                 } catch (Exception e) {
                                     ExceptionHandler.process(e);
-                                } finally {
-                                    inExecution = false;
-                                    locker.unlock(ExecutionLimiterImproved.this);
                                 }
+                            } else {
+                                // System.out.println( "Call executed : now");
+                                callExecute();
+                                callFinalExecute();
                             }
-                        });
-                    } else {
-//                        System.out.println( "Call executed : now");
-                        callExecute();
-                        callFinalExecute();
+                            inExecution = false;
+                        } finally {
+                            //System.out.println("UNlocked");
+                            locker.unlock(ExecutionLimiterImproved.this);
+                        }
                     }
-                } else {
-                    // //System.out.println( "Call rejected");
-                }
-                if (executable && !executeAtEndOfTime) {
-                    inExecution = false;
-                }
-                return executable;
-            } finally {
-                locker.unlock(ExecutionLimiterImproved.this);
+                });
+                return true;
+            } else {
+//                System.out.println("Execution rejected: not executable");
+                atLeastOneCallRefused = true;
+                return false;
             }
         } else {
-            // System.out.println("Execution rejected");
+//            System.out.println("Execution rejected: locked");
             atLeastOneCallRefused = true;
             return false;
         }
@@ -156,11 +154,27 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
      * DOC amaumont Comment method "callFinalExecute".
      */
     private void callFinalExecute() {
+        //System.out.println("before test final execute");
         if (finalExecute) {
+            //System.out.println("try to final execution");
 
-            while (atLeastOneCallRefused) {
+            while (true) {
+                try {
+                    synchronized (this) {
+                        this.wait(timeBeforeNewExecution);
+                    }
+                } catch (InterruptedException e) {
+                    return;
+                }
+                if (!atLeastOneCallRefused) {
+//                    System.out.println("Final execution");
+                    execute(true);
+                    atLeastOneCallRefused = false;
+                    break;
+                }
                 atLeastOneCallRefused = false;
-                execute(true);
+                //System.out.println("Intermediate execution");
+                execute(false);
             }
         }
 

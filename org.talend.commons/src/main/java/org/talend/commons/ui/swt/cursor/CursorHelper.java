@@ -14,6 +14,7 @@ package org.talend.commons.ui.swt.cursor;
 
 import org.eclipse.swt.graphics.Cursor;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 
 
 /**
@@ -26,9 +27,9 @@ public class CursorHelper {
      * @param display
      * @return
      */
-    public static void changeCursor(Display display, int swtCursor) {
-        Cursor cursor = display.getSystemCursor(swtCursor);
-        display.getActiveShell().setCursor(cursor);
+    public static void changeCursor(Shell shell, int swtCursor) {
+        Cursor cursor = shell.getDisplay().getSystemCursor(swtCursor);
+        shell.setCursor(cursor);
     }
     
 }
