@@ -406,16 +406,17 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
 
                 for (IContextParameter parameter : result) {
                     IContextParameter paramExisted = manager.getDefaultContext().getContextParameter(parameter.getName());
-                    if (paramExisted != null && !paramExisted.isBuiltIn()) {
-                        // has existed.
-                        if (parameter.getSource().equals(paramExisted.getSource())) {
-                            // update the parameter.
-                            modelManager.onContextRemoveParameter(manager, parameter.getName());
-                            modelManager.onContextAddParameter(manager, parameter);
-                        } else {
-                            // not same source
+                    if (paramExisted != null) {
+                        if (!paramExisted.isBuiltIn()) {
+                            // has existed.
+                            if (parameter.getSource().equals(paramExisted.getSource())) {
+                                // update the parameter.
+                                modelManager.onContextRemoveParameter(manager, parameter.getName());
+                                modelManager.onContextAddParameter(manager, parameter);
+                            } else {
+                                // not same source
+                            }
                         }
-
                     } else {
                         modelManager.onContextAddParameter(manager, parameter);
                     }
