@@ -14,7 +14,6 @@ package org.talend.commons.utils.threading;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
 import org.eclipse.swt.widgets.Display;
 
@@ -46,11 +45,11 @@ public class AsynchronousThreading {
     private Thread thread;
 
     private static ExecutorService executor = Executors.newCachedThreadPool();
-    
 
     /**
      * 
      * DOC amaumont AsynchronousThreading constructor comment.
+     * 
      * @param sleepingTime before execution in ms
      * @param synchronousDisplayExecution
      * @param display
@@ -66,6 +65,7 @@ public class AsynchronousThreading {
     /**
      * 
      * DOC amaumont AsynchronousThreading constructor comment.
+     * 
      * @param sleepingTime before execution in ms
      * @param target
      */
@@ -76,10 +76,9 @@ public class AsynchronousThreading {
 
     public void start() {
 
-        
         executor.execute(new Runnable() {
 
-            @Override
+            // @Override
             public void run() {
                 if (sleepingTime > 0) {
                     try {
