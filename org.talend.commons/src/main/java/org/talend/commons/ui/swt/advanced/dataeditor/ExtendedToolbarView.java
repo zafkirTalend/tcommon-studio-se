@@ -30,7 +30,7 @@ import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.RemovePushButtonForExtendedTable;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.ResetDBTypesPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.SaveAsGenericSchemaPushButton;
-import org.talend.commons.ui.swt.advanced.dataeditor.button.SaveAsGenericSchemaPushButtonForExtendedTable;
+import org.talend.commons.ui.swt.advanced.dataeditor.button.SelectContextVariablesPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.control.ExtendedPushButton;
 import org.talend.commons.ui.swt.extended.table.AbstractExtendedTableViewer;
 
@@ -62,6 +62,8 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
     protected SaveAsGenericSchemaPushButton saveAsGenericSchemaButton;
 
     protected ResetDBTypesPushButton resetDBTypesButton;
+
+    protected SelectContextVariablesPushButton selectContextVariablesButton;
 
     /**
      * DOC amaumont MatadataToolbarEditor constructor comment.
@@ -102,6 +104,8 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
 
         saveAsGenericSchemaButton = createSaveAsGenericSchemaButton();
 
+        selectContextVariablesButton = createSelectContextVariablesPushButton();
+
         // loadButton = new Button(toolbar, SWT.PUSH);
         // loadButton.setToolTipText("Import");
         // loadButton.setImage(ImageProvider.getImage(EImage.IMPORT_ICON));
@@ -110,7 +114,6 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
         // exportButton.setToolTipText("Export");
         // exportButton.setImage(ImageProvider.getImage(EImage.EXPORT_ICON));
     }
-
 
     protected AddPushButton createAddPushButton() {
         return null;
@@ -143,8 +146,12 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
     protected ImportPushButton createImportPushButton() {
         return null;
     }
-    
+
     protected SaveAsGenericSchemaPushButton createSaveAsGenericSchemaButton() {
+        return null;
+    }
+
+    protected SelectContextVariablesPushButton createSelectContextVariablesPushButton() {
         return null;
     }
 
@@ -229,6 +236,10 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
         return resetDBTypesButton;
     }
 
+    public SelectContextVariablesPushButton getSelectContextVariablesButton() {
+        return selectContextVariablesButton;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -287,7 +298,12 @@ public class ExtendedToolbarView extends AbstractExtendedToolbar {
         if (getResetDBTypesButton() != null) {
             list.add(getResetDBTypesButton());
         }
-
+        if (getSaveAsGenericSchemaButton() != null) {
+            list.add(getSaveAsGenericSchemaButton());
+        }
+        if (getSelectContextVariablesButton() != null) {
+            list.add(getSelectContextVariablesButton());
+        }
         return list;
     }
 
