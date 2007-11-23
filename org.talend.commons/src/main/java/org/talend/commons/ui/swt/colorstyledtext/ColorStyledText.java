@@ -14,6 +14,8 @@ package org.talend.commons.ui.swt.colorstyledtext;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Priority;
 import org.eclipse.jface.text.rules.IToken;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ExtendedModifyEvent;
@@ -34,6 +36,7 @@ import org.talend.commons.ui.swt.colorstyledtext.jedit.Mode;
 import org.talend.commons.ui.swt.colorstyledtext.jedit.Modes;
 import org.talend.commons.ui.swt.colorstyledtext.rules.CToken;
 import org.talend.commons.ui.swt.colorstyledtext.scanner.ColoringScanner;
+import org.talend.commons.utils.time.TimeMeasure;
 
 /**
  * This component is an adaptation of a Color Editor for a StyledText.
@@ -162,14 +165,20 @@ public class ColorStyledText extends StyledText {
     }
 
     public void setStyles(final ArrayList<StyleRange> styles) {
-        getDisplay().asyncExec(new Runnable() {
+        getDisplay().syncExec(new Runnable() {
 
             public void run() {
                 if (ColorStyledText.this.isDisposed()) {
                     return;
                 }
                 try {
+                    //TimeMeasure.begin(ColorStyledText.this.toString());
                     int countChars = getCharCount();
+                    
+                    if(countChars > 100) {
+                        throw new UnsupportedOperationException("Unsupported coloring operation for too many characters (temporary message)");
+                    }
+                    
                     for (int i = 0; i < styles.size(); i++) {
                         StyleRange styleRange = styles.get(i);
                         // System.out.println("styleRange.start="+styleRange.start);
@@ -179,9 +188,10 @@ public class ColorStyledText extends StyledText {
                         }
                         setStyleRange(styleRange);
                     }
+                    //TimeMeasure.end(ColorStyledText.this.toString());
                 } catch (RuntimeException t) {
                     // System.out.println(t);
-                    ExceptionHandler.process(t);
+                    ExceptionHandler.process(t, Level.WARN);
                 }
             }
         });

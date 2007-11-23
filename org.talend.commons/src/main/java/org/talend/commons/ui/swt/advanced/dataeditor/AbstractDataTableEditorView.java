@@ -363,7 +363,7 @@ public abstract class AbstractDataTableEditorView<B> {
     }
 
     public void setReadOnly(boolean readOnly) {
-        if (extendedTableViewer != null) {
+        if (extendedTableViewer != null && extendedTableViewer.isReadOnly() != readOnly) {
             extendedTableViewer.setReadOnly(readOnly);
         }
         if (extendedToolbar != null) {

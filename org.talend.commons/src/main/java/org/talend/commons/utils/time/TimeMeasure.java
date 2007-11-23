@@ -37,6 +37,8 @@ public class TimeMeasure {
      */
     public static boolean display = true;
 
+    public static boolean displaySteps = true;
+
     /**
      * 
      * DOC amaumont Comment method "start".
@@ -84,7 +86,7 @@ public class TimeMeasure {
             timers.remove(idTimer);
             if (times.hasManySteps()) {
                 long elapsedTimeSinceLastRequest = times.getElapsedTimeSinceLastRequest();
-                if (display) {
+                if (display && displaySteps) {
                     System.out.println(indent(indent) + "End '" + idTimer + "', elapsed time since last request: " //$NON-NLS-1$  //$NON-NLS-2$
                             + elapsedTimeSinceLastRequest + " ms "); //$NON-NLS-1$
                 }
@@ -145,7 +147,7 @@ public class TimeMeasure {
             TimeStack times = timers.get(idTimer);
             long time = times.getElapsedTimeSinceLastRequest();
             times.addStep(false);
-            if (display) {
+            if (display && displaySteps) {
                 System.out.println(indent(indent) + "-> '" + idTimer + "', step name '" + stepName //$NON-NLS-1$  //$NON-NLS-2$
                         + "', elapsed time since previous step: " + time + " ms "); //$NON-NLS-1$  //$NON-NLS-2$
             }

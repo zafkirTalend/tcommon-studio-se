@@ -86,9 +86,6 @@ public class TableUtils {
      */
     public static TableItem getTableItemFromDraggingPosition(Table table, Point cursorPosition) {
         Point pointCursor = table.toControl(cursorPosition.x, cursorPosition.y);
-        if (WindowSystem.isGTK()) {
-            pointCursor.y -= table.getHeaderHeight();
-        }
         return table.getItem(pointCursor);
     }
 
@@ -130,7 +127,9 @@ public class TableUtils {
      * @param cursorPosition
      * @return
      */
-    public static int getItemIndexWhereInsertFromPosition(Table table, Point cursorPosition) {
+    public static int getItemIndexWhereInsertFromPosition(Table table, Point cursorPositionPrm) {
+        Point cursorPosition = new Point(cursorPositionPrm.x, cursorPositionPrm.y);
+        cursorPosition.y -= (WindowSystem.isGTK() ? table.getHeaderHeight()/2 : 0);
         int startInsertAtThisIndex = 0;
         Point pointCursor = table.toControl(cursorPosition.x, cursorPosition.y);
         TableItem[] tableItems = table.getItems();
@@ -140,7 +139,7 @@ public class TableUtils {
                 if (tableItems[i] == tableItemBehindCursor) {
                     Rectangle boundsItem = tableItemBehindCursor.getBounds();
                     startInsertAtThisIndex = i;
-                    if (pointCursor.y > boundsItem.y + table.getItemHeight() / 2 + (WindowSystem.isGTK() ? table.getHeaderHeight() : 0)) {
+                    if (pointCursor.y > boundsItem.y + table.getItemHeight() / 2 ) {
                         startInsertAtThisIndex = i + 1;
                     }
                     break;

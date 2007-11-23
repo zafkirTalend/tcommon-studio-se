@@ -29,6 +29,7 @@ import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.selection.ITableColumnSelectionListener;
 import org.talend.commons.ui.swt.tableviewer.sort.IColumnSortedListener;
+import org.talend.commons.utils.time.TimeMeasure;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/> $Id: TableEditorManager.java,v 1.3 2006/06/02 15:24:10
@@ -47,7 +48,6 @@ public class TableEditorManager {
         CONTROL_CREATED,
         CONTROL_DISPOSED,
     };
-
 
     private TableViewerCreator tableViewerCreator;
 
@@ -71,8 +71,6 @@ public class TableEditorManager {
         }
     }
 
-
-    
     /**
      * DOC amaumont TableEditorManager constructor comment.
      * 
@@ -96,72 +94,64 @@ public class TableEditorManager {
                 });
             }
         }
-
-        refresh();
     }
 
     @SuppressWarnings("unchecked")
     public void refresh() {
-        // System.out.println("table editor refreshed");
-        for (TableEditor tableEditor : tableEditorList) {
+
+        for (int i = 0; i < tableEditorList.size(); i++) {
+            TableEditor tableEditor = tableEditorList.get(i);
             tableEditor.getEditor().dispose();
             fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_DISPOSED, tableEditor));
         }
-        tableEditorList.clear();
 
+        tableEditorList.clear();
+        
         Table table = tableViewerCreator.getTable();
         if (table.isDisposed()) {
             return;
         }
 
         TableItem[] items = table.getItems();
-        Map<Object, TableItem> objectRowToTableItem = new HashMap<Object, TableItem>();
-        for (int i = 0; i < items.length; i++) {
-            TableItem item = items[i];
-            if (!item.isDisposed()) {
-                objectRowToTableItem.put(item.getData(), item);
-            }
-        }
 
         List<TableViewerCreatorColumn> columns = tableViewerCreator.getColumns();
+        List<TableViewerCreatorColumn> columnsWithEditorContent = new ArrayList<TableViewerCreatorColumn>(columns
+                .size());
 
         for (int iCol = 0; iCol < columns.size(); iCol++) {
             TableViewerCreatorColumn column = columns.get(iCol);
-
             TableEditorContent tableEditorContent = column.getTableEditorContent();
             if (tableEditorContent != null) {
-
-                String idProperty = column.getId();
-                // Collection collection = (Collection) tableViewerCreator.getTableViewer().getInput();
-                // if (collection != null) {
-                // for (Object currentRowObject : collection) {
-                // TableEditor tableEditor = tableEditorContent.createTableEditor(tableViewerCreator.getTable());
-                // tableEditorList.add(tableEditor);
-                // Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-                // Control control = tableEditorContent.initialize(tableViewerCreator.getTable(), tableEditor, column,
-                // currentRowObject, value);
-                // TableItem tableItem = objectRowToTableItem.get(currentRowObject);
-                // if (tableItem != null && !tableItem.isDisposed()) {
-                // tableEditor.setEditor(control, objectRowToTableItem.get(currentRowObject), iCol);
-                // }
-                // }
-                // }
-
-                for (int i = 0; i < items.length; i++) {
-                    TableEditor tableEditor = tableEditorContent.createTableEditor(table);
-                    TableItem tableItem = items[i];
-                    tableEditorList.add(tableEditor);
-                    Object currentRowObject = tableItem.getData();
-                    Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
-                    Control control = tableEditorContent
-                            .initialize(table, tableEditor, column, currentRowObject, value);
-                    if (tableItem != null && !tableItem.isDisposed()) {
-                        tableEditor.setEditor(control, tableItem, iCol);
-                        fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_CREATED, tableEditor));
-                    }
-
-                }
+                columnsWithEditorContent.add(column);
             }
+        }
+
+        for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
+            TableViewerCreatorColumn column = columnsWithEditorContent.get(iEditorCol);
+
+            TableEditorContent tableEditorContent = column.getTableEditorContent();
+            tableEditorContent.setLayoutEnabled(false);
+
+            String idProperty = column.getId();
+
+            for (int i = 0; i < items.length; i++) {
+                TableEditor tableEditor = tableEditorContent.createTableEditor(table);
+                TableItem tableItem = items[i];
+                tableEditorList.add(tableEditor);
+                Object currentRowObject = tableItem.getData();
+                Object value = tableViewerCreator.getCellModifier().getValue(currentRowObject, idProperty);
+                Control control = tableEditorContent.initialize(table, tableEditor, column, currentRowObject, value);
+                if (tableItem != null && !tableItem.isDisposed()) {
+                    tableEditor.setEditor(control, tableItem, column.getIndex());
+                    fireEvent(new TableEditorManagerEvent(EVENT_TYPE.CONTROL_CREATED, tableEditor));
+                }
+
+            }
+        }
+
+        for (int iEditorCol = 0; iEditorCol < columnsWithEditorContent.size(); iEditorCol++) {
+            TableViewerCreatorColumn column = columnsWithEditorContent.get(iEditorCol);
+            column.getTableEditorContent().setLayoutEnabled(true);
         }
 
     }
@@ -176,14 +166,10 @@ public class TableEditorManager {
                 editor.redraw();
             }
         }
-
     }
 
-    
     public List<TableEditor> getTableEditorList() {
         return Collections.unmodifiableList(this.tableEditorList);
     }
 
-    
-    
 }

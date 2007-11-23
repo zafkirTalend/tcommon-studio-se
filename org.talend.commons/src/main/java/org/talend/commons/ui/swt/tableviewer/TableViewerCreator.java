@@ -76,6 +76,7 @@ import org.talend.commons.ui.utils.TableUtils;
 import org.talend.commons.ui.ws.WindowSystem;
 import org.talend.commons.utils.data.list.ListenableList;
 import org.talend.commons.utils.threading.AsynchronousThreading;
+import org.talend.commons.utils.time.TimeMeasure;
 
 /**
  * A concrete Table viewer based on the JFace <code>TableViewer</code> and the SWT <code>Table</code> control.
@@ -1631,16 +1632,10 @@ public class TableViewerCreator<B> implements IModifiedBeanListenable<B> {
 
     public void refreshTableEditorControls() {
         if (tableEditorManager != null) {
-            new AsynchronousThreading(0, true, table.getDisplay(), new Runnable() {
-
-                public void run() {
-                    if (tableEditorManager != null) {
-                        tableEditorManager.refresh();
-                        tableEditorManager.redrawControls();
-                    }
-                }
-
-            }).start();
+            if (tableEditorManager != null) {
+                tableEditorManager.refresh();
+                tableEditorManager.redrawControls();
+            }
         }
     }
 

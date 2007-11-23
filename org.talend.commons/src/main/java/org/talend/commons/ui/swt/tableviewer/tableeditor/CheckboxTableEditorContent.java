@@ -28,7 +28,7 @@ import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
-import org.talend.commons.utils.threading.AsynchronousThreading;
+import org.talend.commons.utils.time.TimeMeasure;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -42,15 +42,11 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
     public static final boolean UNCHECKED = false;
 
-    private boolean readOnly;
-
     private String toolTipText;
 
-    private static boolean highlightingCheck;
-
-    private Color color;
-
     private static Color bgColorCheck;
+
+    private Point checkSize;
 
     /**
      * DOC amaumont CheckboxTableEditorContent constructor comment.
@@ -83,11 +79,17 @@ public class CheckboxTableEditorContent extends TableEditorContent {
         boolean enabled = currentColumn.isModifiable()
                 && (tableViewerCreator.getCellModifier() == null || tableViewerCreator.getCellModifier().canModify(
                         currentRowObject, currentColumn.getId()));
-        check.setEnabled(enabled);
-        check.setText("");
-        check.setToolTipText(toolTipText);
-        check.setBackground(table.getBackground());
-        check.setSelection(currentCellValue.equals(true));
+
+        if (!enabled) { // performance purpose
+            check.setEnabled(enabled);
+        }
+        if (toolTipText != null && toolTipText.length() > 0) { // performance purpose
+            check.setToolTipText(toolTipText);
+        }
+        // check.setBackground(table.getBackground()); // performance purpose
+        if (currentCellValue.equals(true)) { // performance purpose
+            check.setSelection(true);
+        }
         if (bgColorCheck == null) {
             bgColorCheck = new Color(check.getDisplay(), 28, 81, 128);
         }
@@ -104,7 +106,6 @@ public class CheckboxTableEditorContent extends TableEditorContent {
             }
 
         });
-        Point size = check.computeSize(SWT.DEFAULT, table.getItemHeight());
 
         tableViewerCreator.addModifiedBeanListener(new IModifiedBeanListener<Object>() {
 
@@ -135,8 +136,14 @@ public class CheckboxTableEditorContent extends TableEditorContent {
 
         // Set attributes of the editor
         tableEditor.horizontalAlignment = SWT.CENTER;
-        tableEditor.minimumHeight = size.y;
-        tableEditor.minimumWidth = size.x;
+
+        if (checkSize == null) { // performance purpose
+            checkSize = check.computeSize(SWT.DEFAULT, table.getItemHeight());
+        }
+
+        tableEditor.minimumHeight = checkSize.y;
+        tableEditor.minimumWidth = checkSize.x;
+
         return check;
     }
 

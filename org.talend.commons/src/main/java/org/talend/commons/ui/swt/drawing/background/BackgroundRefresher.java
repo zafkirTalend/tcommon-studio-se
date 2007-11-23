@@ -260,7 +260,7 @@ public class BackgroundRefresher implements IBackgroundRefresher {
                 }
             }
         };
-        threadToEvaluatePerformance.start();
+//        threadToEvaluatePerformance.start();
     }
 
     /**

@@ -12,6 +12,10 @@
 // ============================================================================
 package org.talend.commons.utils.threading;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+
 import org.eclipse.swt.widgets.Display;
 
 /**
@@ -41,6 +45,8 @@ public class AsynchronousThreading {
 
     private Thread thread;
 
+    private static ExecutorService executor = Executors.newCachedThreadPool();
+    
 
     /**
      * 
@@ -70,13 +76,16 @@ public class AsynchronousThreading {
 
     public void start() {
 
-        thread = new Thread() {
+        
+        executor.execute(new Runnable() {
 
             @Override
             public void run() {
                 if (sleepingTime > 0) {
                     try {
-                        Thread.sleep(sleepingTime);
+                        synchronized (this) {
+                            this.wait(sleepingTime);
+                        }
                     } catch (InterruptedException e) {
                         // System.out.println("interrupted");
                         return;
@@ -106,8 +115,7 @@ public class AsynchronousThreading {
                 }
             }
 
-        };
-        thread.start();
+        });
 
     }
 

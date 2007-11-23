@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreatorColumn;
 import org.talend.commons.ui.swt.tableviewer.celleditor.ExtendedTextCellEditor;
+import org.talend.commons.utils.threading.AsynchronousThreading;
 
 /**
  * This class extends the ExtendedTextCellEditor to add the Expression Builder to tMapper. Only tMapper can use this
@@ -47,7 +48,8 @@ public class ExtendedTextCellEditorWithProposal extends ExtendedTextCellEditor {
 
     private TableViewerCreatorColumn tableViewerCreatorColumn;
 
-    public ExtendedTextCellEditorWithProposal(Composite parent, int style, TableViewerCreatorColumn tableViewerCreatorColumn) {
+    public ExtendedTextCellEditorWithProposal(Composite parent, int style,
+            TableViewerCreatorColumn tableViewerCreatorColumn) {
         super(parent);
         setStyle(style);
         init(tableViewerCreatorColumn);
@@ -180,38 +182,27 @@ public class ExtendedTextCellEditorWithProposal extends ExtendedTextCellEditor {
     }
 
     private void activateCellEditorAsynch(final Point selection, final boolean testFocus) {
-        (new Thread() {
 
-            @Override
+        new AsynchronousThreading(50, false, text.getDisplay(), new Runnable() {
+
             public void run() {
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    // nothing
-                }
-                text.getDisplay().asyncExec(new Runnable() {
 
-                    public void run() {
+                // System.out.println("active async");
 
-                        // System.out.println("active async");
+                if (!text.isDisposed()) {
 
-                        if (!text.isDisposed()) {
-
-                            Point newSelection = selection;
-                            if (!text.isFocusControl() && testFocus || !testFocus) {
-                                // System.out.println("activateCellEditorAsynch");
-                                activateCellEditor();
-                            }
-                            if (selection == null) {
-                                newSelection = selectionBeforeFocusLost;
-                            }
-                            if (!cellEditorLocationHasChanged) {
-                                text.setSelection(new Point(newSelection.x, newSelection.y));
-                            }
-                        }
+                    Point newSelection = selection;
+                    if (!text.isFocusControl() && testFocus || !testFocus) {
+                        // System.out.println("activateCellEditorAsynch");
+                        activateCellEditor();
                     }
-
-                });
+                    if (selection == null) {
+                        newSelection = selectionBeforeFocusLost;
+                    }
+                    if (!cellEditorLocationHasChanged) {
+                        text.setSelection(new Point(newSelection.x, newSelection.y));
+                    }
+                }
             }
 
         }).start();
@@ -226,4 +217,14 @@ public class ExtendedTextCellEditorWithProposal extends ExtendedTextCellEditor {
         return this.contentProposalAdapter;
     }
 
+    /* (non-Javadoc)
+     * @see org.eclipse.jface.viewers.CellEditor#fireApplyEditorValue()
+     */
+    @Override
+    public void fireApplyEditorValue() {
+        super.fireApplyEditorValue();
+    }
+
+    
+    
 }
