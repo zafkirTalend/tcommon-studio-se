@@ -106,8 +106,6 @@ public interface INode extends IElement {
 
     public IComponent getComponent();
 
-    public IComponent getOldComponent();
-
     public void setComponent(IComponent component);
 
     public IExternalNode getExternalNode();
@@ -179,9 +177,4 @@ public interface INode extends IElement {
      * @return INodeConnector
      */
     public INodeConnector getConnectorFromName(final String connector);
-
-    public void setDummy(boolean dummy);
-
-    public boolean isDummy();
-
 }

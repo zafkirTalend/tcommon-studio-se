@@ -544,34 +544,4 @@ public abstract class AbstractNode implements INode {
         }
         return nodeConnector;
     }
-
-    private boolean dummy;
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.process.INode#isDummy()
-     */
-    public boolean isDummy() {
-        return dummy;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.process.INode#setDummy(boolean)
-     */
-    public void setDummy(boolean dummy) {
-        this.dummy = dummy;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see org.talend.core.model.process.INode#getOldComponent()
-     */
-    public IComponent getOldComponent() {
-        return this.component;
-    }
-
 }

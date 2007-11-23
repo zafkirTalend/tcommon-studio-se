@@ -118,11 +118,12 @@ public abstract class Element implements Cloneable, IElement {
 
     /**
      * The returned list can not be modified.
+     * 
      * @return
      */
     public List<? extends IElementParameter> getElementParametersWithChildrens() {
         List<IElementParameter> fullListParam = new ArrayList<IElementParameter>(listParam);
-        
+
         for (IElementParameter curParam : listParam) {
             for (String key : curParam.getChildParameters().keySet()) {
                 IElementParameter childParam = curParam.getChildParameters().get(key);
@@ -131,7 +132,7 @@ public abstract class Element implements Cloneable, IElement {
         }
         return fullListParam;
     }
-    
+
     @SuppressWarnings("unchecked")//$NON-NLS-1$
     public void setElementParameters(List<? extends IElementParameter> parameters) {
         this.listParam = (List<IElementParameter>) parameters;
