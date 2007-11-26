@@ -62,6 +62,7 @@ import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.properties.ContextItem;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
 
@@ -85,6 +86,8 @@ public class ConextTemplateComposite extends Composite {
 
     private IContextModelManager modelManager = null;
 
+    private ContextManagerHelper helper;
+
     /**
      * bqian ConextTemplateComposite constructor comment.
      * 
@@ -94,6 +97,7 @@ public class ConextTemplateComposite extends Composite {
     public ConextTemplateComposite(Composite parent, IContextModelManager manager) {
         super(parent, SWT.NONE);
         modelManager = manager;
+        this.helper = new ContextManagerHelper(manager.getContextManager());
         this.setBackground(parent.getBackground());
         this.setLayout(new GridLayout());
         initializeUI();
@@ -505,12 +509,36 @@ public class ConextTemplateComposite extends Composite {
      */
     public void refresh() {
         List<IContext> contexts = getContextManager().getListContext();
+        refreshVariableSource(contexts);
 
         List<IContextParameter> contextTemplate = computeContextTemplate(contexts);
 
         fieldsModel.removeAll();
         fieldsModel.addAll(contextTemplate);
         tableViewerCreator.getTable().deselectAll();
+    }
+
+    private void refreshVariableSource(List<IContext> contexts) {
+        if (helper == null) {
+            return;
+        }
+        helper.initHelper(getContextManager());
+        for (IContext context : contexts) {
+            for (IContextParameter param : context.getContextParameterList()) {
+                if (!param.isBuiltIn()) {
+                    ContextItem item = helper.getContextItemByName(param.getSource());
+                    if (item == null) { // source not found
+                        param.setSource(IContextParameter.BUILT_IN);
+                        continue;
+                    }
+                    // the variable not exist in the ContextItem
+                    if (!helper.hasExistedVariableFromContextItem(item, param.getName())) {
+                        param.setSource(IContextParameter.BUILT_IN);
+                    }
+
+                }
+            }
+        }
     }
 
     /**
@@ -670,7 +698,7 @@ public class ConextTemplateComposite extends Composite {
                 @Override
                 protected void handleSelectionEvent(Event event) {
                     SelectRepositoryContextDialog dialog = new SelectRepositoryContextDialog(getContextModelManager(),
-                            extendedTableViewer.getParentComposite().getShell());
+                            extendedTableViewer.getParentComposite().getShell(), helper);
                     dialog.open();
                     refresh();
                     // tableViewerCreator.getTableViewer().setSelection(new StructuredSelection(dialog.getResult()),

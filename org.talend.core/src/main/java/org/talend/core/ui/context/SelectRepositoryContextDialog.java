@@ -16,8 +16,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
 import org.eclipse.jface.viewers.ICheckStateListener;
@@ -28,6 +30,7 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -41,43 +44,38 @@ import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.dialogs.SelectionDialog;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
-import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ProgressDialog;
 import org.talend.commons.ui.swt.formtools.Form;
-import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
-import org.talend.core.language.ECodeLanguage;
-import org.talend.core.language.LanguageManager;
-import org.talend.core.model.context.JobContextManager;
-import org.talend.core.model.context.JobContextParameter;
-import org.talend.core.model.metadata.MetadataTalendType;
-import org.talend.core.model.metadata.types.ContextParameterJavaTypeManager;
+import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
-import org.talend.repository.model.ERepositoryStatus;
-import org.talend.repository.model.IProxyRepositoryFactory;
 
 /**
- * DOC ggu class global comment. Detailled comment <br/>
+ * ggu class global comment. Detailled comment <br/>
  * 
  * $Id: talend.epf 1 2006-09-29 17:06:40 +0000 (ææäº, 29 ä¹æ 2006) nrousseau $
  * 
  */
 public class SelectRepositoryContextDialog extends SelectionDialog {
 
-    private static final String DEFAULTMESAGE = Messages.getString("SelectRepositoryContextDialog.Label");
+    private static final String DEFAULTMESAGE = Messages.getString("SelectRepositoryContextDialog.Label"); //$NON-NLS-1$
 
-    private static final String TITILE = Messages.getString("SelectRepositoryContextDialog.Title");
+    private static final String TITILE = Messages.getString("SelectRepositoryContextDialog.Title"); //$NON-NLS-1$
+
+    private static final String WARNING_TITLE = Messages.getString("SelectRepositoryContextDialog.DuplicationTitle"); //$NON-NLS-1$
 
     private IContextModelManager modelManager = null;
 
-    private JobContextManager manager;
+    private IContextManager manager;
 
     private List<ContextItem> contextItemList = new ArrayList<ContextItem>();
+
+    private ContextManagerHelper helper;
 
     private CheckboxTreeViewer treeViewer;
 
@@ -87,7 +85,9 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
 
     private Button bDeselectAll;
 
-    protected SelectRepositoryContextDialog(IContextModelManager modelManager, Shell parentShell) {
+    private String selectedContextName;
+
+    protected SelectRepositoryContextDialog(IContextModelManager modelManager, Shell parentShell, ContextManagerHelper helper) {
         super(parentShell);
         setBlockOnOpen(true);
         setDefaultImage(ImageProvider.getImageDesc(ECoreImage.CONTEXT_ICON).createImage());
@@ -95,8 +95,10 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         setMessage(DEFAULTMESAGE);
         setHelpAvailable(false);
         this.modelManager = modelManager;
-        this.manager = (JobContextManager) modelManager.getContextManager();
-        initContextItemList();
+        this.manager = modelManager.getContextManager();
+        this.helper = helper;
+        helper.initHelper(manager);
+        contextItemList.addAll(helper.getContextItems());
     }
 
     @Override
@@ -124,6 +126,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         treeViewer = new CheckboxTreeViewer(parent);
         treeViewer.setContentProvider(new ContextTreeContentProvider());
         treeViewer.setLabelProvider(new ContextTreeLabelProvider());
+        treeViewer.setFilters(new ViewerFilter[] { new ContextViewerFilter() });
         treeViewer.setInput(contextItemList);
         treeViewer.getTree().setLayoutData(new GridData(GridData.FILL_BOTH));
         addTreeListener();
@@ -145,13 +148,12 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         buttons.setLayout(layout);
 
         bViewContent = new Button(buttons, SWT.PUSH);
-        bViewContent.setText(Messages.getString("SelectRepositoryContextDialog.View"));
+        bViewContent.setText(Messages.getString("SelectRepositoryContextDialog.View")); //$NON-NLS-1$
         bViewContent.setFont(parent.getFont());
         setButtonLayoutData(bViewContent);
         bViewContent.addSelectionListener(new SelectionAdapter() {
 
             public void widgetSelected(SelectionEvent e) {
-                // TODO
                 TreeSelection selection = (TreeSelection) treeViewer.getSelection();
                 if (selection.isEmpty()) {
                     return;
@@ -165,7 +167,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         });
 
         bSelectAll = new Button(buttons, SWT.PUSH);
-        bSelectAll.setText(Messages.getString("SelectRepositoryContextDialog.SelectAll"));
+        bSelectAll.setText(Messages.getString("SelectRepositoryContextDialog.SelectAll")); //$NON-NLS-1$
         bSelectAll.setFont(parent.getFont());
         setButtonLayoutData(bSelectAll);
         bSelectAll.addSelectionListener(new SelectionAdapter() {
@@ -176,7 +178,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         });
 
         bDeselectAll = new Button(buttons, SWT.PUSH);
-        bDeselectAll.setText(Messages.getString("SelectRepositoryContextDialog.DeselectAll"));
+        bDeselectAll.setText(Messages.getString("SelectRepositoryContextDialog.DeselectAll")); //$NON-NLS-1$
         bDeselectAll.setFont(parent.getFont());
         setButtonLayoutData(bDeselectAll);
         bDeselectAll.addSelectionListener(new SelectionAdapter() {
@@ -191,8 +193,11 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         treeViewer.setAllChecked(all);
         if (contextItemList != null) {
             for (ContextItem item : contextItemList) {
-                treeViewer.setGrayed(item, false);
-                treeViewer.setSubtreeChecked(item, all);
+                if (updateSubCheckedState(item, all)) {
+                    treeViewer.setGrayed(item, true);
+                } else {
+                    treeViewer.setGrayed(item, false);
+                }
             }
         }
     }
@@ -201,10 +206,27 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         treeViewer.addCheckStateListener(new ICheckStateListener() {
 
             public void checkStateChanged(CheckStateChangedEvent event) {
-                treeViewer.setGrayChecked(event.getElement(), false);
-                treeViewer.setSubtreeChecked(event.getElement(), event.getChecked());
+                Object obj = event.getElement();
+                if (event.getChecked() && obj instanceof ContextParameterType) {
+                    ContextParameterType param = (ContextParameterType) obj;
+                    ContextParameterType existedParam = hasSelectedParam(param);
+                    if (existedParam != null && selectedContextName != null) {
+                        treeViewer.setGrayChecked(obj, false);
+                        String message = Messages.getString(
+                                "SelectRepositoryContextDialog.DuplicationMessage", param.getName(), selectedContextName); //$NON-NLS-1$
+                        MessageDialog.openWarning(getParentShell(), WARNING_TITLE, message);
+                        selectedContextName = null;
+                        return;
+                    }
+
+                }
+                if (updateSubCheckedState(obj, event.getChecked())) {
+                    treeViewer.setGrayed(obj, true);
+                } else {
+                    treeViewer.setGrayed(obj, false);
+                }
                 // checked parent
-                updateParentCheckedState(event.getElement());
+                updateParentCheckedState(obj);
             }
 
         });
@@ -223,41 +245,46 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
 
     }
 
-    private void initContextItemList() {
-        IProxyRepositoryFactory factory = CorePlugin.getDefault().getProxyRepositoryFactory();
-        List<ContextItem> itemList = null;
-
-        try {
-            itemList = factory.getContextItem();
-        } catch (PersistenceException e) {
-            throw new RuntimeException(e);
+    private boolean updateSubCheckedState(Object obj, boolean checked) {
+        if (obj == null || helper == null) {
+            return false;
         }
-        if (itemList != null) {
-            contextItemList = new ArrayList<ContextItem>();
-            contextItemList.addAll(itemList);
-            for (ContextItem contextItem : itemList) {
-                if (factory.getStatus(contextItem) == ERepositoryStatus.DELETED) {
-                    contextItemList.remove(contextItem);
+        boolean found = false;
+        if (checked && obj instanceof ContextItem) {
+            ContextItem item = (ContextItem) obj;
+            ContextType type = helper.getDefaultContextType(item);
+            if (type != null) {
+                for (Object paramObj : type.getContextParameter()) {
+                    ContextParameterType paramType = (ContextParameterType) paramObj;
+                    if (hasSelectedParam(paramType) != null) {
+                        treeViewer.setChecked(paramType, false);
+                        found = true;
+                    } else {
+                        treeViewer.setChecked(paramType, true);
+                    }
                 }
             }
+        } else {
+            treeViewer.setSubtreeChecked(obj, checked);
         }
-
+        return found;
     }
 
     private void updateParentCheckedState(Object obj) {
         if (obj == null) {
             return;
         }
-        Object parent = getParentContextItem(obj);
+        Object parent = helper.getParentContextItem(obj);
         if (parent == null) {
             return;
         }
 
-        List siblings = getSiblingContextObject(obj);
+        Set siblings = helper.getSiblingContextObject(obj);
         if (siblings == null) {
             return;
         }
         int num = 0;
+
         for (Object sibling : siblings) {
             if (treeViewer.getChecked(sibling)) {
                 num++;
@@ -281,148 +308,81 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             if (type != null) {
                 for (Object paramObj : type.getContextParameter()) {
                     ContextParameterType paramType = (ContextParameterType) paramObj;
-                    IContextParameter param = manager.getDefaultContext().getContextParameter(paramType.getName());
-                    if (param != null && param.getSource().equals(item.getProperty().getLabel())) {
-                        treeViewer.setChecked(paramType, true);
-                        updateParentCheckedState(paramType);
+                    IContextParameter param = helper.getExistedContextParameter(paramType.getName());
+                    if (param != null) {
+                        if (!param.isBuiltIn() && param.getSource().equals(item.getProperty().getLabel())) {
+                            treeViewer.setChecked(paramType, true);
+                            updateParentCheckedState(paramType);
+                        }
                     }
+
                 }
             }
         }
 
     }
 
-    private Object getParentContextItem(Object obj) {
-        if (obj == null) {
+    private ContextParameterType hasSelectedParam(ContextParameterType paramType) {
+        if (helper == null) {
             return null;
         }
-        if (obj instanceof ContextItem) {
+        ContextItem item = (ContextItem) helper.getParentContextItem(paramType);
+        if (item == null) {
             return null;
         }
-        if (contextItemList != null && obj instanceof ContextParameterType) {
-            for (ContextItem contextItem : contextItemList) {
-                for (Object objType : contextItem.getContext()) {
-                    ContextType type = (ContextType) objType;
-                    if (type.getName().equals(contextItem.getDefaultContext())) {
-                        List paramList = type.getContextParameter();
-                        if (paramList != null && paramList.contains(obj)) {
-                            return contextItem;
-                        }
+        for (ContextItem contextItem : helper.getContextItems()) {
+            if (item != contextItem) {
+                ContextType type = helper.getDefaultContextType(contextItem);
+                for (ContextParameterType param : (List<ContextParameterType>) type.getContextParameter()) {
+                    if (param.getName().equals(paramType.getName()) && treeViewer.getChecked(param)) {
+                        selectedContextName = contextItem.getProperty().getLabel();
+                        return param;
                     }
-
                 }
             }
         }
         return null;
-    }
-
-    private List getSiblingContextObject(Object obj) {
-        if (obj == null) {
-            return null;
-        }
-        if (contextItemList != null) {
-            if (obj instanceof ContextItem) {
-                return contextItemList;
-            }
-            if (obj instanceof ContextParameterType) {
-                for (ContextItem contextItem : contextItemList) {
-                    for (Object objType : contextItem.getContext()) {
-                        ContextType type = (ContextType) objType;
-                        if (type.getName().equals(contextItem.getDefaultContext())) {
-                            List paramList = type.getContextParameter();
-                            if (paramList != null && paramList.contains(obj)) {
-                                return paramList;
-                            }
-                        }
-                    }
-                }
-
-            }
-        }
-        return null;
-    }
-
-    private List<IContextParameter> getSelect() {
-        List<IContextParameter> contextParamList = new ArrayList<IContextParameter>();
-
-        ContextParameterType contextParamType;
-        JobContextParameter contextParam;
-
-        List objList = Arrays.asList(treeViewer.getCheckedElements());
-        for (Object obj : objList) {
-            if (obj instanceof ContextParameterType) {
-                contextParamType = (ContextParameterType) obj;
-                ContextItem contextItem = (ContextItem) getParentContextItem(obj);
-                if (contextItem == null) {
-                    continue;
-                }
-                contextParam = new JobContextParameter();
-
-                contextParam.setName(contextParamType.getName());
-                contextParam.setPrompt(contextParamType.getPrompt());
-                boolean exists = false;
-                ECodeLanguage curLanguage = LanguageManager.getCurrentLanguage();
-                if (curLanguage == ECodeLanguage.JAVA) {
-                    exists = true;
-                    try {
-                        ContextParameterJavaTypeManager.getJavaTypeFromId(contextParamType.getType());
-                    } catch (IllegalArgumentException e) {
-                        exists = false;
-                    }
-                } else {
-                    String[] existingTypes;
-                    existingTypes = ContextParameterJavaTypeManager.getPerlTypesLabels();
-                    for (int k = 0; k < existingTypes.length; k++) {
-                        if (existingTypes[k].equals(contextParamType.getType())) {
-                            exists = true;
-                        }
-                    }
-                }
-                if (exists) {
-                    contextParam.setType(contextParamType.getType());
-                } else {
-                    contextParam.setType(MetadataTalendType.getDefaultTalendType());
-                }
-                contextParam.setValue(contextParamType.getValue());
-                contextParam.setPromptNeeded(contextParamType.isPromptNeeded());
-                contextParam.setComment(contextParamType.getComment());
-                contextParam.setSource(contextItem.getProperty().getLabel());
-                contextParamList.add(contextParam);
-
-            }
-        }
-        return contextParamList;
     }
 
     private void progressDialog() {
+
         ProgressDialog progressDialog = new ProgressDialog(getParentShell()) {
 
             @Override
             public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
 
-                List<IContextParameter> result = getSelect();
-                monitor.beginTask("", result.size()); //$NON-NLS-1$
-                setResult(result);
+                List objList = Arrays.asList(treeViewer.getCheckedElements());
+                monitor.beginTask("", objList.size()); //$NON-NLS-1$
+                setResult(objList);
 
-                for (IContextParameter parameter : result) {
-                    IContextParameter paramExisted = manager.getDefaultContext().getContextParameter(parameter.getName());
-                    if (paramExisted != null) {
-                        if (!paramExisted.isBuiltIn()) {
-                            // has existed.
-                            if (parameter.getSource().equals(paramExisted.getSource())) {
-                                // update the parameter.
-                                modelManager.onContextRemoveParameter(manager, parameter.getName());
-                                modelManager.onContextAddParameter(manager, parameter);
-                            } else {
-                                // not same source
-                            }
+                for (Object obj : objList) {
+                    if (obj instanceof ContextParameterType) {
+                        ContextParameterType defaultContextParamType = (ContextParameterType) obj;
+                        ContextItem contextItem = (ContextItem) helper.getParentContextItem(obj);
+                        if (contextItem == null) {
+                            continue;
                         }
-                    } else {
-                        modelManager.onContextAddParameter(manager, parameter);
+
+                        IContextParameter paramExisted = helper.getExistedContextParameter(defaultContextParamType.getName());
+                        if (paramExisted != null) {
+                            // existed.
+                            if (!paramExisted.isBuiltIn()
+                                    && contextItem.getProperty().getLabel().equals(paramExisted.getSource())) {
+                                // update the parameter.
+                                modelManager.onContextRemoveParameter(manager, defaultContextParamType.getName());
+                                helper.addContextParameterType(defaultContextParamType);
+
+                            }
+                        } else {
+                            // add the context
+                            helper.addContextParameterType(defaultContextParamType);
+
+                        }
                     }
                     monitor.worked(1);
                 }
                 monitor.done();
+                manager.fireContextsChangedEvent();
             }
         };
 
@@ -438,6 +398,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
     @Override
     protected void okPressed() {
         progressDialog();
+        modelManager.refresh();
         super.okPressed();
 
     }
@@ -457,7 +418,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
 
     /**
      * 
-     * DOC ggu SelectRepositoryContextDialog class global comment. Detailled comment
+     * ggu SelectRepositoryContextDialog class global comment. Detailled comment
      */
     class ContextTreeContentProvider implements ITreeContentProvider {
 
@@ -474,7 +435,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
 
         public Object getParent(Object element) {
 
-            return getParentContextItem(element);
+            return helper.getParentContextItem(element);
         }
 
         public boolean hasChildren(Object element) {
@@ -500,7 +461,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
 
     /**
      * 
-     * DOC ggu SelectRepositoryContextDialog class global comment. Detailled comment
+     * ggu SelectRepositoryContextDialog class global comment. Detailled comment
      */
     class ContextTreeLabelProvider implements ILabelProvider {
 
@@ -538,6 +499,29 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
 
         public void removeListener(ILabelProviderListener listener) {
 
+        }
+
+    }
+
+    /**
+     * 
+     * ggu SelectRepositoryContextDialog class global comment. Detailled comment
+     */
+    class ContextViewerFilter extends ViewerFilter {
+
+        @Override
+        public boolean select(Viewer viewer, Object parentElement, Object element) {
+            if (element instanceof ContextItem) {
+                return true;
+            }
+            if (element instanceof ContextParameterType) {
+                ContextParameterType paramType = (ContextParameterType) element;
+                IContextParameter param = helper.getExistedContextParameter(paramType.getName());
+                if (param != null && param.isBuiltIn()) {
+                    return false;
+                }
+            }
+            return true;
         }
 
     }
