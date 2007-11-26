@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.resources.IFolder;
@@ -31,6 +32,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.talend.commons.exception.RuntimeExceptionHandler;
 import org.talend.core.CorePlugin;
@@ -196,7 +198,10 @@ public class ExpressionPersistance {
             if (!file.exists()) {
                 file.createNewFile();
             }
-            resource.save(new FileOutputStream(file), null);
+            HashMap options = new HashMap(2);
+            options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+            options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
+            resource.save(new FileOutputStream(file), options);
         } catch (IOException e) {
             RuntimeExceptionHandler.process(e);
         }
