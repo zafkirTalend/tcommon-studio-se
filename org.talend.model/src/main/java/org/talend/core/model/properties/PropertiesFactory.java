@@ -95,6 +95,24 @@ public interface PropertiesFactory extends EFactory {
     ConnectionItem createConnectionItem();
 
     /**
+     * Returns a new object of class '<em>Snippet Variable</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Snippet Variable</em>'.
+     * @generated
+     */
+    SnippetVariable createSnippetVariable();
+
+    /**
+     * Returns a new object of class '<em>Snippet Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Snippet Item</em>'.
+     * @generated
+     */
+    SnippetItem createSnippetItem();
+
+    /**
      * Returns a new object of class '<em>Delimited File Connection Item</em>'.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->

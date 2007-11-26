@@ -126,6 +126,12 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseConnectionItem(ConnectionItem object) {
                 return createConnectionItemAdapter();
             }
+            public Object caseSnippetVariable(SnippetVariable object) {
+                return createSnippetVariableAdapter();
+            }
+            public Object caseSnippetItem(SnippetItem object) {
+                return createSnippetItemAdapter();
+            }
             public Object caseDelimitedFileConnectionItem(DelimitedFileConnectionItem object) {
                 return createDelimitedFileConnectionItemAdapter();
             }
@@ -359,6 +365,34 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createConnectionItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.SnippetVariable <em>Snippet Variable</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.SnippetVariable
+     * @generated
+     */
+    public Adapter createSnippetVariableAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.SnippetItem <em>Snippet Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.SnippetItem
+     * @generated
+     */
+    public Adapter createSnippetItemAdapter() {
         return null;
     }
 

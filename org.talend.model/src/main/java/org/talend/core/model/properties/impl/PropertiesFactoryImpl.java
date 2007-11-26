@@ -100,6 +100,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.DOCUMENTATION_ITEM: return createDocumentationItem();
             case PropertiesPackage.ROUTINE_ITEM: return createRoutineItem();
             case PropertiesPackage.CONNECTION_ITEM: return createConnectionItem();
+            case PropertiesPackage.SNIPPET_VARIABLE: return createSnippetVariable();
+            case PropertiesPackage.SNIPPET_ITEM: return createSnippetItem();
             case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM: return createDelimitedFileConnectionItem();
             case PropertiesPackage.POSITIONAL_FILE_CONNECTION_ITEM: return createPositionalFileConnectionItem();
             case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM: return createRegExFileConnectionItem();
@@ -249,6 +251,26 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public ConnectionItem createConnectionItem() {
         ConnectionItemImpl connectionItem = new ConnectionItemImpl();
         return connectionItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SnippetVariable createSnippetVariable() {
+        SnippetVariableImpl snippetVariable = new SnippetVariableImpl();
+        return snippetVariable;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public SnippetItem createSnippetItem() {
+        SnippetItemImpl snippetItem = new SnippetItemImpl();
+        return snippetItem;
     }
 
     /**

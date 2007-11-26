@@ -186,6 +186,19 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.SNIPPET_VARIABLE: {
+                SnippetVariable snippetVariable = (SnippetVariable)theEObject;
+                Object result = caseSnippetVariable(snippetVariable);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.SNIPPET_ITEM: {
+                SnippetItem snippetItem = (SnippetItem)theEObject;
+                Object result = caseSnippetItem(snippetItem);
+                if (result == null) result = caseItem(snippetItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case PropertiesPackage.DELIMITED_FILE_CONNECTION_ITEM: {
                 DelimitedFileConnectionItem delimitedFileConnectionItem = (DelimitedFileConnectionItem)theEObject;
                 Object result = caseDelimitedFileConnectionItem(delimitedFileConnectionItem);
@@ -537,6 +550,36 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseConnectionItem(ConnectionItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Snippet Variable</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Snippet Variable</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSnippetVariable(SnippetVariable object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Snippet Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Snippet Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseSnippetItem(SnippetItem object) {
         return null;
     }
 

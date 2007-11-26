@@ -52,6 +52,8 @@ import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.SimpleTalendTrigger;
+import org.talend.core.model.properties.SnippetItem;
+import org.talend.core.model.properties.SnippetVariable;
 import org.talend.core.model.properties.SpagoBiServer;
 import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.TalendTrigger;
@@ -65,6 +67,7 @@ import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
+import org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
@@ -137,6 +140,20 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass connectionItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass snippetVariableEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass snippetItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -402,14 +419,18 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         EcorePackage.eINSTANCE.eClass();
         ConnectionPackage.eINSTANCE.eClass();
         NotationPackage.eINSTANCE.eClass();
-        TalendFilePackage.eINSTANCE.eClass();
         XMLTypePackage.eINSTANCE.eClass();
+
+        // Obtain or create and register interdependencies
+        TalendFilePackageImpl theTalendFilePackage = (TalendFilePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TalendFilePackage.eNS_URI) instanceof TalendFilePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TalendFilePackage.eNS_URI) : TalendFilePackage.eINSTANCE);
 
         // Create package meta-data objects
         thePropertiesPackage.createPackageContents();
+        theTalendFilePackage.createPackageContents();
 
         // Initialize created meta-data
         thePropertiesPackage.initializePackageContents();
+        theTalendFilePackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
         thePropertiesPackage.freeze();
@@ -903,6 +924,87 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EReference getConnectionItem_Connection() {
         return (EReference)connectionItemEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSnippetVariable() {
+        return snippetVariableEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSnippetVariable_Name() {
+        return (EAttribute)snippetVariableEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSnippetVariable_Value() {
+        return (EAttribute)snippetVariableEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSnippetVariable_Description() {
+        return (EAttribute)snippetVariableEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSnippetVariable_Id() {
+        return (EAttribute)snippetVariableEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getSnippetItem() {
+        return snippetItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSnippetItem_Name() {
+        return (EAttribute)snippetItemEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getSnippetItem_Content() {
+        return (EAttribute)snippetItemEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getSnippetItem_Variables() {
+        return (EReference)snippetItemEClass.getEStructuralFeatures().get(2);
     }
 
     /**
@@ -2219,6 +2321,17 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         connectionItemEClass = createEClass(CONNECTION_ITEM);
         createEReference(connectionItemEClass, CONNECTION_ITEM__CONNECTION);
 
+        snippetVariableEClass = createEClass(SNIPPET_VARIABLE);
+        createEAttribute(snippetVariableEClass, SNIPPET_VARIABLE__NAME);
+        createEAttribute(snippetVariableEClass, SNIPPET_VARIABLE__VALUE);
+        createEAttribute(snippetVariableEClass, SNIPPET_VARIABLE__DESCRIPTION);
+        createEAttribute(snippetVariableEClass, SNIPPET_VARIABLE__ID);
+
+        snippetItemEClass = createEClass(SNIPPET_ITEM);
+        createEAttribute(snippetItemEClass, SNIPPET_ITEM__NAME);
+        createEAttribute(snippetItemEClass, SNIPPET_ITEM__CONTENT);
+        createEReference(snippetItemEClass, SNIPPET_ITEM__VARIABLES);
+
         delimitedFileConnectionItemEClass = createEClass(DELIMITED_FILE_CONNECTION_ITEM);
 
         positionalFileConnectionItemEClass = createEClass(POSITIONAL_FILE_CONNECTION_ITEM);
@@ -2432,6 +2545,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         documentationItemEClass.getESuperTypes().add(this.getFileItem());
         routineItemEClass.getESuperTypes().add(this.getFileItem());
         connectionItemEClass.getESuperTypes().add(this.getItem());
+        snippetItemEClass.getESuperTypes().add(this.getItem());
         delimitedFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         positionalFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
         regExFileConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
@@ -2529,6 +2643,17 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(connectionItemEClass, ConnectionItem.class, "ConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getConnectionItem_Connection(), theConnectionPackage.getConnection(), null, "connection", null, 0, 1, ConnectionItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(snippetVariableEClass, SnippetVariable.class, "SnippetVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSnippetVariable_Name(), ecorePackage.getEString(), "name", null, 0, 1, SnippetVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSnippetVariable_Value(), ecorePackage.getEString(), "value", null, 0, 1, SnippetVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSnippetVariable_Description(), ecorePackage.getEString(), "description", null, 0, 1, SnippetVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSnippetVariable_Id(), ecorePackage.getEString(), "id", null, 0, 1, SnippetVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(snippetItemEClass, SnippetItem.class, "SnippetItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getSnippetItem_Name(), ecorePackage.getEString(), "name", null, 0, 1, SnippetItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getSnippetItem_Content(), ecorePackage.getEString(), "content", null, 0, 1, SnippetItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getSnippetItem_Variables(), this.getSnippetVariable(), null, "variables", null, 0, -1, SnippetItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(delimitedFileConnectionItemEClass, DelimitedFileConnectionItem.class, "DelimitedFileConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
