@@ -15,6 +15,7 @@ package org.talend.commons.ui.swt.actions;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.ui.IWorkbenchPart;
 
 /**
  * Defines contextual actions used on a TreeViewer.
@@ -41,6 +42,8 @@ public interface ITreeContextualAction extends IAction {
      */
     public boolean isDoubleClickAction();
 
+    public void setWorkbenchPart(IWorkbenchPart workbenchPart);
+
     /**
      * Defines the Class on wich this action is launch by double-click. Means that when a double-click occurs in the
      * TreeViewer, the first registred IContextuelAction matching the selection Class is launch.
@@ -54,13 +57,13 @@ public interface ITreeContextualAction extends IAction {
     public int getLevel();
 
     public void setLevel(int level);
-    
+
     public boolean isEditAction();
-    
+
     public void setEditAction(boolean editAction);
-    
+
     public boolean isReadAction();
-    
+
     public void setReadAction(boolean readAction);
 
     public boolean isPropertiesAction();
