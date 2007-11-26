@@ -13,7 +13,6 @@
 package org.talend.core.properties.tab;
 
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.views.properties.tabbed.ITabItem;
 import org.talend.core.model.process.EComponentCategory;
 import org.talend.core.model.process.Element;
@@ -25,8 +24,6 @@ import org.talend.core.model.process.Element;
  * 
  */
 public class TalendPropertyTabDescriptor implements ITabItem {
-
-    private Composite composite;
 
     private Element element;
 
@@ -64,24 +61,6 @@ public class TalendPropertyTabDescriptor implements ITabItem {
      */
     public Element getElement() {
         return this.element;
-    }
-
-    /**
-     * yzhang Comment method "setControl".
-     * 
-     * @param control
-     */
-    public void setComposite(Composite composite) {
-        this.composite = composite;
-    }
-
-    /**
-     * yzhang Comment method "getControl".
-     * 
-     * @return
-     */
-    public Composite getComposite() {
-        return this.composite;
     }
 
     public String getLabel() {

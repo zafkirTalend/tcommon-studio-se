@@ -12,15 +12,12 @@
 // ============================================================================
 package org.talend.core.properties.tab;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
@@ -31,7 +28,6 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyComposite;
-import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyList;
 import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyTitle;
 import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyViewer;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
@@ -60,6 +56,7 @@ public class HorizontalTabFactory {
 
         widgetFactory = new TabbedPropertySheetWidgetFactory();
         tabbedPropertyComposite = new TabbedPropertyComposite(panel, widgetFactory, true);
+        tabbedPropertyComposite.getTabComposite().setLayout(new FillLayout());
         widgetFactory.paintBordersFor(tabbedPropertyComposite);
         tabbedPropertyComposite.setLayout(new FormLayout());
         FormData formData = new FormData();
@@ -77,17 +74,8 @@ public class HorizontalTabFactory {
 
     }
 
-    public Composite createTabComposite() {
-        Composite result = widgetFactory.createComposite(tabbedPropertyComposite.getTabComposite(), SWT.NO_FOCUS);
-        result.setVisible(false);
-        result.setLayout(new FillLayout());
-        FormData data = new FormData();
-        data.top = new FormAttachment(tabbedPropertyComposite.getTitle(), 0);
-        data.bottom = new FormAttachment(100, 0);
-        data.left = new FormAttachment(0, 0);
-        data.right = new FormAttachment(100, 0);
-        result.setLayoutData(data);
-        return result;
+    public Composite getTabComposite() {
+        return tabbedPropertyComposite.getTabComposite();
     }
 
     /**
