@@ -12,29 +12,18 @@
 // ============================================================================
 package org.talend.repository.ui.actions;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchPartSite;
 import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.CorePlugin;
-import org.talend.core.model.general.Project;
-import org.talend.core.model.properties.ProcessItem;
-import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
-import org.talend.repository.model.RepositoryNode;
-import org.talend.repository.model.RepositoryNode.ENodeType;
-import org.talend.repository.model.RepositoryNode.EProperties;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -139,13 +128,39 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         getViewPart().expand(obj, true);
     }
 
+    private IWorkbenchPart workbenchPart = null;
+
+    /**
+     * Getter for workbenchPart.
+     * 
+     * @return the workbenchPart
+     */
+    public IWorkbenchPart getWorkbenchPart() {
+        return this.workbenchPart;
+    }
+
+    /**
+     * Sets the workbenchPart.
+     * 
+     * @param workbenchPart the workbenchPart to set
+     */
+    public void setWorkbenchPart(IWorkbenchPart workbenchPart) {
+        this.workbenchPart = workbenchPart;
+    }
+
     /**
      * The repository view selection.
      * 
      * @return the selection
      */
     protected final ISelection getSelection() {
-        IWorkbenchPartSite site = getActivePage().getActivePart().getSite();
+        if (workbenchPart != null) {
+            if (workbenchPart instanceof IRepositoryView) {
+                IRepositoryView view = (IRepositoryView) workbenchPart;
+                return view.getViewer().getSelection();
+            }
+        }
+        IWorkbenchPartSite site = getActivePage().getActiveEditor().getSite();
         return site.getSelectionProvider().getSelection();
     }
 
@@ -156,6 +171,11 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * @return - the repository biew
      */
     protected final IRepositoryView getViewPart() {
+        if (workbenchPart != null) {
+            if (workbenchPart instanceof IRepositoryView) {
+                return (IRepositoryView) workbenchPart;
+            }
+        }
         IViewPart viewPart = (IViewPart) getActivePage().findView(IRepositoryView.VIEW_ID);
         return (IRepositoryView) viewPart;
     }

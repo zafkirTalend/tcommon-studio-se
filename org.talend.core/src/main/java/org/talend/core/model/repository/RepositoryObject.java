@@ -43,6 +43,7 @@ import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
@@ -159,6 +160,10 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseContextItem(ContextItem object) {
                 return ERepositoryObjectType.CONTEXT;
+            }
+
+            public Object caseSnippetItem(SnippetItem object) {
+                return ERepositoryObjectType.SNIPPETS;
             }
 
             public Object caseProcessItem(ProcessItem object) {

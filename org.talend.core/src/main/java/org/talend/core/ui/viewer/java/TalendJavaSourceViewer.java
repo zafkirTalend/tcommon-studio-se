@@ -137,7 +137,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         return initializeViewer(composite, styles, checkCode, document, documentOffset);
     }
 
-    public static ISourceViewer createViewerWithVariables(Composite composite, int styles, IExpressionDataBean dataBean) {
+    public static ReconcilerViewer createViewerWithVariables(Composite composite, int styles, IExpressionDataBean dataBean) {
         IDocument document = new Document();
         StringBuffer buff = new StringBuffer();
         buff.append("package internal;\n\n");
@@ -232,7 +232,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         return initializeViewer(composite, styles, checkCode, newDoc, documentOffset);
     }
 
-    private static ISourceViewer initializeViewer(Composite composite, int styles, boolean checkCode, IDocument document,
+    private static ReconcilerViewer initializeViewer(Composite composite, int styles, boolean checkCode, IDocument document,
             int visibleOffset) {
         IAnnotationAccess annotationAccess = new DefaultMarkerAnnotationAccess();
         ISharedTextColors sharedColors = JavaPlugin.getDefault().getJavaTextTools().getColorManager();
@@ -249,7 +249,7 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
             }
             verticalRuler = new VerticalRuler(12);
         }
-        ISourceViewer viewer = new TalendJavaSourceViewer(composite, verticalRuler, overviewRuler, checkCode, styles,
+        ReconcilerViewer viewer = new TalendJavaSourceViewer(composite, verticalRuler, overviewRuler, checkCode, styles,
                 annotationAccess, sharedColors, checkCode, document);
 
         if (visibleOffset != -1) {

@@ -30,6 +30,9 @@ import org.eclipse.jface.text.source.IVerticalRuler;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.VerifyKeyListener;
+import org.eclipse.swt.dnd.DropTarget;
+import org.eclipse.swt.dnd.DropTargetListener;
+import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.VerifyEvent;
@@ -308,4 +311,20 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
     public IFile getFile() {
         return this.file;
     }
+    /**
+     * Adds support for dropping items into this viewer via a user drag-and-drop operation.
+     * 
+     * @param operations a bitwise OR of the supported drag and drop operation types ( <code>DROP_COPY</code>,<code>DROP_LINK</code>,
+     * and <code>DROP_MOVE</code>)
+     * @param transferTypes the transfer types that are supported by the drop operation
+     * @param listener the callback that will be invoked after the drag and drop operation finishes
+     * @see org.eclipse.swt.dnd.DND
+     */
+    public void addDropSupport(int operations, Transfer[] transferTypes, final DropTargetListener listener) {
+        Control control = getTextWidget();
+        DropTarget dropTarget = new DropTarget(control, operations);
+        dropTarget.setTransfer(transferTypes);
+        dropTarget.addDropListener(listener);
+    }
+
 }

@@ -30,6 +30,8 @@ import org.talend.core.model.properties.PositionalFileConnectionItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
+import org.talend.core.model.properties.SnippetItem;
+import org.talend.core.model.properties.SnippetVariable;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 
@@ -121,6 +123,8 @@ public enum ERepositoryObjectType {
             return "context"; //$NON-NLS-1$
         case ROUTINES:
             return "code/routines"; //$NON-NLS-1$
+        case SNIPPETS:
+            return "code/snippets"; //$NON-NLS-1$
         case DOCUMENTATION:
             return "documentations"; //$NON-NLS-1$
         case GENERATED:
@@ -181,6 +185,14 @@ public enum ERepositoryObjectType {
                 return CONTEXT;
             }
 
+            public Object caseSnippetItem(SnippetItem object) {
+                return SNIPPETS;
+            }
+
+            public Object caseSnippetVariable(SnippetVariable object) {
+                return SNIPPETS;
+            }
+
             public Object caseBusinessProcessItem(BusinessProcessItem object) {
                 return BUSINESS_PROCESS;
             }
@@ -232,8 +244,7 @@ public enum ERepositoryObjectType {
     }
 
     public boolean isExportableItem() {
-        return !subItem && !this.equals(ERepositoryObjectType.FOLDER)
-                && !this.equals(ERepositoryObjectType.REFERENCED_PROJECTS)
+        return !subItem && !this.equals(ERepositoryObjectType.FOLDER) && !this.equals(ERepositoryObjectType.REFERENCED_PROJECTS)
                 && !this.equals(ERepositoryObjectType.SNIPPETS);
     }
 }

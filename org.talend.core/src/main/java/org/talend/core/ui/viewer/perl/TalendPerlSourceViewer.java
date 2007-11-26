@@ -28,7 +28,6 @@ import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jface.text.source.IOverviewRuler;
 import org.eclipse.jface.text.source.ISharedTextColors;
-import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
 import org.eclipse.jface.text.source.OverviewRuler;
 import org.eclipse.jface.text.source.VerticalRuler;
@@ -74,7 +73,7 @@ public class TalendPerlSourceViewer extends ReconcilerViewer {
                 new Document());
     }
 
-    public static ISourceViewer createViewer(Composite composite, int styles, boolean checkCode) {
+    public static ReconcilerViewer createViewer(Composite composite, int styles, boolean checkCode) {
         IAnnotationAccess annotationAccess = new DefaultMarkerAnnotationAccess();
         ISharedTextColors sharedColors = EditorsPlugin.getDefault().getSharedTextColors();
         IOverviewRuler overviewRuler = null;
