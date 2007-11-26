@@ -47,6 +47,7 @@ import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getDefaultContext <em>Default Context</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getPurpose <em>Purpose</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getRepositoryContextId <em>Repository Context Id</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.impl.ProcessTypeImpl#getVersion <em>Version</em>}</li>
  * </ul>
@@ -244,6 +245,26 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * @ordered
      */
     protected String purpose = PURPOSE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getRepositoryContextId() <em>Repository Context Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRepositoryContextId()
+     * @generated
+     * @ordered
+     */
+    protected static final String REPOSITORY_CONTEXT_ID_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getRepositoryContextId() <em>Repository Context Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getRepositoryContextId()
+     * @generated
+     * @ordered
+     */
+    protected String repositoryContextId = REPOSITORY_CONTEXT_ID_EDEFAULT;
 
     /**
      * The default value of the '{@link #getStatus() <em>Status</em>}' attribute.
@@ -611,6 +632,27 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getRepositoryContextId() {
+        return repositoryContextId;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setRepositoryContextId(String newRepositoryContextId) {
+        String oldRepositoryContextId = repositoryContextId;
+        repositoryContextId = newRepositoryContextId;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID, oldRepositoryContextId, repositoryContextId));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public String getStatus() {
         return status;
     }
@@ -706,6 +748,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return getName();
             case TalendFilePackage.PROCESS_TYPE__PURPOSE:
                 return getPurpose();
+            case TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID:
+                return getRepositoryContextId();
             case TalendFilePackage.PROCESS_TYPE__STATUS:
                 return getStatus();
             case TalendFilePackage.PROCESS_TYPE__VERSION:
@@ -764,6 +808,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__PURPOSE:
                 setPurpose((String)newValue);
                 return;
+            case TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID:
+                setRepositoryContextId((String)newValue);
+                return;
             case TalendFilePackage.PROCESS_TYPE__STATUS:
                 setStatus((String)newValue);
                 return;
@@ -820,6 +867,9 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
             case TalendFilePackage.PROCESS_TYPE__PURPOSE:
                 setPurpose(PURPOSE_EDEFAULT);
                 return;
+            case TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID:
+                setRepositoryContextId(REPOSITORY_CONTEXT_ID_EDEFAULT);
+                return;
             case TalendFilePackage.PROCESS_TYPE__STATUS:
                 setStatus(STATUS_EDEFAULT);
                 return;
@@ -863,6 +913,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
                 return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
             case TalendFilePackage.PROCESS_TYPE__PURPOSE:
                 return PURPOSE_EDEFAULT == null ? purpose != null : !PURPOSE_EDEFAULT.equals(purpose);
+            case TalendFilePackage.PROCESS_TYPE__REPOSITORY_CONTEXT_ID:
+                return REPOSITORY_CONTEXT_ID_EDEFAULT == null ? repositoryContextId != null : !REPOSITORY_CONTEXT_ID_EDEFAULT.equals(repositoryContextId);
             case TalendFilePackage.PROCESS_TYPE__STATUS:
                 return STATUS_EDEFAULT == null ? status != null : !STATUS_EDEFAULT.equals(status);
             case TalendFilePackage.PROCESS_TYPE__VERSION:
@@ -892,6 +944,8 @@ public class ProcessTypeImpl extends EObjectImpl implements ProcessType {
         result.append(name);
         result.append(", purpose: ");
         result.append(purpose);
+        result.append(", repositoryContextId: ");
+        result.append(repositoryContextId);
         result.append(", status: ");
         result.append(status);
         result.append(", version: ");

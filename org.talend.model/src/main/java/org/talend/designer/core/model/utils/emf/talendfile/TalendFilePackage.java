@@ -1275,13 +1275,22 @@ public interface TalendFilePackage extends EPackage {
     int PROCESS_TYPE__PURPOSE = 12;
 
     /**
+     * The feature id for the '<em><b>Repository Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int PROCESS_TYPE__REPOSITORY_CONTEXT_ID = 13;
+
+    /**
      * The feature id for the '<em><b>Status</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__STATUS = 13;
+    int PROCESS_TYPE__STATUS = 14;
 
     /**
      * The feature id for the '<em><b>Version</b></em>' attribute.
@@ -1290,7 +1299,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE__VERSION = 14;
+    int PROCESS_TYPE__VERSION = 15;
 
     /**
      * The number of structural features of the '<em>Process Type</em>' class.
@@ -1299,7 +1308,7 @@ public interface TalendFilePackage extends EPackage {
      * @generated
      * @ordered
      */
-    int PROCESS_TYPE_FEATURE_COUNT = 15;
+    int PROCESS_TYPE_FEATURE_COUNT = 16;
 
 
     /**
@@ -2602,6 +2611,17 @@ public interface TalendFilePackage extends EPackage {
     EAttribute getProcessType_Purpose();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRepositoryContextId <em>Repository Context Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Repository Context Id</em>'.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRepositoryContextId()
+     * @see #getProcessType()
+     * @generated
+     */
+    EAttribute getProcessType_RepositoryContextId();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getStatus <em>Status</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3635,6 +3655,14 @@ public interface TalendFilePackage extends EPackage {
          * @generated
          */
         EAttribute PROCESS_TYPE__PURPOSE = eINSTANCE.getProcessType_Purpose();
+
+        /**
+         * The meta object literal for the '<em><b>Repository Context Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute PROCESS_TYPE__REPOSITORY_CONTEXT_ID = eINSTANCE.getProcessType_RepositoryContextId();
 
         /**
          * The meta object literal for the '<em><b>Status</b></em>' attribute feature.

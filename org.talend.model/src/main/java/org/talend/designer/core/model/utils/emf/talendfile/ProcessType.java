@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getDefaultContext <em>Default Context</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getName <em>Name</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getPurpose <em>Purpose</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRepositoryContextId <em>Repository Context Id</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getStatus <em>Status</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getVersion <em>Version</em>}</li>
  * </ul>
@@ -350,6 +351,33 @@ public interface ProcessType extends EObject {
      * @generated
      */
     void setPurpose(String value);
+
+    /**
+     * Returns the value of the '<em><b>Repository Context Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Repository Context Id</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Repository Context Id</em>' attribute.
+     * @see #setRepositoryContextId(String)
+     * @see org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage#getProcessType_RepositoryContextId()
+     * @model dataType="org.eclipse.emf.ecore.xml.type.String"
+     *        extendedMetaData="kind='attribute' name='repositoryContextId' namespace='##targetNamespace'"
+     * @generated
+     */
+    String getRepositoryContextId();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.talendfile.ProcessType#getRepositoryContextId <em>Repository Context Id</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Repository Context Id</em>' attribute.
+     * @see #getRepositoryContextId()
+     * @generated
+     */
+    void setRepositoryContextId(String value);
 
     /**
      * Returns the value of the '<em><b>Status</b></em>' attribute.
