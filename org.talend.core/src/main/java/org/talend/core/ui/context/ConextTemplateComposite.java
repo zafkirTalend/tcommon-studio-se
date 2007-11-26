@@ -231,7 +231,8 @@ public class ConextTemplateComposite extends Composite {
         codeColumn.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
 
             public String get(IContextParameter bean) {
-                return bean.getScriptCode();
+                // return bean.getScriptCode();
+                return bean.getName();
             }
 
             public void set(IContextParameter bean, String value) {

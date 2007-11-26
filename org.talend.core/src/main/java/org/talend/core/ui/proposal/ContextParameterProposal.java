@@ -22,7 +22,6 @@ import org.talend.core.context.RepositoryContext;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.process.IContextParameter;
-import org.talend.core.model.utils.ContextParameterUtils;
 
 /**
  * Content proposal based on a IContextParameter. <br/>
@@ -52,7 +51,8 @@ public class ContextParameterProposal implements IContentProposal {
         RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
                 Context.REPOSITORY_CONTEXT_KEY);
         ECodeLanguage language = repositoryContext.getProject().getLanguage();
-        return ContextParameterUtils.getScriptCode(contextParameter, language);
+        // return ContextParameterUtils.getScriptCode(contextParameter, language);
+        return contextParameter.getName();
     }
 
     /*
