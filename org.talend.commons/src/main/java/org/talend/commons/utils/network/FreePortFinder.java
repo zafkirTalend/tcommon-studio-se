@@ -13,11 +13,9 @@
 package org.talend.commons.utils.network;
 
 import java.io.IOException;
-import java.net.InetSocketAddress;
 import java.net.ServerSocket;
+import java.net.SocketException;
 import java.util.Random;
-
-import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * DOC amaumont class global comment. Detailled comment <br/>
@@ -46,7 +44,13 @@ public class FreePortFinder {
     public boolean isPortFree(int port) {
         try {
             serverSocket = new ServerSocket(port);
+        } catch (SocketException e) {
+            e.printStackTrace();
+            return false;
         } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } catch (SecurityException e) {
             e.printStackTrace();
             return false;
         } finally {
@@ -62,7 +66,8 @@ public class FreePortFinder {
 
     /**
      * 
-     * Search the next free port from <code>portRangeBound1</code> to max port <code>portRangeBound2</code> with randomize start searching.
+     * Search the next free port from <code>portRangeBound1</code> to max port <code>portRangeBound2</code> with
+     * randomize start searching.
      * 
      * @param portRangeBound1
      * @param portRangeBound2
@@ -78,16 +83,21 @@ public class FreePortFinder {
      * 
      * @param portRangeBound1
      * @param portRangeBound2
-     * @param randomize if true, start with a randomized port number between <code>portRangeBound1</code> and <code>portRangeBound2</code>
+     * @param randomize if true, start with a randomized port number between <code>portRangeBound1</code> and
+     * <code>portRangeBound2</code>
      * @return
      */
     public int searchFreePort(int portRangeBound1, int portRangeBound2, boolean randomize) {
 
         int portBoundMin = portRangeBound1 < portRangeBound2 ? portRangeBound1 : portRangeBound2;
         int portBoundMax = portRangeBound1 < portRangeBound2 ? portRangeBound2 : portRangeBound1;
+        int increment = 0;
+        if (randomize) {
+            Random random = new Random();
+            increment = random.nextInt(portBoundMax - portBoundMin);
+        }
 
-        Random random = new Random();
-        int portStart = portBoundMin + random.nextInt(portBoundMax - portBoundMin);
+        int portStart = portBoundMin + increment;
 
         boolean isFirstLoop = true;
         for (int port = portStart; true; port++) {
@@ -100,7 +110,7 @@ public class FreePortFinder {
             if (isPortFree(port)) {
                 return port;
             }
-//            System.out.println(port);
+            // System.out.println(port);
             isFirstLoop = false;
 
         }
@@ -110,7 +120,8 @@ public class FreePortFinder {
 
     public static void main(String[] args) {
         FreePortFinder freePortFinder = new FreePortFinder();
-        System.out.println("Free port : " + freePortFinder.searchFreePort(10, 20));;
+        System.out.println("Free port : " + freePortFinder.searchFreePort(10, 20));
+        ;
     }
-    
+
 }
