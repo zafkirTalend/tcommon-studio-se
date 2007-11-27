@@ -15,7 +15,6 @@ package org.talend.repository.localprovider.model;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
@@ -30,7 +29,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
 import org.talend.core.model.properties.FileItem;
@@ -170,11 +168,11 @@ public class XmiResourceManager {
 
     public void saveResource(Resource resource) throws PersistenceException {
         try {
-            HashMap options = new HashMap(2);
-            options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
-            options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
-            resource.save(options);
-            // resource.save(null);
+            // HashMap options = new HashMap(2);
+            // options.put(XMLResource.OPTION_ENCODING, "UTF-8"); //$NON-NLS-1$
+            // options.put(XMLResource.OPTION_XML_VERSION, "1.1"); //$NON-NLS-1$
+            // resource.save(options);
+            resource.save(null);
         } catch (IOException e) {
             throw new PersistenceException(e);
         }
