@@ -200,7 +200,7 @@ public class ApplicationActionBarAdvisor extends ActionBarAdvisor {
         windowMenu.add(perspMenu);
         windowMenu.add(new ShowViewAction());
         windowMenu.add(new Separator());
-        windowMenu.add(ActionFactory.SHOW_VIEW_MENU.create(window));
+        // windowMenu.add(ActionFactory.SHOW_VIEW_MENU.create(window));
         windowMenu.add(ActionFactory.MAXIMIZE.create(window));
         // windowMenu.add(ActionFactory.SHOW_VIEW_MENU.create(window));
         // menuBar.add(new MenuManager("&Test",IWorkbenchActionConstants.VIEW_EXT));
