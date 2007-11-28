@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -55,6 +55,8 @@ public class JavaLibrariesService extends AbstractLibrariesService {
     private static Logger log = Logger.getLogger(JavaLibrariesService.class);
 
     private static final String SOURCE_JAVA_ROUTINES_FOLDER = "routines";
+
+    private static boolean isLibSynchronized;
 
     @Override
     public String getLibrariesPath() {
@@ -143,8 +145,7 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         File target = new File(getLibrariesPath());
         try {
             // 1. Talend libraries:
-            File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/"))
-                    .getFile());
+            File talendLibraries = new File(FileLocator.resolve(Activator.BUNDLE.getEntry("resources/java/lib/")).getFile());
             FilesUtils.copyFolder(talendLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
                     .getAcceptJARFilesFilter(), true);
 
@@ -152,10 +153,11 @@ public class JavaLibrariesService extends AbstractLibrariesService {
             IComponentsService service = (IComponentsService) GlobalServiceRegister.getDefault().getService(
                     IComponentsService.class);
             File componentsLibraries = new File(service.getComponentsFactory().getComponentPath().getFile());
-            FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(),
-                    FilesUtils.getAcceptJARFilesFilter(), false);
+            FilesUtils.copyFolder(componentsLibraries, target, false, FilesUtils.getExcludeSystemFilesFilter(), FilesUtils
+                    .getAcceptJARFilesFilter(), false);
 
             log.debug("Java libraries synchronization done");
+            isLibSynchronized = true;
         } catch (IOException e) {
             ExceptionHandler.process(e);
         }
@@ -186,6 +188,16 @@ public class JavaLibrariesService extends AbstractLibrariesService {
         } catch (JavaModelException e) {
             ExceptionHandler.process(e);
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.general.ILibrariesService#isLibSynchronized()
+     */
+    public boolean isLibSynchronized() {
+        return this.isLibSynchronized;
+
     }
 
 }

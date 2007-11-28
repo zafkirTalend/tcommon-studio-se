@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -48,6 +48,8 @@ import org.talend.librariesmanager.prefs.PreferencesUtilities;
 public class PerlLibrariesService extends AbstractLibrariesService {
 
     private static Logger log = Logger.getLogger(PerlLibrariesService.class);
+
+    private static boolean isLibSynchronized;
 
     @Override
     public String getLibrariesPath() {
@@ -103,6 +105,8 @@ public class PerlLibrariesService extends AbstractLibrariesService {
                     FilesUtils.getAcceptPMFilesFilter(), "modules");
 
             log.debug("Perl libraries synchronization done");
+            this.isLibSynchronized = true;
+
         } catch (IOException e) {
             ExceptionHandler.process(e);
         }
@@ -201,6 +205,16 @@ public class PerlLibrariesService extends AbstractLibrariesService {
             }
 
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.general.ILibrariesService#isLibSynchronized()
+     */
+    public boolean isLibSynchronized() {
+        return this.isLibSynchronized;
+
     }
 
 }

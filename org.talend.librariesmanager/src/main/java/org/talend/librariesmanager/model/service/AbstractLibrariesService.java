@@ -5,7 +5,7 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
@@ -61,8 +61,7 @@ public abstract class AbstractLibrariesService implements ILibrariesService {
         File sourceFile = new File(source.getFile());
         File targetFile = new File(getLibrariesPath() + File.separatorChar + sourceFile.getName());
         FilesUtils.copyFile(sourceFile, targetFile);
-        ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(),
-                ELibraryInstallStatus.INSTALLED);
+        ModulesNeededProvider.userAddImportModules(targetFile.getPath(), sourceFile.getName(), ELibraryInstallStatus.INSTALLED);
         if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.JAVA)) {
             addResolvedClasspathPath(targetFile);
         }
