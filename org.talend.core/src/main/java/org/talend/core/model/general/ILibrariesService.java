@@ -59,6 +59,8 @@ public interface ILibrariesService extends IService {
 
     public void resetModulesNeeded();
 
+    public boolean isLibSynchronized();
+
     /**
      * Listener used to fire that libraries status has been changed (new lib or new check install).
      * 
