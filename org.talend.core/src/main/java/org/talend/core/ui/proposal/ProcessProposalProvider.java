@@ -24,6 +24,8 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeReturn;
 import org.talend.core.model.process.IProcess;
+import org.talend.core.model.properties.SnippetItem;
+import org.talend.core.model.snippets.SnippetManager;
 import org.talend.designer.rowgenerator.data.Function;
 import org.talend.designer.rowgenerator.data.FunctionManager;
 import org.talend.designer.rowgenerator.data.TalendType;
@@ -93,6 +95,13 @@ public class ProcessProposalProvider implements IContentProposalProvider {
                 proposals.add(new RoutinesFunctionProposal(function));
             }
         }
+
+        // add snippets
+        SnippetManager snippetManager = new SnippetManager();
+        for (SnippetItem snippet : snippetManager.getListSnippet()) {
+            proposals.add(new SnippetFunctionProposal(snippet));
+        }
+
         // sort the list
         Collections.sort(proposals, new Comparator<IContentProposal>() {
 

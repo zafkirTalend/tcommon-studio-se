@@ -13,10 +13,18 @@
 package org.talend.core.model.snippets;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
+import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.commons.utils.StringUtils;
+import org.talend.core.CorePlugin;
 import org.talend.core.model.properties.SnippetItem;
+import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.core.ui.snippet.VariableItemHelper;
 
 /**
  * DOC bqian class global comment. Detailled comment <br/>
@@ -24,9 +32,9 @@ import org.talend.core.model.properties.SnippetItem;
  */
 public class SnippetManager {
 
-    public static final String SNIPPET_PREFFIX = "<SNIPPET>";
-
-    public static final String SNIPPET_SUFFIX = "</SNIPPET>";
+    // public static final String SNIPPET_PREFFIX = "<SNIPPET>";
+    //
+    // public static final String SNIPPET_SUFFIX = "</SNIPPET>";
 
     private static SnippetManager instance = null;
 
@@ -39,48 +47,39 @@ public class SnippetManager {
 
     List<SnippetItem> snippets = new ArrayList<SnippetItem>();
 
-    private SnippetManager() {
+    public SnippetManager() {
     }
 
     public List<SnippetItem> getListSnippet() {
-        return snippets;
+        try {
+            List<IRepositoryObject> snippets = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory()
+                    .getSnippets().getMembers();
+
+            List<SnippetItem> list = new ArrayList<SnippetItem>(snippets.size());
+            for (IRepositoryObject repositoryObject : snippets) {
+                list.add((SnippetItem) repositoryObject.getProperty().getItem());
+            }
+            return list;
+        } catch (PersistenceException e) {
+            ExceptionHandler.process(e);
+            return Collections.EMPTY_LIST;
+        }
     }
 
-    public void setListSnippet(List<SnippetItem> listSnippet) {
-    }
+    public String applySnippet(SnippetItem snippetItem, Shell shell) {
+        if (shell == null) {
+            shell = Display.getCurrent().getActiveShell();
+        }
+        String content = VariableItemHelper.getInsertString(shell, snippetItem);
+        // Update EOLs (bug 80231)
+        String systemEOL = System.getProperty("line.separator"); //$NON-NLS-1$
+        content = StringUtils.replace(content, "\r\n", "\n"); //$NON-NLS-1$ //$NON-NLS-2$
+        content = StringUtils.replace(content, "\r", "\n"); //$NON-NLS-1$ //$NON-NLS-2$
+        if (!"\n".equals(systemEOL) && systemEOL != null) { //$NON-NLS-1$
+            content = StringUtils.replace(content, "\n", systemEOL); //$NON-NLS-1$
+        }
 
-    public SnippetItem getSnippet(String name) {
-        return null;
-    }
-
-    // public void addSnippetListener(ISnippetListener listener) {
-    // }
-    //
-    // public void removeSnippetListener(ISnippetListener listener) {
-    // }
-    //
-    // public void fireSnippetsChangedEvent() {
-    // }
-
-    public boolean checkValidParameterName(String parameterName) {
-        return false;
-    }
-
-    public void saveToEmf(SnippetItem item) {
-
-    }
-
-    public void loadFromEmf(EList contextTypeList) {
-    }
-
-    /**
-     * DOC bqian Comment method "addSnippet".
-     * 
-     * @param snippetItem
-     */
-    public void addSnippet(SnippetItem snippetItem) {
-        snippets.add(snippetItem);
-
+        return content;
     }
 
 }

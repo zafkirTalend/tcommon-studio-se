@@ -31,6 +31,8 @@ public class TalendCompletionProposal implements ICompletionProposal {
 
     public static final String ROUTINE = "ROUTINE"; //$NON-NLS-1$
 
+    public static final String SNIPPET = "SNIPPET";//$NON-NLS-1$
+
     public static final String CONTEXT = "CONTEXT"; //$NON-NLS-1$
 
     public static final String VARIABLE = "VARIABLE"; //$NON-NLS-1$
@@ -42,10 +44,10 @@ public class TalendCompletionProposal implements ICompletionProposal {
     private String fReplacementString;
 
     /** The replacement offset. */
-    private int fReplacementOffset;
+    protected int fReplacementOffset;
 
     /** The replacement length. */
-    private int fReplacementLength;
+    protected int fReplacementLength;
 
     /** The cursor position after this proposal has been applied. */
     private int fCursorPosition;

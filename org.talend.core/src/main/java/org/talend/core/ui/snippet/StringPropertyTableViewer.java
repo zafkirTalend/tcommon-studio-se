@@ -131,9 +131,9 @@ public class StringPropertyTableViewer {
         getSelectionChangedListeners().add(listener);
     }
 
-    // public void addValueChangedListener(ValueChangedListener listener) {
-    // getValueChangedListeners().add(listener);
-    // }
+    public void addValueChangedListener(IValueChangedListener listener) {
+        getValueChangedListeners().add(listener);
+    }
 
     public void clear() {
         for (int i = 0; i < getColumnNames().length; i++)
@@ -228,10 +228,10 @@ public class StringPropertyTableViewer {
     }
 
     protected void fireValueChanged(String key, String property, String oldValue, String newValue) {
-        // ValueChangedListener[] listeners = new ValueChangedListener[getValueChangedListeners().size()];
-        // getValueChangedListeners().toArray(listeners);
-        // for (int i = 0; i < listeners.length; i++)
-        // listeners[i].valueChanged(key, property, oldValue, newValue);
+        IValueChangedListener[] listeners = new IValueChangedListener[getValueChangedListeners().size()];
+        getValueChangedListeners().toArray(listeners);
+        for (int i = 0; i < listeners.length; i++)
+            listeners[i].valueChanged(key, property, oldValue, newValue);
     }
 
     /**
@@ -338,9 +338,9 @@ public class StringPropertyTableViewer {
         getSelectionChangedListeners().remove(listener);
     }
 
-    // public void removeValueChangedListener(ValueChangedListener listener) {
-    // getValueChangedListeners().remove(listener);
-    // }
+    public void removeValueChangedListener(IValueChangedListener listener) {
+        getValueChangedListeners().remove(listener);
+    }
 
     /**
      * Sets the columnData.

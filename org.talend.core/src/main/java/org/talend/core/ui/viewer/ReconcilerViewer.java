@@ -311,6 +311,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
     public IFile getFile() {
         return this.file;
     }
+
     /**
      * Adds support for dropping items into this viewer via a user drag-and-drop operation.
      * 
