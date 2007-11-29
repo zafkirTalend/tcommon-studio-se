@@ -2,22 +2,22 @@
 <mapping>
 	<dbms product="VERTICA" id="vertica_id" label="Mapping Vertica" default="true">
 		<dbTypes>
-			<dbType type="BIGINT"/>
-			<dbType type="BOOLEAN"/>
-			<dbType type="CHAR"/>
-			<dbType type="CHARACTER"/>
-			<dbType type="CHARACTER VARYING"/>
-			<dbType type="DATE"/>
-			<dbType type="DOUBLE PRECISION"/>
-			<dbType type="FLOAT"/>
-			<dbType type="INTEGER"/>
-			<dbType type="INTERVAL"/>
-			<dbType type="TIME"/>
-			<dbType type="TIMETZ"/>
-			<dbType type="TIMESTAMP"/>
-			<dbType type="TIMESTAMPTZ"/>
-			<dbType type="TYPE"/>
-			<dbType type="VARCHAR"/>
+			<dbType type="BIGINT" ignoreLen="true" ignorePre="true"/>
+			<dbType type="BOOLEAN" ignoreLen="true" ignorePre="true"/>
+			<dbType type="CHAR" defaultLength="200" ignorePre="true"/>
+			<dbType type="CHARACTER" defaultLength="200" ignorePre="true"/>
+			<dbType type="CHARACTER VARYING" defaultLength="200" ignorePre="true"/>
+			<dbType type="DATE" ignoreLen="true" ignorePre="true"/>
+			<dbType type="DOUBLE PRECISION" ignoreLen="true" ignorePre="true"/>
+			<dbType type="FLOAT" ignoreLen="true" ignorePre="true"/>
+			<dbType type="INTEGER" defaultLength="5" ignorePre="true"/>
+			<dbType type="INTERVAL" ignoreLen="true" ignorePre="true"/>
+			<dbType type="TIME" ignoreLen="true" ignorePre="true"/>
+			<dbType type="TIMETZ" ignoreLen="true" ignorePre="true"/>
+			<dbType type="TIMESTAMP" ignoreLen="true" ignorePre="true"/>
+			<dbType type="TIMESTAMPTZ" ignoreLen="true" ignorePre="true"/>
+			<dbType type="TYPE" ignoreLen="true" ignorePre="true"/>
+			<dbType type="VARCHAR" defaultLength="300" ignorePre="true"/>
 		</dbTypes>
 
 		<language name="java">
