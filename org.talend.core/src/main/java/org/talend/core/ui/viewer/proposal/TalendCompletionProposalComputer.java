@@ -232,7 +232,12 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
         RepositoryContext repositoryContext = (RepositoryContext) CorePlugin.getContext().getProperty(
                 Context.REPOSITORY_CONTEXT_KEY);
         ECodeLanguage language = repositoryContext.getProject().getLanguage();
-        return ContextParameterUtils.getScriptCode(contextParameter, language);
+        if (language == ECodeLanguage.JAVA) {
+            return contextParameter.getName();
+        } else {
+            return ContextParameterUtils.getScriptCode(contextParameter, language);
+        }
+
     }
 
     private String getContextDescription(IContextParameter contextParameter, String display) {

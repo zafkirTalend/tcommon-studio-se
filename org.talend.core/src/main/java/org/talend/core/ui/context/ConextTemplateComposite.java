@@ -218,7 +218,7 @@ public class ConextTemplateComposite extends Composite {
         ComboBoxCellEditor comboBoxCellEditor = new ComboBoxCellEditor(table, MetadataTalendType
                 .getCxtParameterTalendTypesLabels());
         CellEditorValueAdapter comboValueAdapter = null;
-        ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+        final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
             comboValueAdapter = javaComboCellEditorValueAdapter;
         } else if (codeLanguage == ECodeLanguage.PERL) {
@@ -235,8 +235,11 @@ public class ConextTemplateComposite extends Composite {
         codeColumn.setBeanPropertyAccessors(new IBeanPropertyAccessors<IContextParameter, String>() {
 
             public String get(IContextParameter bean) {
-                // return bean.getScriptCode();
-                return bean.getName();
+                if (codeLanguage == ECodeLanguage.JAVA) {
+                    return bean.getName();
+                } else {
+                    return bean.getScriptCode();
+                }
             }
 
             public void set(IContextParameter bean, String value) {
