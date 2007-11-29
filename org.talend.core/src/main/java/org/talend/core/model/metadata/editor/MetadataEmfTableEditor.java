@@ -47,7 +47,7 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
 
     private static final PatternCompiler COMPILER = new Perl5Compiler();
 
-    private static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][" + VALID_CHAR_COLUMN_NAME + "]*$"; //$NON-NLS-1$ //$NON-NLS-2$
+    public static final String VALID_PATTERN_COLUMN_NAME = "^[a-zA-Z_][" + VALID_CHAR_COLUMN_NAME + "]*$"; //$NON-NLS-1$ //$NON-NLS-2$
 
     private static Pattern validPatternColumnNameRegexp = null;
 
@@ -161,8 +161,8 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
      */
     protected String getNextGeneratedColumnName(String oldColumnName, List<MetadataColumn> metadataColumns) {
 
-        UniqueStringGenerator<MetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<MetadataColumn>(
-                oldColumnName, metadataColumns) {
+        UniqueStringGenerator<MetadataColumn> uniqueStringGenerator = new UniqueStringGenerator<MetadataColumn>(oldColumnName,
+                metadataColumns) {
 
             /*
              * (non-Javadoc)
@@ -194,8 +194,7 @@ public class MetadataEmfTableEditor extends ExtendedTableModel<MetadataColumn> {
         if (codeLanguage == ECodeLanguage.JAVA) {
             metadataColumn.setTalendType(JavaTypesManager.getDefaultJavaType().getId());
             if (dbmsId != null) {
-                metadataColumn.setSourceType(TypesManager.getDBTypeFromTalendType(dbmsId, metadataColumn
-                        .getTalendType()));
+                metadataColumn.setSourceType(TypesManager.getDBTypeFromTalendType(dbmsId, metadataColumn.getTalendType()));
             }
         }
         return metadataColumn;
