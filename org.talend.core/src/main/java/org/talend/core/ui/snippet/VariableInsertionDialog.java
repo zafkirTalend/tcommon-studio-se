@@ -14,6 +14,7 @@ package org.talend.core.ui.snippet;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
@@ -300,7 +301,7 @@ public class VariableInsertionDialog extends Dialog {
 
         for (int i = 0; i < variables.size(); i++) {
             SnippetVariable var = variables.get(i);
-            String value = (String) fTableViewer.getColumnData()[1].get(((SnippetVariable) var).getId());
+            String value = (String) fTableViewer.getColumnData()[1].get(var.getId());
             text = StringUtils.replace(text, "${" + var.getName() + "}", value); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
@@ -316,6 +317,21 @@ public class VariableInsertionDialog extends Dialog {
         }
 
         setPreparedText(text);
+    }
+
+    public String prepareVariablesText() {
+        Set<String> keys = fTableViewer.getColumnData()[0].keySet();
+        StringBuilder sb = new StringBuilder();
+        sb.append("(");
+        for (String key : keys) {
+            String name = (String) fTableViewer.getColumnData()[0].get(key);
+            String value = (String) fTableViewer.getColumnData()[1].get(key);
+            sb.append(name + "=" + value + " ");
+        }
+        sb.deleteCharAt(sb.length() - 1);
+        sb.append(")");
+        return sb.toString();
+
     }
 
     public void removeDisposeListener(DisposeListener listener) {

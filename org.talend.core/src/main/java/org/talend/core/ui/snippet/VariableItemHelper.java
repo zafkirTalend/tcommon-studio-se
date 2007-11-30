@@ -39,24 +39,32 @@ public class VariableItemHelper {
      */
     /* SNIPPET_END:test */
     public static String getInsertString(Shell host, SnippetItem item) {
-        String code = getInsertSnippetCode(host, item, true);
+        String paraDefinition = getInsertSnippetCode(host, item, true);
         StringBuilder sb = new StringBuilder();
         if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) {
-            sb.append("#SNIPPET_START:{0}");
+            sb.append("\n#SNIPPET_START {0}");
             sb.append("\n");
             sb.append("{1}");
-            sb.append("\n#SNIPPET_END:{0}");
+            sb.append("\n#SNIPPET_END\n");
         } else {
             // Java comment format
-            sb.append("/*SNIPPET_START:{0}*/");
+            sb.append("\n/*SNIPPET_START {0}*/");
             sb.append("\n");
             sb.append("{1}");
-            sb.append("\n/*SNIPPET_END:{0} */");
+            sb.append("\n/*SNIPPET_END*/\n");
         }
+        // StringBuilder b = new StringBuilder();
+        // b.append("(");
+        // for (SnippetVariable var : (List<SnippetVariable>) item.getVariables()) {
+        // b.append(var.getValue()).append(",");
+        // }
+        // b.deleteCharAt(b.length() - 1);
+        // b.append(")");
+        String snippetDefinition = "ID=" + item.getProperty().getId() + " " + item.getProperty().getLabel() + paraDefinition;
 
         String msg = sb.toString();
         MessageFormat format = new MessageFormat(msg);
-        Object[] args = new Object[] { item.getProperty().getLabel(), code }; //$NON-NLS-1$
+        Object[] args = new Object[] { snippetDefinition, item.getContent(), item.getProperty().getLabel() }; //$NON-NLS-1$
         msg = format.format(args);
 
         return msg;
@@ -99,12 +107,62 @@ public class VariableItemHelper {
                     host.setEnabled(true);
                 }
             }
-            if (result == Window.OK)
-                insertString = dialog.getPreparedText();
+            if (result == Window.OK) {
+                insertString = dialog.prepareVariablesText();
+            }
+
         } else {
-            insertString = item.getContent();
+            insertString = "()";
         }
         return insertString;
     }
+
+    // public static String getInsertSnippetCode(final Shell host, SnippetItem item, boolean clearModality) {
+    // if (item == null) {
+    // return ""; //$NON-NLS-1$
+    // }
+    // String insertString = null;
+    // if (item.getVariables().size() > 0) {
+    // VariableInsertionDialog dialog = new VariableInsertionDialog(host, clearModality);
+    // dialog.setItem(item);
+    // // The editor itself influences the insertion's actions, so we
+    // // can't
+    // // allow the active editor to be changed.
+    // // Disabling the parent shell achieves psuedo-modal behavior
+    // // without
+    // // locking the UI under Linux
+    // int result = Window.CANCEL;
+    // try {
+    // if (clearModality) {
+    // host.setEnabled(false);
+    // dialog.addDisposeListener(new DisposeListener() {
+    //
+    // public void widgetDisposed(DisposeEvent arg0) {
+    // /*
+    // * The parent shell must be reenabled when the dialog disposes, otherwise it won't
+    // * automatically receive focus.
+    // */
+    // host.setEnabled(true);
+    // }
+    // });
+    // }
+    // result = dialog.open();
+    // } catch (Exception t) {
+    // ExceptionHandler.process(t);
+    // } finally {
+    // if (clearModality) {
+    // host.setEnabled(true);
+    // }
+    // }
+    // if (result == Window.OK) {
+    // dialog.prepareVariablesText();
+    // insertString = dialog.getPreparedText();
+    // }
+    //
+    // } else {
+    // insertString = item.getContent();
+    // }
+    // return insertString;
+    // }
 
 }
