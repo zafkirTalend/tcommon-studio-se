@@ -170,4 +170,8 @@ public class HorizontalTabFactory {
         }
     }
 
+    public TabbedPropertySheetWidgetFactory getWidgetFactory() {
+        return this.widgetFactory;
+    }
+
 }
