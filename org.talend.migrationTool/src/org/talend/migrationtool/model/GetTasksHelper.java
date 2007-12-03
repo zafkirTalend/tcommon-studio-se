@@ -65,7 +65,12 @@ public class GetTasksHelper {
 
         };
 
-        return provider.createInstances().get(0);
+        List<IProjectMigrationTask> createInstances = provider.createInstances();
+        if (createInstances.isEmpty()) {
+            return null;
+        } else {
+            return createInstances.get(0);
+        }
     }
 
     public static List<IProjectMigrationTask> getProjectTasks(final boolean beforeLogon) {

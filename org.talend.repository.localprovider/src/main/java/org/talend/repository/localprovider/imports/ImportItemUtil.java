@@ -154,6 +154,9 @@ public class ImportItemUtil {
                 RepositoryContext repositoryContext = (RepositoryContext) ctx.getProperty(Context.REPOSITORY_CONTEXT_KEY);
                 for (String taskId : itemRecord.getMigrationTasksToApply()) {
                     IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
+                    if (task == null) {
+                        log.warn("Task " + taskId + " found in project doesn't exist anymore !");
+                    }
                     ExecutionResult executionResult = task.execute(repositoryContext.getProject(), newItem);
                     if (executionResult == ExecutionResult.FAILURE) {
                         throw new SystemException("Incomplete import item " + itemRecord.getItemName() + " (migration task "
