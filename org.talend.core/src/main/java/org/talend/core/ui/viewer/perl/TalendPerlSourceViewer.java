@@ -24,15 +24,13 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentPartitioner;
+import org.eclipse.jface.text.source.CompositeRuler;
 import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jface.text.source.IOverviewRuler;
 import org.eclipse.jface.text.source.ISharedTextColors;
 import org.eclipse.jface.text.source.IVerticalRuler;
 import org.eclipse.jface.text.source.OverviewRuler;
-import org.eclipse.jface.text.source.VerticalRuler;
-import org.eclipse.jface.text.source.projection.ProjectionSupport;
-import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.texteditor.AnnotationPreference;
@@ -86,8 +84,8 @@ public class TalendPerlSourceViewer extends ReconcilerViewer {
                 if (preference.contributesToHeader())
                     overviewRuler.addHeaderAnnotationType(preference.getAnnotationType());
             }
-            verticalRuler = new VerticalRuler(12);
         }
+        verticalRuler = new CompositeRuler(12);
 
         return new TalendPerlSourceViewer(composite, verticalRuler, overviewRuler, checkCode, styles, annotationAccess,
                 sharedColors, checkCode);
@@ -113,34 +111,35 @@ public class TalendPerlSourceViewer extends ReconcilerViewer {
      */
     @Override
     public void updateContents() {
-        InputStream codeStream = new ByteArrayInputStream(getDocument().get().getBytes());
-        try {
-            if (file == null) {
-                IProject perlProject = CorePlugin.getDefault().getRunProcessService().getProject(
-                        LanguageManager.getCurrentLanguage());
-                if (!perlProject.getFolder("internal").exists()) {
-                    perlProject.getFolder("internal").create(true, false, new NullProgressMonitor());
-                }
+        if (checkCode) {
+            InputStream codeStream = new ByteArrayInputStream(getDocument().get().getBytes());
+            try {
+                if (file == null) {
+                    IProject perlProject = CorePlugin.getDefault().getRunProcessService().getProject(
+                            LanguageManager.getCurrentLanguage());
+                    if (!perlProject.getFolder("internal").exists()) {
+                        perlProject.getFolder("internal").create(true, false, new NullProgressMonitor());
+                    }
 
-                IPath path = new Path("internal/codeChecker" + currentId++ + ".pl");
-                file = perlProject.getFile(path);
-                if (!file.exists()) {
-                    file.create(codeStream, true, null);
+                    IPath path = new Path("internal/codeChecker" + currentId++ + ".pl");
+                    file = perlProject.getFile(path);
+                    if (!file.exists()) {
+                        file.create(codeStream, true, null);
+                    } else {
+                        file.setContents(codeStream, true, false, null);
+                    }
+                    initializeModel();
                 } else {
                     file.setContents(codeStream, true, false, null);
                 }
-                initializeModel();
-            } else {
-                file.setContents(codeStream, true, false, null);
-            }
-            try {
-                PerlValidator.instance().validate(file, getDocument().get());
+                try {
+                    PerlValidator.instance().validate(file, getDocument().get());
+                } catch (CoreException e) {
+                    MessageBoxExceptionHandler.process(e);
+                }
             } catch (CoreException e) {
                 MessageBoxExceptionHandler.process(e);
             }
-
-        } catch (CoreException e) {
-            MessageBoxExceptionHandler.process(e);
         }
     }
 
@@ -151,6 +150,8 @@ public class TalendPerlSourceViewer extends ReconcilerViewer {
      */
     @Override
     protected void initializeModel() {
+        getSourceViewerDecorationSupport().install(PerlEditorPlugin.getDefault().getPreferenceStore());
+
         IAnnotationModel model = new PerlSourceAnnotationModel(file);
         IDocument document = this.getDocument();
         model.connect(document);
@@ -159,14 +160,6 @@ public class TalendPerlSourceViewer extends ReconcilerViewer {
             setDocument(document, model);
             showAnnotations(model != null);
         }
-
-        ProjectionSupport projectionSupport = new ProjectionSupport(this, annotationAccess, sharedColors);
-        projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.error");
-        projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.warning");
-        projectionSupport.install();
-
-        getSourceViewerDecorationSupport().install(PerlEditorPlugin.getDefault().getPreferenceStore());
-
-        doOperation(ProjectionViewer.TOGGLE);
+        super.initializeModel();
     }
 }

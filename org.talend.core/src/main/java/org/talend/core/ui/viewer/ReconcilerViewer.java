@@ -12,52 +12,70 @@
 // ============================================================================
 package org.talend.core.ui.viewer;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.jdt.internal.ui.text.java.hover.SourceViewerInformationControl;
 import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.DocumentEvent;
+import org.eclipse.jface.text.FindReplaceDocumentAdapter;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
+import org.eclipse.jface.text.IInformationControl;
+import org.eclipse.jface.text.IInformationControlCreator;
+import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextOperationTarget;
+import org.eclipse.jface.text.Position;
+import org.eclipse.jface.text.Region;
+import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.IOverviewRuler;
 import org.eclipse.jface.text.source.ISharedTextColors;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
+import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
+import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.dnd.DropTargetListener;
 import org.eclipse.swt.dnd.Transfer;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.editors.text.EditorsUI;
 import org.eclipse.ui.internal.editors.text.EditorsPlugin;
 import org.eclipse.ui.texteditor.AbstractDecoratedTextEditorPreferenceConstants;
 import org.eclipse.ui.texteditor.AnnotationPreference;
 import org.eclipse.ui.texteditor.MarkerAnnotationPreferences;
 import org.eclipse.ui.texteditor.SourceViewerDecorationSupport;
 import org.epic.core.model.SourceFile;
+import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.utils.threading.ExecutionLimiter;
 
 /**
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
+ */
+/**
+ * DOC nrousseau class global comment. Detailled comment
  */
 public abstract class ReconcilerViewer extends ProjectionViewer {
 
@@ -76,6 +94,9 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
     protected ISharedTextColors sharedColors;
 
     protected boolean checkCode;
+
+    // used to calculate the full document displayed (in the visible part, no matter if there is annotations or not)
+    private IRegion viewerStartRegion, viewerEndRegion;
 
     /**
      * Preference key for highlighting current line.
@@ -145,13 +166,18 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
 
             @Override
             protected void execute(boolean isFinalExecution) {
-                if (!getControl().isDisposed()) {
-                    getControl().getDisplay().asyncExec(new Runnable() {
+                if (isFinalExecution) {
+                    if (getControl() != null && !getControl().isDisposed()) {
+                        getControl().getDisplay().asyncExec(new Runnable() {
 
-                        public void run() {
-                            updateContents();
-                        }
-                    });
+                            public void run() {
+                                updateContents();
+                                if (document.get().length() != 0) {
+                                    calculatePositions();
+                                }
+                            }
+                        });
+                    }
                 }
             }
         };
@@ -167,19 +193,120 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
                 documentReconcilerLimiter.startIfExecutable(true);
             }
         });
+    }
 
-        this.getTextWidget().addDisposeListener(new DisposeListener() {
+    protected Map<ProjectionAnnotation, Position> oldAnnotations = new HashMap<ProjectionAnnotation, Position>();
 
-            public void widgetDisposed(DisposeEvent e) {
-                if (file != null && file.exists()) {
-                    try {
-                        file.delete(false, new NullProgressMonitor());
-                    } catch (CoreException e1) {
-                        // do nothing as the delete is not important.
+    protected void calculatePositions() {
+        if (hasSnippetsModifications()) {
+            final Map<ProjectionAnnotation, Position> annotations = getAllSnippetsAnnotations();
+
+            Display.getDefault().asyncExec(new Runnable() {
+
+                public void run() {
+                    if (!annotations.isEmpty() && getProjectionAnnotationModel() == null) {
+                        enableProjection();
+                    }
+                    if (getProjectionAnnotationModel() != null) {
+                        Annotation[] oldAnno = oldAnnotations.keySet().toArray(new Annotation[0]);
+                        getProjectionAnnotationModel().modifyAnnotations(oldAnno, annotations, null);
+                        oldAnnotations.clear();
+                        oldAnnotations.putAll(annotations);
+                        if (annotations.isEmpty()) {
+                            disableProjection();
+                        }
                     }
                 }
+
+            });
+        }
+    }
+
+    /**
+     * Check if there is any new snippet or if some has been deleted.
+     * 
+     * @return
+     */
+    private boolean hasSnippetsModifications() {
+        IDocument document = getDocument();
+        if (document == null) {
+            return false;
+        }
+        int curNbAnnotations = oldAnnotations.size();
+        int actualNbAnnotations = 0;
+        int curOffset = 0;
+        FindReplaceDocumentAdapter frda = new FindReplaceDocumentAdapter(document);
+        try {
+            IRegion startRegion = frda.find(curOffset, "SNIPPET_START", true, false, false, false);
+            while (startRegion != null && startRegion.getOffset() >= curOffset) {
+                int startLine = document.getLineOfOffset(startRegion.getOffset());
+                int startOffset = document.getLineOffset(startLine);
+                curOffset = startOffset;
+                IRegion endRegion = frda.find(startRegion.getOffset(), "SNIPPET_END", true, false, false, false);
+                if (endRegion != null) {
+                    actualNbAnnotations++;
+                    int endLine = document.getLineOfOffset(endRegion.getOffset());
+                    int endOffset = document.getLineOffset(endLine);
+                    endOffset += document.getLineLength(endLine);
+                    curOffset = endOffset;
+                    boolean contains = false;
+                    String text = document.get(startOffset, endOffset - startOffset);
+                    for (ProjectionAnnotation annotation : oldAnnotations.keySet()) {
+                        Position pos = oldAnnotations.get(annotation);
+                        if (annotation.getText().equals(text) && (startOffset == pos.getOffset())) {
+                            contains = true;
+                        }
+                    }
+                    if (!contains) {
+                        return true;
+                    }
+                }
+                if (curOffset < document.getLength()) {
+                    startRegion = frda.find(curOffset, "SNIPPET_START", true, false, false, false);
+                }
             }
-        });
+
+        } catch (BadLocationException e) {
+            ExceptionHandler.process(e);
+        }
+        if (curNbAnnotations != actualNbAnnotations) {
+            return true;
+        }
+        return false;
+    }
+
+    private Map<ProjectionAnnotation, Position> getAllSnippetsAnnotations() {
+        Map<ProjectionAnnotation, Position> annotations = new HashMap<ProjectionAnnotation, Position>();
+        IDocument document = getDocument();
+        int curOffset = 0;
+        FindReplaceDocumentAdapter frda = new FindReplaceDocumentAdapter(document);
+        try {
+            IRegion startRegion = frda.find(curOffset, "SNIPPET_START", true, false, false, false);
+            while (startRegion != null && startRegion.getOffset() >= curOffset) {
+                int startLine = document.getLineOfOffset(startRegion.getOffset());
+                int startOffset = document.getLineOffset(startLine);
+                curOffset = startOffset;
+                IRegion endRegion = frda.find(startRegion.getOffset(), "SNIPPET_END", true, false, false, false);
+                if (endRegion != null) {
+                    int endLine = document.getLineOfOffset(endRegion.getOffset());
+                    int endOffset = document.getLineOffset(endLine);
+                    endOffset += document.getLineLength(endLine);
+                    curOffset = endOffset;
+                    String text = document.get(startOffset, endOffset - startOffset);
+                    ProjectionAnnotation annotation = new ProjectionAnnotation(true);
+                    annotation.setText(text);
+                    annotation.setRangeIndication(true);
+                    annotations.put(annotation, new Position(startOffset, endOffset - startOffset));
+                }
+                if (curOffset < document.getLength()) {
+                    startRegion = frda.find(curOffset, "SNIPPET_START", true, false, false, false);
+                }
+            }
+
+        } catch (BadLocationException e) {
+            ExceptionHandler.process(e);
+        }
+        return annotations;
     }
 
     /**
@@ -263,7 +390,27 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
 
     public abstract void updateContents();
 
-    protected abstract void initializeModel();
+    protected void initializeModel() {
+        ProjectionSupport projectionSupport = new ProjectionSupport(this, annotationAccess, sharedColors);
+        projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.error"); //$NON-NLS-1$
+        projectionSupport.addSummarizableAnnotationType("org.eclipse.ui.workbench.texteditor.warning"); //$NON-NLS-1$
+        projectionSupport.setHoverControlCreator(new IInformationControlCreator() {
+
+            public IInformationControl createInformationControl(Shell shell) {
+                return new SourceViewerInformationControl(shell, SWT.TOOL | SWT.NO_TRIM | SWT.LEFT_TO_RIGHT, SWT.NONE, EditorsUI
+                        .getTooltipAffordanceString());
+            }
+        });
+        projectionSupport.setInformationPresenterControlCreator(new IInformationControlCreator() {
+
+            public IInformationControl createInformationControl(Shell shell) {
+                int shellStyle = SWT.RESIZE | SWT.TOOL | SWT.LEFT_TO_RIGHT;
+                int style = SWT.V_SCROLL | SWT.H_SCROLL;
+                return new SourceViewerInformationControl(shell, shellStyle, style);
+            }
+        });
+        projectionSupport.install();
+    }
 
     private void handleVerifyKeyPressed(VerifyEvent event) {
         if (!event.doit) {
@@ -328,4 +475,44 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
         dropTarget.addDropListener(listener);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.text.source.projection.ProjectionViewer#handleDispose()
+     */
+    @Override
+    protected void handleDispose() {
+        if (file != null && file.exists()) {
+            try {
+                file.delete(false, new NullProgressMonitor());
+            } catch (CoreException e1) {
+                // do nothing as the delete is not important.
+            }
+        }
+        super.handleDispose();
+    }
+
+    public IRegion getViewerRegion() {
+        if (viewerStartRegion == null) {
+            return new Region(0, getDocument().getLength());
+        }
+        return new Region(viewerStartRegion.getLength(), getDocument().getLength() - viewerStartRegion.getLength()
+                - viewerEndRegion.getLength());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.text.source.projection.ProjectionViewer#setVisibleRegion(int, int)
+     */
+    @Override
+    public void setVisibleRegion(int start, int length) {
+        viewerStartRegion = new Region(0, start);
+        if (getDocument().getLength() > start) {
+            viewerEndRegion = new Region(start + 1, getDocument().getLength() - start);
+        } else {
+            viewerEndRegion = new Region(start, 0);
+        }
+        super.setVisibleRegion(start, length);
+    }
 }
