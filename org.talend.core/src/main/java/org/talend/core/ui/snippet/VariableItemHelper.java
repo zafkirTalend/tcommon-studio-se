@@ -29,6 +29,8 @@ import org.talend.core.model.properties.SnippetItem;
  */
 public class VariableItemHelper {
 
+    public static String systemEOL = System.getProperty("line.separator");
+
     /*
      * Append the generated code comments
      * 
@@ -39,20 +41,38 @@ public class VariableItemHelper {
      */
     /* SNIPPET_END:test */
     public static String getInsertString(Shell host, SnippetItem item) {
-        String paraDefinition = getInsertSnippetCode(host, item, true);
+        String[] paras = getInsertSnippetCode(host, item, true);
+        String paraDefinition = "";
+        String idDefinition = null;
         StringBuilder sb = new StringBuilder();
+        sb.append(systemEOL);
         if (LanguageManager.getCurrentLanguage().equals(ECodeLanguage.PERL)) {
-            sb.append("\n#SNIPPET_START {0}");
-            sb.append("\n");
+            sb.append("#SNIPPET_START:{0}");
+            sb.append(systemEOL);
             sb.append("{1}");
-            sb.append("\n#SNIPPET_END\n");
+            sb.append(systemEOL);
+            sb.append("#SNIPPET_END");
+            for (String para : paras) {
+                paraDefinition += "#";
+                paraDefinition += para;
+                paraDefinition += systemEOL;
+            }
+            idDefinition = "#{ID}=" + item.getProperty().getId();
         } else {
             // Java comment format
-            sb.append("\n/*SNIPPET_START {0}*/");
-            sb.append("\n");
+            sb.append("/*SNIPPET_START:{0}*/");
+            sb.append(systemEOL);
             sb.append("{1}");
-            sb.append("\n/*SNIPPET_END*/\n");
+            sb.append(systemEOL);
+            sb.append("/*SNIPPET_END*/");
+            for (String para : paras) {
+                paraDefinition += para;
+                paraDefinition += systemEOL;
+            }
+            idDefinition = "{ID}=" + item.getProperty().getId();
         }
+        sb.append(systemEOL);
+
         // StringBuilder b = new StringBuilder();
         // b.append("(");
         // for (SnippetVariable var : (List<SnippetVariable>) item.getVariables()) {
@@ -60,7 +80,7 @@ public class VariableItemHelper {
         // }
         // b.deleteCharAt(b.length() - 1);
         // b.append(")");
-        String snippetDefinition = "ID=" + item.getProperty().getId() + " " + item.getProperty().getLabel() + paraDefinition;
+        String snippetDefinition = item.getProperty().getLabel() + systemEOL + paraDefinition + idDefinition;
 
         String msg = sb.toString();
         MessageFormat format = new MessageFormat(msg);
@@ -70,11 +90,12 @@ public class VariableItemHelper {
         return msg;
     }
 
-    public static String getInsertSnippetCode(final Shell host, SnippetItem item, boolean clearModality) {
+    public static String[] getInsertSnippetCode(final Shell host, SnippetItem item, boolean clearModality) {
+        String[] insertString = new String[0];
         if (item == null) {
-            return ""; //$NON-NLS-1$
+            return insertString; //$NON-NLS-1$
         }
-        String insertString = null;
+
         if (item.getVariables().size() > 0) {
             VariableInsertionDialog dialog = new VariableInsertionDialog(host, clearModality);
             dialog.setItem(item);
@@ -110,9 +131,6 @@ public class VariableItemHelper {
             if (result == Window.OK) {
                 insertString = dialog.prepareVariablesText();
             }
-
-        } else {
-            insertString = "()";
         }
         return insertString;
     }

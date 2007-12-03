@@ -319,18 +319,18 @@ public class VariableInsertionDialog extends Dialog {
         setPreparedText(text);
     }
 
-    public String prepareVariablesText() {
+    public String[] prepareVariablesText() {
         Set<String> keys = fTableViewer.getColumnData()[0].keySet();
-        StringBuilder sb = new StringBuilder();
-        sb.append("(");
+
+        String[] result = new String[keys.size()];
+        int i = 0;
         for (String key : keys) {
             String name = (String) fTableViewer.getColumnData()[0].get(key);
             String value = (String) fTableViewer.getColumnData()[1].get(key);
-            sb.append(name + "=" + value + " ");
+            result[i] = name + "=" + value;
+            i++;
         }
-        sb.deleteCharAt(sb.length() - 1);
-        sb.append(")");
-        return sb.toString();
+        return result;
 
     }
 
