@@ -34,6 +34,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDbmsId <em>Dbms Id</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getProductId <em>Product Id</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDBRootPath <em>DB Root Path</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getAdditionalParams <em>Additional Params</em>}</li>
  * </ul>
  * </p>
  *
@@ -485,5 +486,31 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     void setDBRootPath(String value);
+
+    /**
+     * Returns the value of the '<em><b>Additional Params</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Additional Params</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Additional Params</em>' attribute.
+     * @see #setAdditionalParams(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_AdditionalParams()
+     * @model
+     * @generated
+     */
+    String getAdditionalParams();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getAdditionalParams <em>Additional Params</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Additional Params</em>' attribute.
+     * @see #getAdditionalParams()
+     * @generated
+     */
+    void setAdditionalParams(String value);
 
 } // DatabaseConnection

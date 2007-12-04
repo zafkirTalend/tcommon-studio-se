@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.talend.core.model.metadata.builder.connection.*;
 import org.talend.core.model.metadata.builder.connection.AbstractMetadataObject;
 import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.ConnectionPackage;
@@ -34,22 +35,21 @@ import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
  * {@link #doSwitch(EObject) doSwitch(object)} to invoke the <code>caseXXX</code> method for each class of the model,
  * starting with the actual class of the object and proceeding up the inheritance hierarchy until a non-null result is
  * returned, which is the result of the switch. <!-- end-user-doc -->
- * 
  * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage
  * @generated
  */
 public class ConnectionSwitch {
 
     /**
-     * The cached model package <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * The cached model package
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     protected static ConnectionPackage modelPackage;
 
     /**
-     * Creates an instance of the switch. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Creates an instance of the switch.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public ConnectionSwitch() {
@@ -59,9 +59,8 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that
-     * result. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the first non-null result returned by a <code>caseXXX</code> call.
      * @generated
      */
@@ -70,217 +69,174 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that
-     * result. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the first non-null result returned by a <code>caseXXX</code> call.
      * @generated
      */
     protected Object doSwitch(EClass theEClass, EObject theEObject) {
         if (theEClass.eContainer() == modelPackage) {
             return doSwitch(theEClass.getClassifierID(), theEObject);
-        } else {
+        }
+        else {
             List eSuperTypes = theEClass.getESuperTypes();
-            return eSuperTypes.isEmpty() ? defaultCase(theEObject) : doSwitch((EClass) eSuperTypes.get(0), theEObject);
+            return
+                eSuperTypes.isEmpty() ?
+                    defaultCase(theEObject) :
+                    doSwitch((EClass)eSuperTypes.get(0), theEObject);
         }
     }
 
     /**
-     * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that
-     * result. <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
+     * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the first non-null result returned by a <code>caseXXX</code> call.
      * @generated
      */
     protected Object doSwitch(int classifierID, EObject theEObject) {
         switch (classifierID) {
-        case ConnectionPackage.METADATA: {
-            Metadata metadata = (Metadata) theEObject;
-            Object result = caseMetadata(metadata);
-            if (result == null)
-                result = caseAbstractMetadataObject(metadata);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.CONNECTION: {
-            Connection connection = (Connection) theEObject;
-            Object result = caseConnection(connection);
-            if (result == null)
-                result = caseAbstractMetadataObject(connection);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.METADATA_COLUMN: {
-            MetadataColumn metadataColumn = (MetadataColumn) theEObject;
-            Object result = caseMetadataColumn(metadataColumn);
-            if (result == null)
-                result = caseAbstractMetadataObject(metadataColumn);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.ABSTRACT_METADATA_OBJECT: {
-            AbstractMetadataObject abstractMetadataObject = (AbstractMetadataObject) theEObject;
-            Object result = caseAbstractMetadataObject(abstractMetadataObject);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.METADATA_TABLE: {
-            MetadataTable metadataTable = (MetadataTable) theEObject;
-            Object result = caseMetadataTable(metadataTable);
-            if (result == null)
-                result = caseAbstractMetadataObject(metadataTable);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.FILE_CONNECTION: {
-            FileConnection fileConnection = (FileConnection) theEObject;
-            Object result = caseFileConnection(fileConnection);
-            if (result == null)
-                result = caseConnection(fileConnection);
-            if (result == null)
-                result = caseAbstractMetadataObject(fileConnection);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.DELIMITED_FILE_CONNECTION: {
-            DelimitedFileConnection delimitedFileConnection = (DelimitedFileConnection) theEObject;
-            Object result = caseDelimitedFileConnection(delimitedFileConnection);
-            if (result == null)
-                result = caseFileConnection(delimitedFileConnection);
-            if (result == null)
-                result = caseConnection(delimitedFileConnection);
-            if (result == null)
-                result = caseAbstractMetadataObject(delimitedFileConnection);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.POSITIONAL_FILE_CONNECTION: {
-            PositionalFileConnection positionalFileConnection = (PositionalFileConnection) theEObject;
-            Object result = casePositionalFileConnection(positionalFileConnection);
-            if (result == null)
-                result = caseFileConnection(positionalFileConnection);
-            if (result == null)
-                result = caseConnection(positionalFileConnection);
-            if (result == null)
-                result = caseAbstractMetadataObject(positionalFileConnection);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.DATABASE_CONNECTION: {
-            DatabaseConnection databaseConnection = (DatabaseConnection) theEObject;
-            Object result = caseDatabaseConnection(databaseConnection);
-            if (result == null)
-                result = caseConnection(databaseConnection);
-            if (result == null)
-                result = caseAbstractMetadataObject(databaseConnection);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.REGEXP_FILE_CONNECTION: {
-            RegexpFileConnection regexpFileConnection = (RegexpFileConnection) theEObject;
-            Object result = caseRegexpFileConnection(regexpFileConnection);
-            if (result == null)
-                result = caseFileConnection(regexpFileConnection);
-            if (result == null)
-                result = caseConnection(regexpFileConnection);
-            if (result == null)
-                result = caseAbstractMetadataObject(regexpFileConnection);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.XML_FILE_CONNECTION: {
-            XmlFileConnection xmlFileConnection = (XmlFileConnection) theEObject;
-            Object result = caseXmlFileConnection(xmlFileConnection);
-            if (result == null)
-                result = caseConnection(xmlFileConnection);
-            if (result == null)
-                result = caseAbstractMetadataObject(xmlFileConnection);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.SCHEMA_TARGET: {
-            SchemaTarget schemaTarget = (SchemaTarget) theEObject;
-            Object result = caseSchemaTarget(schemaTarget);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.QUERIES_CONNECTION: {
-            QueriesConnection queriesConnection = (QueriesConnection) theEObject;
-            Object result = caseQueriesConnection(queriesConnection);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.QUERY: {
-            Query query = (Query) theEObject;
-            Object result = caseQuery(query);
-            if (result == null)
-                result = caseAbstractMetadataObject(query);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.LDIF_FILE_CONNECTION: {
-            LdifFileConnection ldifFileConnection = (LdifFileConnection) theEObject;
-            Object result = caseLdifFileConnection(ldifFileConnection);
-            if (result == null)
-                result = caseConnection(ldifFileConnection);
-            if (result == null)
-                result = caseAbstractMetadataObject(ldifFileConnection);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR: {
-            XmlXPathLoopDescriptor xmlXPathLoopDescriptor = (XmlXPathLoopDescriptor) theEObject;
-            Object result = caseXmlXPathLoopDescriptor(xmlXPathLoopDescriptor);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.GENERIC_SCHEMA_CONNECTION: {
-            GenericSchemaConnection genericSchemaConnection = (GenericSchemaConnection) theEObject;
-            Object result = caseGenericSchemaConnection(genericSchemaConnection);
-            if (result == null)
-                result = caseConnection(genericSchemaConnection);
-            if (result == null)
-                result = caseAbstractMetadataObject(genericSchemaConnection);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        case ConnectionPackage.LDAP_SCHEMA_CONNECTION: {
-            LDAPSchemaConnection ldapSchemaConnection = (LDAPSchemaConnection) theEObject;
-            Object result = caseLDAPSchemaConnection(ldapSchemaConnection);
-            if (result == null)
-                result = caseConnection(ldapSchemaConnection);
-            if (result == null)
-                result = caseAbstractMetadataObject(ldapSchemaConnection);
-            if (result == null)
-                result = defaultCase(theEObject);
-            return result;
-        }
-        default:
-            return defaultCase(theEObject);
+            case ConnectionPackage.METADATA: {
+                Metadata metadata = (Metadata)theEObject;
+                Object result = caseMetadata(metadata);
+                if (result == null) result = caseAbstractMetadataObject(metadata);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.CONNECTION: {
+                Connection connection = (Connection)theEObject;
+                Object result = caseConnection(connection);
+                if (result == null) result = caseAbstractMetadataObject(connection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.METADATA_COLUMN: {
+                MetadataColumn metadataColumn = (MetadataColumn)theEObject;
+                Object result = caseMetadataColumn(metadataColumn);
+                if (result == null) result = caseAbstractMetadataObject(metadataColumn);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.ABSTRACT_METADATA_OBJECT: {
+                AbstractMetadataObject abstractMetadataObject = (AbstractMetadataObject)theEObject;
+                Object result = caseAbstractMetadataObject(abstractMetadataObject);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.METADATA_TABLE: {
+                MetadataTable metadataTable = (MetadataTable)theEObject;
+                Object result = caseMetadataTable(metadataTable);
+                if (result == null) result = caseAbstractMetadataObject(metadataTable);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.FILE_CONNECTION: {
+                FileConnection fileConnection = (FileConnection)theEObject;
+                Object result = caseFileConnection(fileConnection);
+                if (result == null) result = caseConnection(fileConnection);
+                if (result == null) result = caseAbstractMetadataObject(fileConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.DELIMITED_FILE_CONNECTION: {
+                DelimitedFileConnection delimitedFileConnection = (DelimitedFileConnection)theEObject;
+                Object result = caseDelimitedFileConnection(delimitedFileConnection);
+                if (result == null) result = caseFileConnection(delimitedFileConnection);
+                if (result == null) result = caseConnection(delimitedFileConnection);
+                if (result == null) result = caseAbstractMetadataObject(delimitedFileConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.POSITIONAL_FILE_CONNECTION: {
+                PositionalFileConnection positionalFileConnection = (PositionalFileConnection)theEObject;
+                Object result = casePositionalFileConnection(positionalFileConnection);
+                if (result == null) result = caseFileConnection(positionalFileConnection);
+                if (result == null) result = caseConnection(positionalFileConnection);
+                if (result == null) result = caseAbstractMetadataObject(positionalFileConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.DATABASE_CONNECTION: {
+                DatabaseConnection databaseConnection = (DatabaseConnection)theEObject;
+                Object result = caseDatabaseConnection(databaseConnection);
+                if (result == null) result = caseConnection(databaseConnection);
+                if (result == null) result = caseAbstractMetadataObject(databaseConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.REGEXP_FILE_CONNECTION: {
+                RegexpFileConnection regexpFileConnection = (RegexpFileConnection)theEObject;
+                Object result = caseRegexpFileConnection(regexpFileConnection);
+                if (result == null) result = caseFileConnection(regexpFileConnection);
+                if (result == null) result = caseConnection(regexpFileConnection);
+                if (result == null) result = caseAbstractMetadataObject(regexpFileConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.XML_FILE_CONNECTION: {
+                XmlFileConnection xmlFileConnection = (XmlFileConnection)theEObject;
+                Object result = caseXmlFileConnection(xmlFileConnection);
+                if (result == null) result = caseConnection(xmlFileConnection);
+                if (result == null) result = caseAbstractMetadataObject(xmlFileConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.SCHEMA_TARGET: {
+                SchemaTarget schemaTarget = (SchemaTarget)theEObject;
+                Object result = caseSchemaTarget(schemaTarget);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.QUERIES_CONNECTION: {
+                QueriesConnection queriesConnection = (QueriesConnection)theEObject;
+                Object result = caseQueriesConnection(queriesConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.QUERY: {
+                Query query = (Query)theEObject;
+                Object result = caseQuery(query);
+                if (result == null) result = caseAbstractMetadataObject(query);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.LDIF_FILE_CONNECTION: {
+                LdifFileConnection ldifFileConnection = (LdifFileConnection)theEObject;
+                Object result = caseLdifFileConnection(ldifFileConnection);
+                if (result == null) result = caseConnection(ldifFileConnection);
+                if (result == null) result = caseAbstractMetadataObject(ldifFileConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.XML_XPATH_LOOP_DESCRIPTOR: {
+                XmlXPathLoopDescriptor xmlXPathLoopDescriptor = (XmlXPathLoopDescriptor)theEObject;
+                Object result = caseXmlXPathLoopDescriptor(xmlXPathLoopDescriptor);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.GENERIC_SCHEMA_CONNECTION: {
+                GenericSchemaConnection genericSchemaConnection = (GenericSchemaConnection)theEObject;
+                Object result = caseGenericSchemaConnection(genericSchemaConnection);
+                if (result == null) result = caseConnection(genericSchemaConnection);
+                if (result == null) result = caseAbstractMetadataObject(genericSchemaConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case ConnectionPackage.LDAP_SCHEMA_CONNECTION: {
+                LDAPSchemaConnection ldapSchemaConnection = (LDAPSchemaConnection)theEObject;
+                Object result = caseLDAPSchemaConnection(ldapSchemaConnection);
+                if (result == null) result = caseConnection(ldapSchemaConnection);
+                if (result == null) result = caseAbstractMetadataObject(ldapSchemaConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            default: return defaultCase(theEObject);
         }
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Metadata</em>'. <!-- begin-user-doc -->
+     * Returns the result of interpreting the object as an instance of '<em>Metadata</em>'.
+     * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
-     * 
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Metadata</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -459,9 +415,9 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Query</em>'. <!-- begin-user-doc -->
+     * Returns the result of interpreting the object as an instance of '<em>Query</em>'.
+     * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch. <!-- end-user-doc -->
-     * 
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>Query</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
@@ -528,10 +484,10 @@ public class ConnectionSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>EObject</em>'. <!-- begin-user-doc -->
+     * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
+     * <!-- begin-user-doc -->
      * This implementation returns null; returning a non-null result will terminate the switch, but this is the last
      * case anyway. <!-- end-user-doc -->
-     * 
      * @param object the target of the switch.
      * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject)

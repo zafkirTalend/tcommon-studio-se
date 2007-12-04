@@ -1648,13 +1648,22 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__DB_ROOT_PATH = CONNECTION_FEATURE_COUNT + 16;
 
     /**
+     * The feature id for the '<em><b>Additional Params</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__ADDITIONAL_PARAMS = CONNECTION_FEATURE_COUNT + 17;
+
+    /**
      * The number of structural features of the '<em>Database Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 17;
+    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 18;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl <em>Regexp File Connection</em>}' class.
@@ -3696,6 +3705,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_DBRootPath();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getAdditionalParams <em>Additional Params</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Additional Params</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#getAdditionalParams()
+     * @see #getDatabaseConnection()
+     * @generated
+     */
+    EAttribute getDatabaseConnection_AdditionalParams();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.RegexpFileConnection <em>Regexp File Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Regexp File Connection</em>'.
@@ -4964,6 +4984,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute DATABASE_CONNECTION__DB_ROOT_PATH = eINSTANCE.getDatabaseConnection_DBRootPath();
+
+        /**
+         * The meta object literal for the '<em><b>Additional Params</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DATABASE_CONNECTION__ADDITIONAL_PARAMS = eINSTANCE.getDatabaseConnection_AdditionalParams();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl <em>Regexp File Connection</em>}' class.

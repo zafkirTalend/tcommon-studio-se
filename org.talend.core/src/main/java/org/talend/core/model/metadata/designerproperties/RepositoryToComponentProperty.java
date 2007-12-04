@@ -220,6 +220,9 @@ public class RepositoryToComponentProperty {
         if (value.equals("FILE")) { //$NON-NLS-1$
             return TalendTextUtils.addQuotes(connection.getFileFieldName());
         }
+        if (value.equals("PROPERTIES_STRING")) { //$NON-NLS-1$
+            return TalendTextUtils.addQuotes(connection.getAdditionalParams());
+        }
         return null;
     }
 
@@ -361,8 +364,7 @@ public class RepositoryToComponentProperty {
             IMetadataTable metaTable) {
         if (connection instanceof XmlFileConnection) {
             XmlFileConnection xmlConnection = (XmlFileConnection) connection;
-            EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection
-                    .getSchema();
+            EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection.getSchema();
             XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
             List<SchemaTarget> schemaTargets = xmlDesc.getSchemaTargets();
             tableInfo.clear();
@@ -384,8 +386,7 @@ public class RepositoryToComponentProperty {
             List<Map<String, Object>> tableInfo, IMetadataTable metaTable) {
         if (connection instanceof XmlFileConnection) {
             XmlFileConnection xmlConnection = (XmlFileConnection) connection;
-            EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection
-                    .getSchema();
+            EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection.getSchema();
             XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
             if (value.equals("XML_MAPPING")) { //$NON-NLS-1$
                 if (xmlDesc == null) {
@@ -500,8 +501,7 @@ public class RepositoryToComponentProperty {
     public static List<Map<String, Object>> getXMLMappingValue(Connection connection, IMetadataTable metadataTable) {
         if (connection instanceof XmlFileConnection) {
             XmlFileConnection xmlConnection = (XmlFileConnection) connection;
-            EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection
-                    .getSchema();
+            EObjectContainmentWithInverseEList objectList = (EObjectContainmentWithInverseEList) xmlConnection.getSchema();
             XmlXPathLoopDescriptor xmlDesc = (XmlXPathLoopDescriptor) objectList.get(0);
             if (metadataTable != null) {
                 if (xmlDesc != null) {

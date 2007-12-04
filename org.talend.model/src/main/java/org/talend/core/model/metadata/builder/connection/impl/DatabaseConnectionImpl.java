@@ -44,6 +44,7 @@ import org.talend.core.model.metadata.builder.connection.QueriesConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDbmsId <em>Dbms Id</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getProductId <em>Product Id</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDBRootPath <em>DB Root Path</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getAdditionalParams <em>Additional Params</em>}</li>
  * </ul>
  * </p>
  *
@@ -390,6 +391,26 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @ordered
      */
     protected String dbRootPath = DB_ROOT_PATH_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getAdditionalParams() <em>Additional Params</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdditionalParams()
+     * @generated
+     * @ordered
+     */
+    protected static final String ADDITIONAL_PARAMS_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getAdditionalParams() <em>Additional Params</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdditionalParams()
+     * @generated
+     * @ordered
+     */
+    protected String additionalParams = ADDITIONAL_PARAMS_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -771,6 +792,27 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- end-user-doc -->
      * @generated
      */
+    public String getAdditionalParams() {
+        return additionalParams;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setAdditionalParams(String newAdditionalParams) {
+        String oldAdditionalParams = additionalParams;
+        additionalParams = newAdditionalParams;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS, oldAdditionalParams, additionalParams));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
@@ -807,6 +849,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return getProductId();
             case ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH:
                 return getDBRootPath();
+            case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
+                return getAdditionalParams();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -868,6 +912,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return;
             case ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH:
                 setDBRootPath((String)newValue);
+                return;
+            case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
+                setAdditionalParams((String)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -931,6 +978,9 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             case ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH:
                 setDBRootPath(DB_ROOT_PATH_EDEFAULT);
                 return;
+            case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
+                setAdditionalParams(ADDITIONAL_PARAMS_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -976,6 +1026,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return PRODUCT_ID_EDEFAULT == null ? productId != null : !PRODUCT_ID_EDEFAULT.equals(productId);
             case ConnectionPackage.DATABASE_CONNECTION__DB_ROOT_PATH:
                 return DB_ROOT_PATH_EDEFAULT == null ? dbRootPath != null : !DB_ROOT_PATH_EDEFAULT.equals(dbRootPath);
+            case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
+                return ADDITIONAL_PARAMS_EDEFAULT == null ? additionalParams != null : !ADDITIONAL_PARAMS_EDEFAULT.equals(additionalParams);
         }
         return super.eIsSet(featureID);
     }
@@ -1023,6 +1075,8 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         result.append(productId);
         result.append(", DBRootPath: ");
         result.append(dbRootPath);
+        result.append(", AdditionalParams: ");
+        result.append(additionalParams);
         result.append(')');
         return result.toString();
     }
