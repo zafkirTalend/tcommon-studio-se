@@ -98,6 +98,8 @@ public class TalendTextUtils {
         } else {
             newString = QUOTATION_MARK + checkStringQuotationMarks(text) + QUOTATION_MARK;
         }
+        // newString = newString.replaceAll("\r", "");
+        // newString = newString.replaceAll("\n", "");
         return widenSQLRestrict(newString, quoteStyle);
     }
 
@@ -156,8 +158,15 @@ public class TalendTextUtils {
                 lastIndexOf3++;
             }
             return lastIndexOf3;
+        } else if (substring.contains(" ")) {
+            int lastIndexOf3 = substring.lastIndexOf(" ");
+            if ((lastIndexOf3 + 1) < fullString.length()) {
+                lastIndexOf3++;
+            }
+            return lastIndexOf3;
         } else {
             return substring.length();
+
         }
     }
 
