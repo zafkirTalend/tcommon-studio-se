@@ -302,6 +302,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         needsBinFolder.add(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
         needsBinFolder.add(ERepositoryObjectType.PROCESS);
         needsBinFolder.add(ERepositoryObjectType.ROUTINES);
+        needsBinFolder.add(ERepositoryObjectType.SNIPPETS);
         needsBinFolder.add(ERepositoryObjectType.CONTEXT);
     }
 
