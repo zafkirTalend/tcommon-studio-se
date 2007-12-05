@@ -382,7 +382,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
                     monitor.worked(1);
                 }
                 monitor.done();
-                manager.fireContextsChangedEvent();
+                modelManager.onContextChangeDefault(manager, manager.getDefaultContext());
             }
         };
 
