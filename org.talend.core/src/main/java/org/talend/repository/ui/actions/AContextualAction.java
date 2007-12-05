@@ -42,6 +42,8 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     private boolean propertiesAction = false;
 
+    private boolean isToolbar = false;
+
     public boolean isEditAction() {
         return editAction;
     }
@@ -191,6 +193,24 @@ public abstract class AContextualAction extends Action implements ITreeContextua
 
     protected void notifySQLBuilder(List<IRepositoryObject> list) {
         CorePlugin.getDefault().getRepositoryService().notifySQLBuilder(list);
+    }
+
+    /**
+     * Getter for isToolbar.
+     * 
+     * @return the isToolbar
+     */
+    public boolean isToolbar() {
+        return this.isToolbar;
+    }
+
+    /**
+     * Sets the isToolbar.
+     * 
+     * @param isToolbar the isToolbar to set
+     */
+    public void setToolbar(boolean isToolbar) {
+        this.isToolbar = isToolbar;
     }
 
 }
