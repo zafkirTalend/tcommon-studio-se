@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Snippets Plug-in
+Bundle-SymbolicName: org.talend.snippets;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.talend.snippets.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.talend.commons,
+ org.talend.designer.core,
+ org.talend.repository,
+ org.talend.libraries,
+ org.talend.core
+Eclipse-LazyStart: true
+Bundle-Vendor: .Talend SA.
