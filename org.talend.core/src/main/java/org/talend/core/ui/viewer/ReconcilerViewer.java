@@ -42,6 +42,7 @@ import org.eclipse.jface.text.source.projection.ProjectionAnnotation;
 import org.eclipse.jface.text.source.projection.ProjectionSupport;
 import org.eclipse.jface.text.source.projection.ProjectionViewer;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.custom.VerifyKeyListener;
 import org.eclipse.swt.dnd.DropTarget;
 import org.eclipse.swt.dnd.DropTargetListener;
@@ -241,7 +242,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
             while (startRegion != null && startRegion.getOffset() >= curOffset) {
                 int startLine = document.getLineOfOffset(startRegion.getOffset());
                 int startOffset = document.getLineOffset(startLine);
-                curOffset = startOffset;
+                curOffset = startOffset + document.getLineLength(startLine);
                 IRegion endRegion = frda.find(startRegion.getOffset(), "SNIPPET_END", true, false, false, false);
                 if (endRegion != null) {
                     actualNbAnnotations++;
@@ -285,7 +286,7 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
             while (startRegion != null && startRegion.getOffset() >= curOffset) {
                 int startLine = document.getLineOfOffset(startRegion.getOffset());
                 int startOffset = document.getLineOffset(startLine);
-                curOffset = startOffset;
+                curOffset = startOffset + document.getLineLength(startLine);
                 IRegion endRegion = frda.find(startRegion.getOffset(), "SNIPPET_END", true, false, false, false);
                 if (endRegion != null) {
                     int endLine = document.getLineOfOffset(endRegion.getOffset());
@@ -514,5 +515,49 @@ public abstract class ReconcilerViewer extends ProjectionViewer {
             viewerEndRegion = new Region(start, 0);
         }
         super.setVisibleRegion(start, length);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.text.TextViewer#createTextWidget(org.eclipse.swt.widgets.Composite, int)
+     */
+    @Override
+    protected StyledText createTextWidget(Composite parent, int styles) {
+        return new ReconcilerStyledText(parent, styles, this);
+    }
+
+    /**
+     * DOC nrousseau ReconcilerViewer class global comment. Detailled comment
+     */
+    private class ReconcilerStyledText extends StyledText {
+
+        ReconcilerViewer viewer;
+
+        /**
+         * DOC nrousseau ReconcilerStyledText constructor comment.
+         * 
+         * @param parent
+         * @param style
+         */
+        public ReconcilerStyledText(Composite parent, int style, ReconcilerViewer viewer) {
+            super(parent, style);
+            this.viewer = viewer;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.swt.custom.StyledText#getText()
+         */
+        @Override
+        public String getText() {
+            IRegion region = viewer.getViewerRegion();
+            try {
+                return viewer.getDocument().get(region.getOffset(), region.getLength());
+            } catch (BadLocationException e) {
+                return super.getText();
+            }
+        }
     }
 }
