@@ -19,10 +19,12 @@ import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.ui.IPartListener;
+import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 
 /**
@@ -36,6 +38,10 @@ public interface IDesignerCoreService extends IService {
     // ¨Process will be loaded from XML File with this method, so it can be slow
     // This won't load the graphics of the job, only the datas
     public IProcess getProcessFromProcessItem(ProcessItem processItem);
+
+    public List<IProcess> getOpenedProcess();
+
+    public Item getProcessItem(MultiPageEditorPart talendEditor);
 
     // Used for generating HTML only
     public List<Map> getMaps();

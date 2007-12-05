@@ -534,10 +534,10 @@ public class ConextTemplateComposite extends Composite {
                         param.setSource(IContextParameter.BUILT_IN);
                         continue;
                     }
-                    // the variable not exist in the ContextItem
-                    if (!helper.hasExistedVariableFromContextItem(item, param.getName())) {
-                        param.setSource(IContextParameter.BUILT_IN);
-                    }
+                    // // the variable not exist in the ContextItem
+                    // if (!helper.hasExistedVariableFromContextItem(item, param.getName())) {
+                    // param.setSource(IContextParameter.BUILT_IN);
+                    // }
 
                 }
             }

@@ -13,7 +13,9 @@
 package org.talend.core.model.context;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.eclipse.emf.common.util.EList;
@@ -48,6 +50,8 @@ public class JobContextManager implements IContextManager {
     private List<IContext> listContext = new ArrayList<IContext>();
 
     private List<IContextListener> contextListenerList = new ArrayList<IContextListener>();
+
+    private Map<String, String> nameMap = new HashMap<String, String>();
 
     public JobContextManager() {
         listContext.add(defaultContext);
@@ -342,5 +346,19 @@ public class JobContextManager implements IContextManager {
         }
 
         return false;
+    }
+
+    public void addNewName(String newName, String oldName) {
+        String name = nameMap.get(oldName);
+        if (name != null) {
+            nameMap.remove(oldName);
+            nameMap.put(newName, name);
+        } else {
+            nameMap.put(newName, oldName);
+        }
+    }
+
+    public Map<String, String> getNameMap() {
+        return nameMap;
     }
 }
