@@ -13,6 +13,7 @@
 package org.talend.core.model.process;
 
 import org.eclipse.core.resources.IMarker;
+import org.talend.core.model.properties.RoutineItem;
 
 /**
  * DOC xhuang class global comment. Detailled comment <br/>
@@ -26,6 +27,8 @@ public class RoutineProblem extends Problem {
 
     private Integer lineNumber;
 
+    private RoutineItem routineItem;
+
     public RoutineProblem() {
         super();
     }
@@ -38,6 +41,12 @@ public class RoutineProblem extends Problem {
         this.marker = marker;
         this.lineNumber = lineNumber;
         setType(ProblemType.ROUTINE);
+
+    }
+
+    public RoutineProblem(RoutineItem routineItem, ProblemStatus status, String javaUnitName, IMarker marker,
+            String markerErrorMessage, Integer lineNumber) {
+        this(status, javaUnitName, marker, markerErrorMessage, lineNumber);
     }
 
     private String getName() {
@@ -60,6 +69,10 @@ public class RoutineProblem extends Problem {
 
     public IMarker getMarker() {
         return this.marker;
+    }
+
+    public RoutineItem getRoutineItem() {
+        return this.routineItem;
     }
 
     /*
