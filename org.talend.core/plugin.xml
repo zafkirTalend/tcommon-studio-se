@@ -12,6 +12,7 @@
    <extension-point id="migrationTask" name="Migration tool atomic task" schema="schema/migrationTask.exsd"/>
    <extension-point id="librariesNeeded" name="Libraries needed" schema="schema/librariesNeeded.exsd"/>
    <extension-point id="talendperspectives" name="Talend Perspectives" schema="schema/talendperspectives.exsd"/>
+   <extension-point id="component_custom_action" name="Component Custom Action" schema="schema/component_custom_action.exsd"/>
   
 	
 	<extension
