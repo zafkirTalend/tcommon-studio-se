@@ -44,6 +44,7 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.contentassist.ContentAssistant;
 import org.eclipse.jface.text.contentassist.ICompletionProposal;
+import org.eclipse.jface.text.source.AnnotationModel;
 import org.eclipse.jface.text.source.CompositeRuler;
 import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.IAnnotationModel;
@@ -291,21 +292,25 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
         getSourceViewerDecorationSupport().install(JavaPlugin.getDefault().getCombinedPreferenceStore());
         this.setRangeIndicator(new DefaultRangeIndicator());
 
-        IDocumentProvider provider = JavaPlugin.getDefault().getCompilationUnitDocumentProvider();
-        IEditorInput ei = new FileEditorInput(file);
-        try {
-            provider.connect(ei);
-        } catch (CoreException e) {
-            ExceptionHandler.process(e);
+        IAnnotationModel model;
+        if (checkCode) {
+            IDocumentProvider provider = JavaPlugin.getDefault().getCompilationUnitDocumentProvider();
+            IEditorInput ei = new FileEditorInput(file);
+            try {
+                provider.connect(ei);
+            } catch (CoreException e) {
+                ExceptionHandler.process(e);
+            }
+            model = provider.getAnnotationModel(ei);
+        } else {
+            model = new AnnotationModel();
         }
-
-        IAnnotationModel model = provider.getAnnotationModel(ei);
         IDocument document = getDocument();
         model.connect(document);
 
         if (document != null) {
             setDocument(document, model);
-            showAnnotations(model != null);
+            showAnnotations(model != null && checkCode);
         }
         super.initializeModel();
     }
