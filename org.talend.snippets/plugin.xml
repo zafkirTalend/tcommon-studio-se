@@ -8,6 +8,7 @@
        <Action
              class="org.talend.repository.ui.actions.snippet.CreateSnippetAction"
              id="org.talend.repository.createSnippet"
+             isPropertiesAction="false"
              level="10"
              name="Create Snippet"/>
         <Action
@@ -16,5 +17,11 @@
              isEditAction="true"
              level="10"
              name="Edit Snippet"/>
+   </extension>
+   <extension
+         point="org.talend.repository.toolbar_creation">
+      <CreationToolAction
+            class="org.talend.repository.ui.actions.snippet.CreateSnippetAction">
+      </CreationToolAction>
    </extension>
 </plugin>

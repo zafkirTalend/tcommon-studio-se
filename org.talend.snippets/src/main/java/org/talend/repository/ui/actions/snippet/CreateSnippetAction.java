@@ -38,8 +38,6 @@ public class CreateSnippetAction extends AContextualAction {
 
     private static final String CREATE_LABEL = "Create Snippet";
 
-    private boolean isToolbar = false;
-
     /**
      * DOC nrousseau CreateContextAction constructor comment.
      */
@@ -56,7 +54,7 @@ public class CreateSnippetAction extends AContextualAction {
         super();
         this.setText(CREATE_LABEL);
         this.setToolTipText(CREATE_LABEL);
-        this.isToolbar = isToolbar;
+        setToolbar(isToolbar);
         Image folderImg = ImageProvider.getImage(ECoreImage.SNIPPETS_ICON);
         this.setImageDescriptor(OverlayImageProvider.getImageWithNew(folderImg));
     }
@@ -95,14 +93,14 @@ public class CreateSnippetAction extends AContextualAction {
         RepositoryNode codeNode = getViewPart().getRoot().getChildren().get(4);
         RepositoryNode snippetNode = codeNode.getChildren().get(1);
         SnippetWizard contextWizard;
-        if (isToolbar) {
+        if (isToolbar()) {
             contextWizard = new SnippetWizard(PlatformUI.getWorkbench(), true, snippetNode, false);
         } else {
             contextWizard = new SnippetWizard(PlatformUI.getWorkbench(), true, getSelection(), false);
         }
         WizardDialog dlg = new WizardDialog(Display.getCurrent().getActiveShell(), contextWizard);
         dlg.open();
-        if (isToolbar) {
+        if (isToolbar()) {
             refresh(snippetNode);
         } else {
             RepositoryNode node = (RepositoryNode) ((IStructuredSelection) getSelection()).getFirstElement();
