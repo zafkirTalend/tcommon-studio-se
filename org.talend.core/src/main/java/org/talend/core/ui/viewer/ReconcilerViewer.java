@@ -75,9 +75,6 @@ import org.talend.commons.utils.threading.ExecutionLimiter;
  * DOC nrousseau class global comment. Detailled comment <br/>
  * 
  */
-/**
- * DOC nrousseau class global comment. Detailled comment
- */
 public abstract class ReconcilerViewer extends ProjectionViewer {
 
     protected IFile file = null;

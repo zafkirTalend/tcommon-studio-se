@@ -37,19 +37,17 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeReturn;
 import org.talend.core.model.process.IProcess;
-import org.talend.core.model.properties.SnippetItem;
-import org.talend.core.model.snippets.SnippetManager;
 import org.talend.core.model.utils.ContextParameterUtils;
 import org.talend.core.ui.images.ECoreImage;
+import org.talend.core.ui.proposal.IExternalProposals;
 import org.talend.core.ui.proposal.PerlGlobalUtils;
-import org.talend.core.ui.snippet.SnippetCompletionProposal;
+import org.talend.core.ui.proposal.ProposalFactory;
 import org.talend.designer.rowgenerator.data.Function;
 import org.talend.designer.rowgenerator.data.FunctionManager;
 import org.talend.designer.rowgenerator.data.TalendType;
 
 /**
- * @author nrousseau
- * 
+ * @author nrousseau This class is currently used only in Java mode.
  */
 public class TalendCompletionProposalComputer implements IJavaCompletionProposalComputer {
 
@@ -212,17 +210,8 @@ public class TalendCompletionProposalComputer implements IJavaCompletionProposal
             }
         }
 
-        // add snippets
-        SnippetManager snippetManager = new SnippetManager();
-        for (SnippetItem snippet : snippetManager.getListSnippet()) {
-            String display = snippet.getProperty().getLabel();
-            if (prefix.equals("") || display.startsWith(prefix)) {
-                String description = "Snippet description";
-                SnippetCompletionProposal proposal = new SnippetCompletionProposal(snippet, offset - prefix.length(), prefix
-                        .length(), ImageProvider.getImage(ECoreImage.SNIPPETS_ICON), display, null, description);
-                proposal.setType(TalendCompletionProposal.SNIPPET);
-                proposals.add(proposal);
-            }
+        for (IExternalProposals externalProposals : ProposalFactory.getInstances()) {
+            proposals.addAll(externalProposals.getAdvancedProposals(offset, prefix));
         }
 
         return proposals;
