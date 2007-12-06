@@ -49,6 +49,7 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.commons.utils.data.container.Container;
 import org.talend.commons.utils.data.container.RootContainer;
 import org.talend.commons.utils.workbench.resources.ResourceUtils;
+import org.talend.core.PluginChecker;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.general.TalendNature;
@@ -59,6 +60,7 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FolderItem;
+import org.talend.core.model.properties.HTMLDocumentationItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
 import org.talend.core.model.properties.ProcessItem;
@@ -216,6 +218,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     Container<K, T> cont = toReturn.addSubContainer(current.getName());
                     FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
                     FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
+                    if (folder == null) {
+                        continue;
+                    }
                     Property property = folder.getProperty();
                     cont.setProperty(property);
                     cont.setId(property.getId());
@@ -304,6 +309,10 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         needsBinFolder.add(ERepositoryObjectType.ROUTINES);
         needsBinFolder.add(ERepositoryObjectType.SNIPPETS);
         needsBinFolder.add(ERepositoryObjectType.CONTEXT);
+
+        if (PluginChecker.isDocumentationPluginLoaded()) {
+            needsBinFolder.add(ERepositoryObjectType.JOBS);
+        }
     }
 
     public Project createProject(String label, String description, ECodeLanguage language, User author)
@@ -550,9 +559,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             // TODO SML Delete this ?
             IProject fsProject = ResourceModelUtils.getProject(getRepositoryContext().getProject());
             String completePath = ERepositoryObjectType.getFolderName(type) + IPath.SEPARATOR + path.toString();
-            if (!label.equals("")) {
-                completePath = completePath + IPath.SEPARATOR + label;
-            }
+
+            // if label is "", don't need to added label into completePath (used for job's documentation and for folder
+            // only)
+            // if (!label.equals("")) {
+            completePath = completePath + IPath.SEPARATOR + label;
+            // }
 
             // Getting the folder :
             IFolder existingFolder = ResourceUtils.getFolder(fsProject, completePath, false);
@@ -875,6 +887,14 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
+    private Resource create(HTMLDocumentationItem item, IPath path, ERepositoryObjectType type) throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, type, false);
+
+        itemResource.getContents().add(item);
+
+        return itemResource;
+    }
+
     private Resource save(BusinessProcessItem item) {
         Resource itemResource = xmiResourceManager.getItemResource(item);
         itemResource.getContents().clear();
@@ -1096,6 +1116,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.DOCUMENTATION_ITEM:
                 itemResource = create((FileItem) item, path, ERepositoryObjectType.DOCUMENTATION);
+                break;
+            case PropertiesPackage.HTML_DOCUMENTATION_ITEM:
+                itemResource = create((HTMLDocumentationItem) item, path, ERepositoryObjectType.HTML_DOC);
                 break;
             case PropertiesPackage.ROUTINE_ITEM:
                 itemResource = create((FileItem) item, path, ERepositoryObjectType.ROUTINES);
