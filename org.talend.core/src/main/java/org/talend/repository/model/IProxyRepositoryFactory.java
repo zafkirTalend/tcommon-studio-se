@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.repository.model;
 
+import java.beans.PropertyChangeListener;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
@@ -48,7 +49,12 @@ public interface IProxyRepositoryFactory {
     public abstract RepositoryContext getRepositoryContext();
 
     public void refreshJobPictureFolder();
+    
+    public void refreshDocumentationFolder();
 
+    public void addPropertyChangeListener(PropertyChangeListener l);
+    
+    public void removePropertyChangeListener(PropertyChangeListener l);
     /**
      * @param project
      * @return
@@ -350,7 +356,7 @@ public interface IProxyRepositoryFactory {
 
     public abstract void save(Item item) throws PersistenceException;
 
-    public abstract void save(Property property) throws PersistenceException;
+    public abstract void save(Property property, String... originalNameAndVersion) throws PersistenceException;
 
     public abstract Item copy(Item item, IPath path) throws PersistenceException, BusinessException;
 
