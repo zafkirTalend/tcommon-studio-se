@@ -24,4 +24,10 @@
             class="org.talend.repository.ui.actions.snippet.CreateSnippetAction">
       </CreationToolAction>
    </extension>
+   <extension
+         point="org.talend.core.talend_external_proposals">
+      <Proposal
+            class="org.talend.repository.ui.proposals.SnippetslProposals">
+      </Proposal>
+   </extension>
 </plugin>
