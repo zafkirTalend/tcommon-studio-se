@@ -71,4 +71,6 @@ public interface IHTMLDocConstants {
     public static final String MAPPER_TABLE_VAR = "var"; //$NON-NLS-1$
 
     public static final String EXTERNAL_FOLDER_NAME = "externalDoc/"; //$NON-NLS-1$
+    
+    public static final String JOB_NODE_DOCUMENTATION_ROOT_PATH = "documentations/generated/jobs";
 }
