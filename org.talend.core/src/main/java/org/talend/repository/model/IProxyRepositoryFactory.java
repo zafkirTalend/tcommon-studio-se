@@ -242,7 +242,7 @@ public interface IProxyRepositoryFactory {
      * @see org.talend.repository.model.IRepositoryFactory#moveObject(org.talend.core.model.general.Project,
      * org.talend.core.model.repository.IRepositoryObject)
      */
-    public abstract void moveObject(IRepositoryObject objToMove, IPath path) throws PersistenceException,
+    public abstract void moveObject(IRepositoryObject objToMove, IPath path, IPath... sourcePath) throws PersistenceException,
             BusinessException;
 
     /**
