@@ -65,10 +65,13 @@ public class PropertiesWizard extends Wizard {
 
     private final String originaleObjectLabel;
 
+    private String originaleObjectVersion;
+
     public PropertiesWizard(IRepositoryObject object, IPath path) {
         super();
         this.object = object;
         this.originaleObjectLabel = object.getLabel();
+        this.originaleObjectVersion = object.getVersion();
         this.path = path;
         setDefaultPageImageDescriptor(ImageProvider.getImageDesc(EImage.PROPERTIES_WIZ));
 
@@ -76,8 +79,7 @@ public class PropertiesWizard extends Wizard {
     }
 
     private void lockObject() {
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
-                .getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         try {
             if (repositoryFactory.getStatus(object).equals(ERepositoryStatus.LOCK_BY_USER)) {
                 alreadyLockedByUser = true;
@@ -104,8 +106,7 @@ public class PropertiesWizard extends Wizard {
     }
 
     private boolean isReadOnly() {
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
-                .getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         return !repositoryFactory.getStatus(object).isEditable() || alreadyLockedByUser;
     }
 
@@ -151,10 +152,9 @@ public class PropertiesWizard extends Wizard {
             return false;
         }
 
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
-                .getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         try {
-            repositoryFactory.save(object.getProperty());
+            repositoryFactory.save(object.getProperty(), originaleObjectLabel, originaleObjectVersion);
             if (!object.getLabel().equals(originaleObjectLabel)) {
                 manageRunJobRenaming(object.getLabel(), originaleObjectLabel);
             }
@@ -231,8 +231,7 @@ public class PropertiesWizard extends Wizard {
     }
 
     private void reloadProperty() throws PersistenceException {
-        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService()
-                .getProxyRepositoryFactory();
+        IProxyRepositoryFactory repositoryFactory = CorePlugin.getDefault().getRepositoryService().getProxyRepositoryFactory();
         Property property = repositoryFactory.reload(object.getProperty());
         object.setProperty(property);
     }

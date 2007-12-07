@@ -16,13 +16,17 @@ package org.talend.repository.documentation;
  * ftang class global comment. Detailled comment.
  */
 public enum ERepositoryActionName {
+    JOB_PASTE("job paste"),
+    JOB_RESTORE("job restore"),
+    JOB_MOVE("job move"),
+
     JOB_CREATE("job create"),
     JOB_SAVE("job save"),
     JOB_PROPERTIES_CHANGE("job properties change"),
-    JOB_PASTE("job paste"),
     JOB_DELETE_TO_RECYCLE_BIN("job delete to recycle bin"),
-    JOB_RESTORE("job restore"),
     JOB_DELETE_FOREVER("job delete forever"),
+
+    FOLDER_CREATE("folder create"),
     FOLDER_DELETE("folder delete"),
     FOLDER_RENAME("folder rename"),
     FOLDER_MOVE("folder move");
