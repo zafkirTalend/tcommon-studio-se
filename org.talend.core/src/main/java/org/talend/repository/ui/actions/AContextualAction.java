@@ -12,6 +12,9 @@
 // ============================================================================
 package org.talend.repository.ui.actions;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
@@ -116,7 +119,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
     /**
      * Convenience method user to refresh view on wich action had been called.
      */
-    public final void refresh() {
+    public void refresh() {
         getViewPart().refresh();
     }
 
@@ -125,7 +128,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * 
      * @param obj - object to start the refresh on
      */
-    public final void refresh(Object obj) {
+    public void refresh(Object obj) {
         getViewPart().refresh(obj);
         getViewPart().expand(obj, true);
     }
@@ -155,7 +158,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * 
      * @return the selection
      */
-    protected final ISelection getSelection() {
+    public final ISelection getSelection() {
         if (workbenchPart != null) {
             if (workbenchPart instanceof IRepositoryView) {
                 IRepositoryView view = (IRepositoryView) workbenchPart;
@@ -175,7 +178,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * 
      * @return - the repository biew
      */
-    protected final IRepositoryView getViewPart() {
+    public IRepositoryView getViewPart() {
         if (workbenchPart != null) {
             if (workbenchPart instanceof IRepositoryView) {
                 return (IRepositoryView) workbenchPart;
@@ -190,14 +193,13 @@ public abstract class AContextualAction extends Action implements ITreeContextua
      * 
      * @return the active page, or <code>null</code> if none
      */
-    protected final IWorkbenchPage getActivePage() {
+    public IWorkbenchPage getActivePage() {
         return PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
     }
 
     protected void notifySQLBuilder(List<IRepositoryObject> list) {
         CorePlugin.getDefault().getRepositoryService().notifySQLBuilder(list);
     }
-
     /**
      * Getter for isToolbar.
      * 

@@ -48,6 +48,7 @@ public class CoreImageProvider {
         case SNIPPETS:
             return ECoreImage.SNIPPETS_ICON;
         case DOCUMENTATION:
+        case HTML_DOC:
             return ECoreImage.DOCUMENTATION_ICON;
         case METADATA:
             return ECoreImage.METADATA_ICON;

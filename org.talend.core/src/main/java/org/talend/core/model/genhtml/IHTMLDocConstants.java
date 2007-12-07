@@ -73,4 +73,6 @@ public interface IHTMLDocConstants {
     public static final String EXTERNAL_FOLDER_NAME = "externalDoc/"; //$NON-NLS-1$
     
     public static final String JOB_NODE_DOCUMENTATION_ROOT_PATH = "documentations/generated/jobs";
+    
+    public static final String REPOSITORY_PLUG_IN_ID = "org.talend.repository";
 }

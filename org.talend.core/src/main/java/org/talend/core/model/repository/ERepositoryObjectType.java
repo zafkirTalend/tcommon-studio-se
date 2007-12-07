@@ -13,6 +13,7 @@
 package org.talend.core.model.repository;
 
 import org.eclipse.emf.ecore.EObject;
+import org.talend.core.PluginChecker;
 import org.talend.core.i18n.Messages;
 import org.talend.core.model.properties.BusinessProcessItem;
 import org.talend.core.model.properties.CSVFileConnectionItem;
@@ -127,12 +128,6 @@ public enum ERepositoryObjectType {
             return "code/snippets"; //$NON-NLS-1$
         case DOCUMENTATION:
             return "documentations"; //$NON-NLS-1$
-        case GENERATED:
-            return "documentations/generated";
-        case JOBS:
-            return "documentations/generated/jobs";
-        case HTML_DOC:
-            return "documentations/generated/jobs";
         case METADATA:
             return "metadata"; //$NON-NLS-1$
         case METADATA_CONNECTIONS:
@@ -152,6 +147,17 @@ public enum ERepositoryObjectType {
         case METADATA_GENERIC_SCHEMA:
             return "metadata/genericSchema";
         default:
+            if (PluginChecker.isDocumentationPluginLoaded()) {
+                if (type == GENERATED) {
+                    return "documentations/generated";
+                }
+                if (type == JOBS) {
+                    return "documentations/generated/jobs";
+                }
+                if (type == HTML_DOC) {
+                    return "documentations/generated/jobs";
+                }
+            }
             throw new IllegalArgumentException(Messages.getString("ERepositoryObjectType.FolderNotFound", type)); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
@@ -161,15 +167,15 @@ public enum ERepositoryObjectType {
 
             @Override
             public Object caseFolderItem(FolderItem object) {
+
                 return FOLDER;
             }
 
             public Object caseDocumentationItem(DocumentationItem object) {
                 return DOCUMENTATION;
             }
-            
-            public Object caseHTMLDocumentationItem(HTMLDocumentationItem object)
-            {
+
+            public Object caseHTMLDocumentationItem(HTMLDocumentationItem object) {
                 return HTML_DOC;
             }
 
