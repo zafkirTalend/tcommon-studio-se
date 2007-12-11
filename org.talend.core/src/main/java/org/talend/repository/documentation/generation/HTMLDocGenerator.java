@@ -190,7 +190,7 @@ public class HTMLDocGenerator {
             file.mkdirs();
         }
 
-        handleXMLFile(resource, targetPath,version);
+        handleXMLFile(resource, targetPath, version);
 
         String picFolderPath = checkPicDirIsExists(resource, targetPath);
 
@@ -314,27 +314,33 @@ public class HTMLDocGenerator {
         List<INode> internalNodeComponentsList = allList.get(1);
         List<INode> externalNodeComponentsList = allList.get(2);
 
-        // Generates information for 'Component List' part in exported HTML file.
-        generateAllComponentsSummaryInfo(processItem, jobElement, allComponentsList);
+        if (allComponentsList.size() > 0) { // Generates information for 'Component List' part in exported HTML file.
+            generateAllComponentsSummaryInfo(processItem, jobElement, allComponentsList);
+        }
 
         Element internalNodeElement = jobElement.addElement("internalNodeComponents");
         Element externalNodeElement = jobElement.addElement("externalNodeComponents");
 
-        InternalNodeComponentHandler internalNodeComponentHandler = new InternalNodeComponentHandler(this.picFilePathMap,
-                internalNodeElement, internalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
-                this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap);
+        if (internalNodeComponentsList.size() > 0) {
+            InternalNodeComponentHandler internalNodeComponentHandler = new InternalNodeComponentHandler(this.picFilePathMap,
+                    internalNodeElement, internalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
+                    this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap);
 
-        ExternalNodeComponentHandler externalNodeComponentHandler = new ExternalNodeComponentHandler(this.picFilePathMap,
-                externalNodeElement, externalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
-                this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap, externalNodeHTMLMap/*
-                                                                                                                                 * ,
-                                                                                                                                 */);
+            // Generates internal node components information.
+            internalNodeComponentHandler.generateComponentInfo();
+        }
 
-        // Generates internal node components information.
-        internalNodeComponentHandler.generateComponentInfo();
-
-        // Generates external node components(tMap etc.) information.
-        externalNodeComponentHandler.generateComponentInfo();
+        if (externalNodeComponentsList.size() > 0)
+        {
+            ExternalNodeComponentHandler externalNodeComponentHandler = new ExternalNodeComponentHandler(this.picFilePathMap,
+                    externalNodeElement, externalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
+                    this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap,
+                    externalNodeHTMLMap/*
+                                         * ,
+                                         */);
+            // Generates external node components(tMap etc.) information.
+            externalNodeComponentHandler.generateComponentInfo();
+        }
 
         // Generates all connection information(include internal node and external node).
         EList connectionList = processItem.getProcess().getConnection();
@@ -343,7 +349,7 @@ public class HTMLDocGenerator {
         }
 
         String versionPath = "";
-        if (version!= null && version.length==1) {
+        if (version != null && version.length == 1) {
             String currentVersion = (version[0].equals("") ? processItem.getProperty().getVersion() : version[0]);
             versionPath = "_" + currentVersion;
         }
@@ -478,6 +484,7 @@ public class HTMLDocGenerator {
 
         Property property = processItem.getProperty();
         String jobName = property.getLabel();
+        String jobVersion = property.getVersion();
         Element jobElement = projectElement.addElement("job");
         jobElement.addAttribute("name", HTMLDocUtils.checkString(jobName));
 
@@ -490,7 +497,7 @@ public class HTMLDocGenerator {
         jobElement.addAttribute("creation", HTMLDocUtils.checkDate(property.getCreationDate()));
         jobElement.addAttribute("modification", HTMLDocUtils.checkDate(property.getModificationDate()));
 
-        String picName = jobName + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
+        String picName = jobName + "_" + jobVersion + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
         IPath filePath = DocumentationPathProvider.getPathFileName(RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE, picName);
         String filePathStr = filePath.toOSString();
         File file = new File(filePathStr);

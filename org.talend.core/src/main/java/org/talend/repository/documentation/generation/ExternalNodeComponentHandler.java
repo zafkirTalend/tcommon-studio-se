@@ -70,10 +70,12 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
      * @param externalNodeHTMLList
      */
     public ExternalNodeComponentHandler(Map<String, String> picFilePathMap, Element externalNodeElement,
-            List<INode> allComponentsList, Map<String, List> sourceConnectionMap,
-            Map<String, List> targetConnectionMap, IDesignerCoreService designerCoreService,
-            Map<String, ConnectionItem> repositoryConnectionItemMap, Map<String, String> repositoryDBIdAndNameMap,
-            Map<String, URL> externalNodeHTMLMap/* , String tempFolderPath */) {
+            List<INode> allComponentsList, Map<String, List> sourceConnectionMap, Map<String, List> targetConnectionMap,
+            IDesignerCoreService designerCoreService, Map<String, ConnectionItem> repositoryConnectionItemMap,
+            Map<String, String> repositoryDBIdAndNameMap, Map<String, URL> externalNodeHTMLMap/*
+                                                                                                 * , String
+                                                                                                 * tempFolderPath
+                                                                                                 */) {
         this.picFilePathMap = picFilePathMap;
         this.externalNodeElement = externalNodeElement;
         this.componentsList = allComponentsList;
@@ -96,8 +98,7 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
 
         for (INode externalNode : this.componentsList) {
             Element componentElement = generateComponentDetailsInfo(true, externalNode, this.externalNodeElement,
-                    this.picFilePathMap, this.sourceConnectionMap, this.targetConnectionMap,
-                    this.repositoryDBIdAndNameMap);
+                    this.picFilePathMap, this.sourceConnectionMap, this.targetConnectionMap, this.repositoryDBIdAndNameMap);
 
             Element parametersElement = componentElement.addElement("parameters");
             List elementParameterList = externalNode.getElementParameters();
@@ -113,7 +114,9 @@ public class ExternalNodeComponentHandler extends AbstractComponentHandler {
                 generateComponentSchemaInfo(externalNode, componentElement);
             } else {
                 URL fileURL = componentDocumentation.getHTMLFile();
-                this.externalNodeHTMLMap.put(componentName, fileURL);
+                if (fileURL != null) {
+                    this.externalNodeHTMLMap.put(componentName, fileURL);
+                }
             }
             componentElement.addComment(componentName);
         }

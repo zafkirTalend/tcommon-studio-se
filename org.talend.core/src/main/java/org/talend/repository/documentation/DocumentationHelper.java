@@ -30,7 +30,9 @@ import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.repository.documentation.generation.DocumentationPathProvider;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.RepositoryConstants;
 import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.model.RepositoryNode.ENodeType;
 import org.talend.repository.model.RepositoryNode.EProperties;
@@ -287,7 +289,7 @@ public class DocumentationHelper {
                 .findView(IRepositoryView.VIEW_ID);
         return (IRepositoryView) viewPart;
     }
-    
+
     /**
      * ftang Comment method "deleteDocumentationFileAndNode".
      * 
@@ -303,7 +305,7 @@ public class DocumentationHelper {
         // delete the root folder of job
         docFolder.delete();
     }
-    
+
     /**
      * ftang Comment method "deleteFiles".
      * 
@@ -323,7 +325,7 @@ public class DocumentationHelper {
         }
 
     }
-    
+
     /**
      * ftang Comment method "deleteFolders".
      * 
@@ -342,5 +344,34 @@ public class DocumentationHelper {
             }
         }
     }
-    
+
+    /**
+     * Deletes preview pictures of job.
+     * 
+     * @param jobName
+     * @param versionList
+     */
+    public static void deletePreviewPictures(String jobName, List<String> versionList) {
+
+        if (versionList == null || versionList.size() == 0) {
+            return;
+        }
+
+        String picName = "";
+        for (String version : versionList) {
+            picName = jobName + "_" + version + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
+            IPath filePath = DocumentationPathProvider.getPathFileName(RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE, picName);
+            if (filePath == null) {
+                return;
+            }
+            
+            String filePathStr = filePath.toOSString();
+            File file = new File(filePathStr);
+            if(file.exists())
+            {
+                boolean delete = file.delete();
+                System.out.println(delete);
+            }
+        }
+    }
 }
