@@ -29,10 +29,49 @@ public class QueryUtil {
 
     public static final String DEFAULT_TABLE_NAME = "_MyTable_";
 
-    public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType,
-            String schema, String realTableName) {
+    public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
+            String realTableName) {
         String tableName = getTableName(node, repositoryMetadata, schema, dbType, realTableName);
         return generateNewQuery(repositoryMetadata, dbType, tableName);
+    }
+
+    public static String generateNewQuery(Element node, IMetadataTable repositoryMetadata, String dbType, String schema,
+            String realTableName, boolean standardSyntax) {
+
+        String tableName = getTableName(node, repositoryMetadata, schema, dbType, realTableName);
+        return generateNewQuery(repositoryMetadata, dbType, tableName, standardSyntax);
+    }
+
+    public static String generateNewQuery(IMetadataTable repositoryMetadata, String dbType, String tableName,
+            boolean standardSyntax) {
+        List<IMetadataColumn> metaDataColumnList = repositoryMetadata.getListColumns();
+        int index = metaDataColumnList.size();
+        if (index == 0) {
+            return "";
+        }
+
+        StringBuffer query = new StringBuffer();
+        String enter = "\n";
+        String space = " ";
+        query.append("SELECT").append(space);
+
+        String tableNameForColumnSuffix = TalendTextUtils.addQuotesWithSpaceField(tableName, dbType) + ".";
+
+        for (int i = 0; i < metaDataColumnList.size(); i++) {
+            IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
+            String columnName = TalendTextUtils.addQuotesWithSpaceField(metaDataColumn.getOriginalDbColumnName(), dbType);
+            if (i != index - 1) {
+                query.append(tableNameForColumnSuffix).append(columnName).append(",").append(space);
+            } else {
+                query.append(tableNameForColumnSuffix).append(columnName).append(space);
+            }
+        }
+        query.append(enter).append("FROM").append(space).append(TalendTextUtils.addQuotesWithSpaceField(tableName, dbType));
+        if (!standardSyntax) {
+            return query.toString().replace(".", "/");
+        } else {
+            return query.toString();
+        }
     }
 
     public static String generateNewQuery(IMetadataTable repositoryMetadata, String dbType, String tableName) {
@@ -51,16 +90,14 @@ public class QueryUtil {
 
         for (int i = 0; i < metaDataColumnList.size(); i++) {
             IMetadataColumn metaDataColumn = metaDataColumnList.get(i);
-            String columnName = TalendTextUtils.addQuotesWithSpaceField(metaDataColumn.getOriginalDbColumnName(),
-                    dbType);
+            String columnName = TalendTextUtils.addQuotesWithSpaceField(metaDataColumn.getOriginalDbColumnName(), dbType);
             if (i != index - 1) {
                 query.append(tableNameForColumnSuffix).append(columnName).append(",").append(space);
             } else {
                 query.append(tableNameForColumnSuffix).append(columnName).append(space);
             }
         }
-        query.append(enter).append("FROM").append(space).append(
-                TalendTextUtils.addQuotesWithSpaceField(tableName, dbType));
+        query.append(enter).append("FROM").append(space).append(TalendTextUtils.addQuotesWithSpaceField(tableName, dbType));
 
         return query.toString();
     }
@@ -113,6 +150,7 @@ public class QueryUtil {
 
     private static String getSchemaName(String schema, String dbType, String currentTableName) {
         if (EDatabaseTypeName.getTypeFromDbType(dbType).isNeedSchema()) {
+
             currentTableName = TalendTextUtils.addQuotesWithSpaceField(schema, dbType) + "."
                     + TalendTextUtils.addQuotesWithSpaceField(currentTableName, dbType);
         }

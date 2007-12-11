@@ -45,6 +45,8 @@ import org.talend.core.model.metadata.builder.connection.QueriesConnection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getProductId <em>Product Id</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getDBRootPath <em>DB Root Path</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#getAdditionalParams <em>Additional Params</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isStandardSQL <em>Standard SQL</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.DatabaseConnectionImpl#isSystemSQL <em>System SQL</em>}</li>
  * </ul>
  * </p>
  *
@@ -411,6 +413,46 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * @ordered
      */
     protected String additionalParams = ADDITIONAL_PARAMS_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isStandardSQL() <em>Standard SQL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isStandardSQL()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean STANDARD_SQL_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isStandardSQL() <em>Standard SQL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isStandardSQL()
+     * @generated
+     * @ordered
+     */
+    protected boolean standardSQL = STANDARD_SQL_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isSystemSQL() <em>System SQL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSystemSQL()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean SYSTEM_SQL_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isSystemSQL() <em>System SQL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSystemSQL()
+     * @generated
+     * @ordered
+     */
+    protected boolean systemSQL = SYSTEM_SQL_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -813,6 +855,48 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isStandardSQL() {
+        return standardSQL;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setStandardSQL(boolean newStandardSQL) {
+        boolean oldStandardSQL = standardSQL;
+        standardSQL = newStandardSQL;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL, oldStandardSQL, standardSQL));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSystemSQL() {
+        return systemSQL;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setSystemSQL(boolean newSystemSQL) {
+        boolean oldSystemSQL = systemSQL;
+        systemSQL = newSystemSQL;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL, oldSystemSQL, systemSQL));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.DATABASE_CONNECTION__DATABASE_TYPE:
@@ -851,6 +935,10 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return getDBRootPath();
             case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
                 return getAdditionalParams();
+            case ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL:
+                return isStandardSQL() ? Boolean.TRUE : Boolean.FALSE;
+            case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
+                return isSystemSQL() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -915,6 +1003,12 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return;
             case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
                 setAdditionalParams((String)newValue);
+                return;
+            case ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL:
+                setStandardSQL(((Boolean)newValue).booleanValue());
+                return;
+            case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
+                setSystemSQL(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -981,6 +1075,12 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
             case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
                 setAdditionalParams(ADDITIONAL_PARAMS_EDEFAULT);
                 return;
+            case ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL:
+                setStandardSQL(STANDARD_SQL_EDEFAULT);
+                return;
+            case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
+                setSystemSQL(SYSTEM_SQL_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1028,6 +1128,10 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
                 return DB_ROOT_PATH_EDEFAULT == null ? dbRootPath != null : !DB_ROOT_PATH_EDEFAULT.equals(dbRootPath);
             case ConnectionPackage.DATABASE_CONNECTION__ADDITIONAL_PARAMS:
                 return ADDITIONAL_PARAMS_EDEFAULT == null ? additionalParams != null : !ADDITIONAL_PARAMS_EDEFAULT.equals(additionalParams);
+            case ConnectionPackage.DATABASE_CONNECTION__STANDARD_SQL:
+                return standardSQL != STANDARD_SQL_EDEFAULT;
+            case ConnectionPackage.DATABASE_CONNECTION__SYSTEM_SQL:
+                return systemSQL != SYSTEM_SQL_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -1077,6 +1181,10 @@ public class DatabaseConnectionImpl extends ConnectionImpl implements DatabaseCo
         result.append(dbRootPath);
         result.append(", AdditionalParams: ");
         result.append(additionalParams);
+        result.append(", StandardSQL: ");
+        result.append(standardSQL);
+        result.append(", SystemSQL: ");
+        result.append(systemSQL);
         result.append(')');
         return result.toString();
     }

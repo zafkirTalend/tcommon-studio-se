@@ -1657,13 +1657,31 @@ public interface ConnectionPackage extends EPackage {
     int DATABASE_CONNECTION__ADDITIONAL_PARAMS = CONNECTION_FEATURE_COUNT + 17;
 
     /**
+     * The feature id for the '<em><b>Standard SQL</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__STANDARD_SQL = CONNECTION_FEATURE_COUNT + 18;
+
+    /**
+     * The feature id for the '<em><b>System SQL</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DATABASE_CONNECTION__SYSTEM_SQL = CONNECTION_FEATURE_COUNT + 19;
+
+    /**
      * The number of structural features of the '<em>Database Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 18;
+    int DATABASE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 20;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl <em>Regexp File Connection</em>}' class.
@@ -3716,6 +3734,28 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getDatabaseConnection_AdditionalParams();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isStandardSQL <em>Standard SQL</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Standard SQL</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#isStandardSQL()
+     * @see #getDatabaseConnection()
+     * @generated
+     */
+    EAttribute getDatabaseConnection_StandardSQL();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSystemSQL <em>System SQL</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>System SQL</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSystemSQL()
+     * @see #getDatabaseConnection()
+     * @generated
+     */
+    EAttribute getDatabaseConnection_SystemSQL();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.RegexpFileConnection <em>Regexp File Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Regexp File Connection</em>'.
@@ -4992,6 +5032,22 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute DATABASE_CONNECTION__ADDITIONAL_PARAMS = eINSTANCE.getDatabaseConnection_AdditionalParams();
+
+        /**
+         * The meta object literal for the '<em><b>Standard SQL</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DATABASE_CONNECTION__STANDARD_SQL = eINSTANCE.getDatabaseConnection_StandardSQL();
+
+        /**
+         * The meta object literal for the '<em><b>System SQL</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute DATABASE_CONNECTION__SYSTEM_SQL = eINSTANCE.getDatabaseConnection_SystemSQL();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.RegexpFileConnectionImpl <em>Regexp File Connection</em>}' class.

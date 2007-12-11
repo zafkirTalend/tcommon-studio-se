@@ -35,6 +35,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getProductId <em>Product Id</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getDBRootPath <em>DB Root Path</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#getAdditionalParams <em>Additional Params</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isStandardSQL <em>Standard SQL</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSystemSQL <em>System SQL</em>}</li>
  * </ul>
  * </p>
  *
@@ -512,5 +514,57 @@ public interface DatabaseConnection extends Connection {
      * @generated
      */
     void setAdditionalParams(String value);
+
+    /**
+     * Returns the value of the '<em><b>Standard SQL</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Standard SQL</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Standard SQL</em>' attribute.
+     * @see #setStandardSQL(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_StandardSQL()
+     * @model
+     * @generated
+     */
+    boolean isStandardSQL();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isStandardSQL <em>Standard SQL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Standard SQL</em>' attribute.
+     * @see #isStandardSQL()
+     * @generated
+     */
+    void setStandardSQL(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>System SQL</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>System SQL</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>System SQL</em>' attribute.
+     * @see #setSystemSQL(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getDatabaseConnection_SystemSQL()
+     * @model
+     * @generated
+     */
+    boolean isSystemSQL();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.DatabaseConnection#isSystemSQL <em>System SQL</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>System SQL</em>' attribute.
+     * @see #isSystemSQL()
+     * @generated
+     */
+    void setSystemSQL(boolean value);
 
 } // DatabaseConnection
