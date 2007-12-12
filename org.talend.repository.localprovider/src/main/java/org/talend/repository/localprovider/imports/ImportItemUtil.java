@@ -31,7 +31,6 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.commons.exception.SystemException;
 import org.talend.core.CorePlugin;
 import org.talend.core.context.Context;
 import org.talend.core.context.RepositoryContext;
@@ -156,11 +155,13 @@ public class ImportItemUtil {
                     IProjectMigrationTask task = GetTasksHelper.getProjectTask(taskId);
                     if (task == null) {
                         log.warn("Task " + taskId + " found in project doesn't exist anymore !");
-                    }
-                    ExecutionResult executionResult = task.execute(repositoryContext.getProject(), newItem);
-                    if (executionResult == ExecutionResult.FAILURE) {
-                        throw new SystemException("Incomplete import item " + itemRecord.getItemName() + " (migration task "
-                                + task.getName() + " failed)");
+                    } else {
+                        ExecutionResult executionResult = task.execute(repositoryContext.getProject(), newItem);
+                        if (executionResult == ExecutionResult.FAILURE) {
+                            log.warn("Incomplete import item " + itemRecord.getItemName() + " (migration task " + task.getName()
+                                    + " failed)");
+                            // TODO smallet add a warning/error to the job using model
+                        }
                     }
                 }
             } catch (Exception e) {
