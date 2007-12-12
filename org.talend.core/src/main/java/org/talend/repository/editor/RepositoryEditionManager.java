@@ -57,7 +57,7 @@ public class RepositoryEditionManager {
     public IPath getTemporaryFilePath() {
         IWorkspaceRoot root = ResourcesPlugin.getWorkspace().getRoot();
 
-        Long one = Calendar.getInstance().getTimeInMillis();
+        Long one = System.currentTimeMillis();
         Long two = new Random().nextLong();
 
         return getTempFolderPath(getRepositoryProject()).append(one.toString() + two);
