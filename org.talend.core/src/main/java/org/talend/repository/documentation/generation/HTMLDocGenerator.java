@@ -339,6 +339,7 @@ public class HTMLDocGenerator {
                                          * ,
                                          */);
             // Generates external node components(tMap etc.) information.
+            
             externalNodeComponentHandler.generateComponentInfo();
         }
 
