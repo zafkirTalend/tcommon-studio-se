@@ -69,7 +69,7 @@ public class RunStat implements Runnable {
             java.net.UnknownHostException {
         System.out.println("[statistics] connecting to socket on port " + portStats);
         s = new java.net.Socket(clientHost, portStats);
-        startTime = java.util.Calendar.getInstance().getTimeInMillis();
+        startTime = System.currentTimeMillis();
         pred = new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.OutputStreamWriter(s.getOutputStream())),
                 true);
         System.out.println("[statistics] connected");
@@ -104,7 +104,7 @@ public class RunStat implements Runnable {
 
     public void sendMessages() {
         for (StatBean sb : processStats.values()) {
-            currentTime = java.util.Calendar.getInstance().getTimeInMillis();
+            currentTime = System.currentTimeMillis();
             str = sb.getConnectionId() + "|" + sb.getNbLine() + "|" + (currentTime - startTime);
             if (sb.getState() != 1) {
                 str += "|" + ((sb.getState() == 0) ? "start" : "stop");
