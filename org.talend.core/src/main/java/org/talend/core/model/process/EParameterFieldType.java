@@ -51,7 +51,8 @@ public enum EParameterFieldType {
     DBTYPE_LIST,
     LABEL,
     AS400_CHECK,
-    MODULE_LIST;
+    MODULE_LIST,
+    COMMAND;
 
     public String getName() {
         return toString();
