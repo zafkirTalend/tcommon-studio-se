@@ -59,6 +59,8 @@ import org.talend.core.model.properties.TalendTrigger;
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getTriggers <em>Triggers</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getJobId <em>Job Id</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getVirtualServer <em>Virtual Server</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#isConcurrentExecution <em>Concurrent Execution</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.ExecutionTaskImpl#getMaxConcurrentExecutions <em>Max Concurrent Executions</em>}</li>
  * </ul>
  * </p>
  *
@@ -484,6 +486,46 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * @ordered
      */
     protected ExecutionVirtualServer virtualServer;
+
+    /**
+     * The default value of the '{@link #isConcurrentExecution() <em>Concurrent Execution</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isConcurrentExecution()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean CONCURRENT_EXECUTION_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isConcurrentExecution() <em>Concurrent Execution</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isConcurrentExecution()
+     * @generated
+     * @ordered
+     */
+    protected boolean concurrentExecution = CONCURRENT_EXECUTION_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getMaxConcurrentExecutions() <em>Max Concurrent Executions</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMaxConcurrentExecutions()
+     * @generated
+     * @ordered
+     */
+    protected static final int MAX_CONCURRENT_EXECUTIONS_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getMaxConcurrentExecutions() <em>Max Concurrent Executions</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getMaxConcurrentExecutions()
+     * @generated
+     * @ordered
+     */
+    protected int maxConcurrentExecutions = MAX_CONCURRENT_EXECUTIONS_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -1033,6 +1075,48 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isConcurrentExecution() {
+        return concurrentExecution;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setConcurrentExecution(boolean newConcurrentExecution) {
+        boolean oldConcurrentExecution = concurrentExecution;
+        concurrentExecution = newConcurrentExecution;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION, oldConcurrentExecution, concurrentExecution));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getMaxConcurrentExecutions() {
+        return maxConcurrentExecutions;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setMaxConcurrentExecutions(int newMaxConcurrentExecutions) {
+        int oldMaxConcurrentExecutions = maxConcurrentExecutions;
+        maxConcurrentExecutions = newMaxConcurrentExecutions;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS, oldMaxConcurrentExecutions, maxConcurrentExecutions));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.EXECUTION_TASK__TRIGGERS:
@@ -1110,6 +1194,10 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
                 if (resolve) return getVirtualServer();
                 return basicGetVirtualServer();
+            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+                return isConcurrentExecution() ? Boolean.TRUE : Boolean.FALSE;
+            case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
+                return new Integer(getMaxConcurrentExecutions());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -1191,6 +1279,12 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
                 setVirtualServer((ExecutionVirtualServer)newValue);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+                setConcurrentExecution(((Boolean)newValue).booleanValue());
+                return;
+            case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
+                setMaxConcurrentExecutions(((Integer)newValue).intValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -1271,6 +1365,12 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
             case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
                 setVirtualServer((ExecutionVirtualServer)null);
                 return;
+            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+                setConcurrentExecution(CONCURRENT_EXECUTION_EDEFAULT);
+                return;
+            case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
+                setMaxConcurrentExecutions(MAX_CONCURRENT_EXECUTIONS_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1328,6 +1428,10 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
                 return JOB_ID_EDEFAULT == null ? jobId != null : !JOB_ID_EDEFAULT.equals(jobId);
             case PropertiesPackage.EXECUTION_TASK__VIRTUAL_SERVER:
                 return virtualServer != null;
+            case PropertiesPackage.EXECUTION_TASK__CONCURRENT_EXECUTION:
+                return concurrentExecution != CONCURRENT_EXECUTION_EDEFAULT;
+            case PropertiesPackage.EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS:
+                return maxConcurrentExecutions != MAX_CONCURRENT_EXECUTIONS_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -1379,6 +1483,10 @@ public class ExecutionTaskImpl extends EObjectImpl implements ExecutionTask {
         result.append(lastEndedRunDate);
         result.append(", jobId: ");
         result.append(jobId);
+        result.append(", concurrentExecution: ");
+        result.append(concurrentExecution);
+        result.append(", maxConcurrentExecutions: ");
+        result.append(maxConcurrentExecutions);
         result.append(')');
         return result.toString();
     }

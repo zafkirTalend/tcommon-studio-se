@@ -399,6 +399,20 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case PropertiesPackage.FILE_TRIGGER: {
+                FileTrigger fileTrigger = (FileTrigger)theEObject;
+                Object result = caseFileTrigger(fileTrigger);
+                if (result == null) result = caseSimpleTalendTrigger(fileTrigger);
+                if (result == null) result = caseTalendTrigger(fileTrigger);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.FILE_TRIGGER_MASK: {
+                FileTriggerMask fileTriggerMask = (FileTriggerMask)theEObject;
+                Object result = caseFileTriggerMask(fileTriggerMask);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -1016,6 +1030,36 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseHTMLDocumentationItem(HTMLDocumentationItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>File Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>File Trigger</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseFileTrigger(FileTrigger object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>File Trigger Mask</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>File Trigger Mask</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseFileTriggerMask(FileTriggerMask object) {
         return null;
     }
 

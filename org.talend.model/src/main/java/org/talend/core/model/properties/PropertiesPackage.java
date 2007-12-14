@@ -2469,13 +2469,31 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_TASK__VIRTUAL_SERVER = 22;
 
     /**
+     * The feature id for the '<em><b>Concurrent Execution</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__CONCURRENT_EXECUTION = 23;
+
+    /**
+     * The feature id for the '<em><b>Max Concurrent Executions</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = 24;
+
+    /**
      * The number of structural features of the '<em>Execution Task</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int EXECUTION_TASK_FEATURE_COUNT = 23;
+    int EXECUTION_TASK_FEATURE_COUNT = 25;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
@@ -3105,13 +3123,249 @@ public interface PropertiesPackage extends EPackage {
     int HTML_DOCUMENTATION_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 0;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.FileTriggerImpl <em>File Trigger</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.FileTriggerImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTrigger()
+     * @generated
+     */
+    int FILE_TRIGGER = 44;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__ID = SIMPLE_TALEND_TRIGGER__ID;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__ACTIVE = SIMPLE_TALEND_TRIGGER__ACTIVE;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__LABEL = SIMPLE_TALEND_TRIGGER__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__DESCRIPTION = SIMPLE_TALEND_TRIGGER__DESCRIPTION;
+
+    /**
+     * The feature id for the '<em><b>Trigger Type</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__TRIGGER_TYPE = SIMPLE_TALEND_TRIGGER__TRIGGER_TYPE;
+
+    /**
+     * The feature id for the '<em><b>Execution Task</b></em>' container reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__EXECUTION_TASK = SIMPLE_TALEND_TRIGGER__EXECUTION_TASK;
+
+    /**
+     * The feature id for the '<em><b>Start Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__START_TIME = SIMPLE_TALEND_TRIGGER__START_TIME;
+
+    /**
+     * The feature id for the '<em><b>End Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__END_TIME = SIMPLE_TALEND_TRIGGER__END_TIME;
+
+    /**
+     * The feature id for the '<em><b>Previous Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__PREVIOUS_FIRE_TIME = SIMPLE_TALEND_TRIGGER__PREVIOUS_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Final Fire Time</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__FINAL_FIRE_TIME = SIMPLE_TALEND_TRIGGER__FINAL_FIRE_TIME;
+
+    /**
+     * The feature id for the '<em><b>Repeat Count</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__REPEAT_COUNT = SIMPLE_TALEND_TRIGGER__REPEAT_COUNT;
+
+    /**
+     * The feature id for the '<em><b>Repeat Interval</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__REPEAT_INTERVAL = SIMPLE_TALEND_TRIGGER__REPEAT_INTERVAL;
+
+    /**
+     * The feature id for the '<em><b>Times Triggered</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__TIMES_TRIGGERED = SIMPLE_TALEND_TRIGGER__TIMES_TRIGGERED;
+
+    /**
+     * The feature id for the '<em><b>File Trigger Masks</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER__FILE_TRIGGER_MASKS = SIMPLE_TALEND_TRIGGER_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>File Trigger</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_FEATURE_COUNT = SIMPLE_TALEND_TRIGGER_FEATURE_COUNT + 1;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl <em>File Trigger Mask</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.FileTriggerMaskImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTriggerMask()
+     * @generated
+     */
+    int FILE_TRIGGER_MASK = 45;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK__ID = 0;
+
+    /**
+     * The feature id for the '<em><b>Active</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK__ACTIVE = 1;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK__LABEL = 2;
+
+    /**
+     * The feature id for the '<em><b>Description</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK__DESCRIPTION = 3;
+
+    /**
+     * The feature id for the '<em><b>File Trigger</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK__FILE_TRIGGER = 4;
+
+    /**
+     * The feature id for the '<em><b>Folder Path</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK__FOLDER_PATH = 5;
+
+    /**
+     * The feature id for the '<em><b>File Mask</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK__FILE_MASK = 6;
+
+    /**
+     * The feature id for the '<em><b>Context Parameter Base Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME = 7;
+
+    /**
+     * The number of structural features of the '<em>File Trigger Mask</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK_FEATURE_COUNT = 8;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 44;
+    int FOLDER_TYPE = 46;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -3121,7 +3375,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 45;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 47;
 
 
     /**
@@ -3132,7 +3386,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 46;
+    int USER_MODULE_AUTHORIZATION_TYPE = 48;
 
 
     /**
@@ -5038,6 +5292,28 @@ public interface PropertiesPackage extends EPackage {
     EReference getExecutionTask_VirtualServer();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#isConcurrentExecution <em>Concurrent Execution</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Concurrent Execution</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#isConcurrentExecution()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_ConcurrentExecution();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.ExecutionTask#getMaxConcurrentExecutions <em>Max Concurrent Executions</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Max Concurrent Executions</em>'.
+     * @see org.talend.core.model.properties.ExecutionTask#getMaxConcurrentExecutions()
+     * @see #getExecutionTask()
+     * @generated
+     */
+    EAttribute getExecutionTask_MaxConcurrentExecutions();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.TalendTrigger <em>Talend Trigger</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5371,6 +5647,125 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EClass getHTMLDocumentationItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.FileTrigger <em>File Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>File Trigger</em>'.
+     * @see org.talend.core.model.properties.FileTrigger
+     * @generated
+     */
+    EClass getFileTrigger();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.core.model.properties.FileTrigger#getFileTriggerMasks <em>File Trigger Masks</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>File Trigger Masks</em>'.
+     * @see org.talend.core.model.properties.FileTrigger#getFileTriggerMasks()
+     * @see #getFileTrigger()
+     * @generated
+     */
+    EReference getFileTrigger_FileTriggerMasks();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.FileTriggerMask <em>File Trigger Mask</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>File Trigger Mask</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask
+     * @generated
+     */
+    EClass getFileTriggerMask();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.FileTriggerMask#getId <em>Id</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Id</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask#getId()
+     * @see #getFileTriggerMask()
+     * @generated
+     */
+    EAttribute getFileTriggerMask_Id();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.FileTriggerMask#isActive <em>Active</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Active</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask#isActive()
+     * @see #getFileTriggerMask()
+     * @generated
+     */
+    EAttribute getFileTriggerMask_Active();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.FileTriggerMask#getLabel <em>Label</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Label</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask#getLabel()
+     * @see #getFileTriggerMask()
+     * @generated
+     */
+    EAttribute getFileTriggerMask_Label();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.FileTriggerMask#getDescription <em>Description</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Description</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask#getDescription()
+     * @see #getFileTriggerMask()
+     * @generated
+     */
+    EAttribute getFileTriggerMask_Description();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.FileTriggerMask#getFileTrigger <em>File Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>File Trigger</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask#getFileTrigger()
+     * @see #getFileTriggerMask()
+     * @generated
+     */
+    EReference getFileTriggerMask_FileTrigger();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.FileTriggerMask#getFolderPath <em>Folder Path</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Folder Path</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask#getFolderPath()
+     * @see #getFileTriggerMask()
+     * @generated
+     */
+    EAttribute getFileTriggerMask_FolderPath();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.FileTriggerMask#getFileMask <em>File Mask</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>File Mask</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask#getFileMask()
+     * @see #getFileTriggerMask()
+     * @generated
+     */
+    EAttribute getFileTriggerMask_FileMask();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.FileTriggerMask#getContextParameterBaseName <em>Context Parameter Base Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Context Parameter Base Name</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask#getContextParameterBaseName()
+     * @see #getFileTriggerMask()
+     * @generated
+     */
+    EAttribute getFileTriggerMask_ContextParameterBaseName();
 
     /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
@@ -6978,6 +7373,22 @@ public interface PropertiesPackage extends EPackage {
         EReference EXECUTION_TASK__VIRTUAL_SERVER = eINSTANCE.getExecutionTask_VirtualServer();
 
         /**
+         * The meta object literal for the '<em><b>Concurrent Execution</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__CONCURRENT_EXECUTION = eINSTANCE.getExecutionTask_ConcurrentExecution();
+
+        /**
+         * The meta object literal for the '<em><b>Max Concurrent Executions</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS = eINSTANCE.getExecutionTask_MaxConcurrentExecutions();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.TalendTriggerImpl <em>Talend Trigger</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -7236,6 +7647,98 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EClass HTML_DOCUMENTATION_ITEM = eINSTANCE.getHTMLDocumentationItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.FileTriggerImpl <em>File Trigger</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.FileTriggerImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTrigger()
+         * @generated
+         */
+        EClass FILE_TRIGGER = eINSTANCE.getFileTrigger();
+
+        /**
+         * The meta object literal for the '<em><b>File Trigger Masks</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FILE_TRIGGER__FILE_TRIGGER_MASKS = eINSTANCE.getFileTrigger_FileTriggerMasks();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl <em>File Trigger Mask</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.FileTriggerMaskImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTriggerMask()
+         * @generated
+         */
+        EClass FILE_TRIGGER_MASK = eINSTANCE.getFileTriggerMask();
+
+        /**
+         * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_TRIGGER_MASK__ID = eINSTANCE.getFileTriggerMask_Id();
+
+        /**
+         * The meta object literal for the '<em><b>Active</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_TRIGGER_MASK__ACTIVE = eINSTANCE.getFileTriggerMask_Active();
+
+        /**
+         * The meta object literal for the '<em><b>Label</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_TRIGGER_MASK__LABEL = eINSTANCE.getFileTriggerMask_Label();
+
+        /**
+         * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_TRIGGER_MASK__DESCRIPTION = eINSTANCE.getFileTriggerMask_Description();
+
+        /**
+         * The meta object literal for the '<em><b>File Trigger</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FILE_TRIGGER_MASK__FILE_TRIGGER = eINSTANCE.getFileTriggerMask_FileTrigger();
+
+        /**
+         * The meta object literal for the '<em><b>Folder Path</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_TRIGGER_MASK__FOLDER_PATH = eINSTANCE.getFileTriggerMask_FolderPath();
+
+        /**
+         * The meta object literal for the '<em><b>File Mask</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_TRIGGER_MASK__FILE_MASK = eINSTANCE.getFileTriggerMask_FileMask();
+
+        /**
+         * The meta object literal for the '<em><b>Context Parameter Base Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME = eINSTANCE.getFileTriggerMask_ContextParameterBaseName();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

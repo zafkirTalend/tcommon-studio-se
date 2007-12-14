@@ -373,6 +373,24 @@ public interface PropertiesFactory extends EFactory {
     HTMLDocumentationItem createHTMLDocumentationItem();
 
     /**
+     * Returns a new object of class '<em>File Trigger</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>File Trigger</em>'.
+     * @generated
+     */
+    FileTrigger createFileTrigger();
+
+    /**
+     * Returns a new object of class '<em>File Trigger Mask</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>File Trigger Mask</em>'.
+     * @generated
+     */
+    FileTriggerMask createFileTriggerMask();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

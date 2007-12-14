@@ -618,4 +618,56 @@ public interface ExecutionTask extends EObject {
      */
     void setVirtualServer(ExecutionVirtualServer value);
 
+    /**
+     * Returns the value of the '<em><b>Concurrent Execution</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Concurrent Execution</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Concurrent Execution</em>' attribute.
+     * @see #setConcurrentExecution(boolean)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_ConcurrentExecution()
+     * @model
+     * @generated
+     */
+    boolean isConcurrentExecution();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#isConcurrentExecution <em>Concurrent Execution</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Concurrent Execution</em>' attribute.
+     * @see #isConcurrentExecution()
+     * @generated
+     */
+    void setConcurrentExecution(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Max Concurrent Executions</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Max Concurrent Executions</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Max Concurrent Executions</em>' attribute.
+     * @see #setMaxConcurrentExecutions(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getExecutionTask_MaxConcurrentExecutions()
+     * @model
+     * @generated
+     */
+    int getMaxConcurrentExecutions();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.ExecutionTask#getMaxConcurrentExecutions <em>Max Concurrent Executions</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Max Concurrent Executions</em>' attribute.
+     * @see #getMaxConcurrentExecutions()
+     * @generated
+     */
+    void setMaxConcurrentExecutions(int value);
+
 } // ExecutionTask

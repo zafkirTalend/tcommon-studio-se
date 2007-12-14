@@ -219,6 +219,12 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseHTMLDocumentationItem(HTMLDocumentationItem object) {
                 return createHTMLDocumentationItemAdapter();
             }
+            public Object caseFileTrigger(FileTrigger object) {
+                return createFileTriggerAdapter();
+            }
+            public Object caseFileTriggerMask(FileTriggerMask object) {
+                return createFileTriggerMaskAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -791,6 +797,34 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createHTMLDocumentationItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.FileTrigger <em>File Trigger</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.FileTrigger
+     * @generated
+     */
+    public Adapter createFileTriggerAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.FileTriggerMask <em>File Trigger Mask</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.FileTriggerMask
+     * @generated
+     */
+    public Adapter createFileTriggerMaskAdapter() {
         return null;
     }
 

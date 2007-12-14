@@ -31,6 +31,8 @@ import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.ExecutionTask;
 import org.talend.core.model.properties.ExecutionVirtualServer;
 import org.talend.core.model.properties.FileItem;
+import org.talend.core.model.properties.FileTrigger;
+import org.talend.core.model.properties.FileTriggerMask;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
@@ -337,6 +339,20 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     private EClass htmlDocumentationItemEClass = null;
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass fileTriggerEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass fileTriggerMaskEClass = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -419,18 +435,14 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         EcorePackage.eINSTANCE.eClass();
         ConnectionPackage.eINSTANCE.eClass();
         NotationPackage.eINSTANCE.eClass();
+        TalendFilePackage.eINSTANCE.eClass();
         XMLTypePackage.eINSTANCE.eClass();
-
-        // Obtain or create and register interdependencies
-        TalendFilePackageImpl theTalendFilePackage = (TalendFilePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(TalendFilePackage.eNS_URI) instanceof TalendFilePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(TalendFilePackage.eNS_URI) : TalendFilePackage.eINSTANCE);
 
         // Create package meta-data objects
         thePropertiesPackage.createPackageContents();
-        theTalendFilePackage.createPackageContents();
 
         // Initialize created meta-data
         thePropertiesPackage.initializePackageContents();
-        theTalendFilePackage.initializePackageContents();
 
         // Mark meta-data to indicate it can't be changed
         thePropertiesPackage.freeze();
@@ -1912,6 +1924,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_ConcurrentExecution() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(23);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getExecutionTask_MaxConcurrentExecutions() {
+        return (EAttribute)executionTaskEClass.getEStructuralFeatures().get(24);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2158,6 +2188,105 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EClass getHTMLDocumentationItem() {
         return htmlDocumentationItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getFileTrigger() {
+        return fileTriggerEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getFileTrigger_FileTriggerMasks() {
+        return (EReference)fileTriggerEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getFileTriggerMask() {
+        return fileTriggerMaskEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileTriggerMask_Id() {
+        return (EAttribute)fileTriggerMaskEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileTriggerMask_Active() {
+        return (EAttribute)fileTriggerMaskEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileTriggerMask_Label() {
+        return (EAttribute)fileTriggerMaskEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileTriggerMask_Description() {
+        return (EAttribute)fileTriggerMaskEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getFileTriggerMask_FileTrigger() {
+        return (EReference)fileTriggerMaskEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileTriggerMask_FolderPath() {
+        return (EAttribute)fileTriggerMaskEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileTriggerMask_FileMask() {
+        return (EAttribute)fileTriggerMaskEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getFileTriggerMask_ContextParameterBaseName() {
+        return (EAttribute)fileTriggerMaskEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -2465,6 +2594,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(executionTaskEClass, EXECUTION_TASK__TRIGGERS);
         createEAttribute(executionTaskEClass, EXECUTION_TASK__JOB_ID);
         createEReference(executionTaskEClass, EXECUTION_TASK__VIRTUAL_SERVER);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__CONCURRENT_EXECUTION);
+        createEAttribute(executionTaskEClass, EXECUTION_TASK__MAX_CONCURRENT_EXECUTIONS);
 
         talendTriggerEClass = createEClass(TALEND_TRIGGER);
         createEAttribute(talendTriggerEClass, TALEND_TRIGGER__ID);
@@ -2502,6 +2633,19 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEReference(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__EXECUTION_SERVERS);
 
         htmlDocumentationItemEClass = createEClass(HTML_DOCUMENTATION_ITEM);
+
+        fileTriggerEClass = createEClass(FILE_TRIGGER);
+        createEReference(fileTriggerEClass, FILE_TRIGGER__FILE_TRIGGER_MASKS);
+
+        fileTriggerMaskEClass = createEClass(FILE_TRIGGER_MASK);
+        createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__ID);
+        createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__ACTIVE);
+        createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__LABEL);
+        createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__DESCRIPTION);
+        createEReference(fileTriggerMaskEClass, FILE_TRIGGER_MASK__FILE_TRIGGER);
+        createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__FOLDER_PATH);
+        createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__FILE_MASK);
+        createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME);
 
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
@@ -2562,6 +2706,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         cronUITalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
         simpleTalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
         htmlDocumentationItemEClass.getESuperTypes().add(this.getItem());
+        fileTriggerEClass.getESuperTypes().add(this.getSimpleTalendTrigger());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2788,6 +2933,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getExecutionTask_Triggers(), this.getTalendTrigger(), this.getTalendTrigger_ExecutionTask(), "triggers", null, 0, -1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getExecutionTask_JobId(), ecorePackage.getEString(), "jobId", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getExecutionTask_VirtualServer(), this.getExecutionVirtualServer(), null, "virtualServer", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_ConcurrentExecution(), theEcorePackage.getEBoolean(), "concurrentExecution", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getExecutionTask_MaxConcurrentExecutions(), ecorePackage.getEInt(), "maxConcurrentExecutions", null, 0, 1, ExecutionTask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(talendTriggerEClass, TalendTrigger.class, "TalendTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEAttribute(getTalendTrigger_Id(), ecorePackage.getEInt(), "id", null, 1, 1, TalendTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -2825,6 +2972,19 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEReference(getExecutionVirtualServer_ExecutionServers(), this.getExecutionServer(), null, "executionServers", null, 0, -1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(htmlDocumentationItemEClass, HTMLDocumentationItem.class, "HTMLDocumentationItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(fileTriggerEClass, FileTrigger.class, "FileTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getFileTrigger_FileTriggerMasks(), this.getFileTriggerMask(), null, "fileTriggerMasks", null, 0, -1, FileTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(fileTriggerMaskEClass, FileTriggerMask.class, "FileTriggerMask", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getFileTriggerMask_Id(), ecorePackage.getEInt(), "id", null, 1, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileTriggerMask_Active(), theEcorePackage.getEBoolean(), "active", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileTriggerMask_Label(), theEcorePackage.getEString(), "label", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileTriggerMask_Description(), theEcorePackage.getEString(), "description", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getFileTriggerMask_FileTrigger(), this.getFileTrigger(), null, "fileTrigger", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileTriggerMask_FolderPath(), theEcorePackage.getEString(), "folderPath", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileTriggerMask_FileMask(), theEcorePackage.getEString(), "fileMask", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getFileTriggerMask_ContextParameterBaseName(), theEcorePackage.getEString(), "contextParameterBaseName", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

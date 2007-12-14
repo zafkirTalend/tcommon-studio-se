@@ -131,6 +131,8 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.SIMPLE_TALEND_TRIGGER: return createSimpleTalendTrigger();
             case PropertiesPackage.EXECUTION_VIRTUAL_SERVER: return createExecutionVirtualServer();
             case PropertiesPackage.HTML_DOCUMENTATION_ITEM: return createHTMLDocumentationItem();
+            case PropertiesPackage.FILE_TRIGGER: return createFileTrigger();
+            case PropertiesPackage.FILE_TRIGGER_MASK: return createFileTriggerMask();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -549,6 +551,26 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public HTMLDocumentationItem createHTMLDocumentationItem() {
         HTMLDocumentationItemImpl htmlDocumentationItem = new HTMLDocumentationItemImpl();
         return htmlDocumentationItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FileTrigger createFileTrigger() {
+        FileTriggerImpl fileTrigger = new FileTriggerImpl();
+        return fileTrigger;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public FileTriggerMask createFileTriggerMask() {
+        FileTriggerMaskImpl fileTriggerMask = new FileTriggerMaskImpl();
+        return fileTriggerMask;
     }
 
     /**
