@@ -15,7 +15,7 @@ Bundle-ClassPath: .,
  lib/mysql-connector-java-5.1.0-bin.jar,
  lib/xerces-2.6.2.jar,
  lib/xml-apis.jar
-Eclipse-RegisterBuddy: org.talend.model, org.talend.repository.databaseprovider, org.talend.teneo.model
+Eclipse-RegisterBuddy: org.talend.model, org.talend.repository.databaseprovider, org.talend.teneo.model, org.talend.libraries.jdbc.jtds, org.talend.libraries.jdbc.mysql
 Eclipse-BuddyPolicy: registered, dependent
 Require-Bundle: org.talend.libraries.apache;visibility:=reexport
 Export-Package: antlr,

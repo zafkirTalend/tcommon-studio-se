@@ -74,6 +74,6 @@ Export-Package: org.apache.commons.beanutils,
  org.apache.log4j.spi,
  org.apache.log4j.varia,
  org.apache.log4j.xml
-Eclipse-RegisterBuddy: org.talend.model, org.talend.repository.databaseprovider, org.talend.teneo.model, org.talend.teneo
+Eclipse-RegisterBuddy: org.talend.model, org.talend.repository.databaseprovider, org.talend.teneo.model, org.talend.libraries.hibernate
 Eclipse-BuddyPolicy: registered, dependent
 Bundle-Vendor: .Talend SA.
