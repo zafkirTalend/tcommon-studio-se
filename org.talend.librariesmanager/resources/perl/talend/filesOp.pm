@@ -37,7 +37,15 @@ sub getFileList {
     #  - filemask
     #  - case_sensitive
     #  - include_subdir
+    #  - match_dirs
+    #  - match_files
     my %param = @_;
+
+    foreach my $option (qw/match_dirs match_files/) {
+        if (not exists $param{$option}) {
+            $param{$option} = 1;
+        }
+    }
 
     my @files;
 
@@ -64,24 +72,37 @@ sub getFileList {
 
     my @filtered_files = ();
 
-    if (exists $param{filemask}) {
-        foreach my $file (@files) {
-            my $filename = basename($file);
+    foreach my $file (@files) {
+        my $add_file = 0;
 
+        my $filename = basename($file);
+
+        if (exists $param{filemask}) {
             if ($param{case_sensitive}) {
                 if ($filename =~ m/$param{filemask}/) {
-                    push @filtered_files, $file;
+                    $add_file = 1;
                 }
             }
             else {
                 if ($filename =~ m/$param{filemask}/i) {
-                    push @filtered_files, $file;
+                    $add_file = 1;
                 }
             }
         }
-    }
-    else {
-        @filtered_files = @files;
+
+        if ($add_file) {
+            if (-f $file and not $param{match_files}) {
+                $add_file = 0;
+            }
+
+            if (-d $file and not $param{match_dirs}) {
+                $add_file = 0;
+            }
+        }
+
+        if ($add_file) {
+            push @filtered_files, $file;
+        }
     }
 
     return @filtered_files;
