@@ -30,14 +30,14 @@ import orgomg.cwm.foundation.typemapping.TypemappingPackage;
 /**
  * DOC scorreia class global comment. Detailled comment
  */
-public class RunDBConnect {
+public final class RunDBConnect {
 
-    /**
-     * 
-     */
     private static final Class<RunDBConnect> THAT = RunDBConnect.class;
 
     private static Logger log = Logger.getLogger(THAT);
+
+    private RunDBConnect() {
+    }
 
     /**
      * DOC scorreia Comment method "main".
@@ -72,6 +72,7 @@ public class RunDBConnect {
         // --- connect and check the connection
         boolean connected = connector.connect();
         if (!connected) {
+            log.error("Could not connect to " + connector);
             return; // BREAK here
         }
 

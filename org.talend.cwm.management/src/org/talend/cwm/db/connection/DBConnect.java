@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Properties;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.emf.EMFUtil;
@@ -56,7 +57,16 @@ public class DBConnect {
 
     private Connection connection;
 
+    /**
+     * DBConnect constructor.
+     * 
+     * @param dbUrl the database URL (must not be null)
+     * @param driverClassName the driver class name (must not be null)
+     * @param props properties passed to the connection
+     */
     public DBConnect(final String dbUrl, final String driverClassName, final Properties props) {
+        assert dbUrl != null && driverClassName != null;
+
         this.databaseUrl = dbUrl;
         this.driverClass = driverClassName;
         this.connectionProperties = props;
@@ -162,8 +172,10 @@ public class DBConnect {
     public boolean connect() {
         boolean ok = true;
         try {
+            // --- check preconditions
+            ok = StringUtils.isNotBlank(databaseUrl) && StringUtils.isNotBlank(driverClass);
             // --- connect
-            ok = connectLow(this.databaseUrl, this.driverClass, this.connectionProperties);
+            ok = ok && connectLow(this.databaseUrl, this.driverClass, this.connectionProperties);
             // --- initialize fields
             ok = ok && initFields();
         } catch (SQLException e) {
@@ -171,6 +183,11 @@ public class DBConnect {
             ok = false;
         }
         return ok;
+    }
+
+    @Override
+    public String toString() {
+        return "Connection " + databaseUrl;
     }
 
     private boolean initFields() throws SQLException {
