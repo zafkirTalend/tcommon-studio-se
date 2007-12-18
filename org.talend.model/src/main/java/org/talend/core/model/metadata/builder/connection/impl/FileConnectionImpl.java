@@ -41,6 +41,7 @@ import org.talend.core.model.metadata.builder.connection.RowSeparator;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl#getEscapeType <em>Escape Type</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl#getEscapeChar <em>Escape Char</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl#getTextEnclosure <em>Text Enclosure</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.impl.FileConnectionImpl#isCsvOption <em>Csv Option</em>}</li>
  * </ul>
  * </p>
  *
@@ -425,6 +426,26 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * @ordered
      */
     protected String textEnclosure = TEXT_ENCLOSURE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isCsvOption() <em>Csv Option</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isCsvOption()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean CSV_OPTION_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isCsvOption() <em>Csv Option</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isCsvOption()
+     * @generated
+     * @ordered
+     */
+    protected boolean csvOption = CSV_OPTION_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -848,6 +869,27 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isCsvOption() {
+        return csvOption;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCsvOption(boolean newCsvOption) {
+        boolean oldCsvOption = csvOption;
+        csvOption = newCsvOption;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ConnectionPackage.FILE_CONNECTION__CSV_OPTION, oldCsvOption, csvOption));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case ConnectionPackage.FILE_CONNECTION__SERVER:
@@ -888,6 +930,8 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
                 return getEscapeChar();
             case ConnectionPackage.FILE_CONNECTION__TEXT_ENCLOSURE:
                 return getTextEnclosure();
+            case ConnectionPackage.FILE_CONNECTION__CSV_OPTION:
+                return isCsvOption() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -955,6 +999,9 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
                 return;
             case ConnectionPackage.FILE_CONNECTION__TEXT_ENCLOSURE:
                 setTextEnclosure((String)newValue);
+                return;
+            case ConnectionPackage.FILE_CONNECTION__CSV_OPTION:
+                setCsvOption(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -1024,6 +1071,9 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
             case ConnectionPackage.FILE_CONNECTION__TEXT_ENCLOSURE:
                 setTextEnclosure(TEXT_ENCLOSURE_EDEFAULT);
                 return;
+            case ConnectionPackage.FILE_CONNECTION__CSV_OPTION:
+                setCsvOption(CSV_OPTION_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -1073,6 +1123,8 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
                 return ESCAPE_CHAR_EDEFAULT == null ? escapeChar != null : !ESCAPE_CHAR_EDEFAULT.equals(escapeChar);
             case ConnectionPackage.FILE_CONNECTION__TEXT_ENCLOSURE:
                 return TEXT_ENCLOSURE_EDEFAULT == null ? textEnclosure != null : !TEXT_ENCLOSURE_EDEFAULT.equals(textEnclosure);
+            case ConnectionPackage.FILE_CONNECTION__CSV_OPTION:
+                return csvOption != CSV_OPTION_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -1124,6 +1176,8 @@ public abstract class FileConnectionImpl extends ConnectionImpl implements FileC
         result.append(escapeChar);
         result.append(", TextEnclosure: ");
         result.append(textEnclosure);
+        result.append(", CsvOption: ");
+        result.append(csvOption);
         result.append(')');
         return result.toString();
     }

@@ -859,13 +859,22 @@ public interface ConnectionPackage extends EPackage {
     int FILE_CONNECTION__TEXT_ENCLOSURE = CONNECTION_FEATURE_COUNT + 18;
 
     /**
+     * The feature id for the '<em><b>Csv Option</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_CONNECTION__CSV_OPTION = CONNECTION_FEATURE_COUNT + 19;
+
+    /**
      * The number of structural features of the '<em>File Connection</em>' class.
      * <!-- begin-user-doc --> <!--
      * end-user-doc -->
      * @generated
      * @ordered
      */
-    int FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 19;
+    int FILE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 20;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.DelimitedFileConnectionImpl <em>Delimited File Connection</em>}' class.
@@ -1123,6 +1132,15 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int DELIMITED_FILE_CONNECTION__TEXT_ENCLOSURE = FILE_CONNECTION__TEXT_ENCLOSURE;
+
+    /**
+     * The feature id for the '<em><b>Csv Option</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DELIMITED_FILE_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
 
     /**
      * The feature id for the '<em><b>Field Separator Type</b></em>' attribute.
@@ -1398,6 +1416,15 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int POSITIONAL_FILE_CONNECTION__TEXT_ENCLOSURE = FILE_CONNECTION__TEXT_ENCLOSURE;
+
+    /**
+     * The feature id for the '<em><b>Csv Option</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int POSITIONAL_FILE_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
 
     /**
      * The number of structural features of the '<em>Positional File Connection</em>' class.
@@ -1939,6 +1966,15 @@ public interface ConnectionPackage extends EPackage {
      * @ordered
      */
     int REGEXP_FILE_CONNECTION__TEXT_ENCLOSURE = FILE_CONNECTION__TEXT_ENCLOSURE;
+
+    /**
+     * The feature id for the '<em><b>Csv Option</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int REGEXP_FILE_CONNECTION__CSV_OPTION = FILE_CONNECTION__CSV_OPTION;
 
     /**
      * The feature id for the '<em><b>Field Separator Type</b></em>' attribute.
@@ -3513,6 +3549,17 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getFileConnection_TextEnclosure();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.FileConnection#isCsvOption <em>Csv Option</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Csv Option</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.FileConnection#isCsvOption()
+     * @see #getFileConnection()
+     * @generated
+     */
+    EAttribute getFileConnection_CsvOption();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.DelimitedFileConnection <em>Delimited File Connection</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Delimited File Connection</em>'.
@@ -4853,6 +4900,14 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute FILE_CONNECTION__TEXT_ENCLOSURE = eINSTANCE.getFileConnection_TextEnclosure();
+
+        /**
+         * The meta object literal for the '<em><b>Csv Option</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute FILE_CONNECTION__CSV_OPTION = eINSTANCE.getFileConnection_CsvOption();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.DelimitedFileConnectionImpl <em>Delimited File Connection</em>}' class.

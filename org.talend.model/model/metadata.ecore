@@ -100,6 +100,7 @@
         eType="#//Escape"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="EscapeChar" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="TextEnclosure" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="CsvOption" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DelimitedFileConnection" eSuperTypes="#//FileConnection">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="FieldSeparatorType" lowerBound="1"

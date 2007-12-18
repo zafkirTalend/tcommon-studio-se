@@ -103,6 +103,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/EscapeType"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/EscapeChar"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/TextEnclosure"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//FileConnection/CsvOption"/>
     </genClasses>
     <genClasses ecoreClass="metadata.ecore#//DelimitedFileConnection">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//DelimitedFileConnection/FieldSeparatorType"/>

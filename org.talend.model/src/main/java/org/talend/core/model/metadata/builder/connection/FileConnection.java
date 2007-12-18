@@ -34,6 +34,7 @@ package org.talend.core.model.metadata.builder.connection;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileConnection#getEscapeType <em>Escape Type</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileConnection#getEscapeChar <em>Escape Char</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.FileConnection#getTextEnclosure <em>Text Enclosure</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.FileConnection#isCsvOption <em>Csv Option</em>}</li>
  * </ul>
  * </p>
  *
@@ -546,5 +547,31 @@ public interface FileConnection extends Connection {
      * @generated
      */
     void setTextEnclosure(String value);
+
+    /**
+     * Returns the value of the '<em><b>Csv Option</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Csv Option</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Csv Option</em>' attribute.
+     * @see #setCsvOption(boolean)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getFileConnection_CsvOption()
+     * @model
+     * @generated
+     */
+    boolean isCsvOption();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.FileConnection#isCsvOption <em>Csv Option</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Csv Option</em>' attribute.
+     * @see #isCsvOption()
+     * @generated
+     */
+    void setCsvOption(boolean value);
 
 } // FileConnection

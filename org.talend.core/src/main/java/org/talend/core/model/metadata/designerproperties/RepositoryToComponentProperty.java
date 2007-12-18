@@ -276,7 +276,9 @@ public class RepositoryToComponentProperty {
         if (value.equals("REMOVE_EMPTY_ROW")) { //$NON-NLS-1$
             return new Boolean(connection.isRemoveEmptyRow());
         }
-
+        if (value.equals("CSV_OPTION")) { //$NON-NLS-1$
+            return new Boolean(connection.isCsvOption());
+        }
         if (connection instanceof DelimitedFileConnection) {
             return getDelimitedFileValue((DelimitedFileConnection) connection, value);
         }
