@@ -89,6 +89,9 @@ sub getFileList {
                 }
             }
         }
+        else {
+            $add_file = 1;
+        }
 
         if ($add_file) {
             if (-f $file and not $param{match_files}) {
