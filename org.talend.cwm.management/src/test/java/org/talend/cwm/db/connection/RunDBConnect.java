@@ -14,7 +14,6 @@ package org.talend.cwm.db.connection;
 
 import java.io.File;
 import java.util.Collection;
-import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.talend.cwm.relational.RelationalPackage;
@@ -46,31 +45,13 @@ public final class RunDBConnect {
      */
     public static void main(String[] args) {
         // --- load connection parameters from properties file
-        TypedProperties properties = PropertiesLoader.getProperties(THAT, "db.properties");
-        runTest(properties);
-    }
+        TypedProperties connectionParams = PropertiesLoader.getProperties(THAT, "db.properties");
 
-    /**
-     * Method "printInformations" only for test purposes.
-     * 
-     * @param catalogs
-     * @param schemata
-     */
-    private static void printInformations(Collection<TdCatalog> catalogs, Collection<TdSchema> schemata) {
-        for (TdCatalog tdCatalog : catalogs) {
-            System.out.println("Catalog = " + tdCatalog);
-        }
-        for (TdSchema tdSchema : schemata) {
-            System.out.println("Schema = " + tdSchema + " in catalog " + tdSchema.getNamespace());
-        }
-    }
-
-    private static void runTest(Properties connectionParams) {
         String driverClassName = connectionParams.getProperty("driver");
         String dbUrl = connectionParams.getProperty("url");
         DBConnect connector = new DBConnect(dbUrl, driverClassName, connectionParams);
         // --- connect and check the connection
-        boolean connected = connector.connect();
+        boolean connected = connector.connectAndRetrieveInformations();
         if (!connected) {
             log.error("Could not connect to " + connector);
             return; // BREAK here
@@ -117,4 +98,18 @@ public final class RunDBConnect {
         connector.closeConnection();
     }
 
+    /**
+     * Method "printInformations" only for test purposes.
+     * 
+     * @param catalogs
+     * @param schemata
+     */
+    private static void printInformations(Collection<TdCatalog> catalogs, Collection<TdSchema> schemata) {
+        for (TdCatalog tdCatalog : catalogs) {
+            System.out.println("Catalog = " + tdCatalog);
+        }
+        for (TdSchema tdSchema : schemata) {
+            System.out.println("Schema = " + tdSchema + " in catalog " + tdSchema.getNamespace());
+        }
+    }
 }

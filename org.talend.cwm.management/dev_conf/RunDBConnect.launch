@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/org.talend.cwm.management/src/org/talend/cwm/db/connection/RunDBConnect.java"/>
+<listEntry value="/org.talend.cwm.management/src/test/java/org/talend/cwm/db/connection/RunDBConnect.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>

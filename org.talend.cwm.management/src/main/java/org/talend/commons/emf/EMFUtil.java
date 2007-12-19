@@ -30,6 +30,8 @@ import org.talend.cwm.util.FactoriesHelper;
 
 /**
  * @author scorreia This class creates the EMF resources and save them.
+ * 
+ * TODO scorreia this class should be in a commons project (org.talend.commons.emf)
  */
 public final class EMFUtil {
 

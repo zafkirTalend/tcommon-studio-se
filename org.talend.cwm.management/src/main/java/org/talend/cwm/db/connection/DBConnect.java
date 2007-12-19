@@ -57,6 +57,7 @@ public class DBConnect {
 
     private Connection connection;
 
+    // TODO scorreia errorMessage;
     /**
      * DBConnect constructor.
      * 
@@ -73,7 +74,8 @@ public class DBConnect {
     }
 
     /**
-     * Method "getCatalogs".
+     * Method "getCatalogs". Method this.{@link #retrieveDatabaseStructure()} should be called before getting the
+     * catalogs.
      * 
      * @return the catalogs built from the connection, or an empty list.
      */
@@ -85,7 +87,8 @@ public class DBConnect {
     }
 
     /**
-     * Method "getSchemata".
+     * Method "getSchemata". Method this.{@link #retrieveDatabaseStructure()} should be called before getting the
+     * schematas.
      * 
      * @return the schemata built from the connection, or an empty list.
      */
@@ -97,7 +100,8 @@ public class DBConnect {
     }
 
     /**
-     * Method "getSoftwareSystem".
+     * Method "getSoftwareSystem". Method this.{@link #retrieveDeployedSystemInformations()} should be called before
+     * getting the software system.
      * 
      * @return the Software system or null.
      */
@@ -109,7 +113,8 @@ public class DBConnect {
     }
 
     /**
-     * Method "getTypeSystem".
+     * Method "getTypeSystem". Method this.{@link #retrieveDeployedSystemInformations()} should be called before
+     * getting the type system.
      * 
      * @return the TypeSystem that defines the datatypes supported by the software system.
      */
@@ -162,22 +167,40 @@ public class DBConnect {
 
     /**
      * Method "connect". Opens a connection by using the DriverManager class. It is of the responsability of the caller
-     * to close it correctly.
+     * to close it correctly. When calling this method, you must call individual retrieveXXX() methods in order to get
+     * the desired informations of the database.
+     * 
+     * @param dbUrl the url
+     * @param driverClassName
+     * @param props
+     * @return false if problem. true if the connection is opened.
+     * @throws SQLException
+     */
+    public boolean connect() throws SQLException {
+        // --- check preconditions
+        boolean ok = StringUtils.isNotBlank(databaseUrl) && StringUtils.isNotBlank(driverClass);
+        // --- connect
+        ok = ok && connectLow(this.databaseUrl, this.driverClass, this.connectionProperties);
+        return ok;
+    }
+
+    /**
+     * Method "connectAndRetrieveInformations". Opens a connection by using the DriverManager class. It is of the
+     * responsability of the caller to close it correctly. This method retrieve all available informations of the
+     * connected database.
      * 
      * @param dbUrl the url
      * @param driverClassName
      * @param props
      * @return false if problem. true if the connection is opened.
      */
-    public boolean connect() {
+    public boolean connectAndRetrieveInformations() {
         boolean ok = true;
         try {
-            // --- check preconditions
-            ok = StringUtils.isNotBlank(databaseUrl) && StringUtils.isNotBlank(driverClass);
-            // --- connect
-            ok = ok && connectLow(this.databaseUrl, this.driverClass, this.connectionProperties);
+            ok = connect();
             // --- initialize fields
-            ok = ok && initFields();
+            ok = ok && retrieveDeployedSystemInformations();
+            ok = ok && retrieveDatabaseStructure();
         } catch (SQLException e) {
             log.error("Problem during connection to " + databaseUrl + " with " + driverClass, e);
             ok = false;
@@ -190,10 +213,51 @@ public class DBConnect {
         return "Connection " + databaseUrl;
     }
 
-    private boolean initFields() throws SQLException {
+    /**
+     * Method "retrieveDatabaseStructure".
+     * 
+     * @return ok if no problem
+     * @throws SQLException
+     */
+    public boolean retrieveDatabaseStructure() throws SQLException {
+        boolean ok = checkConnection("Cannot retrieve database structure. ");
+        if (ok) {
+            catalogBuilder = new CatalogBuilder(connection);
+        }
+        return ok;
+    }
+
+    /**
+     * Method "checkConnection" checks that the connection is not null and not closed.
+     * 
+     * @param message the error message to log in case of problem.
+     * @return true if ok
+     * @throws SQLException
+     */
+    private boolean checkConnection(String message) throws SQLException {
         boolean ok = true;
-        catalogBuilder = new CatalogBuilder(connection);
-        softwareSystemBuilder = new SoftwareSystemBuilder(connection);
+        if (connection == null) {
+            log.error(message + " Cause: connection is null." + this);
+            ok = false;
+        } else if (connection.isClosed()) {
+            log.error(message + " Cause: connection is closed." + this);
+            ok = false;
+        }
+        return ok;
+    }
+
+    /**
+     * Method "retrieveDeployedSystemInformations". This method fills in the Software deployment information like the
+     * SoftwareSystem.
+     * 
+     * @return true if ok
+     * @throws SQLException
+     */
+    public boolean retrieveDeployedSystemInformations() throws SQLException {
+        boolean ok = checkConnection("Cannot retrieve deployed system informations");
+        if (ok) {
+            softwareSystemBuilder = new SoftwareSystemBuilder(connection);
+        }
         return ok;
     }
 
