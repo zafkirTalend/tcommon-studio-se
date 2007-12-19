@@ -20,13 +20,17 @@ import java.util.Map;
 /**
  */
 public class Timer {
-    
+
     private static Map<String, Timer> timers = new HashMap<String, Timer>();
-    
+
     private String name;
+
     private long startTime;
+
     private long stopTime;
-    private ArrayList<Long> times  = new ArrayList<Long>();
+
+    private ArrayList<Long> times = new ArrayList<Long>();
+
     private long timeDelta;
 
     private Timer(String name) {
@@ -42,27 +46,28 @@ public class Timer {
             return timer;
         }
     }
-    
+
     public void start() {
         startTime = new Date().getTime();
     }
-    
+
     public void stop() {
         stopTime = new Date().getTime();
         timeDelta = stopTime - startTime;
         times.add(timeDelta);
     }
-    
+
     public void print() {
-        long averageTime = computeAverageTime();
-        System.out.println("timer " + name + " : " + timeDelta + " avg : " + averageTime); //$NON-NLS-1$
+        long totalTime = computeTotalTime();
+        long averageTime = totalTime / times.size();
+        System.out.println("timer " + name + " : " + timeDelta + " avg : " + averageTime + " tot : " + totalTime); //$NON-NLS-1$
     }
 
-    private long computeAverageTime() {
+    private long computeTotalTime() {
         long totalTime = 0;
         for (Long time : times) {
             totalTime += time;
         }
-        return totalTime / times.size();
+        return totalTime;
     }
 }
