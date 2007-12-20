@@ -207,17 +207,28 @@ public final class ContextManagerHelper {
             return null;
         }
         Set<ContextItem> itemSet = getContextItems();
-        if (itemSet != null && obj instanceof ContextParameterType) {
-            for (ContextItem contextItem : itemSet) {
-                for (Object objType : contextItem.getContext()) {
-                    ContextType type = (ContextType) objType;
-                    if (type.getName().equals(contextItem.getDefaultContext())) {
-                        List paramList = type.getContextParameter();
-                        if (paramList != null && paramList.contains(obj)) {
-                            return contextItem;
+        if (itemSet != null) {
+            // for SelectRepositoryContextDialog
+            if (obj instanceof ContextParameterType) {
+                for (ContextItem contextItem : itemSet) {
+                    for (Object objType : contextItem.getContext()) {
+                        ContextType type = (ContextType) objType;
+                        if (type.getName().equals(contextItem.getDefaultContext())) {
+                            List paramList = type.getContextParameter();
+                            if (paramList != null && paramList.contains(obj)) {
+                                return contextItem;
+                            }
                         }
-                    }
 
+                    }
+                }
+            }
+            // for SelectRepositoryContextGroupDialog
+            if (obj instanceof ContextType) {
+                for (ContextItem contextItem : itemSet) {
+                    if (contextItem.getContext().contains(obj)) {
+                        return contextItem;
+                    }
                 }
             }
         }
@@ -236,6 +247,7 @@ public final class ContextManagerHelper {
             if (obj instanceof ContextItem) {
                 return itemSet;
             }
+            // for SelectRepositoryContextDialog
             if (obj instanceof ContextParameterType) {
                 for (ContextItem contextItem : getContextItems()) {
                     for (Object objType : contextItem.getContext()) {
@@ -248,7 +260,15 @@ public final class ContextManagerHelper {
                         }
                     }
                 }
+            }
+            // for SelectRepositoryContextGroupDialog
+            if (obj instanceof ContextType) {
+                for (ContextItem contextItem : getContextItems()) {
+                    if (contextItem.getContext().contains(obj)) {
+                        return new HashSet(contextItem.getContext());
+                    }
 
+                }
             }
         }
         return null;

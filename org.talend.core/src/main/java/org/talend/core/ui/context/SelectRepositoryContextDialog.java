@@ -15,10 +15,12 @@ package org.talend.core.ui.context;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.CheckStateChangedEvent;
 import org.eclipse.jface.viewers.CheckboxTreeViewer;
@@ -51,6 +53,8 @@ import org.talend.core.i18n.Messages;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
+import org.talend.core.ui.context.cmd.AddRepositoryContextGroupCommand;
+import org.talend.core.ui.context.cmd.AddRepositoryContextVariablesCommand;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextParameterType;
 import org.talend.designer.core.model.utils.emf.talendfile.ContextType;
@@ -344,7 +348,29 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
         return null;
     }
 
-    private void progressDialog() {
+    private List<ContextItem> getSelectedContextItem() {
+        List<ContextItem> itemList = new ArrayList<ContextItem>();
+        List objList = Arrays.asList(treeViewer.getCheckedElements());
+        for (Object obj : objList) {
+            if (obj instanceof ContextItem) {
+                itemList.add((ContextItem) obj);
+            }
+        }
+        return itemList;
+    }
+
+    private List<ContextParameterType> getSelectedContextParameterType() {
+        List<ContextParameterType> itemList = new ArrayList<ContextParameterType>();
+        List objList = Arrays.asList(treeViewer.getCheckedElements());
+        for (Object obj : objList) {
+            if (obj instanceof ContextParameterType) {
+                itemList.add((ContextParameterType) obj);
+            }
+        }
+        return itemList;
+    }
+
+    private void progressDialog(final Set<String> contextGoupNameSet, final List<ContextParameterType> paramTypeList) {
 
         ProgressDialog progressDialog = new ProgressDialog(getParentShell()) {
 
@@ -355,34 +381,24 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
                 monitor.beginTask("", objList.size()); //$NON-NLS-1$
                 setResult(objList);
 
-                for (Object obj : objList) {
-                    if (obj instanceof ContextParameterType) {
-                        ContextParameterType defaultContextParamType = (ContextParameterType) obj;
-                        ContextItem contextItem = (ContextItem) helper.getParentContextItem(obj);
-                        if (contextItem == null) {
-                            continue;
-                        }
+                AddRepositoryContextGroupCommand addGroupCmd = new AddRepositoryContextGroupCommand(monitor, manager,
+                        contextGoupNameSet);
+                AddRepositoryContextVariablesCommand addVarCmd = new AddRepositoryContextVariablesCommand(monitor, modelManager,
+                        helper, paramTypeList);
 
-                        IContextParameter paramExisted = helper.getExistedContextParameter(defaultContextParamType.getName());
-                        if (paramExisted != null) {
-                            // existed.
-                            if (!paramExisted.isBuiltIn()
-                                    && contextItem.getProperty().getLabel().equals(paramExisted.getSource())) {
-                                // update the parameter.
-                                modelManager.onContextRemoveParameter(manager, defaultContextParamType.getName());
-                                helper.addContextParameterType(defaultContextParamType);
+                if (modelManager.getCommandStack() != null) {
 
-                            }
-                        } else {
-                            // add the context
-                            helper.addContextParameterType(defaultContextParamType);
+                    modelManager.getCommandStack().execute(addGroupCmd);
 
-                        }
-                    }
-                    monitor.worked(1);
+                    modelManager.getCommandStack().execute(addVarCmd);
+
+                } else {
+                    addGroupCmd.execute();
+                    addVarCmd.execute();
                 }
+
                 monitor.done();
-                modelManager.onContextChangeDefault(manager, manager.getDefaultContext());
+
             }
         };
 
@@ -397,7 +413,17 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
 
     @Override
     protected void okPressed() {
-        progressDialog();
+        List<ContextItem> selectedItems = getSelectedContextItem();
+        Set<String> contextGoupNameSet = new HashSet<String>();
+        if (selectedItems != null && !selectedItems.isEmpty()) {
+            SelectRepositoryContextGroupDialog groupDialog = new SelectRepositoryContextGroupDialog(getParentShell(), manager,
+                    helper, selectedItems);
+            if (Dialog.OK == groupDialog.open()) {
+                contextGoupNameSet = groupDialog.getSelectedContextGroupName();
+            }
+        }
+        progressDialog(contextGoupNameSet, getSelectedContextParameterType());
+
         modelManager.refresh();
         super.okPressed();
 
