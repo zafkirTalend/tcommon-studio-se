@@ -6,7 +6,7 @@ Bundle-Version: 2.2.0.qualifier
 Bundle-Vendor: .Talend SA.
 Bundle-ClassPath: lib/jtds-1.2.jar,
  .
-Eclipse-BuddyPolicy: registered
+Eclipse-BuddyPolicy: registered, dependent
 Export-Package: net.sourceforge.jtds.jdbc,
  net.sourceforge.jtds.jdbc.cache,
  net.sourceforge.jtds.jdbcx,
