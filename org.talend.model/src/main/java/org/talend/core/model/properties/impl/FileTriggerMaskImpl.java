@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
 
+import org.talend.core.model.properties.ExecutionServer;
 import org.talend.core.model.properties.FileTrigger;
 import org.talend.core.model.properties.FileTriggerMask;
 import org.talend.core.model.properties.PropertiesPackage;
@@ -33,6 +34,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *   <li>{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl#getFolderPath <em>Folder Path</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl#getFileMask <em>File Mask</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl#getContextParameterBaseName <em>Context Parameter Base Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.FileTriggerMaskImpl#getCheckFileServer <em>Check File Server</em>}</li>
  * </ul>
  * </p>
  *
@@ -188,6 +190,16 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
      * @ordered
      */
     protected String contextParameterBaseName = CONTEXT_PARAMETER_BASE_NAME_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getCheckFileServer() <em>Check File Server</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCheckFileServer()
+     * @generated
+     * @ordered
+     */
+    protected ExecutionServer checkFileServer;
 
     /**
      * <!-- begin-user-doc -->
@@ -397,6 +409,44 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
      * <!-- end-user-doc -->
      * @generated
      */
+    public ExecutionServer getCheckFileServer() {
+        if (checkFileServer != null && checkFileServer.eIsProxy()) {
+            InternalEObject oldCheckFileServer = (InternalEObject)checkFileServer;
+            checkFileServer = (ExecutionServer)eResolveProxy(oldCheckFileServer);
+            if (checkFileServer != oldCheckFileServer) {
+                if (eNotificationRequired())
+                    eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER, oldCheckFileServer, checkFileServer));
+            }
+        }
+        return checkFileServer;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ExecutionServer basicGetCheckFileServer() {
+        return checkFileServer;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setCheckFileServer(ExecutionServer newCheckFileServer) {
+        ExecutionServer oldCheckFileServer = checkFileServer;
+        checkFileServer = newCheckFileServer;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER, oldCheckFileServer, checkFileServer));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
             case PropertiesPackage.FILE_TRIGGER_MASK__ID:
@@ -416,6 +466,9 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
                 return getFileMask();
             case PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME:
                 return getContextParameterBaseName();
+            case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
+                if (resolve) return getCheckFileServer();
+                return basicGetCheckFileServer();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -450,6 +503,9 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
                 return;
             case PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME:
                 setContextParameterBaseName((String)newValue);
+                return;
+            case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
+                setCheckFileServer((ExecutionServer)newValue);
                 return;
         }
         super.eSet(featureID, newValue);
@@ -486,6 +542,9 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
             case PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME:
                 setContextParameterBaseName(CONTEXT_PARAMETER_BASE_NAME_EDEFAULT);
                 return;
+            case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
+                setCheckFileServer((ExecutionServer)null);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -513,6 +572,8 @@ public class FileTriggerMaskImpl extends EObjectImpl implements FileTriggerMask 
                 return FILE_MASK_EDEFAULT == null ? fileMask != null : !FILE_MASK_EDEFAULT.equals(fileMask);
             case PropertiesPackage.FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME:
                 return CONTEXT_PARAMETER_BASE_NAME_EDEFAULT == null ? contextParameterBaseName != null : !CONTEXT_PARAMETER_BASE_NAME_EDEFAULT.equals(contextParameterBaseName);
+            case PropertiesPackage.FILE_TRIGGER_MASK__CHECK_FILE_SERVER:
+                return checkFileServer != null;
         }
         return super.eIsSet(featureID);
     }

@@ -3350,13 +3350,22 @@ public interface PropertiesPackage extends EPackage {
     int FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME = 7;
 
     /**
+     * The feature id for the '<em><b>Check File Server</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int FILE_TRIGGER_MASK__CHECK_FILE_SERVER = 8;
+
+    /**
      * The number of structural features of the '<em>File Trigger Mask</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int FILE_TRIGGER_MASK_FEATURE_COUNT = 8;
+    int FILE_TRIGGER_MASK_FEATURE_COUNT = 9;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
@@ -5768,6 +5777,17 @@ public interface PropertiesPackage extends EPackage {
     EAttribute getFileTriggerMask_ContextParameterBaseName();
 
     /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.FileTriggerMask#getCheckFileServer <em>Check File Server</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Check File Server</em>'.
+     * @see org.talend.core.model.properties.FileTriggerMask#getCheckFileServer()
+     * @see #getFileTriggerMask()
+     * @generated
+     */
+    EReference getFileTriggerMask_CheckFileServer();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -7739,6 +7759,14 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EAttribute FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME = eINSTANCE.getFileTriggerMask_ContextParameterBaseName();
+
+        /**
+         * The meta object literal for the '<em><b>Check File Server</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference FILE_TRIGGER_MASK__CHECK_FILE_SERVER = eINSTANCE.getFileTriggerMask_CheckFileServer();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

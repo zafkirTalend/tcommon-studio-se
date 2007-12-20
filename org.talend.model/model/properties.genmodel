@@ -286,6 +286,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//FileTriggerMask/folderPath"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//FileTriggerMask/fileMask"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//FileTriggerMask/contextParameterBaseName"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//FileTriggerMask/checkFileServer"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.FileTriggerMask#getFolderPath <em>Folder Path</em>}</li>
  *   <li>{@link org.talend.core.model.properties.FileTriggerMask#getFileMask <em>File Mask</em>}</li>
  *   <li>{@link org.talend.core.model.properties.FileTriggerMask#getContextParameterBaseName <em>Context Parameter Base Name</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.FileTriggerMask#getCheckFileServer <em>Check File Server</em>}</li>
  * </ul>
  * </p>
  *
@@ -239,5 +240,31 @@ public interface FileTriggerMask extends EObject {
      * @generated
      */
     void setContextParameterBaseName(String value);
+
+    /**
+     * Returns the value of the '<em><b>Check File Server</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Check File Server</em>' reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Check File Server</em>' reference.
+     * @see #setCheckFileServer(ExecutionServer)
+     * @see org.talend.core.model.properties.PropertiesPackage#getFileTriggerMask_CheckFileServer()
+     * @model
+     * @generated
+     */
+    ExecutionServer getCheckFileServer();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.FileTriggerMask#getCheckFileServer <em>Check File Server</em>}' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Check File Server</em>' reference.
+     * @see #getCheckFileServer()
+     * @generated
+     */
+    void setCheckFileServer(ExecutionServer value);
 
 } // FileTriggerMask
