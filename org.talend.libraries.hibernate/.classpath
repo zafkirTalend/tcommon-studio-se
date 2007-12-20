@@ -8,7 +8,6 @@
 	<classpathentry exported="true" kind="lib" path="lib/hibernate3.jar" sourcepath="libs_src/hibernate-3.2"/>
 	<classpathentry exported="true" kind="lib" path="lib/jdbc2_0-stdext.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/jta.jar"/>
-	<classpathentry exported="true" kind="lib" path="lib/mysql-connector-java-5.1.0-bin.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/xerces-2.6.2.jar"/>
 	<classpathentry exported="true" kind="lib" path="lib/xml-apis.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
