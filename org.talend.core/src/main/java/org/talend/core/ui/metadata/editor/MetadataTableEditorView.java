@@ -324,9 +324,12 @@ public class MetadataTableEditorView extends AbstractMetadataTableEditorView<IMe
             }
 
             public void set(IMetadataColumn bean, String value) {
-                if (dbTypeColumnWritable && bean.getLabel().equals(bean.getOriginalDbColumnName())) {
-                    bean.setOriginalDbColumnName(value);
-                }
+                // if (dbTypeColumnWritable && bean.getLabel().equals(bean.getOriginalDbColumnName())) {
+                // bean.setOriginalDbColumnName(value);
+                // }
+                // if (bean.getLabel().equals(bean.getOriginalDbColumnName())) {
+                bean.setOriginalDbColumnName(value);
+                // }
                 bean.setLabel(value);
             }
 

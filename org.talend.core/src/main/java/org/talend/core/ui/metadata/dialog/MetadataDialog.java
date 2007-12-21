@@ -461,4 +461,27 @@ public class MetadataDialog extends Dialog {
         return null;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.dialogs.Dialog#okPressed()
+     */
+    @Override
+    protected void okPressed() {
+        // TODO Auto-generated method stub
+        super.okPressed();
+        IMetadataTable outputTable = getOutputMetaData();
+        IMetadataTable inputTable = getInputMetaData();
+        if (outputTable != null && inputTable != null) {
+            for (IMetadataColumn column : outputTable.getListColumns()) {
+                IMetadataColumn inputColumn = inputTable.getColumn(column.getLabel());
+                if (inputColumn != null) {
+
+                    inputColumn.setOriginalDbColumnName(column.getOriginalDbColumnName());
+
+                }
+            }
+        }
+    }
+
 }
