@@ -23,6 +23,9 @@ import org.talend.commons.CommonsPlugin;
  */
 public enum EImage implements IImage {
 
+    EXPANDED("/icons/expanded.gif"), //$NON-NLS-1$
+    COLLAPSED("/icons/collapsed.gif"), //$NON-NLS-1$
+
     DEFAULT_IMAGE,
     EMPTY("/icons/empty.gif"),
 
