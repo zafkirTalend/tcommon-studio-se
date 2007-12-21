@@ -41,18 +41,20 @@ public enum EConnectionType implements IConnectionCategory {
     // "Lookup", Messages.getString("EConnectionType.lookupMenu"), //$NON-NLS-1$ //$NON-NLS-2$
     // new Integer(Graphics.LINE_DASHDOTDOT),
     // new Color(null, new RGB(150, 150, 0))),
-    RUN_IF_OK(4, "RUN_OK", //$NON-NLS-1$
-              EConnectionCategory.OTHER,
-              CONDITION | DEPENDENCY,
-              "OnOk", Messages.getString("EConnectionType.runIfOKMenu"), //$NON-NLS-1$ //$NON-NLS-2$
-              new Integer(Graphics.LINE_SOLID),
-              new RGB(0, 150, 0)),
-    RUN_IF_ERROR(5, "RUN_ERROR", //$NON-NLS-1$
-                 EConnectionCategory.OTHER,
-                 CONDITION | DEPENDENCY,
-                 "OnError", Messages.getString("EConnectionType.runIfErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
-                 new Integer(Graphics.LINE_SOLID),
-                 new RGB(200, 0, 0)),
+    //              
+    //              
+    // RUN_IF_OK(4, "RUN_OK", //$NON-NLS-1$
+    // EConnectionCategory.OTHER,
+    // CONDITION | DEPENDENCY,
+    // "OnOk", Messages.getString("EConnectionType.runIfOKMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+    // new Integer(Graphics.LINE_SOLID),
+    // new RGB(0, 150, 0)),
+    ON_COMPONENT_ERROR(5, "COMPONENT_ERROR", //$NON-NLS-1$
+                       EConnectionCategory.OTHER,
+                       CONDITION | DEPENDENCY,
+                       "OnComponentError", Messages.getString("EConnectionType.onComponentErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+                       new Integer(Graphics.LINE_SOLID),
+                       new RGB(200, 0, 0)),
     RUN_IF(6, "RUN_IF", //$NON-NLS-1$
            EConnectionCategory.OTHER,
            CONDITION | DEPENDENCY | CUSTOM_NAME,
@@ -83,12 +85,19 @@ public enum EConnectionType implements IConnectionCategory {
                "Merge", Messages.getString("EConnectionType.mergeMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                new Integer(Graphics.LINE_DASHDOT),
                new RGB(230, 100, 0)),
-    THEN_RUN(1, "THEN_RUN", //$NON-NLS-1$
-             EConnectionCategory.OTHER,
-             EXECUTION_ORDER | DEPENDENCY,
-             "ThenRun", Messages.getString("EConnectionType.thenRunMenu"), //$NON-NLS-1$ //$NON-NLS-2$
-             new Integer(Graphics.LINE_SOLID),
-             new RGB(100, 100, 100)),
+    ON_SUBJOB_OK(1, "SUBJOB_OK", //$NON-NLS-1$
+                 EConnectionCategory.OTHER,
+                 EXECUTION_ORDER | DEPENDENCY,
+                 "OnSubjobOk", Messages.getString("EConnectionType.onSubjobOkMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+                 new Integer(Graphics.LINE_SOLID),
+                 new RGB(100, 100, 100)),
+
+    ON_SUBJOB_ERROR(4, "SUBJOB_ERROR", //$NON-NLS-1$
+                    EConnectionCategory.OTHER,
+                    EXECUTION_ORDER | DEPENDENCY,
+                    "OnSubjobError", Messages.getString("EConnectionType.onSubjobErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+                    new Integer(Graphics.LINE_SOLID),
+                    new RGB(100, 100, 100)),
 
     RUN_AFTER(2, "AFTER", //$NON-NLS-1$
               EConnectionCategory.OTHER,
@@ -116,8 +125,8 @@ public enum EConnectionType implements IConnectionCategory {
 
     private RGB rgb;
 
-    EConnectionType(int id, String name, EConnectionCategory category, int connectionCategory, String linkName,
-            String menuName, Integer lineStyle, RGB rgb) {
+    EConnectionType(int id, String name, EConnectionCategory category, int connectionCategory, String linkName, String menuName,
+            Integer lineStyle, RGB rgb) {
         this.id = id;
         this.name = name;
         this.category = category;

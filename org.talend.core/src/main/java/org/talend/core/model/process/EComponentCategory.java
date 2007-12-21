@@ -22,7 +22,7 @@ public enum EComponentCategory {
     MAIN("Main", 1),
     VIEW("View", 3),
     PROPERTY("Properties", 2),
-    DOC("Document", 4),
+    DOC("Documentation", 4),
     CONTEXT("Context", 5),
     VERSIONS("Version", 9),
     LOGS("Logs", 6),

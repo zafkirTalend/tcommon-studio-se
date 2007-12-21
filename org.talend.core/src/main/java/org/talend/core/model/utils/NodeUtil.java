@@ -141,15 +141,15 @@ public class NodeUtil {
         }
         return conns;
     }
-    
+
     public static boolean checkConnectionAfterNode(INode node, EConnectionType connectionType) {
         boolean result = false;
-        List<? extends IConnection> onErrorConns = getOutgoingConnections(node, EConnectionType.RUN_IF_ERROR);
-        if(onErrorConns == null || onErrorConns.size() == 0) {
+        List<? extends IConnection> onErrorConns = getOutgoingConnections(node, EConnectionType.ON_COMPONENT_ERROR);
+        if (onErrorConns == null || onErrorConns.size() == 0) {
             List<? extends IConnection> conns = getOutgoingSortedConnections(node);
-            if(conns != null && conns.size() > 0) {
-                for(IConnection conn : conns) {
-                    result = checkConnectionAfterNode(conn.getTarget(), EConnectionType.RUN_IF_ERROR);
+            if (conns != null && conns.size() > 0) {
+                for (IConnection conn : conns) {
+                    result = checkConnectionAfterNode(conn.getTarget(), EConnectionType.ON_COMPONENT_ERROR);
                 }
             } else {
                 result = false;
