@@ -19,7 +19,6 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
 import org.talend.commons.exception.PersistenceException;
-import org.talend.core.i18n.Messages;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.PropertiesPackage;
 import org.talend.core.model.properties.Property;
@@ -64,6 +63,7 @@ public class StatusHelper {
         Item item = property.getItem();
         if (item != null) {
             EClass propertyEClass = item.eClass();
+            int i = propertyEClass.getClassifierID();
             switch (propertyEClass.getClassifierID()) {
             case PropertiesPackage.CSV_FILE_CONNECTION_ITEM:
             case PropertiesPackage.DATABASE_CONNECTION_ITEM:
@@ -74,6 +74,9 @@ public class StatusHelper {
             case PropertiesPackage.ROUTINE_ITEM:
             case PropertiesPackage.REG_EX_FILE_CONNECTION_ITEM:
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM:
+            case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
+            case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM:
+            case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
                 status = repositoryFactory.getTechnicalStatus();
                 break;
             case PropertiesPackage.BUSINESS_PROCESS_ITEM:
