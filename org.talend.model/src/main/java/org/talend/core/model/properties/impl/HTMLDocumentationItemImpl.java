@@ -24,7 +24,7 @@ import org.talend.core.model.properties.PropertiesPackage;
  *
  * @generated
  */
-public class HTMLDocumentationItemImpl extends ItemImpl implements HTMLDocumentationItem {
+public class HTMLDocumentationItemImpl extends FileItemImpl implements HTMLDocumentationItem {
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

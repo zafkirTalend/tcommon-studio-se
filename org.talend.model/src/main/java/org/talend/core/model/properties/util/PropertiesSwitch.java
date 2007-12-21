@@ -395,6 +395,7 @@ public class PropertiesSwitch {
             case PropertiesPackage.HTML_DOCUMENTATION_ITEM: {
                 HTMLDocumentationItem htmlDocumentationItem = (HTMLDocumentationItem)theEObject;
                 Object result = caseHTMLDocumentationItem(htmlDocumentationItem);
+                if (result == null) result = caseFileItem(htmlDocumentationItem);
                 if (result == null) result = caseItem(htmlDocumentationItem);
                 if (result == null) result = defaultCase(theEObject);
                 return result;

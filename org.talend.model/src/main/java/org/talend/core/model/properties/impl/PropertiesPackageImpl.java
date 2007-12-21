@@ -2715,7 +2715,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         cronTalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
         cronUITalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
         simpleTalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
-        htmlDocumentationItemEClass.getESuperTypes().add(this.getItem());
+        htmlDocumentationItemEClass.getESuperTypes().add(this.getFileItem());
         fileTriggerEClass.getESuperTypes().add(this.getSimpleTalendTrigger());
 
         // Initialize classes and features; add operations and parameters

@@ -17,6 +17,6 @@ package org.talend.core.model.properties;
  * @model
  * @generated
  */
-public interface HTMLDocumentationItem extends Item {
+public interface HTMLDocumentationItem extends FileItem {
 
 } // HTMLDocumentationItem

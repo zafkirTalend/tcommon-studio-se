@@ -342,7 +342,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="executionServers" unique="false"
         upperBound="-1" eType="#//ExecutionServer"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HTMLDocumentationItem" eSuperTypes="#//Item"/>
+  <eClassifiers xsi:type="ecore:EClass" name="HTMLDocumentationItem" eSuperTypes="#//FileItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="FileTrigger" eSuperTypes="#//SimpleTalendTrigger">
     <eStructuralFeatures xsi:type="ecore:EReference" name="fileTriggerMasks" upperBound="-1"
         eType="#//FileTriggerMask" containment="true"/>

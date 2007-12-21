@@ -3102,7 +3102,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HTML_DOCUMENTATION_ITEM__PROPERTY = ITEM__PROPERTY;
+    int HTML_DOCUMENTATION_ITEM__PROPERTY = FILE_ITEM__PROPERTY;
 
     /**
      * The feature id for the '<em><b>State</b></em>' reference.
@@ -3111,7 +3111,34 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HTML_DOCUMENTATION_ITEM__STATE = ITEM__STATE;
+    int HTML_DOCUMENTATION_ITEM__STATE = FILE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HTML_DOCUMENTATION_ITEM__NAME = FILE_ITEM__NAME;
+
+    /**
+     * The feature id for the '<em><b>Extension</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HTML_DOCUMENTATION_ITEM__EXTENSION = FILE_ITEM__EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int HTML_DOCUMENTATION_ITEM__CONTENT = FILE_ITEM__CONTENT;
 
     /**
      * The number of structural features of the '<em>HTML Documentation Item</em>' class.
@@ -3120,7 +3147,7 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HTML_DOCUMENTATION_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 0;
+    int HTML_DOCUMENTATION_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.FileTriggerImpl <em>File Trigger</em>}' class.
