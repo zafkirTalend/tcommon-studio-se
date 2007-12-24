@@ -54,6 +54,8 @@ public interface IDesignerCoreService extends IService {
 
     public void switchToCurContextsView();
 
+    public void switchToCurComponentSettingsView();
+
     // add for feature 840
     public void saveJobBeforeRun(IProcess activeProcess);
 

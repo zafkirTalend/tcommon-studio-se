@@ -15,6 +15,7 @@ package org.talend.core.context;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.talend.commons.exception.PersistenceException;
 import org.talend.core.model.process.IElementParameter;
@@ -34,17 +35,19 @@ import org.talend.repository.model.IProxyRepositoryFactory;
  */
 public final class UpdateRunJobComponentContextHelper {
 
-    private static final String PROCESS_TYPE_PROCESS = "PROCESS_TYPE_PROCESS";
+    private static final String PROCESS_TYPE_PROCESS = "PROCESS_TYPE_PROCESS"; //$NON-NLS-1$
 
-    private static final String CONTEXTPARAMS = "CONTEXTPARAMS";
+    private static final String CONTEXTPARAMS = "CONTEXTPARAMS"; //$NON-NLS-1$
 
-    private static final String PARAM_NAME_COLUMN = "PARAM_NAME_COLUMN";
+    private static final String PARAM_NAME_COLUMN = "PARAM_NAME_COLUMN"; //$NON-NLS-1$
 
-    private static final String TRUN_JOB = "tRunJob";
+    private static final String PARAM_VALUE_COLUMN = "PARAM_VALUE_COLUMN"; //$NON-NLS-1$
+
+    private static final String TRUN_JOB = "tRunJob"; //$NON-NLS-1$
 
     public static synchronized void updateOpenedJobRunJobComponentReference(final List<IProcess> openedProcesses,
-            final Map<String, String> nameMap, final String refJobName) {
-        if (openedProcesses == null || refJobName == null || nameMap == null || nameMap.isEmpty()) {
+            final Map<String, String> nameMap, final String refJobName, final Set<String> varNameSet) {
+        if (openedProcesses == null || refJobName == null) {
             return;
         }
         for (IProcess process : openedProcesses) {
@@ -59,15 +62,25 @@ public final class UpdateRunJobComponentContextHelper {
                     IElementParameter contextParam = node.getElementParameter(CONTEXTPARAMS);
                     if (contextParam != null) {
                         List<Map> valuesList = (List<Map>) contextParam.getValue();
+                        Map removedMap = null;
                         for (Map valueMap : valuesList) {
                             Object obj = valueMap.get(PARAM_NAME_COLUMN);
                             if (obj != null && obj instanceof String) {
-                                String newName = foundNewName(nameMap, (String) obj);
+                                String oldName = (String) obj;
+                                String newName = foundNewName(nameMap, oldName);
                                 // found renamed parameter
                                 if (newName != null) {
                                     valueMap.put(PARAM_NAME_COLUMN, newName);
+                                } else {
+                                    // deleted parameter update, not existed in reference job context
+                                    if (varNameSet != null && !varNameSet.contains(oldName)) {
+                                        removedMap = valueMap;
+                                    }
                                 }
                             }
+                        }
+                        if (removedMap != null) {
+                            valuesList.remove(removedMap);
                         }
 
                     }
@@ -87,11 +100,10 @@ public final class UpdateRunJobComponentContextHelper {
     }
 
     public static synchronized void updateItemRunJobComponentReference(final IProxyRepositoryFactory factory,
-            final Map<String, String> nameMap, final String refJobName) throws PersistenceException {
-        if (refJobName == null || nameMap == null || nameMap.isEmpty()) {
+            final Map<String, String> nameMap, final String refJobName, final Set<String> varNameSet) throws PersistenceException {
+        if (factory == null || refJobName == null) {
             return;
         }
-
         List<IRepositoryObject> repositoryObjectList = factory.getAll(ERepositoryObjectType.PROCESS, true);
         for (IRepositoryObject rObject : repositoryObjectList) {
             List<IRepositoryObject> allVersion = factory.getAllVersion(rObject.getId());
@@ -104,29 +116,7 @@ public final class UpdateRunJobComponentContextHelper {
                         continue;
                     }
                     boolean modified = false;
-                    for (NodeType foundNode : foundRunJobNodeType(processItem)) {
-                        // found tRunJob node
-                        boolean found = false;
-                        for (ElementParameterType paramType : (List<ElementParameterType>) foundNode.getElementParameter()) {
-                            if (PROCESS_TYPE_PROCESS.equals(paramType.getName()) && paramType.getValue().equals(refJobName)) {
-                                found = true;
-                                continue;
-                            }
-                            // found current node reference
-                            if (found && paramType.getName().equals(CONTEXTPARAMS)) {
-                                for (ElementValueType eleValueType : (List<ElementValueType>) paramType.getElementValue()) {
-                                    if (eleValueType.getElementRef().equals(PARAM_NAME_COLUMN)) {
-                                        String newName = foundNewName(nameMap, eleValueType.getValue());
-                                        if (newName != null) {
-                                            eleValueType.setValue(newName);
-                                            modified = true;
-                                        }
-                                    }
-                                }
-                            }
-
-                        }
-                    }
+                    modified = updateRunJobComponent(processItem, nameMap, refJobName, varNameSet);
 
                     if (modified) {
                         factory.save(processItem);
@@ -159,4 +149,47 @@ public final class UpdateRunJobComponentContextHelper {
         }
         return null;
     }
+
+    private static boolean updateRunJobComponent(final ProcessItem processItem, final Map<String, String> nameMap,
+            final String refJobName, final Set<String> varNameSet) {
+
+        boolean modified = false;
+        for (NodeType foundNode : foundRunJobNodeType(processItem)) {
+            // found tRunJob node
+            boolean found = false;
+            for (ElementParameterType paramType : (List<ElementParameterType>) foundNode.getElementParameter()) {
+                if (PROCESS_TYPE_PROCESS.equals(paramType.getName()) && paramType.getValue().equals(refJobName)) {
+                    found = true;
+                    continue;
+                }
+                // found current node reference
+                if (found && paramType.getName().equals(CONTEXTPARAMS)) {
+                    List<ElementValueType> eleValueTypeList = paramType.getElementValue();
+                    for (int i = 0; i < eleValueTypeList.size(); i++) {
+                        ElementValueType eleValueType = eleValueTypeList.get(i);
+                        if (eleValueType.getElementRef().equals(PARAM_NAME_COLUMN)) {
+                            String newName = foundNewName(nameMap, eleValueType.getValue());
+                            if (newName != null) {
+                                // renamed parameter update
+                                eleValueType.setValue(newName);
+                                modified = true;
+                            } else {
+                                // deleted parameter update, not existed in reference job context
+                                if (varNameSet != null && !varNameSet.contains(eleValueType.getValue())) {
+                                    ElementValueType valueType = eleValueTypeList.get(i + 1);
+                                    if (valueType != null && valueType.getElementRef().equals(PARAM_VALUE_COLUMN)) {
+                                        eleValueTypeList.remove(eleValueType);
+                                        eleValueTypeList.remove(valueType);
+                                        modified = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return modified;
+    }
+
 }
