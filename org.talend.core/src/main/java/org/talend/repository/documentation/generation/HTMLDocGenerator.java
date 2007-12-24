@@ -412,6 +412,7 @@ public class HTMLDocGenerator {
             componentItemElement.addAttribute("leftTopY", y + "");
             componentItemElement.addAttribute("rightBottomX", x + width + "");
             componentItemElement.addAttribute("rightBottomY", y + height + "");
+            
         }
     }
 
