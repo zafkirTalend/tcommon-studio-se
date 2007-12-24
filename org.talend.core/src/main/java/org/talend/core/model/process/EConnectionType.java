@@ -30,6 +30,41 @@ public enum EConnectionType implements IConnectionCategory {
               "Main", Messages.getString("EConnectionType.mainMenu"), //$NON-NLS-1$ //$NON-NLS-2$
               new Integer(Graphics.LINE_SOLID),
               new RGB(230, 100, 0)),
+
+    ON_SUBJOB_OK(1, "SUBJOB_OK", //$NON-NLS-1$
+                 EConnectionCategory.OTHER,
+                 EXECUTION_ORDER | DEPENDENCY,
+                 "OnSubjobOk", Messages.getString("EConnectionType.onSubjobOkMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+                 new Integer(Graphics.LINE_SOLID),
+                 new RGB(100, 100, 100)),
+
+    RUN_AFTER(2, "AFTER", //$NON-NLS-1$
+              EConnectionCategory.OTHER,
+              EXECUTION_ORDER | DEPENDENCY,
+              "RunAfter", Messages.getString("EConnectionType.runAfterMenu"), //$NON-NLS-1$ //$NON-NLS-2$ 
+              new Integer(Graphics.LINE_SOLID),
+              new RGB(100, 100, 100)),
+
+    ON_COMPONENT_OK(3, "COMPONENT_OK", //$NON-NLS-1$
+                    EConnectionCategory.OTHER,
+                    CONDITION | DEPENDENCY,
+                    "OnComponentOk", Messages.getString("EConnectionType.onComponentOkMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+                    new Integer(Graphics.LINE_SOLID),
+                    new RGB(0, 150, 0)),
+
+    ON_SUBJOB_ERROR(4, "SUBJOB_ERROR", //$NON-NLS-1$
+                    EConnectionCategory.OTHER,
+                    EXECUTION_ORDER | DEPENDENCY,
+                    "OnSubjobError", Messages.getString("EConnectionType.onSubjobErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+                    new Integer(Graphics.LINE_SOLID),
+                    new RGB(100, 100, 100)),
+
+    ON_COMPONENT_ERROR(5, "COMPONENT_ERROR", //$NON-NLS-1$
+                       EConnectionCategory.OTHER,
+                       CONDITION | DEPENDENCY,
+                       "OnComponentError", Messages.getString("EConnectionType.onComponentErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+                       new Integer(Graphics.LINE_SOLID),
+                       new RGB(200, 0, 0)),
     /*
      * RUN_BEFORE(1, "BEFORE", //$NON-NLS-1$ EConnectionCategory.OTHER, EXECUTION_ORDER | DEPENDENCY, "RunBefore",
      * Messages.getString("EConnectionType.runBeforeMenu"), //$NON-NLS-1$ //$NON-NLS-2$ new
@@ -43,68 +78,40 @@ public enum EConnectionType implements IConnectionCategory {
     // new Color(null, new RGB(150, 150, 0))),
     //              
     //              
-    // RUN_IF_OK(4, "RUN_OK", //$NON-NLS-1$
-    // EConnectionCategory.OTHER,
-    // CONDITION | DEPENDENCY,
-    // "OnOk", Messages.getString("EConnectionType.runIfOKMenu"), //$NON-NLS-1$ //$NON-NLS-2$
-    // new Integer(Graphics.LINE_SOLID),
-    // new RGB(0, 150, 0)),
-    ON_COMPONENT_ERROR(5, "COMPONENT_ERROR", //$NON-NLS-1$
-                       EConnectionCategory.OTHER,
-                       CONDITION | DEPENDENCY,
-                       "OnComponentError", Messages.getString("EConnectionType.onComponentErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
-                       new Integer(Graphics.LINE_SOLID),
-                       new RGB(200, 0, 0)),
     RUN_IF(6, "RUN_IF", //$NON-NLS-1$
            EConnectionCategory.OTHER,
            CONDITION | DEPENDENCY | CUSTOM_NAME,
            "If", Messages.getString("EConnectionType.runIfMenu"), //$NON-NLS-1$ //$NON-NLS-2$
            new Integer(Graphics.LINE_DASHDOTDOT),
            new RGB(180, 100, 30)),
+
     ITERATE(7, "ITERATE", //$NON-NLS-1$
             EConnectionCategory.MAIN,
             MAIN,
             "Iterate", Messages.getString("EConnectionType.iteratorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
             new Integer(Graphics.LINE_SOLID),
             new RGB(100, 230, 0)),
+
     FLOW_REF(8, "LOOKUP", //$NON-NLS-1$
              EConnectionCategory.OTHER,
              DATA | FLOW | CUSTOM_NAME | USE_HASH | UNIQUE_NAME,
              "Lookup", Messages.getString("EDesignerConnection.lookupMenu"), //$NON-NLS-1$ //$NON-NLS-2$
              new Integer(Graphics.LINE_DOT),
              new RGB(230, 100, 0)),
+
     TABLE(9, "TABLE", //$NON-NLS-1$
           EConnectionCategory.MAIN,
           MAIN | DATA | CUSTOM_NAME,
           "Table", Messages.getString("EConnectionType.tableMenu"), //$NON-NLS-1$ //$NON-NLS-2$
           new Integer(Graphics.LINE_SOLID),
           new RGB(0, 150, 100)),
+
     FLOW_MERGE(10, "MERGE", //$NON-NLS-1$
                EConnectionCategory.MAIN,
                MAIN | DATA | FLOW | CUSTOM_NAME | UNIQUE_NAME | MERGE,
                "Merge", Messages.getString("EConnectionType.mergeMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                new Integer(Graphics.LINE_DASHDOT),
-               new RGB(230, 100, 0)),
-    ON_SUBJOB_OK(1, "SUBJOB_OK", //$NON-NLS-1$
-                 EConnectionCategory.OTHER,
-                 EXECUTION_ORDER | DEPENDENCY,
-                 "OnSubjobOk", Messages.getString("EConnectionType.onSubjobOkMenu"), //$NON-NLS-1$ //$NON-NLS-2$
-                 new Integer(Graphics.LINE_SOLID),
-                 new RGB(100, 100, 100)),
-
-    ON_SUBJOB_ERROR(4, "SUBJOB_ERROR", //$NON-NLS-1$
-                    EConnectionCategory.OTHER,
-                    EXECUTION_ORDER | DEPENDENCY,
-                    "OnSubjobError", Messages.getString("EConnectionType.onSubjobErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
-                    new Integer(Graphics.LINE_SOLID),
-                    new RGB(100, 100, 100)),
-
-    RUN_AFTER(2, "AFTER", //$NON-NLS-1$
-              EConnectionCategory.OTHER,
-              EXECUTION_ORDER | DEPENDENCY,
-              "RunAfter", Messages.getString("EConnectionType.runAfterMenu"), //$NON-NLS-1$ //$NON-NLS-2$ 
-              new Integer(Graphics.LINE_SOLID),
-              new RGB(100, 100, 100));
+               new RGB(230, 100, 0));
 
     private String name;
 
