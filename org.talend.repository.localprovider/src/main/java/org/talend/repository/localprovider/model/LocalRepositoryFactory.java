@@ -888,9 +888,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     private Resource create(HTMLDocumentationItem item, IPath path, ERepositoryObjectType type) throws PersistenceException {
-        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, type, false);
-
-        itemResource.getContents().add(item);
+        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, type, true);
+        itemResource.getContents().clear();
+        itemResource.getContents().add(item.getContent());
 
         return itemResource;
     }
@@ -1019,6 +1019,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.SNIPPET_ITEM:
                 itemResource = save((SnippetItem) item);
+                break;
+            case PropertiesPackage.HTML_DOCUMENTATION_ITEM:
+                itemResource = save((HTMLDocumentationItem)item);
                 break;
             default:
                 throw new UnsupportedOperationException();
