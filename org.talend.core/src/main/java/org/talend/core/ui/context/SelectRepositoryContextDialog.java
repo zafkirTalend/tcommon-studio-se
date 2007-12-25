@@ -50,6 +50,7 @@ import org.talend.commons.ui.image.ImageProvider;
 import org.talend.commons.ui.swt.dialogs.ProgressDialog;
 import org.talend.commons.ui.swt.formtools.Form;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
@@ -415,7 +416,7 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
     protected void okPressed() {
         List<ContextItem> selectedItems = getSelectedContextItem();
         Set<String> contextGoupNameSet = new HashSet<String>();
-        if (selectedItems != null && !selectedItems.isEmpty()) {
+        if (selectedItems != null && !selectedItems.isEmpty() && checkShowContextGroup(manager, selectedItems)) {
             SelectRepositoryContextGroupDialog groupDialog = new SelectRepositoryContextGroupDialog(getParentShell(), manager,
                     helper, selectedItems);
             if (Dialog.OK == groupDialog.open()) {
@@ -550,5 +551,25 @@ public class SelectRepositoryContextDialog extends SelectionDialog {
             return true;
         }
 
+    }
+
+    private boolean checkShowContextGroup(IContextManager manager, List<ContextItem> selectedItems) {
+        if (selectedItems == null || selectedItems.isEmpty()) {
+            return false;
+        }
+        Set<String> groupSet = new HashSet<String>();
+        for (ContextItem item : selectedItems) {
+            for (ContextType type : (List<ContextType>) item.getContext()) {
+                groupSet.add(type.getName());
+            }
+        }
+        Set<String> curGroupSet = new HashSet<String>();
+        for (IContext context : manager.getListContext()) {
+            curGroupSet.add(context.getName());
+        }
+        if (curGroupSet.containsAll(groupSet)) {
+            return false;
+        }
+        return true;
     }
 }
