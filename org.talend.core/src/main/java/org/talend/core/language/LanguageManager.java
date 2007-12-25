@@ -48,8 +48,13 @@ public class LanguageManager {
         }
 
         try {
-            currentLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
-                    .getProject().getLanguage();
+
+            if (((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY)).getProject() != null) {
+                currentLanguage = ((RepositoryContext) CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY))
+                        .getProject().getLanguage();
+            } else {
+                currentLanguage = ECodeLanguage.PERL;
+            }
         } catch (RuntimeException e) {
             // should be run only when testing
             e.printStackTrace();
