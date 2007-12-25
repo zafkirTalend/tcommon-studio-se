@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.ui,
  org.talend.libraries,
  org.talend.repository,
  org.eclipse.ui.ide,
- org.talend.migrationTool
+ org.talend.migrationTool,
+ org.talend.commons.ui
 Eclipse-LazyStart: true
 Bundle-Vendor: .Talend SA.
 Export-Package: org.talend.repository.localprovider.imports,
