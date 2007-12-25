@@ -51,7 +51,17 @@ public class JobContextManager implements IContextManager {
 
     private List<IContextListener> contextListenerList = new ArrayList<IContextListener>();
 
+    /*
+     * record the renamed var.
+     */
     private Map<String, String> nameMap = new HashMap<String, String>();
+
+    /*
+     * when modify(renamed var, removed var, modified value) the context, it will be true.
+     * 
+     * this flag only works for update the var of reference(job context, tRunjob).
+     */
+    private boolean modified = false;
 
     public JobContextManager() {
         listContext.add(defaultContext);
@@ -361,4 +371,13 @@ public class JobContextManager implements IContextManager {
     public Map<String, String> getNameMap() {
         return nameMap;
     }
+
+    public void setModified(boolean modified) {
+        this.modified = modified;
+    }
+
+    public boolean isModified() {
+        return modified;
+    }
+
 }

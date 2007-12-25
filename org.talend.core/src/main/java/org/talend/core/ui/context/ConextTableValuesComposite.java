@@ -46,6 +46,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -492,6 +493,13 @@ public class ConextTableValuesComposite extends Composite {
                 command.execute();
             } else {
                 modelManager.getCommandStack().execute(command);
+            }
+            // set updated flag.
+            if (modelManager != null) {
+                IContextManager manager = modelManager.getContextManager();
+                if (manager != null && manager instanceof JobContextManager) {
+                    ((JobContextManager) manager).setModified(true);
+                }
             }
         }
     }

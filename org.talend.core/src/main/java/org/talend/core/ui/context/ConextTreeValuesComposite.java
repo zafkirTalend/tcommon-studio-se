@@ -60,6 +60,7 @@ import org.eclipse.ui.internal.WorkbenchMessages;
 import org.talend.commons.ui.image.EImage;
 import org.talend.commons.ui.image.ImageProvider;
 import org.talend.core.CorePlugin;
+import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
@@ -809,6 +810,13 @@ public class ConextTreeValuesComposite extends Composite {
                 }
             };
             runCommand(command);
+            // set updated flag.
+            if (modelManager != null) {
+                IContextManager manager = modelManager.getContextManager();
+                if (manager != null && manager instanceof JobContextManager) {
+                    ((JobContextManager) manager).setModified(true);
+                }
+            }
         }
     }
 
