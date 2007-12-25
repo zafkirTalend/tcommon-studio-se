@@ -13,7 +13,7 @@
 package org.talend.commons.utils;
 
 import org.eclipse.swt.SWT;
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.i18n.internal.Messages;
 
 /**
  * Utility class for event handling.

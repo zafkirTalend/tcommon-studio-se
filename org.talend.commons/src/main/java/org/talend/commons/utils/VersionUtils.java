@@ -13,8 +13,7 @@
 package org.talend.commons.utils;
 
 import java.util.StringTokenizer;
-
-import org.talend.commons.ui.i18n.Messages;
+import org.talend.commons.i18n.internal.Messages;
 
 /**
  * Represents a version. Contents a major and a minor version.<br/>
