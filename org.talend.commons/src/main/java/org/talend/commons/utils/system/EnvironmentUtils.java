@@ -12,11 +12,9 @@
 // ============================================================================
 package org.talend.commons.utils.system;
 
-
 /**
- * DOC amaumont  class global comment. Detailled comment
- * <br/>
- *
+ * DOC amaumont class global comment. Detailled comment <br/>
+ * 
  */
 public class EnvironmentUtils {
 
@@ -27,9 +25,10 @@ public class EnvironmentUtils {
     public static boolean isLinuxUnixSystem() {
         return !isWindowsSystem() && !isMacOsSytem();
     }
-    
+
     /**
      * DOC amaumont Comment method "isMacOsSytem".
+     * 
      * @return
      */
     public static boolean isMacOsSytem() {
@@ -39,8 +38,8 @@ public class EnvironmentUtils {
     /**
      * DOC amaumont Comment method "getEnv".
      */
-    private static String getEnvOs() {
+    public static String getEnvOs() {
         return System.getenv("OS"); //$NON-NLS-N$
     }
-    
+
 }
