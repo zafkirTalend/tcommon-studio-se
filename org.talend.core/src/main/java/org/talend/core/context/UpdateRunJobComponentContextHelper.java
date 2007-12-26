@@ -62,7 +62,8 @@ public final class UpdateRunJobComponentContextHelper {
                     IElementParameter contextParam = node.getElementParameter(CONTEXTPARAMS);
                     if (contextParam != null) {
                         List<Map> valuesList = (List<Map>) contextParam.getValue();
-                        Map removedMap = null;
+                        List<Map> removedMap = new ArrayList<Map>();
+
                         for (Map valueMap : valuesList) {
                             Object obj = valueMap.get(PARAM_NAME_COLUMN);
                             if (obj != null && obj instanceof String) {
@@ -74,15 +75,16 @@ public final class UpdateRunJobComponentContextHelper {
                                 } else {
                                     // deleted parameter update, not existed in reference job context
                                     if (varNameSet != null && !varNameSet.contains(oldName)) {
-                                        removedMap = valueMap;
+                                        removedMap.add(valueMap);
                                     }
                                 }
                             }
                         }
-                        if (removedMap != null) {
-                            valuesList.remove(removedMap);
+                        if (!removedMap.isEmpty()) {
+                            for (Map valueMap : removedMap) {
+                                valuesList.remove(valueMap);
+                            }
                         }
-
                     }
                 }
             }
@@ -165,6 +167,8 @@ public final class UpdateRunJobComponentContextHelper {
                 // found current node reference
                 if (found && paramType.getName().equals(CONTEXTPARAMS)) {
                     List<ElementValueType> eleValueTypeList = paramType.getElementValue();
+                    List<ElementValueType> movedRecord = new ArrayList<ElementValueType>();
+
                     for (int i = 0; i < eleValueTypeList.size(); i++) {
                         ElementValueType eleValueType = eleValueTypeList.get(i);
                         if (eleValueType.getElementRef().equals(PARAM_NAME_COLUMN)) {
@@ -178,12 +182,17 @@ public final class UpdateRunJobComponentContextHelper {
                                 if (varNameSet != null && !varNameSet.contains(eleValueType.getValue())) {
                                     ElementValueType valueType = eleValueTypeList.get(i + 1);
                                     if (valueType != null && valueType.getElementRef().equals(PARAM_VALUE_COLUMN)) {
-                                        eleValueTypeList.remove(eleValueType);
-                                        eleValueTypeList.remove(valueType);
+                                        movedRecord.add(eleValueType);
+                                        movedRecord.add(valueType);
                                         modified = true;
                                     }
                                 }
                             }
+                        }
+                    }
+                    if (!movedRecord.isEmpty()) {
+                        for (ElementValueType eleValueType : movedRecord) {
+                            eleValueTypeList.remove(eleValueType);
                         }
                     }
                 }
