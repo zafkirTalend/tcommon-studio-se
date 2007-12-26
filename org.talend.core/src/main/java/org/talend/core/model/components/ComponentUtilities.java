@@ -155,6 +155,16 @@ public class ComponentUtilities {
         return values;
     }
 
+    public static NodeType getNodeTypeFromUniqueName(ProcessType processType, String uniqueName) {
+        for (Object oNodeType : processType.getNode()) {
+            NodeType nodeType = (NodeType) oNodeType;
+            if (getNodeUniqueName(nodeType).equals(uniqueName)) {
+                return nodeType;
+            }
+        }
+        return null;
+    }
+
     private static ProcessType getNodeProcessType(NodeType node) {
         return (ProcessType) node.eContainer();
     }

@@ -32,7 +32,9 @@ public class UpdateLookupColumnConversion implements IComponentConversion {
 
     public void transform(NodeType node) {
         String value = ComponentUtilities.getNodePropertyValue(node, propertyToModify);
-        String newValue = value.substring(value.indexOf(".") + 1, value.length());
-        ComponentUtilities.setNodeValue(node, propertyToModify, newValue);
+        if (value != null) {
+            String newValue = value.substring(value.indexOf(".") + 1, value.length());
+            ComponentUtilities.setNodeValue(node, propertyToModify, newValue);
+        }
     }
 }
