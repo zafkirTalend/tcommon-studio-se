@@ -26,7 +26,7 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
-import org.talend.cwm.util.FactoriesHelper;
+import org.talend.cwm.util.FactoriesUtil;
 
 /**
  * @author scorreia This class creates the EMF resources and save them.
@@ -54,12 +54,12 @@ public final class EMFUtil {
      */
     public EMFUtil() {
         // Initialize the enterprise packages
-        FactoriesHelper.initializeAllFactories();
+        FactoriesUtil.initializeAllFactories();
 
         // Register the XMI resource factory for the .enterprise extension
         Resource.Factory.Registry reg = Resource.Factory.Registry.INSTANCE;
 
-        final Collection<String> fileExtensions = FactoriesHelper.getExtensions();
+        final Collection<String> fileExtensions = FactoriesUtil.getExtensions();
         Map<String, Object> m = reg.getExtensionToFactoryMap();
         for (String extension : fileExtensions) {
             m.put(extension, new XMIResourceFactoryImpl());

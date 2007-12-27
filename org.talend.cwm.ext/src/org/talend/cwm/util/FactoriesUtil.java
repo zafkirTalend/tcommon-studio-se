@@ -26,8 +26,10 @@ import orgomg.cwm.resource.relational.impl.RelationalFactoryImpl;
 
 /**
  * @author scorreia
+ * 
+ * This class is a utility for CWM and Talend extension Factories initialization.
  */
-public class FactoriesHelper {
+public class FactoriesUtil {
 
     /**
      * Method "initializeAllFactories" calls static method init() for each of the factories in this project.
