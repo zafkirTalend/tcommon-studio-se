@@ -12,8 +12,6 @@
 // ============================================================================
 package org.talend.repository.model;
 
-import java.beans.PropertyChangeListener;
-import java.io.File;
 import java.util.List;
 
 import org.eclipse.core.runtime.IPath;
@@ -24,7 +22,6 @@ import org.eclipse.ui.IWorkbench;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.properties.Property;
-import org.talend.core.model.properties.User;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.repository.IRepositoryChangedListener;
 import org.talend.repository.RepositoryElementDelta;
@@ -43,7 +40,6 @@ public interface IRepositoryService extends IService {
 
     public IProxyRepositoryFactory getProxyRepositoryFactory();
 
-    
     public IPath getRepositoryPath(RepositoryNode node);
 
     public void registerRepositoryChangedListener(IRepositoryChangedListener listener);
@@ -83,8 +79,4 @@ public interface IRepositoryService extends IService {
     public boolean isRCPMode();
 
     public void setRCPMode();
-
-    public void setPartListener(boolean isReuqired);
-
-    public boolean needSetPartListener();
 }
