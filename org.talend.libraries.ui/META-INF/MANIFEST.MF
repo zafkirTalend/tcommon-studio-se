@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Libraries UI Plug-in
+Bundle-SymbolicName: org.talend.libraries.ui
+Bundle-Version: 2.2.0.qualifier
+Bundle-Activator: org.talend.libraries.ui.LibrariesUIPlugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.talend.libraries;visibility:=reexport,
+ org.eclipse.gef;visibility:=reexport,
+ org.eclipse.emf.edit.ui;visibility:=reexport
+Eclipse-LazyStart: true
+Bundle-Vendor: .Talend SA.
+Export-Package: org.vafada.swtcalendar
