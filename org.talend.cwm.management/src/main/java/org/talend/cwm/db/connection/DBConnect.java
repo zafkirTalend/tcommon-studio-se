@@ -26,9 +26,11 @@ import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.builders.CatalogBuilder;
+import org.talend.cwm.builders.ConnectionProviderBuilder;
 import org.talend.cwm.builders.SoftwareSystemBuilder;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
+import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import orgomg.cwm.foundation.typemapping.TypeSystem;
 
@@ -51,11 +53,13 @@ public class DBConnect {
 
     private final String driverClass;
 
+    private Connection connection;
+
     private SoftwareSystemBuilder softwareSystemBuilder;
 
     private CatalogBuilder catalogBuilder;
 
-    private Connection connection;
+    private ConnectionProviderBuilder connectionProvBuilder;
 
     // TODO scorreia errorMessage;
     /**
@@ -123,6 +127,18 @@ public class DBConnect {
             return null;
         }
         return softwareSystemBuilder.getTypeSystem();
+    }
+
+    /**
+     * Method "getProviderConnection". This method can be called right after this.{@link #connect()}.
+     * 
+     * @return the connection provider (containing connection parameters given in CTOR)
+     */
+    public TdProviderConnection getProviderConnection() {
+        if (connectionProvBuilder == null) {
+            return null;
+        }
+        return connectionProvBuilder.getProviderConnection();
     }
 
     /**
@@ -277,6 +293,9 @@ public class DBConnect {
             Driver driver = (Driver) Class.forName(driverClassName).newInstance();
             DriverManager.registerDriver(driver);
             connection = DriverManager.getConnection(dbUrl, props);
+
+            connectionProvBuilder = new ConnectionProviderBuilder(connection, dbUrl, driverClassName, props);
+
         } catch (InstantiationException e) {
             log.error(e);
             ok = false;
@@ -289,4 +308,5 @@ public class DBConnect {
         }
         return ok;
     }
+
 }

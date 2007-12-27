@@ -20,6 +20,7 @@ import org.talend.cwm.relational.RelationalPackage;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentPackage;
+import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import org.talend.utils.properties.PropertiesLoader;
 import org.talend.utils.properties.TypedProperties;
@@ -66,6 +67,7 @@ public final class RunDBConnect {
         }
 
         // TODO scorreia create a ProviderConnection for the given connection
+        TdProviderConnection providerConnection = connector.getProviderConnection();
 
         Collection<TdCatalog> catalogs = connector.getCatalogs();
         Collection<TdSchema> schemata = connector.getSchemata();

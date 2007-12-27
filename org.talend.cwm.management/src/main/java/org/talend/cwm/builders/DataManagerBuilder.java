@@ -18,7 +18,6 @@ import java.sql.SQLException;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
 import org.talend.cwm.softwaredeployment.TdDataManager;
 import org.talend.cwm.softwaredeployment.TdMachine;
-import org.talend.cwm.softwaredeployment.TdProviderConnection;
 
 /**
  * DOC scorreia class global comment. Detailled comment
@@ -26,8 +25,6 @@ import org.talend.cwm.softwaredeployment.TdProviderConnection;
 public class DataManagerBuilder extends CwmBuilder {
 
     private final TdDataManager dataManager;
-
-    private final TdProviderConnection providerConnection;
 
     private final TdMachine machine;
 
@@ -40,7 +37,6 @@ public class DataManagerBuilder extends CwmBuilder {
     public DataManagerBuilder(Connection conn) throws SQLException {
         super(conn);
         this.dataManager = initializeDataManager();
-        this.providerConnection = initializeProviderConnection();
         this.machine = initializeMachine();
     }
 
@@ -52,23 +48,6 @@ public class DataManagerBuilder extends CwmBuilder {
     private TdMachine initializeMachine() {
         // TODO Auto-generated method stub
         return null;
-    }
-
-    /**
-     * DOC scorreia Comment method "initializeProviderConnection".
-     * 
-     * @return
-     * @throws SQLException
-     */
-    private TdProviderConnection initializeProviderConnection() throws SQLException {
-        // TODO Auto-generated method stub
-
-        boolean readOnly = connection.isReadOnly();
-
-        TdProviderConnection provConn = SoftwaredeploymentFactory.eINSTANCE.createTdProviderConnection();
-        // TODO scorreia set name
-        provConn.setIsReadOnly(readOnly);
-        return provConn;
     }
 
     /**
