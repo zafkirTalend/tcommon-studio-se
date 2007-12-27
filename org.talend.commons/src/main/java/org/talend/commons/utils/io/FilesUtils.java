@@ -34,7 +34,7 @@ import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.osgi.framework.Bundle;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.CommonExceptionHandler;
 
 /**
  * DOC smallet class global comment. Detailled comment <br/>
@@ -168,7 +168,7 @@ public class FilesUtils {
                 try {
                     toReturn.add(FileLocator.toFileURL(url));
                 } catch (IOException e) {
-                    ExceptionHandler.process(e);
+                	CommonExceptionHandler.process(e);
                 }
             }
         }

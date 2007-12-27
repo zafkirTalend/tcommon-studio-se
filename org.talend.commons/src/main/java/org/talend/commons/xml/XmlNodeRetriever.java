@@ -37,7 +37,7 @@ import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.apache.oro.text.regex.Perl5Substitution;
 import org.apache.oro.text.regex.Util;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
@@ -286,7 +286,7 @@ public class XmlNodeRetriever {
         try {
             pattern = compiler.compile("(.*)/\\s*\\w+\\s*(/(\\.\\.|parent))(.*)");
         } catch (MalformedPatternException e) {
-            ExceptionHandler.process(e);
+        	CommonExceptionHandler.process(e);
         }
 
         Perl5Substitution substitution = new Perl5Substitution("$1$4", Perl5Substitution.INTERPOLATE_ALL);

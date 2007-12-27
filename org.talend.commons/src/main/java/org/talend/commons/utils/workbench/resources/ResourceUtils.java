@@ -28,7 +28,7 @@ import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
-import org.talend.commons.exception.ExceptionHandler;
+import org.talend.commons.exception.CommonExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.commons.exception.ResourceNotFoundException;
 import org.talend.commons.i18n.internal.Messages;
@@ -144,7 +144,7 @@ public final class ResourceUtils {
                     deleteResource(res);
                     nbResourcesDeleted++;
                 } catch (PersistenceException e) {
-                    ExceptionHandler.process(e);
+                	CommonExceptionHandler.process(e);
                 }
             }
             return nbResourcesDeleted;
@@ -227,7 +227,7 @@ public final class ResourceUtils {
                     stream.close();
                 }
             } catch (IOException e) {
-                ExceptionHandler.process(e);
+            	CommonExceptionHandler.process(e);
             }
         }
     }

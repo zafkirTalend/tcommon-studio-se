@@ -4,9 +4,9 @@ Bundle-Name: Common Plug-in
 Bundle-SymbolicName: org.talend.commons;singleton:=true
 Bundle-Version: 2.2.0.qualifier
 Bundle-Localization: plugin
-Require-Bundle: org.talend.libraries,
- org.eclipse.core.resources,
- org.eclipse.core.runtime
+Require-Bundle: org.eclipse.core.resources,
+ org.eclipse.core.runtime,
+ org.talend.libraries;visibility:=reexport
 Export-Package: org.talend.commons,
  org.talend.commons.exception,
  org.talend.commons.i18n,
@@ -20,15 +20,12 @@ Export-Package: org.talend.commons,
  org.talend.commons.utils.data.text,
  org.talend.commons.utils.encoding,
  org.talend.commons.utils.generation,
- org.talend.commons.utils.image,
  org.talend.commons.utils.io,
  org.talend.commons.utils.network,
  org.talend.commons.utils.performance,
  org.talend.commons.utils.system,
- org.talend.commons.utils.threading,
  org.talend.commons.utils.time,
  org.talend.commons.utils.workbench.extensions,
- org.talend.commons.utils.workbench.gef,
  org.talend.commons.utils.workbench.preferences,
  org.talend.commons.utils.workbench.resources,
  org.talend.commons.xml

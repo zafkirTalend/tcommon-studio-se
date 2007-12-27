@@ -12,7 +12,7 @@
 // ============================================================================
 package org.talend.commons;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.core.runtime.Plugin;
 
 /**
  * Activator for Code Generator.
@@ -20,22 +20,22 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
  * $Id$
  * 
  */
-public class CommonsPlugin extends AbstractUIPlugin {
+public class CommonsPlugin extends Plugin {
 
-    // The plug-in ID
-    public static final String PLUGIN_ID = "org.talend.commons"; //$NON-NLS-1$
+	// The plug-in ID
+	public static final String PLUGIN_ID = "org.talend.commons"; //$NON-NLS-1$
 
-    // The shared instance
-    private static CommonsPlugin plugin;
+	// The shared instance
+	private static CommonsPlugin plugin;
 
-    /**
-     * Default Constructor.
-     */
-    public CommonsPlugin() {
-        plugin = this;
-    }
+	/**
+	 * Default Constructor.
+	 */
+	public CommonsPlugin() {
+		plugin = this;
+	}
 
-    public static CommonsPlugin getDefault() {
-        return plugin;
-    }
+	public static CommonsPlugin getDefault() {
+		return plugin;
+	}
 }
