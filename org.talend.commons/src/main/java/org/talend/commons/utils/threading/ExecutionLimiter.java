@@ -12,7 +12,6 @@
 // ============================================================================
 package org.talend.commons.utils.threading;
 
-import org.talend.commons.exception.ExceptionHandler;
 
 /**
  * 
@@ -83,20 +82,24 @@ public abstract class ExecutionLimiter {
                     @Override
                     public void run() {
                         try {
-                            // System.out.println("1 HASHCODE = " + ExecutionLimiter.this.hashCode() + " " + this.hashCode());
-//                            Thread.sleep(timeBeforeNewExecution);
+                            // System.out.println("1 HASHCODE = " + ExecutionLimiter.this.hashCode() + " " +
+                            // this.hashCode());
+                            // Thread.sleep(timeBeforeNewExecution);
                             synchronized (this) {
-                                // System.out.println("2 HASHCODE = " + ExecutionLimiter.this.hashCode() + " "  +  this.hashCode());
+                                // System.out.println("2 HASHCODE = " + ExecutionLimiter.this.hashCode() + " " +
+                                // this.hashCode());
                                 executeAtEndOfTimeThread = this;
                                 this.wait(timeBeforeNewExecution);
                             }
-                            // System.out.println("Call executed: executeAtEndOfTime" + ExecutionLimiter.this.hashCode() + " "  +  this.hashCode());
+                            // System.out.println("Call executed: executeAtEndOfTime" + ExecutionLimiter.this.hashCode()
+                            // + " " + this.hashCode());
                             callExecute();
                         } catch (InterruptedException e) {
-                            // System.out.println("=======>  executeAtEndOfTime interrupted" + ExecutionLimiter.this.hashCode() + " "  +  this.hashCode());
+                            // System.out.println("=======> executeAtEndOfTime interrupted" +
+                            // ExecutionLimiter.this.hashCode() + " " + this.hashCode());
                             return;
                         } catch (Exception e) {
-                            ExceptionHandler.process(e);
+                            throw new RuntimeException(e);
                         } finally {
                             inExecution = false;
                         }
@@ -155,16 +158,18 @@ public abstract class ExecutionLimiter {
         public void run() {
             try {
                 synchronized (this) {
-//                    finalExecutionThreadWait = this;
+                    // finalExecutionThreadWait = this;
                     this.wait(timeBeforeNewExecution);
                 }
-//                Thread.sleep(timeBeforeNewExecution);
+                // Thread.sleep(timeBeforeNewExecution);
             } catch (InterruptedException e) {
-//                System.out.println("FinalExecution Interrupted " + ExecutionLimiter.this.hashCode() + " "  + this.hashCode());
+                // System.out.println("FinalExecution Interrupted " + ExecutionLimiter.this.hashCode() + " " +
+                // this.hashCode());
                 return;
             }
-//            System.out.println("FinalExecution Not Interrupted " + ExecutionLimiter.this.hashCode() + " " + this.hashCode());
-//            System.out.println("Final thread executed");
+            // System.out.println("FinalExecution Not Interrupted " + ExecutionLimiter.this.hashCode() + " " +
+            // this.hashCode());
+            // System.out.println("Final thread executed");
             execute(true);
         }
 

@@ -15,8 +15,6 @@ package org.talend.commons.utils.threading;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-import org.talend.commons.exception.ExceptionHandler;
-
 /**
  * 
  * Limit the execution of threads by verifying at call of <code>startIfExecutable</code> if the process can be
@@ -123,7 +121,7 @@ public abstract class ExecutionLimiterImproved extends ExecutionLimiter {
                                     // ExecutionLimiter.this.hashCode() + " " + this.hashCode());
                                     return;
                                 } catch (Exception e) {
-                                    ExceptionHandler.process(e);
+                                    throw new RuntimeException(e);
                                 }
                             } else {
                                 // System.out.println( "Call executed : now");
