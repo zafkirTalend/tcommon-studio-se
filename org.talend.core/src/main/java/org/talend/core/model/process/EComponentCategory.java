@@ -27,18 +27,32 @@ public enum EComponentCategory {
     VERSIONS("Version", 9),
     LOGS("Logs", 6),
     STATSANDLOGS("Statsand logs", 7),
-    TECHNICAL("Technical", 8); // for non displayed parameters
+    TECHNICAL("Technical", 8), // for non displayed parameters
+    ADVANCED("Advanced", 9),
+    BASIC("Basic", PROPERTY, 10),
+    ADVANCED_PROPERTIES("Properties", 11, BASIC, ADVANCED);
 
     private String title;
 
     private int priority;
 
+    private EComponentCategory[] subCategories;
+
+    private EComponentCategory aliasFor;
+
+    private EComponentCategory(String title, EComponentCategory aliasFor, int priority) {
+        this.title = title;
+        this.priority = priority;
+        this.aliasFor = aliasFor;
+    }
+
     /**
      * yzhang EComponentCategory constructor comment.
      */
-    private EComponentCategory(String title, int priority) {
+    private EComponentCategory(String title, int priority, EComponentCategory... subCategories) {
         this.title = title;
         this.priority = priority;
+        this.subCategories = subCategories;
     }
 
     /**
@@ -58,4 +72,41 @@ public enum EComponentCategory {
     public int getPriorityNumber() {
         return priority;
     }
+
+    /**
+     * yzhang Comment method "getSubCategories".
+     * 
+     * @return
+     */
+    public EComponentCategory[] getSubCategories() {
+        return subCategories;
+    }
+
+    /**
+     * yzhang Comment method "hadSubCategories".
+     * 
+     * @return
+     */
+    public boolean hadSubCategories() {
+        return subCategories.length > 0;
+    }
+
+    /**
+     * yzhang Comment method "getAliasFor".
+     * 
+     * @return
+     */
+    public EComponentCategory getAliasFor() {
+        return aliasFor;
+    }
+
+    /**
+     * yzhang Comment method "isAlias".
+     * 
+     * @return
+     */
+    public boolean isAlias() {
+        return aliasFor != null;
+    }
+
 }

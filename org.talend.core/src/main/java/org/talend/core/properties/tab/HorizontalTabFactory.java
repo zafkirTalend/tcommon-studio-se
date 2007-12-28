@@ -21,15 +21,13 @@ import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyComposite;
 import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyTitle;
-import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyViewer;
+import org.eclipse.ui.views.properties.tabbed.ITabItem;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 
 /**
@@ -40,11 +38,11 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
  */
 public class HorizontalTabFactory {
 
-    private TabbedPropertyComposite tabbedPropertyComposite;
+    private TalendTabbedPropertyComposite tabbedPropertyComposite;
 
     private TabbedPropertyTitle title;
 
-    private TabbedPropertyViewer tabbedPropertyViewer;
+    private TalendTabbedPropertyViewer tabbedPropertyViewer;
 
     private TabbedPropertySheetWidgetFactory widgetFactory;
 
@@ -55,8 +53,7 @@ public class HorizontalTabFactory {
         panel.setLayout(new FormLayout());
 
         widgetFactory = new TabbedPropertySheetWidgetFactory();
-        tabbedPropertyComposite = new TabbedPropertyComposite(panel, widgetFactory, true);
-        tabbedPropertyComposite.getTabComposite().setLayout(new FillLayout());
+        tabbedPropertyComposite = new TalendTabbedPropertyComposite(panel, widgetFactory, true);
         widgetFactory.paintBordersFor(tabbedPropertyComposite);
         tabbedPropertyComposite.setLayout(new FormLayout());
         FormData formData = new FormData();
@@ -66,7 +63,7 @@ public class HorizontalTabFactory {
         formData.bottom = new FormAttachment(100, 0);
         tabbedPropertyComposite.setLayoutData(formData);
 
-        tabbedPropertyViewer = new TabbedPropertyViewer(tabbedPropertyComposite.getList());
+        tabbedPropertyViewer = new TalendTabbedPropertyViewer(tabbedPropertyComposite.getList());
         tabbedPropertyViewer.setContentProvider(new TabListContentProvider());
         tabbedPropertyViewer.setLabelProvider(new TabbedPropertySheetPageLabelProvider());
 
@@ -76,6 +73,10 @@ public class HorizontalTabFactory {
 
     public Composite getTabComposite() {
         return tabbedPropertyComposite.getTabComposite();
+    }
+
+    public Composite getTitleComposite() {
+        return tabbedPropertyComposite.getTitle();
     }
 
     /**
@@ -126,8 +127,8 @@ public class HorizontalTabFactory {
     private class TabbedPropertySheetPageLabelProvider extends LabelProvider {
 
         public String getText(Object element) {
-            if (element instanceof TalendPropertyTabDescriptor) {
-                return ((TalendPropertyTabDescriptor) element).getLabel();
+            if (element instanceof ITabItem) {
+                return ((ITabItem) element).getText();
             }
             return null;
         }
@@ -147,6 +148,9 @@ public class HorizontalTabFactory {
          * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
          */
         public Object[] getElements(Object inputElement) {
+            if (!(inputElement instanceof List)) {
+                return (Object[]) inputElement;
+            }
             return ((List) inputElement).toArray();
         }
 
@@ -168,6 +172,7 @@ public class HorizontalTabFactory {
         public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
         }
+
     }
 
     public TabbedPropertySheetWidgetFactory getWidgetFactory() {
