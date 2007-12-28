@@ -12,6 +12,8 @@
 // ============================================================================
 package org.talend.core.model.process;
 
+import org.eclipse.swt.graphics.RGB;
+
 /**
  * Interface for Links between Nodes in a Process. <br/>
  * 
@@ -69,4 +71,13 @@ public interface INodeConnector {
     public String getBaseSchema();
 
     public void setBaseSchema(String baseSchema);
+
+    /**
+     * DOC qzhang Comment method "addConnectionProperty".
+     * 
+     * @param flow_ref
+     * @param rgb
+     * @param defaultLineStyle
+     */
+    public void addConnectionProperty(EConnectionType flowRef, RGB rgb, Integer defaultLineStyle);
 }

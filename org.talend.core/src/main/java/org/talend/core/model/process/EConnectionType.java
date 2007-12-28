@@ -111,7 +111,14 @@ public enum EConnectionType implements IConnectionCategory {
                MAIN | DATA | FLOW | CUSTOM_NAME | UNIQUE_NAME | MERGE,
                "Merge", Messages.getString("EConnectionType.mergeMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                new Integer(Graphics.LINE_DASHDOT),
-               new RGB(230, 100, 0));
+               new RGB(230, 100, 0)),
+    JOBLETINPUT(9, "JOBLETINPUT", //$NON-NLS-1$
+                EConnectionCategory.MAIN,
+                MAIN | DATA | CUSTOM_NAME,
+                "Input",
+                "JobletInput",
+                new Integer(Graphics.LINE_SOLID),
+                new RGB(255, 150, 100));
 
     private String name;
 

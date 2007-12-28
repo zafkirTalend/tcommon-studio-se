@@ -35,6 +35,7 @@ import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HTMLDocumentationItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
@@ -170,6 +171,16 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
                 return ERepositoryObjectType.PROCESS;
             }
 
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.talend.core.model.properties.util.PropertiesSwitch#caseJobletProcessItem(org.talend.core.model.properties.JobletProcessItem)
+             */
+            @Override
+            public Object caseJobletProcessItem(JobletProcessItem object) {
+                return ERepositoryObjectType.JOBLET;
+            }
+
             public Object caseBusinessProcessItem(BusinessProcessItem object) {
                 return ERepositoryObjectType.BUSINESS_PROCESS;
             }
@@ -212,7 +223,8 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
 
             public Object caseHTMLDocumentationItem(HTMLDocumentationItem object) {
                 return ERepositoryObjectType.HTML_DOC;
-            } 
+            }
+
             public Object defaultCase(EObject object) {
                 throw new IllegalStateException();
             }

@@ -30,6 +30,8 @@ public interface IComponentsFactory {
 
     String COMPONENTS_USER_INNER_FOLDER = "user"; //$NON-NLS-1$
 
+    String COMPONENT_DEFINITION = "org.talend.core.component_definition";
+
     public void init();
 
     public int size();

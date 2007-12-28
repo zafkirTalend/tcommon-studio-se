@@ -1,0 +1,87 @@
+// ============================================================================
+//
+// Copyright (C) 2006-2007 Talend Inc. - www.talend.com
+//
+// This source code is available under agreement available at
+// %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
+//
+// You should have received a copy of the agreement
+// along with this program; if not, write to Talend SA
+// 9 rue Pages 92150 Suresnes, France
+//
+// ============================================================================
+package org.talend.core.model.process;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
+import java.util.Set;
+
+import org.eclipse.core.resources.IFile;
+import org.talend.commons.exception.PersistenceException;
+import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
+import org.talend.designer.core.ui.AbstractMultiPageTalendEditor;
+
+/**
+ * DOC qzhang class global comment. Detailled comment
+ */
+public interface IProcess2 extends IProcess {
+
+    boolean checkReadOnly();
+
+    ProcessType saveXmlFile(IFile file, boolean isJoblet) throws IOException;
+
+    void setPropertyValue(String id, Object value);
+
+    Set<String> getSubJobs(String processName);
+
+    void updateProperties();
+
+    void setEditor(AbstractMultiPageTalendEditor editor);
+
+    /**
+     * DOC qzhang Comment method "loadXmlFile".
+     * 
+     * @param process
+     */
+    void loadXmlFile(ProcessType process);
+
+    /**
+     * DOC qzhang Comment method "checkLoadNodes".
+     */
+    void checkLoadNodes() throws PersistenceException;
+
+    /**
+     * DOC qzhang Comment method "setXmlStream".
+     * 
+     * @param contents
+     */
+    void setXmlStream(InputStream contents);
+
+    boolean isJoblet();
+
+    void setJoblet(boolean isJoblet);
+
+    void addJoblet(Element element);
+
+    List getElements();
+
+    /**
+     * DOC qzhang Comment method "setActivate".
+     * 
+     * @param b
+     */
+    void setActivate(boolean b);
+
+    void removeJoblet(Element element);
+
+    /**
+     * DOC qzhang Comment method "checkStartNodes".
+     */
+    void checkStartNodes();
+
+    /**
+     * DOC qzhang Comment method "checkProcess".
+     */
+    void checkProcess();
+}

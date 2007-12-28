@@ -41,7 +41,7 @@ public class ExtractMetaDataUtils {
     /**
      * DOC cantoine. Method to return DatabaseMetaData of a DB connection.
      * 
-     * @param Connection conn
+     * @param AbstractConnection conn
      * @return DatabaseMetaData
      */
     public static DatabaseMetaData getDatabaseMetaData(Connection conn) {

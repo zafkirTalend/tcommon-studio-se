@@ -14,6 +14,7 @@
    <extension-point id="talendperspectives" name="Talend Perspectives" schema="schema/talendperspectives.exsd"/>
    <extension-point id="component_custom_action" name="Component Custom Action" schema="schema/component_custom_action.exsd"/>
    <extension-point id="talend_external_proposals" name="Talend External Proposals" schema="schema/talend_external_proposals.exsd"/>
+   <extension-point id="component_definition" name="Component Definition" schema="schema/component_definition.exsd"/>
   
 	
 	<extension

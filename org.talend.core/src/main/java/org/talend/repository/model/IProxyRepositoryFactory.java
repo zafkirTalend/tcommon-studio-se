@@ -171,6 +171,14 @@ public interface IProxyRepositoryFactory {
     public abstract RootContainer<String, IRepositoryObject> getProcess() throws PersistenceException;
 
     /**
+     * DOC qzhang Comment method "getJoblets".
+     * 
+     * @return
+     * @throws PersistenceException
+     */
+    public abstract RootContainer<String, IRepositoryObject> getJoblets() throws PersistenceException;
+
+    /**
      * @param project
      * @return
      * @throws PersistenceException

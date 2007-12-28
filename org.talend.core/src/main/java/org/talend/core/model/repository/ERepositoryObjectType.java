@@ -25,6 +25,7 @@ import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HTMLDocumentationItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.PositionalFileConnectionItem;
@@ -67,7 +68,9 @@ public enum ERepositoryObjectType {
     REFERENCED_PROJECTS("repository.referencedProjects", "repository.referencedProjects.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     GENERATED("repository.generated"),
     JOBS("repository.jobs"),
-    HTML_DOC("repository.htmldoc");
+    HTML_DOC("repository.htmldoc"),
+
+    JOBLET("repository.joblets");
 
     private String key;
 
@@ -120,6 +123,8 @@ public enum ERepositoryObjectType {
             return "businessProcess"; //$NON-NLS-1$
         case PROCESS:
             return "process"; //$NON-NLS-1$
+        case JOBLET:
+            return "joblets"; //$NON-NLS-1$
         case CONTEXT:
             return "context"; //$NON-NLS-1$
         case ROUTINES:
@@ -185,6 +190,16 @@ public enum ERepositoryObjectType {
 
             public Object caseProcessItem(ProcessItem object) {
                 return PROCESS;
+            }
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see org.talend.core.model.properties.util.PropertiesSwitch#caseJobletProcessItem(org.talend.core.model.properties.JobletProcessItem)
+             */
+            @Override
+            public Object caseJobletProcessItem(JobletProcessItem object) {
+                return JOBLET;
             }
 
             public Object caseContextItem(ContextItem object) {
