@@ -57,6 +57,7 @@ public class MigrationToolService implements IMigrationToolService {
         boolean needSave = false;
 
         for (IProjectMigrationTask task : toExecute) {
+
             if (!done.contains(task.getId())) {
                 try {
                     switch (task.execute(project)) {
