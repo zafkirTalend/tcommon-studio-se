@@ -213,9 +213,10 @@ public final class ElementParameterParser {
             return (String) value;
         }
 
-        if (param.getField() == EParameterFieldType.CHECK) {
+        if (param.getField() == EParameterFieldType.CHECK || param.getField() == EParameterFieldType.AS400_CHECK) {
             return ((Boolean) param.getValue()).toString();
         }
+
         if (param.getField() == EParameterFieldType.TABLE) {
             List<Map<String, Object>> tableValues = (List<Map<String, Object>>) param.getValue();
             String[] items = param.getListItemsDisplayCodeName();
