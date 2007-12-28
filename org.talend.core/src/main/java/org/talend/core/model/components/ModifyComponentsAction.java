@@ -59,7 +59,7 @@ public class ModifyComponentsAction {
             }
         }
         if (modified) {
-            factory.save(item);
+            factory.save(item,true);
         }
     }
 

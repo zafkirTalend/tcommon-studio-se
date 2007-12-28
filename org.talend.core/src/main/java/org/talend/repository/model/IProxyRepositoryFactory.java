@@ -49,12 +49,13 @@ public interface IProxyRepositoryFactory {
     public abstract RepositoryContext getRepositoryContext();
 
     public void refreshJobPictureFolder();
-    
+
     public void refreshDocumentationFolder();
 
     public void addPropertyChangeListener(PropertyChangeListener l);
-    
+
     public void removePropertyChangeListener(PropertyChangeListener l);
+
     /**
      * @param project
      * @return
@@ -73,8 +74,7 @@ public interface IProxyRepositoryFactory {
      */
     public abstract boolean isNameAvailable(Item item, String name) throws PersistenceException;
 
-    public abstract boolean isPathValid(ERepositoryObjectType type, IPath path, String label)
-            throws PersistenceException;
+    public abstract boolean isPathValid(ERepositoryObjectType type, IPath path, String label) throws PersistenceException;
 
     /**
      * @param label
@@ -98,8 +98,7 @@ public interface IProxyRepositoryFactory {
      * @see org.talend.core.model.repository.factories.IRepositoryFactory#createFolder(org.talend.core.model.general.Project,
      * org.talend.core.model.repository.ERepositoryObjectType, org.eclipse.core.runtime.IPath, java.lang.String)
      */
-    public abstract Folder createFolder(ERepositoryObjectType type, IPath path, String label)
-            throws PersistenceException;
+    public abstract Folder createFolder(ERepositoryObjectType type, IPath path, String label) throws PersistenceException;
 
     /**
      * @param project
@@ -121,8 +120,7 @@ public interface IProxyRepositoryFactory {
      * org.talend.core.model.repository.ERepositoryObjectType, org.eclipse.core.runtime.IPath,
      * org.eclipse.core.runtime.IPath)
      */
-    public abstract void moveFolder(ERepositoryObjectType type, IPath sourcePath, IPath targetPath)
-            throws PersistenceException;
+    public abstract void moveFolder(ERepositoryObjectType type, IPath sourcePath, IPath targetPath) throws PersistenceException;
 
     /**
      * @param project
@@ -228,13 +226,11 @@ public interface IProxyRepositoryFactory {
      * @see org.talend.repository.model.IRepositoryFactory#deleteObject(org.talend.core.model.general.Project,
      * org.talend.core.model.repository.IRepositoryObject)
      */
-    public abstract void deleteObjectLogical(IRepositoryObject objToDelete) throws PersistenceException,
-            BusinessException;
+    public abstract void deleteObjectLogical(IRepositoryObject objToDelete) throws PersistenceException, BusinessException;
 
     public abstract void deleteObjectPhysical(IRepositoryObject objToDelete) throws PersistenceException;
 
-    public abstract void restoreObject(IRepositoryObject objToRestore, IPath path) throws PersistenceException,
-            BusinessException;
+    public abstract void restoreObject(IRepositoryObject objToRestore, IPath path) throws PersistenceException, BusinessException;
 
     /*
      * (non-Javadoc)
@@ -303,8 +299,7 @@ public interface IProxyRepositoryFactory {
 
     public abstract List<IRepositoryObject> getAll(ERepositoryObjectType type) throws PersistenceException;
 
-    public abstract List<IRepositoryObject> getAll(ERepositoryObjectType type, boolean withDeleted)
-            throws PersistenceException;
+    public abstract List<IRepositoryObject> getAll(ERepositoryObjectType type, boolean withDeleted) throws PersistenceException;
 
     public abstract List<String> getFolders(ERepositoryObjectType type) throws PersistenceException;
 
@@ -354,7 +349,7 @@ public interface IProxyRepositoryFactory {
     // public abstract String isServerValid();
     public abstract void create(Item item, IPath path) throws PersistenceException;
 
-    public abstract void save(Item item) throws PersistenceException;
+    public abstract void save(Item item, boolean... isMigrationTask) throws PersistenceException;
 
     public abstract void save(Property property, String... originalNameAndVersion) throws PersistenceException;
 
