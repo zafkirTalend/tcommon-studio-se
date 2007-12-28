@@ -133,6 +133,7 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.HTML_DOCUMENTATION_ITEM: return createHTMLDocumentationItem();
             case PropertiesPackage.FILE_TRIGGER: return createFileTrigger();
             case PropertiesPackage.FILE_TRIGGER_MASK: return createFileTriggerMask();
+            case PropertiesPackage.JOBLET_PROCESS_ITEM: return createJobletProcessItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -571,6 +572,16 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public FileTriggerMask createFileTriggerMask() {
         FileTriggerMaskImpl fileTriggerMask = new FileTriggerMaskImpl();
         return fileTriggerMask;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public JobletProcessItem createJobletProcessItem() {
+        JobletProcessItemImpl jobletProcessItem = new JobletProcessItemImpl();
+        return jobletProcessItem;
     }
 
     /**

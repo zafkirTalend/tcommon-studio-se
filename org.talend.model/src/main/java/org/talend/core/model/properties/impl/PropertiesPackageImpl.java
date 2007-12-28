@@ -39,6 +39,7 @@ import org.talend.core.model.properties.GenericSchemaConnectionItem;
 import org.talend.core.model.properties.HTMLDocumentationItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
 import org.talend.core.model.properties.License;
@@ -69,7 +70,7 @@ import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
-import org.talend.designer.core.model.utils.emf.talendfile.impl.TalendFilePackageImpl;
+import org.talend.designer.joblet.model.JobletPackage;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model <b>Package</b>. <!-- end-user-doc -->
@@ -144,15 +145,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     private EClass connectionItemEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass snippetVariableEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass snippetItemEClass = null;
@@ -332,25 +331,28 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     private EClass executionVirtualServerEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass htmlDocumentationItemEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass fileTriggerEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     private EClass fileTriggerMaskEClass = null;
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass jobletProcessItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -433,6 +435,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         BusinessPackage.eINSTANCE.eClass();
         ComponentPackage.eINSTANCE.eClass();
         EcorePackage.eINSTANCE.eClass();
+        JobletPackage.eINSTANCE.eClass();
         ConnectionPackage.eINSTANCE.eClass();
         NotationPackage.eINSTANCE.eClass();
         TalendFilePackage.eINSTANCE.eClass();
@@ -939,8 +942,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getSnippetVariable() {
@@ -948,8 +950,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getSnippetVariable_Name() {
@@ -957,8 +958,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getSnippetVariable_Value() {
@@ -966,8 +966,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getSnippetVariable_Description() {
@@ -975,8 +974,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getSnippetVariable_Id() {
@@ -984,8 +982,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getSnippetItem() {
@@ -993,8 +990,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getSnippetItem_Name() {
@@ -1002,8 +998,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getSnippetItem_Content() {
@@ -1011,8 +1006,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getSnippetItem_Variables() {
@@ -1924,8 +1918,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionTask_ConcurrentExecution() {
@@ -1933,8 +1926,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getExecutionTask_MaxConcurrentExecutions() {
@@ -2182,8 +2174,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getHTMLDocumentationItem() {
@@ -2191,8 +2182,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getFileTrigger() {
@@ -2200,8 +2190,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getFileTrigger_FileTriggerMasks() {
@@ -2209,8 +2198,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EClass getFileTriggerMask() {
@@ -2218,8 +2206,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileTriggerMask_Id() {
@@ -2227,8 +2214,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileTriggerMask_Active() {
@@ -2236,8 +2222,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileTriggerMask_Label() {
@@ -2245,8 +2230,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileTriggerMask_Description() {
@@ -2254,8 +2238,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EReference getFileTriggerMask_FileTrigger() {
@@ -2263,8 +2246,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileTriggerMask_FolderPath() {
@@ -2272,8 +2254,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileTriggerMask_FileMask() {
@@ -2281,8 +2262,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EAttribute getFileTriggerMask_ContextParameterBaseName() {
@@ -2296,6 +2276,23 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EReference getFileTriggerMask_CheckFileServer() {
         return (EReference)fileTriggerMaskEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getJobletProcessItem() {
+        return jobletProcessItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getJobletProcessItem_JobletProcess() {
+        return (EReference)jobletProcessItemEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -2657,6 +2654,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(fileTriggerMaskEClass, FILE_TRIGGER_MASK__CONTEXT_PARAMETER_BASE_NAME);
         createEReference(fileTriggerMaskEClass, FILE_TRIGGER_MASK__CHECK_FILE_SERVER);
 
+        jobletProcessItemEClass = createEClass(JOBLET_PROCESS_ITEM);
+        createEReference(jobletProcessItemEClass, JOBLET_PROCESS_ITEM__JOBLET_PROCESS);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -2692,6 +2692,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         ComponentPackage theComponentPackage = (ComponentPackage)EPackage.Registry.INSTANCE.getEPackage(ComponentPackage.eNS_URI);
         ConnectionPackage theConnectionPackage = (ConnectionPackage)EPackage.Registry.INSTANCE.getEPackage(ConnectionPackage.eNS_URI);
         TalendFilePackage theTalendFilePackage = (TalendFilePackage)EPackage.Registry.INSTANCE.getEPackage(TalendFilePackage.eNS_URI);
+        JobletPackage theJobletPackage = (JobletPackage)EPackage.Registry.INSTANCE.getEPackage(JobletPackage.eNS_URI);
 
         // Add supertypes to classes
         businessProcessItemEClass.getESuperTypes().add(this.getItem());
@@ -2717,6 +2718,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         simpleTalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
         htmlDocumentationItemEClass.getESuperTypes().add(this.getFileItem());
         fileTriggerEClass.getESuperTypes().add(this.getSimpleTalendTrigger());
+        jobletProcessItemEClass.getESuperTypes().add(this.getItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2996,6 +2998,9 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getFileTriggerMask_FileMask(), theEcorePackage.getEString(), "fileMask", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getFileTriggerMask_ContextParameterBaseName(), theEcorePackage.getEString(), "contextParameterBaseName", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getFileTriggerMask_CheckFileServer(), this.getExecutionServer(), null, "checkFileServer", null, 0, 1, FileTriggerMask.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(jobletProcessItemEClass, JobletProcessItem.class, "JobletProcessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getJobletProcessItem_JobletProcess(), theJobletPackage.getJobletProcess(), null, "jobletProcess", null, 0, 1, JobletProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

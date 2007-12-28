@@ -27,6 +27,18 @@
       class="org.talend.designer.core.model.utils.emf.component.ComponentPackage"
       uri="platform:/resource/org.talend.designer.core/src/main/java/org/talend/designer/core/model/utils/emf/Component.xsd" 
       />
+    <package
+          class="org.talend.designer.joblet.model.JobletPackage"
+          genModel="model/joblet.genmodel"
+          uri="http://www.talend.com/joblet.ecore">
+    </package>
+  </extension>
+  <extension
+        point="org.eclipse.emf.ecore.extension_parser">
+     <parser
+           class="org.talend.designer.joblet.model.util.JobletResourceFactoryImpl"
+           type="joblet">
+     </parser>
   </extension>
 
 </plugin>

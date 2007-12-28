@@ -3395,13 +3395,59 @@ public interface PropertiesPackage extends EPackage {
     int FILE_TRIGGER_MASK_FEATURE_COUNT = 9;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.JobletProcessItemImpl <em>Joblet Process Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.JobletProcessItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletProcessItem()
+     * @generated
+     */
+    int JOBLET_PROCESS_ITEM = 46;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_PROCESS_ITEM__PROPERTY = ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_PROCESS_ITEM__STATE = ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Joblet Process</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_PROCESS_ITEM__JOBLET_PROCESS = ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The number of structural features of the '<em>Joblet Process Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 46;
+    int FOLDER_TYPE = 47;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -3411,7 +3457,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 47;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 48;
 
 
     /**
@@ -3422,7 +3468,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 48;
+    int USER_MODULE_AUTHORIZATION_TYPE = 49;
 
 
     /**
@@ -5815,6 +5861,27 @@ public interface PropertiesPackage extends EPackage {
     EReference getFileTriggerMask_CheckFileServer();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.JobletProcessItem <em>Joblet Process Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Joblet Process Item</em>'.
+     * @see org.talend.core.model.properties.JobletProcessItem
+     * @generated
+     */
+    EClass getJobletProcessItem();
+
+    /**
+     * Returns the meta object for the reference '{@link org.talend.core.model.properties.JobletProcessItem#getJobletProcess <em>Joblet Process</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Joblet Process</em>'.
+     * @see org.talend.core.model.properties.JobletProcessItem#getJobletProcess()
+     * @see #getJobletProcessItem()
+     * @generated
+     */
+    EReference getJobletProcessItem_JobletProcess();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Folder Type</em>'.
@@ -7794,6 +7861,24 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference FILE_TRIGGER_MASK__CHECK_FILE_SERVER = eINSTANCE.getFileTriggerMask_CheckFileServer();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.JobletProcessItemImpl <em>Joblet Process Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.JobletProcessItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletProcessItem()
+         * @generated
+         */
+        EClass JOBLET_PROCESS_ITEM = eINSTANCE.getJobletProcessItem();
+
+        /**
+         * The meta object literal for the '<em><b>Joblet Process</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference JOBLET_PROCESS_ITEM__JOBLET_PROCESS = eINSTANCE.getJobletProcessItem_JobletProcess();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

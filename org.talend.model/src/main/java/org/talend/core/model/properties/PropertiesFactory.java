@@ -391,6 +391,15 @@ public interface PropertiesFactory extends EFactory {
     FileTriggerMask createFileTriggerMask();
 
     /**
+     * Returns a new object of class '<em>Joblet Process Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Joblet Process Item</em>'.
+     * @generated
+     */
+    JobletProcessItem createJobletProcessItem();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.
