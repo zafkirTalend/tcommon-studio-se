@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getDOCUMENTATION <em>DOCUMENTATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getCONNECTORS <em>CONNECTORS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPARAMETERS <em>PARAMETERS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getADVANCEDPARAMETERS <em>ADVANCEDPARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getCODEGENERATION <em>CODEGENERATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getRETURNS <em>RETURNS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}</li>
@@ -140,6 +141,33 @@ public interface COMPONENTType extends EObject {
      * @generated
      */
     void setPARAMETERS(PARAMETERSType value);
+
+    /**
+     * Returns the value of the '<em><b>ADVANCEDPARAMETERS</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>ADVANCEDPARAMETERS</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>ADVANCEDPARAMETERS</em>' containment reference.
+     * @see #setADVANCEDPARAMETERS(ADVANCEDPARAMETERSType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCOMPONENTType_ADVANCEDPARAMETERS()
+     * @model containment="true"
+     *        extendedMetaData="kind='element' name='ADVANCED_PARAMETERS' namespace='##targetNamespace'"
+     * @generated
+     */
+    ADVANCEDPARAMETERSType getADVANCEDPARAMETERS();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getADVANCEDPARAMETERS <em>ADVANCEDPARAMETERS</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>ADVANCEDPARAMETERS</em>' containment reference.
+     * @see #getADVANCEDPARAMETERS()
+     * @generated
+     */
+    void setADVANCEDPARAMETERS(ADVANCEDPARAMETERSType value);
 
     /**
      * Returns the value of the '<em><b>CODEGENERATION</b></em>' containment reference.

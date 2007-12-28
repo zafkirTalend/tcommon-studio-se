@@ -21,12 +21,14 @@ import org.eclipse.emf.ecore.util.FeatureMap;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getMixed <em>Mixed</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getXMLNSPrefixMap <em>XMLNS Prefix Map</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getXSISchemaLocation <em>XSI Schema Location</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getADVANCEDPARAMETERS <em>ADVANCEDPARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getCODEGENERATION <em>CODEGENERATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getCOMPONENT <em>COMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getCONNECTORS <em>CONNECTORS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getDOCUMENTATION <em>DOCUMENTATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getHEADER <em>HEADER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getITEMS <em>ITEMS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPARAMETER <em>PARAMETER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPARAMETERS <em>PARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getRETURNS <em>RETURNS</em>}</li>
@@ -90,6 +92,33 @@ public interface DocumentRoot extends EObject {
      * @generated
      */
     EMap getXSISchemaLocation();
+
+    /**
+     * Returns the value of the '<em><b>ADVANCEDPARAMETERS</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>ADVANCEDPARAMETERS</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>ADVANCEDPARAMETERS</em>' containment reference.
+     * @see #setADVANCEDPARAMETERS(ADVANCEDPARAMETERSType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getDocumentRoot_ADVANCEDPARAMETERS()
+     * @model containment="true" upper="-2" transient="true" volatile="true" derived="true"
+     *        extendedMetaData="kind='element' name='ADVANCED_PARAMETERS' namespace='##targetNamespace'"
+     * @generated
+     */
+    ADVANCEDPARAMETERSType getADVANCEDPARAMETERS();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getADVANCEDPARAMETERS <em>ADVANCEDPARAMETERS</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>ADVANCEDPARAMETERS</em>' containment reference.
+     * @see #getADVANCEDPARAMETERS()
+     * @generated
+     */
+    void setADVANCEDPARAMETERS(ADVANCEDPARAMETERSType value);
 
     /**
      * Returns the value of the '<em><b>CODEGENERATION</b></em>' containment reference.
@@ -252,6 +281,33 @@ public interface DocumentRoot extends EObject {
      * @generated
      */
 	void setITEMS(ITEMSType value);
+
+    /**
+     * Returns the value of the '<em><b>PARAMETER</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>PARAMETER</em>' containment reference isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>PARAMETER</em>' containment reference.
+     * @see #setPARAMETER(PARAMETERType)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getDocumentRoot_PARAMETER()
+     * @model containment="true" upper="-2" transient="true" volatile="true" derived="true"
+     *        extendedMetaData="kind='element' name='PARAMETER' namespace='##targetNamespace'"
+     * @generated
+     */
+    PARAMETERType getPARAMETER();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPARAMETER <em>PARAMETER</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>PARAMETER</em>' containment reference.
+     * @see #getPARAMETER()
+     * @generated
+     */
+    void setPARAMETER(PARAMETERType value);
 
     /**
      * Returns the value of the '<em><b>PARAMETERS</b></em>' containment reference.

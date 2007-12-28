@@ -26,6 +26,15 @@ public interface ComponentFactory extends EFactory {
     ComponentFactory eINSTANCE = org.talend.designer.core.model.utils.emf.component.impl.ComponentFactoryImpl.init();
 
     /**
+     * Returns a new object of class '<em>ADVANCEDPARAMETERS Type</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>ADVANCEDPARAMETERS Type</em>'.
+     * @generated
+     */
+    ADVANCEDPARAMETERSType createADVANCEDPARAMETERSType();
+
+    /**
      * Returns a new object of class '<em>CODEGENERATION Type</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

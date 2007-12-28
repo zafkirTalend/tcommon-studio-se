@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.EObjectImpl;
+import org.talend.designer.core.model.utils.emf.component.ADVANCEDPARAMETERSType;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
@@ -41,6 +42,7 @@ import org.talend.designer.core.model.utils.emf.component.RETURNSType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getDOCUMENTATION <em>DOCUMENTATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getCONNECTORS <em>CONNECTORS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getPARAMETERS <em>PARAMETERS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getADVANCEDPARAMETERS <em>ADVANCEDPARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getCODEGENERATION <em>CODEGENERATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getRETURNS <em>RETURNS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.COMPONENTTypeImpl#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}</li>
@@ -89,6 +91,16 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * @ordered
      */
     protected PARAMETERSType pARAMETERS;
+
+    /**
+     * The cached value of the '{@link #getADVANCEDPARAMETERS() <em>ADVANCEDPARAMETERS</em>}' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getADVANCEDPARAMETERS()
+     * @generated
+     * @ordered
+     */
+    protected ADVANCEDPARAMETERSType aDVANCEDPARAMETERS;
 
     /**
      * The cached value of the '{@link #getCODEGENERATION() <em>CODEGENERATION</em>}' containment reference.
@@ -315,6 +327,49 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public ADVANCEDPARAMETERSType getADVANCEDPARAMETERS() {
+        return aDVANCEDPARAMETERS;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetADVANCEDPARAMETERS(ADVANCEDPARAMETERSType newADVANCEDPARAMETERS, NotificationChain msgs) {
+        ADVANCEDPARAMETERSType oldADVANCEDPARAMETERS = aDVANCEDPARAMETERS;
+        aDVANCEDPARAMETERS = newADVANCEDPARAMETERS;
+        if (eNotificationRequired()) {
+            ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__ADVANCEDPARAMETERS, oldADVANCEDPARAMETERS, newADVANCEDPARAMETERS);
+            if (msgs == null) msgs = notification; else msgs.add(notification);
+        }
+        return msgs;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setADVANCEDPARAMETERS(ADVANCEDPARAMETERSType newADVANCEDPARAMETERS) {
+        if (newADVANCEDPARAMETERS != aDVANCEDPARAMETERS) {
+            NotificationChain msgs = null;
+            if (aDVANCEDPARAMETERS != null)
+                msgs = ((InternalEObject)aDVANCEDPARAMETERS).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__ADVANCEDPARAMETERS, null, msgs);
+            if (newADVANCEDPARAMETERS != null)
+                msgs = ((InternalEObject)newADVANCEDPARAMETERS).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ComponentPackage.COMPONENT_TYPE__ADVANCEDPARAMETERS, null, msgs);
+            msgs = basicSetADVANCEDPARAMETERS(newADVANCEDPARAMETERS, msgs);
+            if (msgs != null) msgs.dispatch();
+        }
+        else if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.COMPONENT_TYPE__ADVANCEDPARAMETERS, newADVANCEDPARAMETERS, newADVANCEDPARAMETERS));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public CODEGENERATIONType getCODEGENERATION() {
         return cODEGENERATION;
     }
@@ -454,6 +509,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return basicSetCONNECTORS(null, msgs);
             case ComponentPackage.COMPONENT_TYPE__PARAMETERS:
                 return basicSetPARAMETERS(null, msgs);
+            case ComponentPackage.COMPONENT_TYPE__ADVANCEDPARAMETERS:
+                return basicSetADVANCEDPARAMETERS(null, msgs);
             case ComponentPackage.COMPONENT_TYPE__CODEGENERATION:
                 return basicSetCODEGENERATION(null, msgs);
             case ComponentPackage.COMPONENT_TYPE__RETURNS:
@@ -479,6 +536,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return getCONNECTORS();
             case ComponentPackage.COMPONENT_TYPE__PARAMETERS:
                 return getPARAMETERS();
+            case ComponentPackage.COMPONENT_TYPE__ADVANCEDPARAMETERS:
+                return getADVANCEDPARAMETERS();
             case ComponentPackage.COMPONENT_TYPE__CODEGENERATION:
                 return getCODEGENERATION();
             case ComponentPackage.COMPONENT_TYPE__RETURNS:
@@ -507,6 +566,9 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return;
             case ComponentPackage.COMPONENT_TYPE__PARAMETERS:
                 setPARAMETERS((PARAMETERSType)newValue);
+                return;
+            case ComponentPackage.COMPONENT_TYPE__ADVANCEDPARAMETERS:
+                setADVANCEDPARAMETERS((ADVANCEDPARAMETERSType)newValue);
                 return;
             case ComponentPackage.COMPONENT_TYPE__CODEGENERATION:
                 setCODEGENERATION((CODEGENERATIONType)newValue);
@@ -540,6 +602,9 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
             case ComponentPackage.COMPONENT_TYPE__PARAMETERS:
                 setPARAMETERS((PARAMETERSType)null);
                 return;
+            case ComponentPackage.COMPONENT_TYPE__ADVANCEDPARAMETERS:
+                setADVANCEDPARAMETERS((ADVANCEDPARAMETERSType)null);
+                return;
             case ComponentPackage.COMPONENT_TYPE__CODEGENERATION:
                 setCODEGENERATION((CODEGENERATIONType)null);
                 return;
@@ -568,6 +633,8 @@ public class COMPONENTTypeImpl extends EObjectImpl implements COMPONENTType {
                 return cONNECTORS != null;
             case ComponentPackage.COMPONENT_TYPE__PARAMETERS:
                 return pARAMETERS != null;
+            case ComponentPackage.COMPONENT_TYPE__ADVANCEDPARAMETERS:
+                return aDVANCEDPARAMETERS != null;
             case ComponentPackage.COMPONENT_TYPE__CODEGENERATION:
                 return cODEGENERATION != null;
             case ComponentPackage.COMPONENT_TYPE__RETURNS:

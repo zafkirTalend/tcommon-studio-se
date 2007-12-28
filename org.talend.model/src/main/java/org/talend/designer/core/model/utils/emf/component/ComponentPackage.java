@@ -50,7 +50,7 @@ public interface ComponentPackage extends EPackage {
      * <!-- end-user-doc -->
      * @generated
      */
-    String eNS_PREFIX = "Component"; //$NON-NLS-1$
+    String eNS_PREFIX = "component"; //$NON-NLS-1$
 
     /**
      * The singleton instance of the package.
@@ -61,6 +61,34 @@ public interface ComponentPackage extends EPackage {
     ComponentPackage eINSTANCE = org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl.init();
 
     /**
+     * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ADVANCEDPARAMETERSTypeImpl <em>ADVANCEDPARAMETERS Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.designer.core.model.utils.emf.component.impl.ADVANCEDPARAMETERSTypeImpl
+     * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getADVANCEDPARAMETERSType()
+     * @generated
+     */
+    int ADVANCEDPARAMETERS_TYPE = 0;
+
+    /**
+     * The feature id for the '<em><b>PARAMETER</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADVANCEDPARAMETERS_TYPE__PARAMETER = 0;
+
+    /**
+     * The number of structural features of the '<em>ADVANCEDPARAMETERS Type</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int ADVANCEDPARAMETERS_TYPE_FEATURE_COUNT = 1;
+
+    /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.CODEGENERATIONTypeImpl <em>CODEGENERATION Type</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -68,7 +96,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getCODEGENERATIONType()
      * @generated
      */
-    int CODEGENERATION_TYPE = 0;
+    int CODEGENERATION_TYPE = 1;
 
     /**
      * The feature id for the '<em><b>TEMPLATES</b></em>' containment reference.
@@ -105,7 +133,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getCOLUMNType()
      * @generated
      */
-    int COLUMN_TYPE = 1;
+    int COLUMN_TYPE = 2;
 
     /**
      * The feature id for the '<em><b>COMMENT</b></em>' attribute.
@@ -223,7 +251,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getCOMPONENTType()
      * @generated
      */
-    int COMPONENT_TYPE = 2;
+    int COMPONENT_TYPE = 3;
 
     /**
      * The feature id for the '<em><b>HEADER</b></em>' containment reference.
@@ -262,13 +290,22 @@ public interface ComponentPackage extends EPackage {
     int COMPONENT_TYPE__PARAMETERS = 3;
 
     /**
+     * The feature id for the '<em><b>ADVANCEDPARAMETERS</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPONENT_TYPE__ADVANCEDPARAMETERS = 4;
+
+    /**
      * The feature id for the '<em><b>CODEGENERATION</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE__CODEGENERATION = 4;
+    int COMPONENT_TYPE__CODEGENERATION = 5;
 
     /**
      * The feature id for the '<em><b>RETURNS</b></em>' containment reference.
@@ -277,7 +314,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE__RETURNS = 5;
+    int COMPONENT_TYPE__RETURNS = 6;
 
     /**
      * The feature id for the '<em><b>PLUGINDEPENDENCIES</b></em>' containment reference.
@@ -286,7 +323,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE__PLUGINDEPENDENCIES = 6;
+    int COMPONENT_TYPE__PLUGINDEPENDENCIES = 7;
 
     /**
      * The number of structural features of the '<em>COMPONENT Type</em>' class.
@@ -295,7 +332,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int COMPONENT_TYPE_FEATURE_COUNT = 7;
+    int COMPONENT_TYPE_FEATURE_COUNT = 8;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORSTypeImpl <em>CONNECTORS Type</em>}' class.
@@ -305,7 +342,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getCONNECTORSType()
      * @generated
      */
-    int CONNECTORS_TYPE = 3;
+    int CONNECTORS_TYPE = 4;
 
     /**
      * The feature id for the '<em><b>CONNECTOR</b></em>' containment reference list.
@@ -333,7 +370,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getCONNECTORType()
      * @generated
      */
-    int CONNECTOR_TYPE = 4;
+    int CONNECTOR_TYPE = 5;
 
     /**
      * The feature id for the '<em><b>BASESCHEMA</b></em>' attribute.
@@ -451,7 +488,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getDEFAULTType()
      * @generated
      */
-    int DEFAULT_TYPE = 5;
+    int DEFAULT_TYPE = 6;
 
     /**
      * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -497,7 +534,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getDOCUMENTATIONType()
      * @generated
      */
-    int DOCUMENTATION_TYPE = 6;
+    int DOCUMENTATION_TYPE = 7;
 
     /**
      * The feature id for the '<em><b>URL</b></em>' attribute.
@@ -525,7 +562,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getDocumentRoot()
      * @generated
      */
-    int DOCUMENT_ROOT = 7;
+    int DOCUMENT_ROOT = 8;
 
     /**
      * The feature id for the '<em><b>Mixed</b></em>' attribute list.
@@ -555,13 +592,22 @@ public interface ComponentPackage extends EPackage {
     int DOCUMENT_ROOT__XSI_SCHEMA_LOCATION = 2;
 
     /**
+     * The feature id for the '<em><b>ADVANCEDPARAMETERS</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENT_ROOT__ADVANCEDPARAMETERS = 3;
+
+    /**
      * The feature id for the '<em><b>CODEGENERATION</b></em>' containment reference.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__CODEGENERATION = 3;
+    int DOCUMENT_ROOT__CODEGENERATION = 4;
 
     /**
      * The feature id for the '<em><b>COMPONENT</b></em>' containment reference.
@@ -570,7 +616,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__COMPONENT = 4;
+    int DOCUMENT_ROOT__COMPONENT = 5;
 
     /**
      * The feature id for the '<em><b>CONNECTORS</b></em>' containment reference.
@@ -579,7 +625,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__CONNECTORS = 5;
+    int DOCUMENT_ROOT__CONNECTORS = 6;
 
     /**
      * The feature id for the '<em><b>DOCUMENTATION</b></em>' containment reference.
@@ -588,7 +634,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__DOCUMENTATION = 6;
+    int DOCUMENT_ROOT__DOCUMENTATION = 7;
 
     /**
      * The feature id for the '<em><b>HEADER</b></em>' containment reference.
@@ -597,7 +643,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__HEADER = 7;
+    int DOCUMENT_ROOT__HEADER = 8;
 
     /**
      * The feature id for the '<em><b>ITEMS</b></em>' containment reference.
@@ -606,7 +652,16 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-	int DOCUMENT_ROOT__ITEMS = 8;
+	int DOCUMENT_ROOT__ITEMS = 9;
+
+    /**
+     * The feature id for the '<em><b>PARAMETER</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int DOCUMENT_ROOT__PARAMETER = 10;
 
     /**
      * The feature id for the '<em><b>PARAMETERS</b></em>' containment reference.
@@ -615,7 +670,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__PARAMETERS = 9;
+    int DOCUMENT_ROOT__PARAMETERS = 11;
 
     /**
      * The feature id for the '<em><b>PLUGINDEPENDENCIES</b></em>' containment reference.
@@ -624,7 +679,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__PLUGINDEPENDENCIES = 10;
+    int DOCUMENT_ROOT__PLUGINDEPENDENCIES = 12;
 
     /**
      * The feature id for the '<em><b>RETURNS</b></em>' containment reference.
@@ -633,7 +688,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT__RETURNS = 11;
+    int DOCUMENT_ROOT__RETURNS = 13;
 
     /**
      * The number of structural features of the '<em>Document Root</em>' class.
@@ -642,7 +697,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int DOCUMENT_ROOT_FEATURE_COUNT = 12;
+    int DOCUMENT_ROOT_FEATURE_COUNT = 14;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.FORMATTypeImpl <em>FORMAT Type</em>}' class.
@@ -652,7 +707,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getFORMATType()
      * @generated
      */
-    int FORMAT_TYPE = 8;
+    int FORMAT_TYPE = 9;
 
     /**
      * The feature id for the '<em><b>CONNECTION</b></em>' attribute.
@@ -698,7 +753,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getHEADERType()
      * @generated
      */
-    int HEADER_TYPE = 9;
+    int HEADER_TYPE = 10;
 
     /**
      * The feature id for the '<em><b>SIGNATURE</b></em>' attribute.
@@ -879,7 +934,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getIMPORTSType()
      * @generated
      */
-    int IMPORTS_TYPE = 10;
+    int IMPORTS_TYPE = 11;
 
     /**
      * The feature id for the '<em><b>IMPORT</b></em>' containment reference list.
@@ -907,7 +962,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getIMPORTType()
      * @generated
      */
-    int IMPORT_TYPE = 11;
+    int IMPORT_TYPE = 12;
 
     /**
      * The feature id for the '<em><b>INSTALL</b></em>' containment reference list.
@@ -989,7 +1044,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getINSTALLType()
      * @generated
      */
-    int INSTALL_TYPE = 12;
+    int INSTALL_TYPE = 13;
 
     /**
      * The feature id for the '<em><b>COMMAND</b></em>' attribute.
@@ -1026,7 +1081,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getITEMSType()
      * @generated
      */
-    int ITEMS_TYPE = 13;
+    int ITEMS_TYPE = 14;
 
     /**
      * The feature id for the '<em><b>ITEM</b></em>' containment reference list.
@@ -1072,7 +1127,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getITEMType()
      * @generated
      */
-    int ITEM_TYPE = 14;
+    int ITEM_TYPE = 15;
 
     /**
      * The feature id for the '<em><b>ITEMS</b></em>' containment reference.
@@ -1181,7 +1236,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getLINKTOType()
      * @generated
      */
-    int LINKTO_TYPE = 15;
+    int LINKTO_TYPE = 16;
 
     /**
      * The feature id for the '<em><b>CTYPE</b></em>' attribute.
@@ -1218,7 +1273,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPARAMETERSType()
      * @generated
      */
-    int PARAMETERS_TYPE = 16;
+    int PARAMETERS_TYPE = 17;
 
     /**
      * The feature id for the '<em><b>PARAMETER</b></em>' containment reference list.
@@ -1246,7 +1301,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPARAMETERType()
      * @generated
      */
-    int PARAMETER_TYPE = 17;
+    int PARAMETER_TYPE = 18;
 
     /**
      * The feature id for the '<em><b>DEFAULT</b></em>' containment reference list.
@@ -1400,7 +1455,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPLUGINDEPENDENCIESType()
      * @generated
      */
-    int PLUGINDEPENDENCIES_TYPE = 18;
+    int PLUGINDEPENDENCIES_TYPE = 19;
 
     /**
      * The feature id for the '<em><b>PLUGINDEPENDENCY</b></em>' containment reference list.
@@ -1428,7 +1483,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getPLUGINDEPENDENCYType()
      * @generated
      */
-    int PLUGINDEPENDENCY_TYPE = 19;
+    int PLUGINDEPENDENCY_TYPE = 20;
 
     /**
      * The feature id for the '<em><b>ID</b></em>' attribute.
@@ -1456,7 +1511,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getRETURNSType()
      * @generated
      */
-    int RETURNS_TYPE = 20;
+    int RETURNS_TYPE = 21;
 
     /**
      * The feature id for the '<em><b>RETURN</b></em>' containment reference list.
@@ -1484,7 +1539,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getRETURNType()
      * @generated
      */
-    int RETURN_TYPE = 21;
+    int RETURN_TYPE = 22;
 
     /**
      * The feature id for the '<em><b>AVAILABILITY</b></em>' attribute.
@@ -1530,7 +1585,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTABLEType()
      * @generated
      */
-    int TABLE_TYPE = 22;
+    int TABLE_TYPE = 23;
 
     /**
      * The feature id for the '<em><b>COLUMN</b></em>' containment reference list.
@@ -1585,7 +1640,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEPARAMType()
      * @generated
      */
-    int TEMPLATEPARAM_TYPE = 23;
+    int TEMPLATEPARAM_TYPE = 24;
 
     /**
      * The feature id for the '<em><b>SOURCE</b></em>' attribute.
@@ -1631,7 +1686,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATESType()
      * @generated
      */
-    int TEMPLATES_TYPE = 24;
+    int TEMPLATES_TYPE = 25;
 
     /**
      * The feature id for the '<em><b>TEMPLATE</b></em>' containment reference list.
@@ -1686,7 +1741,7 @@ public interface ComponentPackage extends EPackage {
      * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getTEMPLATEType()
      * @generated
      */
-    int TEMPLATE_TYPE = 25;
+    int TEMPLATE_TYPE = 26;
 
     /**
      * The feature id for the '<em><b>LINKTO</b></em>' containment reference list.
@@ -1724,6 +1779,27 @@ public interface ComponentPackage extends EPackage {
      */
     int TEMPLATE_TYPE_FEATURE_COUNT = 3;
 
+
+    /**
+     * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.ADVANCEDPARAMETERSType <em>ADVANCEDPARAMETERS Type</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>ADVANCEDPARAMETERS Type</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ADVANCEDPARAMETERSType
+     * @generated
+     */
+    EClass getADVANCEDPARAMETERSType();
+
+    /**
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.core.model.utils.emf.component.ADVANCEDPARAMETERSType#getPARAMETER <em>PARAMETER</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>PARAMETER</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.ADVANCEDPARAMETERSType#getPARAMETER()
+     * @see #getADVANCEDPARAMETERSType()
+     * @generated
+     */
+    EReference getADVANCEDPARAMETERSType_PARAMETER();
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType <em>CODEGENERATION Type</em>}'.
@@ -1941,6 +2017,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EReference getCOMPONENTType_PARAMETERS();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getADVANCEDPARAMETERS <em>ADVANCEDPARAMETERS</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>ADVANCEDPARAMETERS</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.COMPONENTType#getADVANCEDPARAMETERS()
+     * @see #getCOMPONENTType()
+     * @generated
+     */
+    EReference getCOMPONENTType_ADVANCEDPARAMETERS();
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.COMPONENTType#getCODEGENERATION <em>CODEGENERATION</em>}'.
@@ -2235,6 +2322,17 @@ public interface ComponentPackage extends EPackage {
     EReference getDocumentRoot_XSISchemaLocation();
 
     /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getADVANCEDPARAMETERS <em>ADVANCEDPARAMETERS</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>ADVANCEDPARAMETERS</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.DocumentRoot#getADVANCEDPARAMETERS()
+     * @see #getDocumentRoot()
+     * @generated
+     */
+    EReference getDocumentRoot_ADVANCEDPARAMETERS();
+
+    /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getCODEGENERATION <em>CODEGENERATION</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2299,6 +2397,17 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
 	EReference getDocumentRoot_ITEMS();
+
+    /**
+     * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPARAMETER <em>PARAMETER</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference '<em>PARAMETER</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPARAMETER()
+     * @see #getDocumentRoot()
+     * @generated
+     */
+    EReference getDocumentRoot_PARAMETER();
 
     /**
      * Returns the meta object for the containment reference '{@link org.talend.designer.core.model.utils.emf.component.DocumentRoot#getPARAMETERS <em>PARAMETERS</em>}'.
@@ -3438,6 +3547,24 @@ public interface ComponentPackage extends EPackage {
      */
     interface Literals  {
         /**
+         * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.ADVANCEDPARAMETERSTypeImpl <em>ADVANCEDPARAMETERS Type</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.designer.core.model.utils.emf.component.impl.ADVANCEDPARAMETERSTypeImpl
+         * @see org.talend.designer.core.model.utils.emf.component.impl.ComponentPackageImpl#getADVANCEDPARAMETERSType()
+         * @generated
+         */
+        EClass ADVANCEDPARAMETERS_TYPE = eINSTANCE.getADVANCEDPARAMETERSType();
+
+        /**
+         * The meta object literal for the '<em><b>PARAMETER</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference ADVANCEDPARAMETERS_TYPE__PARAMETER = eINSTANCE.getADVANCEDPARAMETERSType_PARAMETER();
+
+        /**
          * The meta object literal for the '{@link org.talend.designer.core.model.utils.emf.component.impl.CODEGENERATIONTypeImpl <em>CODEGENERATION Type</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3602,6 +3729,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EReference COMPONENT_TYPE__PARAMETERS = eINSTANCE.getCOMPONENTType_PARAMETERS();
+
+        /**
+         * The meta object literal for the '<em><b>ADVANCEDPARAMETERS</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference COMPONENT_TYPE__ADVANCEDPARAMETERS = eINSTANCE.getCOMPONENTType_ADVANCEDPARAMETERS();
 
         /**
          * The meta object literal for the '<em><b>CODEGENERATION</b></em>' containment reference feature.
@@ -3830,6 +3965,14 @@ public interface ComponentPackage extends EPackage {
         EReference DOCUMENT_ROOT__XSI_SCHEMA_LOCATION = eINSTANCE.getDocumentRoot_XSISchemaLocation();
 
         /**
+         * The meta object literal for the '<em><b>ADVANCEDPARAMETERS</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DOCUMENT_ROOT__ADVANCEDPARAMETERS = eINSTANCE.getDocumentRoot_ADVANCEDPARAMETERS();
+
+        /**
          * The meta object literal for the '<em><b>CODEGENERATION</b></em>' containment reference feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -3876,6 +4019,14 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
 		EReference DOCUMENT_ROOT__ITEMS = eINSTANCE.getDocumentRoot_ITEMS();
+
+        /**
+         * The meta object literal for the '<em><b>PARAMETER</b></em>' containment reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference DOCUMENT_ROOT__PARAMETER = eINSTANCE.getDocumentRoot_PARAMETER();
 
         /**
          * The meta object literal for the '<em><b>PARAMETERS</b></em>' containment reference feature.

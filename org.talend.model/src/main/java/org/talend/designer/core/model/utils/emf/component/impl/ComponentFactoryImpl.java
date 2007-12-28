@@ -79,6 +79,7 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
      */
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
+            case ComponentPackage.ADVANCEDPARAMETERS_TYPE: return createADVANCEDPARAMETERSType();
             case ComponentPackage.CODEGENERATION_TYPE: return createCODEGENERATIONType();
             case ComponentPackage.COLUMN_TYPE: return createCOLUMNType();
             case ComponentPackage.COMPONENT_TYPE: return createCOMPONENTType();
@@ -108,6 +109,16 @@ public class ComponentFactoryImpl extends EFactoryImpl implements ComponentFacto
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ADVANCEDPARAMETERSType createADVANCEDPARAMETERSType() {
+        ADVANCEDPARAMETERSTypeImpl advancedparametersType = new ADVANCEDPARAMETERSTypeImpl();
+        return advancedparametersType;
     }
 
     /**

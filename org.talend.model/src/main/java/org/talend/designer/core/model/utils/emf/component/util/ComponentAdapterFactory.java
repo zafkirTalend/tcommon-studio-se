@@ -89,6 +89,9 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
      */
     protected ComponentSwitch modelSwitch =
         new ComponentSwitch() {
+            public Object caseADVANCEDPARAMETERSType(ADVANCEDPARAMETERSType object) {
+                return createADVANCEDPARAMETERSTypeAdapter();
+            }
             public Object caseCODEGENERATIONType(CODEGENERATIONType object) {
                 return createCODEGENERATIONTypeAdapter();
             }
@@ -184,6 +187,20 @@ public class ComponentAdapterFactory extends AdapterFactoryImpl {
         return (Adapter)modelSwitch.doSwitch((EObject)target);
     }
 
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.component.ADVANCEDPARAMETERSType <em>ADVANCEDPARAMETERS Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.component.ADVANCEDPARAMETERSType
+     * @generated
+     */
+    public Adapter createADVANCEDPARAMETERSTypeAdapter() {
+        return null;
+    }
 
     /**
      * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType <em>CODEGENERATION Type</em>}'.

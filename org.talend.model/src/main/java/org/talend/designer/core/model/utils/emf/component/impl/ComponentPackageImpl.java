@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
+import org.talend.designer.core.model.utils.emf.component.ADVANCEDPARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType;
 import org.talend.designer.core.model.utils.emf.component.COLUMNType;
 import org.talend.designer.core.model.utils.emf.component.COMPONENTType;
@@ -48,6 +49,13 @@ import org.talend.designer.core.model.utils.emf.component.TEMPLATEType;
  * @generated
  */
 public class ComponentPackageImpl extends EPackageImpl implements ComponentPackage {
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass advancedparametersTypeEClass = null;
+
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -306,6 +314,24 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
+    public EClass getADVANCEDPARAMETERSType() {
+        return advancedparametersTypeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getADVANCEDPARAMETERSType_PARAMETER() {
+        return (EReference)advancedparametersTypeEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getCODEGENERATIONType() {
         return codegenerationTypeEClass;
     }
@@ -486,7 +512,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getCOMPONENTType_CODEGENERATION() {
+    public EReference getCOMPONENTType_ADVANCEDPARAMETERS() {
         return (EReference)componentTypeEClass.getEStructuralFeatures().get(4);
     }
 
@@ -495,7 +521,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getCOMPONENTType_RETURNS() {
+    public EReference getCOMPONENTType_CODEGENERATION() {
         return (EReference)componentTypeEClass.getEStructuralFeatures().get(5);
     }
 
@@ -504,8 +530,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getCOMPONENTType_PLUGINDEPENDENCIES() {
+    public EReference getCOMPONENTType_RETURNS() {
         return (EReference)componentTypeEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getCOMPONENTType_PLUGINDEPENDENCIES() {
+        return (EReference)componentTypeEClass.getEStructuralFeatures().get(7);
     }
 
     /**
@@ -729,7 +764,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_CODEGENERATION() {
+    public EReference getDocumentRoot_ADVANCEDPARAMETERS() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(3);
     }
 
@@ -738,7 +773,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_COMPONENT() {
+    public EReference getDocumentRoot_CODEGENERATION() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(4);
     }
 
@@ -747,7 +782,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_CONNECTORS() {
+    public EReference getDocumentRoot_COMPONENT() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(5);
     }
 
@@ -756,7 +791,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_DOCUMENTATION() {
+    public EReference getDocumentRoot_CONNECTORS() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(6);
     }
 
@@ -765,8 +800,17 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_HEADER() {
+    public EReference getDocumentRoot_DOCUMENTATION() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getDocumentRoot_HEADER() {
+        return (EReference)documentRootEClass.getEStructuralFeatures().get(8);
     }
 
     /**
@@ -775,15 +819,6 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * @generated
      */
 	public EReference getDocumentRoot_ITEMS() {
-        return (EReference)documentRootEClass.getEStructuralFeatures().get(8);
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EReference getDocumentRoot_PARAMETERS() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(9);
     }
 
@@ -792,7 +827,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_PLUGINDEPENDENCIES() {
+    public EReference getDocumentRoot_PARAMETER() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(10);
     }
 
@@ -801,8 +836,26 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
      * <!-- end-user-doc -->
      * @generated
      */
-    public EReference getDocumentRoot_RETURNS() {
+    public EReference getDocumentRoot_PARAMETERS() {
         return (EReference)documentRootEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getDocumentRoot_PLUGINDEPENDENCIES() {
+        return (EReference)documentRootEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getDocumentRoot_RETURNS() {
+        return (EReference)documentRootEClass.getEStructuralFeatures().get(13);
     }
 
     /**
@@ -1733,6 +1786,9 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         isCreated = true;
 
         // Create classes and their features
+        advancedparametersTypeEClass = createEClass(ADVANCEDPARAMETERS_TYPE);
+        createEReference(advancedparametersTypeEClass, ADVANCEDPARAMETERS_TYPE__PARAMETER);
+
         codegenerationTypeEClass = createEClass(CODEGENERATION_TYPE);
         createEReference(codegenerationTypeEClass, CODEGENERATION_TYPE__TEMPLATES);
         createEReference(codegenerationTypeEClass, CODEGENERATION_TYPE__IMPORTS);
@@ -1755,6 +1811,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEReference(componentTypeEClass, COMPONENT_TYPE__DOCUMENTATION);
         createEReference(componentTypeEClass, COMPONENT_TYPE__CONNECTORS);
         createEReference(componentTypeEClass, COMPONENT_TYPE__PARAMETERS);
+        createEReference(componentTypeEClass, COMPONENT_TYPE__ADVANCEDPARAMETERS);
         createEReference(componentTypeEClass, COMPONENT_TYPE__CODEGENERATION);
         createEReference(componentTypeEClass, COMPONENT_TYPE__RETURNS);
         createEReference(componentTypeEClass, COMPONENT_TYPE__PLUGINDEPENDENCIES);
@@ -1787,12 +1844,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         createEAttribute(documentRootEClass, DOCUMENT_ROOT__MIXED);
         createEReference(documentRootEClass, DOCUMENT_ROOT__XMLNS_PREFIX_MAP);
         createEReference(documentRootEClass, DOCUMENT_ROOT__XSI_SCHEMA_LOCATION);
+        createEReference(documentRootEClass, DOCUMENT_ROOT__ADVANCEDPARAMETERS);
         createEReference(documentRootEClass, DOCUMENT_ROOT__CODEGENERATION);
         createEReference(documentRootEClass, DOCUMENT_ROOT__COMPONENT);
         createEReference(documentRootEClass, DOCUMENT_ROOT__CONNECTORS);
         createEReference(documentRootEClass, DOCUMENT_ROOT__DOCUMENTATION);
         createEReference(documentRootEClass, DOCUMENT_ROOT__HEADER);
         createEReference(documentRootEClass, DOCUMENT_ROOT__ITEMS);
+        createEReference(documentRootEClass, DOCUMENT_ROOT__PARAMETER);
         createEReference(documentRootEClass, DOCUMENT_ROOT__PARAMETERS);
         createEReference(documentRootEClass, DOCUMENT_ROOT__PLUGINDEPENDENCIES);
         createEReference(documentRootEClass, DOCUMENT_ROOT__RETURNS);
@@ -1945,6 +2004,9 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         // Add supertypes to classes
 
         // Initialize classes and features; add operations and parameters
+        initEClass(advancedparametersTypeEClass, ADVANCEDPARAMETERSType.class, "ADVANCEDPARAMETERSType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEReference(getADVANCEDPARAMETERSType_PARAMETER(), this.getPARAMETERType(), null, "pARAMETER", null, 1, -1, ADVANCEDPARAMETERSType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         initEClass(codegenerationTypeEClass, CODEGENERATIONType.class, "CODEGENERATIONType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getCODEGENERATIONType_TEMPLATES(), this.getTEMPLATESType(), null, "tEMPLATES", null, 0, 1, CODEGENERATIONType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCODEGENERATIONType_IMPORTS(), this.getIMPORTSType(), null, "iMPORTS", null, 0, 1, CODEGENERATIONType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1967,6 +2029,7 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEReference(getCOMPONENTType_DOCUMENTATION(), this.getDOCUMENTATIONType(), null, "dOCUMENTATION", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_CONNECTORS(), this.getCONNECTORSType(), null, "cONNECTORS", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_PARAMETERS(), this.getPARAMETERSType(), null, "pARAMETERS", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCOMPONENTType_ADVANCEDPARAMETERS(), this.getADVANCEDPARAMETERSType(), null, "aDVANCEDPARAMETERS", null, 0, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_CODEGENERATION(), this.getCODEGENERATIONType(), null, "cODEGENERATION", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_RETURNS(), this.getRETURNSType(), null, "rETURNS", null, 1, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCOMPONENTType_PLUGINDEPENDENCIES(), this.getPLUGINDEPENDENCIESType(), null, "pLUGINDEPENDENCIES", null, 0, 1, COMPONENTType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1999,12 +2062,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
         initEAttribute(getDocumentRoot_Mixed(), ecorePackage.getEFeatureMapEntry(), "mixed", null, 0, -1, null, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_XMLNSPrefixMap(), ecorePackage.getEStringToStringMapEntry(), null, "xMLNSPrefixMap", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_XSISchemaLocation(), ecorePackage.getEStringToStringMapEntry(), null, "xSISchemaLocation", null, 0, -1, null, IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getDocumentRoot_ADVANCEDPARAMETERS(), this.getADVANCEDPARAMETERSType(), null, "aDVANCEDPARAMETERS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_CODEGENERATION(), this.getCODEGENERATIONType(), null, "cODEGENERATION", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_COMPONENT(), this.getCOMPONENTType(), null, "cOMPONENT", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_CONNECTORS(), this.getCONNECTORSType(), null, "cONNECTORS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_DOCUMENTATION(), this.getDOCUMENTATIONType(), null, "dOCUMENTATION", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_HEADER(), this.getHEADERType(), null, "hEADER", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_ITEMS(), this.getITEMSType(), null, "iTEMS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+        initEReference(getDocumentRoot_PARAMETER(), this.getPARAMETERType(), null, "pARAMETER", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_PARAMETERS(), this.getPARAMETERSType(), null, "pARAMETERS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_PLUGINDEPENDENCIES(), this.getPLUGINDEPENDENCIESType(), null, "pLUGINDEPENDENCIES", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
         initEReference(getDocumentRoot_RETURNS(), this.getRETURNSType(), null, "rETURNS", null, 0, -2, null, IS_TRANSIENT, IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
@@ -2148,6 +2213,21 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            source, 
            new String[] {
              "qualified", "false"
+           });		
+        addAnnotation
+          (advancedparametersTypeEClass, 
+           source, 
+           new String[] {
+             "name", "ADVANCED_PARAMETERS_._type",
+             "kind", "elementOnly"
+           });		
+        addAnnotation
+          (getADVANCEDPARAMETERSType_PARAMETER(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "PARAMETER",
+             "namespace", "##targetNamespace"
            });		
         addAnnotation
           (codegenerationTypeEClass, 
@@ -2304,6 +2384,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "element",
              "name", "PARAMETERS",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getCOMPONENTType_ADVANCEDPARAMETERS(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "ADVANCED_PARAMETERS",
              "namespace", "##targetNamespace"
            });		
         addAnnotation
@@ -2514,6 +2602,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
              "name", "xsi:schemaLocation"
            });		
         addAnnotation
+          (getDocumentRoot_ADVANCEDPARAMETERS(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "ADVANCED_PARAMETERS",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
           (getDocumentRoot_CODEGENERATION(), 
            source, 
            new String[] {
@@ -2559,6 +2655,14 @@ public class ComponentPackageImpl extends EPackageImpl implements ComponentPacka
            new String[] {
              "kind", "element",
              "name", "ITEMS",
+             "namespace", "##targetNamespace"
+           });		
+        addAnnotation
+          (getDocumentRoot_PARAMETER(), 
+           source, 
+           new String[] {
+             "kind", "element",
+             "name", "PARAMETER",
              "namespace", "##targetNamespace"
            });		
         addAnnotation

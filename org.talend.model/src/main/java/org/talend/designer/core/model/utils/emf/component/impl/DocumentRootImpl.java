@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.util.BasicFeatureMap;
 import org.eclipse.emf.ecore.util.EcoreEMap;
 import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.talend.designer.core.model.utils.emf.component.ADVANCEDPARAMETERSType;
 import org.talend.designer.core.model.utils.emf.component.CODEGENERATIONType;
 import org.talend.designer.core.model.utils.emf.component.COMPONENTType;
 import org.talend.designer.core.model.utils.emf.component.CONNECTORSType;
@@ -27,6 +28,7 @@ import org.talend.designer.core.model.utils.emf.component.DocumentRoot;
 import org.talend.designer.core.model.utils.emf.component.HEADERType;
 import org.talend.designer.core.model.utils.emf.component.ITEMSType;
 import org.talend.designer.core.model.utils.emf.component.PARAMETERSType;
+import org.talend.designer.core.model.utils.emf.component.PARAMETERType;
 import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCIESType;
 import org.talend.designer.core.model.utils.emf.component.PLUGINDEPENDENCYType;
 import org.talend.designer.core.model.utils.emf.component.RETURNSType;
@@ -41,12 +43,14 @@ import org.talend.designer.core.model.utils.emf.component.RETURNSType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getMixed <em>Mixed</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getXMLNSPrefixMap <em>XMLNS Prefix Map</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getXSISchemaLocation <em>XSI Schema Location</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getADVANCEDPARAMETERS <em>ADVANCEDPARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getCODEGENERATION <em>CODEGENERATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getCOMPONENT <em>COMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getCONNECTORS <em>CONNECTORS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getDOCUMENTATION <em>DOCUMENTATION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getHEADER <em>HEADER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getITEMS <em>ITEMS</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getPARAMETER <em>PARAMETER</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getPARAMETERS <em>PARAMETERS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getPLUGINDEPENDENCIES <em>PLUGINDEPENDENCIES</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.DocumentRootImpl#getRETURNS <em>RETURNS</em>}</li>
@@ -138,6 +142,33 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             xSISchemaLocation = new EcoreEMap(EcorePackage.Literals.ESTRING_TO_STRING_MAP_ENTRY, EStringToStringMapEntryImpl.class, this, ComponentPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION);
         }
         return xSISchemaLocation;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public ADVANCEDPARAMETERSType getADVANCEDPARAMETERS() {
+        return (ADVANCEDPARAMETERSType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__ADVANCEDPARAMETERS, true);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetADVANCEDPARAMETERS(ADVANCEDPARAMETERSType newADVANCEDPARAMETERS, NotificationChain msgs) {
+        return ((FeatureMap.Internal)getMixed()).basicAdd(ComponentPackage.Literals.DOCUMENT_ROOT__ADVANCEDPARAMETERS, newADVANCEDPARAMETERS, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setADVANCEDPARAMETERS(ADVANCEDPARAMETERSType newADVANCEDPARAMETERS) {
+        ((FeatureMap.Internal)getMixed()).set(ComponentPackage.Literals.DOCUMENT_ROOT__ADVANCEDPARAMETERS, newADVANCEDPARAMETERS);
     }
 
     /**
@@ -307,6 +338,33 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
      * <!-- end-user-doc -->
      * @generated
      */
+    public PARAMETERType getPARAMETER() {
+        return (PARAMETERType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__PARAMETER, true);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public NotificationChain basicSetPARAMETER(PARAMETERType newPARAMETER, NotificationChain msgs) {
+        return ((FeatureMap.Internal)getMixed()).basicAdd(ComponentPackage.Literals.DOCUMENT_ROOT__PARAMETER, newPARAMETER, msgs);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setPARAMETER(PARAMETERType newPARAMETER) {
+        ((FeatureMap.Internal)getMixed()).set(ComponentPackage.Literals.DOCUMENT_ROOT__PARAMETER, newPARAMETER);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public PARAMETERSType getPARAMETERS() {
         return (PARAMETERSType)getMixed().get(ComponentPackage.Literals.DOCUMENT_ROOT__PARAMETERS, true);
     }
@@ -396,6 +454,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return ((InternalEList)getXMLNSPrefixMap()).basicRemove(otherEnd, msgs);
             case ComponentPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
                 return ((InternalEList)getXSISchemaLocation()).basicRemove(otherEnd, msgs);
+            case ComponentPackage.DOCUMENT_ROOT__ADVANCEDPARAMETERS:
+                return basicSetADVANCEDPARAMETERS(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__CODEGENERATION:
                 return basicSetCODEGENERATION(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__COMPONENT:
@@ -408,6 +468,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return basicSetHEADER(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__ITEMS:
                 return basicSetITEMS(null, msgs);
+            case ComponentPackage.DOCUMENT_ROOT__PARAMETER:
+                return basicSetPARAMETER(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 return basicSetPARAMETERS(null, msgs);
             case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCIES:
@@ -434,6 +496,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             case ComponentPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
                 if (coreType) return getXSISchemaLocation();
                 else return getXSISchemaLocation().map();
+            case ComponentPackage.DOCUMENT_ROOT__ADVANCEDPARAMETERS:
+                return getADVANCEDPARAMETERS();
             case ComponentPackage.DOCUMENT_ROOT__CODEGENERATION:
                 return getCODEGENERATION();
             case ComponentPackage.DOCUMENT_ROOT__COMPONENT:
@@ -446,6 +510,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getHEADER();
             case ComponentPackage.DOCUMENT_ROOT__ITEMS:
                 return getITEMS();
+            case ComponentPackage.DOCUMENT_ROOT__PARAMETER:
+                return getPARAMETER();
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 return getPARAMETERS();
             case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCIES:
@@ -472,6 +538,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             case ComponentPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
                 ((EStructuralFeature.Setting)getXSISchemaLocation()).set(newValue);
                 return;
+            case ComponentPackage.DOCUMENT_ROOT__ADVANCEDPARAMETERS:
+                setADVANCEDPARAMETERS((ADVANCEDPARAMETERSType)newValue);
+                return;
             case ComponentPackage.DOCUMENT_ROOT__CODEGENERATION:
                 setCODEGENERATION((CODEGENERATIONType)newValue);
                 return;
@@ -489,6 +558,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return;
             case ComponentPackage.DOCUMENT_ROOT__ITEMS:
                 setITEMS((ITEMSType)newValue);
+                return;
+            case ComponentPackage.DOCUMENT_ROOT__PARAMETER:
+                setPARAMETER((PARAMETERType)newValue);
                 return;
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 setPARAMETERS((PARAMETERSType)newValue);
@@ -519,6 +591,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
             case ComponentPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
                 getXSISchemaLocation().clear();
                 return;
+            case ComponentPackage.DOCUMENT_ROOT__ADVANCEDPARAMETERS:
+                setADVANCEDPARAMETERS((ADVANCEDPARAMETERSType)null);
+                return;
             case ComponentPackage.DOCUMENT_ROOT__CODEGENERATION:
                 setCODEGENERATION((CODEGENERATIONType)null);
                 return;
@@ -536,6 +611,9 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return;
             case ComponentPackage.DOCUMENT_ROOT__ITEMS:
                 setITEMS((ITEMSType)null);
+                return;
+            case ComponentPackage.DOCUMENT_ROOT__PARAMETER:
+                setPARAMETER((PARAMETERType)null);
                 return;
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 setPARAMETERS((PARAMETERSType)null);
@@ -563,6 +641,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return xMLNSPrefixMap != null && !xMLNSPrefixMap.isEmpty();
             case ComponentPackage.DOCUMENT_ROOT__XSI_SCHEMA_LOCATION:
                 return xSISchemaLocation != null && !xSISchemaLocation.isEmpty();
+            case ComponentPackage.DOCUMENT_ROOT__ADVANCEDPARAMETERS:
+                return getADVANCEDPARAMETERS() != null;
             case ComponentPackage.DOCUMENT_ROOT__CODEGENERATION:
                 return getCODEGENERATION() != null;
             case ComponentPackage.DOCUMENT_ROOT__COMPONENT:
@@ -575,6 +655,8 @@ public class DocumentRootImpl extends EObjectImpl implements DocumentRoot {
                 return getHEADER() != null;
             case ComponentPackage.DOCUMENT_ROOT__ITEMS:
                 return getITEMS() != null;
+            case ComponentPackage.DOCUMENT_ROOT__PARAMETER:
+                return getPARAMETER() != null;
             case ComponentPackage.DOCUMENT_ROOT__PARAMETERS:
                 return getPARAMETERS() != null;
             case ComponentPackage.DOCUMENT_ROOT__PLUGINDEPENDENCIES:

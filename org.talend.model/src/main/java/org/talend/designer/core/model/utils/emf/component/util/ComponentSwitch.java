@@ -108,6 +108,12 @@ public class ComponentSwitch {
      */
     protected Object doSwitch(int classifierID, EObject theEObject) {
         switch (classifierID) {
+            case ComponentPackage.ADVANCEDPARAMETERS_TYPE: {
+                ADVANCEDPARAMETERSType advancedparametersType = (ADVANCEDPARAMETERSType)theEObject;
+                Object result = caseADVANCEDPARAMETERSType(advancedparametersType);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             case ComponentPackage.CODEGENERATION_TYPE: {
                 CODEGENERATIONType codegenerationType = (CODEGENERATIONType)theEObject;
                 Object result = caseCODEGENERATIONType(codegenerationType);
@@ -266,6 +272,21 @@ public class ComponentSwitch {
             }
             default: return defaultCase(theEObject);
         }
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>ADVANCEDPARAMETERS Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>ADVANCEDPARAMETERS Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseADVANCEDPARAMETERSType(ADVANCEDPARAMETERSType object) {
+        return null;
     }
 
     /**

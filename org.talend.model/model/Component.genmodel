@@ -9,6 +9,9 @@
   <foreignModel>Component.ecore</foreignModel>
   <genPackages prefix="Component" basePackage="org.talend.designer.core.model.utils.emf"
       resource="XML" disposableProviderFactory="true" ecorePackage="Component.ecore#/">
+    <genClasses ecoreClass="Component.ecore#//ADVANCEDPARAMETERSType">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//ADVANCEDPARAMETERSType/pARAMETER"/>
+    </genClasses>
     <genClasses ecoreClass="Component.ecore#//CODEGENERATIONType">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//CODEGENERATIONType/tEMPLATES"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//CODEGENERATIONType/iMPORTS"/>
@@ -31,6 +34,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/dOCUMENTATION"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/cONNECTORS"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/pARAMETERS"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/aDVANCEDPARAMETERS"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/cODEGENERATION"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/rETURNS"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//COMPONENTType/pLUGINDEPENDENCIES"/>
@@ -63,12 +67,14 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EAttribute Component.ecore#//DocumentRoot/mixed"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/xMLNSPrefixMap"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/xSISchemaLocation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/aDVANCEDPARAMETERS"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/cODEGENERATION"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/cOMPONENT"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/cONNECTORS"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/dOCUMENTATION"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/hEADER"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/iTEMS"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/pARAMETER"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/pARAMETERS"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/pLUGINDEPENDENCIES"/>
       <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference Component.ecore#//DocumentRoot/rETURNS"/>
