@@ -217,9 +217,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 if (!current.getName().equals(BIN)) {
                     Container<K, T> cont = toReturn.addSubContainer(current.getName());
                     FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
-                    System.out.println("current.getProjectRelativePath() = " + current.getProjectRelativePath());
                     FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
-                    
                     
                     if (folder == null) {
                         continue;
