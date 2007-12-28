@@ -63,6 +63,7 @@ import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.HTMLDocumentationItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
 import org.talend.core.model.properties.PropertiesPackage;
@@ -309,6 +310,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         needsBinFolder.add(ERepositoryObjectType.PROCESS);
         needsBinFolder.add(ERepositoryObjectType.ROUTINES);
         needsBinFolder.add(ERepositoryObjectType.SNIPPETS);
+        needsBinFolder.add(ERepositoryObjectType.JOBLET);
         needsBinFolder.add(ERepositoryObjectType.CONTEXT);
 
         if (PluginChecker.isDocumentationPluginLoaded()) {
@@ -941,6 +943,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
+    private Resource create(JobletProcessItem item, IPath path, ERepositoryObjectType type) throws PersistenceException {
+        Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, type, false);
+        itemResource.getContents().add(item.getJobletProcess());
+        return itemResource;
+    }
+
     private Resource create(ContextItem item, IPath path) throws PersistenceException {
         Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, ERepositoryObjectType.CONTEXT,
                 false);
@@ -984,6 +992,15 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
+    private Resource save(JobletProcessItem item) {
+        Resource itemResource = xmiResourceManager.getItemResource(item);
+
+        itemResource.getContents().clear();
+        itemResource.getContents().add(item.getJobletProcess());
+
+        return itemResource;
+    }
+
     public void save(Item item) throws PersistenceException {
         item.getProperty().setModificationDate(new Date());
 
@@ -1015,6 +1032,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.PROCESS_ITEM:
                 itemResource = save((ProcessItem) item);
                 break;
+            case PropertiesPackage.JOBLET_PROCESS_ITEM:
+                itemResource = save((JobletProcessItem) item);
+                break;
             case PropertiesPackage.CONTEXT_ITEM:
                 itemResource = save((ContextItem) item);
                 break;
@@ -1022,7 +1042,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 itemResource = save((SnippetItem) item);
                 break;
             case PropertiesPackage.HTML_DOCUMENTATION_ITEM:
-                itemResource = save((HTMLDocumentationItem)item);
+                itemResource = save((HTMLDocumentationItem) item);
                 break;
             default:
                 throw new UnsupportedOperationException();
@@ -1129,6 +1149,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.PROCESS_ITEM:
                 itemResource = create((ProcessItem) item, path);
+                break;
+            case PropertiesPackage.JOBLET_PROCESS_ITEM:
+                itemResource = create((JobletProcessItem) item, path, ERepositoryObjectType.JOBLET);
                 break;
             case PropertiesPackage.CONTEXT_ITEM:
                 itemResource = create((ContextItem) item, path);
@@ -1257,5 +1280,4 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     public Boolean hasChildren(Object parent) {
         return null;
     }
-
 }
