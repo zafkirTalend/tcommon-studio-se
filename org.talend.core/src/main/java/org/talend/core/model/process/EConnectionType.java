@@ -87,7 +87,7 @@ public enum EConnectionType implements IConnectionCategory {
 
     ITERATE(7, "ITERATE", //$NON-NLS-1$
             EConnectionCategory.MAIN,
-            MAIN,
+            MAIN | USE_ITERATE,
             "Iterate", Messages.getString("EConnectionType.iteratorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
             new Integer(Graphics.LINE_SOLID),
             new RGB(100, 230, 0)),
@@ -111,7 +111,14 @@ public enum EConnectionType implements IConnectionCategory {
                MAIN | DATA | FLOW | CUSTOM_NAME | UNIQUE_NAME | MERGE,
                "Merge", Messages.getString("EConnectionType.mergeMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                new Integer(Graphics.LINE_DASHDOT),
-               new RGB(230, 100, 0));
+               new RGB(230, 100, 0)),
+
+    ON_ROWS_END(11, "ROWS_END", //$NON-NLS-1$
+                EConnectionCategory.MAIN,
+                MAIN | USE_ITERATE,
+                "OnRowsEnd", Messages.getString("EConnectionType.onRowsEndMenu"), //$NON-NLS-1$ //$NON-NLS-2$
+                new Integer(Graphics.LINE_SOLID),
+                new RGB(0, 150, 0));
 
     private String name;
 
