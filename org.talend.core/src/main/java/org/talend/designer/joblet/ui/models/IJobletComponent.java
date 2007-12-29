@@ -13,6 +13,7 @@
 package org.talend.designer.joblet.ui.models;
 
 import org.talend.core.model.components.IComponent;
+import org.talend.core.model.properties.Property;
 
 /**
  * DOC qzhang class global comment. Detailled comment
@@ -20,4 +21,6 @@ import org.talend.core.model.components.IComponent;
 public interface IJobletComponent extends IComponent {
 
     public EJobletNodeType getJobletNodeType();
+
+    public void setProperty(Property property);
 }
