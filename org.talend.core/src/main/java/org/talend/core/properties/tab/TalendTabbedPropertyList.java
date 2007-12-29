@@ -632,6 +632,10 @@ public class TalendTabbedPropertyList extends Composite {
              */
             return;
         }
+        ITabItem oldSelectedItem = null;
+        if (getSelectionIndex() != -1) {
+            oldSelectedItem = elements[getSelectionIndex()].getTabItem();
+        }
         if (index >= 0 && index < elements.length) {
             int lastSelected = getSelectionIndex();
             elements[index].setSelected(true);
@@ -670,8 +674,11 @@ public class TalendTabbedPropertyList extends Composite {
                         children[counter++] = elements[i].getTabItem();
                     }
                     structuredItem.setExpanded(IStructuredTabItem.EXPANDED);
-
-                    fireInputChangeListeners(children);
+                    if (oldSelectedItem == null) {
+                        fireInputChangeListeners(new TabInputChangedEvent(subItems[0], children));
+                    } else {
+                        fireInputChangeListeners(new TabInputChangedEvent(oldSelectedItem, children));
+                    }
                 } else {
                     Object[] children = new Object[elements.length - subItems.length];
                     int counter = 0;
@@ -682,8 +689,13 @@ public class TalendTabbedPropertyList extends Composite {
                         children[counter++] = elements[i].getTabItem();
                     }
                     structuredItem.setExpanded(IStructuredTabItem.COLLAPSED);
+                    if (oldSelectedItem == null || !isWithin(oldSelectedItem, children)) {
+                        fireInputChangeListeners(new TabInputChangedEvent(children.length > 0 ? (ITabItem) children[0] : null,
+                                children));
+                    } else if (isWithin(oldSelectedItem, children)) {
+                        fireInputChangeListeners(new TabInputChangedEvent(oldSelectedItem, children));
+                    }
 
-                    fireInputChangeListeners(children);
                 }
             }
 
@@ -692,13 +704,29 @@ public class TalendTabbedPropertyList extends Composite {
     }
 
     /**
+     * yzhang Comment method "isWithin".
+     * 
+     * @param target
+     * @param collection
+     * @return
+     */
+    private boolean isWithin(Object target, Object[] collection) {
+        for (Object object : collection) {
+            if (target == object) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * DOC yzhang Comment method "fireInputChangeListeners".
      * 
      * @param children
      */
-    private void fireInputChangeListeners(Object[] children) {
+    private void fireInputChangeListeners(TabInputChangedEvent event) {
         for (IInputChangedListener listeners : inputChangedListeners) {
-            listeners.inputChanged(children);
+            listeners.inputChanged(event);
         }
     }
 

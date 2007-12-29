@@ -18,6 +18,7 @@ import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Widget;
@@ -128,6 +129,11 @@ public class TalendTabbedPropertyViewer extends StructuredViewer implements IInp
         return list;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.jface.viewers.Viewer#inputChanged(java.lang.Object, java.lang.Object)
+     */
     public void inputChanged(Object input, Object oldInput) {
         elements.clear();
         Object[] children = getSortedChildren(getRoot());
@@ -142,10 +148,15 @@ public class TalendTabbedPropertyViewer extends StructuredViewer implements IInp
     /*
      * (non-Javadoc)
      * 
-     * @see com.cyclone.window.ui.tabs.IInputChangedListener#inputChanged(java.lang.Object)
+     * @see org.talend.core.properties.tab.IInputChangedListener#inputChanged(java.lang.Object)
      */
-    public void inputChanged(Object input) {
-        setInput(input);
+    public void inputChanged(TabInputChangedEvent event) {
+        setInput(event.getInput());
+        IStructuredSelection selection = (IStructuredSelection) getSelection();
+        if (selection.getFirstElement() == null) {
+            setSelection(event.getDefaultSelection());
+        }
+
     }
 
     /**

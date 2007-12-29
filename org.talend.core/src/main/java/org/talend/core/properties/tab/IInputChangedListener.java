@@ -20,6 +20,6 @@ package org.talend.core.properties.tab;
  */
 public interface IInputChangedListener {
 
-    public void inputChanged(Object input);
+    public void inputChanged(TabInputChangedEvent event);
 
 }
