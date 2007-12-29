@@ -28,9 +28,6 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
-import org.talend.core.model.process.IElement;
-import org.talend.core.model.process.IElementParameter;
-import org.talend.core.model.process.INodeConnector;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ConnectionItem;
@@ -98,8 +95,4 @@ public interface IDesignerCoreService extends IService {
     public TransferDropTargetListener createTemplateTransferDropTargetListener(GraphicalViewer viewer);
 
     public TransferDropTargetListener createEditorDropTargetListener(AbstractTalendEditor viewer);
-
-    public INodeConnector createNodeConnector();
-
-    public IElementParameter createElementParameter(IElement elem);
 }
