@@ -11,9 +11,8 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.talend.designer.core.model.utils.emf.talendfile.TalendFilePackage;
-import org.talend.designer.joblet.model.AbstractJobletObject;
-import org.talend.designer.joblet.model.JobletConnection;
 import org.talend.designer.joblet.model.JobletFactory;
+import org.talend.designer.joblet.model.JobletNode;
 import org.talend.designer.joblet.model.JobletPackage;
 import org.talend.designer.joblet.model.JobletProcess;
 
@@ -36,14 +35,7 @@ public class JobletPackageImpl extends EPackageImpl implements JobletPackage {
      * 
      * @generated
      */
-    private EClass jobletConnectionEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    private EClass abstractJobletObjectEClass = null;
+    private EClass jobletNodeEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -127,7 +119,7 @@ public class JobletPackageImpl extends EPackageImpl implements JobletPackage {
      * 
      * @generated
      */
-    public EReference getJobletProcess_JobletLinks() {
+    public EReference getJobletProcess_JobletNodes() {
         return (EReference) jobletProcessEClass.getEStructuralFeatures().get(0);
     }
 
@@ -136,8 +128,8 @@ public class JobletPackageImpl extends EPackageImpl implements JobletPackage {
      * 
      * @generated
      */
-    public EClass getJobletConnection() {
-        return jobletConnectionEClass;
+    public EClass getJobletNode() {
+        return jobletNodeEClass;
     }
 
     /**
@@ -145,8 +137,8 @@ public class JobletPackageImpl extends EPackageImpl implements JobletPackage {
      * 
      * @generated
      */
-    public EAttribute getJobletConnection_Source() {
-        return (EAttribute) jobletConnectionEClass.getEStructuralFeatures().get(0);
+    public EAttribute getJobletNode_Description() {
+        return (EAttribute) jobletNodeEClass.getEStructuralFeatures().get(0);
     }
 
     /**
@@ -154,62 +146,8 @@ public class JobletPackageImpl extends EPackageImpl implements JobletPackage {
      * 
      * @generated
      */
-    public EAttribute getJobletConnection_Target() {
-        return (EAttribute) jobletConnectionEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    public EClass getAbstractJobletObject() {
-        return abstractJobletObjectEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    public EAttribute getAbstractJobletObject_Name() {
-        return (EAttribute) abstractJobletObjectEClass.getEStructuralFeatures().get(0);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    public EAttribute getAbstractJobletObject_PosX() {
-        return (EAttribute) abstractJobletObjectEClass.getEStructuralFeatures().get(1);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    public EAttribute getAbstractJobletObject_PosY() {
-        return (EAttribute) abstractJobletObjectEClass.getEStructuralFeatures().get(2);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    public EAttribute getAbstractJobletObject_Description() {
-        return (EAttribute) abstractJobletObjectEClass.getEStructuralFeatures().get(3);
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    public EAttribute getAbstractJobletObject_Input() {
-        return (EAttribute) abstractJobletObjectEClass.getEStructuralFeatures().get(4);
+    public EAttribute getJobletNode_Input() {
+        return (EAttribute) jobletNodeEClass.getEStructuralFeatures().get(1);
     }
 
     /**
@@ -241,18 +179,11 @@ public class JobletPackageImpl extends EPackageImpl implements JobletPackage {
 
         // Create classes and their features
         jobletProcessEClass = createEClass(JOBLET_PROCESS);
-        createEReference(jobletProcessEClass, JOBLET_PROCESS__JOBLET_LINKS);
+        createEReference(jobletProcessEClass, JOBLET_PROCESS__JOBLET_NODES);
 
-        jobletConnectionEClass = createEClass(JOBLET_CONNECTION);
-        createEAttribute(jobletConnectionEClass, JOBLET_CONNECTION__SOURCE);
-        createEAttribute(jobletConnectionEClass, JOBLET_CONNECTION__TARGET);
-
-        abstractJobletObjectEClass = createEClass(ABSTRACT_JOBLET_OBJECT);
-        createEAttribute(abstractJobletObjectEClass, ABSTRACT_JOBLET_OBJECT__NAME);
-        createEAttribute(abstractJobletObjectEClass, ABSTRACT_JOBLET_OBJECT__POS_X);
-        createEAttribute(abstractJobletObjectEClass, ABSTRACT_JOBLET_OBJECT__POS_Y);
-        createEAttribute(abstractJobletObjectEClass, ABSTRACT_JOBLET_OBJECT__DESCRIPTION);
-        createEAttribute(abstractJobletObjectEClass, ABSTRACT_JOBLET_OBJECT__INPUT);
+        jobletNodeEClass = createEClass(JOBLET_NODE);
+        createEAttribute(jobletNodeEClass, JOBLET_NODE__DESCRIPTION);
+        createEAttribute(jobletNodeEClass, JOBLET_NODE__INPUT);
     }
 
     /**
@@ -288,36 +219,20 @@ public class JobletPackageImpl extends EPackageImpl implements JobletPackage {
 
         // Add supertypes to classes
         jobletProcessEClass.getESuperTypes().add(theTalendFilePackage.getProcessType());
-        jobletConnectionEClass.getESuperTypes().add(this.getAbstractJobletObject());
+        jobletNodeEClass.getESuperTypes().add(theTalendFilePackage.getNodeType());
 
         // Initialize classes and features; add operations and parameters
         initEClass(jobletProcessEClass, JobletProcess.class, "JobletProcess", !IS_ABSTRACT, !IS_INTERFACE,
                 IS_GENERATED_INSTANCE_CLASS);
-        initEReference(getJobletProcess_JobletLinks(), this.getJobletConnection(), null, "jobletLinks", null, 0, -1,
+        initEReference(getJobletProcess_JobletNodes(), this.getJobletNode(), null, "jobletNodes", null, 0, -1,
                 JobletProcess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(jobletConnectionEClass, JobletConnection.class, "JobletConnection", !IS_ABSTRACT, !IS_INTERFACE,
-                IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getJobletConnection_Source(), ecorePackage.getEString(), "source", null, 0, 1, JobletConnection.class,
+        initEClass(jobletNodeEClass, JobletNode.class, "JobletNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getJobletNode_Description(), ecorePackage.getEString(), "description", null, 0, 1, JobletNode.class,
                 !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getJobletConnection_Target(), ecorePackage.getEString(), "target", null, 0, 1, JobletConnection.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-        initEClass(abstractJobletObjectEClass, AbstractJobletObject.class, "AbstractJobletObject", IS_ABSTRACT, !IS_INTERFACE,
-                IS_GENERATED_INSTANCE_CLASS);
-        initEAttribute(getAbstractJobletObject_Name(), ecorePackage.getEString(), "name", null, 0, 1, AbstractJobletObject.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAbstractJobletObject_PosX(), ecorePackage.getEInt(), "posX", null, 0, 1, AbstractJobletObject.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAbstractJobletObject_PosY(), ecorePackage.getEInt(), "posY", null, 0, 1, AbstractJobletObject.class,
-                !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAbstractJobletObject_Description(), ecorePackage.getEString(), "description", null, 0, 1,
-                AbstractJobletObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-                !IS_DERIVED, IS_ORDERED);
-        initEAttribute(getAbstractJobletObject_Input(), ecorePackage.getEBoolean(), "input", null, 0, 1,
-                AbstractJobletObject.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE,
-                !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getJobletNode_Input(), ecorePackage.getEBoolean(), "input", null, 0, 1, JobletNode.class, !IS_TRANSIENT,
+                !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Create resource
         createResource(eNS_URI);

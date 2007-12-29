@@ -60,10 +60,6 @@ public interface IProcess2 extends IProcess {
 
     boolean isJoblet();
 
-    void setJoblet(boolean isJoblet);
-
-    void addJoblet(Element element);
-
     List getElements();
 
     /**
@@ -72,8 +68,6 @@ public interface IProcess2 extends IProcess {
      * @param b
      */
     void setActivate(boolean b);
-
-    void removeJoblet(Element element);
 
     /**
      * DOC qzhang Comment method "checkStartNodes".
@@ -84,4 +78,11 @@ public interface IProcess2 extends IProcess {
      * DOC qzhang Comment method "checkProcess".
      */
     void checkProcess();
+
+    /**
+     * DOC qzhang Comment method "setJoblet".
+     * 
+     * @param b
+     */
+    void setJoblet(boolean b);
 }

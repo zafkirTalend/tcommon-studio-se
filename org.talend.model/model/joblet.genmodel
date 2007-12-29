@@ -8,18 +8,11 @@
   <genPackages prefix="Joblet" basePackage="org.talend.designer.joblet" resource="XML"
       disposableProviderFactory="true" ecorePackage="joblet.ecore#/">
     <genClasses ecoreClass="joblet.ecore#//JobletProcess">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference joblet.ecore#//JobletProcess/jobletLinks"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference joblet.ecore#//JobletProcess/jobletNodes"/>
     </genClasses>
-    <genClasses ecoreClass="joblet.ecore#//JobletConnection">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joblet.ecore#//JobletConnection/source"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joblet.ecore#//JobletConnection/target"/>
-    </genClasses>
-    <genClasses image="false" ecoreClass="joblet.ecore#//AbstractJobletObject">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joblet.ecore#//AbstractJobletObject/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joblet.ecore#//AbstractJobletObject/posX"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joblet.ecore#//AbstractJobletObject/posY"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joblet.ecore#//AbstractJobletObject/description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joblet.ecore#//AbstractJobletObject/input"/>
+    <genClasses ecoreClass="joblet.ecore#//JobletNode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joblet.ecore#//JobletNode/description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute joblet.ecore#//JobletNode/input"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

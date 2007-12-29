@@ -13,6 +13,7 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 import org.talend.designer.joblet.model.*;
@@ -78,16 +79,16 @@ public class JobletAdapterFactory extends AdapterFactoryImpl {
                 return createJobletProcessAdapter();
             }
             @Override
-            public Adapter caseJobletConnection(JobletConnection object) {
-                return createJobletConnectionAdapter();
-            }
-            @Override
-            public Adapter caseAbstractJobletObject(AbstractJobletObject object) {
-                return createAbstractJobletObjectAdapter();
+            public Adapter caseJobletNode(JobletNode object) {
+                return createJobletNodeAdapter();
             }
             @Override
             public Adapter caseProcessType(ProcessType object) {
                 return createProcessTypeAdapter();
+            }
+            @Override
+            public Adapter caseNodeType(NodeType object) {
+                return createNodeTypeAdapter();
             }
             @Override
             public Adapter defaultCase(EObject object) {
@@ -124,30 +125,16 @@ public class JobletAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link org.talend.designer.joblet.model.JobletConnection <em>Connection</em>}'.
+     * Creates a new adapter for an object of class '{@link org.talend.designer.joblet.model.JobletNode <em>Node</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
      * it's useful to ignore a case when inheritance will catch all the cases anyway.
      * <!-- end-user-doc -->
      * @return the new adapter.
-     * @see org.talend.designer.joblet.model.JobletConnection
+     * @see org.talend.designer.joblet.model.JobletNode
      * @generated
      */
-    public Adapter createJobletConnectionAdapter() {
-        return null;
-    }
-
-    /**
-     * Creates a new adapter for an object of class '{@link org.talend.designer.joblet.model.AbstractJobletObject <em>Abstract Joblet Object</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.designer.joblet.model.AbstractJobletObject
-     * @generated
-     */
-    public Adapter createAbstractJobletObjectAdapter() {
+    public Adapter createJobletNodeAdapter() {
         return null;
     }
 
@@ -162,6 +149,20 @@ public class JobletAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createProcessTypeAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.designer.core.model.utils.emf.talendfile.NodeType <em>Node Type</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.designer.core.model.utils.emf.talendfile.NodeType
+     * @generated
+     */
+    public Adapter createNodeTypeAdapter() {
         return null;
     }
 

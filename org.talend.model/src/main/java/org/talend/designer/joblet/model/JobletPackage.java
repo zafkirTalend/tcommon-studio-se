@@ -216,13 +216,13 @@ public interface JobletPackage extends EPackage {
     int JOBLET_PROCESS__VERSION = TalendFilePackage.PROCESS_TYPE__VERSION;
 
     /**
-     * The feature id for the '<em><b>Joblet Links</b></em>' containment reference list.
+     * The feature id for the '<em><b>Joblet Nodes</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int JOBLET_PROCESS__JOBLET_LINKS = TalendFilePackage.PROCESS_TYPE_FEATURE_COUNT + 0;
+    int JOBLET_PROCESS__JOBLET_NODES = TalendFilePackage.PROCESS_TYPE_FEATURE_COUNT + 0;
 
     /**
      * The number of structural features of the '<em>Process</em>' class.
@@ -234,23 +234,86 @@ public interface JobletPackage extends EPackage {
     int JOBLET_PROCESS_FEATURE_COUNT = TalendFilePackage.PROCESS_TYPE_FEATURE_COUNT + 1;
 
     /**
-     * The meta object id for the '{@link org.talend.designer.joblet.model.impl.AbstractJobletObjectImpl <em>Abstract Joblet Object</em>}' class.
+     * The meta object id for the '{@link org.talend.designer.joblet.model.impl.JobletNodeImpl <em>Node</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.talend.designer.joblet.model.impl.AbstractJobletObjectImpl
-     * @see org.talend.designer.joblet.model.impl.JobletPackageImpl#getAbstractJobletObject()
+     * @see org.talend.designer.joblet.model.impl.JobletNodeImpl
+     * @see org.talend.designer.joblet.model.impl.JobletPackageImpl#getJobletNode()
      * @generated
      */
-    int ABSTRACT_JOBLET_OBJECT = 2;
+    int JOBLET_NODE = 1;
 
     /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * The feature id for the '<em><b>Element Parameter</b></em>' containment reference list.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ABSTRACT_JOBLET_OBJECT__NAME = 0;
+    int JOBLET_NODE__ELEMENT_PARAMETER = TalendFilePackage.NODE_TYPE__ELEMENT_PARAMETER;
+
+    /**
+     * The feature id for the '<em><b>Metadata</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_NODE__METADATA = TalendFilePackage.NODE_TYPE__METADATA;
+
+    /**
+     * The feature id for the '<em><b>Binary Data</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_NODE__BINARY_DATA = TalendFilePackage.NODE_TYPE__BINARY_DATA;
+
+    /**
+     * The feature id for the '<em><b>String Data</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_NODE__STRING_DATA = TalendFilePackage.NODE_TYPE__STRING_DATA;
+
+    /**
+     * The feature id for the '<em><b>Component Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_NODE__COMPONENT_NAME = TalendFilePackage.NODE_TYPE__COMPONENT_NAME;
+
+    /**
+     * The feature id for the '<em><b>Component Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_NODE__COMPONENT_VERSION = TalendFilePackage.NODE_TYPE__COMPONENT_VERSION;
+
+    /**
+     * The feature id for the '<em><b>Offset Label X</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_NODE__OFFSET_LABEL_X = TalendFilePackage.NODE_TYPE__OFFSET_LABEL_X;
+
+    /**
+     * The feature id for the '<em><b>Offset Label Y</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_NODE__OFFSET_LABEL_Y = TalendFilePackage.NODE_TYPE__OFFSET_LABEL_Y;
 
     /**
      * The feature id for the '<em><b>Pos X</b></em>' attribute.
@@ -259,7 +322,7 @@ public interface JobletPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ABSTRACT_JOBLET_OBJECT__POS_X = 1;
+    int JOBLET_NODE__POS_X = TalendFilePackage.NODE_TYPE__POS_X;
 
     /**
      * The feature id for the '<em><b>Pos Y</b></em>' attribute.
@@ -268,7 +331,25 @@ public interface JobletPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ABSTRACT_JOBLET_OBJECT__POS_Y = 2;
+    int JOBLET_NODE__POS_Y = TalendFilePackage.NODE_TYPE__POS_Y;
+
+    /**
+     * The feature id for the '<em><b>Size X</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_NODE__SIZE_X = TalendFilePackage.NODE_TYPE__SIZE_X;
+
+    /**
+     * The feature id for the '<em><b>Size Y</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_NODE__SIZE_Y = TalendFilePackage.NODE_TYPE__SIZE_Y;
 
     /**
      * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -277,7 +358,7 @@ public interface JobletPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ABSTRACT_JOBLET_OBJECT__DESCRIPTION = 3;
+    int JOBLET_NODE__DESCRIPTION = TalendFilePackage.NODE_TYPE_FEATURE_COUNT + 0;
 
     /**
      * The feature id for the '<em><b>Input</b></em>' attribute.
@@ -286,98 +367,16 @@ public interface JobletPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int ABSTRACT_JOBLET_OBJECT__INPUT = 4;
+    int JOBLET_NODE__INPUT = TalendFilePackage.NODE_TYPE_FEATURE_COUNT + 1;
 
     /**
-     * The number of structural features of the '<em>Abstract Joblet Object</em>' class.
+     * The number of structural features of the '<em>Node</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int ABSTRACT_JOBLET_OBJECT_FEATURE_COUNT = 5;
-
-    /**
-     * The meta object id for the '{@link org.talend.designer.joblet.model.impl.JobletConnectionImpl <em>Connection</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.designer.joblet.model.impl.JobletConnectionImpl
-     * @see org.talend.designer.joblet.model.impl.JobletPackageImpl#getJobletConnection()
-     * @generated
-     */
-    int JOBLET_CONNECTION = 1;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int JOBLET_CONNECTION__NAME = ABSTRACT_JOBLET_OBJECT__NAME;
-
-    /**
-     * The feature id for the '<em><b>Pos X</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int JOBLET_CONNECTION__POS_X = ABSTRACT_JOBLET_OBJECT__POS_X;
-
-    /**
-     * The feature id for the '<em><b>Pos Y</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int JOBLET_CONNECTION__POS_Y = ABSTRACT_JOBLET_OBJECT__POS_Y;
-
-    /**
-     * The feature id for the '<em><b>Description</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int JOBLET_CONNECTION__DESCRIPTION = ABSTRACT_JOBLET_OBJECT__DESCRIPTION;
-
-    /**
-     * The feature id for the '<em><b>Input</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int JOBLET_CONNECTION__INPUT = ABSTRACT_JOBLET_OBJECT__INPUT;
-
-    /**
-     * The feature id for the '<em><b>Source</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int JOBLET_CONNECTION__SOURCE = ABSTRACT_JOBLET_OBJECT_FEATURE_COUNT + 0;
-
-    /**
-     * The feature id for the '<em><b>Target</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int JOBLET_CONNECTION__TARGET = ABSTRACT_JOBLET_OBJECT_FEATURE_COUNT + 1;
-
-    /**
-     * The number of structural features of the '<em>Connection</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int JOBLET_CONNECTION_FEATURE_COUNT = ABSTRACT_JOBLET_OBJECT_FEATURE_COUNT + 2;
+    int JOBLET_NODE_FEATURE_COUNT = TalendFilePackage.NODE_TYPE_FEATURE_COUNT + 2;
 
     /**
      * Returns the meta object for class '{@link org.talend.designer.joblet.model.JobletProcess <em>Process</em>}'.
@@ -390,112 +389,47 @@ public interface JobletPackage extends EPackage {
     EClass getJobletProcess();
 
     /**
-     * Returns the meta object for the containment reference list '{@link org.talend.designer.joblet.model.JobletProcess#getJobletLinks <em>Joblet Links</em>}'.
+     * Returns the meta object for the containment reference list '{@link org.talend.designer.joblet.model.JobletProcess#getJobletNodes <em>Joblet Nodes</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for the containment reference list '<em>Joblet Links</em>'.
-     * @see org.talend.designer.joblet.model.JobletProcess#getJobletLinks()
+     * @return the meta object for the containment reference list '<em>Joblet Nodes</em>'.
+     * @see org.talend.designer.joblet.model.JobletProcess#getJobletNodes()
      * @see #getJobletProcess()
      * @generated
      */
-    EReference getJobletProcess_JobletLinks();
+    EReference getJobletProcess_JobletNodes();
 
     /**
-     * Returns the meta object for class '{@link org.talend.designer.joblet.model.JobletConnection <em>Connection</em>}'.
+     * Returns the meta object for class '{@link org.talend.designer.joblet.model.JobletNode <em>Node</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Connection</em>'.
-     * @see org.talend.designer.joblet.model.JobletConnection
+     * @return the meta object for class '<em>Node</em>'.
+     * @see org.talend.designer.joblet.model.JobletNode
      * @generated
      */
-    EClass getJobletConnection();
+    EClass getJobletNode();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.joblet.model.JobletConnection#getSource <em>Source</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Source</em>'.
-     * @see org.talend.designer.joblet.model.JobletConnection#getSource()
-     * @see #getJobletConnection()
-     * @generated
-     */
-    EAttribute getJobletConnection_Source();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.joblet.model.JobletConnection#getTarget <em>Target</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Target</em>'.
-     * @see org.talend.designer.joblet.model.JobletConnection#getTarget()
-     * @see #getJobletConnection()
-     * @generated
-     */
-    EAttribute getJobletConnection_Target();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.designer.joblet.model.AbstractJobletObject <em>Abstract Joblet Object</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>Abstract Joblet Object</em>'.
-     * @see org.talend.designer.joblet.model.AbstractJobletObject
-     * @generated
-     */
-    EClass getAbstractJobletObject();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.joblet.model.AbstractJobletObject#getName <em>Name</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Name</em>'.
-     * @see org.talend.designer.joblet.model.AbstractJobletObject#getName()
-     * @see #getAbstractJobletObject()
-     * @generated
-     */
-    EAttribute getAbstractJobletObject_Name();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.joblet.model.AbstractJobletObject#getPosX <em>Pos X</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Pos X</em>'.
-     * @see org.talend.designer.joblet.model.AbstractJobletObject#getPosX()
-     * @see #getAbstractJobletObject()
-     * @generated
-     */
-    EAttribute getAbstractJobletObject_PosX();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.joblet.model.AbstractJobletObject#getPosY <em>Pos Y</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>Pos Y</em>'.
-     * @see org.talend.designer.joblet.model.AbstractJobletObject#getPosY()
-     * @see #getAbstractJobletObject()
-     * @generated
-     */
-    EAttribute getAbstractJobletObject_PosY();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.joblet.model.AbstractJobletObject#getDescription <em>Description</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.designer.joblet.model.JobletNode#getDescription <em>Description</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Description</em>'.
-     * @see org.talend.designer.joblet.model.AbstractJobletObject#getDescription()
-     * @see #getAbstractJobletObject()
+     * @see org.talend.designer.joblet.model.JobletNode#getDescription()
+     * @see #getJobletNode()
      * @generated
      */
-    EAttribute getAbstractJobletObject_Description();
+    EAttribute getJobletNode_Description();
 
     /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.joblet.model.AbstractJobletObject#isInput <em>Input</em>}'.
+     * Returns the meta object for the attribute '{@link org.talend.designer.joblet.model.JobletNode#isInput <em>Input</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @return the meta object for the attribute '<em>Input</em>'.
-     * @see org.talend.designer.joblet.model.AbstractJobletObject#isInput()
-     * @see #getAbstractJobletObject()
+     * @see org.talend.designer.joblet.model.JobletNode#isInput()
+     * @see #getJobletNode()
      * @generated
      */
-    EAttribute getAbstractJobletObject_Input();
+    EAttribute getJobletNode_Input();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -530,72 +464,22 @@ public interface JobletPackage extends EPackage {
         EClass JOBLET_PROCESS = eINSTANCE.getJobletProcess();
 
         /**
-         * The meta object literal for the '<em><b>Joblet Links</b></em>' containment reference list feature.
+         * The meta object literal for the '<em><b>Joblet Nodes</b></em>' containment reference list feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
          * @generated
          */
-        EReference JOBLET_PROCESS__JOBLET_LINKS = eINSTANCE.getJobletProcess_JobletLinks();
+        EReference JOBLET_PROCESS__JOBLET_NODES = eINSTANCE.getJobletProcess_JobletNodes();
 
         /**
-         * The meta object literal for the '{@link org.talend.designer.joblet.model.impl.JobletConnectionImpl <em>Connection</em>}' class.
+         * The meta object literal for the '{@link org.talend.designer.joblet.model.impl.JobletNodeImpl <em>Node</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
-         * @see org.talend.designer.joblet.model.impl.JobletConnectionImpl
-         * @see org.talend.designer.joblet.model.impl.JobletPackageImpl#getJobletConnection()
+         * @see org.talend.designer.joblet.model.impl.JobletNodeImpl
+         * @see org.talend.designer.joblet.model.impl.JobletPackageImpl#getJobletNode()
          * @generated
          */
-        EClass JOBLET_CONNECTION = eINSTANCE.getJobletConnection();
-
-        /**
-         * The meta object literal for the '<em><b>Source</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute JOBLET_CONNECTION__SOURCE = eINSTANCE.getJobletConnection_Source();
-
-        /**
-         * The meta object literal for the '<em><b>Target</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute JOBLET_CONNECTION__TARGET = eINSTANCE.getJobletConnection_Target();
-
-        /**
-         * The meta object literal for the '{@link org.talend.designer.joblet.model.impl.AbstractJobletObjectImpl <em>Abstract Joblet Object</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.designer.joblet.model.impl.AbstractJobletObjectImpl
-         * @see org.talend.designer.joblet.model.impl.JobletPackageImpl#getAbstractJobletObject()
-         * @generated
-         */
-        EClass ABSTRACT_JOBLET_OBJECT = eINSTANCE.getAbstractJobletObject();
-
-        /**
-         * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ABSTRACT_JOBLET_OBJECT__NAME = eINSTANCE.getAbstractJobletObject_Name();
-
-        /**
-         * The meta object literal for the '<em><b>Pos X</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ABSTRACT_JOBLET_OBJECT__POS_X = eINSTANCE.getAbstractJobletObject_PosX();
-
-        /**
-         * The meta object literal for the '<em><b>Pos Y</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute ABSTRACT_JOBLET_OBJECT__POS_Y = eINSTANCE.getAbstractJobletObject_PosY();
+        EClass JOBLET_NODE = eINSTANCE.getJobletNode();
 
         /**
          * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
@@ -603,7 +487,7 @@ public interface JobletPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute ABSTRACT_JOBLET_OBJECT__DESCRIPTION = eINSTANCE.getAbstractJobletObject_Description();
+        EAttribute JOBLET_NODE__DESCRIPTION = eINSTANCE.getJobletNode_Description();
 
         /**
          * The meta object literal for the '<em><b>Input</b></em>' attribute feature.
@@ -611,7 +495,7 @@ public interface JobletPackage extends EPackage {
          * <!-- end-user-doc -->
          * @generated
          */
-        EAttribute ABSTRACT_JOBLET_OBJECT__INPUT = eINSTANCE.getAbstractJobletObject_Input();
+        EAttribute JOBLET_NODE__INPUT = eINSTANCE.getJobletNode_Input();
 
     }
 

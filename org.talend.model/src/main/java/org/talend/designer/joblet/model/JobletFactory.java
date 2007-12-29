@@ -35,13 +35,13 @@ public interface JobletFactory extends EFactory {
     JobletProcess createJobletProcess();
 
     /**
-     * Returns a new object of class '<em>Connection</em>'.
+     * Returns a new object of class '<em>Node</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @return a new object of class '<em>Connection</em>'.
+     * @return a new object of class '<em>Node</em>'.
      * @generated
      */
-    JobletConnection createJobletConnection();
+    JobletNode createJobletNode();
 
     /**
      * Returns the package supported by this factory.

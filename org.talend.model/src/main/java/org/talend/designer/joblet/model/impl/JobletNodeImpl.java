@@ -7,75 +7,71 @@
 package org.talend.designer.joblet.model.impl;
 
 import org.eclipse.emf.common.notify.Notification;
-
 import org.eclipse.emf.ecore.EClass;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.talend.designer.joblet.model.JobletConnection;
+import org.talend.designer.core.model.utils.emf.talendfile.impl.NodeTypeImpl;
+import org.talend.designer.joblet.model.JobletNode;
 import org.talend.designer.joblet.model.JobletPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Connection</b></em>'.
+ * An implementation of the model object '<em><b>Node</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.talend.designer.joblet.model.impl.JobletConnectionImpl#getSource <em>Source</em>}</li>
- *   <li>{@link org.talend.designer.joblet.model.impl.JobletConnectionImpl#getTarget <em>Target</em>}</li>
+ *   <li>{@link org.talend.designer.joblet.model.impl.JobletNodeImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link org.talend.designer.joblet.model.impl.JobletNodeImpl#isInput <em>Input</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class JobletConnectionImpl extends AbstractJobletObjectImpl implements JobletConnection {
+public class JobletNodeImpl extends NodeTypeImpl implements JobletNode {
     /**
-     * The default value of the '{@link #getSource() <em>Source</em>}' attribute.
+     * The default value of the '{@link #getDescription() <em>Description</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getSource()
+     * @see #getDescription()
      * @generated
      * @ordered
      */
-    protected static final String SOURCE_EDEFAULT = null;
-
+    protected static final String DESCRIPTION_EDEFAULT = null;
     /**
-     * The cached value of the '{@link #getSource() <em>Source</em>}' attribute.
+     * The cached value of the '{@link #getDescription() <em>Description</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getSource()
+     * @see #getDescription()
      * @generated
      * @ordered
      */
-    protected String source = SOURCE_EDEFAULT;
-
+    protected String description = DESCRIPTION_EDEFAULT;
     /**
-     * The default value of the '{@link #getTarget() <em>Target</em>}' attribute.
+     * The default value of the '{@link #isInput() <em>Input</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getTarget()
+     * @see #isInput()
      * @generated
      * @ordered
      */
-    protected static final String TARGET_EDEFAULT = null;
-
+    protected static final boolean INPUT_EDEFAULT = false;
     /**
-     * The cached value of the '{@link #getTarget() <em>Target</em>}' attribute.
+     * The cached value of the '{@link #isInput() <em>Input</em>}' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see #getTarget()
+     * @see #isInput()
      * @generated
      * @ordered
      */
-    protected String target = TARGET_EDEFAULT;
+    protected boolean input = INPUT_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    protected JobletConnectionImpl() {
+    protected JobletNodeImpl() {
         super();
     }
 
@@ -86,7 +82,7 @@ public class JobletConnectionImpl extends AbstractJobletObjectImpl implements Jo
      */
     @Override
     protected EClass eStaticClass() {
-        return JobletPackage.Literals.JOBLET_CONNECTION;
+        return JobletPackage.Literals.JOBLET_NODE;
     }
 
     /**
@@ -94,8 +90,8 @@ public class JobletConnectionImpl extends AbstractJobletObjectImpl implements Jo
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getSource() {
-        return source;
+    public String getDescription() {
+        return description;
     }
 
     /**
@@ -103,11 +99,11 @@ public class JobletConnectionImpl extends AbstractJobletObjectImpl implements Jo
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setSource(String newSource) {
-        String oldSource = source;
-        source = newSource;
+    public void setDescription(String newDescription) {
+        String oldDescription = description;
+        description = newDescription;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, JobletPackage.JOBLET_CONNECTION__SOURCE, oldSource, source));
+            eNotify(new ENotificationImpl(this, Notification.SET, JobletPackage.JOBLET_NODE__DESCRIPTION, oldDescription, description));
     }
 
     /**
@@ -115,8 +111,8 @@ public class JobletConnectionImpl extends AbstractJobletObjectImpl implements Jo
      * <!-- end-user-doc -->
      * @generated
      */
-    public String getTarget() {
-        return target;
+    public boolean isInput() {
+        return input;
     }
 
     /**
@@ -124,11 +120,11 @@ public class JobletConnectionImpl extends AbstractJobletObjectImpl implements Jo
      * <!-- end-user-doc -->
      * @generated
      */
-    public void setTarget(String newTarget) {
-        String oldTarget = target;
-        target = newTarget;
+    public void setInput(boolean newInput) {
+        boolean oldInput = input;
+        input = newInput;
         if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, JobletPackage.JOBLET_CONNECTION__TARGET, oldTarget, target));
+            eNotify(new ENotificationImpl(this, Notification.SET, JobletPackage.JOBLET_NODE__INPUT, oldInput, input));
     }
 
     /**
@@ -139,10 +135,10 @@ public class JobletConnectionImpl extends AbstractJobletObjectImpl implements Jo
     @Override
     public Object eGet(int featureID, boolean resolve, boolean coreType) {
         switch (featureID) {
-            case JobletPackage.JOBLET_CONNECTION__SOURCE:
-                return getSource();
-            case JobletPackage.JOBLET_CONNECTION__TARGET:
-                return getTarget();
+            case JobletPackage.JOBLET_NODE__DESCRIPTION:
+                return getDescription();
+            case JobletPackage.JOBLET_NODE__INPUT:
+                return isInput() ? Boolean.TRUE : Boolean.FALSE;
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -155,11 +151,11 @@ public class JobletConnectionImpl extends AbstractJobletObjectImpl implements Jo
     @Override
     public void eSet(int featureID, Object newValue) {
         switch (featureID) {
-            case JobletPackage.JOBLET_CONNECTION__SOURCE:
-                setSource((String)newValue);
+            case JobletPackage.JOBLET_NODE__DESCRIPTION:
+                setDescription((String)newValue);
                 return;
-            case JobletPackage.JOBLET_CONNECTION__TARGET:
-                setTarget((String)newValue);
+            case JobletPackage.JOBLET_NODE__INPUT:
+                setInput(((Boolean)newValue).booleanValue());
                 return;
         }
         super.eSet(featureID, newValue);
@@ -173,11 +169,11 @@ public class JobletConnectionImpl extends AbstractJobletObjectImpl implements Jo
     @Override
     public void eUnset(int featureID) {
         switch (featureID) {
-            case JobletPackage.JOBLET_CONNECTION__SOURCE:
-                setSource(SOURCE_EDEFAULT);
+            case JobletPackage.JOBLET_NODE__DESCRIPTION:
+                setDescription(DESCRIPTION_EDEFAULT);
                 return;
-            case JobletPackage.JOBLET_CONNECTION__TARGET:
-                setTarget(TARGET_EDEFAULT);
+            case JobletPackage.JOBLET_NODE__INPUT:
+                setInput(INPUT_EDEFAULT);
                 return;
         }
         super.eUnset(featureID);
@@ -191,10 +187,10 @@ public class JobletConnectionImpl extends AbstractJobletObjectImpl implements Jo
     @Override
     public boolean eIsSet(int featureID) {
         switch (featureID) {
-            case JobletPackage.JOBLET_CONNECTION__SOURCE:
-                return SOURCE_EDEFAULT == null ? source != null : !SOURCE_EDEFAULT.equals(source);
-            case JobletPackage.JOBLET_CONNECTION__TARGET:
-                return TARGET_EDEFAULT == null ? target != null : !TARGET_EDEFAULT.equals(target);
+            case JobletPackage.JOBLET_NODE__DESCRIPTION:
+                return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+            case JobletPackage.JOBLET_NODE__INPUT:
+                return input != INPUT_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }
@@ -209,12 +205,12 @@ public class JobletConnectionImpl extends AbstractJobletObjectImpl implements Jo
         if (eIsProxy()) return super.toString();
 
         StringBuffer result = new StringBuffer(super.toString());
-        result.append(" (source: ");
-        result.append(source);
-        result.append(", target: ");
-        result.append(target);
+        result.append(" (description: ");
+        result.append(description);
+        result.append(", input: ");
+        result.append(input);
         result.append(')');
         return result.toString();
     }
 
-} //JobletConnectionImpl
+} //JobletNodeImpl

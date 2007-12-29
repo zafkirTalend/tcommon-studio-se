@@ -61,7 +61,7 @@ public class JobletFactoryImpl extends EFactoryImpl implements JobletFactory {
     public EObject create(EClass eClass) {
         switch (eClass.getClassifierID()) {
             case JobletPackage.JOBLET_PROCESS: return createJobletProcess();
-            case JobletPackage.JOBLET_CONNECTION: return createJobletConnection();
+            case JobletPackage.JOBLET_NODE: return createJobletNode();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -82,9 +82,9 @@ public class JobletFactoryImpl extends EFactoryImpl implements JobletFactory {
      * <!-- end-user-doc -->
      * @generated
      */
-    public JobletConnection createJobletConnection() {
-        JobletConnectionImpl jobletConnection = new JobletConnectionImpl();
-        return jobletConnection;
+    public JobletNode createJobletNode() {
+        JobletNodeImpl jobletNode = new JobletNodeImpl();
+        return jobletNode;
     }
 
     /**

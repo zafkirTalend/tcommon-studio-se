@@ -11,6 +11,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 
+import org.talend.designer.core.model.utils.emf.talendfile.NodeType;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
 
 import org.talend.designer.joblet.model.*;
@@ -96,16 +97,10 @@ public class JobletSwitch<T> {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case JobletPackage.JOBLET_CONNECTION: {
-                JobletConnection jobletConnection = (JobletConnection)theEObject;
-                T result = caseJobletConnection(jobletConnection);
-                if (result == null) result = caseAbstractJobletObject(jobletConnection);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
-            case JobletPackage.ABSTRACT_JOBLET_OBJECT: {
-                AbstractJobletObject abstractJobletObject = (AbstractJobletObject)theEObject;
-                T result = caseAbstractJobletObject(abstractJobletObject);
+            case JobletPackage.JOBLET_NODE: {
+                JobletNode jobletNode = (JobletNode)theEObject;
+                T result = caseJobletNode(jobletNode);
+                if (result == null) result = caseNodeType(jobletNode);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -129,32 +124,17 @@ public class JobletSwitch<T> {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>Connection</em>'.
+     * Returns the result of interpreting the object as an instance of '<em>Node</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
      * returning a non-null result will terminate the switch.
      * <!-- end-user-doc -->
      * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Connection</em>'.
+     * @return the result of interpreting the object as an instance of '<em>Node</em>'.
      * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
      * @generated
      */
-    public T caseJobletConnection(JobletConnection object) {
-        return null;
-    }
-
-    /**
-     * Returns the result of interpreting the object as an instance of '<em>Abstract Joblet Object</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>Abstract Joblet Object</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public T caseAbstractJobletObject(AbstractJobletObject object) {
+    public T caseJobletNode(JobletNode object) {
         return null;
     }
 
@@ -170,6 +150,21 @@ public class JobletSwitch<T> {
      * @generated
      */
     public T caseProcessType(ProcessType object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Node Type</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Node Type</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public T caseNodeType(NodeType object) {
         return null;
     }
 
