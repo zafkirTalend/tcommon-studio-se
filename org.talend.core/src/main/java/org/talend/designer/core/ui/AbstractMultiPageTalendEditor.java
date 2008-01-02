@@ -42,6 +42,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
@@ -52,6 +53,7 @@ import org.eclipse.ui.internal.WorkbenchPage;
 import org.eclipse.ui.part.FileEditorInput;
 import org.eclipse.ui.part.MultiPageEditorPart;
 import org.epic.perleditor.PerlEditorPlugin;
+import org.talend.commons.exception.BusinessException;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -156,6 +158,37 @@ public abstract class AbstractMultiPageTalendEditor extends MultiPageEditorPart 
 
     public void setReadOnly(boolean readonly) {
         getTalendEditor().setReadOnly(readonly);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.eclipse.ui.part.MultiPageEditorPart#init(org.eclipse.ui.IEditorSite, org.eclipse.ui.IEditorInput)
+     */
+    @Override
+    public void init(IEditorSite site, IEditorInput editorInput) throws PartInitException {
+        setSite(site);
+        setInput(editorInput);
+        site.setSelectionProvider(new MultiPageTalendSelectionProvider(this));
+        getSite().getWorkbenchWindow().getSelectionService().addSelectionListener(this);
+
+        // Lock the process :
+        IRepositoryService service = CorePlugin.getDefault().getRepositoryService();
+        IProxyRepositoryFactory repFactory = service.getProxyRepositoryFactory();
+        RepositoryEditorInput processEditorInput = (RepositoryEditorInput) editorInput;
+        IProcess2 currentProcess = (processEditorInput).getLoadedProcess();
+        if (!currentProcess.isReadOnly()) {
+            try {
+                processEditorInput.getItem().getProperty().eAdapters().add(dirtyListener);
+                repFactory.lock(currentProcess);
+            } catch (PersistenceException e) {
+                e.printStackTrace();
+            } catch (BusinessException e) {
+                // Nothing to do
+            }
+        } else {
+            setReadOnly(true);
+        }
     }
 
     /*
