@@ -29,7 +29,7 @@ public interface IProcess2 extends IProcess {
 
     boolean checkReadOnly();
 
-    ProcessType saveXmlFile(IFile file, boolean isJoblet) throws IOException;
+    ProcessType saveXmlFile(IFile file) throws IOException;
 
     void setPropertyValue(String id, Object value);
 
@@ -58,8 +58,6 @@ public interface IProcess2 extends IProcess {
      */
     void setXmlStream(InputStream contents);
 
-    boolean isJoblet();
-
     List getElements();
 
     /**
@@ -79,10 +77,4 @@ public interface IProcess2 extends IProcess {
      */
     void checkProcess();
 
-    /**
-     * DOC qzhang Comment method "setJoblet".
-     * 
-     * @param b
-     */
-    void setJoblet(boolean b);
 }

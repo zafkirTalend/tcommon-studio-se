@@ -31,8 +31,6 @@ public abstract class CustomExternalActions extends SelectionAction {
 
     public static final int INPUT = 0221;
 
-    public static final int JOBLETINPUT = 0222;
-
     public static final int OUTPUT = 0223;
 
     public static final String ELEM_CLASS = "class";

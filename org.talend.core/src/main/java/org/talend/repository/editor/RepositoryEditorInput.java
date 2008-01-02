@@ -111,17 +111,13 @@ public class RepositoryEditorInput extends FileEditorInput {
         return loadedProcess;
     }
 
-    public boolean isJobletItem() {
-        return getProcessItem() instanceof JobletProcessItem;
-    }
-
     protected Item getProcessItem() {
         return getItem();
     }
 
     protected void loadProcess() throws PersistenceException {
         ProcessType process = null;
-        if (isJobletItem()) {
+        if (getProcessItem() instanceof JobletProcessItem) {
             process = ((JobletProcessItem) getProcessItem()).getJobletProcess();
         } else {
             process = ((ProcessItem) getProcessItem()).getProcess();
@@ -136,7 +132,7 @@ public class RepositoryEditorInput extends FileEditorInput {
             if (monitor != null) {
                 monitor.beginTask("save process", 100);
             }
-            ProcessType processType = loadedProcess.saveXmlFile(getFile(), isJobletItem());
+            ProcessType processType = loadedProcess.saveXmlFile(getFile());
             if (monitor != null) {
                 monitor.worked(40);
             }
@@ -151,7 +147,7 @@ public class RepositoryEditorInput extends FileEditorInput {
             if (path != null) {
                 // factory.createProcess(project, loadedProcess, path);
             } else {
-                if (isJobletItem()) {
+                if (getProcessItem() instanceof JobletProcessItem) {
                     ((JobletProcessItem) getProcessItem()).setJobletProcess((JobletProcess) processType);
                 } else {
                     ((ProcessItem) getProcessItem()).setProcess(processType);

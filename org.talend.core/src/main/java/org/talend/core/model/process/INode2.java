@@ -50,16 +50,16 @@ public interface INode2 extends INode {
     /**
      * DOC qzhang Comment method "addOutput".
      * 
-     * @param jobletGEFConnection
+     * @param connection
      */
-    void addOutput(IConnection jobletGEFConnection);
+    void addOutput(IConnection connection);
 
     /**
      * DOC qzhang Comment method "addInput".
      * 
-     * @param jobletGEFConnection
+     * @param connection
      */
-    void addInput(IConnection jobletGEFConnection);
+    void addInput(IConnection connection);
 
     /**
      * DOC qzhang Comment method "removeInput".
