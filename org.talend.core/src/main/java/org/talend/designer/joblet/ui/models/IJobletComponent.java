@@ -20,9 +20,5 @@ import org.talend.core.model.properties.Property;
  */
 public interface IJobletComponent extends IComponent {
 
-    public EJobletNodeType getJobletNodeType();
-
     public void setProperty(Property property);
-
-    public void setJobletNodeType(EJobletNodeType jobletNodeType);
 }
