@@ -34,8 +34,6 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
-import org.talend.designer.core.ui.editor.AbstractTalendEditor;
-import org.talend.designer.core.ui.editor.ITalendCodeEditor;
 
 /**
  * Provides Designer core services for other components <br/>.
@@ -80,19 +78,14 @@ public interface IDesignerCoreService extends IService {
 
     public IAction getCreateProcessAction(boolean isToolbar);
 
-    public ITalendCodeEditor getCodeEditor();
-
     public IProcess2 newProcess(Property property);
 
     public FlyoutPreferences createPalettePreferences();
 
     public PaletteViewerProvider createPaletteViewerProvider(EditDomain domain);
 
-    public void configureGEFEditor(AbstractTalendEditor talendEditor);
-
     public PaletteRoot createPalette(IComponentsFactory factory, PaletteRoot paletteRoot);
 
     public TransferDropTargetListener createTemplateTransferDropTargetListener(GraphicalViewer viewer);
 
-    public TransferDropTargetListener createEditorDropTargetListener(AbstractTalendEditor viewer);
 }

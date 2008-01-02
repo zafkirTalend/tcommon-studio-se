@@ -20,7 +20,6 @@ import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.talend.commons.exception.PersistenceException;
 import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
-import org.talend.designer.core.ui.AbstractMultiPageTalendEditor;
 
 /**
  * DOC qzhang class global comment. Detailled comment
@@ -36,8 +35,6 @@ public interface IProcess2 extends IProcess {
     Set<String> getSubJobs(String processName);
 
     void updateProperties();
-
-    void setEditor(AbstractMultiPageTalendEditor editor);
 
     /**
      * DOC qzhang Comment method "loadXmlFile".
