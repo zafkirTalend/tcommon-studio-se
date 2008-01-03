@@ -15,13 +15,8 @@ package org.talend.designer.core;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.gef.EditDomain;
-import org.eclipse.gef.GraphicalViewer;
 import org.eclipse.gef.palette.PaletteRoot;
-import org.eclipse.gef.ui.palette.PaletteViewerProvider;
-import org.eclipse.gef.ui.palette.FlyoutPaletteComposite.FlyoutPreferences;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.util.TransferDropTargetListener;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IPartListener;
@@ -29,11 +24,9 @@ import org.eclipse.ui.part.MultiPageEditorPart;
 import org.talend.core.IService;
 import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.process.IProcess;
-import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
-import org.talend.core.model.properties.Property;
 
 /**
  * Provides Designer core services for other components <br/>.
@@ -77,15 +70,5 @@ public interface IDesignerCoreService extends IService {
     public PaletteRoot createPalette(IComponentsFactory factory);
 
     public IAction getCreateProcessAction(boolean isToolbar);
-
-    public IProcess2 newProcess(Property property);
-
-    public FlyoutPreferences createPalettePreferences();
-
-    public PaletteViewerProvider createPaletteViewerProvider(EditDomain domain);
-
-    public PaletteRoot createPalette(IComponentsFactory factory, PaletteRoot paletteRoot);
-
-    public TransferDropTargetListener createTemplateTransferDropTargetListener(GraphicalViewer viewer);
 
 }
