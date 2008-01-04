@@ -27,7 +27,9 @@ public class RepositoryConstants {
     public static final String IMG_DIRECTORY = "images"; //$NON-NLS-1$
 
     public static final String IMG_DIRECTORY_OF_JOB_OUTLINE = "images/job_outlines"; //$NON-NLS-1$
-    
+
+    public static final String IMG_DIRECTORY_OF_JOBLET_OUTLINE = "images/joblet_outlines"; //$NON-NLS-1$
+
     public static final String DOCUMENTATION_PATH = "documentations/generated/jobs";
 
     public static final String SYSTEM_DIRECTORY = "system"; //$NON-NLS-1$
