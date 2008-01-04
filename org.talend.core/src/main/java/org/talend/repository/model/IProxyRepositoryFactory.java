@@ -432,4 +432,6 @@ public interface IProxyRepositoryFactory {
     public abstract RootContainer<String, IRepositoryObject> getMetadataLDAPSchema() throws PersistenceException;
 
     public List<ModuleNeeded> getModulesNeededForJobs() throws PersistenceException;
+    
+    public void forceCreate(Item item, IPath path) throws PersistenceException;
 }
