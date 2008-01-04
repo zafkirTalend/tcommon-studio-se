@@ -68,7 +68,7 @@
     <elementParameter field="TEXT" name="TITLE" value="'Talend Open Studio'"/>
     <elementParameter field="CLOSED_LIST" name="BUTTONS" value="0"/>
     <elementParameter field="CLOSED_LIST" name="ICON" value="Win32::MB_ICONINFORMATION"/>
-    <elementParameter field="MEMO" name="MESSAGE" value="'Cannot open file &quot;'.$_context{filepath}.'&quot; !'&#xD;&#xA;.&quot; Please use the job &lt;tFileOuputDelimited-CSV> to create it.&quot;&#xD;&#xA;.&quot;\n\n## Technical message: ##\n\nERROR_MESSAGE: &quot;&#xD;&#xA;.$_globals{tFileInputDelimited_1}{ERROR_MESSAGE}&#xD;&#xA;.&quot;\n\nPERL_ERROR_MESSAGE: &quot;&#xD;&#xA;.$_globals{tFileInputDelimited_1}{PERL_ERROR_MESSAGE}&#xD;&#xA;"/>
+    <elementParameter field="MEMO" name="MESSAGE" value="'Cannot open file &quot;'.$_context{filepath}.'&quot; !'&#xD;&#xA;.&quot; Please use the job &lt;tFileOuputDelimited_CSV> to create it.&quot;&#xD;&#xA;.&quot;\n\n## Technical message: ##\n\nERROR_MESSAGE: &quot;&#xD;&#xA;.$_globals{tFileInputDelimited_1}{ERROR_MESSAGE}&#xD;&#xA;.&quot;\n\nPERL_ERROR_MESSAGE: &quot;&#xD;&#xA;.$_globals{tFileInputDelimited_1}{PERL_ERROR_MESSAGE}&#xD;&#xA;"/>
     <elementParameter field="TEXT" name="LABEL" value="__UNIQUE_NAME__"/>
     <elementParameter field="TEXT" name="HINT" value="__MESSAGE__"/>
     <elementParameter field="CHECK" name="SHOW_HINT" value="true"/>
