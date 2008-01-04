@@ -674,11 +674,9 @@ public class TalendTabbedPropertyList extends Composite {
                         children[counter++] = elements[i].getTabItem();
                     }
                     structuredItem.setExpanded(IStructuredTabItem.EXPANDED);
-                    if (oldSelectedItem == null) {
-                        fireInputChangeListeners(new TabInputChangedEvent(subItems[0], children));
-                    } else {
-                        fireInputChangeListeners(new TabInputChangedEvent(oldSelectedItem, children));
-                    }
+
+                    fireInputChangeListeners(new TabInputChangedEvent(subItems[0], children));
+
                 } else {
                     Object[] children = new Object[elements.length - subItems.length];
                     int counter = 0;
