@@ -177,4 +177,6 @@ public interface INode extends IElement {
      * @return INodeConnector
      */
     public INodeConnector getConnectorFromName(final String connector);
+
+    public void reloadComponent(IComponent component);
 }

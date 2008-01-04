@@ -544,4 +544,13 @@ public abstract class AbstractNode implements INode {
         }
         return nodeConnector;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.process.INode#reloadComponent(org.talend.core.model.components.IComponent)
+     */
+    public void reloadComponent(IComponent component) {
+        // do nothing.
+    }
 }
