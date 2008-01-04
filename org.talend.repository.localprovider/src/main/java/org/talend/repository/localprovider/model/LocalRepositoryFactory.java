@@ -219,7 +219,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                     Container<K, T> cont = toReturn.addSubContainer(current.getName());
                     FolderHelper folderHelper = getFolderHelper(getRepositoryContext().getProject().getEmfProject());
                     FolderItem folder = folderHelper.getFolder(current.getProjectRelativePath());
-                    
+
                     if (folder == null) {
                         continue;
                     }
@@ -401,6 +401,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         // 2. Img folder :
         createFolder(prj, folderHelper, RepositoryConstants.IMG_DIRECTORY);
         createFolder(prj, folderHelper, RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE);
+        createFolder(prj, folderHelper, RepositoryConstants.IMG_DIRECTORY_OF_JOBLET_OUTLINE);
 
         // 3. Bin folders :
         for (ERepositoryObjectType type : needsBinFolder) {
@@ -540,7 +541,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         return new Folder(folderItem.getProperty(), type);
     }
-    
+
     /*
      * (non-Javadoc)
      * 
@@ -1181,7 +1182,6 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
     public Property reload(Property property) {
         IFile file = URIHelper.getFile(property.eResource().getURI());
-
         List<Resource> affectedResources = xmiResourceManager.getAffectedResources(property);
         for (Resource resource : affectedResources) {
             resource.unload();
