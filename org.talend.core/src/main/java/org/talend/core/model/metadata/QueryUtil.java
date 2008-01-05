@@ -75,6 +75,9 @@ public class QueryUtil {
     }
 
     public static String generateNewQuery(IMetadataTable repositoryMetadata, String dbType, String tableName) {
+        if (repositoryMetadata == null) {
+            return "";
+        }
         List<IMetadataColumn> metaDataColumnList = repositoryMetadata.getListColumns();
         int index = metaDataColumnList.size();
         if (index == 0) {
