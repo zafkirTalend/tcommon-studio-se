@@ -13,7 +13,6 @@
 package org.talend.designer.joblet.ui.models;
 
 import org.talend.core.model.components.IComponent;
-import org.talend.core.model.process.IProcess2;
 import org.talend.core.model.properties.Property;
 
 /**
@@ -21,16 +20,7 @@ import org.talend.core.model.properties.Property;
  */
 public interface IJobletComponent extends IComponent {
 
+    String PID = "org.talend.designer.joblet";
+
     public void setProperty(Property property);
-
-    public Property getProperty();
-
-    public EJobletNodeType getJobletNodeType();
-
-    public IProcess2 getJobletGEFProcess();
-
-    /**
-     * DOC qzhang Comment method "openJobletEditor".
-     */
-    public void openJobletEditor();
 }
