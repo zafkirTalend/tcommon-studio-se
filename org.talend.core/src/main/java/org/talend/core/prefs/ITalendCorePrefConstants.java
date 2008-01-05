@@ -61,4 +61,6 @@ public interface ITalendCorePrefConstants {
 
     String DOC_GENERATION = "doc_generation"; //$NON-NLS-1$
 
+    String IREPORT_PATH = "ireport_path"; //$NON-NLS-1$
+
 }

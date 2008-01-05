@@ -128,6 +128,10 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
             addField(runInMultiThread);
 
         }
+        
+        DirectoryFieldEditor ireportPath = new DirectoryFieldEditor(ITalendCorePrefConstants.IREPORT_PATH, Messages
+                .getString("CorePreferencePage.iReportPath"), getFieldEditorParent()); //$NON-NLS-1$
+        addField(ireportPath);
         // ends
     }
 
