@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.commons.exception.ExceptionHandler;
 import org.talend.commons.exception.MessageBoxExceptionHandler;
 import org.talend.commons.exception.PersistenceException;
@@ -87,6 +88,58 @@ public class MigrationToolService implements IMigrationToolService {
         if (needSave) {
             saveProjectMigrationTasksDone(project, done);
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.core.model.migration.IMigrationToolService#executeProjectTasks(org.talend.core.model.general.Project,
+     * boolean, org.eclipse.core.runtime.IProgressMonitor)
+     */
+    public void executeProjectTasks(Project project, boolean beforeLogon, IProgressMonitor monitorWrap) {
+
+        String taskDesc = "Migration tool: project [" + project.getLabel() + "] tasks";
+        log.trace(taskDesc); //$NON-NLS-1$ //$NON-NLS-2$ 
+
+        List<IProjectMigrationTask> toExecute = GetTasksHelper.getProjectTasks(beforeLogon);
+        List<String> done = new ArrayList<String>(project.getEmfProject().getMigrationTasks());
+
+        boolean needSave = false;
+
+        for (IProjectMigrationTask task : toExecute) {
+
+            if (!done.contains(task.getId())) {
+                monitorWrap.setTaskName("Migration task " + task.getName() + " run in progress...");
+                try {
+                    switch (task.execute(project)) {
+                    case SUCCESS_WITH_ALERT:
+                        doneThisSession.add(task);
+                    case SUCCESS_NO_ALERT:
+                        log.debug("Task \"" + task.getName() + "\" done"); //$NON-NLS-1$ //$NON-NLS-2$
+                    case NOTHING_TO_DO:
+                        done.add(task.getId());
+                        needSave = true;
+                        break;
+                    case SKIPPED:
+                        log.debug("Task \"" + task.getName() + "\" skipped"); //$NON-NLS-1$ //$NON-NLS-2$
+                        break;
+                    case FAILURE:
+                    default:
+                        log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
+                        break;
+                    }
+                } catch (Exception e) {
+                    ExceptionHandler.process(e);
+                    log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
+                }
+                monitorWrap.worked(1);
+            }
+        }
+
+        if (needSave) {
+            saveProjectMigrationTasksDone(project, done);
+        }
+
     }
 
     /*

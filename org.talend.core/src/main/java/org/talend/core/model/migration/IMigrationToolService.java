@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.model.migration;
 
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.talend.core.IService;
 import org.talend.core.model.general.Project;
 
@@ -32,5 +33,7 @@ public interface IMigrationToolService extends IService {
     public boolean needExecutemigration();
 
     public void executeMigration(boolean pluginModel);
+
+    public void executeProjectTasks(Project project, boolean beforeLogon, IProgressMonitor monitorWrap);
 
 }
