@@ -33,7 +33,7 @@ public class TalendString {
      * 
      * {Category} TalendString
      * 
-     * {param} int(6) length: length of the String tio return
+     * {param} int(6) length: length of the String to return
      * 
      * {example} getAsciiRandomString(6) # Art34Z
      */
