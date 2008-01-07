@@ -108,7 +108,7 @@ public class ImportItemUtil {
         return result;
     }
 
-    public void importItemRecord(ResourcesManager manager, ItemRecord itemRecord) {
+    public void importItemRecord(ResourcesManager manager, ItemRecord itemRecord) throws PersistenceException {
         resolveItem(manager, itemRecord);
         if (itemRecord.getItem() != null) {
             ERepositoryObjectType itemType = ERepositoryObjectType.getItemType(itemRecord.getItem());
@@ -164,6 +164,9 @@ public class ImportItemUtil {
                         }
                     }
                 }
+            } catch (PersistenceException e) {
+                logError(e);
+                throw e;
             } catch (Exception e) {
                 logError(e);
             }

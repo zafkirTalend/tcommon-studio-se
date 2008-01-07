@@ -496,8 +496,8 @@ class ImportItemWizardPage extends WizardPage {
                             return;
                         }
 
-                        TarLeveledStructureProvider provider = ArchiveFileManipulations.getTarStructureProvider(
-                                sourceTarFile, getContainer().getShell());
+                        TarLeveledStructureProvider provider = ArchiveFileManipulations.getTarStructureProvider(sourceTarFile,
+                                getContainer().getShell());
                         manager = ResourcesManagerFactory.getInstance().createResourcesManager(provider);
 
                         if (!manager.collectPath2Object(provider.getRoot())) {
@@ -508,8 +508,8 @@ class ImportItemWizardPage extends WizardPage {
                         if (sourceFile == null) {
                             return;
                         }
-                        ZipLeveledStructureProvider provider = ArchiveFileManipulations.getZipStructureProvider(
-                                sourceFile, getContainer().getShell());
+                        ZipLeveledStructureProvider provider = ArchiveFileManipulations.getZipStructureProvider(sourceFile,
+                                getContainer().getShell());
                         manager = ResourcesManagerFactory.getInstance().createResourcesManager(provider);
 
                         if (!manager.collectPath2Object(provider.getRoot())) {
@@ -632,8 +632,7 @@ class ImportItemWizardPage extends WizardPage {
             IRunnableWithProgress op = new IRunnableWithProgress() {
 
                 public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException {
-                    monitor.beginTask(
-                            Messages.getString("ImportItemWizardPage.ImportSelectedItems"), checkedElements.length + 1); //$NON-NLS-1$
+                    monitor.beginTask(Messages.getString("ImportItemWizardPage.ImportSelectedItems"), checkedElements.length + 1); //$NON-NLS-1$
 
                     repositoryUtil.setErrors(false);
 
@@ -641,10 +640,13 @@ class ImportItemWizardPage extends WizardPage {
                         if (!monitor.isCanceled()) {
                             ItemRecord itemRecord = (ItemRecord) checkedElements[i];
 
-                            monitor
-                                    .subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
+                            monitor.subTask(Messages.getString("ImportItemWizardPage.Importing") + itemRecord.getItemName()); //$NON-NLS-1$
 
-                            repositoryUtil.importItemRecord(manager, itemRecord);
+                            try {
+                                repositoryUtil.importItemRecord(manager, itemRecord);
+                            } catch (PersistenceException e) {
+                                throw new InvocationTargetException(e);
+                            }
 
                             monitor.worked(1);
                         }
