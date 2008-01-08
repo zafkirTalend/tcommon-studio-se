@@ -161,9 +161,11 @@ public class QueryUtil {
     }
 
     private static String getDbTableName(Element node) {
-        IElementParameter param = node.getElementParameterFromField(EParameterFieldType.DBTABLE);
-        if (param != null && param.isShow(node.getElementParameters())) {
-            return (String) param.getValue();
+        if (node != null) { // for job settings extra.(feature 2710)
+            IElementParameter param = node.getElementParameterFromField(EParameterFieldType.DBTABLE);
+            if (param != null && param.isShow(node.getElementParameters())) {
+                return (String) param.getValue();
+            }
         }
         return null;
     }

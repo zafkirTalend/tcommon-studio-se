@@ -48,7 +48,7 @@ public class Perspective implements IPerspectiveFactory {
         String schedulerViewId = "org.talend.scheduler.views.Scheduler"; //$NON-NLS-1$
         String contextsViewId = "org.talend.designer.core.ui.views.ContextsView"; //$NON-NLS-1$
         String gefPaletteViewId = "org.eclipse.gef.ui.palette_view";
-        String statsAndLogsViewId = "org.talend.designer.core.ui.views.statsandlogs.statsAndLogsView";
+        String jobSettingsViewId = "org.talend.designer.core.ui.views.jobsettings.JobSettingsView";
 
         // leftTopLayout
         IFolderLayout leftTopLayout = layout.createFolder("navigatorLayout", IPageLayout.LEFT, new Float(0.3), //$NON-NLS-1$
@@ -71,6 +71,7 @@ public class Perspective implements IPerspectiveFactory {
                 IPageLayout.ID_EDITOR_AREA);
         bottomLayout.addView(propertyId);
         bottomLayout.addView(componentSettingViewerId);
+        bottomLayout.addView(jobSettingsViewId);
         bottomLayout.addView(epicPerlDocId);
         bottomLayout.addView(epicRegExpViewId);
         // bottomLayout.addView(epicExplainErrorsViewId);
@@ -82,7 +83,6 @@ public class Perspective implements IPerspectiveFactory {
         bottomLayout.addView(problemsViewId);
         bottomLayout.addView(modulesViewId);
         bottomLayout.addView(schedulerViewId);
-        bottomLayout.addView(statsAndLogsViewId);
 
         // rightTopLayout
         // IFolderLayout rightTopLayout = layout.createFolder("rightLayout", IPageLayout.RIGHT, new Float(0.7),

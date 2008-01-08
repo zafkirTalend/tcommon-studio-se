@@ -26,11 +26,12 @@ public enum EComponentCategory {
     CONTEXT("Context", 5),
     VERSIONS("Version", 9),
     LOGS("Logs", 6),
-    STATSANDLOGS("Statsand logs", 7),
+    STATSANDLOGS("Stats & Logs", 7),
     TECHNICAL("Technical", 8), // for non displayed parameters
     ADVANCED("Advanced", 9),
     BASIC("Basic", PROPERTY, 10),
-    ADVANCED_PROPERTIES("Properties", 11, BASIC, ADVANCED);
+    ADVANCED_PROPERTIES("Properties", 11, BASIC, ADVANCED),
+    EXTRA("Extra", 12);
 
     private String title;
 
