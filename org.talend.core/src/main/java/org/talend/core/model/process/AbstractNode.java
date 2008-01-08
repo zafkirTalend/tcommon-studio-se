@@ -548,9 +548,11 @@ public abstract class AbstractNode implements INode {
     /*
      * (non-Javadoc)
      * 
-     * @see org.talend.core.model.process.INode#reloadComponent(org.talend.core.model.components.IComponent)
+     * @see org.talend.core.model.process.INode#reloadComponent(org.talend.core.model.components.IComponent,
+     * java.util.Map)
      */
-    public void reloadComponent(IComponent component) {
-        // do nothing.
+    public void reloadComponent(IComponent component, Map<String, Object> parameters) {
+        // TODO Auto-generated method stub
+
     }
 }

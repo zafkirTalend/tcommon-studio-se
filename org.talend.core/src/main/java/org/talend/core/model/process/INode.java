@@ -27,6 +27,8 @@ import org.talend.core.model.metadata.IMetadataTable;
  */
 public interface INode extends IElement {
 
+    public static final String RELOAD_PARAMETER_KEY_METADATA_LIST = "param.metadataList";
+
     /**
      * Returns the label of the node.
      * 
@@ -178,5 +180,5 @@ public interface INode extends IElement {
      */
     public INodeConnector getConnectorFromName(final String connector);
 
-    public void reloadComponent(IComponent component);
+    public void reloadComponent(IComponent component, Map<String, Object> parameters);
 }
