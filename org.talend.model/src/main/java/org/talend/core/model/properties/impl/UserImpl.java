@@ -47,6 +47,12 @@ import org.talend.core.model.properties.UserRole;
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getProjectAuthorization <em>Project Authorization</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getModuleAuthorization <em>Module Authorization</em>}</li>
  *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getPreferredDashboardConnection <em>Preferred Dashboard Connection</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLastAdminConnectionDate <em>Last Admin Connection Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getLastStudioConnectionDate <em>Last Studio Connection Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getFirstAdminConnectionDate <em>First Admin Connection Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getFirstStudioConnectionDate <em>First Studio Connection Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getAdminConnexionNumber <em>Admin Connexion Number</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.impl.UserImpl#getStudioConnexionNumber <em>Studio Connexion Number</em>}</li>
  * </ul>
  * </p>
  *
@@ -292,6 +298,126 @@ public class UserImpl extends EObjectImpl implements User {
      * @ordered
      */
     protected DashboardConnection preferredDashboardConnection;
+
+    /**
+     * The default value of the '{@link #getLastAdminConnectionDate() <em>Last Admin Connection Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLastAdminConnectionDate()
+     * @generated
+     * @ordered
+     */
+    protected static final Date LAST_ADMIN_CONNECTION_DATE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLastAdminConnectionDate() <em>Last Admin Connection Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLastAdminConnectionDate()
+     * @generated
+     * @ordered
+     */
+    protected Date lastAdminConnectionDate = LAST_ADMIN_CONNECTION_DATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getLastStudioConnectionDate() <em>Last Studio Connection Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLastStudioConnectionDate()
+     * @generated
+     * @ordered
+     */
+    protected static final Date LAST_STUDIO_CONNECTION_DATE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getLastStudioConnectionDate() <em>Last Studio Connection Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getLastStudioConnectionDate()
+     * @generated
+     * @ordered
+     */
+    protected Date lastStudioConnectionDate = LAST_STUDIO_CONNECTION_DATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getFirstAdminConnectionDate() <em>First Admin Connection Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFirstAdminConnectionDate()
+     * @generated
+     * @ordered
+     */
+    protected static final Date FIRST_ADMIN_CONNECTION_DATE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getFirstAdminConnectionDate() <em>First Admin Connection Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFirstAdminConnectionDate()
+     * @generated
+     * @ordered
+     */
+    protected Date firstAdminConnectionDate = FIRST_ADMIN_CONNECTION_DATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getFirstStudioConnectionDate() <em>First Studio Connection Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFirstStudioConnectionDate()
+     * @generated
+     * @ordered
+     */
+    protected static final Date FIRST_STUDIO_CONNECTION_DATE_EDEFAULT = null;
+
+    /**
+     * The cached value of the '{@link #getFirstStudioConnectionDate() <em>First Studio Connection Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getFirstStudioConnectionDate()
+     * @generated
+     * @ordered
+     */
+    protected Date firstStudioConnectionDate = FIRST_STUDIO_CONNECTION_DATE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getAdminConnexionNumber() <em>Admin Connexion Number</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdminConnexionNumber()
+     * @generated
+     * @ordered
+     */
+    protected static final int ADMIN_CONNEXION_NUMBER_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getAdminConnexionNumber() <em>Admin Connexion Number</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getAdminConnexionNumber()
+     * @generated
+     * @ordered
+     */
+    protected int adminConnexionNumber = ADMIN_CONNEXION_NUMBER_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #getStudioConnexionNumber() <em>Studio Connexion Number</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getStudioConnexionNumber()
+     * @generated
+     * @ordered
+     */
+    protected static final int STUDIO_CONNEXION_NUMBER_EDEFAULT = 0;
+
+    /**
+     * The cached value of the '{@link #getStudioConnexionNumber() <em>Studio Connexion Number</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getStudioConnexionNumber()
+     * @generated
+     * @ordered
+     */
+    protected int studioConnexionNumber = STUDIO_CONNEXION_NUMBER_EDEFAULT;
 
     /**
      * <!-- begin-user-doc -->
@@ -626,6 +752,132 @@ public class UserImpl extends EObjectImpl implements User {
      * <!-- end-user-doc -->
      * @generated
      */
+    public Date getLastAdminConnectionDate() {
+        return lastAdminConnectionDate;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLastAdminConnectionDate(Date newLastAdminConnectionDate) {
+        Date oldLastAdminConnectionDate = lastAdminConnectionDate;
+        lastAdminConnectionDate = newLastAdminConnectionDate;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE, oldLastAdminConnectionDate, lastAdminConnectionDate));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Date getLastStudioConnectionDate() {
+        return lastStudioConnectionDate;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setLastStudioConnectionDate(Date newLastStudioConnectionDate) {
+        Date oldLastStudioConnectionDate = lastStudioConnectionDate;
+        lastStudioConnectionDate = newLastStudioConnectionDate;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE, oldLastStudioConnectionDate, lastStudioConnectionDate));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Date getFirstAdminConnectionDate() {
+        return firstAdminConnectionDate;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFirstAdminConnectionDate(Date newFirstAdminConnectionDate) {
+        Date oldFirstAdminConnectionDate = firstAdminConnectionDate;
+        firstAdminConnectionDate = newFirstAdminConnectionDate;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE, oldFirstAdminConnectionDate, firstAdminConnectionDate));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public Date getFirstStudioConnectionDate() {
+        return firstStudioConnectionDate;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setFirstStudioConnectionDate(Date newFirstStudioConnectionDate) {
+        Date oldFirstStudioConnectionDate = firstStudioConnectionDate;
+        firstStudioConnectionDate = newFirstStudioConnectionDate;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE, oldFirstStudioConnectionDate, firstStudioConnectionDate));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getAdminConnexionNumber() {
+        return adminConnexionNumber;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setAdminConnexionNumber(int newAdminConnexionNumber) {
+        int oldAdminConnexionNumber = adminConnexionNumber;
+        adminConnexionNumber = newAdminConnexionNumber;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER, oldAdminConnexionNumber, adminConnexionNumber));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public int getStudioConnexionNumber() {
+        return studioConnexionNumber;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setStudioConnexionNumber(int newStudioConnexionNumber) {
+        int oldStudioConnexionNumber = studioConnexionNumber;
+        studioConnexionNumber = newStudioConnexionNumber;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER, oldStudioConnexionNumber, studioConnexionNumber));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
             case PropertiesPackage.USER__PROJECT_AUTHORIZATION:
@@ -688,6 +940,18 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
                 if (resolve) return getPreferredDashboardConnection();
                 return basicGetPreferredDashboardConnection();
+            case PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE:
+                return getLastAdminConnectionDate();
+            case PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE:
+                return getLastStudioConnectionDate();
+            case PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE:
+                return getFirstAdminConnectionDate();
+            case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
+                return getFirstStudioConnectionDate();
+            case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
+                return new Integer(getAdminConnexionNumber());
+            case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
+                return new Integer(getStudioConnexionNumber());
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -743,6 +1007,24 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
                 setPreferredDashboardConnection((DashboardConnection)newValue);
                 return;
+            case PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE:
+                setLastAdminConnectionDate((Date)newValue);
+                return;
+            case PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE:
+                setLastStudioConnectionDate((Date)newValue);
+                return;
+            case PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE:
+                setFirstAdminConnectionDate((Date)newValue);
+                return;
+            case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
+                setFirstStudioConnectionDate((Date)newValue);
+                return;
+            case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
+                setAdminConnexionNumber(((Integer)newValue).intValue());
+                return;
+            case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
+                setStudioConnexionNumber(((Integer)newValue).intValue());
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -796,6 +1078,24 @@ public class UserImpl extends EObjectImpl implements User {
             case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
                 setPreferredDashboardConnection((DashboardConnection)null);
                 return;
+            case PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE:
+                setLastAdminConnectionDate(LAST_ADMIN_CONNECTION_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE:
+                setLastStudioConnectionDate(LAST_STUDIO_CONNECTION_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE:
+                setFirstAdminConnectionDate(FIRST_ADMIN_CONNECTION_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
+                setFirstStudioConnectionDate(FIRST_STUDIO_CONNECTION_DATE_EDEFAULT);
+                return;
+            case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
+                setAdminConnexionNumber(ADMIN_CONNEXION_NUMBER_EDEFAULT);
+                return;
+            case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
+                setStudioConnexionNumber(STUDIO_CONNEXION_NUMBER_EDEFAULT);
+                return;
         }
         super.eUnset(featureID);
     }
@@ -835,6 +1135,18 @@ public class UserImpl extends EObjectImpl implements User {
                 return moduleAuthorization != null && !moduleAuthorization.isEmpty();
             case PropertiesPackage.USER__PREFERRED_DASHBOARD_CONNECTION:
                 return preferredDashboardConnection != null;
+            case PropertiesPackage.USER__LAST_ADMIN_CONNECTION_DATE:
+                return LAST_ADMIN_CONNECTION_DATE_EDEFAULT == null ? lastAdminConnectionDate != null : !LAST_ADMIN_CONNECTION_DATE_EDEFAULT.equals(lastAdminConnectionDate);
+            case PropertiesPackage.USER__LAST_STUDIO_CONNECTION_DATE:
+                return LAST_STUDIO_CONNECTION_DATE_EDEFAULT == null ? lastStudioConnectionDate != null : !LAST_STUDIO_CONNECTION_DATE_EDEFAULT.equals(lastStudioConnectionDate);
+            case PropertiesPackage.USER__FIRST_ADMIN_CONNECTION_DATE:
+                return FIRST_ADMIN_CONNECTION_DATE_EDEFAULT == null ? firstAdminConnectionDate != null : !FIRST_ADMIN_CONNECTION_DATE_EDEFAULT.equals(firstAdminConnectionDate);
+            case PropertiesPackage.USER__FIRST_STUDIO_CONNECTION_DATE:
+                return FIRST_STUDIO_CONNECTION_DATE_EDEFAULT == null ? firstStudioConnectionDate != null : !FIRST_STUDIO_CONNECTION_DATE_EDEFAULT.equals(firstStudioConnectionDate);
+            case PropertiesPackage.USER__ADMIN_CONNEXION_NUMBER:
+                return adminConnexionNumber != ADMIN_CONNEXION_NUMBER_EDEFAULT;
+            case PropertiesPackage.USER__STUDIO_CONNEXION_NUMBER:
+                return studioConnexionNumber != STUDIO_CONNEXION_NUMBER_EDEFAULT;
         }
         return super.eIsSet(featureID);
     }

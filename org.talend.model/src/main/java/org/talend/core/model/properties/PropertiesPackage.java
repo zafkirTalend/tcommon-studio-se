@@ -1540,12 +1540,66 @@ public interface PropertiesPackage extends EPackage {
     int USER__PREFERRED_DASHBOARD_CONNECTION = 13;
 
     /**
+     * The feature id for the '<em><b>Last Admin Connection Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__LAST_ADMIN_CONNECTION_DATE = 14;
+
+    /**
+     * The feature id for the '<em><b>Last Studio Connection Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__LAST_STUDIO_CONNECTION_DATE = 15;
+
+    /**
+     * The feature id for the '<em><b>First Admin Connection Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__FIRST_ADMIN_CONNECTION_DATE = 16;
+
+    /**
+     * The feature id for the '<em><b>First Studio Connection Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__FIRST_STUDIO_CONNECTION_DATE = 17;
+
+    /**
+     * The feature id for the '<em><b>Admin Connexion Number</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__ADMIN_CONNEXION_NUMBER = 18;
+
+    /**
+     * The feature id for the '<em><b>Studio Connexion Number</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int USER__STUDIO_CONNEXION_NUMBER = 19;
+
+    /**
      * The number of structural features of the '<em>User</em>' class.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int USER_FEATURE_COUNT = 14;
+    int USER_FEATURE_COUNT = 20;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -4468,6 +4522,72 @@ public interface PropertiesPackage extends EPackage {
     EReference getUser_PreferredDashboardConnection();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.User#getLastAdminConnectionDate <em>Last Admin Connection Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Last Admin Connection Date</em>'.
+     * @see org.talend.core.model.properties.User#getLastAdminConnectionDate()
+     * @see #getUser()
+     * @generated
+     */
+    EAttribute getUser_LastAdminConnectionDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.User#getLastStudioConnectionDate <em>Last Studio Connection Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Last Studio Connection Date</em>'.
+     * @see org.talend.core.model.properties.User#getLastStudioConnectionDate()
+     * @see #getUser()
+     * @generated
+     */
+    EAttribute getUser_LastStudioConnectionDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.User#getFirstAdminConnectionDate <em>First Admin Connection Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>First Admin Connection Date</em>'.
+     * @see org.talend.core.model.properties.User#getFirstAdminConnectionDate()
+     * @see #getUser()
+     * @generated
+     */
+    EAttribute getUser_FirstAdminConnectionDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.User#getFirstStudioConnectionDate <em>First Studio Connection Date</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>First Studio Connection Date</em>'.
+     * @see org.talend.core.model.properties.User#getFirstStudioConnectionDate()
+     * @see #getUser()
+     * @generated
+     */
+    EAttribute getUser_FirstStudioConnectionDate();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.User#getAdminConnexionNumber <em>Admin Connexion Number</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Admin Connexion Number</em>'.
+     * @see org.talend.core.model.properties.User#getAdminConnexionNumber()
+     * @see #getUser()
+     * @generated
+     */
+    EAttribute getUser_AdminConnexionNumber();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.properties.User#getStudioConnexionNumber <em>Studio Connexion Number</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Studio Connexion Number</em>'.
+     * @see org.talend.core.model.properties.User#getStudioConnexionNumber()
+     * @see #getUser()
+     * @generated
+     */
+    EAttribute getUser_StudioConnexionNumber();
+
+    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.FolderItem <em>Folder Item</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for class '<em>Folder Item</em>'.
@@ -6801,6 +6921,54 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference USER__PREFERRED_DASHBOARD_CONNECTION = eINSTANCE.getUser_PreferredDashboardConnection();
+
+        /**
+         * The meta object literal for the '<em><b>Last Admin Connection Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute USER__LAST_ADMIN_CONNECTION_DATE = eINSTANCE.getUser_LastAdminConnectionDate();
+
+        /**
+         * The meta object literal for the '<em><b>Last Studio Connection Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute USER__LAST_STUDIO_CONNECTION_DATE = eINSTANCE.getUser_LastStudioConnectionDate();
+
+        /**
+         * The meta object literal for the '<em><b>First Admin Connection Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute USER__FIRST_ADMIN_CONNECTION_DATE = eINSTANCE.getUser_FirstAdminConnectionDate();
+
+        /**
+         * The meta object literal for the '<em><b>First Studio Connection Date</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute USER__FIRST_STUDIO_CONNECTION_DATE = eINSTANCE.getUser_FirstStudioConnectionDate();
+
+        /**
+         * The meta object literal for the '<em><b>Admin Connexion Number</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute USER__ADMIN_CONNEXION_NUMBER = eINSTANCE.getUser_AdminConnexionNumber();
+
+        /**
+         * The meta object literal for the '<em><b>Studio Connexion Number</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute USER__STUDIO_CONNEXION_NUMBER = eINSTANCE.getUser_StudioConnexionNumber();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.FolderItemImpl <em>Folder Item</em>}' class.

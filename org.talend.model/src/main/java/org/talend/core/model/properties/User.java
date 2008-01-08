@@ -33,6 +33,12 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.core.model.properties.User#getProjectAuthorization <em>Project Authorization</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getModuleAuthorization <em>Module Authorization</em>}</li>
  *   <li>{@link org.talend.core.model.properties.User#getPreferredDashboardConnection <em>Preferred Dashboard Connection</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.User#getLastAdminConnectionDate <em>Last Admin Connection Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.User#getLastStudioConnectionDate <em>Last Studio Connection Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.User#getFirstAdminConnectionDate <em>First Admin Connection Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.User#getFirstStudioConnectionDate <em>First Studio Connection Date</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.User#getAdminConnexionNumber <em>Admin Connexion Number</em>}</li>
+ *   <li>{@link org.talend.core.model.properties.User#getStudioConnexionNumber <em>Studio Connexion Number</em>}</li>
  * </ul>
  * </p>
  *
@@ -388,5 +394,161 @@ public interface User extends EObject {
      * @generated
      */
     void setPreferredDashboardConnection(DashboardConnection value);
+
+    /**
+     * Returns the value of the '<em><b>Last Admin Connection Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Last Admin Connection Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Last Admin Connection Date</em>' attribute.
+     * @see #setLastAdminConnectionDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getUser_LastAdminConnectionDate()
+     * @model unique="false"
+     * @generated
+     */
+    Date getLastAdminConnectionDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.User#getLastAdminConnectionDate <em>Last Admin Connection Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Last Admin Connection Date</em>' attribute.
+     * @see #getLastAdminConnectionDate()
+     * @generated
+     */
+    void setLastAdminConnectionDate(Date value);
+
+    /**
+     * Returns the value of the '<em><b>Last Studio Connection Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Last Studio Connection Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Last Studio Connection Date</em>' attribute.
+     * @see #setLastStudioConnectionDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getUser_LastStudioConnectionDate()
+     * @model unique="false"
+     * @generated
+     */
+    Date getLastStudioConnectionDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.User#getLastStudioConnectionDate <em>Last Studio Connection Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Last Studio Connection Date</em>' attribute.
+     * @see #getLastStudioConnectionDate()
+     * @generated
+     */
+    void setLastStudioConnectionDate(Date value);
+
+    /**
+     * Returns the value of the '<em><b>First Admin Connection Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>First Admin Connection Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>First Admin Connection Date</em>' attribute.
+     * @see #setFirstAdminConnectionDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getUser_FirstAdminConnectionDate()
+     * @model unique="false"
+     * @generated
+     */
+    Date getFirstAdminConnectionDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.User#getFirstAdminConnectionDate <em>First Admin Connection Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>First Admin Connection Date</em>' attribute.
+     * @see #getFirstAdminConnectionDate()
+     * @generated
+     */
+    void setFirstAdminConnectionDate(Date value);
+
+    /**
+     * Returns the value of the '<em><b>First Studio Connection Date</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>First Studio Connection Date</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>First Studio Connection Date</em>' attribute.
+     * @see #setFirstStudioConnectionDate(Date)
+     * @see org.talend.core.model.properties.PropertiesPackage#getUser_FirstStudioConnectionDate()
+     * @model unique="false"
+     * @generated
+     */
+    Date getFirstStudioConnectionDate();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.User#getFirstStudioConnectionDate <em>First Studio Connection Date</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>First Studio Connection Date</em>' attribute.
+     * @see #getFirstStudioConnectionDate()
+     * @generated
+     */
+    void setFirstStudioConnectionDate(Date value);
+
+    /**
+     * Returns the value of the '<em><b>Admin Connexion Number</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Admin Connexion Number</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Admin Connexion Number</em>' attribute.
+     * @see #setAdminConnexionNumber(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getUser_AdminConnexionNumber()
+     * @model
+     * @generated
+     */
+    int getAdminConnexionNumber();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.User#getAdminConnexionNumber <em>Admin Connexion Number</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Admin Connexion Number</em>' attribute.
+     * @see #getAdminConnexionNumber()
+     * @generated
+     */
+    void setAdminConnexionNumber(int value);
+
+    /**
+     * Returns the value of the '<em><b>Studio Connexion Number</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Studio Connexion Number</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Studio Connexion Number</em>' attribute.
+     * @see #setStudioConnexionNumber(int)
+     * @see org.talend.core.model.properties.PropertiesPackage#getUser_StudioConnexionNumber()
+     * @model
+     * @generated
+     */
+    int getStudioConnexionNumber();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.properties.User#getStudioConnexionNumber <em>Studio Connexion Number</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Studio Connexion Number</em>' attribute.
+     * @see #getStudioConnexionNumber()
+     * @generated
+     */
+    void setStudioConnexionNumber(int value);
 
 } // User
