@@ -41,6 +41,10 @@ public interface IComponent {
 
     String PROP_HELP = "HELP"; //$NON-NLS-1$
 
+    public static final String MULTIPLE_IN_SINGLE_OUT_TYPE = "multipleInputSingleOut";
+
+    public static final String SINGLE_IN_MULTIPLE_OUT_TYPE = "singleInMultipleOut";
+
     public String getName();
 
     public String getTranslatedName();
@@ -68,7 +72,7 @@ public interface IComponent {
     public List<? extends INodeConnector> createConnectors();
 
     public Boolean hasConditionalOutputs();
-    
+
     public Boolean isMultiplyingOutputs();
 
     public String getPluginFullName();
@@ -76,7 +80,7 @@ public interface IComponent {
     public boolean isSchemaAutoPropagated();
 
     public boolean isDataAutoPropagated();
-    
+
     public boolean useMerge();
 
     public String getVersion();
@@ -92,7 +96,9 @@ public interface IComponent {
     public String getPathSource();
 
     public List<ECodePart> getAvailableCodeParts();
-    
+
     public List<String> getPluginDependencies();
+
+    public String getComponentType();
 
 }
