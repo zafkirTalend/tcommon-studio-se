@@ -60,9 +60,10 @@ import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.properties.FileItem;
 import org.talend.core.model.properties.FolderItem;
-import org.talend.core.model.properties.HTMLDocumentationItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.JobDocumentationItem;
+import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.PropertiesFactory;
@@ -316,6 +317,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         if (PluginChecker.isDocumentationPluginLoaded()) {
             needsBinFolder.add(ERepositoryObjectType.JOBS);
         }
+        
+        if (PluginChecker.isJobLetPluginLoaded()) {
+            needsBinFolder.add(ERepositoryObjectType.JOBLETS);
+        }
+        
     }
 
     public Project createProject(String label, String description, ECodeLanguage language, User author)
@@ -891,7 +897,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         return itemResource;
     }
 
-    private Resource create(HTMLDocumentationItem item, IPath path, ERepositoryObjectType type) throws PersistenceException {
+    private Resource create(JobDocumentationItem item, IPath path, ERepositoryObjectType type) throws PersistenceException {
         Resource itemResource = xmiResourceManager.createItemResource(getProject(), item, path, type, true);
         itemResource.getContents().clear();
         itemResource.getContents().add(item.getContent());
@@ -1042,8 +1048,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.SNIPPET_ITEM:
                 itemResource = save((SnippetItem) item);
                 break;
-            case PropertiesPackage.HTML_DOCUMENTATION_ITEM:
-                itemResource = save((HTMLDocumentationItem) item);
+            case PropertiesPackage.JOB_DOCUMENTATION_ITEM:
+                itemResource = save((JobDocumentationItem) item);
+                break;
+            case PropertiesPackage.JOBLET_DOCUMENTATION_ITEM:
+                itemResource = save((JobletDocumentationItem) item);
                 break;
             default:
                 throw new UnsupportedOperationException();
@@ -1142,9 +1151,12 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.DOCUMENTATION_ITEM:
                 itemResource = create((FileItem) item, path, ERepositoryObjectType.DOCUMENTATION);
                 break;
-            case PropertiesPackage.HTML_DOCUMENTATION_ITEM:
-                itemResource = create((HTMLDocumentationItem) item, path, ERepositoryObjectType.HTML_DOC);
+            case PropertiesPackage.JOB_DOCUMENTATION_ITEM:
+                itemResource = create((JobDocumentationItem) item, path, ERepositoryObjectType.JOB_DOC);
                 break;
+            case PropertiesPackage.JOBLET_DOCUMENTATION_ITEM:
+                itemResource = create((JobletDocumentationItem) item, path, ERepositoryObjectType.JOBLET_DOC);
+                break;   
             case PropertiesPackage.ROUTINE_ITEM:
                 itemResource = create((FileItem) item, path, ERepositoryObjectType.ROUTINES);
                 break;

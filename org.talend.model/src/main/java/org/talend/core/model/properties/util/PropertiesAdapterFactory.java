@@ -199,9 +199,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseExecutionVirtualServer(ExecutionVirtualServer object) {
                 return createExecutionVirtualServerAdapter();
             }
-            public Object caseHTMLDocumentationItem(HTMLDocumentationItem object) {
-                return createHTMLDocumentationItemAdapter();
-            }
             public Object caseFileTrigger(FileTrigger object) {
                 return createFileTriggerAdapter();
             }
@@ -210,6 +207,12 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             }
             public Object caseJobletProcessItem(JobletProcessItem object) {
                 return createJobletProcessItemAdapter();
+            }
+            public Object caseJobDocumentationItem(JobDocumentationItem object) {
+                return createJobDocumentationItemAdapter();
+            }
+            public Object caseJobletDocumentationItem(JobletDocumentationItem object) {
+                return createJobletDocumentationItemAdapter();
             }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
@@ -832,20 +835,6 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
     }
 
     /**
-     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.HTMLDocumentationItem <em>HTML Documentation Item</em>}'.
-     * <!-- begin-user-doc -->
-     * This default implementation returns null so that we can easily ignore cases;
-     * it's useful to ignore a case when inheritance will catch all the cases anyway.
-     * <!-- end-user-doc -->
-     * @return the new adapter.
-     * @see org.talend.core.model.properties.HTMLDocumentationItem
-     * @generated
-     */
-    public Adapter createHTMLDocumentationItemAdapter() {
-        return null;
-    }
-
-    /**
      * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.FileTrigger <em>File Trigger</em>}'.
      * <!-- begin-user-doc -->
      * This default implementation returns null so that we can easily ignore cases;
@@ -884,6 +873,34 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createJobletProcessItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.JobDocumentationItem <em>Job Documentation Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.JobDocumentationItem
+     * @generated
+     */
+    public Adapter createJobDocumentationItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.JobletDocumentationItem <em>Joblet Documentation Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.JobletDocumentationItem
+     * @generated
+     */
+    public Adapter createJobletDocumentationItemAdapter() {
         return null;
     }
 

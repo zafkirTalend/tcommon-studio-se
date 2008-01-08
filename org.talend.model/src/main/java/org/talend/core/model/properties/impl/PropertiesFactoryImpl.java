@@ -130,10 +130,11 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
             case PropertiesPackage.CRON_UI_TALEND_TRIGGER: return createCronUITalendTrigger();
             case PropertiesPackage.SIMPLE_TALEND_TRIGGER: return createSimpleTalendTrigger();
             case PropertiesPackage.EXECUTION_VIRTUAL_SERVER: return createExecutionVirtualServer();
-            case PropertiesPackage.HTML_DOCUMENTATION_ITEM: return createHTMLDocumentationItem();
             case PropertiesPackage.FILE_TRIGGER: return createFileTrigger();
             case PropertiesPackage.FILE_TRIGGER_MASK: return createFileTriggerMask();
             case PropertiesPackage.JOBLET_PROCESS_ITEM: return createJobletProcessItem();
+            case PropertiesPackage.JOB_DOCUMENTATION_ITEM: return createJobDocumentationItem();
+            case PropertiesPackage.JOBLET_DOCUMENTATION_ITEM: return createJobletDocumentationItem();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -549,16 +550,6 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
      * <!-- end-user-doc -->
      * @generated
      */
-    public HTMLDocumentationItem createHTMLDocumentationItem() {
-        HTMLDocumentationItemImpl htmlDocumentationItem = new HTMLDocumentationItemImpl();
-        return htmlDocumentationItem;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public FileTrigger createFileTrigger() {
         FileTriggerImpl fileTrigger = new FileTriggerImpl();
         return fileTrigger;
@@ -582,6 +573,26 @@ public class PropertiesFactoryImpl extends EFactoryImpl implements PropertiesFac
     public JobletProcessItem createJobletProcessItem() {
         JobletProcessItemImpl jobletProcessItem = new JobletProcessItemImpl();
         return jobletProcessItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public JobDocumentationItem createJobDocumentationItem() {
+        JobDocumentationItemImpl jobDocumentationItem = new JobDocumentationItemImpl();
+        return jobDocumentationItem;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public JobletDocumentationItem createJobletDocumentationItem() {
+        JobletDocumentationItemImpl jobletDocumentationItem = new JobletDocumentationItemImpl();
+        return jobletDocumentationItem;
     }
 
     /**

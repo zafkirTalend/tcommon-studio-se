@@ -23,8 +23,9 @@ import org.talend.core.model.properties.DelimitedFileConnectionItem;
 import org.talend.core.model.properties.DocumentationItem;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
-import org.talend.core.model.properties.HTMLDocumentationItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobDocumentationItem;
+import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
@@ -68,9 +69,10 @@ public enum ERepositoryObjectType {
     REFERENCED_PROJECTS("repository.referencedProjects", "repository.referencedProjects.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     GENERATED("repository.generated"),
     JOBS("repository.jobs"),
-    HTML_DOC("repository.htmldoc"),
-
-    JOBLET("repository.joblets");
+    JOB_DOC("repository.jobdoc"),
+    JOBLET("repository.joblet"),
+    JOBLETS("repository.joblets"),
+    JOBLET_DOC("repository.jobletdoc");
 
     private String key;
 
@@ -159,10 +161,24 @@ public enum ERepositoryObjectType {
                 if (type == JOBS) {
                     return "documentations/generated/jobs";
                 }
-                if (type == HTML_DOC) {
+                if (type == JOB_DOC) {
                     return "documentations/generated/jobs";
                 }
             }
+            if (PluginChecker.isJobLetPluginLoaded()) {
+                if (type == GENERATED) {
+                    return "documentations/generated";
+                }
+
+                if (type == JOBLETS) {
+                    return "documentations/generated/joblets";
+                }
+
+                if (type == JOBLET_DOC) {
+                    return "documentations/generated/joblets";
+                }
+            }
+
             throw new IllegalArgumentException(Messages.getString("ERepositoryObjectType.FolderNotFound", type)); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
@@ -180,8 +196,18 @@ public enum ERepositoryObjectType {
                 return DOCUMENTATION;
             }
 
-            public Object caseHTMLDocumentationItem(HTMLDocumentationItem object) {
-                return HTML_DOC;
+            /* (non-Javadoc)
+             * @see org.talend.core.model.properties.util.PropertiesSwitch#caseJobDocumentationItem(org.talend.core.model.properties.JobDocumentationItem)
+             */
+            public Object caseJobDocumentationItem(JobDocumentationItem object) {
+                return JOB_DOC;
+            }
+            
+            /* (non-Javadoc)
+             * @see org.talend.core.model.properties.util.PropertiesSwitch#caseJobletDocumentationItem(org.talend.core.model.properties.JobletDocumentationItem)
+             */
+            public Object caseJobletDocumentationItem(JobletDocumentationItem object) {
+                return JOBLET_DOC;
             }
 
             public Object caseRoutineItem(RoutineItem object) {

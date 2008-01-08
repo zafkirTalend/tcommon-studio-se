@@ -60,7 +60,7 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
 
                 // Avoid to show this action on Node "Generated"/"Jobs" and Node HTML_DOC.
                 RepositoryNode node = (RepositoryNode) object;
-                if (node.getProperties(EProperties.CONTENT_TYPE) != ERepositoryObjectType.HTML_DOC
+                if (node.getProperties(EProperties.CONTENT_TYPE) != ERepositoryObjectType.JOB_DOC
                         && node.getContentType() != ERepositoryObjectType.GENERATED
                         && node.getContentType() != ERepositoryObjectType.JOBS) {
                     visible = true;

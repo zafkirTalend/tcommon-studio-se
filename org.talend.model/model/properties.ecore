@@ -342,7 +342,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="executionServers" unique="false"
         upperBound="-1" eType="#//ExecutionServer"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="HTMLDocumentationItem" eSuperTypes="#//FileItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="FileTrigger" eSuperTypes="#//SimpleTalendTrigger">
     <eStructuralFeatures xsi:type="ecore:EReference" name="fileTriggerMasks" upperBound="-1"
         eType="#//FileTriggerMask" containment="true"/>
@@ -363,4 +362,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="JobletProcessItem" eSuperTypes="#//Item">
     <eStructuralFeatures xsi:type="ecore:EReference" name="jobletProcess" eType="ecore:EClass joblet.ecore#//JobletProcess"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="JobDocumentationItem" eSuperTypes="#//FileItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="JobletDocumentationItem" eSuperTypes="#//FileItem"/>
 </ecore:EPackage>

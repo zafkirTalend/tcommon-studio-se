@@ -273,7 +273,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute properties.ecore#//ExecutionVirtualServer/active"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//ExecutionVirtualServer/executionServers"/>
     </genClasses>
-    <genClasses ecoreClass="properties.ecore#//HTMLDocumentationItem"/>
     <genClasses ecoreClass="properties.ecore#//FileTrigger">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference properties.ecore#//FileTrigger/fileTriggerMasks"/>
     </genClasses>
@@ -291,5 +290,7 @@
     <genClasses ecoreClass="properties.ecore#//JobletProcessItem">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference properties.ecore#//JobletProcessItem/jobletProcess"/>
     </genClasses>
+    <genClasses ecoreClass="properties.ecore#//JobDocumentationItem"/>
+    <genClasses ecoreClass="properties.ecore#//JobletDocumentationItem"/>
   </genPackages>
 </genmodel:GenModel>

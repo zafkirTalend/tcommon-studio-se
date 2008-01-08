@@ -168,7 +168,7 @@ public class HTMLDocGenerator {
         List<URL> picList = new ArrayList<URL>(5);
 
         String jobName = resource.getProcess().getProperty().getLabel();
-
+        
         String jobPath = resource.getProcess().getProperty().getItem().getState().getPath();
 
         // Used for generating/updating all jobs' documentaiton only.
@@ -330,8 +330,7 @@ public class HTMLDocGenerator {
             internalNodeComponentHandler.generateComponentInfo();
         }
 
-        if (externalNodeComponentsList.size() > 0)
-        {
+        if (externalNodeComponentsList.size() > 0) {
             ExternalNodeComponentHandler externalNodeComponentHandler = new ExternalNodeComponentHandler(this.picFilePathMap,
                     externalNodeElement, externalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
                     this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap,
@@ -339,7 +338,7 @@ public class HTMLDocGenerator {
                                          * ,
                                          */);
             // Generates external node components(tMap etc.) information.
-            
+
             externalNodeComponentHandler.generateComponentInfo();
         }
 
@@ -412,7 +411,7 @@ public class HTMLDocGenerator {
             componentItemElement.addAttribute("leftTopY", y + "");
             componentItemElement.addAttribute("rightBottomX", x + width + "");
             componentItemElement.addAttribute("rightBottomY", y + height + "");
-            
+
         }
     }
 

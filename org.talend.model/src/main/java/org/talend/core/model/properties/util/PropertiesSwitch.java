@@ -378,14 +378,6 @@ public class PropertiesSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
-            case PropertiesPackage.HTML_DOCUMENTATION_ITEM: {
-                HTMLDocumentationItem htmlDocumentationItem = (HTMLDocumentationItem)theEObject;
-                Object result = caseHTMLDocumentationItem(htmlDocumentationItem);
-                if (result == null) result = caseFileItem(htmlDocumentationItem);
-                if (result == null) result = caseItem(htmlDocumentationItem);
-                if (result == null) result = defaultCase(theEObject);
-                return result;
-            }
             case PropertiesPackage.FILE_TRIGGER: {
                 FileTrigger fileTrigger = (FileTrigger)theEObject;
                 Object result = caseFileTrigger(fileTrigger);
@@ -404,6 +396,22 @@ public class PropertiesSwitch {
                 JobletProcessItem jobletProcessItem = (JobletProcessItem)theEObject;
                 Object result = caseJobletProcessItem(jobletProcessItem);
                 if (result == null) result = caseItem(jobletProcessItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.JOB_DOCUMENTATION_ITEM: {
+                JobDocumentationItem jobDocumentationItem = (JobDocumentationItem)theEObject;
+                Object result = caseJobDocumentationItem(jobDocumentationItem);
+                if (result == null) result = caseFileItem(jobDocumentationItem);
+                if (result == null) result = caseItem(jobDocumentationItem);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
+            case PropertiesPackage.JOBLET_DOCUMENTATION_ITEM: {
+                JobletDocumentationItem jobletDocumentationItem = (JobletDocumentationItem)theEObject;
+                Object result = caseJobletDocumentationItem(jobletDocumentationItem);
+                if (result == null) result = caseFileItem(jobletDocumentationItem);
+                if (result == null) result = caseItem(jobletDocumentationItem);
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
@@ -1057,21 +1065,6 @@ public class PropertiesSwitch {
     }
 
     /**
-     * Returns the result of interpreting the object as an instance of '<em>HTML Documentation Item</em>'.
-     * <!-- begin-user-doc -->
-     * This implementation returns null;
-     * returning a non-null result will terminate the switch.
-     * <!-- end-user-doc -->
-     * @param object the target of the switch.
-     * @return the result of interpreting the object as an instance of '<em>HTML Documentation Item</em>'.
-     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-     * @generated
-     */
-    public Object caseHTMLDocumentationItem(HTMLDocumentationItem object) {
-        return null;
-    }
-
-    /**
      * Returns the result of interpreting the object as an instance of '<em>File Trigger</em>'.
      * <!-- begin-user-doc -->
      * This implementation returns null;
@@ -1113,6 +1106,36 @@ public class PropertiesSwitch {
      * @generated
      */
     public Object caseJobletProcessItem(JobletProcessItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Job Documentation Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Job Documentation Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseJobDocumentationItem(JobDocumentationItem object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>Joblet Documentation Item</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>Joblet Documentation Item</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseJobletDocumentationItem(JobletDocumentationItem object) {
         return null;
     }
 

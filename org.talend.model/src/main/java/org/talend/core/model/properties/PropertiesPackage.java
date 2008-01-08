@@ -3086,70 +3086,6 @@ public interface PropertiesPackage extends EPackage {
     int EXECUTION_VIRTUAL_SERVER_FEATURE_COUNT = 5;
 
     /**
-     * The meta object id for the '{@link org.talend.core.model.properties.impl.HTMLDocumentationItemImpl <em>HTML Documentation Item</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.talend.core.model.properties.impl.HTMLDocumentationItemImpl
-     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHTMLDocumentationItem()
-     * @generated
-     */
-    int HTML_DOCUMENTATION_ITEM = 43;
-
-    /**
-     * The feature id for the '<em><b>Property</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HTML_DOCUMENTATION_ITEM__PROPERTY = FILE_ITEM__PROPERTY;
-
-    /**
-     * The feature id for the '<em><b>State</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HTML_DOCUMENTATION_ITEM__STATE = FILE_ITEM__STATE;
-
-    /**
-     * The feature id for the '<em><b>Name</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HTML_DOCUMENTATION_ITEM__NAME = FILE_ITEM__NAME;
-
-    /**
-     * The feature id for the '<em><b>Extension</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HTML_DOCUMENTATION_ITEM__EXTENSION = FILE_ITEM__EXTENSION;
-
-    /**
-     * The feature id for the '<em><b>Content</b></em>' reference.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HTML_DOCUMENTATION_ITEM__CONTENT = FILE_ITEM__CONTENT;
-
-    /**
-     * The number of structural features of the '<em>HTML Documentation Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HTML_DOCUMENTATION_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.impl.FileTriggerImpl <em>File Trigger</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3157,7 +3093,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTrigger()
      * @generated
      */
-    int FILE_TRIGGER = 44;
+    int FILE_TRIGGER = 43;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3302,7 +3238,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFileTriggerMask()
      * @generated
      */
-    int FILE_TRIGGER_MASK = 45;
+    int FILE_TRIGGER_MASK = 44;
 
     /**
      * The feature id for the '<em><b>Id</b></em>' attribute.
@@ -3402,7 +3338,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletProcessItem()
      * @generated
      */
-    int JOBLET_PROCESS_ITEM = 46;
+    int JOBLET_PROCESS_ITEM = 45;
 
     /**
      * The feature id for the '<em><b>Property</b></em>' reference.
@@ -3441,13 +3377,141 @@ public interface PropertiesPackage extends EPackage {
     int JOBLET_PROCESS_ITEM_FEATURE_COUNT = ITEM_FEATURE_COUNT + 1;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.JobDocumentationItemImpl <em>Job Documentation Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.JobDocumentationItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobDocumentationItem()
+     * @generated
+     */
+    int JOB_DOCUMENTATION_ITEM = 46;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_DOCUMENTATION_ITEM__PROPERTY = FILE_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_DOCUMENTATION_ITEM__STATE = FILE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_DOCUMENTATION_ITEM__NAME = FILE_ITEM__NAME;
+
+    /**
+     * The feature id for the '<em><b>Extension</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_DOCUMENTATION_ITEM__EXTENSION = FILE_ITEM__EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_DOCUMENTATION_ITEM__CONTENT = FILE_ITEM__CONTENT;
+
+    /**
+     * The number of structural features of the '<em>Job Documentation Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOB_DOCUMENTATION_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
+
+    /**
+     * The meta object id for the '{@link org.talend.core.model.properties.impl.JobletDocumentationItemImpl <em>Joblet Documentation Item</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.properties.impl.JobletDocumentationItemImpl
+     * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletDocumentationItem()
+     * @generated
+     */
+    int JOBLET_DOCUMENTATION_ITEM = 47;
+
+    /**
+     * The feature id for the '<em><b>Property</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_DOCUMENTATION_ITEM__PROPERTY = FILE_ITEM__PROPERTY;
+
+    /**
+     * The feature id for the '<em><b>State</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_DOCUMENTATION_ITEM__STATE = FILE_ITEM__STATE;
+
+    /**
+     * The feature id for the '<em><b>Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_DOCUMENTATION_ITEM__NAME = FILE_ITEM__NAME;
+
+    /**
+     * The feature id for the '<em><b>Extension</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_DOCUMENTATION_ITEM__EXTENSION = FILE_ITEM__EXTENSION;
+
+    /**
+     * The feature id for the '<em><b>Content</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_DOCUMENTATION_ITEM__CONTENT = FILE_ITEM__CONTENT;
+
+    /**
+     * The number of structural features of the '<em>Joblet Documentation Item</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int JOBLET_DOCUMENTATION_ITEM_FEATURE_COUNT = FILE_ITEM_FEATURE_COUNT + 0;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getFolderType()
      * @generated
      */
-    int FOLDER_TYPE = 47;
+    int FOLDER_TYPE = 48;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.properties.UserProjectAuthorizationType <em>User Project Authorization Type</em>}' enum.
@@ -3457,7 +3521,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserProjectAuthorizationType()
      * @generated
      */
-    int USER_PROJECT_AUTHORIZATION_TYPE = 48;
+    int USER_PROJECT_AUTHORIZATION_TYPE = 49;
 
 
     /**
@@ -3468,7 +3532,7 @@ public interface PropertiesPackage extends EPackage {
      * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getUserModuleAuthorizationType()
      * @generated
      */
-    int USER_MODULE_AUTHORIZATION_TYPE = 49;
+    int USER_MODULE_AUTHORIZATION_TYPE = 50;
 
 
     /**
@@ -5721,16 +5785,6 @@ public interface PropertiesPackage extends EPackage {
     EReference getExecutionVirtualServer_ExecutionServers();
 
     /**
-     * Returns the meta object for class '{@link org.talend.core.model.properties.HTMLDocumentationItem <em>HTML Documentation Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>HTML Documentation Item</em>'.
-     * @see org.talend.core.model.properties.HTMLDocumentationItem
-     * @generated
-     */
-    EClass getHTMLDocumentationItem();
-
-    /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.FileTrigger <em>File Trigger</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -5880,6 +5934,26 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EReference getJobletProcessItem_JobletProcess();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.JobDocumentationItem <em>Job Documentation Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Job Documentation Item</em>'.
+     * @see org.talend.core.model.properties.JobDocumentationItem
+     * @generated
+     */
+    EClass getJobDocumentationItem();
+
+    /**
+     * Returns the meta object for class '{@link org.talend.core.model.properties.JobletDocumentationItem <em>Joblet Documentation Item</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Joblet Documentation Item</em>'.
+     * @see org.talend.core.model.properties.JobletDocumentationItem
+     * @generated
+     */
+    EClass getJobletDocumentationItem();
 
     /**
      * Returns the meta object for enum '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}'.
@@ -7753,16 +7827,6 @@ public interface PropertiesPackage extends EPackage {
         EReference EXECUTION_VIRTUAL_SERVER__EXECUTION_SERVERS = eINSTANCE.getExecutionVirtualServer_ExecutionServers();
 
         /**
-         * The meta object literal for the '{@link org.talend.core.model.properties.impl.HTMLDocumentationItemImpl <em>HTML Documentation Item</em>}' class.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @see org.talend.core.model.properties.impl.HTMLDocumentationItemImpl
-         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getHTMLDocumentationItem()
-         * @generated
-         */
-        EClass HTML_DOCUMENTATION_ITEM = eINSTANCE.getHTMLDocumentationItem();
-
-        /**
          * The meta object literal for the '{@link org.talend.core.model.properties.impl.FileTriggerImpl <em>File Trigger</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -7879,6 +7943,26 @@ public interface PropertiesPackage extends EPackage {
          * @generated
          */
         EReference JOBLET_PROCESS_ITEM__JOBLET_PROCESS = eINSTANCE.getJobletProcessItem_JobletProcess();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.JobDocumentationItemImpl <em>Job Documentation Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.JobDocumentationItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobDocumentationItem()
+         * @generated
+         */
+        EClass JOB_DOCUMENTATION_ITEM = eINSTANCE.getJobDocumentationItem();
+
+        /**
+         * The meta object literal for the '{@link org.talend.core.model.properties.impl.JobletDocumentationItemImpl <em>Joblet Documentation Item</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.properties.impl.JobletDocumentationItemImpl
+         * @see org.talend.core.model.properties.impl.PropertiesPackageImpl#getJobletDocumentationItem()
+         * @generated
+         */
+        EClass JOBLET_DOCUMENTATION_ITEM = eINSTANCE.getJobletDocumentationItem();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.

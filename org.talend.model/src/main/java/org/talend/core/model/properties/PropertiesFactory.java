@@ -364,15 +364,6 @@ public interface PropertiesFactory extends EFactory {
     ExecutionVirtualServer createExecutionVirtualServer();
 
     /**
-     * Returns a new object of class '<em>HTML Documentation Item</em>'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return a new object of class '<em>HTML Documentation Item</em>'.
-     * @generated
-     */
-    HTMLDocumentationItem createHTMLDocumentationItem();
-
-    /**
      * Returns a new object of class '<em>File Trigger</em>'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -398,6 +389,24 @@ public interface PropertiesFactory extends EFactory {
      * @generated
      */
     JobletProcessItem createJobletProcessItem();
+
+    /**
+     * Returns a new object of class '<em>Job Documentation Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Job Documentation Item</em>'.
+     * @generated
+     */
+    JobDocumentationItem createJobDocumentationItem();
+
+    /**
+     * Returns a new object of class '<em>Joblet Documentation Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Joblet Documentation Item</em>'.
+     * @generated
+     */
+    JobletDocumentationItem createJobletDocumentationItem();
 
     /**
      * Returns a new object of class '<em>User Role</em>'.

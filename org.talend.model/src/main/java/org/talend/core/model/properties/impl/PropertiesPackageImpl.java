@@ -36,9 +36,10 @@ import org.talend.core.model.properties.FileTriggerMask;
 import org.talend.core.model.properties.FolderItem;
 import org.talend.core.model.properties.FolderType;
 import org.talend.core.model.properties.GenericSchemaConnectionItem;
-import org.talend.core.model.properties.HTMLDocumentationItem;
 import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ItemState;
+import org.talend.core.model.properties.JobDocumentationItem;
+import org.talend.core.model.properties.JobletDocumentationItem;
 import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.LDAPSchemaConnectionItem;
 import org.talend.core.model.properties.LdifFileConnectionItem;
@@ -334,12 +335,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    private EClass htmlDocumentationItemEClass = null;
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     private EClass fileTriggerEClass = null;
 
     /**
@@ -353,6 +348,20 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass jobletProcessItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass jobDocumentationItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass jobletDocumentationItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -2177,14 +2186,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
-    public EClass getHTMLDocumentationItem() {
-        return htmlDocumentationItemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc --> <!-- end-user-doc -->
-     * @generated
-     */
     public EClass getFileTrigger() {
         return fileTriggerEClass;
     }
@@ -2293,6 +2294,24 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EReference getJobletProcessItem_JobletProcess() {
         return (EReference)jobletProcessItemEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getJobDocumentationItem() {
+        return jobDocumentationItemEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getJobletDocumentationItem() {
+        return jobletDocumentationItemEClass;
     }
 
     /**
@@ -2638,8 +2657,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         createEAttribute(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__ACTIVE);
         createEReference(executionVirtualServerEClass, EXECUTION_VIRTUAL_SERVER__EXECUTION_SERVERS);
 
-        htmlDocumentationItemEClass = createEClass(HTML_DOCUMENTATION_ITEM);
-
         fileTriggerEClass = createEClass(FILE_TRIGGER);
         createEReference(fileTriggerEClass, FILE_TRIGGER__FILE_TRIGGER_MASKS);
 
@@ -2656,6 +2673,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         jobletProcessItemEClass = createEClass(JOBLET_PROCESS_ITEM);
         createEReference(jobletProcessItemEClass, JOBLET_PROCESS_ITEM__JOBLET_PROCESS);
+
+        jobDocumentationItemEClass = createEClass(JOB_DOCUMENTATION_ITEM);
+
+        jobletDocumentationItemEClass = createEClass(JOBLET_DOCUMENTATION_ITEM);
 
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
@@ -2716,9 +2737,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         cronTalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
         cronUITalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
         simpleTalendTriggerEClass.getESuperTypes().add(this.getTalendTrigger());
-        htmlDocumentationItemEClass.getESuperTypes().add(this.getFileItem());
         fileTriggerEClass.getESuperTypes().add(this.getSimpleTalendTrigger());
         jobletProcessItemEClass.getESuperTypes().add(this.getItem());
+        jobDocumentationItemEClass.getESuperTypes().add(this.getFileItem());
+        jobletDocumentationItemEClass.getESuperTypes().add(this.getFileItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -2983,8 +3005,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEAttribute(getExecutionVirtualServer_Active(), theEcorePackage.getEBoolean(), "active", null, 0, 1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getExecutionVirtualServer_ExecutionServers(), this.getExecutionServer(), null, "executionServers", null, 0, -1, ExecutionVirtualServer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-        initEClass(htmlDocumentationItemEClass, HTMLDocumentationItem.class, "HTMLDocumentationItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
         initEClass(fileTriggerEClass, FileTrigger.class, "FileTrigger", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getFileTrigger_FileTriggerMasks(), this.getFileTriggerMask(), null, "fileTriggerMasks", null, 0, -1, FileTrigger.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -3001,6 +3021,10 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         initEClass(jobletProcessItemEClass, JobletProcessItem.class, "JobletProcessItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
         initEReference(getJobletProcessItem_JobletProcess(), theJobletPackage.getJobletProcess(), null, "jobletProcess", null, 0, 1, JobletProcessItem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+        initEClass(jobDocumentationItemEClass, JobDocumentationItem.class, "JobDocumentationItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(jobletDocumentationItemEClass, JobletDocumentationItem.class, "JobletDocumentationItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

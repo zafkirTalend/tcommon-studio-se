@@ -24,6 +24,8 @@ public class PluginChecker {
     private static final String DOCUMENTATION_PLUGIN_ID = "org.talend.repository.documentation";
 
     private static final String SNIPPET_PLUGIN_ID = "org.talend.snippets";
+    
+    private static final String JOBLET_PLUGIN_ID = "org.talend.designer.joblet";
 
     /**
      * Check if specific plug-in is loaded.
@@ -55,6 +57,14 @@ public class PluginChecker {
      */
     public static boolean isSnippetsPluginLoaded() {
         return isPluginLoaded(SNIPPET_PLUGIN_ID);
+    }
+
+    /**
+     * DOC tang Comment method "isJobLetPluginLoaded".
+     * @return
+     */
+    public static boolean isJobLetPluginLoaded() {
+        return isPluginLoaded(JOBLET_PLUGIN_ID);
     }
 
 }
