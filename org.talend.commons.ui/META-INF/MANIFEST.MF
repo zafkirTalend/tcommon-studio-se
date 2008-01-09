@@ -66,5 +66,4 @@ Export-Package: org.talend.commons.exception,
  org.talend.commons.utils.workbench.gef,
  org.talend.commons.utils.workbench.preferences,
  org.talend.expressionbuilder,
- org.talend.expressionbuilder.test.shadow,
  org.talend.expressionbuilder.ui

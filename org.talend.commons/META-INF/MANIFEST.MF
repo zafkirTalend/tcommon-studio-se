@@ -29,5 +29,6 @@ Export-Package: org.talend.commons,
  org.talend.commons.utils.workbench.extensions,
  org.talend.commons.utils.workbench.preferences,
  org.talend.commons.utils.workbench.resources,
- org.talend.commons.xml
+ org.talend.commons.xml,
+ org.talend.expressionbuilder.test.shadow
 Bundle-Vendor: .Talend SA.
