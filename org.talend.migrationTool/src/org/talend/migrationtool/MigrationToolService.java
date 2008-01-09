@@ -110,6 +110,7 @@ public class MigrationToolService implements IMigrationToolService {
 
             if (!done.contains(task.getId())) {
                 monitorWrap.setTaskName("Migration task " + task.getName() + " run in progress...");
+                monitorWrap.worked(2);
                 try {
                     switch (task.execute(project)) {
                     case SUCCESS_WITH_ALERT:
@@ -132,7 +133,6 @@ public class MigrationToolService implements IMigrationToolService {
                     ExceptionHandler.process(e);
                     log.debug("Task \"" + task.getName() + "\" failed"); //$NON-NLS-1$ //$NON-NLS-2$
                 }
-                monitorWrap.worked(1);
             }
         }
 
