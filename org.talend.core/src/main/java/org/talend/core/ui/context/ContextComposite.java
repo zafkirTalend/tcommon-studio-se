@@ -98,7 +98,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
      * @param jobContextManager
      */
     public void refreshChildrenUI() {
-        template.setCommandStack(getCommandStack());
+        // template.setCommandStack(getCommandStack());
         template.refresh();
         treeValues.refresh();
         tableValues.refresh();
@@ -111,7 +111,7 @@ public abstract class ContextComposite extends Composite implements IContextMode
      * @param jobContextManager
      */
     public void clearChildrenUI() {
-        template.setCommandStack(null);
+        // template.setCommandStack(null);
         template.clear();
         treeValues.clear();
         tableValues.clear();

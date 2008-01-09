@@ -12,6 +12,7 @@
 // ============================================================================
 package org.talend.core.ui.context;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -21,15 +22,15 @@ import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ICellEditorListener;
 import org.eclipse.jface.viewers.ICellModifier;
-import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.ITableLabelProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TextCellEditor;
+import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.TableEditor;
+import org.eclipse.swt.custom.TreeEditor;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -37,15 +38,16 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.ToolBar;
 import org.eclipse.swt.widgets.ToolItem;
+import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeColumn;
+import org.eclipse.swt.widgets.TreeItem;
 import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
@@ -61,7 +63,7 @@ public class ConextTableValuesComposite extends Composite {
 
     public static final int CONTEXT_COLUMN_WIDTH = 200;
 
-    private TableViewer viewer;
+    private TreeViewer viewer;
 
     private IContextModelManager modelManager = null;
 
@@ -99,60 +101,88 @@ public class ConextTableValuesComposite extends Composite {
 
         createToolBar(toolBar);
 
-        viewer = new TableViewer(this, SWT.MULTI | SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-        ViewerProvider provider = new ViewerProvider();
-        viewer.setLabelProvider(provider);
-        viewer.setContentProvider(provider);
-        final Table table = viewer.getTable();
-        table.setHeaderVisible(true);
-        table.setLinesVisible(true);
-        GridDataFactory.swtDefaults().align(SWT.FILL, SWT.FILL).grab(true, true).applyTo(table);
+        viewer = new TreeViewer(this, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
+        final Tree tree = viewer.getTree();
+        tree.setHeaderVisible(true);
+        tree.setLinesVisible(true);
+        tree.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+        TreeColumn column = new TreeColumn(tree, SWT.NONE);
+        column.setText(COLUMN_NAME_PROPERTY);
+        column.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
+
+        List<IContext> contextList = getContexts();
+        for (IContext context : contextList) {
+            column = new TreeColumn(tree, SWT.NONE);
+            column.setText(context.getName());
+            column.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
+        }
+
+        CellEditor[] cellEditors = new CellEditor[getContexts().size() + 1];
+        for (int i = 0; i < getContexts().size() + 1; i++) {
+            if (i == 0) {
+                cellEditors[i] = null;
+            } else {
+                cellEditors[i] = new TextCellEditor(tree);
+            }
+        }
+        properties = new String[contextList.size() + 1];
+        properties[0] = COLUMN_NAME_PROPERTY;
+        for (int i = 0; i < contextList.size(); i++) {
+            properties[i + 1] = contextList.get(i).getName();
+        }
+        viewer.setColumnProperties(properties);
+        viewer.setCellEditors(cellEditors);
+        tree.layout();
         cellModifier = new CellModifier();
         viewer.setCellModifier(cellModifier);
 
-        final TableEditor treeEditor = new TableEditor(table);
-        createEditorListener(treeEditor);
-        table.addMouseListener(new MouseAdapter() {
+        GroupBySourceProvier provider = new GroupBySourceProvier();
+        viewer.setLabelProvider(provider);
+        viewer.setContentProvider(provider);
+
+        addSorter(viewer);
+
+        final TreeEditor treeEditor = new TreeEditor(tree);
+        createEditorListener(treeEditor, tree.getColumnCount() - 1);
+        tree.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseDown(MouseEvent e) {
+                List<IContext> contexts = getContexts();
+                int count = 0;
+                for (IContext context : contexts) {
+                    count++;
+                }
                 if (modelManager.isReadOnly()) {
                     return;
                 }
                 Point pt = new Point(e.x, e.y);
-                TableItem item = table.getItem(pt);
+                TreeItem item = tree.getItem(pt);
                 // deactivate the current cell editor
                 if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
-                    deactivateCellEditor(treeEditor);
+                    deactivateCellEditor(treeEditor, tree.getColumnCount() - 1);
                 }
                 if (item != null && !item.isDisposed()) {
-                    for (int i = 0; i < table.getColumnCount(); i++) {
-                        Rectangle rect = item.getBounds(i);
-                        if (rect.contains(pt)) {
-                            int columnIndex = i;
-                            handleSelect(item, table, treeEditor, columnIndex);
+                    Rectangle rect = item.getBounds(tree.getColumnCount() - 1);
+                    if (rect.contains(pt)) {
+                        if (e.x > 0) {
+                            handleSelect(item, tree, treeEditor, tree.getColumnCount() - 1, e.x / CONTEXT_COLUMN_WIDTH);
                         }
-
                     }
                 }
             }
         });
-
     }
 
-    /**
-     * DOC bqian Comment method "addSorter".
-     * 
-     * @param viewer2
-     */
-    private void addSorter(final TableViewer tableViewer) {
-        final Table table = tableViewer.getTable();
+    private void addSorter(final TreeViewer viewer2) {
+        final Tree table = viewer2.getTree();
         Listener sortListener = new Listener() {
 
             private int direction = 1;
 
             public void handleEvent(Event e) {
-                final TableColumn column = (TableColumn) e.widget;
+                final TreeColumn column = (TreeColumn) e.widget;
 
                 if (column == table.getSortColumn()) {
                     direction = -direction;
@@ -164,7 +194,7 @@ public class ConextTableValuesComposite extends Composite {
                 }
 
                 table.setSortColumn(column);
-                tableViewer.setSorter(new ViewerSorter() {
+                viewer2.setSorter(new ViewerSorter() {
 
                     int index = 0;
 
@@ -178,7 +208,7 @@ public class ConextTableValuesComposite extends Composite {
 
                     @Override
                     public int compare(Viewer viewer, Object e1, Object e2) {
-                        ITableLabelProvider labelProvider = (ITableLabelProvider) tableViewer.getLabelProvider();
+                        ITableLabelProvider labelProvider = (ITableLabelProvider) viewer2.getLabelProvider();
                         String columnText = labelProvider.getColumnText(e1, index) != null ? labelProvider.getColumnText(e1,
                                 index) : "";
                         String columnText2 = labelProvider.getColumnText(e2, index) != null ? labelProvider.getColumnText(e2,
@@ -186,12 +216,103 @@ public class ConextTableValuesComposite extends Composite {
                         return getComparator().compare(columnText, columnText2) * direction;
                     }
                 });
+                viewer2.expandAll();
             }
         };
         table.getColumn(0).addListener(SWT.Selection, sortListener);
+        // if (table.getColumn(1) != null) {
+        // table.getColumn(1).addListener(SWT.Selection, sortListener);
+        // }
+        if (getContexts().size() > 0) {
+            for (int i = 0; i < getContexts().size(); i++) {
+                table.getColumn(i + 1).addListener(SWT.Selection, sortListener);
+            }
+        }
         table.setSortColumn(table.getColumn(0));
         table.setSortDirection(SWT.UP);
+    }
 
+    private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor, int columnIndex, int column) {
+        // ensure the cell editor is visible
+        tree.showSelection();
+
+        if (properties[columnIndex].equals(COLUMN_NAME_PROPERTY)) {
+            return;
+        }
+
+        IContextParameter para = cellModifier.getRealParameter(properties[column], item.getData());
+
+        // IContextParameter para = cellModifier.getRealParameter(item.getData());
+        if (para == null) {
+            return;
+        }
+        if (!para.isBuiltIn()) {
+            // not built-in
+            return;
+        }
+        cellEditor = cellFactory.getCustomCellEditor(para, tree);
+
+        if (cellEditor == null) {
+            // unable to create the editor
+            return;
+        }
+        // activate the cell editor
+        cellEditor.activate();
+        // if the cell editor has no control we can stop now
+        Control control = cellEditor.getControl();
+        if (control == null) {
+            cellEditor.deactivate();
+            cellEditor = null;
+            return;
+        }
+        // add our editor listener
+        cellEditor.addListener(createEditorListener(treeEditor, columnIndex));
+
+        // set the layout of the tree editor to match the cell editor
+        CellEditor.LayoutData layout = cellEditor.getLayoutData();
+        treeEditor.horizontalAlignment = layout.horizontalAlignment;
+        treeEditor.grabHorizontal = layout.grabHorizontal;
+        treeEditor.minimumWidth = layout.minimumWidth;
+
+        // List<IContext> contexts = getContexts();
+        // int count = 0;
+        // for (IContext context : contexts) {
+        // count++;
+        // }
+        treeEditor.setEditor(control, item, columnIndex);
+        // give focus to the cell editor
+        cellEditor.setFocus();
+
+    }
+
+    protected void handleSelect(final TreeItem item, final Tree tree, final TreeEditor treeEditor, int columnIndex, int column) {
+        // get the new selection
+        activateCellEditor(item, tree, treeEditor, columnIndex, column);
+    }
+
+    private void deactivateCellEditor(final TreeEditor tableEditor, int columnIndex) {
+        tableEditor.setEditor(null, null, columnIndex);
+        if (cellEditor != null) {
+            cellEditor.deactivate();
+            cellEditor.removeListener(editorListener);
+            cellEditor = null;
+        }
+    }
+
+    private ICellEditorListener createEditorListener(final TreeEditor tableEditor, final int columnIndex) {
+        editorListener = new ICellEditorListener() {
+
+            public void cancelEditor() {
+                deactivateCellEditor(tableEditor, columnIndex);
+            }
+
+            public void editorValueChanged(boolean oldValidState, boolean newValidState) {
+            }
+
+            public void applyEditorValue() {
+            }
+        };
+        return editorListener;
     }
 
     /**
@@ -218,79 +339,6 @@ public class ConextTableValuesComposite extends Composite {
 
     }
 
-    private void activateCellEditor(final TableItem item, final Table table, final TableEditor treeEditor, int columnIndex) {
-        // ensure the cell editor is visible
-        table.showSelection();
-        if (properties[columnIndex].equals(COLUMN_NAME_PROPERTY)) {
-            return;
-        }
-
-        IContextParameter para = cellModifier.getRealParameter(properties[columnIndex], (IContextParameter) item.getData());
-        if (para == null) {
-            return;
-        }
-        if (!para.isBuiltIn()) {
-            return;
-        }
-        cellEditor = cellFactory.getCustomCellEditor(para, table);
-
-        if (cellEditor == null) {
-            // unable to create the editor
-            return;
-        }
-        // activate the cell editor
-        cellEditor.activate();
-        // if the cell editor has no control we can stop now
-        Control control = cellEditor.getControl();
-        if (control == null) {
-            cellEditor.deactivate();
-            cellEditor = null;
-            return;
-        }
-        // add our editor listener
-        cellEditor.addListener(createEditorListener(treeEditor));
-
-        // set the layout of the tree editor to match the cell editor
-        CellEditor.LayoutData layout = cellEditor.getLayoutData();
-        treeEditor.horizontalAlignment = layout.horizontalAlignment;
-        treeEditor.grabHorizontal = layout.grabHorizontal;
-        treeEditor.minimumWidth = layout.minimumWidth;
-        treeEditor.setEditor(control, item, columnIndex);
-        // give focus to the cell editor
-        cellEditor.setFocus();
-
-    }
-
-    protected void handleSelect(final TableItem item, final Table tree, final TableEditor treeEditor, int columnIndex) {
-        // get the new selection
-        activateCellEditor(item, tree, treeEditor, columnIndex);
-    }
-
-    private void deactivateCellEditor(final TableEditor tableEditor) {
-        // tableEditor.setEditor(null, null, 4);
-        if (cellEditor != null) {
-            cellEditor.deactivate();
-            cellEditor.removeListener(editorListener);
-            cellEditor = null;
-        }
-    }
-
-    private ICellEditorListener createEditorListener(final TableEditor tableEditor) {
-        editorListener = new ICellEditorListener() {
-
-            public void cancelEditor() {
-                deactivateCellEditor(tableEditor);
-            }
-
-            public void editorValueChanged(boolean oldValidState, boolean newValidState) {
-            }
-
-            public void applyEditorValue() {
-            }
-        };
-        return editorListener;
-    }
-
     private ICellEditorListener editorListener;
 
     private CellEditor cellEditor;
@@ -303,43 +351,106 @@ public class ConextTableValuesComposite extends Composite {
      * @return
      */
     public List<IContext> getContexts() {
+        List<IContext> contexts = new ArrayList<IContext>();
         IContextManager cm = modelManager.getContextManager();
-        List<IContext> contexts = cm.getListContext();
+        if (cm != null) {
+            contexts = cm.getListContext();
+        }
         return contexts;
     }
 
     public void refresh() {
-        contextConfigButton.setEnabled(!modelManager.isReadOnly());
-        List<IContext> contexts = getContexts();
-        Table table = viewer.getTable();
-        TableColumn[] columns = table.getColumns();
-        for (TableColumn tableColumn : columns) {
+        // contextConfigButton.setEnabled(!modelManager.isReadOnly());
+        final Tree tree = viewer.getTree();
+        tree.setHeaderVisible(true);
+        tree.setLinesVisible(true);
+        tree.setLayoutData(new GridData(GridData.FILL_BOTH));
+
+        // Tree table = viewer.getTree();
+        TreeColumn[] columns = tree.getColumns();
+        for (TreeColumn tableColumn : columns) {
             tableColumn.dispose();
         }
 
-        TableColumn column = new TableColumn(table, SWT.NONE);
-        column.setText("Name");
-        column.setWidth(CONTEXT_COLUMN_WIDTH);
+        TreeColumn column = new TreeColumn(tree, SWT.NONE);
+        column.setText(COLUMN_NAME_PROPERTY);
+        column.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
 
-        CellEditor[] cellEditors = new CellEditor[contexts.size() + 1];
-        properties = new String[contexts.size() + 1];
-        properties[0] = COLUMN_NAME_PROPERTY;
-        int index = 1;
-        for (IContext context : contexts) {
-            column = new TableColumn(table, SWT.NONE);
+        // column = new TreeColumn(tree, SWT.NONE);
+        // column.setText("Default");
+        // column.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
+
+        List<IContext> contextList = getContexts();
+        for (IContext context : contextList) {
+            // if (!("Default".equals(context.getName()))) {
+            // column = new TreeColumn(tree, SWT.NONE);
+            // column.setText(context.getName());
+            // column.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
+            // }
+            column = new TreeColumn(tree, SWT.NONE);
             column.setText(context.getName());
-            column.setWidth(CONTEXT_COLUMN_WIDTH);
-            properties[index] = context.getName();
-            cellEditors[index] = new TextCellEditor(table);
-            index++;
+            column.setWidth(ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH);
         }
 
+        CellEditor[] cellEditors = new CellEditor[getContexts().size() + 1];
+        for (int i = 0; i < getContexts().size() + 1; i++) {
+            if (i == 0) {
+                cellEditors[i] = null;
+            } else {
+                cellEditors[i] = new TextCellEditor(tree);
+            }
+        }
+        properties = new String[contextList.size() + 1];
+        properties[0] = COLUMN_NAME_PROPERTY;
+        for (int i = 0; i < contextList.size(); i++) {
+            properties[i + 1] = contextList.get(i).getName();
+        }
         viewer.setColumnProperties(properties);
         viewer.setCellEditors(cellEditors);
-        table.layout();
+        tree.layout();
+        cellModifier = new CellModifier();
+        viewer.setCellModifier(cellModifier);
+
+        GroupBySourceProvier provider = new GroupBySourceProvier();
+        viewer.setLabelProvider(provider);
+        viewer.setContentProvider(provider);
+
         addSorter(viewer);
-        List<IContextParameter> contextTemplate = ConextTemplateComposite.computeContextTemplate(contexts);
+
+        final TreeEditor treeEditor = new TreeEditor(tree);
+        createEditorListener(treeEditor, tree.getColumnCount() - 1);
+        tree.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseDown(MouseEvent e) {
+                List<IContext> contexts = getContexts();
+                int count = 0;
+                for (IContext context : contexts) {
+                    count++;
+                }
+                if (modelManager.isReadOnly()) {
+                    return;
+                }
+                Point pt = new Point(e.x, e.y);
+                TreeItem item = tree.getItem(pt);
+                // deactivate the current cell editor
+                if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
+                    deactivateCellEditor(treeEditor, tree.getColumnCount() - 1);
+                }
+                if (item != null && !item.isDisposed()) {
+                    Rectangle rect = item.getBounds(tree.getColumnCount() - 1);
+                    if (rect.contains(pt)) {
+                        if (e.x > 0) {
+                            handleSelect(item, tree, treeEditor, tree.getColumnCount() - 1, e.x / CONTEXT_COLUMN_WIDTH);
+                        }
+                    }
+                }
+            }
+        });
+        List<IContextParameter> contextTemplate = ConextTemplateComposite.computeContextTemplate(contextList);
         viewer.setInput(contextTemplate);
+        viewer.expandAll();
+        contextConfigButton.setEnabled(!modelManager.isReadOnly());
     }
 
     /**
@@ -348,61 +459,12 @@ public class ConextTableValuesComposite extends Composite {
      * @param jobContextManager2
      */
     public void clear() {
-        Table table = viewer.getTable();
-        TableColumn[] columns = table.getColumns();
-        for (TableColumn tableColumn : columns) {
+        final Tree tree = viewer.getTree();
+        TreeColumn[] columns = tree.getColumns();
+        for (TreeColumn tableColumn : columns) {
             tableColumn.dispose();
         }
-        this.layout();
         viewer.setInput(Collections.EMPTY_LIST);
-    }
-
-    /**
-     * Label and content provider for table viewer. <br/>
-     * 
-     */
-    class ViewerProvider extends LabelProvider implements ITableLabelProvider, IStructuredContentProvider {
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
-         */
-        public Image getColumnImage(Object element, int columnIndex) {
-            return null;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
-         */
-        public String getColumnText(Object element, int columnIndex) {
-            IContextParameter para = (IContextParameter) element;
-            if (columnIndex == 0) {
-                return para.getName();
-            } else {
-                return getContexts().get(columnIndex - 1).getContextParameter(para.getName()).getDisplayValue();
-            }
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
-         */
-        public Object[] getElements(Object inputElement) {
-            return ((List) inputElement).toArray();
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
-         * java.lang.Object, java.lang.Object)
-         */
-        public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-        }
     }
 
     /**
@@ -419,21 +481,31 @@ public class ConextTableValuesComposite extends Composite {
          * @see org.eclipse.jface.viewers.ICellModifier#canModify(java.lang.Object, java.lang.String)
          */
         public boolean canModify(Object element, String property) {
+            IContextParameter para = null;
             if (modelManager.isReadOnly()) {
                 return false;
             }
-            if (element instanceof IContextParameter) {
-                IContextParameter param = (IContextParameter) element;
-                if (!param.isBuiltIn()) {
-                    return false;
+            List<IContext> contextList = getContexts();
+            for (int i = 0; i < (contextList.size() + 1); i++) {
+                if (property.equals(properties[i])) {
+                    para = getRealParameter(properties[i], element);
                 }
+            }
+
+            if (para == null) {
+                return false;
+            }
+
+            if (!para.isBuiltIn()) {
+                // not built-in, not update
+                return false;
             }
 
             if (property.equals(COLUMN_NAME_PROPERTY)) {
                 return false;
             }
-
             return true;
+
         }
 
         /*
@@ -442,9 +514,47 @@ public class ConextTableValuesComposite extends Composite {
          * @see org.eclipse.jface.viewers.ICellModifier#getValue(java.lang.Object, java.lang.String)
          */
         public Object getValue(Object element, String property) {
+            IContextParameter para = null;
             contextManager = modelManager.getContextManager();
-            IContextParameter templatePara = (IContextParameter) element;
-            return getRealParameter(property, templatePara).getDisplayValue();
+            List<IContext> contextList = getContexts();
+            for (int i = 0; i < (contextList.size() + 1); i++) {
+                if (property.equals(properties[i])) {
+                    para = getRealParameter(properties[i], element);
+                }
+            }
+
+            if (para != null) {
+                if (property.equals(COLUMN_NAME_PROPERTY)) {
+                    return para.getName();
+                }
+                // List<IContext> contextList = getContexts();
+                for (IContext context : contextList) {
+                    if (property.equals(context.getName())) {
+                        return para.getValue();
+                    }
+                }
+            } else {
+                if (property.equals(COLUMN_NAME_PROPERTY)) {
+                    if (!("built-in".equals(((GroupBySourceProvier.Parent) element).sourceName))) {
+                        return ((GroupBySourceProvier.Parent) element).sourceName;
+                    }
+                } else if (element instanceof GroupBySourceProvier.Parent) {
+                    StringBuffer sb = new StringBuffer();
+                    for (GroupBySourceProvier.Son son : ((GroupBySourceProvier.Parent) element).son) {
+                        for (IContextParameter contextParameter : contextManager.getContext(property).getContextParameterList()) {
+                            if (son.parameter.getName().equals(contextParameter.getName())) {
+                                if ("null".equals(contextParameter.getValue())) {
+                                    sb.append("" + "/");
+                                } else {
+                                    sb.append(contextParameter.getValue() + "/");
+                                }
+                            }
+                        }
+                    }
+                    return sb.toString().substring(0, sb.toString().lastIndexOf("/"));
+                }
+            }
+            return "";
         }
 
         /**
@@ -454,15 +564,41 @@ public class ConextTableValuesComposite extends Composite {
          * @param templatePara
          * @return
          */
-        public IContextParameter getRealParameter(String property, IContextParameter templatePara) {
-            if (contextManager == null) {
-                return null;
+        private IContextParameter getRealParameter(String property, Object element) {
+            IContextParameter para = null;
+            IContext context = null;
+            List<IContext> contextList = getContexts();
+            // if (contextManager == null) {
+            // return null;
+            // }
+            if (!(property.equals(COLUMN_NAME_PROPERTY))) {
+                context = modelManager.getContextManager().getContext(property);
+            } else {
+                if (element instanceof GroupBySourceProvier.Parent) {
+                    if ("built-in".equals(((GroupBySourceProvier.Parent) element).sourceName)) {
+                        para = contextList.get(0).getContextParameter(
+                                ((GroupBySourceProvier.Parent) element).builtContextParameter.getName());
+                        return para;
+                    } else {
+                        return para;
+                    }
+                } else if (element instanceof GroupBySourceProvier.Son) {
+                    para = contextList.get(0).getContextParameter(((GroupBySourceProvier.Son) element).parameter.getName());
+                    return para;
+                }
             }
-            IContext context = contextManager.getContext(property);
             if (context == null) {
                 return null;
             }
-            IContextParameter para = context.getContextParameter(templatePara.getName());
+            // int index = contextList.indexOf(context);
+            if (element instanceof GroupBySourceProvier.Parent) {
+                if ("built-in".equals(((GroupBySourceProvier.Parent) element).sourceName)) {
+                    para = context.getContextParameter(((GroupBySourceProvier.Parent) element).builtContextParameter.getName());
+                }
+            } else if (element instanceof GroupBySourceProvier.Son) {
+                para = context.getContextParameter(((GroupBySourceProvier.Son) element).parameter.getName());
+            }
+            // IContextParameter para = context.getContextParameter(((IContextParameter) element).getName());
             return para;
         }
 
@@ -471,29 +607,71 @@ public class ConextTableValuesComposite extends Composite {
          * 
          * @see org.eclipse.jface.viewers.ICellModifier#modify(java.lang.Object, java.lang.String, java.lang.Object)
          */
-        public void modify(Object element, String property, Object value) {
-            TableItem item = (TableItem) element;
-            final IContextParameter templatePara = (IContextParameter) item.getData();
-            final IContextParameter parameterToSet = getRealParameter(property, templatePara);
-            if (parameterToSet == null) {
+        public void modify(Object element, final String property, final Object value) {
+            TreeItem item = (TreeItem) element;
+            final Object object = item.getData();
+
+            IContextParameter para = null;
+            List<IContext> contextList = getContexts();
+            for (int i = 0; i < (contextList.size() + 1); i++) {
+                // if (!(property.equals(COLUMN_NAME_PROPERTY))) {
+                if (property.equals(properties[i])) {
+                    para = getRealParameter(properties[i], object);
+                }
+                // }
+            }
+            if (para == null) {
+                if (property.equals(COLUMN_NAME_PROPERTY)) {
+                    if (!("built-in".equals(((GroupBySourceProvier.Parent) element).sourceName))) {
+                        if (((GroupBySourceProvier.Parent) element).sourceName.equals(value)) {
+                            return;
+                        }
+                        ((GroupBySourceProvier.Parent) element).sourceName = (String) value;
+                    }
+                } else if (element instanceof GroupBySourceProvier.Parent) {
+                    StringBuffer sb = new StringBuffer();
+                    for (GroupBySourceProvier.Son son : ((GroupBySourceProvier.Parent) element).son) {
+                        for (IContextParameter contextParameter : modelManager.getContextManager().getContext(property)
+                                .getContextParameterList()) {
+                            if (son.parameter.getName().equals(contextParameter.getName())) {
+                                if ("null".equals(contextParameter.getValue())) {
+                                    sb.append("" + "/");
+                                } else {
+                                    sb.append(contextParameter.getValue() + "/");
+                                }
+                            }
+                        }
+                    }
+                    if ((sb.toString().substring(0, sb.toString().lastIndexOf("/"))).equals(value)) {
+                        return;
+                    }
+                }
                 return;
             }
-            final String value2Set = (String) value;
-            if (parameterToSet.getDisplayValue().equals(value)) {
-                return;
+
+            if (property.equals(COLUMN_NAME_PROPERTY)) {
+                if (para.getName().equals(value)) {
+                    return;
+                }
+                para.setName((String) value);
             }
-            parameterToSet.setValue(value2Set);
+
+            // List<IContext> contextList = getContexts();
+            for (IContext context : contextList) {
+                if (property.equals(context.getName())) {
+                    if (para.getValue().equals(value)) {
+                        return;
+                    }
+                    para.setValue((String) value);
+                }
+            }
             Command command = new Command() {
 
                 public void execute() {
                     modelManager.refresh();
                 }
             };
-            if (modelManager.getCommandStack() == null) {
-                command.execute();
-            } else {
-                modelManager.getCommandStack().execute(command);
-            }
+            runCommand(command);
             // set updated flag.
             if (modelManager != null) {
                 IContextManager manager = modelManager.getContextManager();
@@ -501,6 +679,425 @@ public class ConextTableValuesComposite extends Composite {
                     ((JobContextManager) manager).setModified(true);
                 }
             }
+        }
+    }
+
+    private void runCommand(Command command) {
+        if (modelManager.getCommandStack() == null) {
+            command.execute();
+        } else {
+            modelManager.getCommandStack().execute(command);
+        }
+    }
+
+    /**
+     * A label and content provider for the treeviewer which groups the Contexts by source.
+     * 
+     */
+    class GroupBySourceProvier extends ProviderProxy {
+
+        /**
+         * Temporary model for provider. <br/>
+         * 
+         */
+        class Parent {
+
+            String sourceName;
+
+            // String allValues;
+
+            IContextParameter builtContextParameter;
+
+            // String contextBuitValue;
+
+            List<Son> son = new ArrayList<Son>();
+
+        }
+
+        /**
+         * Temporary model for provider. <br/>
+         * 
+         */
+        class Son {
+
+            Parent parent;
+
+            // String value;
+
+            IContextParameter parameter;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
+         */
+        public String getColumnText(Object element, int columnIndex) {
+            int count = 0;
+            List<IContext> contextList = getContexts();
+            for (IContext context : contextList) {
+                count++;
+            }
+            // getElements(contextList);
+
+            if (element instanceof Parent) {
+                // String[] allValuesArray = ((Parent) element).allValues.split(":");
+                // String[] contextBuitValueArray = ((Parent) element).contextBuitValue.split(":");
+                if (columnIndex == 0) {
+                    if ("built-in".equals(((Parent) element).sourceName)) {
+                        if (((Parent) element).builtContextParameter != null) {
+                            if (modelManager.getContextManager().getDefaultContext().getContextParameter(
+                                    ((Parent) element).builtContextParameter.getName()) != null) {
+                                return modelManager.getContextManager().getDefaultContext().getContextParameter(
+                                        ((Parent) element).builtContextParameter.getName()).getName();
+                            }
+                        }
+                    } else {
+                        if (((Parent) element).sourceName != null) {
+                            return ((Parent) element).sourceName;
+                        }
+                    }
+                }
+
+                for (int j = 1; j <= count; j++) {
+                    if (j == 1) {
+                        if (columnIndex == j) {
+                            if ("built-in".equals(((Parent) element).sourceName)) {
+                                if (((Parent) element).builtContextParameter != null) {
+                                    if (contextList.get(columnIndex - 1).getContextParameter(
+                                            ((Parent) element).builtContextParameter.getName()) != null) {
+                                        return contextList.get(columnIndex - 1).getContextParameter(
+                                                ((Parent) element).builtContextParameter.getName()).getDisplayValue();
+                                    }
+                                }
+                            } else {
+                                StringBuffer sb = new StringBuffer();
+                                for (Son son : ((Parent) element).son) {
+                                    if (son.parameter != null) {
+                                        for (IContextParameter contextParameter : contextList.get(columnIndex - 1)
+                                                .getContextParameterList()) {
+                                            if (son.parameter.getName().equals(contextParameter.getName())) {
+                                                if ("null".equals(contextParameter.getValue())) {
+                                                    sb.append("" + "/");
+                                                } else {
+                                                    sb.append(contextParameter.getValue() + "/");
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (sb.toString().lastIndexOf("/") != -1) {
+                                    return sb.toString().substring(0, sb.toString().lastIndexOf("/"));
+                                }
+                            }
+                        }
+                    } else {
+                        if (columnIndex == j) {
+                            if ("built-in".equals(((Parent) element).sourceName)) {
+                                if (((Parent) element).builtContextParameter != null) {
+                                    if (contextList.get(columnIndex - 1).getContextParameter(
+                                            ((Parent) element).builtContextParameter.getName()) != null) {
+                                        return contextList.get(columnIndex - 1).getContextParameter(
+                                                ((Parent) element).builtContextParameter.getName()).getDisplayValue();
+                                    }
+                                }
+                            } else {
+                                StringBuffer sb = new StringBuffer();
+                                for (Son son : ((Parent) element).son) {
+                                    if (son.parameter != null) {
+                                        for (IContextParameter contextParameter : contextList.get(columnIndex - 1)
+                                                .getContextParameterList()) {
+                                            if (son.parameter.getName().equals(contextParameter.getName())) {
+                                                if ("null".equals(contextParameter.getValue())) {
+                                                    sb.append("" + "/");
+                                                } else {
+                                                    sb.append(contextParameter.getValue() + "/");
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                if (sb.toString().lastIndexOf("/") != -1) {
+                                    return sb.toString().substring(0, sb.toString().lastIndexOf("/"));
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                Son son = (Son) element;
+                if (columnIndex == 0) {
+                    if (son.parameter != null) {
+                        if (modelManager.getContextManager().getDefaultContext().getContextParameter(son.parameter.getName()) != null) {
+                            return modelManager.getContextManager().getDefaultContext().getContextParameter(
+                                    son.parameter.getName()).getName();
+                        }
+                    }
+                }
+
+                for (int j = 1; j <= count; j++) {
+                    if (j == 1) {
+                        if (columnIndex == j) {
+                            if (son.parameter != null) {
+                                for (IContextParameter contextParameter : contextList.get(columnIndex - 1)
+                                        .getContextParameterList()) {
+                                    if (son.parameter.getName().equals(contextParameter.getName())) {
+                                        return contextParameter.getValue();
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        if (columnIndex == j) {
+                            if (son.parameter != null) {
+                                for (IContextParameter contextParameter : contextList.get(columnIndex - 1)
+                                        .getContextParameterList()) {
+                                    if (son.parameter.getName().equals(contextParameter.getName())) {
+                                        return contextParameter.getValue();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return "";
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.core.ui.context.ConextTreeValuesComposite.ProviderProxy#getColumnImage(java.lang.Object, int)
+         */
+        @Override
+        public Image getColumnImage(Object element, int columnIndex) {
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
+         */
+        public Object[] getElements(Object inputElement) {
+            boolean flag = false;
+            boolean b = false;
+            boolean builtin = false;
+            int index = 0;
+            List<String> containers = new ArrayList<String>();
+            List<String> nameContainers = new ArrayList<String>();
+            List<String> oldBuiltinName = new ArrayList<String>();
+
+            List<IContextParameter> contexts = (List<IContextParameter>) inputElement;
+
+            int count = 0;
+            for (IContext context : getContexts()) {
+                count++;
+            }
+
+            if (!contexts.isEmpty()) {
+                // because all the contexts have the save templ
+                for (IContextParameter para : contexts) {
+                    flag = false;
+                    if (!containers.isEmpty()) {
+                        for (String source : containers) {
+                            if (source.equals(para.getSource())) {
+                                if (!("built-in".equals(para.getSource()))) {
+                                    flag = true;
+                                }
+                            }
+                        }
+                        if (!flag) {
+                            containers.add(para.getSource());
+                        }
+                    } else {
+                        containers.add(para.getSource());
+                    }
+                }
+            }
+
+            if (!contexts.isEmpty()) {
+                for (IContextParameter para : contexts) {
+                    nameContainers.add(para.getName());
+                }
+            }
+
+            List<Parent> root = new ArrayList<Parent>();
+
+            if (!contexts.isEmpty()) {
+                // IContext context = contexts.get(0);
+                // for (IContext context : contexts) {
+                for (String sourceName : containers) {
+                    builtin = false;
+                    Parent parent = new Parent();
+                    // StringBuffer sb = new StringBuffer();
+                    parent.sourceName = sourceName;
+                    for (String paraName : nameContainers) {
+                        for (IContextParameter para : contexts) {
+                            if (para.getName().equals(paraName)) {
+                                index = contexts.indexOf(para);
+                            }
+                        }
+                        IContextParameter contextPara = contexts.get(index);
+                        if (!("built-in".equals(contextPara.getSource()))) {
+                            if (parent.sourceName.equals(contextPara.getSource())) {
+                                // if ("null".equals(contextPara.getValue())) {
+                                // sb.append("" + "/");
+                                // } else {
+                                // sb.append(contextPara.getValue() + "/");
+                                // }
+                                Son son = new Son();
+                                son.parameter = contextPara;
+                                son.parent = parent;
+                                // son.value = "";
+                                parent.son.add(son);
+                            }
+                        } else {
+                            if ("built-in".equals(parent.sourceName)) {
+                                if (!builtin) {
+                                    b = false;
+                                    for (String name : oldBuiltinName) {
+                                        if (name.equals(contextPara.getName())) {
+                                            b = true;
+                                        }
+                                    }
+                                    if (!b) {
+                                        parent.builtContextParameter = contextPara;
+                                        oldBuiltinName.add(contextPara.getName());
+                                        builtin = true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    // if (!("built-in".equals(parent.sourceName))) {
+                    // parent.allValues = sb.toString().substring(0, sb.toString().lastIndexOf("/"));
+                    // } else {
+                    // parent.allValues = "";
+                    // }
+                    // parent.contextBuitValue = "";
+                    root.add(parent);
+                }
+
+                // for (int i = 2; i <= count; i++) {
+                // IContext con = contexts.get(i - 1);
+                // oldBuiltinName.clear();
+                // for (String sourceName : containers) {
+                // builtin = false;
+                // for (Parent parent : root) {
+                // StringBuffer parentsb = new StringBuffer(parent.allValues + ":");
+                // StringBuffer parentstrb = new StringBuffer();
+                // if (parent.sourceName.equals(sourceName)) {
+                // for (String paraName : nameContainers) {
+                // IContextParameter contextPara = con.getContextParameter(paraName);
+                // if (!("built-in".equals(contextPara.getSource()))) {
+                // if (parent.sourceName.equals(contextPara.getSource())) {
+                // if ("null".equals(contextPara.getValue())) {
+                // parentstrb.append("" + "/");
+                // } else {
+                // parentstrb.append(contextPara.getValue() + "/");
+                // }
+                // for (Son s : parent.son) {
+                // if (contextPara.getName().equals(s.parameter.getName())) {
+                // StringBuffer sonstrb = new StringBuffer(s.value + ":");
+                // sonstrb.append(contextPara.getValue());
+                // s.value = sonstrb.toString();
+                // }
+                // }
+                // }
+                // } else {
+                // if (!builtin) {
+                // b = false;
+                // for (String name : oldBuiltinName) {
+                // if (name.equals(contextPara.getName())) {
+                // b = true;
+                // }
+                // }
+                // if (!b) {
+                // if (parent.builtContextParameter.getName().equals(contextPara.getName())) {
+                // StringBuffer parentBuitstrb = new StringBuffer(parent.contextBuitValue + ":");
+                // parentBuitstrb.append(contextPara.getValue());
+                // parent.contextBuitValue = parentBuitstrb.toString();
+                // oldBuiltinName.add(contextPara.getName());
+                // builtin = true;
+                // }
+                // }
+                // }
+                //
+                // }
+                // }
+                // if (!("built-in".equals(parent.sourceName))) {
+                // parent.allValues = parentsb.append(
+                // parentstrb.toString().substring(0, parentstrb.toString().lastIndexOf("/")))
+                // .toString();
+                // }
+                // }
+                // }
+                // }
+                // }
+            }
+            return root.toArray();
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
+         */
+        public Object[] getChildren(Object parentElement) {
+            if (parentElement instanceof Parent) {
+                return ((Parent) parentElement).son.toArray();
+            }
+            return new Object[0];
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
+         */
+        public Object getParent(Object element) {
+            if (element instanceof Son) {
+                return ((Son) element).parent;
+            }
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
+         */
+        public boolean hasChildren(Object element) {
+            if (element instanceof Parent) {
+                return !((Parent) element).son.isEmpty();
+            }
+            return false;
+        }
+    }
+
+    /**
+     * A label and content provider for the treeviewer which groups the Contexts by source.
+     * 
+     */
+    abstract class ProviderProxy extends LabelProvider implements ITreeContentProvider, ITableLabelProvider {
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
+         */
+        public Image getColumnImage(Object element, int columnIndex) {
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
+         * java.lang.Object, java.lang.Object)
+         */
+        public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
         }
     }
 }
