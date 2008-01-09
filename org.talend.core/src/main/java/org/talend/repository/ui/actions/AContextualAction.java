@@ -12,13 +12,11 @@
 // ============================================================================
 package org.talend.repository.ui.actions;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.List;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.ui.IViewPart;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
@@ -27,6 +25,7 @@ import org.eclipse.ui.PlatformUI;
 import org.talend.commons.ui.swt.actions.ITreeContextualAction;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.repository.IRepositoryObject;
+import org.talend.repository.model.RepositoryNode;
 import org.talend.repository.ui.views.IRepositoryView;
 
 /**
@@ -200,6 +199,7 @@ public abstract class AContextualAction extends Action implements ITreeContextua
     protected void notifySQLBuilder(List<IRepositoryObject> list) {
         CorePlugin.getDefault().getRepositoryService().notifySQLBuilder(list);
     }
+
     /**
      * Getter for isToolbar.
      * 
@@ -218,4 +218,15 @@ public abstract class AContextualAction extends Action implements ITreeContextua
         this.isToolbar = isToolbar;
     }
 
+    /**
+     * DOC qzhang Comment method "getCurrentRepositoryNode".
+     * 
+     * @return
+     */
+    protected RepositoryNode getCurrentRepositoryNode() {
+        StructuredSelection selection = (StructuredSelection) getSelection();
+        // RepositoryNode metadataNode = getViewPart().getRoot().getChildren().get(6);
+        // RepositoryNode fileDelimitedNode = metadataNode.getChildren().get(1);
+        return (RepositoryNode) selection.getFirstElement();
+    }
 }
