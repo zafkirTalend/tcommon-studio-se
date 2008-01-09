@@ -65,9 +65,12 @@ public class XmiResourceManager {
         setUseOldProjectFile(false);
     }
 
+    public static void resetResourceSet() {
+        resourceSet = new ResourceSetImpl();
+    }
+
     public Project loadProject(IProject project) throws PersistenceException {
         URI uri = getProjectResourceUri(project);
-
         Resource resource = resourceSet.getResource(uri, true);
         Project emfProject = (Project) EcoreUtil
                 .getObjectByType(resource.getContents(), PropertiesPackage.eINSTANCE.getProject());

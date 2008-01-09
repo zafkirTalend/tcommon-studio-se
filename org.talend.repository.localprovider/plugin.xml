@@ -73,5 +73,12 @@
                tooltip="%ExportItemAction.tooltip"/>
       </actionSet>
    </extension>
+   <extension
+         point="org.talend.core.service">
+      <Service
+            class="org.talend.repository.localprovider.RepositoryLocalProviderService"
+            serviceId="IRepositoryLocalProviderService">
+      </Service>
+   </extension>
 
 </plugin>

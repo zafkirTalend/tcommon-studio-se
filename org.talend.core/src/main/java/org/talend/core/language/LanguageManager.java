@@ -32,7 +32,7 @@ public class LanguageManager {
 
     public static ECodeLanguage getCurrentLanguage() {
         if (CorePlugin.getContext().getProperty(Context.REPOSITORY_CONTEXT_KEY) == null) {
-            CorePlugin.getDefault().getRepositoryServie().initializeForTalendStartupJob();
+            CorePlugin.getDefault().getRepositoryService().initializeForTalendStartupJob();
 
             String lanType = CorePlugin.getDefault().getPluginPreferences().getString(CorePlugin.PROJECT_LANGUAGE_TYPE);
 

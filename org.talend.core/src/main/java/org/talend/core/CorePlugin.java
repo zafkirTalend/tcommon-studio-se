@@ -28,6 +28,7 @@ import org.talend.designer.components.IComponentsLocalProviderService;
 import org.talend.designer.core.IDesignerCoreService;
 import org.talend.designer.runprocess.IRunProcessService;
 import org.talend.repository.model.IProxyRepositoryFactory;
+import org.talend.repository.model.IRepositoryLocalProviderService;
 import org.talend.repository.model.IRepositoryService;
 
 /**
@@ -105,11 +106,6 @@ public class CorePlugin extends AbstractUIPlugin {
         return imageDescriptorFromPlugin(PLUGIN_ID, path);
     }
 
-    public IRepositoryService getRepositoryService() {
-        IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
-        return (IRepositoryService) service;
-    }
-
     public IProxyRepositoryFactory getProxyRepositoryFactory() {
         IRepositoryService service = getRepositoryService();
         return service.getProxyRepositoryFactory();
@@ -134,8 +130,14 @@ public class CorePlugin extends AbstractUIPlugin {
         return (ILibrariesService) GlobalServiceRegister.getDefault().getService(ILibrariesService.class);
     }
 
-    public IRepositoryService getRepositoryServie() {
-        return (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+    public IRepositoryService getRepositoryService() {
+        IService service = GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
+        return (IRepositoryService) service;
+    }
+
+    public IRepositoryLocalProviderService getRepositoryLocalProviderService() {
+        return (IRepositoryLocalProviderService) GlobalServiceRegister.getDefault().getService(
+                IRepositoryLocalProviderService.class);
     }
 
     public IComponentsLocalProviderService getComponentsLocalProviderService() {
