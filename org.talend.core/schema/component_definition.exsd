@@ -54,7 +54,7 @@
                </appInfo>
             </annotation>
          </attribute>
-         <attribute name="type" type="string">
+         <attribute name="pluginId" type="string" use="required">
             <annotation>
                <documentation>
                   

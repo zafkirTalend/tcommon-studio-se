@@ -29,6 +29,8 @@ import org.talend.core.model.temp.ECodePart;
  */
 public interface IComponent {
 
+    String JOBLET_PID = "org.talend.designer.joblet";
+
     String PROP_NAME = "NAME"; //$NON-NLS-1$
 
     String PROP_LONG_NAME = "LONG_NAME"; //$NON-NLS-1$
