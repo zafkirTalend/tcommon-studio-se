@@ -316,11 +316,11 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
 
         if (PluginChecker.isDocumentationPluginLoaded()) {
             needsBinFolder.add(ERepositoryObjectType.JOBS);
+            if (PluginChecker.isJobLetPluginLoaded()) {
+                needsBinFolder.add(ERepositoryObjectType.JOBLETS);
+            }
         }
         
-        if (PluginChecker.isJobLetPluginLoaded()) {
-            needsBinFolder.add(ERepositoryObjectType.JOBLETS);
-        }
         
     }
 

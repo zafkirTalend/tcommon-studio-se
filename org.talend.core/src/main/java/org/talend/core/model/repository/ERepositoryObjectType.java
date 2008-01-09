@@ -164,17 +164,7 @@ public enum ERepositoryObjectType {
                 if (type == JOB_DOC) {
                     return "documentations/generated/jobs";
                 }
-            }
-            if (PluginChecker.isJobLetPluginLoaded()) {
-                if (type == GENERATED) {
-                    return "documentations/generated";
-                }
-
-                if (type == JOBLETS) {
-                    return "documentations/generated/joblets";
-                }
-
-                if (type == JOBLET_DOC) {
+                if (PluginChecker.isJobLetPluginLoaded() && type == JOBLETS) {
                     return "documentations/generated/joblets";
                 }
             }
@@ -196,14 +186,18 @@ public enum ERepositoryObjectType {
                 return DOCUMENTATION;
             }
 
-            /* (non-Javadoc)
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.talend.core.model.properties.util.PropertiesSwitch#caseJobDocumentationItem(org.talend.core.model.properties.JobDocumentationItem)
              */
             public Object caseJobDocumentationItem(JobDocumentationItem object) {
                 return JOB_DOC;
             }
-            
-            /* (non-Javadoc)
+
+            /*
+             * (non-Javadoc)
+             * 
              * @see org.talend.core.model.properties.util.PropertiesSwitch#caseJobletDocumentationItem(org.talend.core.model.properties.JobletDocumentationItem)
              */
             public Object caseJobletDocumentationItem(JobletDocumentationItem object) {
