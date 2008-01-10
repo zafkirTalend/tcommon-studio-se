@@ -43,10 +43,6 @@ public interface IComponent {
 
     String PROP_HELP = "HELP"; //$NON-NLS-1$
 
-    public static final String MULTIPLE_IN_SINGLE_OUT_TYPE = "multipleInputSingleOut";
-
-    public static final String SINGLE_IN_MULTIPLE_OUT_TYPE = "singleInMultipleOut";
-
     public String getName();
 
     public String getTranslatedName();
@@ -101,6 +97,6 @@ public interface IComponent {
 
     public List<String> getPluginDependencies();
 
-    public String getComponentType();
+    public boolean isMultipleOutput();
 
 }
