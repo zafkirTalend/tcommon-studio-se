@@ -355,7 +355,7 @@ public interface IProxyRepositoryFactory {
      * @see org.talend.repository.model.IRepositoryFactory#isServerValid()
      */
     // public abstract String isServerValid();
-    public abstract void create(Item item, IPath path) throws PersistenceException;
+    public abstract void create(Item item, IPath path, boolean... isImportItem) throws PersistenceException;
 
     public abstract void save(Item item, boolean... isMigrationTask) throws PersistenceException;
 
@@ -432,6 +432,6 @@ public interface IProxyRepositoryFactory {
     public abstract RootContainer<String, IRepositoryObject> getMetadataLDAPSchema() throws PersistenceException;
 
     public List<ModuleNeeded> getModulesNeededForJobs() throws PersistenceException;
-    
+
     public void forceCreate(Item item, IPath path) throws PersistenceException;
 }

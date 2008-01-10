@@ -16,7 +16,7 @@ package org.talend.repository.documentation;
  * ftang class global comment. Detailled comment.
  */
 public enum ERepositoryActionName {
-    
+
     JOB_RESTORE("job restore"),
     JOB_MOVE("job move"),
     JOB_COPY("job copy"),
@@ -31,7 +31,7 @@ public enum ERepositoryActionName {
     FOLDER_DELETE("folder delete"),
     FOLDER_RENAME("folder rename"),
     FOLDER_MOVE("folder move");
-    
+
     private String name;
 
     /**

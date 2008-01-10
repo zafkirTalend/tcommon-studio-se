@@ -119,11 +119,9 @@ public abstract class PropertiesWizardPage extends WizardPage {
         this(pageName, property, destinationPath, false, true);
     }
 
-    protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath, boolean readOnly,
-            boolean editPath) {
+    protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath, boolean readOnly, boolean editPath) {
         super(pageName);
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                IRepositoryService.class);
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         statusHelper = new StatusHelper(service.getProxyRepositoryFactory());
         this.destinationPath = destinationPath;
 
@@ -407,7 +405,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
             nameText.setText(StringUtils.trimToEmpty(property.getLabel()));
             purposeText.setText(StringUtils.trimToEmpty(property.getPurpose()));
             descriptionText.setText(StringUtils.trimToEmpty(property.getDescription()));
-            authorText.setText(property.getAuthor().getLogin());
+            authorText.setText(StringUtils.trimToEmpty(property.getAuthor().getLogin()));
             versionText.setText(property.getVersion());
             statusText.setText(statusHelper.getStatusLabel(property.getStatusCode()));
             if (destinationPath != null) {
@@ -437,8 +435,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
             public void modifyText(ModifyEvent e) {
                 if (purposeText.getText().length() == 0) {
-                    purposeStatus = createStatus(IStatus.WARNING, Messages
-                            .getString("PropertiesWizardPage.EmptyPurposeWarning")); //$NON-NLS-1$
+                    purposeStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyPurposeWarning")); //$NON-NLS-1$
                 } else {
                     purposeStatus = createOkStatus();
                 }
@@ -451,8 +448,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
             public void modifyText(ModifyEvent e) {
                 if (descriptionText.getText().length() == 0) {
-                    commentStatus = createStatus(IStatus.WARNING, Messages
-                            .getString("PropertiesWizardPage.EmptyDescWarning")); //$NON-NLS-1$
+                    commentStatus = createStatus(IStatus.WARNING, Messages.getString("PropertiesWizardPage.EmptyDescWarning")); //$NON-NLS-1$
                 } else {
                     commentStatus = createOkStatus();
                 }
@@ -566,8 +562,7 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     public boolean isValid(String itemName) {
 
-        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(
-                IRepositoryService.class);
+        IRepositoryService service = (IRepositoryService) GlobalServiceRegister.getDefault().getService(IRepositoryService.class);
         IProxyRepositoryFactory repositoryFactory = service.getProxyRepositoryFactory();
         try {
             return repositoryFactory.isNameAvailable(property.getItem(), itemName);

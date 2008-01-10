@@ -144,7 +144,7 @@ public class ImportItemUtil {
 
             try {
                 Item tmpItem = itemRecord.getItem();
-                ProxyRepositoryFactory.getInstance().create(tmpItem, path);
+                ProxyRepositoryFactory.getInstance().create(tmpItem, path, true);
 
                 Item newItem = ProxyRepositoryFactory.getInstance().getLastVersion(tmpItem.getProperty().getId()).getProperty()
                         .getItem();
