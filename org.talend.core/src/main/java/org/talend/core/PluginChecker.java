@@ -47,10 +47,14 @@ public class PluginChecker {
         return isLoaded;
     }
 
+    public static Plugin getWSDLPlugin() {
+        return Platform.getPlugin(WSDL_PLUGIN_ID);
+    }
+
     public static boolean isWSDLPluginLoaded() {
         return isPluginLoaded(WSDL_PLUGIN_ID);
     }
-    
+
     /**
      * Checks if documentation plug-in is loaded.
      * 
