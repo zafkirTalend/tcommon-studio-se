@@ -160,6 +160,15 @@ public interface ConnectionFactory extends EFactory {
     LDAPSchemaConnection createLDAPSchemaConnection();
 
     /**
+     * Returns a new object of class '<em>WSDL Schema Connection</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>WSDL Schema Connection</em>'.
+     * @generated
+     */
+    WSDLSchemaConnection createWSDLSchemaConnection();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the package supported by this factory.

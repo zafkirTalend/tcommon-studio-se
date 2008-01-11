@@ -47,6 +47,7 @@ import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.User;
+import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 
@@ -225,9 +226,13 @@ public class RepositoryObject implements IRepositoryObject, IAdaptable {
             public Object caseJobDocumentationItem(JobDocumentationItem object) {
                 return ERepositoryObjectType.JOB_DOC;
             }
-            
+
             public Object caseJobletDocumentationItem(JobletDocumentationItem object) {
                 return ERepositoryObjectType.JOBLET_DOC;
+            }
+
+            public Object caseWSDLSchemaConnectionItem(WSDLSchemaConnectionItem object) {
+                return ERepositoryObjectType.METADATA_WSDL_SCHEMA;
             }
 
             public Object defaultCase(EObject object) {

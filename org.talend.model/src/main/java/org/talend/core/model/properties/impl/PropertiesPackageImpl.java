@@ -67,6 +67,7 @@ import org.talend.core.model.properties.UserModuleAuthorizationType;
 import org.talend.core.model.properties.UserProjectAuthorization;
 import org.talend.core.model.properties.UserProjectAuthorizationType;
 import org.talend.core.model.properties.UserRole;
+import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.designer.business.model.business.BusinessPackage;
 import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
@@ -362,6 +363,13 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      * @generated
      */
     private EClass jobletDocumentationItemEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass wsdlSchemaConnectionItemEClass = null;
 
     /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
@@ -2369,6 +2377,15 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getWSDLSchemaConnectionItem() {
+        return wsdlSchemaConnectionItemEClass;
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2738,6 +2755,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
 
         jobletDocumentationItemEClass = createEClass(JOBLET_DOCUMENTATION_ITEM);
 
+        wsdlSchemaConnectionItemEClass = createEClass(WSDL_SCHEMA_CONNECTION_ITEM);
+
         // Create enums
         folderTypeEEnum = createEEnum(FOLDER_TYPE);
         userProjectAuthorizationTypeEEnum = createEEnum(USER_PROJECT_AUTHORIZATION_TYPE);
@@ -2801,6 +2820,7 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         jobletProcessItemEClass.getESuperTypes().add(this.getItem());
         jobDocumentationItemEClass.getESuperTypes().add(this.getFileItem());
         jobletDocumentationItemEClass.getESuperTypes().add(this.getFileItem());
+        wsdlSchemaConnectionItemEClass.getESuperTypes().add(this.getConnectionItem());
 
         // Initialize classes and features; add operations and parameters
         initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -3091,6 +3111,8 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
         initEClass(jobDocumentationItemEClass, JobDocumentationItem.class, "JobDocumentationItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(jobletDocumentationItemEClass, JobletDocumentationItem.class, "JobletDocumentationItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(wsdlSchemaConnectionItemEClass, WSDLSchemaConnectionItem.class, "WSDLSchemaConnectionItem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Initialize enums and add enum literals
         initEEnum(folderTypeEEnum, FolderType.class, "FolderType");

@@ -308,6 +308,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
         needsBinFolder.add(ERepositoryObjectType.METADATA_FILE_LDIF);
         needsBinFolder.add(ERepositoryObjectType.METADATA_LDAP_SCHEMA);
         needsBinFolder.add(ERepositoryObjectType.METADATA_GENERIC_SCHEMA);
+        needsBinFolder.add(ERepositoryObjectType.METADATA_WSDL_SCHEMA);
         needsBinFolder.add(ERepositoryObjectType.PROCESS);
         needsBinFolder.add(ERepositoryObjectType.ROUTINES);
         needsBinFolder.add(ERepositoryObjectType.SNIPPETS);
@@ -1025,6 +1026,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
             case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
             case PropertiesPackage.GENERIC_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
+            case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
                 // not really usefull for ConnectionItem : it's not copied to another resource for edition
                 itemResource = save((ConnectionItem) item);
                 break;
@@ -1147,6 +1149,9 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
                 itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_LDAP_SCHEMA, path);
+                break;
+            case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
+                itemResource = create((ConnectionItem) item, ERepositoryObjectType.METADATA_WSDL_SCHEMA, path);
                 break;
             case PropertiesPackage.DOCUMENTATION_ITEM:
                 itemResource = create((FileItem) item, path, ERepositoryObjectType.DOCUMENTATION);

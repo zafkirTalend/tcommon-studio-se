@@ -5,10 +5,12 @@
  */
 package org.talend.core.model.metadata.builder.connection.impl;
 
+import java.util.ArrayList;
 import static org.talend.core.model.metadata.builder.connection.ConnectionPackage.ESCAPE;
 
 import java.util.HashMap;
 
+import java.util.List;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EDataType;
@@ -39,6 +41,7 @@ import org.talend.core.model.metadata.builder.connection.Query;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.RowSeparator;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
+import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 
@@ -157,6 +160,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     private EClass ldapSchemaConnectionEClass = null;
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass wsdlSchemaConnectionEClass = null;
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -191,6 +201,13 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      * @generated
      */
     private EDataType mapEDataType = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EDataType listEDataType = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -1326,6 +1343,123 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getWSDLSchemaConnection() {
+        return wsdlSchemaConnectionEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_WSDL() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(0);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_NeedAuth() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(1);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_MethodName() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_Parameters() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_UserName() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_Password() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_UseProxy() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_ProxyHost() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(7);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_ProxyPort() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(8);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_ProxyUser() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(9);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_ProxyPassword() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(10);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_Value() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(11);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1371,6 +1505,15 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
      */
     public EDataType getMap() {
         return mapEDataType;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EDataType getList() {
+        return listEDataType;
     }
 
     /**
@@ -1549,6 +1692,20 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(ldapSchemaConnectionEClass, LDAP_SCHEMA_CONNECTION__RETURN_ATTRIBUTES);
         createEAttribute(ldapSchemaConnectionEClass, LDAP_SCHEMA_CONNECTION__SELECTED_DN);
 
+        wsdlSchemaConnectionEClass = createEClass(WSDL_SCHEMA_CONNECTION);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__WSDL);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__NEED_AUTH);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__METHOD_NAME);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__PARAMETERS);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__USER_NAME);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__PASSWORD);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__USE_PROXY);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__PROXY_HOST);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__PROXY_PORT);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__PROXY_USER);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__VALUE);
+
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
         fileFormatEEnum = createEEnum(FILE_FORMAT);
@@ -1558,6 +1715,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         // Create data types
         mapEDataType = createEDataType(MAP);
+        listEDataType = createEDataType(LIST);
     }
 
     /**
@@ -1596,6 +1754,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         ldifFileConnectionEClass.getESuperTypes().add(this.getConnection());
         genericSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
         ldapSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
+        wsdlSchemaConnectionEClass.getESuperTypes().add(this.getConnection());
 
         // Initialize classes and features; add operations and parameters
         initEClass(metadataEClass, Metadata.class, "Metadata", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1749,6 +1908,20 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getLDAPSchemaConnection_ReturnAttributes(), ecorePackage.getEString(), "ReturnAttributes", null, 0, -1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getLDAPSchemaConnection_SelectedDN(), ecorePackage.getEString(), "SelectedDN", null, 0, 1, LDAPSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+        initEClass(wsdlSchemaConnectionEClass, WSDLSchemaConnection.class, "WSDLSchemaConnection", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+        initEAttribute(getWSDLSchemaConnection_WSDL(), ecorePackage.getEString(), "WSDL", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_NeedAuth(), ecorePackage.getEBoolean(), "needAuth", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_MethodName(), ecorePackage.getEString(), "methodName", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_Parameters(), this.getList(), "parameters", "", 1, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_UserName(), ecorePackage.getEString(), "UserName", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_Password(), ecorePackage.getEString(), "Password", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_UseProxy(), ecorePackage.getEBoolean(), "useProxy", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_ProxyHost(), ecorePackage.getEString(), "proxyHost", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_ProxyPort(), ecorePackage.getEString(), "proxyPort", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_ProxyUser(), ecorePackage.getEString(), "proxyUser", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_ProxyPassword(), ecorePackage.getEString(), "proxyPassword", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_Value(), ecorePackage.getEString(), "Value", null, 0, -1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");
         addEEnumLiteral(databasePropertiesEEnum, DatabaseProperties.DATABASE_TYPE_LITERAL);
@@ -1791,6 +1964,7 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
 
         // Initialize data types
         initEDataType(mapEDataType, HashMap.class, "Map", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
+        initEDataType(listEDataType, ArrayList.class, "List", IS_SERIALIZABLE, !IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);

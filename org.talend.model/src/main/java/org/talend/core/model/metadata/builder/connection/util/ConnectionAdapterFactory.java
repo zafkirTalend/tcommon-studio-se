@@ -134,6 +134,9 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
             public Object caseLDAPSchemaConnection(LDAPSchemaConnection object) {
                 return createLDAPSchemaConnectionAdapter();
             }
+            public Object caseWSDLSchemaConnection(WSDLSchemaConnection object) {
+                return createWSDLSchemaConnectionAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -363,6 +366,20 @@ public class ConnectionAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createLDAPSchemaConnectionAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection <em>WSDL Schema Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection
+     * @generated
+     */
+    public Adapter createWSDLSchemaConnectionAdapter() {
         return null;
     }
 

@@ -409,6 +409,15 @@ public interface PropertiesFactory extends EFactory {
     JobletDocumentationItem createJobletDocumentationItem();
 
     /**
+     * Returns a new object of class '<em>WSDL Schema Connection Item</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>WSDL Schema Connection Item</em>'.
+     * @generated
+     */
+    WSDLSchemaConnectionItem createWSDLSchemaConnectionItem();
+
+    /**
      * Returns a new object of class '<em>User Role</em>'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return a new object of class '<em>User Role</em>'.

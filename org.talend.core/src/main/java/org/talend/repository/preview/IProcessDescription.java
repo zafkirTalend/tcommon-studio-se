@@ -17,7 +17,6 @@ import java.util.Map;
 
 import org.talend.core.model.metadata.IMetadataTable;
 
-
 /**
  * Description of a Process.
  * 
@@ -25,9 +24,8 @@ import org.talend.core.model.metadata.IMetadataTable;
  * 
  */
 /**
- * DOC Administrator  class global comment. Detailled comment
- * <br/>
- *
+ * DOC Administrator class global comment. Detailled comment <br/>
+ * 
  */
 public interface IProcessDescription {
 
@@ -240,7 +238,7 @@ public interface IProcessDescription {
      * @param loopLimit the loopLimit to set
      */
     public void setLoopLimit(Integer loopLimit);
-    
+
     /**
      * Getter for mapping.
      * 
@@ -254,17 +252,32 @@ public interface IProcessDescription {
      * @param mapping the mapping to set
      */
     public void setMapping(List<Map<String, String>> mapping);
-    
+
     /**
      * Administrator Comment method "getLdapSchemaBean".
+     * 
      * @return
      */
     public LDAPSchemaBean getLdapSchemaBean();
 
-    
     /**
      * Administrator Comment method "setLdapSchemaBean".
+     * 
      * @param ldapSchemaBean
      */
     public void setLdapSchemaBean(LDAPSchemaBean ldapSchemaBean);
+
+    /**
+     * Administrator Comment method "getLdapSchemaBean".
+     * 
+     * @return
+     */
+    public WSDLSchemaBean getWsdlSchemaBean();
+
+    /**
+     * Administrator Comment method "setLdapSchemaBean".
+     * 
+     * @param ldapSchemaBean
+     */
+    public void setWsdlSchemaBean(WSDLSchemaBean wsdlSchemaBean);
 }

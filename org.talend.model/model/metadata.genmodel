@@ -47,6 +47,7 @@
       <genEnumLiterals ecoreEnumLiteral="metadata.ecore#//RowSeparator/Standart_EOL"/>
     </genEnums>
     <genDataTypes ecoreDataType="metadata.ecore#//Map"/>
+    <genDataTypes ecoreDataType="metadata.ecore#//List"/>
     <genClasses ecoreClass="metadata.ecore#//Metadata">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference metadata.ecore#//Metadata/connections"/>
     </genClasses>
@@ -196,6 +197,20 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/GetBaseDNsFromRoot"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/ReturnAttributes"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//LDAPSchemaConnection/SelectedDN"/>
+    </genClasses>
+    <genClasses ecoreClass="metadata.ecore#//WSDLSchemaConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/WSDL"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/needAuth"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/methodName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/parameters"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/UserName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/Password"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/useProxy"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/proxyHost"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/proxyPort"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/proxyUser"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/proxyPassword"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/Value"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

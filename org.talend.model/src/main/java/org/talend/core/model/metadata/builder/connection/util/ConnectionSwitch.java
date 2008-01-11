@@ -229,6 +229,14 @@ public class ConnectionSwitch {
                 if (result == null) result = defaultCase(theEObject);
                 return result;
             }
+            case ConnectionPackage.WSDL_SCHEMA_CONNECTION: {
+                WSDLSchemaConnection wsdlSchemaConnection = (WSDLSchemaConnection)theEObject;
+                Object result = caseWSDLSchemaConnection(wsdlSchemaConnection);
+                if (result == null) result = caseConnection(wsdlSchemaConnection);
+                if (result == null) result = caseAbstractMetadataObject(wsdlSchemaConnection);
+                if (result == null) result = defaultCase(theEObject);
+                return result;
+            }
             default: return defaultCase(theEObject);
         }
     }
@@ -480,6 +488,21 @@ public class ConnectionSwitch {
      * @generated
      */
     public Object caseLDAPSchemaConnection(LDAPSchemaConnection object) {
+        return null;
+    }
+
+    /**
+     * Returns the result of interpreting the object as an instance of '<em>WSDL Schema Connection</em>'.
+     * <!-- begin-user-doc -->
+     * This implementation returns null;
+     * returning a non-null result will terminate the switch.
+     * <!-- end-user-doc -->
+     * @param object the target of the switch.
+     * @return the result of interpreting the object as an instance of '<em>WSDL Schema Connection</em>'.
+     * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+     * @generated
+     */
+    public Object caseWSDLSchemaConnection(WSDLSchemaConnection object) {
         return null;
     }
 

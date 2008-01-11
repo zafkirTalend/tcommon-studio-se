@@ -214,6 +214,9 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
             public Object caseJobletDocumentationItem(JobletDocumentationItem object) {
                 return createJobletDocumentationItemAdapter();
             }
+            public Object caseWSDLSchemaConnectionItem(WSDLSchemaConnectionItem object) {
+                return createWSDLSchemaConnectionItemAdapter();
+            }
             public Object defaultCase(EObject object) {
                 return createEObjectAdapter();
             }
@@ -901,6 +904,20 @@ public class PropertiesAdapterFactory extends AdapterFactoryImpl {
      * @generated
      */
     public Adapter createJobletDocumentationItemAdapter() {
+        return null;
+    }
+
+    /**
+     * Creates a new adapter for an object of class '{@link org.talend.core.model.properties.WSDLSchemaConnectionItem <em>WSDL Schema Connection Item</em>}'.
+     * <!-- begin-user-doc -->
+     * This default implementation returns null so that we can easily ignore cases;
+     * it's useful to ignore a case when inheritance will catch all the cases anyway.
+     * <!-- end-user-doc -->
+     * @return the new adapter.
+     * @see org.talend.core.model.properties.WSDLSchemaConnectionItem
+     * @generated
+     */
+    public Adapter createWSDLSchemaConnectionItemAdapter() {
         return null;
     }
 

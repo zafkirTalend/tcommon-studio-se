@@ -375,4 +375,5 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JobDocumentationItem" eSuperTypes="#//FileItem"/>
   <eClassifiers xsi:type="ecore:EClass" name="JobletDocumentationItem" eSuperTypes="#//FileItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="WSDLSchemaConnectionItem" eSuperTypes="#//ConnectionItem"/>
 </ecore:EPackage>

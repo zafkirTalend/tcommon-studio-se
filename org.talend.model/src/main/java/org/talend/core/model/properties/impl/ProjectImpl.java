@@ -29,8 +29,6 @@ import org.talend.core.model.properties.Status;
 import org.talend.core.model.properties.User;
 import org.talend.core.model.properties.UserProjectAuthorization;
 
-import org.talend.designer.core.model.utils.emf.talendfile.ProcessType;
-
 /**
  * <!-- begin-user-doc --> An implementation of the model object '<em><b>Project</b></em>'. <!-- end-user-doc -->
  * <p>
@@ -82,9 +80,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList documentationStatus;
 
     /**
-     * The default value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The default value of the '{@link #getId() <em>Id</em>}' attribute. <!-- begin-user-doc --> <!-- end-user-doc
+     * -->
+     * 
      * @see #getId()
      * @generated
      * @ordered
@@ -93,8 +91,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
 
     /**
      * The cached value of the '{@link #getId() <em>Id</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see #getId()
      * @generated
      * @ordered
@@ -282,9 +279,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected User author;
 
     /**
-     * The cached value of the '{@link #getUserAuthorization() <em>User Authorization</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getUserAuthorization() <em>User Authorization</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getUserAuthorization()
      * @generated
      * @ordered
@@ -292,9 +289,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList userAuthorization;
 
     /**
-     * The cached value of the '{@link #getAllowedComponents() <em>Allowed Components</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getAllowedComponents() <em>Allowed Components</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getAllowedComponents()
      * @generated
      * @ordered
@@ -302,9 +299,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList allowedComponents;
 
     /**
-     * The cached value of the '{@link #getReferencedProjects() <em>Referenced Projects</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getReferencedProjects() <em>Referenced Projects</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getReferencedProjects()
      * @generated
      * @ordered
@@ -312,9 +309,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList referencedProjects;
 
     /**
-     * The cached value of the '{@link #getAvailableRefProject() <em>Available Ref Project</em>}' reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getAvailableRefProject() <em>Available Ref Project</em>}' reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getAvailableRefProject()
      * @generated
      * @ordered
@@ -322,9 +319,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected EList availableRefProject;
 
     /**
-     * The cached value of the '{@link #getMigrationTasks() <em>Migration Tasks</em>}' attribute list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getMigrationTasks() <em>Migration Tasks</em>}' attribute list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getMigrationTasks()
      * @generated
      * @ordered
@@ -352,9 +349,9 @@ public class ProjectImpl extends EObjectImpl implements Project {
     protected String masterJobId = MASTER_JOB_ID_EDEFAULT;
 
     /**
-     * The cached value of the '{@link #getSpagoBiServer() <em>Spago Bi Server</em>}' containment reference list.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * The cached value of the '{@link #getSpagoBiServer() <em>Spago Bi Server</em>}' containment reference list. <!--
+     * begin-user-doc --> <!-- end-user-doc -->
+     * 
      * @see #getSpagoBiServer()
      * @generated
      * @ordered
@@ -400,8 +397,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public int getId() {
@@ -409,8 +405,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setId(int newId) {
@@ -513,8 +508,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList getUserAuthorization() {
@@ -525,8 +519,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList getAllowedComponents() {
@@ -537,8 +530,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList getReferencedProjects() {
@@ -549,8 +541,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList getAvailableRefProject() {
@@ -561,8 +552,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList getMigrationTasks() {
@@ -573,8 +563,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public String getMasterJobId() {
@@ -582,8 +571,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public void setMasterJobId(String newMasterJobId) {
@@ -594,8 +582,7 @@ public class ProjectImpl extends EObjectImpl implements Project {
     }
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
+     * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
     public EList getSpagoBiServer() {

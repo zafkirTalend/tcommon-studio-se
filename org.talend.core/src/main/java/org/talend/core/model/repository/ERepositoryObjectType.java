@@ -35,6 +35,7 @@ import org.talend.core.model.properties.RegExFileConnectionItem;
 import org.talend.core.model.properties.RoutineItem;
 import org.talend.core.model.properties.SnippetItem;
 import org.talend.core.model.properties.SnippetVariable;
+import org.talend.core.model.properties.WSDLSchemaConnectionItem;
 import org.talend.core.model.properties.XmlFileConnectionItem;
 import org.talend.core.model.properties.util.PropertiesSwitch;
 
@@ -71,6 +72,7 @@ public enum ERepositoryObjectType {
     JOBS("repository.jobs"),
     JOB_DOC("repository.jobdoc"),
     JOBLET("repository.joblet"),
+    METADATA_WSDL_SCHEMA("repository.metadataWSDLSchema", "repository.metadataWSDLSchema.alias"), //$NON-NLS-1$ //$NON-NLS-2$
     JOBLETS("repository.joblets"),
     JOBLET_DOC("repository.jobletdoc");
 
@@ -153,6 +155,8 @@ public enum ERepositoryObjectType {
             return "metadata/LDAPSchema";
         case METADATA_GENERIC_SCHEMA:
             return "metadata/genericSchema";
+        case METADATA_WSDL_SCHEMA:
+            return "metadata/WSDLSchema";
         default:
             if (PluginChecker.isDocumentationPluginLoaded()) {
                 if (type == GENERATED) {
@@ -272,6 +276,10 @@ public enum ERepositoryObjectType {
 
             public Object caseGenericSchemaConnectionItem(GenericSchemaConnectionItem object) {
                 return METADATA_GENERIC_SCHEMA;
+            }
+
+            public Object caseWSDLSchemaConnectionItem(WSDLSchemaConnectionItem object) {
+                return METADATA_WSDL_SCHEMA;
             }
 
             public Object defaultCase(EObject object) {

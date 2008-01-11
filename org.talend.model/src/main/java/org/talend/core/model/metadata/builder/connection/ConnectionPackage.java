@@ -2984,13 +2984,230 @@ public interface ConnectionPackage extends EPackage {
     int LDAP_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 23;
 
     /**
+     * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl <em>WSDL Schema Connection</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getWSDLSchemaConnection()
+     * @generated
+     */
+    int WSDL_SCHEMA_CONNECTION = 18;
+
+    /**
+     * The feature id for the '<em><b>Properties</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__PROPERTIES = CONNECTION__PROPERTIES;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__ID = CONNECTION__ID;
+
+    /**
+     * The feature id for the '<em><b>Comment</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__COMMENT = CONNECTION__COMMENT;
+
+    /**
+     * The feature id for the '<em><b>Label</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__LABEL = CONNECTION__LABEL;
+
+    /**
+     * The feature id for the '<em><b>Read Only</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__READ_ONLY = CONNECTION__READ_ONLY;
+
+    /**
+     * The feature id for the '<em><b>Synchronised</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__SYNCHRONISED = CONNECTION__SYNCHRONISED;
+
+    /**
+     * The feature id for the '<em><b>Divergency</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__DIVERGENCY = CONNECTION__DIVERGENCY;
+
+    /**
+     * The feature id for the '<em><b>Version</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__VERSION = CONNECTION__VERSION;
+
+    /**
+     * The feature id for the '<em><b>Tables</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__TABLES = CONNECTION__TABLES;
+
+    /**
+     * The feature id for the '<em><b>Queries</b></em>' containment reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__QUERIES = CONNECTION__QUERIES;
+
+    /**
+     * The feature id for the '<em><b>WSDL</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__WSDL = CONNECTION_FEATURE_COUNT + 0;
+
+    /**
+     * The feature id for the '<em><b>Need Auth</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__NEED_AUTH = CONNECTION_FEATURE_COUNT + 1;
+
+    /**
+     * The feature id for the '<em><b>Method Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__METHOD_NAME = CONNECTION_FEATURE_COUNT + 2;
+
+    /**
+     * The feature id for the '<em><b>Parameters</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__PARAMETERS = CONNECTION_FEATURE_COUNT + 3;
+
+    /**
+     * The feature id for the '<em><b>User Name</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__USER_NAME = CONNECTION_FEATURE_COUNT + 4;
+
+    /**
+     * The feature id for the '<em><b>Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__PASSWORD = CONNECTION_FEATURE_COUNT + 5;
+
+    /**
+     * The feature id for the '<em><b>Use Proxy</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__USE_PROXY = CONNECTION_FEATURE_COUNT + 6;
+
+    /**
+     * The feature id for the '<em><b>Proxy Host</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__PROXY_HOST = CONNECTION_FEATURE_COUNT + 7;
+
+    /**
+     * The feature id for the '<em><b>Proxy Port</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__PROXY_PORT = CONNECTION_FEATURE_COUNT + 8;
+
+    /**
+     * The feature id for the '<em><b>Proxy User</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__PROXY_USER = CONNECTION_FEATURE_COUNT + 9;
+
+    /**
+     * The feature id for the '<em><b>Proxy Password</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD = CONNECTION_FEATURE_COUNT + 10;
+
+    /**
+     * The feature id for the '<em><b>Value</b></em>' attribute list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__VALUE = CONNECTION_FEATURE_COUNT + 11;
+
+    /**
+     * The number of structural features of the '<em>WSDL Schema Connection</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 12;
+
+    /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.metadata.builder.connection.DatabaseProperties
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getDatabaseProperties()
      * @generated
      */
-    int DATABASE_PROPERTIES = 18;
+    int DATABASE_PROPERTIES = 19;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FileFormat <em>File Format</em>}' enum.
@@ -2999,7 +3216,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFileFormat()
      * @generated
      */
-    int FILE_FORMAT = 19;
+    int FILE_FORMAT = 20;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.FieldSeparator <em>Field Separator</em>}' enum.
@@ -3008,7 +3225,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getFieldSeparator()
      * @generated
      */
-    int FIELD_SEPARATOR = 20;
+    int FIELD_SEPARATOR = 21;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.Escape <em>Escape</em>}' enum.
@@ -3017,7 +3234,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getEscape()
      * @generated
      */
-    int ESCAPE = 21;
+    int ESCAPE = 22;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.RowSeparator <em>Row Separator</em>}' enum.
@@ -3026,7 +3243,7 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getRowSeparator()
      * @generated
      */
-    int ROW_SEPARATOR = 22;
+    int ROW_SEPARATOR = 23;
 
     /**
      * The meta object id for the '<em>Map</em>' data type.
@@ -3035,7 +3252,17 @@ public interface ConnectionPackage extends EPackage {
      * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getMap()
      * @generated
      */
-    int MAP = 23;
+    int MAP = 24;
+
+    /**
+     * The meta object id for the '<em>List</em>' data type.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see java.util.ArrayList
+     * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
+     * @generated
+     */
+    int LIST = 25;
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.Metadata <em>Metadata</em>}'.
@@ -4411,6 +4638,148 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getLDAPSchemaConnection_SelectedDN();
 
     /**
+     * Returns the meta object for class '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection <em>WSDL Schema Connection</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>WSDL Schema Connection</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection
+     * @generated
+     */
+    EClass getWSDLSchemaConnection();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getWSDL <em>WSDL</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>WSDL</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getWSDL()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_WSDL();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isNeedAuth <em>Need Auth</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Need Auth</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isNeedAuth()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_NeedAuth();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getMethodName <em>Method Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Method Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getMethodName()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_MethodName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getParameters <em>Parameters</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Parameters</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getParameters()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_Parameters();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getUserName <em>User Name</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>User Name</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getUserName()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_UserName();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getPassword <em>Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Password</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getPassword()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_Password();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isUseProxy <em>Use Proxy</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Use Proxy</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#isUseProxy()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_UseProxy();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyHost <em>Proxy Host</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Proxy Host</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyHost()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_ProxyHost();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyPort <em>Proxy Port</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Proxy Port</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyPort()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_ProxyPort();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyUser <em>Proxy User</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Proxy User</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyUser()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_ProxyUser();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyPassword <em>Proxy Password</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Proxy Password</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyPassword()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_ProxyPassword();
+
+    /**
+     * Returns the meta object for the attribute list '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getValue <em>Value</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute list '<em>Value</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getValue()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_Value();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -4465,6 +4834,17 @@ public interface ConnectionPackage extends EPackage {
      * @generated
      */
     EDataType getMap();
+
+    /**
+     * Returns the meta object for data type '{@link java.util.ArrayList <em>List</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for data type '<em>List</em>'.
+     * @see java.util.ArrayList
+     * @model instanceClass="java.util.ArrayList"
+     * @generated
+     */
+    EDataType getList();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -5576,6 +5956,112 @@ public interface ConnectionPackage extends EPackage {
         EAttribute LDAP_SCHEMA_CONNECTION__SELECTED_DN = eINSTANCE.getLDAPSchemaConnection_SelectedDN();
 
         /**
+         * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl <em>WSDL Schema Connection</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see org.talend.core.model.metadata.builder.connection.impl.WSDLSchemaConnectionImpl
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getWSDLSchemaConnection()
+         * @generated
+         */
+        EClass WSDL_SCHEMA_CONNECTION = eINSTANCE.getWSDLSchemaConnection();
+
+        /**
+         * The meta object literal for the '<em><b>WSDL</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__WSDL = eINSTANCE.getWSDLSchemaConnection_WSDL();
+
+        /**
+         * The meta object literal for the '<em><b>Need Auth</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__NEED_AUTH = eINSTANCE.getWSDLSchemaConnection_NeedAuth();
+
+        /**
+         * The meta object literal for the '<em><b>Method Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__METHOD_NAME = eINSTANCE.getWSDLSchemaConnection_MethodName();
+
+        /**
+         * The meta object literal for the '<em><b>Parameters</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__PARAMETERS = eINSTANCE.getWSDLSchemaConnection_Parameters();
+
+        /**
+         * The meta object literal for the '<em><b>User Name</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__USER_NAME = eINSTANCE.getWSDLSchemaConnection_UserName();
+
+        /**
+         * The meta object literal for the '<em><b>Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__PASSWORD = eINSTANCE.getWSDLSchemaConnection_Password();
+
+        /**
+         * The meta object literal for the '<em><b>Use Proxy</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__USE_PROXY = eINSTANCE.getWSDLSchemaConnection_UseProxy();
+
+        /**
+         * The meta object literal for the '<em><b>Proxy Host</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__PROXY_HOST = eINSTANCE.getWSDLSchemaConnection_ProxyHost();
+
+        /**
+         * The meta object literal for the '<em><b>Proxy Port</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__PROXY_PORT = eINSTANCE.getWSDLSchemaConnection_ProxyPort();
+
+        /**
+         * The meta object literal for the '<em><b>Proxy User</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__PROXY_USER = eINSTANCE.getWSDLSchemaConnection_ProxyUser();
+
+        /**
+         * The meta object literal for the '<em><b>Proxy Password</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD = eINSTANCE.getWSDLSchemaConnection_ProxyPassword();
+
+        /**
+         * The meta object literal for the '<em><b>Value</b></em>' attribute list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__VALUE = eINSTANCE.getWSDLSchemaConnection_Value();
+
+        /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
          * <!-- begin-user-doc --> <!-- end-user-doc -->
          * @see org.talend.core.model.metadata.builder.connection.DatabaseProperties
@@ -5628,6 +6114,16 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EDataType MAP = eINSTANCE.getMap();
+
+        /**
+         * The meta object literal for the '<em>List</em>' data type.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see java.util.ArrayList
+         * @see org.talend.core.model.metadata.builder.connection.impl.ConnectionPackageImpl#getList()
+         * @generated
+         */
+        EDataType LIST = eINSTANCE.getList();
 
     }
 
