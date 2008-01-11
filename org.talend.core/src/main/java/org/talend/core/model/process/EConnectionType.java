@@ -36,7 +36,7 @@ public enum EConnectionType implements IConnectionCategory {
                  EXECUTION_ORDER | DEPENDENCY,
                  "OnSubjobOk", Messages.getString("EConnectionType.onSubjobOkMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                  new Integer(Graphics.LINE_SOLID),
-                 new RGB(100, 100, 100)),
+                 new RGB(0, 100, 0)),
 
     RUN_AFTER(2, "AFTER", //$NON-NLS-1$
               EConnectionCategory.OTHER,
@@ -57,7 +57,7 @@ public enum EConnectionType implements IConnectionCategory {
                     EXECUTION_ORDER | DEPENDENCY,
                     "OnSubjobError", Messages.getString("EConnectionType.onSubjobErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                     new Integer(Graphics.LINE_SOLID),
-                    new RGB(100, 100, 100)),
+                    new RGB(128, 0, 0)),
 
     ON_COMPONENT_ERROR(5, "COMPONENT_ERROR", //$NON-NLS-1$
                        EConnectionCategory.OTHER,
@@ -65,19 +65,6 @@ public enum EConnectionType implements IConnectionCategory {
                        "OnComponentError", Messages.getString("EConnectionType.onComponentErrorMenu"), //$NON-NLS-1$ //$NON-NLS-2$
                        new Integer(Graphics.LINE_SOLID),
                        new RGB(200, 0, 0)),
-    /*
-     * RUN_BEFORE(1, "BEFORE", //$NON-NLS-1$ EConnectionCategory.OTHER, EXECUTION_ORDER | DEPENDENCY, "RunBefore",
-     * Messages.getString("EConnectionType.runBeforeMenu"), //$NON-NLS-1$ //$NON-NLS-2$ new
-     * Integer(Graphics.LINE_SOLID), new Color(null, new RGB(100, 100, 100))),
-     */
-    // LOOKUP(3, "LOOKUP", //$NON-NLS-1$
-    // EConnectionCategory.OTHER,
-    // USE_HASH | CUSTOM_NAME | UNIQUE_NAME,
-    // "Lookup", Messages.getString("EConnectionType.lookupMenu"), //$NON-NLS-1$ //$NON-NLS-2$
-    // new Integer(Graphics.LINE_DASHDOTDOT),
-    // new Color(null, new RGB(150, 150, 0))),
-    //              
-    //              
     RUN_IF(6, "RUN_IF", //$NON-NLS-1$
            EConnectionCategory.OTHER,
            CONDITION | DEPENDENCY | CUSTOM_NAME,
