@@ -418,13 +418,22 @@ public interface ComponentPackage extends EPackage {
     int CONNECTOR_TYPE__CTYPE = 4;
 
     /**
+     * The feature id for the '<em><b>INPUTLINKSELECTION</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CONNECTOR_TYPE__INPUTLINKSELECTION = 5;
+
+    /**
      * The feature id for the '<em><b>LINESTYLE</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__LINESTYLE = 5;
+    int CONNECTOR_TYPE__LINESTYLE = 6;
 
     /**
      * The feature id for the '<em><b>MAXINPUT</b></em>' attribute.
@@ -433,7 +442,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MAXINPUT = 6;
+    int CONNECTOR_TYPE__MAXINPUT = 7;
 
     /**
      * The feature id for the '<em><b>MAXOUTPUT</b></em>' attribute.
@@ -442,7 +451,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MAXOUTPUT = 7;
+    int CONNECTOR_TYPE__MAXOUTPUT = 8;
 
     /**
      * The feature id for the '<em><b>MININPUT</b></em>' attribute.
@@ -451,7 +460,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MININPUT = 8;
+    int CONNECTOR_TYPE__MININPUT = 9;
 
     /**
      * The feature id for the '<em><b>MINOUTPUT</b></em>' attribute.
@@ -460,7 +469,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__MINOUTPUT = 9;
+    int CONNECTOR_TYPE__MINOUTPUT = 10;
 
     /**
      * The feature id for the '<em><b>NAME</b></em>' attribute.
@@ -469,7 +478,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE__NAME = 10;
+    int CONNECTOR_TYPE__NAME = 11;
 
     /**
      * The number of structural features of the '<em>CONNECTOR Type</em>' class.
@@ -478,7 +487,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int CONNECTOR_TYPE_FEATURE_COUNT = 11;
+    int CONNECTOR_TYPE_FEATURE_COUNT = 12;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.DEFAULTTypeImpl <em>DEFAULT Type</em>}' class.
@@ -891,22 +900,13 @@ public interface ComponentPackage extends EPackage {
     int HEADER_TYPE__TSTATCATCHERSTATS = 14;
 
     /**
-     * The feature id for the '<em><b>USEMERGE</b></em>' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int HEADER_TYPE__USEMERGE = 15;
-
-    /**
      * The feature id for the '<em><b>VERSION</b></em>' attribute.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VERSION = 16;
+    int HEADER_TYPE__VERSION = 15;
 
     /**
      * The feature id for the '<em><b>VISIBLE</b></em>' attribute.
@@ -915,7 +915,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE__VISIBLE = 17;
+    int HEADER_TYPE__VISIBLE = 16;
 
     /**
      * The number of structural features of the '<em>HEADER Type</em>' class.
@@ -924,7 +924,7 @@ public interface ComponentPackage extends EPackage {
      * @generated
      * @ordered
      */
-    int HEADER_TYPE_FEATURE_COUNT = 18;
+    int HEADER_TYPE_FEATURE_COUNT = 17;
 
     /**
      * The meta object id for the '{@link org.talend.designer.core.model.utils.emf.component.impl.IMPORTSTypeImpl <em>IMPORTS Type</em>}' class.
@@ -2149,6 +2149,17 @@ public interface ComponentPackage extends EPackage {
     EAttribute getCONNECTORType_CTYPE();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isINPUTLINKSELECTION <em>INPUTLINKSELECTION</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>INPUTLINKSELECTION</em>'.
+     * @see org.talend.designer.core.model.utils.emf.component.CONNECTORType#isINPUTLINKSELECTION()
+     * @see #getCONNECTORType()
+     * @generated
+     */
+    EAttribute getCONNECTORType_INPUTLINKSELECTION();
+
+    /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getLINESTYLE <em>LINESTYLE</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2659,17 +2670,6 @@ public interface ComponentPackage extends EPackage {
      * @generated
      */
     EAttribute getHEADERType_TSTATCATCHERSTATS();
-
-    /**
-     * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isUSEMERGE <em>USEMERGE</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for the attribute '<em>USEMERGE</em>'.
-     * @see org.talend.designer.core.model.utils.emf.component.HEADERType#isUSEMERGE()
-     * @see #getHEADERType()
-     * @generated
-     */
-    EAttribute getHEADERType_USEMERGE();
 
     /**
      * Returns the meta object for the attribute '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getVERSION <em>VERSION</em>}'.
@@ -3831,6 +3831,14 @@ public interface ComponentPackage extends EPackage {
         EAttribute CONNECTOR_TYPE__CTYPE = eINSTANCE.getCONNECTORType_CTYPE();
 
         /**
+         * The meta object literal for the '<em><b>INPUTLINKSELECTION</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute CONNECTOR_TYPE__INPUTLINKSELECTION = eINSTANCE.getCONNECTORType_INPUTLINKSELECTION();
+
+        /**
          * The meta object literal for the '<em><b>LINESTYLE</b></em>' attribute feature.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -4215,14 +4223,6 @@ public interface ComponentPackage extends EPackage {
          * @generated
          */
         EAttribute HEADER_TYPE__TSTATCATCHERSTATS = eINSTANCE.getHEADERType_TSTATCATCHERSTATS();
-
-        /**
-         * The meta object literal for the '<em><b>USEMERGE</b></em>' attribute feature.
-         * <!-- begin-user-doc -->
-         * <!-- end-user-doc -->
-         * @generated
-         */
-        EAttribute HEADER_TYPE__USEMERGE = eINSTANCE.getHEADERType_USEMERGE();
 
         /**
          * The meta object literal for the '<em><b>VERSION</b></em>' attribute feature.

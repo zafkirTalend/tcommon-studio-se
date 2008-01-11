@@ -33,7 +33,6 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getSTATUS <em>STATUS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isUSEMERGE <em>USEMERGE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isVISIBLE <em>VISIBLE</em>}</li>
  * </ul>
@@ -618,61 +617,6 @@ public interface HEADERType extends EObject {
      * @generated
      */
     boolean isSetTSTATCATCHERSTATS();
-
-    /**
-     * Returns the value of the '<em><b>USEMERGE</b></em>' attribute.
-     * The default value is <code>"false"</code>.
-     * <!-- begin-user-doc -->
-     * <p>
-     * If the meaning of the '<em>USEMERGE</em>' attribute isn't clear,
-     * there really should be more of a description here...
-     * </p>
-     * <!-- end-user-doc -->
-     * @return the value of the '<em>USEMERGE</em>' attribute.
-     * @see #isSetUSEMERGE()
-     * @see #unsetUSEMERGE()
-     * @see #setUSEMERGE(boolean)
-     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getHEADERType_USEMERGE()
-     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
-     *        extendedMetaData="kind='attribute' name='USE_MERGE' namespace='##targetNamespace'"
-     * @generated
-     */
-    boolean isUSEMERGE();
-
-    /**
-     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isUSEMERGE <em>USEMERGE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @param value the new value of the '<em>USEMERGE</em>' attribute.
-     * @see #isSetUSEMERGE()
-     * @see #unsetUSEMERGE()
-     * @see #isUSEMERGE()
-     * @generated
-     */
-    void setUSEMERGE(boolean value);
-
-    /**
-     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isUSEMERGE <em>USEMERGE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isSetUSEMERGE()
-     * @see #isUSEMERGE()
-     * @see #setUSEMERGE(boolean)
-     * @generated
-     */
-    void unsetUSEMERGE();
-
-    /**
-     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.HEADERType#isUSEMERGE <em>USEMERGE</em>}' attribute is set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return whether the value of the '<em>USEMERGE</em>' attribute is set.
-     * @see #unsetUSEMERGE()
-     * @see #isUSEMERGE()
-     * @see #setUSEMERGE(boolean)
-     * @generated
-     */
-    boolean isSetUSEMERGE();
 
     /**
      * Returns the value of the '<em><b>VERSION</b></em>' attribute.

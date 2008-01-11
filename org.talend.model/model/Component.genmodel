@@ -5,8 +5,8 @@
     modelPluginID="org.talend.model" templateDirectory="" modelName="component" editPluginClass="org.talend.designer.core.model.utils.emf.component.provider.componentEditPlugin"
     editorPluginClass="org.talend.designer.core.model.utils.emf.component.presentation.componentEditorPlugin"
     testSuiteClass="org.talend.designer.core.model.utils.emf.component.tests.componentAllTests"
-    importerID="org.eclipse.emf.importer.ecore">
-  <foreignModel>Component.ecore</foreignModel>
+    importerID="org.eclipse.xsd.ecore.importer">
+  <foreignModel>Component.xsd</foreignModel>
   <genPackages prefix="Component" basePackage="org.talend.designer.core.model.utils.emf"
       resource="XML" disposableProviderFactory="true" ecorePackage="Component.ecore#/">
     <genClasses ecoreClass="Component.ecore#//ADVANCEDPARAMETERSType">
@@ -48,6 +48,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/cOLOR"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/cOMPONENT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/cTYPE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/iNPUTLINKSELECTION"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/lINESTYLE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mAXINPUT"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//CONNECTORType/mAXOUTPUT"/>
@@ -100,7 +101,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sTARTABLE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/sTATUS"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/tSTATCATCHERSTATS"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/uSEMERGE"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vERSION"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Component.ecore#//HEADERType/vISIBLE"/>
     </genClasses>

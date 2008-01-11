@@ -40,7 +40,6 @@ import org.talend.designer.core.model.utils.emf.component.HEADERType;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isSTARTABLE <em>STARTABLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getSTATUS <em>STATUS</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isTSTATCATCHERSTATS <em>TSTATCATCHERSTATS</em>}</li>
- *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isUSEMERGE <em>USEMERGE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#getVERSION <em>VERSION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.HEADERTypeImpl#isVISIBLE <em>VISIBLE</em>}</li>
  * </ul>
@@ -392,35 +391,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * @ordered
      */
     protected boolean tSTATCATCHERSTATSESet;
-
-    /**
-     * The default value of the '{@link #isUSEMERGE() <em>USEMERGE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isUSEMERGE()
-     * @generated
-     * @ordered
-     */
-    protected static final boolean USEMERGE_EDEFAULT = false;
-
-    /**
-     * The cached value of the '{@link #isUSEMERGE() <em>USEMERGE</em>}' attribute.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see #isUSEMERGE()
-     * @generated
-     * @ordered
-     */
-    protected boolean uSEMERGE = USEMERGE_EDEFAULT;
-
-    /**
-     * This is true if the USEMERGE attribute has been set.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    protected boolean uSEMERGEESet;
 
     /**
      * The default value of the '{@link #getVERSION() <em>VERSION</em>}' attribute.
@@ -981,52 +951,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
      * <!-- end-user-doc -->
      * @generated
      */
-    public boolean isUSEMERGE() {
-        return uSEMERGE;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void setUSEMERGE(boolean newUSEMERGE) {
-        boolean oldUSEMERGE = uSEMERGE;
-        uSEMERGE = newUSEMERGE;
-        boolean oldUSEMERGEESet = uSEMERGEESet;
-        uSEMERGEESet = true;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.HEADER_TYPE__USEMERGE, oldUSEMERGE, uSEMERGE, !oldUSEMERGEESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public void unsetUSEMERGE() {
-        boolean oldUSEMERGE = uSEMERGE;
-        boolean oldUSEMERGEESet = uSEMERGEESet;
-        uSEMERGE = USEMERGE_EDEFAULT;
-        uSEMERGEESet = false;
-        if (eNotificationRequired())
-            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.HEADER_TYPE__USEMERGE, oldUSEMERGE, USEMERGE_EDEFAULT, oldUSEMERGEESet));
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public boolean isSetUSEMERGE() {
-        return uSEMERGEESet;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
     public BigDecimal getVERSION() {
         return vERSION;
     }
@@ -1139,8 +1063,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return getSTATUS();
             case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
                 return isTSTATCATCHERSTATS() ? Boolean.TRUE : Boolean.FALSE;
-            case ComponentPackage.HEADER_TYPE__USEMERGE:
-                return isUSEMERGE() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.HEADER_TYPE__VERSION:
                 return getVERSION();
             case ComponentPackage.HEADER_TYPE__VISIBLE:
@@ -1200,9 +1122,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return;
             case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
                 setTSTATCATCHERSTATS(((Boolean)newValue).booleanValue());
-                return;
-            case ComponentPackage.HEADER_TYPE__USEMERGE:
-                setUSEMERGE(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.HEADER_TYPE__VERSION:
                 setVERSION((BigDecimal)newValue);
@@ -1266,9 +1185,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
             case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
                 unsetTSTATCATCHERSTATS();
                 return;
-            case ComponentPackage.HEADER_TYPE__USEMERGE:
-                unsetUSEMERGE();
-                return;
             case ComponentPackage.HEADER_TYPE__VERSION:
                 setVERSION(VERSION_EDEFAULT);
                 return;
@@ -1316,8 +1232,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
                 return STATUS_EDEFAULT == null ? sTATUS != null : !STATUS_EDEFAULT.equals(sTATUS);
             case ComponentPackage.HEADER_TYPE__TSTATCATCHERSTATS:
                 return isSetTSTATCATCHERSTATS();
-            case ComponentPackage.HEADER_TYPE__USEMERGE:
-                return isSetUSEMERGE();
             case ComponentPackage.HEADER_TYPE__VERSION:
                 return VERSION_EDEFAULT == null ? vERSION != null : !VERSION_EDEFAULT.equals(vERSION);
             case ComponentPackage.HEADER_TYPE__VISIBLE:
@@ -1363,8 +1277,6 @@ public class HEADERTypeImpl extends EObjectImpl implements HEADERType {
         result.append(sTATUS);
         result.append(", tSTATCATCHERSTATS: ");
         if (tSTATCATCHERSTATSESet) result.append(tSTATCATCHERSTATS); else result.append("<unset>");
-        result.append(", uSEMERGE: ");
-        if (uSEMERGEESet) result.append(uSEMERGE); else result.append("<unset>");
         result.append(", vERSION: ");
         result.append(vERSION);
         result.append(", vISIBLE: ");

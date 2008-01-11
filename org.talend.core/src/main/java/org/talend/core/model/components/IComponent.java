@@ -81,6 +81,8 @@ public interface IComponent {
 
     public boolean useMerge();
 
+    public boolean useLookup();
+
     public String getVersion();
 
     public IMultipleComponentManager getMultipleComponentManager();

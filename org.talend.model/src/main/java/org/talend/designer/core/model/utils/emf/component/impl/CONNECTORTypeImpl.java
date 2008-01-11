@@ -25,6 +25,7 @@ import org.talend.designer.core.model.utils.emf.component.ComponentPackage;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getCOLOR <em>COLOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getCOMPONENT <em>COMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getCTYPE <em>CTYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#isINPUTLINKSELECTION <em>INPUTLINKSELECTION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getLINESTYLE <em>LINESTYLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getMAXINPUT <em>MAXINPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.impl.CONNECTORTypeImpl#getMAXOUTPUT <em>MAXOUTPUT</em>}</li>
@@ -145,6 +146,35 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * @ordered
      */
     protected String cTYPE = CTYPE_EDEFAULT;
+
+    /**
+     * The default value of the '{@link #isINPUTLINKSELECTION() <em>INPUTLINKSELECTION</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isINPUTLINKSELECTION()
+     * @generated
+     * @ordered
+     */
+    protected static final boolean INPUTLINKSELECTION_EDEFAULT = false;
+
+    /**
+     * The cached value of the '{@link #isINPUTLINKSELECTION() <em>INPUTLINKSELECTION</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isINPUTLINKSELECTION()
+     * @generated
+     * @ordered
+     */
+    protected boolean iNPUTLINKSELECTION = INPUTLINKSELECTION_EDEFAULT;
+
+    /**
+     * This is true if the INPUTLINKSELECTION attribute has been set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    protected boolean iNPUTLINKSELECTIONESet;
 
     /**
      * The default value of the '{@link #getLINESTYLE() <em>LINESTYLE</em>}' attribute.
@@ -464,6 +494,52 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
      * <!-- end-user-doc -->
      * @generated
      */
+    public boolean isINPUTLINKSELECTION() {
+        return iNPUTLINKSELECTION;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void setINPUTLINKSELECTION(boolean newINPUTLINKSELECTION) {
+        boolean oldINPUTLINKSELECTION = iNPUTLINKSELECTION;
+        iNPUTLINKSELECTION = newINPUTLINKSELECTION;
+        boolean oldINPUTLINKSELECTIONESet = iNPUTLINKSELECTIONESet;
+        iNPUTLINKSELECTIONESet = true;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.SET, ComponentPackage.CONNECTOR_TYPE__INPUTLINKSELECTION, oldINPUTLINKSELECTION, iNPUTLINKSELECTION, !oldINPUTLINKSELECTIONESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public void unsetINPUTLINKSELECTION() {
+        boolean oldINPUTLINKSELECTION = iNPUTLINKSELECTION;
+        boolean oldINPUTLINKSELECTIONESet = iNPUTLINKSELECTIONESet;
+        iNPUTLINKSELECTION = INPUTLINKSELECTION_EDEFAULT;
+        iNPUTLINKSELECTIONESet = false;
+        if (eNotificationRequired())
+            eNotify(new ENotificationImpl(this, Notification.UNSET, ComponentPackage.CONNECTOR_TYPE__INPUTLINKSELECTION, oldINPUTLINKSELECTION, INPUTLINKSELECTION_EDEFAULT, oldINPUTLINKSELECTIONESet));
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public boolean isSetINPUTLINKSELECTION() {
+        return iNPUTLINKSELECTIONESet;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public int getLINESTYLE() {
         return lINESTYLE;
     }
@@ -727,6 +803,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return getCOMPONENT();
             case ComponentPackage.CONNECTOR_TYPE__CTYPE:
                 return getCTYPE();
+            case ComponentPackage.CONNECTOR_TYPE__INPUTLINKSELECTION:
+                return isINPUTLINKSELECTION() ? Boolean.TRUE : Boolean.FALSE;
             case ComponentPackage.CONNECTOR_TYPE__LINESTYLE:
                 return new Integer(getLINESTYLE());
             case ComponentPackage.CONNECTOR_TYPE__MAXINPUT:
@@ -764,6 +842,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return;
             case ComponentPackage.CONNECTOR_TYPE__CTYPE:
                 setCTYPE((String)newValue);
+                return;
+            case ComponentPackage.CONNECTOR_TYPE__INPUTLINKSELECTION:
+                setINPUTLINKSELECTION(((Boolean)newValue).booleanValue());
                 return;
             case ComponentPackage.CONNECTOR_TYPE__LINESTYLE:
                 setLINESTYLE(((Integer)newValue).intValue());
@@ -809,6 +890,9 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
             case ComponentPackage.CONNECTOR_TYPE__CTYPE:
                 setCTYPE(CTYPE_EDEFAULT);
                 return;
+            case ComponentPackage.CONNECTOR_TYPE__INPUTLINKSELECTION:
+                unsetINPUTLINKSELECTION();
+                return;
             case ComponentPackage.CONNECTOR_TYPE__LINESTYLE:
                 unsetLINESTYLE();
                 return;
@@ -848,6 +932,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
                 return COMPONENT_EDEFAULT == null ? cOMPONENT != null : !COMPONENT_EDEFAULT.equals(cOMPONENT);
             case ComponentPackage.CONNECTOR_TYPE__CTYPE:
                 return CTYPE_EDEFAULT == null ? cTYPE != null : !CTYPE_EDEFAULT.equals(cTYPE);
+            case ComponentPackage.CONNECTOR_TYPE__INPUTLINKSELECTION:
+                return isSetINPUTLINKSELECTION();
             case ComponentPackage.CONNECTOR_TYPE__LINESTYLE:
                 return isSetLINESTYLE();
             case ComponentPackage.CONNECTOR_TYPE__MAXINPUT:
@@ -883,6 +969,8 @@ public class CONNECTORTypeImpl extends EObjectImpl implements CONNECTORType {
         result.append(cOMPONENT);
         result.append(", cTYPE: ");
         result.append(cTYPE);
+        result.append(", iNPUTLINKSELECTION: ");
+        if (iNPUTLINKSELECTIONESet) result.append(iNPUTLINKSELECTION); else result.append("<unset>");
         result.append(", lINESTYLE: ");
         if (lINESTYLEESet) result.append(lINESTYLE); else result.append("<unset>");
         result.append(", mAXINPUT: ");

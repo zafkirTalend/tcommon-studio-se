@@ -21,6 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCOLOR <em>COLOR</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCOMPONENT <em>COMPONENT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getCTYPE <em>CTYPE</em>}</li>
+ *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isINPUTLINKSELECTION <em>INPUTLINKSELECTION</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getLINESTYLE <em>LINESTYLE</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMAXINPUT <em>MAXINPUT</em>}</li>
  *   <li>{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#getMAXOUTPUT <em>MAXOUTPUT</em>}</li>
@@ -196,6 +197,61 @@ public interface CONNECTORType extends EObject {
      * @generated
      */
     void setCTYPE(String value);
+
+    /**
+     * Returns the value of the '<em><b>INPUTLINKSELECTION</b></em>' attribute.
+     * The default value is <code>"false"</code>.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>INPUTLINKSELECTION</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>INPUTLINKSELECTION</em>' attribute.
+     * @see #isSetINPUTLINKSELECTION()
+     * @see #unsetINPUTLINKSELECTION()
+     * @see #setINPUTLINKSELECTION(boolean)
+     * @see org.talend.designer.core.model.utils.emf.component.ComponentPackage#getCONNECTORType_INPUTLINKSELECTION()
+     * @model default="false" unsettable="true" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
+     *        extendedMetaData="kind='attribute' name='INPUT_LINK_SELECTION' namespace='##targetNamespace'"
+     * @generated
+     */
+    boolean isINPUTLINKSELECTION();
+
+    /**
+     * Sets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isINPUTLINKSELECTION <em>INPUTLINKSELECTION</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>INPUTLINKSELECTION</em>' attribute.
+     * @see #isSetINPUTLINKSELECTION()
+     * @see #unsetINPUTLINKSELECTION()
+     * @see #isINPUTLINKSELECTION()
+     * @generated
+     */
+    void setINPUTLINKSELECTION(boolean value);
+
+    /**
+     * Unsets the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isINPUTLINKSELECTION <em>INPUTLINKSELECTION</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #isSetINPUTLINKSELECTION()
+     * @see #isINPUTLINKSELECTION()
+     * @see #setINPUTLINKSELECTION(boolean)
+     * @generated
+     */
+    void unsetINPUTLINKSELECTION();
+
+    /**
+     * Returns whether the value of the '{@link org.talend.designer.core.model.utils.emf.component.CONNECTORType#isINPUTLINKSELECTION <em>INPUTLINKSELECTION</em>}' attribute is set.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return whether the value of the '<em>INPUTLINKSELECTION</em>' attribute is set.
+     * @see #unsetINPUTLINKSELECTION()
+     * @see #isINPUTLINKSELECTION()
+     * @see #setINPUTLINKSELECTION(boolean)
+     * @generated
+     */
+    boolean isSetINPUTLINKSELECTION();
 
     /**
      * Returns the value of the '<em><b>LINESTYLE</b></em>' attribute.
