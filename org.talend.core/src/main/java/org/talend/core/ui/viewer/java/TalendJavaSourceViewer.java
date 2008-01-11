@@ -53,6 +53,7 @@ import org.eclipse.jface.text.source.ISharedTextColors;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.IVerticalRuler;
 import org.eclipse.jface.text.source.OverviewRuler;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.internal.editors.text.EditorsPlugin;
@@ -129,11 +130,38 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
                 .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n");
 
         buff.append("\tpublic void myFunction(){\n");
+        buff.append("\t  if( \n");
+
         int documentOffset = buff.toString().length();
+        buff.append("){\n\t}");
         buff.append("\n\t\n}\n}");
 
         IDocument document = new Document();
         document.set(buff.toString());
+        System.out.println(buff.toString());
+        return initializeViewer(composite, styles, checkCode, document, documentOffset);
+    }
+
+    public static ISourceViewer createViewerForIfConnection(Composite composite) {
+        StringBuffer buff = new StringBuffer();
+        buff.append("package internal;\n\n");
+        buff.append(getImports());
+        buff.append("public class " + VIEWER_CLASS_NAME + currentId + " {\n");
+        buff.append("\tprivate static java.util.Properties context = new java.util.Properties();\n");
+        buff
+                .append("\tprivate static final java.util.Map<String, Object> globalMap = new java.util.HashMap<String, Object>();\n");
+
+        buff.append("\tpublic void myFunction(){\n");
+        buff.append("\t  if( \n");
+
+        int documentOffset = buff.toString().length();
+        buff.append("){\n\t}");
+        buff.append("\n\t\n}\n}");
+
+        IDocument document = new Document();
+        document.set(buff.toString());
+        boolean checkCode = true;
+        int styles = SWT.BORDER | SWT.MULTI | SWT.V_SCROLL | SWT.H_SCROLL | SWT.WRAP;
         return initializeViewer(composite, styles, checkCode, document, documentOffset);
     }
 
