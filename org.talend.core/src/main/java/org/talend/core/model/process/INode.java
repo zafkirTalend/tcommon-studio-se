@@ -29,6 +29,8 @@ public interface INode extends IElement {
 
     public static final String RELOAD_PARAMETER_KEY_METADATA_LIST = "param.metadataList";
 
+    public static final String RELAOD_PARAMETER_KEY_ELEMENT_PARAMETERS = "param.elementParameters";
+
     /**
      * Returns the label of the node.
      * 
