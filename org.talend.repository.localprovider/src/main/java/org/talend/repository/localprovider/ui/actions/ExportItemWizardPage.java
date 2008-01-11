@@ -311,7 +311,7 @@ class ExportItemWizardPage extends WizardPage {
 
     private void collectNodes(Collection<Item> items, RepositoryNode repositoryNode) {
         IRepositoryObject repositoryObject = repositoryNode.getObject();
-        if (repositoryObject != null && repositoryObject.getType().isExportableItem()) {
+        if (repositoryObject != null && repositoryObject.getType().isResourceItem()) {
             items.add(repositoryObject.getProperty().getItem());
         }
         collectNodes(items, repositoryNode.getChildren().iterator());
