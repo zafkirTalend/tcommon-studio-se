@@ -138,7 +138,6 @@ public class TalendJavaSourceViewer extends ReconcilerViewer {
 
         IDocument document = new Document();
         document.set(buff.toString());
-        System.out.println(buff.toString());
         return initializeViewer(composite, styles, checkCode, document, documentOffset);
     }
 
