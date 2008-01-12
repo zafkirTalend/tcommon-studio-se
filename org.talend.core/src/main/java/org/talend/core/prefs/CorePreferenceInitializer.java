@@ -124,6 +124,7 @@ public class CorePreferenceInitializer extends AbstractPreferenceInitializer {
         // As default, sets the choice which automatic generate corresponding documentation files if job is saved to
         // true:
         CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.DOC_GENERATION, true);
+        CorePlugin.getDefault().getPreferenceStore().setDefault(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE, true);
     }
 
     public void initializeUpdatePreference() {

@@ -20,6 +20,7 @@ import org.eclipse.gef.commands.Command;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.layout.GridLayoutFactory;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.CellEditor;
 import org.eclipse.jface.viewers.ComboBoxCellEditor;
 import org.eclipse.jface.viewers.ICellEditorListener;
@@ -45,7 +46,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Tree;
@@ -62,6 +62,7 @@ import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
+import org.talend.core.CorePlugin;
 import org.talend.core.i18n.Messages;
 import org.talend.core.language.ECodeLanguage;
 import org.talend.core.language.LanguageManager;
@@ -85,6 +86,11 @@ import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
  * 
  */
 public class ConextTemplateComposite extends Composite {
+
+    /**
+     * 
+     */
+    private static final String BUILT_IN = IContextParameter.BUILT_IN;
 
     private static final String NAME_COLUMN_NAME = "Name";
 
@@ -117,6 +123,8 @@ public class ConextTemplateComposite extends Composite {
     private TableViewerCreator<IContextParameter> tableViewerCreator;
 
     private TreeViewer viewer;
+
+    private ViewerProvier provider;
 
     private CellModifier cellModifier;
 
@@ -233,17 +241,26 @@ public class ConextTemplateComposite extends Composite {
             viewer.setColumnProperties(GROUP_BY_SOURCE_COLUMN_PROPERTIES);
             viewer.setCellEditors(new CellEditor[] { new TextCellEditor(tree), null, comboBoxCellEditor,
                     new TextCellEditor(tree), new TextCellEditor(tree) });
+            ((CCombo) comboBoxCellEditor.getControl()).setEditable(false);
         } else {
             viewer.setColumnProperties(GROUP_BY_REPOSITORYSOURCE_COLUMN_PROPERTIES);
             viewer.setCellEditors(new CellEditor[] { new TextCellEditor(tree), comboBoxCellEditor, new TextCellEditor(tree),
                     new TextCellEditor(tree) });
+            ((CCombo) comboBoxCellEditor.getControl()).setEditable(false);
         }
 
         cellModifier = new CellModifier();
         viewer.setCellModifier(cellModifier);
-        ((CCombo) comboBoxCellEditor.getControl()).setEditable(false);
+        // ((CCombo) comboBoxCellEditor.getControl()).setEditable(false);
 
-        GroupBySourceProvier provider = new GroupBySourceProvier();
+        provider = new ViewerProvier();
+        boolean value = getPreferenceStore().getBoolean("isGroupBySource");
+        if (value) {
+            provider.setProvider(new GroupBySourceProvier());
+        } else {
+            provider.setProvider(new GroupByNothingProvier());
+        }
+
         viewer.setLabelProvider(provider);
         viewer.setContentProvider(provider);
 
@@ -350,46 +367,6 @@ public class ConextTemplateComposite extends Composite {
     private void activateCellEditor(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
         // ensure the cell editor is visible
         tree.showSelection();
-
-        IContextParameter para = cellModifier.getRealParameter(item.getData());
-        if (para == null) {
-            return;
-        }
-        if (!para.isBuiltIn()) {
-            // not built-in
-            return;
-        }
-        cellEditor = cellFactory.getCustomCellEditor(para, tree);
-
-        if (cellEditor == null) {
-            // unable to create the editor
-            return;
-        }
-        // activate the cell editor
-        cellEditor.activate();
-        // if the cell editor has no control we can stop now
-        Control control = cellEditor.getControl();
-        if (control == null) {
-            cellEditor.deactivate();
-            cellEditor = null;
-            return;
-        }
-        // add our editor listener
-        cellEditor.addListener(createEditorListener(treeEditor));
-
-        // set the layout of the tree editor to match the cell editor
-        CellEditor.LayoutData layout = cellEditor.getLayoutData();
-        treeEditor.horizontalAlignment = layout.horizontalAlignment;
-        treeEditor.grabHorizontal = layout.grabHorizontal;
-        treeEditor.minimumWidth = layout.minimumWidth;
-        if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-            treeEditor.setEditor(control, item, CNUM_DEFAULT);
-        } else {
-            treeEditor.setEditor(control, item, CNUM_DEFAULT - 1);
-        }
-        // give focus to the cell editor
-        cellEditor.setFocus();
-
     }
 
     protected void handleSelect(final TreeItem item, final Tree tree, final TreeEditor treeEditor) {
@@ -608,6 +585,15 @@ public class ConextTemplateComposite extends Composite {
      * @param jobContextManager2
      */
     public void refresh() {
+        boolean value = getPreferenceStore().getBoolean("isGroupBySource");
+        if (value) {
+            provider.setProvider(new GroupBySourceProvier());
+        } else {
+            provider.setProvider(new GroupByNothingProvier());
+        }
+
+        viewer.setLabelProvider(provider);
+        viewer.setContentProvider(provider);
         IContextManager cm = modelManager.getContextManager();
         viewer.setInput(cm.getListContext());
         viewer.expandAll();
@@ -703,7 +689,7 @@ public class ConextTemplateComposite extends Composite {
                     TreeItem[] treeItemArray = viewer.getTree().getItems();
                     for (TreeItem treeitem : treeItemArray) {
                         if (treeitem.getData() instanceof GroupBySourceProvier.Parent) {
-                            if ("built-in".equals(((GroupBySourceProvier.Parent) treeitem.getData()).sourceName)) {
+                            if (BUILT_IN.equals(((GroupBySourceProvier.Parent) treeitem.getData()).sourceName)) {
                                 if (((GroupBySourceProvier.Parent) treeitem.getData()).builtContextParameter != null) {
                                     if (parameter.getName().equals(
                                             ((GroupBySourceProvier.Parent) treeitem.getData()).builtContextParameter.getName())) {
@@ -795,7 +781,7 @@ public class ConextTemplateComposite extends Composite {
                         return;
                     }
                     if (object instanceof GroupBySourceProvier.Parent) {
-                        if ("built-in".equals(((GroupBySourceProvier.Parent) object).sourceName)) {
+                        if (BUILT_IN.equals(((GroupBySourceProvier.Parent) object).sourceName)) {
                             parameter = ((GroupBySourceProvier.Parent) object).builtContextParameter;
                             removeParameter(parameter);
                         } else {
@@ -946,7 +932,7 @@ public class ConextTemplateComposite extends Composite {
     }
 
     /**
-     * bqian ConextTableValuesComposite class global comment. Detailled comment <br/>
+     * zwang ConextTableValuesComposite class global comment. Detailled comment <br/>
      * 
      */
     class CellModifier implements ICellModifier {
@@ -1026,12 +1012,20 @@ public class ConextTemplateComposite extends Composite {
             IContextParameter para = null;
             IContext context = getContextManager().getDefaultContext();
 
-            if (element instanceof GroupBySourceProvier.Parent) {
-                if ("built-in".equals(((GroupBySourceProvier.Parent) element).sourceName)) {
-                    para = context.getContextParameter(((GroupBySourceProvier.Parent) element).builtContextParameter.getName());
+            boolean value = getPreferenceStore().getBoolean("isGroupBySource");
+            if (value) {
+                if (element instanceof GroupBySourceProvier.Parent) {
+                    if (BUILT_IN.equals(((GroupBySourceProvier.Parent) element).sourceName)) {
+                        para = context.getContextParameter(((GroupBySourceProvier.Parent) element).builtContextParameter
+                                .getName());
+                    }
+                } else if (element instanceof GroupBySourceProvier.Son) {
+                    para = context.getContextParameter((((GroupBySourceProvier.Son) element).parameter).getName());
                 }
-            } else if (element instanceof GroupBySourceProvier.Son) {
-                para = context.getContextParameter((((GroupBySourceProvier.Son) element).parameter).getName());
+            } else {
+                if (element instanceof GroupByNothingProvier.Parent) {
+                    para = context.getContextParameter(((GroupByNothingProvier.Parent) element).parameter.getName());
+                }
             }
             return para;
         }
@@ -1077,7 +1071,15 @@ public class ConextTemplateComposite extends Composite {
                         return;
                     }
                     String newType = getRealType(ITEMS[(Integer) value]);
-                    para.setType(newType);
+                    String name = para.getName();
+                    for (IContext context : getContextManager().getListContext()) {
+                        for (IContextParameter contextParameter : context.getContextParameterList()) {
+                            if (name.equals(contextParameter.getName())) {
+                                contextParameter.setType(newType);
+                            }
+                        }
+                    }
+                    // para.setType(newType);
                 } else {
                     for (int i = 0; i < ContextParameterJavaTypeManager.getPerlTypesLabels().length; i++) {
                         if (s.equals(ContextParameterJavaTypeManager.getPerlTypesLabels()[i])) {
@@ -1088,13 +1090,29 @@ public class ConextTemplateComposite extends Composite {
                         return;
                     }
                     String newType = getRealType(ContextParameterJavaTypeManager.getPerlTypesLabels()[(Integer) value]);
-                    para.setType(newType);
+                    String name = para.getName();
+                    for (IContext context : getContextManager().getListContext()) {
+                        for (IContextParameter contextParameter : context.getContextParameterList()) {
+                            if (name.equals(contextParameter.getName())) {
+                                contextParameter.setType(newType);
+                            }
+                        }
+                    }
+                    // para.setType(newType);
                 }
             } else if (property.equals(COMMENT_COLUMN_NAME)) {
                 if (para.getComment().equals(value)) {
                     return;
                 }
-                para.setComment((String) value);
+                String name = para.getName();
+                for (IContext context : getContextManager().getListContext()) {
+                    for (IContextParameter contextParameter : context.getContextParameterList()) {
+                        if (name.equals(contextParameter.getName())) {
+                            contextParameter.setComment((String) value);
+                        }
+                    }
+                }
+                // para.setComment((String) value);
             }
             Command command = new Command() {
 
@@ -1113,6 +1131,10 @@ public class ConextTemplateComposite extends Composite {
         }
     }
 
+    private IPreferenceStore getPreferenceStore() {
+        return CorePlugin.getDefault().getPreferenceStore();
+    }
+
     private void runCommand(Command command) {
         if (modelManager.getCommandStack() == null) {
             command.execute();
@@ -1126,24 +1148,24 @@ public class ConextTemplateComposite extends Composite {
 
         final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
-            // String[] values = ITEMS;
-            // newType = contextParameterType.substring(3, contextParameterType.length());
-            // for (String format : values) {
-            // if (format.indexOf("|") != -1) {
-            // String[] formats = format.split("\\|");
-            // for (String aformat : formats) {
-            // if (newType.trim().equals(aformat.trim())) {
-            // return format;
-            // }
-            // }
-            // } else {
-            // if (newType.trim().equals(format.trim())) {
-            // return format;
-            // }
-            // }
-            // }
-            JavaType javaType = JavaTypesManager.getJavaTypeFromId(contextParameterType);
-            return javaType.getLabel();
+            String[] values = ITEMS;
+            newType = contextParameterType.substring(3, contextParameterType.length());
+            for (String format : values) {
+                if (format.indexOf("|") != -1) {
+                    String[] formats = format.split("\\|");
+                    for (String aformat : formats) {
+                        if (newType.trim().equals(aformat.trim())) {
+                            return format;
+                        }
+                    }
+                } else {
+                    if (newType.trim().equals(format.trim())) {
+                        return format;
+                    }
+                }
+            }
+            // JavaType javaType = JavaTypesManager.getJavaTypeFromId(contextParameterType);
+            // return javaType.getLabel();
         } else {
             String[] values = ContextParameterJavaTypeManager.getPerlTypesLabels();
             if ("".equals(contextParameterType)) {
@@ -1172,12 +1194,17 @@ public class ConextTemplateComposite extends Composite {
     private String getRealType(String type) {
         final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
         if (codeLanguage == ECodeLanguage.JAVA) {
-            // StringBuffer sb = new StringBuffer("id_");
+            StringBuffer sb = new StringBuffer("id_");
             JavaType javaType = JavaTypesManager.getJavaTypeFromLabel(type);
             if (type.indexOf("|") != -1) {
                 return javaType.getId();
             } else {
-                return javaType.getId();
+                if (javaType != null) {
+                    return javaType.getId();
+                } else {
+                    return sb.append(type.trim()).toString();
+                }
+
             }
         } else {
             return type;
@@ -1225,7 +1252,7 @@ public class ConextTemplateComposite extends Composite {
             if (element instanceof Parent) {
                 switch (columnIndex) {
                 case 0:
-                    if ("built-in".equals(((Parent) element).sourceName)) {
+                    if (BUILT_IN.equals(((Parent) element).sourceName)) {
                         if (((Parent) element).builtContextParameter != null) {
                             if (getContextManager().getDefaultContext().getContextParameter(
                                     ((Parent) element).builtContextParameter.getName()) != null) {
@@ -1246,7 +1273,7 @@ public class ConextTemplateComposite extends Composite {
                     }
                 case 1:
                     if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-                        if ("built-in".equals(((Parent) element).sourceName)) {
+                        if (BUILT_IN.equals(((Parent) element).sourceName)) {
                             if (((Parent) element).builtContextParameter != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((Parent) element).builtContextParameter.getName()) != null) {
@@ -1267,7 +1294,7 @@ public class ConextTemplateComposite extends Composite {
                         }
                     } else {
                         // index = -1;
-                        if ("built-in".equals(((Parent) element).sourceName)) {
+                        if (BUILT_IN.equals(((Parent) element).sourceName)) {
                             if (((Parent) element).builtContextParameter != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((Parent) element).builtContextParameter.getName()) != null) {
@@ -1288,8 +1315,23 @@ public class ConextTemplateComposite extends Composite {
                                                 ((Parent) element).builtContextParameter.getName()).getValue())
                                                 || "null".equals(getContextManager().getDefaultContext().getContextParameter(
                                                         ((Parent) element).builtContextParameter.getName()).getValue())) {
+                                            if ("boolean | Boolean".equals(s)) {
+                                                getContextManager().getDefaultContext().getContextParameter(
+                                                        ((Parent) element).builtContextParameter.getName()).setValue("false");
+                                            }
                                             return string[1];
                                         } else {
+                                            if ("boolean | Boolean".equals(s)) {
+                                                if (!("true".equals(getContextManager().getDefaultContext().getContextParameter(
+                                                        ((Parent) element).builtContextParameter.getName()).getValue()))
+                                                        && !("false".equals(getContextManager().getDefaultContext()
+                                                                .getContextParameter(
+                                                                        ((Parent) element).builtContextParameter.getName())
+                                                                .getValue()))) {
+                                                    getContextManager().getDefaultContext().getContextParameter(
+                                                            ((Parent) element).builtContextParameter.getName()).setValue("false");
+                                                }
+                                            }
                                             return string[0];
                                         }
                                     } else {
@@ -1312,7 +1354,7 @@ public class ConextTemplateComposite extends Composite {
                     }
                 case 2:
                     if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
-                        if ("built-in".equals(((Parent) element).sourceName)) {
+                        if (BUILT_IN.equals(((Parent) element).sourceName)) {
                             if (((Parent) element).builtContextParameter != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((Parent) element).builtContextParameter.getName()) != null) {
@@ -1326,8 +1368,23 @@ public class ConextTemplateComposite extends Composite {
                                                 ((Parent) element).builtContextParameter.getName()).getValue())
                                                 || "null".equals(getContextManager().getDefaultContext().getContextParameter(
                                                         ((Parent) element).builtContextParameter.getName()).getValue())) {
+                                            if ("boolean | Boolean".equals(s)) {
+                                                getContextManager().getDefaultContext().getContextParameter(
+                                                        ((Parent) element).builtContextParameter.getName()).setValue("false");
+                                            }
                                             return string[1];
                                         } else {
+                                            if ("boolean | Boolean".equals(s)) {
+                                                if (!("true".equals(getContextManager().getDefaultContext().getContextParameter(
+                                                        ((Parent) element).builtContextParameter.getName()).getValue()))
+                                                        && !("false".equals(getContextManager().getDefaultContext()
+                                                                .getContextParameter(
+                                                                        ((Parent) element).builtContextParameter.getName())
+                                                                .getValue()))) {
+                                                    getContextManager().getDefaultContext().getContextParameter(
+                                                            ((Parent) element).builtContextParameter.getName()).setValue("false");
+                                                }
+                                            }
                                             return string[0];
                                         }
                                     } else {
@@ -1349,7 +1406,7 @@ public class ConextTemplateComposite extends Composite {
                     } else {
                         final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
                         if (codeLanguage == ECodeLanguage.JAVA) {
-                            if ("built-in".equals(((Parent) element).sourceName)) {
+                            if (BUILT_IN.equals(((Parent) element).sourceName)) {
                                 if (((Parent) element).builtContextParameter != null) {
                                     if (getContextManager().getDefaultContext().getContextParameter(
                                             ((Parent) element).builtContextParameter.getName()) != null) {
@@ -1369,7 +1426,7 @@ public class ConextTemplateComposite extends Composite {
                                 }
                             }
                         } else {
-                            if ("built-in".equals(((Parent) element).sourceName)) {
+                            if (BUILT_IN.equals(((Parent) element).sourceName)) {
                                 if (((Parent) element).builtContextParameter != null) {
                                     if (getContextManager().getDefaultContext().getContextParameter(
                                             ((Parent) element).builtContextParameter.getName()) != null) {
@@ -1394,7 +1451,7 @@ public class ConextTemplateComposite extends Composite {
                     if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
                         final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
                         if (codeLanguage == ECodeLanguage.JAVA) {
-                            if ("built-in".equals(((Parent) element).sourceName)) {
+                            if (BUILT_IN.equals(((Parent) element).sourceName)) {
                                 if (((Parent) element).builtContextParameter != null) {
                                     if (getContextManager().getDefaultContext().getContextParameter(
                                             ((Parent) element).builtContextParameter.getName()) != null) {
@@ -1414,7 +1471,7 @@ public class ConextTemplateComposite extends Composite {
                                 }
                             }
                         } else {
-                            if ("built-in".equals(((Parent) element).sourceName)) {
+                            if (BUILT_IN.equals(((Parent) element).sourceName)) {
                                 if (((Parent) element).builtContextParameter != null) {
                                     if (getContextManager().getDefaultContext().getContextParameter(
                                             ((Parent) element).builtContextParameter.getName()) != null) {
@@ -1435,7 +1492,7 @@ public class ConextTemplateComposite extends Composite {
                             }
                         }
                     } else {
-                        if ("built-in".equals(((Parent) element).sourceName)) {
+                        if (BUILT_IN.equals(((Parent) element).sourceName)) {
                             if (((Parent) element).builtContextParameter != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((Parent) element).builtContextParameter.getName()) != null) {
@@ -1456,7 +1513,7 @@ public class ConextTemplateComposite extends Composite {
                         }
                     }
                 case 4:
-                    if ("built-in".equals(((Parent) element).sourceName)) {
+                    if (BUILT_IN.equals(((Parent) element).sourceName)) {
                         if (((Parent) element).builtContextParameter != null) {
                             if (getContextManager().getDefaultContext().getContextParameter(
                                     ((Parent) element).builtContextParameter.getName()) != null) {
@@ -1508,7 +1565,35 @@ public class ConextTemplateComposite extends Composite {
                         if (getContextManager().getDefaultContext().getContextParameter(son.parameter.getName()) != null) {
                             String sonType = getContextManager().getDefaultContext().getContextParameter(son.parameter.getName())
                                     .getType();
-                            return convertFormat(sonType);
+                            String s = convertFormat(sonType);
+                            String[] string = null;
+                            if (s.indexOf("|") != -1) {
+                                string = s.split("\\|");
+                                if ("".equals(getContextManager().getDefaultContext()
+                                        .getContextParameter(son.parameter.getName()).getValue())
+                                        || "null".equals(getContextManager().getDefaultContext().getContextParameter(
+                                                son.parameter.getName()).getValue())) {
+                                    if ("boolean | Boolean".equals(s)) {
+                                        getContextManager().getDefaultContext().getContextParameter(son.parameter.getName())
+                                                .setValue("false");
+                                    }
+                                    return string[1];
+                                } else {
+                                    if ("boolean | Boolean".equals(s)) {
+                                        if (!("true".equals(getContextManager().getDefaultContext().getContextParameter(
+                                                son.parameter.getName()).getValue()))
+                                                && !("false".equals(getContextManager().getDefaultContext().getContextParameter(
+                                                        son.parameter.getName()).getValue()))) {
+                                            getContextManager().getDefaultContext().getContextParameter(son.parameter.getName())
+                                                    .setValue("false");
+                                        }
+                                    }
+                                    return string[0];
+                                }
+                            } else {
+                                return convertFormat(sonType);
+                            }
+                            // return convertFormat(sonType);
                         } else {
                             break;
                         }
@@ -1589,7 +1674,7 @@ public class ConextTemplateComposite extends Composite {
                     if (!containers.isEmpty()) {
                         for (String source : containers) {
                             if (source.equals(para.getSource())) {
-                                if (!("built-in".equals(para.getSource()))) {
+                                if (!(BUILT_IN.equals(para.getSource()))) {
                                     flag = true;
                                 }
                             }
@@ -1621,7 +1706,7 @@ public class ConextTemplateComposite extends Composite {
                     parent.sourceName = sourceName;
                     for (String paraName : nameContainers) {
                         IContextParameter contextPara = context.getContextParameter(paraName);
-                        if (!("built-in".equals(contextPara.getSource()))) {
+                        if (!(BUILT_IN.equals(contextPara.getSource()))) {
                             if (parent.sourceName.equals(contextPara.getSource())) {
                                 Son son = new Son();
                                 son.parameter = contextPara;
@@ -1629,7 +1714,7 @@ public class ConextTemplateComposite extends Composite {
                                 parent.son.add(son);
                             }
                         } else {
-                            if ("built-in".equals(parent.sourceName)) {
+                            if (BUILT_IN.equals(parent.sourceName)) {
                                 if (!builtin) {
                                     b = false;
                                     for (String name : oldBuiltinName) {
@@ -1646,6 +1731,305 @@ public class ConextTemplateComposite extends Composite {
                             }
                         }
                     }
+                    root.add(parent);
+                }
+            }
+            return root.toArray();
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
+         */
+        public Object[] getChildren(Object parentElement) {
+            if (parentElement instanceof Parent) {
+                return ((Parent) parentElement).son.toArray();
+            }
+            return new Object[0];
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
+         */
+        public Object getParent(Object element) {
+            if (element instanceof Son) {
+                return ((Son) element).parent;
+            }
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
+         */
+        public boolean hasChildren(Object element) {
+            if (element instanceof Parent) {
+                return !((Parent) element).son.isEmpty();
+            }
+            return false;
+        }
+    }
+
+    /**
+     * A label and content provider for the treeviewer which groups the Contexts by nothing.
+     * 
+     */
+    class GroupByNothingProvier extends ProviderProxy {
+
+        /**
+         * Temporary model for provider. <br/>
+         * 
+         */
+        class Parent {
+
+            IContextParameter parameter;
+
+            List<Son> son = new ArrayList<Son>();
+        }
+
+        /**
+         * Temporary model for provider. <br/>
+         * 
+         */
+        class Son {
+
+            Parent parent;
+
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
+         */
+        public String getColumnText(Object element, int columnIndex) {
+            if (element instanceof Parent) {
+                switch (columnIndex) {
+                case 0:
+                    if (((Parent) element).parameter != null) {
+                        if (getContextManager().getDefaultContext().getContextParameter(((Parent) element).parameter.getName()) != null) {
+                            return getContextManager().getDefaultContext().getContextParameter(
+                                    ((Parent) element).parameter.getName()).getName();
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                case 1:
+                    if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
+                        if (((Parent) element).parameter != null) {
+                            if (getContextManager().getDefaultContext().getContextParameter(
+                                    ((Parent) element).parameter.getName()) != null) {
+                                return getContextManager().getDefaultContext().getContextParameter(
+                                        ((Parent) element).parameter.getName()).getSource();
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        if (((Parent) element).parameter != null) {
+                            if (getContextManager().getDefaultContext().getContextParameter(
+                                    ((Parent) element).parameter.getName()) != null) {
+                                String contextParameterType = getContextManager().getDefaultContext().getContextParameter(
+                                        ((Parent) element).parameter.getName()).getType();
+                                String s = convertFormat(contextParameterType);
+                                String[] string = null;
+                                if (s.indexOf("|") != -1) {
+                                    string = s.split("\\|");
+                                    if ("".equals(getContextManager().getDefaultContext().getContextParameter(
+                                            ((Parent) element).parameter.getName()).getValue())
+                                            || "null".equals(getContextManager().getDefaultContext().getContextParameter(
+                                                    ((Parent) element).parameter.getName()).getValue())) {
+                                        if ("boolean | Boolean".equals(s)) {
+                                            getContextManager().getDefaultContext().getContextParameter(
+                                                    ((Parent) element).parameter.getName()).setValue("false");
+                                        }
+                                        return string[1];
+                                    } else {
+                                        if ("boolean | Boolean".equals(s)) {
+                                            if (!("true".equals(getContextManager().getDefaultContext().getContextParameter(
+                                                    ((Parent) element).parameter.getName()).getValue()))
+                                                    && !("false".equals(getContextManager().getDefaultContext()
+                                                            .getContextParameter(((Parent) element).parameter.getName())
+                                                            .getValue()))) {
+                                                getContextManager().getDefaultContext().getContextParameter(
+                                                        ((Parent) element).parameter.getName()).setValue("false");
+                                            }
+                                        }
+                                        return string[0];
+                                    }
+                                } else {
+                                    return convertFormat(contextParameterType);
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                case 2:
+                    if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
+                        if (((Parent) element).parameter != null) {
+                            if (getContextManager().getDefaultContext().getContextParameter(
+                                    ((Parent) element).parameter.getName()) != null) {
+                                String contextParameterType = getContextManager().getDefaultContext().getContextParameter(
+                                        ((Parent) element).parameter.getName()).getType();
+                                String s = convertFormat(contextParameterType);
+                                String[] string = null;
+                                if (s.indexOf("|") != -1) {
+                                    string = s.split("\\|");
+                                    if ("".equals(getContextManager().getDefaultContext().getContextParameter(
+                                            ((Parent) element).parameter.getName()).getValue())
+                                            || "null".equals(getContextManager().getDefaultContext().getContextParameter(
+                                                    ((Parent) element).parameter.getName()).getValue())) {
+                                        if ("boolean | Boolean".equals(s)) {
+                                            getContextManager().getDefaultContext().getContextParameter(
+                                                    ((Parent) element).parameter.getName()).setValue("false");
+                                        }
+                                        return string[1];
+                                    } else {
+                                        if ("boolean | Boolean".equals(s)) {
+                                            if (!("true".equals(getContextManager().getDefaultContext().getContextParameter(
+                                                    ((Parent) element).parameter.getName()).getValue()))
+                                                    && !("false".equals(getContextManager().getDefaultContext()
+                                                            .getContextParameter(((Parent) element).parameter.getName())
+                                                            .getValue()))) {
+                                                getContextManager().getDefaultContext().getContextParameter(
+                                                        ((Parent) element).parameter.getName()).setValue("false");
+                                            }
+                                        }
+                                        return string[0];
+                                    }
+                                } else {
+                                    return convertFormat(contextParameterType);
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    } else {
+                        final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+                        if (codeLanguage == ECodeLanguage.JAVA) {
+                            if (((Parent) element).parameter != null) {
+                                if (getContextManager().getDefaultContext().getContextParameter(
+                                        ((Parent) element).parameter.getName()) != null) {
+                                    return getContextManager().getDefaultContext().getContextParameter(
+                                            ((Parent) element).parameter.getName()).getName();
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            if (((Parent) element).parameter != null) {
+                                if (getContextManager().getDefaultContext().getContextParameter(
+                                        ((Parent) element).parameter.getName()) != null) {
+                                    return getContextManager().getDefaultContext().getContextParameter(
+                                            ((Parent) element).parameter.getName()).getScriptCode();
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                case 3:
+                    if ((modelManager instanceof ContextComposite) && !((ContextComposite) modelManager).isRepositoryContext()) {
+                        final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+                        if (codeLanguage == ECodeLanguage.JAVA) {
+                            if (((Parent) element).parameter != null) {
+                                if (getContextManager().getDefaultContext().getContextParameter(
+                                        ((Parent) element).parameter.getName()) != null) {
+                                    return getContextManager().getDefaultContext().getContextParameter(
+                                            ((Parent) element).parameter.getName()).getName();
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        } else {
+                            if (((Parent) element).parameter != null) {
+                                if (getContextManager().getDefaultContext().getContextParameter(
+                                        ((Parent) element).parameter.getName()) != null) {
+                                    return getContextManager().getDefaultContext().getContextParameter(
+                                            ((Parent) element).parameter.getName()).getScriptCode();
+                                } else {
+                                    break;
+                                }
+                            } else {
+                                break;
+                            }
+                        }
+                    } else {
+                        if (((Parent) element).parameter != null) {
+                            if (getContextManager().getDefaultContext().getContextParameter(
+                                    ((Parent) element).parameter.getName()) != null) {
+                                return getContextManager().getDefaultContext().getContextParameter(
+                                        ((Parent) element).parameter.getName()).getComment();
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                case 4:
+                    if (((Parent) element).parameter != null) {
+                        if (getContextManager().getDefaultContext().getContextParameter(((Parent) element).parameter.getName()) != null) {
+                            return getContextManager().getDefaultContext().getContextParameter(
+                                    ((Parent) element).parameter.getName()).getComment();
+                        } else {
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+            }
+            return "";
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.talend.core.ui.context.ConextTreeValuesComposite.ProviderProxy#getColumnImage(java.lang.Object, int)
+         */
+        @Override
+        public Image getColumnImage(Object element, int columnIndex) {
+            return null;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
+         */
+        public Object[] getElements(Object inputElement) {
+            List<IContext> contexts = (List<IContext>) inputElement;
+            List<Parent> root = new ArrayList<Parent>();
+
+            if (!contexts.isEmpty()) {
+                IContext context = contexts.get(0);
+                for (IContextParameter contextParameter : context.getContextParameterList()) {
+                    Parent parent = new Parent();
+                    parent.parameter = contextParameter;
+                    //
+                    // Son son = new Son();
+                    // son.parent = parent;
+                    // parent.son.add(son);
                     root.add(parent);
                 }
             }
@@ -1711,6 +2095,87 @@ public class ConextTemplateComposite extends Composite {
          * java.lang.Object, java.lang.Object)
          */
         public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+        }
+    }
+
+    /**
+     * A label and content provider for the treeviewer which groups the Contexts by variable.
+     * 
+     */
+    class ViewerProvier extends LabelProvider implements ITreeContentProvider, ITableLabelProvider {
+
+        ProviderProxy provider = new GroupBySourceProvier();
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnImage(java.lang.Object, int)
+         */
+        public Image getColumnImage(Object element, int columnIndex) {
+            return provider.getColumnImage(element, columnIndex);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
+         * java.lang.Object, java.lang.Object)
+         */
+        public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITableLabelProvider#getColumnText(java.lang.Object, int)
+         */
+        public String getColumnText(Object element, int columnIndex) {
+            return provider.getColumnText(element, columnIndex);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITreeContentProvider#getChildren(java.lang.Object)
+         */
+        public Object[] getChildren(Object parentElement) {
+            return provider.getChildren(parentElement);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITreeContentProvider#getParent(java.lang.Object)
+         */
+        public Object getParent(Object element) {
+            return provider.getParent(element);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.ITreeContentProvider#hasChildren(java.lang.Object)
+         */
+        public boolean hasChildren(Object element) {
+            return provider.hasChildren(element);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
+         */
+        public Object[] getElements(Object inputElement) {
+            return provider.getElements(inputElement);
+        }
+
+        /**
+         * Sets the provider.
+         * 
+         * @param provider the provider to set
+         */
+        public void setProvider(ProviderProxy provider) {
+            this.provider = provider;
         }
     }
 }

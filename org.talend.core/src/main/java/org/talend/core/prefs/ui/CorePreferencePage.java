@@ -53,6 +53,8 @@ import org.talend.core.utils.XmlArray;
 public class CorePreferencePage extends FieldEditorPreferencePage implements IWorkbenchPreferencePage {
 
     private OneLineComboFieldEditor languageSelectionEditor;
+    
+    private BooleanFieldEditor groupBySource =null;
 
     private List<FieldEditor> fields = new ArrayList<FieldEditor>();
 
@@ -132,6 +134,15 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
         DirectoryFieldEditor ireportPath = new DirectoryFieldEditor(ITalendCorePrefConstants.IREPORT_PATH, Messages
                 .getString("CorePreferencePage.iReportPath"), getFieldEditorParent()); //$NON-NLS-1$
         addField(ireportPath);
+        
+        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
+            groupBySource = new BooleanFieldEditor(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE, Messages
+                    .getString("CorePreferencePage.groupBySource"), //$NON-NLS-1$
+                    getFieldEditorParent());
+
+            addField(groupBySource);
+
+        }
         // ends
     }
 
@@ -151,6 +162,11 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
                 PerlMainPreferencePage.refreshExecutableTextValue("\"" + perlInterpreter + "\"");
             }
             XmlArray.setLimitToDefault();
+            
+            if(groupBySource!=null){
+                getPreferenceStore().setValue("isGroupBySource",groupBySource.getBooleanValue());
+            }
+            CorePlugin.getDefault().getDesignerCoreService().switchToCurContextsView();
         }
         return ok;
     }
