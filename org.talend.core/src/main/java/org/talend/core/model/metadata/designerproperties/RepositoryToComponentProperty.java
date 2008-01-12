@@ -99,7 +99,10 @@ public class RepositoryToComponentProperty {
         if (connection instanceof WSDLSchemaConnection) {
             return getWSDLValue((WSDLSchemaConnection) connection, value);
         }
-
+        if (connection instanceof LdifFileConnection) {
+            return getLdifFileValue((LdifFileConnection) connection, value);
+        }
+        
         return null;
     }
 
@@ -465,6 +468,10 @@ public class RepositoryToComponentProperty {
     }
 
     private static Object getLdifFileValue(LdifFileConnection connection, String value) {
+        if (value.equals("FILE_PATH")) { //$NON-NLS-1$
+            Path p = new Path(connection.getFilePath());
+            return TalendTextUtils.addQuotes(p.toPortableString());
+        }
         return null;
     }
 
