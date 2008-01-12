@@ -214,9 +214,10 @@ public abstract class AbstractNode implements INode {
      */
     public AbstractNode getSubProcessStartNode(boolean withConditions) {
         if (!withConditions) {
-            if ((getCurrentActiveLinksNbInput(EConnectionType.FLOW_MAIN) == 0)
+            if ((getCurrentActiveLinksNbInput(EConnectionType.MAIN) == 0)
             // && (getCurrentActiveLinksNbInput(EConnectionType.FLOW_REF) == 0)
-                    && (getCurrentActiveLinksNbInput(EConnectionType.ITERATE) == 0)) {
+            // && (getCurrentActiveLinksNbInput(EConnectionType.ITERATE) == 0)
+            ) {
                 return this;
             }
         } else {
@@ -241,10 +242,10 @@ public abstract class AbstractNode implements INode {
         return null;
     }
 
-    private int getCurrentActiveLinksNbInput(EConnectionType type) {
+    private int getCurrentActiveLinksNbInput(int connectionCategory) {
         int nb = 0;
         for (IConnection connection : getIncomingConnections()) {
-            if (connection.isActivate() && connection.getLineStyle().equals(type)) {
+            if (connection.isActivate() && connection.getLineStyle().hasConnectionCategory(connectionCategory)) {
                 nb++;
             }
         }
