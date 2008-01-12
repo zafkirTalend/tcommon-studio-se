@@ -112,25 +112,26 @@ public class RepositoryToComponentProperty {
      */
     private static Object getWSDLValue(WSDLSchemaConnection connection, String value) {
         if ("ENDPOINT".equals(value)) {
-            return connection.getWSDL();
+
+            return TalendTextUtils.addQuotes(connection.getWSDL());
         } else if ("NEED_AUTH".equals(value)) {
-            return connection.isNeedAuth();
+            return new Boolean(connection.isNeedAuth());
         } else if ("AUTH_USERNAME".equals(value)) {
-            return connection.getUserName();
+            return TalendTextUtils.addQuotes(connection.getUserName());
         } else if ("AUTH_PASSWORD".equals(value)) {
-            return connection.getPassword();
+            return TalendTextUtils.addQuotes(connection.getPassword());
         } else if ("UES_PROXY".equals(value)) {
-            return connection.isUseProxy();
+            return new Boolean(connection.isUseProxy());
         } else if ("PROXY_HOST".equals(value)) {
-            return connection.getProxyHost();
+            return TalendTextUtils.addQuotes(connection.getProxyHost());
         } else if ("PROXY_PORT".equals(value)) {
-            return connection.getProxyPort();
+            return TalendTextUtils.addQuotes(connection.getProxyPort());
         } else if ("PROXY_USERNAME".equals(value)) {
-            return connection.getProxyUser();
+            return TalendTextUtils.addQuotes(connection.getProxyUser());
         } else if ("PROXY_PASSWORD".equals(value)) {
-            return connection.getProxyPassword();
+            return TalendTextUtils.addQuotes(connection.getProxyPassword());
         } else if ("METHOD".equals(value)) {
-            return connection.getMethodName();
+            return TalendTextUtils.addQuotes(connection.getMethodName());
         }
         // else if ("PARAMS".equals(value)) {
         // return connection.getParameters();
