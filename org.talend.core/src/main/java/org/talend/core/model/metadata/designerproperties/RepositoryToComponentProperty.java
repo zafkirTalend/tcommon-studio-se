@@ -33,6 +33,7 @@ import org.talend.core.model.metadata.builder.connection.LdifFileConnection;
 import org.talend.core.model.metadata.builder.connection.PositionalFileConnection;
 import org.talend.core.model.metadata.builder.connection.RegexpFileConnection;
 import org.talend.core.model.metadata.builder.connection.SchemaTarget;
+import org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection;
 import org.talend.core.model.metadata.builder.connection.XmlFileConnection;
 import org.talend.core.model.metadata.builder.connection.XmlXPathLoopDescriptor;
 import org.talend.core.model.process.IElementParameter;
@@ -95,6 +96,45 @@ public class RepositoryToComponentProperty {
         if (connection instanceof LDAPSchemaConnection) {
             return getLDAPValue((LDAPSchemaConnection) connection, value);
         }
+        if (connection instanceof WSDLSchemaConnection) {
+            return getWSDLValue((WSDLSchemaConnection) connection, value);
+        }
+
+        return null;
+    }
+
+    /**
+     * DOC qzhang Comment method "getWSDLValue".
+     * 
+     * @param connection
+     * @param value
+     * @return
+     */
+    private static Object getWSDLValue(WSDLSchemaConnection connection, String value) {
+        if ("ENDPOINT".equals(value)) {
+            return connection.getWSDL();
+        } else if ("NEED_AUTH".equals(value)) {
+            return connection.isNeedAuth();
+        } else if ("AUTH_USERNAME".equals(value)) {
+            return connection.getUserName();
+        } else if ("AUTH_PASSWORD".equals(value)) {
+            return connection.getPassword();
+        } else if ("UES_PROXY".equals(value)) {
+            return connection.isUseProxy();
+        } else if ("PROXY_HOST".equals(value)) {
+            return connection.getProxyHost();
+        } else if ("PROXY_PORT".equals(value)) {
+            return connection.getProxyPort();
+        } else if ("PROXY_USERNAME".equals(value)) {
+            return connection.getProxyUser();
+        } else if ("PROXY_PASSWORD".equals(value)) {
+            return connection.getProxyPassword();
+        } else if ("METHOD".equals(value)) {
+            return connection.getMethodName();
+        }
+        // else if ("PARAMS".equals(value)) {
+        // return connection.getParameters();
+        // }
         return null;
     }
 

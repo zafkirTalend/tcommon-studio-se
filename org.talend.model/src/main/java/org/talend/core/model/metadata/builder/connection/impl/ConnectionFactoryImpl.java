@@ -493,8 +493,6 @@ public class ConnectionFactoryImpl extends EFactoryImpl implements ConnectionFac
         if (initialValue == null || initialValue.length() == 0)
             return map;
         String[] tokens = initialValue.split(LIST_DELIMTER);
-        if (tokens.length % 2 != 0)
-            throw new IllegalStateException("Expecting an even number of token in \'" + initialValue + "\'"); //$NON-NLS-1$ //$NON-NLS-2$
         int i = 0;
         while (i < tokens.length) {
             map.add(tokens[i++]);
