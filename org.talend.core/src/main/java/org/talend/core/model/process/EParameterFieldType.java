@@ -52,7 +52,8 @@ public enum EParameterFieldType {
     LABEL,
     AS400_CHECK,
     MODULE_LIST,
-    COMMAND;
+    COMMAND,
+    PALO_DIM_SELECTION;
 
     public String getName() {
         return toString();
