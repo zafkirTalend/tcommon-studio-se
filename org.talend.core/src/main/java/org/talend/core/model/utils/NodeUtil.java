@@ -142,6 +142,24 @@ public class NodeUtil {
         return conns;
     }
 
+    public static List<? extends IConnection> getIncomingConnections(INode node, String connectorName) {
+        List<IConnection> conns = null;
+
+        List<? extends IConnection> incomingConnections = node.getIncomingConnections();
+        if (incomingConnections != null) {
+            conns = new ArrayList<IConnection>();
+
+            for (int i = 0; i < incomingConnections.size(); i++) {
+
+                IConnection connection = incomingConnections.get(i);
+                if (connectorName.equals(connection.getConnectorName())) {
+                    conns.add(connection);
+                }
+            }
+        }
+        return conns;
+    }
+
     public static boolean checkConnectionAfterNode(INode node, EConnectionType connectionType) {
         boolean result = false;
         List<? extends IConnection> onErrorConns = getOutgoingConnections(node, EConnectionType.ON_COMPONENT_ERROR);
