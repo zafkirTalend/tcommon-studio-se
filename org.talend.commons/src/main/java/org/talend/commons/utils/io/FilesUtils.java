@@ -209,7 +209,7 @@ public class FilesUtils {
     }
 
     public static String[] getAcceptJARFilesSuffix() {
-        return new String[] { "*.jar;*.properties;*.zip" };//$NON-NLS-1$
+        return new String[] { "*.jar;*.properties;*.zip;*.dll;*.so" };//$NON-NLS-1$
     }
 
     public static FileFilter getAcceptPMFilesFilter() {
