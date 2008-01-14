@@ -135,14 +135,12 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
                 .getString("CorePreferencePage.iReportPath"), getFieldEditorParent()); //$NON-NLS-1$
         addField(ireportPath);
         
-        if (LanguageManager.getCurrentLanguage() == ECodeLanguage.JAVA) {
             groupBySource = new BooleanFieldEditor(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE, Messages
                     .getString("CorePreferencePage.groupBySource"), //$NON-NLS-1$
                     getFieldEditorParent());
 
             addField(groupBySource);
 
-        }
         // ends
     }
 

@@ -81,35 +81,69 @@ public final class DefaultCellEditorFactory {
         String defalutDataValue = para.getValue();
         String type = para.getType();
 
-        if (isBoolean(type)) {
+        final ECodeLanguage codeLanguage = LanguageManager.getCurrentLanguage();
+        if (codeLanguage == ECodeLanguage.JAVA) {
+            if (isBoolean(type)) {
 
-            ComboBoxCellEditor boxCellEditor = new ComboBoxCellEditor(table, BOOLEANS, SWT.READ_ONLY) {
+                ComboBoxCellEditor boxCellEditor = new ComboBoxCellEditor(table, BOOLEANS, SWT.READ_ONLY) {
 
-                final List<String> list = Arrays.asList(BOOLEANS);
+                    final List<String> list = Arrays.asList(BOOLEANS);
 
-                protected void focusLost() {
-                    super.focusLost();
-                    refreshAll();
-                }
-
-                public Object doGetValue() {
-                    // Get the index into the list via this call to super.
-                    //
-                    int index = ((Integer) super.doGetValue()).intValue();
-                    final String string = index < list.size() && index >= 0 ? list.get(((Integer) super.doGetValue()).intValue())
-                            : null;
-                    if (string != null) {
-                        para.setValue(string.toString());
+                    protected void focusLost() {
+                        super.focusLost();
+                        refreshAll();
                     }
-                    return string;
+
+                    public Object doGetValue() {
+                        // Get the index into the list via this call to super.
+                        //
+                        int index = ((Integer) super.doGetValue()).intValue();
+                        final String string = index < list.size() && index >= 0 ? list.get(((Integer) super.doGetValue())
+                                .intValue()) : null;
+                        if (string != null) {
+                            para.setValue(string.toString());
+                        }
+                        return string;
+                    }
+                };
+                Integer integer = new Integer(0);
+                if (BOOLEANS[1].equals(defalutDataValue)) {
+                    integer = new Integer(1);
                 }
-            };
-            Integer integer = new Integer(0);
-            if (BOOLEANS[1].equals(defalutDataValue)) {
-                integer = new Integer(1);
+                boxCellEditor.setValue(integer);
+                return boxCellEditor;
             }
-            boxCellEditor.setValue(integer);
-            return boxCellEditor;
+        } else {
+            if ("boolean".equals(type)) {
+
+                ComboBoxCellEditor boxCellEditor = new ComboBoxCellEditor(table, BOOLEANS, SWT.READ_ONLY) {
+
+                    final List<String> list = Arrays.asList(BOOLEANS);
+
+                    protected void focusLost() {
+                        super.focusLost();
+                        refreshAll();
+                    }
+
+                    public Object doGetValue() {
+                        // Get the index into the list via this call to super.
+                        //
+                        int index = ((Integer) super.doGetValue()).intValue();
+                        final String string = index < list.size() && index >= 0 ? list.get(((Integer) super.doGetValue())
+                                .intValue()) : null;
+                        if (string != null) {
+                            para.setValue(string.toString());
+                        }
+                        return string;
+                    }
+                };
+                Integer integer = new Integer(0);
+                if (BOOLEANS[1].equals(defalutDataValue)) {
+                    integer = new Integer(1);
+                }
+                boxCellEditor.setValue(integer);
+                return boxCellEditor;
+            }
         }
 
         CellEditor cellEditor = null;

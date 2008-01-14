@@ -793,6 +793,9 @@ public class ConextTemplateComposite extends Composite {
                     } else if (object instanceof GroupBySourceProvier.Son) {
                         parameter = ((GroupBySourceProvier.Son) object).parameter;
                         removeParameter(parameter);
+                    } else if (object instanceof GroupByNothingProvier.Parent) {
+                        parameter = ((GroupByNothingProvier.Parent) object).parameter;
+                        removeParameter(parameter);
                     }
                 }
             }
@@ -1049,13 +1052,14 @@ public class ConextTemplateComposite extends Composite {
                     return;
                 }
                 String name = para.getName();
-                for (IContext context : getContextManager().getListContext()) {
-                    for (IContextParameter contextParameter : context.getContextParameterList()) {
-                        if (name.equals(contextParameter.getName())) {
-                            contextParameter.setName((String) value);
-                        }
-                    }
-                }
+                // for (IContext context : getContextManager().getListContext()) {
+                // for (IContextParameter contextParameter : context.getContextParameterList()) {
+                // if (name.equals(contextParameter.getName())) {
+                // contextParameter.setName((String) value);
+                // }
+                // }
+                // }
+                renameParameter(name, (String) value);
                 // para.setName();
             } else if (property.equals(TYPE_COLUMN_NAME)) {
                 int index = -1;
