@@ -59,7 +59,6 @@ import org.talend.commons.ui.swt.advanced.dataeditor.button.ImportPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveDownPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.MoveUpPushButton;
 import org.talend.commons.ui.swt.advanced.dataeditor.button.PastePushButton;
-import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
 import org.talend.commons.ui.swt.tableviewer.behavior.CellEditorValueAdapter;
 import org.talend.commons.utils.data.bean.IBeanPropertyAccessors;
 import org.talend.core.CorePlugin;
@@ -78,11 +77,12 @@ import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.model.utils.TalendTextUtils;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 import org.talend.core.ui.images.ECoreImage;
 import org.talend.designer.core.ui.celleditor.JavaTypeComboValueAdapter;
 
 /**
- * bqian class global comment. Detailled comment <br/>
+ * zwang class global comment. Detailled comment <br/>
  * 
  */
 public class ConextTemplateComposite extends Composite {
@@ -116,21 +116,15 @@ public class ConextTemplateComposite extends Composite {
 
     private boolean readOnly;
 
-    private DefaultCellEditorFactory cellFactory;
-
     private CellEditor cellEditor;
 
-    private TableViewerCreator<IContextParameter> tableViewerCreator;
+    private DefaultCellEditorFactory cellFactory;
 
     private TreeViewer viewer;
 
     private ViewerProvier provider;
 
     private CellModifier cellModifier;
-
-    // private ContextTemplateEditorView fieldsTableEditorView;
-
-    private ContextTemplateModel fieldsModel;
 
     private static final int CNUM_DEFAULT = 4;
 
@@ -167,10 +161,6 @@ public class ConextTemplateComposite extends Composite {
         return modelManager;
     }
 
-    // protected void setCommandStack(CommandStack commandStack) {
-    // fieldsTableEditorView.getExtendedTableViewer().setCommandStack(commandStack);
-    // }
-
     /*
      * (non-Javadoc)
      * 
@@ -179,9 +169,6 @@ public class ConextTemplateComposite extends Composite {
     @Override
     public void setEnabled(boolean enabled) {
         // update the state of buttons
-
-        // fieldsTableEditorView.getExtendedToolbar().getParentComposite().setEnabled(enabled);
-
         for (Button button : buttonList) {
             if (modelManager.isReadOnly()) {
                 button.setEnabled(false);
@@ -189,15 +176,10 @@ public class ConextTemplateComposite extends Composite {
                 button.setEnabled(enabled);
             }
         }
-
-        // update the table;
-        // for (TableViewerCreatorColumn column : tableViewerCreator.getColumns()) {
-        // column.setModifiable(enabled);
-        // }
     }
 
     /**
-     * bqian Comment method "initializeUI".
+     * zwang Comment method "initializeUI".
      */
     private void initializeUI() {
         ComboBoxCellEditor comboBoxCellEditor = null;
@@ -251,10 +233,9 @@ public class ConextTemplateComposite extends Composite {
 
         cellModifier = new CellModifier();
         viewer.setCellModifier(cellModifier);
-        // ((CCombo) comboBoxCellEditor.getControl()).setEditable(false);
 
         provider = new ViewerProvier();
-        boolean value = getPreferenceStore().getBoolean("isGroupBySource");
+        boolean value = getPreferenceStore().getBoolean(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE);
         if (value) {
             provider.setProvider(new GroupBySourceProvier());
         } else {
@@ -502,9 +483,6 @@ public class ConextTemplateComposite extends Composite {
             if (i >= 0) {
                 return javaTypes[i].getId();
             }
-            // else {
-            // return null;
-            // }
             throw new IllegalStateException("No selection is invalid"); //$NON-NLS-1$
         }
 
@@ -580,12 +558,12 @@ public class ConextTemplateComposite extends Composite {
     };
 
     /**
-     * bqian Comment method "setContexts".
+     * zwang Comment method "setContexts".
      * 
      * @param jobContextManager2
      */
     public void refresh() {
-        boolean value = getPreferenceStore().getBoolean("isGroupBySource");
+        boolean value = getPreferenceStore().getBoolean(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE);
         if (value) {
             provider.setProvider(new GroupBySourceProvier());
         } else {
@@ -600,12 +578,6 @@ public class ConextTemplateComposite extends Composite {
 
         List<IContext> contexts = getContextManager().getListContext();
         refreshVariableSource(contexts);
-
-        // List<IContextParameter> contextTemplate = computeContextTemplate(contexts);
-        //
-        // fieldsModel.removeAll();
-        // fieldsModel.addAll(contextTemplate);
-        // tableViewerCreator.getTable().deselectAll();
     }
 
     private void refreshVariableSource(List<IContext> contexts) {
@@ -637,7 +609,6 @@ public class ConextTemplateComposite extends Composite {
      * @param jobContextManager2
      */
     public void clear() {
-        // fieldsModel.removeAll();
         viewer.setInput(Collections.EMPTY_LIST);
     }
 
@@ -678,12 +649,7 @@ public class ConextTemplateComposite extends Composite {
                 IContextParameter parameter = (IContextParameter) createNewEntry();
                 if (parameter != null) {
                     // set the source to built-in
-                    // if (modelManager instanceof ContextComposite && !((ContextComposite)
-                    // modelManager).isRepositoryContext()) {
                     parameter.setSource(IContextParameter.BUILT_IN);
-                    // } else {
-                    // parameter.setSource(""); //$NON-NLS-1$
-                    // }
                     modelManager.onContextAddParameter(getContextManager(), parameter);
 
                     TreeItem[] treeItemArray = viewer.getTree().getItems();
@@ -718,7 +684,6 @@ public class ConextTemplateComposite extends Composite {
     }
 
     public Object createNewEntry() {
-        // if (modelManager instanceof ContextComposite && !((ContextComposite) modelManager).isRepositoryContext()) {
         List<IContextParameter> listParams = getContextManager().getDefaultContext().getContextParameterList();
         Integer numParam = new Integer(1);
         boolean paramNameFound;
@@ -756,9 +721,6 @@ public class ConextTemplateComposite extends Composite {
         contextParam.setComment(""); //$NON-NLS-1$
         contextParam.setSource(""); //$NON-NLS-1$
         return contextParam;
-        // } else {
-        // return null;
-        // }
     }
 
     private Button createRemovePushButton(final Composite parent) {
@@ -888,14 +850,6 @@ public class ConextTemplateComposite extends Composite {
     }
 
     private PastePushButton createPastePushButton() {
-        // return new PastePushButtonForExtendedTable(toolbar, extendedTableViewer) {
-        //
-        // @Override
-        // protected Command getCommandToExecute(ExtendedTableModel extendedTableModel, Integer indexWhereInsert) {
-        // return new PropertyTablePasteCommand<Map<String, Object>>(extendedTableModel, indexWhereInsert);
-        // }
-        //
-        // };
         return null;
     }
 
@@ -1005,7 +959,7 @@ public class ConextTemplateComposite extends Composite {
         }
 
         /**
-         * bqian Comment method "getRealParameter".
+         * zwang Comment method "getRealParameter".
          * 
          * @param property
          * @param templatePara
@@ -1052,15 +1006,7 @@ public class ConextTemplateComposite extends Composite {
                     return;
                 }
                 String name = para.getName();
-                // for (IContext context : getContextManager().getListContext()) {
-                // for (IContextParameter contextParameter : context.getContextParameterList()) {
-                // if (name.equals(contextParameter.getName())) {
-                // contextParameter.setName((String) value);
-                // }
-                // }
-                // }
                 renameParameter(name, (String) value);
-                // para.setName();
             } else if (property.equals(TYPE_COLUMN_NAME)) {
                 int index = -1;
                 String s = convertFormat(para.getType());
@@ -1083,7 +1029,6 @@ public class ConextTemplateComposite extends Composite {
                             }
                         }
                     }
-                    // para.setType(newType);
                 } else {
                     for (int i = 0; i < ContextParameterJavaTypeManager.getPerlTypesLabels().length; i++) {
                         if (s.equals(ContextParameterJavaTypeManager.getPerlTypesLabels()[i])) {
@@ -1102,7 +1047,6 @@ public class ConextTemplateComposite extends Composite {
                             }
                         }
                     }
-                    // para.setType(newType);
                 }
             } else if (property.equals(COMMENT_COLUMN_NAME)) {
                 if (para.getComment().equals(value)) {
@@ -1116,7 +1060,6 @@ public class ConextTemplateComposite extends Composite {
                         }
                     }
                 }
-                // para.setComment((String) value);
             }
             Command command = new Command() {
 
@@ -1168,8 +1111,6 @@ public class ConextTemplateComposite extends Composite {
                     }
                 }
             }
-            // JavaType javaType = JavaTypesManager.getJavaTypeFromId(contextParameterType);
-            // return javaType.getLabel();
         } else {
             String[] values = ContextParameterJavaTypeManager.getPerlTypesLabels();
             if ("".equals(contextParameterType)) {
@@ -1297,20 +1238,12 @@ public class ConextTemplateComposite extends Composite {
                             }
                         }
                     } else {
-                        // index = -1;
                         if (BUILT_IN.equals(((Parent) element).sourceName)) {
                             if (((Parent) element).builtContextParameter != null) {
                                 if (getContextManager().getDefaultContext().getContextParameter(
                                         ((Parent) element).builtContextParameter.getName()) != null) {
                                     String contextParameterType = getContextManager().getDefaultContext().getContextParameter(
                                             ((Parent) element).builtContextParameter.getName()).getType();
-                                    // String s = convertFormat(contextParameterType);
-                                    // for (int i = 0; i < ITEMS.length; i++) {
-                                    // if (s.equals(ITEMS[i])) {
-                                    // index = i;
-                                    // }
-                                    // }
-                                    // return String.valueOf(index);
                                     String s = convertFormat(contextParameterType);
                                     String[] string = null;
                                     if (s.indexOf("|") != -1) {
@@ -1341,7 +1274,6 @@ public class ConextTemplateComposite extends Composite {
                                     } else {
                                         return convertFormat(contextParameterType);
                                     }
-                                    // return convertFormat(contextParameterType);
                                 } else {
                                     break;
                                 }
@@ -1700,7 +1632,6 @@ public class ConextTemplateComposite extends Composite {
 
             List<Parent> root = new ArrayList<Parent>();
 
-            // for (IContext context : contexts) {
             if (!contexts.isEmpty()) {
                 IContext context = contexts.get(0);
                 oldBuiltinName.clear();
@@ -2030,10 +1961,7 @@ public class ConextTemplateComposite extends Composite {
                 for (IContextParameter contextParameter : context.getContextParameterList()) {
                     Parent parent = new Parent();
                     parent.parameter = contextParameter;
-                    //
-                    // Son son = new Son();
-                    // son.parent = parent;
-                    // parent.son.add(son);
+
                     root.add(parent);
                 }
             }

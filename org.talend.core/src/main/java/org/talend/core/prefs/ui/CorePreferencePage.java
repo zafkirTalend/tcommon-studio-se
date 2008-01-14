@@ -160,10 +160,7 @@ public class CorePreferencePage extends FieldEditorPreferencePage implements IWo
                 PerlMainPreferencePage.refreshExecutableTextValue("\"" + perlInterpreter + "\"");
             }
             XmlArray.setLimitToDefault();
-            
-            if(groupBySource!=null){
-                getPreferenceStore().setValue("isGroupBySource",groupBySource.getBooleanValue());
-            }
+
             CorePlugin.getDefault().getDesignerCoreService().switchToCurContextsView();
         }
         return ok;

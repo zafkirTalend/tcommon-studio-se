@@ -54,9 +54,10 @@ import org.talend.core.model.context.JobContextManager;
 import org.talend.core.model.process.IContext;
 import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
+import org.talend.core.prefs.ITalendCorePrefConstants;
 
 /**
- * DOC bqian class global comment. Detailled comment <br/>
+ * DOC zwang class global comment. Detailled comment <br/>
  * 
  */
 public class ConextTableValuesComposite extends Composite {
@@ -97,7 +98,7 @@ public class ConextTableValuesComposite extends Composite {
     }
 
     /**
-     * bqian Comment method "initializeUI".
+     * zwang Comment method "initializeUI".
      * 
      * @param viewer
      */
@@ -144,7 +145,7 @@ public class ConextTableValuesComposite extends Composite {
         viewer.setCellModifier(cellModifier);
 
         provider = new ViewerProvier();
-        boolean value = getPreferenceStore().getBoolean("isGroupBySource");
+        boolean value = getPreferenceStore().getBoolean(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE);
         if (value) {
             provider.setProvider(new GroupBySourceProvier());
         } else {
@@ -155,49 +156,12 @@ public class ConextTableValuesComposite extends Composite {
         viewer.setContentProvider(provider);
         addSorter(viewer);
 
-        // final TreeEditor treeEditor = new TreeEditor(tree);
-        // createEditorListener(treeEditor, contextList.size());
-        // tree.addMouseListener(new MouseAdapter() {
-        //
-        // @Override
-        // public void mouseDown(MouseEvent e) {
-        // List<IContext> contexts = getContexts();
-        // // int count = 0;
-        // // for (IContext context : contexts) {
-        // // count++;
-        // // }
-        // if (modelManager.isReadOnly()) {
-        // return;
-        // }
-        // Point pt = new Point(e.x, e.y);
-        // TreeItem item = tree.getItem(pt);
-        // // deactivate the current cell editor
-        // if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
-        // deactivateCellEditor(treeEditor, contexts.size());
-        // }
-        // if (item != null && !item.isDisposed()) {
-        // Rectangle rect = item.getBounds(contexts.size());
-        // if (rect.contains(pt)) {
-        // // if (e.x > 0 && e.x < CONTEXT_COLUMN_WIDTH * (contexts.size() + 1)) {
-        // if (e.x > 0) {
-        // handleSelect(item, tree, treeEditor, contexts.size(), e.x / CONTEXT_COLUMN_WIDTH);
-        // }
-        // // }
-        // }
-        // }
-        // }
-        // });
         final TreeEditor treeEditor = new TreeEditor(viewer.getTree());
 
         viewer.getTree().addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseDown(MouseEvent e) {
-                // List<IContext> contexts = getContexts();
-                // int count = 0;
-                // for (IContext context : contexts) {
-                // count++;
-                // }
                 if (modelManager.isReadOnly()) {
                     return;
                 }
@@ -212,12 +176,11 @@ public class ConextTableValuesComposite extends Composite {
                 }
                 if (item != null && !item.isDisposed()) {
                     Rectangle rect = item.getBounds(viewer.getTree().getColumnCount() - 1);
-                    // if (rect.contains(pt)) {
+
                     if (e.x > 0 && e.x < (viewer.getTree().getColumnCount()) * ConextTableValuesComposite.CONTEXT_COLUMN_WIDTH) {
                         handleSelect(item, viewer.getTree(), treeEditor, viewer.getTree().getColumnCount() - 1, e.x
                                 / CONTEXT_COLUMN_WIDTH);
                     }
-                    // }
                 }
             }
         });
@@ -272,9 +235,6 @@ public class ConextTableValuesComposite extends Composite {
             }
         };
         table.getColumn(0).addListener(SWT.Selection, sortListener);
-        // if (table.getColumn(1) != null) {
-        // table.getColumn(1).addListener(SWT.Selection, sortListener);
-        // }
         if (getContexts().size() > 0) {
             for (int i = 0; i < getContexts().size(); i++) {
                 table.getColumn(i + 1).addListener(SWT.Selection, sortListener);
@@ -288,13 +248,8 @@ public class ConextTableValuesComposite extends Composite {
         // ensure the cell editor is visible
         tree.showSelection();
 
-        // if (properties[columnIndex].equals(COLUMN_NAME_PROPERTY)) {
-        // return;
-        // }
-
         IContextParameter para = cellModifier.getRealParameter(properties[column], item.getData());
 
-        // IContextParameter para = cellModifier.getRealParameter(item.getData());
         if (para == null) {
             return;
         }
@@ -308,18 +263,6 @@ public class ConextTableValuesComposite extends Composite {
             // unable to create the editor
             return;
         }
-
-        // CellEditor[] cellEditors = new CellEditor[getContexts().size() + 1];
-        // for (int i = 0; i < getContexts().size() + 1; i++) {
-        // if (i == 0) {
-        // cellEditors[i] = null;
-        // } else if (i == column) {
-        // cellEditors[i] = cellEditor;
-        // } else {
-        // cellEditors[i] = new TextCellEditor(tree);
-        // }
-        // }
-        // viewer.setCellEditors(cellEditors);
 
         // activate the cell editor
         cellEditor.activate();
@@ -339,11 +282,6 @@ public class ConextTableValuesComposite extends Composite {
         treeEditor.grabHorizontal = layout.grabHorizontal;
         treeEditor.minimumWidth = layout.minimumWidth;
 
-        // List<IContext> contexts = getContexts();
-        // int count = 0;
-        // for (IContext context : contexts) {
-        // count++;
-        // }
         treeEditor.setEditor(control, item, column);
         // give focus to the cell editor
         cellEditor.setFocus();
@@ -388,7 +326,7 @@ public class ConextTableValuesComposite extends Composite {
     private void createToolBar(final ToolBar toolBar) {
         configContext = new ConfigureContextAction(modelManager, this.getShell());
         contextConfigButton = new ToolItem(toolBar, SWT.PUSH);
-        // contextConfigButton.setDisabledImage();
+
         contextConfigButton.setImage(configContext.getImageDescriptor().createImage());
         contextConfigButton.setToolTipText(configContext.getText());
         contextConfigButton.addSelectionListener(new SelectionAdapter() {
@@ -425,23 +363,11 @@ public class ConextTableValuesComposite extends Composite {
     }
 
     public void refresh() {
-        // contextConfigButton.setEnabled(!modelManager.isReadOnly());
         final Tree tree = viewer.getTree();
-        // tree.setHeaderVisible(true);
-        // tree.setLinesVisible(true);
-        // tree.setLayoutData(new GridData(GridData.FILL_BOTH));
-
-        // Tree table = viewer.getTree();
         TreeColumn[] columns = tree.getColumns();
         for (TreeColumn tableColumn : columns) {
             tableColumn.dispose();
         }
-
-        // viewer = new TreeViewer(this, SWT.FULL_SELECTION | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER);
-        // Tree newTree = viewer.getTree();
-        // newTree.setHeaderVisible(true);
-        // newTree.setLinesVisible(true);
-        // newTree.setLayoutData(new GridData(GridData.FILL_BOTH));
 
         TreeColumn column = new TreeColumn(tree, SWT.NONE);
         column.setText(COLUMN_NAME_PROPERTY);
@@ -469,14 +395,8 @@ public class ConextTableValuesComposite extends Composite {
         }
         viewer.setColumnProperties(properties);
         viewer.setCellEditors(cellEditors);
-        // viewer.setColumnProperties(properties);
-        // viewer.setCellEditors(cellEditors);
-        // tree.layout();
-        // cellModifier = new CellModifier();
-        // viewer.setCellModifier(cellModifier);
 
-        // provider = new ViewerProvier();
-        boolean value = getPreferenceStore().getBoolean("isGroupBySource");
+        boolean value = getPreferenceStore().getBoolean(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE);
         if (value) {
             provider.setProvider(new GroupBySourceProvier());
         } else {
@@ -485,38 +405,6 @@ public class ConextTableValuesComposite extends Composite {
         viewer.setLabelProvider(provider);
         viewer.setContentProvider(provider);
         addSorter(viewer);
-        // addSorter(viewer);
-        // final TreeEditor treeEditor = new TreeEditor(viewer.getTree());
-        // createEditorListener(treeEditor, viewer.getTree().getColumnCount() - 1);
-        // viewer.getTree().addMouseListener(new MouseAdapter() {
-        //
-        // @Override
-        // public void mouseDown(MouseEvent e) {
-        // // List<IContext> contexts = getContexts();
-        // // int count = 0;
-        // // for (IContext context : contexts) {
-        // // count++;
-        // // }
-        // if (modelManager.isReadOnly()) {
-        // return;
-        // }
-        // Point pt = new Point(e.x, e.y);
-        // TreeItem item = viewer.getTree().getItem(pt);
-        // // deactivate the current cell editor
-        // if (cellEditor != null && !cellEditor.getControl().isDisposed()) {
-        // deactivateCellEditor(treeEditor, viewer.getTree().getColumnCount() - 1);
-        // }
-        // if (item != null && !item.isDisposed()) {
-        // Rectangle rect = item.getBounds(viewer.getTree().getColumnCount() - 1);
-        // if (rect.contains(pt)) {
-        // if (e.x > 0) {
-        // handleSelect(item, viewer.getTree(), treeEditor, viewer.getTree().getColumnCount() - 1, e.x
-        // / CONTEXT_COLUMN_WIDTH);
-        // }
-        // }
-        // }
-        // }
-        // });
 
         List<IContextParameter> contextTemplate = ConextTemplateComposite.computeContextTemplate(contextList);
         viewer.setInput(contextTemplate);
@@ -539,7 +427,7 @@ public class ConextTableValuesComposite extends Composite {
     }
 
     /**
-     * bqian ConextTableValuesComposite class global comment. Detailled comment <br/>
+     * zwang ConextTableValuesComposite class global comment. Detailled comment <br/>
      * 
      */
     class CellModifier implements ICellModifier {
@@ -595,38 +483,12 @@ public class ConextTableValuesComposite extends Composite {
             }
 
             if (para != null) {
-                // if (property.equals(COLUMN_NAME_PROPERTY)) {
-                // return para.getName();
-                // }
-
                 for (IContext context : contextList) {
                     if (property.equals(context.getName())) {
                         return para.getValue();
                     }
                 }
             }
-            // } else {
-            // if (property.equals(COLUMN_NAME_PROPERTY)) {
-            // if (!("built-in".equals(((GroupBySourceProvier.Parent) element).sourceName))) {
-            // return ((GroupBySourceProvier.Parent) element).sourceName;
-            // }
-            // } else if (element instanceof GroupBySourceProvier.Parent) {
-            // StringBuffer sb = new StringBuffer();
-            // for (GroupBySourceProvier.Son son : ((GroupBySourceProvier.Parent) element).son) {
-            // for (IContextParameter contextParameter : contextManager.getContext(property).getContextParameterList())
-            // {
-            // if (son.parameter.getName().equals(contextParameter.getName())) {
-            // if ("null".equals(contextParameter.getValue())) {
-            // sb.append("" + "/");
-            // } else {
-            // sb.append(contextParameter.getValue() + "/");
-            // }
-            // }
-            // }
-            // }
-            // return sb.toString().substring(0, sb.toString().lastIndexOf("/"));
-            // }
-            // }
             return "";
         }
 
@@ -645,20 +507,6 @@ public class ConextTableValuesComposite extends Composite {
             if (!(property.equals(COLUMN_NAME_PROPERTY))) {
                 context = modelManager.getContextManager().getContext(property);
             }
-            // else {
-            // if (element instanceof GroupBySourceProvier.Parent) {
-            // if ("built-in".equals(((GroupBySourceProvier.Parent) element).sourceName)) {
-            // para = contextList.get(0).getContextParameter(
-            // ((GroupBySourceProvier.Parent) element).builtContextParameter.getName());
-            // return para;
-            // } else {
-            // return para;
-            // }
-            // } else if (element instanceof GroupBySourceProvier.Son) {
-            // para = contextList.get(0).getContextParameter(((GroupBySourceProvier.Son) element).parameter.getName());
-            // return para;
-            // }
-            // }
             if (context == null) {
                 return null;
             }
@@ -670,9 +518,6 @@ public class ConextTableValuesComposite extends Composite {
             } else if (element instanceof GroupByNothingProvier.Parent) {
                 para = context.getContextParameter(((GroupByNothingProvier.Parent) element).parameter.getName());
             }
-            // else if (element instanceof GroupBySourceProvier.Son) {
-            // para = context.getContextParameter(((GroupBySourceProvier.Son) element).parameter.getName());
-            // }
 
             return para;
         }
@@ -697,41 +542,6 @@ public class ConextTableValuesComposite extends Composite {
             if (para == null) {
                 return;
             }
-            // if (para == null) {
-            // if (property.equals(COLUMN_NAME_PROPERTY)) {
-            // if (!("built-in".equals(((GroupBySourceProvier.Parent) element).sourceName))) {
-            // if (((GroupBySourceProvier.Parent) element).sourceName.equals(value)) {
-            // return;
-            // }
-            // ((GroupBySourceProvier.Parent) element).sourceName = (String) value;
-            // }
-            // } else if (element instanceof GroupBySourceProvier.Parent) {
-            // StringBuffer sb = new StringBuffer();
-            // for (GroupBySourceProvier.Son son : ((GroupBySourceProvier.Parent) element).son) {
-            // for (IContextParameter contextParameter : modelManager.getContextManager().getContext(property)
-            // .getContextParameterList()) {
-            // if (son.parameter.getName().equals(contextParameter.getName())) {
-            // if ("null".equals(contextParameter.getValue())) {
-            // sb.append("" + "/");
-            // } else {
-            // sb.append(contextParameter.getValue() + "/");
-            // }
-            // }
-            // }
-            // }
-            // if ((sb.toString().substring(0, sb.toString().lastIndexOf("/"))).equals(value)) {
-            // return;
-            // }
-            // }
-            // return;
-            // }
-
-            // if (property.equals(COLUMN_NAME_PROPERTY)) {
-            // if (para.getName().equals(value)) {
-            // return;
-            // }
-            // para.setName((String) value);
-            // }
 
             for (IContext context : contextList) {
                 if (property.equals(context.getName())) {
