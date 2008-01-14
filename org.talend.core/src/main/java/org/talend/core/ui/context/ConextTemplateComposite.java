@@ -969,7 +969,7 @@ public class ConextTemplateComposite extends Composite {
             IContextParameter para = null;
             IContext context = getContextManager().getDefaultContext();
 
-            boolean value = getPreferenceStore().getBoolean("isGroupBySource");
+            boolean value = getPreferenceStore().getBoolean(ITalendCorePrefConstants.CONTEXT_GROUP_BY_SOURCE);
             if (value) {
                 if (element instanceof GroupBySourceProvier.Parent) {
                     if (BUILT_IN.equals(((GroupBySourceProvier.Parent) element).sourceName)) {
