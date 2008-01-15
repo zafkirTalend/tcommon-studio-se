@@ -26,13 +26,20 @@ public class RoutineProblem extends Problem {
 
     private Integer lineNumber;
 
-    public RoutineProblem(ProblemStatus status, String javaUnitName, IMarker marker, String markerErrorMessage, Integer lineNumber) {
+    private Integer charStart;
+
+    private Integer charEnd;
+
+    public RoutineProblem(ProblemStatus status, String javaUnitName, IMarker marker, String markerErrorMessage,
+            Integer lineNumber, Integer charStart, Integer charEnd) {
         super();
         setDescription(markerErrorMessage);
         setStatus(status);
         this.javaUnitName = javaUnitName;
         this.marker = marker;
         this.lineNumber = lineNumber;
+        this.charStart = charStart;
+        this.charEnd = charEnd;
         setType(ProblemType.ROUTINE);
     }
 
@@ -42,6 +49,14 @@ public class RoutineProblem extends Problem {
 
     private Integer getLineNumber() {
         return lineNumber;
+    }
+
+    public Integer getCharStart() {
+        return this.charStart;
+    }
+
+    public Integer getCharEnd() {
+        return this.charEnd;
     }
 
     public String getJavaUnitName() {
@@ -70,6 +85,8 @@ public class RoutineProblem extends Problem {
         result = prime * result + ((this.javaUnitName == null) ? 0 : this.javaUnitName.hashCode());
         result = prime * result + ((this.lineNumber == null) ? 0 : this.lineNumber.hashCode());
         result = prime * result + ((this.marker == null) ? 0 : this.marker.hashCode());
+        result = prime * result + ((this.charStart == null) ? 0 : this.charStart.hashCode());
+        result = prime * result + ((this.charEnd == null) ? 0 : this.charEnd.hashCode());
         return result;
     }
 
@@ -80,33 +97,58 @@ public class RoutineProblem extends Problem {
      */
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final RoutineProblem other = (RoutineProblem) obj;
         if (this.javaUnitName == null) {
-            if (other.javaUnitName != null)
+            if (other.javaUnitName != null) {
                 return false;
-        } else if (!this.javaUnitName.equals(other.javaUnitName))
+            }
+        } else if (!this.javaUnitName.equals(other.javaUnitName)) {
             return false;
+        }
         if (this.lineNumber == null) {
-            if (other.lineNumber != null)
+            if (other.lineNumber != null) {
                 return false;
-        } else if (!this.lineNumber.equals(other.lineNumber))
+            }
+        } else if (!this.lineNumber.equals(other.lineNumber)) {
             return false;
+        }
         if (this.marker == null) {
-            if (other.marker != null)
+            if (other.marker != null) {
                 return false;
-        } else if (!this.marker.equals(other.marker))
+            }
+        } else if (!this.marker.equals(other.marker)) {
             return false;
+        }
+        if (this.charStart == null) {
+            if (other.charStart != null) {
+                return false;
+            }
+        } else if (!this.charStart.equals(other.charStart)) {
+            return false;
+        }
+        if (this.charEnd == null) {
+            if (other.charEnd != null) {
+                return false;
+            }
+        } else if (!this.charEnd.equals(other.charEnd)) {
+            return false;
+        }
         if (this.getDescription() == null) {
-            if (other.getDescription() != null)
+            if (other.getDescription() != null) {
                 return false;
-        } else if (!this.getDescription().equals(other.getDescription()))
+            }
+        } else if (!this.getDescription().equals(other.getDescription())) {
             return false;
+        }
         return true;
     }
 
