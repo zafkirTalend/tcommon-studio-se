@@ -3192,13 +3192,31 @@ public interface ConnectionPackage extends EPackage {
     int WSDL_SCHEMA_CONNECTION__VALUE = CONNECTION_FEATURE_COUNT + 11;
 
     /**
+     * The feature id for the '<em><b>Endpoint URI</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__ENDPOINT_URI = CONNECTION_FEATURE_COUNT + 12;
+
+    /**
+     * The feature id for the '<em><b>Encoding</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int WSDL_SCHEMA_CONNECTION__ENCODING = CONNECTION_FEATURE_COUNT + 13;
+
+    /**
      * The number of structural features of the '<em>WSDL Schema Connection</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int WSDL_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 12;
+    int WSDL_SCHEMA_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 14;
 
     /**
      * The meta object id for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.
@@ -4780,6 +4798,28 @@ public interface ConnectionPackage extends EPackage {
     EAttribute getWSDLSchemaConnection_Value();
 
     /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEndpointURI <em>Endpoint URI</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Endpoint URI</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEndpointURI()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_EndpointURI();
+
+    /**
+     * Returns the meta object for the attribute '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEncoding <em>Encoding</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the attribute '<em>Encoding</em>'.
+     * @see org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEncoding()
+     * @see #getWSDLSchemaConnection()
+     * @generated
+     */
+    EAttribute getWSDLSchemaConnection_Encoding();
+
+    /**
      * Returns the meta object for enum '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}'.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @return the meta object for enum '<em>Database Properties</em>'.
@@ -6060,6 +6100,22 @@ public interface ConnectionPackage extends EPackage {
          * @generated
          */
         EAttribute WSDL_SCHEMA_CONNECTION__VALUE = eINSTANCE.getWSDLSchemaConnection_Value();
+
+        /**
+         * The meta object literal for the '<em><b>Endpoint URI</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__ENDPOINT_URI = eINSTANCE.getWSDLSchemaConnection_EndpointURI();
+
+        /**
+         * The meta object literal for the '<em><b>Encoding</b></em>' attribute feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EAttribute WSDL_SCHEMA_CONNECTION__ENCODING = eINSTANCE.getWSDLSchemaConnection_Encoding();
 
         /**
          * The meta object literal for the '{@link org.talend.core.model.metadata.builder.connection.DatabaseProperties <em>Database Properties</em>}' enum.

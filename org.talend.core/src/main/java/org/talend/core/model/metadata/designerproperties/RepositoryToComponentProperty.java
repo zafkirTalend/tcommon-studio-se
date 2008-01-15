@@ -102,7 +102,7 @@ public class RepositoryToComponentProperty {
         if (connection instanceof LdifFileConnection) {
             return getLdifFileValue((LdifFileConnection) connection, value);
         }
-        
+
         return null;
     }
 
@@ -135,6 +135,15 @@ public class RepositoryToComponentProperty {
             return TalendTextUtils.addQuotes(connection.getProxyPassword());
         } else if ("METHOD".equals(value)) {
             return TalendTextUtils.addQuotes(connection.getMethodName());
+        } else if ("WSDLURL".equals(value)) {
+            return TalendTextUtils.addQuotes(connection.getEndpointURI());
+        } else if (value.equals("ENCODING")) { //$NON-NLS-1$
+            if (connection.getEncoding() == null) {
+                // get the default encoding
+                return TalendTextUtils.addQuotes(EMetadataEncoding.getMetadataEncoding("").getName()); //$NON-NLS-1$
+            } else {
+                return TalendTextUtils.addQuotes(connection.getEncoding());
+            }
         }
         // else if ("PARAMS".equals(value)) {
         // return connection.getParameters();

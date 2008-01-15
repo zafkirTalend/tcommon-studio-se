@@ -21,6 +21,8 @@ public class WSDLSchemaBean {
 
     private String wslUrl;
 
+    private String endpointURI;
+
     private String method;
 
     private boolean needAuth;
@@ -237,6 +239,24 @@ public class WSDLSchemaBean {
      */
     public void setProxyPassword(String proxyPassword) {
         this.proxyPassword = proxyPassword;
+    }
+
+    /**
+     * Getter for endpointURI.
+     * 
+     * @return the endpointURI
+     */
+    public String getEndpointURI() {
+        return this.endpointURI;
+    }
+
+    /**
+     * Sets the endpointURI.
+     * 
+     * @param endpointURI the endpointURI to set
+     */
+    public void setEndpointURI(String endpointURI) {
+        this.endpointURI = endpointURI;
     }
 
 }

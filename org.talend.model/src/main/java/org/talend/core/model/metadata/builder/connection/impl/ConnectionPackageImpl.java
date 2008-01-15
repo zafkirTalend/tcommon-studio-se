@@ -1460,6 +1460,24 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
     }
 
     /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_EndpointURI() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(12);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EAttribute getWSDLSchemaConnection_Encoding() {
+        return (EAttribute)wsdlSchemaConnectionEClass.getEStructuralFeatures().get(13);
+    }
+
+    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -1705,6 +1723,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__PROXY_USER);
         createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__PROXY_PASSWORD);
         createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__VALUE);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__ENDPOINT_URI);
+        createEAttribute(wsdlSchemaConnectionEClass, WSDL_SCHEMA_CONNECTION__ENCODING);
 
         // Create enums
         databasePropertiesEEnum = createEEnum(DATABASE_PROPERTIES);
@@ -1921,6 +1941,8 @@ public class ConnectionPackageImpl extends EPackageImpl implements ConnectionPac
         initEAttribute(getWSDLSchemaConnection_ProxyUser(), ecorePackage.getEString(), "proxyUser", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getWSDLSchemaConnection_ProxyPassword(), ecorePackage.getEString(), "proxyPassword", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getWSDLSchemaConnection_Value(), ecorePackage.getEString(), "Value", null, 0, -1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_EndpointURI(), ecorePackage.getEString(), "EndpointURI", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEAttribute(getWSDLSchemaConnection_Encoding(), ecorePackage.getEString(), "Encoding", null, 0, 1, WSDLSchemaConnection.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         // Initialize enums and add enum literals
         initEEnum(databasePropertiesEEnum, DatabaseProperties.class, "DatabaseProperties");

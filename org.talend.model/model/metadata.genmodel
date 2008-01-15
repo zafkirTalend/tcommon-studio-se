@@ -211,6 +211,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/proxyUser"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/proxyPassword"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/Value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/EndpointURI"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute metadata.ecore#//WSDLSchemaConnection/Encoding"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

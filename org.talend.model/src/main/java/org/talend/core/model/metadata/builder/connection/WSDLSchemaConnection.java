@@ -31,6 +31,8 @@ import java.util.List;
  *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyUser <em>Proxy User</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getProxyPassword <em>Proxy Password</em>}</li>
  *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getValue <em>Value</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEndpointURI <em>Endpoint URI</em>}</li>
+ *   <li>{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEncoding <em>Encoding</em>}</li>
  * </ul>
  * </p>
  *
@@ -341,5 +343,57 @@ public interface WSDLSchemaConnection extends Connection {
      * @generated
      */
     EList getValue();
+
+    /**
+     * Returns the value of the '<em><b>Endpoint URI</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Endpoint URI</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Endpoint URI</em>' attribute.
+     * @see #setEndpointURI(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getWSDLSchemaConnection_EndpointURI()
+     * @model
+     * @generated
+     */
+    String getEndpointURI();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEndpointURI <em>Endpoint URI</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Endpoint URI</em>' attribute.
+     * @see #getEndpointURI()
+     * @generated
+     */
+    void setEndpointURI(String value);
+
+    /**
+     * Returns the value of the '<em><b>Encoding</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <p>
+     * If the meaning of the '<em>Encoding</em>' attribute isn't clear,
+     * there really should be more of a description here...
+     * </p>
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Encoding</em>' attribute.
+     * @see #setEncoding(String)
+     * @see org.talend.core.model.metadata.builder.connection.ConnectionPackage#getWSDLSchemaConnection_Encoding()
+     * @model
+     * @generated
+     */
+    String getEncoding();
+
+    /**
+     * Sets the value of the '{@link org.talend.core.model.metadata.builder.connection.WSDLSchemaConnection#getEncoding <em>Encoding</em>}' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @param value the new value of the '<em>Encoding</em>' attribute.
+     * @see #getEncoding()
+     * @generated
+     */
+    void setEncoding(String value);
 
 } // WSDLSchemaConnection
