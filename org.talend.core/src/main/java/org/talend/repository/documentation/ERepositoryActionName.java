@@ -27,10 +27,17 @@ public enum ERepositoryActionName {
     JOB_DELETE_TO_RECYCLE_BIN("job delete to recycle bin"),
     JOB_DELETE_FOREVER("job delete forever"),
 
+    // for normal job
     FOLDER_CREATE("folder create"),
     FOLDER_DELETE("folder delete"),
     FOLDER_RENAME("folder rename"),
-    FOLDER_MOVE("folder move");
+    FOLDER_MOVE("folder move"),
+
+    // for joblet
+    JOBLET_FOLDER_CREATE("joblet.folder.create"),
+    JOBLET_FOLDER_DELETE("joblet.folder.delete"),
+    JOBLET_FOLDER_RENAME("joblet.folder.rename"),
+    JOBLET_FOLDER_MOVE("joblet.folder.move");
 
     private String name;
 
