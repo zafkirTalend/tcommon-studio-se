@@ -70,4 +70,6 @@ public interface IProcess extends IRepositoryObject, IElement {
     public int getMergelinkOrder(final INode node);
 
     public boolean isThereLinkWithHash(final INode node);
+
+    boolean disableRunJobView();
 }
