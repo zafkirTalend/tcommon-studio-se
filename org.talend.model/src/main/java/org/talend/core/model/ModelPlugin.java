@@ -12,10 +12,10 @@
 // ============================================================================
 package org.talend.core.model;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.core.runtime.Plugin;
 import org.osgi.framework.BundleContext;
 
-public class ModelPlugin extends AbstractUIPlugin {
+public class ModelPlugin extends Plugin {
 
     public static final String MODEL_PLUGIN_ID = "org.talend.model"; //$NON-NLS-1$
 
