@@ -51,6 +51,8 @@ import org.talend.core.model.genhtml.XMLHandler;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -67,7 +69,7 @@ import org.talend.repository.model.RepositoryConstants;
  * $Id: XMLGenerator.java 2007-3-8,下午01:09:34 ftang $
  * 
  */
-public class HTMLDocGenerator {
+public class HTMLDocGenerator implements IDocumentationGenerator {
 
     private Map<String, List> targetConnectionMap = null;
 
@@ -85,17 +87,21 @@ public class HTMLDocGenerator {
 
     private Map<String, URL> externalNodeHTMLMap = new HashMap<String, URL>();
 
-    public HTMLDocGenerator() {
-        designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
-        mapList = designerCoreService.getMaps();
-        repositoryConnectionItemMap = mapList.get(0);
-        repositoryDBIdAndNameMap = mapList.get(1);
+    private ERepositoryObjectType repositoryObjectType;
+
+    public HTMLDocGenerator(ERepositoryObjectType repositoryObjectType) {
+        this.designerCoreService = CorePlugin.getDefault().getDesignerCoreService();
+        this.mapList = designerCoreService.getMaps();
+        this.repositoryConnectionItemMap = mapList.get(0);
+        this.repositoryDBIdAndNameMap = mapList.get(1);
+        this.repositoryObjectType = repositoryObjectType;
     }
 
-    /**
+    /*
      * This method is used for generating HTML file base on an instance of <code>ExportFileResource</code>
+     * (non-Javadoc)
      * 
-     * @param resource
+     * @see org.talend.repository.documentation.generation.IDocumentationGenerator#generateHTMLFile(org.talend.repository.documentation.ExportFileResource)
      */
     public void generateHTMLFile(ExportFileResource resource) {
         try {
@@ -103,7 +109,7 @@ public class HTMLDocGenerator {
             // Store all pictures' path.
             List<URL> picList = new ArrayList<URL>(5);
 
-            String jobName = resource.getProcess().getProperty().getLabel();
+            String jobName = resource.getItem().getProperty().getLabel();
 
             String tempFolderPath = checkTempDirIsExists(resource);
 
@@ -154,25 +160,24 @@ public class HTMLDocGenerator {
         sourceConnectionMap = null;
     }
 
-    /**
+    /*
      * This method is used for generating HTML file base on an instance of <code>ExportFileResource</code>
+     * (non-Javadoc)
      * 
-     * @param resource
-     * @param targetPath
-     * @param jobVersion
-     * @throws Exception
+     * @see org.talend.repository.documentation.generation.IDocumentationGenerator#generateDocumentation(org.talend.repository.documentation.ExportFileResource,
+     * java.lang.String, java.lang.String[])
      */
     public void generateDocumentation(ExportFileResource resource, String targetPath, String... jobVersion) throws Exception {
 
         // Store all pictures' path.
         List<URL> picList = new ArrayList<URL>(5);
 
-        String jobName = resource.getProcess().getProperty().getLabel();
-        
-        String jobPath = resource.getProcess().getProperty().getItem().getState().getPath();
+        String jobName = resource.getItem().getProperty().getLabel();
+
+        String jobPath = resource.getItem().getProperty().getItem().getState().getPath();
 
         // Used for generating/updating all jobs' documentaiton only.
-        if (targetPath.endsWith(ERepositoryObjectType.JOBS.toString().toLowerCase())) {
+        if (targetPath.endsWith(this.repositoryObjectType.toString().toLowerCase())) {
             targetPath = targetPath + IPath.SEPARATOR + jobPath + IPath.SEPARATOR + jobName;
         }
         String version = "";
@@ -181,7 +186,7 @@ public class HTMLDocGenerator {
         if (jobVersion != null && jobVersion.length == 1) {
             version = jobVersion[0];
         } else {
-            version = resource.getProcess().getProperty().getVersion();
+            version = resource.getItem().getProperty().getVersion();
         }
         targetPath = targetPath + "_" + version;
 
@@ -299,23 +304,26 @@ public class HTMLDocGenerator {
      * @param version
      */
     private void handleXMLFile(ExportFileResource resource, String tempFolderPath, String... version) throws Exception {
-        ProcessItem processItem = resource.getProcess();
+        Item item = resource.getItem();
         targetConnectionMap = new HashMap<String, List>();
         sourceConnectionMap = new HashMap<String, List>();
-        getSourceAndTargetConnection(processItem);
+        getSourceAndTargetConnection(item);
 
         Document document = DocumentHelper.createDocument();
         Element projectElement = generateProjectInfo(document);
 
-        Element jobElement = generateJobInfo(processItem, projectElement);
+        Element jobElement = generateJobInfo(item, projectElement);
 
-        List<List> allList = seperateNodes(processItem);
+        List<List> allList = seperateNodes(item);
+        if (allList == null || allList.size() != 3) {
+            return;
+        }
         List<INode> allComponentsList = allList.get(0);
         List<INode> internalNodeComponentsList = allList.get(1);
         List<INode> externalNodeComponentsList = allList.get(2);
 
         if (allComponentsList.size() > 0) { // Generates information for 'Component List' part in exported HTML file.
-            generateAllComponentsSummaryInfo(processItem, jobElement, allComponentsList);
+            generateAllComponentsSummaryInfo(item, jobElement, allComponentsList);
         }
 
         Element internalNodeElement = jobElement.addElement("internalNodeComponents");
@@ -335,26 +343,32 @@ public class HTMLDocGenerator {
                     externalNodeElement, externalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
                     this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap,
                     externalNodeHTMLMap/*
-                                         * ,
-                                         */);
+             * ,
+             */);
             // Generates external node components(tMap etc.) information.
 
             externalNodeComponentHandler.generateComponentInfo();
         }
 
         // Generates all connection information(include internal node and external node).
-        EList connectionList = processItem.getProcess().getConnection();
+        EList connectionList = null;
+        if (item instanceof ProcessItem) {
+            connectionList = ((ProcessItem) item).getProcess().getConnection();
+        } else if (item instanceof JobletProcessItem) {
+            connectionList = (((JobletProcessItem) item).getJobletProcess().getConnection());
+        }
+
         if (connectionList != null || connectionList.size() != 0) {
             generateConnectionsInfo(jobElement, connectionList);
         }
 
         String versionPath = "";
         if (version != null && version.length == 1) {
-            String currentVersion = (version[0].equals("") ? processItem.getProperty().getVersion() : version[0]);
+            String currentVersion = (version[0].equals("") ? item.getProperty().getVersion() : version[0]);
             versionPath = "_" + currentVersion;
         }
 
-        String filePath = tempFolderPath + File.separatorChar + processItem.getProperty().getLabel() + versionPath
+        String filePath = tempFolderPath + File.separatorChar + item.getProperty().getLabel() + versionPath
                 + IHTMLDocConstants.XML_FILE_SUFFIX;
 
         XMLHandler.generateXMLFile(tempFolderPath, filePath, document);
@@ -363,28 +377,34 @@ public class HTMLDocGenerator {
     /**
      * Generates all components summary information.
      * 
-     * @param processItem
+     * @param item
      * 
      * @param inputJobElement
      * @param allComponentsList
      */
-    public void generateAllComponentsSummaryInfo(ProcessItem processItem, Element inputJobElement, List<INode> allComponentsList) {
+    public void generateAllComponentsSummaryInfo(Item item, Element inputJobElement, List<INode> allComponentsList) {
         Element componentNameListElement = null;
         Point screenshotOffset = new Point();
 
+        ProcessItem processItem = (ProcessItem) item;
         if (processItem.getProcess().getParameters() != null) {
             List<ElementParameterType> elemParamList = processItem.getProcess().getParameters().getElementParameter();
-            for (ElementParameterType curElem : elemParamList) {
-                if (curElem.getName().equals(IProcess.SCREEN_OFFSET_X)) {
-                    screenshotOffset.x = Integer.valueOf("".equals(HTMLDocUtils.checkString(curElem.getValue())) ? "0" : curElem
-                            .getValue());
-                } else if (curElem.getName().equals(IProcess.SCREEN_OFFSET_Y)) {
-                    screenshotOffset.y = Integer.valueOf("".equals(HTMLDocUtils.checkString(curElem.getValue())) ? "0" : curElem
-                            .getValue());
-                }
-            }
+            getScreenShotOffset(screenshotOffset, elemParamList);
         }
 
+        getComponentListInfo(inputJobElement, allComponentsList, componentNameListElement, screenshotOffset);
+    }
+
+    /**
+     * DOC tang Comment method "getComponentListInfo".
+     * 
+     * @param inputJobElement
+     * @param allComponentsList
+     * @param componentNameListElement
+     * @param screenshotOffset
+     */
+    protected void getComponentListInfo(Element inputJobElement, List<INode> allComponentsList, Element componentNameListElement,
+            Point screenshotOffset) {
         int x = 0, y = 0, width = 0, height = 0;
         for (INode node : allComponentsList) {
             if (node.getLocation() != null) {
@@ -411,24 +431,58 @@ public class HTMLDocGenerator {
             componentItemElement.addAttribute("leftTopY", y + "");
             componentItemElement.addAttribute("rightBottomX", x + width + "");
             componentItemElement.addAttribute("rightBottomY", y + height + "");
+        }
+    }
 
+    /**
+     * DOC tang Comment method "getScreenShotOffset".
+     * 
+     * @param screenshotOffset
+     * @param processItem
+     */
+    protected void getScreenShotOffset(Point screenshotOffset, List<ElementParameterType> elemParamList) {
+        for (ElementParameterType curElem : elemParamList) {
+            if (curElem.getName().equals(IProcess.SCREEN_OFFSET_X)) {
+                screenshotOffset.x = Integer.valueOf("".equals(HTMLDocUtils.checkString(curElem.getValue())) ? "0" : curElem
+                        .getValue());
+            } else if (curElem.getName().equals(IProcess.SCREEN_OFFSET_Y)) {
+                screenshotOffset.y = Integer.valueOf("".equals(HTMLDocUtils.checkString(curElem.getValue())) ? "0" : curElem
+                        .getValue());
+            }
         }
     }
 
     /**
      * This method is used for seperating all nodes into internal and external.
      * 
-     * @param processItem
+     * @param item
      * @return
      */
-    private List<List> seperateNodes(ProcessItem processItem) {
-        IProcess process = CorePlugin.getDefault().getDesignerCoreService().getProcessFromProcessItem(processItem);
-        List<INode> graphicalNodeList = (List<INode>) process.getGraphicalNodes();
-
+    protected List<List> seperateNodes(Item item) {
         List<INode> internalNodeComponentList = new ArrayList<INode>();
         List<INode> externalNodeComponentList = new ArrayList<INode>();
         List<INode> allNodeComponentList = new ArrayList<INode>();
         List<List> componentsList = new ArrayList<List>();
+
+        IProcess process = null;
+        boolean isJobletProcessItem = item instanceof JobletProcessItem;
+        boolean isProcessItem = item instanceof ProcessItem;
+        if (isProcessItem) {
+            process = CorePlugin.getDefault().getDesignerCoreService().getProcessFromProcessItem((ProcessItem) item);
+        }
+        // if (isJobletProcessItem) {
+        // AbstractProcessProvider processProvider =
+        // AbstractProcessProvider.findProcessProviderFromPID(IComponent.JOBLET_PID);
+        // if (processProvider != null) {
+        // process = processProvider.buildNewGraphicProcess(item);
+        // }
+        // }
+        if (process == null) {
+            return componentsList;
+        }
+
+        List<INode> graphicalNodeList = (List<INode>) process.getGraphicalNodes();
+
         for (INode node : graphicalNodeList) {
             // If component is not activate, do not need to get it's information
             if (!node.isActivate()) {
@@ -447,6 +501,7 @@ public class HTMLDocGenerator {
         componentsList.add(allNodeComponentList);
         componentsList.add(internalNodeComponentList);
         componentsList.add(externalNodeComponentList);
+
         return componentsList;
     }
 
@@ -474,16 +529,16 @@ public class HTMLDocGenerator {
     /**
      * Generates job(process) information in XML base on <code>ProcessItem</code> and project element.
      * 
-     * @param processItem <code>ProcessItem</code>
+     * @param item <code>ProcessItem</code>
      * @param projectElement <code>Element</code>
      * @return an instance of <code>Element</code>
      */
-    private Element generateJobInfo(ProcessItem processItem, Element projectElement) {
+    private Element generateJobInfo(Item item, Element projectElement) {
 
         picFilePathMap = new HashMap<String, String>();
         // IProcess process = CorePlugin.getDefault().getDesignerCoreService().getProcessFromProcessItem(processItem);
 
-        Property property = processItem.getProperty();
+        Property property = item.getProperty();
         String jobName = property.getLabel();
         String jobVersion = property.getVersion();
         Element jobElement = projectElement.addElement("job");
@@ -499,13 +554,23 @@ public class HTMLDocGenerator {
         jobElement.addAttribute("modification", HTMLDocUtils.checkDate(property.getModificationDate()));
 
         String picName = jobName + "_" + jobVersion + IHTMLDocConstants.JOB_PREVIEW_PIC_SUFFIX;
-        IPath filePath = DocumentationPathProvider.getPathFileName(RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE, picName);
-        String filePathStr = filePath.toOSString();
-        File file = new File(filePathStr);
-        if (file.exists()) {
-            Element previewElement = jobElement.addElement("preview");
-            previewElement.addAttribute("picture", IHTMLDocConstants.PICTUREFOLDERPATH + picName);
-            picFilePathMap.put(picName, filePathStr);
+        IPath filePath = null;
+        if (item instanceof ProcessItem) {
+            filePath = DocumentationPathProvider.getPathFileName(RepositoryConstants.IMG_DIRECTORY_OF_JOB_OUTLINE, picName);
+        } else if (item instanceof JobletProcessItem) {
+            filePath = DocumentationPathProvider.getPathFileName(RepositoryConstants.IMG_DIRECTORY_OF_JOBLET_OUTLINE, picName);
+        }
+
+        Element previewElement = jobElement.addElement("preview");
+        if (filePath == null) {
+            previewElement.addAttribute("picture", "");
+        } else {
+            String filePathStr = filePath.toOSString();
+            File file = new File(filePathStr);
+            if (file.exists()) {
+                previewElement.addAttribute("picture", IHTMLDocConstants.PICTUREFOLDERPATH + picName);
+                picFilePathMap.put(picName, filePathStr);
+            }
         }
         return jobElement;
     }
@@ -553,33 +618,45 @@ public class HTMLDocGenerator {
     /**
      * Get source connections and target connections base on given <code>ProcessItem</code>.
      * 
-     * @param processItem ProcessItem
+     * @param item ProcessItem
      */
-    private void getSourceAndTargetConnection(ProcessItem processItem) {
-        EList connectionList = processItem.getProcess().getConnection();
-
-        List<String> targetList = new ArrayList<String>();
-        List<String> sourceList = new ArrayList<String>();
-
-        if (connectionList != null || connectionList.size() != 0) {
-            for (int j = 0; j < connectionList.size(); j++) {
-                ConnectionType type = (ConnectionType) connectionList.get(j);
-                if (!targetConnectionMap.containsKey(type.getSource())) {
-                    targetList = new ArrayList<String>();
-                }
-                if (!targetList.contains(type.getTarget())) {
-                    targetList.add(type.getTarget());
-                }
-
-                targetConnectionMap.put(type.getSource(), targetList);
-
-                if (!sourceConnectionMap.containsKey(type.getTarget())) {
-                    sourceList = new ArrayList<String>();
-                }
-                sourceList.add(type.getSource());
-                sourceConnectionMap.put(type.getTarget(), sourceList);
+    protected void getSourceAndTargetConnection(Item item) {
+        if (item instanceof ProcessItem) {
+            EList connectionList = ((ProcessItem) item).getProcess().getConnection();
+            if (connectionList != null || connectionList.size() != 0) {
+                handleSourceAndTargetConnection(connectionList);
             }
         }
+    }
+
+    /**
+     * Comment method "handleSourceAndTargetConnection".
+     * 
+     * @param sourceConnectionMap
+     * @param targetConnectionMap
+     * @param connectionList
+     */
+    protected void handleSourceAndTargetConnection(EList connectionList) {
+        List<String> targetList = new ArrayList<String>();
+        List<String> sourceList = new ArrayList<String>();
+        for (int j = 0; j < connectionList.size(); j++) {
+            ConnectionType type = (ConnectionType) connectionList.get(j);
+            if (!targetConnectionMap.containsKey(type.getSource())) {
+                targetList = new ArrayList<String>();
+            }
+            if (!targetList.contains(type.getTarget())) {
+                targetList.add(type.getTarget());
+            }
+
+            targetConnectionMap.put(type.getSource(), targetList);
+
+            if (!sourceConnectionMap.containsKey(type.getTarget())) {
+                sourceList = new ArrayList<String>();
+            }
+            sourceList.add(type.getSource());
+            sourceConnectionMap.put(type.getTarget(), sourceList);
+        }
+
     }
 
     /**

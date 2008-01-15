@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.runtime.CoreException;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.properties.ProcessItem;
 
 /**
@@ -39,7 +40,7 @@ import org.talend.core.model.properties.ProcessItem;
  */
 public class ExportFileResource {
 
-    private ProcessItem process;
+    private Item item;
 
     private String directoryName;
 
@@ -83,17 +84,17 @@ public class ExportFileResource {
         addResources("", resources); //$NON-NLS-1$
     }
 
-    public ProcessItem getProcess() {
-        return process;
+    public Item getItem() {
+        return item;
     }
 
     public void setProcess(ProcessItem process) {
-        this.process = process;
+        this.item = process;
     }
 
-    public ExportFileResource(ProcessItem process, String directoryName) {
+    public ExportFileResource(Item item, String directoryName) {
         super();
-        this.process = process;
+        this.item = item;
         this.directoryName = directoryName;
     }
 

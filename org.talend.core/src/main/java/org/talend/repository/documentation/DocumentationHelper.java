@@ -146,8 +146,8 @@ public class DocumentationHelper {
      * @param currentNode
      * @return
      */
-    public static File getHTMLFilePath(RepositoryNode currentNode) {
-        String jobNodeDocRootPath = getJobNodeDocumentationRoot();
+    public static File getHTMLFilePath(RepositoryNode currentNode, String docRootPath) {
+        String jobNodeDocRootPath = getJobNodeDocumentationRoot(docRootPath);
         if (currentNode.getObject() != null) {
             String jobName = currentNode.getObject().getProperty().getLabel();
 
@@ -167,11 +167,23 @@ public class DocumentationHelper {
      * 
      * @return
      */
-    public static String getJobNodeDocumentationRoot() {
+    public static String getJobNodeDocumentationRoot(String docRootPath) {
         IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getProject().getTechnicalLabel());
         java.io.File file = project.getLocation().toFile();
-        String jobNodeDocRootPath = file.toString() + IPath.SEPARATOR + IHTMLDocConstants.JOB_NODE_DOCUMENTATION_ROOT_PATH;
+        String jobNodeDocRootPath = file.toString() + IPath.SEPARATOR + docRootPath;
         return jobNodeDocRootPath;
+    }
+
+    /**
+     * ftang Comment method "getJobletNodeDocumentationRoot".
+     * 
+     * @return
+     */
+    public static String getJobletNodeDocumentationRoot() {
+        IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(getProject().getTechnicalLabel());
+        java.io.File file = project.getLocation().toFile();
+        String jobletNodeDocRootPath = file.toString() + IPath.SEPARATOR + IHTMLDocConstants.JOBLET_NODE_DOCUMENTATION_ROOT_PATH;
+        return jobletNodeDocRootPath;
     }
 
     /**
@@ -364,14 +376,14 @@ public class DocumentationHelper {
             if (filePath == null) {
                 return;
             }
-            
+
             String filePathStr = filePath.toOSString();
             File file = new File(filePathStr);
-            if(file.exists())
-            {
+            if (file.exists()) {
                 boolean delete = file.delete();
                 System.out.println(delete);
             }
         }
     }
+
 }

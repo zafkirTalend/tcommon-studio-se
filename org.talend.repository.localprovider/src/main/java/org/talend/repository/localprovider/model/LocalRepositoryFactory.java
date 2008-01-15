@@ -321,8 +321,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 needsBinFolder.add(ERepositoryObjectType.JOBLETS);
             }
         }
-        
-        
+
     }
 
     public Project createProject(String label, String description, ECodeLanguage language, User author)
@@ -1161,7 +1160,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
                 break;
             case PropertiesPackage.JOBLET_DOCUMENTATION_ITEM:
                 itemResource = create((JobletDocumentationItem) item, path, ERepositoryObjectType.JOBLET_DOC);
-                break;   
+                break;
             case PropertiesPackage.ROUTINE_ITEM:
                 itemResource = create((FileItem) item, path, ERepositoryObjectType.ROUTINES);
                 break;
@@ -1237,6 +1236,7 @@ public class LocalRepositoryFactory extends AbstractEMFRepositoryFactory impleme
     }
 
     public void logOnProject(Project project) throws PersistenceException, LoginException {
+
         if (getRepositoryContext().getUser().getLogin() == null) {
             throw new LoginException(Messages.getString("LocalRepositoryFactory.UserLoginCannotBeNull")); //$NON-NLS-1$
         }

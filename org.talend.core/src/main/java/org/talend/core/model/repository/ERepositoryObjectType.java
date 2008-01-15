@@ -171,6 +171,9 @@ public enum ERepositoryObjectType {
                 if (PluginChecker.isJobLetPluginLoaded() && type == JOBLETS) {
                     return "documentations/generated/joblets";
                 }
+                if (PluginChecker.isJobLetPluginLoaded() && type == JOBLET_DOC) {
+                    return "documentations/generated/joblets";
+                }
             }
 
             throw new IllegalArgumentException(Messages.getString("ERepositoryObjectType.FolderNotFound", type)); //$NON-NLS-1$ //$NON-NLS-2$

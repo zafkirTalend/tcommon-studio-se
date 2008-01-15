@@ -48,9 +48,9 @@ public interface IProxyRepositoryFactory {
 
     public abstract RepositoryContext getRepositoryContext();
 
-    public void refreshJobPictureFolder();
+    public void refreshJobPictureFolder(String picFolder);
 
-    public void refreshDocumentationFolder();
+    public void refreshDocumentationFolder(String docFolder);
 
     public void addPropertyChangeListener(PropertyChangeListener l);
 

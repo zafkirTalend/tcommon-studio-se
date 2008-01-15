@@ -26,6 +26,7 @@ import org.talend.core.model.components.IComponentsFactory;
 import org.talend.core.model.process.IProcess;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 
 /**
@@ -70,5 +71,13 @@ public interface IDesignerCoreService extends IService {
     public PaletteRoot createPalette(IComponentsFactory factory);
 
     public IAction getCreateProcessAction(boolean isToolbar);
+
+    /**
+     * DOC tang Comment method "getProcessFromJobletProcessItem".
+     * 
+     * @param item
+     * @return
+     */
+    public IProcess getProcessFromJobletProcessItem(JobletProcessItem item);
 
 }

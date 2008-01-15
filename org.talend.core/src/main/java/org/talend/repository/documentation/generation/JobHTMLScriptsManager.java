@@ -31,44 +31,55 @@ import org.talend.repository.documentation.ExportFileResource;
  * $Id: JobHTMLScriptsManager.java 2007-3-8,下午03:15:50 ftang $
  * 
  */
-public class JobHTMLScriptsManager {
+public class JobHTMLScriptsManager implements IDocumentationManager {
 
-    private HTMLDocGenerator docGenerator = new HTMLDocGenerator();
+    private IDocumentationGenerator docGenerator = null;
 
     private boolean needGenerate = true;
 
-     /**
-     * Gets the set of <code>ExportFileResource</code>
-     *
-     * @param process
-     * @return
+    /**
+     * JobHTMLScriptsManager constructor comment.
+     * 
+     * @param docGenerator
+     * @param isNeedGenerate
      */
-     public List<ExportFileResource> getExportResources(ExportFileResource[] process) {
-     for (int i = 0; i < process.length; i++) {
-     docGenerator.generateHTMLFile(process[i]);// added path
-     }
-     return Arrays.asList(process);
-     }
+    public JobHTMLScriptsManager(IDocumentationGenerator docGenerator, boolean isNeedGenerate) {
+        this.docGenerator = docGenerator;
+        this.needGenerate = isNeedGenerate;
+    }
 
     /**
      * Gets the set of <code>ExportFileResource</code>
      * 
      * @param process
      * @return
-     * @throws Exception
      */
-    public List<ExportFileResource> getExportResources(ExportFileResource[] process, String targetPath, String... jobVersion) throws Exception {
-        
-            if (this.needGenerate) {
-                for (int i = 0; i < process.length; i++) {
-                    docGenerator.generateDocumentation(process[i], targetPath, jobVersion);
-                }
-            } else {
-                for (int i = 0; i < process.length; i++) {
-                    collectGeneratedDocumentation(process[i], targetPath, jobVersion);
-                }
+    public List<ExportFileResource> getExportResources(ExportFileResource[] process) {
+        for (int i = 0; i < process.length; i++) {
+            docGenerator.generateHTMLFile(process[i]);// added path
+        }
+        return Arrays.asList(process);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.documentation.generation.IDocumentationManager#getExportResources(org.talend.repository.documentation.ExportFileResource[],
+     * java.lang.String, java.lang.String[])
+     */
+    public List<ExportFileResource> getExportResources(ExportFileResource[] process, String targetPath, String... jobVersion)
+            throws Exception {
+
+        if (this.needGenerate) {
+            for (int i = 0; i < process.length; i++) {
+                docGenerator.generateDocumentation(process[i], targetPath, jobVersion);
             }
-       
+        } else {
+            for (int i = 0; i < process.length; i++) {
+                collectGeneratedDocumentation(process[i], targetPath, jobVersion);
+            }
+        }
+
         return Arrays.asList(process);
 
     }
@@ -84,9 +95,9 @@ public class JobHTMLScriptsManager {
     private void collectGeneratedDocumentation(ExportFileResource exportFileResource, String targetPath, String[] jobVersion)
             throws MalformedURLException {
 
-        String jobName = exportFileResource.getProcess().getProperty().getLabel();
+        String jobName = exportFileResource.getItem().getProperty().getLabel();
 
-        String jobPath = exportFileResource.getProcess().getProperty().getItem().getState().getPath();
+        String jobPath = exportFileResource.getItem().getProperty().getItem().getState().getPath();
 
         // Used for generating/updating all jobs' documentaiton only.
         if (targetPath.endsWith(ERepositoryObjectType.JOBS.toString().toLowerCase())) {
@@ -98,7 +109,7 @@ public class JobHTMLScriptsManager {
         if (jobVersion != null && jobVersion.length == 1) {
             version = jobVersion[0];
         } else {
-            version = exportFileResource.getProcess().getProperty().getVersion();
+            version = exportFileResource.getItem().getProperty().getVersion();
         }
         targetPath = targetPath + "_" + version;
 
@@ -117,20 +128,18 @@ public class JobHTMLScriptsManager {
                     continue;
                 }
 
-               //i.e. xml file and html file:
+                // i.e. xml file and html file:
                 if (file2.isFile()) {
 
                     resultFiles.add(file2.toURL());
 
                 } else if (file2.isDirectory() && file2.getName().equals(IHTMLDocConstants.PIC_FOLDER_NAME)) {
                     for (File tempFile : file2.listFiles()) {
-                        if(tempFile.exists()&& tempFile.isFile())
-                        {
-                            //Copy all picture folders:
+                        if (tempFile.exists() && tempFile.isFile()) {
+                            // Copy all picture folders:
                             picList.add(tempFile.toURL());
                         }
                     }
-                  
 
                 }
             }
@@ -170,14 +179,5 @@ public class JobHTMLScriptsManager {
             }
         }
         dir.delete();
-    }
-
-    /**
-     * DOC Administrator Comment method "setNeedGenerate".
-     * 
-     * @param needGenerate
-     */
-    public void setNeedGenerate(boolean needGenerate) {
-        this.needGenerate = needGenerate;
     }
 }

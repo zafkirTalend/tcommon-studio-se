@@ -58,11 +58,13 @@ public final class ExportItemAction extends AContextualAction implements IWorkbe
         } else {
             for (Object object : (selection).toArray()) {
 
-                // Avoid to show this action on Node "Generated"/"Jobs" and Node HTML_DOC.
+                // Avoid to show this action on Node "Generated"/"Jobs" and Node JOB_DOC, JOBLET_DOC.
                 RepositoryNode node = (RepositoryNode) object;
                 if (node.getProperties(EProperties.CONTENT_TYPE) != ERepositoryObjectType.JOB_DOC
+                        && node.getProperties(EProperties.CONTENT_TYPE) != ERepositoryObjectType.JOBLET_DOC
                         && node.getContentType() != ERepositoryObjectType.GENERATED
-                        && node.getContentType() != ERepositoryObjectType.JOBS) {
+                        && node.getContentType() != ERepositoryObjectType.JOBS
+                        && node.getContentType() != ERepositoryObjectType.JOBLETS) {
                     visible = true;
                 }
             }
