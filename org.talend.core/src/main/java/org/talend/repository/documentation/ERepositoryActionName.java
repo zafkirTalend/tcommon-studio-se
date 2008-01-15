@@ -34,6 +34,7 @@ public enum ERepositoryActionName {
     FOLDER_MOVE("folder move"),
 
     // for joblet
+    JOBLET_MOVE("joblet.move"),
     JOBLET_FOLDER_CREATE("joblet.folder.create"),
     JOBLET_FOLDER_DELETE("joblet.folder.delete"),
     JOBLET_FOLDER_RENAME("joblet.folder.rename"),
