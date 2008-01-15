@@ -5,15 +5,16 @@
 // This source code is available under agreement available at
 // %InstallDIR%\features\org.talend.rcp.branding.%PRODUCTNAME%\%PRODUCTNAME%license.txt
 //
-// You should have received a copy of the  agreement
+// You should have received a copy of the agreement
 // along with this program; if not, write to Talend SA
 // 9 rue Pages 92150 Suresnes, France
 //   
 // ============================================================================
 package routines.system;
 
-import java.util.List;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParserUtils {
 
@@ -140,6 +141,10 @@ public class ParserUtils {
         return s;
     }
 
+    public static BigDecimal parseTo_BigDecimal(String s) {
+        return new BigDecimal(s);
+    }
+
     public static java.util.Date parseTo_Date(String s, String pattern) {
         // check the parameter for supporting " ","2007-09-13"," 2007-09-13 "
         if (s != null) {
@@ -168,5 +173,17 @@ public class ParserUtils {
         // System.err.println("Current string to parse '" + s + "'");
         // }
         return date;
+    }
+
+    /**
+     * in order to transform the string "1.234.567,89" to number 1234567.89
+     */
+    public static String parseTo_Number(String s, char thousandsSeparator, char decimalSeparator) {
+        if (s == null) {
+            return null;
+        }
+        String temp = StringUtils.deleteChar(s, thousandsSeparator);
+        String result = temp.replace(decimalSeparator, '.');
+        return result;
     }
 }
