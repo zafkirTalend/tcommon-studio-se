@@ -94,6 +94,8 @@ public final class JavaTypesManager {
 
     private static final List<String> JAVA_PRIMITIVE_TYPES = new ArrayList<String>();
 
+    private static final JavaType[] NUMBER_TYPES = new JavaType[] { INTEGER, FLOAT, DOUBLE, LONG, SHORT, BIGDECIMAL, BYTE };
+
     static {
         init();
     }
@@ -132,6 +134,7 @@ public final class JavaTypesManager {
             canonicalClassNameToJavaType.put(primitiveClass.getCanonicalName(), javaType);
             JAVA_PRIMITIVE_TYPES.add(primitiveClass.getSimpleName());
         }
+
         String nullableName = javaType.getNullableClass().getSimpleName();
         shortNameToJavaType.put(nullableName, javaType);
         canonicalClassNameToJavaType.put(javaType.getNullableClass().getCanonicalName(), javaType);
@@ -300,6 +303,24 @@ public final class JavaTypesManager {
     public static boolean isJavaPrimitiveType(JavaType javaType, boolean nullable) {
         String typeToGenerate = getTypeToGenerate(javaType, nullable);
         return isJavaPrimitiveType(typeToGenerate);
+    }
+
+    /**
+     * They are all the number type.
+     * <p>
+     * int(Integer), float(Float), double(Double), long(Long), short(Short), byte(Byte), BigDecimal.
+     * </p>
+     * 
+     * @param type
+     * @return true if given type represents a primitive java type
+     */
+    public static boolean isNumberType(JavaType javaType, boolean nullable) {
+        for (JavaType numbertype : NUMBER_TYPES) {
+            if (numbertype.equals(javaType)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
