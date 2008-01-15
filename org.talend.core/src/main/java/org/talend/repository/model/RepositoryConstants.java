@@ -56,6 +56,7 @@ public class RepositoryConstants {
             return FOLDER_PATTERN;
         case PROCESS:
         case ROUTINES:
+        case JOBLET:
             return CODE_ITEM_PATTERN;
         default:
             return REPOSITORY_ITEM_PATTERN;

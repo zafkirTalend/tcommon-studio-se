@@ -50,6 +50,8 @@ import org.talend.commons.utils.VersionUtils;
 import org.talend.core.CorePlugin;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.i18n.Messages;
+import org.talend.core.model.properties.Item;
+import org.talend.core.model.properties.JobletProcessItem;
 import org.talend.core.model.properties.ProcessItem;
 import org.talend.core.model.properties.Property;
 import org.talend.core.model.repository.ERepositoryObjectType;
@@ -115,6 +117,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
 
     private boolean editPath = true;
 
+    private List<String> keywords = new ArrayList<String>();
+
     protected PropertiesWizardPage(String pageName, Property property, IPath destinationPath) {
         this(pageName, property, destinationPath, false, true);
     }
@@ -133,6 +137,8 @@ public abstract class PropertiesWizardPage extends WizardPage {
         commentStatus = createOkStatus();
 
         this.property = property;
+
+        initKeyWords();
     }
 
     /**
@@ -590,20 +596,38 @@ public abstract class PropertiesWizardPage extends WizardPage {
      * @return
      */
     private boolean isKeywords(String itemName) {
-        if (property != null && property.getItem() instanceof ProcessItem) {
-            Mode mode = Modes.getMode("java.xml");
-            KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();
-            List<String> keywords = new ArrayList<String>();
-            keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD1")));
-            keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD2")));
-            keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD3")));
-            keywords.addAll(Arrays.asList(keywordMap.get("LITERAL2")));
-            keywords.addAll(Arrays.asList(keywordMap.get("INVALID")));
-            if (keywords.contains(itemName)) {
-                return true;
+        if (property != null) {
+            Item item = property.getItem();
+            if (item instanceof ProcessItem || item instanceof JobletProcessItem) {
+                if (keywords == null || keywords.isEmpty()) {
+                    initKeyWords();
+                }
+                if (keywords.contains(itemName.trim())) {
+                    return true;
+                }
             }
         }
 
         return false;
+    }
+
+    /**
+     * 
+     * ggu Comment method "initKeyWords".
+     * 
+     * initialize the java key words
+     */
+    private void initKeyWords() {
+        if (keywords == null) {
+            keywords = new ArrayList<String>();
+        }
+        keywords.clear();
+        Mode mode = Modes.getMode("java.xml"); //$NON-NLS-1$
+        KeywordMap keywordMap = mode.getDefaultRuleSet().getKeywords();
+        keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD1"))); //$NON-NLS-1$
+        keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD2"))); //$NON-NLS-1$
+        keywords.addAll(Arrays.asList(keywordMap.get("KEYWORD3"))); //$NON-NLS-1$
+        keywords.addAll(Arrays.asList(keywordMap.get("LITERAL2"))); //$NON-NLS-1$
+        keywords.addAll(Arrays.asList(keywordMap.get("INVALID"))); //$NON-NLS-1$
     }
 }
