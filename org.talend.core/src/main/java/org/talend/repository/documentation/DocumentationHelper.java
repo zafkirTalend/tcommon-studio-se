@@ -26,7 +26,7 @@ import org.talend.commons.exception.PersistenceException;
 import org.talend.core.CorePlugin;
 import org.talend.core.model.general.Project;
 import org.talend.core.model.genhtml.IHTMLDocConstants;
-import org.talend.core.model.properties.ProcessItem;
+import org.talend.core.model.properties.Item;
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.core.model.repository.IRepositoryObject;
 import org.talend.core.prefs.ITalendCorePrefConstants;
@@ -83,15 +83,16 @@ public class DocumentationHelper {
         List<ExportFileResource> list = new ArrayList<ExportFileResource>();
         if (node.getType() == ENodeType.SYSTEM_FOLDER || node.getType() == ENodeType.SIMPLE_FOLDER) {
             String folderName = "";
-            if (!node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.PROCESS.toString())) {
+            if (!node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.PROCESS.toString())
+                    && !node.getProperties(EProperties.LABEL).toString().equals(ERepositoryObjectType.JOBLET.toString())) {
                 folderName = node.getProperties(EProperties.LABEL).toString();
             }
             addTreeNode(node, folderName, list);
         }
         if (node.getType() == ENodeType.REPOSITORY_ELEMENT) {
             IRepositoryObject repositoryObject = node.getObject();
-            if (repositoryObject.getProperty().getItem() instanceof ProcessItem) {
-                ProcessItem processItem = (ProcessItem) repositoryObject.getProperty().getItem();
+            if ((repositoryObject.getProperty().getItem() instanceof Item)) {
+                Item processItem = (Item) repositoryObject.getProperty().getItem();
                 ExportFileResource resource = new ExportFileResource(processItem, processItem.getProperty().getLabel());
                 list.add(resource);
             }
@@ -111,8 +112,8 @@ public class DocumentationHelper {
     private static void addTreeNode(RepositoryNode node, String path, List<ExportFileResource> list) {
         if (node != null && node.getType() == ENodeType.REPOSITORY_ELEMENT) {
             IRepositoryObject repositoryObject = node.getObject();
-            if (repositoryObject.getProperty().getItem() instanceof ProcessItem) {
-                ProcessItem processItem = (ProcessItem) repositoryObject.getProperty().getItem();
+            if (repositoryObject.getProperty().getItem() instanceof Item) {
+                Item processItem = (Item) repositoryObject.getProperty().getItem();
                 ExportFileResource resource = new ExportFileResource(processItem, path);
                 list.add(resource);
             }
