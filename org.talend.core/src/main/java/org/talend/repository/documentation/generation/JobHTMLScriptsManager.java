@@ -48,6 +48,24 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
         this.needGenerate = isNeedGenerate;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.documentation.generation.IDocumentationManager#getDocGenerator()
+     */
+    public IDocumentationGenerator getDocGenerator() {
+        return this.docGenerator;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.documentation.generation.IDocumentationManager#getDocGenerator()
+     */
+    public boolean isNeedGenerate() {
+        return this.needGenerate;
+    }
+
     /**
      * Gets the set of <code>ExportFileResource</code>
      * 
@@ -100,7 +118,8 @@ public class JobHTMLScriptsManager implements IDocumentationManager {
         String jobPath = exportFileResource.getItem().getProperty().getItem().getState().getPath();
 
         // Used for generating/updating all jobs' documentaiton only.
-        if (targetPath.endsWith(ERepositoryObjectType.JOBS.toString().toLowerCase())) {
+        if (targetPath.endsWith(ERepositoryObjectType.JOBS.toString().toLowerCase())
+                || targetPath.endsWith(ERepositoryObjectType.JOBLETS.toString().toLowerCase())) {
             targetPath = targetPath + IPath.SEPARATOR + jobPath + IPath.SEPARATOR + jobName;
         }
         String version = "";

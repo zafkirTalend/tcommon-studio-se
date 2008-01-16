@@ -98,6 +98,15 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
     }
 
     /*
+     * (non-Javadoc)
+     * 
+     * @see org.talend.repository.documentation.generation.IDocumentationGenerator#getRepositoryObjectType()
+     */
+    public ERepositoryObjectType getRepositoryObjectType() {
+        return this.repositoryObjectType;
+    }
+
+    /*
      * This method is used for generating HTML file base on an instance of <code>ExportFileResource</code>
      * (non-Javadoc)
      * 
@@ -343,8 +352,8 @@ public class HTMLDocGenerator implements IDocumentationGenerator {
                     externalNodeElement, externalNodeComponentsList, this.sourceConnectionMap, this.targetConnectionMap,
                     this.designerCoreService, this.repositoryConnectionItemMap, this.repositoryDBIdAndNameMap,
                     externalNodeHTMLMap/*
-             * ,
-             */);
+                                         * ,
+                                         */);
             // Generates external node components(tMap etc.) information.
 
             externalNodeComponentHandler.generateComponentInfo();

@@ -26,4 +26,8 @@ public interface IDocumentationManager {
 
     public List<ExportFileResource> getExportResources(ExportFileResource[] process);
 
+    public IDocumentationGenerator getDocGenerator();
+
+    public boolean isNeedGenerate();
+
 }
