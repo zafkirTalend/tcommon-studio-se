@@ -20,15 +20,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.talend.cwm.constants.GetColumn;
-import org.talend.cwm.constants.GetTable;
-import org.talend.cwm.constants.MetaDataConstants;
-import org.talend.cwm.constants.TableType;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSchema;
+import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.relational.TdTable;
+import org.talend.utils.sql.metadata.GetColumn;
+import org.talend.utils.sql.metadata.GetTable;
+import org.talend.utils.sql.metadata.MetaDataConstants;
+import org.talend.utils.sql.metadata.TableType;
+import orgomg.cwm.resource.relational.enumerations.NullableType;
 
 /**
  * @author scorreia
@@ -55,7 +57,11 @@ public class CatalogBuilder extends CwmBuilder {
      */
     public CatalogBuilder(Connection conn) throws SQLException {
         super(conn);
-        printMetadata();
+        try {
+            printMetadata();
+        } catch (RuntimeException e) {
+            log.error(e);
+        }
 
         initializeCatalog();
         initializeSchema();
@@ -105,7 +111,8 @@ public class CatalogBuilder extends CwmBuilder {
             TdTable table = createTable(tableName);
             fillAndStoreTable(table, catName, schemaName);
         }
-
+        // release JDBC resources
+        tablesSet.close();
     }
 
     /**
@@ -120,13 +127,25 @@ public class CatalogBuilder extends CwmBuilder {
         // --- add columns to table
         ResultSet columns = databaseMetadata.getColumns(catName, schemaName, table.getName(), null);
         while (columns.next()) {
-            String name = columns.getString(GetColumn.COLUMN_NAME.name());
-            int length = columns.getInt(GetColumn.COLUMN_SIZE.name());
+            TdColumn column = RelationalFactory.eINSTANCE.createTdColumn();
+            column.setName(columns.getString(GetColumn.COLUMN_NAME.name()));
+            column.setLength(columns.getInt(GetColumn.COLUMN_SIZE.name()));
+            column.setIsNullable(NullableType.get(columns.getInt(GetColumn.NULLABLE.name())));
+            // TODO columns.getString(GetColumn.TYPE_NAME.name());
+
+            // TODO get column description (comment)
 
             // TODO scorreia other informations for columns can be retrieved here
-            TdColumn column = createColumn(name, length);
+
+            // --- create and set type of column
+            TdSqlDataType sqlDataType = createDataType(columns);
+            column.setType(sqlDataType);
+
             table.getOwnedElement().add(column);
         }
+
+        // release JDBC resources
+        columns.close();
 
         // --- store table in Catalog or in Schema.
         if (schemaName != null) {
@@ -142,6 +161,16 @@ public class CatalogBuilder extends CwmBuilder {
                 log.error("No schema nor catalog found for " + catName);
             }
         }
+    }
+
+    private TdSqlDataType createDataType(ResultSet columns) throws SQLException {
+        if (true)
+            return null; // FIXME scorreia remove this patch
+        TdSqlDataType sqlDataType = RelationalFactory.eINSTANCE.createTdSqlDataType();
+        sqlDataType.setJavaDataType(columns.getInt(GetColumn.DATA_TYPE.name()));
+        sqlDataType.setNumericPrecision(columns.getInt(GetColumn.DECIMAL_DIGITS.name()));
+        sqlDataType.setNumericPrecisionRadix(columns.getInt(GetColumn.NUM_PREC_RADIX.name()));
+        return sqlDataType;
     }
 
     /**
@@ -254,28 +283,45 @@ public class CatalogBuilder extends CwmBuilder {
         }
         catalogsInitialized = true;
 
+        catalogs.close();
     }
 
     private void initializeSchema() throws SQLException {
 
         ResultSet schemas = databaseMetadata.getSchemas();
         if (schemas != null) {
+            // debug
+            // if (log.isDebugEnabled()) {
+            // ResultSetUtils.printResultSet(schemas, 40);
+
+            // }
+
             while (schemas.next()) {
                 // create the schemata
                 String schemaName = schemas.getString(MetaDataConstants.TABLE_SCHEM.name());
                 TdSchema schema = createSchema(schemaName);
+
                 // set link Catalog -> Schema
-                String catName = schemas.getString(MetaDataConstants.TABLE_CATALOG.name());
-                if (catName != null) {
-                    // initialize the catalog if not already done
-                    if (!catalogsInitialized) {
-                        initializeCatalog();
+                // TODO scorreia handle sybase case: no catalog name, only one column in this result set.
+                try {
+                    String catName = schemas.getString(MetaDataConstants.TABLE_CATALOG.name());
+                    if (catName != null) {
+                        // initialize the catalog if not already done
+                        if (!catalogsInitialized) {
+                            initializeCatalog();
+                        }
+                        // get the catalog and add the schema
+                        TdCatalog catalog = name2catalog.get(catName);
+                        catalog.getOwnedElement().add(schema);
                     }
-                    // get the catalog and add the schema
-                    TdCatalog catalog = name2catalog.get(catName);
-                    catalog.getOwnedElement().add(schema);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 }
             }
+
+            // release JDBC resources
+            schemas.close();
         }
 
         // if no schema exist in catalog, do not create a default one.
@@ -300,6 +346,7 @@ public class CatalogBuilder extends CwmBuilder {
         cat.setName(name);
         name2catalog.put(name, cat);
 
+        // --- TODO set attributes of catalog
         return cat;
     }
 

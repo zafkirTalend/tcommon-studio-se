@@ -17,12 +17,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.talend.cwm.constants.SoftwareSystemConstants;
-import org.talend.cwm.constants.TypeInfoColumns;
 import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
-import org.talend.utils.sql.ResultSetUtils;
+import org.talend.utils.sql.metadata.TypeInfoColumns;
 import orgomg.cwm.foundation.typemapping.TypeSystem;
 import orgomg.cwm.foundation.typemapping.TypemappingFactory;
 
@@ -42,14 +41,21 @@ public class SoftwareSystemBuilder extends CwmBuilder {
         softwareSystem = initializeSoftwareSystem();
     }
 
+    private static final int DB_MINOR_VERSION_DEFAULT = 0;
+
     private TdSoftwareSystem initializeSoftwareSystem() throws SQLException {
         // --- get informations
-        int databaseMinorVersion = databaseMetadata.getDatabaseMinorVersion();
-        int databaseMajorVersion = databaseMetadata.getDatabaseMajorVersion();
         String databaseProductName = databaseMetadata.getDatabaseProductName();
         String databaseProductVersion = databaseMetadata.getDatabaseProductVersion();
-        String version = Integer.toString(databaseMajorVersion) + "." + databaseMinorVersion;
-        print("Database=", databaseProductName + " | " + databaseProductVersion + " " + version);
+        try {
+            int databaseMinorVersion = databaseMetadata.getDatabaseMinorVersion();
+            int databaseMajorVersion = databaseMetadata.getDatabaseMajorVersion();
+            String version = Integer.toString(databaseMajorVersion) + "." + databaseMinorVersion;
+            print("Database=", databaseProductName + " | " + databaseProductVersion + " " + version);
+            // TODO scorreia see if store in CWM structure is done elsewhere
+        } catch (RuntimeException e) {
+            // happens for Sybase ASE for example
+        }
 
         // --- create and fill the software system
         TdSoftwareSystem system = SoftwaredeploymentFactory.eINSTANCE.createTdSoftwareSystem();
@@ -68,7 +74,12 @@ public class SoftwareSystemBuilder extends CwmBuilder {
             // --- get the informations form the DB
             String name = typeInfo.getString(TypeInfoColumns.TYPE_NAME.name());
             int datatype = typeInfo.getInt(TypeInfoColumns.DATA_TYPE.name());
-            int precision = typeInfo.getInt(TypeInfoColumns.PRECISION.name());
+            int precision;
+            try {
+                precision = typeInfo.getInt(TypeInfoColumns.PRECISION.name());
+            } catch (Exception e) {
+
+            }
             String literalPrefix = typeInfo.getString(TypeInfoColumns.LITERAL_PREFIX.name());
             String literalsuffix = typeInfo.getString(TypeInfoColumns.LITERAL_SUFFIX.name());
             String createparams = typeInfo.getString(TypeInfoColumns.CREATE_PARAMS.name());
@@ -85,14 +96,14 @@ public class SoftwareSystemBuilder extends CwmBuilder {
             int sqldatetimesub = typeInfo.getInt(TypeInfoColumns.SQL_DATETIME_SUB.name());
             int numprecradix = typeInfo.getInt(TypeInfoColumns.NUM_PREC_RADIX.name());
 
-            System.out.println(ResultSetUtils.formatRow(typeInfo, columnCount, 10));
+            // System.out.println(ResultSetUtils.formatRow(typeInfo, columnCount, 10));
 
             // --- store the information in CWM structure
             // TODO scorreia change to SQLSimpleType ?
             TdSqlDataType dataType = RelationalFactory.eINSTANCE.createTdSqlDataType();
             dataType.setName(name);
             dataType.setJavaDataType(datatype);
-            dataType.setNumericPrecision(precision);
+            // dataType.setNumericPrecision(precision);
             dataType.setNullable(nullable);
             dataType.setCaseSensitive(casesensitive);
             dataType.setSearchable(searchable);

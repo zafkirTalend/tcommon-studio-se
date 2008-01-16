@@ -27,9 +27,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.talend.commons.emf.EMFUtil;
 import org.talend.cwm.builders.CatalogBuilder;
 import org.talend.cwm.builders.ConnectionProviderBuilder;
+import org.talend.cwm.builders.DataProviderBuilder;
 import org.talend.cwm.builders.SoftwareSystemBuilder;
 import org.talend.cwm.relational.TdCatalog;
 import org.talend.cwm.relational.TdSchema;
+import org.talend.cwm.softwaredeployment.TdDataProvider;
 import org.talend.cwm.softwaredeployment.TdProviderConnection;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
 import orgomg.cwm.foundation.typemapping.TypeSystem;
@@ -53,6 +55,8 @@ public class DBConnect {
 
     private final String driverClass;
 
+    private Driver driver;
+
     private Connection connection;
 
     private SoftwareSystemBuilder softwareSystemBuilder;
@@ -60,6 +64,8 @@ public class DBConnect {
     private CatalogBuilder catalogBuilder;
 
     private ConnectionProviderBuilder connectionProvBuilder;
+
+    private DataProviderBuilder dataProvBuilder;
 
     // TODO scorreia errorMessage;
     /**
@@ -143,7 +149,8 @@ public class DBConnect {
 
     /**
      * Method "saveInFiles". Calling this method without having called this.{@link #storeInResourceSet(EObject, String)}
-     * will do nothing.
+     * will do nothing. If objects are dependent on each other, each object must be stored in a resource set first
+     * before trying to save them in a file.
      * 
      * @return true if CWM objects have been saved in file.
      */
@@ -203,7 +210,7 @@ public class DBConnect {
     /**
      * Method "connectAndRetrieveInformations". Opens a connection by using the DriverManager class. It is of the
      * responsability of the caller to close it correctly. This method retrieve all available informations of the
-     * connected database.
+     * connected database. These information can be then used by calling the getter methods.
      * 
      * @param dbUrl the url
      * @param driverClassName
@@ -217,6 +224,7 @@ public class DBConnect {
             // --- initialize fields
             ok = ok && retrieveDeployedSystemInformations();
             ok = ok && retrieveDatabaseStructure();
+            ok = ok && retrieveDriverInformations();
         } catch (SQLException e) {
             log.error("Problem during connection to " + databaseUrl + " with " + driverClass, e);
             ok = false;
@@ -230,6 +238,21 @@ public class DBConnect {
     }
 
     /**
+     * Method "retrieveDeployedSystemInformations". This method fills in the Software deployment information like the
+     * SoftwareSystem.
+     * 
+     * @return true if ok
+     * @throws SQLException
+     */
+    public boolean retrieveDeployedSystemInformations() throws SQLException {
+        boolean ok = checkConnection("Cannot retrieve deployed system informations");
+        if (ok) {
+            softwareSystemBuilder = new SoftwareSystemBuilder(connection);
+        }
+        return ok;
+    }
+
+    /**
      * Method "retrieveDatabaseStructure".
      * 
      * @return ok if no problem
@@ -239,6 +262,14 @@ public class DBConnect {
         boolean ok = checkConnection("Cannot retrieve database structure. ");
         if (ok) {
             catalogBuilder = new CatalogBuilder(connection);
+        }
+        return ok;
+    }
+
+    public boolean retrieveDriverInformations() throws SQLException {
+        boolean ok = checkConnection("Cannot connect to database. "); // TODO scorreia verify if needed
+        if (ok) {
+            dataProvBuilder = new DataProviderBuilder(connection, driver, databaseUrl, connectionProperties);
         }
         return ok;
     }
@@ -263,21 +294,6 @@ public class DBConnect {
     }
 
     /**
-     * Method "retrieveDeployedSystemInformations". This method fills in the Software deployment information like the
-     * SoftwareSystem.
-     * 
-     * @return true if ok
-     * @throws SQLException
-     */
-    public boolean retrieveDeployedSystemInformations() throws SQLException {
-        boolean ok = checkConnection("Cannot retrieve deployed system informations");
-        if (ok) {
-            softwareSystemBuilder = new SoftwareSystemBuilder(connection);
-        }
-        return ok;
-    }
-
-    /**
      * Method "connect". Opens a connection by using the DriverManager class. It is of the responsability of the caller
      * to close it correctly.
      * 
@@ -290,7 +306,7 @@ public class DBConnect {
     private boolean connectLow(String dbUrl, String driverClassName, Properties props) throws SQLException {
         boolean ok = true;
         try {
-            Driver driver = (Driver) Class.forName(driverClassName).newInstance();
+            driver = (Driver) Class.forName(driverClassName).newInstance();
             DriverManager.registerDriver(driver);
             connection = DriverManager.getConnection(dbUrl, props);
 
@@ -309,4 +325,10 @@ public class DBConnect {
         return ok;
     }
 
+    public TdDataProvider getDataProvider() {
+        if (dataProvBuilder == null) {
+            return null;
+        }
+        return this.dataProvBuilder.getDataProvider();
+    }
 }
