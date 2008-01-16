@@ -74,4 +74,10 @@ public interface IProcess2 extends IProcess {
      */
     void checkProcess();
 
+    /**
+     * DOC qzhang Comment method "setProcessModified".
+     * 
+     * @param processModified
+     */
+    void setProcessModified(boolean processModified);
 }
