@@ -275,13 +275,4 @@ public class RepositoryEditorInput extends FileEditorInput {
         }
     }
 
-    /**
-     * yzhang Comment method "needCodePage".
-     * 
-     * @return
-     */
-    public boolean needCodePage() {
-        return true;
-    }
-
 }
