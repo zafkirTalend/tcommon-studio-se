@@ -53,7 +53,7 @@ public class ContextParameterProposal implements IContentProposal {
                 Context.REPOSITORY_CONTEXT_KEY);
         ECodeLanguage language = repositoryContext.getProject().getLanguage();
         if (language == ECodeLanguage.JAVA) {
-            return contextParameter.getName();
+            return "context." + contextParameter.getName();
         } else {
             return ContextParameterUtils.getScriptCode(contextParameter, language);
         }
