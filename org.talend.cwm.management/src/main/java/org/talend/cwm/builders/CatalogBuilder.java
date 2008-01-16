@@ -26,10 +26,11 @@ import org.talend.cwm.relational.TdColumn;
 import org.talend.cwm.relational.TdSchema;
 import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.relational.TdTable;
-import org.talend.utils.sql.metadata.GetColumn;
-import org.talend.utils.sql.metadata.GetTable;
-import org.talend.utils.sql.metadata.MetaDataConstants;
-import org.talend.utils.sql.metadata.TableType;
+import org.talend.utils.sql.metadata.constants.GetColumn;
+import org.talend.utils.sql.metadata.constants.GetTable;
+import org.talend.utils.sql.metadata.constants.MetaDataConstants;
+import org.talend.utils.sql.metadata.constants.TableType;
+
 import orgomg.cwm.resource.relational.enumerations.NullableType;
 
 /**

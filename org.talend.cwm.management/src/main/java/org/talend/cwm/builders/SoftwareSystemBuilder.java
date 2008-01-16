@@ -21,7 +21,8 @@ import org.talend.cwm.relational.RelationalFactory;
 import org.talend.cwm.relational.TdSqlDataType;
 import org.talend.cwm.softwaredeployment.SoftwaredeploymentFactory;
 import org.talend.cwm.softwaredeployment.TdSoftwareSystem;
-import org.talend.utils.sql.metadata.TypeInfoColumns;
+import org.talend.utils.sql.metadata.constants.TypeInfoColumns;
+
 import orgomg.cwm.foundation.typemapping.TypeSystem;
 import orgomg.cwm.foundation.typemapping.TypemappingFactory;
 
