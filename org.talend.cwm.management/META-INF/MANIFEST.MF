@@ -8,5 +8,6 @@ Require-Bundle: org.talend.libraries.apache,
  org.talend.cwm.ext,
  org.talend.utils,
  org.eclipse.emf.ecore.xmi,
- org.junit4;resolution:=optional
+ org.junit4;resolution:=optional,
+ org.talend.libraries
 Bundle-Vendor: .Talend SA.
