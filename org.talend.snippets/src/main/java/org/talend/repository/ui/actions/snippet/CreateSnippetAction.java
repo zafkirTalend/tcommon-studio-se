@@ -90,8 +90,8 @@ public class CreateSnippetAction extends AContextualAction {
 
     @Override
     public void run() {
-        RepositoryNode codeNode = getViewPart().getRoot().getChildren().get(4);
-        RepositoryNode snippetNode = codeNode.getChildren().get(1);
+        RepositoryNode snippetNode = getCurrentRepositoryNode();
+
         SnippetWizard contextWizard;
         if (isToolbar()) {
             contextWizard = new SnippetWizard(PlatformUI.getWorkbench(), true, snippetNode, false);
