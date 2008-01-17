@@ -372,13 +372,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
     private EClass wsdlSchemaConnectionItemEClass = null;
 
     /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    private EClass wsdlSchemaConnectionItemEClass = null;
-
-    /**
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @generated
      */
@@ -2399,24 +2392,6 @@ public class PropertiesPackageImpl extends EPackageImpl implements PropertiesPac
      */
     public EClass getJobletDocumentationItem() {
         return jobletDocumentationItemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getWSDLSchemaConnectionItem() {
-        return wsdlSchemaConnectionItemEClass;
-    }
-
-    /**
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    public EClass getWSDLSchemaConnectionItem() {
-        return wsdlSchemaConnectionItemEClass;
     }
 
     /**
