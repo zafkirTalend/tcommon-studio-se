@@ -3623,24 +3623,6 @@ public interface PropertiesPackage extends EPackage {
     int WSDL_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
 
     /**
-     * The number of structural features of the '<em>WSDL Schema Connection Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int WSDL_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
-     * The number of structural features of the '<em>WSDL Schema Connection Item</em>' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     * @ordered
-     */
-    int WSDL_SCHEMA_CONNECTION_ITEM_FEATURE_COUNT = CONNECTION_ITEM_FEATURE_COUNT + 0;
-
-    /**
      * The meta object id for the '{@link org.talend.core.model.properties.FolderType <em>Folder Type</em>}' enum.
      * <!-- begin-user-doc --> <!-- end-user-doc -->
      * @see org.talend.core.model.properties.FolderType
@@ -6178,26 +6160,6 @@ public interface PropertiesPackage extends EPackage {
      * @generated
      */
     EClass getJobletDocumentationItem();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.core.model.properties.WSDLSchemaConnectionItem <em>WSDL Schema Connection Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>WSDL Schema Connection Item</em>'.
-     * @see org.talend.core.model.properties.WSDLSchemaConnectionItem
-     * @generated
-     */
-    EClass getWSDLSchemaConnectionItem();
-
-    /**
-     * Returns the meta object for class '{@link org.talend.core.model.properties.WSDLSchemaConnectionItem <em>WSDL Schema Connection Item</em>}'.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @return the meta object for class '<em>WSDL Schema Connection Item</em>'.
-     * @see org.talend.core.model.properties.WSDLSchemaConnectionItem
-     * @generated
-     */
-    EClass getWSDLSchemaConnectionItem();
 
     /**
      * Returns the meta object for class '{@link org.talend.core.model.properties.WSDLSchemaConnectionItem <em>WSDL Schema Connection Item</em>}'.
