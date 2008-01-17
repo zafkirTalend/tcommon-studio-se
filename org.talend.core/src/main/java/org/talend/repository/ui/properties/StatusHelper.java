@@ -77,6 +77,7 @@ public class StatusHelper {
             case PropertiesPackage.LDAP_SCHEMA_CONNECTION_ITEM:
             case PropertiesPackage.LDIF_FILE_CONNECTION_ITEM:
             case PropertiesPackage.XML_FILE_CONNECTION_ITEM:
+            case PropertiesPackage.WSDL_SCHEMA_CONNECTION_ITEM:
                 status = repositoryFactory.getTechnicalStatus();
                 break;
             case PropertiesPackage.BUSINESS_PROCESS_ITEM:
