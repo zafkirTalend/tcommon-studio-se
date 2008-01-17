@@ -15,6 +15,7 @@ package org.talend.core.model.process;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
@@ -352,10 +353,33 @@ public abstract class AbstractNode implements INode {
     }
 
     public IElementParameter getElementParameter(String name) {
-        if (elementParameters != null) {
+        if (name.contains(":")) { // look for the parent first, then will retrieve the children
+            StringTokenizer token = new StringTokenizer(name, ":");
+            String parentId = token.nextToken();
+            String childId = token.nextToken();
+            for (int i = 0; i < elementParameters.size(); i++) {
+                if (elementParameters.get(i).getName().equals(parentId)) {
+                    IElementParameter parent = elementParameters.get(i);
+                    return parent.getChildParameters().get(childId);
+                }
+            }
+        } else {
             for (IElementParameter elementParam : elementParameters) {
                 if (elementParam.getName().equals(name)) {
                     return elementParam;
+                }
+            }
+        }
+
+        // if not found, look for the name if it's the name of a children
+        // this code is added only for compatibility and will be executed only one time
+        // to initialize the child.
+        // The parameters name are unique, so we just take the first one.
+        for (IElementParameter elementParam : elementParameters) {
+            for (String key : elementParam.getChildParameters().keySet()) {
+                IElementParameter param = elementParam.getChildParameters().get(key);
+                if (param.getName().equals(name)) {
+                    return param;
                 }
             }
         }
