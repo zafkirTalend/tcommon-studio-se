@@ -395,7 +395,7 @@ public class RepositoryToComponentProperty {
             if ((xmlDesc == null) || (xmlDesc.getLimitBoucle() == null)) {
                 return ""; //$NON-NLS-1$
             } else {
-                return TalendTextUtils.addQuotes(xmlDesc.getLimitBoucle().toString());
+                return xmlDesc.getLimitBoucle().toString();
             }
         }
         if (value.equals("XPATH_QUERY")) { //$NON-NLS-1$
@@ -403,6 +403,14 @@ public class RepositoryToComponentProperty {
                 return ""; //$NON-NLS-1$
             } else {
                 return TalendTextUtils.addQuotes(xmlDesc.getAbsoluteXPathQuery());
+            }
+        }
+        if (value.equals("ENCODING")) { //$NON-NLS-1$
+            if (connection.getEncoding() == null) {
+                // get the default encoding
+                return TalendTextUtils.addQuotes(EMetadataEncoding.getMetadataEncoding("").getName()); //$NON-NLS-1$
+            } else {
+                return TalendTextUtils.addQuotes(connection.getEncoding());
             }
         }
         return null;
